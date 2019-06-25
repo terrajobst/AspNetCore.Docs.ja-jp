@@ -3,14 +3,14 @@ title: ASP.NET Core 2.0 への認証と Id を移行します。
 author: scottaddie
 description: この記事では、ASP.NET Core 2.0 に移行する ASP.NET Core 1.x の認証と Id の最も一般的な手順について説明します。
 ms.author: scaddie
-ms.date: 06/13/2019
+ms.date: 06/21/2019
 uid: migration/1x-to-2x/identity-2x
-ms.openlocfilehash: 3e8bc75b87a85159c9668b52eea32bb7d700be6c
-ms.sourcegitcommit: 516f166c5f7cec54edf3d9c71e6e2ba53fb3b0e5
+ms.openlocfilehash: c83356e12fa5ae581b369265b9d857b08445ed51
+ms.sourcegitcommit: 9f11685382eb1f4dd0fb694dea797adacedf9e20
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/18/2019
-ms.locfileid: "67196383"
+ms.lasthandoff: 06/21/2019
+ms.locfileid: "67313744"
 ---
 # <a name="migrate-authentication-and-identity-to-aspnet-core-20"></a>ASP.NET Core 2.0 への認証と Id を移行します。
 
@@ -304,18 +304,31 @@ services.AddAuthentication(options =>
 ## <a name="windows-authentication-httpsys--iisintegration"></a>Windows 認証 (HTTP.sys/IISIntegration)
 
 Windows 認証の 2 つのバリエーションがあります。
-1. ホストでは、認証されたユーザーのみで許可します。
-2. により、ホストし、認証されたユーザー
 
-上記で説明した最初のコマンドは、2.0 の変更による影響はありません。
+* ホストは、認証されたユーザーのみを許可します。 このバリエーションは、2.0 の変更による影響はありません。
+* により、ホストし、ユーザーを認証します。 このバリエーションは 2.0 の変更の影響を受けます。 アプリでの匿名ユーザーを許可するなど、 [IIS](xref:host-and-deploy/iis/index)または[HTTP.sys](xref:fundamentals/servers/httpsys)レイヤーが、コント ローラー レベルでユーザーを承認します。 このシナリオで既定のスキームを設定、`Startup.ConfigureServices`メソッド。
 
-上記で説明した 2 つ目のバリエーションは 2.0 の変更の影響を受けます。 たとえば、する可能性があります使用すること匿名ユーザーに、IIS でアプリまたは[HTTP.sys](xref:fundamentals/servers/httpsys)レイヤーのコント ローラー レベルで、承認ユーザー。 このシナリオで、既定のスキームを設定`IISDefaults.AuthenticationScheme`で、`Startup.ConfigureServices`メソッド。
+  [Microsoft.AspNetCore.Server.IISIntegration](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.IISIntegration/)、既定のスキームを設定`IISDefaults.AuthenticationScheme`:
 
-```csharp
-services.AddAuthentication(IISDefaults.AuthenticationScheme);
-```
+  ```csharp
+  using Microsoft.AspNetCore.Server.IISIntegration;
 
-既定のスキームの設定に失敗したは、チャレンジの作業用に承認要求をできないようにします。
+  services.AddAuthentication(IISDefaults.AuthenticationScheme);
+  ```
+
+  [Microsoft.AspNetCore.Server.HttpSys](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.HttpSys/)、既定のスキームを設定`HttpSysDefaults.AuthenticationScheme`:
+
+  ```csharp
+  using Microsoft.AspNetCore.Server.HttpSys;
+
+  services.AddAuthentication(HttpSysDefaults.AuthenticationScheme);
+  ```
+
+  既定のスキームの設定に失敗したは、次の例外の操作から authorize (チャレンジ) 要求を回避します。
+
+  > `System.InvalidOperationException`:AuthenticationScheme が指定されていませんし、見つかった DefaultChallengeScheme がありませんでした。
+
+詳細については、「 <xref:security/authentication/windowsauth> 」を参照してください。
 
 <a name="identity-cookie-options"></a>
 

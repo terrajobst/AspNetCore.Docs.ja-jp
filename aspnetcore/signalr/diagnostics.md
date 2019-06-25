@@ -5,14 +5,14 @@ description: ASP.NET Core SignalR アプリケーションから診断を収集�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: anurse
 ms.custom: signalr
-ms.date: 02/27/2019
+ms.date: 06/19/2019
 uid: signalr/diagnostics
-ms.openlocfilehash: b6bd21314ed183488999bcff3553e53493537a11
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 69dbd057b3dcadeb3ca5d94ede1234530fb447db
+ms.sourcegitcommit: 9f11685382eb1f4dd0fb694dea797adacedf9e20
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64896889"
+ms.lasthandoff: 06/21/2019
+ms.locfileid: "67313710"
 ---
 # <a name="logging-and-diagnostics-in-aspnet-core-signalr"></a>ログ記録と ASP.NET Core SignalR での診断
 
@@ -29,23 +29,23 @@ SignalR は ASP.NET Core の一部であるため、ASP.NET Core のログ記録
 
 SignalR では、2 つのカテゴリのロガーを使用します。
 
-* `Microsoft.AspNetCore.SignalR` -ハブ プロトコルに関連するログには、ハブのアクティブ化、メソッド、およびその他のハブに関連するアクティビティを起動します。
-* `Microsoft.AspNetCore.Http.Connections` -WebSockets、長いポーリング Server-Sent イベントおよび低レベルの SignalR インフラストラクチャなどのトランスポートに関連するログ。
+* `Microsoft.AspNetCore.SignalR` &ndash; ハブのプロトコルに関連するログには、ハブ、メソッド、およびその他のハブに関連するアクティビティの呼び出しをアクティブにします。
+* `Microsoft.AspNetCore.Http.Connections` &ndash; ログ用には、Websocket、長いポーリング Server-Sent イベントおよび低レベルの SignalR インフラストラクチャなどのトランスポートに関連します。
 
-SignalR から詳細なログを有効にするには、前のプレフィックスの両方を構成、`Debug`レベル、`appsettings.json`ファイルに次の項目を追加することで、`LogLevel`サブセクション内で`Logging`:
+SignalR から詳細なログを有効にするには、前のプレフィックスの両方を構成、`Debug`レベル、 *appsettings.json*ファイルに次の項目を追加することで、`LogLevel`サブセクション内で`Logging`:
 
-[!code-json[Configuring logging](diagnostics/logging-config.json?highlight=7-8)]
+[!code-json[](diagnostics/logging-config.json?highlight=7-8)]
 
 コード内で構成することもできます、`CreateWebHostBuilder`メソッド。
 
-[!code-csharp[Configuring logging in code](diagnostics/logging-config-code.cs?highlight=5-6)]
+[!code-csharp[](diagnostics/logging-config-code.cs?highlight=5-6)]
 
 JSON ベースの構成を使用していない場合は、構成システムで、次の構成値を設定します。
 
 * `Logging:LogLevel:Microsoft.AspNetCore.SignalR` = `Debug`
 * `Logging:LogLevel:Microsoft.AspNetCore.Http.Connections` = `Debug`
 
-入れ子になった構成値を指定する方法を決定する、構成システムのマニュアルを確認してください。 例では、環境変数を使用する場合の 2 つ`_`の代わりに文字が使用されて、 `:` (など: `Logging__LogLevel__Microsoft.AspNetCore.SignalR`)。
+入れ子になった構成値を指定する方法を決定する、構成システムのマニュアルを確認してください。 例では、環境変数を使用する場合、2 つ`_`の代わりに文字が使用されて、 `:` (たとえば、 `Logging__LogLevel__Microsoft.AspNetCore.SignalR`)。
 
 使用をお勧め、`Debug`レベルのアプリの診断の詳細を収集するときにします。 `Trace`レベルが非常に低レベルの診断を生成し、アプリで問題を診断するために必要なことはほとんどありません。
 
@@ -63,11 +63,11 @@ Visual Studio でのログ出力が表示されます、**出力**ウィンド�
 
 ### <a name="azure-app-service"></a>Azure App Service
 
-Azure App Service ポータルの [診断ログ] セクションでは、「アプリケーションのログ記録 (ファイル システム)」オプションを有効にして、レベルを構成する`Verbose`します。 App Service のファイル システム上のログのように、「ログのストリーミング」サービスからも使用可能なログがあります。 詳細については、上のドキュメントを参照して[Azure ログのストリーミング](xref:fundamentals/logging/index#azure-log-streaming)します。
+有効にする、**アプリケーション ログ (ファイルシステム)** オプション、**診断ログ**Azure App Service ポータルのセクションを構成して、**レベル**に`Verbose`します。 ログが表示されます、**ログのストリーミング**サービスと、App Service のファイル システムのログに記録します。 詳細については、次を参照してください。 [Azure ログのストリーミング](xref:fundamentals/logging/index#azure-log-streaming)します。
 
 ### <a name="other-environments"></a>その他の環境
 
-別を実行する場合 (Docker、Kubernetes、Windows サービスなど) の環境の完全なドキュメントを参照してください[ASP.NET Core のログ記録](xref:fundamentals/logging/index)を環境内に適切なログ プロバイダーを構成する方法の詳細について。
+(たとえば、Docker、Kubernetes、または Windows サービス) の別の環境にアプリを展開する場合は、次を参照してください。 <xref:fundamentals/logging/index> 、環境に適したログ プロバイダーを構成する方法の詳細。
 
 ## <a name="javascript-client-logging"></a>JavaScript クライアントのログ記録
 
@@ -76,7 +76,7 @@ Azure App Service ポータルの [診断ログ] セクションでは、「ア�
 
 使用してログ記録オプションを構成するには、JavaScript クライアントを使用する場合、`configureLogging`メソッド`HubConnectionBuilder`:
 
-[!code-javascript[Configuring logging in the JavaScript client](diagnostics/logging-config-js.js?highlight=3)]
+[!code-javascript[](diagnostics/logging-config-js.js?highlight=3)]
 
 完全ログ記録を無効にするには指定`signalR.LogLevel.None`で、`configureLogging`メソッド。
 
@@ -96,7 +96,7 @@ Azure App Service ポータルの [診断ログ] セクションでは、「ア�
 
 実装する JavaScript オブジェクトを指定するには、カスタムのログ記録システムにログを送信する場合、`ILogger`インターフェイス。 実装する必要がある唯一の方法が`log`イベントのレベルを取得して、イベントに関連付けられているメッセージ。 例:
 
-[!code-typescript[Creating a custom logger](diagnostics/custom-logger.ts?highlight=3-7,13)]
+[!code-typescript[](diagnostics/custom-logger.ts?highlight=3-7,13)]
 
 ## <a name="net-client-logging"></a>.NET クライアントのログ記録
 
@@ -109,19 +109,19 @@ Azure App Service ポータルの [診断ログ] セクションでは、「ア�
 
 コンソールのログ記録を有効にするには追加、 [Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console)パッケージ。 次に、使用、`AddConsole`コンソール ロガーを構成する方法。
 
-[!code-csharp[Configuring console logging in .NET client](diagnostics/net-client-console-log.cs?highlight=6)]
+[!code-csharp[](diagnostics/net-client-console-log.cs?highlight=6)]
 
 ### <a name="debug-output-window-logging"></a>デバッグ出力ウィンドウのログ記録
 
 移動するログを構成することも、**出力**Visual Studio のウィンドウ。 インストール、 [Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug)パッケージ化し、使用、`AddDebug`メソッド。
 
-[!code-csharp[Configuring debug output window logging in .NET client](diagnostics/net-client-debug-log.cs?highlight=6)]
+[!code-csharp[](diagnostics/net-client-debug-log.cs?highlight=6)]
 
 ### <a name="other-logging-providers"></a>その他のログ プロバイダー
 
 SignalR など、Serilog、Seq、NLog、またはその他のログ記録システムと統合するには、その他のログ記録プロバイダーをサポートしている`Microsoft.Extensions.Logging`します。 ログ記録システムを提供する場合、`ILoggerProvider`に登録することができます`AddProvider`:
 
-[!code-csharp[Configuring a custom logging provider in .NET client](diagnostics/net-client-custom-log.cs?highlight=6)]
+[!code-csharp[](diagnostics/net-client-custom-log.cs?highlight=6)]
 
 ### <a name="control-verbosity"></a>コントロールの詳細度
 
@@ -144,7 +144,7 @@ Fiddler は、HTTP トレースを収集するための非常に強力なツー�
 
 HTTPS を使用してを接続する場合は、Fiddler は HTTPS トラフィックを復号化できることを確認する特別な手順です。 詳細については、次を参照してください。、 [Fiddler のドキュメント](https://docs.telerik.com/fiddler/Configure-Fiddler/Tasks/DecryptHTTPS)します。
 
-選択して、トレースをエクスポートするには、トレースを収集したら、**ファイル** > **保存** > **すべてのセッション.** メニュー バーから。
+選択して、トレースをエクスポートするには、トレースを収集したら、**ファイル** > **保存** > **すべてのセッション**メニュー バーから。
 
 ![Fiddler からすべてのセッションをエクスポートします。](diagnostics/fiddler-export.png)
 
@@ -200,7 +200,7 @@ tcpdump -i [interface] -w trace.pcap
 GitHub の問題を診断ファイルをアタッチするにはため、名前を変更して、`.txt`拡張機能と、ドラッグ アンド ドロップし、問題にします。
 
 > [!NOTE]
-> くださいしないと、GitHub の問題でネットワーク トレースまたはログ ファイルの内容を貼り付けます。 GitHub では、通常切り捨てるときは、これらのログとトレースは非常に大きくできます。
+> くださいしないと、GitHub の問題にネットワーク トレースまたはログ ファイルの内容を貼り付けます。 これらのログとトレースは非常に大きく、でき、通常は GitHub で切り捨てます。
 
 ![GitHub の問題にログ ファイルをドラッグします。](diagnostics/attaching-diagnostics-files.png)
 

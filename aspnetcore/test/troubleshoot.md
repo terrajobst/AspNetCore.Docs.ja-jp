@@ -4,14 +4,14 @@ author: Rick-Anderson
 description: ASP.NET Core プロジェクトでの警告とエラーについて説明し、トラブルシューティングを行います。
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/13/2019
+ms.date: 06/19/2019
 uid: test/troubleshoot
-ms.openlocfilehash: 3d755b2f0c509d65dea86bbe719e42935d87d546
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: bcec8a55a5111e1f3acf53ae2f57b45e6e609d25
+ms.sourcegitcommit: 9f11685382eb1f4dd0fb694dea797adacedf9e20
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64895329"
+ms.lasthandoff: 06/21/2019
+ms.locfileid: "67313674"
 ---
 # <a name="troubleshoot-aspnet-core-projects"></a>ASP.NET Core プロジェクトをトラブルシューティングします。
 
@@ -27,11 +27,11 @@ ms.locfileid: "64895329"
 
 ## <a name="net-core-sdk-warnings"></a>.NET core SDK の警告
 
-### <a name="both-the-32-bit-and-64-bit-versions-of-the-net-core-sdk-are-installed"></a>32 ビットと 64 ビット バージョンの .NET Core SDK の両方がインストールされています。
+### <a name="both-the-32-bit-and-64-bit-versions-of-the-net-core-sdk-are-installed"></a>.NET Core SDK の 32 ビットおよび 64 ビット バージョンの両方がインストールされています。
 
 **新しいプロジェクト**ダイアログの ASP.NET Core では、次の警告を表示可能性があります。
 
-> 32 と 64 ビット版の両方、.NET Core SDK がインストールされます。 インストールされている 64 ビット バージョンからのテンプレートのみ 'c:\\Program Files\\dotnet\\sdk\\' が表示されます。
+> .NET Core SDK の 32 ビットと 64 ビットの両方のバージョンがインストールされます。 インストールされている 64 ビット バージョンからのテンプレートのみ 'c:\\Program Files\\dotnet\\sdk\\' が表示されます。
 
 この警告が表示されるときに 32 ビット (x86) と 64 ビット (x64) 版の両方、 [.NET Core SDK](https://www.microsoft.com/net/download/all)がインストールされています。 両方のバージョンがインストールされている可能性がありますが、一般的な理由は次のとおりです。
 
@@ -45,7 +45,7 @@ ms.locfileid: "64895329"
 
 **新しいプロジェクト**ダイアログの ASP.NET Core では、次の警告を表示可能性があります。
 
-> .NET Core SDK は、複数の場所にインストールされます。 インストールされた SDK からのテンプレートのみ 'c:\\Program Files\\dotnet\\sdk\\' が表示されます。
+> .NET Core SDK は、複数の場所にインストールされます。 インストールされている Sdk からのテンプレートのみ 'c:\\Program Files\\dotnet\\sdk\\' が表示されます。
 
 .NET Core SDK の少なくとも 1 つのインストール ディレクトリの外部にある場合、このメッセージが表示 *c:\\Program Files\\dotnet\\sdk\\* します。 通常は、.NET Core SDK が、MSI インストーラーではなくコピー/貼り付けを使用して、マシンにデプロイされている場合に発生します。
 
