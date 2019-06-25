@@ -22,10 +22,10 @@ ms.locfileid: "64896979"
 
 ## <a name="authorization-types"></a>承認の種類
 
-ASP.NET Core の承認は、単純で宣言的な[ロールベース](xref:security/authorization/roles)と、リッチな[ポリシーベース](xref:security/authorization/policies)のモデルが提供されています。承認は、要件の中で表され、ハンドラーが要件に対するユーザーのクレームを評価します。命令的なチェックはシンプルなポリシー、または、ユーザーのIDとユーザーがアクセスしようとするリソースのプロパティの両方を評価するポリシーに基づくことができます。
+ASP.NET Core の承認は、シンプルで宣言的な[ロールベース](xref:security/authorization/roles)と、リッチな[ポリシーベース](xref:security/authorization/policies)のモデルが提供されています。承認は、要件の中で表され、ハンドラーが要件に対するユーザーのクレームを評価します。命令的なチェックはシンプルなポリシー、または、ユーザーのIDとユーザーがアクセスしようとするリソースのプロパティの両方を評価するポリシーに基づくことができます。
 
 ## <a name="namespaces"></a>名前空間
 
 `AuthorizeAttribute` および `AllowAnonymousAttribute` 属性を含む承認のコンポーネントは、 `Microsoft.AspNetCore.Authorization` 名前空間にあります。
 
-[単純な承認](xref:security/authorization/simple)のドキュメントをご参照ください。
+[シンプルな承認](xref:security/authorization/simple)をご参照ください。
