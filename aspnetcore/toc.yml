@@ -220,8 +220,6 @@
               uid: tutorials/razor-pages/validation
         - name: フィルター
           uid: razor-pages/filter
-        - name: Razor クラス ライブラリ
-          uid: razor-pages/ui-class
         - name: ルートとアプリの規則
           uid: razor-pages/razor-pages-conventions
         - name: ファイルのアップロード
@@ -344,6 +342,8 @@
       uid: mvc/views/layout
     - name: Razor の構文
       uid: mvc/views/razor
+    - name: Razor クラス ライブラリ
+      uid: razor-pages/ui-class
     - name: タグ ヘルパー
       uid: mvc/views/tag-helpers/builtin-th/Index
       items:
