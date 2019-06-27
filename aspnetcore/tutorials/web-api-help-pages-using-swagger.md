@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 09/20/2018
 uid: tutorials/web-api-help-pages-using-swagger
-ms.openlocfilehash: d7a6ed158dcb464bb80c83773ed7d455b25ce44b
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: fb65b84b781b5c19040b559f0d7635ceb00cf4a0
+ms.sourcegitcommit: 06a455d63ff7d6b571ca832e8117f4ac9d646baf
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64887727"
+ms.lasthandoff: 06/21/2019
+ms.locfileid: "67316564"
 ---
 # <a name="aspnet-core-web-api-help-pages-with-swagger--openapi"></a>Swagger/OpenAPI を使用する ASP.NET Core Web API のヘルプ ページ
 
@@ -19,7 +19,7 @@ ms.locfileid: "64887727"
 
 Web API を使用する場合、さまざまなメソッドを理解することは開発者にとって困難な場合があります。 [Swagger](https://swagger.io/) ([OpenAPI](https://www.openapis.org/) とも呼ばれる) では、Web API の役立つドキュメントとヘルプ ページの生成に関する問題を解決します。 Swagger では、対話型のドキュメント、クライアント SDK の生成、API の発見可能性などの利点を提供します。
 
-この記事では、[Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore) と [NSwag](https://github.com/RSuter/NSwag) .NET Swagger の実装を示します。
+この記事では、[Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore) と [NSwag](https://github.com/RicoSuter/NSwag) .NET Swagger の実装を示します。
 
 * **Swashbuckle.AspNetCore** は、ASP.NET Core Web API の Swagger ドキュメントを生成するためのオープン ソース プロジェクトです。
 
@@ -108,7 +108,7 @@ Swagger フローの基本は、Swagger 仕様です&mdash;既定では、ドキ
 
 ![Swagger UI](web-api-help-pages-using-swagger/_static/swagger-ui.png)
 
-コントローラー内の各パブリック アクション メソッドを UI からテストすることができます。 メソッドの名前をクリックし、セクションを展開します。 任意の必要なパラメーターを追加し、**[Try it out!]** をクリックします。
+コントローラー内の各パブリック アクション メソッドを UI からテストすることができます。 メソッドの名前をクリックし、セクションを展開します。 任意の必要なパラメーターを追加し、 **[Try it out!]** をクリックします。
 
 ![Swagger GET テストの例](web-api-help-pages-using-swagger/_static/get-try-it-out.png)
 
