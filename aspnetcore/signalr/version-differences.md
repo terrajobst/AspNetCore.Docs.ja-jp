@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.date: 11/14/2018
 uid: signalr/version-differences
-ms.openlocfilehash: 091fc44fccf820a394e7c6f775700c85bebc9101
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: d140becaed5b4fc765b7a72571c7f5dce7f4e3d4
+ms.sourcegitcommit: 28646e8ca62fb094db1557b5c0c02d5b45531824
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64892029"
+ms.lasthandoff: 06/23/2019
+ms.locfileid: "67333452"
 ---
 # <a name="differences-between-aspnet-signalr-and-aspnet-core-signalr"></a>ASP.NET SignalR、ASP.NET Core SignalR の相違点
 
@@ -167,6 +167,7 @@ ASP.NET SignalR は、SQL Server と Redis をサポートします。 ASP.NET C
 ### <a name="aspnet-core"></a>ASP.NET Core
 
 * [Azure SignalR Service](/azure/azure-signalr/)
+* [Redis のバック プレーン](xref:signalr/redis-backplane)
 
 ## <a name="additional-resources"></a>その他の技術情報
 

@@ -16,16 +16,17 @@ ms.locfileid: "64896979"
 
 <a name="security-authorization-introduction"></a>
 
-承認アクションを決定するプロセスとは、ユーザーが操作を実行できます。 たとえば、ドキュメント ライブラリの作成、ドキュメントを追加、ドキュメントの編集、およびそれらを削除する管理ユーザーが許可されています。 管理者以外のユーザーが、ライブラリの操作はドキュメントの読み取り権限のみ。
+承認とは、ユーザーが何を実行できるかを決定するプロセスのことです。例として、管理者ユーザーはドキュメントライブラリーの作成、ドキュメントの追加、ドキュメントの編集、およびそれらを削除することが許可されています。管理者ではないユーザーは、ドキュメントを読む権限しかありません。
 
-承認は、認証から独立して直交してです。 ただし、承認には、認証メカニズムが必要です。 認証は、ユーザーがだれかを確認するプロセスです。 認証は、現在のユーザーの 1 つまたは複数の id を作成できます。
+承認は直交性があり、認証から独立しています。しかし、承認には認証のメカニズムが必須です。認証は、ユーザーが誰であるかを確認するプロセスです。認証は、現在のユーザーに対して1つ以上のIDを作成します。
 
 ## <a name="authorization-types"></a>承認の種類
 
-ASP.NET Core の承認は、単純な宣言型[ロール](xref:security/authorization/roles)と豊富な[ポリシーに基づく](xref:security/authorization/policies)モデル。 承認は、要件で表され、ハンドラーは、要件に照らして、ユーザーの要求を評価します。 命令型のチェックは、単純なポリシーまたはユーザー id と、ユーザーがアクセスしようとするリソースのプロパティの両方を評価するポリシーに基づいて作成できます。
+ASP.NET Core の承認は、シンプルで宣言的な[ロールベース](xref:security/authorization/roles)と、リッチな[ポリシーベース](xref:security/authorization/policies)のモデルが提供されています。承認は、要件の中で表され、ハンドラーが要件に対するユーザーのクレームを評価します。命令的なチェックはシンプルなポリシー、または、ユーザーのIDとユーザーがアクセスしようとするリソースのプロパティの両方を評価するポリシーに基づくことができます。
+
 
 ## <a name="namespaces"></a>名前空間
 
-承認コンポーネントを含む、`AuthorizeAttribute`と`AllowAnonymousAttribute`内の属性にある、`Microsoft.AspNetCore.Authorization`名前空間。
+`AuthorizeAttribute` および `AllowAnonymousAttribute` 属性を含む承認のコンポーネントは、 `Microsoft.AspNetCore.Authorization` 名前空間にあります。
 
-上のドキュメントを参照して[単純な承認](xref:security/authorization/simple)します。
+[シンプルな承認](xref:security/authorization/simple)をご参照ください。

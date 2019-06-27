@@ -52,7 +52,7 @@ public class AccountController : Controller
 
 これで `Logout` 関数には、認証済みのユーザーのみがアクセスできます。
 
-`AllowAnonymous` 属性を使うことで、個別のアクションに対して未認証のユーザーのアクセスを許可することもできます。例:
+`AllowAnonymous` 属性を使うことで、個別のアクションに対して認証されていないユーザーのアクセスを許可することもできます。 例:
 
 ```csharp
 [Authorize]
@@ -72,4 +72,4 @@ public class AccountController : Controller
 これで、認証済みのユーザーのみが `AccountController` にアクセスできますが、`Login` アクションだけは、認証済みまたは未認証/匿名に関わらずアクセスが可能となります。
 
 > [!WARNING]
-> `[AllowAnonymous]` 全ての承認ステートメントをバイパスします。 `[AllowAnonymous]` と `[Authorize]` 属性を組み合わせた場合、`[Authorize]` 属性は無視されます。例として、`[AllowAnonymous]` をコントローラーに適用すると、そのコントローラー（またはすべてのアクション）にあるすべての `[Authorize]` は無視されます。
+> `[AllowAnonymous]` は全ての承認ステートメントをバイパスします。 `[AllowAnonymous]` と `[Authorize]` 属性を組み合わせた場合、`[Authorize]` 属性は無視されます。 例として、`[AllowAnonymous]` をコントローラーに適用すると、そのコントローラー (またはすべてのアクション) にあるすべての `[Authorize]` は無視されます。

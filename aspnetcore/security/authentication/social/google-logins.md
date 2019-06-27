@@ -4,14 +4,14 @@ author: rick-anderson
 description: このチュートリアルでは、既存の ASP.NET Core アプリに Google アカウントのユーザー認証の統合について説明します。
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 1/11/2019
+ms.date: 06/19/2019
 uid: security/authentication/google-logins
-ms.openlocfilehash: 44c79b3279db7946b6d89a726bd3f5acfb5f51af
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: b0edac411e73cd2eec7c4e212b99971577f59cfb
+ms.sourcegitcommit: 06a455d63ff7d6b571ca832e8117f4ac9d646baf
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64895539"
+ms.lasthandoff: 06/21/2019
+ms.locfileid: "67316449"
 ---
 # <a name="google-external-login-setup-in-aspnet-core"></a>ASP.NET Core での Google 外部ログインのセットアップ
 
@@ -44,7 +44,9 @@ API の資格情報と使用量を管理することができます、 [API コ�
 
 ## <a name="configure-google-authentication"></a>Google 認証を構成します。
 
-Google サービスを追加`Startup.ConfigureServices`します。
+Google サービスを追加`Startup.ConfigureServices`:
+
+[!code-csharp[](~/security/authentication/social/social-code/StartupGoogle.cs?name=snippet_ConfigureServices&highlight=10-18)]
 
 [!INCLUDE [default settings configuration](includes/default-settings2-2.md)]
 
@@ -58,7 +60,7 @@ Google サービスを追加`Startup.ConfigureServices`します。
 
 [!INCLUDE[](includes/chain-auth-providers.md)]
 
-参照してください、 [GoogleOptions](/dotnet/api/microsoft.aspnetcore.authentication.google.googleoptions) Google 認証でサポートされる構成オプションの詳細について、API リファレンス。 これは、ユーザーに関するさまざまな情報を要求を使用できます。
+参照してください、 <xref:Microsoft.AspNetCore.Authentication.Google.GoogleOptions> Google 認証でサポートされる構成オプションの詳細について、API リファレンス。 これは、ユーザーに関するさまざまな情報を要求を使用できます。
 
 ## <a name="change-the-default-callback-uri"></a>既定のコールバック URI を変更します。
 
@@ -68,7 +70,7 @@ URI セグメント`/signin-google`Google の認証プロバイダーの既定�
 
 * サインインでは機能しません、エラー通知が届かない場合は、問題をデバッグしやすくする開発モードに切り替えます。
 * ユーザーが呼び出すことによって構成されていない場合`services.AddIdentity`で`ConfigureServices`で結果を認証しようとすると、 *ArgumentException:'SignInScheme' オプションを指定する必要があります*します。 このチュートリアルで使用するプロジェクト テンプレートによりこれが行われるようになります。
-* 取得する場合は、初期移行を適用することで、サイト データベースが作成されていない*要求の処理中にデータベース操作が失敗しました*エラー。 タップ**適用移行**データベースを作成し、エラーを引き続き更新します。
+* 取得する場合は、初期移行を適用することで、サイト データベースが作成されていない*要求の処理中にデータベース操作が失敗しました*エラー。 選択**適用移行**データベースを作成し、エラーを続行するページを更新します。
 
 ## <a name="next-steps"></a>次の手順
 
