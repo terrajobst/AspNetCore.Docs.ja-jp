@@ -16,9 +16,9 @@ ms.locfileid: "64897679"
 
 <a name="security-authorization-simple"></a>
 
-MVC での承認はによって制御されます、`AuthorizeAttribute`属性とそのさまざまなパラメーター。 簡単に言うと、適用、`AuthorizeAttribute`属性をコント ローラーまたはアクションの制限へのアクセスをコント ローラーまたはアクションを認証されたユーザー。
+MVC の承認は、`AuthorizeAttribute` 属性とそのさまざまなパラメーターによって制御されます。 簡単にいうと、`AuthorizeAttribute` をコントローラーまたはアクションに適用することで、コントローラーまたはアクションへのアクセスを認証済みのユーザーのみに制限できます。
 
-たとえば、次のコードがへのアクセスを制限、`AccountController`認証されたユーザーにします。
+たとえば、次のコードは `AccountController` へのアクセスを認証済みのユーザーのみに制限します。
 
 ```csharp
 [Authorize]
@@ -34,7 +34,7 @@ public class AccountController : Controller
 }
 ```
 
-コント ローラーではなく、アクションに承認を適用する場合は、適用、`AuthorizeAttribute`アクション自体に属性します。
+承認を、コントローラーではなくアクションに適用したい場合は、アクション自体に `AuthorizeAttribute` 属性を適用します。
 
 ```csharp
 public class AccountController : Controller
@@ -50,9 +50,9 @@ public class AccountController : Controller
 }
 ```
 
-認証されたユーザーのみがアクセスできるので、`Logout`関数。
+これで `Logout` 関数には、認証済みのユーザーのみがアクセスできます。
 
-使用することも、`AllowAnonymous`個々 のアクションに認証されていないユーザーによるアクセスを許可する属性。 例:
+`AllowAnonymous` 属性を使うことで、個別のアクションに対して認証されていないユーザーのアクセスを許可することもできます。 例:
 
 ```csharp
 [Authorize]
@@ -69,7 +69,7 @@ public class AccountController : Controller
 }
 ```
 
-認証されたユーザーのみになります、 `AccountController`、を除き、`Login`が、認証されたか、認証されていない/匿名の状態に関係なく、全員がアクセス可能なアクション。
+これで、認証済みのユーザーのみ `AccountController` にアクセスできますが、`Login` アクションだけは、認証済みまたは非認証/匿名に関わらずアクセス可能となります。
 
 > [!WARNING]
-> `[AllowAnonymous]` すべての承認ステートメントをバイパスします。 組み合わせた場合`[AllowAnonymous]`任意と`[Authorize]`属性、`[Authorize]`属性は無視されます。 適用する場合の例の`[AllowAnonymous]`コント ローラー レベルでは、すべて`[Authorize]`同じコント ローラー (または、すべての操作) の属性は無視されます。
+> `[AllowAnonymous]` は全ての承認ステートメントをバイパスします。 `[AllowAnonymous]` と `[Authorize]` 属性を組み合わせた場合、`[Authorize]` 属性は無視されます。 例として、`[AllowAnonymous]` をコントローラーに適用すると、そのコントローラー (またはすべてのアクション) にあるすべての `[Authorize]` は無視されます。
