@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 12/18/2018
 uid: aspnetcore-2.2
-ms.openlocfilehash: cdc761b645b91777bdf6084c3ad4659fcea55039
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: ad7b5ecc4f03d845375b1612150da183df9ec0d9
+ms.sourcegitcommit: 06a455d63ff7d6b571ca832e8117f4ac9d646baf
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64883207"
+ms.lasthandoff: 06/21/2019
+ms.locfileid: "67316582"
 ---
 # <a name="whats-new-in-aspnet-core-22"></a>ASP.NET Core 2.2 の新機能
 
@@ -19,7 +19,7 @@ ms.locfileid: "64883207"
 
 ## <a name="openapi-analyzers--conventions"></a>OpenAPI のアナライザーと規則
 
-OpenAPI (旧称 Swagger) は、REST API を記述するために、言語に関係なく使用できる仕様です。 OpenAPI エコシステムには、この仕様を使用してクライアント コードの検出、テスト、および作成を行うことができるツールがあります。 ASP.NET Core MVC での OpenAPI ドキュメントの生成と視覚化のサポートは、[NSwag](https://github.com/RSuter/NSwag)、[Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore) などのコミュニティ主導のプロジェクトを介して提供されています。 ASP.NET Core 2.2 では、OpenAPI ドキュメントを作成するためのツールとランタイム エクスペリエンスが改善されています。
+OpenAPI (旧称 Swagger) は、REST API を記述するために、言語に関係なく使用できる仕様です。 OpenAPI エコシステムには、この仕様を使用してクライアント コードの検出、テスト、および作成を行うことができるツールがあります。 ASP.NET Core MVC での OpenAPI ドキュメントの生成と視覚化のサポートは、[NSwag](https://github.com/RicoSuter/NSwag) や [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore) などのコミュニティ主導のプロジェクトを介して提供されています。 ASP.NET Core 2.2 では、OpenAPI ドキュメントを作成するためのツールとランタイム エクスペリエンスが改善されています。
 
 詳細については、次のリソースを参照してください。
 
@@ -29,7 +29,7 @@ OpenAPI (旧称 Swagger) は、REST API を記述するために、言語に関�
 
 ## <a name="problem-details-support"></a>問題の詳細のサポート
 
-ASP.NET Core 2.1 では、HTTP 応答でエラーの詳細を伝達するための [RFC 7807](https://tools.ietf.org/html/rfc7807) 仕様に基づいて、`ProblemDetails` が導入されました。 2.2 で、`ProblemDetails` は、属性が `ApiControllerAttribute` のコントローラーのクライアント エラー コードに対する標準の応答です。 クライアント エラー状態コード (4xx) を返している `IActionResult` は、`ProblemDetails` の本文を返すようになりました。 この結果には、要求ログを使用してエラーを関連付けるために使用できる相関関係 ID も含まれています。 クライアント エラーの場合、`ProducesResponseType` の既定では `ProblemDetails` が応答の種類として使用されます。 これは、NSwag または Swashbuckle.AspNetCore を使用して生成される OpenAPI/Swagger 出力にドキュメント化されます。
+ASP.NET Core 2.1 では、HTTP 応答でエラーの詳細を伝達するための [RFC 7807](https://tools.ietf.org/html/rfc7807) 仕様に基づいて、`ProblemDetails` が導入されました。 2\.2 で、`ProblemDetails` は、属性が `ApiControllerAttribute` のコントローラーのクライアント エラー コードに対する標準の応答です。 クライアント エラー状態コード (4xx) を返している `IActionResult` は、`ProblemDetails` の本文を返すようになりました。 この結果には、要求ログを使用してエラーを関連付けるために使用できる相関関係 ID も含まれています。 クライアント エラーの場合、`ProducesResponseType` の既定では `ProblemDetails` が応答の種類として使用されます。 これは、NSwag または Swashbuckle.AspNetCore を使用して生成される OpenAPI/Swagger 出力にドキュメント化されます。
 
 ## <a name="endpoint-routing"></a>エンドポイント ルーティング
 
@@ -53,7 +53,7 @@ ASP.NET Core 2.2 では、要求のディスパッチを改善するために新
 
 ## <a name="http2-in-kestrel"></a>Kestrel の HTTP/2
 
-ASP.NET Core 2.2 では HTTP/2 のサポートが追加されました。 
+ASP.NET Core 2.2 では HTTP/2 のサポートが追加されました。
 
 HTTP/2 は HTTP プロトコルのメジャー リビジョンです。 HTTP/2 の注目すべき機能として、ヘッダーの圧縮や、単一の接続での完全に多重化されたストリームのサポートなどがあります。 HTTP/2 は HTTP のセマンティクス (HTTP ヘッダー、メソッドなど) を維持していますが、このデータがフレーム化され、ネットワーク経由で送信される方法については、HTTP/1.x からの破壊的変更があります。
 
@@ -63,14 +63,14 @@ HTTP/2 は HTTP プロトコルのメジャー リビジョンです。 HTTP/2 �
 
 ## <a name="kestrel-configuration"></a>Kestrel の構成
 
-以前のバージョンの ASP.NET Core では、`UseKestrel` を呼び出して Kestrel のオプションを構成します。 2.2 で Kestrel のオプションを構成するには、ホスト ビルダー上で `ConfigureKestrel` を呼び出します。 この変更により、インプロセス ホスティングの `IServer` の登録順に関する問題が解決されます。 詳細については、次のリソースを参照してください。
+以前のバージョンの ASP.NET Core では、`UseKestrel` を呼び出して Kestrel のオプションを構成します。 2\.2 で Kestrel のオプションを構成するには、ホスト ビルダー上で `ConfigureKestrel` を呼び出します。 この変更により、インプロセス ホスティングの `IServer` の登録順に関する問題が解決されます。 詳細については、次のリソースを参照してください。
 
 * [UseIIS の競合を軽減する](https://github.com/aspnet/KestrelHttpServer/issues/2760)
 * [ConfigureKestrel を使用して Kestrel サーバーのオプションを構成する](xref:fundamentals/servers/kestrel?view=aspnetcore-2.2#how-to-use-kestrel-in-aspnet-core-apps)
 
 ## <a name="iis-in-process-hosting"></a>IIS のインプロセス ホスティング
 
-以前のバージョンの ASP.NET Core では、IIS はリバース プロキシとして機能しています。 2.2 では、ASP.NET Core モジュールで CoreCLR を起動し、IIS worker プロセス (*w3wp.exe*) 内でアプリをホストすることができます。 インプロセス ホスティングを IIS で実行すると、パフォーマンスと診断機能が向上します。
+以前のバージョンの ASP.NET Core では、IIS はリバース プロキシとして機能しています。 2\.2 では、ASP.NET Core モジュールで CoreCLR を起動し、IIS worker プロセス (*w3wp.exe*) 内でアプリをホストすることができます。 インプロセス ホスティングを IIS で実行すると、パフォーマンスと診断機能が向上します。
 
 詳細については、[IIS のインプロセス ホスティング](xref:host-and-deploy/aspnet-core-module?view=aspnetcore-2.2#in-process-hosting-model)に関する記事を参照してください。
 
@@ -82,7 +82,7 @@ ASP.NET Core 2.2 には SignalR 用の Java クライアントが導入されま
 
 ## <a name="cors-improvements"></a>CORS の機能強化
 
-以前のバージョンの ASP.NET Core では、`CorsPolicy.Headers` に構成されている値に関係なく、CORS ミドルウェアから `Accept`、`Accept-Language`、`Content-Language`、`Origin` ヘッダーを送信できます。 2.2 では、CORS ミドルウェア ポリシーの一致は、`Access-Control-Request-Headers` で送信されたヘッダーが `WithHeaders` に示されているヘッダーと正確に一致する場合にのみ可能です。
+以前のバージョンの ASP.NET Core では、`CorsPolicy.Headers` に構成されている値に関係なく、CORS ミドルウェアから `Accept`、`Accept-Language`、`Content-Language`、`Origin` ヘッダーを送信できます。 2\.2 では、CORS ミドルウェア ポリシーの一致は、`Access-Control-Request-Headers` で送信されたヘッダーが `WithHeaders` に示されているヘッダーと正確に一致する場合にのみ可能です。
 
 詳細については、[CORS ミドルウェア](xref:security/cors?view=aspnetcore-2.2#set-the-allowed-request-headers)に関する記事を参照してください。
 

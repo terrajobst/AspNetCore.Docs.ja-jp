@@ -7,12 +7,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 06/03/2019
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: 4cfca4b38543ff073bb98dc09b483d96096928ae
-ms.sourcegitcommit: 5dd2ce9709c9e41142771e652d1a4bd0b5248cec
+ms.openlocfilehash: 3a254af4d56cb4abc7004a67b0d0b42de2b878b1
+ms.sourcegitcommit: 47cc13ab90913af9a2887cef0896bb4e9aba4dd5
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/05/2019
-ms.locfileid: "66692572"
+ms.lasthandoff: 06/26/2019
+ms.locfileid: "67399113"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>Windows サービスでの ASP.NET Core のホスト
 
@@ -211,7 +211,7 @@ Active Directory を使う場合、ユーザーを管理するための別の方
 
 サービス ユーザー アカウントに*サービスとしてログオン*権利を確立するには、次の処理を実行します。
 
-1. *secpool.msc* を実行して、ローカル セキュリティ ポリシー エディターを開きます。
+1. *secpol.msc* を実行して、ローカル セキュリティ ポリシー エディターを開きます。
 1. **[ローカル ポリシー]** ノードを展開し、 **[ユーザー権利の割り当て]** を選択します。
 1. **[サービスとしてログオン]** ポリシーを開きます。
 1. **[ユーザーまたはグループの追加]** を選択します。
@@ -310,7 +310,7 @@ Remove-Service -Name {NAME}
 
 ## <a name="proxy-server-and-load-balancer-scenarios"></a>プロキシ サーバーとロード バランサーのシナリオ
 
-インターネットまたは企業ネットワークからの要求とやり取りするサービスやプロキシまたはロード バランサーの背後にあるサービスでは、追加の構成が必要になる場合があります。 詳細については、「<xref:host-and-deploy/proxy-load-balancer>」を参照してください。
+インターネットまたは企業ネットワークからの要求とやり取りするサービスやプロキシまたはロード バランサーの背後にあるサービスでは、追加の構成が必要になる場合があります。 詳細については、<xref:host-and-deploy/proxy-load-balancer> を参照してください。
 
 ## <a name="configure-https"></a>HTTPS の構成
 

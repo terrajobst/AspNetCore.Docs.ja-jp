@@ -4,14 +4,14 @@ author: zuckerthoben
 description: Swashbuckle を ASP.NET Core Web API プロジェクトに追加し、Swagger UI を統合する方法について説明します。
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 04/04/2019
+ms.date: 06/21/2019
 uid: tutorials/get-started-with-swashbuckle
-ms.openlocfilehash: ebbdfa4cfeb3013cd961167439dd261f2e058a4b
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 033f2dda9942f91f23158cf2d986062157a3b69e
+ms.sourcegitcommit: 06a455d63ff7d6b571ca832e8117f4ac9d646baf
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087612"
+ms.lasthandoff: 06/21/2019
+ms.locfileid: "67316602"
 ---
 # <a name="get-started-with-swashbuckle-and-aspnet-core"></a>Swashbuckle と ASP.NET Core の概要
 
@@ -34,33 +34,33 @@ Swashbuckle は、次の方法で追加できます。
 ### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * **[パッケージ マネージャー コンソール]** ウィンドウから:
-  * **[ビュー]** > **[Other Windows]** \(その他の Windows\) > **[パッケージ マネージャー コンソール]** に移動します。
+  * **[ビュー]**  >  **[Other Windows]** \(その他の Windows\) >  **[パッケージ マネージャー コンソール]** に移動します。
   * *TodoApi.csproj* ファイルが存在するディレクトリに移動します。
   * 次のコマンドを実行します。
 
     ```powershell
-    Install-Package Swashbuckle.AspNetCore
+    Install-Package Swashbuckle.AspNetCore -Version 5.0.0-rc2
     ```
 
 * **[NuGet パッケージの管理]** ダイアログ ボックスから:
-  * **[ソリューション エクスプローラー]** > **[NuGet パッケージの管理]** でプロジェクトを右クリックします。
+  * **[ソリューション エクスプローラー]**  >  **[NuGet パッケージの管理]** でプロジェクトを右クリックします。
   * **パッケージ ソース**を "nuget.org" に設定します。
   * 検索ボックスに「Swashbuckle.AspNetCore」と入力します。
-  * **[参照]** タブから "Swashbuckle.AspNetCore"パッケージを選択して、**[インストール]** をクリックします。
+  * **[参照]** タブから "Swashbuckle.AspNetCore"パッケージを選択して、 **[インストール]** をクリックします。
 
 ### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* **[Solution Pad]** > **[パッケージを追加]** で [*パッケージ*] フォルダーを右クリックします。
+* **[Solution Pad]**  >  **[パッケージを追加]** で [*パッケージ*] フォルダーを右クリックします。
 * **[パッケージを追加]** ウィンドウの **[ソース]** ドロップダウンを "nuget.org" に設定します。
 * 検索ボックスに「Swashbuckle.AspNetCore」と入力します。
-* 結果ウィンドウから Swashbuckle.AspNetCore パッケージを選択し、**[パッケージを追加]** をクリックします。
+* 結果ウィンドウから Swashbuckle.AspNetCore パッケージを選択し、 **[パッケージを追加]** をクリックします。
 
 ### <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 **統合端末**からから次のコマンドを実行します。
 
 ```console
-dotnet add TodoApi.csproj package Swashbuckle.AspNetCore
+dotnet add TodoApi.csproj package Swashbuckle.AspNetCore -v 5.0.0-rc2
 ```
 
 ### <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
@@ -68,14 +68,14 @@ dotnet add TodoApi.csproj package Swashbuckle.AspNetCore
 次のコマンドを実行します。
 
 ```console
-dotnet add TodoApi.csproj package Swashbuckle.AspNetCore
+dotnet add TodoApi.csproj package Swashbuckle.AspNetCore -v 5.0.0-rc2
 ```
 
 ---
 
 ## <a name="add-and-configure-swagger-middleware"></a>Swagger ミドルウェアを追加して構成する
 
-次の名前空間をインポートし、`Info` クラスを使用します。
+`Startup` クラスで、次の名前空間をインポートし、`OpenApiInfo` クラスを使用します。
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.Swashbuckle/Startup2.cs?name=snippet_InfoClassNamespace)]
 
@@ -132,7 +132,7 @@ XML コメントは、次の方法で有効にすることができます。
 
 ::: moniker range=">= aspnetcore-2.0"
 
-* **ソリューション エクスプローラー**でプロジェクトを右クリックし、**[<project_name>.csproj の編集]** を選択します。
+* **ソリューション エクスプローラー**でプロジェクトを右クリックし、 **[<project_name>.csproj の編集]** を選択します。
 * 強調表示された行を手動で *.csproj* ファイルに追加します。
 
 [!code-xml[](../tutorials/web-api-help-pages-using-swagger/samples/2.1/TodoApi.Swashbuckle/TodoApi.csproj?name=snippet_SuppressWarnings&highlight=1-2,4)]
@@ -141,7 +141,7 @@ XML コメントは、次の方法で有効にすることができます。
 
 ::: moniker range="<= aspnetcore-1.1"
 
-* **ソリューション エクスプローラー**でプロジェクトを右クリックして、**[プロパティ]** を選択します。
+* **ソリューション エクスプローラー**でプロジェクトを右クリックして、 **[プロパティ]** を選択します。
 * **[ビルド]** タブの **[出力]** セクションの下にある **[XML ドキュメント ファイル]** チェック ボックスをオンにします。
 
 ::: moniker-end
@@ -150,7 +150,7 @@ XML コメントは、次の方法で有効にすることができます。
 
 ::: moniker range=">= aspnetcore-2.0"
 
-* *Solution Pad* から **Ctrl** キーを押しながらプロジェクト名をクリックします。 **[ツール]** > **[ファイルの編集]** に移動します。
+* *Solution Pad* から **Ctrl** キーを押しながらプロジェクト名をクリックします。 **[ツール]**  >  **[ファイルの編集]** に移動します。
 * 強調表示された行を手動で *.csproj* ファイルに追加します。
 
 [!code-xml[](../tutorials/web-api-help-pages-using-swagger/samples/2.1/TodoApi.Swashbuckle/TodoApi.csproj?name=snippet_SuppressWarnings&highlight=1-2,4)]
@@ -159,7 +159,7 @@ XML コメントは、次の方法で有効にすることができます。
 
 ::: moniker range="<= aspnetcore-1.1"
 
-* **[プロジェクト オプション]** ダイアログ > **[ビルド]**>**[コンパイラ]** を開きます。
+* **[プロジェクト オプション]** ダイアログ > **[ビルド]** > **[コンパイラ]** を開きます。
 * **[全般オプション]** セクションの下にある **[XML ドキュメントを生成する]** チェック ボックスをオンにします。
 
 ::: moniker-end
@@ -393,7 +393,7 @@ Swagger UI は、予期される HTTP 応答コードを明確に記述するよ
 
 ::: moniker range=">= aspnetcore-2.2"
 
-ASP.NET Core 2.2 以降では、明示的に個別のアクションを `[ProducesResponseType]` で装飾する代わりに、規約を使用できます。 詳細については、「<xref:web-api/advanced/conventions>」を参照してください。
+ASP.NET Core 2.2 以降では、明示的に個別のアクションを `[ProducesResponseType]` で装飾する代わりに、規約を使用できます。 詳細については、<xref:web-api/advanced/conventions> を参照してください。
 
 ::: moniker-end
 
@@ -425,7 +425,7 @@ ASP.NET Core 2.2 以降では、明示的に個別のアクションを `[Produc
 
 [!code-html[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.Swashbuckle/wwwroot/swagger/ui/index.html?name=snippet_SwaggerUiCss&highlight=3)]
 
-`http://localhost:<port>/swagger/ui/index.html` で *index.html* ページを参照します。 ヘッダーのテキスト ボックスに「`http://localhost:<port>/swagger/v1/swagger.json`」を入力し、**[探索]** ボタンをクリックします。 結果のページは次のようになります。
+`http://localhost:<port>/swagger/ui/index.html` で *index.html* ページを参照します。 ヘッダーのテキスト ボックスに「`http://localhost:<port>/swagger/v1/swagger.json`」を入力し、 **[探索]** ボタンをクリックします。 結果のページは次のようになります。
 
 ![カスタム ヘッダーのタイトルを含む Swagger UI](web-api-help-pages-using-swagger/_static/custom-header.png)
 

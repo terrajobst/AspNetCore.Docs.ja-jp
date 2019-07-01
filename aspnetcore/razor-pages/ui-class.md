@@ -4,15 +4,15 @@ author: Rick-Anderson
 description: Razor を ASP.NET core クラス ライブラリの部分ビューを使用して再利用可能な UI を作成する方法について説明します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 06/24/2019
+ms.date: 06/28/2019
 ms.custom: mvc, seodec18
 uid: razor-pages/ui-class
-ms.openlocfilehash: 96ef8fc055a6b92cd0808d02031d917b8446f305
-ms.sourcegitcommit: 763af2cbdab0da62d1f1cfef4bcf787f251dfb5c
+ms.openlocfilehash: d59f643a23b48ccbddf498ef534ee8432b010f40
+ms.sourcegitcommit: 6d9cf728465cdb0de1037633a8b7df9a8989cccb
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/26/2019
-ms.locfileid: "67394753"
+ms.lasthandoff: 06/28/2019
+ms.locfileid: "67463256"
 ---
 # <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a>ASP.NET Core で Razor クラス ライブラリ プロジェクトを使用して再利用可能な UI を作成します。
 
@@ -228,6 +228,8 @@ Web アプリと RCL の両方にビュー、部分ビュー、Razor ページ�
 </body>
 ```
 
+::: moniker range=">= aspnetcore-3.0"
+
 ## <a name="create-an-rcl-with-static-assets"></a>静的なアセットを RCL を作成します。
 
 RCL、RCL のアプリを使うで参照できる付属の静的なアセットを必要があります。 ASP.NET Core ではアプリを使うに使用できる静的なアセットを含む RCLs を作成できます。
@@ -254,3 +256,5 @@ RCL のビルド時に静的 web 資産の場所を記述するマニフェス�
 ### <a name="publish"></a>公開
 
 参照されているすべてのプロジェクトとパッケージのコンパニオン アセットをコピー、アプリが発行されると、 *wwwroot*フォルダーの下で発行されたアプリの`_content/{LIBRARY NAME}/`します。
+
+::: moniker-end

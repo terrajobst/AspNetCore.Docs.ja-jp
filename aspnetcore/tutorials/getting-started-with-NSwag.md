@@ -4,14 +4,14 @@ author: zuckerthoben
 description: NSwag を使用し、ASP.NET Core Web API のドキュメント ページとヘルプ ページを生成する方法について説明します。
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 12/30/2018
+ms.date: 06/21/2019
 uid: tutorials/get-started-with-nswag
-ms.openlocfilehash: 787f51629b044e638d2790b3dda8723c2644c2d8
-ms.sourcegitcommit: a04eb20e81243930ec829a9db5dd5de49f669450
+ms.openlocfilehash: c5b2dc47328d6d3c271a87579fa8c300109bd734
+ms.sourcegitcommit: 06a455d63ff7d6b571ca832e8117f4ac9d646baf
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/03/2019
-ms.locfileid: "66470429"
+ms.lasthandoff: 06/21/2019
+ms.locfileid: "67316557"
 ---
 # <a name="get-started-with-nswag-and-aspnet-core"></a>NSwag と ASP.NET Core の概要
 
@@ -43,7 +43,7 @@ NSwag ミドルウェアの登録でできること:
 * 実装済みの Web API に対して Swagger 仕様を生成します。
 * Web API を参照し、テストするサービスを Swagger UI に提供します。
 
-[NSwag](https://github.com/RSuter/NSwag) ASP.NET Core ミドルウェアを使用するには、[NSwag.AspNetCore](https://www.nuget.org/packages/NSwag.AspNetCore/) NuGet パッケージをインストールします。 このパッケージには、Swagger 仕様、Swagger UI (v2 と v3)、[ReDoc UI](https://github.com/Rebilly/ReDoc) を生成し、それらにサービスを提供するミドルウェアが含まれています。
+[NSwag](https://github.com/RicoSuter/NSwag) ASP.NET Core ミドルウェアを使用するには、[NSwag.AspNetCore](https://www.nuget.org/packages/NSwag.AspNetCore/) NuGet パッケージをインストールします。 このパッケージには、Swagger 仕様、Swagger UI (v2 と v3)、[ReDoc UI](https://github.com/Rebilly/ReDoc) を生成し、それらにサービスを提供するミドルウェアが含まれています。
 
 次のいずれかの方法で NSwag NuGet パッケージをインストールします。
 
@@ -91,17 +91,13 @@ dotnet add TodoApi.csproj package NSwag.AspNetCore
 
 ## <a name="add-and-configure-swagger-middleware"></a>Swagger ミドルウェアを追加して構成する
 
- ASP.NET Core アプリに Swagger を追加して構成します。それには、次の手順を `Startup` クラスで実行します。
+次の手順を実行することで、ASP.NET Core アプリに Swagger を追加して構成します。
 
-* 次の名前空間をインポートします。
-
-[!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Startup.cs?name=snippet_StartupConfigureImports)]
-
-* `ConfigureServices` メソッドで、必須の Swagger サービスを登録します。
+* `Startup.ConfigureServices` メソッドで、必須の Swagger サービスを登録します。
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Startup.cs?name=snippet_ConfigureServices&highlight=8)]
 
-* `Configure` メソッドで、生成された Swagger 仕様と SwaggerUI 対応のミドルウェアを有効にします。
+* `Startup.Configure` メソッドで、生成された Swagger 仕様と SwaggerUI 対応のミドルウェアを有効にします。
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Startup.cs?name=snippet_Configure&highlight=6-7)]
 
@@ -113,15 +109,15 @@ dotnet add TodoApi.csproj package NSwag.AspNetCore
 
 次のオプションのいずれかを選択することで、NSwag のコード生成機能を活用できます。
 
-* [NSwagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio) &ndash; API のクライアント コードを C# または TypeScript で生成するための Windows デスクトップ アプリ。
+* [NSwagStudio](https://github.com/RicoSuter/NSwag/wiki/NSwagStudio) &ndash; API のクライアント コードを C# または TypeScript で生成するための Windows デスクトップ アプリ。
 * [NSwag.CodeGeneration.CSharp](https://www.nuget.org/packages/NSwag.CodeGeneration.CSharp/) または [NSwag.CodeGeneration.TypeScript](https://www.nuget.org/packages/NSwag.CodeGeneration.TypeScript/) NuGet パッケージ。これは、プロジェクト内でコードを生成するために使用します。
-* [コマンド ライン](https://github.com/NSwag/NSwag/wiki/CommandLine)からの NSwag。
-* [NSwag.MSBuild](https://github.com/NSwag/NSwag/wiki/MSBuild) NuGet パッケージ。
+* [コマンド ライン](https://github.com/RicoSuter/NSwag/wiki/CommandLine)からの NSwag。
+* [NSwag.MSBuild](https://github.com/RicoSuter/NSwag/wiki/MSBuild) NuGet パッケージ。
 * [Unchase OpenAPI (Swagger) Connected Service](https://marketplace.visualstudio.com/items?itemName=Unchase.unchaseopenapiconnectedservice) &ndash; C# または TypeScript で API クライアント コードを生成するための Visual Studio の接続済みサービスです。 NSwag を使用した OpenAPI サービス用の C# コントローラーも生成されます。
 
 ### <a name="generate-code-with-nswagstudio"></a>NSwagStudio を使用したコード生成
 
-* [NSwagStudio GitHub リポジトリ](https://github.com/RSuter/NSwag/wiki/NSwagStudio)の手順に従って、NSwagStudio をインストールします。
+* [NSwagStudio GitHub リポジトリ](https://github.com/RicoSuter/NSwag/wiki/NSwagStudio)の手順に従って、NSwagStudio をインストールします。
 * NSwagStudio を起動し、 **[Swagger Specification URL]\(Swagger 仕様 URL\)** テキスト ボックスに *swagger.json* ファイルの URL を入力します。 たとえば、 *http://localhost:44354/swagger/v1/swagger.json* です。
 * **[Create local Copy]\(ローカル コピーの作成\)** をクリックして、Swagger 仕様の JSON 表現を生成します。
 
@@ -277,7 +273,7 @@ NSwag では [Reflection](/dotnet/csharp/programming-guide/concepts/reflection) 
 
 ::: moniker range=">= aspnetcore-2.1"
 
- NSwag では [Reflection](/dotnet/csharp/programming-guide/concepts/reflection) が使用されます。また、Web API アクションに推奨される戻り値の型は [ActionResult\<T>](xref:Microsoft.AspNetCore.Mvc.ActionResult%601) です。そのため、`T` によって定義される戻り値の型のみを推測できます。 考えられる他の戻り値の型を自動的に推測することはできません。 
+ NSwag では [Reflection](/dotnet/csharp/programming-guide/concepts/reflection) が使用されます。また、Web API アクションに推奨される戻り値の型は [ActionResult\<T>](xref:Microsoft.AspNetCore.Mvc.ActionResult%601) です。そのため、`T` によって定義される戻り値の型のみを推測できます。 考えられる他の戻り値の型を自動的に推測することはできません。
 
 次に例を示します。
 
@@ -287,7 +283,7 @@ NSwag では [Reflection](/dotnet/csharp/programming-guide/concepts/reflection) 
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.1/TodoApi.NSwag/Controllers/TodoController.cs?name=snippet_CreateActionAttributes)]
 
-ASP.NET Core 2.2 以降では、明示的に個別のアクションを `[ProducesResponseType]` で修飾する代わりに、規約を使用できます。 詳細については、「<xref:web-api/advanced/conventions>」を参照してください。
+ASP.NET Core 2.2 以降では、明示的に個別のアクションを `[ProducesResponseType]` で修飾する代わりに、規約を使用できます。 詳細については、<xref:web-api/advanced/conventions> を参照してください。
 
 ::: moniker-end
 

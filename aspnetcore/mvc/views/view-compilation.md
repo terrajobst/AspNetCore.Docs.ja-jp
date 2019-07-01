@@ -5,14 +5,14 @@ description: ASP.NET Core アプリで Razor ファイルのコンパイルが�
 monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/30/2019
+ms.date: 06/20/2019
 uid: mvc/views/view-compilation
-ms.openlocfilehash: b78831dd95a721e35d4bf5b44cdd8823472f6aa2
-ms.sourcegitcommit: 06c4f2910dd54ded25e1b8750e09c66578748bc9
+ms.openlocfilehash: ff66148fc9aad2871f9f55ce76b5a0dacb0ad10c
+ms.sourcegitcommit: 9f11685382eb1f4dd0fb694dea797adacedf9e20
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/30/2019
-ms.locfileid: "66395886"
+ms.lasthandoff: 06/21/2019
+ms.locfileid: "67313783"
 ---
 # <a name="razor-file-compilation-in-aspnet-core"></a>ASP.NET Core での Razor ファイルのコンパイル
 
@@ -125,17 +125,13 @@ dotnet publish -c Release
 実行時コンパイルは `Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation` パッケージを使用して有効になっています。 実行時コンパイルを有効にするには、アプリで次を行う必要があります。
 
 * [Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/) NuGet パッケージをインストールします。
-* アプリケーションの `ConfigureServices` を更新し、`AddMvcRazorRuntimeCompilation` の呼び出しを含めます。
+* プロジェクトの `Startup.ConfigureServices` メソッドを更新し、`AddRazorRuntimeCompilation` への呼び出しを含めるようにします。
 
   ```csharp
   services
-      .AddMvc()
-      .AddRazorRuntimeCompilation()
+      .AddControllersWithViews()
+      .AddRazorRuntimeCompilation();
   ```
-
-デプロイ時に実行時コンパイルを動作させるには、アプリでそのプロジェクト ファイルを変更し、`PreserveCompilationReferences` を `true` に設定する必要があります。
-
-[!code-xml[](view-compilation/sample/RuntimeCompilation.csproj?highlight=4)]
 
 ::: moniker-end
 

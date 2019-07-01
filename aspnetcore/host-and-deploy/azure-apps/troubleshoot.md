@@ -4,14 +4,14 @@ author: guardrex
 description: ASP.NET Core Azure App Service の配置に関する問題を診断する方法を学習します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/06/2019
+ms.date: 06/19/2019
 uid: host-and-deploy/azure-apps/troubleshoot
-ms.openlocfilehash: 7a0bb7df27ebbea0eac79771452295846fad563a
-ms.sourcegitcommit: a04eb20e81243930ec829a9db5dd5de49f669450
+ms.openlocfilehash: d78499c1a82a011239f6b62b546f304a5d5017e2
+ms.sourcegitcommit: 9f11685382eb1f4dd0fb694dea797adacedf9e20
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/03/2019
-ms.locfileid: "66470444"
+ms.lasthandoff: 06/21/2019
+ms.locfileid: "67313755"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service"></a>Azure App Service での ASP.NET Core のトラブルシューティング
 
@@ -21,122 +21,14 @@ ms.locfileid: "66470444"
 
 この記事では、Azure App Service の診断ツールを使って ASP.NET Core アプリの起動時の問題を診断する方法の手順を説明します。 追加のトラブルシューティングのアドバイスについては、Azure ドキュメントの「[Azure App Service 診断の概要](/azure/app-service/app-service-diagnostics)」と「[方法: Azure App Service のアプリの監視](/azure/app-service/web-sites-monitor)」を参照してください。
 
-## <a name="app-startup-errors"></a>アプリ起動時のエラー
+その他のトラブルシューティング トピック:
 
-**502.5 処理エラー** ワーカー プロセスが失敗します。 アプリは起動しません。
+* IIS では、アプリをホストするために [ASP.NET Core モジュール](xref:host-and-deploy/aspnet-core-module)も使用されます。 IIS に特に関連するトラブルシューティング上のアドバイスについては、<xref:host-and-deploy/iis/troubleshoot> をご覧ください。
+* <xref:fundamentals/error-handling> では、ローカル システム上で開発しているときに発生する ASP.NET Core アプリのエラーを処理する方法について説明します。
+* [Visual Studio を使用したデバッグ方法の学習](/visualstudio/debugger/getting-started-with-the-debugger)に関するページでは、Visual Studio デバッガーの機能を紹介しています。
+* [Visual Studio Code でのデバッグ](https://code.visualstudio.com/docs/editor/debugging)に関するページでは、Visual Studio Code に組み込まれているデバッグのサポートについて説明します。
 
-[ASP.NET Core モジュール](xref:host-and-deploy/aspnet-core-module)はワーカー プロセスの開始を試みますが、開始に失敗します。 この種の問題のトラブルシューティングには、アプリケーション イベント ログを調べると役に立つことがよくあります。 ログへのアクセスについては、「[アプリケーション イベント ログ](#application-event-log)」セクションで説明します。
-
-正しく構成されていないアプリによりワーカー プロセスが失敗する場合、"*502.5 処理エラー*" のエラー ページが返されます。
-
-![502.5 処理エラー ページが表示されているブラウザー ウィンドウ](troubleshoot/_static/process-failure-page.png)
-
-**500 内部サーバー エラー**
-
-アプリは起動しますが、エラーのためにサーバーは要求を実行できません。
-
-このエラーは、起動時または応答の作成中に、アプリのコード内で発生します。 応答にコンテンツが含まれていないか、またはブラウザーに "*500 内部サーバー エラー*" という応答が表示される可能性があります。 通常、アプリケーション イベント ログではアプリが正常に起動したことが示されます。 サーバーから見るとそれは正しいことです。 アプリは起動しましたが、有効な応答を生成できません。 問題のトラブルシューティングを行うには、[Kudu コンソールでアプリを実行する](#run-the-app-in-the-kudu-console)か、または [ASP.NET Core モジュールの stdout ログを有効にします](#aspnet-core-module-stdout-log)。
-
-::: moniker range="= aspnetcore-2.2"
-
-### <a name="50030-in-process-startup-failure"></a>500.30 インプロセス起動エラー
-
-ワーカー プロセスが失敗します。 アプリは起動しません。
-
-ASP.NET Core モジュールは .NET Core CLR の開始をインプロセスで試みますが、開始に失敗します。 プロセス起動時のエラーの原因は、通常、[アプリケーション イベント ログ](#application-event-log)と [ASP.NET Core モジュールの stdout ログ](#aspnet-core-module-stdout-log)のエントリから判断します。
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-3.0"
-
-### <a name="50031-ancm-failed-to-find-native-dependencies"></a>500.31 ANCM Failed to Find Native Dependencies (500.31 ANCM ネイティブの依存関係を見つけられませんでした)
-
-ワーカー プロセスが失敗します。 アプリは起動しません。
-
-ASP.NET Core モジュールで .NET Core ランタイムの開始がインプロセスで試行されますが、開始に失敗します。 このスタートアップ エラーの最も一般的な原因は、`Microsoft.NETCore.App` または `Microsoft.AspNetCore.App` ランタイムがインストールされていない場合です。 アプリが ASP.NET Core 3.0 をターゲットとして展開されていて、そのバージョンがコンピューターに存在しない場合、このエラーが発生します。 エラー メッセージの例は次のとおりです。
-
-```
-The specified framework 'Microsoft.NETCore.App', version '3.0.0' was not found.
-  - The following frameworks were found:
-      2.2.1 at [C:\Program Files\dotnet\x64\shared\Microsoft.NETCore.App]
-      3.0.0-preview5-27626-15 at [C:\Program Files\dotnet\x64\shared\Microsoft.NETCore.App]
-      3.0.0-preview6-27713-13 at [C:\Program Files\dotnet\x64\shared\Microsoft.NETCore.App]
-      3.0.0-preview6-27714-15 at [C:\Program Files\dotnet\x64\shared\Microsoft.NETCore.App]
-      3.0.0-preview6-27723-08 at [C:\Program Files\dotnet\x64\shared\Microsoft.NETCore.App]
-```
-
-エラー メッセージには、インストールされているすべての .NET Core のバージョンとアプリに必要なバージョンが一覧表示されます。 このエラーを修正するには、次のいずれかを実行します。
-
-* 適切なバージョンの .NET Core をマシンにインストールします。
-* マシンに存在する .NET Core のバージョンをターゲットにするようにアプリを変更します。
-* アプリを[自己完結型の展開](/dotnet/core/deploying/#self-contained-deployments-scd)として発行します。
-
-開発環境で実行している場合 (`ASPNETCORE_ENVIRONMENT` 環境変数が `Development` に設定されている場合)、特定のエラーが HTTP 応答に書き込まれます。 プロセスのスタートアップ エラーの原因は、[アプリケーション イベント ログ](#application-event-log)でも見つかります。
-
-### <a name="50032-ancm-failed-to-load-dll"></a>500.32 ANCM Failed to Load dll (500.32 ANCM DLL を読み込めませんでした)
-
-ワーカー プロセスが失敗します。 アプリは起動しません。
-
-このエラーの最も一般的な原因は、アプリが互換性のないプロセッサ アーキテクチャ用に発行されていることです。 ワーカー プロセスが 32 ビットアプリとして実行されていて、そのアプリが 64 ビットをターゲットとして発行されている場合、このエラーが発生します。
-
-このエラーを修正するには、次のいずれかを実行します。
-
-* ワーカー プロセスと同じプロセッサ アーキテクチャ用にアプリを再発行します。
-* アプリを[フレームワークに依存する展開](/dotnet/core/deploying/#framework-dependent-executables-fde)として発行します。
-
-### <a name="50033-ancm-request-handler-load-failure"></a>500.33 ANCM Request Handler Load Failure (500.33 ANCM 要求ハンドラーの読み込みエラー)
-
-ワーカー プロセスが失敗します。 アプリは起動しません。
-
-アプリは `Microsoft.AspNetCore.App` フレームワークを参照していませんでした。 ASP.NET Core モジュールでホストできるのは、`Microsoft.AspNetCore.App` フレームワークをターゲットとしているアプリのみです。
-
-このエラーを修正するには、アプリが `Microsoft.AspNetCore.App` フレームワークをターゲットにしていることを確認します。 アプリがターゲットとしているフレームワークを確認するには、`.runtimeconfig.json` を確認します。
-
-### <a name="50034-ancm-mixed-hosting-models-not-supported"></a>500.34 ANCM Mixed Hosting Models Not Supported (500.34 ANCM 混在ホスティング モデルはサポートされません)
-
-ワーカー プロセスでは、インプロセス アプリとアウト プロセス アプリの両方を同じプロセスで実行できません。
-
-このエラーを修正するには、別の IIS アプリケーション プールでアプリを実行します。
-
-### <a name="50035-ancm-multiple-in-process-applications-in-same-process"></a>500.35 ANCM Multiple In-Process Applications in same Process (500.35 ANCM 同一プロセス内の複数のインプロセス アプリケーション)
-
-ワーカー プロセスでは、インプロセス アプリとアウト プロセス アプリの両方を同じプロセスで実行できません。
-
-このエラーを修正するには、別の IIS アプリケーション プールでアプリを実行します。
-
-### <a name="50036-ancm-out-of-process-handler-load-failure"></a>500.36 ANCM Out-Of-Process Handler Load Failure (500.36 ANCM アウト プロセス ハンドラーの読み込みエラー)
-
-アウト プロセス要求ハンドラーの *aspnetcorev2_outofprocess.dll* が *aspnetcorev2.dll* ファイルの次にありません。 これは、ASP.NET Core モジュールのインストールが破損していることを示しています。
-
-このエラーを修正するには、[.NET Core Hosting Bundle](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle) (IIS 用) または Visual Studio (IIS Express 用) のインストールを修復します。
-
-### <a name="50037-ancm-failed-to-start-within-startup-time-limit"></a>500.37 ANCM Failed to Start Within Startup Time Limit (500.37 ANCM スタートアップ時間の制限内に起動できませんでした)
-
-指定されたスタートアップ時間の制限内に ANCM が起動に失敗しました。 既定では、タイムアウトは 120 秒です。
-
-このエラーは、同じマシン上で多数のアプリを起動したときに発生する可能性があります。 スタートアップ中のサーバー上の CPU/メモリ使用量の急上昇を確認します。 必要に応じて、複数のアプリのスタートアップ プロセスをずらします。
-
-### <a name="50030-in-process-startup-failure"></a>500.30 インプロセス起動エラー
-
-ワーカー プロセスが失敗します。 アプリは起動しません。
-
-ASP.NET Core モジュールで .NET Core ランタイムの開始がインプロセスで試行されますが、開始に失敗します。 プロセス起動時のエラーの原因は、通常、[アプリケーション イベント ログ](#application-event-log)と [ASP.NET Core モジュールの stdout ログ](#aspnet-core-module-stdout-log)のエントリから判断します。
-
-### <a name="5000-in-process-handler-load-failure"></a>500.0 インプロセス ハンドラーの読み込みエラー
-
-ワーカー プロセスが失敗します。 アプリは起動しません。
-
-プロセスのスタートアップ エラーの原因は、[アプリケーション イベント ログ](#application-event-log)でも見つかります。
-
-::: moniker-end
-
-**接続のリセット**
-
-ヘッダー送信後にエラーが発生した場合、サーバーが **500 内部サーバー エラー**を送信するには遅すぎます。 このような状況は、応答に対する複雑なオブジェクトのシリアル化中にエラーが起きたときによく発生します。 この種のエラーは、クライアントでは "*接続リセット*" エラーとして表示されます。 この種のエラーのトラブルシューティングには、[アプリケーション ログ](xref:fundamentals/logging/index)が役に立つことがあります。
-
-## <a name="default-startup-limits"></a>既定の起動制限
-
-ASP.NET Core モジュールの *startupTimeLimit* は、既定では 120 秒に構成されます。 既定値のままにした場合、モジュールで処理エラーが記録されるまでに、アプリは最大で 2 分を起動にかけることができます。 モジュールの構成の詳細については、「[AspNetCore 要素の属性](xref:host-and-deploy/aspnet-core-module#attributes-of-the-aspnetcore-element)」を参照してください。
+[!INCLUDE[](~/includes/azure-iis-startup-errors.md)]
 
 ## <a name="troubleshoot-app-startup-errors"></a>アプリの起動エラーのトラブルシューティング
 
