@@ -5,14 +5,14 @@ description: ASP.NET Core での IIS と HTTP.sys は Windows 認証を構成す
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 06/12/2019
+ms.date: 07/01/2019
 uid: security/authentication/windowsauth
-ms.openlocfilehash: 93f833adff95f25d570947cd1a9035d652f522c2
-ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
+ms.openlocfilehash: 30f1f554a29412ed6b84115d457d2da1aba91c17
+ms.sourcegitcommit: eb3e51d58dd713eefc242148f45bd9486be3a78a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/12/2019
-ms.locfileid: "67034950"
+ms.lasthandoff: 07/02/2019
+ms.locfileid: "67500507"
 ---
 # <a name="configure-windows-authentication-in-aspnet-core"></a>ASP.NET Core での Windows 認証を構成します。
 
@@ -145,7 +145,10 @@ ASP.NET Core モジュールは、既定では、アプリに Windows 認証ト�
  [Microsoft.AspNetCore.Authentication.Negotiate](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Negotiate)と NuGet パッケージを使用する[Kestrel](xref:fundamentals/servers/kestrel) Negotiate、Kerberos、および NTLM を使用して、Windows、Linux、macOS で Windows 認証をサポートします。
 
 > [!WARNING]
-> 接続で要求間で資格情報を保持できます。 *ネゴシエート、プロキシは、Kestrel での 1 対 1 の接続のアフィニティ (固定接続) を保持しない限り、認証をプロキシで使用しないでください。* つまり、ネゴシエート認証が、IIS の背後の Kestrel で使用しないでください[ASP.NET Core モジュール (ANCM) のアウト プロセスの](xref:host-and-deploy/iis/index#out-of-process-hosting-model)します。
+> 接続で要求間で資格情報を保持できます。 *ネゴシエート、プロキシは、Kestrel での 1 対 1 の接続のアフィニティ (固定接続) を保持しない限り、認証をプロキシで使用しないでください。*
+
+> [!NOTE]
+> ネゴシエート ハンドラーは、基になるサーバーが Windows 認証をネイティブにサポートし、有効になっている場合を検出します。 サーバーは、Windows 認証をサポートしています。 無効になっている場合は、サーバーの実装を有効にするように求めるエラーがスローされます。 サーバーで Windows 認証が有効な場合に、ネゴシエート ハンドラーが透過的に転送します。
 
  認証サービスを呼び出すことによって追加<xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*>(`Microsoft.AspNetCore.Authentication.Negotiate`名前空間) と`AddNegotitate`(`Microsoft.AspNetCore.Authentication.Negotiate`名前空間) で`Startup.ConfigureServices`:
 
@@ -255,7 +258,17 @@ ASP.NET Core では、権限借用を実装しません。 アプリは、アプ
 
 ## <a name="claims-transformations"></a>要求の変換
 
+::: moniker range=">= aspnetcore-3.0"
+
+IIS でホストする場合<xref:Microsoft.AspNetCore.Authentication.AuthenticationService.AuthenticateAsync*>されていないユーザーを初期化するために内部的に呼び出されます。 そのため、認証のたびに要求を変換するための <xref:Microsoft.AspNetCore.Authentication.IClaimsTransformation> 実装は既定で有効になっていません。 要求の変換を有効にするためのコード例と詳細については、次を参照してください。<xref:host-and-deploy/aspnet-core-module#in-process-hosting-model>します。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 IIS のインプロセス モードでホストする場合<xref:Microsoft.AspNetCore.Authentication.AuthenticationService.AuthenticateAsync*>されていないユーザーを初期化するために内部的に呼び出されます。 そのため、認証のたびに要求を変換するための <xref:Microsoft.AspNetCore.Authentication.IClaimsTransformation> 実装は既定で有効になっていません。 詳細については、インプロセスをホストする場合は、クレームの変換をアクティブにするためのコード例を参照してください。<xref:host-and-deploy/aspnet-core-module#in-process-hosting-model>します。
+
+::: moniker-end
 
 ## <a name="additional-resources"></a>その他の技術情報
 

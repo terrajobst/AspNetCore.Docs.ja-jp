@@ -3,14 +3,14 @@ title: ASP.NET Core での Identity モデルのカスタマイズ
 author: ajcvickers
 description: この記事では、ASP.NET Core Identity の基になる Entity Framework Core のデータ モデルをカスタマイズする方法について説明します。
 ms.author: avickers
-ms.date: 04/24/2019
+ms.date: 07/01/2019
 uid: security/authentication/customize_identity_model
-ms.openlocfilehash: 53ce77e20722f3ba3282ff4455a0b70d30e635b0
-ms.sourcegitcommit: ffe3ed7921ec6c7c70abaac1d10703ec9a43374c
+ms.openlocfilehash: f549fdff4a416b5fadcb2b1078b051bbab8e402e
+ms.sourcegitcommit: eb3e51d58dd713eefc242148f45bd9486be3a78a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/11/2019
-ms.locfileid: "65536020"
+ms.lasthandoff: 07/02/2019
+ms.locfileid: "67500472"
 ---
 # <a name="identity-model-customization-in-aspnet-core"></a>ASP.NET Core での Identity モデルのカスタマイズ
 
@@ -72,7 +72,7 @@ Id モデルは、次のエンティティ型で構成されます。
 
 ### <a name="default-model-configuration"></a>既定のモデルの構成
 
-多くの id が定義*コンテキスト クラス*から継承した<xref:Microsoft.EntityFrameworkCore.DbContext>を構成し、モデルを使用します。 この構成を行うを使用して、 [EF Core Code First Fluent API](/ef/core/modeling/)で、<xref:Microsoft.EntityFrameworkCore.DbContext.OnModelCreating*>コンテキスト クラスのメソッド。 既定の構成は次のとおりです。
+多くの id が定義*コンテキスト クラス*から継承した[DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext)を構成し、モデルを使用します。 この構成を行うを使用して、 [EF Core Code First Fluent API](/ef/core/modeling/)で、 [OnModelCreating](/dotnet/api/microsoft.entityframeworkcore.dbcontext.onmodelcreating)コンテキスト クラスのメソッド。 既定の構成は次のとおりです。
 
 ```csharp
 builder.Entity<TUser>(b =>
@@ -463,7 +463,7 @@ ASP.NET Core 2.1 以降では、Identity は、Razor クラス ライブラリ�
             .AddDefaultTokenProviders();
     ```
 
-    分析することで、プライマリ キーのデータ型が推論される、<xref:Microsoft.EntityFrameworkCore.DbContext>オブジェクト。
+    分析することで、プライマリ キーのデータ型が推論される、 [DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext)オブジェクト。
 
     ASP.NET Core 2.1 以降では、Identity は、Razor クラス ライブラリとして提供されます。 詳細については、「 <xref:security/authentication/scaffold-identity> 」を参照してください。 したがって、上記のコードへの呼び出しが必要です。<xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>します。 Id ファイルをプロジェクトに追加する Identity scaffolder を使用した場合への呼び出しを削除`AddDefaultUI`します。
 
@@ -477,7 +477,7 @@ ASP.NET Core 2.1 以降では、Identity は、Razor クラス ライブラリ�
             .AddDefaultTokenProviders();
     ```
 
-    分析することで、プライマリ キーのデータ型が推論される、<xref:Microsoft.EntityFrameworkCore.DbContext>オブジェクト。
+    分析することで、プライマリ キーのデータ型が推論される、 [DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext)オブジェクト。
 
     ::: moniker-end
 
@@ -507,7 +507,7 @@ ASP.NET Core 2.1 以降では、Identity は、Razor クラス ライブラリ�
 
     [!code-csharp[](customize-identity-model/samples/2.1/RazorPagesSampleApp/Startup.cs?name=snippet_ConfigureServices&highlight=13-16)]
 
-    分析することで、プライマリ キーのデータ型が推論される、<xref:Microsoft.EntityFrameworkCore.DbContext>オブジェクト。
+    分析することで、プライマリ キーのデータ型が推論される、 [DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext)オブジェクト。
 
     ASP.NET Core 2.1 以降では、Identity は、Razor クラス ライブラリとして提供されます。 詳細については、「 <xref:security/authentication/scaffold-identity> 」を参照してください。 したがって、上記のコードへの呼び出しが必要です。<xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>します。 Id ファイルをプロジェクトに追加する Identity scaffolder を使用した場合への呼び出しを削除`AddDefaultUI`します。
 
@@ -521,7 +521,7 @@ ASP.NET Core 2.1 以降では、Identity は、Razor クラス ライブラリ�
 
     [!code-csharp[](customize-identity-model/samples/2.0/RazorPagesSampleApp/Startup.cs?name=snippet_ConfigureServices&highlight=7-9)]
 
-    分析することで、プライマリ キーのデータ型が推論される、<xref:Microsoft.EntityFrameworkCore.DbContext>オブジェクト。
+    分析することで、プライマリ キーのデータ型が推論される、 [DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext)オブジェクト。
 
     ::: moniker-end
 
@@ -962,7 +962,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 エンティティの種類にできるに適したいくつかの方法で遅延読み込み」の説明に従って、 [EF Core ドキュメント](/ef/core/querying/related-data#lazy-loading)します。 わかりやすくするために、必要があります、遅延読み込みプロキシを使用します。
 
 * インストール、 [Microsoft.EntityFrameworkCore.Proxies](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Proxies/)パッケージ。
-* 呼び出し<xref:Microsoft.EntityFrameworkCore.ProxiesExtensions.UseLazyLoadingProxies*>内<xref:Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContext*>します。
+* 呼び出し<xref:Microsoft.EntityFrameworkCore.ProxiesExtensions.UseLazyLoadingProxies*>内[AddDbContext\<TContext >](/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext)します。
 * パブリック エンティティ型`public virtual`ナビゲーション プロパティ。
 
 次の例では、通話`UseLazyLoadingProxies`で`Startup.ConfigureServices`:
