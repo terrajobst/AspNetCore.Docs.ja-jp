@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/07/2019
 uid: index
-ms.openlocfilehash: 6dd722b3b78d2af81497bde9e0519feb9af84748
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: ec2b5b72eeff21d183397284b0d538681282d45b
+ms.sourcegitcommit: 47cc13ab90913af9a2887cef0896bb4e9aba4dd5
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65086141"
+ms.lasthandoff: 06/26/2019
+ms.locfileid: "67399161"
 ---
 # <a name="introduction-to-aspnet-core"></a>ASP.NET Core の概要
 
@@ -54,7 +54,7 @@ ASP.NET Core 2.x は、.NET Core または .NET Framework を対象にするこ�
 
 ASP.NET Core 2.x は、.NET Standard 2.0 を実装している .NET Framework バージョンにおいてサポートされています。
 
-* .NET framework 4.7.1 以降を強くお勧めします。
+* .NET Framework の最新バージョンを強くお勧めします。
 * .NET Framework 4.6.1 以降。
 
 ASP.NET Core 3.0 以降は、.NET Core でのみ実行されます。 この変更に関する詳細については、「[ASP.NET Core 3.0 で導入される変更について](https://blogs.msdn.microsoft.com/webdev/2018/10/29/a-first-look-at-changes-coming-in-asp-net-core-3-0/)」を参照してください。
@@ -91,7 +91,7 @@ ASP.NET Core アプリを開発する場合の概要として、次の順序で�
 
 1. すべての種類のアプリに該当する ASP.NET Core の機能の概要は、次を参照してください。
 
-   * [ASP.NET Core の基礎の概要](xref:fundamentals/index)
+   * [Entity Framework の基礎](xref:fundamentals/index)
 
 1. 興味のあるその他のトピックは、目次から参照してください。
 
