@@ -1,19 +1,19 @@
 ---
-title: 'チュートリアル: ASP.NET Core MVC で Web API を作成する'
+title: 'チュートリアル: ASP.NET Core で Web API を作成する'
 author: rick-anderson
-description: ASP.NET Core MVC で Web API をビルドする
+description: ASP.NET Core で Web API をビルドする方法を学習します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/4/2019
+ms.date: 06/18/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: dce2926e3cb19d6ac8d2af0e9b96c31dee1d92fd
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 17e8ee08fca775b8fccc3f2e6cd6067caca9c79f
+ms.sourcegitcommit: a1283d486ac1dcedfc7ea302e1cc882833e2c515
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087518"
+ms.lasthandoff: 06/18/2019
+ms.locfileid: "67207778"
 ---
-# <a name="tutorial-create-a-web-api-with-aspnet-core-mvc"></a>チュートリアル: ASP.NET Core MVC で Web API を作成する
+# <a name="tutorial-create-a-web-api-with-aspnet-core"></a>チュートリアル: ASP.NET Core で Web API を作成する
 
 作成者: [Rick Anderson](https://twitter.com/RickAndMSFT) と [Mike Wasson](https://github.com/mikewasson)
 
@@ -276,7 +276,7 @@ To Do アイテムを取得する API を指定するには、`TodoController` �
 
 このチュートリアルでは、Postman を使用して Web API をテストします。
 
-* [Postman](https://www.getpostman.com/apps) をインストールします。
+* [Postman](https://www.getpostman.com/downloads/) をインストールします。
 * Web アプリを起動します。
 * Postman を起動します。
 * **SSL 証明書の検証**を無効にします。

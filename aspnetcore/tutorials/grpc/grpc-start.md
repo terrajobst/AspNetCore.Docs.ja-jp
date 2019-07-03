@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 06/12/2019
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: 919db3f31310342657c89100a6e25e8293648a9f
-ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
+ms.openlocfilehash: 6aef56ecd61ad71e166c03c12b28b25b931cdd88
+ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/12/2019
-ms.locfileid: "67034809"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67152927"
 ---
 # <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a>チュートリアル: ASP.NET Core で gRPC のクライアントとサーバーを作成する
 
@@ -116,14 +116,15 @@ info: Microsoft.Hosting.Lifetime[0]
 
 * *greet.proto*:*Protos/greet.proto* ファイルは、`Greeter` gRPC を定義し、gRPC サーバー資産を生成するために使用されます。 詳細については、「[gRPC の概要](xref:grpc/index)」を参照してください。
 * *Services* フォルダー:`Greeter` サービスの実装が含まれます。
-* *appSettings.json*:Kestrel で使用されるプロトコルなどの構成データが含まれています。 詳細については、「<xref:fundamentals/configuration/index>」を参照してください。
-* *Program.cs*:gRPC サービスのエントリ ポイントが含まれています。 詳細については、「<xref:fundamentals/host/web-host>」を参照してください。
+* *appSettings.json*:Kestrel で使用されるプロトコルなどの構成データが含まれています。 詳細については、<xref:fundamentals/configuration/index> を参照してください。
+* *Program.cs*:gRPC サービスのエントリ ポイントが含まれています。 詳細については、<xref:fundamentals/host/generic-host> を参照してください。
 * *Startup.cs*:アプリの動作を構成するコードが含まれています。 詳細については、[アプリの Startup](xref:fundamentals/startup)に関するページを参照してください。
 
 ## <a name="create-the-grpc-client-in-a-net-console-app"></a>.NET コンソール アプリで gRPC クライアントを作成する
 
 ## <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
+* Visual Studio の 2 つ目のインスタンスを開きます。
 * **[ファイル]**  >  **[新規作成]**  >  **[プロジェクト]** をメニュー バーから選択します。
 * **[新しいプロジェクトの作成]** ダイアログで、 **[コンソール アプリ (.NET Core)]** を選択します。
 * **[次へ]** を選択します。
@@ -151,7 +152,7 @@ code -r GrpcGreeterClient
 
 ### <a name="add-required-packages"></a>必要なパッケージを追加する
 
-次のパッケージを gRPC クライアント プロジェクトに追加します。
+gRPC クライアント プロジェクトには、次のパッケージが必要です。
 
 * .NET Core のクライアントを含む [Grpc.Net.Client](https://www.nuget.org/packages/Grpc.Net.Client)。
 * [Google.Protobuf](https://www.nuget.org/packages/Google.Protobuf/)。これに C# の protobuf メッセージ API が含まれています。
@@ -208,7 +209,7 @@ dotnet add GrpcGreeterClient.csproj package Grpc.Tools
 
   # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio) 
 
-  プロジェクトを右クリックして、 **[Edit GrpcGreeterClient.csproj]\(GrpcGreeterClient.csproj の編集\)** を選択します。
+  プロジェクトを右クリックし、 **[プロジェクト ファイルの編集]** を選択します。
 
   # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code) 
 
@@ -220,7 +221,7 @@ dotnet add GrpcGreeterClient.csproj package Grpc.Tools
 
   ---
 
-* GrpcGreeterClient プロジェクト ファイルの `<Protobuf>` 項目グループに **greet.proto** ファイルを追加します。
+* **greet.proto** ファイルを参照する `<Protobuf>` 要素で項目グループを追加します。
 
   ```XML
   <ItemGroup>
@@ -228,11 +229,9 @@ dotnet add GrpcGreeterClient.csproj package Grpc.Tools
   </ItemGroup>
   ```
 
-クライアント プロジェクトをビルドし、C# クライアント アセットの生成をトリガーします。
-
 ### <a name="create-the-greeter-client"></a>Greeter クライアントを作成する
 
-プロジェクトをビルドして **Greeter** 名前空間内に型を作成します。 `Greeter` 型は、ビルド プロセスによって自動的に生成されます。
+プロジェクトをビルドして、`GrpcGreeter` 名前空間内に型を作成します。 `GrpcGreeter` 型は、ビルド プロセスによって自動的に生成されます。
 
 次のコードを使用して、gRPC クライアントの *Program.cs* ファイルを更新します。
 
