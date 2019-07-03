@@ -4,14 +4,14 @@ author: rick-anderson
 description: ASP.NET Core のルーティングでどのように要求 URI をエンドポイント セレクターにマッピングし、受信要求をエンドポイントに配布するかについて説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/13/2019
+ms.date: 06/17/2019
 uid: fundamentals/routing
-ms.openlocfilehash: 2a7a942f43de94326e84977f09dc9a2e24dd00f0
-ms.sourcegitcommit: 5dd2ce9709c9e41142771e652d1a4bd0b5248cec
+ms.openlocfilehash: 71cb7215651a263e588531c9be644326c0b6eda6
+ms.sourcegitcommit: 28a2874765cefe9eaa068dceb989a978ba2096aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/05/2019
-ms.locfileid: "66692584"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67167089"
 ---
 # <a name="routing-in-aspnet-core"></a>ASP.NET Core のルーティング
 
@@ -140,6 +140,21 @@ URL 生成サポートを使用すると、アプリを相互にリンクする 
 ::: moniker range=">= aspnetcore-2.2"
 
 URL 一致というプロセスでは、ルーティングによって、受信要求が*エンドポイント*に配布されます。 このプロセスは URL パスのデータに基づきますが、要求内のあらゆるデータを考慮することもできます。 アプリの規模を大きくしたり、より複雑にしたりするとき、要求を個別のハンドラーに配布する機能が鍵となります。
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+
+ルーティング ミドルウェアの実行時には、エンドポイント (`Endpoint`) が設定されて、<xref:Microsoft.AspNetCore.Http.HttpContext> 上の機能に値がルーティングされます。 現在の要求の場合:
+
+* `HttpContext.GetEndpoint` を呼び出すと、エンドポイントが取得されます。
+* `HttpRequest.RouteValues` では、ルート値のコレクションが取得されます。
+
+ルーティング ミドルウェアの後で実行されたミドルウェアでは、エンドポイントを参照し、アクションを実行することができます。 たとえば、認可ミドルウェアでは、エンドポイントのメタデータ コレクションに対し、認可ポリシーを問い合わせることができます。 要求処理パイプライン内のすべてのミドルウェアが実行された後、選択したエンドポイントのデリゲートが呼び出されます。
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-2.2"
 
 エンドポイント ルーティングのルーティング システムでは、配布に関するすべての決定が行われます。 ミドルウェアでは選択されたエンドポイントに基づいてポリシーが適用されるため、セキュリティ ポリシーの適用や配布に影響する可能性のある決定は、ルーティング システム内で行うことが重要です。
 

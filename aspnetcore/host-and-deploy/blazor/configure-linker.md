@@ -1,20 +1,20 @@
 ---
-title: Blazor 用のリンカーを構成する
+title: ASP.NET Core Blazor 用のリンカーを構成する
 author: guardrex
 description: Blazor アプリを構築するときに、中間言語 (IL) リンカーを制御する方法について説明します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/24/2019
+ms.date: 06/14/2019
 uid: host-and-deploy/blazor/configure-linker
-ms.openlocfilehash: 00676d4311f8955c3c1ef38d31219d62ea9f4a25
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: bdddae16885f45df2c10e4d98b1c33eb11dfdf24
+ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64887777"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67153217"
 ---
-# <a name="configure-the-linker-for-blazor"></a>Blazor 用のリンカーを構成する
+# <a name="configure-the-linker-for-aspnet-core-blazor"></a>ASP.NET Core Blazor 用のリンカーを構成する
 
 作成者: [Luke Latham](https://github.com/guardrex)
 

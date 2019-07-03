@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/28/2019
 uid: aspnetcore-2.0
-ms.openlocfilehash: 5cf7b9aa7ccf86f1a89e6145cfc185c5ef803e66
-ms.sourcegitcommit: 4d05e30567279072f1b070618afe58ae1bcefd5a
+ms.openlocfilehash: dac5a48042a71774cb884e30a166be68bee69691
+ms.sourcegitcommit: f5762967df3be8b8c868229e679301f2f7954679
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66376407"
+ms.lasthandoff: 06/13/2019
+ms.locfileid: "67048112"
 ---
 # <a name="whats-new-in-aspnet-core-20"></a>ASP.NET Core 2.0 の新機能
 
@@ -60,7 +60,7 @@ ASP.NET Core 2.0 には、既定で依存性の注入 (DI) システムにログ
 
 新しい認証モデルにより、DI を使用するアプリケーションでの認証の構成が容易になりました。
 
-[Azure AD B2C] を使用し (https://azure.microsoft.com/services/active-directory-b2c/))、Web アプリと Web API 用に認証を構成できる、新しいテンプレートが利用できるようになりました。
+新しいテンプレートを使うと、[Azure AD B2C](https://azure.microsoft.com/services/active-directory-b2c/) を使って Web アプリと Web API に対する認証を構成できます。
 
 計画されているドキュメントの状態については、「[GitHub issue](https://github.com/aspnet/AspNetCore.Docs/issues/3054)」 (GitHub の問題) を参照してください。
 
@@ -68,7 +68,7 @@ ASP.NET Core 2.0 には、既定で依存性の注入 (DI) システムにログ
 
 ASP.NET Core 2.0 で ID を使用し、簡単に安全な Web API を作成できるようになりました。 [Microsoft 認証ライブラリ (MSAL)](https://www.nuget.org/packages/Microsoft.Identity.Client) を使用して Web API にアクセスするアクセス トークンを取得することができます。
 
-2.0 での認証の変更の詳細については、次のリソースを参照してください。
+2\.0 での認証の変更の詳細については、次のリソースを参照してください。
 
 * [ASP.NET Core でのアカウントの確認とパスワードの回復](xref:security/authentication/accconfirm)
 * [ASP.NET Core の認証アプリでの QR コードの生成の有効化](xref:security/authentication/identity-enable-qrcodes)
@@ -138,7 +138,7 @@ Razor ビュー エンジンが更新され、新しい Roslyn コンパイラ�
 
 C# 7.1 機能の状態については、「[Roslyn GitHub repository](https://github.com/dotnet/roslyn/blob/master/docs/Language%20Feature%20Status.md)」 (Roslyn GitHub リポジトリ) を参照してください。
 
-## <a name="other-documentation-updates-for-20"></a>2.0 のその他のドキュメントの更新
+## <a name="other-documentation-updates-for-20"></a>2\.0 のその他のドキュメントの更新
 
 * [ASP.NET Core アプリ開発のための Visual Studio によるプロファイルの発行](xref:host-and-deploy/visual-studio-publish-profiles)
 * [キーの管理](xref:security/data-protection/implementation/key-management)
