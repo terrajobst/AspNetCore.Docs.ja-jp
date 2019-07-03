@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.date: 04/06/2019
 uid: razor-pages/index
-ms.openlocfilehash: 93796fa1edfa316790794d3775342147ea28ae2e
-ms.sourcegitcommit: 5dd2ce9709c9e41142771e652d1a4bd0b5248cec
+ms.openlocfilehash: 419355d670536fef1a38fbcb8ce1fd880c0e9b0d
+ms.sourcegitcommit: d6e51c60439f03a8992bda70cc982ddb15d3f100
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/05/2019
-ms.locfileid: "66692543"
+ms.lasthandoff: 07/03/2019
+ms.locfileid: "67555730"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>ASP.NET Core での Razor ページの概要
 
@@ -23,7 +23,21 @@ Razor ページは、ページ コーディングに重点を置いたシナリ�
 
 このドキュメントでは、Razor ページの概要について説明します。 手順を追って説明するチュートリアルではありません。 セクションの一部を理解できない場合は、「[Razor ページの概要](xref:tutorials/razor-pages/razor-pages-start)」を参照してください。 ASP.NET Core の概要については、「[ASP.NET Core の概要](xref:index)」を参照してください。
 
-[!INCLUDE[](~/includes/net-core-prereqs-all-2.2.md)]
+## <a name="prerequisites"></a>必須コンポーネント
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+[!INCLUDE[](~/includes/net-core-prereqs-vs2019-2.2.md)]
+
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+
+[!INCLUDE[](~/includes/net-core-prereqs-vsc-2.2.md)]
+
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+
+[!INCLUDE[](~/includes/net-core-prereqs-mac-2.2.md)]
+
+---
 
 <a name="rpvs17"></a>
 
@@ -96,7 +110,7 @@ URL パスのページへの関連付けは、ファイル システム内のペ
 | */Pages/Store/Contact.cshtml* | `/Store/Contact` |
 | */Pages/Store/Index.cshtml* | `/Store` または `/Store/Index` |
 
-メモ:
+注:
 
 * 既定では、ランタイムが *Pages* フォルダー内で Razor ページ ファイルを検索します。
 * `Index` は、URL にページが含まれない場合の既定のページになります。
@@ -171,7 +185,7 @@ db コンテキスト:
 
 [!code-cshtml[](index/sample/RazorPagesContacts/Pages/Index.cshtml?range=21)]
 
-[アンカー タグ ヘルパー](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)は `asp-route-{value}` 属性を使用して編集ページへのリンクを生成しました。 リンクには、連絡先 ID とともにルート データが含まれています。 たとえば、`http://localhost:5000/Edit/1` のようにします。 `asp-area` 属性を使って区分を指定します。 詳細については、「<xref:mvc/controllers/areas>」を参照してください。
+[アンカー タグ ヘルパー](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)は `asp-route-{value}` 属性を使用して編集ページへのリンクを生成しました。 リンクには、連絡先 ID とともにルート データが含まれています。 たとえば、「 `http://localhost:5000/Edit/1` 」のように入力します。 `asp-area` 属性を使って区分を指定します。 詳細については、<xref:mvc/controllers/areas> を参照してください。
 
 *Pages/Edit.cshtml* ファイル:
 
@@ -377,7 +391,7 @@ Razor ページからのビュー検索には、*Pages* フォルダーが含ま
     * *Edit.cshtml*
     * *Index.cshtml*
 
-成功すると、*Pages/Customers/Create.cshtml* ページと *Pages/Customers/Edit.cshtml* ページが *Pages/Index.cshtml* にリダイレクトされます。 文字列 `/Index` は前のページにアクセスするための URI の一部です。 文字列 `/Index` は、*Pages/Index.cshtml* ページへの URI を生成するために使用できます。 次に例を示します。
+成功すると、*Pages/Customers/Create.cshtml* ページと *Pages/Customers/Edit.cshtml* ページが *Pages/Index.cshtml* にリダイレクトされます。 文字列 `/Index` は前のページにアクセスするための URI の一部です。 文字列 `/Index` は、*Pages/Index.cshtml* ページへの URI を生成するために使用できます。 例:
 
 * `Url.Page("/Index", ...)`
 * `<a asp-page="/Index">My Index Page</a>`
@@ -406,7 +420,7 @@ Razor ページからのビュー検索には、*Pages* フォルダーが含ま
 RedirectToPage("/Index", new { area = "Services" });
 ```
 
-詳細については、「<xref:mvc/controllers/areas>」を参照してください。
+詳細については、<xref:mvc/controllers/areas> を参照してください。
 
 ## <a name="viewdata-attribute"></a>ViewData 属性
 
@@ -551,7 +565,7 @@ services.AddMvc()
     .WithRazorPagesRoot("/path/to/razor/pages");
 ```
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * <xref:index>
 * <xref:mvc/views/razor>
