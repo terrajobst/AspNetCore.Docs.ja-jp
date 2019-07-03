@@ -2,15 +2,16 @@
 title: ASP.NET Core での Azure Active Directory B2C でのクラウド認証
 author: camsoper
 description: ASP.NET Core での Azure Active Directory B2C の認証を設定する方法を説明します。
-ms.date: 02/27/2019
+ms.author: casoper
 ms.custom: mvc
+ms.date: 02/27/2019
 uid: security/authentication/azure-ad-b2c
-ms.openlocfilehash: 46654e38c780cfc9c44e7ba479419320ee684b76
-ms.sourcegitcommit: 6afe57fb8d9055f88fedb92b16470398c4b9b24a
+ms.openlocfilehash: 3cb878aff7bf0c6c8efe7f3f0c0f06c74acef477
+ms.sourcegitcommit: 0b9e767a09beaaaa4301915cdda9ef69daaf3ff2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/14/2019
-ms.locfileid: "65610689"
+ms.lasthandoff: 07/03/2019
+ms.locfileid: "67538727"
 ---
 # <a name="cloud-authentication-with-azure-active-directory-b2c-in-aspnet-core"></a>ASP.NET Core での Azure Active Directory B2C でのクラウド認証
 

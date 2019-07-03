@@ -5,14 +5,14 @@ description: ASP.NET Core アプリ内に .NET を使った対話型のクライ
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc, seoapril2019
-ms.date: 05/01/2019
+ms.date: 07/01/2019
 uid: blazor/index
-ms.openlocfilehash: d58115b17536cad0b3927e6d32b7dbe8db8e4b0f
-ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
+ms.openlocfilehash: dbfadf9481cf16279e2a491bc04f51058e1d8a9c
+ms.sourcegitcommit: eb3e51d58dd713eefc242148f45bd9486be3a78a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/12/2019
-ms.locfileid: "67034424"
+ms.lasthandoff: 07/02/2019
+ms.locfileid: "67500424"
 ---
 # <a name="introduction-to-blazor"></a>Blazor の概要
 
@@ -37,11 +37,16 @@ Blazor は、.NET を使って対話型のクライアント側 Web UI を構築
 
 ## <a name="components"></a>コンポーネント
 
-Blazor アプリは、"*コンポーネント*" に基づいています。 Blazor のコンポーネントとは、ページ、ダイアログ、データ エントリ フォームなどの UI の要素です。 コンポーネントではユーザー イベントが処理され、柔軟な UI のレンダリング ロジックが定義されます。 コンポーネントは、入れ子にしたり再利用したりできます。
+Blazor アプリは、"*コンポーネント*" に基づいています。 Blazor のコンポーネントとは、ページ、ダイアログ、データ エントリ フォームなどの UI の要素です。
 
-コンポーネントは .NET アセンブリに組み込まれた .NET クラスであり、[NuGet パッケージ](/nuget/what-is-nuget)として共有および配布できます。 コンポーネント クラスは通常、Razor マークアップ ページの形式で、 *.razor* ファイル拡張子で記述されます。
+コンポーネントは、.NET アセンブリに組み込まれている次のような .NET クラスです。
 
-Blazor 内のコンポーネントは、"*Razor コンポーネント*" と呼ばれることもあります。 [Razor](xref:mvc/views/razor) とは、開発者の生産性のために設計された C# コードに HTML マークアップを結合するための構文です。 Razor を使用すると、[IntelliSense](/visualstudio/ide/using-intellisense) サポートを利用して、同一ファイル内で HTML マークアップと C# を切り替えることができます。 また、Razor Pages と MVC でも、Razor を使用します。 要求/応答モデルを中心に構築される Razor Pages や MVC とは異なり、コンポーネントは特にクライアント側の UI ロジックとコンポジションに対して使用されます。
+* 柔軟な UI のレンダリング ロジックを定義する。
+* ユーザー イベントを処理する。
+* 入れ子にしたり再利用したりできる。
+* [Razor クラス ライブラリ](xref:razor-pages/ui-class)または [NuGet パッケージ](/nuget/what-is-nuget)として共有および配布できる。
+
+コンポーネント クラスは通常、[Razor](xref:mvc/views/razor) マークアップ ページの形式で、 *.razor* ファイル拡張子で記述されます。 Blazor のコンポーネントは、正式には *Razor components* と呼ばれます。 Razor とは、開発者の生産性のために設計された、C# コードに HTML マークアップを結合するための構文です。 Razor を使用すると、[IntelliSense](/visualstudio/ide/using-intellisense) サポートを利用して、同一ファイル内で HTML マークアップと C# を切り替えることができます。 また、Razor Pages と MVC でも、Razor を使用します。 要求/応答モデルを中心に構築される Razor Pages や MVC とは異なり、コンポーネントは特にクライアント側の UI ロジックとコンポジションに対して使用されます。
 
 次の Razor マークアップは、別のコンポーネント内で入れ子にできるコンポーネント (*Dialog.razor*) を示しています。
 
@@ -63,14 +68,18 @@ Blazor 内のコンポーネントは、"*Razor コンポーネント*" と呼�
 
     private void OnYes()
     {
-        Console.WriteLine("Write to the console in C#!");
+        Console.WriteLine("Write to the console in C#! 'Yes' button was selected.");
     }
 }
 ```
 
 ダイアログの本文の内容 (`ChildContent`) とタイトル (`Title`) は、UI にこのコンポーネントを使用するコンポーネントによって提供されます。 `OnYes` は、ボタンの `onclick` イベントによってトリガーされる C# メソッドです。
 
-Blazor では、UI コンポジションにとって自然な HTML タグを使用します。 HTML 要素によってコンポーネントを指定し、タグの属性によってコンポーネントのプロパティに値を渡します。 `ChildContent` および `Title` は、Dialog コンポーネント (*Index.razor*) を使用するコンポーネントによって設定されます。
+Blazor では、UI コンポジションにとって自然な HTML タグを使用します。 HTML 要素によってコンポーネントを指定し、タグの属性によってコンポーネントのプロパティに値を渡します。
+
+次の例では、`Index` コンポーネントで `Dialog` コンポーネントが使われています。 `ChildContent` と `Title` は、属性と `<Dialog>` 要素の内容によって設定されています。
+
+*Index.razor*:
 
 ```cshtml
 @page "/"
@@ -90,15 +99,15 @@ Welcome to your new app.
 
 このコンポーネントがアプリ内で使用されると、[Visual Studio](/visualstudio/ide/using-intellisense) および [Visual Studio Code](https://code.visualstudio.com/docs/editor/intellisense) では IntelliSense によって、構文およびパラメーター補完を利用して、開発を迅速化できます。
 
-コンポーネントはレンダリングされると、柔軟かつ効率的な方法で UI を更新するために使われる、"*レンダリング ツリー*" と呼ばれるブラウザー DOM のメモリ内表現になります。
+コンポーネントはレンダリングされると、"*レンダリング ツリー*" と呼ばれる、ブラウザーのドキュメント オブジェクト モデル (DOM) のメモリ内表現になります。これは、柔軟かつ効率的な方法で UI を更新するために使われます。
 
 ## <a name="blazor-client-side"></a>クライアント側 Blazor
 
 クライアント側 Blazor は、.NET を使って対話型のクライアント側 Web アプリを構築するための、単一ページ アプリのフレームワークです。 クライアント側 Blazor は、プラグインやコードのトランスパイルを伴わずにオープン Web の標準を使用して、モバイル ブラウザーなど、最新のすべての Web ブラウザー上で機能します。
 
-[WebAssembly](http://webassembly.org) (略称 *wasm*) によって、Web ブラウザー内で .NET コードを実行することが可能になります。 WebAssembly はオープンな Web 標準であり、プラグインを使わずに Web ブラウザー内でサポートされます。 WebAssembly は、ダウンロードを高速化し実行速度を最大限に高めるために最適化されたコンパクトなバイトコード形式です。
+[WebAssembly](http://webassembly.org) (略称 *wasm*) によって、Web ブラウザー内で .NET コードを実行することが可能になります。 WebAssembly は、ダウンロードを高速化し実行速度を最大限に高めるために最適化されたコンパクトなバイトコード形式です。 WebAssembly はオープンな Web 標準であり、プラグインを使わずに Web ブラウザー内でサポートされます。
 
-WebAssembly コードを使用すると、JavaScript を介してブラウザーの全機能にアクセスでき、"*JavaScript の相互運用性*" (または、"*JavaScript 相互運用*") と呼ばれています。 ブラウザー内で WebAssembly を介して実行される .NET コードは、JavaScript と同じ信頼済みのサンドボック内で実行され、クライアント コンピューター上でアプリが悪意のアクションを実行する機会を事実上排除します。
+WebAssembly コードを使用すると、JavaScript を介してブラウザーの全機能にアクセスでき、"*JavaScript の相互運用性*" (または、"*JavaScript 相互運用*") と呼ばれています。 ブラウザーの WebAssembly 経由で実行される .NET コードは、ブラウザーの JavaScript サンドボックス内で実行されます。その際、クライアント コンピューター上での悪意のある操作に対して、サンドボックスに備わった保護が適用されます。
 
 ![クライアント側 Blazor は WebAssembly を使用してブラウザーで .NET コードを実行します。](index/_static/blazor-client-side.png)
 
@@ -106,15 +115,13 @@ WebAssembly コードを使用すると、JavaScript を介してブラウザー
 
 * C# コード ファイルと Razor ファイルが .NET アセンブリにコンパイルされます。
 * そのアセンブリと .NET ランタイムがブラウザーにダウンロードされます。
-* クライアント側 Blazor により .NET ランタイムがブートストラップされ、アプリのアセンブリを読み込むようにそのランタイムが構成されます。 クライアント側 Blazor ランタイムでは JavaScript 相互運用を使用して、ドキュメント オブジェクト モデル (DOM) 操作とブラウザー API の呼び出しを処理します。
+* クライアント側 Blazor により .NET ランタイムがブートストラップされ、アプリのアセンブリを読み込むようにそのランタイムが構成されます。 クライアント側 Blazor ランタイムでは、JavaScript 相互運用を使って DOM 操作とブラウザー API の呼び出しが処理されます。
 
-公開されているアプリのサイズである "*ペイロードのサイズ*" は、アプリの使用性に関する重要なパフォーマンス要因になります。 大規模なアプリでは、ブラウザーへのダウンロードに比較的長い時間がかかり、ユーザー エクスペリエンスが低下します。 クライアント側 Blazor では、ダウンロード時間を短縮するためにペイロードのサイズが最適化されます。
+公開されているアプリのサイズである "*ペイロードのサイズ*" は、アプリの使用性に関する重要なパフォーマンス要因になります。 大規模なアプリは、ブラウザーへのダウンロードに比較的長い時間がかかり、ユーザー エクスペリエンスが損なわれます。 クライアント側 Blazor では、ダウンロード時間を短縮するためにペイロードのサイズが最適化されます。
 
 * アプリが[中間言語 (IL) リンカー](xref:host-and-deploy/blazor/configure-linker)によって公開される場合、アプリから未使用コードが除去されます。
 * HTTP 応答が圧縮されます。
 * .NET ランタイムとアセンブリがブラウザーにキャッシュされます。
-
-ホスティング モデルの選択に関する詳細とガイダンスについては、<xref:blazor/hosting-models> をご覧ください。
 
 ## <a name="blazor-server-side"></a>サーバー側 Blazor
 
@@ -126,21 +133,20 @@ Blazor では、UI の更新プログラムを適用する方法からコンポ�
 
 ![サーバー側 Blazor では、サーバー上で .NET コードが実行され、SignalR 接続を介してクライアント上のドキュメント オブジェクト モデルとのやりとりが行われます](index/_static/blazor-server-side.png)
 
-ホスティング モデルの選択に関する詳細とガイダンスについては、<xref:blazor/hosting-models> をご覧ください。
-
 ## <a name="javascript-interop"></a>JavaScript 相互運用
 
-サード パーティ製の JavaScript ライブラリおよびブラウザーの API を必要とするアプリのために、コンポーネントは JavaScript と相互運用します。 コンポーネントでは、JavaScript で使用できるライブラリまたは API はいずれも使用することができます。 C# コードによる JavaScript コードの呼び出し、および JavaScript コードによる C# コードの呼び出しを行うことができます。 詳細については、「<xref:blazor/javascript-interop>」を参照してください。
+サード パーティ製の JavaScript ライブラリや、ブラウザーの API へのアクセスを必要とするアプリのために、コンポーネントは JavaScript と相互運用します。 コンポーネントでは、JavaScript で使用できるライブラリまたは API はいずれも使用することができます。 C# コードによる JavaScript コードの呼び出し、および JavaScript コードによる C# コードの呼び出しを行うことができます。 詳細については、<xref:blazor/javascript-interop> を参照してください。
 
 ## <a name="code-sharing-and-net-standard"></a>コードの共有と .NET Standard
 
 Blazor では [.NET Standard 2.0](/dotnet/standard/net-standard) が実装されます。 .NET Standard は、.NET 実装全体で共通した .NET API の標準仕様です。 .NET Standard のクラス ライブラリは、Blazor、.NET Framework、.NET Core、Xamarin、Mono、Unity など、さまざまな .NET プラットフォーム全体で共有することができます。
 
-Web ブラウザー内で適用できない API (たとえば、ファイル システムにアクセスする機能、ソケットを開く機能、スレッド機能など) からは、<xref:System.PlatformNotSupportedException> がスローされます。
+Web ブラウザー内で使用できない API (たとえば、ファイル システムへのアクセス、ソケットを開く機能、スレッドなど) からは、<xref:System.PlatformNotSupportedException> がスローされます。
 
 ## <a name="additional-resources"></a>その他の技術情報
 
 * [WebAssembly](http://webassembly.org/)
+* <xref:blazor/hosting-models>
 * [C# のガイド](/dotnet/csharp/)
 * <xref:mvc/views/razor>
 * [HTML](https://www.w3.org/html/)

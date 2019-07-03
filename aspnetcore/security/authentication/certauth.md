@@ -3,15 +3,15 @@ title: ASP.NET Core での証明書の認証を構成します。
 author: blowdart
 description: ASP.NET Core で IIS と HTTP.sys の証明書認証を構成する方法について説明します。
 monikerRange: '>= aspnetcore-3.0'
-ms.author: barry.dorrans
+ms.author: bdorrans
 ms.date: 06/11/2019
 uid: security/authentication/certauth
-ms.openlocfilehash: 37567128531187bfe7dd6c9f5aa990226e70f35f
-ms.sourcegitcommit: 1bb3f3f1905b4e7d4ca1b314f2ce6ee5dd8be75f
+ms.openlocfilehash: 8609c58265340da1d618135795915d6c49e750a3
+ms.sourcegitcommit: 0b9e767a09beaaaa4301915cdda9ef69daaf3ff2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/11/2019
-ms.locfileid: "66837539"
+ms.lasthandoff: 07/03/2019
+ms.locfileid: "67538718"
 ---
 # <a name="overview"></a>概要
 
@@ -89,7 +89,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 * `OnAuthenticationFailed` &ndash; 例外が発生した認証時に、対応することができる場合に呼び出されます。
 * `OnCertificateValidated` &ndash; 証明書が検証される検証に合格し、既定のプリンシパルが作成された後に呼び出されます。 このイベントを使用すると、独自の検証を実行し、補強またはプリンシパルを置換できます。 例が含まれます。
   * サービスに証明書が既知のかどうかを決定します。
-  * 独自のプリンシパルを作成します。 次の例を検討してください`Startup.ConfigureServices`:。
+  * 独自のプリンシパルを作成します。 `Startup.ConfigureServices` での次の例を検討してください。
 
 ```csharp
 services.AddAuthentication(
@@ -125,7 +125,7 @@ services.AddAuthentication(
 
 受信証明書は、追加の検証を満たしていない場合は、呼び出す`context.Fail("failure reason")`エラー理由を使用します。
 
-実際の機能は、おそらくたいデータベースやその他のユーザー ストアに接続する依存関係の挿入に登録されているサービスを呼び出します。 デリゲートに渡されたコンテキストを使用して、サービスにアクセスします。 次の例を検討してください`Startup.ConfigureServices`:。
+実際の機能は、おそらくたいデータベースやその他のユーザー ストアに接続する依存関係の挿入に登録されているサービスを呼び出します。 デリゲートに渡されたコンテキストを使用して、サービスにアクセスします。 `Startup.ConfigureServices` での次の例を検討してください。
 
 ```csharp
 services.AddAuthentication(
