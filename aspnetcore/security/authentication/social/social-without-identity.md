@@ -5,12 +5,12 @@ description: Facebook、Google、Twitter、ASP.NET Core Identity なしなどの
 ms.author: riande
 ms.date: 07/04/2019
 uid: security/authentication/social/social-without-identity
-ms.openlocfilehash: e67da513fef1ce453110c465b08e9c7965e71df5
-ms.sourcegitcommit: d6e51c60439f03a8992bda70cc982ddb15d3f100
+ms.openlocfilehash: 1e7124e8b07c0faf2d005ec3ef55c0414a697d64
+ms.sourcegitcommit: f6e6730872a7d6f039f97d1df762f0d0bd5e34cf
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/03/2019
-ms.locfileid: "67557651"
+ms.lasthandoff: 07/04/2019
+ms.locfileid: "67561569"
 ---
 # <a name="use-social-sign-in-provider-authentication-without-aspnet-core-identity"></a>ASP.NET Core Identity なしのソーシャル サインイン プロバイダー認証を使用します。
 
@@ -47,7 +47,7 @@ ms.locfileid: "67557651"
 
 認証スキームと cookie 認証の詳細については、次を参照してください。<xref:security/authentication/cookie>します。
 
-## <a name="applying-basic-authorization"></a>基本認証を適用します。
+## <a name="applying-authorization"></a>承認を適用します。
 
 適用することで、アプリの認証構成をテスト、`AuthorizeAttribute`属性をコント ローラー、アクション、またはページ。 次のコードへのアクセスを制限する、*プライバシー*に対して認証されたユーザー ページ。
 

@@ -6,12 +6,12 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/30/2018
 uid: tutorials/signalr
-ms.openlocfilehash: 9a77460cfd8201ca357aad3415725d4b9a30b187
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 9a4296550a17ac2c348f2406e9f5b39877b02b59
+ms.sourcegitcommit: d6e51c60439f03a8992bda70cc982ddb15d3f100
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64885047"
+ms.lasthandoff: 07/03/2019
+ms.locfileid: "67555927"
 ---
 # <a name="tutorial-get-started-with-aspnet-core-signalr"></a>チュートリアル: ASP.NET Core SignalR の概要
 
@@ -30,21 +30,35 @@ ms.locfileid: "64885047"
 
 [サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/signalr/sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
-[!INCLUDE [|Prerequisites](~/includes/net-core-prereqs-all-2.2.md)]
+## <a name="prerequisites"></a>必須コンポーネント
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+[!INCLUDE[](~/includes/net-core-prereqs-vs2017-2.2.md)]
+
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+
+[!INCLUDE[](~/includes/net-core-prereqs-vsc-2.2.md)]
+
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+
+[!INCLUDE[](~/includes/net-core-prereqs-mac-2.2.md)]
+
+---
 
 ## <a name="create-a-web-project"></a>Web プロジェクトを作成する
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio/)
 
-* メニューから、**[ファイル]、[新規プロジェクト]** の順に選択します。
+* メニューから、 **[ファイル]、[新規プロジェクト]** の順に選択します。
 
-* **[新しいプロジェクト]** ダイアログで、**[インストール]、[Visual C#]、[Web]、[ASP.NET Core Web アプリケーション]** の順に選択します。 プロジェクトに "*SignalRChat*" という名前を付けます。
+* **[新しいプロジェクト]** ダイアログで、 **[インストール]、[Visual C#]、[Web]、[ASP.NET Core Web アプリケーション]** の順に選択します。 プロジェクトに "*SignalRChat*" という名前を付けます。
 
   ![Visual Studio の [新しいプロジェクト] ダイアログ ボックス](signalr/_static/signalr-new-project-dialog.png)
 
 * **[Web アプリケーション]** を選択して、Razor Pages を使用するプロジェクトを作成します。
 
-* **.NET Core** のターゲット フレームワークを選択し、**ASP.NET Core 2.2** を選択して、**[OK]** をクリックします。
+* **.NET Core** のターゲット フレームワークを選択し、**ASP.NET Core 2.2** を選択して、 **[OK]** をクリックします。
 
   ![Visual Studio の [新しいプロジェクト] ダイアログ ボックス](signalr/_static/signalr-new-project-choose-type.png)
 
@@ -61,13 +75,13 @@ ms.locfileid: "64885047"
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* メニューから、**[ファイル]、[新しいソリューション]** の順に選択します。
+* メニューから、 **[ファイル]、[新しいソリューション]** の順に選択します。
 
-* **[.NET Core]、[アプリ]、[ASP.NET Core Web アプリ]** の順に選択します (**[ASP.NET Core Web アプリ (MVC)]** を選択しないでください)。
+* **[.NET Core]、[アプリ]、[ASP.NET Core Web アプリ]** の順に選択します ( **[ASP.NET Core Web アプリ (MVC)]** を選択しないでください)。
 
 * **[次へ]** を選択します。
 
-* プロジェクトに *SignalRChat* という名前を付けて、**[作成]** を選択します。
+* プロジェクトに *SignalRChat* という名前を付けて、 **[作成]** を選択します。
 
 ---
 
@@ -77,9 +91,9 @@ SignalR サーバー ライブラリは、`Microsoft.AspNetCore.App` メタパ�
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio/)
 
-* **ソリューション エクスプローラー**で、プロジェクトを右クリックし、**[追加]** > **[クライアント側のライブラリ]** を選択します。
+* **ソリューション エクスプローラー**で、プロジェクトを右クリックし、 **[追加]**  >  **[クライアント側のライブラリ]** を選択します。
 
-* **[Add Client-Side Library]\(クライアント側のライブラリの追加\)** ダイアログで、**[プロバイダー]** に対して **[unpkg]** を選択します。
+* **[Add Client-Side Library]\(クライアント側のライブラリの追加\)** ダイアログで、 **[プロバイダー]** に対して **[unpkg]** を選択します。
 
 * **[ライブラリ]** に対して「`@aspnet/signalr@1`」を入力し、プレビューでない最新のバージョンを選択します。
 
@@ -87,7 +101,7 @@ SignalR サーバー ライブラリは、`Microsoft.AspNetCore.App` メタパ�
 
 * **[Choose specific files]\(特定のファイルの選択\)** を選択して *dist/browser* フォルダーを展開し、*signalr.js* と *signalr.min.js* を選択します。
 
-* **[ターゲットの場所]** を *wwwroot/lib/signalr/* に設定して、**[インストール]** を選択します。
+* **[ターゲットの場所]** を *wwwroot/lib/signalr/* に設定して、 **[インストール]** を選択します。
 
   ![クライアント側のライブラリの追加ダイアログ - ファイルと保存先の選択](signalr/_static/libman2.png)
 
@@ -213,13 +227,13 @@ SignalR 要求が SignalR に渡されるように SignalR サーバーを構成
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* メニューから、**[実行]、[デバッグなしで開始]** の順に選択します。
+* メニューから、 **[実行]、[デバッグなしで開始]** の順に選択します。
 
 ---
 
 * アドレス バーから URL をコピーし、別のブラウザー インスタンスまたはタブを開き、アドレス バーに URL を貼り付けます。
 
-* いずれかのブラウザーを選択し、名前とメッセージを入力し、**[Send Message]\(メッセージの送信\)** ボタンを選択します。
+* いずれかのブラウザーを選択し、名前とメッセージを入力し、 **[Send Message]\(メッセージの送信\)** ボタンを選択します。
 
   次の瞬間、両方のページに名前とメッセージが表示されます。
 

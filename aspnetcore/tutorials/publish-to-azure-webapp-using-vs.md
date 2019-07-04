@@ -7,10 +7,10 @@ ms.custom: mvc
 ms.date: 12/06/2018
 uid: tutorials/publish-to-azure-webapp-using-vs
 ms.openlocfilehash: c0251032d83349d4d3925d1ec594c9230ed6ad2d
-ms.sourcegitcommit: a1283d486ac1dcedfc7ea302e1cc882833e2c515
+ms.sourcegitcommit: 6d9cf728465cdb0de1037633a8b7df9a8989cccb
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/18/2019
+ms.lasthandoff: 07/01/2019
 ms.locfileid: "67207645"
 ---
 # <a name="publish-an-aspnet-core-app-to-azure-with-visual-studio"></a>Visual Studio を使用して Azure に ASP.NET Core アプリを発行する
@@ -29,14 +29,14 @@ App Service の配置に関する問題を解決するには、「<xref:host-and
 
 ## <a name="create-a-web-app"></a>Web アプリの作成
 
-Visual Studio のスタート ページで、**[ファイル]、[新規作成]、[プロジェクト]** の順に選択します。
+Visual Studio のスタート ページで、 **[ファイル]、[新規作成]、[プロジェクト]** の順に選択します。
 
 ![[ファイル] メニュー](publish-to-azure-webapp-using-vs/_static/file_new_project.png)
 
 **[新しいプロジェクト]** ダイアログで次のように設定します。
 
-* 左側のウィンドウで、**[.NET Core]** を選択します。
-* 中央のウィンドウで、**[ASP.NET Core Web Application]** を選択します。
+* 左側のウィンドウで、 **[.NET Core]** を選択します。
+* 中央のウィンドウで、 **[ASP.NET Core Web Application]** を選択します。
 * **[OK]** を選択します。
 
 ![[新しいプロジェクト] ダイアログ](publish-to-azure-webapp-using-vs/_static/new_prj.png)
@@ -79,7 +79,7 @@ Visual Studio によってソリューションが作成されます。
 
 ## <a name="deploy-the-app-to-azure"></a>Azure にアプリを配置する
 
-ソリューション エクスプローラーでプロジェクトを右クリックし、**[発行]** を選択します。
+ソリューション エクスプローラーでプロジェクトを右クリックし、 **[発行]** を選択します。
 
 ![[発行] リンクが選択された状態でコンテキスト メニューが開きます](publish-to-azure-webapp-using-vs/_static/pub.png)
 
@@ -96,7 +96,7 @@ Visual Studio によってソリューションが作成されます。
 **[App Service の作成]** ダイアログが表示されます。
 
 * ご自分のサブスクリプションを入力します。
-* **[アプリ名]**、**[リソース グループ]**、**[App Service プラン]** の各入力フィールドに値が設定されます。 これらの名前を保持することも、変更することもできます。
+* **[アプリ名]** 、 **[リソース グループ]** 、 **[App Service プラン]** の各入力フィールドに値が設定されます。 これらの名前を保持することも、変更することもできます。
 
 ![[App Service] ダイアログ](publish-to-azure-webapp-using-vs/_static/newrg1.png)
 
@@ -112,7 +112,7 @@ Visual Studio によってソリューションが作成されます。
 
 **[SQL Server の構成]** ダイアログが表示されます。
 
-* 管理者のユーザー名とパスワードを入力し、**[OK]** を選択します。 既定の **[サーバー名]** をそのまま使用できます。 
+* 管理者のユーザー名とパスワードを入力し、 **[OK]** を選択します。 既定の **[サーバー名]** をそのまま使用できます。 
 
 > [!NOTE]
 > 管理者のユーザー名に "admin" は使用できません。
@@ -129,14 +129,14 @@ Visual Studio が **[App Service の作成]** ダイアログに戻ります。
 
 Visual Studio は、Azure で Web アプリと SQL Server を作成します。 このステップには数分かかる場合があります。 作成されるリソースについては、「[追加のリソース](#additional-resources)」を参照してください。
 
-配置が完了したら、**[設定]** を選択します。
+配置が完了したら、 **[設定]** を選択します。
 
 ![[SQL Server の構成] ダイアログ](publish-to-azure-webapp-using-vs/_static/set.png)
 
 **[発行]** ダイアログの **[設定]** ページで次の手順を実行します。
 
-* **[データベース]** を展開し、**[この接続文字列を実行時に使用する]** をオンにします。
-* **[Entity Framework の移行]** を展開し、**[発行時にこの移行を適用する]** をオンにします。
+* **[データベース]** を展開し、 **[この接続文字列を実行時に使用する]** をオンにします。
+* **[Entity Framework の移行]** を展開し、 **[発行時にこの移行を適用する]** をオンにします。
 
 * **[保存]** を選択します。 Visual Studio が **[発行]** ダイアログに戻ります。 
 
@@ -158,7 +158,7 @@ Visual Studio は、Azure で Web アプリと SQL Server を作成します。 
 
     [!code-html[About](publish-to-azure-webapp-using-vs/sample/about.cshtml?highlight=9&range=1-9)]
 
-* プロジェクトを右クリックし、**[発行]** をもう一度選択します。
+* プロジェクトを右クリックし、 **[発行]** をもう一度選択します。
 
 ![[発行] リンクが選択された状態でコンテキスト メニューが開きます](publish-to-azure-webapp-using-vs/_static/pub.png)
 
@@ -174,11 +174,11 @@ Visual Studio は、Azure で Web アプリと SQL Server を作成します。 
 
 ![Azure Portal:サイドバー メニューの [リソース グループ]](publish-to-azure-webapp-using-vs/_static/portalrg.png)
 
-* **[リソース グループ]** ページで、**[削除]** を選択します。
+* **[リソース グループ]** ページで、 **[削除]** を選択します。
 
 ![Azure Portal:[リソース グループ] ページ](publish-to-azure-webapp-using-vs/_static/rgd.png)
 
-* リソース グループ名を入力し、**[削除]** を選択します。 このチュートリアルで作成されたアプリとその他すべてのリソースが Azure から削除されます。
+* リソース グループ名を入力し、 **[削除]** を選択します。 このチュートリアルで作成されたアプリとその他すべてのリソースが Azure から削除されます。
 
 ### <a name="next-steps"></a>次の手順
 

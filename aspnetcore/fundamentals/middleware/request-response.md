@@ -3,16 +3,16 @@ title: ASP.NET Core での要求と応答の操作
 author: jkotalik
 description: ASP.NET Core で要求本文の読み取りと応答本文の書き込みを行う方法について説明します。
 monikerRange: '>= aspnetcore-3.0'
-ms.author: jkotalik
+ms.author: jukotali
 ms.custom: mvc
 ms.date: 02/26/2019
 uid: fundamentals/middleware/request-response
-ms.openlocfilehash: b6e3cd4b79e0c062b271c65cd5ecbdb4ef80c3a1
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 0c321dad256e239b61907980c09d2c088c1407ff
+ms.sourcegitcommit: 0b9e767a09beaaaa4301915cdda9ef69daaf3ff2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65085515"
+ms.lasthandoff: 07/03/2019
+ms.locfileid: "67538574"
 ---
 # <a name="request-and-response-operations-in-aspnet-core"></a>ASP.NET Core での要求と応答の操作
 
@@ -72,11 +72,11 @@ ASP.NET Core 3.0 には、要求と応答の本文に関する 2 つの抽象化
 
 ## <a name="adapters"></a>アダプター
 
-これで、`Body` と `BodyPipe` プロパティの両方を `HttpRequest` と `HttpResponse` に対して使用できるようになりました。`Body` を別のストリームに設定した場合はどうなるでしょうか。 3.0 では、新しいアダプターのセットにより、各種類を別のものに自動的に適応させます。 たとえば、`HttpRequest.Body` を新しいストリームに設定した場合、`HttpRequest.BodyPipe` は自動的に、`HttpRequest.Body` をラップする新しい `PipeReader` に設定されます。 `BodyPipe` プロパティを設定する場合にも同じ動作が適用されます。 `HttpResponse.BodyPipe` を新しい `PipeWriter` に設定した場合、`HttpResponse.Body` は自動的に、`HttpResponse.BodyPipe` をラップする新しいストリームに設定されます。
+これで、`Body` と `BodyPipe` プロパティの両方を `HttpRequest` と `HttpResponse` に対して使用できるようになりました。`Body` を別のストリームに設定した場合はどうなるでしょうか。 3\.0 では、新しいアダプターのセットにより、各種類を別のものに自動的に適応させます。 たとえば、`HttpRequest.Body` を新しいストリームに設定した場合、`HttpRequest.BodyPipe` は自動的に、`HttpRequest.Body` をラップする新しい `PipeReader` に設定されます。 `BodyPipe` プロパティを設定する場合にも同じ動作が適用されます。 `HttpResponse.BodyPipe` を新しい `PipeWriter` に設定した場合、`HttpResponse.Body` は自動的に、`HttpResponse.BodyPipe` をラップする新しいストリームに設定されます。
 
 ## <a name="startasync"></a>StartAsync
 
-`HttpResponse.StartAsync` は 3.0 の新機能です。 これは、ヘッダーが変更不可能であり、また `OnStarting` コールバックを実行することを示すために使います。 3.0-preview3 では、`HttpRequest.BodyPipe` を使う前に `StartAsync` を呼び出す必要がありました。今後のリリースでは、これは推奨事項になる予定です。 サーバーとして Kestrel を使う場合、`PipeReader` を使う前に StartAsync を呼び出すことで、`GetMemory` によって返されるメモリが、外部バッファーではなく Kestrel の内部 <xref:System.IO.Pipelines.Pipe> に属するよう保証できます。
+`HttpResponse.StartAsync` は 3.0 の新機能です。 これは、ヘッダーが変更不可能であり、また `OnStarting` コールバックを実行することを示すために使います。 3\.0-preview3 では、`HttpRequest.BodyPipe` を使う前に `StartAsync` を呼び出す必要がありました。今後のリリースでは、これは推奨事項になる予定です。 サーバーとして Kestrel を使う場合、`PipeReader` を使う前に StartAsync を呼び出すことで、`GetMemory` によって返されるメモリが、外部バッファーではなく Kestrel の内部 <xref:System.IO.Pipelines.Pipe> に属するよう保証できます。
 
 ## <a name="additional-resources"></a>その他の技術情報
 
