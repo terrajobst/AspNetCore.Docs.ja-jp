@@ -22,7 +22,7 @@
       uid: aspnetcore-1.1
 - name: チュートリアル
   items:
-    - name: Web アプリ
+    - name: Web Apps
       items:
         - name: Razor ページ
           displayName: tutorial
@@ -52,7 +52,7 @@
               uid: tutorials/first-mvc-app/index
             - name: 作業開始
               uid: tutorials/first-mvc-app/start-mvc
-            - name: コントローラーの追加
+            - name: コントローラーを追加する
               uid: tutorials/first-mvc-app/adding-controller
             - name: ビューを追加する
               uid: tutorials/first-mvc-app/adding-view
@@ -185,14 +185,14 @@
       uid: fundamentals/logging/index
     - name: ルーティング
       uid: fundamentals/routing
-    - name: エラーの処理
+    - name: エラーを処理する
       uid: fundamentals/error-handling
     - name: HTTP 要求を行う
       displayName: 'httpclient, httpclientfactory'
       uid: fundamentals/http-requests
     - name: 静的ファイル
       uid: fundamentals/static-files
-- name: Web アプリ
+- name: Web Apps
   items:
     - name: Razor ページ
       items:
@@ -236,7 +236,7 @@
               uid: tutorials/first-mvc-app/index
             - name: 作業開始
               uid: tutorials/first-mvc-app/start-mvc
-            - name: コントローラーの追加
+            - name: コントローラーを追加する
               uid: tutorials/first-mvc-app/adding-controller
             - name: ビューを追加する
               uid: tutorials/first-mvc-app/adding-view
@@ -254,11 +254,11 @@
               uid: tutorials/first-mvc-app/validation
             - name: Details メソッドと Delete メソッドの確認
               uid: tutorials/first-mvc-app/details
-        - name: Views
+        - name: ビュー
           uid: mvc/views/overview
         - name: 部分ビュー
           uid: mvc/views/partial
-        - name: Controllers
+        - name: コントローラー
           uid: mvc/controllers/actions
         - name: ルーティング
           uid: mvc/controllers/routing
@@ -274,7 +274,7 @@
       items:
         - name: 概要
           uid: blazor/index
-        - name: サポートされているプラットフォーム
+        - name: サポートされるプラットフォーム
           uid: blazor/supported-platforms
         - name: 作業開始
           uid: blazor/get-started
@@ -314,7 +314,7 @@
               uid: host-and-deploy/blazor/configure-linker
     - name: クライアント側の開発
       items:
-        - name: 単一ページのアプリ
+        - name: シングル ページ アプリ
           items:
             - name: Angular
               uid: spa/angular
@@ -371,13 +371,13 @@
               uid: mvc/views/tag-helpers/builtin-th/environment-tag-helper
             - name: フォーム
               href: 'mvc/views/working-with-forms.md#the-form-tag-helper'
-            - name: イメージ
+            - name: Image
               uid: mvc/views/tag-helpers/builtin-th/image-tag-helper
             - name: 入力
               href: 'mvc/views/working-with-forms.md#the-input-tag-helper'
-            - name: group1
+            - name: Label
               href: 'mvc/views/working-with-forms.md#the-label-tag-helper'
-            - name: Partial
+            - name: 部分的
               uid: mvc/views/tag-helpers/builtin-th/partial-tag-helper
             - name: 選択
               href: 'mvc/views/working-with-forms.md#the-select-tag-helper'
@@ -387,7 +387,7 @@
               href: 'mvc/views/working-with-forms.md#the-validation-message-tag-helper'
             - name: 検証の概要
               href: 'mvc/views/working-with-forms.md#the-validation-summary-tag-helper'
-    - name: 詳細設定
+    - name: 詳細
       items:
         - name: ビュー コンポーネント
           uid: mvc/views/view-components
@@ -427,14 +427,14 @@
       uid: web-api/advanced/custom-formatters
     - name: アナライザー
       uid: web-api/advanced/analyzers
-    - name: 規約
+    - name: 規則
       uid: web-api/advanced/conventions
 - name: リアルタイムのアプリ
   displayName: signalr
   items:
     - name: SignalR の概要
       uid: signalr/introduction
-    - name: サポートされているプラットフォーム
+    - name: サポートされるプラットフォーム
       uid: signalr/supported-platforms
       displayName: signalr
     - name: チュートリアル
@@ -455,7 +455,7 @@
         - name: ハブの外部から送信する
           uid: signalr/hubcontext
           displayName: signalr
-        - name: ユーザーおよびグループ
+        - name: ユーザーとグループ
           uid: signalr/groups
           displayName: signalr
         - name: API の設計に関する考慮事項
@@ -499,16 +499,16 @@
     - name: 構成
       uid: signalr/configuration
       displayName: signalr
-    - name: 認証と承認
+    - name: 認証と権限承認
       uid: signalr/authn-and-authz
       displayName: signalr
-    - name: セキュリティの考慮事項
+    - name: セキュリティに関する考慮事項
       uid: signalr/security
       displayName: signalr
     - name: MessagePack ハブ プロトコル
       uid: signalr/messagepackhubprotocol
       displayName: signalr
-    - name: ストリーム
+    - name: ストリーミング
       uid: signalr/streaming
       displayName: signalr
     - name: SignalR と SignalR Core の比較
@@ -517,7 +517,7 @@
     - name: SignalR を使用しない WebSocket
       displayName: signalr
       uid: fundamentals/websockets
-    - name: ログの記録と診断
+    - name: ログ記録と診断
       displayName: signalr
       uid: signalr/diagnostics
 - name: リモート プロシージャ コール アプリ
@@ -618,7 +618,7 @@
           href: /azure/visual-studio/vs-storage-aspnet5-getting-started-blobs?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
         - name: Queue ストレージ
           href: /azure/visual-studio/vs-storage-aspnet5-getting-started-queues?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-        - name: Table ストレージ
+        - name: テーブル ストレージ
           href: /azure/visual-studio/vs-storage-aspnet5-getting-started-tables?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
 - name: ホスティングと配置
   displayName: publish
@@ -748,7 +748,7 @@
     - name: ディレクトリの構造
       displayName: 'deploy, publish'
       uid: host-and-deploy/directory-structure
-    - name: 正常性チェック
+    - name: 正常性のチェック
       uid: host-and-deploy/health-checks
       displayName: 'deploy, publish'
     - name: Blazor
@@ -766,7 +766,7 @@
   items:
     - name: 概要
       uid: security/index
-    - name: 認証
+    - name: Authentication
       items:
         - name: Identity の概要
           uid: security/authentication/identity
@@ -816,6 +816,8 @@
           uid: security/authentication/2fa
         - name: Identity なしでの Cookie 認証の使用
           uid: security/authentication/cookie
+        - name: Identity なしでのソーシャル認証の使用
+          uid: security/authentication/social/social-without-identity
         - name: Azure Active Directory
           items:
             - name: 概要
@@ -838,7 +840,7 @@
           uid: security/authentication/individual
         - name: 証明書認証の構成
           uid: security/authentication/certauth
-    - name: 承認
+    - name: Authorization
       items:
         - name: 概要
           uid: security/authorization/introduction
@@ -864,7 +866,7 @@
           uid: security/authorization/views
         - name: スキームによる ID の制限
           uid: security/authorization/limitingidentitybyscheme
-    - name: データの保護
+    - name: データ保護
       displayName: encryption
       items:
         - name: 概要
@@ -967,7 +969,7 @@
   items:
     - name: 概要
       uid: performance/performance-best-practices
-    - name: 応答キャッシュ
+    - name: 応答のキャッシュ
       items:
         - name: 概要
           uid: performance/caching/response
@@ -992,7 +994,7 @@
       uid: fundamentals/portable-object-localization
     - name: トラブルシューティング
       uid: fundamentals/troubleshoot-aspnet-core-localization
-- name: 詳細設定
+- name: 詳細
   items:
     - name: モデル バインド
       uid: mvc/models/model-binding
@@ -1007,7 +1009,7 @@
     - name: 要求と応答の操作
       displayName: middleware
       uid: fundamentals/middleware/request-response
-    - name: URL リライト
+    - name: URL の書き換え
       uid: fundamentals/url-rewriting
     - name: ファイル プロバイダー
       uid: fundamentals/file-providers
