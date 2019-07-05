@@ -3,65 +3,65 @@ title: Apache 搭載の Linux で ASP.NET Core をホストする
 author: guardrex
 description: CentOS 上にリバース プロキシ サーバーとして Apache をセットアップし、Kestrel 上で実行されている ASP.NET Core Web アプリに HTTP トラフィックを転送する方法について説明します。
 monikerRange: '>= aspnetcore-2.1'
-ms.author: spboyer
+ms.author: shboyer
 ms.custom: mvc
 ms.date: 03/31/2019
 uid: host-and-deploy/linux-apache
-ms.openlocfilehash: 34da0653ff29acf3044e69e032307d1a3da7044a
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 0b523627f8236d79dfc61f0693309d6f4d715e7e
+ms.sourcegitcommit: 0b9e767a09beaaaa4301915cdda9ef69daaf3ff2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64889247"
+ms.lasthandoff: 07/03/2019
+ms.locfileid: "67538707"
 ---
-# <a name="host-aspnet-core-on-linux-with-apache"></a><span data-ttu-id="c53e1-103">Apache 搭載の Linux で ASP.NET Core をホストする</span><span class="sxs-lookup"><span data-stu-id="c53e1-103">Host ASP.NET Core on Linux with Apache</span></span>
+# <a name="host-aspnet-core-on-linux-with-apache"></a><span data-ttu-id="c71ae-103">Apache 搭載の Linux で ASP.NET Core をホストする</span><span class="sxs-lookup"><span data-stu-id="c71ae-103">Host ASP.NET Core on Linux with Apache</span></span>
 
-<span data-ttu-id="c53e1-104">作成者: [Shayne Boyer](https://github.com/spboyer)</span><span class="sxs-lookup"><span data-stu-id="c53e1-104">By [Shayne Boyer](https://github.com/spboyer)</span></span>
+<span data-ttu-id="c71ae-104">作成者: [Shayne Boyer](https://github.com/spboyer)</span><span class="sxs-lookup"><span data-stu-id="c71ae-104">By [Shayne Boyer](https://github.com/spboyer)</span></span>
 
-<span data-ttu-id="c53e1-105">このガイドでは、[CentOS 7](https://www.centos.org/) 上にリバース プロキシ サーバーとして [Apache](https://httpd.apache.org/) をセットアップし、[Kestrel](xref:fundamentals/servers/kestrel) サーバー上で実行されている ASP.NET Core Web アプリに HTTP トラフィックをリダイレクトする方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-105">Using this guide, learn how to set up [Apache](https://httpd.apache.org/) as a reverse proxy server on [CentOS 7](https://www.centos.org/) to redirect HTTP traffic to an ASP.NET Core web app running on [Kestrel](xref:fundamentals/servers/kestrel) server.</span></span> <span data-ttu-id="c53e1-106">[mod_proxy 拡張機能](http://httpd.apache.org/docs/2.4/mod/mod_proxy.html)および関連するモジュールは、サーバーのリバース プロキシを作成します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-106">The [mod_proxy extension](http://httpd.apache.org/docs/2.4/mod/mod_proxy.html) and related modules create the server's reverse proxy.</span></span>
+<span data-ttu-id="c71ae-105">このガイドでは、[CentOS 7](https://www.centos.org/) 上にリバース プロキシ サーバーとして [Apache](https://httpd.apache.org/) をセットアップし、[Kestrel](xref:fundamentals/servers/kestrel) サーバー上で実行されている ASP.NET Core Web アプリに HTTP トラフィックをリダイレクトする方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-105">Using this guide, learn how to set up [Apache](https://httpd.apache.org/) as a reverse proxy server on [CentOS 7](https://www.centos.org/) to redirect HTTP traffic to an ASP.NET Core web app running on [Kestrel](xref:fundamentals/servers/kestrel) server.</span></span> <span data-ttu-id="c71ae-106">[mod_proxy 拡張機能](http://httpd.apache.org/docs/2.4/mod/mod_proxy.html)および関連するモジュールは、サーバーのリバース プロキシを作成します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-106">The [mod_proxy extension](http://httpd.apache.org/docs/2.4/mod/mod_proxy.html) and related modules create the server's reverse proxy.</span></span>
 
-## <a name="prerequisites"></a><span data-ttu-id="c53e1-107">必須コンポーネント</span><span class="sxs-lookup"><span data-stu-id="c53e1-107">Prerequisites</span></span>
+## <a name="prerequisites"></a><span data-ttu-id="c71ae-107">必須コンポーネント</span><span class="sxs-lookup"><span data-stu-id="c71ae-107">Prerequisites</span></span>
 
-* <span data-ttu-id="c53e1-108">CentOS 7 を実行しているサーバーと、sudo 特権を持つ標準ユーザー アカウント。</span><span class="sxs-lookup"><span data-stu-id="c53e1-108">Server running CentOS 7 with a standard user account with sudo privilege.</span></span>
-* <span data-ttu-id="c53e1-109">サーバーへの .NET Core ランタイムのインストール。</span><span class="sxs-lookup"><span data-stu-id="c53e1-109">Install the .NET Core runtime on the server.</span></span>
-   1. <span data-ttu-id="c53e1-110">[.NET の「All Downloads」 (すべてのダウンロード) ページ](https://www.microsoft.com/net/download/all)に移動します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-110">Visit the [.NET Core All Downloads page](https://www.microsoft.com/net/download/all).</span></span>
-   1. <span data-ttu-id="c53e1-111">プレビューではない最新のランタイムを、**Runtime** (ランタイム) の一覧から選択します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-111">Select the latest non-preview runtime from the list under **Runtime**.</span></span>
-   1. <span data-ttu-id="c53e1-112">CentOS/Oracle の手順を選択し、それに従います。</span><span class="sxs-lookup"><span data-stu-id="c53e1-112">Select and follow the instructions for CentOS/Oracle.</span></span>
-* <span data-ttu-id="c53e1-113">既存の ASP.NET Core アプリ。</span><span class="sxs-lookup"><span data-stu-id="c53e1-113">An existing ASP.NET Core app.</span></span>
+* <span data-ttu-id="c71ae-108">CentOS 7 を実行しているサーバーと、sudo 特権を持つ標準ユーザー アカウント。</span><span class="sxs-lookup"><span data-stu-id="c71ae-108">Server running CentOS 7 with a standard user account with sudo privilege.</span></span>
+* <span data-ttu-id="c71ae-109">サーバーへの .NET Core ランタイムのインストール。</span><span class="sxs-lookup"><span data-stu-id="c71ae-109">Install the .NET Core runtime on the server.</span></span>
+   1. <span data-ttu-id="c71ae-110">[.NET の「All Downloads」 (すべてのダウンロード) ページ](https://www.microsoft.com/net/download/all)に移動します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-110">Visit the [.NET Core All Downloads page](https://www.microsoft.com/net/download/all).</span></span>
+   1. <span data-ttu-id="c71ae-111">プレビューではない最新のランタイムを、**Runtime** (ランタイム) の一覧から選択します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-111">Select the latest non-preview runtime from the list under **Runtime**.</span></span>
+   1. <span data-ttu-id="c71ae-112">CentOS/Oracle の手順を選択し、それに従います。</span><span class="sxs-lookup"><span data-stu-id="c71ae-112">Select and follow the instructions for CentOS/Oracle.</span></span>
+* <span data-ttu-id="c71ae-113">既存の ASP.NET Core アプリ。</span><span class="sxs-lookup"><span data-stu-id="c71ae-113">An existing ASP.NET Core app.</span></span>
 
-## <a name="publish-and-copy-over-the-app"></a><span data-ttu-id="c53e1-114">アプリを介して発行およびコピーする</span><span class="sxs-lookup"><span data-stu-id="c53e1-114">Publish and copy over the app</span></span>
+## <a name="publish-and-copy-over-the-app"></a><span data-ttu-id="c71ae-114">アプリを介して発行およびコピーする</span><span class="sxs-lookup"><span data-stu-id="c71ae-114">Publish and copy over the app</span></span>
 
-<span data-ttu-id="c53e1-115">[フレームワークに依存する展開](/dotnet/core/deploying/#framework-dependent-deployments-fdd)用にアプリを構成します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-115">Configure the app for a [framework-dependent deployment](/dotnet/core/deploying/#framework-dependent-deployments-fdd).</span></span>
+<span data-ttu-id="c71ae-115">[フレームワークに依存する展開](/dotnet/core/deploying/#framework-dependent-deployments-fdd)用にアプリを構成します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-115">Configure the app for a [framework-dependent deployment](/dotnet/core/deploying/#framework-dependent-deployments-fdd).</span></span>
 
-<span data-ttu-id="c53e1-116">アプリがローカル環境で実行されていて、セキュリティで保護された接続 (HTTPS) を行うように構成されていない場合は、次の方法のいずれかを採用します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-116">If the app is run locally and isn't configured to make secure connections (HTTPS), adopt either of the following approaches:</span></span>
+<span data-ttu-id="c71ae-116">アプリがローカル環境で実行されていて、セキュリティで保護された接続 (HTTPS) を行うように構成されていない場合は、次の方法のいずれかを採用します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-116">If the app is run locally and isn't configured to make secure connections (HTTPS), adopt either of the following approaches:</span></span>
 
-* <span data-ttu-id="c53e1-117">セキュリティで保護されたローカル接続を処理するようにアプリを構成します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-117">Configure the app to handle secure local connections.</span></span> <span data-ttu-id="c53e1-118">詳しくは、「[HTTPS の構成](#https-configuration)」セクションをご覧ください。</span><span class="sxs-lookup"><span data-stu-id="c53e1-118">For more information, see the [HTTPS configuration](#https-configuration) section.</span></span>
-* <span data-ttu-id="c53e1-119">*Properties/launchSettings.json* ファイルの `applicationUrl` プロパティから `https://localhost:5001` を削除します (ある場合)。</span><span class="sxs-lookup"><span data-stu-id="c53e1-119">Remove `https://localhost:5001` (if present) from the `applicationUrl` property in the *Properties/launchSettings.json* file.</span></span>
+* <span data-ttu-id="c71ae-117">セキュリティで保護されたローカル接続を処理するようにアプリを構成します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-117">Configure the app to handle secure local connections.</span></span> <span data-ttu-id="c71ae-118">詳しくは、「[HTTPS の構成](#https-configuration)」セクションをご覧ください。</span><span class="sxs-lookup"><span data-stu-id="c71ae-118">For more information, see the [HTTPS configuration](#https-configuration) section.</span></span>
+* <span data-ttu-id="c71ae-119">*Properties/launchSettings.json* ファイルの `applicationUrl` プロパティから `https://localhost:5001` を削除します (ある場合)。</span><span class="sxs-lookup"><span data-stu-id="c71ae-119">Remove `https://localhost:5001` (if present) from the `applicationUrl` property in the *Properties/launchSettings.json* file.</span></span>
 
-<span data-ttu-id="c53e1-120">開発環境から [dotnet publish](/dotnet/core/tools/dotnet-publish) を実行し、サーバー上で実行できるディレクトリ (たとえば、*bin/Release/&lt;target_framework_moniker&gt;/publish*) にアプリをパッケージします。</span><span class="sxs-lookup"><span data-stu-id="c53e1-120">Run [dotnet publish](/dotnet/core/tools/dotnet-publish) from the development environment to package an app into a directory (for example, *bin/Release/&lt;target_framework_moniker&gt;/publish*) that can run on the server:</span></span>
+<span data-ttu-id="c71ae-120">開発環境から [dotnet publish](/dotnet/core/tools/dotnet-publish) を実行し、サーバー上で実行できるディレクトリ (たとえば、*bin/Release/&lt;target_framework_moniker&gt;/publish*) にアプリをパッケージします。</span><span class="sxs-lookup"><span data-stu-id="c71ae-120">Run [dotnet publish](/dotnet/core/tools/dotnet-publish) from the development environment to package an app into a directory (for example, *bin/Release/&lt;target_framework_moniker&gt;/publish*) that can run on the server:</span></span>
 
 ```console
 dotnet publish --configuration Release
 ```
 
-<span data-ttu-id="c53e1-121">サーバーで .NET Core ランタイムを管理しない場合、アプリは[独立した展開](/dotnet/core/deploying/#self-contained-deployments-scd)として発行することもできます。</span><span class="sxs-lookup"><span data-stu-id="c53e1-121">The app can also be published as a [self-contained deployment](/dotnet/core/deploying/#self-contained-deployments-scd) if you prefer not to maintain the .NET Core runtime on the server.</span></span>
+<span data-ttu-id="c71ae-121">サーバーで .NET Core ランタイムを管理しない場合、アプリは[独立した展開](/dotnet/core/deploying/#self-contained-deployments-scd)として発行することもできます。</span><span class="sxs-lookup"><span data-stu-id="c71ae-121">The app can also be published as a [self-contained deployment](/dotnet/core/deploying/#self-contained-deployments-scd) if you prefer not to maintain the .NET Core runtime on the server.</span></span>
 
-<span data-ttu-id="c53e1-122">組織のワークフローに統合されているツール (SCP や SFTP など) を使用して、サーバーに ASP.NET Core アプリをコピーします。</span><span class="sxs-lookup"><span data-stu-id="c53e1-122">Copy the ASP.NET Core app to the server using a tool that integrates into the organization's workflow (for example, SCP, SFTP).</span></span> <span data-ttu-id="c53e1-123">Web アプリは一般的に *var* ディレクトリの下に配置されます (たとえば、*var/www/helloapp*)。</span><span class="sxs-lookup"><span data-stu-id="c53e1-123">It's common to locate web apps under the *var* directory (for example, *var/www/helloapp*).</span></span>
+<span data-ttu-id="c71ae-122">組織のワークフローに統合されているツール (SCP や SFTP など) を使用して、サーバーに ASP.NET Core アプリをコピーします。</span><span class="sxs-lookup"><span data-stu-id="c71ae-122">Copy the ASP.NET Core app to the server using a tool that integrates into the organization's workflow (for example, SCP, SFTP).</span></span> <span data-ttu-id="c71ae-123">Web アプリは一般的に *var* ディレクトリの下に配置されます (たとえば、*var/www/helloapp*)。</span><span class="sxs-lookup"><span data-stu-id="c71ae-123">It's common to locate web apps under the *var* directory (for example, *var/www/helloapp*).</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="c53e1-124">運用展開シナリオの場合、継続的インテグレーション ワークフローが、アプリの発行処理とサーバーへの資産のコピーを行います。</span><span class="sxs-lookup"><span data-stu-id="c53e1-124">Under a production deployment scenario, a continuous integration workflow does the work of publishing the app and copying the assets to the server.</span></span>
+> <span data-ttu-id="c71ae-124">運用展開シナリオの場合、継続的インテグレーション ワークフローが、アプリの発行処理とサーバーへの資産のコピーを行います。</span><span class="sxs-lookup"><span data-stu-id="c71ae-124">Under a production deployment scenario, a continuous integration workflow does the work of publishing the app and copying the assets to the server.</span></span>
 
-## <a name="configure-a-proxy-server"></a><span data-ttu-id="c53e1-125">プロキシ サーバーを構成する</span><span class="sxs-lookup"><span data-stu-id="c53e1-125">Configure a proxy server</span></span>
+## <a name="configure-a-proxy-server"></a><span data-ttu-id="c71ae-125">プロキシ サーバーを構成する</span><span class="sxs-lookup"><span data-stu-id="c71ae-125">Configure a proxy server</span></span>
 
-<span data-ttu-id="c53e1-126">リバース プロキシは、動的 Web アプリを提供するための一般的な仕組みです。</span><span class="sxs-lookup"><span data-stu-id="c53e1-126">A reverse proxy is a common setup for serving dynamic web apps.</span></span> <span data-ttu-id="c53e1-127">リバース プロキシは HTTP 要求を終了させ、ASP.NET アプリに転送します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-127">The reverse proxy terminates the HTTP request and forwards it to the ASP.NET app.</span></span>
+<span data-ttu-id="c71ae-126">リバース プロキシは、動的 Web アプリを提供するための一般的な仕組みです。</span><span class="sxs-lookup"><span data-stu-id="c71ae-126">A reverse proxy is a common setup for serving dynamic web apps.</span></span> <span data-ttu-id="c71ae-127">リバース プロキシは HTTP 要求を終了させ、ASP.NET アプリに転送します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-127">The reverse proxy terminates the HTTP request and forwards it to the ASP.NET app.</span></span>
 
-<span data-ttu-id="c53e1-128">プロキシ サーバーは、クライアント要求を処理せずに他のサーバーに転送するサーバーです。</span><span class="sxs-lookup"><span data-stu-id="c53e1-128">A proxy server is one which forwards client requests to another server instead of fulfilling requests itself.</span></span> <span data-ttu-id="c53e1-129">リバース プロキシは、一般的に任意のクライアントに代わって固定の送信先に転送します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-129">A reverse proxy forwards to a fixed destination, typically on behalf of arbitrary clients.</span></span> <span data-ttu-id="c53e1-130">このガイドでは、Kestrel が ASP.NET Core アプリを提供しているものと同じサーバー上で実行されるリバース プロキシとして Apache を構成します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-130">In this guide, Apache is configured as the reverse proxy running on the same server that Kestrel is serving the ASP.NET Core app.</span></span>
+<span data-ttu-id="c71ae-128">プロキシ サーバーは、クライアント要求を処理せずに他のサーバーに転送するサーバーです。</span><span class="sxs-lookup"><span data-stu-id="c71ae-128">A proxy server is one which forwards client requests to another server instead of fulfilling requests itself.</span></span> <span data-ttu-id="c71ae-129">リバース プロキシは、一般的に任意のクライアントに代わって固定の送信先に転送します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-129">A reverse proxy forwards to a fixed destination, typically on behalf of arbitrary clients.</span></span> <span data-ttu-id="c71ae-130">このガイドでは、Kestrel が ASP.NET Core アプリを提供しているものと同じサーバー上で実行されるリバース プロキシとして Apache を構成します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-130">In this guide, Apache is configured as the reverse proxy running on the same server that Kestrel is serving the ASP.NET Core app.</span></span>
 
-<span data-ttu-id="c53e1-131">要求はリバース プロキシによって転送されます。そのため、[Microsoft.AspNetCore.HttpOverrides](https://www.nuget.org/packages/Microsoft.AspNetCore.HttpOverrides/) パッケージの [Forwarded Headers Middleware](xref:host-and-deploy/proxy-load-balancer) を使用します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-131">Because requests are forwarded by reverse proxy, use the [Forwarded Headers Middleware](xref:host-and-deploy/proxy-load-balancer) from the [Microsoft.AspNetCore.HttpOverrides](https://www.nuget.org/packages/Microsoft.AspNetCore.HttpOverrides/) package.</span></span> <span data-ttu-id="c53e1-132">リダイレクト URI とその他のセキュリティ ポリシーを正しく機能させるために、このミドルウェアは、`X-Forwarded-Proto` ヘッダーを利用して、`Request.Scheme` を更新します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-132">The middleware updates the `Request.Scheme`, using the `X-Forwarded-Proto` header, so that redirect URIs and other security policies work correctly.</span></span>
+<span data-ttu-id="c71ae-131">要求はリバース プロキシによって転送されます。そのため、[Microsoft.AspNetCore.HttpOverrides](https://www.nuget.org/packages/Microsoft.AspNetCore.HttpOverrides/) パッケージの [Forwarded Headers Middleware](xref:host-and-deploy/proxy-load-balancer) を使用します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-131">Because requests are forwarded by reverse proxy, use the [Forwarded Headers Middleware](xref:host-and-deploy/proxy-load-balancer) from the [Microsoft.AspNetCore.HttpOverrides](https://www.nuget.org/packages/Microsoft.AspNetCore.HttpOverrides/) package.</span></span> <span data-ttu-id="c71ae-132">リダイレクト URI とその他のセキュリティ ポリシーを正しく機能させるために、このミドルウェアは、`X-Forwarded-Proto` ヘッダーを利用して、`Request.Scheme` を更新します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-132">The middleware updates the `Request.Scheme`, using the `X-Forwarded-Proto` header, so that redirect URIs and other security policies work correctly.</span></span>
 
-<span data-ttu-id="c53e1-133">認証、リンクの生成、リダイレクト、および地理的位置情報など、スキームに依存するすべてのコンポーネントは、Forwarded Headers Middleware の呼び出し後に配置する必要があります。</span><span class="sxs-lookup"><span data-stu-id="c53e1-133">Any component that depends on the scheme, such as authentication, link generation, redirects, and geolocation, must be placed after invoking the Forwarded Headers Middleware.</span></span> <span data-ttu-id="c53e1-134">一般的な規則として、Forwarded Headers Middleware は、診断およびエラー処理ミドルウェアを除くその他のミドルウェアより前に実行される必要があります。</span><span class="sxs-lookup"><span data-stu-id="c53e1-134">As a general rule, Forwarded Headers Middleware should run before other middleware except diagnostics and error handling middleware.</span></span> <span data-ttu-id="c53e1-135">この順序により、転送されるヘッダー情報に依存するミドルウェアが処理にヘッダー値を使用できます。</span><span class="sxs-lookup"><span data-stu-id="c53e1-135">This ordering ensures that the middleware relying on forwarded headers information can consume the header values for processing.</span></span>
+<span data-ttu-id="c71ae-133">認証、リンクの生成、リダイレクト、および地理的位置情報など、スキームに依存するすべてのコンポーネントは、Forwarded Headers Middleware の呼び出し後に配置する必要があります。</span><span class="sxs-lookup"><span data-stu-id="c71ae-133">Any component that depends on the scheme, such as authentication, link generation, redirects, and geolocation, must be placed after invoking the Forwarded Headers Middleware.</span></span> <span data-ttu-id="c71ae-134">一般的な規則として、Forwarded Headers Middleware は、診断およびエラー処理ミドルウェアを除くその他のミドルウェアより前に実行される必要があります。</span><span class="sxs-lookup"><span data-stu-id="c71ae-134">As a general rule, Forwarded Headers Middleware should run before other middleware except diagnostics and error handling middleware.</span></span> <span data-ttu-id="c71ae-135">この順序により、転送されるヘッダー情報に依存するミドルウェアが処理にヘッダー値を使用できます。</span><span class="sxs-lookup"><span data-stu-id="c71ae-135">This ordering ensures that the middleware relying on forwarded headers information can consume the header values for processing.</span></span>
 
-<span data-ttu-id="c53e1-136"><xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> や同様の認証スキーム ミドルウェアを呼び出す前に、`Startup.Configure` の <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> メソッドを呼び出します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-136">Invoke the <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> method in `Startup.Configure` before calling <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> or similar authentication scheme middleware.</span></span> <span data-ttu-id="c53e1-137">ミドルウェアを構成して、`X-Forwarded-For` および `X-Forwarded-Proto` ヘッダーを転送します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-137">Configure the middleware to forward the `X-Forwarded-For` and `X-Forwarded-Proto` headers:</span></span>
+<span data-ttu-id="c71ae-136"><xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> や同様の認証スキーム ミドルウェアを呼び出す前に、`Startup.Configure` の <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> メソッドを呼び出します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-136">Invoke the <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> method in `Startup.Configure` before calling <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> or similar authentication scheme middleware.</span></span> <span data-ttu-id="c71ae-137">ミドルウェアを構成して、`X-Forwarded-For` および `X-Forwarded-Proto` ヘッダーを転送します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-137">Configure the middleware to forward the `X-Forwarded-For` and `X-Forwarded-Proto` headers:</span></span>
 
 ```csharp
 app.UseForwardedHeaders(new ForwardedHeadersOptions
@@ -72,9 +72,9 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 app.UseAuthentication();
 ```
 
-<span data-ttu-id="c53e1-138">ミドルウェアに対して <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> が指定されていない場合、転送される既定のヘッダーは `None` です。</span><span class="sxs-lookup"><span data-stu-id="c53e1-138">If no <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> are specified to the middleware, the default headers to forward are `None`.</span></span>
+<span data-ttu-id="c71ae-138">ミドルウェアに対して <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> が指定されていない場合、転送される既定のヘッダーは `None` です。</span><span class="sxs-lookup"><span data-stu-id="c71ae-138">If no <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> are specified to the middleware, the default headers to forward are `None`.</span></span>
 
-<span data-ttu-id="c53e1-139">標準 localhost アドレス (127.0.0.1) など、ループバック アドレス (127.0.0.0/8、[::1]) 上で実行するプロキシは、既定で信頼されます。</span><span class="sxs-lookup"><span data-stu-id="c53e1-139">Proxies running on loopback addresses (127.0.0.0/8, [::1]), including the standard localhost address (127.0.0.1), are trusted by default.</span></span> <span data-ttu-id="c53e1-140">組織内のその他の信頼されているプロキシまたはネットワークによってインターネットと Web サーバーの間の要求が処理される場合は、それらを、<xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> を使用して <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownProxies*> または <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownNetworks*> のリストに追加します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-140">If other trusted proxies or networks within the organization handle requests between the Internet and the web server, add them to the list of <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownProxies*> or <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownNetworks*> with <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions>.</span></span> <span data-ttu-id="c53e1-141">次の例では、IP アドレス 10.0.0.100 にある信頼されているプロキシ サーバーが `Startup.ConfigureServices` 内の Forwarded Headers Middleware `KnownProxies` に追加されます。</span><span class="sxs-lookup"><span data-stu-id="c53e1-141">The following example adds a trusted proxy server at IP address 10.0.0.100 to the Forwarded Headers Middleware `KnownProxies` in `Startup.ConfigureServices`:</span></span>
+<span data-ttu-id="c71ae-139">標準 localhost アドレス (127.0.0.1) など、ループバック アドレス (127.0.0.0/8、[::1]) 上で実行するプロキシは、既定で信頼されます。</span><span class="sxs-lookup"><span data-stu-id="c71ae-139">Proxies running on loopback addresses (127.0.0.0/8, [::1]), including the standard localhost address (127.0.0.1), are trusted by default.</span></span> <span data-ttu-id="c71ae-140">組織内のその他の信頼されているプロキシまたはネットワークによってインターネットと Web サーバーの間の要求が処理される場合は、それらを、<xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> を使用して <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownProxies*> または <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownNetworks*> のリストに追加します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-140">If other trusted proxies or networks within the organization handle requests between the Internet and the web server, add them to the list of <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownProxies*> or <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownNetworks*> with <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions>.</span></span> <span data-ttu-id="c71ae-141">次の例では、IP アドレス 10.0.0.100 にある信頼されているプロキシ サーバーが `Startup.ConfigureServices` 内の Forwarded Headers Middleware `KnownProxies` に追加されます。</span><span class="sxs-lookup"><span data-stu-id="c71ae-141">The following example adds a trusted proxy server at IP address 10.0.0.100 to the Forwarded Headers Middleware `KnownProxies` in `Startup.ConfigureServices`:</span></span>
 
 ```csharp
 services.Configure<ForwardedHeadersOptions>(options =>
@@ -83,23 +83,23 @@ services.Configure<ForwardedHeadersOptions>(options =>
 });
 ```
 
-<span data-ttu-id="c53e1-142">詳細については、「<xref:host-and-deploy/proxy-load-balancer>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="c53e1-142">For more information, see <xref:host-and-deploy/proxy-load-balancer>.</span></span>
+<span data-ttu-id="c71ae-142">詳細については、<xref:host-and-deploy/proxy-load-balancer> を参照してください。</span><span class="sxs-lookup"><span data-stu-id="c71ae-142">For more information, see <xref:host-and-deploy/proxy-load-balancer>.</span></span>
 
-### <a name="install-apache"></a><span data-ttu-id="c53e1-143">Apache をインストールする</span><span class="sxs-lookup"><span data-stu-id="c53e1-143">Install Apache</span></span>
+### <a name="install-apache"></a><span data-ttu-id="c71ae-143">Apache をインストールする</span><span class="sxs-lookup"><span data-stu-id="c71ae-143">Install Apache</span></span>
 
-<span data-ttu-id="c53e1-144">CentOS パッケージを最新の安定したバージョンに更新します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-144">Update CentOS packages to their latest stable versions:</span></span>
+<span data-ttu-id="c71ae-144">CentOS パッケージを最新の安定したバージョンに更新します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-144">Update CentOS packages to their latest stable versions:</span></span>
 
 ```bash
 sudo yum update -y
 ```
 
-<span data-ttu-id="c53e1-145">1 つの `yum` コマンドで、CentOS に Apache Web サーバーをインストールします。</span><span class="sxs-lookup"><span data-stu-id="c53e1-145">Install the Apache web server on CentOS with a single `yum` command:</span></span>
+<span data-ttu-id="c71ae-145">1 つの `yum` コマンドで、CentOS に Apache Web サーバーをインストールします。</span><span class="sxs-lookup"><span data-stu-id="c71ae-145">Install the Apache web server on CentOS with a single `yum` command:</span></span>
 
 ```bash
 sudo yum -y install httpd mod_ssl
 ```
 
-<span data-ttu-id="c53e1-146">コマンド実行後の出力例:</span><span class="sxs-lookup"><span data-stu-id="c53e1-146">Sample output after running the command:</span></span>
+<span data-ttu-id="c71ae-146">コマンド実行後の出力例:</span><span class="sxs-lookup"><span data-stu-id="c71ae-146">Sample output after running the command:</span></span>
 
 ```bash
 Downloading packages:
@@ -118,13 +118,13 @@ Complete!
 ```
 
 > [!NOTE]
-> <span data-ttu-id="c53e1-147">この例では、CentOS 7 のバージョンが 64 ビットなので、出力は httpd.86_64 を反映しています。</span><span class="sxs-lookup"><span data-stu-id="c53e1-147">In this example, the output reflects httpd.86_64 since the CentOS 7 version is 64 bit.</span></span> <span data-ttu-id="c53e1-148">Apache がインストールされている場所を確認するには、コマンド プロンプトから `whereis httpd` を実行します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-148">To verify where Apache is installed, run `whereis httpd` from a command prompt.</span></span>
+> <span data-ttu-id="c71ae-147">この例では、CentOS 7 のバージョンが 64 ビットなので、出力は httpd.86_64 を反映しています。</span><span class="sxs-lookup"><span data-stu-id="c71ae-147">In this example, the output reflects httpd.86_64 since the CentOS 7 version is 64 bit.</span></span> <span data-ttu-id="c71ae-148">Apache がインストールされている場所を確認するには、コマンド プロンプトから `whereis httpd` を実行します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-148">To verify where Apache is installed, run `whereis httpd` from a command prompt.</span></span>
 
-### <a name="configure-apache"></a><span data-ttu-id="c53e1-149">Apache を構成する</span><span class="sxs-lookup"><span data-stu-id="c53e1-149">Configure Apache</span></span>
+### <a name="configure-apache"></a><span data-ttu-id="c71ae-149">Apache を構成する</span><span class="sxs-lookup"><span data-stu-id="c71ae-149">Configure Apache</span></span>
 
-<span data-ttu-id="c53e1-150">Apache の構成ファイルは、`/etc/httpd/conf.d/` ディレクトリ内にあります。</span><span class="sxs-lookup"><span data-stu-id="c53e1-150">Configuration files for Apache are located within the `/etc/httpd/conf.d/` directory.</span></span> <span data-ttu-id="c53e1-151">`/etc/httpd/conf.modules.d/` 内のモジュール構成ファイルに加え、拡張子が *.conf* のファイルがアルファベット順で処理されます。このディレクトリには、モジュールの読み込みに必要な構成ファイルが含まれています。</span><span class="sxs-lookup"><span data-stu-id="c53e1-151">Any file with the *.conf* extension is processed in alphabetical order in addition to the module configuration files in `/etc/httpd/conf.modules.d/`, which contains any configuration files necessary to load modules.</span></span>
+<span data-ttu-id="c71ae-150">Apache の構成ファイルは、`/etc/httpd/conf.d/` ディレクトリ内にあります。</span><span class="sxs-lookup"><span data-stu-id="c71ae-150">Configuration files for Apache are located within the `/etc/httpd/conf.d/` directory.</span></span> <span data-ttu-id="c71ae-151">`/etc/httpd/conf.modules.d/` 内のモジュール構成ファイルに加え、拡張子が *.conf* のファイルがアルファベット順で処理されます。このディレクトリには、モジュールの読み込みに必要な構成ファイルが含まれています。</span><span class="sxs-lookup"><span data-stu-id="c71ae-151">Any file with the *.conf* extension is processed in alphabetical order in addition to the module configuration files in `/etc/httpd/conf.modules.d/`, which contains any configuration files necessary to load modules.</span></span>
 
-<span data-ttu-id="c53e1-152">アプリ用に *helloapp.conf* という名前の構成ファイルを作成します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-152">Create a configuration file, named *helloapp.conf*, for the app:</span></span>
+<span data-ttu-id="c71ae-152">アプリ用に *helloapp.conf* という名前の構成ファイルを作成します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-152">Create a configuration file, named *helloapp.conf*, for the app:</span></span>
 
 ```
 <VirtualHost *:*>
@@ -142,39 +142,39 @@ Complete!
 </VirtualHost>
 ```
 
-<span data-ttu-id="c53e1-153">`VirtualHost` ブロックは、サーバー上の 1 つまたは複数のファイルに複数回出現することができます。</span><span class="sxs-lookup"><span data-stu-id="c53e1-153">The `VirtualHost` block can appear multiple times, in one or more files on a server.</span></span> <span data-ttu-id="c53e1-154">上記の構成ファイルでは、Apache はポート 80 でパブリック トラフィックを受け入れます。</span><span class="sxs-lookup"><span data-stu-id="c53e1-154">In the preceding configuration file, Apache accepts public traffic on port 80.</span></span> <span data-ttu-id="c53e1-155">ドメイン `www.example.com` が提供されており、別名 `*.example.com` は同じ Web サイトに解決されます。</span><span class="sxs-lookup"><span data-stu-id="c53e1-155">The domain `www.example.com` is being served, and the `*.example.com` alias resolves to the same website.</span></span> <span data-ttu-id="c53e1-156">詳しくは、「[名前ベースのバーチャル ホスト](https://httpd.apache.org/docs/current/vhosts/name-based.html)」をご覧ください。</span><span class="sxs-lookup"><span data-stu-id="c53e1-156">See [Name-based virtual host support](https://httpd.apache.org/docs/current/vhosts/name-based.html) for more information.</span></span> <span data-ttu-id="c53e1-157">要求は、ルートにおいて、127.0.0.1 にあるサーバーのポート 5000 にプロキシされます。</span><span class="sxs-lookup"><span data-stu-id="c53e1-157">Requests are proxied at the root to port 5000 of the server at 127.0.0.1.</span></span> <span data-ttu-id="c53e1-158">双方向通信の場合は、`ProxyPass` と `ProxyPassReverse` が必要です。</span><span class="sxs-lookup"><span data-stu-id="c53e1-158">For bi-directional communication, `ProxyPass` and `ProxyPassReverse` are required.</span></span> <span data-ttu-id="c53e1-159">Kestrel の IP/ポートを変更するには、[Kestrel のエンドポイントの構成](xref:fundamentals/servers/kestrel#endpoint-configuration)に関するセクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="c53e1-159">To change Kestrel's IP/port, see [Kestrel: Endpoint configuration](xref:fundamentals/servers/kestrel#endpoint-configuration).</span></span>
+<span data-ttu-id="c71ae-153">`VirtualHost` ブロックは、サーバー上の 1 つまたは複数のファイルに複数回出現することができます。</span><span class="sxs-lookup"><span data-stu-id="c71ae-153">The `VirtualHost` block can appear multiple times, in one or more files on a server.</span></span> <span data-ttu-id="c71ae-154">上記の構成ファイルでは、Apache はポート 80 でパブリック トラフィックを受け入れます。</span><span class="sxs-lookup"><span data-stu-id="c71ae-154">In the preceding configuration file, Apache accepts public traffic on port 80.</span></span> <span data-ttu-id="c71ae-155">ドメイン `www.example.com` が提供されており、別名 `*.example.com` は同じ Web サイトに解決されます。</span><span class="sxs-lookup"><span data-stu-id="c71ae-155">The domain `www.example.com` is being served, and the `*.example.com` alias resolves to the same website.</span></span> <span data-ttu-id="c71ae-156">詳しくは、「[名前ベースのバーチャル ホスト](https://httpd.apache.org/docs/current/vhosts/name-based.html)」をご覧ください。</span><span class="sxs-lookup"><span data-stu-id="c71ae-156">See [Name-based virtual host support](https://httpd.apache.org/docs/current/vhosts/name-based.html) for more information.</span></span> <span data-ttu-id="c71ae-157">要求は、ルートにおいて、127.0.0.1 にあるサーバーのポート 5000 にプロキシされます。</span><span class="sxs-lookup"><span data-stu-id="c71ae-157">Requests are proxied at the root to port 5000 of the server at 127.0.0.1.</span></span> <span data-ttu-id="c71ae-158">双方向通信の場合は、`ProxyPass` と `ProxyPassReverse` が必要です。</span><span class="sxs-lookup"><span data-stu-id="c71ae-158">For bi-directional communication, `ProxyPass` and `ProxyPassReverse` are required.</span></span> <span data-ttu-id="c71ae-159">Kestrel の IP/ポートを変更するには、[Kestrel のエンドポイントの構成](xref:fundamentals/servers/kestrel#endpoint-configuration)に関するセクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="c71ae-159">To change Kestrel's IP/port, see [Kestrel: Endpoint configuration](xref:fundamentals/servers/kestrel#endpoint-configuration).</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="c53e1-160">**VirtualHost** ブロックで適切な [ServerName ディレクティブ](https://httpd.apache.org/docs/current/mod/core.html#servername)を指定しないと、アプリにセキュリティ上の脆弱性が生じます。</span><span class="sxs-lookup"><span data-stu-id="c53e1-160">Failure to specify a proper [ServerName directive](https://httpd.apache.org/docs/current/mod/core.html#servername) in the **VirtualHost** block exposes your app to security vulnerabilities.</span></span> <span data-ttu-id="c53e1-161">親ドメイン全体を制御する場合、サブドメイン ワイルドカード バインド (たとえば、`*.example.com`) にこのセキュリティ リスクはありません (脆弱である `*.com` とは対照的)。</span><span class="sxs-lookup"><span data-stu-id="c53e1-161">Subdomain wildcard binding (for example, `*.example.com`) doesn't pose this security risk if you control the entire parent domain (as opposed to `*.com`, which is vulnerable).</span></span> <span data-ttu-id="c53e1-162">詳細については、[rfc7230 セクション-5.4](https://tools.ietf.org/html/rfc7230#section-5.4) を参照してください。</span><span class="sxs-lookup"><span data-stu-id="c53e1-162">See [rfc7230 section-5.4](https://tools.ietf.org/html/rfc7230#section-5.4) for more information.</span></span>
+> <span data-ttu-id="c71ae-160">**VirtualHost** ブロックで適切な [ServerName ディレクティブ](https://httpd.apache.org/docs/current/mod/core.html#servername)を指定しないと、アプリにセキュリティ上の脆弱性が生じます。</span><span class="sxs-lookup"><span data-stu-id="c71ae-160">Failure to specify a proper [ServerName directive](https://httpd.apache.org/docs/current/mod/core.html#servername) in the **VirtualHost** block exposes your app to security vulnerabilities.</span></span> <span data-ttu-id="c71ae-161">親ドメイン全体を制御する場合、サブドメイン ワイルドカード バインド (たとえば、`*.example.com`) にこのセキュリティ リスクはありません (脆弱である `*.com` とは対照的)。</span><span class="sxs-lookup"><span data-stu-id="c71ae-161">Subdomain wildcard binding (for example, `*.example.com`) doesn't pose this security risk if you control the entire parent domain (as opposed to `*.com`, which is vulnerable).</span></span> <span data-ttu-id="c71ae-162">詳細については、[rfc7230 セクション-5.4](https://tools.ietf.org/html/rfc7230#section-5.4) を参照してください。</span><span class="sxs-lookup"><span data-stu-id="c71ae-162">See [rfc7230 section-5.4](https://tools.ietf.org/html/rfc7230#section-5.4) for more information.</span></span>
 
-<span data-ttu-id="c53e1-163">`ErrorLog` および `CustomLog` ディレクティブを使って、`VirtualHost` ごとにログを構成できます。</span><span class="sxs-lookup"><span data-stu-id="c53e1-163">Logging can be configured per `VirtualHost` using `ErrorLog` and `CustomLog` directives.</span></span> <span data-ttu-id="c53e1-164">`ErrorLog` は、サーバーがエラーをログに記録する場所です。`CustomLog` には、ログ ファイルのファイル名と形式を設定します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-164">`ErrorLog` is the location where the server logs errors, and `CustomLog` sets the filename and format of log file.</span></span> <span data-ttu-id="c53e1-165">この例では、要求の情報がログに記録される場所です。</span><span class="sxs-lookup"><span data-stu-id="c53e1-165">In this case, this is where request information is logged.</span></span> <span data-ttu-id="c53e1-166">1 つの要求につき 1 行が記録されます。</span><span class="sxs-lookup"><span data-stu-id="c53e1-166">There's one line for each request.</span></span>
+<span data-ttu-id="c71ae-163">`ErrorLog` および `CustomLog` ディレクティブを使って、`VirtualHost` ごとにログを構成できます。</span><span class="sxs-lookup"><span data-stu-id="c71ae-163">Logging can be configured per `VirtualHost` using `ErrorLog` and `CustomLog` directives.</span></span> <span data-ttu-id="c71ae-164">`ErrorLog` は、サーバーがエラーをログに記録する場所です。`CustomLog` には、ログ ファイルのファイル名と形式を設定します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-164">`ErrorLog` is the location where the server logs errors, and `CustomLog` sets the filename and format of log file.</span></span> <span data-ttu-id="c71ae-165">この例では、要求の情報がログに記録される場所です。</span><span class="sxs-lookup"><span data-stu-id="c71ae-165">In this case, this is where request information is logged.</span></span> <span data-ttu-id="c71ae-166">1 つの要求につき 1 行が記録されます。</span><span class="sxs-lookup"><span data-stu-id="c71ae-166">There's one line for each request.</span></span>
 
-<span data-ttu-id="c53e1-167">ファイルを保存し、構成をテストします。</span><span class="sxs-lookup"><span data-stu-id="c53e1-167">Save the file and test the configuration.</span></span> <span data-ttu-id="c53e1-168">すべてに合格すると、応答は `Syntax [OK]` になります。</span><span class="sxs-lookup"><span data-stu-id="c53e1-168">If everything passes, the response should be `Syntax [OK]`.</span></span>
+<span data-ttu-id="c71ae-167">ファイルを保存し、構成をテストします。</span><span class="sxs-lookup"><span data-stu-id="c71ae-167">Save the file and test the configuration.</span></span> <span data-ttu-id="c71ae-168">すべてに合格すると、応答は `Syntax [OK]` になります。</span><span class="sxs-lookup"><span data-stu-id="c71ae-168">If everything passes, the response should be `Syntax [OK]`.</span></span>
 
 ```bash
 sudo service httpd configtest
 ```
 
-<span data-ttu-id="c53e1-169">Apache を再起動します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-169">Restart Apache:</span></span>
+<span data-ttu-id="c71ae-169">Apache を再起動します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-169">Restart Apache:</span></span>
 
 ```bash
 sudo systemctl restart httpd
 sudo systemctl enable httpd
 ```
 
-## <a name="monitor-the-app"></a><span data-ttu-id="c53e1-170">アプリを監視する</span><span class="sxs-lookup"><span data-stu-id="c53e1-170">Monitor the app</span></span>
+## <a name="monitor-the-app"></a><span data-ttu-id="c71ae-170">アプリを監視する</span><span class="sxs-lookup"><span data-stu-id="c71ae-170">Monitor the app</span></span>
 
-<span data-ttu-id="c53e1-171">これで、`http://localhost:80` に対して行われた要求を Kestrel で実行されている ASP.NET Core アプリ (`http://127.0.0.1:5000`) に転送するように Apache が設定されました。</span><span class="sxs-lookup"><span data-stu-id="c53e1-171">Apache is now setup to forward requests made to `http://localhost:80` to the ASP.NET Core app running on Kestrel at `http://127.0.0.1:5000`.</span></span> <span data-ttu-id="c53e1-172">ただし、Apache は Kestrel プロセスを管理するようには設定されていません。</span><span class="sxs-lookup"><span data-stu-id="c53e1-172">However, Apache isn't set up to manage the Kestrel process.</span></span> <span data-ttu-id="c53e1-173">*systemd* を使って、基礎 Web アプリを起動して監視するサービス ファイルを作成します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-173">Use *systemd* and create a service file to start and monitor the underlying web app.</span></span> <span data-ttu-id="c53e1-174">*systemd* は init システムであり、プロセスを起動、停止、管理するためのさまざまな高性能機能を提供します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-174">*systemd* is an init system that provides many powerful features for starting, stopping, and managing processes.</span></span>
+<span data-ttu-id="c71ae-171">これで、`http://localhost:80` に対して行われた要求を Kestrel で実行されている ASP.NET Core アプリ (`http://127.0.0.1:5000`) に転送するように Apache が設定されました。</span><span class="sxs-lookup"><span data-stu-id="c71ae-171">Apache is now setup to forward requests made to `http://localhost:80` to the ASP.NET Core app running on Kestrel at `http://127.0.0.1:5000`.</span></span> <span data-ttu-id="c71ae-172">ただし、Apache は Kestrel プロセスを管理するようには設定されていません。</span><span class="sxs-lookup"><span data-stu-id="c71ae-172">However, Apache isn't set up to manage the Kestrel process.</span></span> <span data-ttu-id="c71ae-173">*systemd* を使って、基礎 Web アプリを起動して監視するサービス ファイルを作成します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-173">Use *systemd* and create a service file to start and monitor the underlying web app.</span></span> <span data-ttu-id="c71ae-174">*systemd* は init システムであり、プロセスを起動、停止、管理するためのさまざまな高性能機能を提供します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-174">*systemd* is an init system that provides many powerful features for starting, stopping, and managing processes.</span></span>
 
-### <a name="create-the-service-file"></a><span data-ttu-id="c53e1-175">サービス ファイルを作成する</span><span class="sxs-lookup"><span data-stu-id="c53e1-175">Create the service file</span></span>
+### <a name="create-the-service-file"></a><span data-ttu-id="c71ae-175">サービス ファイルを作成する</span><span class="sxs-lookup"><span data-stu-id="c71ae-175">Create the service file</span></span>
 
-<span data-ttu-id="c53e1-176">次のように、サービス定義ファイルを作成します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-176">Create the service definition file:</span></span>
+<span data-ttu-id="c71ae-176">次のように、サービス定義ファイルを作成します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-176">Create the service definition file:</span></span>
 
 ```bash
 sudo nano /etc/systemd/system/kestrel-helloapp.service
 ```
 
-<span data-ttu-id="c53e1-177">アプリのサービス ファイルの例を次に示します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-177">An example service file for the app:</span></span>
+<span data-ttu-id="c71ae-177">アプリのサービス ファイルの例を次に示します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-177">An example service file for the app:</span></span>
 
 ```
 [Unit]
@@ -195,34 +195,34 @@ Environment=ASPNETCORE_ENVIRONMENT=Production
 WantedBy=multi-user.target
 ```
 
-<span data-ttu-id="c53e1-178">ユーザー *apache* が構成で使用されない場合、ユーザーを先に作成し、そのユーザーにファイルの適切な所有権を与える必要があります。</span><span class="sxs-lookup"><span data-stu-id="c53e1-178">If the user *apache* isn't used by the configuration, the user must be created first and given proper ownership of files.</span></span>
+<span data-ttu-id="c71ae-178">ユーザー *apache* が構成で使用されない場合、ユーザーを先に作成し、そのユーザーにファイルの適切な所有権を与える必要があります。</span><span class="sxs-lookup"><span data-stu-id="c71ae-178">If the user *apache* isn't used by the configuration, the user must be created first and given proper ownership of files.</span></span>
 
-<span data-ttu-id="c53e1-179">アプリが最初の割り込み信号を受信してからシャットダウンするのを待機する期間を構成するには、`TimeoutStopSec` を使用します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-179">Use `TimeoutStopSec` to configure the duration of time to wait for the app to shut down after it receives the initial interrupt signal.</span></span> <span data-ttu-id="c53e1-180">この期間内にアプリがシャットダウンしない場合は、SIGKILL を発行してアプリを終了します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-180">If the app doesn't shut down in this period, SIGKILL is issued to terminate the app.</span></span> <span data-ttu-id="c53e1-181">タイムアウトを無効にするには、値として、単位なしの秒数 (`150` など)、期間の値 (`2min 30s` など)、または `infinity` を指定します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-181">Provide the value as unitless seconds (for example, `150`), a time span value (for example, `2min 30s`), or `infinity` to disable the timeout.</span></span> <span data-ttu-id="c53e1-182">`TimeoutStopSec` は、既定ではマネージャー構成ファイル (*systemd-system.conf*、*system.conf.d*、*systemd-user.conf*、*user.conf.d*) 内の `DefaultTimeoutStopSec` の値に設定されます。</span><span class="sxs-lookup"><span data-stu-id="c53e1-182">`TimeoutStopSec` defaults to the value of `DefaultTimeoutStopSec` in the manager configuration file (*systemd-system.conf*, *system.conf.d*, *systemd-user.conf*, *user.conf.d*).</span></span> <span data-ttu-id="c53e1-183">ほとんどのディストリビューションにおいて、タイムアウトの既定値は 90 秒となります。</span><span class="sxs-lookup"><span data-stu-id="c53e1-183">The default timeout for most distributions is 90 seconds.</span></span>
+<span data-ttu-id="c71ae-179">アプリが最初の割り込み信号を受信してからシャットダウンするのを待機する期間を構成するには、`TimeoutStopSec` を使用します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-179">Use `TimeoutStopSec` to configure the duration of time to wait for the app to shut down after it receives the initial interrupt signal.</span></span> <span data-ttu-id="c71ae-180">この期間内にアプリがシャットダウンしない場合は、SIGKILL を発行してアプリを終了します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-180">If the app doesn't shut down in this period, SIGKILL is issued to terminate the app.</span></span> <span data-ttu-id="c71ae-181">タイムアウトを無効にするには、値として、単位なしの秒数 (`150` など)、期間の値 (`2min 30s` など)、または `infinity` を指定します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-181">Provide the value as unitless seconds (for example, `150`), a time span value (for example, `2min 30s`), or `infinity` to disable the timeout.</span></span> <span data-ttu-id="c71ae-182">`TimeoutStopSec` は、既定ではマネージャー構成ファイル (*systemd-system.conf*、*system.conf.d*、*systemd-user.conf*、*user.conf.d*) 内の `DefaultTimeoutStopSec` の値に設定されます。</span><span class="sxs-lookup"><span data-stu-id="c71ae-182">`TimeoutStopSec` defaults to the value of `DefaultTimeoutStopSec` in the manager configuration file (*systemd-system.conf*, *system.conf.d*, *systemd-user.conf*, *user.conf.d*).</span></span> <span data-ttu-id="c71ae-183">ほとんどのディストリビューションにおいて、タイムアウトの既定値は 90 秒となります。</span><span class="sxs-lookup"><span data-stu-id="c71ae-183">The default timeout for most distributions is 90 seconds.</span></span>
 
 ```
 # The default value is 90 seconds for most distributions.
 TimeoutStopSec=90
 ```
 
-<span data-ttu-id="c53e1-184">構成プロバイダーが環境変数を読み取れるようにするために、一部の値 (たとえば SQL の接続文字列) をエスケープする必要があります。</span><span class="sxs-lookup"><span data-stu-id="c53e1-184">Some values (for example, SQL connection strings) must be escaped for the configuration providers to read the environment variables.</span></span> <span data-ttu-id="c53e1-185">次のコマンドを使用して、構成ファイルで使用するために適切にエスケープされた値を生成します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-185">Use the following command to generate a properly escaped value for use in the configuration file:</span></span>
+<span data-ttu-id="c71ae-184">構成プロバイダーが環境変数を読み取れるようにするために、一部の値 (たとえば SQL の接続文字列) をエスケープする必要があります。</span><span class="sxs-lookup"><span data-stu-id="c71ae-184">Some values (for example, SQL connection strings) must be escaped for the configuration providers to read the environment variables.</span></span> <span data-ttu-id="c71ae-185">次のコマンドを使用して、構成ファイルで使用するために適切にエスケープされた値を生成します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-185">Use the following command to generate a properly escaped value for use in the configuration file:</span></span>
 
 ```console
 systemd-escape "<value-to-escape>"
 ```
 
-<span data-ttu-id="c53e1-186">コロン (`:`) 区切り記号は、環境変数の名前ではサポートされていません。</span><span class="sxs-lookup"><span data-stu-id="c53e1-186">Colon (`:`) separators aren't supported in environment variable names.</span></span> <span data-ttu-id="c53e1-187">コロンの代わりに 2 つのアンダースコア (`__`) を使用します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-187">Use a double underscore (`__`) in place of a colon.</span></span> <span data-ttu-id="c53e1-188">環境変数が構成に読み取られるときに、[環境変数構成プロバイダー](xref:fundamentals/configuration/index#environment-variables-configuration-provider)によって 2 つのアンダースコアがコロンに変換されます。</span><span class="sxs-lookup"><span data-stu-id="c53e1-188">The [Environment Variables configuration provider](xref:fundamentals/configuration/index#environment-variables-configuration-provider) converts double-underscores into colons when environment variables are read into configuration.</span></span> <span data-ttu-id="c53e1-189">次の例では、接続文字列キー `ConnectionStrings:DefaultConnection` はサービス定義ファイルでは `ConnectionStrings__DefaultConnection` と設定されています。</span><span class="sxs-lookup"><span data-stu-id="c53e1-189">In the following example, the connection string key `ConnectionStrings:DefaultConnection` is set into the service definition file as `ConnectionStrings__DefaultConnection`:</span></span>
+<span data-ttu-id="c71ae-186">コロン (`:`) 区切り記号は、環境変数の名前ではサポートされていません。</span><span class="sxs-lookup"><span data-stu-id="c71ae-186">Colon (`:`) separators aren't supported in environment variable names.</span></span> <span data-ttu-id="c71ae-187">コロンの代わりに 2 つのアンダースコア (`__`) を使用します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-187">Use a double underscore (`__`) in place of a colon.</span></span> <span data-ttu-id="c71ae-188">環境変数が構成に読み取られるときに、[環境変数構成プロバイダー](xref:fundamentals/configuration/index#environment-variables-configuration-provider)によって 2 つのアンダースコアがコロンに変換されます。</span><span class="sxs-lookup"><span data-stu-id="c71ae-188">The [Environment Variables configuration provider](xref:fundamentals/configuration/index#environment-variables-configuration-provider) converts double-underscores into colons when environment variables are read into configuration.</span></span> <span data-ttu-id="c71ae-189">次の例では、接続文字列キー `ConnectionStrings:DefaultConnection` はサービス定義ファイルでは `ConnectionStrings__DefaultConnection` と設定されています。</span><span class="sxs-lookup"><span data-stu-id="c71ae-189">In the following example, the connection string key `ConnectionStrings:DefaultConnection` is set into the service definition file as `ConnectionStrings__DefaultConnection`:</span></span>
 
 ```
 Environment=ConnectionStrings__DefaultConnection={Connection String}
 ```
 
-<span data-ttu-id="c53e1-190">ファイルを保存し、サービスを有効にします。</span><span class="sxs-lookup"><span data-stu-id="c53e1-190">Save the file and enable the service:</span></span>
+<span data-ttu-id="c71ae-190">ファイルを保存し、サービスを有効にします。</span><span class="sxs-lookup"><span data-stu-id="c71ae-190">Save the file and enable the service:</span></span>
 
 ```bash
 sudo systemctl enable kestrel-helloapp.service
 ```
 
-<span data-ttu-id="c53e1-191">サービスを起動し、動作を確認します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-191">Start the service and verify that it's running:</span></span>
+<span data-ttu-id="c71ae-191">サービスを起動し、動作を確認します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-191">Start the service and verify that it's running:</span></span>
 
 ```bash
 sudo systemctl start kestrel-helloapp.service
@@ -236,7 +236,7 @@ Main PID: 9021 (dotnet)
             └─9021 /usr/local/bin/dotnet /var/www/helloapp/helloapp.dll
 ```
 
-<span data-ttu-id="c53e1-192">リバース プロキシが構成され、Kestrel は *systemd* 経由で管理されます。これで Web アプリは完全に構成され、`http://localhost` でローカル コンピューター上のブラウザーからアクセスできます。</span><span class="sxs-lookup"><span data-stu-id="c53e1-192">With the reverse proxy configured and Kestrel managed through *systemd*, the web app is fully configured and can be accessed from a browser on the local machine at `http://localhost`.</span></span> <span data-ttu-id="c53e1-193">応答ヘッダーを調べると、**Server** ヘッダーでは ASP.NET Core アプリが Kestrel によって提供されていることが示されています。</span><span class="sxs-lookup"><span data-stu-id="c53e1-193">Inspecting the response headers, the **Server** header indicates that the ASP.NET Core app is served by Kestrel:</span></span>
+<span data-ttu-id="c71ae-192">リバース プロキシが構成され、Kestrel は *systemd* 経由で管理されます。これで Web アプリは完全に構成され、`http://localhost` でローカル コンピューター上のブラウザーからアクセスできます。</span><span class="sxs-lookup"><span data-stu-id="c71ae-192">With the reverse proxy configured and Kestrel managed through *systemd*, the web app is fully configured and can be accessed from a browser on the local machine at `http://localhost`.</span></span> <span data-ttu-id="c71ae-193">応答ヘッダーを調べると、**Server** ヘッダーでは ASP.NET Core アプリが Kestrel によって提供されていることが示されています。</span><span class="sxs-lookup"><span data-stu-id="c71ae-193">Inspecting the response headers, the **Server** header indicates that the ASP.NET Core app is served by Kestrel:</span></span>
 
 ```
 HTTP/1.1 200 OK
@@ -247,53 +247,53 @@ Connection: Keep-Alive
 Transfer-Encoding: chunked
 ```
 
-### <a name="view-logs"></a><span data-ttu-id="c53e1-194">ログを表示する</span><span class="sxs-lookup"><span data-stu-id="c53e1-194">View logs</span></span>
+### <a name="view-logs"></a><span data-ttu-id="c71ae-194">ログを表示する</span><span class="sxs-lookup"><span data-stu-id="c71ae-194">View logs</span></span>
 
-<span data-ttu-id="c53e1-195">Kestrel を使う Web アプリは *systemd* を使って管理されるため、イベントとプロセスは中央のジャーナルに記録されます。</span><span class="sxs-lookup"><span data-stu-id="c53e1-195">Since the web app using Kestrel is managed using *systemd*, events and processes are logged to a centralized journal.</span></span> <span data-ttu-id="c53e1-196">ただし、このジャーナルには、*systemd* によって管理されるすべてのサービスとプロセスのエントリが含まれます。</span><span class="sxs-lookup"><span data-stu-id="c53e1-196">However, this journal includes entries for all of the services and processes managed by *systemd*.</span></span> <span data-ttu-id="c53e1-197">`kestrel-helloapp.service` 固有の項目を表示するには、次のコマンドを使用します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-197">To view the `kestrel-helloapp.service`-specific items, use the following command:</span></span>
+<span data-ttu-id="c71ae-195">Kestrel を使う Web アプリは *systemd* を使って管理されるため、イベントとプロセスは中央のジャーナルに記録されます。</span><span class="sxs-lookup"><span data-stu-id="c71ae-195">Since the web app using Kestrel is managed using *systemd*, events and processes are logged to a centralized journal.</span></span> <span data-ttu-id="c71ae-196">ただし、このジャーナルには、*systemd* によって管理されるすべてのサービスとプロセスのエントリが含まれます。</span><span class="sxs-lookup"><span data-stu-id="c71ae-196">However, this journal includes entries for all of the services and processes managed by *systemd*.</span></span> <span data-ttu-id="c71ae-197">`kestrel-helloapp.service` 固有の項目を表示するには、次のコマンドを使用します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-197">To view the `kestrel-helloapp.service`-specific items, use the following command:</span></span>
 
 ```bash
 sudo journalctl -fu kestrel-helloapp.service
 ```
 
-<span data-ttu-id="c53e1-198">時間フィルタリングの場合は、コマンドで時間のオプションを指定します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-198">For time filtering, specify time options with the command.</span></span> <span data-ttu-id="c53e1-199">たとえば、現在の日付でフィルター処理するには `--since today` を使い、前の 1 時間のエントリを参照するには `--until 1 hour ago` を使います。</span><span class="sxs-lookup"><span data-stu-id="c53e1-199">For example, use `--since today` to filter for the current day or `--until 1 hour ago` to see the previous hour's entries.</span></span> <span data-ttu-id="c53e1-200">詳しくは、[journalctl の man ページ](https://www.unix.com/man-page/centos/1/journalctl/)をご覧ください。</span><span class="sxs-lookup"><span data-stu-id="c53e1-200">For more information, see the [man page for journalctl](https://www.unix.com/man-page/centos/1/journalctl/).</span></span>
+<span data-ttu-id="c71ae-198">時間フィルタリングの場合は、コマンドで時間のオプションを指定します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-198">For time filtering, specify time options with the command.</span></span> <span data-ttu-id="c71ae-199">たとえば、現在の日付でフィルター処理するには `--since today` を使い、前の 1 時間のエントリを参照するには `--until 1 hour ago` を使います。</span><span class="sxs-lookup"><span data-stu-id="c71ae-199">For example, use `--since today` to filter for the current day or `--until 1 hour ago` to see the previous hour's entries.</span></span> <span data-ttu-id="c71ae-200">詳しくは、[journalctl の man ページ](https://www.unix.com/man-page/centos/1/journalctl/)をご覧ください。</span><span class="sxs-lookup"><span data-stu-id="c71ae-200">For more information, see the [man page for journalctl](https://www.unix.com/man-page/centos/1/journalctl/).</span></span>
 
 ```bash
 sudo journalctl -fu kestrel-helloapp.service --since "2016-10-18" --until "2016-10-18 04:00"
 ```
 
-## <a name="data-protection"></a><span data-ttu-id="c53e1-201">データの保護</span><span class="sxs-lookup"><span data-stu-id="c53e1-201">Data protection</span></span>
+## <a name="data-protection"></a><span data-ttu-id="c71ae-201">データの保護</span><span class="sxs-lookup"><span data-stu-id="c71ae-201">Data protection</span></span>
 
-<span data-ttu-id="c53e1-202">[ASP.NET Core データ保護スタック](xref:security/data-protection/introduction)は、認証ミドルウェア (Cookie ミドルウェアなど) やクロスサイト リクエスト フォージェリ (CSRF) 保護を含む、いくつかの ASP.NET Core [ ミドルウェア](xref:fundamentals/middleware/index)で使用されます。</span><span class="sxs-lookup"><span data-stu-id="c53e1-202">The [ASP.NET Core Data Protection stack](xref:security/data-protection/introduction) is used by several ASP.NET Core [middlewares](xref:fundamentals/middleware/index), including authentication middleware (for example, cookie middleware) and cross-site request forgery (CSRF) protections.</span></span> <span data-ttu-id="c53e1-203">データ保護 API がユーザーのコードから呼び出されない場合でも、永続的な暗号化[キー ストア](xref:security/data-protection/implementation/key-management)を作成するようにデータ保護を構成する必要があります。</span><span class="sxs-lookup"><span data-stu-id="c53e1-203">Even if Data Protection APIs aren't called by user code, data protection should be configured to create a persistent cryptographic [key store](xref:security/data-protection/implementation/key-management).</span></span> <span data-ttu-id="c53e1-204">データ保護を構成しない場合、既定でキーはメモリ内に保持され、アプリが再起動すると破棄されます。</span><span class="sxs-lookup"><span data-stu-id="c53e1-204">If data protection isn't configured, the keys are held in memory and discarded when the app restarts.</span></span>
+<span data-ttu-id="c71ae-202">[ASP.NET Core データ保護スタック](xref:security/data-protection/introduction)は、認証ミドルウェア (Cookie ミドルウェアなど) やクロスサイト リクエスト フォージェリ (CSRF) 保護を含む、いくつかの ASP.NET Core [ ミドルウェア](xref:fundamentals/middleware/index)で使用されます。</span><span class="sxs-lookup"><span data-stu-id="c71ae-202">The [ASP.NET Core Data Protection stack](xref:security/data-protection/introduction) is used by several ASP.NET Core [middlewares](xref:fundamentals/middleware/index), including authentication middleware (for example, cookie middleware) and cross-site request forgery (CSRF) protections.</span></span> <span data-ttu-id="c71ae-203">データ保護 API がユーザーのコードから呼び出されない場合でも、永続的な暗号化[キー ストア](xref:security/data-protection/implementation/key-management)を作成するようにデータ保護を構成する必要があります。</span><span class="sxs-lookup"><span data-stu-id="c71ae-203">Even if Data Protection APIs aren't called by user code, data protection should be configured to create a persistent cryptographic [key store](xref:security/data-protection/implementation/key-management).</span></span> <span data-ttu-id="c71ae-204">データ保護を構成しない場合、既定でキーはメモリ内に保持され、アプリが再起動すると破棄されます。</span><span class="sxs-lookup"><span data-stu-id="c71ae-204">If data protection isn't configured, the keys are held in memory and discarded when the app restarts.</span></span>
 
-<span data-ttu-id="c53e1-205">キーリングがメモリに格納されている場合、アプリを再起動すると次のことが行われます。</span><span class="sxs-lookup"><span data-stu-id="c53e1-205">If the key ring is stored in memory when the app restarts:</span></span>
+<span data-ttu-id="c71ae-205">キーリングがメモリに格納されている場合、アプリを再起動すると次のことが行われます。</span><span class="sxs-lookup"><span data-stu-id="c71ae-205">If the key ring is stored in memory when the app restarts:</span></span>
 
-* <span data-ttu-id="c53e1-206">すべての cookie ベースの認証トークンは無効になります。</span><span class="sxs-lookup"><span data-stu-id="c53e1-206">All cookie-based authentication tokens are invalidated.</span></span>
-* <span data-ttu-id="c53e1-207">ユーザーは、次回の要求時に再度サインインする必要があります。</span><span class="sxs-lookup"><span data-stu-id="c53e1-207">Users are required to sign in again on their next request.</span></span>
-* <span data-ttu-id="c53e1-208">キーリングで保護されているデータは、いずれも復号化できなくなります。</span><span class="sxs-lookup"><span data-stu-id="c53e1-208">Any data protected with the key ring can no longer be decrypted.</span></span> <span data-ttu-id="c53e1-209">これには、[CSRF トークン](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration)と [ASP.NET Core MVC TempData cookie](xref:fundamentals/app-state#tempdata) が含まれます。</span><span class="sxs-lookup"><span data-stu-id="c53e1-209">This may include [CSRF tokens](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) and [ASP.NET Core MVC TempData cookies](xref:fundamentals/app-state#tempdata).</span></span>
+* <span data-ttu-id="c71ae-206">すべての cookie ベースの認証トークンは無効になります。</span><span class="sxs-lookup"><span data-stu-id="c71ae-206">All cookie-based authentication tokens are invalidated.</span></span>
+* <span data-ttu-id="c71ae-207">ユーザーは、次回の要求時に再度サインインする必要があります。</span><span class="sxs-lookup"><span data-stu-id="c71ae-207">Users are required to sign in again on their next request.</span></span>
+* <span data-ttu-id="c71ae-208">キーリングで保護されているデータは、いずれも復号化できなくなります。</span><span class="sxs-lookup"><span data-stu-id="c71ae-208">Any data protected with the key ring can no longer be decrypted.</span></span> <span data-ttu-id="c71ae-209">これには、[CSRF トークン](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration)と [ASP.NET Core MVC TempData cookie](xref:fundamentals/app-state#tempdata) が含まれます。</span><span class="sxs-lookup"><span data-stu-id="c71ae-209">This may include [CSRF tokens](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) and [ASP.NET Core MVC TempData cookies](xref:fundamentals/app-state#tempdata).</span></span>
 
-<span data-ttu-id="c53e1-210">キー リングを永続化して暗号化するようにデータ保護を構成する場合は、次を参照してください。</span><span class="sxs-lookup"><span data-stu-id="c53e1-210">To configure data protection to persist and encrypt the key ring, see:</span></span>
+<span data-ttu-id="c71ae-210">キー リングを永続化して暗号化するようにデータ保護を構成する場合は、次を参照してください。</span><span class="sxs-lookup"><span data-stu-id="c71ae-210">To configure data protection to persist and encrypt the key ring, see:</span></span>
 
 * <xref:security/data-protection/implementation/key-storage-providers>
 * <xref:security/data-protection/implementation/key-encryption-at-rest>
 
-## <a name="secure-the-app"></a><span data-ttu-id="c53e1-211">アプリをセキュリティで保護する</span><span class="sxs-lookup"><span data-stu-id="c53e1-211">Secure the app</span></span>
+## <a name="secure-the-app"></a><span data-ttu-id="c71ae-211">アプリをセキュリティで保護する</span><span class="sxs-lookup"><span data-stu-id="c71ae-211">Secure the app</span></span>
 
-### <a name="configure-firewall"></a><span data-ttu-id="c53e1-212">ファイアウォールを構成する</span><span class="sxs-lookup"><span data-stu-id="c53e1-212">Configure firewall</span></span>
+### <a name="configure-firewall"></a><span data-ttu-id="c71ae-212">ファイアウォールを構成する</span><span class="sxs-lookup"><span data-stu-id="c71ae-212">Configure firewall</span></span>
 
-<span data-ttu-id="c53e1-213">*Firewalld* は、ネットワーク ゾーンをサポートするファイアウォールを管理するための動的デーモンです。</span><span class="sxs-lookup"><span data-stu-id="c53e1-213">*Firewalld* is a dynamic daemon to manage the firewall with support for network zones.</span></span> <span data-ttu-id="c53e1-214">ポートとパケットのフィルター処理は、iptables によって引き続き管理できます。</span><span class="sxs-lookup"><span data-stu-id="c53e1-214">Ports and packet filtering can still be managed by iptables.</span></span> <span data-ttu-id="c53e1-215">*Firewalld* は既定でインストールされます。</span><span class="sxs-lookup"><span data-stu-id="c53e1-215">*Firewalld* should be installed by default.</span></span> <span data-ttu-id="c53e1-216">`yum` を使ってパッケージをインストールしたり、インストールされていることを確認したりできます。</span><span class="sxs-lookup"><span data-stu-id="c53e1-216">`yum` can be used to install the package or verify it's installed.</span></span>
+<span data-ttu-id="c71ae-213">*Firewalld* は、ネットワーク ゾーンをサポートするファイアウォールを管理するための動的デーモンです。</span><span class="sxs-lookup"><span data-stu-id="c71ae-213">*Firewalld* is a dynamic daemon to manage the firewall with support for network zones.</span></span> <span data-ttu-id="c71ae-214">ポートとパケットのフィルター処理は、iptables によって引き続き管理できます。</span><span class="sxs-lookup"><span data-stu-id="c71ae-214">Ports and packet filtering can still be managed by iptables.</span></span> <span data-ttu-id="c71ae-215">*Firewalld* は既定でインストールされます。</span><span class="sxs-lookup"><span data-stu-id="c71ae-215">*Firewalld* should be installed by default.</span></span> <span data-ttu-id="c71ae-216">`yum` を使ってパッケージをインストールしたり、インストールされていることを確認したりできます。</span><span class="sxs-lookup"><span data-stu-id="c71ae-216">`yum` can be used to install the package or verify it's installed.</span></span>
 
 ```bash
 sudo yum install firewalld -y
 ```
 
-<span data-ttu-id="c53e1-217">アプリに必要なポートのみを開くには、`firewalld` を使います。</span><span class="sxs-lookup"><span data-stu-id="c53e1-217">Use `firewalld` to open only the ports needed for the app.</span></span> <span data-ttu-id="c53e1-218">この場合、ポート 80 と 443 が使用されています。</span><span class="sxs-lookup"><span data-stu-id="c53e1-218">In this case, port 80 and 443 are used.</span></span> <span data-ttu-id="c53e1-219">次のコマンドは、ポート 80 と 443 が永続的に開かれるように設定します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-219">The following commands permanently set ports 80 and 443 to open:</span></span>
+<span data-ttu-id="c71ae-217">アプリに必要なポートのみを開くには、`firewalld` を使います。</span><span class="sxs-lookup"><span data-stu-id="c71ae-217">Use `firewalld` to open only the ports needed for the app.</span></span> <span data-ttu-id="c71ae-218">この場合、ポート 80 と 443 が使用されています。</span><span class="sxs-lookup"><span data-stu-id="c71ae-218">In this case, port 80 and 443 are used.</span></span> <span data-ttu-id="c71ae-219">次のコマンドは、ポート 80 と 443 が永続的に開かれるように設定します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-219">The following commands permanently set ports 80 and 443 to open:</span></span>
 
 ```bash
 sudo firewall-cmd --add-port=80/tcp --permanent
 sudo firewall-cmd --add-port=443/tcp --permanent
 ```
 
-<span data-ttu-id="c53e1-220">ファイアウォールの設定を再度読み込みます。</span><span class="sxs-lookup"><span data-stu-id="c53e1-220">Reload the firewall settings.</span></span> <span data-ttu-id="c53e1-221">既定のゾーンで使用できるサービスとポートを確認します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-221">Check the available services and ports in the default zone.</span></span> <span data-ttu-id="c53e1-222">オプションは `firewall-cmd -h` を調べることで使用できます。</span><span class="sxs-lookup"><span data-stu-id="c53e1-222">Options are available by inspecting `firewall-cmd -h`.</span></span>
+<span data-ttu-id="c71ae-220">ファイアウォールの設定を再度読み込みます。</span><span class="sxs-lookup"><span data-stu-id="c71ae-220">Reload the firewall settings.</span></span> <span data-ttu-id="c71ae-221">既定のゾーンで使用できるサービスとポートを確認します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-221">Check the available services and ports in the default zone.</span></span> <span data-ttu-id="c71ae-222">オプションは `firewall-cmd -h` を調べることで使用できます。</span><span class="sxs-lookup"><span data-stu-id="c71ae-222">Options are available by inspecting `firewall-cmd -h`.</span></span>
 
 ```bash
 sudo firewall-cmd --reload
@@ -312,32 +312,32 @@ icmp-blocks:
 rich rules: 
 ```
 
-### <a name="https-configuration"></a><span data-ttu-id="c53e1-223">HTTPS の構成</span><span class="sxs-lookup"><span data-stu-id="c53e1-223">HTTPS configuration</span></span>
+### <a name="https-configuration"></a><span data-ttu-id="c71ae-223">HTTPS の構成</span><span class="sxs-lookup"><span data-stu-id="c71ae-223">HTTPS configuration</span></span>
 
-<span data-ttu-id="c53e1-224">**セキュリティで保護された (HTTPS) ローカル接続用にアプリを構成する**</span><span class="sxs-lookup"><span data-stu-id="c53e1-224">**Configure the app for secure (HTTPS) local connections**</span></span>
+<span data-ttu-id="c71ae-224">**セキュリティで保護された (HTTPS) ローカル接続用にアプリを構成する**</span><span class="sxs-lookup"><span data-stu-id="c71ae-224">**Configure the app for secure (HTTPS) local connections**</span></span>
 
-<span data-ttu-id="c53e1-225">[dotnet run](/dotnet/core/tools/dotnet-run) コマンドでは、アプリの *Properties/launchSettings.json* ファイルが使用されます。このファイルでは、`applicationUrl` プロパティによって提供される URL でリッスンするように、アプリが構成されます (例: `https://localhost:5001; http://localhost:5000`)。</span><span class="sxs-lookup"><span data-stu-id="c53e1-225">The [dotnet run](/dotnet/core/tools/dotnet-run) command uses the app's *Properties/launchSettings.json* file, which configures the app to listen on the URLs provided by the `applicationUrl` property (for example, `https://localhost:5001;http://localhost:5000`).</span></span>
+<span data-ttu-id="c71ae-225">[dotnet run](/dotnet/core/tools/dotnet-run) コマンドでは、アプリの *Properties/launchSettings.json* ファイルが使用されます。このファイルでは、`applicationUrl` プロパティによって提供される URL でリッスンするように、アプリが構成されます (例: `https://localhost:5001; http://localhost:5000`)。</span><span class="sxs-lookup"><span data-stu-id="c71ae-225">The [dotnet run](/dotnet/core/tools/dotnet-run) command uses the app's *Properties/launchSettings.json* file, which configures the app to listen on the URLs provided by the `applicationUrl` property (for example, `https://localhost:5001;http://localhost:5000`).</span></span>
 
-<span data-ttu-id="c53e1-226">次のいずれかの方法を使用して、`dotnet run` コマンド用の開発または開発環境 (Visual Studio Code の F5 または Ctrl + F5 キー) で証明書を使用するように、アプリを構成します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-226">Configure the app to use a certificate in development for the `dotnet run` command or development environment (F5 or Ctrl+F5 in Visual Studio Code) using one of the following approaches:</span></span>
+<span data-ttu-id="c71ae-226">次のいずれかの方法を使用して、`dotnet run` コマンド用の開発または開発環境 (Visual Studio Code の F5 または Ctrl + F5 キー) で証明書を使用するように、アプリを構成します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-226">Configure the app to use a certificate in development for the `dotnet run` command or development environment (F5 or Ctrl+F5 in Visual Studio Code) using one of the following approaches:</span></span>
 
-* <span data-ttu-id="c53e1-227">[構成から既定の証明書を置き換える](xref:fundamentals/servers/kestrel#configuration) (*推奨*)</span><span class="sxs-lookup"><span data-stu-id="c53e1-227">[Replace the default certificate from configuration](xref:fundamentals/servers/kestrel#configuration) (*Recommended*)</span></span>
-* [<span data-ttu-id="c53e1-228">KestrelServerOptions.ConfigureHttpsDefaults</span><span class="sxs-lookup"><span data-stu-id="c53e1-228">KestrelServerOptions.ConfigureHttpsDefaults</span></span>](xref:fundamentals/servers/kestrel#configurehttpsdefaultsactionhttpsconnectionadapteroptions)
+* <span data-ttu-id="c71ae-227">[構成から既定の証明書を置き換える](xref:fundamentals/servers/kestrel#configuration) (*推奨*)</span><span class="sxs-lookup"><span data-stu-id="c71ae-227">[Replace the default certificate from configuration](xref:fundamentals/servers/kestrel#configuration) (*Recommended*)</span></span>
+* [<span data-ttu-id="c71ae-228">KestrelServerOptions.ConfigureHttpsDefaults</span><span class="sxs-lookup"><span data-stu-id="c71ae-228">KestrelServerOptions.ConfigureHttpsDefaults</span></span>](xref:fundamentals/servers/kestrel#configurehttpsdefaultsactionhttpsconnectionadapteroptions)
 
-<span data-ttu-id="c53e1-229">**セキュリティで保護された (HTTPS) クライアント接続用にリバース プロキシを構成する**</span><span class="sxs-lookup"><span data-stu-id="c53e1-229">**Configure the reverse proxy for secure (HTTPS) client connections**</span></span>
+<span data-ttu-id="c71ae-229">**セキュリティで保護された (HTTPS) クライアント接続用にリバース プロキシを構成する**</span><span class="sxs-lookup"><span data-stu-id="c71ae-229">**Configure the reverse proxy for secure (HTTPS) client connections**</span></span>
 
-<span data-ttu-id="c53e1-230">HTTPS 用に Apache を構成するには、*mod_ssl* モジュールを使います。</span><span class="sxs-lookup"><span data-stu-id="c53e1-230">To configure Apache for HTTPS, the *mod_ssl* module is used.</span></span> <span data-ttu-id="c53e1-231">*httpd* モジュールがインストールされていると、*mod_ssl* モジュールもインストールされています。</span><span class="sxs-lookup"><span data-stu-id="c53e1-231">When the *httpd* module was installed, the *mod_ssl* module was also installed.</span></span> <span data-ttu-id="c53e1-232">インストールされていない場合は、`yum` を使って構成に追加します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-232">If it wasn't installed, use `yum` to add it to the configuration.</span></span>
+<span data-ttu-id="c71ae-230">HTTPS 用に Apache を構成するには、*mod_ssl* モジュールを使います。</span><span class="sxs-lookup"><span data-stu-id="c71ae-230">To configure Apache for HTTPS, the *mod_ssl* module is used.</span></span> <span data-ttu-id="c71ae-231">*httpd* モジュールがインストールされていると、*mod_ssl* モジュールもインストールされています。</span><span class="sxs-lookup"><span data-stu-id="c71ae-231">When the *httpd* module was installed, the *mod_ssl* module was also installed.</span></span> <span data-ttu-id="c71ae-232">インストールされていない場合は、`yum` を使って構成に追加します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-232">If it wasn't installed, use `yum` to add it to the configuration.</span></span>
 
 ```bash
 sudo yum install mod_ssl
 ```
 
-<span data-ttu-id="c53e1-233">HTTPS を強制するには、`mod_rewrite` モジュールをインストールして URL の書き換えを有効にします。</span><span class="sxs-lookup"><span data-stu-id="c53e1-233">To enforce HTTPS, install the `mod_rewrite` module to enable URL rewriting:</span></span>
+<span data-ttu-id="c71ae-233">HTTPS を強制するには、`mod_rewrite` モジュールをインストールして URL の書き換えを有効にします。</span><span class="sxs-lookup"><span data-stu-id="c71ae-233">To enforce HTTPS, install the `mod_rewrite` module to enable URL rewriting:</span></span>
 
 ```bash
 sudo yum install mod_rewrite
 ```
 
-<span data-ttu-id="c53e1-234">*helloapp.conf* ファイルを変更して、URL の書き換えを有効にし、ポート 443 での通信をセキュリティで保護します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-234">Modify the *helloapp.conf* file to enable URL rewriting and secure communication on port 443:</span></span>
+<span data-ttu-id="c71ae-234">*helloapp.conf* ファイルを変更して、URL の書き換えを有効にし、ポート 443 での通信をセキュリティで保護します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-234">Modify the *helloapp.conf* file to enable URL rewriting and secure communication on port 443:</span></span>
 
 ```
 <VirtualHost *:*>
@@ -365,67 +365,67 @@ sudo yum install mod_rewrite
 ```
 
 > [!NOTE]
-> <span data-ttu-id="c53e1-235">この例では、ローカルで生成された証明書を使います。</span><span class="sxs-lookup"><span data-stu-id="c53e1-235">This example is using a locally-generated certificate.</span></span> <span data-ttu-id="c53e1-236">**SSLCertificateFile** は、ドメイン名のプライマリ証明書ファイルです。</span><span class="sxs-lookup"><span data-stu-id="c53e1-236">**SSLCertificateFile** should be the primary certificate file for the domain name.</span></span> <span data-ttu-id="c53e1-237">**SSLCertificateKeyFile** は、CSR の作成時に生成されるキー ファイルです。</span><span class="sxs-lookup"><span data-stu-id="c53e1-237">**SSLCertificateKeyFile** should be the key file generated when CSR is created.</span></span> <span data-ttu-id="c53e1-238">**SSLCertificateChainFile** は、証明機関から提供された中間証明書ファイル (存在する場合) です。</span><span class="sxs-lookup"><span data-stu-id="c53e1-238">**SSLCertificateChainFile** should be the intermediate certificate file (if any) that was supplied by the certificate authority.</span></span>
+> <span data-ttu-id="c71ae-235">この例では、ローカルで生成された証明書を使います。</span><span class="sxs-lookup"><span data-stu-id="c71ae-235">This example is using a locally-generated certificate.</span></span> <span data-ttu-id="c71ae-236">**SSLCertificateFile** は、ドメイン名のプライマリ証明書ファイルです。</span><span class="sxs-lookup"><span data-stu-id="c71ae-236">**SSLCertificateFile** should be the primary certificate file for the domain name.</span></span> <span data-ttu-id="c71ae-237">**SSLCertificateKeyFile** は、CSR の作成時に生成されるキー ファイルです。</span><span class="sxs-lookup"><span data-stu-id="c71ae-237">**SSLCertificateKeyFile** should be the key file generated when CSR is created.</span></span> <span data-ttu-id="c71ae-238">**SSLCertificateChainFile** は、証明機関から提供された中間証明書ファイル (存在する場合) です。</span><span class="sxs-lookup"><span data-stu-id="c71ae-238">**SSLCertificateChainFile** should be the intermediate certificate file (if any) that was supplied by the certificate authority.</span></span>
 
-<span data-ttu-id="c53e1-239">ファイルを保存し、構成をテストします。</span><span class="sxs-lookup"><span data-stu-id="c53e1-239">Save the file and test the configuration:</span></span>
+<span data-ttu-id="c71ae-239">ファイルを保存し、構成をテストします。</span><span class="sxs-lookup"><span data-stu-id="c71ae-239">Save the file and test the configuration:</span></span>
 
 ```bash
 sudo service httpd configtest
 ```
 
-<span data-ttu-id="c53e1-240">Apache を再起動します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-240">Restart Apache:</span></span>
+<span data-ttu-id="c71ae-240">Apache を再起動します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-240">Restart Apache:</span></span>
 
 ```bash
 sudo systemctl restart httpd
 ```
 
-## <a name="additional-apache-suggestions"></a><span data-ttu-id="c53e1-241">Apache に関するその他の推奨事項</span><span class="sxs-lookup"><span data-stu-id="c53e1-241">Additional Apache suggestions</span></span>
+## <a name="additional-apache-suggestions"></a><span data-ttu-id="c71ae-241">Apache に関するその他の推奨事項</span><span class="sxs-lookup"><span data-stu-id="c71ae-241">Additional Apache suggestions</span></span>
 
-### <a name="additional-headers"></a><span data-ttu-id="c53e1-242">その他のヘッダー</span><span class="sxs-lookup"><span data-stu-id="c53e1-242">Additional headers</span></span>
+### <a name="additional-headers"></a><span data-ttu-id="c71ae-242">その他のヘッダー</span><span class="sxs-lookup"><span data-stu-id="c71ae-242">Additional headers</span></span>
 
-<span data-ttu-id="c53e1-243">悪意のある攻撃から防御するために、変更または追加する必要があるヘッダーがいくつかあります。</span><span class="sxs-lookup"><span data-stu-id="c53e1-243">In order to secure against malicious attacks, there are a few headers that should either be modified or added.</span></span> <span data-ttu-id="c53e1-244">必ず `mod_headers` モジュールをインストールします。</span><span class="sxs-lookup"><span data-stu-id="c53e1-244">Ensure that the `mod_headers` module is installed:</span></span>
+<span data-ttu-id="c71ae-243">悪意のある攻撃から防御するために、変更または追加する必要があるヘッダーがいくつかあります。</span><span class="sxs-lookup"><span data-stu-id="c71ae-243">In order to secure against malicious attacks, there are a few headers that should either be modified or added.</span></span> <span data-ttu-id="c71ae-244">必ず `mod_headers` モジュールをインストールします。</span><span class="sxs-lookup"><span data-stu-id="c71ae-244">Ensure that the `mod_headers` module is installed:</span></span>
 
 ```bash
 sudo yum install mod_headers
 ```
 
-#### <a name="secure-apache-from-clickjacking-attacks"></a><span data-ttu-id="c53e1-245">Apache をクリックジャッキング攻撃から保護する</span><span class="sxs-lookup"><span data-stu-id="c53e1-245">Secure Apache from clickjacking attacks</span></span>
+#### <a name="secure-apache-from-clickjacking-attacks"></a><span data-ttu-id="c71ae-245">Apache をクリックジャッキング攻撃から保護する</span><span class="sxs-lookup"><span data-stu-id="c71ae-245">Secure Apache from clickjacking attacks</span></span>
 
-<span data-ttu-id="c53e1-246">[クリックジャッキング](https://blog.qualys.com/securitylabs/2015/10/20/clickjacking-a-common-implementation-mistake-that-can-put-your-websites-in-danger)は "*UI 着せ替え攻撃*" とも呼ばれ、Web サイトの訪問者を騙して現在訪れているものとは異なるページのリンクやボタンをクリックさせる悪意のある攻撃です。</span><span class="sxs-lookup"><span data-stu-id="c53e1-246">[Clickjacking](https://blog.qualys.com/securitylabs/2015/10/20/clickjacking-a-common-implementation-mistake-that-can-put-your-websites-in-danger), also known as a *UI redress attack*, is a malicious attack where a website visitor is tricked into clicking a link or button on a different page than they're currently visiting.</span></span> <span data-ttu-id="c53e1-247">サイトをセキュリティで保護するには、`X-FRAME-OPTIONS` を使います。</span><span class="sxs-lookup"><span data-stu-id="c53e1-247">Use `X-FRAME-OPTIONS` to secure the site.</span></span>
+<span data-ttu-id="c71ae-246">[クリックジャッキング](https://blog.qualys.com/securitylabs/2015/10/20/clickjacking-a-common-implementation-mistake-that-can-put-your-websites-in-danger)は "*UI 着せ替え攻撃*" とも呼ばれ、Web サイトの訪問者を騙して現在訪れているものとは異なるページのリンクやボタンをクリックさせる悪意のある攻撃です。</span><span class="sxs-lookup"><span data-stu-id="c71ae-246">[Clickjacking](https://blog.qualys.com/securitylabs/2015/10/20/clickjacking-a-common-implementation-mistake-that-can-put-your-websites-in-danger), also known as a *UI redress attack*, is a malicious attack where a website visitor is tricked into clicking a link or button on a different page than they're currently visiting.</span></span> <span data-ttu-id="c71ae-247">サイトをセキュリティで保護するには、`X-FRAME-OPTIONS` を使います。</span><span class="sxs-lookup"><span data-stu-id="c71ae-247">Use `X-FRAME-OPTIONS` to secure the site.</span></span>
 
-<span data-ttu-id="c53e1-248">クリックジャッキング攻撃を軽減するには、次の手順に従います。</span><span class="sxs-lookup"><span data-stu-id="c53e1-248">To mitigate clickjacking attacks:</span></span>
+<span data-ttu-id="c71ae-248">クリックジャッキング攻撃を軽減するには、次の手順に従います。</span><span class="sxs-lookup"><span data-stu-id="c71ae-248">To mitigate clickjacking attacks:</span></span>
 
-1. <span data-ttu-id="c53e1-249">*httpd.conf* ファイルを編集します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-249">Edit the *httpd.conf* file:</span></span>
+1. <span data-ttu-id="c71ae-249">*httpd.conf* ファイルを編集します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-249">Edit the *httpd.conf* file:</span></span>
 
    ```bash
    sudo nano /etc/httpd/conf/httpd.conf
    ```
 
-   <span data-ttu-id="c53e1-250">行 `Header append X-FRAME-OPTIONS "SAMEORIGIN"` を追加します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-250">Add the line `Header append X-FRAME-OPTIONS "SAMEORIGIN"`.</span></span>
-1. <span data-ttu-id="c53e1-251">ファイルを保存します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-251">Save the file.</span></span>
-1. <span data-ttu-id="c53e1-252">Apache を再起動します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-252">Restart Apache.</span></span>
+   <span data-ttu-id="c71ae-250">行 `Header append X-FRAME-OPTIONS "SAMEORIGIN"` を追加します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-250">Add the line `Header append X-FRAME-OPTIONS "SAMEORIGIN"`.</span></span>
+1. <span data-ttu-id="c71ae-251">ファイルを保存します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-251">Save the file.</span></span>
+1. <span data-ttu-id="c71ae-252">Apache を再起動します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-252">Restart Apache.</span></span>
 
-#### <a name="mime-type-sniffing"></a><span data-ttu-id="c53e1-253">MIME タイプ スニッフィング</span><span class="sxs-lookup"><span data-stu-id="c53e1-253">MIME-type sniffing</span></span>
+#### <a name="mime-type-sniffing"></a><span data-ttu-id="c71ae-253">MIME タイプ スニッフィング</span><span class="sxs-lookup"><span data-stu-id="c71ae-253">MIME-type sniffing</span></span>
 
-<span data-ttu-id="c53e1-254">`X-Content-Type-Options` ヘッダーは、Internet Explorer を "*MIME スニッフィング*" から防ぎます (ファイルの内容からファイルの `Content-Type` を判断します)。</span><span class="sxs-lookup"><span data-stu-id="c53e1-254">The `X-Content-Type-Options` header prevents Internet Explorer from *MIME-sniffing* (determining a file's `Content-Type` from the file's content).</span></span> <span data-ttu-id="c53e1-255">サーバーが `nosniff` オプションを指定して `Content-Type` ヘッダーを `text/html` に設定すると、Internet Explorer はファイルの内容に関係なく `text/html` として内容をレンダリングします。</span><span class="sxs-lookup"><span data-stu-id="c53e1-255">If the server sets the `Content-Type` header to `text/html` with the `nosniff` option set, Internet Explorer renders the content as `text/html` regardless of the file's content.</span></span>
+<span data-ttu-id="c71ae-254">`X-Content-Type-Options` ヘッダーは、Internet Explorer を "*MIME スニッフィング*" から防ぎます (ファイルの内容からファイルの `Content-Type` を判断します)。</span><span class="sxs-lookup"><span data-stu-id="c71ae-254">The `X-Content-Type-Options` header prevents Internet Explorer from *MIME-sniffing* (determining a file's `Content-Type` from the file's content).</span></span> <span data-ttu-id="c71ae-255">サーバーが `nosniff` オプションを指定して `Content-Type` ヘッダーを `text/html` に設定すると、Internet Explorer はファイルの内容に関係なく `text/html` として内容をレンダリングします。</span><span class="sxs-lookup"><span data-stu-id="c71ae-255">If the server sets the `Content-Type` header to `text/html` with the `nosniff` option set, Internet Explorer renders the content as `text/html` regardless of the file's content.</span></span>
 
-<span data-ttu-id="c53e1-256">*httpd.conf* ファイルを編集します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-256">Edit the *httpd.conf* file:</span></span>
+<span data-ttu-id="c71ae-256">*httpd.conf* ファイルを編集します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-256">Edit the *httpd.conf* file:</span></span>
 
 ```bash
 sudo nano /etc/httpd/conf/httpd.conf
 ```
 
-<span data-ttu-id="c53e1-257">行 `Header set X-Content-Type-Options "nosniff"` を追加します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-257">Add the line `Header set X-Content-Type-Options "nosniff"`.</span></span> <span data-ttu-id="c53e1-258">ファイルを保存します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-258">Save the file.</span></span> <span data-ttu-id="c53e1-259">Apache を再起動します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-259">Restart Apache.</span></span>
+<span data-ttu-id="c71ae-257">行 `Header set X-Content-Type-Options "nosniff"` を追加します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-257">Add the line `Header set X-Content-Type-Options "nosniff"`.</span></span> <span data-ttu-id="c71ae-258">ファイルを保存します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-258">Save the file.</span></span> <span data-ttu-id="c71ae-259">Apache を再起動します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-259">Restart Apache.</span></span>
 
-### <a name="load-balancing"></a><span data-ttu-id="c53e1-260">負荷分散</span><span class="sxs-lookup"><span data-stu-id="c53e1-260">Load Balancing</span></span>
+### <a name="load-balancing"></a><span data-ttu-id="c71ae-260">負荷分散</span><span class="sxs-lookup"><span data-stu-id="c71ae-260">Load Balancing</span></span>
 
-<span data-ttu-id="c53e1-261">この例では、同じインスタンス コンピューターに CentOS 7 と Kestrel をインストールし、Apache をセットアップおよび構成する方法を示します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-261">This example shows how to setup and configure Apache on CentOS 7 and Kestrel on the same instance machine.</span></span> <span data-ttu-id="c53e1-262">単一障害点を持たないように、*mod_proxy_balancer* を使い、**VirtualHost** を変更することで、Apache プロキシ サーバーの背後で複数インスタンスの Web アプを管理できるようにします。</span><span class="sxs-lookup"><span data-stu-id="c53e1-262">In order to not have a single point of failure; using *mod_proxy_balancer* and modifying the **VirtualHost** would allow for managing multiple instances of the web apps behind the Apache proxy server.</span></span>
+<span data-ttu-id="c71ae-261">この例では、同じインスタンス コンピューターに CentOS 7 と Kestrel をインストールし、Apache をセットアップおよび構成する方法を示します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-261">This example shows how to setup and configure Apache on CentOS 7 and Kestrel on the same instance machine.</span></span> <span data-ttu-id="c71ae-262">単一障害点を持たないように、*mod_proxy_balancer* を使い、**VirtualHost** を変更することで、Apache プロキシ サーバーの背後で複数インスタンスの Web アプを管理できるようにします。</span><span class="sxs-lookup"><span data-stu-id="c71ae-262">In order to not have a single point of failure; using *mod_proxy_balancer* and modifying the **VirtualHost** would allow for managing multiple instances of the web apps behind the Apache proxy server.</span></span>
 
 ```bash
 sudo yum install mod_proxy_balancer
 ```
 
-<span data-ttu-id="c53e1-263">次に示す構成ファイルでは、ポート 5001 上で実行するように `helloapp` の追加インスタンスを設定しています。</span><span class="sxs-lookup"><span data-stu-id="c53e1-263">In the configuration file shown below, an additional instance of the `helloapp` is set up to run on port 5001.</span></span> <span data-ttu-id="c53e1-264">*Proxy* セクションは、2 メンバーのバランサー構成を使って *byrequests* を負荷分散するように設定されています。</span><span class="sxs-lookup"><span data-stu-id="c53e1-264">The *Proxy* section is set with a balancer configuration with two members to load balance *byrequests*.</span></span>
+<span data-ttu-id="c71ae-263">次に示す構成ファイルでは、ポート 5001 上で実行するように `helloapp` の追加インスタンスを設定しています。</span><span class="sxs-lookup"><span data-stu-id="c71ae-263">In the configuration file shown below, an additional instance of the `helloapp` is set up to run on port 5001.</span></span> <span data-ttu-id="c71ae-264">*Proxy* セクションは、2 メンバーのバランサー構成を使って *byrequests* を負荷分散するように設定されています。</span><span class="sxs-lookup"><span data-stu-id="c71ae-264">The *Proxy* section is set with a balancer configuration with two members to load balance *byrequests*.</span></span>
 
 ```
 <VirtualHost *:*>
@@ -463,15 +463,15 @@ sudo yum install mod_proxy_balancer
 </VirtualHost>
 ```
 
-### <a name="rate-limits"></a><span data-ttu-id="c53e1-265">速度の制限</span><span class="sxs-lookup"><span data-stu-id="c53e1-265">Rate Limits</span></span>
+### <a name="rate-limits"></a><span data-ttu-id="c71ae-265">速度の制限</span><span class="sxs-lookup"><span data-stu-id="c71ae-265">Rate Limits</span></span>
 
-<span data-ttu-id="c53e1-266">*httpd* モジュールに含まれる *mod_ratelimit* を使って、クライアントの帯域幅を制限できます。</span><span class="sxs-lookup"><span data-stu-id="c53e1-266">Using *mod_ratelimit*, which is included in the *httpd* module, the bandwidth of clients can be limited:</span></span>
+<span data-ttu-id="c71ae-266">*httpd* モジュールに含まれる *mod_ratelimit* を使って、クライアントの帯域幅を制限できます。</span><span class="sxs-lookup"><span data-stu-id="c71ae-266">Using *mod_ratelimit*, which is included in the *httpd* module, the bandwidth of clients can be limited:</span></span>
 
 ```bash
 sudo nano /etc/httpd/conf.d/ratelimit.conf
 ```
 
-<span data-ttu-id="c53e1-267">次のファイルの例では、ルートの場所の下での帯域幅を 600 KB/秒に制限しています。</span><span class="sxs-lookup"><span data-stu-id="c53e1-267">The example file limits bandwidth as 600 KB/sec under the root location:</span></span>
+<span data-ttu-id="c71ae-267">次のファイルの例では、ルートの場所の下での帯域幅を 600 KB/秒に制限しています。</span><span class="sxs-lookup"><span data-stu-id="c71ae-267">The example file limits bandwidth as 600 KB/sec under the root location:</span></span>
 
 ```
 <IfModule mod_ratelimit.c>
@@ -482,15 +482,15 @@ sudo nano /etc/httpd/conf.d/ratelimit.conf
 </IfModule>
 ```
 
-### <a name="long-request-header-fields"></a><span data-ttu-id="c53e1-268">要求ヘッダー フィールドが長すぎます</span><span class="sxs-lookup"><span data-stu-id="c53e1-268">Long request header fields</span></span>
+### <a name="long-request-header-fields"></a><span data-ttu-id="c71ae-268">要求ヘッダー フィールドが長すぎます</span><span class="sxs-lookup"><span data-stu-id="c71ae-268">Long request header fields</span></span>
 
-<span data-ttu-id="c53e1-269">アプリにプロキシ サーバーの既定の設定によって許可されている (通常、8,190 バイト) よりも長い要求ヘッダー フィールドが必要な場合、[LimitRequestFieldSize](https://httpd.apache.org/docs/2.4/mod/core.html#LimitRequestFieldSize) ディレクティブの値を調整します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-269">If the app requires request header fields longer than permitted by the proxy server's default setting (typically 8,190 bytes), adjust the value of the [LimitRequestFieldSize](https://httpd.apache.org/docs/2.4/mod/core.html#LimitRequestFieldSize) directive.</span></span> <span data-ttu-id="c53e1-270">適用する値は、シナリオによって異なります。</span><span class="sxs-lookup"><span data-stu-id="c53e1-270">The value to apply is scenario-dependent.</span></span> <span data-ttu-id="c53e1-271">詳細については、ご利用のサーバーのドキュメントを参照してください。</span><span class="sxs-lookup"><span data-stu-id="c53e1-271">For more information, see your server's documentation.</span></span>
+<span data-ttu-id="c71ae-269">アプリにプロキシ サーバーの既定の設定によって許可されている (通常、8,190 バイト) よりも長い要求ヘッダー フィールドが必要な場合、[LimitRequestFieldSize](https://httpd.apache.org/docs/2.4/mod/core.html#LimitRequestFieldSize) ディレクティブの値を調整します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-269">If the app requires request header fields longer than permitted by the proxy server's default setting (typically 8,190 bytes), adjust the value of the [LimitRequestFieldSize](https://httpd.apache.org/docs/2.4/mod/core.html#LimitRequestFieldSize) directive.</span></span> <span data-ttu-id="c71ae-270">適用する値は、シナリオによって異なります。</span><span class="sxs-lookup"><span data-stu-id="c71ae-270">The value to apply is scenario-dependent.</span></span> <span data-ttu-id="c71ae-271">詳細については、ご利用のサーバーのドキュメントを参照してください。</span><span class="sxs-lookup"><span data-stu-id="c71ae-271">For more information, see your server's documentation.</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="c53e1-272">必要な場合を除いて、`LimitRequestFieldSize` の既定値を増やさないでください。</span><span class="sxs-lookup"><span data-stu-id="c53e1-272">Don't increase the default value of `LimitRequestFieldSize` unless necessary.</span></span> <span data-ttu-id="c53e1-273">値を増やすと、悪意のあるユーザーによるバッファー オーバーラン (オーバーフロー) とサービス拒否 (DoS) の攻撃のリスクが増加します。</span><span class="sxs-lookup"><span data-stu-id="c53e1-273">Increasing the value increases the risk of buffer overrun (overflow) and Denial of Service (DoS) attacks by malicious users.</span></span>
+> <span data-ttu-id="c71ae-272">必要な場合を除いて、`LimitRequestFieldSize` の既定値を増やさないでください。</span><span class="sxs-lookup"><span data-stu-id="c71ae-272">Don't increase the default value of `LimitRequestFieldSize` unless necessary.</span></span> <span data-ttu-id="c71ae-273">値を増やすと、悪意のあるユーザーによるバッファー オーバーラン (オーバーフロー) とサービス拒否 (DoS) の攻撃のリスクが増加します。</span><span class="sxs-lookup"><span data-stu-id="c71ae-273">Increasing the value increases the risk of buffer overrun (overflow) and Denial of Service (DoS) attacks by malicious users.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="c53e1-274">その他の技術情報</span><span class="sxs-lookup"><span data-stu-id="c53e1-274">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="c71ae-274">その他の技術情報</span><span class="sxs-lookup"><span data-stu-id="c71ae-274">Additional resources</span></span>
 
-* [<span data-ttu-id="c53e1-275">Linux における .NET Core の前提条件</span><span class="sxs-lookup"><span data-stu-id="c53e1-275">Prerequisites for .NET Core on Linux</span></span>](/dotnet/core/linux-prerequisites)
+* [<span data-ttu-id="c71ae-275">Linux における .NET Core の前提条件</span><span class="sxs-lookup"><span data-stu-id="c71ae-275">Prerequisites for .NET Core on Linux</span></span>](/dotnet/core/linux-prerequisites)
 * <xref:test/troubleshoot>
 * <xref:host-and-deploy/proxy-load-balancer>
