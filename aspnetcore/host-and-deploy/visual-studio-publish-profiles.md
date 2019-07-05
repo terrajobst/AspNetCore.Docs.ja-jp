@@ -5,22 +5,22 @@ description: Visual Studio で発行プロファイルを作成し、それら�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/18/2019
+ms.date: 06/21/2019
 uid: host-and-deploy/visual-studio-publish-profiles
-ms.openlocfilehash: ac243a3898553b2e14a6c15d311afaf62f112a24
-ms.sourcegitcommit: a1283d486ac1dcedfc7ea302e1cc882833e2c515
+ms.openlocfilehash: 50be5a20f6d927270ef2d9dbc6c1cbf24196978f
+ms.sourcegitcommit: 28646e8ca62fb094db1557b5c0c02d5b45531824
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/18/2019
-ms.locfileid: "67207821"
+ms.lasthandoff: 06/23/2019
+ms.locfileid: "67333415"
 ---
 # <a name="visual-studio-publish-profiles-for-aspnet-core-app-deployment"></a>ASP.NET Core アプリを配置するための Visual Studio 発行プロファイル
 
 作成者: [Sayed Ibrahim Hashimi](https://github.com/sayedihashimi)、[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-このドキュメントでは、Visual Studio 2017 以降を使用して、発行プロファイルを作成および使用する方法に焦点を当てます。 Visual Studio を使用して作成した発行プロファイルは、MSBuild および Visual Studio から実行することができます。 Azure に発行する方法については、「[Visual Studio を使用して Azure App Service に ASP.NET Core アプリを発行する](xref:tutorials/publish-to-azure-webapp-using-vs)」を参照してください。
+このドキュメントでは、Visual Studio 2019 以降を使用して、発行プロファイルを作成および使用する方法に焦点を当てます。 Visual Studio を使用して作成した発行プロファイルは、MSBuild および Visual Studio で使用することができます。 Azure への発行の手順については、<xref:tutorials/publish-to-azure-webapp-using-vs> を参照してください。
 
-`dotnet new mvc` コマンドでは、次の最上位レベルの `<Project>` 要素を含むプロジェクト ファイルが生成されます。
+`dotnet new mvc` コマンドでは、次の最上位レベルの [\<Project> 要素](/visualstudio/msbuild/project-element-msbuild)を含むプロジェクト ファイルが生成されます。
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk.Web">
@@ -42,7 +42,7 @@ MSBuild または Visual Studio がプロジェクトを読み込むと、次の
 
 プロジェクトが読み込まれると、[MSBuild プロジェクト項目](/visualstudio/msbuild/common-msbuild-project-items) (ファイル) が計算されます。 項目の種類によって、ファイルの処理方法が決まります。 既定で、 *.cs* ファイルは `Compile` 項目一覧に含まれています。 `Compile` 項目一覧のファイルがコンパイルされます。
 
-`Content` 項目一覧には、ビルドの出力に加え、発行されるファイルが含まれています。 既定では、`wwwroot\**`、`**\*.config`、`**\*.json` というパターンに一致するファイルが、`Content` の項目一覧に含まれます。 たとえば、`wwwroot\**` [glob パターン](https://gruntjs.com/configuring-tasks#globbing-patterns)は、*wwwroot* フォルダー**および**サブフォルダー内のすべてのファイルと一致します。
+`Content` 項目一覧には、ビルドの出力に加え、発行されるファイルが含まれています。 既定では、`wwwroot\**`、`**\*.config`、`**\*.json` というパターンに一致するファイルが、`Content` の項目一覧に含まれます。 たとえば、`wwwroot\**` [glob パターン](https://gruntjs.com/configuring-tasks#globbing-patterns)は、*wwwroot* フォルダーとそのサブフォルダー内のすべてのファイルと一致します。
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -70,7 +70,7 @@ ASP.NET Core プロジェクトは、プロジェクト ファイルの `Microso
 
 ## <a name="basic-command-line-publishing"></a>基本的なコマンド ラインからの発行
 
-コマンド ラインからの発行は、.NET Core をサポートするすべてのプラットフォームで機能し、Visual Studio は必要ありません。 次の例では、プロジェクト ディレクトリ ( *.csproj* ファイルが含まれているディレクトリ) から [dotnet publish](/dotnet/core/tools/dotnet-publish) コマンドが実行されます。 現在のフォルダーがプロジェクト フォルダーではない場合は、プロジェクト ファイル パスにパスを明示的に渡します。 次に例を示します。
+コマンド ラインからの発行は、.NET Core をサポートするすべてのプラットフォームで機能し、Visual Studio は必要ありません。 次の例では、プロジェクト ディレクトリ ( *.csproj* ファイルが含まれているディレクトリ) から .NET Core CLI の [dotnet publish](/dotnet/core/tools/dotnet-publish) コマンドが実行されます。 プロジェクト フォルダーが現在の作業ディレクトリでない場合は、プロジェクト ファイルのパスで明示的に渡します。 次に例を示します。
 
 ```console
 dotnet publish C:\Webs\Web1
@@ -83,22 +83,20 @@ dotnet new mvc
 dotnet publish
 ```
 
-[dotnet publish](/dotnet/core/tools/dotnet-publish) コマンドは、次のような出力を生成します。
+`dotnet publish` コマンドでは次のような出力が生成されます。
 
 ```console
 C:\Webs\Web1>dotnet publish
-Microsoft (R) Build Engine version {version} for .NET Core
+Microsoft (R) Build Engine version {VERSION} for .NET Core
 Copyright (C) Microsoft Corporation. All rights reserved.
 
   Restore completed in 36.81 ms for C:\Webs\Web1\Web1.csproj.
-  Web1 -> C:\Webs\Web1\bin\Debug\netcoreapp{X.Y}\Web1.dll
-  Web1 -> C:\Webs\Web1\bin\Debug\netcoreapp{X.Y}\Web1.Views.dll
-  Web1 -> C:\Webs\Web1\bin\Debug\netcoreapp{X.Y}\publish\
+  Web1 -> C:\Webs\Web1\bin\Debug\{TARGET FRAMEWORK MONIKER}\Web1.dll
+  Web1 -> C:\Webs\Web1\bin\Debug\{TARGET FRAMEWORK MONIKER}\Web1.Views.dll
+  Web1 -> C:\Webs\Web1\bin\Debug\{TARGET FRAMEWORK MONIKER}\publish\
 ```
 
-既定の発行フォルダーは `bin\$(Configuration)\netcoreapp<version>\publish` です。 `$(Configuration)` の既定値は *Debug* です。 上記のサンプルでは、`<TargetFramework>` は `netcoreapp{X.Y}`です。
-
-`dotnet publish -h` では、発行のヘルプ情報が表示されます。
+既定の発行フォルダーの形式は *bin\Debug\\{TARGET FRAMEWORK MONIKER}\publish\\* です。 たとえば、*bin\Debug\netcoreapp2.2\publish\\* などです。
 
 次のコマンドでは、`Release` ビルドと発行ディレクトリを指定します。
 
@@ -106,73 +104,69 @@ Copyright (C) Microsoft Corporation. All rights reserved.
 dotnet publish -c Release -o C:\MyWebs\test
 ```
 
-[dotnet publish](/dotnet/core/tools/dotnet-publish) コマンドは MSBuild を呼び出し、MSBuild は `Publish` ターゲットを呼び出します。 `dotnet publish` に渡されたすべてのパラメーターが MSBuild に渡されます。 `-c` パラメーターは、`Configuration` MSBuild プロパティにマップされます。 `-o` パラメーターは `OutputPath` にマップされます。
+`dotnet publish` コマンドは、`Publish` ターゲットを呼び出す MSBuild を呼び出します。 `dotnet publish` に渡されたすべてのパラメーターが MSBuild に渡されます。 `-c` と `-o` のパラメーターは、それぞれ MSBuild の `Configuration` と `OutputPath` にマップします。
 
 MSBuild のプロパティは、次のいずれかの形式を使用して渡すことができます。
 
 * `p:<NAME>=<VALUE>`
 * `/p:<NAME>=<VALUE>`
 
-次のコマンドは、`Release` ビルドをネットワーク共有に発行します。
+たとえば、次のコマンドは、`Release` ビルドをネットワーク共有に発行します。 ネットワーク共有は、スラッシュを使用して指定します ( *//r8/* )。 .NET Core がサポートされるすべてのプラットフォームで使用できます。
 
 `dotnet publish -c Release /p:PublishDir=//r8/release/AdminWeb`
-
-ネットワーク共有は、スラッシュを使用して指定します ( *//r8/* )。 .NET Core がサポートされるすべてのプラットフォームで使用できます。
 
 配置用に発行したアプリが実行されていないことを確認します。 アプリが実行中は、*publish* フォルダー内のファイルがロックされます。 ロックされているファイルはコピーできないため、配置は行われません。
 
 ## <a name="publish-profiles"></a>プロファイルを発行する
 
-このセクションでは、Visual Studio 2017 以降を使用して発行プロファイルが作成されます。 プロファイルが作成されると、Visual Studio またはコマンド ラインから発行できるようになります。
+このセクションでは、Visual Studio 2019 以降を使用して発行プロファイルが作成されます。 プロファイルが作成されると、Visual Studio またはコマンド ラインから発行できるようになります。 発行プロファイルは発行プロセスを簡略化でき、任意の数のプロファイルが存在できます。
 
-発行プロファイルは発行プロセスを簡略化でき、任意の数のプロファイルが存在できます。 次のいずれかの方法で、Visual Studio で発行プロファイルを作成します。
+次のいずれかの方法で、Visual Studio で発行プロファイルを作成します。
 
 * **ソリューション エクスプローラー**で、プロジェクトを右クリックして **[発行]** をクリックします。
 * **[ビルド]** メニューの **[{PROJECT NAME} の発行]** を選択します。
 
-アプリ容量ページの **[発行]** タブが表示されます。 プロジェクトに発行プロファイルが含まれていない場合は、次のページが表示されます。
-
-![アプリ容量ページの [発行] タブ](visual-studio-publish-profiles/_static/az.png)
-
-**[フォルダー]** を選択した場合は、発行された資産を保存するフォルダーのパスを指定します。 既定のフォルダーは *bin\Release\PublishOutput* です。 **[プロファイルの作成]** ボタンをクリックして完了します。
-
-発行プロファイルが作成されると、 **[発行]** タブが変化します。 新しく作成したプロファイルがドロップダウン リストに表示されます。 別の新しいプロファイルを作成するには、 **[新しいプロファイルの作成]** をクリックします。
-
-![FolderProfile を示しているアプリ容量ページの [発行] タブ](visual-studio-publish-profiles/_static/create_new.png)
-
-発行ウィザードは、次の発行ターゲットをサポートしています。
+アプリ機能ページの **[発行]** タブが表示されます。 プロジェクトに発行プロファイルが含まれていない場合は、 **[発行先を選択]** のページが表示されます。 次の発行先のいずれかを選択するように求められます。
 
 * Azure App Service
+* Azure App Service on Linux
 * Azure Virtual Machines
-* IIS、FTP など (すべての Web サーバー)
 * フォルダー
+* (任意の Web サーバーの) IIS、FTP、Web 配置
 * インポート プロファイル
 
-詳細については、「[状況に適した発行オプション](/visualstudio/ide/not-in-toc/web-publish-options)」を参照してください。
+最も適切な発行先を決定するには、[自分に合った発行オプション](/visualstudio/ide/not-in-toc/web-publish-options)に関する記事を参照してください。
 
-Visual Studio を使用して発行プロファイルを作成すると、*Properties/PublishProfiles/{PROFILE NAME}.pubxml* という MSBuild ファイルが作成されます。 *.pubxml* ファイルは MSBuild ファイルであり、発行構成設定が含まれています。 このファイルを変更して、ビルドと発行プロセスをカスタマイズできます。 このファイルは、発行プロファイルで読み取られます。 `<LastUsedBuildConfiguration>` はグローバル プロパティであり、ビルドにインポートされるファイルには含めるべきではない特別なプロパティです。 詳細については、「[MSBuild: how to set the configuration property](http://sedodream.com/2012/10/27/MSBuildHowToSetTheConfigurationProperty.aspx)」(MSBuild: 構成プロパティの設定方法) を参照してください。
+発行先を **[フォルダー]** に選択した場合は、発行された資産を保存するフォルダーのパスを指定します。 既定のフォルダー パスは *bin\\{PROJECT CONFIGURATION}\\{TARGET FRAMEWORK MONIKER}\publish\\* です。 たとえば、*bin\Release\netcoreapp2.2\publish\\* などです。 **[プロファイルの作成]** ボタンを選択して完了します。
+
+発行プロファイルが作成されると、 **[発行]** タブの内容が変化します。 新しく作成したプロファイルがドロップダウン リストに表示されます。 別の新しいプロファイルを作成するには、ドロップダウン リストから **[新しいプロファイルの作成]** を選択します。
+
+Visual Studio の発行ツールでは、発行プロファイルについて説明する *Properties/PublishProfiles/{PROFILE NAME}.pubxml* という MSBuild ファイルが作成されます。 *.pubxml* ファイルは:
+
+* 発行構成の設定を含み、発行プロセスによって使用されます。
+* 変更して、ビルドと発行プロセスをカスタマイズできます。
 
 Azure ターゲットに発行する場合、 *.pubxml* ファイルには、Azure サブスクリプション識別子が含まれます。 そのターゲットの種類では、このファイルをソース管理に追加することはお勧めしません。 Azure 以外のターゲットに発行する場合は、 *.pubxml* ファイルをチェックインするほうが安全です。
 
 機微な情報 (発行パスワードなど) は、個々のユーザー/コンピューター レベルで暗号化されます。 それは、*Properties/PublishProfiles/{PROFILE NAME}.pubxml.user* ファイルに格納されます。 このファイルには機微な情報が格納される可能性があるため、ソース コード管理にチェックインしないでください。
 
-ASP.NET Core で Web アプリを発行する方法の概要については、「[ホストと展開](xref:host-and-deploy/index)」を参照してください。 ASP.NET Core アプリを発行するために必要な MSBuild タスクとターゲットは、[aspnet/websdk リポジトリ](https://github.com/aspnet/websdk)のオープン ソースです。
+ASP.NET Core で Web アプリを発行する方法の概要については、<xref:host-and-deploy/index> を参照してください。 ASP.NET Core で Web アプリを発行するために必要な MSBuild タスクとターゲットは、[aspnet/websdk リポジトリ](https://github.com/aspnet/websdk)のオープン ソースです。
 
-`dotnet publish` は、フォルダー、MSDeploy、および [Kudu](https://github.com/projectkudu/kudu/wiki) 発行プロファイルを使用できます。
+`dotnet publish` コマンドは、フォルダー、MSDeploy、および [Kudu](https://github.com/projectkudu/kudu/wiki) 発行プロファイルを使用できます。 MSDeploy にはクロス プラットフォームのサポートがないため、次の MSDeploy オプションは、Windows でのみサポートされます。
 
-フォルダー (クロス プラットフォームで動作します):
+**フォルダー (クロス プラットフォームで動作します):**
 
 ```console
 dotnet publish WebApplication.csproj /p:PublishProfile=<FolderProfileName>
 ```
 
-MSDeploy (MSDeploy はクロスプラットフォームではないため、これは現在 Windows のみで機能します):
+**MSDeploy:**
 
 ```console
 dotnet publish WebApplication.csproj /p:PublishProfile=<MsDeployProfileName> /p:Password=<DeploymentPassword>
 ```
 
-MSDeploy パッケージ (MSDeploy はクロスプラットフォームではないため、これは現在 Windows のみで機能します):
+**MSDeploy パッケージ:**
 
 ```console
 dotnet publish WebApplication.csproj /p:PublishProfile=<MsDeployPackageProfileName>
@@ -184,7 +178,7 @@ dotnet publish WebApplication.csproj /p:PublishProfile=<MsDeployPackageProfileNa
 
 `dotnet publish` は、任意のプラットフォームから Azure に発行する Kudu API をサポートしています。 Visual Studio の発行は、Kudu API をサポートしていますが、Azure へのクロスプラットフォームの発行は WebSDK がサポートしています。
 
-次の内容の発行プロファイルを *Properties/PublishProfiles* フォルダーに追加します。
+次の内容の発行プロファイルを、プロジェクトの *Properties/PublishProfiles* フォルダーに追加します。
 
 ```xml
 <Project>
@@ -213,7 +207,10 @@ dotnet publish /p:PublishProfile=Azure /p:Configuration=Release
 * `dotnet build /p:DeployOnBuild=true /p:PublishProfile=FolderProfile`
 * `msbuild      /p:DeployOnBuild=true /p:PublishProfile=FolderProfile`
 
-[dotnet build](/dotnet/core/tools/dotnet-build) を呼び出すと、`msbuild` が呼び出されて、ビルドと発行プロセスが実行されます。 `dotnet build` または `msbuild` の呼び出しは、フォルダー プロファイルで渡す場合は同等です。 Windows で MSBuild を直接呼び出すと、MSBuild の .NET Framework バージョンが使用されます。 MSDeploy の発行は、現在 Windows コンピューターに制限されています。 フォルダー以外のプロファイルで `dotnet build` を呼び出すと MSBuild が呼び出され、MSBuild はフォルダー以外のプロファイルで MSDeploy を使用します。 フォルダー以外のプロファイルで `dotnet build` を呼び出すと、(MSDeploy を使用して) MSBuild が呼び出され、(Windows プラットフォームで実行している場合でも) エラーになります。 フォルダー以外のプロファイルで発行するには、MSBuild を直接呼び出します。
+.NET Core CLI の [dotnet build](/dotnet/core/tools/dotnet-build) コマンドにより `msbuild` が呼び出されて、ビルドと発行プロセスが実行されます。 `dotnet build` と `msbuild` のコマンドは、フォルダー プロファイルで渡す場合は同等です。 Windows で `msbuild` を直接呼び出すと、MSBuild の .NET Framework バージョンが使用されます。 フォルダー以外のプロファイルで `dotnet build` を呼び出すと:
+
+* MSDeploy を使用する `msbuild` が呼び出されます。
+* 失敗します (Windows で実行されている場合でも)。 フォルダー以外のプロファイルで発行するには、`msbuild` を直接呼び出します。
 
 次のフォルダー発行プロファイルは、Visual Studio で作成され、ネットワーク共有に発行されます。
 
@@ -241,19 +238,24 @@ MSBuild file.
 </Project>
 ```
 
-上の例で、`<LastUsedBuildConfiguration>` は `Release` に設定されます。 Visual Studio から発行すると、発行プロセスが開始されたときの値を使用して、`<LastUsedBuildConfiguration>` 構成プロパティ値が設定されます。 `<LastUsedBuildConfiguration>` 構成プロパティは特別なプロパティなので、インポートされる MSBuild ファイルで上書きされないようにしてください。 このプロパティは、コマンド ラインからオーバーライドできます。
+前の例の場合:
 
-.NET Core CLI の使用:
+* `<ExcludeApp_Data>` プロパティは、XML スキーマの要件を満たすためだけに存在します。 プロジェクトのルートに *App_Data* フォルダーがある場合でも、`<ExcludeApp_Data>` プロパティが発行プロセスに影響することはありません。 *App_Data* フォルダーは ASP.NET 4.x プロジェクトのように特別な処理を受信しません。
 
-```console
-dotnet build -c Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
-```
+* `<LastUsedBuildConfiguration>` プロパティが `Release` に設定されている。 Visual Studio から発行すると、発行プロセスが開始されたときの値を使用して、`<LastUsedBuildConfiguration>` の値が設定されます。 `<LastUsedBuildConfiguration>` は特殊なので、インポートされる MSBuild ファイルでオーバーライドされないようにしてください。 ただし、このプロパティは次の方法のいずれかを使用してコマンドラインからオーバーライドすることができます。
+  * .NET Core CLI の使用:
 
-MSBuild の使用:
+    ```console
+    dotnet build -c Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
+    ```
 
-```console
-msbuild /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
-```
+  * MSBuild の使用:
+
+    ```console
+    msbuild /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
+    ```
+
+  詳細については、「[MSBuild: how to set the configuration property](http://sedodream.com/2012/10/27/MSBuildHowToSetTheConfigurationProperty.aspx)」(MSBuild: 構成プロパティの設定方法) を参照してください。
 
 ## <a name="publish-to-an-msdeploy-endpoint-from-the-command-line"></a>コマンド ラインから MSDeploy エンドポイントに発行する
 
@@ -275,7 +277,7 @@ msbuild {PATH}
 * {PROFILE} &ndash; 発行プロファイルの名前。
 * {USERNAME} &ndash; MSDeploy ユーザー名。 {USERNAME} は発行プロファイルで確認できます。
 * {PASSWORD} &ndash; MSDeploy パスワード。 *{PROFILE}.PublishSettings* ファイルから {PASSWORD} を取得します。 次のいずれかの方法で、 *.PublishSettings* ファイルをダウンロードします。
-  * ソリューション エクスプローラー: **[ビュー]**  >  **[Cloud Explorer]** の順に選択します。 ご自分の Azure サブスクリプションを使用して接続します。 **App Services** を開きます。 アプリを右クリックします。 **[発行プロファイルのダウンロード]** を選択します。
+  * **ソリューション エクスプローラー**: **[ビュー]**  >  **[Cloud Explorer]** の順に選択します。 ご自分の Azure サブスクリプションを使用して接続します。 **App Services** を開きます。 アプリを右クリックします。 **[発行プロファイルのダウンロード]** を選択します。
   * Azure portal: Web アプリの **[概要]** ウィンドウで **[発行プロファイルの取得]** をクリックします。
 
 次の例では、*AzureWebApp - Web Deploy* という名前の発行プロファイルが使用されます。
@@ -288,7 +290,7 @@ msbuild "AzureWebApp.csproj"
     /p:Password=".........."
 ```
 
-Windows コマンド プロンプトからの .NET Core CLI [dotnet msbuild](/dotnet/core/tools/dotnet-msbuild) コマンドで、発行プロファイルを使用することもできます。
+Windows コマンド シェルからの .NET Core CLI の [dotnet msbuild](/dotnet/core/tools/dotnet-msbuild) コマンドで、発行プロファイルを使用することもできます。
 
 ```console
 dotnet msbuild "AzureWebApp.csproj"
@@ -298,8 +300,8 @@ dotnet msbuild "AzureWebApp.csproj"
     /p:Password=".........."
 ```
 
-> [!NOTE]
-> [dotnet msbuild](/dotnet/core/tools/dotnet-msbuild) コマンドは、プラットフォームにまたがって使用できます。これにより、macOS および Linux 上で ASP.NET Core アプリをコンパイルすることができます。 ただし、macOS および Linux 上の MSBuild では、Azure またはその他の MSDeploy エンドポイントにアプリを配置することはできません。 MSDeploy は Windows 上でしか利用できません。
+> [!IMPORTANT]
+> `dotnet msbuild` コマンドはクロス プラットフォームのコマンドで、macOS および Linux 上で ASP.NET Core アプリをコンパイルすることができます。 ただし、macOS および Linux 上の MSBuild では、Azure またはその他の MSDeploy エンドポイントにアプリを配置することはできません。
 
 ## <a name="set-the-environment"></a>環境を設定する
 
@@ -381,11 +383,11 @@ MSBuild では、[glob パターン](https://gruntjs.com/configuring-tasks#globb
 </ItemGroup>
 ```
 
-前述の`<Content>` 要素を使用してコマンド ライン配置を行うと、次の出力が生成されます。
+前述の `<Content>` 要素を使用してコマンド ライン配置を行うと、次のような出力が生成されます。
 
 ```console
 MSDeployPublish:
-  Starting Web deployment task from source: manifest(C:\Webs\Web1\obj\Release\netcoreapp1.1\PubTmp\Web1.SourceManifest.
+  Starting Web deployment task from source: manifest(C:\Webs\Web1\obj\Release\{TARGET FRAMEWORK MONIKER}\PubTmp\Web1.SourceManifest.
   xml) to Destination: auto().
   Deleting file (Web11112\Views\Home\About1.cshtml).
   Deleting file (Web11112\Views\Home\About2.cshtml).
@@ -402,57 +404,44 @@ Done Building Project "C:\Webs\Web1\Web1.csproj" (default targets).
 
 ## <a name="include-files"></a>インクルード ファイル
 
-次のマークアップでは:
+次のセクションでは、発行時のファイル インクルードのさまざまな方法を概説します。 「[一般的なファイル インクルード](#general-file-inclusion)」のセクションでは、Web SDK の発行先ファイルから提供される `DotNetPublishFiles` 項目を使用します。 「[選択的なファイル インクルード](#selective-file-inclusion)」のセクションでは、.NET Core SDK の発行先ファイルから提供される `ResolvedFileToPublish` 項目を使用します。 Web SDK は .NET Core SDK に依存するため、どちらの項目も ASP.NET Core プロジェクトで使用することができます。
 
-* プロジェクト ディレクトリの外部にある *images* フォルダーが、発行サイトの *wwwroot/images* フォルダーに含められます。
-* *.csproj* ファイルまたは発行プロファイルに追加できます。 *.csproj* ファイルに追加した場合は、プロジェクトの各発行プロファイルに含まれます。
+### <a name="general-file-inclusion"></a>一般的なファイル インクルード
+
+次の例の `<ItemGroup>` 要素は、プロジェクト ディレクトリの外部にあるフォルダーを発行済みサイトのフォルダーにコピーする方法を示しています。 次のマークアップの `<ItemGroup>` に追加されたすべてのファイルが既定で含まれます。
 
 ```xml
 <ItemGroup>
   <_CustomFiles Include="$(MSBuildProjectDirectory)/../images/**/*" />
-  <DotnetPublishFiles Include="@(_CustomFiles)">
+  <DotNetPublishFiles Include="@(_CustomFiles)">
     <DestinationRelativePath>wwwroot/images/%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
-  </DotnetPublishFiles>
+  </DotNetPublishFiles>
 </ItemGroup>
 ```
 
-次の強調表示されているマークアップは、この方法を示しています。
+上のマークアップでは以下の操作が行われます。
 
-* プロジェクトの外部にあるファイルを *wwwroot* フォルダーにコピーします。
-* *wwwroot\Content* フォルダーを除外します。
-* *Views\Home\About2.cshtml* を除外します。
+* *.csproj* ファイルまたは発行プロファイルに追加できます。 *.csproj* ファイルに追加した場合は、プロジェクトの各発行プロファイルに含まれます。
+* `Include` 属性の glob パターンに一致するファイルを格納するための `_CustomFiles` 項目を宣言します。 パターンで参照される*イメージ* フォルダーはプロジェクト ディレクトリの外部にあります。 `$(MSBuildProjectDirectory)` という名前の[予約済みプロパティ](/visualstudio/msbuild/msbuild-reserved-and-well-known-properties)がプロジェクト ファイルの絶対パスを解決します。
+* `DotNetPublishFiles` 項目にファイルの一覧を提供します。 既定では、項目の `<DestinationRelativePath>` 要素は空です。 既定値はマークアップでオーバーライドされ、`%(RecursiveDir)` などの[既知の項目メタデータ](/visualstudio/msbuild/msbuild-well-known-item-metadata)を使用します。 内部のテキストは、発行済みサイトの *wwwroot/images* フォルダーを表します。
+
+### <a name="selective-file-inclusion"></a>選択的なファイル インクルード
+
+次の例の強調表示されたマークアップは、次のことを示しています。
+
+* プロジェクトの外部にあるファイルは、発行済みのサイトの *wwwroot* フォルダーにコピーされます。 *ReadMe2.md* のファイル名は維持されます。
+* *wwwroot\Content* フォルダーは除外されます。
+* *Views\Home\About2.cshtml* は除外されます。
+
+[!code-xml[](visual-studio-publish-profiles/samples/Web1.pubxml?highlight=18-23)]
+
+上記の例では、既定の動作として `Include` 属性に提供されたファイルが常に発行済みサイトにコピーされる、`ResolvedFileToPublish` 項目を使用します。 既定の動作は、内部テキストが `Never` または `PreserveNewest` の子要素 `<CopyToPublishDirectory>` を含めるとオーバーライドされます。 次に例を示します。
 
 ```xml
-<?xml version="1.0" encoding="utf-8"?>
-<!--
-This file is used by the publish/package process of your Web project.
-You can customize the behavior of this process by editing this 
-MSBuild file.
--->
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <WebPublishMethod>FileSystem</WebPublishMethod>
-    <PublishProvider>FileSystem</PublishProvider>
-    <LastUsedBuildConfiguration>Release</LastUsedBuildConfiguration>
-    <LastUsedPlatform>Any CPU</LastUsedPlatform>
-    <SiteUrlToLaunchAfterPublish />
-    <LaunchSiteAfterPublish>True</LaunchSiteAfterPublish>
-    <ExcludeApp_Data>False</ExcludeApp_Data>
-    <PublishFramework />
-    <ProjectGuid>afa9f185-7ce0-4935-9da1-ab676229d68a</ProjectGuid>
-    <publishUrl>bin\Release\PublishOutput</publishUrl>
-    <DeleteExistingFiles>False</DeleteExistingFiles>
-  </PropertyGroup>
-  <ItemGroup>
-    <ResolvedFileToPublish Include="..\ReadMe2.MD">
-      <RelativePath>wwwroot\ReadMe2.MD</RelativePath>
-    </ResolvedFileToPublish>
-
-    <Content Update="wwwroot\Content\**\*" CopyToPublishDirectory="Never" />
-    <Content Update="Views\Home\About2.cshtml" CopyToPublishDirectory="Never" />
-
-  </ItemGroup>
-</Project>
+<ResolvedFileToPublish Include="..\ReadMe2.md">
+  <RelativePath>wwwroot\ReadMe2.md</RelativePath>
+  <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+</ResolvedFileToPublish>
 ```
 
 他の配置例については、[Web SDK リポジトリの Readme](https://github.com/aspnet/websdk) を参照してください。

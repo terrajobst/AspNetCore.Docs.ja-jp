@@ -4,14 +4,14 @@ author: rick-anderson
 description: ASP.NET Core で Web API をビルドする方法を学習します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/18/2019
+ms.date: 06/23/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 17e8ee08fca775b8fccc3f2e6cd6067caca9c79f
-ms.sourcegitcommit: a1283d486ac1dcedfc7ea302e1cc882833e2c515
+ms.openlocfilehash: a53f7019c1079296f073e743ddbf9d90fc5abad3
+ms.sourcegitcommit: d6e51c60439f03a8992bda70cc982ddb15d3f100
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/18/2019
-ms.locfileid: "67207778"
+ms.lasthandoff: 07/03/2019
+ms.locfileid: "67555883"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>チュートリアル: ASP.NET Core で Web API を作成する
 
@@ -49,17 +49,32 @@ ms.locfileid: "67207778"
 
 次の図は、アプリのデザインを示しています。
 
-![クライアントは左側のボックスで表され、要求を送信し、アプリケーション (右側に描画されたボックス) から応答を受信します。 アプリケーション ボックス内の 3 つのボックスは、コントローラー、モデル、およびデータ アクセス レイヤーを表しています。 要求はアプリケーションのコントローラーに送られ、コントローラーとデータ アクセス レイヤー間で読み取り/書き込み操作が行われます。 モデルはシリアル化され、応答でクライアントに返されます。](first-web-api/_static/architecture.png)
+![クライアントは、左側のボックスに表されます。 要求を送信し、アプリケーション (右側に描画されたボックス) から応答を受信します。 アプリケーション ボックス内の 3 つのボックスは、コントローラー、モデル、およびデータ アクセス レイヤーを表しています。 要求はアプリケーションのコントローラーに送られ、コントローラーとデータ アクセス レイヤー間で読み取り/書き込み操作が行われます。 モデルはシリアル化され、応答でクライアントに返されます。](first-web-api/_static/architecture.png)
 
-[!INCLUDE[](~/includes/net-core-prereqs-all-2.2.md)]
+## <a name="prerequisites"></a>必須コンポーネント
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+[!INCLUDE[](~/includes/net-core-prereqs-vs2019-2.2.md)]
+
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+
+[!INCLUDE[](~/includes/net-core-prereqs-vsc-2.2.md)]
+
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+
+[!INCLUDE[](~/includes/net-core-prereqs-mac-2.2.md)]
+
+---
 
 ## <a name="create-a-web-project"></a>Web プロジェクトを作成する
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * **[ファイル]** メニューで、 **[新規作成]** 、 >  **[プロジェクト]** の順に作成します。
-* **[ASP.NET Core Web アプリケーション]** テンプレートを選択します。 プロジェクトに「*TodoApi*」という名前を付け、 **[OK]** をクリックます。
-* **[New ASP.NET Core Web Application - TodoApi]\(新しい ASP.NET Core Web アプリケーション - TodoApi\)** ダイアログで、ASP.NET Core のバージョンを選択します。 **API** テンプレートを選択し、 **[OK]** をクリックします。 **[Enable Docker Support]\(Docker サポートを有効にする\)** は**選択しないで**ください。
+* **[ASP.NET Core Web アプリケーション]** テンプレートを選択して、 **[次へ]** をクリックします。
+* プロジェクトに「*TodoApi*」という名前を付け、 **[作成]** をクリックします。
+* **[新しい ASP.NET Core Web アプリケーションを作成する]** ダイアログで、 **[.NET Core]** と **[ASP.NET Core 2.2]** が選択されていることを確認します。 **API** テンプレートを選択し、 **[作成]** をクリックします。 **[Enable Docker Support]\(Docker サポートを有効にする\)** は**選択しないで**ください。
 
 ![VS の [新しいプロジェクト] ダイアログ](first-web-api/_static/vs.png)
 
@@ -350,7 +365,7 @@ To Do アイテムを取得する API を指定するには、`TodoController` �
 
 `PutTodoItem` は `PostTodoItem` と似ていますが、HTTP PUT を使用します。 応答は [204 (No Content)](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html) となります。 HTTP 仕様に従って、PUT 要求では、変更だけでなく、更新されたエンティティ全体を送信するようクライアントに求めます。 部分的な更新をサポートするには、[HTTP PATCH](xref:Microsoft.AspNetCore.Mvc.HttpPatchAttribute) を使用します。
 
-`PutTodoItem` 呼び出しでエラーが発生した場合、`GET` を呼び出してデータベース内に項目があることを確認してください。
+`PutTodoItem` 呼び出しでエラーが発生した場合、`GET` を呼び出してデータベース内にアイテムがあることを確認してください。
 
 ### <a name="test-the-puttodoitem-method"></a>PutTodoItem メソッドのテスト
 
@@ -386,13 +401,13 @@ Postman を使用して、To Do アイテムを削除します。
 * 削除するオブジェクトの URI (たとえば、`https://localhost:5001/api/todo/1`) を設定します。
 * **[Send]** を選択します。
 
-サンプル アプリではすべてのアイテムを削除できますが、最後のアイテムが削除されると、次回 API が呼び出されたときに、モデル クラス コンストラクターによって新しいアイテムが作成されます。
+サンプル アプリではすべてのアイテムを削除することができます。 ただし、最後のアイテムが削除されると、次回 API が呼び出されたときに、モデル クラス コンストラクターによって新しいアイテムが作成されます。
 
 ## <a name="call-the-api-with-jquery"></a>jQuery での API の呼び出し
 
 このセクションでは、jQuery を使用して Web API を呼び出す、HTML ページが追加されます。 jQuery で要求を開始し、API の応答からの詳細を含むページを更新します。
 
-[静的ファイルを提供し](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_)、[既定のファイル マッピングを有効にする](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_)ようにアプリを構成します。
+*Startup.cs* を次の強調表示されたコードで更新して、[静的ファイルを提供](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_)し、[既定のファイル マッピングを有効にする](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_)ためのアプリを構成します。
 
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Startup.cs?highlight=14-15&name=snippet_configure)]
 
