@@ -5,14 +5,14 @@ description: ASP.NET Core、Content Delivery Networks (CDN)、ファイル サ�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/14/2019
+ms.date: 07/02/2019
 uid: host-and-deploy/blazor/client-side
-ms.openlocfilehash: 7567473ae8acd9e1072954907f0fe9c7beea29ad
-ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
+ms.openlocfilehash: 46c99364098557557bff0c38cab5a91ee2d3979b
+ms.sourcegitcommit: 0b9e767a09beaaaa4301915cdda9ef69daaf3ff2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/17/2019
-ms.locfileid: "67153193"
+ms.lasthandoff: 07/03/2019
+ms.locfileid: "67538644"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor-client-side"></a>クライアント側の ASP.NET Core Blazor をホストして展開する
 
@@ -106,19 +106,19 @@ Blazor では、出力アセンブリから不要な中間言語 (IL) を削除�
 
 ## <a name="rewrite-urls-for-correct-routing"></a>正しいルーティングのために URL を書き換える
 
-クライアント側のアプリ内のページ コンポーネントに対するルーティング要求は、サーバー側のホストされているアプリに対するルーティング要求のようにシンプルなものではありません。 次の 2 つのページがあるクライアント側のアプリについて考えてみます。
+クライアント側のアプリ内のページ コンポーネントに対するルーティング要求は、サーバー側のホストされているアプリに対するルーティング要求のようにシンプルなものではありません。 次の 2 つのコンポーネントがあるクライアント側のアプリについて考えてみます。
 
-* **_Main.razor** &ndash; アプリのルートで読み込まれ、About ページ (`href="About"`) へのリンクが含まれています。
-* **_About.razor** &ndash; About ページ。
+* *Main.razor* &ndash; アプリのルートで読み込まれ、`About` コンポーネントへのリンク (`href="About"`) が含まれています。
+* *About.razor* &ndash; `About` コンポーネント。
 
 アプリの既定のドキュメントがブラウザーのアドレス バー (例: `https://www.contoso.com/`) を使用して要求された場合:
 
 1. ブラウザーにより要求が送信されます。
 1. 既定のページ (通常は *index.html*) が返されます。
 1. *index.html* によりアプリがブートストラップされます。
-1. Blazor のルーターが読み込まれて、Razor Main ページ (*Main.razor*) が表示されます。
+1. Blazor のルーターが読み込まれて、Razor `Main` コンポーネントが表示されます。
 
-Main ページで About ページへのリンクを選択すると、About ページが読み込まれます。 Blazor のルーターにより、ブラウザーからのインターネット上での `www.contoso.com` に対する `About` の要求が停止され、About ページ自体が提供されるため、クライアント上での About ページへのリンクの選択が機能します。 *クライアント側のアプリ内*の内部ページの要求もすべて、同じように動作します。要求によって、サーバーにホストされているインターネット上のリソースに対するブラウザーベースの要求がトリガーされることはありません。 要求は、ルーターによって内部的に処理されます。
+Main ページでは、`About` コンポーネントへのリンクの選択がクライアント上で動作します。Blazor のルーターにより、インターネット上で `www.contoso.com` に `About` を求めるブラウザーの要求が停止され、レンダリングされた `About` コンポーネント自体が提供されるためです。 "*クライアント側アプリ内にある*" 内部エンドポイントへの要求は、すべて同じように動作します。要求によって、サーバーにホストされているインターネット上のリソースに対するブラウザーベースの要求がトリガーされることはありません。 要求は、ルーターによって内部的に処理されます。
 
 ブラウザーのアドレス バーを使用して `www.contoso.com/About` の要求が行われた場合、その要求は失敗します。 アプリのインターネット ホスト上にそのようなリソースは存在しないため、"*404 見つかりません*" という応答が返されます。
 
@@ -148,7 +148,7 @@ dotnet run --pathbase=/CoolApp
 
 詳しくは、[パス ベースのホスト構成値](#path-base)に関するセクションをご覧ください。
 
-アプリが[クライアント側のホスティング モデル](xref:blazor/hosting-models#client-side) (**Blazor** プロジェクト テンプレートに基づくが、[dotnet new](/dotnet/core/tools/dotnet-new) コマンドの使用時は `blazor` テンプレート) を使用し、ASP.NET Core アプリ内で IIS サブアプリケーションとしてホストされている場合、継承された ASP.NET Core モジュール ハンドラーを無効とするか、*web.config* ファイル内のルート (親) アプリの `<handlers>` セクションがサブアプリに継承されていないことを確認することが必要となります。
+アプリが[クライアント側のホスティング モデル](xref:blazor/hosting-models#client-side) (**Blazor (クライアント側)** プロジェクト テンプレートに基づく。[dotnet new](/dotnet/core/tools/dotnet-new) コマンドの使用時は `blazor` テンプレート) を使用し、ASP.NET Core アプリ内で IIS サブアプリとしてホストされている場合、継承された ASP.NET Core モジュール ハンドラーを無効とするか、*web.config* ファイル内のルート (親) アプリの `<handlers>` セクションがサブアプリに継承されていないことを確認することが必要となります。
 
 アプリの発行された *web.config* ファイル内のハンドラーを、`<handlers>` セクションをファイルに追加することで削除します。
 
@@ -178,7 +178,7 @@ dotnet run --pathbase=/CoolApp
 
 ## <a name="hosted-deployment-with-aspnet-core"></a>ASP.NET Core でのホストされた展開
 
-*ホストされている展開*により、クライアント側の Blazor アプリが、サーバー上で実行されている [ASP.NET Core アプリ](xref:index)からブラウザーに提供されます。
+"*ホストされた展開*" により、クライアント側の Blazor アプリが、Web サーバー上で実行されている [ASP.NET Core アプリ](xref:index)からブラウザーに提供されます。
 
 Blazor アプリは、発行された出力に ASP.NET Core アプリと共に含まれているため、2 つのアプリを一緒に展開することができます。 ASP.NET Core アプリをホストできる Web サーバーが必要です。 ホストされている展開の場合、Visual Studio には **Blazor (ASP.NET Core でホストされる)** プロジェクト テンプレートが含まれています ([dotnet new](/dotnet/core/tools/dotnet-new) コマンドを使用する場合は `blazorhosted` テンプレート)。
 
@@ -188,7 +188,7 @@ Azure App Service の展開については、「<xref:tutorials/publish-to-azure
 
 ## <a name="standalone-deployment"></a>スタンドアロン展開
 
-*スタンドアロン展開*により、クライアント側 Blazor アプリが、クライアントによって直接要求される静的ファイルのセットとして提供されます。 任意の静的ファイル サーバーで Blazor アプリを提供できます。
+"*スタンドアロン展開*" により、クライアント側 Blazor アプリが、クライアントによって直接要求される静的ファイルのセットとして提供されます。 任意の静的ファイル サーバーで Blazor アプリを提供できます。
 
 スタンドアロン展開の資産は *bin/Release/{TARGET FRAMEWORK}/publish/{ASSEMBLY NAME}/dist* フォルダーに発行されます。
 
@@ -242,7 +242,7 @@ Azure ストレージの静的ファイル ホスティングにより、サー�
 ストレージ アカウントでホスティングされている静的 Web サイトに Blob service サービスが有効になっているとき:
 
 * **インデックス ドキュメント名**を `index.html` に設定します。
-* **エラー ドキュメント パス**を `index.html` に設定します。 Razor Components とその他の非ファイル エンドポイントは、Blob service で保管される静的コンテンツの物理パスに置かれません。 このようなリソースの 1 つに対して受け取った要求を Blazor ルーターで処理しなければならないとき、Blob service によって生成された *404 - Not Found* エラーにより、要求が**エラー ドキュメント パス**に転送されます。 *index.html* BLOB が返され、Blazor ルーターでパスが読み込まれ、処理されます。
+* **エラー ドキュメント パス**を `index.html` に設定します。 Razor コンポーネントとその他の非ファイル エンドポイントは、Blob service で保管される静的コンテンツの物理パスに置かれません。 このようなリソースの 1 つに対して受け取った要求を Blazor ルーターで処理しなければならないとき、Blob service によって生成された *404 - Not Found* エラーにより、要求が**エラー ドキュメント パス**に転送されます。 *index.html* BLOB が返され、Blazor ルーターでパスが読み込まれ、処理されます。
 
 詳細については、「[Azure Storage での静的 Web サイト ホスティング](/azure/storage/blobs/storage-blob-static-website)」を参照してください。
 
