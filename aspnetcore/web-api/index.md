@@ -5,14 +5,14 @@ description: ASP.NET Core での Web API の作成の基本について説明し
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 05/07/2019
+ms.date: 07/08/2019
 uid: web-api/index
-ms.openlocfilehash: 593fd33babc81cddfc4db2150a37e5ec3bc1a0be
-ms.sourcegitcommit: a3926eae3f687013027a2828830c12a89add701f
+ms.openlocfilehash: 4f9c334f74dd2a8b7c31c7a42703fa361ccf9139
+ms.sourcegitcommit: 91cc1f07ef178ab709ea42f8b3a10399c970496e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/08/2019
-ms.locfileid: "65450840"
+ms.lasthandoff: 07/08/2019
+ms.locfileid: "67622796"
 ---
 # <a name="create-web-apis-with-aspnet-core"></a>ASP.NET Core を使って Web API を作成する
 
@@ -28,7 +28,7 @@ Web API には、<xref:Microsoft.AspNetCore.Mvc.ControllerBase> から派生し�
 
 [!code-csharp[](index/samples/2.x/Controllers/ValuesController.cs?name=snippet_Signature&highlight=3)]
 
-<xref:Microsoft.AspNetCore.Mvc.Controller> 基底クラスから派生させて Web API のコントローラーを作成しないでください。 `ControllerBase` から派生した `Controller` にはビューのサポートが追加されるため、これは Web API 要求ではなく Web ページを処理するためのものです。  このルールには例外があります。ビューと API の両方で同じコントローラーを使うことを計画している場合は、`Controller` から派生させます。
+<xref:Microsoft.AspNetCore.Mvc.Controller> クラスから派生させて Web API のコントローラーを作成しないでください。 `ControllerBase` から派生した `Controller` にはビューのサポートが追加されるため、これは Web API 要求ではなく Web ページを処理するためのものです。  このルールには例外があります。ビューと API の両方で同じコントローラーを使うことを計画している場合は、`Controller` から派生させます。
 
 `ControllerBase` クラスには、HTTP 要求の処理に役立つプロパティとメソッドが多数用意されています。 たとえば、`ControllerBase.CreatedAtAction` では状態コード 201 が返されます。
 
@@ -126,7 +126,7 @@ if (!ModelState.IsValid)
 
 ### <a name="default-badrequest-response"></a>既定の BadRequest 応答 
 
-2.2 以降の互換性バージョンを使う場合、HTTP 400 応答に対する既定の応答の種類は <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails> です。 `ValidationProblemDetails` 型は [RFC 7807 仕様](https://tools.ietf.org/html/rfc7807)に準拠しています。
+2\.2 以降の互換性バージョンを使う場合、HTTP 400 応答に対する既定の応答の種類は <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails> です。 `ValidationProblemDetails` 型は [RFC 7807 仕様](https://tools.ietf.org/html/rfc7807)に準拠しています。
 
 <xref:Microsoft.AspNetCore.Mvc.SerializableError> に対する既定の応答を変更するには、次の例のように、`Startup.ConfigureServices` で `SuppressUseValidationProblemDetailsForInvalidModelStateResponses` プロパティを `true` に設定します。
 
