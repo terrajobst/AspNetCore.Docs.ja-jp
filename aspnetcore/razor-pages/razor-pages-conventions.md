@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/07/2019
 uid: razor-pages/razor-pages-conventions
-ms.openlocfilehash: 4e07b5803adbce94982584212fa65afbfd427b64
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 59c8af648b50deb51f3762c14348d08acd48886e
+ms.sourcegitcommit: bee530454ae2b3c25dc7ffebf93536f479a14460
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64893509"
+ms.lasthandoff: 07/10/2019
+ms.locfileid: "67724452"
 ---
 # <a name="razor-pages-route-and-app-conventions-in-aspnet-core"></a>ASP.NET Core での Razor ページのルートとアプリの規則
 
@@ -270,7 +270,7 @@ public class SlugifyParameterTransformer : IOutboundParameterTransformer
 
 ページ アプリ モデルは、*OtherPages* フォルダーの Page2 ページにつながるセグメントの相対パスを確認するために使用されます。 条件を満たすと、ヘッダーが追加されます。 満たさない場合は、`EmptyFilter` が適用されます。
 
-`EmptyFilter` は[アクション フィルター](xref:mvc/controllers/filters#action-filters)です。 アクション フィルターは Razor ページによって無視されるため、パスに `OtherPages/Page2` が含まれない場合は、意図されたように `EmptyFilter` は操作されません。
+`EmptyFilter` は[アクション フィルター](xref:mvc/controllers/filters#action-filters)です。 アクション フィルターは、Razor ページによって無視されますので、`EmptyFilter`パスが含まれていないかどうかは意図どおりに影響を与えません`OtherPages/Page2`します。
 
 `localhost:5000/OtherPages/Page2` でサンプルの Page2 ページを要求し、そのヘッダーを調べて結果を確認します。
 
