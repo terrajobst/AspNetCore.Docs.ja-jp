@@ -7,12 +7,12 @@ ms.author: mimengis
 ms.custom: mvc
 ms.date: 06/27/2019
 uid: signalr/java-client
-ms.openlocfilehash: eea1dfb7d8afcd34c0dacd8315ad196d7235c9f7
-ms.sourcegitcommit: 6d9cf728465cdb0de1037633a8b7df9a8989cccb
+ms.openlocfilehash: ea0abbaee81222493ff02e1f3bba13ed1e494bf5
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/28/2019
-ms.locfileid: "67463272"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814980"
 ---
 # <a name="aspnet-core-signalr-java-client"></a>ASP.NET Core SignalR の Java クライアント
 
@@ -86,7 +86,7 @@ SignalR クライアントの機能の Android SDK の互換性、に関して�
 
 ## <a name="configure-bearer-token-authentication"></a>ベアラー トークン認証を構成します。
 
-「アクセス トークン ファクトリを」を提供することで、認証に使用するベアラー トークンを構成する、SignalR の Java クライアントで、 [HttpHubConnectionBuilder](/java/api/com.microsoft.signalr._http_hub_connection_builder?view=aspnet-signalr-java)します。 使用[withAccessTokenFactory](/java/api/com.microsoft.signalr._http_hub_connection_builder.withaccesstokenprovider?view=aspnet-signalr-java#com_microsoft_signalr__http_hub_connection_builder_withAccessTokenProvider_Single_String__)を提供する、 [RxJava](https://github.com/ReactiveX/RxJava) [単一\<文字列 >](http://reactivex.io/documentation/single.html)します。 呼び出して[Single.defer](http://reactivex.io/RxJava/javadoc/io/reactivex/Single.html#defer-java.util.concurrent.Callable-)クライアントのアクセス トークンを生成するロジックを記述することができます。
+「アクセス トークン ファクトリを」を提供することで、認証に使用するベアラー トークンを構成する、SignalR の Java クライアントで、 [HttpHubConnectionBuilder](/java/api/com.microsoft.signalr._http_hub_connection_builder?view=aspnet-signalr-java)します。 使用[withAccessTokenFactory](/java/api/com.microsoft.signalr._http_hub_connection_builder.withaccesstokenprovider?view=aspnet-signalr-java#com_microsoft_signalr__http_hub_connection_builder_withAccessTokenProvider_Single_String__)を提供する、 [RxJava](https://github.com/ReactiveX/RxJava) [単一\<文字列 >](https://reactivex.io/documentation/single.html)します。 呼び出して[Single.defer](https://reactivex.io/RxJava/javadoc/io/reactivex/Single.html#defer-java.util.concurrent.Callable-)クライアントのアクセス トークンを生成するロジックを記述することができます。
 
 ```java
 HubConnection hubConnection = HubConnectionBuilder.create("YOUR HUB URL HERE")

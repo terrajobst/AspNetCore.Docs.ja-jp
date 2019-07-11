@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/05/2019
 uid: test/loadtests
-ms.openlocfilehash: 3c21da6c799bc3080a1a16cb62ae4535b8890a1b
-ms.sourcegitcommit: bee530454ae2b3c25dc7ffebf93536f479a14460
+ms.openlocfilehash: 4b07dd1af7e0c1d3ce9baa167b69fd8f80df204a
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/10/2019
-ms.locfileid: "67724492"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815172"
 ---
 # <a name="aspnet-core-loadstress-testing"></a>ASP.NET Core のロード/ストレス テスト
 
@@ -23,7 +23,7 @@ ms.locfileid: "67724492"
 
 ストレス テストは、ストレス条件下でアプリがエラーを修復し、適切に想定される動作に戻るかどうかを決定します。 ストレス条件下でアプリを通常の条件下で実行されていません。
 
-Visual Studio 2019 は、ロード テスト機能を使用して、最新の Visual Studio のバージョンです。 お客様のロード テスト ツールは、今後必要とする場合は、Apache JMeter、Akamai の CloudTest BlazeMeter などの別のツールを勧めします。 詳細については、次を参照してください。、 [Visual Studio 2019 のリリース ノート](/visualstudio/releases/2019/release-notes#test-tools)します。
+Visual Studio 2019 は、ロード テスト機能を使用して、最新の Visual Studio のバージョンです。 お客様のロード テスト ツールは、今後必要とする場合は、Apache JMeter、Akamai の CloudTest BlazeMeter などの別のツールを勧めします。 詳細については、次を参照してください。、 [Visual Studio 2019 のリリース ノート](/visualstudio/releases/2019/release-notes-v16.0#test-tools)します。
 
 ロード テスト サービスを Azure DevOps では、2020年で終了します。 詳細については、次を参照してください。[クラウド ベースのロード テスト サービス終了](https://devblogs.microsoft.com/devops/cloud-based-load-testing-service-eol/)します。
 
@@ -48,7 +48,7 @@ Azure DevOps を使用してクラウドでオンプレミスまたは実行を�
 * [URL ベース](/azure/devops/test/load-test/get-started-simple-cloud-load-test?view=vsts)&ndash;テスト、要求の種類、ヘッダー、およびクエリ文字列を読み込む Url を指定できます。 実行時間などのパラメーターの設定を実行するには、ロード パターン、およびユーザーの数を構成できます。
 * [Apache JMeter](https://jmeter.apache.org/)します。
 
-## <a name="azure-portal"></a>Azure ポータル
+## <a name="azure-portal"></a>Azure Portal
 
 [Azure ポータルでは、設定して web アプリのロード テストを実行する](/azure/devops/test/load-test/app-service-web-app-performance-test?view=vsts)から直接、**パフォーマンス**Azure portal で App Service のタブ。
 
@@ -72,10 +72,10 @@ Azure DevOps を使用してクラウドでオンプレミスまたは実行を�
 * [ApacheBench (ab)](https://httpd.apache.org/docs/2.4/programs/ab.html)
 * [ガットリング](https://gatling.io/)
 * [上機嫌](https://locust.io/)
-* [West Wind WebSurge](http://websurge.west-wind.com/)
+* [West Wind WebSurge](https://websurge.west-wind.com/)
 * [Netling](https://github.com/hallatore/Netling)
 * [Vegeta](https://github.com/tsenart/vegeta)
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他の資料
 
 * [ロード テストのブログ シリーズ](https://blogs.msdn.microsoft.com/charles_sterling/2015/06/01/load-test-series-part-i-creating-web-performance-tests-for-a-load-test/)

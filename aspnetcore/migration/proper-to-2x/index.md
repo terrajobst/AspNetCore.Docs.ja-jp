@@ -5,12 +5,12 @@ description: 既存の ASP.NET MVC または Web API アプリを ASP.NET Core.w
 ms.author: scaddie
 ms.date: 12/11/2018
 uid: migration/proper-to-2x/index
-ms.openlocfilehash: 7b6aec621efa5e1400fcfd4396a2322733113ec1
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 9c97b9c0f13a265ab5c90225dcd5a581a1272701
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64882907"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815462"
 ---
 # <a name="migrate-from-aspnet-to-aspnet-core"></a>ASP.NET から ASP.NET Core への移行
 
@@ -54,7 +54,7 @@ ASP.NET Core では、アプリをブートストラップする新しいメカ�
 
 [!code-csharp[](samples/globalasax-sample.cs)]
 
-このアプローチでは、アプリケーションとその展開先のサーバーが、実装を妨げるような方法で結合されます。 結合を切り離すため、複数のフレームワークを一緒に使うさらにクリーンな方法を提供する [OWIN](http://owin.org/) が導入されました。 OWIN は、必要なモジュールのみを追加するためのパイプラインを提供します。 ホスティング環境は、[Startup](xref:fundamentals/startup) 関数を取得して、サービスとアプリの要求パイプラインを構成します。 `Startup` は、ミドルウェアのセットをアプリケーションに登録します。 アプリケーションは、要求ごとに、既存のハンドラーのセットに対するリンク リストのヘッド ポインターを指定して、各ミドルウェア コンポーネントを呼び出します。 各ミドルウェア コンポーネントは、要求処理パイプラインに 1 つ以上のハンドラーを追加できます。 これは、新しいリストのヘッドであるハンドラーへの参照を返すことによって行われます。 各ハンドラーは、リスト内の次のハンドラーを記憶して呼び出します。 ASP.NET Core では、アプリケーションへのエントリ ポイントは `Startup` であり、*Global.asax* に依存する必要はなくなりました。 .NET Framework で OWIN を使うときは、パイプラインとして次のようなものを使います。
+このアプローチでは、アプリケーションとその展開先のサーバーが、実装を妨げるような方法で結合されます。 結合を切り離すため、複数のフレームワークを一緒に使うさらにクリーンな方法を提供する [OWIN](https://owin.org/) が導入されました。 OWIN は、必要なモジュールのみを追加するためのパイプラインを提供します。 ホスティング環境は、[Startup](xref:fundamentals/startup) 関数を取得して、サービスとアプリの要求パイプラインを構成します。 `Startup` は、ミドルウェアのセットをアプリケーションに登録します。 アプリケーションは、要求ごとに、既存のハンドラーのセットに対するリンク リストのヘッド ポインターを指定して、各ミドルウェア コンポーネントを呼び出します。 各ミドルウェア コンポーネントは、要求処理パイプラインに 1 つ以上のハンドラーを追加できます。 これは、新しいリストのヘッドであるハンドラーへの参照を返すことによって行われます。 各ハンドラーは、リスト内の次のハンドラーを記憶して呼び出します。 ASP.NET Core では、アプリケーションへのエントリ ポイントは `Startup` であり、*Global.asax* に依存する必要はなくなりました。 .NET Framework で OWIN を使うときは、パイプラインとして次のようなものを使います。
 
 [!code-csharp[](samples/webapi-owin.cs)]
 
@@ -143,7 +143,7 @@ Web 開発の重要な部分は、静的なクライアント側アセットを�
 
 ASP.NET では、静的ファイルはさまざまなディレクトリに保存され、ビューで参照されます。
 
-ASP.NET Core では、構成が変更されていない限り、静的ファイルは "Web ルート" (*&lt;コンテンツ ルート&gt;/wwwroot*) に保存されます。 ファイルは、`Startup.Configure` から `UseStaticFiles` 拡張メソッドを呼び出すことによって、要求パイプラインに読み込まれます。
+ASP.NET Core では、構成が変更されていない限り、静的ファイルは "Web ルート" ( *&lt;コンテンツ ルート&gt;/wwwroot*) に保存されます。 ファイルは、`Startup.Configure` から `UseStaticFiles` 拡張メソッドを呼び出すことによって、要求パイプラインに読み込まれます。
 
 [!code-csharp[](../../fundamentals/static-files/samples/1x/StartupStaticFiles.cs?highlight=3&name=snippet_ConfigureMethod)]
 

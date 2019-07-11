@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 05/01/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: 41135f04c9587f77dd417f63df2c2a70c2d545cd
-ms.sourcegitcommit: f6e6730872a7d6f039f97d1df762f0d0bd5e34cf
+ms.openlocfilehash: 03d494706fb18a28792fa2cfb93bed4c73791873
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/04/2019
-ms.locfileid: "67561678"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815099"
 ---
 # <a name="logging-in-aspnet-core"></a>ASP.NET Core でのログ記録
 
@@ -877,11 +877,11 @@ ASP.NET 4.x. に対応している [Microsoft.ApplicationInsights.Web](https://w
 ASP.NET Core で使用できるサードパーティ製のログ記録フレームワークをいくつか紹介します。
 
 * [elmah.io](https://elmah.io/) ([GitHub リポジトリ](https://github.com/elmahio/Elmah.Io.Extensions.Logging))
-* [Gelf](http://docs.graylog.org/en/2.3/pages/gelf.html) ([GitHub リポジトリ](https://github.com/mattwcole/gelf-extensions-logging))
-* [JSNLog](http://jsnlog.com/) ([GitHub リポジトリ](https://github.com/mperdeck/jsnlog))
+* [Gelf](https://docs.graylog.org/en/2.3/pages/gelf.html) ([GitHub リポジトリ](https://github.com/mattwcole/gelf-extensions-logging))
+* [JSNLog](https://jsnlog.com/) ([GitHub リポジトリ](https://github.com/mperdeck/jsnlog))
 * [KissLog.net](https://kisslog.net/) ([GitHub リポジトリ](https://github.com/catalingavan/KissLog-net))
-* [Loggr](http://loggr.net/) ([GitHub リポジトリ](https://github.com/imobile3/Loggr.Extensions.Logging))
-* [NLog](http://nlog-project.org/) ([GitHub リポジトリ](https://github.com/NLog/NLog.Extensions.Logging))
+* [Loggr](https://loggr.net/) ([GitHub リポジトリ](https://github.com/imobile3/Loggr.Extensions.Logging))
+* [NLog](https://nlog-project.org/) ([GitHub リポジトリ](https://github.com/NLog/NLog.Extensions.Logging))
 * [Sentry](https://sentry.io/welcome/) ([GitHub リポジトリ](https://github.com/getsentry/sentry-dotnet))
 * [Serilog](https://serilog.net/) ([GitHub リポジトリ](https://github.com/serilog/serilog-aspnetcore))
 * [Stackdriver](https://cloud.google.com/dotnet/docs/stackdriver#logging) ([Github リポジトリ](https://github.com/googleapis/google-cloud-dotnet))

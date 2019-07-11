@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/05/2019
 uid: test/integration-tests
-ms.openlocfilehash: 3af2a1f7c6a65d7ff42597972ee151a50fc95fb6
-ms.sourcegitcommit: c716ea9155a6b404c1f3d3d34e2388454cd276d7
+ms.openlocfilehash: a4e22e53b4658a7c6da3c9e15671a355b212f559
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/05/2019
-ms.locfileid: "66716367"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815368"
 ---
 # <a name="integration-tests-in-aspnet-core"></a>ASP.NET Core で統合テスト
 
@@ -184,7 +184,7 @@ SUT への POST 要求は、アプリのによって自動的に行われた偽�
   * 送信ボタン (`IHtmlElement`) の値を形成し、(`IEnumerable<KeyValuePair<string, string>>`)
 
 > [!NOTE]
-> [AngleSharp](https://anglesharp.github.io/)サード パーティがこのトピックおよびサンプル アプリケーションのデモンストレーションを目的として使用されるライブラリを解析します。 AngleSharp はサポートされているがないか、ASP.NET Core アプリの統合をテストするために必要です。 その他のパーサーができますなど、 [Html 機敏性パック (HAP)](http://html-agility-pack.net/)します。 別の方法では、偽造防止システムの要求検証トークンと偽造防止 cookie を直接処理するコードを作成します。
+> [AngleSharp](https://anglesharp.github.io/)サード パーティがこのトピックおよびサンプル アプリケーションのデモンストレーションを目的として使用されるライブラリを解析します。 AngleSharp はサポートされているがないか、ASP.NET Core アプリの統合をテストするために必要です。 その他のパーサーができますなど、 [Html 機敏性パック (HAP)](https://html-agility-pack.net/)します。 別の方法では、偽造防止システムの要求検証トークンと偽造防止 cookie を直接処理するコードを作成します。
 
 ## <a name="customize-the-client-with-withwebhostbuilder"></a>WithWebHostBuilder でクライアントをカスタマイズします。
 

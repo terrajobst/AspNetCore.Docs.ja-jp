@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: migration/1x-to-2x/index
-ms.openlocfilehash: fb6157205ab5280eb982a61e834eea5074864830
-ms.sourcegitcommit: a3926eae3f687013027a2828830c12a89add701f
+ms.openlocfilehash: 056930f3c586153d13555bbb6036f46587e2352d
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/08/2019
-ms.locfileid: "65450957"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815089"
 ---
 # <a name="migrate-from-aspnet-core-1x-to-20"></a>ASP.NET Core 1.x から 2.0 への移行
 
@@ -31,7 +31,7 @@ ms.locfileid: "65450957"
 
 ## <a name="update-target-framework-moniker-tfm"></a>ターゲット フレームワーク モニカー (TFM) の更新
 
-.NET Core をターゲットとするプロジェクトでは、.NET Core 2.0 以上のバージョンの [TFM](/dotnet/standard/frameworks#referring-to-frameworks) を使用する必要があります。 *.csproj* ファイルで `<TargetFramework>` ノードを探し、その内側のテキストを `netcoreapp2.0` に置き換えます。
+.NET Core をターゲットとするプロジェクトでは、.NET Core 2.0 以上のバージョンの [TFM](/dotnet/standard/frameworks) を使用する必要があります。 *.csproj* ファイルで `<TargetFramework>` ノードを探し、その内側のテキストを `netcoreapp2.0` に置き換えます。
 
 [!code-xml[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App.csproj?range=3)]
 
@@ -56,7 +56,7 @@ ms.locfileid: "65450957"
 
 ## <a name="update-package-references"></a>パッケージ参照の更新
 
-1.x プロジェクト内の *.csproj* ファイルには、プロジェクトによって使用される各 NuGet パッケージの一覧があります。
+1\.x プロジェクト内の *.csproj* ファイルには、プロジェクトによって使用される各 NuGet パッケージの一覧があります。
 
 .NET Core 2.0 をターゲットとする ASP.NET Core 2.0 プロジェクトでは、 *.csproj* ファイル内の 1 つの[メタパッケージ](xref:fundamentals/metapackage)への参照によってパッケージのコレクションが置き換えられます。
 
@@ -84,7 +84,7 @@ ms.locfileid: "65450957"
 
 ## <a name="rename-package-target-fallback-property"></a>Package Target Fallback プロパティの名前変更
 
-1.x プロジェクトの *.csproj* ファイルでは、`PackageTargetFallback` ノードと変数を使用していました。
+1\.x プロジェクトの *.csproj* ファイルでは、`PackageTargetFallback` ノードと変数を使用していました。
 
 [!code-xml[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App.csproj?range=5)]
 
@@ -96,11 +96,11 @@ ms.locfileid: "65450957"
 
 ## <a name="update-main-method-in-programcs"></a>Program.cs の Main メソッドの更新
 
-1.x プロジェクトでは、*Program.cs* の `Main` メソッドは次のようでした。
+1\.x プロジェクトでは、*Program.cs* の `Main` メソッドは次のようでした。
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Program.cs?name=snippet_ProgramCs&highlight=8-19)]
 
-2.0 プロジェクトでは、*Program.cs* の `Main` メソッドは次のように簡素化されました。
+2\.0 プロジェクトでは、*Program.cs* の `Main` メソッドは次のように簡素化されました。
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Program.cs?highlight=8-11)]
 
@@ -114,13 +114,13 @@ Unable to create an object of type '<Context>'. Add an implementation of 'IDesig
 
 ## <a name="add-configuration-providers"></a>構成プロバイダーの追加
 
-1.x プロジェクトでは、アプリへの構成プロバイダーの追加は `Startup` コンストラクターを使用して実行しました。 この手順には `ConfigurationBuilder` のインスタンスの作成、適用可能なプロバイダー (環境変数、アプリの設定など) の読み込み、`IConfigurationRoot` のメンバーの初期化などが伴いました。
+1\.x プロジェクトでは、アプリへの構成プロバイダーの追加は `Startup` コンストラクターを使用して実行しました。 この手順には `ConfigurationBuilder` のインスタンスの作成、適用可能なプロバイダー (環境変数、アプリの設定など) の読み込み、`IConfigurationRoot` のメンバーの初期化などが伴いました。
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Startup.cs?name=snippet_1xStartup)]
 
 前の例では、`IHostingEnvironment.EnvironmentName` プロパティに一致する、*appsettings.json* とすべての *appsettings.\<EnvironmentName\>.json* ファイルの構成設定の `Configuration` メンバーを読み込んでいます。 これらのファイルの場所は *Startup.cs* と同じパスです。
 
-2.0 プロジェクトでは、1.x プロジェクトに固有の定型句による構成コードがバックグラウンドで実行されていました。 たとえば、環境変数とアプリの設定は起動時に読み込まれます。 同等の *Startup.cs* コードは、挿入されたインスタンスによって `IConfiguration` の初期化に削減されます。
+2\.0 プロジェクトでは、1.x プロジェクトに固有の定型句による構成コードがバックグラウンドで実行されていました。 たとえば、環境変数とアプリの設定は起動時に読み込まれます。 同等の *Startup.cs* コードは、挿入されたインスタンスによって `IConfiguration` の初期化に削減されます。
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetFx2.0App/AspNetCoreDotNetFx2.0App/Startup.cs?name=snippet_2xStartup)]
 
@@ -142,17 +142,17 @@ EF Core 1.x を利用する 1.x プロジェクトで、`dotnet ef migrations ad
 1. `ConfigureServices` メソッドを呼び出し、依存性の注入にすべてのサービスを登録する (`DbContext` タイプを含める)
 1. その必要なタスクを実行する
 
-EF Core 2.0 を使用する 2.0 プロジェクトでは、`Program.BuildWebHost` が呼び出され、アプリケーション サービスを取得します。 1.x とは異なり、`Startup.Configure` を呼び出すという副作用が加わります。 1.x アプリがその `Configure` メソッドでデータベース初期化コードを呼び出すと、予想外の問題が発生することがあります。 たとえば、データベースがまだ存在しない場合、EF Core 移行コマンド実行前にシード処理コードが実行されます。 この問題が原因で、データベースがまだ存在しない場合に `dotnet ef migrations list` コマンドが失敗します。
+EF Core 2.0 を使用する 2.0 プロジェクトでは、`Program.BuildWebHost` が呼び出され、アプリケーション サービスを取得します。 1\.x とは異なり、`Startup.Configure` を呼び出すという副作用が加わります。 1\.x アプリがその `Configure` メソッドでデータベース初期化コードを呼び出すと、予想外の問題が発生することがあります。 たとえば、データベースがまだ存在しない場合、EF Core 移行コマンド実行前にシード処理コードが実行されます。 この問題が原因で、データベースがまだ存在しない場合に `dotnet ef migrations list` コマンドが失敗します。
 
 *Startup.cs* の `Configure` メソッドで次の 1.x シード処理初期化コードを検討してください。
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Startup.cs?name=snippet_ConfigureSeedData&highlight=8)]
 
-2.0 プロジェクトでは、*Program.cs* の `Main` メソッドに `SeedData.Initialize` 呼び出しを移動します。
+2\.0 プロジェクトでは、*Program.cs* の `Main` メソッドに `SeedData.Initialize` 呼び出しを移動します。
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Program2.cs?name=snippet_Main2Code&highlight=10)]
 
-2.0 以降、`BuildWebHost` で Web ホストのビルドと構成以外を行うことは正しくない使用例となります。 アプリケーションの実行に関するあらゆることは `BuildWebHost` の外側で、一般的には *Program.cs* の `Main` メソッドで処理する必要があります。
+2\.0 以降、`BuildWebHost` で Web ホストのビルドと構成以外を行うことは正しくない使用例となります。 アプリケーションの実行に関するあらゆることは `BuildWebHost` の外側で、一般的には *Program.cs* の `Main` メソッドで処理する必要があります。
 
 <a name="view-compilation"></a>
 
@@ -186,7 +186,7 @@ Visual Studio 2017 で作成された ASP.NET Core 1.1 プロジェクトには�
 
     [!code-cshtml[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Views/Shared/_Layout.cshtml?range=1,19&dedent=4)]
 
-Application Insights SDK を直接使用している場合は、それを継続してください。 2.0 の[メタパッケージ](xref:fundamentals/metapackage)には、Application Insights の最新バージョンが含まれているので、以前のバージョンを参照している場合、パッケージのダウングレード エラーが表示されます。
+Application Insights SDK を直接使用している場合は、それを継続してください。 2\.0 の[メタパッケージ](xref:fundamentals/metapackage)には、Application Insights の最新バージョンが含まれているので、以前のバージョンを参照している場合、パッケージのダウングレード エラーが表示されます。
 
 <a name="auth-and-identity"></a>
 

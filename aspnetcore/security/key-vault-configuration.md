@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/13/2019
 uid: security/key-vault-configuration
-ms.openlocfilehash: 78c63cf135ca92f0b5f6c6828b2ae34a44a7b36c
-ms.sourcegitcommit: 3ee6ee0051c3d2c8d47a58cb17eef1a84a4c46a0
+ms.openlocfilehash: be176ed612be0773c4a5b52607c023da3856ac14
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/14/2019
-ms.locfileid: "65621029"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815332"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>ASP.NET Core での azure Key Vault 構成プロバイダー
 
@@ -34,7 +34,7 @@ Azure Key Vault 構成プロバイダーを使用するへのパッケージ参�
 採用する、[の Azure リソースの id を管理](/azure/active-directory/managed-identities-azure-resources/overview)シナリオでは、パッケージ参照を追加、 [Microsoft.Azure.Services.AppAuthentication](https://www.nuget.org/packages/Microsoft.Azure.Services.AppAuthentication/)パッケージ。
 
 > [!NOTE]
-> 最新の安定版リリースの書き込み時に`Microsoft.Azure.Services.AppAuthentication`、バージョン`1.0.3`、サポートを提供します[の id を管理システムによって割り当てられた](/azure/active-directory/managed-identities-azure-resources/overview#how-does-the-managed-identities-for-azure-resources-worka-namehow-does-it-worka)します。 サポート*の id を管理ユーザーによって割り当てられた*で使用できるは、`1.2.0-preview2`パッケージ。 このトピックでは、システムで管理される id の使用を示します、提供されているサンプル アプリは、バージョンを使用して`1.0.3`の`Microsoft.Azure.Services.AppAuthentication`パッケージ。
+> 最新の安定版リリースの書き込み時に`Microsoft.Azure.Services.AppAuthentication`、バージョン`1.0.3`、サポートを提供します[の id を管理システムによって割り当てられた](/azure/active-directory/managed-identities-azure-resources/overview#how-does-the-managed-identities-for-azure-resources-work)します。 サポート*の id を管理ユーザーによって割り当てられた*で使用できるは、`1.2.0-preview2`パッケージ。 このトピックでは、システムで管理される id の使用を示します、提供されているサンプル アプリは、バージョンを使用して`1.0.3`の`Microsoft.Azure.Services.AppAuthentication`パッケージ。
 
 ## <a name="sample-app"></a>サンプル アプリ
 
@@ -120,11 +120,11 @@ Azure AD を構成、キー コンテナーへの認証に証明書を Azure Act
 
 アプリケーション ID と X.509 証明書の場合にサンプル アプリでは、`#define`の上部にあるステートメント、 *Program.cs*に設定されているファイル`Certificate`します。
 
-1. PKCS #12 アーカイブを作成 (*.pfx*) 証明書。 証明書を作成するためのオプションがあります。 [Windows で MakeCert](/windows/desktop/seccrypto/makecert)と[OpenSSL](https://www.openssl.org/)します。
+1. PKCS #12 アーカイブを作成 ( *.pfx*) 証明書。 証明書を作成するためのオプションがあります。 [Windows で MakeCert](/windows/desktop/seccrypto/makecert)と[OpenSSL](https://www.openssl.org/)します。
 1. 現在のユーザーの個人証明書ストアに証明書をインストールします。 キーをマークするエクスポート可能とは省略可能です。 このプロセスの後半で使用される証明書の拇印に注意してください。
-1. PKCS #12 アーカイブのエクスポート (*.pfx*) DER でエンコードされた証明書として証明書 (*.cer*)。
+1. PKCS #12 アーカイブのエクスポート ( *.pfx*) DER でエンコードされた証明書として証明書 ( *.cer*)。
 1. Azure AD にアプリを登録 (**アプリの登録**)。
-1. DER でエンコードされた証明書のアップロード (*.cer*) Azure AD に。
+1. DER でエンコードされた証明書のアップロード ( *.cer*) Azure AD に。
    1. Azure AD でアプリを選択します。
    1. 移動します**証明書およびシークレット**します。
    1. 選択**証明書のアップロード**パブリック キーを含む証明書をアップロードします。 A *.cer*、 *.pem*、または *.crt*証明書は許容されます。
@@ -201,7 +201,7 @@ az keyvault set-policy --name '{KEY VAULT NAME}' --object-id {OBJECT ID} --secre
 > [!WARNING]
 > 同じ key vault にシークレットを複数のアプリを配置する環境のシークレットを配置するか、key vault のシークレットでプレフィックスを使用しないでください (たとえば、*開発*と*運用*シークレット) を同じ資格情報コンテナー。 別のアプリと開発/運用環境で最高レベルのセキュリティのアプリの環境を分離する個別の key vault を使用することをお勧めします。
 
-キーに次の例では、シークレットが確立されている資格情報コンテナー (と Secret Manager ツールを使用して、開発環境用) の`5000-AppSecret`(key vault のシークレット名で許可されていない期間)。 このシークレットは、アプリのバージョン 5.0.0.0 用アプリのシークレットを表します。 5.1.0.0、アプリの別のバージョンのシークレットが、キーに追加コンテナー (と Secret Manager ツールを使用して) の`5100-AppSecret`します。 各アプリのバージョンでは、としては、その構成にそのバージョンのシークレット値を読み込みます`AppSecret`シークレットが読み込まれるバージョンを削除します。
+キーに次の例では、シークレットが確立されている資格情報コンテナー (と Secret Manager ツールを使用して、開発環境用) の`5000-AppSecret`(key vault のシークレット名で許可されていない期間)。 このシークレットは、アプリのバージョン 5.0.0.0 用アプリのシークレットを表します。 5\.1.0.0、アプリの別のバージョンのシークレットが、キーに追加コンテナー (と Secret Manager ツールを使用して) の`5100-AppSecret`します。 各アプリのバージョンでは、としては、その構成にそのバージョンのシークレット値を読み込みます`AppSecret`シークレットが読み込まれるバージョンを削除します。
 
 `AddAzureKeyVault` カスタムを使用して呼び出した`IKeyVaultSecretManager`:
 

@@ -6,12 +6,12 @@ ms.author: casoper
 ms.date: 09/21/2018
 ms.custom: mvc, seodec18
 uid: security/authentication/azure-ad-b2c-webapi
-ms.openlocfilehash: 0eb8b533f44a1f72cfc3c4ec5ec060adb37eed6c
-ms.sourcegitcommit: 6afe57fb8d9055f88fedb92b16470398c4b9b24a
+ms.openlocfilehash: c917a5130857165716bd801ac19dad0f53a7d214
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/14/2019
-ms.locfileid: "65610361"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815378"
 ---
 # <a name="authentication-in-web-apis-with-azure-active-directory-b2c-in-aspnet-core"></a>Web Api ASP.NET Core での Azure Active Directory B2C での認証
 
@@ -46,11 +46,11 @@ Azure AD B2C テナントを作成[ドキュメント」の説明に従って](/
 
 ## <a name="configure-a-sign-up-or-sign-in-policy"></a>サインアップまたはサインイン ポリシーを構成します。
 
-手順を使用して、Azure AD B2C のドキュメントを[サインアップまたはサインイン ポリシーを作成する](/azure/active-directory-b2c/active-directory-b2c-reference-policies#create-a-sign-up-or-sign-in-policy)します。 ポリシーの名前**SiUpIn**します。  ドキュメントの例の値を使用して、 **Id プロバイダー**、**サインアップ属性**、および**アプリケーション要求**します。 使用して、**を今すぐ実行**ドキュメント」の説明に従って、ポリシーをテストするボタンは省略可能です。
+手順を使用して、Azure AD B2C のドキュメントを[サインアップまたはサインイン ポリシーを作成する](/azure/active-directory-b2c/active-directory-b2c-reference-policies#user-flow-versions)します。 ポリシーの名前**SiUpIn**します。  ドキュメントの例の値を使用して、 **Id プロバイダー**、**サインアップ属性**、および**アプリケーション要求**します。 使用して、**を今すぐ実行**ドキュメント」の説明に従って、ポリシーをテストするボタンは省略可能です。
 
 ## <a name="register-the-api-in-azure-ad-b2c"></a>Azure AD B2C で API を登録します。
 
-新しく作成された Azure AD B2C テナントで登録 API を使用して、 [、ドキュメントの手順](/azure/active-directory-b2c/active-directory-b2c-app-registration#register-a-web-api)下、 **web API の登録**セクション。
+新しく作成された Azure AD B2C テナントで登録 API を使用して、 [、ドキュメントの手順](/azure/active-directory-b2c/tutorial-register-applications#register-a-web-application)下、 **web API の登録**セクション。
 
 次の値を使用します。
 
@@ -77,7 +77,7 @@ Visual Studio:
 
     ![変更の認証 ボタン](./azure-ad-b2c-webapi/change-auth-button.png)
 
-4. **認証の変更**ダイアログ ボックスで、**個々 のユーザー アカウント** > **、クラウド内の既存のユーザー ストアへの接続**します。
+4. **認証の変更**ダイアログ ボックスで、**個々 のユーザー アカウント** >  **、クラウド内の既存のユーザー ストアへの接続**します。
 
     ![認証の変更ダイアログ](./azure-ad-b2c-webapi/change-auth-dialog.png)
 
@@ -106,7 +106,7 @@ Visual Studio で、API を実行します。 Visual Studio では、API のル�
 
 ### <a name="register-postman-as-a-web-app"></a>Postman を web アプリとして登録します。
 
-Postman は、Azure AD B2C テナントからトークンを取得する web アプリをシミュレートするため必要があります登録する必要が、テナントで web アプリとして。 Postman を使用して登録[、ドキュメントの手順](/azure/active-directory-b2c/active-directory-b2c-app-registration#register-a-web-app)下、 **web アプリを登録**セクション。 停止時刻、 **web アプリ クライアント シークレットの作成**セクション。 このチュートリアルでは、クライアント シークレットが必要はありません。 
+Postman は、Azure AD B2C テナントからトークンを取得する web アプリをシミュレートするため必要があります登録する必要が、テナントで web アプリとして。 Postman を使用して登録[、ドキュメントの手順](/azure/active-directory-b2c/tutorial-register-applications#register-a-web-application)下、 **web アプリを登録**セクション。 停止時刻、 **web アプリ クライアント シークレットの作成**セクション。 このチュートリアルでは、クライアント シークレットが必要はありません。 
 
 次の値を使用します。
 

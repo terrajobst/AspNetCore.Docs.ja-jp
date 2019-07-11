@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/13/2019
 uid: performance/response-compression
-ms.openlocfilehash: e312d43fb62106f6ecb98367c29daa377bb227c9
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: d5d2da3dc0a8a452de97d98161d429389d2f7638
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64893349"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815616"
 ---
 # <a name="response-compression-in-aspnet-core"></a>ASP.NET Core で応答の圧縮
 
@@ -30,7 +30,7 @@ IIS、Apache、Nginx でサーバー ベースの応答の圧縮テクノロジ�
 
 * 次のサーバー ベースの圧縮テクノロジを使用することができません。
   * [IIS 動的圧縮モジュール](https://www.iis.net/overview/reliability/dynamiccachingandcompression)
-  * [Apache mod_deflate モジュール](http://httpd.apache.org/docs/current/mod/mod_deflate.html)
+  * [Apache mod_deflate モジュール](https://httpd.apache.org/docs/current/mod/mod_deflate.html)
   * [Nginx の圧縮と圧縮解除](https://www.nginx.com/resources/admin-guide/compression-and-decompression/)
 * 直接のホスティング。
   * [HTTP.sys サーバー](xref:fundamentals/servers/httpsys) (旧称 WebListener)
@@ -70,7 +70,7 @@ IIS、Apache、Nginx でサーバー ベースの応答の圧縮テクノロジ�
 
 ::: moniker-end
 
-詳細については、次を参照してください。、 [IANA 公式コンテンツ コーディング リスト](http://www.iana.org/assignments/http-parameters/http-parameters.xml#http-content-coding-registry)します。
+詳細については、次を参照してください。、 [IANA 公式コンテンツ コーディング リスト](https://www.iana.org/assignments/http-parameters/http-parameters.xml#http-content-coding-registry)します。
 
 カスタムの圧縮は追加のプロバイダーを追加することができます、ミドルウェア`Accept-Encoding`ヘッダー値。 詳細については、次を参照してください。[カスタム プロバイダー](#custom-providers)以下。
 
@@ -146,7 +146,7 @@ public class Startup
 メモ:
 
 * `app.UseResponseCompression` 前に呼び出す必要があります`app.UseMvc`します。
-* などのツールを使用して[Fiddler](http://www.telerik.com/fiddler)、 [Firebug](http://getfirebug.com/)、または[Postman](https://www.getpostman.com/)を設定する、`Accept-Encoding`要求ヘッダーおよび応答ヘッダー、サイズ、および本文を検討します。
+* などのツールを使用して[Fiddler](https://www.telerik.com/fiddler)、 [Firebug](https://getfirebug.com/)、または[Postman](https://www.getpostman.com/)を設定する、`Accept-Encoding`要求ヘッダーおよび応答ヘッダー、サイズ、および本文を検討します。
 
 なし、サンプル アプリに要求を送信、`Accept-Encoding`ヘッダーおよび応答の圧縮がないことを確認します。 `Content-Encoding`と`Vary`ヘッダーが応答に存在しません。
 
@@ -385,4 +385,4 @@ public void ConfigureServices(IServiceCollection services)
 * [Mozilla 開発者ネットワーク:Accept-encoding](https://developer.mozilla.org/docs/Web/HTTP/Headers/Accept-Encoding)
 * [RFC 7231 セクション 3.1.2.1:コンテンツのコーディング](https://tools.ietf.org/html/rfc7231#section-3.1.2.1)
 * [RFC 7230 セクション 4.2.3:Gzip コーディング](https://tools.ietf.org/html/rfc7230#section-4.2.3)
-* [GZIP ファイル形式の仕様バージョン 4.3](http://www.ietf.org/rfc/rfc1952.txt)
+* [GZIP ファイル形式の仕様バージョン 4.3](https://www.ietf.org/rfc/rfc1952.txt)

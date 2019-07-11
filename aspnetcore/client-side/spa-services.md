@@ -7,16 +7,16 @@ ms.author: scaddie
 ms.custom: H1Hack27Feb2017
 ms.date: 05/28/2019
 uid: client-side/spa-services
-ms.openlocfilehash: c7cd35865c5bddf0e5efaa9e616832b6755d9227
-ms.sourcegitcommit: e7e04a45195d4e0527af6f7cf1807defb56dc3c3
+ms.openlocfilehash: 19710b58bca606d21feda9069ad00edd1e4f72e9
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66750116"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67813482"
 ---
 # <a name="use-javascript-services-to-create-single-page-applications-in-aspnet-core"></a>JavaScript サービスを使用して ASP.NET Core でのシングル ページ アプリケーションを作成するには
 
-によって[Scott Addie](https://github.com/scottaddie)と[Fiyaz Hasan](http://fiyazhasan.me/)
+によって[Scott Addie](https://github.com/scottaddie)と[Fiyaz Hasan](https://fiyazhasan.me/)
 
 シングル ページ アプリケーション (SPA) は、その固有の機能豊富なユーザー エクスペリエンスのための web アプリケーションの人気のある型です。 クライアント側 SPA フレームワークやライブラリの統合など[Angular](https://angular.io/)または[React](https://facebook.github.io/react/)、ASP.NET Core などのサーバー側のフレームワークでを困難にすることができます。 JavaScript のサービスは、統合プロセスの手間を削減する開発されました。 これにより、別のクライアントおよびサーバー テクノロジ スタックとの間のシームレスな操作ができます。
 
@@ -96,7 +96,7 @@ npm i -S aspnet-prerendering
 
 ### <a name="asp-prerender-module-tag-helper"></a>prerender モジュールの asp タグ ヘルパー
 
-`asp-prerender-module`タグ ヘルパーの前のコード例で使用される実行*ClientApp/dist/main-server.js* Node.js を使用してサーバーにします。 わかりやすくするためのために、 *main server.js*ファイルは、TypeScript、JavaScript にトランス パイルもタスクの成果物、 [Webpack](http://webpack.github.io/)プロセスを構築します。 Webpack のエントリ ポイントのエイリアスを定義します`main-server`; と、このエイリアスの依存関係グラフのトラバーサルが始まり、 *ClientApp/ブート-server.ts*ファイル。
+`asp-prerender-module`タグ ヘルパーの前のコード例で使用される実行*ClientApp/dist/main-server.js* Node.js を使用してサーバーにします。 わかりやすくするためのために、 *main server.js*ファイルは、TypeScript、JavaScript にトランス パイルもタスクの成果物、 [Webpack](https://webpack.github.io/)プロセスを構築します。 Webpack のエントリ ポイントのエイリアスを定義します`main-server`; と、このエイリアスの依存関係グラフのトラバーサルが始まり、 *ClientApp/ブート-server.ts*ファイル。
 
 [!code-javascript[](../client-side/spa-services/sample/SpaServicesSampleApp/webpack.config.js?range=53)]
 

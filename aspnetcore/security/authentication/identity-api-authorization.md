@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 03/07/2019
 uid: security/authentication/identity/spa
-ms.openlocfilehash: 4afc9ac0a3c54b452c6a1b23e4de31d7e2fc5284
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 302a5e10a70e40e75ab9fe4b3e5a98c4e847b822
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64894149"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815218"
 ---
 # <a name="authentication-and-authorization-for-spas"></a>Spa の認証と承認
 
@@ -251,7 +251,7 @@ async populateWeatherData() {
 
 Azure Websites にデプロイするには、次の手順では、アプリをデプロイ[アプリを Azure にデプロイ](xref:tutorials/publish-to-azure-webapp-using-vs#deploy-the-app-to-azure)を必要な Azure リソースを作成し、運用環境にアプリをデプロイします。
 
-上記の手順を実行した後、アプリは Azure にデプロイされますはまだ機能しません。 アプリによって使用される証明書は、設定する必要があります。 使用する証明書の拇印を見つけるしで説明されている手順に従います[証明書の読み込み](/azure/app-service/app-service-web-ssl-cert-load#load-your-certificates)します。
+上記の手順を実行した後、アプリは Azure にデプロイされますはまだ機能しません。 アプリによって使用される証明書は、設定する必要があります。 使用する証明書の拇印を見つけるしで説明されている手順に従います[証明書の読み込み](/azure/app-service/app-service-web-ssl-cert-load#load-the-certificate-in-code)します。
 
 中にこれらの手順には、SSL が言うまでは、**プライベート証明書**ポータルのセクションに、アプリで使用するプロビジョニング証明書をアップロードすることができます。
 
@@ -271,7 +271,7 @@ API 認証のサポートは、一連の規則、既定値、および、Spa の
   * スコープのセットが含まれています、 `openid`、 `profile`、Api アプリに対して定義されているすべてのスコープとします。
   * 許可されている OIDC 応答型のセットは、`id_token token`またはそれぞれ個別に (`id_token`、 `token`)。
   * 許可される応答モードは`fragment`します。
-* `SPA`:IdentityServer とされていないホストされている SPA を表します。
+* `SPA` :IdentityServer とされていないホストされている SPA を表します。
   * スコープのセットが含まれています、 `openid`、 `profile`、Api アプリに対して定義されているすべてのスコープとします。
   * 許可されている OIDC 応答型のセットは、`id_token token`またはそれぞれ個別に (`id_token`、 `token`)。
   * 許可される応答モードは`fragment`します。
@@ -329,7 +329,7 @@ AddApiAuthorization<ApplicationUser, ApplicationDbContext>(options =>
 });
 ```
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他の資料
 
 * <xref:spa/angular>
 * <xref:spa/react>

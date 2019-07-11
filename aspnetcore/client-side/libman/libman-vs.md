@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 08/20/2018
 uid: client-side/libman/libman-vs
-ms.openlocfilehash: d0494b96447ad2b256acbde7748209ff430ae7c1
-ms.sourcegitcommit: 6afe57fb8d9055f88fedb92b16470398c4b9b24a
+ms.openlocfilehash: ebfb405516d968bf5d5b8cff956a9892457027f2
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/14/2019
-ms.locfileid: "65610185"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67813457"
 ---
 # <a name="use-libman-with-aspnet-core-in-visual-studio"></a>LibMan を Visual Studio で ASP.NET Core を使用します。
 
@@ -28,7 +28,7 @@ Visual Studio はの組み込みサポート[LibMan](xref:client-side/libman/ind
 
 ## <a name="prerequisites"></a>必須コンポーネント
 
-* [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019)で、 **ASP.NET および web 開発**ワークロード
+* [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) と **ASP.NET と Web 開発**ワークロード
 
 ## <a name="add-library-files"></a>ライブラリ ファイルを追加します。
 
@@ -94,13 +94,13 @@ Visual Studio でのすべての LibMan 操作は、プロジェクトのルー�
 
 **&#8224;** 場合、 *libman.json*プロジェクトのルートにファイルが存在しない、既定の項目テンプレートの内容で作成されます。
 
-Visual Studio では、豊富な JSON 編集の色付けなどのサポート、書式設定、IntelliSense、およびスキーマ検証を提供します。 LibMan マニフェストの JSON スキーマで見つかった[ http://json.schemastore.org/libman](http://json.schemastore.org/libman)します。
+Visual Studio では、豊富な JSON 編集の色付けなどのサポート、書式設定、IntelliSense、およびスキーマ検証を提供します。 LibMan マニフェストの JSON スキーマで見つかった[ https://json.schemastore.org/libman](https://json.schemastore.org/libman)します。
 
 LibMan がで定義されている構成ごとにファイルを取得する次のマニフェスト ファイルで、`libraries`プロパティ。 内で定義されているオブジェクト リテラルの説明`libraries`に従います。
 
 * サブセットの[jQuery](https://jquery.com/)バージョン 3.3.1 が CDNJS プロバイダーから取得します。 サブセットが定義されている、`files`プロパティ&mdash;*jquery.min.js*、 *jquery.js*、および*jquery.min.map*します。 ファイルはプロジェクトの配置*wwwroot/ライブラリ/jquery*フォルダー。
 * 全体[ブートス トラップ](https://getbootstrap.com/)4.1.3 のバージョンが取得され、配置、*ブートス トラップwwwroot/ライブラリ/* フォルダー。 オブジェクト リテラルの`provider`プロパティのオーバーライド、`defaultProvider`プロパティの値。 LibMan は、unpkg プロバイダーからブートス トラップ ファイルを取得します。
-* サブセットの[Lodash](https://lodash.com/)組織内で管理本体によって承認されました。 *Lodash.js*と*lodash.min.js*からローカル ファイル システムのファイルが取得*c:\\temp\\lodash\\*します。 ファイルをプロジェクトのコピーは*wwwroot/ライブラリ/lodash*フォルダー。
+* サブセットの[Lodash](https://lodash.com/)組織内で管理本体によって承認されました。 *Lodash.js*と*lodash.min.js*からローカル ファイル システムのファイルが取得*c:\\temp\\lodash\\* します。 ファイルをプロジェクトのコピーは*wwwroot/ライブラリ/lodash*フォルダー。
 
 [!code-json[](samples/LibManSample/libman.json)]
 
@@ -201,7 +201,7 @@ Clean libraries operation completed
 
 * 開いている*libman.json*します。
 * 対応の内側にキャレットを配置`libraries`オブジェクト リテラル。
-* 左の余白に表示される電球アイコンをクリックし、選択**アンインストール\<library_name > @\<library_version >**:
+* 左の余白に表示される電球アイコンをクリックし、選択**アンインストール\<library_name > @\<library_version >** :
 
   ![ライブラリのコンテキスト メニュー オプションをアンインストールします。](_static/uninstall-menu-option.png)
 
