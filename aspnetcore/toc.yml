@@ -981,6 +981,8 @@
           uid: performance/caching/distributed
         - name: 応答キャッシュ ミドルウェア
           uid: performance/caching/middleware
+        - name: ObjectPool を使ったオブジェクトの再利用
+          uid: performance/ObjectPool
     - name: 応答圧縮
       uid: performance/response-compression
     - name: 診断ツール
