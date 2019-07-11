@@ -2,23 +2,47 @@
 title: ASP.NET Core での一般データ保護規則 (GDPR) のサポート
 author: rick-anderson
 description: ASP.NET Core web アプリでは、GDPR の拡張ポイントにアクセスする方法について説明します。
-monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/05/2019
+ms.date: 07/11/2019
 uid: security/gdpr
-ms.openlocfilehash: 1580187afef56e8e2f5be7a4bae32912e6305c5a
-ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
+ms.openlocfilehash: 01d2f8943c0995c1400122b89c4ca7c459a85279
+ms.sourcegitcommit: bee530454ae2b3c25dc7ffebf93536f479a14460
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/17/2019
-ms.locfileid: "67152856"
+ms.lasthandoff: 07/10/2019
+ms.locfileid: "67724569"
 ---
 # <a name="eu-general-data-protection-regulation-gdpr-support-in-aspnet-core"></a>ASP.NET Core での EU 一般データ保護規則 (GDPR) のサポート
 
 作成者: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ASP.NET Core には、いくつかの[EU 一般データ保護規則 (GDPR)](https://www.eugdpr.org/)の要件を満たすのに役立つAPIとテンプレートが用意されています。
+
+::: moniker range=">= aspnetcore-3.0"
+
+* プロジェクト テンプレートには、拡張ポイントと、プライバシーと cookie の使用ポリシーに置き換えることができるスタブのマークアップが含まれます。
+* *Pages/Privacy.cshtml*ページまたは*Views/Home/Privacy.cshtml*ビューは、サイトのプライバシー ポリシーについて詳しく説明するページを提供します。
+
+そのような既定の cookie の同意の機能を有効にするのには、ASP.NET Core 3.0 のテンプレートが生成されたアプリでの ASP.NET Core 2.2 テンプレートが見つかりません。
+
+* 追加[CookiePolicyOptions](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions)すぎる`Startup.ConfigureServices`と[UseCookiePolicy](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyappbuilderextensions.usecookiepolicy)に`Startup.Configure`:
+
+  [!code-csharp[Main](gdpr/sample/RP3.0/Startup.cs?name=snippet1&highlight=12-19,38)]
+
+* 追加する cookie の同意部分、 *_Layout.cshtml*ファイル。
+
+  [!code-cshtml[Main](gdpr/sample/RP3.0/Pages/Shared/_Layout.cshtml?name=snippet&highlight=4)]
+
+* 追加、  *\_CookieConsentPartial.cshtml*ファイルをプロジェクト。
+
+  [!code-cshtml[Main](gdpr/sample/RP3.0/Pages/Shared/_CookieConsentPartial.cshtml)]
+
+* Cookie の同意の機能については、この記事の ASP.NET Core 2.2 バージョンを選択します。
+
+::: moniker-end
+
+::: moniker range="= aspnetcore-2.2"
 
 * プロジェクト テンプレートには、拡張ポイントと、プライバシーと cookie の使用ポリシーに置き換えることができるスタブのマークアップが含まれます。
 * Cookie の同意の機能は使用すると、同意を求める (および追跡) を個人情報を格納するため、ユーザーから使用できます。 ユーザーがデータの収集に同意していないし、アプリが場合[CheckConsentNeeded](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions.checkconsentneeded)に設定`true`不要な cookie がブラウザーに送信されません。
@@ -32,17 +56,7 @@ ASP.NET Core には、いくつかの[EU 一般データ保護規則 (GDPR)](htt
 
 ## <a name="aspnet-core-gdpr-support-in-template-generated-code"></a>テンプレートによって生成されたコードでの ASP.NET Core GDPR サポートします。
 
-::: moniker range="< aspnetcore-2.2"
-
-Razor ページと MVC プロジェクト テンプレートで作成したプロジェクトには、GDPR または cookie の同意をサポートしていません。 GDPR を追加するには、ASP.NET Core 2.2 テンプレートで生成されたコードをコピーします。
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-2.2"
-
 Razor ページと MVC プロジェクト テンプレートで作成したプロジェクトには、次の GDPR サポートが含まれます。
-
-::: moniker-end
 
 * [CookiePolicyOptions](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions)と[UseCookiePolicy](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyappbuilderextensions.usecookiepolicy)で設定されて、`Startup`クラス。
 * *\_CookieConsentPartial.cshtml* [部分ビュー](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper)します。 **Accept**ボタンがこのファイルに含まれます。 ユーザーがクリックすると、 **Accept**ボタン、cookie を保存することに同意提供されます。
@@ -63,7 +77,7 @@ Razor ページと MVC プロジェクト テンプレートで作成したプ�
 
 *\_CookieConsentPartial.cshtml*部分ビュー。
 
-[!code-html[](gdpr/sample/RP/Pages/Shared/_CookieConsentPartial.cshtml)]
+[!code-html[](gdpr/sample/RP2.2/Pages/Shared/_CookieConsentPartial.cshtml)]
 
 この部分には:
 
@@ -75,7 +89,7 @@ Razor ページと MVC プロジェクト テンプレートで作成したプ�
 
 場合の同意の cookie を保存するが指定されていない、必須のマークの cookie のみが、ブラウザーに送信されます。 次のコードでは、cookie が不可欠です。
 
-[!code-csharp[Main](gdpr/sample/RP/Pages/Cookie.cshtml.cs?name=snippet1&highlight=5)]
+[!code-csharp[Main](gdpr/sample/RP2.2/Pages/Cookie.cshtml.cs?name=snippet1&highlight=5)]
 
 <a name="tempdata"></a>
 
@@ -83,11 +97,11 @@ Razor ページと MVC プロジェクト テンプレートで作成したプ�
 
 [TempData プロバイダー](xref:fundamentals/app-state#tempdata) cookie が必須ではありません。 追跡が無効になっている場合は、TempData プロバイダーは機能しません。 追跡を無効にするには、TempData プロバイダーを有効にするするには、重要として TempData cookie をマーク`Startup.ConfigureServices`:
 
-[!code-csharp[Main](gdpr/sample/RP/Startup.cs?name=snippet1)]
+[!code-csharp[Main](gdpr/sample/RP2.2/Startup.cs?name=snippet1)]
 
 [セッション状態](xref:fundamentals/app-state)cookie が必須ではないです。 追跡を無効にすると、セッション状態は機能しません。 次のコードでは、セッション cookie が不可欠です。
 
-[!code-csharp[](gdpr/sample/RP/Startup.cs?name=snippet2)]
+[!code-csharp[](gdpr/sample/RP2.2/Startup.cs?name=snippet2)]
 
 <a name="pd"></a>
 
@@ -105,6 +119,8 @@ Razor ページと MVC プロジェクト テンプレートで作成したプ�
 * **削除**と**ダウンロード**リンクは、既定の id データに対してのみ機能します。 カスタム ユーザー データを作成するアプリは、カスタム ユーザー データの削除/ダウンロードするように拡張する必要があります。 詳細については、次を参照してください。[追加、ダウンロード、および Id にカスタム ユーザー データの削除](xref:security/authentication/add-user-data)します。
 * Id のデータベース テーブルに格納されているユーザーのトークンを保存`AspNetUserTokens`カスケード削除動作のために使用して、ユーザーが削除されたときに削除されます、[外部キー](https://github.com/aspnet/Identity/blob/release/2.1/src/EF/IdentityUserContext.cs#L152)します。
 * [外部プロバイダー認証](xref:security/authentication/social/index)など、Facebook や Google を使用できない、cookie のポリシーが受け入れられる前に、します。
+
+::: moniker-end
 
 ## <a name="encryption-at-rest"></a>保存時の暗号化
 
