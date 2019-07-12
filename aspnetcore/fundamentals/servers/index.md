@@ -7,12 +7,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 06/01/2019
 uid: fundamentals/servers/index
-ms.openlocfilehash: 6b4debdaf386bb596c600d3216e78c0cd0380f93
-ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
+ms.openlocfilehash: 10876a61d40679b1a022ce9c58329bf53c36c1bb
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/12/2019
-ms.locfileid: "67034847"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67855977"
 ---
 # <a name="web-server-implementations-in-aspnet-core"></a>ASP.NET Core での Web サーバーの実装
 
@@ -30,7 +30,7 @@ Kestrel を使用する:
 
   ![リバース プロキシ サーバーなしでインターネットと直接通信する Kestrel](kestrel/_static/kestrel-to-internet2.png)
 
-* [インターネット インフォメーション サービス (IIS)](https://www.iis.net/)、[Nginx](http://nginx.org)、[Apache](https://httpd.apache.org/) などの*リバース プロキシ サーバー*と共に。 リバース プロキシ サーバーはインターネットから HTTP 要求を受け取り、これを Kestrel に転送します。
+* [インターネット インフォメーション サービス (IIS)](https://www.iis.net/)、[Nginx](https://nginx.org)、[Apache](https://httpd.apache.org/) などの*リバース プロキシ サーバー*と共に。 リバース プロキシ サーバーはインターネットから HTTP 要求を受け取り、これを Kestrel に転送します。
 
   ![IIS、Nginx、または Apache などのリバース プロキシ サーバーを介してインターネットと間接的に通信する Kestrel](kestrel/_static/kestrel-to-internet.png)
 
@@ -53,7 +53,7 @@ ASP.NET Core には次のものが付属しています。
 * IIS HTTP サーバーを使用して IIS ワーカー プロセスと同じプロセス内 ([インプロセス ホスティング モデル](#hosting-models))。 "*インプロセス*" が推奨される構成です。
 * [Kestrel サーバー](#kestrel)を使用して IIS ワーカー プロセスとは異なるプロセス内 ([プロセス外ホスティング モデル](#hosting-models))。
 
-[ASP.NET Core モジュール](xref:host-and-deploy/aspnet-core-module)はネイティブの IIS モジュールであり、IIS とインプロセス IIS HTTP サーバーまたは Kestrel の間のネイティブ IIS 要求が処理されます。 詳細については、「<xref:host-and-deploy/aspnet-core-module>」を参照してください。
+[ASP.NET Core モジュール](xref:host-and-deploy/aspnet-core-module)はネイティブの IIS モジュールであり、IIS とインプロセス IIS HTTP サーバーまたは Kestrel の間のネイティブ IIS 要求が処理されます。 詳細については、<xref:host-and-deploy/aspnet-core-module> を参照してください。
 
 ## <a name="hosting-models"></a>ホスティング モデル
 
@@ -128,7 +128,7 @@ Kestrel のリバース プロキシ サーバーとして Linux で Apache を�
 
 ## <a name="httpsys"></a>HTTP.sys
 
-Windows で ASP.NET Core アプリを実行する場合は、HTTP.sys を Kestrel の代わりに使用できます。 最適なパフォーマンスを得るには、通常は Kestrel をお勧めします。 HTTP.sys は、アプリがインターネットに公開されていて、必要な機能が HTTP.sys でサポートされているものの、Kestrel ではサポートされていないシナリオで使用できます。 詳細については、「<xref:fundamentals/servers/httpsys>」を参照してください。
+Windows で ASP.NET Core アプリを実行する場合は、HTTP.sys を Kestrel の代わりに使用できます。 最適なパフォーマンスを得るには、通常は Kestrel をお勧めします。 HTTP.sys は、アプリがインターネットに公開されていて、必要な機能が HTTP.sys でサポートされているものの、Kestrel ではサポートされていないシナリオで使用できます。 詳細については、<xref:fundamentals/servers/httpsys> を参照してください。
 
 ![インターネットと直接通信する HTTP.sys](httpsys/_static/httpsys-to-internet.png)
 

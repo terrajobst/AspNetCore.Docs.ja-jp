@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/11/2019
 uid: fundamentals/index
-ms.openlocfilehash: 3cf311f8e6be4ed12c79ceecc15ccc1babfb0117
-ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
+ms.openlocfilehash: a6c848987c97103864fd5410922346e85a68c353
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/12/2019
-ms.locfileid: "67034860"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67856235"
 ---
 # <a name="aspnet-core-fundamentals"></a>ASP.NET Core の基礎
 
@@ -33,7 +33,7 @@ ms.locfileid: "67034860"
 
 [!code-csharp[](index/snapshots/2.x/Startup1.cs?highlight=3,12)]
 
-詳細については、「<xref:fundamentals/startup>」を参照してください。
+詳細については、<xref:fundamentals/startup> を参照してください。
 
 ## <a name="dependency-injection-services"></a>依存性の注入 (サービス)
 
@@ -45,7 +45,7 @@ Entity Framework Core コンテキスト オブジェクトを取得するため
 
 DI が組み込まれており、必要に応じてサードパーティ製の制御の反転 (IoC) コンテナーを組み込むことができるよう設計されています。
 
-詳細については、「<xref:fundamentals/dependency-injection>」を参照してください。
+詳細については、<xref:fundamentals/dependency-injection> を参照してください。
 
 ## <a name="middleware"></a>ミドルウェア
 
@@ -59,7 +59,7 @@ DI が組み込まれており、必要に応じてサードパーティ製の�
 
 ASP.NET Core にはミドルウェアのセットが豊富に組み込まれており、カスタム ミドルウェアをユーザーが記述できます。
 
-詳細については、「<xref:fundamentals/middleware/index>」を参照してください。
+詳細については、<xref:fundamentals/middleware/index> を参照してください。
 
 ## <a name="host"></a>Host
 
@@ -87,7 +87,7 @@ ASP.NET Core アプリは起動時に*ホスト*をビルドします。 ホス�
 * *appsettings.json*、"*appsettings.{環境名}.json*"、環境変数、コマンド ライン引数、およびその他の構成ソースから構成を読み込みます。
 * ログ出力をコンソールとデバッグ プロバイダーに送ります。
 
-詳細については、「<xref:fundamentals/host/generic-host>」を参照してください。
+詳細については、<xref:fundamentals/host/generic-host> を参照してください。
 
 ::: moniker-end
 
@@ -105,7 +105,7 @@ Web ホストと汎用ホストの 2 つのホストが利用可能です。 ASP
 * *appsettings.json*、"*appsettings.{環境名}.json*"、環境変数、コマンド ライン引数、およびその他の構成ソースから構成を読み込みます。
 * ログ出力をコンソールとデバッグ プロバイダーに送ります。
 
-詳細については、「<xref:fundamentals/host/web-host>」を参照してください。
+詳細については、<xref:fundamentals/host/web-host> を参照してください。
 
 ::: moniker-end
 
@@ -154,13 +154,13 @@ ASP.NET Core は、*Kestrel* クロスプラットフォーム サーバーの�
 
 # <a name="linuxtablinux"></a>[Linux](#tab/linux)
 
-ASP.NET Core は、*Kestrel* クロスプラットフォーム サーバーの実装を提供します。 Kestrel は、ASP.NET Core 2.0 以降で、インターネットに直接公開される一般向けエッジ サーバーとして実行することもできます。 Kestrel は [Nginx](http://nginx.org) または [Apache](https://httpd.apache.org/) を使用してリバース プロキシ構成で実行されることがよくあります。
+ASP.NET Core は、*Kestrel* クロスプラットフォーム サーバーの実装を提供します。 Kestrel は、ASP.NET Core 2.0 以降で、インターネットに直接公開される一般向けエッジ サーバーとして実行することもできます。 Kestrel は [Nginx](https://nginx.org) または [Apache](https://httpd.apache.org/) を使用してリバース プロキシ構成で実行されることがよくあります。
 
 ---
 
 ::: moniker-end
 
-詳細については、「<xref:fundamentals/servers/index>」を参照してください。
+詳細については、<xref:fundamentals/servers/index> を参照してください。
 
 ## <a name="configuration"></a>構成
 
@@ -170,7 +170,7 @@ ASP.NET Core は、構成プロバイダーの順序付けされたセットか�
 
 ASP.NET Core には、パスワードなどの機密の構成データの管理に[シークレット マネージャー ツール](xref:security/app-secrets)が用意されています。 実稼働の機密情報には、[Azure Key Vault](xref:security/key-vault-configuration) を使用することをお勧めします。
 
-詳細については、「<xref:fundamentals/configuration/index>」を参照してください。
+詳細については、<xref:fundamentals/configuration/index> を参照してください。
 
 ## <a name="options"></a>オプション
 
@@ -187,7 +187,7 @@ var options = new WebSocketOptions
 app.UseWebSockets(options);
 ```
 
-詳細については、「<xref:fundamentals/configuration/options>」を参照してください。
+詳細については、<xref:fundamentals/configuration/options> を参照してください。
 
 ## <a name="environments"></a>環境
 
@@ -197,7 +197,7 @@ app.UseWebSockets(options);
 
 [!code-csharp[](index/snapshots/2.x/Startup2.cs?highlight=3-6)]
 
-詳細については、「<xref:fundamentals/environments>」を参照してください。
+詳細については、<xref:fundamentals/environments> を参照してください。
 
 ## <a name="logging"></a>ログの記録
 
@@ -219,13 +219,13 @@ DI からの `ILogger` オブジェクトの取得およびログ メソッド�
 
 `ILogger` インターフェイスは、ログ プロバイダーに任意の数のフィールドを渡すことができます。 このフィールドは、一般的にメッセージの文字列を構築するために使用しますが、プロバイダーがデータ ストアに別のフィールドとして送信することも可能です。 この機能は、[構造化ロギングとも呼ばれるセマンティック ロギング](https://softwareengineering.stackexchange.com/questions/312197/benefits-of-structured-logging-vs-basic-logging)をログ プロバイダーが実装するのを可能にします。
 
-詳細については、「<xref:fundamentals/logging/index>」を参照してください。
+詳細については、<xref:fundamentals/logging/index> を参照してください。
 
 ## <a name="routing"></a>ルーティング
 
 *ルート*とは、ハンドラーにマップされている URL のパターンです。 このハンドラーは一般的には Razor Pages、MVC コントローラーのアクション メソッドまたはミドルウェアです。 ASP.NET Core のルーティングでは、アプリで使用する URL を制御できます。
 
-詳細については、「<xref:fundamentals/routing>」を参照してください。
+詳細については、<xref:fundamentals/routing> を参照してください。
 
 ## <a name="error-handling"></a>エラー処理
 
@@ -236,7 +236,7 @@ ASP.NET Core には、次などのエラー処理用の機能が組み込まれ�
 * 静的状態コード ページ
 * 起動時の例外処理
 
-詳細については、「<xref:fundamentals/error-handling>」を参照してください。
+詳細については、<xref:fundamentals/error-handling> を参照してください。
 
 ## <a name="make-http-requests"></a>HTTP 要求を行う
 
@@ -248,7 +248,7 @@ ASP.NET Core には、次などのエラー処理用の機能が組み込まれ�
 * 基になっている `HttpClientMessageHandler` インスタンスのプールと有効期間を管理し、`HttpClient` の有効期間を手動で管理するときに発生する一般的な DNS の問題を防ぎます。
 * ファクトリによって作成されたクライアントから送信されるすべての要求に対し、(`ILogger` によって) 構成可能なログ エクスペリエンスを追加します。
 
-詳細については、「<xref:fundamentals/http-requests>」を参照してください。
+詳細については、<xref:fundamentals/http-requests> を参照してください。
 
 ## <a name="content-root"></a>コンテンツ ルート
 
@@ -272,4 +272,4 @@ ASP.NET Core には、次などのエラー処理用の機能が組み込まれ�
 
 Razor ( *.cshtml*) のファイルの場合、チルダとスラッシュ `~/` が webroot を指します。 `~/` で始まるパスは仮想パスと呼ばれます。
 
-詳細については、「<xref:fundamentals/static-files>」を参照してください。
+詳細については、<xref:fundamentals/static-files> を参照してください。
