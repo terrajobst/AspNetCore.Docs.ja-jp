@@ -4,14 +4,14 @@ author: prkhandelwal
 description: このチュートリアルは、MongoDB NoSQL データベースを使用して ASP.NET Core Web API を作成する方法を説明します。
 ms.author: scaddie
 ms.custom: mvc, seodec18
-ms.date: 06/10/2019
+ms.date: 07/10/2019
 uid: tutorials/first-mongo-app
-ms.openlocfilehash: 426b4c0dee290153b9b1bf83deec14fa728183cb
-ms.sourcegitcommit: f5762967df3be8b8c868229e679301f2f7954679
+ms.openlocfilehash: c64f6e69a19e294a18cc72c860af0a03ef70d444
+ms.sourcegitcommit: 357a7120632b20465801c093e4e5bd4a315496a8
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/13/2019
-ms.locfileid: "67048085"
+ms.lasthandoff: 07/08/2019
+ms.locfileid: "67649191"
 ---
 # <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>ASP.NET Core と MongoDB で Web API を作成する
 
@@ -109,6 +109,9 @@ Windows を使用する場合、MongoDB は既定では *C:\\Program Files\\Mong
       ]
     }
     ```
+  
+  > [!NOTE]
+  > この記事に示されている ID は、このサンプルを実行するときの ID とは一致していません。
 
 1. 次のコマンドを使用して、データベース内のドキュメントを表示します。
 
@@ -318,11 +321,11 @@ Windows を使用する場合、MongoDB は既定では *C:\\Program Files\\Mong
     ]
     ```
 
-1. `http://localhost:<port>/api/books/5bfd996f7b8e48dc15ff215e` に移動して、コントローラーのオーバーロードされた `Get` アクション メソッドをテストします。 次の JSON 応答が示されます。
+1. `http://localhost:<port>/api/books/{id here}` に移動して、コントローラーのオーバーロードされた `Get` アクション メソッドをテストします。 次の JSON 応答が示されます。
 
     ```json
     {
-      "id":"5bfd996f7b8e48dc15ff215e",
+      "id":"{ID}",
       "bookName":"Clean Code",
       "price":43.15,
       "category":"Computers",

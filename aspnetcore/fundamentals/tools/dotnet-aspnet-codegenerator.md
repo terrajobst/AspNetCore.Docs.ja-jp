@@ -1,16 +1,17 @@
 ---
 title: dotnet aspnet-codegenerator コマンド
 author: rick-anderson
+description: dotnet aspnet-codegenerator コマンドでは、ASP.NET Core プロジェクトがスキャフォールディングされます。
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-description: dotnet の aspnet-codegenerator コマンドにより、ASP.NET Core プロジェクトをスキャフォールディングします
 ms.date: 07/04/2019
 uid: fundamentals/tools/dotnet-aspnet-codegenerator
-ms.openlocfilehash: 55b592d9d203970777c84438e210519957abb35d
-ms.sourcegitcommit: f6e6730872a7d6f039f97d1df762f0d0bd5e34cf
+ms.openlocfilehash: c96362f320efd84c35dc07294a2968a2c687ee94
+ms.sourcegitcommit: b9e914ef274b5ec359582f299724af6234dce135
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/04/2019
-ms.locfileid: "67561685"
+ms.lasthandoff: 07/05/2019
+ms.locfileid: "67596137"
 ---
 # <a name="dotnet-aspnet-codegenerator"></a>dotnet aspnet-codegenerator
 
@@ -18,20 +19,20 @@ ms.locfileid: "67561685"
 
 `dotnet aspnet-codegenerator` - ASP.NET Core のスキャフォールディング エンジンを実行します。 `dotnet aspnet-codegenerator` が必要になるのは、コマンド ラインからスキャフォールディングする場合のみです。Visual Studio でスキャフォールディングする場合は必要ありません。
 
-この記事は [.NET Core 2.2 SDK](https://dotnet.microsoft.com/download/dotnet-core/2.2) 以降を対象とします。
+この記事は [.NET Core 2.1 SDK](https://dotnet.microsoft.com/download/dotnet-core/2.1) 以降に適用されます。
 
 ## <a name="installing-aspnet-codegenerator"></a>aspnet-codegenerator のインストール
 
-`aspnet-codegenerator` は[グローバル ツール](/dotnet/core/tools/global-tools)であり、インストールする必要があります。 次のコマンドを使うと、`aspnet-codegenerator` ツールの最新の安定バージョンをインストールできます。
+`dotnet-aspnet-codegenerator` は[グローバル ツール](/dotnet/core/tools/global-tools)であり、インストールする必要があります。 次のコマンドを使うと、`dotnet-aspnet-codegenerator` ツールの最新の安定バージョンをインストールできます。
 
 ```console
-dotnet tool install -g aspnet-codegenerator
+dotnet tool install -g dotnet-aspnet-codegenerator
 ```
 
-次のコマンドを使うと、インストール済みの .NET Core SDK から利用できる更新の安定バージョンに `aspnet-codegenerator` を更新できます。
+次のコマンドを使うと、インストール済みの .NET Core SDK から利用できる更新の安定バージョンに `dotnet-aspnet-codegenerator` を更新できます。
 
 ```console
-dotnet tool update -g aspnet-codegenerator
+dotnet tool update -g dotnet-aspnet-codegenerator
 ```
 
 ## <a name="synopsis"></a>構文
@@ -43,7 +44,7 @@ dotnet aspnet-codegenerator [-h|--help]
 
 ## <a name="description"></a>説明
 
-`dotnet aspnet-codegenerator ` グローバル コマンドを使うと、ASP.NET Core のコード ジェネレーターとスキャフォールディング エンジンが実行されます。
+`dotnet aspnet-codegenerator` グローバル コマンドを使うと、ASP.NET Core のコード ジェネレーターとスキャフォールディング エンジンが実行されます。
 
 ## <a name="arguments"></a>引数
 
