@@ -44,7 +44,7 @@ dotnet aspnet-codegenerator identity -h
 dotnet aspnet-codegenerator identity -dc MyWeb.Data.ApplicationDbContext --files Account.Register
 ```
 
-PowerShell では、コマンドの区切り記号としてセミコロンを使用します。 PowerShell を使用する場合は、ファイルの一覧でセミコロンをエスケープまたは二重引用符で囲まれたファイルの一覧を配置します。 例:
+PowerShell では、コマンドの区切り記号としてセミコロンを使用します。 PowerShell を使用する場合は、ファイルの一覧でセミコロンをエスケープまたは二重引用符で囲まれたファイルの一覧を配置します。 例えば:
 
 ```console
 dotnet aspnet-codegenerator identity -dc MyWeb.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.Logout"

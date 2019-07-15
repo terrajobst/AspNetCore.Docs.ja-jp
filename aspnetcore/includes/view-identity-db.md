@@ -9,6 +9,6 @@
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-多くのサード パーティ製ツールをダウンロードすることがあるなど、SQLite データベースの表示を管理する[DB Browser for SQLite](http://sqlitebrowser.org/)します。
+多くのサード パーティ製ツールをダウンロードすることがあるなど、SQLite データベースの表示を管理する[DB Browser for SQLite](https://sqlitebrowser.org/)します。
 
 ---
