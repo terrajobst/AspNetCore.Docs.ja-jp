@@ -7,16 +7,16 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 04/17/2019
 uid: signalr/javascript-client
-ms.openlocfilehash: 1565aa38a69113781d7c272a1710298cccc1f045
-ms.sourcegitcommit: 3eedd6180fbbdcb81a8e1ebdbeb035bf4f2feb92
+ms.openlocfilehash: 8b645304b597db0c37fb9cd8814c493ca1c6ee62
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/20/2019
-ms.locfileid: "67284519"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814963"
 ---
 # <a name="aspnet-core-signalr-javascript-client"></a>ASP.NET Core SignalR JavaScript クライアント
 
-作成者: [Rachel Appel](http://twitter.com/rachelappel)
+作成者: [Rachel Appel](https://twitter.com/rachelappel)
 
 ASP.NET Core SignalR JavaScript クライアント ライブラリでは、サーバー側ハブのコードを呼び出すことができます。
 

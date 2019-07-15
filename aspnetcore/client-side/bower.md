@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 08/09/2018
 uid: client-side/bower
-ms.openlocfilehash: 08e6daa537c6c6f92a1cf80d70745e8ef606f580
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 1292b75bdfe1cea56d9c8bc282b0dd90fc945a33
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64892999"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67813528"
 ---
 # <a name="manage-client-side-packages-with-bower-in-aspnet-core"></a>ASP.NET Core での Bower でのクライアント側パッケージを管理します。
 
@@ -22,9 +22,9 @@ ms.locfileid: "64892999"
 >
 > Webpack と yarn を 1 つの一般的な代替手段は、[移行手順](https://bower.io/blog/2017/how-to-migrate-away-from-bower/)利用できます。
 
-[Bower](https://bower.io/) 「web 用のパッケージ マネージャー」自体を呼び出すことです。 、.NET エコシステム内で NuGet の静的コンテンツ ファイルを提供できないまま void が挿入されます。 ASP.NET Core プロジェクトでは、これらの静的ファイルはなどのクライアント側ライブラリを本質的な[jQuery](http://jquery.com/)と[ブートス トラップ](http://getbootstrap.com/)します。 .NET ライブラリを使用することも[NuGet](https://www.nuget.org/)パッケージ マネージャー。
+[Bower](https://bower.io/) 「web 用のパッケージ マネージャー」自体を呼び出すことです。 、.NET エコシステム内で NuGet の静的コンテンツ ファイルを提供できないまま void が挿入されます。 ASP.NET Core プロジェクトでは、これらの静的ファイルはなどのクライアント側ライブラリを本質的な[jQuery](https://jquery.com/)と[ブートス トラップ](https://getbootstrap.com/)します。 .NET ライブラリを使用することも[NuGet](https://www.nuget.org/)パッケージ マネージャー。
 
-設定するクライアント側の ASP.NET Core プロジェクト テンプレートで作成した新しいプロジェクトはビルド プロセスです。 [jQuery](http://jquery.com/)と[ブートス トラップ](http://getbootstrap.com/)がインストールされている場合、Bower はサポートされています。
+設定するクライアント側の ASP.NET Core プロジェクト テンプレートで作成した新しいプロジェクトはビルド プロセスです。 [jQuery](https://jquery.com/)と[ブートス トラップ](https://getbootstrap.com/)がインストールされている場合、Bower はサポートされています。
 
 クライアント側のパッケージに記載されて、 *bower.json*ファイル。 ASP.NET Core のプロジェクト テンプレートを構成します*bower.json* jQuery、jQuery の検証、およびブートス トラップを使用します。
 
@@ -50,7 +50,7 @@ ms.locfileid: "64892999"
 
 ![bower バージョン IntelliSense](bower/_static/version-intelliSense.png)
 
-Bower は[セマンティック バージョニング](http://semver.org/)依存関係を整理します。 セマンティック バージョニング、SemVer とも呼ばれる、パッケージを識別する番号付けスキームで\<メジャー >.\<マイナー >。\<パッチ >。 IntelliSense は、いくつかの一般的な選択肢のみを表示することによって、セマンティック バージョン管理を簡略化します。 IntelliSense の一覧 (上記の例では 4.6.3) の一番上の項目は、パッケージの最新の安定バージョンと見なされます。 キャレット (^) 記号が最新のメジャー バージョンと一致して、一致する最新のマイナー バージョンをティルダ (~)。
+Bower は[セマンティック バージョニング](https://semver.org/)依存関係を整理します。 セマンティック バージョニング、SemVer とも呼ばれる、パッケージを識別する番号付けスキームで\<メジャー >.\<マイナー >。\<パッチ >。 IntelliSense は、いくつかの一般的な選択肢のみを表示することによって、セマンティック バージョン管理を簡略化します。 IntelliSense の一覧 (上記の例では 4.6.3) の一番上の項目は、パッケージの最新の安定バージョンと見なされます。 キャレット (^) 記号が最新のメジャー バージョンと一致して、一致する最新のマイナー バージョンをティルダ (~)。
 
 保存、 *bower.json*ファイル。 Visual Studio のウォッチ、 *bower.json*ファイルの変更。 保存時に、 *bower のインストール*コマンドを実行します。 出力ウィンドウの表示**bower/npm**正確に実行されるコマンドのビュー。
 

@@ -4,14 +4,14 @@ author: tdykstra
 description: ASP.NET Core でのログ記録フレームワークについて説明します。 組み込みのログ プロバイダーと、サードパーティ製の一般的なプロバイダーについて説明します。
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 05/01/2019
+ms.date: 07/11/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: 41135f04c9587f77dd417f63df2c2a70c2d545cd
-ms.sourcegitcommit: f6e6730872a7d6f039f97d1df762f0d0bd5e34cf
+ms.openlocfilehash: 51433cbf35e434300fbefae29f33594e765bcc7b
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/04/2019
-ms.locfileid: "67561678"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67855926"
 ---
 # <a name="logging-in-aspnet-core"></a>ASP.NET Core でのログ記録
 
@@ -51,7 +51,7 @@ ASP.NET Core では、組み込みやサード パーティ製のさまざまな
 
 プロバイダーを使用するには、その NuGet パッケージをインストールし、<xref:Microsoft.Extensions.Logging.ILoggerFactory> のインスタンスに対してプロバイダーの拡張メソッドを呼び出します。
 
-[!code-csharp[](index/samples/1.x/TodoApiSample//Startup.cs?name=snippet_AddConsoleAndDebug&highlight=3,5-7)]
+[!code-csharp[](index/samples/1.x/TodoApiSample/Startup.cs?name=snippet_AddConsoleAndDebug&highlight=3,5-7)]
 
 ASP.NET Core の[依存関係の挿入 (DI)](xref:fundamentals/dependency-injection) には、`ILoggerFactory` インスタンスが用意されています。 `AddConsole` および `AddDebug` 拡張メソッドは、[Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console/) パッケージと [Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug/) パッケージで定義されています。 各拡張メソッドで `ILoggerFactory.AddProvider` メソッドを呼び出し、プロバイダーのインスタンスで渡します。
 
@@ -645,6 +645,8 @@ loggerFactory.AddConsole();
 
 [AddConsole オーバーロード](xref:Microsoft.Extensions.Logging.ConsoleLoggerExtensions)を使用すると、最小ログ レベル、フィルター関数、スコープがサポートされているかどうかを示すブール値を渡すことができます。 もう 1 つの選択肢として、`IConfiguration` オブジェクトを渡す方法があります。この場合、スコープのサポートとログ レベルを指定できます。
 
+コンソール プロバイダーのオプションについては、「<xref:Microsoft.Extensions.Logging.Console.ConsoleLoggerOptions>」を参照してください。
+
 Console プロバイダーはパフォーマンスに大きな影響を及ぼすため、一般的に運用環境での使用には適していません。
 
 Visual Studio で新しいプロジェクトを作成する場合、`AddConsole` メソッドは次のようになります。
@@ -655,7 +657,7 @@ loggerFactory.AddConsole(Configuration.GetSection("Logging"));
 
 このコードは、*appSettings.json* ファイルの `Logging` セクションを参照しています。
 
-[!code-json[](index/samples/1.x/TodoApiSample//appsettings.json)]
+[!code-json[](index/samples/1.x/TodoApiSample/appsettings.json)]
 
 この設定ではフレームワークのログを警告に制限していますが、「[ログのフィルター処理](#log-filtering)」セクションで説明したように、アプリではデバッグ レベルでログに記録することができます。 詳細については、[構成](xref:fundamentals/configuration/index)に関するページを参照してください。
 
@@ -877,11 +879,11 @@ ASP.NET 4.x. に対応している [Microsoft.ApplicationInsights.Web](https://w
 ASP.NET Core で使用できるサードパーティ製のログ記録フレームワークをいくつか紹介します。
 
 * [elmah.io](https://elmah.io/) ([GitHub リポジトリ](https://github.com/elmahio/Elmah.Io.Extensions.Logging))
-* [Gelf](http://docs.graylog.org/en/2.3/pages/gelf.html) ([GitHub リポジトリ](https://github.com/mattwcole/gelf-extensions-logging))
-* [JSNLog](http://jsnlog.com/) ([GitHub リポジトリ](https://github.com/mperdeck/jsnlog))
+* [Gelf](https://docs.graylog.org/en/2.3/pages/gelf.html) ([GitHub リポジトリ](https://github.com/mattwcole/gelf-extensions-logging))
+* [JSNLog](https://jsnlog.com/) ([GitHub リポジトリ](https://github.com/mperdeck/jsnlog))
 * [KissLog.net](https://kisslog.net/) ([GitHub リポジトリ](https://github.com/catalingavan/KissLog-net))
-* [Loggr](http://loggr.net/) ([GitHub リポジトリ](https://github.com/imobile3/Loggr.Extensions.Logging))
-* [NLog](http://nlog-project.org/) ([GitHub リポジトリ](https://github.com/NLog/NLog.Extensions.Logging))
+* [Loggr](https://loggr.net/) ([GitHub リポジトリ](https://github.com/imobile3/Loggr.Extensions.Logging))
+* [NLog](https://nlog-project.org/) ([GitHub リポジトリ](https://github.com/NLog/NLog.Extensions.Logging))
 * [Sentry](https://sentry.io/welcome/) ([GitHub リポジトリ](https://github.com/getsentry/sentry-dotnet))
 * [Serilog](https://serilog.net/) ([GitHub リポジトリ](https://github.com/serilog/serilog-aspnetcore))
 * [Stackdriver](https://cloud.google.com/dotnet/docs/stackdriver#logging) ([Github リポジトリ](https://github.com/googleapis/google-cloud-dotnet))

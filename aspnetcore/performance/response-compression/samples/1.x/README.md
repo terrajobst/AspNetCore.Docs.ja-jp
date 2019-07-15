@@ -17,6 +17,6 @@
 
 ## <a name="using-the-sample"></a>サンプルの使用
 
-1. 使用して要求を行う[Fiddler](http://www.telerik.com/fiddler)、 [Firebug](http://getfirebug.com/)、または[Postman](https://www.getpostman.com/)なしにアプリケーションに、`Accept-Encoding`ヘッダーと注応答ペイロードでは、応答のサイズと応答ヘッダー。
+1. 使用して要求を行う[Fiddler](https://www.telerik.com/fiddler)、 [Firebug](https://getfirebug.com/)、または[Postman](https://www.getpostman.com/)なしにアプリケーションに、`Accept-Encoding`ヘッダーと注応答ペイロードでは、応答のサイズと応答ヘッダー。
 1. 追加、`Accept-Encoding: gzip`ヘッダーおよび応答ヘッダーと圧縮された応答のサイズに注意してください。 削除するには、応答のサイズを参照してください、`Content-Encoding: gzip`サンプル アプリで応答ヘッダーが含まれます。 Lorem Ipsum の応答本文での検索または**testfile1kb.txt**テキストは圧縮され読み取り不可能なことを確認する応答、します。
 1. 追加、`Accept-Encoding: mycustomcompression`ヘッダーおよび応答ヘッダーに注意してください。 `CustomCompressionProvider`は実際には、応答を圧縮されず、空の実装に対してカスタム圧縮ストリーム ラッパーを作成することができますが、`CreateStream()`メソッド。

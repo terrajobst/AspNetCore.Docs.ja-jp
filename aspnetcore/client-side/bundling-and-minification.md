@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 06/17/2019
 uid: client-side/bundling-and-minification
-ms.openlocfilehash: c3ec67d9f5c2b8eb44b5ced911ccfd0fa40a52a7
-ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
+ms.openlocfilehash: 6254a74fd0a11669706a2a89b156a3223e300d1c
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/17/2019
-ms.locfileid: "67152774"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67813506"
 ---
 # <a name="bundle-and-minify-static-assets-in-aspnet-core"></a>バンドルし、縮小の ASP.NET Core で静的なアセット
 
@@ -53,7 +53,7 @@ ms.locfileid: "67152774"
 
 次の表では、個別に資産の読み込みとバンドルと縮小を使用して違いを示します。
 
-アクション | B/m | B/分なし | 変更
+アクション | B/m | B/分なし | [Change]
 --- | :---: | :---: | :---:
 ファイルの要求  | 7   | 18     | 157%
 サポート技術情報の転送 | 156 | 264.68 | 70%
@@ -86,14 +86,14 @@ ASP.NET Core 2.1 以降では、追加、という名前の新しい JSON ファ
 構成オプションは次のとおりです。
 
 * `outputFileName`:出力するバンドル ファイルの名前。 相対パスを含めることができます、 *bundleconfig.json*ファイル。 **必須**
-* `inputFiles`:一緒にバンドルするファイルの配列。 これらは、構成ファイルへの相対パスです。 **省略可能な**、* が空の出力ファイルに空の値の結果します。 [グロビング](http://www.tldp.org/LDP/abs/html/globbingref.html)パターンがサポートされています。
-* `minify`:出力の種類を縮小するオプション。 **省略可能な**、*既定 - `minify: { enabled: true }`*
+* `inputFiles`:一緒にバンドルするファイルの配列。 これらは、構成ファイルへの相対パスです。 **省略可能な**、* が空の出力ファイルに空の値の結果します。 [グロビング](https://www.tldp.org/LDP/abs/html/globbingref.html)パターンがサポートされています。
+* `minify` :出力の種類を縮小するオプション。 **省略可能な**、*既定 - `minify: { enabled: true }`*
   * 構成オプションは、出力ファイルの種類ごとに使用できます。
     * [CSS の縮小化](https://github.com/madskristensen/BundlerMinifier/wiki/cssminifier)
     * [JavaScript の縮小化](https://github.com/madskristensen/BundlerMinifier/wiki/JavaScript-Minifier-settings)
     * [HTML の縮小化](https://github.com/madskristensen/BundlerMinifier/wiki)
 * `includeInProject`:プロジェクト ファイルに生成されたファイルを追加するかどうかを示すフラグします。 **省略可能な**、*既定値: false*
-* `sourceMap`:バンドルされているファイルのソース マップを生成するかどうかを示すフラグします。 **省略可能な**、*既定値: false*
+* `sourceMap` :バンドルされているファイルのソース マップを生成するかどうかを示すフラグします。 **省略可能な**、*既定値: false*
 * `sourceMapRootPath`:生成されたソース マップ ファイルを保存するルート パス。
 
 ## <a name="build-time-execution-of-bundling-and-minification"></a>バンドルと縮小のビルド時の実行
@@ -329,7 +329,7 @@ Visual Studio でプロジェクトをビルドする前に、Gulp 縮小タス�
 ```
 
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他の資料
 
 * [Grunt の使用](xref:client-side/using-grunt)
 * [複数の環境の使用](xref:fundamentals/environments)

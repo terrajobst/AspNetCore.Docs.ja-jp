@@ -5,14 +5,14 @@ description: 構成 API を使用して、ASP.NET Core アプリを構成する�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/24/2019
+ms.date: 07/11/2019
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 81820e8161965fcca2f97d00708df5a29df668de
-ms.sourcegitcommit: 9691b742134563b662948b0ed63f54ef7186801e
+ms.openlocfilehash: 3351ab743ce38b78b1c5857e52020fdeda12cbe7
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/10/2019
-ms.locfileid: "66824834"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67855815"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core の構成
 
@@ -21,6 +21,7 @@ ms.locfileid: "66824834"
 ASP.NET Core でのアプリの構成は、"*構成プロバイダー*" によって設定するキーと値のペアに基づいています。 構成プロバイダーは、さまざまな構成のソースから構成データを読み取り、キーと値のペアを作成します。
 
 * Azure Key Vault
+* Azure App Configuration
 * コマンド ライン引数
 * カスタム プロバイダー (インストール済みまたは作成済み)
 * ディレクトリ ファイル
@@ -38,7 +39,7 @@ using Microsoft.Extensions.Configuration;
 
 [サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
-## <a name="host-vs-app-configuration"></a>ホストとアプリの構成
+## <a name="host-versus-app-configuration"></a>ホストとアプリの構成
 
 アプリを構成して起動する前に、"*ホスト*" を構成して起動します。 ホストはアプリの起動と有効期間の管理を担当します。 アプリとホストは、両方ともこのトピックで説明する構成プロバイダーを使用して構成します。 ホストの構成のキーと値のペアは、アプリのグローバル構成の一部となります。 ホストをビルドするときの構成プロバイダーの使用方法、およびホストの構成に対する構成ソースの影響について詳しくは、[ホスト](xref:fundamentals/index#host)に関する説明を参照してください。
 
@@ -68,7 +69,7 @@ ASP.NET Core の [dotnet new](/dotnet/core/tools/dotnet-new) テンプレート�
 
 [複数の環境を使用する方法](xref:fundamentals/environments)や、[シークレット マネージャーでの開発中のアプリ シークレットの安全な格納](xref:security/app-secrets)の管理 (機密データを格納するための環境変数の使用に関するアドバイスを含む) について、さらに学習することができます。 シークレット マネージャーは、ファイル構成プロバイダーを使用して、ユーザーの機密情報をローカル システム上の JSON ファイルに格納します。 ファイル構成プロバイダーについては、このトピックの後半で説明します。
 
-[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) は、アプリのシークレットを安全に格納するための 1 つのオプションです。 詳細については、「<xref:security/key-vault-configuration>」を参照してください。
+[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) は、アプリのシークレットを安全に格納するための 1 つのオプションです。 詳細については、<xref:security/key-vault-configuration> を参照してください。
 
 ## <a name="hierarchical-configuration-data"></a>階層的な構成データ
 
@@ -145,6 +146,7 @@ ASP.NET Core アプリで使用できる構成プロバイダーを次の表に�
 | プロバイダー | &hellip; から構成を提供します。 |
 | -------- | ----------------------------------- |
 | [Azure Key Vault 構成プロバイダー](xref:security/key-vault-configuration) ("*セキュリティ*" トピック) | Azure Key Vault |
+| [Azure App Configuration プロバイダー](/azure/azure-app-configuration/quickstart-aspnet-core-app) (Azure のドキュメント) | Azure App Configuration |
 | [コマンド ライン構成プロバイダー](#command-line-configuration-provider) | コマンド ライン パラメーター |
 | [カスタム構成プロバイダー](#custom-configuration-provider) | カスタム ソース |
 | [環境変数構成プロバイダー](#environment-variables-configuration-provider) | 環境変数 |
@@ -331,7 +333,7 @@ dotnet run -CLKey1=value1 -CLKey2=value2
 
 [Azure App Service](https://azure.microsoft.com/services/app-service/) を使用すると、環境変数構成プロバイダーを使用してアプリの構成をオーバーライドすることができる環境変数を、Azure Portal で設定できます。 詳細については、「[Azure アプリ: Azure Portal を使用してアプリの構成をオーバーライドする](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal)」を参照してください。
 
-新しい <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> が初期化されるときに、[ホスト構成](#host-vs-app-configuration) の `ASPNETCORE_` でプレフィックスされている環境変数を読み込むために `AddEnvironmentVariables` が使用されます。 詳細については、「[Web ホスト: ホストを設定する](xref:fundamentals/host/web-host#set-up-a-host)」を参照してください。
+新しい <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> が初期化されるときに、[ホスト構成](#host-versus-app-configuration) の `ASPNETCORE_` でプレフィックスされている環境変数を読み込むために `AddEnvironmentVariables` が使用されます。 詳細については、「[Web ホスト: ホストを設定する](xref:fundamentals/host/web-host#set-up-a-host)」を参照してください。
 
 `CreateDefaultBuilder` では次のものも読み込まれます。
 
@@ -945,7 +947,7 @@ var sectionExists = _config.GetSection("section2:subsection2").Exists();
 
 ## <a name="bind-to-a-class"></a>クラスにバインドする
 
-"*オプション パターン*" を使用して、関連する設定のグループを表すクラスに構成をバインドすることができます。 詳細については、「<xref:fundamentals/configuration/options>」を参照してください。
+"*オプション パターン*" を使用して、関連する設定のグループを表すクラスに構成をバインドすることができます。 詳細については、<xref:fundamentals/configuration/options> を参照してください。
 
 構成値は文字列として返されますが、<xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> を呼び出すことで [POCO](https://wikipedia.org/wiki/Plain_Old_CLR_Object) オブジェクトを構築できます。 `Bind` は [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)内の [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) パッケージにあります。
 
@@ -966,7 +968,7 @@ var sectionExists = _config.GetSection("section2:subsection2").Exists();
 | starship:class        | Constitution                                      |
 | starship:length       | 304.8                                             |
 | starship:commissioned | False                                             |
-| trademark             | Paramount Pictures Corp. http://www.paramount.com |
+| trademark             | Paramount Pictures Corp. https://www.paramount.com |
 
 サンプル アプリは `starship` キーを使用して `GetSection` を呼び出します。 `starship` のキーと値のペアは分離されます。 `Starship` クラスのインスタンスを渡すサブセクションで、`Bind` メソッドが呼び出されます。 インスタンスの値をバインドした後、インスタンスがレンダリング用のプロパティに割り当てられます。
 
@@ -1232,7 +1234,7 @@ MVC ビュー:
 
 ## <a name="add-configuration-from-an-external-assembly"></a>外部アセンブリから構成を追加する
 
-<xref:Microsoft.AspNetCore.Hosting.IHostingStartup> の実装により、アプリの `Startup` クラスの外部にある外部アセンブリから、起動時に拡張機能をアプリに追加できるようになります。 詳細については、「<xref:fundamentals/configuration/platform-specific-configuration>」を参照してください。
+<xref:Microsoft.AspNetCore.Hosting.IHostingStartup> の実装により、アプリの `Startup` クラスの外部にある外部アセンブリから、起動時に拡張機能をアプリに追加できるようになります。 詳細については、<xref:fundamentals/configuration/platform-specific-configuration> を参照してください。
 
 ## <a name="additional-resources"></a>その他の技術情報
 

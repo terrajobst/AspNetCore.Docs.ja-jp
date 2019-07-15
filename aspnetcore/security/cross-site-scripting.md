@@ -5,12 +5,12 @@ description: クロス サイト スクリプティング (XSS) と ASP.NET Core
 ms.author: riande
 ms.date: 10/02/2018
 uid: security/cross-site-scripting
-ms.openlocfilehash: 50f0211a2c64708d9b788dd10ce9064e66014d55
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 1e9e988be68313cfd493832519c1be89335d6e48
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64895349"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815211"
 ---
 # <a name="prevent-cross-site-scripting-xss-in-aspnet-core"></a>クロス サイト スクリプティング (XSS) ASP.NET Core での回避します。
 
@@ -214,7 +214,7 @@ services.AddSingleton<HtmlEncoder>(
 <p>This link text is in Chinese: <a href="/">汉语/漢語</a></p>
    ```
 
-セーフ リストの範囲は、Unicode コード値表、いない言語として指定されます。 [Unicode 標準](http://unicode.org/)のリストを持つ[コード グラフ](http://www.unicode.org/charts/index.html)文字を含むグラフの検索に使用できます。 各エンコーダーは、Html、JavaScript、および Url は、個別に構成する必要があります。
+セーフ リストの範囲は、Unicode コード値表、いない言語として指定されます。 [Unicode 標準](https://unicode.org/)のリストを持つ[コード グラフ](https://www.unicode.org/charts/index.html)文字を含むグラフの検索に使用できます。 各エンコーダーは、Html、JavaScript、および Url は、個別に構成する必要があります。
 
 > [!NOTE]
 > セーフ リストのカスタマイズには、エンコーダーは DI を使用してソースのみに影響します。 使用してエンコーダーに直接アクセスする場合`System.Text.Encodings.Web.*Encoder.Default`し、既定、Basic Latin セーフリストのみが使用されます。

@@ -5,14 +5,14 @@ description: GRPC の ASP.NET Core アプリを構成する方法について説
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.custom: mvc
-ms.date: 5/30/2019
+ms.date: 05/30/2019
 uid: grpc/configuration
-ms.openlocfilehash: 1f8250dc9aa8b82da384ee28287011baa19dc11f
-ms.sourcegitcommit: a1364109d11d414121a6337b611bee61d6e489e9
+ms.openlocfilehash: e269d701f45c0b852a9006107f0162cc5af2c38a
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/04/2019
-ms.locfileid: "66491233"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814926"
 ---
 # <a name="grpc-for-aspnet-core-configuration"></a>gRPC の ASP.NET Core の構成
 
@@ -43,7 +43,7 @@ ms.locfileid: "66491233"
 
 [!code-csharp[](~/grpc/configuration/sample/Program.cs?name=snippet&highlight=3-6)]
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他の資料
 
 * <xref:tutorials/grpc/grpc-start>
 * <xref:grpc/index>

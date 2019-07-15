@@ -6,59 +6,22 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/10/2018
 uid: mvc/views/tag-helpers/builtin-th/Index
-ms.openlocfilehash: 9cca912f43159e778a4c9419e6171f06b4037b8b
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: f19cfa5b843bde8a8633ce778562707e566bebb9
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346016"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67856108"
 ---
 # <a name="aspnet-core-built-in-tag-helpers"></a>ASP.NET Core の組み込みタグ ヘルパー
 
-著者: [Peter Kellner](http://peterkellner.net)
+著者: [Peter Kellner](https://peterkellner.net)
 
 タグ ヘルパーの概要については、「<xref:mvc/views/tag-helpers/intro>」をご覧ください。
 
-> [!NOTE]
-> 組み込みタグ ヘルパーがありますが、ドキュメントには記述されていません。 これらのタグ ヘルパーは、[Razor](xref:mvc/views/razor) ビュー エンジンによって内部で使用されます。 これには、Web サイトのルート パスに展開される `~` (チルダ) 文字のタグ ヘルパーが含まれます。
+組み込みタグ ヘルパーがありますが、ドキュメントには表示されていません。 表示されていないタグ ヘルパーは、[Razor](xref:mvc/views/razor) ビュー エンジンによって内部で使用されます。 `~` (チルダ) 文字のタグ ヘルパーは表示されていません。 Web サイトのルート パスにチルダのタグ ヘルパーが展開されます。
 
-## <a name="built-in-aspnet-core-tag-helpers"></a>組み込み ASP.NET Core タグ ヘルパー
-
-**[アンカー タグ ヘルパー](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)**
-
-**[キャッシュ タグ ヘルパー](xref:mvc/views/tag-helpers/builtin-th/cache-tag-helper)**
-
-**[分散キャッシュ タグ ヘルパー](xref:mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper)**
-
-**[環境タグ ヘルパー](xref:mvc/views/tag-helpers/builtin-th/environment-tag-helper)**
-
-[comment]: **[FormActionTagHelper](xref:mvc/views/tag-helpers/builtin-th/form-action-tag-helper)**
-
-**[フォーム タグ ヘルパー](xref:mvc/views/working-with-forms#the-form-tag-helper)**
-
-**[フォーム アクション タグ ヘルパー](xref:mvc/views/working-with-forms#the-form-action-tag-helper)**
-
-**[イメージ タグ ヘルパー](xref:mvc/views/tag-helpers/builtin-th/image-tag-helper)**
-
-**[入力タグ ヘルパー](xref:mvc/views/working-with-forms#the-input-tag-helper)**
-
-**[ラベル タグ ヘルパー](xref:mvc/views/working-with-forms#the-label-tag-helper)**
-
-[comment]: **[LinkTagHelper](xref:mvc/views/tag-helpers/builtin-th/link-tag-helper)**
-
-[comment]: **[OptionTagHelper](xref:mvc/views/tag-helpers/builtin-th/option-tag-helper)**
-
-[comment]: **[ScriptTagHelper](xref:mvc/views/tag-helpers/builtin-th/script-tag-helper)**
-
-**[部分タグ ヘルパー](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper)**
-
-**[選択タグ ヘルパー](xref:mvc/views/working-with-forms#the-select-tag-helper)**
-
-**[Textarea タグ ヘルパー](xref:mvc/views/working-with-forms#the-textarea-tag-helper)**
-
-**[検証メッセージ タグ ヘルパー](xref:mvc/views/working-with-forms#the-validation-message-tag-helper)**
-
-**[検証概要タグ ヘルパー](xref:mvc/views/working-with-forms#the-validation-summary-tag-helper)**
+[!INCLUDE[](~/includes/built-in-TH.md)]
 
 ## <a name="additional-resources"></a>その他の技術情報
 

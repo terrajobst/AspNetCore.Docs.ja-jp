@@ -5,12 +5,12 @@ description: ASP.NET Core で Grunt を使用します。
 ms.author: riande
 ms.date: 06/18/2019
 uid: client-side/using-grunt
-ms.openlocfilehash: 851ce3b50e88fee597518aef23276800f4b50f06
-ms.sourcegitcommit: a1283d486ac1dcedfc7ea302e1cc882833e2c515
+ms.openlocfilehash: f3832bd1fe5721fbda114103ac11a8d55312bcb2
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/18/2019
-ms.locfileid: "67207749"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67813557"
 ---
 # <a name="use-grunt-in-aspnet-core"></a>ASP.NET Core で Grunt を使用します。
 
@@ -94,7 +94,7 @@ Grunt は、スクリプトの縮小、TypeScript コンパイル、コード品
     ![grunt の Intellisense](using-grunt/_static/devdependencies-grunt.png)
 
     > [!NOTE]
-    > NPM を使用して[セマンティック バージョニング](http://semver.org/)依存関係を整理します。 セマンティック バージョニング、SemVer とも呼ばれる、パッケージを識別する番号付けスキームで\<メジャー >.\<マイナー >。\<パッチ >。 Intellisense は、いくつかの一般的な選択肢のみを表示することによって、セマンティック バージョン管理を簡略化します。 Intellisense の一覧 (上記の例では 0.4.5) の一番上の項目は、パッケージの最新の安定バージョンと見なされます。 キャレット (^) 記号が最新のメジャー バージョンと一致して、一致する最新のマイナー バージョンをティルダ (~)。 参照してください、 [NPM semver バージョン パーサー参照](https://www.npmjs.com/package/semver)SemVer を提供する完全な表現へのガイドとして。
+    > NPM を使用して[セマンティック バージョニング](https://semver.org/)依存関係を整理します。 セマンティック バージョニング、SemVer とも呼ばれる、パッケージを識別する番号付けスキームで\<メジャー >.\<マイナー >。\<パッチ >。 Intellisense は、いくつかの一般的な選択肢のみを表示することによって、セマンティック バージョン管理を簡略化します。 Intellisense の一覧 (上記の例では 0.4.5) の一番上の項目は、パッケージの最新の安定バージョンと見なされます。 キャレット (^) 記号が最新のメジャー バージョンと一致して、一致する最新のマイナー バージョンをティルダ (~)。 参照してください、 [NPM semver バージョン パーサー参照](https://www.npmjs.com/package/semver)SemVer を提供する完全な表現へのガイドとして。
 
 3. 依存関係の詳細を読み込む grunt の追加-contrib -\*のパッケージ*クリーン*、 *jshint*、 *concat*、 *uglify*、および*ウォッチ*次の例で示すようにします。 バージョンは、例では、一致する必要はありません。
 

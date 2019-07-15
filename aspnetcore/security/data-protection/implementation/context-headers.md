@@ -5,12 +5,12 @@ description: コンテキスト ヘッダーを ASP.NET Core データ保護の�
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/data-protection/implementation/context-headers
-ms.openlocfilehash: 2b8fd594672bf623d38bfae90d05a984f92ce6a3
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 518423f5df93924d3df144994e4beb1755cd0bfc
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087566"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814023"
 ---
 # <a name="context-headers-in-aspnet-core"></a>ASP.NET Core でのコンテキスト ヘッダー
 
@@ -48,7 +48,7 @@ ms.locfileid: "65087566"
 
 理想的には、K_E と K_H すべてゼロのベクトルを渡すことができます。 ただし、基になるアルゴリズムが、すべてゼロのベクターのような単純型または反復可能なパターンを使用して適応 (特に DES および 3 des) の操作を実行する前に脆弱なキーの存在をチェックする状況を回避します。
 
-代わりに、NIST SP800 108 の KDF カウンター モードの使用 (を参照してください[108-NIST SP800](http://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-108.pdf)、Sec. 5.1) の長さ 0 のキー、ラベルとコンテキスト、および基になる PRF として HMACSHA512。 派生 |K_E |+ |K_H |出力のバイトし、結果に分解 K_E と K_H 自体。 数学的に、これは、ように表されます。
+代わりに、NIST SP800 108 の KDF カウンター モードの使用 (を参照してください[108-NIST SP800](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-108.pdf)、Sec. 5.1) の長さ 0 のキー、ラベルとコンテキスト、および基になる PRF として HMACSHA512。 派生 |K_E |+ |K_H |出力のバイトし、結果に分解 K_E と K_H 自体。 数学的に、これは、ように表されます。
 
 ( K_E || K_H ) = SP800_108_CTR(prf = HMACSHA512, key = "", label = "", context = "")
 

@@ -7,12 +7,12 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 06/03/2019
 uid: signalr/configuration
-ms.openlocfilehash: 662565e537fa0eb13ed80e558949740739a63558
-ms.sourcegitcommit: eb3e51d58dd713eefc242148f45bd9486be3a78a
+ms.openlocfilehash: 8c9fcaecb04555718f5da6a42a8e56c258e795af
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/02/2019
-ms.locfileid: "67500380"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67813448"
 ---
 # <a name="aspnet-core-signalr-configuration"></a>ASP.NET Core SignalR の構成
 
@@ -209,7 +209,7 @@ let connection = new signalR.HubConnectionBuilder()
 
 次の表では、使用可能なログ レベルを示します。 指定した値`configureLogging`設定、**最小**ログ レベルをログに記録されます。 このレベルで記録されたメッセージ**レベルがその後に、表に示すまたは**、ログに記録されます。
 
-| string | LogLevel |
+| string | ログ レベル |
 | - | - |
 | `"trace"` | `LogLevel.Trace` |
 | `"debug"` | `LogLevel.Debug` |
@@ -313,7 +313,7 @@ let connection = new signalR.HubConnectionBuilder()
     .build();
 ```
 
-アクセス トークン ファクトリを提供することで、認証に使用するベアラー トークンを構成する、SignalR の Java クライアントで、 [HttpHubConnectionBuilder](/java/api/com.microsoft.signalr._http_hub_connection_builder?view=aspnet-signalr-java)します。 使用[withAccessTokenFactory](/java/api/com.microsoft.signalr._http_hub_connection_builder.withaccesstokenprovider?view=aspnet-signalr-java#com_microsoft_signalr__http_hub_connection_builder_withAccessTokenProvider_Single_String__)を提供する、 [RxJava](https://github.com/ReactiveX/RxJava) [単一\<文字列 >](http://reactivex.io/documentation/single.html)します。 呼び出して[Single.defer](http://reactivex.io/RxJava/javadoc/io/reactivex/Single.html#defer-java.util.concurrent.Callable-)クライアントのアクセス トークンを生成するロジックを記述することができます。
+アクセス トークン ファクトリを提供することで、認証に使用するベアラー トークンを構成する、SignalR の Java クライアントで、 [HttpHubConnectionBuilder](/java/api/com.microsoft.signalr._http_hub_connection_builder?view=aspnet-signalr-java)します。 使用[withAccessTokenFactory](/java/api/com.microsoft.signalr._http_hub_connection_builder.withaccesstokenprovider?view=aspnet-signalr-java#com_microsoft_signalr__http_hub_connection_builder_withAccessTokenProvider_Single_String__)を提供する、 [RxJava](https://github.com/ReactiveX/RxJava) [単一\<文字列 >](https://reactivex.io/documentation/single.html)します。 呼び出して[Single.defer](https://reactivex.io/RxJava/javadoc/io/reactivex/Single.html#defer-java.util.concurrent.Callable-)クライアントのアクセス トークンを生成するロジックを記述することができます。
 
 ```java
 HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/myhub")

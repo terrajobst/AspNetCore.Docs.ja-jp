@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.date: 04/11/2019
 uid: performance/diagnostic-tools
-ms.openlocfilehash: 66676b5a2b95b87bfbbd50022e279e35a12b9793
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: d273897b9ad26d57eb94b196b58f14019a96d07d
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64894189"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815623"
 ---
 # <a name="performance-diagnostic-tools"></a>パフォーマンスの診断ツール
 
@@ -53,9 +53,9 @@ Application Insights は、さまざまな環境で使用できます。
 
 [PerfView](https://github.com/Microsoft/perfview)は .NET のパフォーマンスの問題を診断するためには、具体的には、.NET チームによって作成されたパフォーマンス分析ツールです。 PerfView は、CPU 使用率、メモリおよび GC の動作、パフォーマンス イベント、およびウォール クロック時間の分析を使用できます。
 
-PerfView および開始する方法の詳細については、 [PerfView のチュートリアル ビデオ](http://channel9.msdn.com/Series/PerfView-Tutorial)またはツールで使用可能なユーザー ガイドを参照してまたは[github](https://github.com/Microsoft/perfview)します。
+PerfView および開始する方法の詳細については、 [PerfView のチュートリアル ビデオ](https://channel9.msdn.com/Series/PerfView-Tutorial)またはツールで使用可能なユーザー ガイドを参照してまたは[github](https://github.com/Microsoft/perfview)します。
 
-## <a name="windows-performance-toolkit"></a>Windows パフォーマンス ツールキット
+## <a name="windows-performance-toolkit"></a>Windows Performance Toolkit
 
 [Windows パフォーマンス ツールキット](/windows-hardware/test/wpt/)(WPT) は、2 つのコンポーネントで構成されています。Windows Performance Recorder (WPR) と Windows パフォーマンス アナライザー (WPA)。 ツールは、Windows オペレーティング システムおよびアプリの詳細なパフォーマンス プロファイルを生成します。 WPT がデータを視覚化するための豊富な方法が、そのデータの収集は PerfView のよりも低い。
 

@@ -5,14 +5,14 @@ description: ASP.NET Core で依存関係の挿入を実装する方法とそれ
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/01/2019
+ms.date: 07/09/2019
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: 815838e72bc51c70ca1d3d3c1fc6c196bd08ee70
-ms.sourcegitcommit: eb3e51d58dd713eefc242148f45bd9486be3a78a
+ms.openlocfilehash: 1455aa9ce4ea24eaeb396134f91b6d089b346c17
+ms.sourcegitcommit: bee530454ae2b3c25dc7ffebf93536f479a14460
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/02/2019
-ms.locfileid: "67500459"
+ms.lasthandoff: 07/10/2019
+ms.locfileid: "67724438"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>ASP.NET Core での依存関係の挿入
 
@@ -68,8 +68,8 @@ public class IndexModel : PageModel
 
 依存関係の挿入は、次の方法によってこれらの問題に対応します。
 
-* 依存関係の実装を抽象化するための、インターフェイスの使用。
-* サービス コンテナー内の依存関係の登録。 ASP.NET Core には、組み込みのサービス コンテナー [IServiceProvider](/dotnet/api/system.iserviceprovider) が用意されています。 サービスはアプリの `Startup.ConfigureServices` メソッドに登録されています。
+* 依存関係の実装を抽象化するための、インターフェイスまたは基底クラスの使用。
+* サービス コンテナー内の依存関係の登録。 ASP.NET Core には、組み込みのサービス コンテナー <xref:System.IServiceProvider> が用意されています。 サービスはアプリの `Startup.ConfigureServices` メソッドに登録されています。
 * サービスを使用するクラスのコンストラクターへの、サービスの "*挿入*"。 依存関係のインスタンスの作成、およびインスタンスが不要になったときの廃棄の役割を、フレームワークが担当します。
 
 [サンプル アプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/dependency-injection/samples)では、サービスがアプリに提供するメソッドが `IMyDependency` インターフェイスによって定義されます。
@@ -80,7 +80,7 @@ public class IndexModel : PageModel
 
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Services/MyDependency.cs?name=snippet1)]
 
-`MyDependency` はそのコンストラクター内で [ILogger&lt;TCategoryName&gt;](/dotnet/api/microsoft.extensions.logging.ilogger-1) を要求します。 依存関係の挿入をチェーン形式で使用することはよくあります。 次に、要求されたそれぞれの依存関係が、それ自身の依存関係を要求します。 コンテナーによってグラフ内の依存関係が解決され、完全に解決されたサービスが返されます。 解決する必要がある依存関係の集合的なセットは、通常、"*依存関係ツリー*"、"*依存関係グラフ*"、または "*オブジェクト グラフ*" と呼ばれます。
+`MyDependency` では、コンストラクター内で <xref:Microsoft.Extensions.Logging.ILogger`1> が要求されます。 依存関係の挿入をチェーン形式で使用することはよくあります。 次に、要求されたそれぞれの依存関係が、それ自身の依存関係を要求します。 コンテナーによってグラフ内の依存関係が解決され、完全に解決されたサービスが返されます。 解決する必要がある依存関係の集合的なセットは、通常、"*依存関係ツリー*"、"*依存関係グラフ*"、または "*オブジェクト グラフ*" と呼ばれます。
 
 `IMyDependency` と `ILogger<TCategoryName>` をサービス コンテナーに登録する必要があります。 `IMyDependency` は `Startup.ConfigureServices` に登録されます。 `ILogger<TCategoryName>` はログ記録の抽象化インフラストラクチャによって登録されます。したがって、これは、フレームワークによって既定で登録される[フレームワークが提供するサービス](#framework-provided-services)です。
 
@@ -95,7 +95,7 @@ services.AddSingleton(typeof(ILogger<T>), typeof(Logger<T>));
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Startup.cs?name=snippet1&highlight=5)]
 
 > [!NOTE]
-> 各 `services.Add{SERVICE_NAME}` 拡張メソッドは、サービスを追加 (および場合によっては構成) します。 たとえば、`services.AddMvc()` はサービスの Razor Pages と必須の MVC を追加します。 アプリをこの規則に従わせることをお勧めします。 拡張メソッドを [Microsoft.Extensions.DependencyInjection](/dotnet/api/microsoft.extensions.dependencyinjection) 名前空間に配置して、サービス登録のグループをカプセル化します。
+> 各 `services.Add{SERVICE_NAME}` 拡張メソッドは、サービスを追加 (および場合によっては構成) します。 たとえば、`services.AddMvc()` はサービスの Razor Pages と必須の MVC を追加します。 アプリをこの規則に従わせることをお勧めします。 拡張メソッドを <xref:Microsoft.Extensions.DependencyInjection?displayProperty=fullName> 名前空間に配置して、サービス登録のグループをカプセル化します。
 
 サービスのコンストラクターで[ビルトイン型](/dotnet/csharp/language-reference/keywords/built-in-types-table) (`string` など) が必要な場合は、[構成](xref:fundamentals/configuration/index)や[オプション パターン](xref:fundamentals/configuration/options)を使って型を挿入することができます。
 
@@ -125,22 +125,22 @@ public class MyDependency : IMyDependency
 
 | サービスの種類 | 有効期間 |
 | ------------ | -------- |
-| [Microsoft.AspNetCore.Hosting.Builder.IApplicationBuilderFactory](/dotnet/api/microsoft.aspnetcore.hosting.builder.iapplicationbuilderfactory) | 一時的 |
-| [Microsoft.AspNetCore.Hosting.IApplicationLifetime](/dotnet/api/microsoft.aspnetcore.hosting.iapplicationlifetime) | シングルトン |
-| [Microsoft.AspNetCore.Hosting.IHostingEnvironment](/dotnet/api/microsoft.aspnetcore.hosting.ihostingenvironment) | シングルトン |
-| [Microsoft.AspNetCore.Hosting.IStartup](/dotnet/api/microsoft.aspnetcore.hosting.istartup) | シングルトン |
-| [Microsoft.AspNetCore.Hosting.IStartupFilter](/dotnet/api/microsoft.aspnetcore.hosting.istartupfilter) | 一時的 |
-| [Microsoft.AspNetCore.Hosting.Server.IServer](/dotnet/api/microsoft.aspnetcore.hosting.server.iserver) | シングルトン |
-| [Microsoft.AspNetCore.Http.IHttpContextFactory](/dotnet/api/microsoft.aspnetcore.http.ihttpcontextfactory) | 一時的 |
-| [Microsoft.Extensions.Logging.ILogger&lt;T&gt;](/dotnet/api/microsoft.extensions.logging.ilogger) | シングルトン |
-| [Microsoft.Extensions.Logging.ILoggerFactory](/dotnet/api/microsoft.extensions.logging.iloggerfactory) | シングルトン |
-| [Microsoft.Extensions.ObjectPool.ObjectPoolProvider](/dotnet/api/microsoft.extensions.objectpool.objectpoolprovider) | シングルトン |
-| [Microsoft.Extensions.Options.IConfigureOptions&lt;T&gt;](/dotnet/api/microsoft.extensions.options.iconfigureoptions-1) | 一時的 |
-| [Microsoft.Extensions.Options.IOptions&lt;T&gt;](/dotnet/api/microsoft.extensions.options.ioptions-1) | シングルトン |
-| [System.Diagnostics.DiagnosticSource](/dotnet/core/api/system.diagnostics.diagnosticsource) | シングルトン |
-| [System.Diagnostics.DiagnosticListener](/dotnet/core/api/system.diagnostics.diagnosticlistener) | シングルトン |
+| <xref:Microsoft.AspNetCore.Hosting.Builder.IApplicationBuilderFactory?displayProperty=fullName> | 一時的 |
+| <xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime?displayProperty=fullName> | シングルトン |
+| <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment?displayProperty=fullName> | シングルトン |
+| <xref:Microsoft.AspNetCore.Hosting.IStartup?displayProperty=fullName> | シングルトン |
+| <xref:Microsoft.AspNetCore.Hosting.IStartupFilter?displayProperty=fullName> | 一時的 |
+| <xref:Microsoft.AspNetCore.Hosting.Server.IServer?displayProperty=fullName> | シングルトン |
+| <xref:Microsoft.AspNetCore.Http.IHttpContextFactory?displayProperty=fullName> | 一時的 |
+| <xref:Microsoft.Extensions.Logging.ILogger`1?displayProperty=fullName> | シングルトン |
+| <xref:Microsoft.Extensions.Logging.ILoggerFactory?displayProperty=fullName> | シングルトン |
+| <xref:Microsoft.Extensions.ObjectPool.ObjectPoolProvider?displayProperty=fullName> | シングルトン |
+| <xref:Microsoft.Extensions.Options.IConfigureOptions`1?displayProperty=fullName> | 一時的 |
+| <xref:Microsoft.Extensions.Options.IOptions`1?displayProperty=fullName> | シングルトン |
+| <xref:System.Diagnostics.DiagnosticSource?displayProperty=fullName> | シングルトン |
+| <xref:System.Diagnostics.DiagnosticListener?displayProperty=fullName> | シングルトン |
 
-サービス (および必要であればサービスが依存するサービス) を登録するためにサービス コレクションの拡張メソッドを使用できる場合は、1 つの `Add{SERVICE_NAME}` 拡張メソッドを使用してそのサービスが必要とするすべてのサービスを登録することが規則です。 次のコードは、拡張メソッド [AddDbContext](/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext)、[AddIdentity](/dotnet/api/microsoft.extensions.dependencyinjection.identityservicecollectionextensions.addidentity)、[AddMvc](/dotnet/api/microsoft.extensions.dependencyinjection.mvcservicecollectionextensions.addmvc) を使用して、コンテナーに追加のサービスを追加する方法の例です。
+サービス (および必要であればサービスが依存するサービス) を登録するためにサービス コレクションの拡張メソッドを使用できる場合は、1 つの `Add{SERVICE_NAME}` 拡張メソッドを使用してそのサービスが必要とするすべてのサービスを登録することが規則です。 次のコードは、拡張メソッド <xref:Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContext*>、<xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions.AddIdentityCore*>、および <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddMvc*> を使用して、コンテナーに追加のサービスを追加する方法の例です。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -156,36 +156,83 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-詳細については、API のドキュメントの「[ServiceCollection Class](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollection)」(ServiceCollection クラス) をご覧ください。
+詳細については、API ドキュメントにある <xref:Microsoft.Extensions.DependencyInjection.ServiceCollection> クラスを参照してください。
 
 ## <a name="service-lifetimes"></a>サービスの有効期間
 
 登録される各サービスの適切な有効期間を選択します。 ASP.NET Core サービスは、次の有効期間で構成できます。
 
-**一時的**
+### <a name="transient"></a>一時的
 
-有効期間が一時的なサービスは、サービス コンテナーから要求されるたびに作成されます。 この有効期間は、軽量でステートレスのサービスに最適です。
+有効期間が一時的なサービス (<xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddTransient*>) は、サービス コンテナーから要求されるたびに作成されます。 この有効期間は、軽量でステートレスのサービスに最適です。
 
-**スコープ**
+### <a name="scoped"></a>スコープ
 
-有効期間がスコープのサービスは、クライアント要求 (接続) ごとに 1 回作成されます。
+有効期間がスコープのサービス (<xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddScoped*>) は、クライアント要求 (接続) ごとに 1 回作成されます。
 
 > [!WARNING]
 > ミドルウェアでスコープ サービスを使用している場合、サービスを `Invoke` または `InvokeAsync` メソッドに追加します。 コンストラクターを使用して挿入すると、サービスがシングルトンのように動作するよう強制されるので、コンストラクターを使用した挿入は行わないでください。 詳細については、<xref:fundamentals/middleware/index> を参照してください。
 
-**シングルトン**
+### <a name="singleton"></a>シングルトン
 
-有効期間がシングルトンのサービスは、最初に要求されたときに作成されます (または、`ConfigureServices` が実行されて、サービス登録でインスタンスが指定された場合)。 以降の要求は、すべて同じインスタンスを使用します。 アプリをシングルトンで動作させる必要がある場合は、サービス コンテナーによるサービスの有効期間の管理を許可することをお勧めします。 クラス内のオブジェクトの有効期間を管理するために、シングルトンの設計パターンを実装してユーザー コードを提供しないでください。
+有効期間がシングルトンのサービス (<xref:Microsoft.AspNet.OData.Builder.ODataModelBuilder.AddSingleton*>) は、最初に要求されたときに作成されます (または、`Startup.ConfigureServices` が実行されて、サービス登録でインスタンスが指定された場合)。 以降の要求は、すべて同じインスタンスを使用します。 アプリをシングルトンで動作させる必要がある場合は、サービス コンテナーによるサービスの有効期間の管理を許可することをお勧めします。 クラス内のオブジェクトの有効期間を管理するために、シングルトンの設計パターンを実装してユーザー コードを提供しないでください。
 
 > [!WARNING]
 > シングルトンからスコープ サービスを解決するのは危険です。 後続の要求を処理する際に、サービスが正しくない状態になる可能性があります。
+
+## <a name="service-registration-methods"></a>サービス登録メソッド
+
+各サービス登録拡張メソッドでは、特定のシナリオで役立つオーバーロードが提供されます。
+
+| メソッド | 自動<br>object<br>破棄 | 複数<br>実装 | 引数を渡す |
+| ------ | :-----------------------------: | :-------------------------: | :-------: |
+| `Add{LIFETIME}<{SERVICE}, {IMPLEMENTATION}>()`<br>例:<br>`services.AddScoped<IMyDep, MyDep>();` | はい | はい | いいえ |
+| `Add{LIFETIME}<{SERVICE}>(sp => new {IMPLEMENTATION})`<br>次に例を示します。<br>`services.AddScoped<IMyDep>(sp => new MyDep());`<br>`services.AddScoped<IMyDep>(sp => new MyDep("A string!"));` | はい | はい | はい |
+| `Add{LIFETIME}<{IMPLEMENTATION}>()`<br>例:<br>`services.AddScoped<MyDep>();` | はい | × | いいえ |
+| `Add{LIFETIME}<{SERVICE}>(new {IMPLEMENTATION})`<br>次に例を示します。<br>`services.AddScoped<IMyDep>(new MyDep());`<br>`services.AddScoped<IMyDep>(new MyDep("A string!"));` | いいえ | [はい] | はい |
+| `Add{LIFETIME}(new {IMPLEMENTATION})`<br>次に例を示します。<br>`services.AddScoped(new MyDep());`<br>`services.AddScoped(new MyDep("A string!"));` | いいえ | × | はい |
+
+型の廃棄の詳細については、「[サービスの破棄](#disposal-of-services)」を参照してください。 実装が複数の場合の一般的なシナリオとしては、[テスト用に型のモックを作成](xref:test/integration-tests#inject-mock-services)します。
+
+`TryAdd{LIFETIME}` メソッドでは、登録された実装がまだ存在しない場合にのみサービスが登録されます。
+
+次の例の最初の行では、`IMyDependency` に `MyDependency` を登録します。 2 行目では何も行われません。`IMyDependency` には登録された実装が既に含まれているからです。
+
+```csharp
+services.AddSingleton<IMyDependency, MyDependency>();
+// The following line has no effect:
+services.TryAddSingleton<IMyDependency, DifferentDependency>();
+```
+
+詳細については次を参照してください:
+
+* <xref:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAdd*>
+* <xref:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddTransient*>
+* <xref:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddScoped*>
+* <xref:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddSingleton*>
+
+[TryAddEnumerable(ServiceDescriptor)](xref:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddEnumerable*) メソッドでは、"*同じ型*" の実装がまだ存在しない場合にのみサービスが登録されます。 複数のサービスは、`IEnumerable<{SERVICE}>` によって解決されます。 サービスを登録するとき、開発者は同じ型のものがまだ追加されていない場合にのみインスタンスを追加します。 一般に、このメソッドは、インスタンスのコピーが 2 つコンテナーに登録されるのを回避するために、ライブラリ作成者によって使用されます。
+
+次の例の最初の行では、`IMyDep1` に `MyDep` を登録します。 2 行目では `IMyDep2` に `MyDep` を登録します。 3 行目では何も行われません。`IMyDep1` には `MyDep` の登録済みの実装が既に含まれているからです。
+
+```csharp
+public interface IMyDep1 {}
+public interface IMyDep2 {}
+
+public class MyDep : IMyDep1, IMyDep2 {}
+
+services.TryAddEnumerable(ServiceDescriptor.Singleton<IMyDep1, MyDep>());
+services.TryAddEnumerable(ServiceDescriptor.Singleton<IMyDep2, MyDep>());
+// Two registrations of MyDep for IMyDep1 is avoided by the following line:
+services.TryAddEnumerable(ServiceDescriptor.Singleton<IMyDep1, MyDep>());
+```
 
 ### <a name="constructor-injection-behavior"></a>コンストラクターの挿入の動作
 
 サービスは 2 つのメカニズムによって解決できます。
 
-* `IServiceProvider`
-* [ActivatorUtilities](/dotnet/api/microsoft.extensions.dependencyinjection.activatorutilities) &ndash; 依存関係の挿入コンテナーにサービスを登録することなくオブジェクトの作成を許可します。 `ActivatorUtilities` はユーザー側の抽象化 (タグ ヘルパー、MVC コントローラー、モデル バインダーなど) で使用されます。
+* <xref:System.IServiceProvider>
+* <xref:Microsoft.Extensions.DependencyInjection.ActivatorUtilities> &ndash; 依存関係の挿入コンテナーにサービスを登録することなくオブジェクトの作成を許可します。 `ActivatorUtilities` はユーザー側の抽象化 (タグ ヘルパー、MVC コントローラー、モデル バインダーなど) で使用されます。
 
 コンストラクターは、依存関係の挿入によって提供されない引数を受け取ることができますが、引数は既定値を割り当てる必要があります。
 
@@ -263,11 +310,11 @@ Entity Framework コンテキストでは通常、[範囲が指定された有�
 
 * "*一時的な*" オブジェクトは常に異なります。 1 番目と 2 番目のクライアント要求の一時的な `OperationId` 値は、`OperationService` 操作とクライアント要求間の両方に対して異なります。 個々のサービス要求とクライアント要求に対して、新しいインスタンスが提供されます。
 * *Scoped* オブジェクトは、1 つのクライアント要求内では同じですが、複数のクライアント要求間では異なります。
-* "*シングルトン*" オブジェクトは、`Operation` インスタンスが `ConfigureServices` で提供されるかどうかに関係なく、すべてのオブジェクトとすべての要求について同じです。
+* "*シングルトン*" オブジェクトは、`Operation` インスタンスが `Startup.ConfigureServices` で提供されるかどうかに関係なく、すべてのオブジェクトとすべての要求について同じです。
 
 ## <a name="call-services-from-main"></a>main からサービスを呼び出す
 
-[IServiceScopeFactory.CreateScope](/dotnet/api/microsoft.extensions.dependencyinjection.iservicescopefactory.createscope) を使用して [IServiceScope](/dotnet/api/microsoft.extensions.dependencyinjection.iservicescope) を作成し、アプリのスコープ内のスコープ サービスを解決します。 この方法は、起動時に初期化タスクを実行するために、スコープ サービスにアクセスするのに便利です。 次の例では、`Program.Main` で `MyScopedService` のコンテキストを取得する方法を示します。
+[IServiceScopeFactory.CreateScope](xref:Microsoft.Extensions.DependencyInjection.IServiceScopeFactory.CreateScope*) を使用して <xref:Microsoft.Extensions.DependencyInjection.IServiceScope> を作成し、アプリのスコープ内のスコープ サービスを解決します。 この方法は、起動時に初期化タスクを実行するために、スコープ サービスにアクセスするのに便利です。 次の例では、`Program.Main` で `MyScopedService` のコンテキストを取得する方法を示します。
 
 ```csharp
 public static void Main(string[] args)
@@ -301,7 +348,7 @@ public static void Main(string[] args)
 * スコープ サービスが、ルート サービス プロバイダーによって直接的または間接的に解決されない。
 * スコープ サービスが、シングルトンに直接または間接に挿入されない。
 
-[BuildServiceProvider](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectioncontainerbuilderextensions.buildserviceprovider) が呼び出されると、ルート サービス プロバイダーが作成されます。 ルート サービス プロバイダーの有効期間は、プロバイダーがアプリで開始されるとアプリとサーバーの有効期間に対応し、アプリのシャットダウンには破棄されます。
+<xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionContainerBuilderExtensions.BuildServiceProvider*> が呼び出されると、ルート サービス プロバイダーが作成されます。 ルート サービス プロバイダーの有効期間は、プロバイダーがアプリで開始されるとアプリとサーバーの有効期間に対応し、アプリのシャットダウンには破棄されます。
 
 スコープ サービスは、それを作成したコンテナーによって破棄されます。 ルート コンテナーにスコープ サービスが作成されると、サービスはアプリ/サーバーのシャットダウン時に、ルート コンテナーによってのみ破棄されるため、サービスの有効期間は実質的にシングルトンに昇格されます。 `BuildServiceProvider` が呼び出されると、サービス スコープの検証がこれらの状況をキャッチします。
 
@@ -309,7 +356,7 @@ public static void Main(string[] args)
 
 ## <a name="request-services"></a>要求サービス
 
-`HttpContext` からの ASP.NET Core 要求内で使用可能なサービスは、[HttpContext.RequestServices](/dotnet/api/microsoft.aspnetcore.http.httpcontext.requestservices) コレクションを通じて公開されます。
+`HttpContext` からの ASP.NET Core 要求内で使用可能なサービスは、[HttpContext.RequestServices](xref:Microsoft.AspNetCore.Http.HttpContext.RequestServices) コレクションを通じて公開されます。
 
 要求サービスは、アプリの一部として構成および要求されるサービスを表します。 オブジェクトで依存関係を指定すると、これらは `ApplicationServices` ではなく `RequestServices` で検出された型で満たされます。
 
@@ -331,7 +378,7 @@ public static void Main(string[] args)
 
 ### <a name="disposal-of-services"></a>サービスの破棄
 
-コンテナーは、作成する `IDisposable` 型の `Dispose` を呼び出します。 ユーザー コードによってコンテナーに追加されたインスタンスは、自動的に破棄されません。
+コンテナーは、作成する <xref:System.IDisposable> 型の <xref:System.IDisposable.Dispose*> を呼び出します。 ユーザー コードによってコンテナーに追加されたインスタンスは、自動的に破棄されません。
 
 ```csharp
 // Services that implement IDisposable:
@@ -412,7 +459,7 @@ public void ConfigureServices(IServiceCollection services)
 
 スレッド セーフのシングルトン サービスを作成します。 シングルトン サービスに一時的サービスへの依存関係がある場合、シングルトンによる一時的サービスの使い方によっては、一時的サービスもスレッド セーフであることが必要な場合があります。
 
-1 つのサービスのファクトリ メソッド (例: [AddSingleton&lt;TService&gt;(IServiceCollection, Func&lt;IServiceProvider,TService&gt;)](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions.addsingleton#Microsoft_Extensions_DependencyInjection_ServiceCollectionServiceExtensions_AddSingleton__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Func_System_IServiceProvider___0__) に対する 2 番目の引数) をスレッド セーフにする必要はありません。 型 (`static`) のコンストラクターのように、1 つのスレッドによって 1 回呼び出されることが保証されます。
+1 つのサービスのファクトリ メソッド (例: [AddSingleton\<TService(IServiceCollection, Func\<IServiceProvider,TService)](xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton*) に対する 2 番目の引数) をスレッド セーフにする必要はありません。 型 (`static`) のコンストラクターのように、1 つのスレッドによって 1 回呼び出されることが保証されます。
 
 ## <a name="recommendations"></a>推奨事項
 
@@ -420,7 +467,7 @@ public void ConfigureServices(IServiceCollection services)
 
 * データと構成をサービス コンテナーに直接格納しないようにします。 たとえば、通常、ユーザーのショッピング カートはサービス コンテナーに追加しません。 構成では、[オプション パターン](xref:fundamentals/configuration/options)を使う必要があります。 同様に、他のオブジェクトへのアクセスを許可するためだけに存在する "データ ホルダー" オブジェクトは避ける必要があります。 実際のアイテムを DI 経由で要求することをお勧めします。
 
-* サービスへの静的なアクセスを回避します (たとえば、他所で使用するための [IApplicationBuilder.ApplicationServices](/dotnet/api/microsoft.aspnetcore.builder.iapplicationbuilder.applicationservices) の静的な型指定)。
+* サービスへの静的なアクセスを回避します (たとえば、他所で使用するための [IApplicationBuilder.ApplicationServices](xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ApplicationServices) の静的な型指定)。
 
 * *サービス ロケーター パターン*の使用は避けてください。 たとえば、サービス インスタンスを取得する場合、DI を使用できるときに、<xref:System.IServiceProvider.GetService*> を呼び出さないでください。
 
@@ -457,7 +504,7 @@ public void ConfigureServices(IServiceCollection services)
 
 * 回避すべき別のサービス ロケーターのバリエーションは、実行時に依存関係を解決するファクトリを挿入することです。 この両方のプラクティスによって、複数の[制御の反転](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#dependency-inversion)方式が組み合わせられます。
 
-* `HttpContext` への静的なアクセスを回避します (たとえば [IHttpContextAccessor.HttpContext](/dotnet/api/microsoft.aspnetcore.http.ihttpcontextaccessor.httpcontext))。
+* `HttpContext` への静的なアクセスを回避します (たとえば [IHttpContextAccessor.HttpContext](xref:Microsoft.AspNetCore.Http.IHttpContextAccessor.HttpContext))。
 
 どのような推奨事項であっても、それを無視する必要がある状況が発生する可能性があります。 例外はまれです&mdash;ほとんどがフレームワーク自体の内の特殊なケースです。
 

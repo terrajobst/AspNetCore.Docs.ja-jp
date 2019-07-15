@@ -5,12 +5,12 @@ description: サブキーの派生と認証暗号化を ASP.NET Core データ�
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/data-protection/implementation/subkeyderivation
-ms.openlocfilehash: 37e7b01700e8a6b755b5ed16a9d7d75a9eeb970e
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: bbfde378755b09cd5b1217b8cf66249b9fa1d6ad
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64891839"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814386"
 ---
 # <a name="subkey-derivation-and-authenticated-encryption-in-aspnet-core"></a>サブキーの派生と ASP.NET Core での認証された暗号化
 
@@ -37,7 +37,7 @@ AAD は 3 つの要素のタプルに対して一意であるためを KM から
 
 ( K_E, K_H ) = SP800_108_CTR_HMACSHA512(K_M, AAD, contextHeader || keyModifier)
 
-ここでは、NIST SP800 108 の KDF カウンター モードで呼び出しています (を参照してください[108-NIST SP800](http://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-108.pdf)、1 秒あたりの 5.1) は次のパラメーター。
+ここでは、NIST SP800 108 の KDF カウンター モードで呼び出しています (を参照してください[108-NIST SP800](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-108.pdf)、1 秒あたりの 5.1) は次のパラメーター。
 
 * キー派生キー (KDK) K_M を =
 

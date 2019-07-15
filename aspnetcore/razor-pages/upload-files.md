@@ -7,12 +7,12 @@ ms.author: riande
 ms.date: 11/10/2018
 ms.custom: mvc, seodec18
 uid: razor-pages/upload-files
-ms.openlocfilehash: 07457d57b7d3b444c8cea818149569407f1dd8e8
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 14d10424951e8ec3c7909d001c6f86e5fcb45d26
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65085714"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815044"
 ---
 # <a name="upload-files-to-a-razor-page-in-aspnet-core"></a>ASP.NET Core で Razor ページにファイルをアップロードする
 
@@ -46,7 +46,7 @@ ms.locfileid: "65085714"
 
 ## <a name="add-a-fileupload-class"></a>FileUpload クラスを追加する
 
-ファイル アップロードのペアを処理する Razor ページを作成します。 `FileUpload` クラスを追加して、スケジュール データを取得するページにバインドします。 *Models* フォルダーを右クリックします。 **[追加]**、**[クラス]** の順に選択します。 クラスに **FileUpload** という名前を付けて、次のプロパティを追加します。
+ファイル アップロードのペアを処理する Razor ページを作成します。 `FileUpload` クラスを追加して、スケジュール データを取得するページにバインドします。 *Models* フォルダーを右クリックします。 **[追加]** 、 **[クラス]** の順に選択します。 クラスに **FileUpload** という名前を付けて、次のプロパティを追加します。
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -64,7 +64,7 @@ ms.locfileid: "65085714"
 
 ## <a name="add-a-helper-method-to-upload-files"></a>ファイルをアップロードするヘルパー メソッドを追加する
 
-アップロード済みのスケジュール ファイルを処理するコード重複を回避するために、静的なヘルパー メソッドを先に追加します。 アプリで *Utilities* フォルダーを作成し、次のコンテンツを含む *FileHelpers.cs* ファイルを追加します。 ヘルパー メソッドの `ProcessFormFile` は [IFormFile](/dotnet/api/microsoft.aspnetcore.http.iformfile) と [ModelStateDictionary](/api/microsoft.aspnetcore.mvc.modelbinding.modelstatedictionary) を受け取り、ファイルのサイズとコンテンツが含まれる文字列を返します。 コンテンツの種類と長さが確認されます。 ファイルが検証チェックに合格しなければ、エラーが `ModelState` に追加されます。
+アップロード済みのスケジュール ファイルを処理するコード重複を回避するために、静的なヘルパー メソッドを先に追加します。 アプリで *Utilities* フォルダーを作成し、次のコンテンツを含む *FileHelpers.cs* ファイルを追加します。 ヘルパー メソッドの `ProcessFormFile` は [IFormFile](/dotnet/api/microsoft.aspnetcore.http.iformfile) と [ModelStateDictionary](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.modelstatedictionary) を受け取り、ファイルのサイズとコンテンツが含まれる文字列を返します。 コンテンツの種類と長さが確認されます。 ファイルが検証チェックに合格しなければ、エラーが `ModelState` に追加されます。
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -117,11 +117,11 @@ public async Task<IActionResult> OnPostAsync()
 
 ### <a name="save-the-file-to-azure-blob-storage"></a>Azure Blob ストレージにファイルを保存する
 
-ファイルの内容を Azure Blob ストレージにアップロードする方法については、「[.NET を使用して Azure Blob Storage を使用する](/azure/storage/blobs/storage-dotnet-how-to-use-blobs)」を参照してください。 このトピックでは [UploadFromStream](/dotnet/api/microsoft.windowsazure.storage.file.cloudfile.uploadfromstreamasync) を使用して [FileStream](/dotnet/api/system.io.filestream) を Blob ストレージに保存する方法を説明しています。
+ファイルの内容を Azure Blob ストレージにアップロードする方法については、「[.NET を使用して Azure Blob Storage を使用する](/azure/storage/blobs/storage-dotnet-how-to-use-blobs)」を参照してください。 このトピックでは [UploadFromStream](/dotnet/api/microsoft.azure.storage.file.cloudfile.uploadfromstreamasync) を使用して [FileStream](/dotnet/api/system.io.filestream) を Blob ストレージに保存する方法を説明しています。
 
 ## <a name="add-the-schedule-class"></a>Schedule クラスを追加する
 
-*Models* フォルダーを右クリックします。 **[追加]**、**[クラス]** の順に選択します。 クラスに **Schedule** という名前を付けて、次のプロパティを追加します。
+*Models* フォルダーを右クリックします。 **[追加]** 、 **[クラス]** の順に選択します。 クラスに **Schedule** という名前を付けて、次のプロパティを追加します。
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -186,7 +186,7 @@ Update-Database
 
 ::: moniker-end
 
-各フォーム グループには、**\<label>** が含まれます。これは各クラス プロパティの名前を表示します。 `FileUpload` モデルの `Display` 属性は、ラベルの表示値を与えます。 たとえば、`UploadPublicSchedule` プロパティの表示名は `[Display(Name="Public Schedule")]` で設定されます。そのため、フォームがレンダリングされると、ラベルに "Public Schedule" と表示されます。
+各フォーム グループには、 **\<label>** が含まれます。これは各クラス プロパティの名前を表示します。 `FileUpload` モデルの `Display` 属性は、ラベルの表示値を与えます。 たとえば、`UploadPublicSchedule` プロパティの表示名は `[Display(Name="Public Schedule")]` で設定されます。そのため、フォームがレンダリングされると、ラベルに "Public Schedule" と表示されます。
 
 各フォーム グループには、検証 **\<span>** が含まれます。 ユーザーの入力が `FileUpload` クラスに設定されているプロパティ属性の要求を持たさない場合、あるいは `ProcessFormFile` メソッド ファイルの検証チェックで不合格になった場合、モデルは検証に失敗します。 モデルが検証に失敗すると、ヒントが表示されます。 たとえば、`Title` プロパティであれば、`[Required]` や `[StringLength(60, MinimumLength = 3)]` という注釈が表示されます。 ユーザーがタイトルを入力しないと、値が必須であるというメッセージが表示されます。 ユーザーが 3 文字より少ないか、60 文字より多い値を入力した場合、値の長さが正しくないというメッセージが表示されます。 コンテンツのないファイルが指定された場合、ファイルが空であるというメッセージが表示されます。
 
@@ -337,7 +337,7 @@ Update-Database
 
 ![タイトルの検証メッセージが変わりました](upload-files/_static/browser3.png)
 
-1 つまたは複数のスケジュールをアップロードすると、**[Loaded Schedules]\(読み込まれたスケジュール\)** セクションに、読み込まれたスケジュールがレンダリングされます。
+1 つまたは複数のスケジュールをアップロードすると、 **[Loaded Schedules]\(読み込まれたスケジュール\)** セクションに、読み込まれたスケジュールがレンダリングされます。
 
 ![読み込まれたスケジュールのテーブル。各スケジュールのタイトル、アップロード日付 (UTC)、パブリック バージョン ファイルのサイズ、プライベート バージョン ファイルのサイズ](upload-files/_static/browser4.png)
 
