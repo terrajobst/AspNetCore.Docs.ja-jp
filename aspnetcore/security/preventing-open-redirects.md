@@ -37,7 +37,7 @@ Web アプリは認証が必要なリソースにアクセスするときに、�
 
 ![オープン リダイレクト攻撃のプロセス](preventing-open-redirects/_static/open-redirection-attack-process.png)
 
-ログインページに加え、リダイレクトのページやエンドポイントを提供しているサイトはいくつもあります。アプリが、`/Home/Redirect` というオープンリダイレクトを持つページがあるとします。例えば、攻撃者は Eメールの中で `[yoursite]/Home/Redirect?url=http://phishingsite.com/Home/Login` にアクセスするリンクを作成する可能性があります。多くのユーザーは URL を見て、それがアクセスしたいサイト名で始まっているのをみます。それを信頼してリンクをクリックするでしょう。そして、オープンリダイレクトによってユーザーはフィッシングサイトへ送られ、ユーザーは実際のサイトだと信じてログインするでしょう。
+ログインページに加え、リダイレクトのページやエンドポイントを提供しているサイトはいくつもあります。アプリに、`/Home/Redirect` というオープンリダイレクトを持つページがあるとします。例えば、攻撃者は Eメールの中で `[yoursite]/Home/Redirect?url=http://phishingsite.com/Home/Login` にアクセスするリンクを作成する可能性があります。多くのユーザーは URL を見て、それがアクセスしたいサイト名で始まっていることを確認します。それを信頼してリンクをクリックするでしょう。そして、オープンリダイレクトによってユーザーはフィッシングサイトへ送られ、ユーザーは実際のサイトだと信じてログインするでしょう。
 
 ## <a name="protecting-against-open-redirect-attacks"></a>オープンリダイレクト攻撃からの保護
 
@@ -58,7 +58,7 @@ public IActionResult SomeAction(string redirectUrl)
 
 ### <a name="islocalurl"></a>IsLocalUrl
 
-[IsLocalUrl](/dotnet/api/Microsoft.AspNetCore.Mvc.IUrlHelper.islocalurl#Microsoft_AspNetCore_Mvc_IUrlHelper_IsLocalUrl_System_String_) メソッドを使って、リダイレクト前に URL をテストします:
+[IsLocalUrl](/dotnet/api/Microsoft.AspNetCore.Mvc.IUrlHelper.islocalurl#Microsoft_AspNetCore_Mvc_IUrlHelper_IsLocalUrl_System_String_) メソッドを使用して、リダイレクト前に URL をテストします。
 
 次の例は、リダイレクトする前に URL がローカルかどうかを確認する方法です:
 
