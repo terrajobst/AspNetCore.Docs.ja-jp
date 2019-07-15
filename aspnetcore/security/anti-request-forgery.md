@@ -17,7 +17,7 @@ ms.locfileid: "66458486"
 
 著者: [Steve Smith](https://ardalis.com/)、[Fiyaz Hasan](https://twitter.com/FiyazBinHasan)、および [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-クロスサイト リクエスト フォージェリ (XSRF または CSRF) は、web でホストされるアプリが悪意のある web アプリが、クライアント ブラウザーとそのブラウザーが信頼している web アプリ間の相互作用に影響するという攻撃です。 Web ブラウザーの web サイトにすべての要求で自動的に認証トークンの一部の種類を送信するため、これらの攻撃は可能です。 悪用のこのフォームとも呼ばれますが、*ワンクリックによる攻撃*または*乗るセッション*セッション、ユーザーの認証に以前の攻撃を利用するためです。
+クロスサイトリクエストフォージェリ（XSRF または CSRF とも呼ばれます）は、Web でホストされているアプリへの攻撃であり、それによって悪意のある Web アプリが、クライアントのブラウザーとそのブラウザーを信頼している Web アプリとのやり取りに影響を及ぼします。 Web ブラウザーは、Web サイトへのリクエストの度にある種の認証トークンを送信しているため、攻撃が可能です。 この形式の攻撃は、*ワンクリック攻撃*や*セッションライディング*としても知られています。これは、 攻撃者がユーザーの認証済みのセッションを利用するためです。
 
 CSRF 攻撃の例:
 
@@ -35,7 +35,7 @@ CSRF 攻撃の例:
    </form>
    ```
 
-   注意して、フォームの`action`悪意のあるサイトではなく、脆弱性のあるサイトに投稿します。 これは、CSRF の"cross-site"の一部です。
+   注意として、フォームの `action` は脆弱性のあるサイトにポストしており、悪意のあるサイトへではありません。 これは、CSRF の "cross-site" の一部です。
 
 1. ユーザーは、[送信] ボタンを選択します。 ブラウザーが要求を行うと、自動的に、要求先のドメインである `www.good-banking-site.com` の認証 Cookie が含まれます。
 1. 要求は、ユーザーの認証コンテキストを持った状態で `www.good-banking-site.com` サーバー上で実行されるので、認証されたユーザーに許可されている任意のアクションを実行できます。
@@ -50,9 +50,9 @@ CSRF 攻撃の例:
 
 HTTPS を使用しても CSRF 攻撃を防ぐことはできません。 悪意のあるサイトは、セキュアではないリクエストを送信するの同じくらい容易に `https://www.good-banking-site.com/` へリクエストを送信することができます。
 
-一部の攻撃は、イメージ タグを使用して、操作を実行する場合、GET 要求に応答するエンドポイントを対象します。 この種の攻撃は、イメージを許可しますが、JavaScript をブロックするフォーラム サイトが一般的です。 変数またはリソースの変更で、GET 要求の状態を変更するアプリは、悪意のある攻撃に対して脆弱です。 **状態を変更する GET 要求では、安全です。GET 要求の状態が変更されないことをお勧めします。**
+GET 要求の応答のエンドポイントを標的とした攻撃もあります。その場合、イメージタグがアクションの実行によく使われます。 この形式の攻撃は、画像は許可するが JavaScript はブロックするフォーラムのサイトでよくあります。 GETメソッドの変数やリソースの変更によって状態を変更するアプリは、悪意のある攻撃に対して脆弱です。 **状態を変更する GET 要求はセキュアではありません。ベストプラクティスは、GET 要求で状態を変更しないことです。**
 
-CSRF 攻撃は cookie 認証を使用するため、web アプリに対して使用できます。
+認証に Cookie を使用する Web アプリに対して、CSRF 攻撃が可能です。理由は以下です。
 
 * ブラウザーは Web アプリが発行した Cookie を保存します。
 * 保存された Cookie には、認証されたユーザーのセッション Cookie が含まれています。
@@ -79,7 +79,7 @@ Cookie ベースの認証は一般的な認証方式です。 トークンベー
 
 ### <a name="token-based-authentication"></a>トークンベースの認証
 
-ユーザーが認証されるときに、発行されたトークン (偽造防止トークンされません) がいます。 トークンには形式でユーザー情報が含まれています[クレーム](/dotnet/framework/security/claims-based-identity-model)またはアプリで管理ユーザーの状態をアプリを指す参照トークンです。 ユーザーが認証を必要とするリソースにアクセスしようとした場合、トークンはベアラー トークンの形式で追加の承認ヘッダーを使ってアプリに送信されます。 これにより、アプリはステートレスです。 後続の要求ごとに、サーバー側の検証のための要求でトークンが渡されます。 このトークンが*暗号化*; が*エンコード*します。 サーバーで、その情報にアクセス トークンがデコードされます。 後続の要求でトークンを送信するには、ブラウザーのローカル ストレージに格納します。 トークンがブラウザーのローカル ストレージに格納されている場合、CSRF の脆弱性について心配いけません。 CSRF 問題では、トークンがクッキーに格納されている場合です。
+ユーザーが認証されると、（偽造防止トークンとは別の）トークンが発行されます。 トークンには、[Claim](/dotnet/framework/security/claims-based-identity-model) 形式のユーザー情報や、アプリ内で保持されているユーザーの状態をアプリに紐づける参照トークンが含まれています。 ユーザーが認証の必要なリソースにアクセスしようとすると、ベアラートークンの形式で追加の認証ヘッダーを付与して、アプリにトークンが送信されます。 これによってアプリはステートレスになります。 以降の要求では、サーバーサイドでの検証のためにトークンが渡されます。 このトークンは、*暗号化* されていません。 *エンコード* されています。 サーバーでは、この情報にアクセスするためにトークンがデコードされます。 以降のリクエストでトークンを送信する際は、ブラウザーのローカルストレージに保存します。 トークンがブラウザーのローカルストレージに保存された場合、CSRF の脆弱性の心配はありません。 トークンが Cookie に保存されている場合は、CSRF の懸念があります。
 
 ### <a name="multiple-apps-hosted-at-one-domain"></a>1 つのドメインでホストされている複数のアプリ
 
@@ -104,10 +104,10 @@ ASP.NET Core 2.0 以降では、 [FormTagHelper](xref:mvc/views/working-with-for
 
 同様に、 [IHtmlHelper.BeginForm](/dotnet/api/microsoft.aspnetcore.mvc.rendering.ihtmlhelper.beginform) も GET 以外のメソッドの場合、デフォルトで偽造防止トークンを生成します。
 
-偽造防止トークンの自動生成の HTML フォーム要素の発生時に、`<form>`タグが含まれています、`method="post"`属性と、次のいずれかに該当します。
+HTML フォーム要素の偽造防止トークンの自動生成は、`<form>` タグに `method="post"` 属性が含まれていて、次のいずれかが当てはまる場合に生成されます:
 
-* Action 属性が空 (`action=""`)。
-* Action 属性が指定されていない (`<form method="post">`)。
+* Action 属性が空（`action=""`）
+* Action 属性が指定されていない（`<form method="post">`）
 
 HTML フォーム要素で偽造防止トークンの自動生成を無効にすることができます:
 
@@ -134,15 +134,15 @@ HTML フォーム要素で偽造防止トークンの自動生成を無効にす
   ```
 
 > [!NOTE]
-> [Razor ページ](xref:razor-pages/index)XSRF/CSRF から自動的に保護されます。 詳細については、次を参照してください。 [XSRF/CSRF と Razor ページ](xref:razor-pages/index#xsrf)します。
+> [Razor ページ](xref:razor-pages/index)は、自動的に XSRF/CSRF から保護されます。 詳細については、[XSRF/CSRF と Razor ページ](xref:razor-pages/index#xsrf) 参照してください。
 
-CSRF 攻撃から保護する最も一般的なアプローチは、使用する、*シンクロナイザー トークン パターン*(STP)。 ユーザーがフォーム データを含むページを要求したときに、STP が使用されます。
+CSRF 攻撃に対する防御の最も一般的なアプローチは、*Synchronizer Token Pattern*（STP）を使用することです。 STPは、ユーザーがフォームデータを含むページを要求したときに使用されます:
 
 1. サーバーは、現在のユーザーの ID に関連したトークンをクライアントに送信します。
 1. クライアントは、検証のためにトークンをサーバーに送り返します。
 1. サーバーが認証されたユーザーの ID と一致しないトークンを受け取った場合、要求は拒否されます。
 
-トークンは、一意かつ予測不可能です。 トークンが一連の要求が適切な順序を確認することもできます (たとえば、要求シーケンスのことを確認: 1 ページ&ndash;2 ページ目&ndash;ページ 3)。 ASP.NET Core MVC と Razor ページ テンプレート内のフォームのすべての偽造防止トークンを生成します。 次の 2 つのビューの例では、偽造防止トークンを生成します。
+トークンは一意で予測不可能です。 トークンは、一連の要求の適切な順序付け（例えば、ページ1 &ndash; ページ2 &ndash; ページ3といった要求順の保証）を保証するためにも使用できます。 ASP.NET Core MVC と Razor Pages のテンプレートの全てのフォームで偽造防止トークンは生成できます。 次の2つのビューの例で、偽造防止トークンを生成します:
 
 ```cshtml
 <form asp-controller="Manage" asp-action="ChangePassword" method="post">
@@ -155,7 +155,7 @@ CSRF 攻撃から保護する最も一般的なアプローチは、使用する
 }
 ```
 
-偽造防止トークンを明示的に追加、 `<form>` HTML ヘルパーとタグ ヘルパーを使用することがなく要素[ @Html.AntiForgeryToken ](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.htmlhelper.antiforgerytoken):
+タグヘルパーを使わず、HTML ヘルパーの[@Html.AntiForgeryToken](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.htmlhelper.antiforgerytoken)を使って明示的に偽造防止トークンを追加します:
 
 ```cshtml
 <form action="/" method="post">
@@ -195,10 +195,10 @@ services.AddAntiforgery(options =>
 
 | OPTION | 説明 |
 | ------ | ----------- |
-| [Cookie](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookie) | 偽造防止 cookie を作成するために使用する設定を決定します。 |
-| [FormFieldName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.formfieldname) | ビューで偽造防止トークンを表示するために、偽造防止システムによって使用される隠しフォーム フィールドの名前。 |
-| [HeaderName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.headername) | 偽造防止システムによって使用されるヘッダーの名前。 場合`null`フォームのデータのみが考慮されます。 |
-| [SuppressXFrameOptionsHeader](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.suppressxframeoptionsheader) | 生成を抑制するかどうかを指定します、`X-Frame-Options`ヘッダー。 既定では、"SAMEORIGIN"の値を持つヘッダーが生成されます。 既定値は `false` です。 |
+| [Cookie](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookie) | 偽造防止の Cookie の作成に使用する設定を決定します。 |
+| [FormFieldName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.formfieldname) | 偽造防止トークンをビューに表示するために偽造防止システムで使われる、隠しフォームフィールドの名前。 |
+| [HeaderName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.headername) | 偽造防止システムで使用されるヘッダーの名前。 `null` の場合、システムはフォームデータのみを考慮します。 |
+| [SuppressXFrameOptionsHeader](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.suppressxframeoptionsheader) | `X-Frame-Options` ヘッダーの生成を抑制するかを指定します。 デフォルトでは、ヘッダーは "SAMEORIGIN"の値で生成されます。 デフォルトは `false` です。 |
 
 ::: moniker-end
 
@@ -219,18 +219,18 @@ services.AddAntiforgery(options =>
 
 | OPTION | 説明 |
 | ------ | ----------- |
-| [Cookie](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookie) | 偽造防止 cookie を作成するために使用する設定を決定します。 |
+| [Cookie](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookie) | 偽造防止の Cookie の作成に使用する設定を決定します。 |
 | [CookieDomain](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiedomain) | Cookie のドメイン。 既定値は `null` です。 このプロパティは廃止され、今後のバージョンで削除される予定です。 Cookie.Domain お勧めします。 |
 | [CookieName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiename) | クッキーの名前。 設定されていないシステム生成一意の名前の先頭に、 [DefaultCookiePrefix](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.defaultcookieprefix) ("。AspNetCore.Antiforgery。")。 このプロパティは廃止され、今後のバージョンで削除される予定です。 Cookie.Name お勧めします。 |
 | [CookiePath](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiepath) | Cookie の設定のパス。 このプロパティは廃止され、今後のバージョンで削除される予定です。 Cookie.Path お勧めします。 |
-| [FormFieldName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.formfieldname) | ビューで偽造防止トークンを表示するために、偽造防止システムによって使用される隠しフォーム フィールドの名前。 |
-| [HeaderName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.headername) | 偽造防止システムによって使用されるヘッダーの名前。 場合`null`フォームのデータのみが考慮されます。 |
+| [FormFieldName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.formfieldname) | 偽造防止トークンをビューに表示するために偽造防止システムで使われる、隠しフォームフィールドの名前。 |
+| [HeaderName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.headername) | 偽造防止システムで使用されるヘッダーの名前。 `null` の場合、システムはフォームデータのみを考慮します。 |
 | [RequireSsl](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.requiressl) | 偽造防止システムで HTTPS が必要かどうかを指定します。 場合`true`、HTTPS 以外の要求は失敗します。 既定値は `false` です。 このプロパティは廃止され、今後のバージョンで削除される予定です。 Cookie.SecurePolicy を設定することをお勧めします。 |
-| [SuppressXFrameOptionsHeader](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.suppressxframeoptionsheader) | 生成を抑制するかどうかを指定します、`X-Frame-Options`ヘッダー。 既定では、"SAMEORIGIN"の値を持つヘッダーが生成されます。 既定値は `false` です。 |
+| [SuppressXFrameOptionsHeader](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.suppressxframeoptionsheader) | `X-Frame-Options` ヘッダーの生成を抑制するかを指定します。 デフォルトでは、ヘッダーは "SAMEORIGIN"の値で生成されます。 デフォルトは `false` です。 |
 
 ::: moniker-end
 
-詳細については、次を参照してください。 [CookieAuthenticationOptions](/dotnet/api/Microsoft.AspNetCore.Builder.CookieAuthenticationOptions)します。
+詳細については、[CookieAuthenticationOptions](/dotnet/api/Microsoft.AspNetCore.Builder.CookieAuthenticationOptions) を参照してください。
 
 ## <a name="configure-antiforgery-features-with-iantiforgery"></a>IAntiforgery 偽造防止の機能を構成する
 
@@ -348,7 +348,7 @@ public class ManageController : Controller
 
 従来の HTML ベースのアプリでは、偽造防止トークンは隠しフォーム フィールドを使ってサーバーに渡されていました。 最新の JavaScript ベースや SPA では多くの要求がプログラムによって行われています。 これらの AJAX 要求は、トークンを送信するための他の技術（要求ヘッダーや Cookie）を使うことがあります。
 
-認証トークンを格納して、サーバー上の API 要求の認証に cookie を使用する場合は、潜在的な問題は CSRF です。 トークンを格納するローカル ストレージを使用する場合は、すべての要求でサーバーにローカル ストレージからの値が自動的に送信されないため、CSRF の脆弱性を軽減する可能性があります。 そのため、ローカル ストレージを使用して、クライアントと要求ヘッダーが推奨されるアプローチとしては、トークンを送信するで偽造防止トークンを格納します。
+Cookie に認証トークンを保存しサーバーの API の要求で認証するために使われるなら、CSRF は潜在的な問題です。 トークンの保存にローカルストレージを使用すると CSRF の脆弱性が軽減される可能性があります。なぜならローカルストレージの値は、全ての要求は自動でサーバーに送信されないからです。 したがって、クライアントの偽造防止トークンの保存にローカルストレージを使い、要求ヘッダーとしてトークンを送信することがお薦めのアプローチです。
 
 ### <a name="javascript"></a>JavaScript
 
@@ -452,7 +452,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="extend-antiforgery"></a>偽造防止の拡張
 
-[IAntiForgeryAdditionalDataProvider](/dotnet/api/microsoft.aspnetcore.antiforgery.iantiforgeryadditionaldataprovider)型により、開発者は各トークン内の追加データのラウンド トリップで CSRF 対策システムの動作を拡張します。 [GetAdditionalData](/dotnet/api/microsoft.aspnetcore.antiforgery.iantiforgeryadditionaldataprovider.getadditionaldata)メソッドが呼び出されるフィールドのトークンが生成され、戻り値が生成されたトークン内に埋め込まれています。 実装するときのタイムスタンプ、nonce、またはその他の値を返すを呼び出してでした[ValidateAdditionalData](/dotnet/api/microsoft.aspnetcore.antiforgery.iantiforgeryadditionaldataprovider.validateadditionaldata)トークンが検証されると、このデータを検証します。 この情報を含める必要はありませんので、クライアントのユーザー名は、生成されたトークンに埋め込まれています。 補足データ。 ただし、トークンが含まれている場合`IAntiForgeryAdditionalDataProvider`が構成されている、補足的なデータが検証されません。
+開発者は、[IAntiForgeryAdditionalDataProvider](/dotnet/api/microsoft.aspnetcore.antiforgery.iantiforgeryadditionaldataprovider) 型を使用して各トークンの追加のデータをラウンドトリップすることで、CSRF 対策の動作を拡張できます。 [GetAdditionalData](/dotnet/api/microsoft.aspnetcore.antiforgery.iantiforgeryadditionaldataprovider.getadditionaldata) メソッドは、フィールドトークンが生成される度に呼ばれ、戻り値は生成されたトークン内に埋め込まれます。 実装する人は、タイムスタンプ、nonce、その他の値を返しトークンが検証されたときにデータを検証するために [ValidateAdditionalData](/dotnet/api/microsoft.aspnetcore.antiforgery.iantiforgeryadditionaldataprovider.validateadditionaldata) を呼ぶことができます。 クライアントのユーザー名は既に生成されたトークンに埋め込まれているので、この情報を含める必要はありません。 トークンに補足のデータが含まれていても `IAntiForgeryAdditionalDataProvider` が構成されていなければ、補足のデータは検証されません。
 
 ## <a name="additional-resources"></a>その他の技術情報
 
