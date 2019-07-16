@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 03/31/2019
 uid: grpc/basics
-ms.openlocfilehash: 00772144cb484b78a256f178642463577d316be2
-ms.sourcegitcommit: 516f166c5f7cec54edf3d9c71e6e2ba53fb3b0e5
+ms.openlocfilehash: 78d744d641396c449a142375c69730333f8183cd
+ms.sourcegitcommit: 1bf80f4acd62151ff8cce517f03f6fa891136409
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/18/2019
-ms.locfileid: "67196346"
+ms.lasthandoff: 07/15/2019
+ms.locfileid: "68223885"
 ---
 # <a name="grpc-services-with-c"></a>C と gRPC サービス\#
 
@@ -30,9 +30,9 @@ Protobuf ファイルの構文の詳細については、次を参照してく�
 
 * 定義、`Greeter`サービス。
 * `Greeter`サービスを定義、`SayHello`呼び出します。
-* `SayHello` 送信、`HelloRequest`メッセージの送受信、`HelloResponse`メッセージ。
+* `SayHello` 送信、`HelloRequest`メッセージの送受信、`HelloReply`メッセージ。
 
-[!code-proto[](~/tutorials//grpc/grpc-start/sample/GrpcGreeter/Protos/greet.proto)]
+[!code-protobuf[](~/tutorials//grpc/grpc-start/sample/GrpcGreeter/Protos/greet.proto)]
 
 ## <a name="add-a-proto-file-to-a-c-app"></a>C に .proto ファイルを追加\#アプリ
 
@@ -72,7 +72,7 @@ Protobuf ファイルの構文の詳細については、次を参照してく�
 
 同様に、属性に設定されて`Client`クライアント プロジェクトでします。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他の資料
 
 * <xref:grpc/index>
 * <xref:tutorials/grpc/grpc-start>
