@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/26/2019
 uid: security/blazor/index
-ms.openlocfilehash: b3bca26e7088a8353084a065f9b9593c9d8e08e6
-ms.sourcegitcommit: 9bb29f9ba6f0645ee8b9cabda07e3a5aa52cd659
+ms.openlocfilehash: 097a747f68729109922af5c68dfd918024ee6146
+ms.sourcegitcommit: 040aedca220ed24ee1726e6886daf6906f95a028
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/26/2019
-ms.locfileid: "67406185"
+ms.lasthandoff: 07/15/2019
+ms.locfileid: "67893624"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor の認証と承認
 
@@ -27,7 +27,7 @@ Blazor のサーバー側アプリとクライアント側アプリのセキュ�
 
 Blazor クライアント側アプリはクライアント上で動作します。 承認は、表示する UI オプションを決定するために "*のみ*" 使用されます。 クライアント側のチェックはユーザーによって変更またはバイパスされる可能性があるため、Blazor クライアント側アプリでは承認アクセス規則を適用できません。
 
-## <a name="authentication"></a>Authentication
+## <a name="authentication"></a>認証
 
 Blazor は、既存の ASP.NET Core 認証メカニズムを使用してユーザーの ID を証明します。 詳細なメカニズムは、Blazor アプリのホスティング方法、サーバー側またはクライアント側かによって異なります。
 
@@ -41,7 +41,7 @@ Blazor サーバー側アプリは、SignalR を使用して作成されたリ�
 
 認証メカニズムを使用して新しい Blazor サーバー側プロジェクトを作成するには、<xref:blazor/get-started> の記事の Visual Studio のガイダンスに従ってください。
 
-**[新しい ASP.NET Core Web アプリケーションを作成する]** ダイアログで **[Blazor (サーバー側)]** テンプレートを選択した後、 **[認証]** の **[変更]** を選択します。
+**[新しい ASP.NET Core Web アプリケーションを作成する]** ダイアログで **[Blazor サーバー アプリ]** テンプレートを選択した後、 **[認証]** の下の **[変更]** を選択します。
 
 ダイアログが開き、他の ASP.NET Core プロジェクトで使用できるものと同じ一連の認証メカニズムが表示されます。
 
@@ -232,7 +232,7 @@ public void ConfigureServices(IServiceCollection services)
 </CascadingAuthenticationState>
 ```
 
-## <a name="authorization"></a>Authorization
+## <a name="authorization"></a>承認
 
 ユーザーが認証されると、ユーザーが実行できる操作を制御する "*承認*" 規則が適用されます。
 
@@ -475,7 +475,7 @@ Blazor クライアント側アプリでは、すべてのクライアント側�
 
 `CascadingAuthenticationState` には `Task<AuthenticationState>` カスケード パラメーターが用意されており、次に基となる `AuthenticationStateProvider` DI サービスから受け取ります。
 
-## <a name="additional-resources"></a>その他のリソース
+## <a name="additional-resources"></a>その他の技術情報
 
 * <xref:security/index>
 * <xref:security/authentication/windowsauth>
