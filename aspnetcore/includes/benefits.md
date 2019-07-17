@@ -3,7 +3,7 @@ ASP.NET Core の利点は次のとおりです。
 * Web UI と Web API を構築するプロセスの統一。
 * テストの容易性を考慮したアーキテクチャ。
 * [Razor Pages](xref:razor-pages/index)により、ページ コーディングに重点を置いたシナリオがより簡略化され、その生産性が高められます。
-* [Blazor](xref:blazor/index) により、ブラウザー内で JavaScript と共に C# を使用できます。 すべて .NET で記述された、サーバー側とクライアント側アプリのロジックを共有します。 
+* [Blazor](xref:blazor/index) により、ブラウザー内で JavaScript と共に C# を使用できます。 すべて .NET で記述された、サーバー側とクライアント側アプリのロジックを共有します。
 * Windows、macOS、Linux 上で開発および実行できること。
 * オープン ソースで[コミュニティ重視](https://live.asp.net/)。
 * [最新のクライアント側フレームワーク](xref:blazor/index)と開発ワークフローの統合。
