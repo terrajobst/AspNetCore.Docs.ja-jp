@@ -57,7 +57,9 @@ MVC で使われている Razor のエンジンは、自身でそうするのを
 
 ## <a name="javascript-encoding-using-razor"></a>Razor を使用して JavaScript のエンコード
 
+
 ビューで処理するのに Javascript に値を代入したい場合があるとします。これを行うには 2 つの方法があります。値を代入するのに最も安全な方法は、タグのデータ属性の中に値を配置して JavaScript で読み取ることです。例:
+
 
 ```cshtml
 @{
@@ -178,13 +180,16 @@ var example = "\"Quoted Value with spaces and &\"";
 >[!WARNING]
 > URL のパスに信頼できない入力を使用しないでください。信頼できない入力は、必ずクエリ文字列として渡します。
 
+
 <a name="security-cross-site-scripting-customization"></a>
 
 ## <a name="customizing-the-encoders"></a>エンコーダーのカスタマイズ
 
+
 デフォルトでは、エンコーダーは Basic Latin Unicode の範囲の制限されたセーフリストを使用し、その範囲外の全ての文字を文字コードにエンコードします。この動作は、文字列を出力するのにエンコーダーを使っているのため、Razor の TagHelper と HtmlHelper のレンダリングに影響します。
 
 この理由は、未知または将来のブラウザーのバグから守るためです（過去に、ブラウザーのバグで、英語ではない文字の処理の解析に失敗しました）。もしウェブサイトが中国語やキリル文字などラテン語以外の文字を多く利用している場合、これはあなたの望む動作ではないでしょう。
+
 
 起動時に `ConfigureServices()` で、アプリの適切な Unicode の範囲を含むエンコーダーのセーフリストにカスタマイズできます。
 
@@ -208,13 +213,17 @@ services.AddSingleton<HtmlEncoder>(
                                                UnicodeRanges.CjkUnifiedIdeographs }));
    ```
 
+
 この例では、CjkUnifiedIdeographs の範囲の Unicode を含むセーフリストに拡張しました。レンダリングされた出力は次のようになります;
+
 
 ```html
 <p>This link text is in Chinese: <a href="/">汉语/漢語</a></p>
    ```
 
+
 セーフリストは、言語ではなく Unicode のコード表として指定されています。[Unicode の規格](https://unicode.org/)は[コード表](https://www.unicode.org/charts/index.html)のリストがあり、使う文字が含まれる表を探すことができます。HTML、JavaScript、URL のそれぞれのエンコーダーで別々に設定する必要があります。
+
 
 > [!NOTE]
 > セーフリストのカスタマイズは、 DI 経由でのエンコーダーのみに影響します。 `System.Text.Encodings.Web.*Encoder.Default` を介してエンコーダーに直接アクセスすると、デフォルトの Basic Latin のみのセーフリストが使われます。
@@ -225,4 +234,6 @@ services.AddSingleton<HtmlEncoder>(
 
 ## <a name="validation-as-an-xss-prevention-technique"></a>XSS 防止の手法としての検証
 
+
 検証は、XSS 攻撃を制限するのに役立つツールです。0-9だけが含まれる数字の文字では、XSS を引き起こすことができません。HTML がユーザーに入力できる状態だと、検証はより複雑になります。できないことはありませんが、HTML の入力の解析は困難です。 Markdown は、埋め込まれた HTML を取り除くパーサーが結合されているので、リッチな入力を受け入れるためのより安全なオプションです。しかし、検証だけに頼らないでください。検証やサニタイズが実行されていても、常に出力の前に信頼できない入力をエンコードしましょう。
+
