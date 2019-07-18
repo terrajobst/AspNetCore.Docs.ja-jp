@@ -5,14 +5,14 @@ description: Windows Server インターネット インフォメーション �
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/28/2019
+ms.date: 07/16/2019
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 2dab8b4839d6778d5dc6a3daf96c1719eecfe0fb
-ms.sourcegitcommit: 763af2cbdab0da62d1f1cfef4bcf787f251dfb5c
+ms.openlocfilehash: 644d84f9adba650b3ef10ba69cc75c22845be211
+ms.sourcegitcommit: 7e00e8236ca4eabf058f07020a5a3882daf7564f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/26/2019
-ms.locfileid: "67394631"
+ms.lasthandoff: 07/16/2019
+ms.locfileid: "68239233"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>IIS を使用した Windows での ASP.NET Core のホスト
 
@@ -338,7 +338,7 @@ Web SDK ファイルの変換を無効にすると、 *processPath*と*引数*�
 
 ## <a name="create-the-iis-site"></a>IIS サイトを作成する
 
-1. ホスト システムで、アプリの公開フォルダーとファイルを格納するフォルダーを作成します。 アプリの展開レイアウトについては、「[ディレクトリ構造](xref:host-and-deploy/directory-structure)」のトピックを参照してください。
+1. ホスト システムで、アプリの公開フォルダーとファイルを格納するフォルダーを作成します。 以下の手順では、フォルダーのパスはアプリへの物理パスとして IIS に提供されます。 アプリの配置フォルダーとファイル レイアウトについて詳しくは、<xref:host-and-deploy/directory-structure> をご覧ください。
 
 1. IIS マネージャーの **[接続]** パネルで、サーバーのノードを開きます。 **[サイト]** フォルダーを右クリックします。 コンテキスト メニューで **[Web サイトの追加]** を選択します。
 
@@ -372,11 +372,11 @@ Web SDK ファイルの変換を無効にすると、 *processPath*と*引数*�
 
 ## <a name="deploy-the-app"></a>アプリを配置する
 
-ホスト システム上に作成したフォルダーにアプリを展開します。 [Web 配置](/iis/publish/using-web-deploy/introduction-to-web-deploy)は、推奨される展開のメカニズムです。
+「[IIS サイトを作成する](#create-the-iis-site)」セクションで確立された IIS の **[物理パス]** フォルダーにアプリを配置します。 お勧めの配置方法は [Web 配置](/iis/publish/using-web-deploy/introduction-to-web-deploy)ですが、プロジェクトの *publish* フォルダーからホスティング システムの配置フォルダーにアプリを移動するためのオプションはいくつか存在します。
 
 ### <a name="web-deploy-with-visual-studio"></a>Visual Studio からのアプリの展開
 
-Web 配置に使用する発行プロファイルの作成方法については、「[Visual Studio publish profiles for ASP.NET Core app deployment](xref:host-and-deploy/visual-studio-publish-profiles#publish-profiles)」 (ASP.NET Core アプリ展開用の Visual Studio の発行プロファイル) のトピックを参照してください。 ホスティング プロバイダーから発行プロファイルまたは発行プロファイルを作成するためのサポートが提供されている場合は、そのプロファイルをダウンロードし、Visual Studio の **[発行]** ダイアログを使用してインポートします。
+Web 配置に使用する発行プロファイルの作成方法については、「[Visual Studio publish profiles for ASP.NET Core app deployment](xref:host-and-deploy/visual-studio-publish-profiles#publish-profiles)」 (ASP.NET Core アプリ展開用の Visual Studio の発行プロファイル) のトピックを参照してください。 ホスティング プロバイダーから発行プロファイルまたはそれを作成するためのサポートが提供されている場合は、そのプロファイルをダウンロードし、Visual Studio の **[発行]** ダイアログを使用してインポートします。
 
 ![[発行] ダイアログ ページ](index/_static/pub-dialog.png)
 
@@ -386,11 +386,15 @@ Visual Studio の外部で、コマンド ラインから [Web 配置](/iis/publ
 
 ### <a name="alternatives-to-web-deploy"></a>Web 配置の代替手段
 
-手動コピー、Xcopy、Robocopy、PowerShell などの任意の方法を使用して、ホスティング システムにアプリを移動します。
+手動コピー、[Xcopy](/windows-server/administration/windows-commands/xcopy)、[Robocopy](/windows-server/administration/windows-commands/robocopy)、または [PowerShell](/powershell/) など、いくつかあるうちの任意の方法を使って、ホスティング システムにアプリを移動します。
 
 IIS への ASP.NET Core の展開の詳細については、「[IIS 管理者用の展開リソース](#deployment-resources-for-iis-administrators)」を参照してください。
 
 ## <a name="browse-the-website"></a>Web サイトを閲覧する
+
+ホスティング システムにアプリを配置したら、アプリのパブリック エンドポイントの 1 つに要求を行います。
+
+次の例では、サイトは IIS の**ホスト名** `www.mysite.com` に**ポート** `80` でバインドされています。 `http://www.mysite.com` に対して要求が行われます。
 
 ![Microsoft Edge ブラウザーに IIS のスタートアップ ページが読み込まれています。](index/_static/browsewebsite.png)
 
