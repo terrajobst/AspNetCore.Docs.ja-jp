@@ -4,14 +4,14 @@ author: rick-anderson
 description: Visual Studio を使用して Azure App Service に ASP.NET Core アプリを発行する方法を説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/06/2018
+ms.date: 07/10/2019
 uid: tutorials/publish-to-azure-webapp-using-vs
-ms.openlocfilehash: c0251032d83349d4d3925d1ec594c9230ed6ad2d
-ms.sourcegitcommit: 6d9cf728465cdb0de1037633a8b7df9a8989cccb
+ms.openlocfilehash: dbb8229a52c8c93da94406ad64d03eff9631afb4
+ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/01/2019
-ms.locfileid: "67207645"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68308331"
 ---
 # <a name="publish-an-aspnet-core-app-to-azure-with-visual-studio"></a>Visual Studio を使用して Azure に ASP.NET Core アプリを発行する
 
@@ -21,7 +21,7 @@ ms.locfileid: "67207645"
 
 macOS を使用している場合は、[Visual Studio for Mac から Azure への公開](https://blog.xamarin.com/publish-azure-visual-studio-mac/)に関するページを参照してください。
 
-App Service の配置に関する問題を解決するには、「<xref:host-and-deploy/azure-apps/troubleshoot>」を参照してください。
+App Service の配置に関する問題を解決するには、「<xref:test/troubleshoot-azure-iis>」を参照してください。
 
 ## <a name="set-up"></a>設定
 
@@ -191,4 +191,4 @@ Visual Studio は、Azure で Web アプリと SQL Server を作成します。 
 * [Azure リソース グループ](/azure/azure-resource-manager/resource-group-overview#resource-groups)
 * [Azure SQL Database](/azure/sql-database/)
 * <xref:host-and-deploy/visual-studio-publish-profiles>
-* <xref:host-and-deploy/azure-apps/troubleshoot>
+* <xref:test/troubleshoot-azure-iis>

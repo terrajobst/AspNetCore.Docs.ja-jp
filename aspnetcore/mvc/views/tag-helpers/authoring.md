@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/29/2019
 uid: mvc/views/tag-helpers/authoring
-ms.openlocfilehash: d7a5656131189ffafb60a7b1db0b8d93a3787ae2
-ms.sourcegitcommit: 3ee6ee0051c3d2c8d47a58cb17eef1a84a4c46a0
+ms.openlocfilehash: c13e63725298975fc882aa45c4e75de53e1d66a8
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/14/2019
-ms.locfileid: "65621049"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815158"
 ---
 # <a name="author-tag-helpers-in-aspnet-core"></a>ASP.NET Core のタグ ヘルパー作成
 
@@ -193,7 +193,7 @@ FQN を使用してタグ ヘルパーをビューに追加するには、最初
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/WebsiteInformationTagHelper.cs)]
 
-   * 前述したように、タグ ヘルパーは、パスカルケースの C# クラス名とタグ ヘルパーのプロパティを[ケバブ ケース](http://wiki.c2.com/?KebabCase)に変換します。 そのため、`WebsiteInformationTagHelper` を Razor で使用するには、`<website-information />` を記述します。
+   * 前述したように、タグ ヘルパーは、パスカルケースの C# クラス名とタグ ヘルパーのプロパティを[ケバブ ケース](https://wiki.c2.com/?KebabCase)に変換します。 そのため、`WebsiteInformationTagHelper` を Razor で使用するには、`<website-information />` を記述します。
 
    * `[HtmlTargetElement]` 属性を使用してターゲット要素を明示的に識別しないため、`website-information` の既定がターゲットになります。 次の属性を適用した場合 (ケバブ ケースではありませんが、クラス名が一致します):
 
@@ -207,7 +207,7 @@ FQN を使用してタグ ヘルパーをビューに追加するには、最初
    [HtmlTargetElement("Website-Information")]
    ```
 
-   * 自己終了の要素にはコンテンツがありません。 この例では、Razor マークアップは自己終了タグを使用しますが、タグ ヘルパーは [section](http://www.w3.org/TR/html5/sections.html#the-section-element) 要素を作成します (これは自己終了ではなく、`section` 要素内のコンテンツを記述しています)。 そのため、`TagMode` を `StartTagAndEndTag` に設定して出力を記述する必要があります。 または、`TagMode` を設定する行をコメント アウトして、終了タグを使ってマークアップを記述することもできます。 (サンプルのマークアップは、後ほどこのチュートリアルで提供します。)
+   * 自己終了の要素にはコンテンツがありません。 この例では、Razor マークアップは自己終了タグを使用しますが、タグ ヘルパーは [section](https://www.w3.org/TR/html5/sections.html#the-section-element) 要素を作成します (これは自己終了ではなく、`section` 要素内のコンテンツを記述しています)。 そのため、`TagMode` を `StartTagAndEndTag` に設定して出力を記述する必要があります。 または、`TagMode` を設定する行をコメント アウトして、終了タグを使ってマークアップを記述することもできます。 (サンプルのマークアップは、後ほどこのチュートリアルで提供します。)
 
    * 次の行の `$` (ドル記号) は、[挿入文字列](/dotnet/csharp/language-reference/keywords/interpolated-strings)を使用しています。
 

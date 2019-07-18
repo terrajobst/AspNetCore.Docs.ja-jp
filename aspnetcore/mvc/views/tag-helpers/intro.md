@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 03/18/2019
 uid: mvc/views/tag-helpers/intro
-ms.openlocfilehash: 11d2914b5797735fb6a262a31bdb49f58391579f
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 870ce2eb28f384b380cc1178842325dc28199f09
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64884057"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814987"
 ---
 # <a name="tag-helpers-in-aspnet-core"></a>ASP.NET Core のタグ ヘルパー
 
@@ -19,7 +19,7 @@ ms.locfileid: "64884057"
 
 ## <a name="what-are-tag-helpers"></a>タグ ヘルパーとは
 
-タグ ヘルパーを使用することで、Razor ファイルでの HTML 要素の作成とレンダリングに、サーバー側コードを組み込むことができます。 たとえば、組み込みの `ImageTagHelper` では、イメージ名にバージョン番号を追加することができます。 イメージが変更されるたびに、サーバーはイメージに対して新しい一意のバージョンを生成するため、クライアントは (キャッシュされた古いイメージではなく) 現在のイメージを確実に取得できます。 フォームやリンクの作成、資産の読み込みなど、一般的なタスクの組み込みのタグ ヘルパーは数多くあります。パブリック GitHub リポジトリで NuGet パッケージとして使用することもできます。 タグ ヘルパーは C# で作成され、要素名、属性名、または親タグに基づいて HTML 要素をターゲットとします。 たとえば、`LabelTagHelper` 属性が適用されている場合、組み込みの `LabelTagHelper` では HTML `<label>` 要素をターゲットとすることができます。 [HTML ヘルパー](http://stephenwalther.com/archive/2009/03/03/chapter-6-understanding-html-helpers)に慣れていれば、タグ ヘルパーを使用したときに、Razor ビューでの HTML と C# の間の明示的な切り替えが減ることがわかります。 多くの場合、HTML ヘルパーでは特定のタグ ヘルパーの代替方法が提供されますが、タグ ヘルパーを HTML ヘルパーの代わりに使用することはできないことと、各 HTML ヘルパーに対応するタグ ヘルパーがないことを認識することが重要です。 2 つの違いの詳細については、「[タグ ヘルパーと HTML ヘルパーの比較](#tag-helpers-compared-to-html-helpers)」を参照してください。
+タグ ヘルパーを使用することで、Razor ファイルでの HTML 要素の作成とレンダリングに、サーバー側コードを組み込むことができます。 たとえば、組み込みの `ImageTagHelper` では、イメージ名にバージョン番号を追加することができます。 イメージが変更されるたびに、サーバーはイメージに対して新しい一意のバージョンを生成するため、クライアントは (キャッシュされた古いイメージではなく) 現在のイメージを確実に取得できます。 フォームやリンクの作成、資産の読み込みなど、一般的なタスクの組み込みのタグ ヘルパーは数多くあります。パブリック GitHub リポジトリで NuGet パッケージとして使用することもできます。 タグ ヘルパーは C# で作成され、要素名、属性名、または親タグに基づいて HTML 要素をターゲットとします。 たとえば、`LabelTagHelper` 属性が適用されている場合、組み込みの `LabelTagHelper` では HTML `<label>` 要素をターゲットとすることができます。 [HTML ヘルパー](https://stephenwalther.com/archive/2009/03/03/chapter-6-understanding-html-helpers)に慣れていれば、タグ ヘルパーを使用したときに、Razor ビューでの HTML と C# の間の明示的な切り替えが減ることがわかります。 多くの場合、HTML ヘルパーでは特定のタグ ヘルパーの代替方法が提供されますが、タグ ヘルパーを HTML ヘルパーの代わりに使用することはできないことと、各 HTML ヘルパーに対応するタグ ヘルパーがないことを認識することが重要です。 2 つの違いの詳細については、「[タグ ヘルパーと HTML ヘルパーの比較](#tag-helpers-compared-to-html-helpers)」を参照してください。
 
 ## <a name="what-tag-helpers-provide"></a>タグ ヘルパーで提供されるもの
 
@@ -99,7 +99,7 @@ FQN を使用してビューにタグ ヘルパーを追加するには、最初
 
 ### <a name="controlling-tag-helper-scope-with-the-viewimportscshtml-file"></a>*_ViewImports.cshtml* ファイルによるタグ ヘルパー スコープの制御
 
-*_ViewImports.cshtml* を任意のビュー フォルダーに追加することができ、ビュー エンジンではそのファイルと *Views/_ViewImports.cshtml* ファイルの両方のディレクティブが適用されます。 *Home* ビューに対して空の *Views/Home/_ViewImports.cshtml* ファイルを追加した場合、*_ViewImports.cshtml* ファイルは付加的なものであるため、何も変わりません。 *Views/Home/_ViewImports.cshtml* ファイルに追加する `@addTagHelper` ディレクティブ (既定の *Views/_ViewImports.cshtml* ファイルにはない) では、これらのタグ ヘルパーが *Home* フォルダー内のビューにのみ公開されます。
+*_ViewImports.cshtml* を任意のビュー フォルダーに追加することができ、ビュー エンジンではそのファイルと *Views/_ViewImports.cshtml* ファイルの両方のディレクティブが適用されます。 *Home* ビューに対して空の *Views/Home/_ViewImports.cshtml* ファイルを追加した場合、 *_ViewImports.cshtml* ファイルは付加的なものであるため、何も変わりません。 *Views/Home/_ViewImports.cshtml* ファイルに追加する `@addTagHelper` ディレクティブ (既定の *Views/_ViewImports.cshtml* ファイルにはない) では、これらのタグ ヘルパーが *Home* フォルダー内のビューにのみ公開されます。
 
 <a name="opt-out"></a>
 
@@ -111,7 +111,7 @@ FQN を使用してビューにタグ ヘルパーを追加するには、最初
 <!span asp-validation-for="Email" class="text-danger"></!span>
 ```
 
-開始タグと終了タグにタグ ヘルパーのオプトアウト文字を適用する必要があります  (Visual Studio エディターでは、ユーザーがオプトアウト文字を開始タグに追加すると、自動的にオプトアウト文字が終了タグに追加されます)。 オプトアウト文字を追加した後、要素とタグ ヘルパーの属性は独特なフォントで表示されなくなります。
+開始タグと終了タグにタグ ヘルパーのオプトアウト文字を適用する必要があります (Visual Studio エディターでは、ユーザーがオプトアウト文字を開始タグに追加すると、自動的にオプトアウト文字が終了タグに追加されます)。 オプトアウト文字を追加した後、要素とタグ ヘルパーの属性は独特なフォントで表示されなくなります。
 
 <a name="prefix-razor-directives-label"></a>
 
@@ -175,7 +175,7 @@ IntelliSense では、ページのモデルで使用可能なプロパティと�
 
 ## <a name="tag-helpers-compared-to-html-helpers"></a>タグ ヘルパーと HTML ヘルパーの比較
 
-タグ ヘルパーは Razor ビューで HTML 要素にアタッチされますが、[HTML ヘルパー](http://stephenwalther.com/archive/2009/03/03/chapter-6-understanding-html-helpers)は Razor ビューで HTML が混在するメソッドとして呼び出されます。 たとえば、CSS クラス "caption" を指定して HTML ラベルを作成する、次のような Razor マークアップがあるとします。
+タグ ヘルパーは Razor ビューで HTML 要素にアタッチされますが、[HTML ヘルパー](https://stephenwalther.com/archive/2009/03/03/chapter-6-understanding-html-helpers)は Razor ビューで HTML が混在するメソッドとして呼び出されます。 たとえば、CSS クラス "caption" を指定して HTML ラベルを作成する、次のような Razor マークアップがあるとします。
 
 ```cshtml
 @Html.Label("FirstName", "First Name:", new {@class="caption"})
@@ -245,7 +245,7 @@ Visual Studio エディターは登録フォームのタグ ヘルパーの方�
 
 ## <a name="customizing-the-tag-helper-element-font"></a>タグ ヘルパー要素のフォントのカスタマイズ
 
-次のように、**[ツール]** > **[オプション]** > **[環境]** > **[フォントおよび色]** からフォントと色づけをカスタマイズすることができます。
+次のように、 **[ツール]**  >  **[オプション]**  >  **[環境]**  >  **[フォントおよび色]** からフォントと色づけをカスタマイズすることができます。
 
 ![イメージ](intro/_static/fontoptions2.png)
 
@@ -255,4 +255,4 @@ Visual Studio エディターは登録フォームのタグ ヘルパーの方�
 
 * [タグ ヘルパーの作成](xref:mvc/views/tag-helpers/authoring)
 * [フォームの操作](xref:mvc/views/working-with-forms)
-* [GitHub の TagHelperSamples](https://github.com/dpaquette/TagHelperSamples) には、[ブートストラップ](http://getbootstrap.com/)を操作するためのタグ ヘルパーのサンプルが含まれています。
+* [GitHub の TagHelperSamples](https://github.com/dpaquette/TagHelperSamples) には、[ブートストラップ](https://getbootstrap.com/)を操作するためのタグ ヘルパーのサンプルが含まれています。

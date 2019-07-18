@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc, seodec18
 ms.date: 07/10/2019
 uid: tutorials/first-mongo-app
-ms.openlocfilehash: c64f6e69a19e294a18cc72c860af0a03ef70d444
-ms.sourcegitcommit: 357a7120632b20465801c093e4e5bd4a315496a8
+ms.openlocfilehash: 99b28407a249a5c0bc6a0cf3a285c04f1d6187a7
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/08/2019
-ms.locfileid: "67649191"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815649"
 ---
 # <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>ASP.NET Core と MongoDB で Web API を作成する
 
@@ -294,7 +294,7 @@ Windows を使用する場合、MongoDB は既定では *C:\\Program Files\\Mong
 
 * `BookService` クラスを使用して CRUD 操作を実行します。
 * GET、POST、PUT、DELETE HTTP 要求をサポートするアクション メソッドが含まれます。
-* `Create` アクション メソッドで <xref:System.Web.Http.ApiController.CreatedAtRoute*> を呼び出して、[HTTP 201](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) 応答を返します。 状態コード 201 は、サーバーに新しいリソースを作成する HTTP POST メソッドに対する標準の応答です。 `CreatedAtRoute` によって、応答に `Location` ヘッダーも追加されます。 `Location` ヘッダーでは、新しく作成されたブックの URI を指定します。
+* `Create` アクション メソッドで <xref:System.Web.Http.ApiController.CreatedAtRoute*> を呼び出して、[HTTP 201](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) 応答を返します。 状態コード 201 は、サーバーに新しいリソースを作成する HTTP POST メソッドに対する標準の応答です。 `CreatedAtRoute` によって、応答に `Location` ヘッダーも追加されます。 `Location` ヘッダーでは、新しく作成されたブックの URI を指定します。
 
 ## <a name="test-the-web-api"></a>Web API をテストする
 

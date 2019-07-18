@@ -5,12 +5,12 @@ description: ASP.NET Core でコントローラー メソッド、ビュー、Da
 ms.author: riande
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/controller-methods-views
-ms.openlocfilehash: 36c8141ba5827366572dabcfd0fdf9600c745706
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 6d960da5acecbb95893bd339b4391560bedffb3d
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64889767"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815417"
 ---
 # <a name="controller-methods-and-views-in-aspnet-core"></a>ASP.NET Core のコントローラーのメソッドとビュー
 
@@ -28,11 +28,11 @@ ms.locfileid: "64889767"
 
 `[Column(TypeName = "decimal(18, 2)")]` データ注釈は、Entity Framework Core がデータベースの通貨と `Price` を正しくマッピングできるようにするために必要です。 詳細については、「[Data Types](/ef/core/modeling/relational/data-types)」(データ型) を参照してください。
 
-`Movies` コントローラーを表示し、**[編集]** リンクをマウスでポイントしてターゲットの URL を確認します。
+`Movies` コントローラーを表示し、 **[編集]** リンクをマウスでポイントしてターゲットの URL を確認します。
 
 ![[編集] リンクがマウスでポイントされ、リンク URL として https://localhost:5001/Movies/Edit/5 が表示されている状態のブラウザー ウィンドウ](~/tutorials/first-mvc-app/controller-methods-views/_static/edit7.png)
 
-**[編集]**、**[詳細]**、**[削除]** の各リンクは、*Views/Movies/Index.cshtml* ファイルで Core MVC アンカー タグ ヘルパーによって生成されます。
+**[編集]** 、 **[詳細]** 、 **[削除]** の各リンクは、*Views/Movies/Index.cshtml* ファイルで Core MVC アンカー タグ ヘルパーによって生成されます。
 
 [!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/Movies/IndexOriginal.cshtml?highlight=1-3&range=46-50)]
 
@@ -50,7 +50,7 @@ ms.locfileid: "64889767"
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Startup.cs?name=snippet_1&highlight=5)]
 
-ASP.NET Core は、`https://localhost:5001/Movies/Edit/4` を、`Movies` コントローラーの `Edit` アクション メソッドへの要求に変換し、パラメーター `Id` には 4 を設定します  (コントローラー メソッドはアクション メソッドとも呼ばれます)。
+ASP.NET Core は、`https://localhost:5001/Movies/Edit/4` を、`Movies` コントローラーの `Edit` アクション メソッドへの要求に変換し、パラメーター `Id` には 4 を設定します (コントローラー メソッドはアクション メソッドとも呼ばれます)。
 
 [タグ ヘルパー](xref:mvc/views/tag-helpers/intro)は、ASP.NET Core で最もよく使われる新機能の 1 つです。 詳細については、「[その他の技術情報](#additional-resources)」を参照してください。
 
@@ -76,7 +76,7 @@ ASP.NET Core は、`https://localhost:5001/Movies/Edit/4` を、`Movies` コン�
 
 ::: moniker-end
 
-`[Bind]` 属性は、[オーバーポスティング攻撃](/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application#overpost)を防ぐための 1 つの方法です。 変更する `[Bind]` 属性にだけプロパティを含める必要があります。 詳細については、[オーバーポスティング攻撃からのコントローラーの保護](/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application)に関する記事を参照してください。 [ViewModels](http://rachelappel.com/use-viewmodels-to-manage-data-amp-organize-code-in-asp-net-mvc-applications/) は、オーバーポスティング攻撃を防ぐもう 1 つの方法を提供します。
+`[Bind]` 属性は、[オーバーポスティング攻撃](/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application#overpost)を防ぐための 1 つの方法です。 変更する `[Bind]` 属性にだけプロパティを含める必要があります。 詳細については、[オーバーポスティング攻撃からのコントローラーの保護](/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application)に関する記事を参照してください。 [ViewModels](https://rachelappel.com/use-viewmodels-to-manage-data-amp-organize-code-in-asp-net-mvc-applications/) は、オーバーポスティング攻撃を防ぐもう 1 つの方法を提供します。
 
 2 番目の `Edit` アクション メソッドの前に `[HttpPost]` 属性が付いていることに注意してください。
 
@@ -151,7 +151,7 @@ Movie コントローラーのすべての `HttpGet` メソッドは、同様の
 * [タグ ヘルパーの作成](xref:mvc/views/tag-helpers/authoring)
 * [リクエスト フォージェリの対策](xref:security/anti-request-forgery)
 * [オーバーポスティング攻撃](/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application)からのコントローラーの保護
-* [ViewModel](http://rachelappel.com/use-viewmodels-to-manage-data-amp-organize-code-in-asp-net-mvc-applications/)
+* [ViewModel](https://rachelappel.com/use-viewmodels-to-manage-data-amp-organize-code-in-asp-net-mvc-applications/)
 * [フォーム タグ ヘルパー](xref:mvc/views/working-with-forms)
 * [入力タグ ヘルパー](xref:mvc/views/working-with-forms)
 * [ラベル タグ ヘルパー](xref:mvc/views/working-with-forms)

@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 04/06/2019
 monikerRange: '>= aspnetcore-2.1'
 uid: mvc/models/validation
-ms.openlocfilehash: 9737e45729b4e5abd9a33824c4d6610ca21681c0
-ms.sourcegitcommit: c5339594101d30b189f61761275b7d310e80d18a
+ms.openlocfilehash: 43b69e9b7588ad575f203200c5bc59a4272d0066
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/02/2019
-ms.locfileid: "66458481"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814109"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>ASP.NET Core MVC および Razor Pages でのモデルの検証
 
@@ -315,7 +315,7 @@ $.get({
 
 [!code-javascript[](validation/sample/wwwroot/js/classicMovieValidator.js?name=snippet_UnobtrusiveValidation)]
 
-アダプターの作成方法については、[jQuery Validate のドキュメント](http://jqueryvalidation.org/documentation/)をご覧ください。
+アダプターの作成方法については、[jQuery Validate のドキュメント](https://jqueryvalidation.org/documentation/)をご覧ください。
 
 特定のフィールドに対するアダプターの使用は、次のような `data-` 属性によってトリガーされます。
 

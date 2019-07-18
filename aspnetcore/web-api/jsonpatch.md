@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 03/24/2019
 uid: web-api/jsonpatch
-ms.openlocfilehash: 14710e6431a2a7ce60fa7f190bef184da85281a0
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 97264903d85dbb397e85fdbf7b070e2aaae74bc8
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64888417"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815549"
 ---
 # <a name="jsonpatch-in-aspnet-core-web-api"></a>ASP.NET Core Web API における Json パッチ
 
@@ -71,7 +71,7 @@ JSON パッチ ドキュメントをリソースに適用することで行わ�
 
 ## <a name="path-syntax"></a>パス構文
 
-操作オブジェクトの [path](http://tools.ietf.org/html/rfc6901) プロパティでは、レベル間にスラッシュを保持します。 たとえば、`"/address/zipCode"` のようにします。
+操作オブジェクトの [path](https://tools.ietf.org/html/rfc6901) プロパティでは、レベル間にスラッシュを保持します。 たとえば、`"/address/zipCode"` のようにします。
 
 0 から始まるインデックスは、配列の要素を指定するために使用されます。 `addresses` 配列の最初の要素は、`/addresses/0` にあります。 配列の末尾への `add` では、インデックス番号ではなく、`/addresses/-` のようにハイフン (-) を使用します。
 
@@ -221,6 +221,6 @@ API コントローラーにおける JSON パッチ用のアクション メソ
 
 * [IETF RFC 5789 PATCH メソッドの仕様](https://tools.ietf.org/html/rfc5789)
 * [IETF RFC 6902 JSON パッチの仕様](https://tools.ietf.org/html/rfc6902)
-* [IETF RFC 6901 JSON パッチのパス形式の仕様](http://tools.ietf.org/html/rfc6901)
-* [JSON パッチ ドキュメント](http://jsonpatch.com/)。 JSON パッチ ドキュメントを作成するためのリソースへのリンクを含みます。
+* [IETF RFC 6901 JSON パッチのパス形式の仕様](https://tools.ietf.org/html/rfc6901)
+* [JSON パッチ ドキュメント](https://jsonpatch.com/)。 JSON パッチ ドキュメントを作成するためのリソースへのリンクを含みます。
 * [ASP.NET Core JSON パッチのソース コード](https://github.com/aspnet/AspNetCore/tree/master/src/Features/JsonPatch/src)

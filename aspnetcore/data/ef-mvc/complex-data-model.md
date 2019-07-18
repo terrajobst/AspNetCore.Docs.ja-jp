@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/complex-data-model
-ms.openlocfilehash: 2776e3357941d0e7932882c39af121f85d037d62
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 8ef458108e60850d0d54e7b1e6472c5b92984ccc
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64887247"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67813541"
 ---
 # <a name="tutorial-create-a-complex-data-model---aspnet-mvc-with-ef-core"></a>チュートリアル: 複合データ モデルを作成する - ASP.NET MVC と EF Core
 
@@ -397,7 +397,7 @@ Enrollment テーブルに成績情報が含まれていなかった場合、含
 
 ## <a name="about-a-fluent-api-alternative"></a>代替手段 fluent API について
 
-`DbContext` クラスの `OnModelCreating` メソッドのキーでは、*fluent API* を使用して EF の動作を構成します。 API は "fluent" と呼ばれます。これは、[EF Core のドキュメント](/ef/core/modeling/#methods-of-configuration)の例に示されているように、多くの場合、一連のメソッド呼び出しを単一のステートメントにまとめて使用されるためです。
+`DbContext` クラスの `OnModelCreating` メソッドのキーでは、*fluent API* を使用して EF の動作を構成します。 API は "fluent" と呼ばれます。これは、[EF Core のドキュメント](/ef/core/modeling/#use-fluent-api-to-configure-a-model)の例に示されているように、多くの場合、一連のメソッド呼び出しを単一のステートメントにまとめて使用されるためです。
 
 ```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -412,7 +412,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 一部の開発者は fluent API のみを使用することを選ぶため、エンティティ クラスを "クリーン" な状態に保つことができます。 必要に応じて、属性と fluent API を組み合わせて使用することができます。fluent API のみを使用して実行できるカスタマイズがいくつかありますが、一般的は 2 つの方法のいずれかを選択して、できるだけ一貫性を保つためにそれを使用することをお勧めします。 両方の使用時に競合が発生する場合は、Fluent API で属性がオーバーライドされることに注意してください。
 
-属性と fluent API の詳細については、「[構成の方法](/ef/core/modeling/#methods-of-configuration)」を参照してください。
+属性と fluent API の詳細については、「[構成の方法](/ef/core/modeling/)」を参照してください。
 
 ## <a name="entity-diagram-showing-relationships"></a>リレーションシップを示すエンティティ図
 

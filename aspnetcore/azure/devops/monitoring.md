@@ -4,14 +4,14 @@ author: CamSoper
 description: 監視と ASP.NET Core と Azure で DevOps ソリューションの一部として、コードのデバッグ
 ms.author: casoper
 ms.custom: mvc, seodec18
-ms.date: 10/24/2018
+ms.date: 07/10/2019
 uid: azure/devops/monitor
-ms.openlocfilehash: 00489bd92dfff8fd80bd24c2e60193d32031d7c4
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 1d8ed99f4387dbc99929164c558cc2ce14bd9ea0
+ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64893069"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68307959"
 ---
 # <a name="monitor-and-debug"></a>監視とデバッグ
 
@@ -37,11 +37,11 @@ App Service web apps が簡単にリアルタイムで監視されます。 Azur
 
     ![スクリーン ショットが表示された [概要] パネル](./media/monitoring/overview.png)
 
-    * **Http 5xx**:サーバー側エラーでは、通常は ASP.NET Core のコードで例外の数。
-    * **内のデータ**:Web アプリに入ってくるデータ受信。
-    * **送信データ**:データの送信は、web アプリをクライアントにします。
+    * **Http 5xx**:サーバー側のエラーの数。通常は ASP.NET Core コードで例外が発生します。
+    * **データ**:Web アプリに送信されるデータの受信。
+    * **送信データ**:Web アプリからクライアントへのデータ送信。
     * **要求**:HTTP 要求の数。
-    * **平均応答時間**:HTTP 要求に応答する web アプリの平均時間。
+    * **平均応答時間**:Web アプリが HTTP 要求に応答するまでの平均時間。
 
     このページ上のトラブルシューティングと最適化のためのいくつかのセルフ サービス ツールにもあります。
 
@@ -111,7 +111,7 @@ Web アプリでは、ASP.NET Core と web サーバー (App Service) のログ�
 
 Azure Monitor も用意されています。[リアルタイム アラート](/azure/monitoring-and-diagnostics/insights-alerts-portal)メトリック、イベントの管理、およびその他の条件に基づいて。
 
-> *注 :現在の web アプリのメトリック アラートはアラート (クラシック) サービスでできるだけです。*
+> *注 :現在、web アプリのメトリックに対するアラートは、Alerts (クラシック) サービスでのみ使用できます。*
 
 [アラート (クラシック) サービス](/azure/monitoring-and-diagnostics/monitor-quick-resource-metric-alert-portal)Azure Monitor で、または 、**監視**App Service の設定のセクション。
 
@@ -135,7 +135,7 @@ Azure App Service、 [Visual Studio でリモートでデバッグ](/azure/app-s
 
 ## <a name="additional-reading"></a>その他の参考資料
 
-* <xref:host-and-deploy/azure-apps/troubleshoot>
+* <xref:test/troubleshoot-azure-iis>
 * <xref:host-and-deploy/azure-iis-errors-reference>
 * [Application Insights で Azure web アプリのパフォーマンスを監視します。](/azure/application-insights/app-insights-azure-web-apps)
 * [Azure App Service の Web アプリの診断ログの有効化](/azure/app-service/web-sites-enable-diagnostic-log)

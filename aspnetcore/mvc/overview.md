@@ -5,12 +5,12 @@ description: ASP.NET Core MVC が、モデル ビュー コントローラー �
 ms.author: riande
 ms.date: 01/08/2018
 uid: mvc/overview
-ms.openlocfilehash: eb636616ab952f506993ae5f4692e5e966bb20f4
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 819bc93a7580626bf586b984b0ce169306df56d9
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087318"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815351"
 ---
 # <a name="overview-of-aspnet-core-mvc"></a>ASP.NET Core MVC の概要
 
@@ -179,7 +179,7 @@ Web サイトのビルドに最適なプラットフォームというだけで�
 
 フレームワークには、JSON または XML として [書式のデータ](xref:web-api/advanced/formatting)の組み込みサポートと共に、HTTP コンテンツ ネゴシエーションのサポートが含まれます。 [カスタム フォーマッタ](xref:web-api/advanced/custom-formatters)を作成して、独自の書式のサポートを追加します。
 
-リンクの生成を使って、ハイパーメディアのサポートを有効にします。 自分の Web API を複数の Web アプリケーションで共有できるように、[クロス オリジン リソース共有 (CORS)](http://www.w3.org/TR/cors/) のサポートを簡単に有効にできます。
+リンクの生成を使って、ハイパーメディアのサポートを有効にします。 自分の Web API を複数の Web アプリケーションで共有できるように、[クロス オリジン リソース共有 (CORS)](https://www.w3.org/TR/cors/) のサポートを簡単に有効にできます。
 
 ### <a name="testability"></a>テストの容易性
 
@@ -252,4 +252,4 @@ MVC の Razor ビューは、モデルを基にして厳密に型指定できま
 
 <xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*> メソッドを使用すると、ASP.NET Core MVC 2.1 以降に導入されている、互換性に影響する重大な変更をオプトインまたはオプトアウトすることができます。
 
-詳細については、「<xref:mvc/compatibility-version>」を参照してください。
+詳細については、<xref:mvc/compatibility-version> を参照してください。

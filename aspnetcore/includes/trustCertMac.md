@@ -1,11 +1,3 @@
----
-ms.openlocfilehash: 2ec079606cb48670dbc3852482fd8d401e7db44b
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
-ms.translationtype: HT
-ms.contentlocale: ja-JP
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59737172"
----
 * 次のコマンドを実行し、HTTPS 開発証明書を信頼します。
 
     ```console

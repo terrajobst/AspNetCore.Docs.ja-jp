@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/16/2019
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 644d84f9adba650b3ef10ba69cc75c22845be211
-ms.sourcegitcommit: 7e00e8236ca4eabf058f07020a5a3882daf7564f
+ms.openlocfilehash: a3d8c87fdb1cbc3b8b11b15f797190d626edad59
+ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/16/2019
-ms.locfileid: "68239233"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68308065"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>IIS を使用した Windows での ASP.NET Core のホスト
 
@@ -734,10 +734,10 @@ ASP.NET Core アプリをホストするための ASP.NET Core モジュール�
 [ディレクトリの構造](xref:host-and-deploy/directory-structure)
 
 ASP.NET Core アプリに対してアクティブおよび非アクティブな IIS モジュールについて、さらに IIS モジュールの管理方法についてを把握します。  
-[IIS モジュール](xref:host-and-deploy/iis/troubleshoot)
+[IIS モジュール](xref:host-and-deploy/iis/modules)
 
 ASP.NET Core アプリの IIS 展開に関する問題を診断する方法について説明します。  
-[トラブルシューティング](xref:host-and-deploy/iis/troubleshoot)
+[トラブルシューティング](xref:test/troubleshoot-azure-iis)
 
 IIS で ASP.NET Core アプリをホストする場合の一般的なエラーを識別します。  
 [Azure App Service と IIS の一般的なエラーのリファレンス](xref:host-and-deploy/azure-iis-errors-reference)

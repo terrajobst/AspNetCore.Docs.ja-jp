@@ -5,12 +5,12 @@ description: アプリのリソースで抽象化されたものである、ア�
 ms.author: riande
 ms.date: 01/04/2017
 uid: mvc/extensibility/app-parts
-ms.openlocfilehash: 5d5e79d3afe0eee6d0b126d4642ccd5f61bff409
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 9d0b4b5fadcc287172f23fa36c421f04ca2ade4a
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64888137"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815481"
 ---
 # <a name="application-parts-in-aspnet-core"></a>ASP.NET Core のアプリケーション パーツ
 
@@ -20,7 +20,7 @@ ms.locfileid: "64888137"
 
 ## <a name="introducing-application-parts"></a>アプリケーション パーツの概要
 
-MVC アプリはその機能を[アプリケーション パーツ](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.applicationpart)から読み込みます。 たとえば、[AssemblyPart](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.assemblypart#Microsoft_AspNetCore_Mvc_ApplicationParts_AssemblyPart) クラスは、アセンブリでバックアップされるアプリケーション パーツを表します。 これらのクラスを使用して、コントローラー、ビュー コンポーネント、タグ ヘルパー、Razor コンパイル ソースなどの MBV 機能を検出して読み込むことができます。 [ApplicationPartManager](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.applicationpartmanager) は、MVC アプリで使用できるアプリケーション パーツと機能プロバイダーの追跡を担当します。 MVC の構成時に `Startup` の `ApplicationPartManager` を操作できます。
+MVC アプリはその機能を[アプリケーション パーツ](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.applicationpart)から読み込みます。 たとえば、[AssemblyPart](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.assemblypart) クラスは、アセンブリでバックアップされるアプリケーション パーツを表します。 これらのクラスを使用して、コントローラー、ビュー コンポーネント、タグ ヘルパー、Razor コンパイル ソースなどの MBV 機能を検出して読み込むことができます。 [ApplicationPartManager](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.applicationpartmanager) は、MVC アプリで使用できるアプリケーション パーツと機能プロバイダーの追跡を担当します。 MVC の構成時に `Startup` の `ApplicationPartManager` を操作できます。
 
 ```csharp
 // create an assembly part from a class's assembly

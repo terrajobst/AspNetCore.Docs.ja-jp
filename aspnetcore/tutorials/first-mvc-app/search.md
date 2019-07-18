@@ -5,12 +5,12 @@ description: 基本的な ASP.NET Core MVC アプリに検索を追加する方�
 ms.author: riande
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/search
-ms.openlocfilehash: ca3b0baeddd31e10243689091d435767079bb979
-ms.sourcegitcommit: a3926eae3f687013027a2828830c12a89add701f
+ms.openlocfilehash: fbec03d71e247c58fb5968290c4baf6b28120e1c
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/08/2019
-ms.locfileid: "65450847"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815064"
 ---
 # <a name="add-search-to-an-aspnet-core-mvc-app"></a>ASP.NET Core MVC アプリへの検索の追加
 
@@ -85,7 +85,7 @@ HTML `<form>` タグでは[フォーム タグ ヘルパー](xref:mvc/views/work
 
 ![From HttpPost Index: filter on ghost というアプリケーション応答を示すブラウザー ウィンドウ](~/tutorials/first-mvc-app/search/_static/fo.png)
 
-ただし、この `[HttpPost]` バージョンの `Index` メソッドを追加しても、実装方法は制限されます。 たとえば、特定の検索をブックマークするか、友だちにリンクを送信し、友だちがそれをクリックしてムービーのフィルターされた同じリストを表示できるようにするとします。 HTTP POST 要求の URL は、GET 要求の URL (localhost:xxxxx/Movies/Index) と同じであり、URL には検索情報がないことに注意してください。 検索文字列情報は、[フォーム フィールド値](https://developer.mozilla.org/docs/Learn/HTML/Forms/Sending_and_retrieving_form_data)としてサーバーに送信されます。 ブラウザーの開発者ツールまたは優れた [Fiddler ツール](http://www.telerik.com/fiddler)を使用して、これを確認できます。 次のイメージは、Chrome ブラウザーの開発者ツールを示しています。
+ただし、この `[HttpPost]` バージョンの `Index` メソッドを追加しても、実装方法は制限されます。 たとえば、特定の検索をブックマークするか、友だちにリンクを送信し、友だちがそれをクリックしてムービーのフィルターされた同じリストを表示できるようにするとします。 HTTP POST 要求の URL は、GET 要求の URL (localhost:xxxxx/Movies/Index) と同じであり、URL には検索情報がないことに注意してください。 検索文字列情報は、[フォーム フィールド値](https://developer.mozilla.org/docs/Learn/HTML/Forms/Sending_and_retrieving_form_data)としてサーバーに送信されます。 ブラウザーの開発者ツールまたは優れた [Fiddler ツール](https://www.telerik.com/fiddler)を使用して、これを確認できます。 次のイメージは、Chrome ブラウザーの開発者ツールを示しています。
 
 ![searchString 値が ghost の要求本文を示す、Microsoft Edge の開発者ツールの [ネットワーク] タブ](~/tutorials/first-mvc-app/search/_static/f12_rb.png)
 

@@ -1,4 +1,4 @@
-以下のワークロードで [Visual Studio 2017 バージョン 15.7.3 以降](https://visualstudio.microsoft.com/downloads/):
+[Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) と次のワークロード:
 
 * **ASP.NET と Web 開発**
 * **.NET Core クロスプラットフォームの開発**

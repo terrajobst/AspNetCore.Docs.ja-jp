@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: data/ef-rp/complex-data-model
-ms.openlocfilehash: a65543f805b197031bd46ef1974d4d4a5018b2d1
-ms.sourcegitcommit: 3376f224b47a89acf329b2d2f9260046a372f924
+ms.openlocfilehash: f995f3f74da4910de518af875eb89349a8457573
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/10/2019
-ms.locfileid: "65516901"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67813711"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---data-model---5-of-8"></a>ASP.NET Core の Razor ページと EF Core - データ モデル - 5/8
 
@@ -486,7 +486,7 @@ FK は null 非許容です。 `CourseAssignment` の 2 つの FK (`InstructorID
 
 ## <a name="fluent-api-alternative-to-attributes"></a>属性の代わりに fluent API を使用する
 
-上のコードの `OnModelCreating` メソッドでは、*fluent API* を使用して EF Core の動作を構成します。 API は "fluent" と呼ばれます。これは、多くの場合、一連のメソッド呼び出しを単一のステートメントにまとめて使用されるためです。 [次のコード](/ef/core/modeling/#methods-of-configuration)は fluent API の例です。
+上のコードの `OnModelCreating` メソッドでは、*fluent API* を使用して EF Core の動作を構成します。 API は "fluent" と呼ばれます。これは、多くの場合、一連のメソッド呼び出しを単一のステートメントにまとめて使用されるためです。 [次のコード](/ef/core/modeling/#use-fluent-api-to-configure-a-model)は fluent API の例です。
 
 ```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -512,7 +512,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 * EF Core 構成のみ (`HasKey` など)。
 * 検証と EF Core の構成 (`[StringLength(50)]` など)。
 
-属性と fluent API の詳細については、「[構成の方法](/ef/core/modeling/#methods-of-configuration)」を参照してください。
+属性と fluent API の詳細については、「[構成の方法](/ef/core/modeling/)」を参照してください。
 
 ## <a name="entity-diagram-showing-relationships"></a>リレーションシップを示すエンティティ図
 

@@ -4,14 +4,14 @@ author: rick-anderson
 description: Entity Framework Core を使用した Razor ページへの新しいフィールドの追加方法
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/5/2018
+ms.date: 12/05/2018
 uid: tutorials/razor-pages/new-field
-ms.openlocfilehash: f73af673afebe0531f228dc0041dc708ba794047
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 904207ed775cc689c36953c29d202788580d8f60
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64887617"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815307"
 ---
 # <a name="add-a-new-field-to-a-razor-page-in-aspnet-core"></a>ASP.NET Core で Razor ページに新しいフィールドを追加する
 
@@ -79,7 +79,7 @@ DB を更新して新しいフィールドが含まれるようになるまで�
 
 ### <a name="add-a-migration-for-the-rating-field"></a>評価フィールドの移行を追加する
 
-**[ツール]** メニューで、**[NuGet パッケージ マネージャー]、[パッケージ マネージャー コンソール]** の順に選択します。
+**[ツール]** メニューで、 **[NuGet パッケージ マネージャー]、[パッケージ マネージャー コンソール]** の順に選択します。
 PMC で、次のコマンドを入力します。
 
 ```powershell
@@ -100,10 +100,10 @@ Update-Database
 
 DB 内のすべてのレコードを削除すると、初期化子は DB にデータを初期投入し、`Rating` フィールドを追加します。 これはブラウザーの削除リンクで行うか、[Sql Server Object Explorer](xref:tutorials/razor-pages/sql#ssox) (SSOX) から行うことができます。
 
-別のオプションとしては、データベースを削除してから、移行を使用することで、データベースを再作成することもできます。 SSOX 内でデータベースを削除するには: 
+別のオプションとしては、データベースを削除してから、移行を使用することで、データベースを再作成することもできます。 SSOX 内でデータベースを削除するには:
 
 * SSOX でデータベースを選択します。
-* データベースを右クリックし、*[削除]* を選択します。
+* データベースを右クリックし、 *[削除]* を選択します。
 * **[既存の接続を閉じる]** をチェックします。
 * **[OK]** を選択します。
 * [PMC](xref:tutorials/razor-pages/new-field#pmc) でデータベースを更新します。

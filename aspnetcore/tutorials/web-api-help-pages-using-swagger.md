@@ -6,16 +6,16 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 09/20/2018
 uid: tutorials/web-api-help-pages-using-swagger
-ms.openlocfilehash: fb65b84b781b5c19040b559f0d7635ceb00cf4a0
-ms.sourcegitcommit: 06a455d63ff7d6b571ca832e8117f4ac9d646baf
+ms.openlocfilehash: 06a942ca213c7c0a58932494be0ed23cb6896d48
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/21/2019
-ms.locfileid: "67316564"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67856087"
 ---
 # <a name="aspnet-core-web-api-help-pages-with-swagger--openapi"></a>Swagger/OpenAPI を使用する ASP.NET Core Web API のヘルプ ページ
 
-作成者: [Christoph Nienaber](https://twitter.com/zuckerthoben) および [Rico Suter](http://rsuter.com)
+作成者: [Christoph Nienaber](https://twitter.com/zuckerthoben) および [Rico Suter](https://blog.rsuter.com/)
 
 Web API を使用する場合、さまざまなメソッドを理解することは開発者にとって困難な場合があります。 [Swagger](https://swagger.io/) ([OpenAPI](https://www.openapis.org/) とも呼ばれる) では、Web API の役立つドキュメントとヘルプ ページの生成に関する問題を解決します。 Swagger では、対話型のドキュメント、クライアント SDK の生成、API の発見可能性などの利点を提供します。
 
@@ -113,7 +113,7 @@ Swagger フローの基本は、Swagger 仕様です&mdash;既定では、ドキ
 ![Swagger GET テストの例](web-api-help-pages-using-swagger/_static/get-try-it-out.png)
 
 > [!NOTE]
-> スクリーンショットに使用される Swagger UI バージョンは、バージョン 2 です。 バージョン 3 の例については、[Petstore の例](http://petstore.swagger.io/)に関するページを参照してください。
+> スクリーンショットに使用される Swagger UI バージョンは、バージョン 2 です。 バージョン 3 の例については、[Petstore の例](https://petstore.swagger.io/)に関するページを参照してください。
 
 ## <a name="next-steps"></a>次の手順
 

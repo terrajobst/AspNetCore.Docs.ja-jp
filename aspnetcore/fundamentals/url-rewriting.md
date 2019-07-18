@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/18/2018
 uid: fundamentals/url-rewriting
-ms.openlocfilehash: 72d5b2e902a95442ccffb7a149b917c50373775b
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 5be53baf4b9eb8774501fbf7f781370f7f687d0c
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64889927"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814949"
 ---
 # <a name="url-rewriting-middleware-in-aspnet-core"></a>ASP.NET Core の URL リライト ミドルウェア
 
@@ -52,7 +52,7 @@ URL の書き換えは、1 つまたは複数の事前定義された規則に�
 
 要求を別の URL にリダイレクトする場合は、応答で状態コードを指定することにより、リダイレクトが永続的か一時的かのどちらかを示します。
 
-* "*301 - 完全な移動*" 状態コードは、リソースに新しい永続的な URL があり、リソースに対する将来のすべての要求で新しい URL を使用する必要があることをクライアントに指示したい場合に使用します。 "*301 状態コードを受信すると、クライアントは応答をキャッシュに入れて再利用することができます。*"
+* "*301 - 完全な移動*" 状態コードは、リソースに新しい永続的な URL があり、リソースに対する将来のすべての要求で新しい URL を使用する必要があることをクライアントに指示したい場合に使用します。 "*301 状態コードを受信すると、クライアントは応答をキャッシュに入れて再利用することができます。* "
 
 * "*302 - 検出*" 状態コードは、リダイレクトが一時的である場合、または一般に変更される可能性がある場合に使用されます。 302 状態コードは、URL を保存して後で再利用しないようクライアントに指示します。
 
@@ -330,7 +330,7 @@ ASP.NET Core 2.x でリリースされたミドルウェアは、次の IIS URL 
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=14)]
 
-サンプル アプリは、*.xml* で終了するパスの要求をリダイレクトするメソッドの例を示します。 `/file.xml` に対して要求が行われた場合、要求は `/xmlfiles/file.xml` にリダイレクトされます。 状態コードは "*301 - 完全な移動*" に設定されます。 ブラウザーが */xmlfiles/file.xml* に対する新しい要求を行うと、静的ファイル ミドルウェアはクライアントに *wwwroot/xmlfiles* フォルダーからファイルを提供します。 リダイレクトの場合は、応答の状態コードを明示的に設定します。 それ以外の場合は、*200 - OK* 状態コードが返され、クライアントでのリダイレクトは発生しません。
+サンプル アプリは、 *.xml* で終了するパスの要求をリダイレクトするメソッドの例を示します。 `/file.xml` に対して要求が行われた場合、要求は `/xmlfiles/file.xml` にリダイレクトされます。 状態コードは "*301 - 完全な移動*" に設定されます。 ブラウザーが */xmlfiles/file.xml* に対する新しい要求を行うと、静的ファイル ミドルウェアはクライアントに *wwwroot/xmlfiles* フォルダーからファイルを提供します。 リダイレクトの場合は、応答の状態コードを明示的に設定します。 それ以外の場合は、*200 - OK* 状態コードが返され、クライアントでのリダイレクトは発生しません。
 
 *RewriteRules.cs*:
 
@@ -350,7 +350,7 @@ ASP.NET Core 2.x でリリースされたミドルウェアは、次の IIS URL 
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=16-17)]
 
-サンプル アプリの `extension` と `newPath` のパラメーターの値は、いくつかの条件を満たすかチェックされます。 `extension` は、値を含んでいる必要があり、値は *.png*、*.jpg*、または *.gif* でなければなりません。 `newPath` が有効ではない場合、<xref:System.ArgumentException> がスローされます。 *image.png* に対して行われた要求は、`/png-images/image.png` にリダイレクトされます。 *image.jpg* に対して行われた要求は、`/jpg-images/image.jpg` にリダイレクトされます。 状態コードは "*301 - 完全な移動*" に設定され、`context.Result` はルールの処理を停止して応答を送信するように設定されます。
+サンプル アプリの `extension` と `newPath` のパラメーターの値は、いくつかの条件を満たすかチェックされます。 `extension` は、値を含んでいる必要があり、値は *.png*、 *.jpg*、または *.gif* でなければなりません。 `newPath` が有効ではない場合、<xref:System.ArgumentException> がスローされます。 *image.png* に対して行われた要求は、`/png-images/image.png` にリダイレクトされます。 *image.jpg* に対して行われた要求は、`/jpg-images/image.jpg` にリダイレクトされます。 状態コードは "*301 - 完全な移動*" に設定され、`context.Result` はルールの処理を停止して応答を送信するように設定されます。
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/RewriteRules.cs?name=snippet_RedirectImageRequests)]
 
@@ -384,5 +384,5 @@ ASP.NET Core 2.x でリリースされたミドルウェアは、次の IIS URL 
 * [URL リライト モジュール構成リファレンス](/iis/extensions/url-rewrite-module/url-rewrite-module-configuration-reference)
 * [IIS URL リライト モジュール フォーラム](https://forums.iis.net/1152.aspx)
 * [単純な URL 構造を保持する](https://support.google.com/webmasters/answer/76329?hl=en)
-* [URL 書き換えの 10 のヒントとテクニック](http://ruslany.net/2009/04/10-url-rewriting-tips-and-tricks/)
+* [URL 書き換えの 10 のヒントとテクニック](https://ruslany.net/2009/04/10-url-rewriting-tips-and-tricks/)
 * [スラッシュを使用すべきかどうか](https://webmasters.googleblog.com/2010/04/to-slash-or-not-to-slash.html)

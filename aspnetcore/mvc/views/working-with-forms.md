@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/06/2019
 uid: mvc/views/working-with-forms
-ms.openlocfilehash: 380d47d33706b3197dba3b9f7e3e1f186e27115f
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: a07bb4f539c8bd38b08402c598924e14c748921d
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64890817"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815232"
 ---
 # <a name="tag-helpers-in-forms-in-aspnet-core"></a>ASP.NET Core のフォームのタグ ヘルパー
 
@@ -602,7 +602,7 @@ HTML の [\<optgroup>](https://www.w3.org/wiki/HTML/Elements/optgroup) 要素は
 
 ### <a name="multiple-select"></a>複数選択
 
-`asp-for` 属性に指定されているプロパティが `IEnumerable` の場合、選択タグ ヘルパーは [multiple = "multiple"](http://w3c.github.io/html-reference/select.html) 属性を自動的に生成します。 たとえば、次のようなモデルがあるとします。
+`asp-for` 属性に指定されているプロパティが `IEnumerable` の場合、選択タグ ヘルパーは [multiple = "multiple"](https://w3c.github.io/html-reference/select.html) 属性を自動的に生成します。 たとえば、次のようなモデルがあるとします。
 
 [!code-csharp[](../../mvc/views/working-with-forms/sample/final/ViewModels/CountryViewModelIEnumerable.cs?highlight=6)]
 

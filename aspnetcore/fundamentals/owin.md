@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 12/18/2018
 uid: fundamentals/owin
-ms.openlocfilehash: 9d6ce79c15fe768c260c6361ac3babecab5f3f9b
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 7edb4db026f1b778d43ac72883690a0b2a18ee31
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087300"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814893"
 ---
 # <a name="open-web-interface-for-net-owin-with-aspnet-core"></a>Open Web Interface for .NET (OWIN) と ASP.NET Core
 
@@ -35,7 +35,7 @@ OWIN には、さまざまなオブジェクト モデルを使用する 2 つ�
 
 ASP.NET Core の OWIN のサポートは、`Microsoft.AspNetCore.Owin` パッケージの一部として展開されます。 このパッケージをインストールすることで、OWIN のサポートをプロジェクトにインポートできます。
 
-OWIN ミドルウェアは、`Func<IDictionary<string, object>, Task>` インターフェイスと特定のキー (`owin.ResponseBody` など) の設定を必須とする [OWIN 仕様](http://owin.org/spec/spec/owin-1.0.0.html)に準拠しています。 次の単純な OWIN ミドルウェアを実行すると "Hello World" が表示されます。
+OWIN ミドルウェアは、`Func<IDictionary<string, object>, Task>` インターフェイスと特定のキー (`owin.ResponseBody` など) の設定を必須とする [OWIN 仕様](https://owin.org/spec/spec/owin-1.0.0.html)に準拠しています。 次の単純な OWIN ミドルウェアを実行すると "Hello World" が表示されます。
 
 ```csharp
 public Task OwinHello(IDictionary<string, object> environment)
@@ -43,7 +43,7 @@ public Task OwinHello(IDictionary<string, object> environment)
     string responseText = "Hello World via OWIN";
     byte[] responseBytes = Encoding.UTF8.GetBytes(responseText);
 
-    // OWIN Environment Keys: http://owin.org/spec/spec/owin-1.0.0.html
+    // OWIN Environment Keys: https://owin.org/spec/spec/owin-1.0.0.html
     var responseStream = (Stream)environment["owin.ResponseBody"];
     var responseHeaders = (IDictionary<string, string[]>)environment["owin.ResponseHeaders"];
 
@@ -230,7 +230,7 @@ public class Startup
 
 ## <a name="owin-keys"></a>OWIN キー
 
-OWIN は、HTTP 要求/応答の交換を通じて情報を伝達するために `IDictionary<string,object>` オブジェクトに依存しています。 ASP.NET Core は次のキーを実装しています。 [主な仕様、拡張機能](http://owin.org/#spec)に関するセクションと、「[OWIN Key Guidelines and Common Keys](http://owin.org/spec/spec/CommonKeys.html)」(OWIN キーのガイドラインと共通キー) を参照してください。
+OWIN は、HTTP 要求/応答の交換を通じて情報を伝達するために `IDictionary<string,object>` オブジェクトに依存しています。 ASP.NET Core は次のキーを実装しています。 [主な仕様、拡張機能](https://owin.org/#spec)に関するセクションと、「[OWIN Key Guidelines and Common Keys](https://owin.org/spec/spec/CommonKeys.html)」(OWIN キーのガイドラインと共通キー) を参照してください。
 
 ### <a name="request-data-owin-v100"></a>要求データ (OWIN v1.0.0)
 
@@ -284,14 +284,14 @@ OWIN は、HTTP 要求/応答の交換を通じて情報を伝達するために
 
 | キー               | 値 (型) | 説明 |
 | ----------------- | ------------ | ----------- |
-| sendfile.SendAsync | 「[Delegate Signature](http://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)」(デリゲート シグネチャ) を参照してください。 | 要求ごと |
+| sendfile.SendAsync | 「[Delegate Signature](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)」(デリゲート シグネチャ) を参照してください。 | 要求ごと |
 
 ### <a name="opaque-v030"></a>Opaque v0.3.0
 
 | キー               | 値 (型) | 説明 |
 | ----------------- | ------------ | ----------- |
 | opaque.Version | `String` |  |
-| opaque.Upgrade | `OpaqueUpgrade` | 「[Delegate Signature](http://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)」(デリゲート シグネチャ) を参照してください。 |
+| opaque.Upgrade | `OpaqueUpgrade` | 「[Delegate Signature](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)」(デリゲート シグネチャ) を参照してください。 |
 | opaque.Stream | `Stream` |  |
 | opaque.CallCancelled | `CancellationToken` |  |
 
@@ -300,12 +300,12 @@ OWIN は、HTTP 要求/応答の交換を通じて情報を伝達するために
 | キー               | 値 (型) | 説明 |
 | ----------------- | ------------ | ----------- |
 | websocket.Version | `String` |  |
-| websocket.Accept | `WebSocketAccept` | 「[Delegate Signature](http://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)」(デリゲート シグネチャ) を参照してください。 |
+| websocket.Accept | `WebSocketAccept` | 「[Delegate Signature](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)」(デリゲート シグネチャ) を参照してください。 |
 | websocket.AcceptAlt |  | 記述なし |
 | websocket.SubProtocol | `String` | [RFC6455 のセクション 4.2.2](https://tools.ietf.org/html/rfc6455#section-4.2.2) の手順 5.5 を参照してください。 |
-| websocket.SendAsync | `WebSocketSendAsync` | 「[Delegate Signature](http://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)」(デリゲート シグネチャ) を参照してください。  |
-| websocket.ReceiveAsync | `WebSocketReceiveAsync` | 「[Delegate Signature](http://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)」(デリゲート シグネチャ) を参照してください。  |
-| websocket.CloseAsync | `WebSocketCloseAsync` | 「[Delegate Signature](http://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)」(デリゲート シグネチャ) を参照してください。  |
+| websocket.SendAsync | `WebSocketSendAsync` | 「[Delegate Signature](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)」(デリゲート シグネチャ) を参照してください。  |
+| websocket.ReceiveAsync | `WebSocketReceiveAsync` | 「[Delegate Signature](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)」(デリゲート シグネチャ) を参照してください。  |
+| websocket.CloseAsync | `WebSocketCloseAsync` | 「[Delegate Signature](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)」(デリゲート シグネチャ) を参照してください。  |
 | websocket.CallCancelled | `CancellationToken` |  |
 | websocket.ClientCloseStatus | `int` | Optional |
 | websocket.ClientCloseDescription | `String` | Optional |
