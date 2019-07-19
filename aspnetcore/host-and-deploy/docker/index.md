@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/08/2018
 uid: host-and-deploy/docker/index
-ms.openlocfilehash: 9189e1fbb21abcc8c8bdea947e672ee53b59bc4f
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: cb5f774db5fab46a57f8ca4bbbca148f20f371ba
+ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65085472"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68308047"
 ---
 # <a name="host-aspnet-core-in-docker-containers"></a>Docker コンテナーで ASP.NET Core をホストする
 
@@ -31,11 +31,11 @@ Docker 技術の用語と定義について学習します。
 
 <xref:host-and-deploy/docker/building-net-docker-images> ASP.NET Core アプリをビルドし、Docker で動作させる方法について学習します。 Microsoft によって管理される Docker イメージを確認し、ユース ケースを調査します。
 
-[Visual Studio Tools for Docker](xref:host-and-deploy/docker/visual-studio-tools-for-docker)  
-Visual Studio 2017 が、Docker for Windows で .NET Framework または .NET Core をターゲットとする ASP.NET Core アプリのビルド、デバッグ、実行をどのようにサポートするかについて説明します。 Windows と Linux の両方のコンテナーがサポートされます。
+[Visual Studio コンテナー ツール](xref:host-and-deploy/docker/visual-studio-tools-for-docker)  
+Docker for Windows 上での .NET Framework または .NET Core のいずれかをターゲットとする ASP.NET Core アプリのビルド、デバッグ、および実行が Visual Studio によってどのようにサポートされるかについて説明します。 Windows と Linux の両方のコンテナーがサポートされます。
 
-[Docker イメージへの公開](/azure/vs-azure-tools-docker-hosting-web-apps-in-docker)  
-Visual Studio Tools for Docker 拡張機能を使用して、PowerShell を使用する Azure で Docker ホストに ASP.NET Core アプリを展開する方法を確認します。
+[Azure Container Registry に発行する](/azure/vs-azure-tools-docker-hosting-web-apps-in-docker)  
+Visual Studio Container Tools 拡張機能を使用して、PowerShell を使用する Azure で Docker ホストに ASP.NET Core アプリを展開する方法を確認します。
 
 [プロキシ サーバーとロード バランサーを使用するために ASP.NET Core を構成する](xref:host-and-deploy/proxy-load-balancer)  
 プロキシ サーバーとロード バランサーの背後でホストされているアプリでは、追加の構成が必要になる場合があります。 プロキシ経由で要求を渡すと、スキームやクライアントの IP アドレスなど、元の要求に関する情報が不明になることがよくあります。 その場合、要求に関する情報をアプリに手動で転送しなければならないことがあります。

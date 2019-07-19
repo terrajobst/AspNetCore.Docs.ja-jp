@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.date: 04/06/2019
 uid: razor-pages/index
-ms.openlocfilehash: 419355d670536fef1a38fbcb8ce1fd880c0e9b0d
-ms.sourcegitcommit: d6e51c60439f03a8992bda70cc982ddb15d3f100
+ms.openlocfilehash: 406e89c96ea63493091d0287077e244faee5f730
+ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/03/2019
-ms.locfileid: "67555730"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68308002"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>ASP.NET Core での Razor ページの概要
 
@@ -110,7 +110,7 @@ URL パスのページへの関連付けは、ファイル システム内のペ
 | */Pages/Store/Contact.cshtml* | `/Store/Contact` |
 | */Pages/Store/Index.cshtml* | `/Store` または `/Store/Index` |
 
-注:
+メモ:
 
 * 既定では、ランタイムが *Pages* フォルダー内で Razor ページ ファイルを検索します。
 * `Index` は、URL にページが含まれない場合の既定のページになります。
@@ -169,7 +169,7 @@ db コンテキスト:
 
 [!code-cs[](index/sample/RazorPagesContacts/Pages/Create.cshtml.cs?name=snippet_PageModel&highlight=10-11)]
 
-既定では、Razor ページはプロパティを非 GET 動詞とのみバインドします。 プロパティをバインドすることで、記述すべきコードの量を削減できます。 同じプロパティを使用してバインドすることでコードを減らし、フィールド (`<input asp-for="Customer.Name">`) からレンダリングして入力を受け入れます。
+既定では、Razor Pages はプロパティを非 `GET` 動詞とのみバインドします。 プロパティをバインドすることで、記述すべきコードの量を削減できます。 同じプロパティを使用してバインドすることでコードを減らし、フィールド (`<input asp-for="Customer.Name">`) からレンダリングして入力を受け入れます。
 
 [!INCLUDE[](~/includes/bind-get.md)]
 
@@ -185,7 +185,7 @@ db コンテキスト:
 
 [!code-cshtml[](index/sample/RazorPagesContacts/Pages/Index.cshtml?range=21)]
 
-[アンカー タグ ヘルパー](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)は `asp-route-{value}` 属性を使用して編集ページへのリンクを生成しました。 リンクには、連絡先 ID とともにルート データが含まれています。 たとえば、「 `http://localhost:5000/Edit/1` 」のように入力します。 `asp-area` 属性を使って区分を指定します。 詳細については、<xref:mvc/controllers/areas> を参照してください。
+[アンカー タグ ヘルパー](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)は `asp-route-{value}` 属性を使用して編集ページへのリンクを生成しました。 リンクには、連絡先 ID とともにルート データが含まれています。 たとえば、`http://localhost:5000/Edit/1` のようにします。 `asp-area` 属性を使って区分を指定します。 詳細については、<xref:mvc/controllers/areas> を参照してください。
 
 *Pages/Edit.cshtml* ファイル:
 
@@ -218,7 +218,7 @@ HTML で削除ボタンがレンダリングされる場合、その `formaction
 
 ボタンが選択されると、フォームの `POST` 要求がサーバーに送信されます。 慣例により、ハンドラー メソッドの名前はスキーム `OnPost[handler]Async` に従った `handler` パラメーターの値に基づいて選択されます。
 
-この例では `handler` が `delete` であるため、`OnPostDeleteAsync` ハンドラー メソッドを使用して `POST` 要求が処理されます。 `asp-page-handler` が `remove` などの別の値に設定されている場合、名前が `OnPostRemoveAsync` のページ ハンドラー メソッドが選択されます。
+この例では `handler` が `delete` であるため、`OnPostDeleteAsync` ハンドラー メソッドを使用して `POST` 要求が処理されます。 `asp-page-handler` が `remove` などの別の値に設定されている場合、名前が `OnPostRemoveAsync` のハンドラー メソッドが選択されます。
 
 [!code-cs[](index/sample/RazorPagesContacts/Pages/Index.cshtml.cs?range=26-37)]
 
@@ -239,11 +239,11 @@ HTML で削除ボタンがレンダリングされる場合、その `formaction
 
 詳細については、[モデルの検証](xref:mvc/models/validation)に関するページを参照してください。
 
-## <a name="manage-head-requests-with-the-onget-handler"></a>OnGet ハンドラーで HEAD 要求を管理する
+## <a name="handle-head-requests-with-an-onget-handler-fallback"></a>OnGet ハンドラー フォールバックを使用した HEAD 要求の処理
 
-HEAD 要求を使用すると、特定のリソースに対するヘッダーを取得できます。 GET 要求とは異なり、HEAD 要求では応答本文は返されません。
+`HEAD`HEAD 要求を使用すると、特定のリソースに対するヘッダーを取得できます。 `GET` 要求とは異なり、`HEAD` 要求から応答本文は返されません。
 
-通常、HEAD ハンドラーは HEAD 要求に対して作成され、呼び出されます。 
+通常、`HEAD` 要求に対して `OnHead` ハンドラーが作成され、呼び出されます。 
 
 ```csharp
 public void OnHead()
@@ -252,18 +252,16 @@ public void OnHead()
 }
 ```
 
-HEAD ハンドラー (`OnHead`) が定義されていない場合、ASP.NET Core 2.1 以降では、Razor ページは GET ページ ハンドラー (`OnGet`) の呼び出しにフォールバックします。 ASP.NET Core 2.1 および 2.2 では、この動作は `Startup.Configure` の [SetCompatibilityVersion](xref:mvc/compatibility-version) で発生します。
+ASP.NET Core 2.1 以降では、`OnHead` ハンドラーが定義されていない場合、Razor Pages は `OnGet` ハンドラーの呼び出しにフォールバックします。 この動作は、`Startup.ConfigureServices` での [SetCompatibilityVersion](xref:mvc/compatibility-version) への呼び出しによって有効になります。
 
 ```csharp
 services.AddMvc()
-    .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1);
+    .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 ```
 
-既定のテンプレートでは、ASP.NET Core 2.1 および 2.2 で `SetCompatibilityVersion` の呼び出しが生成されます。
+既定のテンプレートでは、ASP.NET Core 2.1 および 2.2 で `SetCompatibilityVersion` の呼び出しが生成されます。 `SetCompatibilityVersion` は実質的に Razor ページのオプション `AllowMappingHeadRequestsToGetHandler` を `true` に設定します。
 
-`SetCompatibilityVersion` は実質的に Razor ページのオプション `AllowMappingHeadRequestsToGetHandler` を `true` に設定します。
-
-`SetCompatibilityVersion` とのすべての 2.1 動作にオプトインするのではなく、明示的に特定の動作にオプトインすることもできます。 次のコードは、マッピング HEAD 要求から GET ハンドラーへオプトインします。
+`SetCompatibilityVersion` とのすべての動作にオプトインするのではなく、明示的に*特定の*動作にオプトインすることもできます。 次のコードでは、`OnGet` ハンドラーに `HEAD` 要求をマップできるようにすることにオプトインしています。
 
 ```csharp
 services.AddMvc()
@@ -391,7 +389,7 @@ Razor ページからのビュー検索には、*Pages* フォルダーが含ま
     * *Edit.cshtml*
     * *Index.cshtml*
 
-成功すると、*Pages/Customers/Create.cshtml* ページと *Pages/Customers/Edit.cshtml* ページが *Pages/Index.cshtml* にリダイレクトされます。 文字列 `/Index` は前のページにアクセスするための URI の一部です。 文字列 `/Index` は、*Pages/Index.cshtml* ページへの URI を生成するために使用できます。 例:
+成功すると、*Pages/Customers/Create.cshtml* ページと *Pages/Customers/Edit.cshtml* ページが *Pages/Index.cshtml* にリダイレクトされます。 文字列 `/Index` は前のページにアクセスするための URI の一部です。 文字列 `/Index` は、*Pages/Index.cshtml* ページへの URI を生成するために使用できます。 次に例を示します。
 
 * `Url.Page("/Index", ...)`
 * `<a asp-page="/Index">My Index Page</a>`
@@ -487,7 +485,7 @@ public string Message { get; set; }
 
 ## <a name="multiple-handlers-per-page"></a>ページあたり複数のハンドラー
 
-次のページは、`asp-page-handler` タグ ヘルパーを使用して 2 つのページ ハンドラーにマークアップを生成します。
+次のページでは、`asp-page-handler` タグ ヘルパーを使用して 2 つのハンドラーにマークアップが生成されます。
 
 [!code-cshtml[](index/sample/RazorPagesContacts2/Pages/Customers/CreateFATH.cshtml?highlight=12-13)]
 
@@ -565,7 +563,7 @@ services.AddMvc()
     .WithRazorPagesRoot("/path/to/razor/pages");
 ```
 
-## <a name="additional-resources"></a>その他のリソース
+## <a name="additional-resources"></a>その他の技術情報
 
 * <xref:index>
 * <xref:mvc/views/razor>

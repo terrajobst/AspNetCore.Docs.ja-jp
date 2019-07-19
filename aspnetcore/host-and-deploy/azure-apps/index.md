@@ -5,14 +5,14 @@ description: この記事には、Azure のホストと展開リソースへの�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/28/2019
+ms.date: 07/16/2019
 uid: host-and-deploy/azure-apps/index
-ms.openlocfilehash: 5daefde13310ebeb232ef4c8886b12ad78182e50
-ms.sourcegitcommit: f5762967df3be8b8c868229e679301f2f7954679
+ms.openlocfilehash: bbdb3e92b6b8afb44d9c0c95c240002c7b7c17db
+ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/13/2019
-ms.locfileid: "67048245"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68308157"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>Azure App Service に ASP.NET Core アプリを展開する
 
@@ -48,7 +48,7 @@ Azure アプリのプラットフォームで適用される Azure App Service �
 
 ::: moniker range=">= aspnetcore-2.2"
 
-64 ビット (x64) と 32 ビット (x86) アプリ用のランタイムは、Azure App Service 上に存在します。 App Service で使用できる [.NET Core SDK](/dotnet/core/sdk) は 32 ビットですが、[Kudu](https://github.com/projectkudu/kudu/wiki) コンソールまたは [Visual Studio 発行プロファイルや CLI コマンドを使用した MSDeploy](xref:host-and-deploy/visual-studio-publish-profiles) により 64 ビット アプリをデプロイすることができます。
+64 ビット (x64) と 32 ビット (x86) アプリ用のランタイムは、Azure App Service 上に存在します。 App Service で使用できる [.NET Core SDK](/dotnet/core/sdk) は 32 ビットですが、[Kudu](https://github.com/projectkudu/kudu/wiki) コンソールまたは Visual Studio の発行プロセスを使用すれば、ローカルでビルドされた 64 ビット アプリを展開できます。 詳細については、「[アプリを発行および配置する](#publish-and-deploy-the-app)」セクションを参照してください。
 
 ::: moniker-end
 
@@ -57,6 +57,8 @@ Azure アプリのプラットフォームで適用される Azure App Service �
 ネイティブの依存関係を含むアプリのため、32 ビット (x86) アプリ用のランタイムが Azure App Service 上に存在します。 App Service で使用できる [.NET Core SDK](/dotnet/core/sdk) は 32 ビットです。
 
 ::: moniker-end
+
+.Net Core ランタイムおよび .NET Core SDK に関する情報など、.NET Core フレームワーク コンポーネントおよび配布メソッドの詳細については、[.NET Core: コンポジション](/dotnet/core/about#composition)に関するページを参照してください。
 
 ### <a name="packages"></a>パッケージ
 
@@ -80,7 +82,7 @@ Azure Portal でアプリの設定が作成または変更され、 **[保存]**
 
 ::: moniker-end
 
-::: moniker range=">= aspnetcore-2.0 <= aspnetcore-2.2"
+::: moniker range="< aspnetcore-3.0"
 
 アプリが [WebHost.CreateDefaultBuilder](/dotnet/api/microsoft.aspnetcore.webhost.createdefaultbuilder) を使用してホストをビルドする場合、ホストを構成する環境変数では `ASPNETCORE_` プレフィックスが使用されます。 詳細については、<xref:fundamentals/host/web-host> および「[Environment Variables Configuration Provider](xref:fundamentals/configuration/index#environment-variables-configuration-provider)」(環境変数構成プロバイダー) をご覧ください。
 
@@ -115,7 +117,7 @@ HTTP 状態コード、失敗した要求、Web サーバー アクティビテ�
 <xref:fundamentals/error-handling>  
 ASP.NET Core アプリでエラーを処理するための一般的な手法について理解します。
 
-<xref:host-and-deploy/azure-apps/troubleshoot>  
+<xref:test/troubleshoot-azure-iis>  
 ASP.NET Core アプリを使用した Azure App Service の配置に関する問題を診断する方法を説明します。
 
 <xref:host-and-deploy/azure-iis-errors-reference>  
@@ -132,14 +134,14 @@ Azure App Service/IIS によってホストされるアプリの一般的な配�
 * SQL ストア
 * Redis Cache
 
-詳細については、「<xref:security/data-protection/implementation/key-storage-providers>」を参照してください。
+詳細については、<xref:security/data-protection/implementation/key-storage-providers> を参照してください。
 
 ## <a name="deploy-aspnet-core-preview-release-to-azure-app-service"></a>Azure App Service に ASP.NET Core プレビュー リリースを展開する
 
-次の方法のいずれかを使用します。
+アプリが .NET Core のプレビュー リリースに依存している場合は、次のいずれかの方法を使用します。
 
 * [プレビュー サイト拡張機能をインストールする](#install-the-preview-site-extension)
-* [自己完結型アプリを展開する](#deploy-the-app-self-contained)
+* [自己完結型のプレビュー アプリを展開する](#deploy-a-self-contained-preview-app)。
 * [コンテナー用の Web アプリで Docker を使用する](#use-docker-with-web-apps-for-containers)
 
 ### <a name="install-the-preview-site-extension"></a>プレビュー サイト拡張機能をインストールする
@@ -188,7 +190,7 @@ ARM テンプレートを使用してアプリを作成し、展開する場合�
 
 [!code-json[](index/sample/arm.json?highlight=2)]
 
-### <a name="deploy-the-app-self-contained"></a>自己完結型アプリを展開する
+### <a name="deploy-a-self-contained-preview-app"></a>自己完結型のプレビュー アプリを展開する
 
 プレビュー ランタイムを対象とする[自己完結型の展開 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) では、展開でプレビュー ランタイムを保持します。
 
@@ -197,9 +199,59 @@ ARM テンプレートを使用してアプリを作成し、展開する場合�
 * Azure App Service のサイトには、[プレビュー サイト拡張機能](#install-the-preview-site-extension)は必要ありません。
 * アプリは、[フレームワークに依存する展開 (FDD)](/dotnet/core/deploying#framework-dependent-deployments-fdd) に発行するときとは異なる方法に従って、発行される必要があります。
 
-#### <a name="publish-from-visual-studio"></a>Visual Studio からの発行
+「[自己完結型アプリを展開する](#deploy-the-app-self-contained)」セクションのガイダンスに従ってください。
 
-1. Visual Studio ツール バーから **[ビルド]**  >  **[発行 {アプリケーション名}]** の順に選択します。
+### <a name="use-docker-with-web-apps-for-containers"></a>コンテナー用の Web アプリで Docker を使用する
+
+[Docker Hub](https://hub.docker.com/r/microsoft/aspnetcore/) には最新のプレビュー Docker イメージが含まれています。 イメージを基本イメージとして使用できます。 通常は、イメージを使用して、Web App for Containers に展開します。
+
+## <a name="publish-and-deploy-the-app"></a>アプリを発行および配置する
+
+### <a name="deploy-the-app-framework-dependent"></a>フレームワークに依存するアプリを展開する
+
+::: moniker range=">= aspnetcore-2.2"
+
+64 ビットの[フレームワークに依存する展開](/dotnet/core/deploying/#framework-dependent-deployments-fdd)の場合:
+
+* 64 ビットのアプリをビルドするには、64 ビットの .NET Core SDK を使用します。
+* App Service の **[構成]**  >  **[全般設定]** で、 **[プラットフォーム]** を **[64 ビット]** に設定します。 アプリでは、プラットフォームのビット数の選択を有効にするために、Basic 以上のサービス プランを使用する必要があります。
+
+::: moniker-end
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+1. Visual Studio ツールバーから **[ビルド]**  >  **[発行 {アプリケーション名}]** を選択するか、**ソリューション エクスプローラー**でプロジェクトを右クリックして、 **[発行]** を選択します。
+1. **[発行先を選択]** ダイアログで、 **[App Service]** が選択されていることを確認します。
+1. **[詳細]** を選択します。 **[発行]** ダイアログが開きます。
+1. **[発行]** ダイアログで、次の操作を行います。
+   * **[リリース]** の構成が選択されていることを確認します。
+   * **[展開モード]** ドロップダウン リストを開き、 **[フレームワーク依存]** を選択します。
+   * **[ターゲット ランタイム]** として **[ポータブル]** を選択します。
+   * 展開時に追加のファイルを削除する場合、 **[ファイル発行オプション]** を開いて、転送先で追加のファイルを削除するチェック ボックスを選択します。
+   * **[保存]** を選択します。
+1. 発行ウィザードの残りのメッセージに従って、新しいサイトを作成するか、既存のサイトを更新します。
+
+# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
+
+1. プロジェクト ファイルで、[ランタイム識別子 (RID)](/dotnet/core/rid-catalog) を指定しないでください。
+
+1. コマンド シェルから [dotnet publish](/dotnet/core/tools/dotnet-publish) コマンドを使って、リリースの構成でアプリを発行します。 次の例では、アプリがフレームワークに依存するアプリとして公開されています。
+
+   ```console
+   dotnet publish --configuration Release
+   ```
+
+1. *bin/Release/{TARGET FRAMEWORK}/publish* ディレクトリのコンテンツを App Service のサイトに移動します。 *publush* フォルダーの内容をご利用のローカル ハード ドライブまたはネットワーク共有から直接 [Kudu](https://github.com/projectkudu/kudu/wiki) コンソールの App Service にドラッグする場合は、Kudu コンソールの `D:\home\site\wwwroot` フォルダーにファイルをドラッグします。
+
+---
+
+### <a name="deploy-the-app-self-contained"></a>自己完結型アプリを展開する
+
+[自己完結型の展開 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) には、Visual Studio またはコマンドライン インターフェイス (CLI) ツールを使用します。
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+1. Visual Studio ツールバーから **[ビルド]**  >  **[発行 {アプリケーション名}]** を選択するか、**ソリューション エクスプローラー**でプロジェクトを右クリックして、 **[発行]** を選択します。
 1. **[発行先を選択]** ダイアログで、 **[App Service]** が選択されていることを確認します。
 1. **[詳細]** を選択します。 **[発行]** ダイアログが開きます。
 1. **[発行]** ダイアログで、次の操作を行います。
@@ -210,13 +262,13 @@ ARM テンプレートを使用してアプリを作成し、展開する場合�
    * **[保存]** を選択します。
 1. 発行ウィザードの残りのメッセージに従って、新しいサイトを作成するか、既存のサイトを更新します。
 
-#### <a name="publish-using-command-line-interface-cli-tools"></a>コマンドライン インターフェイス (CLI) ツールを使用して発行する
+# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
 
 1. プロジェクト ファイルで、1 つまたは複数の[ランタイムの識別子 (RID)](/dotnet/core/rid-catalog) を指定します。 単一の RID に `<RuntimeIdentifier>` (単数形) を使用するか、`<RuntimeIdentifiers>` (複数形) を使用して RID のセミコロン区切りのリストを提供します。 次に例では、`win-x86` RID が指定されています。
 
    ```xml
    <PropertyGroup>
-     <TargetFramework>netcoreapp2.1</TargetFramework>
+     <TargetFramework>{TARGET FRAMEWORK}</TargetFramework>
      <RuntimeIdentifier>win-x86</RuntimeIdentifier>
    </PropertyGroup>
    ```
@@ -227,11 +279,9 @@ ARM テンプレートを使用してアプリを作成し、展開する場合�
    dotnet publish --configuration Release --runtime win-x86
    ```
 
-1. *bin/Release/{TARGET FRAMEWORK}/{RUNTIME IDENTIFIER}/publish* ディレクトリのコンテンツを App Service のサイトに移動します。
+1. *bin/Release/{TARGET FRAMEWORK}/{RUNTIME IDENTIFIER}/publish* ディレクトリのコンテンツを App Service のサイトに移動します。 *publush* フォルダーの内容をご利用のローカル ハード ドライブまたはネットワーク共有から直接 Kudu コンソールの App Service にドラッグする場合は、Kudu コンソールの `D:\home\site\wwwroot` フォルダーにファイルをドラッグします。
 
-### <a name="use-docker-with-web-apps-for-containers"></a>コンテナー用の Web アプリで Docker を使用する
-
-[Docker Hub](https://hub.docker.com/r/microsoft/aspnetcore/) には最新のプレビュー Docker イメージが含まれています。 イメージを基本イメージとして使用できます。 通常は、イメージを使用して、Web App for Containers に展開します。
+---
 
 ## <a name="protocol-settings-https"></a>プロトコル設定 (HTTPS)
 

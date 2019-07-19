@@ -534,6 +534,10 @@
       uid: grpc/aspnetcore
     - name: 構成
       uid: grpc/configuration
+    - name: 認証と承認
+      uid: grpc/authn-and-authz
+    - name: セキュリティの考慮事項
+      uid: grpc/security
     - name: C Core から ASP.NET Core に gRPC サービスを移行する
       uid: grpc/migration
     - name: HTTP API を使用した gRPC サービスの比較
@@ -560,6 +564,10 @@
       uid: test/troubleshoot
     - name: ログの記録
       uid: fundamentals/logging/index
+    - name: Azure と IIS のトラブルシューティング
+      uid: test/troubleshoot-azure-iis
+    - name: Azure と IIS のエラー リファレンス
+      uid: host-and-deploy/azure-iis-errors-reference
 - name: データ アクセス
   items:
     - name: チュートリアル
@@ -656,7 +664,7 @@
           uid: host-and-deploy/aspnet-core-module
         - name: トラブルシューティング
           displayName: 'azure, deploy, publish'
-          uid: host-and-deploy/azure-apps/troubleshoot
+          uid: test/troubleshoot-azure-iis
         - name: エラー リファレンス
           displayName: 'azure, deploy, publish'
           uid: host-and-deploy/azure-iis-errors-reference
@@ -697,7 +705,7 @@
           uid: host-and-deploy/iis/modules
         - name: トラブルシューティング
           displayName: 'deploy, publish'
-          uid: host-and-deploy/iis/troubleshoot
+          uid: test/troubleshoot-azure-iis
         - name: エラー リファレンス
           displayName: 'deploy, publish'
           uid: host-and-deploy/azure-iis-errors-reference
