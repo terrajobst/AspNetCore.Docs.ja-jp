@@ -70,8 +70,8 @@ Azure DevOps を使用してクラウドでオンプレミスまたは実行を�
 
 * [Apache JMeter](https://jmeter.apache.org/)
 * [ApacheBench (ab)](https://httpd.apache.org/docs/2.4/programs/ab.html)
-* [ガットリング](https://gatling.io/)
-* [上機嫌](https://locust.io/)
+* [Gatling](https://gatling.io/)
+* [Locust](https://locust.io/)
 * [West Wind WebSurge](https://websurge.west-wind.com/)
 * [Netling](https://github.com/hallatore/Netling)
 * [Vegeta](https://github.com/tsenart/vegeta)
