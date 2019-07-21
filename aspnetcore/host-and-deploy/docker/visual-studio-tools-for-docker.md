@@ -1,19 +1,19 @@
 ---
-title: Visual Studio Tools for Docker と ASP.NET Core
+title: Visual Studio コンテナー ツールと ASP.NET Core
 author: spboyer
-description: Visual Studio 2017 ツールと Docker for Windows を使用して、ASP.NET Core アプリをコンテナー化する方法を説明します。
+description: Visual Studio ツールと Docker for Windows を使用して、ASP.NET Core アプリをコンテナー化する方法を説明します。
 ms.author: scaddie
 ms.custom: mvc
 ms.date: 09/12/2018
 uid: host-and-deploy/docker/visual-studio-tools-for-docker
-ms.openlocfilehash: b0d884fe2fe56f267ad70c388a08cd3fe6256364
-ms.sourcegitcommit: 6afe57fb8d9055f88fedb92b16470398c4b9b24a
+ms.openlocfilehash: 5faf0be19448d8272901bf018357da63bbe22d4b
+ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/14/2019
-ms.locfileid: "65610381"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68308069"
 ---
-# <a name="visual-studio-tools-for-docker-with-aspnet-core"></a>Visual Studio Tools for Docker と ASP.NET Core
+# <a name="visual-studio-container-tools-with-aspnet-core"></a>Visual Studio コンテナー ツールと ASP.NET Core
 
 Visual Studio 2017 以降のバージョンでは、.NET Core をターゲットとするコンテナー化された ASP.NET Core アプリのビルド、デバッグ、実行がサポートされています。 Windows と Linux の両方のコンテナーがサポートされます。
 
@@ -56,7 +56,7 @@ ASP.NET Core プロジェクトをコンテナー化するには、プロジェ�
 * **[プロジェクト]** メニューから **[Docker サポート]** を選択します。
 * **ソリューション エクスプローラー**でプロジェクトを右クリックして、 **[追加]**  >  **[Docker サポート]** の順に選択します。
 
-Visual Studio Tools for Docker では、.NET Framework をターゲットとする既存の ASP.NET Core プロジェクトへの Docker の追加はサポートされません。
+Visual Studio コンテナー ツールでは、.NET Framework をターゲットとする既存の ASP.NET Core プロジェクトへの Docker の追加はサポートされません。
 
 ## <a name="dockerfile-overview"></a>Dockerfile の概要
 
@@ -88,7 +88,7 @@ Visual Studio 2017 バージョン 15.8 以降では、指示された場合に�
 
 ### <a name="docker-compose"></a>Docker Compose
 
-Visual Studio Tools for Docker では、ソリューションに *docker-compose* プロジェクトを追加します。これには以下のファイルが含まれます。
+Visual Studio コンテナー ツールでは、ソリューションに *docker-compose* プロジェクトを追加します。これには以下のファイルが含まれます。
 
 * *docker-compose.dcproj* &ndash;プロジェクトを表すファイル。 使用する OS を指定する `<DockerTargetOS>` 要素が含まれます。
 * *.dockerignore* &ndash; ビルド コンテキストを生成するときに除外するファイルとディレクトリのパターンが一覧表示されます。
@@ -116,7 +116,7 @@ Visual Studio Tools for Docker では、ソリューションに *docker-compose
 
 Service Fabric では、Windows 上のローカル開発クラスターでの Linux コンテナーの実行はサポートされません。 プロジェクトで既に Linux コンテナーが使用されている場合は、Visual Studio で Windows コンテナーに切り替えるよう求められます。
 
-Visual Studio Tools for Docker では、次のタスクを行います。
+Visual Studio コンテナーツールでは、次のタスクを実行します。
 
 * *&lt;プロジェクト名&gt;アプリケーション* **Service Fabric アプリケーション** プロジェクトをソリューションに追加します。
 * *Dockerfile* と *.dockerignore* ファイルを ASP.NET Core プロジェクトに追加します。 *Dockerfile* が既に ASP.NET Core プロジェクトに存在する場合は、名前が *Dockerfile.original* に変更されます。 次のような、新しい *Dockerfile* が作成されます。
@@ -194,7 +194,7 @@ baf9a678c88d        hellodockertools:dev   "C:\\remote_debugge..."   10 minutes 
 
 ## <a name="publish-docker-images"></a>Docker イメージの発行
 
-アプリの開発とデバッグのサイクルが完了したら、Visual Studio Tools for Docker でアプリの実稼働イメージを作成できます。 構成ドロップダウンを **[リリース]** に変更し、アプリを構築します。 ツールは、Docker Hub からコンパイル/発行イメージを取得します (まだキャッシュに存在しない場合)。 イメージは、プライベート レジストリまたは Docker Hub にプッシュできる *latest* タグ付きで生成されます。
+アプリの開発とデバッグのサイクルが完了したら、Visual Studio コンテナーツールでアプリの実稼働イメージを作成できます。 構成ドロップダウンを **[リリース]** に変更し、アプリを構築します。 ツールは、Docker Hub からコンパイル/発行イメージを取得します (まだキャッシュに存在しない場合)。 イメージは、プライベート レジストリまたは Docker Hub にプッシュできる *latest* タグ付きで生成されます。
 
 PMC で `docker images` コマンドを実行して、イメージの一覧を表示します。 次のような出力が表示されます。
 
@@ -234,5 +234,5 @@ microsoft/aspnetcore        2.0     c69d39472da9  13 days ago     347MB
 * [Visual Studio によるコンテナー開発](/visualstudio/containers)
 * [Azure Service Fabric:開発環境を準備する](/azure/service-fabric/service-fabric-get-started)
 * [Windows コンテナー内の .NET アプリケーションを Azure Service Fabric にデプロイする](/azure/service-fabric/service-fabric-host-app-in-a-container)
-* [Docker を使用した Visual Studio 2017 開発のトラブルシューティング](/azure/vs-azure-tools-docker-troubleshooting-docker-errors)
-* [Visual Studio Tools for Docker の GitHub リポジトリ](https://github.com/Microsoft/DockerTools)
+* [Docker を使用した Visual Studio 開発のトラブルシューティング](/azure/vs-azure-tools-docker-troubleshooting-docker-errors)
+* [Visual Studio コンテナー ツールの GitHub リポジトリ](https://github.com/Microsoft/DockerTools)

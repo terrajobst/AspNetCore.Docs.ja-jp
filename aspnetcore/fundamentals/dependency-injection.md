@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/09/2019
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: 1455aa9ce4ea24eaeb396134f91b6d089b346c17
-ms.sourcegitcommit: bee530454ae2b3c25dc7ffebf93536f479a14460
+ms.openlocfilehash: 9293de38dcca1c0672f9cc3defa8d3c1b0b13d5a
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/10/2019
-ms.locfileid: "67724438"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67855898"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>ASP.NET Core での依存関係の挿入
 
@@ -95,7 +95,7 @@ services.AddSingleton(typeof(ILogger<T>), typeof(Logger<T>));
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Startup.cs?name=snippet1&highlight=5)]
 
 > [!NOTE]
-> 各 `services.Add{SERVICE_NAME}` 拡張メソッドは、サービスを追加 (および場合によっては構成) します。 たとえば、`services.AddMvc()` はサービスの Razor Pages と必須の MVC を追加します。 アプリをこの規則に従わせることをお勧めします。 拡張メソッドを <xref:Microsoft.Extensions.DependencyInjection?displayProperty=fullName> 名前空間に配置して、サービス登録のグループをカプセル化します。
+> 各 `services.Add{SERVICE_NAME}` 拡張メソッドは、サービスを追加 (および場合によっては構成) します。 たとえば、`services.AddMvc()` はサービスの Razor Pages と必須の MVC を追加します。 アプリをこの規則に従わせることをお勧めします。 拡張メソッドを [Microsoft.Extensions.DependencyInjection](/dotnet/api/microsoft.extensions.dependencyinjection) 名前空間に配置して、サービス登録のグループをカプセル化します。
 
 サービスのコンストラクターで[ビルトイン型](/dotnet/csharp/language-reference/keywords/built-in-types-table) (`string` など) が必要な場合は、[構成](xref:fundamentals/configuration/index)や[オプション パターン](xref:fundamentals/configuration/options)を使って型を挿入することができます。
 
@@ -140,7 +140,7 @@ public class MyDependency : IMyDependency
 | <xref:System.Diagnostics.DiagnosticSource?displayProperty=fullName> | シングルトン |
 | <xref:System.Diagnostics.DiagnosticListener?displayProperty=fullName> | シングルトン |
 
-サービス (および必要であればサービスが依存するサービス) を登録するためにサービス コレクションの拡張メソッドを使用できる場合は、1 つの `Add{SERVICE_NAME}` 拡張メソッドを使用してそのサービスが必要とするすべてのサービスを登録することが規則です。 次のコードは、拡張メソッド <xref:Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContext*>、<xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions.AddIdentityCore*>、および <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddMvc*> を使用して、コンテナーに追加のサービスを追加する方法の例です。
+サービス (および必要であればサービスが依存するサービス) を登録するためにサービス コレクションの拡張メソッドを使用できる場合は、1 つの `Add{SERVICE_NAME}` 拡張メソッドを使用してそのサービスが必要とするすべてのサービスを登録することが規則です。 次のコードは、拡張メソッド [AddDbContext\<TContext>](/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext)、<xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions.AddIdentityCore*>、<xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddMvc*> を使用して、コンテナーに追加のサービスを追加する方法の例です。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -242,7 +242,7 @@ services.TryAddEnumerable(ServiceDescriptor.Singleton<IMyDep1, MyDep>());
 
 ## <a name="entity-framework-contexts"></a>Entity Framework コンテキスト
 
-Entity Framework コンテキストでは通常、[範囲が指定された有効期間](#service-lifetimes)が利用され、サービス コンテナーに追加されます。これは、Web アプリ データベース操作は通常、その範囲がクライアント要求に設定されるためです。 データベース コンテキストの登録時、<xref:Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContext*> オーバーロードによって有効期間が指定されなかった場合、既定の有効期間が範囲となります。 有効期間が与えられたサービスの場合、サービスより有効期間が短いデータベース コンテキストを使用できません。
+Entity Framework コンテキストでは通常、[範囲が指定された有効期間](#service-lifetimes)が利用され、サービス コンテナーに追加されます。これは、Web アプリ データベース操作は通常、その範囲がクライアント要求に設定されるためです。 データベース コンテキストの登録時、[AddDbContext\<TContext>](/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext) オーバーロードによって有効期間が指定されなかった場合、既定の有効期間が範囲となります。 有効期間が与えられたサービスの場合、サービスより有効期間が短いデータベース コンテキストを使用できません。
 
 ## <a name="lifetime-and-registration-options"></a>有効期間と登録のオプション
 

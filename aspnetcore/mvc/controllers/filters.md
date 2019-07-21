@@ -4,14 +4,14 @@ author: ardalis
 description: フィルターのしくみと ASP.NET Core でそれを使用する方法について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 5/08/2019
+ms.date: 05/08/2019
 uid: mvc/controllers/filters
-ms.openlocfilehash: cdf121b97396cb23103d49cd141b9ef19b8c0cc6
-ms.sourcegitcommit: e1623d8279b27ff83d8ad67a1e7ef439259decdf
+ms.openlocfilehash: 50b199744f32ad19335080da406db69665ec1ae9
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/25/2019
-ms.locfileid: "66223031"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67856153"
 ---
 # <a name="filters-in-aspnet-core"></a>ASP.NET Core フィルター
 
@@ -259,7 +259,7 @@ Razor Pages の場合、「[フィルター メソッドをオーバーライド
 
 [!code-csharp[](./filters/sample/FiltersSample/Controllers/HomeController.cs?name=snippet_ServiceFilter&highlight=1)]
 
-[ServiceFilterAttribute.IsReusable](xref:Microsoft.AspNetCore.Mvc.ServiceFilterAttribute.IsReusable):
+`ServiceFilterAttribute` を使用するときに、[ServiceFilterAttribute.IsReusable](xref:Microsoft.AspNetCore.Mvc.ServiceFilterAttribute.IsReusable) を設定します。
 
 * フィルター インスタンスが、それが作成された要求範囲の外で再利用される*可能性がある*ことを示唆します。 ASP.NET Core ランタイムで保証されないこと:
 
@@ -279,7 +279,10 @@ Razor Pages の場合、「[フィルター メソッドをオーバーライド
 * `TypeFilterAttribute` を利用して参照される型は、DI コンテナーに登録する必要がありません。  DI コンテナーによって依存関係が満たされています。
 * `TypeFilterAttribute` は必要に応じて、型のコンストラクター引数を受け取ることができます。
 
-`TypeFilterAttribute` を使用する場合、`IsReusable` を設定すると、フィルター インスタンスが作成された要求の範囲外で再利用できる*可能性*があることのヒントになります。 ASP.NET Core ランタイムでは、フィルターの 1 インスタンスが作成されるという保証はありません。 シングルトン以外で有効期間があるサービスに依存するフィルターと共に `IsReusable` を使用しないでください。
+`TypeFilterAttribute` を使用するときに、[TypeFilterAttribute.IsReusable](xref:Microsoft.AspNetCore.Mvc.TypeFilterAttribute.IsReusable) を設定します。
+* フィルター インスタンスが、それが作成された要求範囲の外で再利用される*可能性がある*ことを示唆します。 ASP.NET Core ランタイムでは、フィルターの 1 インスタンスが作成されるという保証はありません。
+
+* シングルトン以外で有効期間があるサービスに依存するフィルターと共に使用しないでください。
 
 次の例は、`TypeFilterAttribute` を使用して、型に引数を渡す方法を示しています。
 

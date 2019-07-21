@@ -4,14 +4,14 @@ author: rick-anderson
 description: 静的ファイルを提供したり、それをセキュリティで保護したりする方法、および ASP.NET Core Web アプリで静的ファイルをホストするミドルウェアの動作を構成する方法について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/08/2019
+ms.date: 07/8/2019
 uid: fundamentals/static-files
-ms.openlocfilehash: bcd179bd89b90d80fc81645b24296a1fa70cca0a
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 1c665d1206e984fe41e9f57bb5356839c354dde2
+ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64888387"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68308192"
 ---
 # <a name="static-files-in-aspnet-core"></a>ASP.NET Core の静的ファイル
 
@@ -23,7 +23,7 @@ HTML、CSS、画像、JavaScript などの静的ファイルは、ASP.NET Core �
 
 ## <a name="serve-static-files"></a>静的ファイルの提供
 
-静的ファイルは、プロジェクトの Web ルート ディレクトリ内に格納されています。 既定のディレクトリは、*\<content_root>/wwwroot* ですが、[UseWebRoot](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.usewebroot#Microsoft_AspNetCore_Hosting_HostingAbstractionsWebHostBuilderExtensions_UseWebRoot_Microsoft_AspNetCore_Hosting_IWebHostBuilder_System_String_) メソッドを使用して変更することができます。 詳細については、「[コンテンツ ルート](xref:fundamentals/index#content-root)」および「[Web ルート](xref:fundamentals/index#web-root)」を参照してください。
+静的ファイルは、プロジェクトの Web ルート ディレクトリ内に格納されています。 既定のディレクトリは、 *\<content_root>/wwwroot* ですが、[UseWebRoot](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.usewebroot#Microsoft_AspNetCore_Hosting_HostingAbstractionsWebHostBuilderExtensions_UseWebRoot_Microsoft_AspNetCore_Hosting_IWebHostBuilder_System_String_) メソッドを使用して変更することができます。 詳細については、「[コンテンツ ルート](xref:fundamentals/index#content-root)」および「[Web ルート](xref:fundamentals/index#web-root)」を参照してください。
 
 アプリの Web ホストでは、コンテンツのルート ディレクトリが把握されている必要があります。
 
@@ -50,7 +50,7 @@ HTML、CSS、画像、JavaScript などの静的ファイルは、ASP.NET Core �
   * **images**
   * **js**
 
-*images* サブフォルダーのファイルにアクセスするための URI は、*http://\<server_address>/images/\<image_file_name>* です。 たとえば、*http://localhost:9189/images/banner3.svg* です。
+*images* サブフォルダーのファイルにアクセスするための URI は、*http://\<server_address>/images/\<image_file_name>* です。 たとえば、 *http://localhost:9189/images/banner3.svg* です。
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -220,11 +220,11 @@ app.UseFileServer(enableDirectoryBrowsing: true);
 
 ## <a name="fileextensioncontenttypeprovider"></a>FileExtensionContentTypeProvider
 
-[FileExtensionContentTypeProvider](/dotnet/api/microsoft.aspnetcore.staticfiles.fileextensioncontenttypeprovider) クラスには、MIME コンテンツ タイプへのファイル拡張子のマッピングを行う `Mappings` プロパティが含まれます。 次の例では、いくつかのファイル拡張子は、既知の MIME タイプに登録されています。 *.rtf* 拡張子は置換され、*.mp4* は削除されています。
+[FileExtensionContentTypeProvider](/dotnet/api/microsoft.aspnetcore.staticfiles.fileextensioncontenttypeprovider) クラスには、MIME コンテンツ タイプへのファイル拡張子のマッピングを行う `Mappings` プロパティが含まれます。 次の例では、いくつかのファイル拡張子は、既知の MIME タイプに登録されています。 *.rtf* 拡張子は置換され、 *.mp4* は削除されています。
 
 [!code-csharp[](static-files/samples/1x/StartupFileExtensionContentTypeProvider.cs?name=snippet_ConfigureMethod&highlight=3-12,19)]
 
-「[MIME content types](http://www.iana.org/assignments/media-types/media-types.xhtml)」 (MIME コンテンツ タイプ) を参照してください。
+「[MIME content types](https://www.iana.org/assignments/media-types/media-types.xhtml)」 (MIME コンテンツ タイプ) を参照してください。
 
 ## <a name="non-standard-content-types"></a>非標準のコンテンツ タイプ
 
@@ -242,7 +242,7 @@ app.UseFileServer(enableDirectoryBrowsing: true);
 ### <a name="considerations"></a>注意事項
 
 > [!WARNING]
-> `UseDirectoryBrowser` と `UseStaticFiles` では、機密データが漏洩することがあります。 本番では、ディレクトリ参照を無効にすることが、強く推奨されます。 `UseStaticFiles` や `UseDirectoryBrowser` でどのディレクトリが有効になっているか、慎重にご確認ください。 ディレクトリ全体とそのサブディレクトリが、パブリックにアクセス可能になります。 ファイルは、パブリックに提供するのに適した、*\<content_root>/wwwroot* などの専用ディレクトリに格納します。 これらのファイルは、MVC ビュー、Razor ページ (2.x のみ)、構成ファイルなどとは別にします。
+> `UseDirectoryBrowser` と `UseStaticFiles` では、機密データが漏洩することがあります。 本番では、ディレクトリ参照を無効にすることが、強く推奨されます。 `UseStaticFiles` や `UseDirectoryBrowser` でどのディレクトリが有効になっているか、慎重にご確認ください。 ディレクトリ全体とそのサブディレクトリが、パブリックにアクセス可能になります。 ファイルは、パブリックに提供するのに適した、 *\<content_root>/wwwroot* などの専用ディレクトリに格納します。 これらのファイルは、MVC ビュー、Razor ページ (2.x のみ)、構成ファイルなどとは別にします。
 
 * `UseDirectoryBrowser` と `UseStaticFiles` で公開されるコンテンツの URL では、大文字と小文字が区別され、基になるファイル システムの文字制限の影響を受けます。 たとえば、Windows では大文字小文字は区別されますが、macOS と Linux ではされません。
 
@@ -251,12 +251,12 @@ app.UseFileServer(enableDirectoryBrowsing: true);
 * IIS マネージャーで次の手順を実行し、サーバーまたは Web サイト レベルで IIS の静的ファイル ハンドラーを削除します。
     1. **[モジュール]** 機能に移動します。
     1. 一覧の **[StaticFileModule]** を選択します。
-    1. **[アクション]** サイドバーで、**[削除]** をクリックします。
+    1. **[アクション]** サイドバーで、 **[削除]** をクリックします。
 
 > [!WARNING]
 > IIS の静的ファイル ハンドラーが有効になっており、**かつ**、ASP.NET Core モジュールが正しく構成されていない場合、静的ファイルにサービスが提供されます。 これは、たとえば、*web.config* ファイルが配置されていない場合などで発生します。
 
-* アプリ プロジェクトの Web ルートの外に、(*.cs* と *.cshtml* を含む) コード ファイルを配置します。 これにより、アプリのクライアント側コンテンツとサーバー ベースのコードの間で、論理的な分離が作成されます。 これによって、サーバー側のコードが漏洩するのを防ぎます。
+* アプリ プロジェクトの Web ルートの外に、( *.cs* と *.cshtml* を含む) コード ファイルを配置します。 これにより、アプリのクライアント側コンテンツとサーバー ベースのコードの間で、論理的な分離が作成されます。 これによって、サーバー側のコードが漏洩するのを防ぎます。
 
 ## <a name="additional-resources"></a>その他の技術情報
 

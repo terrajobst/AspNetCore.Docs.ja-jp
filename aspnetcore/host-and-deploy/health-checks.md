@@ -5,14 +5,14 @@ description: アプリやデータベースなど、ASP.NET Core インフラス
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/23/2019
+ms.date: 07/11/2019
 uid: host-and-deploy/health-checks
-ms.openlocfilehash: 5119267a8da5c950989b14b7c2e818aa22806506
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 43b6c3b55170eaf3a989d0f2779edac5290df823
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64887927"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67855906"
 ---
 # <a name="health-checks-in-aspnet-core"></a>ASP.NET Core の正常性チェック
 
@@ -666,7 +666,7 @@ Task PublishAsync(HealthReport report, CancellationToken cancellationToken);
 ::: moniker range="= aspnetcore-2.2"
 
 > [!NOTE]
-> 1 つ以上の他のホステッド サービスが既にアプリに追加されている場合、次の回避策により <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> インスタンスをサービス コンテナーに追加することができます。 この回避策は、ASP.NET Core 3.0 のリリースと共に必要なくなります。 詳細については、「 https://github.com/aspnet/Extensions/issues/639」を参照してください。
+> 1 つ以上の他のホステッド サービスが既にアプリに追加されている場合、次の回避策により <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> インスタンスをサービス コンテナーに追加することができます。 この回避策は、ASP.NET Core 3.0 のリリースと共に必要なくなります。 詳細については、「 https://github.com/aspnet/Extensions/issues/639 」を参照してください。
 >
 > ```csharp
 > private const string HealthCheckServiceAssembly =
@@ -684,3 +684,20 @@ Task PublishAsync(HealthReport report, CancellationToken cancellationToken);
 > [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) には、[Application Insights](/azure/application-insights/app-insights-overview) など、いくつかのシステムのパブリッシャーが含まれます。
 >
 > [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) は [BeatPulse](https://github.com/xabaril/beatpulse) の 1 つのポートであり、マイクロソフトによる保守やサポートは行われません。
+
+## <a name="restrict-health-checks-with-mapwhen"></a>MapWhen で正常性チェックを制限する
+
+<xref:Microsoft.AspNetCore.Builder.MapWhenExtensions.MapWhen*> を使用して、正常性チェック エンドポイントの要求パイプラインを条件付きで分岐します。
+
+次の例では、`api/HealthCheck` エンドポイントに対して GET 要求が受信された場合に、`MapWhen` が要求パイプラインを分岐して正常性チェック ミドルウェアをアクティブ化します。
+
+```csharp
+app.MapWhen(
+    context => context.Request.Method == HttpMethod.Get.Method && 
+        context.Request.Path.StartsWith("/api/HealthCheck"),
+    builder => builder.UseHealthChecks());
+
+app.UseMvc();
+```
+
+詳細については、<xref:fundamentals/middleware/index#use-run-and-map> を参照してください。

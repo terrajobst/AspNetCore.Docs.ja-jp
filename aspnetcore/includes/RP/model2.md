@@ -2,7 +2,7 @@
 
 ### <a name="add-a-database-context-class"></a>データベース コンテキスト クラスの追加
 
-次の `RazorPagesMovieContext` クラスを *Models* フォルダーに追加します。
+次の `RazorPagesMovieContext` クラスを *Data* フォルダーに追加します。
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Data/RazorPagesMovieContext.cs)]
 
@@ -12,7 +12,7 @@
 
 ### <a name="add-a-database-connection-string"></a>データベース接続文字列の追加
 
-*appsettings.json* ファイルに接続文字列を追加します。
+次の強調表示されたコードに示されているように、*appsettings.json* ファイルに接続文字列を追加します。
 
 [!code-json[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie/appsettings_SQLite.json?highlight=8-10)]
 

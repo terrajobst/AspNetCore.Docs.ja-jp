@@ -5,14 +5,14 @@ description: ASP.NET Core アプリでエラーを処理する方法について
 monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 05/03/2019
+ms.date: 07/10/2019
 uid: fundamentals/error-handling
-ms.openlocfilehash: 6b92cb6b68b1c70d67f42284d548729e598f9a8b
-ms.sourcegitcommit: c5339594101d30b189f61761275b7d310e80d18a
+ms.openlocfilehash: f9f91455b273b99608ca6f1524df6cb748a26669
+ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/02/2019
-ms.locfileid: "66458440"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68308204"
 ---
 # <a name="handle-errors-in-aspnet-core"></a>ASP.NET Core のエラーを処理する
 
@@ -204,7 +204,7 @@ if (statusCodePagesFeature != null)
 * dotnet プロセスがクラッシュします。
 * HTTP サーバーが [Kestrel](xref:fundamentals/servers/kestrel) のときは、エラー ページは表示されません。
 
-[IIS](/iis) または [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 上で実行している場合、プロセスを開始できなければ、[ASP.NET Core モジュール](xref:host-and-deploy/aspnet-core-module)から "*502.5 - 処理エラー*" が返されます。 詳細については、「<xref:host-and-deploy/iis/troubleshoot>」を参照してください。 Azure App Service での起動の問題のトラブルシューティングについては、<xref:host-and-deploy/azure-apps/troubleshoot> を参照してください。
+[IIS](/iis) (または Azure App Service) または [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) 上で実行している場合、プロセスを開始できなければ、[ASP.NET Core モジュール](xref:host-and-deploy/aspnet-core-module)から "*502.5 - 処理エラー*" が返されます。 詳細については、<xref:test/troubleshoot-azure-iis> を参照してください。
 
 ## <a name="database-error-page"></a>データベース エラー ページ
 
@@ -219,7 +219,7 @@ if (env.IsDevelopment())
 
 ## <a name="exception-filters"></a>例外フィルター
 
-MVC アプリでは、例外フィルターをグローバルに、またはコントローラーやアクションの単位で構成できます。 Razor Pages アプリでは、グローバルに、またはページ モデルの単位で構成できます。 このようなフィルターはコントローラー アクションや別のフィルターの実行中に発生する未処理の例外を処理します。 詳細については、「<xref:mvc/controllers/filters#exception-filters>」を参照してください。
+MVC アプリでは、例外フィルターをグローバルに、またはコントローラーやアクションの単位で構成できます。 Razor Pages アプリでは、グローバルに、またはページ モデルの単位で構成できます。 このようなフィルターはコントローラー アクションや別のフィルターの実行中に発生する未処理の例外を処理します。 詳細については、<xref:mvc/controllers/filters#exception-filters> を参照してください。
 
 > [!TIP]
 > 例外フィルターは、MVC アクション内で発生した例外をトラップする場合は便利ですが、例外処理ミドルウェアほど柔軟ではありません。 ミドルウェアの使用をお勧めします。 選択された MVC アクションに応じて異なる方法でエラー処理を実行する必要がある場合にのみ、フィルターを使用します。
@@ -230,6 +230,5 @@ MVC アプリでは、例外フィルターをグローバルに、またはコ�
 
 ## <a name="additional-resources"></a>その他の技術情報
 
+* <xref:test/troubleshoot-azure-iis>
 * <xref:host-and-deploy/azure-iis-errors-reference>
-* <xref:host-and-deploy/iis/troubleshoot>
-* <xref:host-and-deploy/azure-apps/troubleshoot>

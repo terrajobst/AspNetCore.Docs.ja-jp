@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/11/2019
 uid: host-and-deploy/blazor/server-side
-ms.openlocfilehash: 8b332c2fb439e9832d604ed26f972b266eed2507
-ms.sourcegitcommit: 9bb29f9ba6f0645ee8b9cabda07e3a5aa52cd659
+ms.openlocfilehash: 56a03ff583bf85497e2b3bacc70123845a046e3d
+ms.sourcegitcommit: 040aedca220ed24ee1726e6886daf6906f95a028
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/26/2019
-ms.locfileid: "67406120"
+ms.lasthandoff: 07/15/2019
+ms.locfileid: "67892696"
 ---
 # <a name="host-and-deploy-blazor-server-side"></a>サーバー側 Blazor をホストおよび展開する
 
@@ -26,7 +26,7 @@ ms.locfileid: "67406120"
 
 [サーバー側のホスティング モデル](xref:blazor/hosting-models#server-side)では、Blazor はサーバー上で ASP.NET Core アプリ内から実行されます。 UI の更新、イベント処理、JavaScript の呼び出しは、[SignalR](xref:signalr/introduction) 接続経由で処理されます。
 
-ASP.NET Core アプリをホストできる Web サーバーが必要です。 Visual Studio には **Blazor (サーバー側)** プロジェクト テンプレートが含まれています ([dotnet new](/dotnet/core/tools/dotnet-new) コマンドを使用する場合は `blazorserverside` テンプレート)。
+ASP.NET Core アプリをホストできる Web サーバーが必要です。 Visual Studio には **Blazor サーバー アプリ** プロジェクト テンプレートが含まれています ([dotnet new](/dotnet/core/tools/dotnet-new) コマンドを使用する場合は `blazorserverside` テンプレート)。
 
 ## <a name="connection-scale-out"></a>接続のスケールアウト
 
