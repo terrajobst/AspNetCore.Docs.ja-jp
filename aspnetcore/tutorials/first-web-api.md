@@ -4,14 +4,14 @@ author: rick-anderson
 description: ASP.NET Core で Web API をビルドする方法を学習します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/23/2019
+ms.date: 07/11/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: a53f7019c1079296f073e743ddbf9d90fc5abad3
-ms.sourcegitcommit: d6e51c60439f03a8992bda70cc982ddb15d3f100
+ms.openlocfilehash: 95410cef9753fbb0eda6136320b59682e0553ea7
+ms.sourcegitcommit: 040aedca220ed24ee1726e6886daf6906f95a028
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/03/2019
-ms.locfileid: "67555883"
+ms.lasthandoff: 07/15/2019
+ms.locfileid: "67893144"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>チュートリアル: ASP.NET Core で Web API を作成する
 
@@ -99,7 +99,7 @@ ms.locfileid: "67555883"
 
   ![macOS の新しいソリューション](first-web-api-mac/_static/sln.png)
 
-* **[.NET Core アプリ]** 、 >  **[ASP.NET Core Web API]** 、 >  **[次へ]** の順に選択します。
+* **[.NET Core]**  >  **[アプリ]**  >  **[API]**  >  **[次へ]** の順に選択します。
 
   ![macOS の [新しいプロジェクト] ダイアログ](first-web-api-mac/_static/1.png)
   
@@ -127,7 +127,7 @@ Ctrl キーを押しながら F5 キーを押して、アプリを実行しま�
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-**[実行]** 、 **[デバッグありで開始]** の順に選択してアプリを起動します。 Visual Studio for Mac でブラウザーが起動し、`https://localhost:<port>` にアクセスします。ここで、`<port>` はランダムに選択されたポート番号になります。 HTTP 404 (Not Found) エラーが返されます。 URL に `/api/values` を追加します (URL を `https://localhost:<port>/api/values` に変更します)。
+**[実行]**  >  **[デバッグの開始]** の順に選択してアプリを起動します。 Visual Studio for Mac でブラウザーが起動し、`https://localhost:<port>` にアクセスします。ここで、`<port>` はランダムに選択されたポート番号になります。 HTTP 404 (Not Found) エラーが返されます。 URL に `/api/values` を追加します (URL を `https://localhost:<port>/api/values` に変更します)。
 
 ---
 
@@ -245,6 +245,8 @@ To Do アイテムを取得する API を指定するには、`TodoController` �
 
 * `GET /api/todo`
 * `GET /api/todo/{id}`
+
+アプリがまだ実行中の場合は、停止します。 次に、それを再度実行して、最新の変更を含めます。
 
 ブラウザーからこれらの 2 つのエンドポイントを呼び出すことによって、アプリをテストします。 次に例を示します。
 

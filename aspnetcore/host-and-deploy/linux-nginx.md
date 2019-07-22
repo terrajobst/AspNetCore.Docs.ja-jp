@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/31/2019
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: 29b80b59f474f6a775d1eba315597e55e1e37781
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: d9db2a251820d0dab26f8a6bd2eb755090154165
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64884197"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67813346"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>Nginx 搭載の Linux で ASP.NET Core をホストする
 
@@ -104,7 +104,7 @@ services.Configure<ForwardedHeadersOptions>(options =>
 });
 ```
 
-詳細については、「<xref:host-and-deploy/proxy-load-balancer>」を参照してください。
+詳細については、<xref:host-and-deploy/proxy-load-balancer> を参照してください。
 
 ### <a name="install-nginx"></a>Nginx をインストールする
 
@@ -123,7 +123,7 @@ sudo service nginx start
 
 ### <a name="configure-nginx"></a>Nginx を構成する
 
-Nginx をリバース プロキシとして構成し、ASP.NET Core アプリに要求を転送するには、*/etc/nginx/sites-available/default* を変更します。 テキスト エディターで開き、中身を次のものに変更します。
+Nginx をリバース プロキシとして構成し、ASP.NET Core アプリに要求を転送するには、 */etc/nginx/sites-available/default* を変更します。 テキスト エディターで開き、中身を次のものに変更します。
 
 ```nginx
 server {
@@ -308,7 +308,7 @@ Linux Security Modules (LSM) は、Linux 2.6 以降の Linux カーネルに含�
 使用されていないすべての外部ポートを閉じます。 ufw (uncomplicated firewall/複雑ではないファイアウォール) は `iptables` のフロント エンドとなり、ファイアウォールを構成するためのコマンド ライン インターフェイスを提供します。
 
 > [!WARNING]
-> ファイアウォールが正しく構成されていない場合、システム全体にアクセスできません。 正しい SSH ポートを指定しないと、SSH を使用してシステムに接続する場合に、そのシステムから事実上閉め出されることになります。 既定のポートは 22 です。 詳細については、[ufw の概要](https://help.ubuntu.com/community/UFW)と[マニュアル](http://manpages.ubuntu.com/manpages/bionic/man8/ufw.8.html)を参照してください。
+> ファイアウォールが正しく構成されていない場合、システム全体にアクセスできません。 正しい SSH ポートを指定しないと、SSH を使用してシステムに接続する場合に、そのシステムから事実上閉め出されることになります。 既定のポートは 22 です。 詳細については、[ufw の概要](https://help.ubuntu.com/community/UFW)と[マニュアル](https://manpages.ubuntu.com/manpages/bionic/man8/ufw.8.html)を参照してください。
 
 `ufw` をインストールし、必要なすべてのポートでトラフィックを許可するように構成します。
 
@@ -341,7 +341,7 @@ static char ngx_http_server_full_string[] = "Server: Web Server" CRLF;
 
 **セキュリティで保護された (HTTPS) ローカル接続用にアプリを構成する**
 
-[dotnet run](/dotnet/core/tools/dotnet-run) コマンドでは、アプリの *Properties/launchSettings.json* ファイルが使用されます。このファイルでは、`applicationUrl` プロパティによって提供される URL でリッスンするように、アプリが構成されます (例: `https://localhost:5001; http://localhost:5000`)。
+[dotnet run](/dotnet/core/tools/dotnet-run) コマンドでは、アプリの *Properties/launchSettings.json* ファイルが使用されます。このファイルでは、`applicationUrl` プロパティによって提供される URL でリッスンするように、アプリが構成されます (例: `https://localhost:5001;http://localhost:5000`)。
 
 次のいずれかの方法を使用して、`dotnet run` コマンド用の開発または開発環境 (Visual Studio Code の F5 または Ctrl + F5 キー) で証明書を使用するように、アプリを構成します。
 
