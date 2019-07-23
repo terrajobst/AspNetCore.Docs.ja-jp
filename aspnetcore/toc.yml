@@ -192,7 +192,7 @@
       uid: fundamentals/http-requests
     - name: 静的ファイル
       uid: fundamentals/static-files
-    - name: コード ジェネレーター
+    - name: aspnet-codegenerator
       uid: fundamentals/tools/dotnet-aspnet-codegenerator
 - name: Web アプリ
   items:
