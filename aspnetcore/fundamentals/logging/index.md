@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 07/11/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: cdb5cad2302cc8ec02107021005b8590efce7533
-ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
+ms.openlocfilehash: 4fe677e69478284db2ccab655c35b5744b6f63f9
+ms.sourcegitcommit: 059ab380744fa3be3b69aa90d431b563c57092cf
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68308221"
+ms.lasthandoff: 07/23/2019
+ms.locfileid: "68410918"
 ---
 # <a name="logging-in-aspnet-core"></a>ASP.NET Core でのログ記録
 
@@ -865,14 +865,11 @@ ASP.NET 4.x. に対応している [Microsoft.ApplicationInsights.Web](https://w
 詳細については、次のリソースを参照してください。
 
 * [Application Insights の概要](/azure/application-insights/app-insights-overview)
-* [Application Insights for ASP.NET Core アプリケーション](/azure/azure-monitor/app/asp-net-core-no-visualstudio) - ログ記録と共に完全な Application Insights テレメトリを実装する場合は、ここから開始します。
+* [Application Insights for ASP.NET Core アプリケーション](/azure/azure-monitor/app/asp-net-core) - ログ記録と共に完全な Application Insights テレメトリを実装する場合は、ここから開始します。
 * [ApplicationInsightsLoggerProvider for .NET Core ILogger ログ](/azure/azure-monitor/app/ilogger) - ログ プロバイダーを実装し、Application Insights テレメトリのそれ以外の部分は除く場合は、ここから開始します。
-* [Application Insights のログ アダプター](https://github.com/Microsoft/ApplicationInsights-dotnet-logging/blob/develop/README.md)。
+* [Application Insights のログ アダプター](https://docs.microsoft.com/azure/azure-monitor/app/asp-net-trace-logs)。
 * [Application Insights SDK のインストール、構成、および初期化](/learn/modules/instrument-web-app-code-with-application-insights) - Microsoft Learn サイト上にある対話型のチュートリアルです。
 ::: moniker-end
-
-> [!NOTE]
-> 2019 年 5 月 1 日の時点で、「[Application Insights for ASP.NET Core](/azure/azure-monitor/app/asp-net-core)」というタイトルの記事は最新ではなく、チュートリアルの手順は有効ではありません。 代わりに、[Application Insights for ASP.NET Core のアプリケーション](/azure/azure-monitor/app/asp-net-core-no-visualstudio)に関する記事を参照してください。 マイクロソフトでは問題を認識して、その修正に取り組んでいます。
 
 ## <a name="third-party-logging-providers"></a>サードパーティ製のログ プロバイダー
 
