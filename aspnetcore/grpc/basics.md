@@ -1,76 +1,78 @@
 ---
 title: C# を使用した gRPC サービス
 author: juntaoluo
-description: GRPC サービスを記述する場合は、基本的な概念を説明しますC#します。
+description: で gRPC サービスをC#作成する際の基本的な概念について説明します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
-ms.date: 03/31/2019
+ms.date: 07/03/2019
 uid: grpc/basics
-ms.openlocfilehash: 78d744d641396c449a142375c69730333f8183cd
-ms.sourcegitcommit: 1bf80f4acd62151ff8cce517f03f6fa891136409
+ms.openlocfilehash: 700fe9463317f9ee30dfe4ebf5201c7b9c0c5ad6
+ms.sourcegitcommit: f30b18442ed12831c7e86b0db249183ccd749f59
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/15/2019
-ms.locfileid: "68223885"
+ms.lasthandoff: 07/23/2019
+ms.locfileid: "68412475"
 ---
-# <a name="grpc-services-with-c"></a>C と gRPC サービス\#
+# <a name="grpc-services-with-c"></a>gRPC サービスと C\#
 
-このドキュメントでは、書き込みに必要な概念を示しています。 [gRPC](https://grpc.io/docs/guides/)アプリC#します。 ここで取り上げるトピックは、両方に適用[C core](https://grpc.io/blog/grpc-stacks)-gRPC のベースと ASP.NET Core ベースのアプリ。
+このドキュメントでは、でC# [grpc](https://grpc.io/docs/guides/)アプリを作成するために必要な概念の概要を説明します。 ここで説明するトピックは、 [C コア](https://grpc.io/blog/grpc-stacks)ベースと ASP.NET Core ベースの grpc アプリの両方に適用されます。
 
-## <a name="proto-file"></a>proto ファイル
+## <a name="proto-file"></a>プロトコルファイル
 
-gRPC は、API の開発をコントラクト優先のアプローチを使用します。 プロトコル バッファー (protobuf) は、既定ではインターフェイスのデザイン言語 (IDL) としてを使用します。 *.Proto*ファイルが含まれます。
+gRPC は、API 開発に対してコントラクト優先のアプローチを使用します。 プロトコルバッファー (protobuf) は、既定ではインターフェイスデザイン言語 (IDL) として使用されます。 *プロトコル*ファイルには次のものが含まれます。
 
 * GRPC サービスの定義。
-* クライアントとサーバー間で送信されるメッセージ。
+* クライアントとサーバーの間で送信されるメッセージ。
 
-Protobuf ファイルの構文の詳細については、次を参照してください。、[公式ドキュメント (protobuf)](https://developers.google.com/protocol-buffers/docs/proto3)します。
+Protobuf ファイルの構文の詳細については、[公式のドキュメント (protobuf)](https://developers.google.com/protocol-buffers/docs/proto3)を参照してください。
 
-たとえば、 *greet.proto*ファイルで使用される[gRPC service の概要](xref:tutorials/grpc/grpc-start):
+たとえば、「 [gRPC サービスの](xref:tutorials/grpc/grpc-start)使用」で使用されている*あいさつ*ファイルについて考えてみます。
 
-* 定義、`Greeter`サービス。
-* `Greeter`サービスを定義、`SayHello`呼び出します。
-* `SayHello` 送信、`HelloRequest`メッセージの送受信、`HelloReply`メッセージ。
+* サービスを`Greeter`定義します。
+* サービス`Greeter`は呼び出しを`SayHello`定義します。
+* `SayHello`メッセージを送信し、メッセージ`HelloReply`を受信します。 `HelloRequest`
 
-[!code-protobuf[](~/tutorials//grpc/grpc-start/sample/GrpcGreeter/Protos/greet.proto)]
+[!code-protobuf[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/Protos/greet.proto)]
 
-## <a name="add-a-proto-file-to-a-c-app"></a>C に .proto ファイルを追加\#アプリ
+## <a name="add-a-proto-file-to-a-c-app"></a>プロトコルファイルを C\#アプリに追加する
 
-*.Proto*プロジェクトに追加することによってファイルが含まれて、`<Protobuf>`項目グループ。
+*Proto*ファイルは、 `<Protobuf>`項目グループに追加することによってプロジェクトに含まれます。
 
 [!code-xml[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/GrpcGreeter.csproj?highlight=2&range=7-9)]
 
-## <a name="c-tooling-support-for-proto-files"></a>C#.Proto ファイルのツールのサポート
+## <a name="c-tooling-support-for-proto-files"></a>C#Proto ファイルのツールサポート
 
-ツール パッケージ[Grpc.Tools](https://www.nuget.org/packages/Grpc.Tools/)を生成するために必要なC#から資産 *.proto*ファイル。 生成された資産 (ファイル):
+*ファイル*からC#アセットを生成するには、ツールパッケージ[grpc. ツール](https://www.nuget.org/packages/Grpc.Tools/)が必要です。 生成されたアセット (ファイル):
 
-* ときに生成されます - 必要な場合に各プロジェクトをビルドします。
-* プロジェクトに追加またはソース管理にチェックインされません。
-* ビルドの成果物に含まれているは、 *obj*ディレクトリ。
+* は、プロジェクトがビルドされるたびに、必要に応じて生成されます。
+* プロジェクトに追加されていないか、ソース管理にチェックインされていません。
+* は、 *obj*ディレクトリに含まれるビルド成果物です。
 
-このパッケージは、サーバーとクライアントの両方のプロジェクトで必要です。 `Grpc.Tools` Visual Studio でパッケージ マネージャーを使用または追加して追加することができます、`<PackageReference>`プロジェクト ファイル。
+このパッケージは、サーバープロジェクトとクライアントプロジェクトの両方で必要です。 メタパッケージ`Grpc.AspNetCore`には、へ`Grpc.Tools`の参照が含まれています。 サーバープロジェクトは、 `Grpc.AspNetCore` Visual Studio のパッケージマネージャーを使用するか、プロジェクト`<PackageReference>`ファイルにを追加することによって追加できます。
 
-[!code-xml[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/GrpcGreeter.csproj?highlight=1&range=15)]
+[!code-xml[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/GrpcGreeter.csproj?highlight=1&range=12)]
 
-ツール パッケージは実行時に不要であり、依存関係には `PrivateAssets="All"` のマークが付きます。
+クライアントプロジェクトは、 `Grpc.Tools`直接参照する必要があります。 ツールパッケージは実行時に必須ではないため、依存関係`PrivateAssets="All"`は次のようにマークされます。
 
-## <a name="generated-c-assets"></a>生成されたC#資産
+[!code-xml[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/GrpcGreeterClient.csproj?highlight=1&range=11)]
 
-ツール パッケージを生成、C#型が含まれるで定義されているメッセージを表す *.proto*ファイル。
+## <a name="generated-c-assets"></a>生成C#されたアセット
 
-サーバー側の資産に対して、サービスの抽象基本型が生成されます。 基本データ型には、gRPC の呼び出しに含まれるすべての定義が含まれています、 *.proto*ファイル。 この基本型から派生し、gRPC の呼び出しのロジックを実装するサービスの具象実装を作成します。 `greet.proto`、抽象前に説明した例では、`GreeterBase`バーチャル マシンを含む型`SayHello`メソッドが生成されます。 具象実装`GreeterService`メソッドをオーバーライドし、gRPC の呼び出しを処理するロジックを実装します。
+ツールパッケージは、含まC#れている*プロトコル*ファイルで定義されているメッセージを表す型を生成します。
 
-[!code-csharp[](~/tutorials//grpc/grpc-start/sample/GrpcGreeter/Services/GreeterService.cs?name=snippet)]
+サーバー側アセットの場合、抽象サービスの基本型が生成されます。 基本型には、 *proto*ファイルに含まれるすべての grpc 呼び出しの定義が含まれています。 この基本型から派生し、gRPC 呼び出しのロジックを実装する具象サービス実装を作成します。 では、前に説明した例で`GreeterBase`は、仮想`SayHello`メソッドを含む抽象型が生成されます。 `greet.proto` 具象実装`GreeterService`は、メソッドをオーバーライドし、grpc 呼び出しを処理するロジックを実装します。
 
-クライアント側の資産に対してクライアントを具象型が生成されます。 呼び出し、gRPC、 *.proto*ファイルは、メソッドを呼び出すことができる、具象型に変換されます。 `greet.proto`、先ほどを具体的に説明した例では、`GreeterClient`型が生成されます。 呼び出す`GreeterClient.SayHello`gRPC の呼び出し、サーバーを開始します。
+[!code-csharp[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/Services/GreeterService.cs?name=snippet)]
 
-[!code-csharp[](~/tutorials//grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?highlight=5-8&name=snippet)]
+クライアント側の資産の場合は、具象的なクライアントの種類が生成されます。 *Proto*ファイル内の grpc 呼び出しは、具象型のメソッドに変換されます。これは、を呼び出すことができます。 前に説明した例では、具象`GreeterClient`型が生成されています。 `greet.proto` を`GreeterClient.SayHello`呼び出して、サーバーに対する grpc 呼び出しを開始します。
 
-既定では、サーバーとクライアントの資産を生成して、各 *.proto*ファイルに含まれる、`<Protobuf>`項目グループ。 サーバー資産のみがサーバー プロジェクトで生成されたことを確認する、`GrpcServices`属性に設定されて`Server`します。
+[!code-csharp[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?highlight=3-6&name=snippet)]
 
-[!code-xml[](~/tutorials//grpc/grpc-start/sample/GrpcGreeter/GrpcGreeter.csproj?highlight=2&range=7-9)]
+既定では、サーバーとクライアントのアセットは、  `<Protobuf>`項目グループに含まれる各プロトコルファイルに対して生成されます。 サーバープロジェクト`GrpcServices`でサーバー資産のみが生成されるようにするには、属性を`Server`に設定します。
 
-同様に、属性に設定されて`Client`クライアント プロジェクトでします。
+[!code-xml[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/GrpcGreeter.csproj?highlight=2&range=7-9)]
+
+同様に、クライアントプロジェクトでは`Client` 、属性はに設定されます。
 
 ## <a name="additional-resources"></a>その他の資料
 
