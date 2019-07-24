@@ -1,30 +1,30 @@
 ---
-title: ASP.NET Core SignalR で認証と承認
+title: ASP.NET Core SignalR での認証と承認
 author: bradygaster
-description: ASP.NET Core SignalR での認証と承認を使用する方法について説明します。
+description: ASP.NET Core SignalR で認証と承認を使用する方法について説明します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 05/09/2019
+ms.date: 07/15/2019
 uid: signalr/authn-and-authz
-ms.openlocfilehash: e8f9dc48be780fb91bdec6ea4d579f5e4f16197b
-ms.sourcegitcommit: 3376f224b47a89acf329b2d2f9260046a372f924
+ms.openlocfilehash: e7e7a9fd537ba89b64c15594652a290357a00038
+ms.sourcegitcommit: f30b18442ed12831c7e86b0db249183ccd749f59
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/10/2019
-ms.locfileid: "65516951"
+ms.lasthandoff: 07/23/2019
+ms.locfileid: "68412534"
 ---
-# <a name="authentication-and-authorization-in-aspnet-core-signalr"></a><span data-ttu-id="0dfaf-103">ASP.NET Core SignalR で認証と承認</span><span class="sxs-lookup"><span data-stu-id="0dfaf-103">Authentication and authorization in ASP.NET Core SignalR</span></span>
+# <a name="authentication-and-authorization-in-aspnet-core-signalr"></a><span data-ttu-id="35785-103">ASP.NET Core SignalR での認証と承認</span><span class="sxs-lookup"><span data-stu-id="35785-103">Authentication and authorization in ASP.NET Core SignalR</span></span>
 
-<span data-ttu-id="0dfaf-104">によって[Andrew Stanton-nurse](https://twitter.com/anurse)</span><span class="sxs-lookup"><span data-stu-id="0dfaf-104">By [Andrew Stanton-Nurse](https://twitter.com/anurse)</span></span>
+<span data-ttu-id="35785-104">By [Andrew Stanton-看護師](https://twitter.com/anurse)</span><span class="sxs-lookup"><span data-stu-id="35785-104">By [Andrew Stanton-Nurse](https://twitter.com/anurse)</span></span>
 
-<span data-ttu-id="0dfaf-105">[サンプル コードのダウンロードを表示または](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/authn-and-authz/sample/) [(ダウンロードする方法)](xref:index#how-to-download-a-sample)</span><span class="sxs-lookup"><span data-stu-id="0dfaf-105">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/authn-and-authz/sample/) [(how to download)](xref:index#how-to-download-a-sample)</span></span>
+<span data-ttu-id="35785-105">[サンプルコードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/authn-and-authz/sample/)する[(ダウンロード方法)](xref:index#how-to-download-a-sample)</span><span class="sxs-lookup"><span data-stu-id="35785-105">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/authn-and-authz/sample/) [(how to download)](xref:index#how-to-download-a-sample)</span></span>
 
-## <a name="authenticate-users-connecting-to-a-signalr-hub"></a><span data-ttu-id="0dfaf-106">SignalR ハブに接続するユーザーを認証します。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-106">Authenticate users connecting to a SignalR hub</span></span>
+## <a name="authenticate-users-connecting-to-a-signalr-hub"></a><span data-ttu-id="35785-106">SignalR hub に接続しているユーザーを認証する</span><span class="sxs-lookup"><span data-stu-id="35785-106">Authenticate users connecting to a SignalR hub</span></span>
 
-<span data-ttu-id="0dfaf-107">SignalR で使用できる[ASP.NET Core 認証](xref:security/authentication/identity)接続ごとにユーザーを関連付ける。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-107">SignalR can be used with [ASP.NET Core authentication](xref:security/authentication/identity) to associate a user with each connection.</span></span> <span data-ttu-id="0dfaf-108">ハブの認証データをからアクセスできる、 [ `HubConnectionContext.User` ](/dotnet/api/microsoft.aspnetcore.signalr.hubconnectioncontext.user)プロパティ。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-108">In a hub, authentication data can be accessed from the [`HubConnectionContext.User`](/dotnet/api/microsoft.aspnetcore.signalr.hubconnectioncontext.user) property.</span></span> <span data-ttu-id="0dfaf-109">認証で許可されるユーザーに関連付けられているすべての接続でメソッドを呼び出すハブ (を参照してください[ユーザーと SignalR でグループ管理](xref:signalr/groups)詳細については)。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-109">Authentication allows the hub to call methods on all connections associated with a user (See [Manage users and groups in SignalR](xref:signalr/groups) for more information).</span></span> <span data-ttu-id="0dfaf-110">複数の接続は、1 人のユーザーを関連付けることができます。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-110">Multiple connections may be associated with a single user.</span></span>
+<span data-ttu-id="35785-107">SignalR を[ASP.NET Core 認証](xref:security/authentication/identity)と共に使用すると、ユーザーを各接続に関連付けることができます。</span><span class="sxs-lookup"><span data-stu-id="35785-107">SignalR can be used with [ASP.NET Core authentication](xref:security/authentication/identity) to associate a user with each connection.</span></span> <span data-ttu-id="35785-108">ハブでは、 [`HubConnectionContext.User`](/dotnet/api/microsoft.aspnetcore.signalr.hubconnectioncontext.user)プロパティから認証データにアクセスできます。</span><span class="sxs-lookup"><span data-stu-id="35785-108">In a hub, authentication data can be accessed from the [`HubConnectionContext.User`](/dotnet/api/microsoft.aspnetcore.signalr.hubconnectioncontext.user) property.</span></span> <span data-ttu-id="35785-109">認証では、ユーザーに関連付けられているすべての接続で、ハブがメソッドを呼び出すことができます (詳細については、「 [Manage users and groups In SignalR](xref:signalr/groups) 」を参照してください)。</span><span class="sxs-lookup"><span data-stu-id="35785-109">Authentication allows the hub to call methods on all connections associated with a user (See [Manage users and groups in SignalR](xref:signalr/groups) for more information).</span></span> <span data-ttu-id="35785-110">複数の接続を1人のユーザーに関連付けることができます。</span><span class="sxs-lookup"><span data-stu-id="35785-110">Multiple connections may be associated with a single user.</span></span>
 
-<span data-ttu-id="0dfaf-111">次の例に示します`Startup.Configure`SignalR と ASP.NET Core の認証を使用します。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-111">The following is an example of `Startup.Configure` which uses SignalR and ASP.NET Core authentication:</span></span>
+<span data-ttu-id="35785-111">SignalR と ASP.NET Core 認証を使用`Startup.Configure`するの例を次に示します。</span><span class="sxs-lookup"><span data-stu-id="35785-111">The following is an example of `Startup.Configure` which uses SignalR and ASP.NET Core authentication:</span></span>
 
 ```csharp
 public void Configure(IApplicationBuilder app)
@@ -48,25 +48,25 @@ public void Configure(IApplicationBuilder app)
 ```
 
 > [!NOTE]
-> <span data-ttu-id="0dfaf-112">SignalR と ASP.NET Core 認証ミドルウェアを登録する順序は重要です。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-112">The order in which you register the SignalR and ASP.NET Core authentication middleware matters.</span></span> <span data-ttu-id="0dfaf-113">常に呼び出す`UseAuthentication`する前に`UseSignalR`SignalR のユーザーがあるできるように、`HttpContext`します。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-113">Always call `UseAuthentication` before `UseSignalR` so that SignalR has a user on the `HttpContext`.</span></span>
+> <span data-ttu-id="35785-112">SignalR および ASP.NET Core 認証ミドルウェアを登録する順序が重要になります。</span><span class="sxs-lookup"><span data-stu-id="35785-112">The order in which you register the SignalR and ASP.NET Core authentication middleware matters.</span></span> <span data-ttu-id="35785-113">SignalR が`UseAuthentication`に`UseSignalR`ユーザーを持つようにするには`HttpContext`、常にを呼び出します。</span><span class="sxs-lookup"><span data-stu-id="35785-113">Always call `UseAuthentication` before `UseSignalR` so that SignalR has a user on the `HttpContext`.</span></span>
 
-### <a name="cookie-authentication"></a><span data-ttu-id="0dfaf-114">Cookie 認証</span><span class="sxs-lookup"><span data-stu-id="0dfaf-114">Cookie authentication</span></span>
+### <a name="cookie-authentication"></a><span data-ttu-id="35785-114">Cookie 認証</span><span class="sxs-lookup"><span data-stu-id="35785-114">Cookie authentication</span></span>
 
-<span data-ttu-id="0dfaf-115">ブラウザー ベースのアプリでは、cookie 認証は、SignalR 接続を自動的にフローする既存のユーザーの資格情報をできます。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-115">In a browser-based app, cookie authentication allows your existing user credentials to automatically flow to SignalR connections.</span></span> <span data-ttu-id="0dfaf-116">クライアントのブラウザーを使用する場合、追加の構成は必要ありません。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-116">When using the browser client, no additional configuration is needed.</span></span> <span data-ttu-id="0dfaf-117">アプリに、ユーザーがログインに SignalR 接続は、この認証を自動的に継承します。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-117">If the user is logged in to your app, the SignalR connection automatically inherits this authentication.</span></span>
+<span data-ttu-id="35785-115">ブラウザーベースのアプリでは、cookie 認証を使用して、既存のユーザーの資格情報を SignalR 接続に自動的に渡すことができます。</span><span class="sxs-lookup"><span data-stu-id="35785-115">In a browser-based app, cookie authentication allows your existing user credentials to automatically flow to SignalR connections.</span></span> <span data-ttu-id="35785-116">ブラウザークライアントを使用する場合、追加の構成は必要ありません。</span><span class="sxs-lookup"><span data-stu-id="35785-116">When using the browser client, no additional configuration is needed.</span></span> <span data-ttu-id="35785-117">ユーザーがアプリにログインしている場合、SignalR 接続は自動的にこの認証を継承します。</span><span class="sxs-lookup"><span data-stu-id="35785-117">If the user is logged in to your app, the SignalR connection automatically inherits this authentication.</span></span>
 
-<span data-ttu-id="0dfaf-118">Cookie とは、アクセス トークンを送信するブラウザー固有の方法が、ブラウザー以外のクライアントが送信できます。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-118">Cookies are a browser-specific way to send access tokens, but non-browser clients can send them.</span></span> <span data-ttu-id="0dfaf-119">使用する場合、 [.NET クライアント](xref:signalr/dotnet-client)、`Cookies`でプロパティを構成することができます、 `.WithUrl` cookie を提供するために呼び出し。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-119">When using the [.NET Client](xref:signalr/dotnet-client), the `Cookies` property can be configured in the `.WithUrl` call in order to provide a cookie.</span></span> <span data-ttu-id="0dfaf-120">ただし、.NET クライアントからの cookie 認証を使用するには、クッキーの認証データを交換するための API を提供するアプリが必要です。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-120">However, using cookie authentication from the .NET Client requires the app to provide an API to exchange authentication data for a cookie.</span></span>
+<span data-ttu-id="35785-118">Cookie はアクセストークンを送信するためのブラウザー固有の方法ですが、ブラウザー以外のクライアントは送信できます。</span><span class="sxs-lookup"><span data-stu-id="35785-118">Cookies are a browser-specific way to send access tokens, but non-browser clients can send them.</span></span> <span data-ttu-id="35785-119">[.Net クライアント](xref:signalr/dotnet-client) `Cookies`を使用する場合は、cookie を提供するため`.WithUrl`に、呼び出しでプロパティを構成できます。</span><span class="sxs-lookup"><span data-stu-id="35785-119">When using the [.NET Client](xref:signalr/dotnet-client), the `Cookies` property can be configured in the `.WithUrl` call in order to provide a cookie.</span></span> <span data-ttu-id="35785-120">ただし、.NET クライアントから cookie 認証を使用するには、アプリが cookie の認証データを交換するための API を提供する必要があります。</span><span class="sxs-lookup"><span data-stu-id="35785-120">However, using cookie authentication from the .NET Client requires the app to provide an API to exchange authentication data for a cookie.</span></span>
 
-### <a name="bearer-token-authentication"></a><span data-ttu-id="0dfaf-121">ベアラー トークン認証</span><span class="sxs-lookup"><span data-stu-id="0dfaf-121">Bearer token authentication</span></span>
+### <a name="bearer-token-authentication"></a><span data-ttu-id="35785-121">ベアラートークン認証</span><span class="sxs-lookup"><span data-stu-id="35785-121">Bearer token authentication</span></span>
 
-<span data-ttu-id="0dfaf-122">クライアントは、cookie を使用する代わりに、アクセス トークンを提供できます。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-122">The client can provide an access token instead of using a cookie.</span></span> <span data-ttu-id="0dfaf-123">サーバーは、トークンを検証し、それをユーザーの識別に使用します。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-123">The server validates the token and uses it to identify the user.</span></span> <span data-ttu-id="0dfaf-124">接続が確立されている場合にのみ、この検証は行われます。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-124">This validation is done only when the connection is established.</span></span> <span data-ttu-id="0dfaf-125">接続処理中に、トークンの失効を確認するサーバーが自動的に再検証します。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-125">During the life of the connection, the server doesn't automatically revalidate to check for token revocation.</span></span>
+<span data-ttu-id="35785-122">クライアントは、cookie を使用する代わりにアクセストークンを提供できます。</span><span class="sxs-lookup"><span data-stu-id="35785-122">The client can provide an access token instead of using a cookie.</span></span> <span data-ttu-id="35785-123">サーバーはトークンを検証し、それを使用してユーザーを識別します。</span><span class="sxs-lookup"><span data-stu-id="35785-123">The server validates the token and uses it to identify the user.</span></span> <span data-ttu-id="35785-124">この検証は、接続が確立された場合にのみ実行されます。</span><span class="sxs-lookup"><span data-stu-id="35785-124">This validation is done only when the connection is established.</span></span> <span data-ttu-id="35785-125">接続の有効期間中は、トークンの失効を確認するためにサーバーが自動的に再検証されることはありません。</span><span class="sxs-lookup"><span data-stu-id="35785-125">During the life of the connection, the server doesn't automatically revalidate to check for token revocation.</span></span>
 
-<span data-ttu-id="0dfaf-126">使用してベアラー トークン認証を構成サーバーで、 [JWT ベアラー ミドルウェア](/dotnet/api/microsoft.extensions.dependencyinjection.jwtbearerextensions.addjwtbearer)します。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-126">On the server, bearer token authentication is configured using the [JWT Bearer middleware](/dotnet/api/microsoft.extensions.dependencyinjection.jwtbearerextensions.addjwtbearer).</span></span>
+<span data-ttu-id="35785-126">サーバーでは、ベアラートークン認証は[JWT ベアラーミドルウェア](/dotnet/api/microsoft.extensions.dependencyinjection.jwtbearerextensions.addjwtbearer)を使用して構成されます。</span><span class="sxs-lookup"><span data-stu-id="35785-126">On the server, bearer token authentication is configured using the [JWT Bearer middleware](/dotnet/api/microsoft.extensions.dependencyinjection.jwtbearerextensions.addjwtbearer).</span></span>
 
-<span data-ttu-id="0dfaf-127">JavaScript クライアントで、トークンを提供できますを使用して、 [accessTokenFactory](xref:signalr/configuration#configure-bearer-authentication)オプション。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-127">In the JavaScript client, the token can be provided using the [accessTokenFactory](xref:signalr/configuration#configure-bearer-authentication) option.</span></span>
+<span data-ttu-id="35785-127">JavaScript クライアントでは、 [accessTokenFactory](xref:signalr/configuration#configure-bearer-authentication)オプションを使用してトークンを指定できます。</span><span class="sxs-lookup"><span data-stu-id="35785-127">In the JavaScript client, the token can be provided using the [accessTokenFactory](xref:signalr/configuration#configure-bearer-authentication) option.</span></span>
 
 [!code-typescript[Configure Access Token](authn-and-authz/sample/wwwroot/js/chat.ts?range=63-65)]
 
-<span data-ttu-id="0dfaf-128">.NET クライアントである類似した[AccessTokenProvider](xref:signalr/configuration#configure-bearer-authentication)トークンを構成するために使用できるプロパティ。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-128">In the .NET client, there is a similar [AccessTokenProvider](xref:signalr/configuration#configure-bearer-authentication) property that can be used to configure the token:</span></span>
+<span data-ttu-id="35785-128">.NET クライアントには、トークンの構成に使用できる同様の[れる場合](xref:signalr/configuration#configure-bearer-authentication)プロパティがあります。</span><span class="sxs-lookup"><span data-stu-id="35785-128">In the .NET client, there is a similar [AccessTokenProvider](xref:signalr/configuration#configure-bearer-authentication) property that can be used to configure the token:</span></span>
 
 ```csharp
 var connection = new HubConnectionBuilder()
@@ -78,30 +78,30 @@ var connection = new HubConnectionBuilder()
 ```
 
 > [!NOTE]
-> <span data-ttu-id="0dfaf-129">指定したアクセス トークンの関数は、前に呼び出されます**すべて**SignalR による HTTP 要求。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-129">The access token function you provide is called before **every** HTTP request made by SignalR.</span></span> <span data-ttu-id="0dfaf-130">(ための接続中に、有効期限が切れる可能性があります) は、接続を維持するために、トークンを更新する必要があるかどうか、この関数内から行うし、更新されたトークンが返されます。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-130">If you need to renew the token in order to keep the connection active (because it may expire during the connection), do so from within this function and return the updated token.</span></span>
+> <span data-ttu-id="35785-129">指定したアクセストークン関数は、SignalR によって行われる**すべて**の HTTP 要求の前に呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="35785-129">The access token function you provide is called before **every** HTTP request made by SignalR.</span></span> <span data-ttu-id="35785-130">接続をアクティブな状態に保つために、トークンを更新する必要がある場合 (接続中に期限切れになる可能性があるため)、この関数内からトークンを取得し、更新されたトークンを返します。</span><span class="sxs-lookup"><span data-stu-id="35785-130">If you need to renew the token in order to keep the connection active (because it may expire during the connection), do so from within this function and return the updated token.</span></span>
 
-<span data-ttu-id="0dfaf-131">標準の web Api では、ベアラー トークンは、HTTP ヘッダーで送信されます。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-131">In standard web APIs, bearer tokens are sent in an HTTP header.</span></span> <span data-ttu-id="0dfaf-132">ただし、SignalR では、一部のトランスポートを使用する場合は、ブラウザーでこれらのヘッダーを設定することはありません。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-132">However, SignalR is unable to set these headers in browsers when using some transports.</span></span> <span data-ttu-id="0dfaf-133">WebSockets および Server-Sent イベントを使用する場合は、トークンが、クエリ文字列パラメーターとして送信されます。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-133">When using WebSockets and Server-Sent Events, the token is transmitted as a query string parameter.</span></span> <span data-ttu-id="0dfaf-134">サーバーでこれをサポートするためには、追加の構成が必要です。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-134">In order to support this on the server, additional configuration is required:</span></span>
+<span data-ttu-id="35785-131">標準の web Api では、ベアラートークンは HTTP ヘッダーで送信されます。</span><span class="sxs-lookup"><span data-stu-id="35785-131">In standard web APIs, bearer tokens are sent in an HTTP header.</span></span> <span data-ttu-id="35785-132">ただし、SignalR では、一部のトランスポートを使用するときに、これらのヘッダーをブラウザーで設定することはできません。</span><span class="sxs-lookup"><span data-stu-id="35785-132">However, SignalR is unable to set these headers in browsers when using some transports.</span></span> <span data-ttu-id="35785-133">Websocket およびサーバー送信イベントを使用する場合、トークンはクエリ文字列パラメーターとして送信されます。</span><span class="sxs-lookup"><span data-stu-id="35785-133">When using WebSockets and Server-Sent Events, the token is transmitted as a query string parameter.</span></span> <span data-ttu-id="35785-134">サーバーでこれをサポートするために、追加の構成が必要です。</span><span class="sxs-lookup"><span data-stu-id="35785-134">In order to support this on the server, additional configuration is required:</span></span>
 
 [!code-csharp[Configure Server to accept access token from Query String](authn-and-authz/sample/Startup.cs?name=snippet)]
 
-### <a name="cookies-vs-bearer-tokens"></a><span data-ttu-id="0dfaf-135">ベアラー トークンと cookie</span><span class="sxs-lookup"><span data-stu-id="0dfaf-135">Cookies vs. bearer tokens</span></span> 
+### <a name="cookies-vs-bearer-tokens"></a><span data-ttu-id="35785-135">Cookie とベアラートークン</span><span class="sxs-lookup"><span data-stu-id="35785-135">Cookies vs. bearer tokens</span></span> 
 
-<span data-ttu-id="0dfaf-136">Cookie はブラウザーに固有であるため、その他のクライアントから送信ベアラー トークンを送信すると比較して複雑さを追加します。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-136">Because cookies are specific to browsers, sending them from other kinds of clients adds complexity compared to sending bearer tokens.</span></span> <span data-ttu-id="0dfaf-137">このため、cookie 認証は、アプリはのみ、ブラウザー クライアントからユーザーを認証する必要がない限りをお勧めしません。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-137">For this reason, cookie authentication isn't recommended unless the app only needs to authenticate users from the browser client.</span></span> <span data-ttu-id="0dfaf-138">ベアラー トークン認証は、クライアントのブラウザー以外のクライアントを使用する場合に推奨されるアプローチです。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-138">Bearer token authentication is the recommended approach when using clients other than the browser client.</span></span>
+<span data-ttu-id="35785-136">Cookie はブラウザーに固有であるため、他の種類のクライアントから送信されると、ベアラートークンの送信と比較して複雑さが増します。</span><span class="sxs-lookup"><span data-stu-id="35785-136">Because cookies are specific to browsers, sending them from other kinds of clients adds complexity compared to sending bearer tokens.</span></span> <span data-ttu-id="35785-137">このため、アプリがブラウザークライアントからのユーザーの認証のみを必要とする場合を除き、cookie 認証は推奨されません。</span><span class="sxs-lookup"><span data-stu-id="35785-137">For this reason, cookie authentication isn't recommended unless the app only needs to authenticate users from the browser client.</span></span> <span data-ttu-id="35785-138">ベアラートークン認証は、ブラウザークライアント以外のクライアントを使用する場合に推奨される方法です。</span><span class="sxs-lookup"><span data-stu-id="35785-138">Bearer token authentication is the recommended approach when using clients other than the browser client.</span></span>
 
-### <a name="windows-authentication"></a><span data-ttu-id="0dfaf-139">Windows 認証</span><span class="sxs-lookup"><span data-stu-id="0dfaf-139">Windows authentication</span></span>
+### <a name="windows-authentication"></a><span data-ttu-id="35785-139">Windows 認証</span><span class="sxs-lookup"><span data-stu-id="35785-139">Windows authentication</span></span>
 
-<span data-ttu-id="0dfaf-140">場合[Windows 認証](xref:security/authentication/windowsauth)が構成されているアプリに、SignalR は、その id を使用して、ハブをセキュリティで保護します。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-140">If [Windows authentication](xref:security/authentication/windowsauth) is configured in your app, SignalR can use that identity to secure hubs.</span></span> <span data-ttu-id="0dfaf-141">ただし、個々 のユーザーにメッセージを送信するには、カスタムのユーザーの ID プロバイダーを追加する必要があります。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-141">However, in order to send messages to individual users, you need to add a custom User ID provider.</span></span> <span data-ttu-id="0dfaf-142">Windows 認証システムは、SignalR を使用してユーザー名を確認する"Name Identifier"要求を提供しないためにです。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-142">This is because the Windows authentication system doesn't provide the "Name Identifier" claim that SignalR uses to determine the user name.</span></span>
+<span data-ttu-id="35785-140">アプリで[Windows 認証](xref:security/authentication/windowsauth)が構成されている場合、SignalR はその id を使用してハブをセキュリティで保護することができます。</span><span class="sxs-lookup"><span data-stu-id="35785-140">If [Windows authentication](xref:security/authentication/windowsauth) is configured in your app, SignalR can use that identity to secure hubs.</span></span> <span data-ttu-id="35785-141">ただし、個々のユーザーにメッセージを送信するには、カスタムユーザー ID プロバイダーを追加する必要があります。</span><span class="sxs-lookup"><span data-stu-id="35785-141">However, in order to send messages to individual users, you need to add a custom User ID provider.</span></span> <span data-ttu-id="35785-142">これは、Windows 認証システムが、SignalR がユーザー名を決定するために使用する "名前識別子" 要求を提供しないためです。</span><span class="sxs-lookup"><span data-stu-id="35785-142">This is because the Windows authentication system doesn't provide the "Name Identifier" claim that SignalR uses to determine the user name.</span></span>
 
-<span data-ttu-id="0dfaf-143">実装する新しいクラスを追加`IUserIdProvider`し、識別子として使用するユーザーから、要求の 1 つを取得します。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-143">Add a new class that implements `IUserIdProvider` and retrieve one of the claims from the user to use as the identifier.</span></span> <span data-ttu-id="0dfaf-144">たとえば、"Name"要求を使用する (これは、フォーム内の Windows ユーザー名`[Domain]\[Username]`)、次のクラスを作成します。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-144">For example, to use the "Name" claim (which is the Windows username in the form `[Domain]\[Username]`), create the following class:</span></span>
+<span data-ttu-id="35785-143">を実装`IUserIdProvider`し、識別子として使用する要求の1つをユーザーから取得する新しいクラスを追加します。</span><span class="sxs-lookup"><span data-stu-id="35785-143">Add a new class that implements `IUserIdProvider` and retrieve one of the claims from the user to use as the identifier.</span></span> <span data-ttu-id="35785-144">たとえば、"Name" 要求 (フォーム`[Domain]\[Username]`の Windows ユーザー名) を使用するには、次のクラスを作成します。</span><span class="sxs-lookup"><span data-stu-id="35785-144">For example, to use the "Name" claim (which is the Windows username in the form `[Domain]\[Username]`), create the following class:</span></span>
 
 [!code-csharp[Name based provider](authn-and-authz/sample/nameuseridprovider.cs?name=NameUserIdProvider)]
 
-<span data-ttu-id="0dfaf-145">なく`ClaimTypes.Name`、任意の値を使用することができます、 `User` (など、Windows SID 識別子など)。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-145">Rather than `ClaimTypes.Name`, you can use any value from the `User` (such as the Windows SID identifier, etc.).</span></span>
+<span data-ttu-id="35785-145">ではなく、の`User`任意の値 (Windows SID 識別子など) を使用できます。 `ClaimTypes.Name`</span><span class="sxs-lookup"><span data-stu-id="35785-145">Rather than `ClaimTypes.Name`, you can use any value from the `User` (such as the Windows SID identifier, etc.).</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="0dfaf-146">選択した値は、システム内のすべてのユーザーの間で一意でなければなりません。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-146">The value you choose must be unique among all the users in your system.</span></span> <span data-ttu-id="0dfaf-147">それ以外の場合、1 人のユーザー宛てのメッセージは、別のユーザーに陥る可能性があります。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-147">Otherwise, a message intended for one user could end up going to a different user.</span></span>
+> <span data-ttu-id="35785-146">選択する値は、システム内のすべてのユーザーの間で一意である必要があります。</span><span class="sxs-lookup"><span data-stu-id="35785-146">The value you choose must be unique among all the users in your system.</span></span> <span data-ttu-id="35785-147">そうしないと、1人のユーザーを対象としたメッセージが別のユーザーに送信される可能性があります。</span><span class="sxs-lookup"><span data-stu-id="35785-147">Otherwise, a message intended for one user could end up going to a different user.</span></span>
 
-<span data-ttu-id="0dfaf-148">このコンポーネントの登録、`Startup.ConfigureServices`メソッド。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-148">Register this component in your `Startup.ConfigureServices` method.</span></span>
+<span data-ttu-id="35785-148">`Startup.ConfigureServices`メソッドにこのコンポーネントを登録します。</span><span class="sxs-lookup"><span data-stu-id="35785-148">Register this component in your `Startup.ConfigureServices` method.</span></span>
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -113,7 +113,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-<span data-ttu-id="0dfaf-149">設定して、.NET クライアントで Windows 認証を有効にする必要があります、 [UseDefaultCredentials](/dotnet/api/microsoft.aspnetcore.http.connections.client.httpconnectionoptions.usedefaultcredentials)プロパティ。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-149">In the .NET Client, Windows Authentication must be enabled by setting the [UseDefaultCredentials](/dotnet/api/microsoft.aspnetcore.http.connections.client.httpconnectionoptions.usedefaultcredentials) property:</span></span>
+<span data-ttu-id="35785-149">.NET クライアントでは、 [UseDefaultCredentials](/dotnet/api/microsoft.aspnetcore.http.connections.client.httpconnectionoptions.usedefaultcredentials)プロパティを設定することによって Windows 認証を有効にする必要があります。</span><span class="sxs-lookup"><span data-stu-id="35785-149">In the .NET Client, Windows Authentication must be enabled by setting the [UseDefaultCredentials](/dotnet/api/microsoft.aspnetcore.http.connections.client.httpconnectionoptions.usedefaultcredentials) property:</span></span>
 
 ```csharp
 var connection = new HubConnectionBuilder()
@@ -124,49 +124,49 @@ var connection = new HubConnectionBuilder()
     .Build();
 ```
 
-<span data-ttu-id="0dfaf-150">Windows 認証は、Microsoft Internet Explorer または Microsoft Edge を使用する場合にのみ、ブラウザー クライアントでサポートされます。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-150">Windows Authentication is only supported by the browser client when using Microsoft Internet Explorer or Microsoft Edge.</span></span>
+<span data-ttu-id="35785-150">Windows 認証は、Microsoft Internet Explorer または Microsoft Edge を使用している場合にのみブラウザークライアントでサポートされます。</span><span class="sxs-lookup"><span data-stu-id="35785-150">Windows Authentication is only supported by the browser client when using Microsoft Internet Explorer or Microsoft Edge.</span></span>
 
-### <a name="use-claims-to-customize-identity-handling"></a><span data-ttu-id="0dfaf-151">使用してクレーム id の処理をカスタマイズするには</span><span class="sxs-lookup"><span data-stu-id="0dfaf-151">Use claims to customize identity handling</span></span>
+### <a name="use-claims-to-customize-identity-handling"></a><span data-ttu-id="35785-151">要求を使用して id 処理をカスタマイズする</span><span class="sxs-lookup"><span data-stu-id="35785-151">Use claims to customize identity handling</span></span>
 
-<span data-ttu-id="0dfaf-152">ユーザーを認証するアプリでは、ユーザー クレームから SignalR ユーザー Id を派生できます。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-152">An app that authenticates users can derive SignalR user IDs from user claims.</span></span> <span data-ttu-id="0dfaf-153">SignalR がユーザー Id を作成する方法を指定するには、実装`IUserIdProvider`および実装を登録します。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-153">To specify how SignalR creates user IDs, implement `IUserIdProvider` and register the implementation.</span></span>
+<span data-ttu-id="35785-152">ユーザーを認証するアプリは、ユーザー要求から SignalR ユーザー Id を派生させることができます。</span><span class="sxs-lookup"><span data-stu-id="35785-152">An app that authenticates users can derive SignalR user IDs from user claims.</span></span> <span data-ttu-id="35785-153">SignalR がユーザー id を作成する方法を`IUserIdProvider`指定するには、実装を実装して登録します。</span><span class="sxs-lookup"><span data-stu-id="35785-153">To specify how SignalR creates user IDs, implement `IUserIdProvider` and register the implementation.</span></span>
 
-<span data-ttu-id="0dfaf-154">サンプル コードでは、ユーザーの電子メール アドレスを識別するプロパティとして選択する要求を使用する方法を示します。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-154">The sample code demonstrates how you would use claims to select the user's email address as the identifying property.</span></span> 
+<span data-ttu-id="35785-154">このサンプルコードでは、要求を使用して、識別プロパティとしてユーザーの電子メールアドレスを選択する方法を示します。</span><span class="sxs-lookup"><span data-stu-id="35785-154">The sample code demonstrates how you would use claims to select the user's email address as the identifying property.</span></span> 
 
 > [!NOTE]
-> <span data-ttu-id="0dfaf-155">選択した値は、システム内のすべてのユーザーの間で一意でなければなりません。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-155">The value you choose must be unique among all the users in your system.</span></span> <span data-ttu-id="0dfaf-156">それ以外の場合、1 人のユーザー宛てのメッセージは、別のユーザーに陥る可能性があります。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-156">Otherwise, a message intended for one user could end up going to a different user.</span></span>
+> <span data-ttu-id="35785-155">選択する値は、システム内のすべてのユーザーの間で一意である必要があります。</span><span class="sxs-lookup"><span data-stu-id="35785-155">The value you choose must be unique among all the users in your system.</span></span> <span data-ttu-id="35785-156">そうしないと、1人のユーザーを対象としたメッセージが別のユーザーに送信される可能性があります。</span><span class="sxs-lookup"><span data-stu-id="35785-156">Otherwise, a message intended for one user could end up going to a different user.</span></span>
 
 [!code-csharp[Email provider](authn-and-authz/sample/EmailBasedUserIdProvider.cs?name=EmailBasedUserIdProvider)]
 
-<span data-ttu-id="0dfaf-157">アカウントの登録の種類で要求を追加します`ClaimsTypes.Email`ASP.NET identity のデータベースにします。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-157">The account registration adds a claim with type `ClaimsTypes.Email` to the ASP.NET identity database.</span></span>
+<span data-ttu-id="35785-157">アカウント登録によって、種類`ClaimsTypes.Email`がの要求が ASP.NET identity データベースに追加されます。</span><span class="sxs-lookup"><span data-stu-id="35785-157">The account registration adds a claim with type `ClaimsTypes.Email` to the ASP.NET identity database.</span></span>
 
 [!code-csharp[Adding the email to the ASP.NET identity claims](authn-and-authz/sample/pages/account/Register.cshtml.cs?name=AddEmailClaim)]
 
-<span data-ttu-id="0dfaf-158">このコンポーネントの登録、`Startup.ConfigureServices`します。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-158">Register this component in your `Startup.ConfigureServices`.</span></span>
+<span data-ttu-id="35785-158">このコンポーネントをに`Startup.ConfigureServices`登録します。</span><span class="sxs-lookup"><span data-stu-id="35785-158">Register this component in your `Startup.ConfigureServices`.</span></span>
 
 ```csharp
 services.AddSingleton<IUserIdProvider, EmailBasedUserIdProvider>();
 ```
 
-## <a name="authorize-users-to-access-hubs-and-hub-methods"></a><span data-ttu-id="0dfaf-159">アクセスのハブおよびハブ メソッドのユーザーを認証します。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-159">Authorize users to access hubs and hub methods</span></span>
+## <a name="authorize-users-to-access-hubs-and-hub-methods"></a><span data-ttu-id="35785-159">ハブおよびハブのメソッドへのアクセスをユーザーに承認する</span><span class="sxs-lookup"><span data-stu-id="35785-159">Authorize users to access hubs and hub methods</span></span>
 
-<span data-ttu-id="0dfaf-160">既定では、認証されていないユーザーによってハブのすべてのメソッドを呼び出すことができます。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-160">By default, all methods in a hub can be called by an unauthenticated user.</span></span> <span data-ttu-id="0dfaf-161">認証を必要とするためには、適用、 [Authorize](/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute)ハブに属性します。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-161">In order to require authentication, apply the [Authorize](/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute) attribute to the hub:</span></span>
+<span data-ttu-id="35785-160">既定では、ハブ内のすべてのメソッドを認証されていないユーザーが呼び出すことができます。</span><span class="sxs-lookup"><span data-stu-id="35785-160">By default, all methods in a hub can be called by an unauthenticated user.</span></span> <span data-ttu-id="35785-161">認証を要求するには、[承認](/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute)属性をハブに適用します。</span><span class="sxs-lookup"><span data-stu-id="35785-161">In order to require authentication, apply the [Authorize](/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute) attribute to the hub:</span></span>
 
 [!code-csharp[Restrict a hub to only authorized users](authn-and-authz/sample/Hubs/ChatHub.cs?range=8-10,32)]
 
-<span data-ttu-id="0dfaf-162">コンス トラクターの引数とのプロパティを使用することができます、`[Authorize]`特定に一致する唯一のユーザーへのアクセス制限を属性[承認ポリシー](xref:security/authorization/policies)します。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-162">You can use the constructor arguments and properties of the `[Authorize]` attribute to restrict access to only users matching specific [authorization policies](xref:security/authorization/policies).</span></span> <span data-ttu-id="0dfaf-163">たとえばと呼ばれるカスタム承認ポリシーがある場合`MyAuthorizationPolicy`そのポリシーに一致するユーザーのみが、次のコードを使用してハブにアクセスできることを確認できます。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-163">For example, if you have a custom authorization policy called `MyAuthorizationPolicy` you can ensure that only users matching that policy can access the hub using the following code:</span></span>
+<span data-ttu-id="35785-162">`[Authorize]`属性のコンストラクター引数とプロパティを使用して、特定の[承認ポリシー](xref:security/authorization/policies)に一致するユーザーのみにアクセスを制限できます。</span><span class="sxs-lookup"><span data-stu-id="35785-162">You can use the constructor arguments and properties of the `[Authorize]` attribute to restrict access to only users matching specific [authorization policies](xref:security/authorization/policies).</span></span> <span data-ttu-id="35785-163">たとえば、という`MyAuthorizationPolicy`カスタム承認ポリシーがある場合は、次のコードを使用して、そのポリシーに一致するユーザーだけがハブにアクセスできるようにすることができます。</span><span class="sxs-lookup"><span data-stu-id="35785-163">For example, if you have a custom authorization policy called `MyAuthorizationPolicy` you can ensure that only users matching that policy can access the hub using the following code:</span></span>
 
 ```csharp
 [Authorize("MyAuthorizationPolicy")]
-public class ChatHub: Hub
+public class ChatHub : Hub
 {
 }
 ```
 
-<span data-ttu-id="0dfaf-164">個々 のハブ メソッドを持つことができます、`[Authorize]`属性も適用されます。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-164">Individual hub methods can have the `[Authorize]` attribute applied as well.</span></span> <span data-ttu-id="0dfaf-165">現在のユーザーが、メソッドに適用されるポリシーに一致しない場合は、呼び出し元にエラーが返されます。</span><span class="sxs-lookup"><span data-stu-id="0dfaf-165">If the current user doesn't match the policy applied to the method, an error is returned to the caller:</span></span>
+<span data-ttu-id="35785-164">個々のハブメソッドに`[Authorize]`も属性を適用できます。</span><span class="sxs-lookup"><span data-stu-id="35785-164">Individual hub methods can have the `[Authorize]` attribute applied as well.</span></span> <span data-ttu-id="35785-165">現在のユーザーがメソッドに適用されているポリシーと一致しない場合は、呼び出し元にエラーが返されます。</span><span class="sxs-lookup"><span data-stu-id="35785-165">If the current user doesn't match the policy applied to the method, an error is returned to the caller:</span></span>
 
 ```csharp
 [Authorize]
-public class ChatHub: Hub
+public class ChatHub : Hub
 {
     public async Task Send(string message)
     {
@@ -181,6 +181,81 @@ public class ChatHub: Hub
 }
 ```
 
-## <a name="additional-resources"></a><span data-ttu-id="0dfaf-166">その他の技術情報</span><span class="sxs-lookup"><span data-stu-id="0dfaf-166">Additional resources</span></span>
+::: moniker range=">= aspnetcore-3.0"
 
-* [<span data-ttu-id="0dfaf-167">ASP.NET Core でベアラー トークンの認証</span><span class="sxs-lookup"><span data-stu-id="0dfaf-167">Bearer Token Authentication in ASP.NET Core</span></span>](https://blogs.msdn.microsoft.com/webdev/2016/10/27/bearer-token-authentication-in-asp-net-core/)
+### <a name="use-authorization-handlers-to-customize-hub-method-authorization"></a><span data-ttu-id="35785-166">承認ハンドラーを使用してハブメソッドの承認をカスタマイズする</span><span class="sxs-lookup"><span data-stu-id="35785-166">Use authorization handlers to customize hub method authorization</span></span>
+
+<span data-ttu-id="35785-167">SignalR は、ハブメソッドが承認を必要とする場合に、承認ハンドラーにカスタムリソースを提供します。</span><span class="sxs-lookup"><span data-stu-id="35785-167">SignalR provides a custom resource to authorization handlers when a hub method requires authorization.</span></span> <span data-ttu-id="35785-168">リソースはの`HubInvocationContext`インスタンスです。</span><span class="sxs-lookup"><span data-stu-id="35785-168">The resource is an instance of `HubInvocationContext`.</span></span> <span data-ttu-id="35785-169">には、 `HubCallerContext`、呼び出されるハブメソッドの名前、およびハブメソッドへの引数が含まれます。`HubInvocationContext`</span><span class="sxs-lookup"><span data-stu-id="35785-169">The `HubInvocationContext` includes the `HubCallerContext`, the name of the hub method being invoked, and the arguments to the hub method.</span></span>
+
+<span data-ttu-id="35785-170">Azure Active Directory による複数の組織でのサインインを可能にするチャットルームの例を考えてみましょう。</span><span class="sxs-lookup"><span data-stu-id="35785-170">Consider the example of a chat room allowing multiple organization sign-in via Azure Active Directory.</span></span> <span data-ttu-id="35785-171">Microsoft アカウントを持つユーザーはだれでもチャットにサインインできますが、所有している組織のメンバーだけがユーザーの許可を禁止したり、ユーザーのチャット履歴を表示したりできるようにする必要があります。</span><span class="sxs-lookup"><span data-stu-id="35785-171">Anyone with a Microsoft account can sign in to chat, but only members of the owning organization should be able to ban users or view users' chat histories.</span></span> <span data-ttu-id="35785-172">さらに、特定のユーザーの特定の機能を制限することもできます。</span><span class="sxs-lookup"><span data-stu-id="35785-172">Furthermore, we might want to restrict certain functionality from certain users.</span></span> <span data-ttu-id="35785-173">ASP.NET Core 3.0 の更新された機能を使用すると、これは完全に可能です。</span><span class="sxs-lookup"><span data-stu-id="35785-173">Using the updated features in ASP.NET Core 3.0, this is entirely possible.</span></span> <span data-ttu-id="35785-174">が`DomainRestrictedRequirement` カスタム`IAuthorizationRequirement`として機能することに注意してください。</span><span class="sxs-lookup"><span data-stu-id="35785-174">Note how the `DomainRestrictedRequirement` serves as a custom `IAuthorizationRequirement`.</span></span> <span data-ttu-id="35785-175">`HubInvocationContext`リソースパラメーターが渡されたので、内部ロジックはハブが呼び出されているコンテキストを検査し、ユーザーが個々のハブメソッドを実行できるようにすることを決定します。</span><span class="sxs-lookup"><span data-stu-id="35785-175">Now that the `HubInvocationContext` resource parameter is being passed in, the internal logic can inspect the context in which the Hub is being called and make decisions on allowing the user to execute individual Hub methods.</span></span>
+
+```csharp
+[Authorize]
+public class ChatHub : Hub
+{
+    public void SendMessage(string message)
+    {
+    }
+
+    [Authorize("DomainRestricted")]
+    public void BanUser(string username)
+    {
+    }
+
+    [Authorize("DomainRestricted")]
+    public void ViewUserHistory(string username)
+    {
+    }
+}
+
+public class DomainRestrictedRequirement : 
+    AuthorizationHandler<DomainRestrictedRequirement, HubInvocationContext>, 
+    IAuthorizationRequirement
+{
+    protected override Task HandleRequirementAsync(AuthorizationHandlerContext context,
+        DomainRestrictedRequirement requirement, 
+        HubInvocationContext resource)
+    {
+        if (IsUserAllowedToDoThis(resource.HubMethodName, context.User.Identity.Name) && 
+            context.User.Identity.Name.EndsWith("@microsoft.com"))
+        {
+            context.Succeed(requirement);
+        }
+        return Task.CompletedTask;
+    }
+
+    private bool IsUserAllowedToDoThis(string hubMethodName,
+        string currentUsername)
+    {
+        return !(currentUsername.Equals("asdf42@microsoft.com") && 
+            hubMethodName.Equals("banUser", StringComparison.OrdinalIgnoreCase));
+    }
+}
+```
+
+<span data-ttu-id="35785-176">で`Startup.ConfigureServices`、新しいポリシーを追加し、 `DomainRestricted`ポリシーを`DomainRestrictedRequirement`作成するためのパラメーターとしてカスタム要件を指定します。</span><span class="sxs-lookup"><span data-stu-id="35785-176">In `Startup.ConfigureServices`, add the new policy, providing the custom `DomainRestrictedRequirement` requirement as a parameter to create the `DomainRestricted` policy.</span></span>
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    // ... other services ...
+
+    services
+        .AddAuthorization(options =>
+        {
+            options.AddPolicy("DomainRestricted", policy =>
+            {
+                policy.Requirements.Add(new DomainRestrictedRequirement());
+            });
+        });
+}
+```
+
+<span data-ttu-id="35785-177">前の例`DomainRestrictedRequirement`では、クラスは`IAuthorizationRequirement`と`AuthorizationHandler`の両方で、その要件に対応しています。</span><span class="sxs-lookup"><span data-stu-id="35785-177">In the preceding example, the `DomainRestrictedRequirement` class is both an `IAuthorizationRequirement` and its own `AuthorizationHandler` for that requirement.</span></span> <span data-ttu-id="35785-178">この2つのコンポーネントを別々のクラスに分割して、懸念事項を分けることができます。</span><span class="sxs-lookup"><span data-stu-id="35785-178">It's acceptable to split these two components into separate classes to separate concerns.</span></span> <span data-ttu-id="35785-179">この例のアプローチの利点は、要件とハンドラーが同じである`AuthorizationHandler`ため、起動時にを挿入する必要がないことです。</span><span class="sxs-lookup"><span data-stu-id="35785-179">A benefit of the example's approach is there's no need to inject the `AuthorizationHandler` during startup, as the requirement and the handler are the same thing.</span></span>
+
+::: moniker-end
+
+## <a name="additional-resources"></a><span data-ttu-id="35785-180">その他の資料</span><span class="sxs-lookup"><span data-stu-id="35785-180">Additional resources</span></span>
+
+* [<span data-ttu-id="35785-181">ASP.NET Core でのベアラートークン認証</span><span class="sxs-lookup"><span data-stu-id="35785-181">Bearer Token Authentication in ASP.NET Core</span></span>](https://blogs.msdn.microsoft.com/webdev/2016/10/27/bearer-token-authentication-in-asp-net-core/)
+* [<span data-ttu-id="35785-182">リソースベースの承認</span><span class="sxs-lookup"><span data-stu-id="35785-182">Resource-based Authorization</span></span>](xref:security/authorization/resourcebased)
