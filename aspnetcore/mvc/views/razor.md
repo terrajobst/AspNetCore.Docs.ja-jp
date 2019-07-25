@@ -5,12 +5,12 @@ description: Web ページにサーバー ベースのコードを埋め込む�
 ms.author: riande
 ms.date: 06/12/2019
 uid: mvc/views/razor
-ms.openlocfilehash: 87c5b97a653c139b8b79f4270e0d9d0081815433
-ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
+ms.openlocfilehash: 634623aa6df860a2ff728da4e65d277326db37e2
+ms.sourcegitcommit: 051f068c78931432e030b60094c38376d64d013e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/12/2019
-ms.locfileid: "67034941"
+ms.lasthandoff: 07/24/2019
+ms.locfileid: "68440366"
 ---
 # <a name="razor-syntax-reference-for-aspnet-core"></a>ASP.NET Core の Razor 構文リファレンス
 
@@ -581,9 +581,6 @@ Razor では、ビューに渡されるモデルにアクセスするための `
 ```cshtml
 @attribute [Authorize]
 ```
-
-> [!WARNING]
-> ASP.NET Core 3.0 Preview 6 のリリースには、 *\_Imports.razor* ファイルと *\_ViewImports.cshtml* ファイルで `@attribute` ディレクティブが動作しないという既知の問題があります。 これは Preview 7 のリリースで対処される予定です。
 
 ### <a name="namespace"></a>@namespace
 
