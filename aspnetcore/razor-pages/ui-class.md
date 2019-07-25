@@ -7,18 +7,18 @@ ms.author: riande
 ms.date: 06/28/2019
 ms.custom: mvc, seodec18
 uid: razor-pages/ui-class
-ms.openlocfilehash: d59f643a23b48ccbddf498ef534ee8432b010f40
-ms.sourcegitcommit: 6d9cf728465cdb0de1037633a8b7df9a8989cccb
+ms.openlocfilehash: 77c7d4a318610fcd424da0485abd41d11e3fad6a
+ms.sourcegitcommit: fbc66827e319d28bebed678ea5fd42f582fe3c34
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/28/2019
-ms.locfileid: "67463256"
+ms.lasthandoff: 07/25/2019
+ms.locfileid: "68493561"
 ---
-# <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a>ASP.NET Core で Razor クラス ライブラリ プロジェクトを使用して再利用可能な UI を作成します。
+# <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a>ASP.NET Core の Razor クラスライブラリプロジェクトを使用して、再利用可能な UI を作成する
 
 作成者: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-Razor ビュー、ページ、コント ローラー、ページ モデルでは、 [Razor コンポーネント](xref:blazor/class-libraries)、[ビュー コンポーネント](xref:mvc/views/view-components)、および Razor クラス ライブラリ (RCL) にデータ モデルをビルドすることができます。 RCL はパッケージ化し、再利用できます。 アプリケーションには RCL を含めることができます。また、それに含まれるビューやページをオーバーライドできます。 Web アプリと RCL の両方にビュー、部分ビュー、Razor ページがあるとき、Web アプリの Razor マークアップ ( *.cshtml* ファイル) が優先されます。
+Razor ビュー、ページ、コントローラー、ページモデル、 [razor コンポーネント](xref:blazor/class-libraries)、[ビューコンポーネント](xref:mvc/views/view-components)、およびデータモデルは、razor クラスライブラリ (rcl) に組み込むことができます。 RCL はパッケージ化し、再利用できます。 アプリケーションには RCL を含めることができます。また、それに含まれるビューやページをオーバーライドできます。 Web アプリと RCL の両方にビュー、部分ビュー、Razor ページがあるとき、Web アプリの Razor マークアップ ( *.cshtml* ファイル) が優先されます。
 
 この機能が必要です。 [!INCLUDE[](~/includes/2.1-SDK.md)]
 
@@ -34,7 +34,7 @@ Razor ビュー、ページ、コント ローラー、ページ モデルでは
 * **ASP.NET Core 2.1** 以降が選択されていることを確認します。
 * **[Razor クラス ライブラリ]** 、 **[OK]** の順に選択します。
 
-RCL では、次のプロジェクト ファイルがあります。
+RCL には、次のプロジェクトファイルがあります。
 
 [!code-xml[Main](ui-class/samples/cli/RazorUIClassLib/RazorUIClassLib.csproj)]
 
@@ -52,16 +52,16 @@ dotnet new razorclasslib -o RazorUIClassLib
 
 Razor ファイルを RCL に追加します。
 
-ASP.NET Core テンプレートは、RCL コンテンツが前提としています。、*領域*フォルダー。 参照してください[RCL ページ レイアウト](#afs)でコンテンツを公開する、RCL を作成する`~/Pages`なく`~/Areas/Pages`します。
+ASP.NET Core テンプレートは、RCL コンテンツが前提としています。、*領域*フォルダー。 「 [Rcl ページのレイアウト](#afs)」を参照して、では`~/Pages`なく`~/Areas/Pages`、でコンテンツを公開する rcl を作成します。
 
-## <a name="referencing-rcl-content"></a>RCL コンテンツを参照します。
+## <a name="referencing-rcl-content"></a>RCL コンテンツの参照
 
 RCL は次によって参照できます。
 
 * NuGet パッケージ。 「[Creating NuGet packages](/nuget/create-packages/creating-a-package)」 (NuGet パッケージの作成)、「[dotnet add package](/dotnet/core/tools/dotnet-add-package)」、「[Create and publish a NuGet package](/nuget/quickstart/create-and-publish-a-package-using-visual-studio)」 (NuGet パッケージの作成と公開) を参照してください。
 * *{ProjectName}.csproj*. 「[dotnet-add reference](/dotnet/core/tools/dotnet-add-reference)」を参照してください。
 
-## <a name="walkthrough-create-an-rcl-project-and-use-from-a-razor-pages-project"></a>チュートリアル: RCL プロジェクトを作成し、Razor ページ プロジェクトからの使用
+## <a name="walkthrough-create-an-rcl-project-and-use-from-a-razor-pages-project"></a>チュートリアル: RCL プロジェクトを作成し、Razor Pages プロジェクトから使用する
 
 作成しなくても、[完全なプロジェクト](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples)をダウンロードしてテストできます。 サンプル ダウンロードには、プロジェクトのテストを簡単にする追加のコードやリンクが含まれています。 GitHub の問題に関するフィードバックは[こちら](https://github.com/aspnet/AspNetCore.Docs/issues/6098)で扱っています。ダウンロード サンプルと段階的指示の違いについてコメントを投稿できます。
 
@@ -91,9 +91,9 @@ dotnet run
 
 [テスト WebApp1](#test) の指示に従ってください。
 
-## <a name="create-an-rcl"></a>作成、RCL
+## <a name="create-an-rcl"></a>RCL を作成する
 
-このセクションで、RCL が作成されます。 Razor ファイルが RCL に追加されます。
+このセクションでは、RCL を作成します。 Razor ファイルが RCL に追加されます。
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -118,7 +118,7 @@ dotnet new viewstart -o RazorUIClassLib/Areas/MyFeature/Pages
 
 上のコマンドでは以下の操作が行われます。
 
-* 作成、 `RazorUIClassLib` RCL します。
+* Rcl `RazorUIClassLib`を作成します。
 * Razor _Message ページが作成され、RCL に追加されます。 `-np` パラメーターによって、`PageModel` なしでページが作成されます。
 * 作成、 [_ViewStart.cshtml](xref:mvc/views/layout#running-code-before-each-view)ファイルを開き、RCL に追加します。
 
@@ -174,7 +174,7 @@ Razor ページ Web アプリの作成:
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-Razor ページ web アプリと Razor ページ アプリと、RCL を含むソリューション ファイルを作成します。
+Razor Pages web アプリと、Razor Pages アプリと RCL を含むソリューションファイルを作成します。
 
 ```console
 dotnet new webapp -o WebApp1
@@ -197,13 +197,13 @@ dotnet run
 
 ### <a name="test-webapp1"></a>テスト WebApp1
 
-使用されて、Razor の UI クラス ライブラリを確認します。
+Razor UI クラスライブラリが使用されていることを確認します。
 
 * `/MyFeature/Page1` を参照します。
 
 ## <a name="override-views-partial-views-and-pages"></a>ビュー、部分ビュー、ページのオーバーライド
 
-Web アプリと RCL の両方にビュー、部分ビュー、Razor ページがあるとき、Web アプリの Razor マークアップ ( *.cshtml* ファイル) が優先されます。 たとえば、追加*WebApp1/Areas/MyFeature/Pages/Page1.cshtml* WebApp1 に、WebApp1 の Page1 は優先、RCL の Page1 とします。
+Web アプリと RCL の両方にビュー、部分ビュー、Razor ページがあるとき、Web アプリの Razor マークアップ ( *.cshtml* ファイル) が優先されます。 たとえば、 *WebApp1/Areas/MyFeature/Pages/Page1. cshtml*を WebApp1 に追加すると、WebApp1 の PAGE1 が Rcl の page1 よりも優先されます。
 
 サンプル ダウンロードの *WebApp1/Areas/MyFeature2* の名前を *WebApp1/Areas/MyFeature* に変更し、優先設定をテストします。
 
@@ -230,31 +230,31 @@ Web アプリと RCL の両方にビュー、部分ビュー、Razor ページ�
 
 ::: moniker range=">= aspnetcore-3.0"
 
-## <a name="create-an-rcl-with-static-assets"></a>静的なアセットを RCL を作成します。
+## <a name="create-an-rcl-with-static-assets"></a>静的なアセットを含む RCL を作成する
 
-RCL、RCL のアプリを使うで参照できる付属の静的なアセットを必要があります。 ASP.NET Core ではアプリを使うに使用できる静的なアセットを含む RCLs を作成できます。
+RCL では、RCL の消費アプリから参照できる、関連する静的アセットが必要な場合があります。 ASP.NET Core では、使用中のアプリで利用可能な静的アセットを含む RCLs を作成できます。
 
-コンパニオン資産は、RCL の一部として、作成、 *wwwroot*クラス ライブラリ内のフォルダーと、そのフォルダーに必要なファイルを含めます。
+RCL の一部としてコンパニオン資産を含めるには、クラスライブラリに*wwwroot*フォルダーを作成し、そのフォルダーに必要なファイルを含めます。
 
-資産をすべてコンパニオン、RCL をパックするときに、 *wwwroot*フォルダー、パッケージに自動的に含まれ、パッケージを参照するアプリで使用できるようにします。
+RCL をパッキングすると、 *wwwroot*フォルダー内のすべてのコンパニオン資産が自動的にパッケージに含まれ、パッケージを参照するアプリで使用できるようになります。
 
-### <a name="consume-content-from-a-referenced-rcl"></a>参照先 RCL からコンテンツを使用します。
+### <a name="consume-content-from-a-referenced-rcl"></a>参照されている RCL からのコンテンツの使用
 
-含まれるファイル、 *wwwroot* 、RCL のフォルダーは、プレフィックスの下でアプリを使うには公開`_content/{LIBRARY NAME}/`します。 `{LIBRARY NAME}` ライブラリのプロジェクト名に変換期間の小文字 (`.`) を削除します。 たとえば、という名前のライブラリ*Razor.Class.Lib*で静的なコンテンツへのパスになります`_content/razorclasslib/`します。
+RCL の*wwwroot*フォルダーに含まれるファイルは、プレフィックス`_content/{LIBRARY NAME}/`の下にあるアプリに公開されます。 たとえば、*という名前*のライブラリを使用すると、の静的コンテンツ`_content/Razor.Class.Lib/`へのパスが生成されます。
 
-アプリを使うと、ライブラリによって提供される静的なアセットを参照して`<script>`、 `<style>`、 `<img>`、およびその他の HTML タグ。 アプリを使う必要があります[静的ファイルのサポート](xref:fundamentals/static-files)を有効にします。
+使用中のアプリは`<script>` `<img>`、、 `<style>`、、およびその他の HTML タグを使用して、ライブラリによって提供される静的アセットを参照します。 コンシューマーアプリでは、[静的ファイルのサポート](xref:fundamentals/static-files)が有効になっている必要があります。
 
 ### <a name="multi-project-development-flow"></a>複数プロジェクトの開発フロー
 
-アプリを使うが実行されます。
+コンシューマーアプリの実行時:
 
-* 元のフォルダー、RCL で資産を継続します。 資産は、アプリを使うに移動されません。
-* RCL の内のすべての変更*wwwroot* RCL が再構築後のアプリを使うとアプリを使うを再構築せずにフォルダーが反映されます。
+* RCL のアセットは元のフォルダーにとどまります。 アセットは、消費側のアプリに移動されません。
+* Rcl の*wwwroot*フォルダー内の変更は、rcl がリビルドされた後、使用中のアプリを再構築せずに、消費側アプリに反映されます。
 
-RCL のビルド時に静的 web 資産の場所を記述するマニフェストが生成されます。 アプリを使うでは、参照先のプロジェクトとパッケージから資産を使用する実行時にマニフェストを読み取ります。 RCL に新しい資産を追加するときに、RCL はアプリを使うことができます、新しいアセットへのアクセス前に、そのマニフェストを更新する再構築する必要があります。
+RCL がビルドされると、静的な web 資産の場所を記述するマニフェストが生成されます。 コンシューマーアプリは、実行時にマニフェストを読み取り、参照されたプロジェクトとパッケージのアセットを使用します。 RCL に新しいアセットが追加されたときに、使用中のアプリが新しい資産にアクセスできるようにするには、そのマニフェストを更新するために RCL を再構築する必要があります。
 
-### <a name="publish"></a>公開
+### <a name="publish"></a>パブリッシュ
 
-参照されているすべてのプロジェクトとパッケージのコンパニオン アセットをコピー、アプリが発行されると、 *wwwroot*フォルダーの下で発行されたアプリの`_content/{LIBRARY NAME}/`します。
+アプリが発行されると、参照されているすべてのプロジェクトおよびパッケージの関連する資産が、で`_content/{LIBRARY NAME}/`発行されたアプリの wwwroot フォルダーにコピーされます。
 
 ::: moniker-end
