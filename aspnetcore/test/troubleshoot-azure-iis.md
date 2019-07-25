@@ -5,14 +5,14 @@ description: ASP.NET Core アプリの Azure App Service およびインター�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/17/2019
+ms.date: 07/18/2019
 uid: test/troubleshoot-azure-iis
-ms.openlocfilehash: 46d4a11c594844e059fa8555255d7321f7b48631
-ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
+ms.openlocfilehash: deae568a6ba88c9a8365b9d7f2df629899bc64a1
+ms.sourcegitcommit: 16502797ea749e2690feaa5e652a65b89c007c89
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68308795"
+ms.lasthandoff: 07/25/2019
+ms.locfileid: "68483320"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service-and-iis"></a>Azure App Service および IIS での ASP.NET Core のトラブルシューティング
 
@@ -48,6 +48,31 @@ Visual Studio では、ASP.NET Core プロジェクトのデバッグ時に [IIS
 Visual Studio では、ASP.NET Core プロジェクトのデバッグ時に [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) のホスティングが既定の設定です。 ローカルでデバッグするときに*502.5 プロセスエラー*が発生した場合は、このトピックのアドバイスを使用して診断できます。
 
 ::: moniker-end
+
+### <a name="40314-forbidden"></a>403.14 許可されていません
+
+アプリを起動できません。 次のエラーがログに記録されます。
+
+```
+The Web server is configured to not list the contents of this directory.
+```
+
+このエラーが発生するのは、通常、ホストシステム上の展開が壊れている場合です。これには、次のようなシナリオが含まれます。
+
+* アプリがホストシステムの間違ったフォルダーに配置されています。
+* 展開プロセスで、アプリのすべてのファイルとフォルダーを、ホスティングシステムの展開フォルダーに移動できませんでした。
+* 配置に*web.config ファイルが*ないか、 *web.config ファイルの*内容の形式が正しくありません。
+
+次の手順を実行します。
+
+1. ホストシステム上の展開フォルダーからすべてのファイルとフォルダーを削除します。
+1. Visual Studio、PowerShell、手動デプロイなどの通常のデプロイ方法を使用して、アプリの*publish*フォルダーの内容をホスティングシステムに再デプロイします。
+   * 配置に web.config*ファイルが*存在し、その内容が正しいことを確認します。
+   * Azure App Service でホストする場合は、アプリが`D:\home\site\wwwroot`フォルダーに展開されていることを確認します。
+   * アプリが IIS によってホストされている場合は、iis**マネージャー**の **[基本設定]** に表示されている iis の**物理パス**にアプリが展開されていることを確認します。
+1. ホスティングシステムの配置をプロジェクトの*publish*フォルダーの内容と比較することによって、アプリのすべてのファイルとフォルダーが展開されていることを確認します。
+
+発行された ASP.NET Core アプリのレイアウトの詳細について<xref:host-and-deploy/directory-structure>は、「」を参照してください。 Web.config*ファイルの*詳細については、「」 <xref:host-and-deploy/aspnet-core-module#configuration-with-webconfig>を参照してください。
 
 ### <a name="500-internal-server-error"></a>500 内部サーバー エラー
 
@@ -192,6 +217,8 @@ Failed to start application '/LM/W3SVC/6/ROOT/', ErrorCode '0x800700c1'.
 1. **[32 ビット アプリケーションの有効化]** を設定します。
    * 32 ビット (x86) アプリを展開する場合は、この値を `True` に設定します。
    * 64 ビット (x64) アプリを展開する場合は、この値を `False` に設定します。
+
+プロジェクトファイルの`<Platform>` MSBuild プロパティとアプリの公開ビットが競合していないことを確認します。
 
 ### <a name="connection-reset"></a>接続のリセット
 
