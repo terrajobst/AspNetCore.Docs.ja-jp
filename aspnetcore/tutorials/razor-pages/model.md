@@ -5,12 +5,12 @@ description: Entity Framework Core (EF Core) を利用し、データベース�
 ms.author: riande
 ms.date: 02/12/2019
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: 44e6f53d517b0470c5e6fa785a4061e59cda9ce6
-ms.sourcegitcommit: 20ca93d72cb0b3998637724b44523e57b089c8fd
+ms.openlocfilehash: be9f515178d0169a69487f917c7d39c6f11f1292
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/09/2019
-ms.locfileid: "65473604"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815047"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>ASP.NET Core での Razor ページ アプリへのモデルの追加
 
@@ -28,9 +28,9 @@ ms.locfileid: "65473604"
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-**RazorPagesMovie** プロジェクトを右クリックし、**[追加]** > **[新しいフォルダー]** の順に選択します。 フォルダーに *Models* という名前を付けます。
+**RazorPagesMovie** プロジェクトを右クリックし、 **[追加]**  >  **[新しいフォルダー]** の順に選択します。 フォルダーに *Models* という名前を付けます。
 
-*Models* フォルダーを右クリックします。 **[追加]**、**[クラス]** の順に選択します。 クラスに **Movie** と名前を付けます。
+*Models* フォルダーを右クリックします。 **[追加]** 、 **[クラス]** の順に選択します。 クラスに **Movie** と名前を付けます。
 
 [!INCLUDE [model 1b](~/includes/RP/model1b.md)]
 
@@ -45,13 +45,13 @@ ms.locfileid: "65473604"
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* ソリューション エクスプローラーで、**RazorPagesMovie** プロジェクトを右クリックし、**[追加]** > **[新しいフォルダー]** の順に選択します。 フォルダーに *Models* という名前を付けます。
-* *Models* フォルダーを右クリックし、**[追加]** > **[新しいファイル]** の順に選択します。
+* ソリューション エクスプローラーで、**RazorPagesMovie** プロジェクトを右クリックし、 **[追加]**  >  **[新しいフォルダー]** の順に選択します。 フォルダーに *Models* という名前を付けます。
+* *Models* フォルダーを右クリックし、 **[追加]**  >  **[新しいファイル]** の順に選択します。
 * **[新しいファイル]** ダイアログで次を実行します。
 
   * 左側のウィンドウで **[全般]** を選択します。
   * 中央ウィンドウで **[空のクラス]** を選択します。
-  * クラスに **Movie** という名前を付け、**[新規]** を選択します。
+  * クラスに **Movie** という名前を付け、 **[新規]** を選択します。
 
 [!INCLUDE [model 1b](~/includes/RP/model1b.md)]
 
@@ -69,21 +69,25 @@ ms.locfileid: "65473604"
 
 *Pages/Movies* フォルダーを作成します。
 
-* *Pages* フォルダーを右クリックし、**[追加]** > **[新しいフォルダー]** の順に選択します。
+* *Pages* フォルダーを右クリックし、 **[追加]**  >  **[新しいフォルダー]** の順に選択します。
 * フォルダーに *Movies* という名前を付けます。
 
-*Pages/Movies* フォルダーを右クリックし、**[追加]** > **[スキャフォールディングされた新しい項目]** の順に選択します。
+*Pages/Movies* フォルダーを右クリックし、 **[追加]**  >  **[スキャフォールディングされた新しい項目]** の順に選択します。
 
 ![前の手順からのイメージ。](model/_static/sca.png)
 
-**[スキャフォールディングを追加]** ダイアログで、**[Entity Framework を使用する Razor ページ (CRUD)]** > **[追加]** の順に選択します。
+**[スキャフォールディングを追加]** ダイアログで、 **[Entity Framework を使用する Razor ページ (CRUD)]**  >  **[追加]** の順に選択します。
 
 ![前の手順からのイメージ。](model/_static/add_scaffold.png)
 
 **[Add Razor Pages using Entity Framework (CRUD)]\(Entity Framework を使用して Razor Pages (CRUD) を追加する\)** ダイアログを完了します。
+<!-- In the next section, change 
+(plus) sign and accept the generated name 
+to use Data, it should not use models. That will make the namespace the same for the VS version and the CLI version
+-->
 
-* **[モデル クラス]** ドロップ ダウンで、**[Movie (RazorPagesMovie.Models)]** を選択します。
-* **データ コンテキスト クラス**行で、**+** (プラス) 記号を選択し、生成された名前 **RazorPagesMovie.Models.RazorPagesMovieContext** を受け入れます。
+* **[モデル クラス]** ドロップ ダウンで、 **[Movie (RazorPagesMovie.Models)]** を選択します。
+* **データ コンテキスト クラス**行で、 **+** (プラス) 記号を選択し、生成された名前 **RazorPagesMovie.Models.RazorPagesMovieContext** を受け入れます。
 * **[追加]** を選びます。
 
 ![前の手順からのイメージ。](model/_static/arp.png)
@@ -159,7 +163,7 @@ ms.locfileid: "65473604"
 * 初期移行を追加します。
 * 初期移行でデータベースを更新します。
 
-**[ツール]** メニューで、**[NuGet パッケージ マネージャー]**、**[パッケージ マネージャー コンソール]** の順に選択します。
+**[ツール]** メニューで、 **[NuGet パッケージ マネージャー]** 、 **[パッケージ マネージャー コンソール]** の順に選択します。
 
   ![PMC メニュー](../first-mvc-app/adding-model/_static/pmc.png)
 
@@ -218,7 +222,7 @@ ASP.NET Core には、[依存関係挿入](xref:fundamentals/dependency-injectio
 
 ---
 
-`Add-Migration` コマンドによって最初のデータベース スキーマを作成するコードが生成されます。 このスキーマは、`RazorPagesMovieContext` で指定されたモデルに基づきます (*Data/RazorPagesMovieContext.cs* ファイル内)。 `Initial` 引数は移行の命名に使用されます。 任意の名前を使用できますが、規則により、移行を説明する名前が使用されます。 詳細については、「<xref:data/ef-mvc/migrations>」を参照してください。
+`Add-Migration` コマンドによって最初のデータベース スキーマを作成するコードが生成されます。 このスキーマは、`RazorPagesMovieContext` で指定されたモデルに基づきます (*Data/RazorPagesMovieContext.cs* ファイル内)。 `Initial` 引数は移行の命名に使用されます。 任意の名前を使用できますが、規則により、移行を説明する名前が使用されます。 詳細については、<xref:data/ef-mvc/migrations> を参照してください。
 
 `Update-Database` コマンドは、データベースを作成する、*Migrations/{time-stamp}_InitialCreate.cs* ファイルの `Up` メソッドを実行します。
 
@@ -244,7 +248,7 @@ Login failed for user 'User-name'.
   > [!NOTE]
   > `Price` フィールドに小数点のコンマを入力できない場合があります。 小数点にコンマ (",") を使う英語以外のロケール、および英語 (米国) 以外の日付形式で、[jQuery 検証](https://jqueryvalidation.org/)をサポートするには、アプリをグローバル化する必要があります。 グローバル化の手順については、[この GitHub の記事](https://github.com/aspnet/AspNetCore.Docs/issues/4076#issuecomment-326590420)をご覧ください。
 
-* **[編集]**、**[詳細]**、および **[削除]** の各リンクをテストします。
+* **[編集]** 、 **[詳細]** 、および **[削除]** の各リンクをテストします。
 
 次のチュートリアルでは、スキャフォールディングによって作成されるファイルについて説明します。
 

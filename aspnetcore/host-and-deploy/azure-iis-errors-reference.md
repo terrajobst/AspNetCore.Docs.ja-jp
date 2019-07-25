@@ -5,14 +5,14 @@ description: Azure Apps Service と IIS で ASP.NET Core アプリをホスト�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/12/2019
+ms.date: 07/10/2019
 uid: host-and-deploy/azure-iis-errors-reference
-ms.openlocfilehash: 0191460f8c3dab98e6f977a29eacf0396b6789d8
-ms.sourcegitcommit: b4ef2b00f3e1eb287138f8b43c811cb35a100d3e
+ms.openlocfilehash: 3030bc57be113d9034123c96403742442b9240bb
+ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/21/2019
-ms.locfileid: "65970071"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68308099"
 ---
 # <a name="common-errors-reference-for-azure-app-service-and-iis-with-aspnet-core"></a>ASP.NET Core を使用した Azure App Service および IIS の一般的なエラーのリファレンス
 
@@ -24,12 +24,12 @@ ms.locfileid: "65970071"
 
 * ブラウザーの動作 (ステータス コードとエラー メッセージ)
 * アプリケーション イベント ログのエントリ
-  * Azure App Service &ndash; (<xref:host-and-deploy/azure-apps/troubleshoot> 参照)。
+  * Azure App Service &ndash; (<xref:test/troubleshoot-azure-iis> 参照)。
   * IIS
     1. **[Windows]** メニューで **[スタート]** を選択し、「*Event Viewer*」と入力し、**Enter** を押します。
-    1. **イベント ビューアー**が開いたら、サイドバーで **[Windows ログ]**、**[アプリケーション]** の順に展開します。
+    1. **イベント ビューアー**が開いたら、サイドバーで **[Windows ログ]** 、 **[アプリケーション]** の順に展開します。
 * ASP.NET Core モジュールの stdout ログ エントリと debug ログ エントリ
-  * Azure App Service &ndash; (<xref:host-and-deploy/azure-apps/troubleshoot> 参照)。
+  * Azure App Service &ndash; (<xref:test/troubleshoot-azure-iis> 参照)。
   * IIS &ndash; ASP.NET Core モジュール トピックの「[ログの作成とリダイレクト](xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection)」セクションと「[強化された診断ログ](xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs)」セクションの指示に従います。
 
 エラー情報を次の一般的なエラーと比較します。 一致が見つかった場合は、トラブルシューティングのアドバイスに従います。
@@ -48,7 +48,7 @@ ms.locfileid: "65970071"
 
 トラブルシューティング:
 
-[NET Core ホスティング バンドル](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle)のインストール時にインストーラーがインターネットにアクセスできない場合、インストーラーは *Microsoft Visual C++ 2015 再頒布可能パッケージ*を取得できず、この例外が発生します。 [Microsoft ダウンロード センター](https://www.microsoft.com/download/details.aspx?id=53840)からインストーラーを入手します。 インストーラーが失敗する場合、[フレームワークに依存する展開 (FDD)](/dotnet/core/deploying/#framework-dependent-deployments-fdd) をホストするために必要な .NET Core ランタイムをサーバーが受け取っていない可能性があります。 FDD をホストしている場合は、**[プログラムと機能]** または **[アプリと機能]** でランタイムがインストールされていることを確認してください。 特定のランタイムが必要な場合、[.NET ダウンロード アーカイブ](https://dotnet.microsoft.com/download/archives)からダウンロードし、システムにインストールしてください。 ランタイムのインストール後、システムを再起動するか、コマンド プロンプトから **net stop was /y** に続けて **net start w3svc** を実行して IIS を再起動します。
+[NET Core ホスティング バンドル](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle)のインストール時にインストーラーがインターネットにアクセスできない場合、インストーラーは *Microsoft Visual C++ 2015 再頒布可能パッケージ*を取得できず、この例外が発生します。 [Microsoft ダウンロード センター](https://www.microsoft.com/download/details.aspx?id=53840)からインストーラーを入手します。 インストーラーが失敗する場合、[フレームワークに依存する展開 (FDD)](/dotnet/core/deploying/#framework-dependent-deployments-fdd) をホストするために必要な .NET Core ランタイムをサーバーが受け取っていない可能性があります。 FDD をホストしている場合は、 **[プログラムと機能]** または **[アプリと機能]** でランタイムがインストールされていることを確認してください。 特定のランタイムが必要な場合、[.NET ダウンロード アーカイブ](https://dotnet.microsoft.com/download/archives)からダウンロードし、システムにインストールしてください。 ランタイムのインストール後、システムを再起動するか、コマンド プロンプトから **net stop was /y** に続けて **net start w3svc** を実行して IIS を再起動します。
 
 ## <a name="os-upgrade-removed-the-32-bit-aspnet-core-module"></a>OS のアップグレードによって 32 ビット ASP.NET Core モジュールが削除された
 
@@ -60,7 +60,7 @@ ms.locfileid: "65970071"
 
 ## <a name="missing-site-extension-32-bit-x86-and-64-bit-x64-site-extensions-installed-or-wrong-process-bitness-set"></a>サイト拡張機能の不足、32 ビット (x86) および 64 ビット (x64) サイト拡張機能がインストールされている、または間違ったプロセス ビットが設定されている
 
-"*Azure App Services でホストしているアプリに適用されます。*"
+"*Azure App Services でホストしているアプリに適用されます。* "
 
 * **ブラウザー:** HTTP エラー 500.0 - ANCM インプロセス ハンドラーの読み込みエラー
 
@@ -89,7 +89,7 @@ ms.locfileid: "65970071"
 
 * **[アプリケーション設定]** のアプリの **[プラットフォーム]** がアプリのビットと一致していることを確認します。
 
-詳細については、「<xref:host-and-deploy/azure-apps/index#install-the-preview-site-extension>」を参照してください。
+詳細については、<xref:host-and-deploy/azure-apps/index#install-the-preview-site-extension> を参照してください。
 
 ## <a name="an-x86-app-is-deployed-but-the-app-pool-isnt-enabled-for-32-bit-apps"></a>x86 アプリが展開されますが、32 ビット アプリに対してアプリ プールは有効になりません。
 
@@ -109,7 +109,7 @@ ms.locfileid: "65970071"
 
 トラブルシューティング:
 
-x86 フレームワークに依存する展開の場合 (`<PlatformTarget>x86</PlatformTarget>`)、32 ビット アプリに対して IIS アプリ プールを有効にします。 IIS Manager でアプリ プールの **[詳細設定]** を開き、**[32 ビット アプリケーションの有効化]** を **[True]** に設定します。
+x86 フレームワークに依存する展開の場合 (`<PlatformTarget>x86</PlatformTarget>`)、32 ビット アプリに対して IIS アプリ プールを有効にします。 IIS Manager でアプリ プールの **[詳細設定]** を開き、 **[32 ビット アプリケーションの有効化]** を **[True]** に設定します。
 
 ## <a name="platform-conflicts-with-rid"></a>プラットフォームが RID と競合している
 
@@ -121,7 +121,7 @@ x86 フレームワークに依存する展開の場合 (`<PlatformTarget>x86</P
 
 トラブルシューティング:
 
-* Kestrel でアプリをローカルに実行できることを確認します。 プロセスのエラーは、アプリ内の問題の結果である可能性があります。 詳細については、「[トラブルシューティング (IIS)](xref:host-and-deploy/iis/troubleshoot)」または「[トラブルシューティング (Azure App Service)](xref:host-and-deploy/azure-apps/troubleshoot)」を参照してください。
+* Kestrel でアプリをローカルに実行できることを確認します。 プロセスのエラーは、アプリ内の問題の結果である可能性があります。 詳細については、<xref:test/troubleshoot-azure-iis> を参照してください。
 
 * Azure Apps 展開で、アプリケーションをアップグレードして新しいアセンブリを展開しようとしたときにこの例外が発生した場合は、以前の展開からすべてのファイルを手動で削除してください。 アップグレードしたアプリを展開するとき、互換性のないアセンブリが残っていると、`System.BadImageFormatException` 例外が発生します。
 
@@ -189,13 +189,13 @@ IIS Web サイトの**基本設定**と物理アプリのフォルダーを確�
 
 * 適切な役割が有効になっていることを確認します。 「[IIS 構成](xref:host-and-deploy/iis/index#iis-configuration)」を参照してください。
 
-* **[プログラムと機能]** または **[アプリと機能]** を開き、**[Windows Server Hosting]** がインストールされていることを確認します。 インストールされているプログラムの一覧に **[Windows Server Hosting]** がない場合、.NET Core ホスティング バンドルをダウンロードしてインストールします。
+* **[プログラムと機能]** または **[アプリと機能]** を開き、 **[Windows Server Hosting]** がインストールされていることを確認します。 インストールされているプログラムの一覧に **[Windows Server Hosting]** がない場合、.NET Core ホスティング バンドルをダウンロードしてインストールします。
 
   [現在の .NET Core ホスティング バンドルのインストーラー (直接ダウンロード)](https://www.microsoft.com/net/permalink/dotnetcore-current-windows-runtime-bundle-installer)
 
   詳細については、「[.NET Core ホスティング バンドルのインストール](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle)」をご覧ください。
 
-* **[アプリケーション プール]** > **[プロセス モデル]** > **[ID]** が **ApplicationPoolIdentity** に設定されていることを確認します。または、アプリの展開フォルダーにアクセスするための正しいアクセス許可がカスタム ID に設定されていることを確認します。
+* **[アプリケーション プール]**  >  **[プロセス モデル]**  >  **[ID]** が **ApplicationPoolIdentity** に設定されていることを確認します。または、アプリの展開フォルダーにアクセスするための正しいアクセス許可がカスタム ID に設定されていることを確認します。
 
 * ASP.NET Core ホスティング バンドルをアンインストールし、以前のバージョンのホスティング バンドルをインストールした場合、*applicationHost.config* ファイルには ASP.NET Core モジュールのセクションが含まれません。 *applicationHost.config* で *%windir%/System32/inetsrv/config* を開き、`<configuration><configSections><sectionGroup name="system.webServer">` セクション グループを見つけます。 セクション グループに ASP.NET Core モジュールのセクションがない場合は、セクション要素を追加します。
 
@@ -231,7 +231,7 @@ IIS Web サイトの**基本設定**と物理アプリのフォルダーを確�
 
 トラブルシューティング:
 
-* Kestrel でアプリをローカルに実行できることを確認します。 プロセスのエラーは、アプリ内の問題の結果である可能性があります。 詳細については、「[トラブルシューティング (IIS)](xref:host-and-deploy/iis/troubleshoot)」または「[トラブルシューティング (Azure App Service)](xref:host-and-deploy/azure-apps/troubleshoot)」を参照してください。
+* Kestrel でアプリをローカルに実行できることを確認します。 プロセスのエラーは、アプリ内の問題の結果である可能性があります。 詳細については、<xref:test/troubleshoot-azure-iis> を参照してください。
 
 * *web.config* で `<aspNetCore>` 要素の *processPath* 属性を調べ、フレームワークに依存する展開 (FDD) の場合はそれが `dotnet` であること、[自己完結型展開 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) の場合はそれが `.\{ASSEMBLY}.exe` であることを確認します。
 
@@ -277,7 +277,7 @@ IIS Web サイトの**基本設定**と物理アプリのフォルダーを確�
 
 トラブルシューティング:
 
-* Kestrel でアプリをローカルに実行できることを確認します。 プロセスのエラーは、アプリ内の問題の結果である可能性があります。 詳細については、「[トラブルシューティング (IIS)](xref:host-and-deploy/iis/troubleshoot)」または「[トラブルシューティング (Azure App Service)](xref:host-and-deploy/azure-apps/troubleshoot)」を参照してください。
+* Kestrel でアプリをローカルに実行できることを確認します。 プロセスのエラーは、アプリ内の問題の結果である可能性があります。 詳細については、<xref:test/troubleshoot-azure-iis> を参照してください。
 
 * *web.config* で `<aspNetCore>` 要素の *arguments* 属性を調べ、次のいずれかになっていることを確認します。(a) フレームワークに依存する展開 (FDD) の場合は `.\{ASSEMBLY}.dll`、または (b) 自己完結型の展開 (SCD) の場合は、未指定の空の文字列 (`arguments=""`) か、アプリの引数のリスト (`arguments="{ARGUMENT_1}, {ARGUMENT_2}, ... {ARGUMENT_X}"`)。
 
@@ -339,7 +339,7 @@ IIS Web サイトの**基本設定**と物理アプリのフォルダーを確�
 
 サブアプリの *web.config* ファイルに `<handlers>` セクションがないか、サブアプリが親アプリのハンドラーを継承していないことを確認してください。
 
-*web.config* の親アプリの `<system.webServer>` セクションが `<location>` 要素の中に置かれています。 <xref:System.Configuration.SectionInformation.InheritInChildApplications*> プロパティは、`false` に設定されます。これは、[\<location>](/iis/manage/managing-your-configuration-settings/understanding-iis-configuration-delegation#the-concept-of-location) 要素内で指定された設定が、親アプリのサブディレクトリにあるアプリによって継承されないことを示します。 詳細については、「<xref:host-and-deploy/aspnet-core-module>」を参照してください。
+*web.config* の親アプリの `<system.webServer>` セクションが `<location>` 要素の中に置かれています。 <xref:System.Configuration.SectionInformation.InheritInChildApplications*> プロパティは、`false` に設定されます。これは、[\<location>](/iis/manage/managing-your-configuration-settings/understanding-iis-configuration-delegation#the-concept-of-location) 要素内で指定された設定が、親アプリのサブディレクトリにあるアプリによって継承されないことを示します。 詳細については、<xref:host-and-deploy/aspnet-core-module> を参照してください。
 
 ::: moniker-end
 
@@ -407,6 +407,5 @@ IIS Web サイトの**基本設定**と物理アプリのフォルダーを確�
 
 詳細については、次のトピックを参照してください。
 
-* <xref:host-and-deploy/iis/troubleshoot>
-* <xref:host-and-deploy/azure-apps/troubleshoot>
+* <xref:test/troubleshoot-azure-iis>
 * <xref:test/troubleshoot>
