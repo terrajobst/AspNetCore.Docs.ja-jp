@@ -4,14 +4,14 @@ author: jamesnk
 description: GRPC で認証と承認を使用して ASP.NET Core する方法について説明します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
-ms.date: 06/07/2019
+ms.date: 07/26/2019
 uid: grpc/authn-and-authz
-ms.openlocfilehash: 49024295e4db7976924397bb24567d92d6298562
-ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
+ms.openlocfilehash: 34f7f8a5a22159329b3d6c4524943434c460c7fb
+ms.sourcegitcommit: 0efb9e219fef481dee35f7b763165e488aa6cf9c
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68308775"
+ms.lasthandoff: 07/29/2019
+ms.locfileid: "68602428"
 ---
 # <a name="authentication-and-authorization-in-grpc-for-aspnet-core"></a>GRPC での認証と承認 (ASP.NET Core)
 
@@ -106,12 +106,25 @@ public Ticketer.TicketerClient CreateClientWithCert(
 
 ### <a name="other-authentication-mechanisms"></a>その他の認証メカニズム
 
-ベアラートークンとクライアント証明書の認証に加えて、OAuth、OpenID、Negotiate など、サポートされている ASP.NET Core すべての認証メカニズムが gRPC で動作する必要があります。 サーバー側で認証を構成する方法の詳細については、 [ASP.NET Core 認証](xref:security/authentication/identity)に関するページを参照してください。
+GRPC では、ASP.NET Core サポートされている多くの認証メカニズムが使用できます。
 
-クライアント側の構成は、使用している認証メカニズムによって異なります。 以前のベアラートークンとクライアント証明書の認証例では、grpc 呼び出しを使用して認証メタデータを送信するように gRPC クライアントを構成するいくつかの方法を示しています。
+* Azure Active Directory
+* クライアント証明書
+* IdentityServer
+* JWT トークン
+* OAuth 2.0
+* OpenID Connect
+* WS-Federation
+
+サーバーでの認証の構成の詳細については、「 [ASP.NET Core 認証](xref:security/authentication/identity)」を参照してください。
+
+認証を使用するように gRPC クライアントを構成することは、使用している認証メカニズムによって異なります。 前のベアラートークンとクライアント証明書の例では、grpc 呼び出しを使用して認証メタデータを送信するように gRPC クライアントを構成するいくつかの方法を示しています。
 
 * 厳密に型指定され`HttpClient`た grpc クライアントは、を内部的に使用します。 認証は、で[`HttpClientHandler`](/dotnet/api/system.net.http.httpclienthandler)構成することも、にカスタム[`HttpMessageHandler`](/dotnet/api/system.net.http.httpmessagehandler)インスタンス`HttpClient`を追加することによって構成することもできます。
 * 各 grpc 呼び出しには、 `CallOptions`省略可能な引数があります。 カスタムヘッダーは、オプションの headers コレクションを使用して送信できます。
+
+> [!NOTE]
+> Windows 認証 (NTLM/Kerberos/Negotiate) を gRPC で使用することはできません。 gRPC には HTTP/2 が必要ですが、HTTP/2 は Windows 認証をサポートしていません。
 
 ## <a name="authorize-users-to-access-services-and-service-methods"></a>サービスとサービスメソッドへのアクセスをユーザーに承認する
 

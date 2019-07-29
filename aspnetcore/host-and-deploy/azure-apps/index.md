@@ -5,14 +5,14 @@ description: この記事には、Azure のホストと展開リソースへの�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/16/2019
+ms.date: 07/28/2019
 uid: host-and-deploy/azure-apps/index
-ms.openlocfilehash: bbdb3e92b6b8afb44d9c0c95c240002c7b7c17db
-ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
+ms.openlocfilehash: 5035a31526e0290964e0fdee05753aeaf6cb3790
+ms.sourcegitcommit: 0efb9e219fef481dee35f7b763165e488aa6cf9c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68308157"
+ms.lasthandoff: 07/29/2019
+ms.locfileid: "68602442"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>Azure App Service に ASP.NET Core アプリを展開する
 
@@ -41,6 +41,9 @@ ASP.NET Core アプリ用に CI ビルドを設定し、Azure App Service に継
 
 [Azure Web アプリのサンドボックス](https://github.com/projectkudu/kudu/wiki/Azure-Web-App-sandbox)  
 Azure アプリのプラットフォームで適用される Azure App Service ランタイム実行の制限事項について説明します。
+
+<xref:test/troubleshoot>  
+ASP.NET Core プロジェクトでの警告とエラーについて説明し、トラブルシューティングを行います。
 
 ## <a name="application-configuration"></a>アプリケーション構成
 
