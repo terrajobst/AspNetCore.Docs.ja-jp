@@ -81,6 +81,9 @@
         - name: MongoDB での Web API
           displayName: tutorial
           uid: tutorials/first-mongo-app
+        - name: jQuery での Web API
+          displayName: tutorial
+          uid: tutorials/web-api-jquery
         - name: モバイル用のバックエンド
           displayName: tutorial
           uid: mobile/native-mobile-backend
