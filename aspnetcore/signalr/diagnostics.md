@@ -193,7 +193,7 @@ tcpdump -i [interface] -w trace.pcap
 3. (必要な) 場合は、ページを更新し、問題の再現
 4. 任意の場所の要求の一覧でを右クリックし、"保存すべてとして HAR"を選択
 
-![Mozilla Firefox デベロッパー ツール ネットワーク] タブで [HAR としてすべて"保存オプション](diagnostics/firefox-har-export.png)
+![Mozilla Firefox デベロッパー ツール ネットワーク タブで HAR としてすべて"保存オプション](diagnostics/firefox-har-export.png)
 
 ## <a name="attach-diagnostics-files-to-github-issues"></a>GitHub の問題を診断ファイルを添付します。
 

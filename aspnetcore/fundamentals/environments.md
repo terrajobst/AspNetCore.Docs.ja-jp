@@ -24,7 +24,7 @@ ASP.NET Core は、環境変数を利用し、ランタイム環境に基づい�
 
 ## <a name="environments"></a>環境
 
-ASP.NET Core はアプリの起動時に環境変数 `ASPNETCORE_ENVIRONMENT` を読み込み、その値を [IHostingEnvironment.EnvironmentName](/dotnet/api/microsoft.aspnetcore.hosting.ihostingenvironment.environmentname) に格納します。 `ASPNETCORE_ENVIRONMENT` は任意の値に設定できますが、このフレームワークでは [Development](/dotnet/api/microsoft.aspnetcore.hosting.environmentname.development)、[Staging](/dotnet/api/microsoft.aspnetcore.hosting.environmentname.staging)、[Production](/dotnet/api/microsoft.aspnetcore.hosting.environmentname.production) という 3 つの値を指定できます。 `ASPNETCORE_ENVIRONMENT` が設定されていない場合、既定で `Production` になります。
+ASP.NET Core はアプリの起動時に環境変数 `ASPNETCORE_ENVIRONMENT` を読み込み、その値を [IHostingEnvironment.EnvironmentName](/dotnet/api/microsoft.aspnetcore.hosting.ihostingenvironment.environmentname) に格納します。 設定することができます`ASPNETCORE_ENVIRONMENT`任意の値が[3 つの値](/dotnet/api/microsoft.aspnetcore.hosting.environmentname)framework でサポートされます。[Development](/dotnet/api/microsoft.aspnetcore.hosting.environmentname.development)、[Staging](/dotnet/api/microsoft.aspnetcore.hosting.environmentname.staging)、[Production](/dotnet/api/microsoft.aspnetcore.hosting.environmentname.production) という 3 つの値を指定できます。 `ASPNETCORE_ENVIRONMENT` が設定されていない場合、既定で `Production` になります。
 
 [!code-csharp[](environments/sample/EnvironmentsSample/Startup.cs?name=snippet)]
 
@@ -179,9 +179,9 @@ Visual Studio のプロジェクト プロパティの **[デバッグ]** タブ
 
 1. **[App Services]** ブレードからアプリを選択します。
 1. **[設定]** グループで **[アプリケーションの設定]** ブレードを選択します。
-1. **[アプリケーションの設定]** 領域で、**[新しい設定の追加]** を選択します。
+1. **[アプリケーションの設定]** 領域で、 **[新しい設定の追加]** を選択します。
 1. **[名前の入力]** には、`ASPNETCORE_ENVIRONMENT` を指定します。 **[値の入力]** には、環境を指定します (`Staging` など)。
-1. デプロイ スロットがスワップされるとき、環境設定に現在のスロットを与える場合、**[スロットの設定]** チェック ボックスを選択します。 詳細については、[設定のスワップに関する Azure ドキュメント](/azure/app-service/web-sites-staged-publishing)を参照してください。
+1. デプロイ スロットがスワップされるとき、環境設定に現在のスロットを与える場合、 **[スロットの設定]** チェック ボックスを選択します。 詳細については、[設定のスワップに関する Azure ドキュメント](/azure/app-service/web-sites-staged-publishing)を参照してください。
 1. ブレードの一番上にある **[保存]** を選択します。
 
 Azure App Service は、アプリ設定 (環境変数) が Azure Portal で追加、変更、削除された後、アプリを自動的に再起動します。
@@ -206,7 +206,7 @@ $Env:ASPNETCORE_ENVIRONMENT = "Development"
 
 Windows でグローバルな値を設定するには、次の方法のいずれかを使用します。
 
-* **[コントロール パネル]** > **[システム]** > **[システムの詳細設定]** の順に開き、`ASPNETCORE_ENVIRONMENT` 値を追加または編集します。
+* **[コントロール パネル]**  >  **[システム]**  >  **[システムの詳細設定]** の順に開き、`ASPNETCORE_ENVIRONMENT` 値を追加または編集します。
 
   ![システムの詳細プロパティ](environments/_static/systemsetting_environment.png)
 
@@ -240,7 +240,7 @@ Windows でグローバルな値を設定するには、次の方法のいずれ
 
 **プロジェクト ファイルまたは発行プロファイル**
 
-**Windows IIS の配置:** 発行プロファイル (*.pubxml*) またはプロジェクト ファイルに `<EnvironmentName>` プロパティを追加します。 この方法では、プロジェクトが発行されるときに *web.config* に環境が設定されます。
+**Windows IIS の配置:** 発行プロファイル ( *.pubxml*) またはプロジェクト ファイルに `<EnvironmentName>` プロパティを追加します。 この方法では、プロジェクトが発行されるときに *web.config* に環境が設定されます。
 
 ```xml
 <PropertyGroup>
