@@ -13,3 +13,5 @@
 ```console
 dotnet aspnet-codegenerator razorpage -h
 ```
+
+詳細については、「[dotnet aspnet-codegenerator](xref:fundamentals/tools/dotnet-aspnet-codegenerator)」を参照してください 

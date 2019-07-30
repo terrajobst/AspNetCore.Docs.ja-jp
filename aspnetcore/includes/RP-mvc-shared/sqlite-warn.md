@@ -4,13 +4,14 @@
 >
 >SQLite の制限に対する回避策としては、テーブル内の何かが変更されたときにテーブルの再構築を実行する移行コードを、手動で作成します。 テーブルの再構築には次の作業が含まれます。
 >
->* 既存のテーブルの名前の変更。
 >* 新しいテーブルの作成。
 >* 古いテーブルから新しいテーブルへのデータのコピー。
 >* 古いテーブルの削除。
+>* 新しいテーブルの名前変更。
 >
 >詳細については、次のリソースを参照してください。
 >
 > * [SQLite EF Core データベース プロバイダーの制限事項](/ef/core/providers/sqlite/limitations)
 > * [移行コードをカスタマイズする](/ef/core/managing-schemas/migrations/#customize-migration-code)
 > * [データのシード処理](/ef/core/modeling/data-seeding)
+  * [SQLite ALTER TABLE ステートメント](https://sqlite.org/lang_altertable.html)
