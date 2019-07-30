@@ -4,14 +4,14 @@ author: rick-anderson
 description: ASP.NET Core で Razor ページに検証を追加する方法について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2018
+ms.date: 7/23/2019
 uid: tutorials/razor-pages/validation
-ms.openlocfilehash: 8495849c89ca3d6fd2b2006b61ce2ec75ff504a5
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: d6d45dc7154bf415c3b098299d066b6fb37cf64d
+ms.sourcegitcommit: 16502797ea749e2690feaa5e652a65b89c007c89
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815652"
+ms.lasthandoff: 07/25/2019
+ms.locfileid: "68483269"
 ---
 # <a name="add-validation-to-an-aspnet-core-razor-page"></a>ASP.NET Core Razor ページに検証を追加する
 
@@ -56,9 +56,9 @@ Razor ページと Entity Framework が提供している検証のサポート�
 
 必要に応じて、サーバー側の検証をテストします。
 
-* ブラウザーで JavaScript を無効にします。 ブラウザーの開発者ツールを使用して、これを行うことができます。 ブラウザーで JavaScript を無効にすることができない場合は、別のブラウザーを試してください。
+* ブラウザーで JavaScript を無効にします。 ブラウザーの開発者ツールを使用して JavaScript を無効にすることができます。 ブラウザーで JavaScript を無効にすることができない場合は、別のブラウザーを試してください。
 * [Create] または [Edit] ページの `OnPostAsync` メソッドにブレークポイントを設定します。
-* 検証エラーがあるフォームを送信します。
+* 無効なデータを含むフォームを送信します。
 * モデルの状態が無効であることを確認します。
 
   ```csharp
@@ -68,7 +68,7 @@ Razor ページと Entity Framework が提供している検証のサポート�
    }
   ```
 
-次のコードは、以前のチュートリアルでスキャフォールディング処理した *Create.cshtml* ページの一部です。 [Create] または [Edit] ページにおいて、最初のフォームの表示と、エラーイベント時におけるフォームの再表示のために使用されます。
+次のコードは、チュートリアルで前にスキャフォールディング処理した *Create.cshtml* ページの一部を示しています。 [Create] または [Edit] ページにおいて、最初のフォームの表示と、エラーイベント時におけるフォームの再表示のために使用されます。
 
 [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie/Pages/Movies/Create.cshtml?range=14-20)]
 
@@ -117,13 +117,72 @@ public DateTime ReleaseDate { get; set; }
 
 次のコードは、1 行で複数の属性を組み合わせる例です。
 
-[!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Models/MovieDateRatingDAmult.cs?name=snippet1)]
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Models/MovieDateRatingDAmult.cs?name=snippet1)]
 
 [Razor Pages と EF Core の概要](xref:data/ef-rp/intro)に関するページでは、Razor Pages での EF Core 操作についてより詳しく説明されています。
 
+### <a name="apply-migrations"></a>移行を適用する
+
+クラスに適用された DataAnnotations によって、スキーマが変更されます。 たとえば、`Title`フィールドに適用された DataAnnotations は次のようになります。
+
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Models/MovieDateRatingDA.cs?name=snippet11)]
+
+* 文字数を 60 に制限します。
+* `null` 値を許可しません。
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+`Movie` テーブルには現在、次のスキーマがあります。
+
+``` sql
+CREATE TABLE [dbo].[Movie] (
+    [ID]          INT             IDENTITY (1, 1) NOT NULL,
+    [Title]       NVARCHAR (MAX)  NULL,
+    [ReleaseDate] DATETIME2 (7)   NOT NULL,
+    [Genre]       NVARCHAR (MAX)  NULL,
+    [Price]       DECIMAL (18, 2) NOT NULL,
+    [Rating]      NVARCHAR (MAX)  NULL,
+    CONSTRAINT [PK_Movie] PRIMARY KEY CLUSTERED ([ID] ASC)
+);
+```
+
+上記のスキーマ変更では、EF によって例外がスローされることはありません。 ただし、スキーマがモデルと一致するように、移行を作成してください。
+
+**[ツール]** メニューで、 **[NuGet パッケージ マネージャー]、[パッケージ マネージャー コンソール]** の順に選択します。
+PMC で、次のコマンドを入力します。
+
+```powershell
+Add-Migration New_DataAnnotations
+Update-Database
+```
+
+`Update-Database` では、`New_DataAnnotations` クラスの `Up` メソッドが実行されます。 `Up` メソッドを検証します。
+
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Migrations/20190724163003_New_DataAnnotations.cs?name=snippet)]
+
+更新された `Movie` テーブルには、次のスキーマがあります。
+
+``` sql
+CREATE TABLE [dbo].[Movie] (
+    [ID]          INT             IDENTITY (1, 1) NOT NULL,
+    [Title]       NVARCHAR (60)   NOT NULL,
+    [ReleaseDate] DATETIME2 (7)   NOT NULL,
+    [Genre]       NVARCHAR (30)   NOT NULL,
+    [Price]       DECIMAL (18, 2) NOT NULL,
+    [Rating]      NVARCHAR (5)    NOT NULL,
+    CONSTRAINT [PK_Movie] PRIMARY KEY CLUSTERED ([ID] ASC)
+);
+```
+
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+
+SQLite では、移行は必要ありません。
+
+---
+
 ### <a name="publish-to-azure"></a>Azure に発行する
 
-Azure へのデプロイの詳細については、「[チュートリアル: SQL Database を使用して Azure に ASP.NET アプリを作成する](/azure/app-service/app-service-web-tutorial-dotnet-sqldatabase)」を参照してください。 これらの指示は ASP.NET Core アプリではなく、ASP.NET アプリに関するものですが、手順は同じです。
+Azure へのデプロイの詳細については、「[チュートリアル: SQL Database を使用して Azure に ASP.NET Core アプリを作成する](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb)」をご覧ください。
 
 このたびは、この Razor ページの紹介を最後までお読みいただきありがとうございました。 このチュートリアルの後は、[Razor ページと EF Core の概要](xref:data/ef-rp/intro)に関するページにお進みいただくことが推奨されます。
 
