@@ -3,14 +3,14 @@ title: ASP.NET Core MVC の概要
 author: ardalis
 description: ASP.NET Core MVC が、モデル ビュー コントローラー デザイン パターンを使用して、Web アプリと API をビルドするための豊富なフレームワークであることについて説明します。
 ms.author: riande
-ms.date: 01/08/2018
+ms.date: 08/01/2019
 uid: mvc/overview
-ms.openlocfilehash: 819bc93a7580626bf586b984b0ce169306df56d9
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 7f09751850cbfa7bb3dc79656d4530445a9767b1
+ms.sourcegitcommit: 3204bc89ae6354b61ee0a9b2770ebe5214b7790c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815351"
+ms.lasthandoff: 08/01/2019
+ms.locfileid: "68707818"
 ---
 # <a name="overview-of-aspnet-core-mvc"></a>ASP.NET Core MVC の概要
 
@@ -88,11 +88,11 @@ routes.MapRoute(name: "Default", template: "{controller=Home}/{action=Index}/{id
 [Route("api/[controller]")]
 public class ProductsController : Controller
 {
-  [HttpGet("{id}")]
-  public IActionResult GetProduct(int id)
-  {
-    ...
-  }
+    [HttpGet("{id}")]
+    public IActionResult GetProduct(int id)
+    {
+      ...
+    }
 }
 ```
 
@@ -102,7 +102,7 @@ ASP.NET Core MVC の[モデル バインド](models/model-binding.md)は、ク�
 
 ```csharp
 public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null) { ... }
-   ```
+```
 
 ### <a name="model-validation"></a>モデルの検証
 
@@ -149,6 +149,7 @@ ASP.NET Core には、[依存関係の挿入 (DI)](../fundamentals/dependency-in
 
 ```cshtml
 @inject SomeService ServiceName
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -189,11 +190,11 @@ Web サイトのビルドに最適なプラットフォームというだけで�
 
 [ASP.NET Core MVC ビュー](views/overview.md)では、[Razor ビュー エンジン](views/razor.md)を使用してビューをレンダリングします。 Razor は、埋め込みの C# コードを使用してビューを定義するためのコンパクトで豊富な表現かつ流動的なテンプレートのマークアップ言語です。 Razor は、サーバーに Web コンテンツを動的に作成するために使用されます。 サーバー コードを、クライアント側のコンテンツとコードにクリーンに混在させることができます。
 
-```text
+```cshtml
 <ul>
-  @for (int i = 0; i < 5; i++) {
-    <li>List item @i</li>
-  }
+    @for (int i = 0; i < 5; i++) {
+        <li>List item @i</li>
+    }
 </ul>
 ```
 
