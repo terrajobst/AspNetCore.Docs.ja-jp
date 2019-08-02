@@ -5,12 +5,12 @@ description: 単純な ASP.NET Core MVC アプリにビューを追加する
 ms.author: riande
 ms.date: 03/04/2017
 uid: tutorials/first-mvc-app/adding-view
-ms.openlocfilehash: 38efd234d919cd0427928df73388e65ce13527d1
-ms.sourcegitcommit: 979dbfc5e9ce09b9470789989cddfcfb57079d94
+ms.openlocfilehash: b6a3b1e673b8b67530b82c7d850e810a6c11e555
+ms.sourcegitcommit: 3204bc89ae6354b61ee0a9b2770ebe5214b7790c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/31/2019
-ms.locfileid: "68681881"
+ms.lasthandoff: 08/01/2019
+ms.locfileid: "68707868"
 ---
 # <a name="add-a-view-to-an-aspnet-core-mvc-app"></a>ASP.NET Core MVC アプリへのビューの追加
 
@@ -223,7 +223,7 @@ ms.locfileid: "68681881"
   * **[名前]** ボックスに「*Index.cshtml*」と入力します。
   * **[新規]** を選択します。
 
-![[新しい項目の追加] ダイアログ](adding-view/_static/add_view.png)
+![[新しい項目の追加] ダイアログ](adding-view/_static/add_view_mac.png)
 
 ---
 
