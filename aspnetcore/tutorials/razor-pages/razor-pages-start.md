@@ -5,12 +5,12 @@ description: このチュートリアル シリーズでは、ASP.NET Core で R
 ms.author: riande
 ms.date: 07/25/2019
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: 1605197188d97f27a884739a72400da2d5818b1a
-ms.sourcegitcommit: 849af69ee3c94cdb9fd8fa1f1bb8f5a5dda7b9eb
+ms.openlocfilehash: 57a10895c718c539ece280afcb27cb4033c7fb45
+ms.sourcegitcommit: 979dbfc5e9ce09b9470789989cddfcfb57079d94
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/22/2019
-ms.locfileid: "68372005"
+ms.lasthandoff: 07/31/2019
+ms.locfileid: "68682790"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>チュートリアル: ASP.NET Core の Razor ページの概要
 
@@ -133,7 +133,7 @@ Visual Studio から、 **[ファイル]、[開く]** の順に選択し、*Razo
 
   [!INCLUDE[](~/includes/trustCertMac.md)]
 
-* **Cmd - Opt - F5** キーを押して、デバッガーなしで実行します。
+* **Alt-Cmd-Enter** キーを押して、デバッガーなしで実行します。 または、メニュー バーに移動して [実行] > [デバッグなしで開始] を選択します。
 
   Visual Studio は [Kestrel](xref:fundamentals/servers/kestrel) を開始し、ブラウザーを起動して、`http://localhost:5001` に移動します。
 

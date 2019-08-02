@@ -5,14 +5,14 @@ description: HTTP REPL .NET Core グローバル ツールを使用して、ASP.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 07/23/2019
+ms.date: 07/25/2019
 uid: web-api/http-repl
-ms.openlocfilehash: 1ceda6182c62bb1be06cd95f14e6a46a1809253e
-ms.sourcegitcommit: 059ab380744fa3be3b69aa90d431b563c57092cf
+ms.openlocfilehash: e719d599545810d723840b0800cd6a2b4f96b123
+ms.sourcegitcommit: fbc66827e319d28bebed678ea5fd42f582fe3c34
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/23/2019
-ms.locfileid: "68410891"
+ms.lasthandoff: 07/25/2019
+ms.locfileid: "68493572"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>HTTP REPL を使用して Web API をテストする
 
@@ -21,7 +21,8 @@ ms.locfileid: "68410891"
 HTTP Read-Eval-Print Loop (REPL) は:
 
 * .NET Core がサポートされているすべての場所でサポートされている、軽量なクロスプラットフォーム コマンドライン ツールです。
-* ASP.NET Core Web API をテストし、その結果を表示する HTTP 要求を作成するために使用されます。
+* ASP.NET Core Web API (および ASP.NET 以外の Core Web API) をテストし、その結果を表示する HTTP 要求を作成するために使用されます。
+* localhost や Azure App Service などの任意の環境でホストされている Web API をテストすることができます。
 
 次の [HTTP 動詞](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#74-supported-methods)がサポートされています。
 
@@ -44,7 +45,7 @@ HTTP Read-Eval-Print Loop (REPL) は:
 HTTP REPL をインストールするには、次のコマンドを実行します。
 
 ```console
-dotnet tool install -g Microsoft.dotnet-httprepl --version 3.0.0-*
+dotnet tool install -g Microsoft.dotnet-httprepl --version "3.0.0-*"
 ```
 
 [.Net Core グローバル ツール](/dotnet/core/tools/global-tools#install-a-global-tool)は、[Microsoft.dotnet-httprepl](https://www.nuget.org/packages/Microsoft.dotnet-httprepl) NuGet パッケージからインストールされます。

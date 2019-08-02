@@ -3,14 +3,14 @@ title: ASP.NET Core でのレイアウト
 author: ardalis
 description: 共通レイアウトの使用方法、ディレクティブの共有方法、および ASP.NET Core アプリでビューをレンダリングする前に共通コードを実行する方法について説明します。
 ms.author: riande
-ms.date: 02/26/2019
+ms.date: 07/30/2019
 uid: mvc/views/layout
-ms.openlocfilehash: 7a60ee15e688d6f0e531302457604fa759213758
-ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
+ms.openlocfilehash: 6bd9dfc65c026ee524277aaaa21333d299c8981e
+ms.sourcegitcommit: 7001657c00358b082734ba4273693b9b3ed35d2a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/27/2019
-ms.locfileid: "56899243"
+ms.lasthandoff: 07/31/2019
+ms.locfileid: "68670012"
 ---
 # <a name="layout-in-aspnet-core"></a>ASP.NET Core でのレイアウト
 
@@ -35,15 +35,15 @@ ms.locfileid: "56899243"
 
 スクリプトやスタイルシートなどの共通の HTML 構造体も、アプリ内の多くのページでよく使用されます。 これらの共有要素をすべて *layout* ファイルで定義することで、アプリ内で使用する任意のビューで参照できるようになります。 レイアウトにより、ビュー内の重複コードが減ります。
 
-規則により、ASP.NET Core アプリの既定のレイアウトには *_Layout.cshtml* という名前が付けられます。 テンプレートで作成された新しい ASP.NET Core プロジェクトのレイアウト ファイル:
+規則により、ASP.NET Core アプリの既定のレイアウトには *_Layout.cshtml* という名前が付けられます。 テンプレートを使用すると、次のような新しい ASP.NET Core プロジェクトのレイアウト ファイルが作成されます。
 
 * Razor Pages:*Pages/Shared/_Layout.cshtml*
 
-  ![ソリューション エクスプローラーでの Pages フォルダー](layout/_static/rp-web-project-views.png)
+  ![ソリューション エクスプローラーの Pages フォルダー](layout/_static/rp-web-project-views.png)
 
 * ビューを含むコントローラー:*Views/Shared/_Layout.cshtml*
 
- ![ソリューション エクスプローラーの Views フォルダー](layout/_static/mvc-web-project-views.png)
+  ![ソリューション エクスプローラーの Views フォルダー](layout/_static/mvc-web-project-views.png)
 
 レイアウトでは、アプリのビューの最上位のテンプレートが定義されています。 アプリでは、レイアウトは必要ありません。 アプリでは、それぞれ異なるレイアウトを指定するさまざまなビューを使用して、複数のレイアウトを定義できます。
 
@@ -57,7 +57,7 @@ Razor ビューには `Layout` プロパティがあります。 個々のビュ
 
 [!code-cshtml[](../../common/samples/WebApplication1/Views/_ViewStart.cshtml?highlight=2)]
 
-指定されるレイアウトでは、完全なパス (例: */Pages/Shared/_Layout.cshtml*、*/Views/Shared/_Layout.cshtml*) または部分パス (例: `_Layout`) を使用できます。 部分的な名前を指定すると、Razor ビュー エンジンが標準の検出プロセスを使用して、レイアウト ファイルを検索します。 ハンドラー メソッド (またはコントローラー) が存在するフォルダーが最初に検索され、その後で *Shared* フォルダーが検索されます。 この検出プロセスは、[部分ビュー](xref:mvc/views/partial#partial-view-discovery)の検出に使用されるのと同じプロセスです。
+指定されるレイアウトでは、完全なパス (例: */Pages/Shared/_Layout.cshtml*、 */Views/Shared/_Layout.cshtml*) または部分パス (例: `_Layout`) を使用できます。 部分的な名前を指定すると、Razor ビュー エンジンが標準の検出プロセスを使用して、レイアウト ファイルを検索します。 ハンドラー メソッド (またはコントローラー) が存在するフォルダーが最初に検索され、その後で *Shared* フォルダーが検索されます。 この検出プロセスは、[部分ビュー](xref:mvc/views/partial#partial-view-discovery)の検出に使用されるのと同じプロセスです。
 
 既定では、すべてのレイアウトで `RenderBody` を呼び出す必要があります。 `RenderBody` への呼び出しが配置されると、ビューのコンテンツがレンダリングされます。
 
@@ -147,7 +147,7 @@ ASP.NET Core MVC アプリの *_ViewImports.cshtml* ファイルは、通常、*
 
 ## <a name="running-code-before-each-view"></a>各ビューの前にコードを実行する
 
-各ビューまたはページの前に実行する必要があるコードは、*_ViewStart.cshtml* ファイルに配置する必要があります。 慣例により、*_ViewStart.cshtml* ファイルは *Pages* (または *Views*) フォルダーに配置されます。 *_ViewStart.cshtml* に列記されているステートメントは、すべての (レイアウトでもなく、部分ビューでもない) 完全なビューより前に実行されます。 [ViewImports.cshtml](xref:mvc/views/layout#viewimports) と同様に、*_ViewStart.cshtml* は階層構造です。 *_ViewStart.cshtml* ファイルがビューまたはページ フォルダーで定義されている場合、*Pages* (または *Views*) フォルダーのルートで定義されているファイル (ある場合) の後に実行されます。
+各ビューまたはページの前に実行する必要があるコードは、 *_ViewStart.cshtml* ファイルに配置する必要があります。 慣例により、 *_ViewStart.cshtml* ファイルは *Pages* (または *Views*) フォルダーに配置されます。 *_ViewStart.cshtml* に列記されているステートメントは、すべての (レイアウトでもなく、部分ビューでもない) 完全なビューより前に実行されます。 [ViewImports.cshtml](xref:mvc/views/layout#viewimports) と同様に、 *_ViewStart.cshtml* は階層構造です。 *_ViewStart.cshtml* ファイルがビューまたはページ フォルダーで定義されている場合、*Pages* (または *Views*) フォルダーのルートで定義されているファイル (ある場合) の後に実行されます。
 
 *_ViewStart.cshtml* ファイルのサンプル:
 
@@ -155,4 +155,4 @@ ASP.NET Core MVC アプリの *_ViewImports.cshtml* ファイルは、通常、*
 
 上記のファイルは、すべてのビューで *_Layout.cshtml* レイアウトを使用することを指定します。
 
-通常、*_ViewStart.cshtml* および *_ViewImports.cshtml* は、*/Pages/Shared* (または */Views/Shared*) フォルダーには配置**されません**。 これらのファイルのアプリ レベルのバージョンは、*/Pages* (または */Views*) フォルダーに直接配置する必要があります。
+通常、 *_ViewStart.cshtml* および *_ViewImports.cshtml* は、 */Pages/Shared* (または */Views/Shared*) フォルダーには配置**されません**。 これらのファイルのアプリ レベルのバージョンは、 */Pages* (または */Views*) フォルダーに直接配置する必要があります。

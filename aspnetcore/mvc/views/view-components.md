@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/14/2019
 uid: mvc/views/view-components
-ms.openlocfilehash: ff84abf9e0c682d22196a0a0f5f377990c80a6ae
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: e6990368519857a27b291d7d565c09072f23f1b0
+ms.sourcegitcommit: 7001657c00358b082734ba4273693b9b3ed35d2a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815273"
+ms.lasthandoff: 07/31/2019
+ms.locfileid: "68670081"
 ---
 # <a name="view-components-in-aspnet-core"></a>ASP.NET Core のビュー コンポーネント
 
@@ -326,6 +326,14 @@ Razor マークアップ ファイルでビュー コンポーネントのタグ
 ::: moniker-end
 
 `PriorityList.Invoke` のメソッド署名は同期的ですが、Razor ではマークアップ ファイルで `Component.InvokeAsync` を使用してメソッドを見つけて呼び出します。
+
+## <a name="all-view-component-parameters-are-required"></a>ビュー コンポーネントのすべてのパラメーターが必要
+
+ビュー コンポーネントの各パラメーターは、必須の属性です。 [こちらの GitHub のイシュー](https://github.com/aspnet/AspNetCore/issues/5011)を参照してください。 パラメーターを省略した場合は、次のようになります。
+
+* `InvokeAsync` メソッドのシグネチャが一致しないため、メソッドが実行されません。
+* ViewComponent がマークアップをレンダリングしません。
+* エラーがスローされません。
 
 ## <a name="additional-resources"></a>その他の技術情報
 
