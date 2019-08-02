@@ -5,12 +5,12 @@ description: 基本的な ASP.NET Core MVC アプリに検索を追加する方�
 ms.author: riande
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/search
-ms.openlocfilehash: fbec03d71e247c58fb5968290c4baf6b28120e1c
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: ed6c7a095143670b7d06e43db3a428dec9bf97ad
+ms.sourcegitcommit: 3204bc89ae6354b61ee0a9b2770ebe5214b7790c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815064"
+ms.lasthandoff: 08/01/2019
+ms.locfileid: "68707840"
 ---
 # <a name="add-search-to-an-aspnet-core-mvc-app"></a>ASP.NET Core MVC アプリへの検索の追加
 
@@ -18,7 +18,7 @@ ms.locfileid: "67815064"
 
 このセクションでは、検索機能を `Index` アクション メソッドに追加して、*ジャンル*または*名前*でムービーを検索できるようにします。
 
-`Index` メソッドを次のコードで更新します。
+次のコードを使用して、*Controllers/MoviesController.cs* 内で見つかった `Index` メソッドを更新します。
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/MoviesController.cs?name=snippet_1stSearch)]
 
@@ -91,7 +91,7 @@ HTML `<form>` タグでは[フォーム タグ ヘルパー](xref:mvc/views/work
 
 要求本文に検索パラメーターと [XSRF](xref:security/anti-request-forgery) トークンが表示されています。 前のチュートリアルで説明したように、[フォーム タグ ヘルパー](xref:mvc/views/working-with-forms)では [XSRF](xref:security/anti-request-forgery) 偽造防止トークンが生成されることに注意してください。 ここではデータを変更しないため、コントローラー メソッドでトークンを検証する必要はありません。
 
-検索パラメーターが URL ではなく、要求本文にあるため、その検索情報をキャプチャして、ブックマークしたり、他のユーザーと共有したりすることはできません。 `HTTP GET` の要求を指定して、これを解決します。
+検索パラメーターが URL ではなく、要求本文にあるため、その検索情報をキャプチャして、ブックマークしたり、他のユーザーと共有したりすることはできません。 この問題を解決するには、*Views/Movies/Index. cshtml* ファイルに存在する要求が `HTTP GET` であることを指定します。
 
 [!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexGet.cshtml?highlight=12&range=1-23)]
 
@@ -132,7 +132,7 @@ HTML `<form>` タグでは[フォーム タグ ヘルパー](xref:mvc/views/work
 
 ## <a name="add-search-by-genre-to-the-index-view"></a>インデックス ビューへのジャンルによる検索の追加
 
-次のように `Index.cshtml` を更新します。
+次のように、*Views/Movies/* で見つかった `Index.cshtml` を更新します。
 
 [!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexFormGenreNoRating.cshtml?highlight=1,15,16,17,19,28,31,34,37,43)]
 
