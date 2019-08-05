@@ -6,12 +6,12 @@ ms.author: riande
 ms.date: 12/18/2018
 ms.custom: mvc, seodec18
 uid: security/authorization/secure-data
-ms.openlocfilehash: 222ae1d6212b838e5c70f831960fa23a9924a0ae
-ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
+ms.openlocfilehash: 4b94cc53777308deb26521a079d8a1c2742744db
+ms.sourcegitcommit: 4fe3ae892f54dc540859bff78741a28c2daa9a38
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/12/2019
-ms.locfileid: "67856142"
+ms.lasthandoff: 08/04/2019
+ms.locfileid: "68776745"
 ---
 # <a name="create-an-aspnet-core-app-with-user-data-protected-by-authorization"></a>承認によって保護されたユーザー データと ASP.NET Core アプリを作成します。
 
@@ -37,13 +37,13 @@ ms.locfileid: "67856142"
 * **マネージャー**を承認または連絡先データを拒否します。 承認されたメンバーのみがユーザーに表示されます。
 * **管理者**承認または却下と編集/削除のすべてのデータをことができます。
 
-このドキュメント内のイメージは、最新のテンプレート正確に一致しません。
+このドキュメント内のイメージは、最新のテンプレートと完全には一致しません。
 
 次の図では、ユーザー Rick の (`rick@example.com`) がサインインしています。 Rick は許可されている連絡先のみを表示し、**編集**/**削除**/**新規作成**彼の連絡先へのリンク。 最後のレコードのみが Rick、表示によって作成された**編集**と**削除**リンク。 他のユーザーは、管理者は、状態を"Approved"に変わるまで、最後のレコードを表示されません。
 
 ![サインインして Rick を示すスクリーン ショット](secure-data/_static/rick.png)
 
-次の図の`manager@contoso.com`では、マネージャーの役割では署名します。
+次の図では`manager@contoso.com` 、がサインインし、マネージャーのロールに含まれています。
 
 ![スクリーン ショットmanager@contoso.comサインイン](secure-data/_static/manager1.png)
 
@@ -53,7 +53,7 @@ ms.locfileid: "67856142"
 
 **承認**と**拒否**ボタンは、管理者と管理者のみ表示されます。
 
-次の図の`admin@contoso.com`では、管理者の役割では署名します。
+次の図では`admin@contoso.com` 、がサインインし、管理者のロールに含まれています。
 
 ![スクリーン ショットadmin@contoso.comサインイン](secure-data/_static/admin.png)
 
@@ -65,9 +65,9 @@ ms.locfileid: "67856142"
 
 サンプルには、次の承認ハンドラーが含まれています。
 
-* `ContactIsOwnerAuthorizationHandler`:により、ユーザーは、そのデータにのみ編集できます。
-* `ContactManagerAuthorizationHandler`:承認または拒否の連絡先のマネージャーを使用します。
-* `ContactAdministratorsAuthorizationHandler`:管理者を承認または拒否の連絡先と連絡先の編集/削除に使用できます。
+* `ContactIsOwnerAuthorizationHandler`:ユーザーがデータを編集できるようにします。
+* `ContactManagerAuthorizationHandler`:マネージャーが連絡先を承認または拒否できるようにします。
+* `ContactAdministratorsAuthorizationHandler`:管理者は、連絡先を承認または拒否したり、連絡先を編集または削除したりできます。
 
 ## <a name="prerequisites"></a>必須コンポーネント
 
@@ -122,7 +122,7 @@ dotnet ef database update
 
  Razor ページ、コントローラ、またはアクション メソッド レベルでの認証をオプトアウトすることができます、`[AllowAnonymous]`属性。 ユーザー認証を必要とする既定の認証ポリシーの設定は、新しく追加された Razor ページとコント ローラーを保護します。 既定で必要な認証は、新しいコント ローラーと Razor ページで証明書利用者より安全ですが、`[Authorize]`属性。
 
-追加[AllowAnonymous](/dotnet/api/microsoft.aspnetcore.authorization.allowanonymousattribute)インデックスとプライバシー ページ匿名ユーザーは登録前に、サイトに関する情報を取得できるようにします。
+匿名ユーザーが登録前にサイトに関する情報を取得できるように、 [Allowanonymous](/dotnet/api/microsoft.aspnetcore.authorization.allowanonymousattribute)をインデックスおよびプライバシーページに追加します。
 
 [!code-csharp[](secure-data/samples/final3/Pages/Index.cshtml.cs?highlight=1,7)]
 
@@ -159,7 +159,7 @@ Update`Main`テストのパスワードを使用します。
 `ContactIsOwnerAuthorizationHandler`呼び出し[コンテキスト。成功](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.succeed#Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_Succeed_Microsoft_AspNetCore_Authorization_IAuthorizationRequirement_)現在認証済みユーザーがメンバーの所有者である場合。 承認ハンドラー通常。
 
 * 返す`context.Succeed`要件を満たしている場合。
-* 返す`Task.CompletedTask`要件が満たされていません。 `Task.CompletedTask` 成功または失敗のない&mdash;他の承認ハンドラーを実行することができます。
+* 返す`Task.CompletedTask`要件が満たされていません。 `Task.CompletedTask`が成功または失敗&mdash;ではない場合は、他の承認ハンドラーの実行を許可します。
 
 明示的に失敗する場合は、返す[コンテキスト。失敗](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.fail)します。
 
@@ -242,7 +242,7 @@ Entity Framework Core を使用してサービスを登録する必要があり�
 
 現時点では、UI の表示では、編集し、ユーザーが変更できない連絡先へのリンクを削除します。
 
-承認サービスを挿入、 *Pages/_ViewImports.cshtml*ファイルのすべてのビューに使用できるようにします。
+*Pages/_ViewImports*ファイルに承認サービスを挿入して、すべてのビューで使用できるようにします。
 
 [!code-cshtml[](secure-data/samples/final3/Pages/_ViewImports.cshtml?highlight=6-99)]
 
@@ -269,14 +269,14 @@ Entity Framework Core を使用してサービスを登録する必要があり�
 
 参照してください[今月](https://github.com/aspnet/AspNetCore.Docs/issues/8502)について。
 
-* ユーザーから権限を削除しています。 たとえばのチャット アプリケーションのユーザーをミュートします。
+* ユーザーから権限を削除しています。 たとえば、チャットアプリでユーザーのミュートを行います。
 * ユーザーに特権を追加します。
 
 ## <a name="test-the-completed-app"></a>完成したアプリをテストします。
 
 シード処理されたユーザー アカウントのパスワードを設定していない場合は、使用、 [Secret Manager ツール](xref:security/app-secrets#secret-manager)パスワードを設定します。
 
-* 強力なパスワードを選択します。以上の文字し、少なくとも 1 つの大文字の文字数、およびシンボルまたは 8 を使用しています。 たとえば、`Passw0rd!`強力なパスワード要件を満たしています。
+* 強力なパスワードを選択してください:8個以上の文字と、少なくとも1つの大文字の文字、数字、および記号を使用します。 たとえば、`Passw0rd!`強力なパスワード要件を満たしています。
 * プロジェクトのフォルダーから次のコマンドを実行、`<PW>`パスワードです。
 
   ```console
@@ -314,7 +314,7 @@ Entity Framework Core を使用してサービスを登録する必要があり�
   dotnet new webapp -o ContactManager -au Individual -uld
   ```
 
-* 追加*Models/Contact.cs*:
+* *モデル/Contact を追加します。*
 
   [!code-csharp[](secure-data/samples/starter2.1/Models/Contact.cs?name=snippet1)]
 
@@ -330,9 +330,9 @@ dotnet ef migrations add initial
 dotnet ef database update
   ```
 
-バグが発生した場合、`dotnet aspnet-codegenerator razorpage`コマンドを参照してください[この GitHub の問題](https://github.com/aspnet/Scaffolding/issues/984)します。
+`dotnet aspnet-codegenerator razorpage`コマンドでバグが発生した場合は、 [GitHub の問題](https://github.com/aspnet/Scaffolding/issues/984)を参照してください。
 
-* 更新プログラム、 **ContactManager**で固定、 *Pages/Shared/_Layout.cshtml*ファイル。
+* *Pages/Shared/Layout*ファイルで**contactmanager**アンカーを更新します。
 
  ```cshtml
 <a class="navbar-brand" asp-area="" asp-page="/Contacts/Index">ContactManager</a>
@@ -342,7 +342,7 @@ dotnet ef database update
 
 ### <a name="seed-the-database"></a>データベースのシード
 
-追加、 [SeedData](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter3/Data/SeedData.cs)クラスを*データ*フォルダー。
+[SeedData](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter3/Data/SeedData.cs)クラスを*Data*フォルダーに追加します。
 
 [!code-csharp[](secure-data/samples/starter3/Data/SeedData.cs)]
 
@@ -366,7 +366,7 @@ dotnet ef database update
 
 ![サインインして Rick を示すスクリーン ショット](secure-data/_static/rick.png)
 
-次の図の`manager@contoso.com`では、マネージャーの役割では署名します。
+次の図では`manager@contoso.com` 、がサインインし、マネージャーのロールに含まれています。
 
 ![スクリーン ショットmanager@contoso.comサインイン](secure-data/_static/manager1.png)
 
@@ -376,7 +376,7 @@ dotnet ef database update
 
 **承認**と**拒否**ボタンは、管理者と管理者のみ表示されます。
 
-次の図の`admin@contoso.com`では、管理者の役割では署名します。
+次の図では`admin@contoso.com` 、がサインインし、管理者のロールに含まれています。
 
 ![スクリーン ショットadmin@contoso.comサインイン](secure-data/_static/admin.png)
 
@@ -388,9 +388,9 @@ dotnet ef database update
 
 サンプルには、次の承認ハンドラーが含まれています。
 
-* `ContactIsOwnerAuthorizationHandler`:により、ユーザーは、そのデータにのみ編集できます。
-* `ContactManagerAuthorizationHandler`:承認または拒否の連絡先のマネージャーを使用します。
-* `ContactAdministratorsAuthorizationHandler`:管理者を承認または拒否の連絡先と連絡先の編集/削除に使用できます。
+* `ContactIsOwnerAuthorizationHandler`:ユーザーがデータを編集できるようにします。
+* `ContactManagerAuthorizationHandler`:マネージャーが連絡先を承認または拒否できるようにします。
+* `ContactAdministratorsAuthorizationHandler`:管理者は、連絡先を承認または拒否したり、連絡先を編集または削除したりできます。
 
 ## <a name="prerequisites"></a>必須コンポーネント
 
@@ -482,7 +482,7 @@ Update`Main`テストのパスワードを使用します。
 `ContactIsOwnerAuthorizationHandler`呼び出し[コンテキスト。成功](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.succeed#Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_Succeed_Microsoft_AspNetCore_Authorization_IAuthorizationRequirement_)現在認証済みユーザーがメンバーの所有者である場合。 承認ハンドラー通常。
 
 * 返す`context.Succeed`要件を満たしている場合。
-* 返す`Task.CompletedTask`要件が満たされていません。 `Task.CompletedTask` 成功または失敗のない&mdash;他の承認ハンドラーを実行することができます。
+* 返す`Task.CompletedTask`要件が満たされていません。 `Task.CompletedTask`が成功または失敗&mdash;ではない場合は、他の承認ハンドラーの実行を許可します。
 
 明示的に失敗する場合は、返す[コンテキスト。失敗](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.fail)します。
 
@@ -592,25 +592,26 @@ Entity Framework Core を使用してサービスを登録する必要があり�
 
 参照してください[今月](https://github.com/aspnet/AspNetCore.Docs/issues/8502)について。
 
-* ユーザーから権限を削除しています。 たとえばのチャット アプリケーションのユーザーをミュートします。
+* ユーザーから権限を削除しています。 たとえば、チャットアプリでユーザーのミュートを行います。
 * ユーザーに特権を追加します。
 
 ## <a name="test-the-completed-app"></a>完成したアプリをテストします。
 
 シード処理されたユーザー アカウントのパスワードを設定していない場合は、使用、 [Secret Manager ツール](xref:security/app-secrets#secret-manager)パスワードを設定します。
 
-* 強力なパスワードを選択します。以上の文字し、少なくとも 1 つの大文字の文字数、およびシンボルまたは 8 を使用しています。 たとえば、`Passw0rd!`強力なパスワード要件を満たしています。
+* 強力なパスワードを選択してください:8個以上の文字と、少なくとも1つの大文字の文字、数字、および記号を使用します。 たとえば、`Passw0rd!`強力なパスワード要件を満たしています。
 * プロジェクトのフォルダーから次のコマンドを実行、`<PW>`パスワードです。
 
   ```console
   dotnet user-secrets set SeedUserPW <PW>
   ```
 
-* データベースの削除と更新
+* データベースを削除して更新する
+
     ```console
      dotnet ef database drop -f
      dotnet ef database update  
-```
+     ```
 
 * データベースをシードするアプリを再起動します。
 
@@ -640,7 +641,7 @@ Entity Framework Core を使用してサービスを登録する必要があり�
   dotnet new webapp -o ContactManager -au Individual -uld
   ```
 
-* 追加*Models/Contact.cs*:
+* *モデル/Contact を追加します。*
 
   [!code-csharp[](secure-data/samples/starter2.1/Models/Contact.cs?name=snippet1)]
 
