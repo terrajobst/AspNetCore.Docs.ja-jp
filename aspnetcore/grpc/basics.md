@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 07/03/2019
 uid: grpc/basics
-ms.openlocfilehash: 700fe9463317f9ee30dfe4ebf5201c7b9c0c5ad6
-ms.sourcegitcommit: f30b18442ed12831c7e86b0db249183ccd749f59
+ms.openlocfilehash: b236fe6914cf7b780a9d02398ec9c92660dc1063
+ms.sourcegitcommit: 2719c70cd15a430479ab4007ff3e197fbf5dfee0
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/23/2019
-ms.locfileid: "68412475"
+ms.lasthandoff: 08/09/2019
+ms.locfileid: "68862858"
 ---
 # <a name="grpc-services-with-c"></a>gRPC サービスと C\#
 
@@ -42,7 +42,7 @@ Protobuf ファイルの構文の詳細については、[公式のドキュメ�
 
 ## <a name="c-tooling-support-for-proto-files"></a>C#Proto ファイルのツールサポート
 
-*ファイル*からC#アセットを生成するには、ツールパッケージ[grpc. ツール](https://www.nuget.org/packages/Grpc.Tools/)が必要です。 生成されたアセット (ファイル):
+ファイルからC#アセットを生成するには、[ツールパッケージ Grpc. ツール](https://www.nuget.org/packages/Grpc.Tools/)が必要です。 生成されたアセット (ファイル):
 
 * は、プロジェクトがビルドされるたびに、必要に応じて生成されます。
 * プロジェクトに追加されていないか、ソース管理にチェックインされていません。
@@ -52,9 +52,9 @@ Protobuf ファイルの構文の詳細については、[公式のドキュメ�
 
 [!code-xml[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/GrpcGreeter.csproj?highlight=1&range=12)]
 
-クライアントプロジェクトは、 `Grpc.Tools`直接参照する必要があります。 ツールパッケージは実行時に必須ではないため、依存関係`PrivateAssets="All"`は次のようにマークされます。
+クライアントプロジェクトは、grpc クライアントを使用するために必要な他のパッケージと一緒に直接参照`Grpc.Tools`する必要があります。 ツールパッケージは実行時に必須ではないため、依存関係`PrivateAssets="All"`は次のようにマークされます。
 
-[!code-xml[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/GrpcGreeterClient.csproj?highlight=1&range=11)]
+[!code-xml[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/GrpcGreeterClient.csproj?highlight=3&range=9-11)]
 
 ## <a name="generated-c-assets"></a>生成C#されたアセット
 
@@ -64,11 +64,11 @@ Protobuf ファイルの構文の詳細については、[公式のドキュメ�
 
 [!code-csharp[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/Services/GreeterService.cs?name=snippet)]
 
-クライアント側の資産の場合は、具象的なクライアントの種類が生成されます。 *Proto*ファイル内の grpc 呼び出しは、具象型のメソッドに変換されます。これは、を呼び出すことができます。 前に説明した例では、具象`GreeterClient`型が生成されています。 `greet.proto` を`GreeterClient.SayHello`呼び出して、サーバーに対する grpc 呼び出しを開始します。
+クライアント側の資産の場合は、具象的なクライアントの種類が生成されます。 *Proto*ファイル内の grpc 呼び出しは、具象型のメソッドに変換されます。これは、を呼び出すことができます。 前に説明した例では、具象`GreeterClient`型が生成されています。 `greet.proto` を`GreeterClient.SayHelloAsync`呼び出して、サーバーに対する grpc 呼び出しを開始します。
 
 [!code-csharp[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?highlight=3-6&name=snippet)]
 
-既定では、サーバーとクライアントのアセットは、  `<Protobuf>`項目グループに含まれる各プロトコルファイルに対して生成されます。 サーバープロジェクト`GrpcServices`でサーバー資産のみが生成されるようにするには、属性を`Server`に設定します。
+既定では、サーバーとクライアントのアセットは、 `<Protobuf>`項目グループに含まれる各プロトコルファイルに対して生成されます。 サーバープロジェクト`GrpcServices`でサーバー資産のみが生成されるようにするには、属性を`Server`に設定します。
 
 [!code-xml[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/GrpcGreeter.csproj?highlight=2&range=7-9)]
 
