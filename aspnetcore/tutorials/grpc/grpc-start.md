@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 06/12/2019
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: 3e90e3b17186757fe157fb6641888786bb7a0df2
-ms.sourcegitcommit: f30b18442ed12831c7e86b0db249183ccd749f59
+ms.openlocfilehash: 6a3a7446a488ef54d99d6c7605980c18890b9ad0
+ms.sourcegitcommit: 4fe3ae892f54dc540859bff78741a28c2daa9a38
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/23/2019
-ms.locfileid: "68412525"
+ms.lasthandoff: 08/04/2019
+ms.locfileid: "68776638"
 ---
 # <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a>チュートリアル: ASP.NET Core で gRPC のクライアントとサーバーを作成する
 
@@ -192,8 +192,8 @@ Install-Package Grpc.Tools
 
 * **[ソリューション エクスプローラー]**  >  **[NuGet パッケージの管理]** でプロジェクトを右クリックします。
 * **[参照]** タブを選択します。
-* 検索ボックスに「**Grpc.Core**」と入力します。
-* **[参照]** タブから **Grpc.Core** パッケージを選択し、 **[インストール]** をクリックします。
+* 検索ボックスに「**Grpc.Net.Client**」と入力します。
+* **[参照]** タブから **Grpc.Net.Client** パッケージを選択し、 **[インストール]** を選択します。
 * `Google.Protobuf` と `Grpc.Tools` に同じ手順を繰り返します。
 
 ### <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
@@ -269,7 +269,7 @@ Greeter クライアントから非同期の `SayHello` メソッドが呼び出
 ### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * あいさつサービスで、`Ctrl+F5` キーを押して、デバッガーなしでサーバーを起動します。
-* `GrpcGreeterClient` プロジェクトで、`Ctrl+F5` キーを押して、デバッガーなしでサーバーを起動します。
+* `GrpcGreeterClient` プロジェクトで、`Ctrl+F5` 押してデバッガーなしでクライアントを起動します。
 
 ### <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
