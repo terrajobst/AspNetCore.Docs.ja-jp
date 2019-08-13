@@ -104,8 +104,6 @@
         - name: EF Core と Razor Pages
           displayName: tutorial
           items:
-            - name: 概要
-              uid: data/ef-rp/index
             - name: 作業開始
               uid: data/ef-rp/intro
             - name: 作成、読み取り、更新、および削除
@@ -581,8 +579,6 @@
       items:
         - name: EF Core と Razor Pages
           items:
-            - name: 概要
-              uid: data/ef-rp/index
             - name: 作業開始
               uid: data/ef-rp/intro
             - name: 作成、読み取り、更新、および削除
@@ -701,6 +697,8 @@
         - name: 概要
           displayName: 'deploy, publish'
           uid: host-and-deploy/iis/index
+        - name: IIS への発行に関するチュートリアル
+          uid: tutorials/publish-to-iis
         - name: ASP.NET Core モジュール
           displayName: 'deploy, publish'
           uid: host-and-deploy/aspnet-core-module
