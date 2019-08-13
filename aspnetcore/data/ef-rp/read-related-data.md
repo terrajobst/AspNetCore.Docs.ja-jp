@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: data/ef-rp/read-related-data
-ms.openlocfilehash: e98f6dddc727bb78a411fbd0a5014bcee87c7aeb
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 93fbb4741f476368d75d23162d6e2597de7b263e
+ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64887807"
+ms.lasthandoff: 08/06/2019
+ms.locfileid: "68819920"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---read-related-data---6-of-8"></a>ASP.NET Core の Razor ページと EF Core - 関連データの読み込み - 6/8
 
@@ -89,7 +89,7 @@ Course エンティティには、`Department` エンティティを含むナビ
 
 *Pages/Courses/Index.cshtml.cs* を開き、`OnGetAsync` メソッドを調べます。 スキャフォールディング エンジンは、`Department` ナビゲーション プロパティに一括読み込みを指定しました。 `Include` メソッドが一括読み込みを指定します。
 
-アプリを実行し、**[Courses]** リンクを選択します。 Department 列に `DepartmentID` が表示されますが、これには役に立ちません。
+アプリを実行し、 **[Courses]** リンクを選択します。 Department 列に `DepartmentID` が表示されますが、これには役に立ちません。
 
 `OnGetAsync` メソッドを次のコードで更新します。
 
@@ -111,7 +111,7 @@ Course エンティティには、`Department` エンティティを含むナビ
   @Html.DisplayFor(modelItem => item.Department.Name)
   ```
 
-アプリを実行し、**[Courses]** タブを選択して部門名のリストを表示します。
+アプリを実行し、 **[Courses]** タブを選択して部門名のリストを表示します。
 
 ![Courses/Index ページ](read-related-data/_static/courses-index.png)
 
@@ -215,7 +215,7 @@ Instructors ページには、3 つの異なるテーブルからのデータが
   }
   ```
 
-* インストラクターごとに担当したコースを表示する **Courses** 列を追加しました。 この Razor 構文の詳細については、「[Explicit Line Transition with `@:`](xref:mvc/views/razor#explicit-line-transition-with-)」(@: による明示的な行の遷移) を参照してください。
+* インストラクターごとに担当したコースを表示する **Courses** 列を追加しました。 この Razor 構文の詳細については、「[@: による明示的な行の遷移`@:`](xref:mvc/views/razor#explicit-line-transition-with-)」を参照してください。
 
 * 選択したインストラクターの `tr` 要素に `class="success"` を動的に追加するコードを追加しました。 これは、ブートストラップ クラスを使用して、選択した行の背景色を設定します。
 
@@ -234,7 +234,7 @@ Instructors ページには、3 つの異なるテーブルからのデータが
   <a asp-action="Index" asp-route-id="@item.ID">Select</a> |
   ```
 
-アプリを実行し、**[Instructors]** タブを選択します。関連する `OfficeAssignment` エンティティから `Location` (オフィス) がページに表示されます。 OfficeAssignment` が null の場合、空のテーブル セルが表示されます。
+アプリを実行し、 **[Instructors]** タブを選択します。関連する `OfficeAssignment` エンティティから `Location` (オフィス) がページに表示されます。 OfficeAssignment` が null の場合、空のテーブル セルが表示されます。
 
 ![何も選択されていない Instructors/Index ページ](read-related-data/_static/instructors-index-no-selection.png)
 

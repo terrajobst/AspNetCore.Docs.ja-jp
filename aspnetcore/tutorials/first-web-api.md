@@ -4,14 +4,14 @@ author: rick-anderson
 description: ASP.NET Core で Web API をビルドする方法を学習します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/11/2019
+ms.date: 08/05/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 60235af56077127093ac1d77338bc228a6edf073
-ms.sourcegitcommit: 0efb9e219fef481dee35f7b763165e488aa6cf9c
+ms.openlocfilehash: 855d05fa2b9c1a7572212c40adbe61bb396f4bac
+ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/29/2019
-ms.locfileid: "68602525"
+ms.lasthandoff: 08/06/2019
+ms.locfileid: "68819837"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>チュートリアル: ASP.NET Core で Web API を作成する
 
@@ -728,6 +728,7 @@ To Do アイテムを取得する API を指定するには、`TodoController` �
 * 要求された ID と一致するアイテムがない場合、メソッドは 404 [NotFound](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.notfound) エラー コードを返します。
 * それ以外の場合、メソッドは JSON 応答本文で 200 を返します。 戻り値が `item` の場合、HTTP 200 応答が返されます。
 
+
 ## <a name="test-the-gettodoitems-method"></a>GetTodoItems メソッドのテスト
 
 このチュートリアルでは、Postman を使用して Web API をテストします。
@@ -736,10 +737,19 @@ To Do アイテムを取得する API を指定するには、`TodoController` �
 * Web アプリを起動します。
 * Postman を起動します。
 * **SSL 証明書の検証**を無効にします。
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+* **[ファイル]** > **[設定]** ( **[全般]** タブ) で、**SSL 証明書の検証**を無効にします。
+
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+
+* **[Postman]**  >  **[ユーザー設定]** ( **[全般]** タブ) で、**SSL 証明書の検証**を無効にします。 あるいは、レンチを選択し、 **[設定]** を選択して、SSL 証明書の検証を無効にします。
+
+---
   
-  * **[ファイル] > [設定]** (\* *[全般]* タブ) で、 **SSL 証明書の検証** を無効にします。
-    > [!WARNING]
-    > コントローラーをテストした後、SSL 証明書の検証を再度有効にします。
+> [!WARNING]
+> コントローラーをテストした後、SSL 証明書の検証を再度有効にします。
 
 * 新しい要求を作成します。
   * HTTP メソッドを **GET** に設定します。
@@ -751,7 +761,7 @@ To Do アイテムを取得する API を指定するには、`TodoController` �
 
 ## <a name="add-a-create-method"></a>Create メソッドの追加
 
-次の `PostTodoItem` メソッドを追加します。
+*Controllers/TodoController.cs* 内に次の `PostTodoItem` メソッドを追加します。 
 
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Controllers/TodoController.cs?name=snippet_Create)]
 

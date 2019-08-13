@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/read-related-data
-ms.openlocfilehash: 5b45ced4fe6ed220c9a63bc6480c8c8520b36ed4
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 20f801e23f3e75d7915bcb7c095060b68d9cb03f
+ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64886367"
+ms.lasthandoff: 08/06/2019
+ms.locfileid: "68819780"
 ---
 # <a name="tutorial-read-related-data---aspnet-mvc-with-ef-core"></a>チュートリアル: 関連データを読み取る - ASP.NET MVC と EF Core
 
@@ -89,7 +89,7 @@ Course エンティティには、コースが割り当てられている部門�
   @Html.DisplayFor(modelItem => item.Department.Name)
   ```
 
-アプリを実行し、**[Courses]** タブを選択して部門名のリストを表示します。
+アプリを実行し、 **[Courses]** タブを選択して部門名のリストを表示します。
 
 ![Courses/Index ページ](read-related-data/_static/courses-index.png)
 
@@ -188,7 +188,7 @@ Index メソッドを次のコードに置き換えて、関連データの一�
   }
   ```
 
-* インストラクターごとに担当したコースを表示する **Courses** 列を追加しました。 この Razor 構文の詳細については、「[Explicit Line Transition with `@:`](xref:mvc/views/razor#explicit-line-transition-with-)」(@: による明示的な行の遷移) を参照してください。
+* インストラクターごとに担当したコースを表示する **Courses** 列を追加しました。 詳細は、Razor 構文記事の「[@: による明示的な行の遷移](xref:mvc/views/razor#explicit-line-transition-with-)」セクションを参照してください。
 
 * 選択したインストラクターの `tr` 要素に `class="success"` を動的に追加するコードを追加しました。 これは、ブートストラップ クラスを使用して、選択した行の背景色を設定します。
 
@@ -207,7 +207,7 @@ Index メソッドを次のコードに置き換えて、関連データの一�
   <a asp-action="Index" asp-route-id="@item.ID">Select</a> |
   ```
 
-アプリを実行し、**[Instructors]** タブを選択します。関連する OfficeAssignment エンティティがない場合は、ページに関連する OfficeAssignment エンティティの Location プロパティと空の表のセルが表示されます。
+アプリを実行し、 **[Instructors]** タブを選択します。関連する OfficeAssignment エンティティがない場合は、ページに関連する OfficeAssignment エンティティの Location プロパティと空の表のセルが表示されます。
 
 ![何も選択されていない Instructors/Index ページ](read-related-data/_static/instructors-index-no-selection.png)
 

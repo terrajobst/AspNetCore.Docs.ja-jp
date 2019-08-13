@@ -3,14 +3,14 @@ title: ASP.NET Core MVC アプリにコントローラーを追加する
 author: rick-anderson
 description: 単純な ASP.NET Core MVC アプリにコントローラーを追加する方法について説明します。
 ms.author: riande
-ms.date: 02/28/2017
+ms.date: 08/05/2017
 uid: tutorials/first-mvc-app/adding-controller
-ms.openlocfilehash: ab97b875956ec262623ed9862ace6a930331d80d
-ms.sourcegitcommit: 979dbfc5e9ce09b9470789989cddfcfb57079d94
+ms.openlocfilehash: 1c54959130f3a9959d4d4fdb8dcaa0d37ee2f046
+ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/31/2019
-ms.locfileid: "68682321"
+ms.lasthandoff: 08/06/2019
+ms.locfileid: "68820053"
 ---
 # <a name="add-a-controller-to-an-aspnet-core-mvc-app"></a>ASP.NET Core MVC アプリにコントローラーを追加する
 
@@ -86,9 +86,9 @@ MVC は、着信 URL に応じてコントローラー クラス (およびそ�
 
 URL セグメントを指定しないでアプリを参照すると、既定では、"Home" コントローラーと "Index" メソッドが、上の強調表示されている template 行で指定されます。
 
-1 番目の URL セグメントでは、実行するコントローラー クラスが決定されます。 そのため、`localhost:xxxx/HelloWorld` は、**HelloWorld** コントローラー クラスにマップされます。 URL セグメントの 2 番目の部分では、クラスのアクション メソッドが決定されます。 したがって、`localhost:xxxx/HelloWorld/Index` では `HelloWorldController` クラスの `Index` メソッドが実行されます。 参照する必要があるのは `localhost:xxxx/HelloWorld` だけであり、`Index` メソッドは既定で呼び出されることに注意してください。 これは、`Index` がメソッド名が明示的に指定されていない場合にコントローラーで呼び出される既定のメソッドであるためです。 URL セグメントの 3 番目の部分 (`id`) はルート データ用です。 ルート データについては、このチュートリアルで後ほど説明します。
+1 番目の URL セグメントでは、実行するコントローラー クラスが決定されます。 そのため、`localhost:{PORT}/HelloWorld` は、**HelloWorld** コントローラー クラスにマップされます。 URL セグメントの 2 番目の部分では、クラスのアクション メソッドが決定されます。 したがって、`localhost:{PORT}/HelloWorld/Index` では `HelloWorldController` クラスの `Index` メソッドが実行されます。 参照する必要があるのは `localhost:{PORT}/HelloWorld` だけであり、`Index` メソッドは既定で呼び出されることに注意してください。 これは、`Index` がメソッド名が明示的に指定されていない場合にコントローラーで呼び出される既定のメソッドであるためです。 URL セグメントの 3 番目の部分 (`id`) はルート データ用です。 ルート データについては、このチュートリアルで後ほど説明します。
 
-`https://localhost:xxxx/HelloWorld/Welcome` を参照します。 `Welcome` メソッドが実行され、文字列 `This is the Welcome action method...` が返されます。 この URL では、コントローラーは `HelloWorld` で、`Welcome` がアクション メソッドです。 URL の `[Parameters]` の部分はまだ使っていません。
+`https://localhost:{PORT}/HelloWorld/Welcome` を参照します。 `Welcome` メソッドが実行され、文字列 `This is the Welcome action method...` が返されます。 この URL では、コントローラーは `HelloWorld` で、`Welcome` がアクション メソッドです。 URL の `[Parameters]` の部分はまだ使っていません。
 
 !["This is the Welcome action method" というアプリケーションの応答が表示されているブラウザー ウィンドウ](~/tutorials/first-mvc-app/adding-controller/_static/welcome.png)
 
@@ -104,9 +104,9 @@ URL からコントローラーにいくつかのパラメーター情報を渡�
 
 アプリを実行して次を参照します。
 
-   `https://localhost:xxxx/HelloWorld/Welcome?name=Rick&numtimes=4`
+   `https://localhost:{PORT}/HelloWorld/Welcome?name=Rick&numtimes=4`
 
-(xxxx は実際のポート番号に置き換えます)URL の `name` と `numtimes` に違う値を指定してみてください。 MVC の[モデル バインド](xref:mvc/models/model-binding) システムは、名前付きパラメーターを、アドレス バーのクエリ文字列からメソッドのパラメーターに自動的にマップします。 詳しくは、「[モデル バインド](xref:mvc/models/model-binding)」をご覧ください。
+(`{PORT}` は実際のポート番号に置き換えます。)URL の `name` と `numtimes` に違う値を指定してみてください。 MVC の[モデル バインド](xref:mvc/models/model-binding) システムは、名前付きパラメーターを、アドレス バーのクエリ文字列からメソッドのパラメーターに自動的にマップします。 詳しくは、「[モデル バインド](xref:mvc/models/model-binding)」をご覧ください。
 
 ![Hello Rick のアプリケーションの応答が表示されているブラウザー ウィンドウ。NumTimes は次のとおり: 4](~/tutorials/first-mvc-app/adding-controller/_static/rick4.png)
 
@@ -116,7 +116,7 @@ URL からコントローラーにいくつかのパラメーター情報を渡�
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/HelloWorldController.cs?name=snippet_3)]
 
-アプリを実行し、次の URL を入力します: `https://localhost:xxx/HelloWorld/Welcome/3?name=Rick`
+アプリを実行し、次の URL を入力します: `https://localhost:{PORT}/HelloWorld/Welcome/3?name=Rick`
 
 今度は、3 番目の URL セグメントがルート パラメーター `id` と一致しました。 `Welcome` メソッドには、`MapControllerRoute` メソッドの URL テンプレートと一致したパラメーター `id` が含まれます。 末尾の `?` (`id?`) は、`id` パラメーターが省略可能であることを示します。
 
@@ -205,9 +205,9 @@ Remove link for simplified tutorial.
 
 URL セグメントを指定しないでアプリを参照すると、既定では、"Home" コントローラーと "Index" メソッドが、上の強調表示されている template 行で指定されます。
 
-1 番目の URL セグメントでは、実行するコントローラー クラスが決定されます。 したがって、`localhost:xxxx/HelloWorld` は `HelloWorldController` クラスにマップします。 URL セグメントの 2 番目の部分では、クラスのアクション メソッドが決定されます。 したがって、`localhost:xxxx/HelloWorld/Index` では `HelloWorldController` クラスの `Index` メソッドが実行されます。 参照する必要があるのは `localhost:xxxx/HelloWorld` だけであり、`Index` メソッドは既定で呼び出されることに注意してください。 これは、`Index` はメソッド名が明示的に指定されていない場合にコントローラーで呼び出される既定のメソッドであるためです。 URL セグメントの 3 番目の部分 (`id`) はルート データ用です。 ルート データについては、このチュートリアルで後ほど説明します。
+1 番目の URL セグメントでは、実行するコントローラー クラスが決定されます。 したがって、`localhost:{PORT}/HelloWorld` は `HelloWorldController` クラスにマップします。 URL セグメントの 2 番目の部分では、クラスのアクション メソッドが決定されます。 したがって、`localhost:{PORT}/HelloWorld/Index` では `HelloWorldController` クラスの `Index` メソッドが実行されます。 参照する必要があるのは `localhost:{PORT}/HelloWorld` だけであり、`Index` メソッドは既定で呼び出されることに注意してください。 これは、`Index` はメソッド名が明示的に指定されていない場合にコントローラーで呼び出される既定のメソッドであるためです。 URL セグメントの 3 番目の部分 (`id`) はルート データ用です。 ルート データについては、このチュートリアルで後ほど説明します。
 
-`https://localhost:xxxx/HelloWorld/Welcome` を参照します。 `Welcome` メソッドが実行され、文字列 `This is the Welcome action method...` が返されます。 この URL では、コントローラーは `HelloWorld` で、`Welcome` がアクション メソッドです。 URL の `[Parameters]` の部分はまだ使っていません。
+`https://localhost:{PORT}/HelloWorld/Welcome` を参照します。 `Welcome` メソッドが実行され、文字列 `This is the Welcome action method...` が返されます。 この URL では、コントローラーは `HelloWorld` で、`Welcome` がアクション メソッドです。 URL の `[Parameters]` の部分はまだ使っていません。
 
 !["This is the Welcome action method" というアプリケーションの応答が表示されているブラウザー ウィンドウ](~/tutorials/first-mvc-app/adding-controller/_static/welcome.png)
 
@@ -223,9 +223,9 @@ URL からコントローラーにいくつかのパラメーター情報を渡�
 
 アプリを実行して次を参照します。
 
-   `https://localhost:xxxx/HelloWorld/Welcome?name=Rick&numtimes=4`
+   `https://localhost:{PORT}/HelloWorld/Welcome?name=Rick&numtimes=4`
 
-(xxxx は実際のポート番号に置き換えます)URL の `name` と `numtimes` に違う値を指定してみてください。 MVC の[モデル バインド](xref:mvc/models/model-binding) システムは、名前付きパラメーターを、アドレス バーのクエリ文字列からメソッドのパラメーターに自動的にマップします。 詳しくは、「[モデル バインド](xref:mvc/models/model-binding)」をご覧ください。
+(`{PORT}` は実際のポート番号に置き換えます。)URL の `name` と `numtimes` に違う値を指定してみてください。 MVC の[モデル バインド](xref:mvc/models/model-binding) システムは、名前付きパラメーターを、アドレス バーのクエリ文字列からメソッドのパラメーターに自動的にマップします。 詳しくは、「[モデル バインド](xref:mvc/models/model-binding)」をご覧ください。
 
 ![Hello Rick のアプリケーションの応答が表示されているブラウザー ウィンドウ。NumTimes は次のとおり: 4](~/tutorials/first-mvc-app/adding-controller/_static/rick4.png)
 
@@ -235,7 +235,7 @@ URL からコントローラーにいくつかのパラメーター情報を渡�
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/HelloWorldController.cs?name=snippet_3)]
 
-アプリを実行し、次の URL を入力します: `https://localhost:xxx/HelloWorld/Welcome/3?name=Rick`
+アプリを実行し、次の URL を入力します: `https://localhost:{PORT}/HelloWorld/Welcome/3?name=Rick`
 
 今度は、3 番目の URL セグメントがルート パラメーター `id` と一致しました。 `Welcome` メソッドには、`MapRoute` メソッドの URL テンプレートと一致したパラメーター `id` が含まれます。 末尾の `?` (`id?`) は、`id` パラメーターが省略可能であることを示します。
 

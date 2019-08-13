@@ -5,14 +5,14 @@ description: IHostingStartup 実装を使用して、外部アセンブリから
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 04/06/2019
+ms.date: 08/02/2019
 uid: fundamentals/configuration/platform-specific-configuration
-ms.openlocfilehash: df078a2a2a50538a070bb0b49ff3853682cb17df
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 3be036d9b4fc6c9898faf14e8a60a8cc7a8683b7
+ms.sourcegitcommit: b5e63714afc26e94be49a92619586df5189ed93a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64889057"
+ms.lasthandoff: 08/02/2019
+ms.locfileid: "68739544"
 ---
 # <a name="use-hosting-startup-assemblies-in-aspnet-core"></a>ASP.NET Core でホスティング スタートアップ アセンブリを使用する
 
@@ -128,7 +128,7 @@ ms.locfileid: "64889057"
 
 [!code-csharp[](platform-specific-configuration/samples-snapshot/2.x/StartupEnhancement.cs?name=snippet2&highlight=3,5)]
 
-`IHostingStartup` プロジェクトのビルド時に、依存関係ファイル (*\*.deps.json*) によってアセンブリの `runtime` の場所が *bin* フォルダーに設定されます。
+`IHostingStartup` プロジェクトのビルド時に、依存関係ファイル ( *.deps.json*) によってアセンブリの `runtime` の場所が *bin* フォルダーに設定されます。
 
 [!code-json[](platform-specific-configuration/samples-snapshot/2.x/StartupEnhancement1.deps.json?range=2-13&highlight=8)]
 
@@ -219,13 +219,13 @@ dotnet store --manifest store.manifest.csproj --runtime win7-x64 --output ./depl
 
 拡張機能へのパッケージ参照なしで拡張機能をアクティブ化するには、`additionalDeps` を使用してランタイムに追加の依存関係を指定します。 `additionalDeps` を使用すると、次のことを実行できます。
 
-* スタートアップ時にアプリの独自の *\*.deps.json* ファイルとマージさせる追加の *\*.deps.json* ファイルのセットを指定することで、アプリのライブラリのグラフを拡張します。
+* スタートアップ時にアプリの独自の *.deps.json* ファイルとマージさせる追加の *.deps.json* ファイルのセットを指定することで、アプリのライブラリのグラフを拡張します。
 * ホスティング スタートアップ アセンブリを検出可能および読み込み可能にします。
 
 追加の依存関係ファイルを生成するために推奨される方法は次のとおりです。
 
  1. 前のセクションで参照したランタイム ストアのマニフェスト ファイルに対して `dotnet publish` を実行します。
- 1. ライブラリと、得られる *\*deps.json* ファイルの `runtime` セクションから、マニフェスト参照を削除します。
+ 1. ライブラリと、結果として得られる *deps.json* ファイルの `runtime` セクションから、マニフェスト参照を削除します。
 
 プロジェクトの例では、`targets` と `libraries` セクションから `store.manifest/1.0.0` プロパティが削除されます。
 
@@ -273,7 +273,7 @@ dotnet store --manifest store.manifest.csproj --runtime win7-x64 --output ./depl
 }
 ```
 
-次の場所に *\*.deps.json* ファイルを配置します。
+次の場所に *.deps.json* ファイルを配置します。
 
 ```
 {ADDITIONAL DEPENDENCIES PATH}/shared/{SHARED FRAMEWORK NAME}/{SHARED FRAMEWORK VERSION}/{ENHANCEMENT ASSEMBLY NAME}.deps.json
@@ -308,7 +308,7 @@ additionalDeps/shared/Microsoft.AspNetCore.App/2.1.0/StartupDiagnostics.deps.jso
 
 NuGet パッケージでは、ホスティング スタートアップの拡張機能を提供できます。 このパッケージには `HostingStartup` 属性があります。 このパッケージで提供される種類のホスティング スタートアップは、次のアプローチのいずれかを使用してアプリで利用できるようになります。
 
-* 機能強化されたアプリのプロジェクト ファイルでは、アプリのプロジェクト ファイル内のホスティング スタートアップに対するパッケージ参照 (コンパイル時参照) が作成されます。 コンパイル時参照を適用すると、ホスティング スタートアップ アセンブリとその依存関係のすべてが、アプリの依存関係ファイル (*\*.deps.json*) に組み込まれます。 このアプローチは、[nuget.org](https://www.nuget.org/) に発行されるホスティング スタートアップ アセンブリ パッケージに適用されます。
+* 機能強化されたアプリのプロジェクト ファイルでは、アプリのプロジェクト ファイル内のホスティング スタートアップに対するパッケージ参照 (コンパイル時参照) が作成されます。 コンパイル時参照を適用すると、ホスティング スタートアップ アセンブリとその依存関係のすべてが、アプリの依存関係ファイル ( *.deps.json*) に組み込まれます。 このアプローチは、[nuget.org](https://www.nuget.org/) に発行されるホスティング スタートアップ アセンブリ パッケージに適用されます。
 * ホスティング スタートアップの依存関係ファイルは、「[ランタイム ストア](#runtime-store)」のセクションで説明にしたように (コンパイル参照がない場合)、機能強化されたアプリで利用できるようになります。
 
 NuGet パッケージとランタイム ストアの詳細については、次のトピックを参照してください。
@@ -321,8 +321,13 @@ NuGet パッケージとランタイム ストアの詳細については、次�
 
 ホスティング スタートアップの拡張機能は、機能強化されたアプリ内の *bin* 配置アセンブリによって提供できます。 このアセンブリで提供される種類のホスティング スタートアップは、次のアプローチのいずれかを使用してアプリで利用できるようになります。
 
-* 機能強化されたアプリのプロジェクト ファイルでは、ホスティング スタートアップへのアセンブリ参照 (コンパイル時参照) が作成されます。 コンパイル時参照を適用すると、ホスティング スタートアップ アセンブリとその依存関係のすべてが、アプリの依存関係ファイル (*\*.deps.json*) に組み込まれます。 このアプローチが適用されるのは、コンパイルされたホスティング スタートアップ ライブラリのアセンブリ (DLL ファイル) を、使用するプロジェクトに移動するか、または使用するプロジェクトからアクセス可能な場所に移動することが配置シナリオで必要であり、かつホスティング スタートアップのアセンブリへの参照が作成される場合です。
+* 機能強化されたアプリのプロジェクト ファイルでは、ホスティング スタートアップへのアセンブリ参照 (コンパイル時参照) が作成されます。 コンパイル時参照を適用すると、ホスティング スタートアップ アセンブリとその依存関係のすべてが、アプリの依存関係ファイル ( *.deps.json*) に組み込まれます。 この手法は、展開シナリオによって、ホスティング スタートアップのアセンブリ ( *.dll* ファイル) に対してコンパイル時参照を作成し、次のいずれかにそのアセンブリを移動させることが要請される場合に適用されます。
+  * 使用するプロジェクト。
+  * 使用するプロジェクトでアクセスできる場所。
 * ホスティング スタートアップの依存関係ファイルは、「[ランタイム ストア](#runtime-store)」のセクションで説明にしたように (コンパイル参照がない場合)、機能強化されたアプリで利用できるようになります。
+* .NET Framework を対象にするとき、アセンブリは既定の読み込みコンテキストで読み込み可能です。これは、.NET Framework の場合、アセンブリが次のいずれかの場所にあることを意味します。
+  * アプリケーション ベース パス &ndash; アプリの実行可能ファイル ( *.exe*) が置かれている *bin* フォルダー。
+  * グローバル アセンブリ キャッシュ (GAC) &ndash; GAC には、複数の .NET Framework アプリで共有されるアセンブリが格納されています。 詳細については、「[方法 : アセンブリをグローバル アセンブリ キャッシュにインストールする](/dotnet/framework/app-domains/how-to-install-an-assembly-into-the-gac)」を参照してください。これは .NET Framework ドキュメントにあります。
 
 ## <a name="sample-code"></a>サンプル コード
 
@@ -344,7 +349,7 @@ NuGet パッケージとランタイム ストアの詳細については、次�
 
 1. [dotnet pack](/dotnet/core/tools/dotnet-pack) コマンドを使用して *HostingStartupPackage* パッケージをコンパイルします。
 1. *HostingStartupPackage* のパッケージのアセンブリ名を `ASPNETCORE_HOSTINGSTARTUPASSEMBLIES` 環境変数に追加します。
-1. アプリをコンパイルして実行します。 機能拡張されたアプリにはパッケージ参照 (コンパイル時参照) が存在します。 アプリのプロジェクト ファイル内の `<PropertyGroup>` では、パッケージ プロジェクトの出力 (*../HostingStartupPackage/Bin/debug*) がパッケージ ソースとして指定されます。 これにより、[nuget.org](https://www.nuget.org/) にパッケージをアップロードすることなく、アプリによりパッケージが使用されるようになります。詳細については、HostingStartupApp のプロジェクト ファイル内の注を参照してください。
+1. アプリをコンパイルして実行します。 機能拡張されたアプリにはパッケージ参照 (コンパイル時参照) が存在します。 アプリのプロジェクト ファイル内の `<PropertyGroup>` では、パッケージ プロジェクトの出力 ( *../HostingStartupPackage/Bin/debug*) がパッケージ ソースとして指定されます。 これにより、[nuget.org](https://www.nuget.org/) にパッケージをアップロードすることなく、アプリによりパッケージが使用されるようになります。詳細については、HostingStartupApp のプロジェクト ファイル内の注を参照してください。
 
    ```xml
    <PropertyGroup>
@@ -365,7 +370,7 @@ dotnet nuget locals all --clear
 1. [dotnet build](/dotnet/core/tools/dotnet-build) コマンドを使用して *HostingStartupLibrary* クラス ライブラリをコンパイルします。
 1. *HostingStartupLibrary* のクラス ライブラリのアセンブリ名を `ASPNETCORE_HOSTINGSTARTUPASSEMBLIES` 環境変数に追加します。
 1. クラス ライブラリのアセンブリをアプリに *bin* 配置するには、クラス ライブラリのコンパイルされた出力からアプリの *bin/Debug* フォルダーに *HostingStartupLibrary.dll* ファイルをコピーします。
-1. アプリをコンパイルして実行します。 アプリのプロジェクト ファイル内の `<ItemGroup>` は、クラス ライブラリのアセンブリ (*.\bin\Debug\netcoreapp2.1\HostingStartupLibrary.dll*) を参照します (コンパイル時参照)。 詳細については、HostingStartupApp のプロジェクト ファイル内の注を参照してください。
+1. アプリをコンパイルして実行します。 アプリのプロジェクト ファイル内の `<ItemGroup>` は、クラス ライブラリのアセンブリ ( *.\bin\Debug\netcoreapp2.1\HostingStartupLibrary.dll*) を参照します (コンパイル時参照)。 詳細については、HostingStartupApp のプロジェクト ファイル内の注を参照してください。
 
    ```xml
    <ItemGroup>

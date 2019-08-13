@@ -5,14 +5,14 @@ description: IHttpClientFactory インターフェイスを使用して、ASP.NE
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 05/10/2019
+ms.date: 08/01/2019
 uid: fundamentals/http-requests
-ms.openlocfilehash: 8b95f63c0e06a2b7d1d66064def192f91b8ffbb4
-ms.sourcegitcommit: ccbb84ae307a5bc527441d3d509c20b5c1edde05
+ms.openlocfilehash: bcf2a2eaf6910222d274c38bac343c92fab9cb5b
+ms.sourcegitcommit: b5e63714afc26e94be49a92619586df5189ed93a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/19/2019
-ms.locfileid: "65874957"
+ms.lasthandoff: 08/02/2019
+ms.locfileid: "68739532"
 ---
 # <a name="make-http-requests-using-ihttpclientfactory-in-aspnet-core"></a>ASP.NET Core で IHttpClientFactory を使用して HTTP 要求を行う
 
@@ -76,7 +76,12 @@ ms.locfileid: "65874957"
 
 ### <a name="typed-clients"></a>型指定されたクライアント
 
-型指定されたクライアントは、キーとして文字列を使用する必要なしに、名前付きクライアントと同じ機能を提供します。 型指定されたクライアントの方法では、クライアントを使用するときに、IntelliSense とコンパイラのヘルプが提供されます。 型指定されたクライアントは、特定の `HttpClient` を構成してそれと対話する 1 つの場所を提供します。 たとえば、単一の型指定されたクライアントを単一のバックエンド エンドポイントに対して使用し、そのエンドポイントを操作するすべてのロジックをカプセル化できます。 もう 1 つの利点は、型指定されたクライアントは DI に対応しており、アプリ内の必要な場所に挿入できることです。
+型指定されたクライアント:
+
+* キーとして文字列を使用する必要なしに、名前付きクライアントと同じ機能を提供します。
+* クライアントを使用するときに、IntelliSense とコンパイラのヘルプが提供されます。
+* 特定の `HttpClient` を構成してそれと対話する 1 つの場所を提供します。 たとえば、単一の型指定されたクライアントを単一のバックエンド エンドポイントに対して使用し、そのエンドポイントを操作するすべてのロジックをカプセル化できます。
+* DI に対応しており、アプリ内の必要な場所に挿入できます。
 
 型指定されたクライアントは、コンストラクターで `HttpClient` パラメーターを受け取ります。
 
@@ -163,7 +168,7 @@ public class ValuesController : ControllerBase
 
 ハンドラーを作成するには、<xref:System.Net.Http.DelegatingHandler> の派生クラスを定義します。 パイプライン内の次のハンドラーに要求を渡す前にコードを実行するように、`SendAsync` メソッドをオーバーライドします。
 
-[!code-csharp[Main](http-requests/samples/2.x/HttpClientFactorySample/Handlers/ValidateHeaderHandler.cs?name=snippet1)]
+[!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Handlers/ValidateHeaderHandler.cs?name=snippet1)]
 
 上記のコードでは、基本的なハンドラーが定義されています。 このコードは、`X-API-KEY` ヘッダーが要求に含まれていたかどうかを確認します。 ヘッダーがない場合、HTTP 呼び出しを行わずに適切な応答を返すことができます。
 
@@ -181,7 +186,10 @@ public class ValuesController : ControllerBase
 
 ::: moniker range="< aspnetcore-2.2"
 
-上記のコードでは、`ValidateHeaderHandler` が DI で登録されます。 ハンドラーは、スコープではなく、一時的なサービスとして DI で登録する**必要があります**。 ハンドラーがスコープ サービスとして登録されていて、ハンドラーが依存するサービスが破棄可能だった場合、ハンドラーがスコープ外に移動する前にハンドラーのサービスが破棄される可能性があります。この場合、ハンドラーは失敗します。
+上記のコードでは、`ValidateHeaderHandler` が DI で登録されます。 ハンドラーは、スコープではなく、一時的なサービスとして DI で登録する**必要があります**。 ハンドラーがスコープ付きサービスとして登録されており、ハンドラーが依存するサービスを破棄できる場合:
+
+* ハンドラーのサービスは、ハンドラーがスコープ外に出る前に破棄されることがあります。
+* 破棄されたハンドラー サービスが原因でハンドラーが失敗します。
 
 登録が済むと、<xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.AddHttpMessageHandler*> を呼び出してハンドラーの型を渡すことができます。
 
@@ -212,7 +220,7 @@ public class ValuesController : ControllerBase
 
 `AddTransientHttpErrorPolicy` 拡張メソッドは、`Startup.ConfigureServices` 内で使用できます。 この拡張メソッドは、可能性のある一時的障害を表すエラーを処理するように構成された `PolicyBuilder` オブジェクトへのアクセスを提供します。
 
-[!code-csharp[Main](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet7)]
+[!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet7)]
 
 上記のコードでは、`WaitAndRetryAsync` ポリシーが定義されています。 失敗した要求は最大 3 回再試行され、再試行の間には 600 ミリ秒の遅延が設けられます。
 
@@ -220,7 +228,7 @@ public class ValuesController : ControllerBase
 
 Polly ベースのハンドラーを追加するために使用できる追加の拡張メソッドが存在します。 そのような拡張メソッドの 1 つは `AddPolicyHandler` であり、複数のオーバーロードを持ちます。 1 つのオーバーロードでは、適用するポリシーを定義するときに要求を検査できます。
 
-[!code-csharp[Main](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet8)]
+[!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet8)]
 
 上記のコードでは、送信要求が HTTP GET の場合は、10 秒のタイムアウトが適用されます。 他の HTTP メソッドの場合は、30 秒のタイムアウトが使用されます。
 
@@ -228,7 +236,7 @@ Polly ベースのハンドラーを追加するために使用できる追加�
 
 Polly ポリシーを入れ子にして拡張機能を提供するのが一般的です。
 
-[!code-csharp[Main](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet9)]
+[!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet9)]
 
 前の例では、2 つのハンドラーが追加されています。 最初のハンドラーは、`AddTransientHttpErrorPolicy` 拡張メソッドを使用して再試行ポリシーを追加します。 失敗した要求は 3 回まで再試行されます。 `AddTransientHttpErrorPolicy` の 2 番目の呼び出しでは、サーキット ブレーカー ポリシーが追加されています。 試行が連続して 5 回失敗した場合、それ以上の外部要求は 30 秒間ブロックされます。 サーキット ブレーカー ポリシーはステートフルです。 このクライアントからのすべての呼び出しは、同じサーキット状態を共有します。
 
@@ -236,7 +244,7 @@ Polly ポリシーを入れ子にして拡張機能を提供するのが一般�
 
 定期的に使用されるポリシーを管理するには、ポリシーを 1 回定義した後、`PolicyRegistry` でポリシーを登録します。 提供されている拡張メソッドを使用することで、レジストリからポリシーを使用してハンドラーを追加できます。
 
-[!code-csharp[Main](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet10)]
+[!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet10)]
 
 上記のコードでは、`PolicyRegistry` が `ServiceCollection` に追加されるときに 2 つのポリシーが登録されています。 レジストリからポリシーを使用するには、適用するポリシーの名前を渡して `AddPolicyHandlerFromRegistry` メソッドを使用します。
 
@@ -252,7 +260,7 @@ Polly ポリシーを入れ子にして拡張機能を提供するのが一般�
 
 ハンドラーの既定の有効期間は 2 分です。 名前付きクライアントごとに、既定値をオーバーライドすることができます。 オーバーライドするには、クライアント作成時に返された `IHttpClientBuilder` で <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.SetHandlerLifetime*> を呼び出します。
 
-[!code-csharp[Main](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet11)]
+[!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet11)]
 
 クライアントを破棄する必要はありません。 破棄すると送信要求がキャンセルされ、<xref:System.IDisposable.Dispose*> の呼び出し後には指定された `HttpClient` インスタンスを使用できなくなります。 `IHttpClientFactory` は、`HttpClient` インスタンスによって使用されたリソースの追跡と破棄を行います。 通常、`HttpClient` インスタンスは、破棄を必要としない .NET オブジェクトとして扱うことができます。
 
@@ -276,7 +284,32 @@ Polly ポリシーを入れ子にして拡張機能を提供するのが一般�
 
 名前付きクライアントまたは型指定されたクライアントを追加すると、`IHttpClientBuilder` が返されます。 <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> 拡張メソッドを使用して、デリゲートを定義することができます。 デリゲートは、そのクライアントによって使用されるプライマリ `HttpMessageHandler` の作成と構成に使用されます。
 
-[!code-csharp[Main](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet12)]
+[!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet12)]
+
+## <a name="use-ihttpclientfactory-in-a-console-app"></a>コンソール アプリで IHttpClientFactory を使用する
+
+コンソール アプリで、次のパッケージ参照をプロジェクトに追加します。
+
+* [Microsoft.Extensions.Hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting)
+* [Microsoft.Extensions.Http](https://www.nuget.org/packages/Microsoft.Extensions.Http)
+
+次に例を示します。
+
+* <xref:System.Net.Http.IHttpClientFactory> は[汎用ホスト](xref:fundamentals/host/generic-host)のサービス コンテナーに登録されます。
+* `MyService` により、クライアント ファクトリ インスタンスがサービスから作成され、それが `HttpClient` の作成に使用されます。 `HttpClient` は Web ページを取得する目的で使用されます。
+* `Main` により、サービスの `GetPage` メソッドを実行し、Web ページ コンテンツの最初の 500 文字をコンソールに書き込むためのスコープが作成されます。
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](http-requests/samples/3.x/HttpClientFactoryConsoleSample/Program.cs?highlight=14-15,20,26-27,59-62)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+[!code-csharp[](http-requests/samples/2.x/HttpClientFactoryConsoleSample/Program.cs?highlight=14-15,20,26-27,59-62)]
+
+::: moniker-end
 
 ## <a name="additional-resources"></a>その他の技術情報
 

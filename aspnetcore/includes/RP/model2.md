@@ -2,7 +2,7 @@
 
 ### <a name="add-a-database-context-class"></a>データベース コンテキスト クラスの追加
 
-次の `RazorPagesMovieContext` クラスを *Data* フォルダーに追加します。
+RazorPagesMovie プロジェクトで、*Data* という名前の新しいフォルダーを作成します。 次の `RazorPagesMovieContext` クラスを *Data* フォルダーに追加します。
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Data/RazorPagesMovieContext.cs)]
 
@@ -18,18 +18,19 @@
 
 [!code-json[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/appsettings_SQLite.json?highlight=10-12)]
 
-### <a name="add-required-nuget-packages"></a>必要な NuGet パッケージの追加
+### <a name="add-nuget-packages-and-ef-tools"></a>NuGet パッケージと EF ツールを追加します。
 
-次の .NET Core CLI コマンドを実行し、SQLite、Entity Framework Core、および CodeGeneration.Design をプロジェクトに追加します。
+RazorPagesMovie プロジェクトのターミナルを開きます。  デザイン/レイアウト バーでプロジェクト名を右クリックし、ターミナルで **[ツール]、[開く]** の順に進みます。 ターミナルで次の .NET Core CLI コマンドを実行します。
 
 ```console
+dotnet tool install --global dotnet-ef --version 3.0.0-*
 dotnet add package Microsoft.EntityFrameworkCore.SQLite --version 3.0.0-*
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 3.0.0-*
 dotnet add package Microsoft.EntityFrameworkCore.Design --version 3.0.0-*
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.0.0-*
 ```
 
-スキャフォールディングには `Microsoft.VisualStudio.Web.CodeGeneration.Design` パッケージが必要です。
+上記のコマンドでは、.NET CLI 用の Entity Framework Core ツールと複数のパッケージがプロジェクトに追加されます。 スキャフォールディングには `Microsoft.VisualStudio.Web.CodeGeneration.Design` パッケージが必要です。
 
 <a name="reg"></a>
 
