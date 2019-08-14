@@ -5,14 +5,14 @@ description: ASP.NET Core アプリ内に .NET を使った対話型のクライ
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc, seoapril2019
-ms.date: 07/01/2019
+ms.date: 08/13/2019
 uid: blazor/index
-ms.openlocfilehash: 69a82bebdb787003e36568ca03e1104b9f2edf15
-ms.sourcegitcommit: f30b18442ed12831c7e86b0db249183ccd749f59
+ms.openlocfilehash: b13446651603fe23c4595028272ba19ed7bbd5fd
+ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/23/2019
-ms.locfileid: "68412401"
+ms.lasthandoff: 08/13/2019
+ms.locfileid: "68993379"
 ---
 # <a name="introduction-to-blazor"></a>Blazor の概要
 
@@ -61,10 +61,10 @@ Blazor アプリは、"*コンポーネント*" に基づいています。 Blaz
 
 @code {
     [Parameter]
-    private string Title { get; set; }
+    public string Title { get; set; }
 
     [Parameter]
-    private RenderFragment ChildContent { get; set; }
+    public RenderFragment ChildContent { get; set; }
 
     private void OnYes()
     {

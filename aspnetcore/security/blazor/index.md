@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/26/2019
 uid: security/blazor/index
-ms.openlocfilehash: 097a747f68729109922af5c68dfd918024ee6146
-ms.sourcegitcommit: 040aedca220ed24ee1726e6886daf6906f95a028
+ms.openlocfilehash: 87d61a7ccda209243a62bc54467b8f02dad92c24
+ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/15/2019
-ms.locfileid: "67893624"
+ms.lasthandoff: 08/13/2019
+ms.locfileid: "68994187"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor の認証と承認
 
@@ -57,7 +57,7 @@ Blazor サーバー側アプリは、SignalR を使用して作成されたリ�
 認証メカニズムを使用して新しい Blazor サーバー側プロジェクトを作成するには、<xref:blazor/get-started> の記事の Visual Studio Code のガイダンスに従ってください。
 
 ```console
-dotnet new blazorserverside -o {APP NAME} -au {AUTHENTICATION}
+dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 ```
 
 次の表に、使用できる認証値 (`{AUTHENTICATION}`) を示します。
@@ -91,7 +91,7 @@ dotnet new blazorserverside -o {APP NAME} -au {AUTHENTICATION}
 Follow the .NET Core CLI guidance in the <xref:blazor/get-started> article to create a new Blazor server-side project with an authentication mechanism:
 
 ```console
-dotnet new blazorserverside -o {APP NAME} -au {AUTHENTICATION}
+dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 ```
 
 Permissible authentication values (`{AUTHENTICATION}`) are shown in the following table.
