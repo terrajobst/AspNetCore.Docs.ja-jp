@@ -5,14 +5,14 @@ description: 好みのツールで Blazor アプリを構築して、Blazor の�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/23/2019
+ms.date: 08/13/2019
 uid: blazor/get-started
-ms.openlocfilehash: b4609858be43acf9d1b2d8be5eff4879fd56f49f
-ms.sourcegitcommit: 051f068c78931432e030b60094c38376d64d013e
+ms.openlocfilehash: 1358a2e92af9d9104e565718692b1ca1940b9d9e
+ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/24/2019
-ms.locfileid: "68948332"
+ms.lasthandoff: 08/13/2019
+ms.locfileid: "68993402"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>ASP.NET Core Blazor を使ってみる
 
@@ -25,7 +25,7 @@ Blazor を使ってみる:
 1. コマンドシェルで次のコマンドを実行して、Blazor テンプレートをインストールします。
 
    ```console
-   dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.0.0-preview7.19365.7
+   dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.0.0-preview8.19405.7
    ```
 
 1. ツールの選択に関するガイダンスに従ってください。
@@ -40,12 +40,12 @@ Blazor を使ってみる:
 
    4 \。 **[プロジェクト名]** フィールドにプロジェクト名を入力するか、既定のプロジェクト名をそのまま使用します。 **場所**エントリが正しいことを確認するか、プロジェクトの場所を指定します。 **[作成]** を選択します。
 
-   5 \。 Blazor クライアント側のエクスペリエンスについては、 **Blazor (クライアント側)** テンプレートを選択してください。 Blazor サーバー側のエクスペリエンスについては、 **Blazor Server アプリ**テンプレートを選択してください。 **[作成]** を選択します。 サーバー側とクライアント側の2つの Blazor ホスティングモデルの詳細については<xref:blazor/hosting-models>、「」を参照してください。
+   5 \。 Blazor のクライアント側のエクスペリエンスについては、 **Blazor WebAssembly**テンプレートを選択してください。 Blazor サーバー側のエクスペリエンスについては、 **Blazor Server アプリ**テンプレートを選択してください。 **[作成]** を選択します。 サーバー側とクライアント側の2つの Blazor ホスティングモデルの詳細については<xref:blazor/hosting-models>、「」を参照してください。
 
    6 \。 **F5 キー**を押してアプリを実行します。
 
    > [!NOTE]
-   > 以前のプレビューリリースの ASP.NET Core Blazor (Preview 6 以前) 用に Blazor Visual Studio 拡張機能をインストールした場合は、プレビュー7で拡張機能をアンインストールできます。 Visual Studio でテンプレートを表示するには、コマンドシェルに Blazor テンプレートをインストールするだけで十分です。
+   > 以前のプレビューリリースの ASP.NET Core Blazor (Preview 6 以前) 用に Blazor Visual Studio 拡張機能をインストールした場合は、拡張機能をアンインストールできます。 Visual Studio でテンプレートを表示するには、コマンドシェルに Blazor テンプレートをインストールするだけで十分です。
 
    # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -56,13 +56,13 @@ Blazor を使ってみる:
    3 \。 Blazor のクライアント側のエクスペリエンスについては、コマンドシェルで次のコマンドを実行します。
 
       ```console
-      dotnet new blazor -o WebApplication1
+      dotnet new blazorwasm -o WebApplication1
       ```
 
       Blazor のサーバー側のエクスペリエンスについては、コマンドシェルで次のコマンドを実行します。
 
       ```console
-      dotnet new blazorserverside -o WebApplication1
+      dotnet new blazorserver -o WebApplication1
       ```
 
       サーバー側とクライアント側の2つの Blazor ホスティングモデルの詳細については<xref:blazor/hosting-models>、「」を参照してください。
@@ -85,7 +85,7 @@ Blazor を使ってみる:
 
    3\. In the sidebar, select **.NET Core** > **App**.
 
-   4\. For a Blazor server-side experience, select the **ASP.NET Core Blazor Server App** template. For a Blazor client-side experience, select the **ASP.NET Core Blazor WebAssembly App** template. Select **Next**. For information on the two Blazor hosting models, server-side and client-side, see <xref:blazor/hosting-models>.
+   4\. For a Blazor server-side experience, select the **Blazor Server App** template. For a Blazor client-side experience, select the **Blazor WebAssembly App** template. Select **Next**. For information on the two Blazor hosting models, server-side and client-side, see <xref:blazor/hosting-models>.
 
    5\. The **Target Framework** defaults to **.NET Core 3.0**. Select **Next**.
 
@@ -100,7 +100,7 @@ Blazor を使ってみる:
    Blazor のクライアント側のエクスペリエンスについては、コマンドシェルで次のコマンドを実行します。
 
    ```console
-   dotnet new blazor -o WebApplication1
+   dotnet new blazorwasm -o WebApplication1
    cd WebApplication1
    dotnet run
    ```
@@ -108,7 +108,7 @@ Blazor を使ってみる:
    Blazor のサーバー側のエクスペリエンスについては、コマンドシェルで次のコマンドを実行します。
 
    ```console
-   dotnet new blazorserverside -o WebApplication1
+   dotnet new blazorserver -o WebApplication1
    cd WebApplication1
    dotnet run
    ```
@@ -152,7 +152,7 @@ HTML 構文を使用してコンポーネントを別のコンポーネントに
 
 コンポーネントのパラメーターは、属性または[子コンテンツ](xref:blazor/components#child-content)を使用して指定されます。これにより、子コンポーネントのプロパティを設定できます。 `Counter`コンポーネントにパラメーターを追加するには、コンポーネントの`@code`ブロックを更新します。
 
-* 属性`[Parameter]`を使用し`IncrementAmount`て、のプロパティを追加します。
+* 属性`[Parameter]`を使用して`IncrementAmount` 、のパブリックプロパティを追加します。
 * `currentCount` の値を増やすときに `IncrementAmount` を使うように `IncrementCount` メソッドを変更します。
 
 *Pages/Counter.razor*:

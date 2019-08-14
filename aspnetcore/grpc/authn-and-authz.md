@@ -4,14 +4,14 @@ author: jamesnk
 description: GRPC で認証と承認を使用して ASP.NET Core する方法について説明します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
-ms.date: 07/26/2019
+ms.date: 08/13/2019
 uid: grpc/authn-and-authz
-ms.openlocfilehash: 34f7f8a5a22159329b3d6c4524943434c460c7fb
-ms.sourcegitcommit: 0efb9e219fef481dee35f7b763165e488aa6cf9c
+ms.openlocfilehash: 19018c4ffae1228055a4858b496f135d015625b4
+ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/29/2019
-ms.locfileid: "68602428"
+ms.lasthandoff: 08/13/2019
+ms.locfileid: "68993285"
 ---
 # <a name="authentication-and-authorization-in-grpc-for-aspnet-core"></a>GRPC での認証と承認 (ASP.NET Core)
 
@@ -42,6 +42,8 @@ public void Configure(IApplicationBuilder app)
 
 > [!NOTE]
 > ASP.NET Core 認証ミドルウェアを登録する順序は重要です。 との`UseAuthentication` `UseAuthorization`後`UseRouting` には常に`UseEndpoints`を呼び出します。
+
+呼び出し時にアプリが使用する認証メカニズムを構成する必要があります。 認証の構成はに`Startup.ConfigureServices`追加され、アプリが使用する認証メカニズムによって異なります。 ASP.NET Core アプリをセキュリティで保護する方法の例については、「[認証のサンプル](xref:security/authentication/samples)」を参照してください。
 
 認証がセットアップされると、を使用`ServerCallContext`して grpc サービスメソッドでユーザーにアクセスできるようになります。
 

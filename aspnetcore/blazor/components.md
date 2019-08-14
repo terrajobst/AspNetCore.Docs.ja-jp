@@ -5,14 +5,14 @@ description: データにバインドする方法、イベントを処理する�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/02/2019
+ms.date: 08/13/2019
 uid: blazor/components
-ms.openlocfilehash: 43457bffd748ebba68cc86d33fdeb98dc419704b
-ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
+ms.openlocfilehash: a95c186d30eaf342f10ecbe6f7add242d4679a0f
+ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68948432"
+ms.lasthandoff: 08/13/2019
+ms.locfileid: "68993413"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>ASP.NET Core Razor コンポーネントを作成して使用する
 
@@ -26,7 +26,9 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 コンポーネントは、と HTML マークアップの C#組み合わせを使用して[razor](xref:mvc/views/razor)コンポーネントファイル (razor) に実装されます。 Blazor のコンポーネントは、正式に*Razor コンポーネント*として参照されます。
 
-コンポーネントは、 *cshtml*ファイル拡張子を使用して作成できます。 プロジェクトファイルの MSBuildプロパティを使用して、コンポーネントのcshtmlファイルを識別し`_RazorComponentInclude`ます。 たとえば、 *Pages*フォルダーにあるすべての*Cshtml*ファイルを Razor コンポーネントファイルとして処理するように指定するアプリを次に示します。
+コンポーネントの名前は、大文字で始まる必要があります。 たとえば、 *MyCoolComponent*は有効で、 *MyCoolComponent*は無効です。
+
+`_RazorComponentInclude` MSBuild プロパティを使用してファイルが Razor コンポーネントファイルとして識別されている限り、ファイル拡張子を使用してコンポーネントを作成できます。 たとえば、 *Pages*フォルダーにあるすべての*Cshtml*ファイルを Razor コンポーネントファイルとして処理するように指定するアプリを次に示します。
 
 ```xml
 <PropertyGroup>
@@ -36,7 +38,7 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 コンポーネントの UI は、HTML を使用して定義されます。 動的なレンダリング ロジック (たとえばループ、条件、式) が、[Razor](xref:mvc/views/razor) と呼ばれる埋め込みの C# 構文を使って追加されています。 アプリがコンパイルされると、HTML マークアップC#およびレンダリングロジックはコンポーネントクラスに変換されます。 生成されたクラスの名前は、ファイルの名前と一致します。
 
-コンポーネント クラスのメンバーは、`@code` ブロック内で定義されています。 `@code`ブロックでは、コンポーネントの状態 (プロパティ、フィールド) は、イベント処理のメソッドまたはその他のコンポーネントロジックを定義するために指定されます。 複数のブロックが許容されます。 `@code`
+コンポーネント クラスのメンバーは、`@code` ブロック内で定義されています。 `@code`ブロックでは、コンポーネントの状態 (プロパティ、フィールド) は、イベント処理のメソッドまたはその他のコンポーネントロジックを定義するために指定されます。 複数の `@code` ブロックが許容されます。
 
 > [!NOTE]
 > ASP.NET Core 3.0 の以前のプレビューで`@functions`は、Razor コンポーネントのブロックと同じ`@code`目的にブロックが使用されていました。 `@functions`ブロックは`@code` Razor コンポーネントで引き続き機能しますが、ASP.NET Core 3.0 Preview 6 以降ではブロックを使用することをお勧めします。
@@ -79,9 +81,11 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 コンポーネントがどのようにレンダリングされ、コンポーネントの状態が Blazor サーバー側アプリで管理されるか<xref:blazor/hosting-models>の詳細については、「」を参照してください。
 
-## <a name="using-components"></a>コンポーネントの使用
+## <a name="use-components"></a>コンポーネントを使う
 
 コンポーネントには、HTML 要素構文を使用して宣言することで、他のコンポーネントを含めることができます。 コンポーネントを使うためのマークアップは、そのコンポーネントの種類をタグ名とする HTML タグのようになります。
+
+属性のバインドでは大文字と小文字が区別されます。 たとえば、 `@bind`は有効`@Bind`で、が無効です。
 
 インデックスの次のマークアップは、インスタンス`HeadingComponent`をレンダリングし*ます。*
 
@@ -91,9 +95,11 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Components/HeadingComponent.razor)]
 
+コンポーネント名と一致しない大文字の最初の文字を含む HTML 要素がコンポーネントに含まれている場合は、要素に予期しない名前が付いていることを示す警告が出力されます。 コンポーネントの名前空間にステートメントを追加すると、コンポーネントが使用可能になり、警告が削除されます。`@using`
+
 ## <a name="component-parameters"></a>コンポーネントのパラメーター
 
-コンポーネントは、コンポーネント`[Parameter]`クラスのプロパティ (通常は*パブリックでない*) を使用して定義されているコンポーネント*パラメーター*を持つことができます。 マークアップ内でコンポーネントの引数を指定するには、属性を使います。
+コンポーネントは、コンポーネントクラス`[Parameter]`のパブリックプロパティを使用して定義されているコンポーネントパラメーターを持つことができます。 マークアップ内でコンポーネントの引数を指定するには、属性を使います。
 
 *Components/ChildComponent。 razor*:
 
@@ -142,19 +148,19 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 @code {
     [Parameter]
-    private string Maxlength { get; set; } = "10";
+    public string Maxlength { get; set; } = "10";
 
     [Parameter]
-    private string Placeholder { get; set; } = "Input placeholder text";
+    public string Placeholder { get; set; } = "Input placeholder text";
 
     [Parameter]
-    private string Required { get; set; } = "required";
+    public string Required { get; set; } = "required";
 
     [Parameter]
-    private string Size { get; set; } = "50";
+    public string Size { get; set; } = "50";
 
     [Parameter]
-    private Dictionary<string, object> InputAttributes { get; set; } =
+    public Dictionary<string, object> InputAttributes { get; set; } =
         new Dictionary<string, object>()
         {
             { "maxlength", "10" },
@@ -187,8 +193,8 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 ```cshtml
 @code {
-    [Parameter(CaptureUnmatchedValues = true)]
-    private Dictionary<string, object> InputAttributes { get; set; }
+    [Parameter(CaptureUnmatchedAttributes = true)]
+    public Dictionary<string, object> InputAttributes { get; set; }
 }
 ```
 
@@ -224,6 +230,33 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 と`onchange`は異なり、要素がフォーカスを失った`oninput`ときに、テキストボックスの値が変更されたときに発生します。
 
+**グローバリゼーション**
+
+`@bind`値は、現在のカルチャの規則を使用して表示および解析するように書式設定されます。
+
+現在のカルチャには、 <xref:System.Globalization.CultureInfo.CurrentCulture?displayProperty=fullName>プロパティからアクセスできます。
+
+[InvariantCulture](xref:System.Globalization.CultureInfo.InvariantCulture)は、次のフィールドの種類 (`<input type="{TYPE}" />`) に使用されます。
+
+* `date`
+* `number`
+
+上記のフィールド型は次のとおりです。
+
+* は、適切なブラウザーベースの書式規則を使用して表示されます。
+* 自由形式のテキストを含めることはできません。
+* ブラウザーの実装に基づいてユーザーの操作特性を指定します。
+
+次のフィールド型には特定の書式要件があり、Blazor では現在サポートされていません。これは、すべての主要なブラウザーでサポートされていないためです。
+
+* `datetime-local`
+* `month`
+* `week`
+
+`@bind`値を解析および書式設定<xref:System.Globalization.CultureInfo?displayProperty=fullName>するためのを提供するパラメーターをサポートします。`@bind:culture` フィールド型`date`および`number`フィールド型を使用する場合は、カルチャを指定しないことをお勧めします。 `date`と`number`には、必要なカルチャを提供する組み込みの Blazor サポートが用意されています。
+
+ユーザーのカルチャを設定する方法については、「[ローカリゼーション](#localization)」セクションを参照してください。
+
 **書式指定文字列**
 
 データバインディングは、 <xref:System.DateTime>を使用し[@bind:format](xref:mvc/views/razor#bind)て書式指定文字列で動作します。 通貨形式や数値形式など、その他の書式指定式は現時点では使用できません。
@@ -233,11 +266,20 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 @code {
     [Parameter]
-    private DateTime StartDate { get; set; } = new DateTime(2020, 1, 1);
+    public DateTime StartDate { get; set; } = new DateTime(2020, 1, 1);
 }
 ```
 
+前のコードでは、 `<input>`要素のフィールド型 (`type`) は既定`text`でに設定されています。 `@bind:format`は、次の .NET 型のバインドに対してサポートされています。
+
+* <xref:System.DateTime?displayProperty=fullName>
+* <xref:System.DateTime?displayProperty=fullName> ですか。
+* <xref:System.DateTimeOffset?displayProperty=fullName>
+* <xref:System.DateTimeOffset?displayProperty=fullName> ですか。
+
 属性`@bind:format`は、 `<input>`要素`value`のに適用する日付形式を指定します。 この形式は、 `onchange`イベントが発生したときに値を解析するためにも使用されます。
+
+Blazor には日付を`date`書式設定するためのサポートが組み込まれているため、フィールドの種類の形式を指定することはお勧めしません。
 
 **コンポーネントのパラメーター**
 
@@ -252,10 +294,10 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 @code {
     [Parameter]
-    private int Year { get; set; }
+    public int Year { get; set; }
 
     [Parameter]
-    private EventCallback<int> YearChanged { get; set; }
+    public EventCallback<int> YearChanged { get; set; }
 }
 ```
 
@@ -278,7 +320,7 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 @code {
     [Parameter]
-    private int ParentYear { get; set; } = 1978;
+    public int ParentYear { get; set; } = 1978;
 
     private void ChangeTheYear()
     {
@@ -516,7 +558,7 @@ await callback.InvokeAsync(arg);
 
 @code {
     [Parameter]
-    private IEnumerable<Person> People { get; set; }
+    public IEnumerable<Person> People { get; set; }
 }
 ```
 
@@ -532,7 +574,7 @@ await callback.InvokeAsync(arg);
 
 @code {
     [Parameter]
-    private IEnumerable<Person> People { get; set; }
+    public IEnumerable<Person> People { get; set; }
 }
 ```
 
@@ -574,7 +616,7 @@ await callback.InvokeAsync(arg);
 * モデルオブジェクトインスタンス ( `Person`たとえば、前の例のインスタンス)。 これにより、オブジェクト参照の等価性に基づいて保持されます。
 * 一意の識別子 (たとえば、 `int` `string`、、または`Guid`型の主キーの値)。
 
-予期しない干渉を招く可能性のある値を指定しないでください。 が`@key="@someObject.GetHashCode()"`指定されている場合、関連のないオブジェクトのハッシュコードが同じである可能性があるため、予期しないクラッシュが発生する可能性があります。 競合する`@key`の値が同じ親内で要求され`@key`た場合、値は受け入れられません。
+に使用される値`@key`が競合しないようにしてください。 競合するの値が同じ親要素内で検出された場合、Blazor は、古い要素またはコンポーネントを新しい要素またはコンポーネントに確定的にマップできないため、例外をスローします。 個別の値 (オブジェクトインスタンスや主キー値など) のみを使用してください。
 
 ## <a name="lifecycle-methods"></a>ライフサイクル メソッド
 
@@ -765,7 +807,7 @@ HTML 要素の属性は、.NET の値に基づいて条件付きで表示され�
 
 @code {
     [Parameter]
-    private bool IsCompleted { get; set; }
+    public bool IsCompleted { get; set; }
 }
 ```
 
@@ -1063,7 +1105,7 @@ private PermInfo Permissions { get; set; }
 @code
 {
     [Parameter]
-    private string PetDetailsQuote { get; set; }
+    public string PetDetailsQuote { get; set; }
 }
 ```
 
@@ -1191,3 +1233,123 @@ builder.AddContent(seq++, "Second");
 * 手動で実装`RenderTreeBuilder`されたロジックの長いブロックは記述しないでください。 ファイル`.razor`を優先し、コンパイラがシーケンス番号を処理できるようにします。
 * シーケンス番号がハードコードされている場合、diff アルゴリズムでは、シーケンス番号の値を大きくする必要があります。 初期値とギャップは関係ありません。 正当な選択肢の1つは、コード行番号をシーケンス番号として使用するか、ゼロから開始し、1または数百 (または任意の間隔) で増やすことです。 
 * Blazor はシーケンス番号を使用しますが、他のツリー比較 UI フレームワークでは使用しません。 シーケンス番号を使用すると、比較ははるかに高速になります。 Blazor には、開発者がファイルを作成`.razor`するときにシーケンス番号を自動的に処理するコンパイル手順の利点があります。
+
+## <a name="localization"></a>ローカリゼーション
+
+Blazor サーバー側アプリはローカライズ[ミドルウェア](xref:fundamentals/localization#localization-middleware)を使用してローカライズされます。 ミドルウェアは、アプリからリソースを要求するユーザーに適切なカルチャを選択します。
+
+カルチャは、次のいずれかの方法を使用して設定できます。
+
+* [クッキー](#cookies)
+* [カルチャを選択するための UI を提供する](#provide-ui-to-choose-the-culture)
+
+使用例を含む詳細については、「<xref:fundamentals/localization>」を参照してください。
+
+### <a name="cookies"></a>クッキー
+
+ローカリゼーションカルチャクッキーは、ユーザーのカルチャを保持できます。 Cookie は、アプリのホスト`OnGet`ページ (*Pages/host. cshtml. .cs*) のメソッドによって作成されます。 ローカリゼーションミドルウェアは、後続の要求で cookie を読み取り、ユーザーのカルチャを設定します。 
+
+Cookie を使用すると、WebSocket 接続がカルチャを正しく伝達できるようになります。 ローカライズスキームが URL パスまたはクエリ文字列に基づいている場合は、スキームが Websocket を使用できない可能性があるため、カルチャを永続化できません。 したがって、ローカライズカルチャ cookie を使用することをお勧めします。
+
+カルチャがローカライズ cookie に保存されている場合は、任意の手法を使用してカルチャを割り当てることができます。 アプリにサーバー側 ASP.NET Core 用に確立されたローカライズスキームが既にある場合は、引き続きアプリの既存のローカライズインフラストラクチャを使用し、アプリのスキーム内でローカライズカルチャ cookie を設定します。
+
+次の例では、ローカリゼーションミドルウェアが読み取ることができる cookie で現在のカルチャを設定する方法を示します。 Blazor サーバー側アプリに次の内容を含む*ページ/ホストの cshtml*ファイルを作成します。
+
+```csharp
+public class HostModel : PageModel
+{
+    public void OnGet()
+    {
+        HttpContext.Response.Cookies.Append(
+            CookieRequestCultureProvider.DefaultCookieName,
+            CookieRequestCultureProvider.MakeCookieValue(
+                new RequestCulture(
+                    CultureInfo.CurrentCulture,
+                    CultureInfo.CurrentUICulture)));
+    }
+}
+```
+
+ローカライズはアプリで処理されます。
+
+1. ブラウザーは、アプリに最初の HTTP 要求を送信します。
+1. カルチャは、ローカリゼーションミドルウェアによって割り当てられます。
+1. _Host `OnGet`のメソッドは、応答の一部として cookie 内のカルチャを永続化します。
+1. ブラウザーは WebSocket 接続を開き、対話型の Blazor サーバー側セッションを作成します。
+1. ローカリゼーションミドルウェアは cookie を読み取り、カルチャを割り当てます。
+1. Blazor のサーバー側セッションは、正しいカルチャで開始されます。
+
+## <a name="provide-ui-to-choose-the-culture"></a>カルチャを選択するための UI を提供する
+
+ユーザーがカルチャを選択できるように UI を提供するには、*リダイレクトベースのアプローチ*を使用することをお勧めします。 このプロセスは、ユーザーがセキュリティで保護されたリソース&mdash;にアクセスしようとしたときに、ユーザーがサインインページにリダイレクトされ、元のリソースにリダイレクトされるという点に似ています。 
+
+アプリは、コントローラーへのリダイレクトによって、ユーザーが選択したカルチャを永続化します。 コントローラーは、ユーザーが選択したカルチャを cookie に設定し、ユーザーを元の URI にリダイレクトします。
+
+Cookie でユーザーが選択したカルチャを設定し、元の URI へのリダイレクトを実行するために、サーバー上に HTTP エンドポイントを確立します。
+
+```csharp
+[Route("[controller]/[action]")]
+public class CultureController : Controller
+{
+    public IActionResult SetCulture(string culture, string redirectUri)
+    {
+        if (culture != null)
+        {
+            HttpContext.Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(
+                    new RequestCulture(culture)));
+        }
+
+        return LocalRedirect(redirectUri);
+    }
+}
+```
+
+> [!WARNING]
+> アクションの`LocalRedirect`結果を使用して、開いているリダイレクト攻撃を防止します。 詳細については、「 <xref:security/preventing-open-redirects> 」を参照してください。
+
+次のコンポーネントは、ユーザーがカルチャを選択したときに最初のリダイレクトを実行する方法の例を示しています。
+
+```cshtml
+@inject IUriHelper UriHelper
+
+<h3>Select your language</h3>
+
+<select @onchange="OnSelected">
+    <option>Select...</option>
+    <option value="en-US">English</option>
+    <option value="fr-FR">Français</option>
+</select>
+
+@code {
+    private double textNumber;
+
+    private void OnSelected(UIChangeEventArgs e)
+    {
+        var culture = (string)e.Value;
+        var uri = new Uri(UriHelper.GetAbsoluteUri())
+            .GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
+        var query = $"?culture={Uri.EscapeDataString(culture)}&" +
+            $"redirectUri={Uri.EscapeDataString(uri)}";
+
+        UriHelper.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
+    }
+}
+```
+
+### <a name="use-net-localization-scenarios-in-blazor-apps"></a>Blazor アプリで .NET ローカライズシナリオを使用する
+
+Blazor アプリ内では、次の .NET ローカリゼーションとグローバリゼーションのシナリオを利用できます。
+
+* .NET のリソースシステム
+* カルチャ固有の数値と日付の書式設定
+
+Blazor の`@bind`機能は、ユーザーの現在のカルチャに基づいてグローバリゼーションを実行します。 詳細については、「[データバインディング](#data-binding)」を参照してください。
+
+現在、次のような ASP.NET Core のローカライズシナリオがサポートされています。
+
+* `IStringLocalizer<>`は、Blazor アプリで*サポートされて*います。
+* `IHtmlLocalizer<>`、 `IViewLocalizer<>`、およびデータ注釈のローカライズは、Blazor アプリではサポートされて**いない**MVC シナリオ ASP.NET Core ます。
+
+詳細については、「 <xref:fundamentals/localization> 」を参照してください。
