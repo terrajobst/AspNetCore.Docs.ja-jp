@@ -1,132 +1,192 @@
 ---
-title: ASP.NET Core でのログ記録
+title: .NET Core および ASP.NET Core でのログ記録
 author: tdykstra
-description: ASP.NET Core でのログ記録フレームワークについて説明します。 組み込みのログ プロバイダーと、サードパーティ製の一般的なプロバイダーについて説明します。
+description: Microsoft.Extensions.Logging NuGet パッケージで提供されるログ記録フレームワークの使用方法について説明します。
+monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
 ms.date: 07/11/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: 4fe677e69478284db2ccab655c35b5744b6f63f9
-ms.sourcegitcommit: 059ab380744fa3be3b69aa90d431b563c57092cf
+ms.openlocfilehash: 4e2aa1e18c3e3119e22452d5ca9b838581efbfd8
+ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/23/2019
-ms.locfileid: "68410918"
+ms.lasthandoff: 08/13/2019
+ms.locfileid: "68994101"
 ---
-# <a name="logging-in-aspnet-core"></a><span data-ttu-id="e5189-104">ASP.NET Core でのログ記録</span><span class="sxs-lookup"><span data-stu-id="e5189-104">Logging in ASP.NET Core</span></span>
+# <a name="logging-in-net-core-and-aspnet-core"></a><span data-ttu-id="cdffd-103">.NET Core および ASP.NET Core でのログ記録</span><span class="sxs-lookup"><span data-stu-id="cdffd-103">Logging in .NET Core and ASP.NET Core</span></span>
 
-<span data-ttu-id="e5189-105">執筆: [Steve Smith](https://ardalis.com/)、[Tom Dykstra](https://github.com/tdykstra)</span><span class="sxs-lookup"><span data-stu-id="e5189-105">By [Steve Smith](https://ardalis.com/) and [Tom Dykstra](https://github.com/tdykstra)</span></span>
+<span data-ttu-id="cdffd-104">作成者: [Tom Dykstra](https://github.com/tdykstra)、[Steve Smith](https://ardalis.com/)</span><span class="sxs-lookup"><span data-stu-id="cdffd-104">By [Tom Dykstra](https://github.com/tdykstra) and [Steve Smith](https://ardalis.com/)</span></span>
 
-<span data-ttu-id="e5189-106">ASP.NET Core では、組み込みやサード パーティ製のさまざまなログ プロバイダーと連携するログ API がサポートされています。</span><span class="sxs-lookup"><span data-stu-id="e5189-106">ASP.NET Core supports a logging API that works with a variety of built-in and third-party logging providers.</span></span> <span data-ttu-id="e5189-107">この記事では、組み込みプロバイダーと共にログ API を使用する方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="e5189-107">This article shows how to use the logging API with built-in providers.</span></span>
+<span data-ttu-id="cdffd-105">.NET Core では、組み込みやサード パーティ製のさまざまなログ プロバイダーと連携するログ API がサポートされています。</span><span class="sxs-lookup"><span data-stu-id="cdffd-105">.NET Core supports a logging API that works with a variety of built-in and third-party logging providers.</span></span> <span data-ttu-id="cdffd-106">この記事では、組み込みプロバイダーと共にログ API を使用する方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-106">This article shows how to use the logging API with built-in providers.</span></span>
 
-<span data-ttu-id="e5189-108">[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/index/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。</span><span class="sxs-lookup"><span data-stu-id="e5189-108">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/index/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+::: moniker range=">= aspnetcore-3.0"
 
-## <a name="add-providers"></a><span data-ttu-id="e5189-109">プロバイダーを追加する</span><span class="sxs-lookup"><span data-stu-id="e5189-109">Add providers</span></span>
+<span data-ttu-id="cdffd-107">この記事に記載されているほとんどのコード例は、ASP.NET Core アプリのものです。</span><span class="sxs-lookup"><span data-stu-id="cdffd-107">Most of the code examples shown in this article are from ASP.NET Core apps.</span></span> <span data-ttu-id="cdffd-108">これらのコード スニペットのログ記録固有の部分は、[汎用ホスト](xref:fundamentals/host/generic-host)を使用するすべての .NET Core アプリに適用されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-108">The logging-specific parts of these code snippets apply to any .NET Core app that uses the [Generic host](xref:fundamentals/host/generic-host).</span></span> <span data-ttu-id="cdffd-109">Web コンソール以外のアプリで汎用ホストを使用する方法については、[ホステッド サービス](xref:fundamentals/host/hosted-services)に関する記事を参照してください。</span><span class="sxs-lookup"><span data-stu-id="cdffd-109">For information about how to use the Generic Host in non-web console apps, see [Hosted services](xref:fundamentals/host/hosted-services).</span></span>
 
-<span data-ttu-id="e5189-110">ログ プロバイダーによってログが表示または格納されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-110">A logging provider displays or stores logs.</span></span> <span data-ttu-id="e5189-111">たとえば、Console プロバイダーによってコンソール上にログが表示され、Azure Application Insights プロバイダーによってそれらが Azure Application Insights に格納されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-111">For example, the Console provider displays logs on the console, and the Azure Application Insights provider stores them in Azure Application Insights.</span></span> <span data-ttu-id="e5189-112">複数のプロバイダーを追加することで、複数の宛先にログを送信することができます。</span><span class="sxs-lookup"><span data-stu-id="e5189-112">Logs can be sent to multiple destinations by adding multiple providers.</span></span>
+<span data-ttu-id="cdffd-110">汎用ホストを使用しないアプリのログ記録コードは、[プロバイダーの追加](#add-providers)方法と[ロガーの作成](#create-logs)方法によって異なります。</span><span class="sxs-lookup"><span data-stu-id="cdffd-110">Logging code for apps without Generic Host differs in the way [providers are added](#add-providers) and [loggers are created](#create-logs).</span></span> <span data-ttu-id="cdffd-111">ホスト以外のコードの例については、記事のこれらのセクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="cdffd-111">Non-host code examples are shown in those sections of the article.</span></span>
 
-::: moniker range=">= aspnetcore-2.0"
+::: moniker-end
 
-<span data-ttu-id="e5189-113">プロバイダーを追加するには、*Program.cs* でプロバイダーの `Add{provider name}` 拡張メソッドを呼び出します。</span><span class="sxs-lookup"><span data-stu-id="e5189-113">To add a provider, call the provider's `Add{provider name}` extension method in *Program.cs*:</span></span>
+<span data-ttu-id="cdffd-112">[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/index/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。</span><span class="sxs-lookup"><span data-stu-id="cdffd-112">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/index/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+
+## <a name="add-providers"></a><span data-ttu-id="cdffd-113">プロバイダーを追加する</span><span class="sxs-lookup"><span data-stu-id="cdffd-113">Add providers</span></span>
+
+<span data-ttu-id="cdffd-114">ログ プロバイダーによってログが表示または格納されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-114">A logging provider displays or stores logs.</span></span> <span data-ttu-id="cdffd-115">たとえば、Console プロバイダーによってコンソール上にログが表示され、Azure Application Insights プロバイダーによってそれらが Azure Application Insights に格納されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-115">For example, the Console provider displays logs on the console, and the Azure Application Insights provider stores them in Azure Application Insights.</span></span> <span data-ttu-id="cdffd-116">複数のプロバイダーを追加することで、複数の宛先にログを送信することができます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-116">Logs can be sent to multiple destinations by adding multiple providers.</span></span>
+
+::: moniker range=">= aspnetcore-3.0"
+
+<span data-ttu-id="cdffd-117">汎用ホストを使用するアプリにプロバイダーを追加するには、*Program.cs* でプロバイダーの `Add{provider name}` 拡張メソッドを呼び出します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-117">To add a provider in an app that uses Generic Host, call the provider's `Add{provider name}` extension method in *Program.cs*:</span></span>
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_AddProvider&highlight=6)]
+
+<span data-ttu-id="cdffd-118">ホスト コンソール以外のアプリでは、`LoggerFactory` を作成するときにプロバイダーの `Add{provider name}` 拡張メソッドを呼び出します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-118">In a non-host console app, call the provider's `Add{provider name}` extension method while creating a `LoggerFactory`:</span></span>
+
+[!code-csharp[](index/samples/3.x/LoggingConsoleApp/Program.cs?name=snippet_LoggerFactory&highlight=1,7)]
+
+<span data-ttu-id="cdffd-119">`LoggerFactory` および `AddConsole` には、`Microsoft.Extensions.Logging` 用に `using` ステートメントが必要です。</span><span class="sxs-lookup"><span data-stu-id="cdffd-119">`LoggerFactory` and `AddConsole` require a `using` statement for `Microsoft.Extensions.Logging`.</span></span>
+
+<span data-ttu-id="cdffd-120">既定の ASP.NET Core プロジェクト テンプレートからは <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder%2A> が呼び出されます。これにより、次のログ プロバイダーが追加されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-120">The default ASP.NET Core project templates call <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder%2A>, which adds the following logging providers:</span></span>
+
+* <span data-ttu-id="cdffd-121">コンソール</span><span class="sxs-lookup"><span data-stu-id="cdffd-121">Console</span></span>
+* <span data-ttu-id="cdffd-122">デバッグ</span><span class="sxs-lookup"><span data-stu-id="cdffd-122">Debug</span></span>
+* <span data-ttu-id="cdffd-123">EventSource</span><span class="sxs-lookup"><span data-stu-id="cdffd-123">EventSource</span></span>
+* <span data-ttu-id="cdffd-124">イベント ログ (Windows で実行されている場合のみ)</span><span class="sxs-lookup"><span data-stu-id="cdffd-124">EventLog (only when running on Windows)</span></span>
+
+<span data-ttu-id="cdffd-125">既定のプロバイダーを自分で選択したものと置き換えることができます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-125">You can replace the default providers with your own choices.</span></span> <span data-ttu-id="cdffd-126"><xref:Microsoft.Extensions.Logging.LoggingBuilderExtensions.ClearProviders%2A> を呼び出し、目的のプロバイダーを追加します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-126">Call <xref:Microsoft.Extensions.Logging.LoggingBuilderExtensions.ClearProviders%2A>, and add the providers you want.</span></span>
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_AddProvider&highlight=5)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0 "
+
+<span data-ttu-id="cdffd-127">プロバイダーを追加するには、*Program.cs* でプロバイダーの `Add{provider name}` 拡張メソッドを呼び出します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-127">To add a provider, call the provider's `Add{provider name}` extension method in *Program.cs*:</span></span>
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_ExpandDefault&highlight=18-20)]
 
-<span data-ttu-id="e5189-114">上記のコードには、`Microsoft.Extensions.Logging` と `Microsoft.Extensions.Configuration` への参照が必要です。</span><span class="sxs-lookup"><span data-stu-id="e5189-114">The preceding code requires references to `Microsoft.Extensions.Logging` and `Microsoft.Extensions.Configuration`.</span></span>
+<span data-ttu-id="cdffd-128">上記のコードには、`Microsoft.Extensions.Logging` と `Microsoft.Extensions.Configuration` への参照が必要です。</span><span class="sxs-lookup"><span data-stu-id="cdffd-128">The preceding code requires references to `Microsoft.Extensions.Logging` and `Microsoft.Extensions.Configuration`.</span></span>
 
-<span data-ttu-id="e5189-115">既定のプロジェクト テンプレートでは、次のログ プロバイダーを追加する <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A> が呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-115">The default project template calls <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A>, which adds the following logging providers:</span></span>
+<span data-ttu-id="cdffd-129">既定のプロジェクト テンプレートでは、次のログ プロバイダーを追加する <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A> が呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-129">The default project template calls <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A>, which adds the following logging providers:</span></span>
 
-* <span data-ttu-id="e5189-116">コンソール</span><span class="sxs-lookup"><span data-stu-id="e5189-116">Console</span></span>
-* <span data-ttu-id="e5189-117">デバッグ</span><span class="sxs-lookup"><span data-stu-id="e5189-117">Debug</span></span>
-* <span data-ttu-id="e5189-118">EventSource (ASP.NET Core 2.2 以降)</span><span class="sxs-lookup"><span data-stu-id="e5189-118">EventSource (starting in ASP.NET Core 2.2)</span></span>
+* <span data-ttu-id="cdffd-130">コンソール</span><span class="sxs-lookup"><span data-stu-id="cdffd-130">Console</span></span>
+* <span data-ttu-id="cdffd-131">デバッグ</span><span class="sxs-lookup"><span data-stu-id="cdffd-131">Debug</span></span>
+* <span data-ttu-id="cdffd-132">EventSource (ASP.NET Core 2.2 以降)</span><span class="sxs-lookup"><span data-stu-id="cdffd-132">EventSource (starting in ASP.NET Core 2.2)</span></span>
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_TemplateCode&highlight=7)]
 
-<span data-ttu-id="e5189-119">`CreateDefaultBuilder` を使用する場合は、既定のプロバイダーを自分で選択したものと置き換えることができます。</span><span class="sxs-lookup"><span data-stu-id="e5189-119">If you use `CreateDefaultBuilder`, you can replace the default providers with your own choices.</span></span> <span data-ttu-id="e5189-120"><xref:Microsoft.Extensions.Logging.LoggingBuilderExtensions.ClearProviders%2A> を呼び出し、目的のプロバイダーを追加します。</span><span class="sxs-lookup"><span data-stu-id="e5189-120">Call <xref:Microsoft.Extensions.Logging.LoggingBuilderExtensions.ClearProviders%2A>, and add the providers you want.</span></span>
+<span data-ttu-id="cdffd-133">`CreateDefaultBuilder` を使用する場合は、既定のプロバイダーを自分で選択したものと置き換えることができます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-133">If you use `CreateDefaultBuilder`, you can replace the default providers with your own choices.</span></span> <span data-ttu-id="cdffd-134"><xref:Microsoft.Extensions.Logging.LoggingBuilderExtensions.ClearProviders%2A> を呼び出し、目的のプロバイダーを追加します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-134">Call <xref:Microsoft.Extensions.Logging.LoggingBuilderExtensions.ClearProviders%2A>, and add the providers you want.</span></span>
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_LogFromMain&highlight=18-22)]
 
 ::: moniker-end
 
-::: moniker range="< aspnetcore-2.0"
+<span data-ttu-id="cdffd-135">この記事の後半では、[組み込みログ プロバイダー](#built-in-logging-providers)と[サードパーティ製ログ プロバイダー](#third-party-logging-providers)について説明します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-135">Learn more about [built-in logging providers](#built-in-logging-providers) and [third-party logging providers](#third-party-logging-providers) later in the article.</span></span>
 
-<span data-ttu-id="e5189-121">プロバイダーを使用するには、その NuGet パッケージをインストールし、<xref:Microsoft.Extensions.Logging.ILoggerFactory> のインスタンスに対してプロバイダーの拡張メソッドを呼び出します。</span><span class="sxs-lookup"><span data-stu-id="e5189-121">To use a provider, install its NuGet package and call the provider's extension method on an instance of <xref:Microsoft.Extensions.Logging.ILoggerFactory>:</span></span>
+## <a name="create-logs"></a><span data-ttu-id="cdffd-136">ログを作成する</span><span class="sxs-lookup"><span data-stu-id="cdffd-136">Create logs</span></span>
 
-[!code-csharp[](index/samples/1.x/TodoApiSample/Startup.cs?name=snippet_AddConsoleAndDebug&highlight=3,5-7)]
+<span data-ttu-id="cdffd-137">ログを作成するには、<xref:Microsoft.Extensions.Logging.ILogger%601> オブジェクトを使用します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-137">To create logs, use an <xref:Microsoft.Extensions.Logging.ILogger%601> object.</span></span> <span data-ttu-id="cdffd-138">Web アプリまたはホステッド サービスで、依存関係の挿入 (DI) から `ILogger` を取得します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-138">In a web app or hosted service, get an `ILogger` from dependency injection (DI).</span></span> <span data-ttu-id="cdffd-139">ホスト コンソール以外のアプリでは、`LoggerFactory` を使用して `ILogger` を作成します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-139">In non-host console apps, use the `LoggerFactory` to create an `ILogger`.</span></span>
 
-<span data-ttu-id="e5189-122">ASP.NET Core の[依存関係の挿入 (DI)](xref:fundamentals/dependency-injection) には、`ILoggerFactory` インスタンスが用意されています。</span><span class="sxs-lookup"><span data-stu-id="e5189-122">ASP.NET Core [dependency injection (DI)](xref:fundamentals/dependency-injection) provides the `ILoggerFactory` instance.</span></span> <span data-ttu-id="e5189-123">`AddConsole` および `AddDebug` 拡張メソッドは、[Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console/) パッケージと [Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug/) パッケージで定義されています。</span><span class="sxs-lookup"><span data-stu-id="e5189-123">The `AddConsole` and `AddDebug` extension methods are defined in the [Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console/) and [Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug/) packages.</span></span> <span data-ttu-id="e5189-124">各拡張メソッドで `ILoggerFactory.AddProvider` メソッドを呼び出し、プロバイダーのインスタンスで渡します。</span><span class="sxs-lookup"><span data-stu-id="e5189-124">Each extension method calls the `ILoggerFactory.AddProvider` method, passing in an instance of the provider.</span></span>
+<span data-ttu-id="cdffd-140">次の ASP.NET Core の例では、カテゴリが `TodoApiSample.Pages.AboutModel` のロガーを作成します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-140">The following ASP.NET Core example creates a logger with `TodoApiSample.Pages.AboutModel` as the category.</span></span> <span data-ttu-id="cdffd-141">ログの "*カテゴリ*" は、各ログに関連付けられている文字列です。</span><span class="sxs-lookup"><span data-stu-id="cdffd-141">The log *category* is a string that is associated with each log.</span></span> <span data-ttu-id="cdffd-142">DI で提供される `ILogger<T>` インスタンスでは、カテゴリとして型 `T` の完全修飾名を持つログが作成されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-142">The `ILogger<T>` instance provided by DI creates logs that have the fully qualified name of type `T` as the category.</span></span> 
 
-> [!NOTE]
-> <span data-ttu-id="e5189-125">[サンプル アプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/index/samples/1.x)では、`Startup.Configure` メソッドにログ プロバイダーを追加しています。</span><span class="sxs-lookup"><span data-stu-id="e5189-125">The [sample app](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/index/samples/1.x) adds logging providers in the `Startup.Configure` method.</span></span> <span data-ttu-id="e5189-126">前の手順で実行したコードのログ出力を取得するには、`Startup` クラス コンストラクターにログ プロバイダーを追加します。</span><span class="sxs-lookup"><span data-stu-id="e5189-126">To obtain log output from code that executes earlier, add logging providers in the `Startup` class constructor.</span></span>
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Pages/About.cshtml.cs?name=snippet_LoggerDI&highlight=3,5,7)]
+
+<span data-ttu-id="cdffd-143">次のホスト コンソール以外のアプリの例では、カテゴリが `LoggingConsoleApp.Program` のロガーを作成します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-143">The following non-host console app example creates a logger with `LoggingConsoleApp.Program` as the category.</span></span>
+
+[!code-csharp[](index/samples/3.x/LoggingConsoleApp/Program.cs?name=snippet_LoggerFactory&highlight=10)]
 
 ::: moniker-end
 
-<span data-ttu-id="e5189-127">この記事の後半では、[組み込みログ プロバイダー](#built-in-logging-providers)と[サードパーティ製ログ プロバイダー](#third-party-logging-providers)について説明します。</span><span class="sxs-lookup"><span data-stu-id="e5189-127">Learn more about [built-in logging providers](#built-in-logging-providers) and [third-party logging providers](#third-party-logging-providers) later in the article.</span></span>
+::: moniker range="< aspnetcore-3.0"
 
-## <a name="create-logs"></a><span data-ttu-id="e5189-128">ログを作成する</span><span class="sxs-lookup"><span data-stu-id="e5189-128">Create logs</span></span>
+[!code-csharp[](index/samples/2.x/TodoApiSample/Pages/About.cshtml.cs?name=snippet_LoggerDI&highlight=3,5,7)]
 
-<span data-ttu-id="e5189-129">DI から <xref:Microsoft.Extensions.Logging.ILogger%601> オブジェクトを取得します。</span><span class="sxs-lookup"><span data-stu-id="e5189-129">Get an <xref:Microsoft.Extensions.Logging.ILogger%601> object from DI.</span></span>
+::: moniker-end
 
-::: moniker range=">= aspnetcore-2.0"
+<span data-ttu-id="cdffd-144">次の ASP.NET Core とコンソール アプリの例では、ロガーを使用して、レベルが `Information` のログを作成します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-144">In the following ASP.NET Core and console app examples, the logger is used to create logs with `Information` as the level.</span></span> <span data-ttu-id="cdffd-145">ログの "*レベル*" は、ログに記録されるイベントの重大度を示します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-145">The Log *level* indicates the severity of the logged event.</span></span> 
 
-<span data-ttu-id="e5189-130">次のコントローラーの例では、`Information` と `Warning` ログを作成します。</span><span class="sxs-lookup"><span data-stu-id="e5189-130">The following controller example creates `Information` and `Warning` logs.</span></span> <span data-ttu-id="e5189-131">"*カテゴリ*" は `TodoApiSample.Controllers.TodoController` (サンプル アプリの `TodoController` の完全修飾クラス名) です。</span><span class="sxs-lookup"><span data-stu-id="e5189-131">The *category* is `TodoApiSample.Controllers.TodoController` (the fully qualified class name of `TodoController` in the sample app):</span></span>
+::: moniker range=">= aspnetcore-3.0"
 
-[!code-csharp[](index/samples/2.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_LoggerDI&highlight=4,7)]
+[!code-csharp[](index/samples/3.x/TodoApiSample/Pages/About.cshtml.cs?name=snippet_CallLogMethods&highlight=4)]
 
-[!code-csharp[](index/samples/2.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CallLogMethods&highlight=3,7)]
+[!code-csharp[](index/samples/3.x/LoggingConsoleApp/Program.cs?name=snippet_LoggerFactory&highlight=11)]
 
-<span data-ttu-id="e5189-132">次の Razor Pages の例では、`Information` を "*レベル*" に、`TodoApiSample.Pages.AboutModel` を "*カテゴリ*" に設定してログを作成します。</span><span class="sxs-lookup"><span data-stu-id="e5189-132">The following Razor Pages example creates logs with `Information` as the *level* and `TodoApiSample.Pages.AboutModel` as the *category*:</span></span>
+::: moniker-end
 
-[!code-csharp[](index/samples/2.x/TodoApiSample/Pages/About.cshtml.cs?name=snippet_LoggerDI&highlight=3, 7)]
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Pages/About.cshtml.cs?name=snippet_CallLogMethods&highlight=4)]
 
 ::: moniker-end
 
-::: moniker range="< aspnetcore-2.0"
+<span data-ttu-id="cdffd-146">[レベル](#log-level)と[カテゴリ](#log-category)の詳細については、この記事で後ほど説明します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-146">[Levels](#log-level) and [categories](#log-category) are explained in more detail later in this article.</span></span> 
 
-[!code-csharp[](index/samples/1.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_LoggerDI&highlight=7)]
+::: moniker range=">= aspnetcore-3.0"
 
-[!code-csharp[](index/samples/1.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CallLogMethods&highlight=3,7)]
+### <a name="create-logs-in-the-program-class"></a><span data-ttu-id="cdffd-147">Program クラスでログを作成する</span><span class="sxs-lookup"><span data-stu-id="cdffd-147">Create logs in the Program class</span></span>
 
-<span data-ttu-id="e5189-133">前の例では、`Information` と `Warning` を "*レベル*" に、`TodoController` クラスを "*カテゴリ*" に設定してログを作成しています。</span><span class="sxs-lookup"><span data-stu-id="e5189-133">The preceding example creates logs with `Information` and `Warning` as the *level* and `TodoController` class as the *category*.</span></span> 
+<span data-ttu-id="cdffd-148">ASP.NET Core アプリの `Program` クラスでログを書き込むには、ホストをビルドした後に DI から `ILogger` インスタンスを取得します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-148">To write logs in the `Program` class of an ASP.NET Core app, get an `ILogger` instance from DI after building the host:</span></span>
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_LogFromMain&highlight=9,10)]
+
+### <a name="create-logs-in-the-startup-class"></a><span data-ttu-id="cdffd-149">Startup クラスでログを作成する</span><span class="sxs-lookup"><span data-stu-id="cdffd-149">Create logs in the Startup class</span></span>
+
+<span data-ttu-id="cdffd-150">ASP.NET Core アプリの `Startup.Configure` メソッドでログを書き込むには、メソッド シグネチャに `ILogger` パラメーターを含めます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-150">To write logs in the `Startup.Configure` method of an ASP.NET Core app, include an `ILogger` parameter in the method signature:</span></span>
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Startup.cs?name=snippet_Configure&highlight=1,5)]
+
+<span data-ttu-id="cdffd-151">`Startup.ConfigureServices` メソッドでの DI コンテナーの設定が完了する前にログを書き込むことはサポートされていません。</span><span class="sxs-lookup"><span data-stu-id="cdffd-151">Writing logs before completion of the DI container setup in the `Startup.ConfigureServices` method is not supported:</span></span>
+
+* <span data-ttu-id="cdffd-152">`Startup` コンストラクターへのロガーの挿入はサポートされていません。</span><span class="sxs-lookup"><span data-stu-id="cdffd-152">Logger injection into the `Startup` constructor is not supported.</span></span>
+* <span data-ttu-id="cdffd-153">`Startup.ConfigureServices` メソッド シグネチャへのロガーの挿入はサポートされていません</span><span class="sxs-lookup"><span data-stu-id="cdffd-153">Logger injection into the `Startup.ConfigureServices` method signature is not supported</span></span>
+
+<span data-ttu-id="cdffd-154">この制限の理由は、ログ記録は DI と構成に依存しており、さらに構成は DI に依存しているためです。</span><span class="sxs-lookup"><span data-stu-id="cdffd-154">The reason for this restriction is that logging depends on DI and on configuration, which in turns depends on DI.</span></span> <span data-ttu-id="cdffd-155">DI コンテナーは、`ConfigureServices` が完了するまで設定されません。</span><span class="sxs-lookup"><span data-stu-id="cdffd-155">The DI container isn't set up until `ConfigureServices` finishes.</span></span>
+
+<span data-ttu-id="cdffd-156">ASP.NET Core の以前のバージョンでは Web ホスト用に別の DI コンテナーが作成されるため、ロガーの `Startup` へのコンストラクター挿入が機能します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-156">Constructor injection of a logger into `Startup` works in earlier versions of ASP.NET Core because a separate DI container is created for the Web Host.</span></span> <span data-ttu-id="cdffd-157">汎用ホストに対して 1 つのコンテナーのみが作成される理由については、[破壊的変更に関するお知らせ](https://github.com/aspnet/Announcements/issues/353)に関する記事を参照してください。</span><span class="sxs-lookup"><span data-stu-id="cdffd-157">For information about why only one container is created for the Generic Host, see the [breaking change announcement](https://github.com/aspnet/Announcements/issues/353).</span></span>
+
+<span data-ttu-id="cdffd-158">`ILogger<T>` に依存するサービスを構成する必要がある場合でも、コンストラクターの挿入を使用するか、ファクトリ メソッドを用意して行うことができます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-158">If you need to configure a service that depends on `ILogger<T>`, you can still do that by using constructor injection or by providing a factory method.</span></span> <span data-ttu-id="cdffd-159">ファクトリ メソッドの方法は、他の選択肢がない場合にのみお勧めします。</span><span class="sxs-lookup"><span data-stu-id="cdffd-159">The factory method approach is recommended only if there is no other option.</span></span> <span data-ttu-id="cdffd-160">たとえば、DI のサービスを使用してプロパティを設定する必要があるとします。</span><span class="sxs-lookup"><span data-stu-id="cdffd-160">For example, suppose you need to fill a property with a service from DI:</span></span>
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Startup.cs?name=snippet_ConfigureServices&highlight=6-10)]
+
+<span data-ttu-id="cdffd-161">前の強調表示されているコードは、DI コンテナーで `MyService` のインスタンスが初めて作成されるときに実行される `Func` です。</span><span class="sxs-lookup"><span data-stu-id="cdffd-161">The preceding highlighted code is a `Func` that runs the first time the DI container needs to construct an instance of `MyService`.</span></span> <span data-ttu-id="cdffd-162">この方法では、任意の登録済みサービスにアクセスできます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-162">You can access any of the registered services in this way.</span></span>
 
 ::: moniker-end
 
-<span data-ttu-id="e5189-134">ログの "*レベル*" は、ログに記録されるイベントの重大度を示します。</span><span class="sxs-lookup"><span data-stu-id="e5189-134">The Log *level* indicates the severity of the logged event.</span></span> <span data-ttu-id="e5189-135">ログの "*カテゴリ*" は、各ログに関連付けられている文字列です。</span><span class="sxs-lookup"><span data-stu-id="e5189-135">The log *category* is a string that is associated with each log.</span></span> <span data-ttu-id="e5189-136">`ILogger<T>` インスタンスでは、カテゴリとして型 `T` の完全修飾名を持つログが作成されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-136">The `ILogger<T>` instance creates logs that have the fully qualified name of type `T` as the category.</span></span> <span data-ttu-id="e5189-137">[レベル](#log-level)と[カテゴリ](#log-category)の詳細については、この記事で後ほど説明します。</span><span class="sxs-lookup"><span data-stu-id="e5189-137">[Levels](#log-level) and [categories](#log-category) are explained in more detail later in this article.</span></span> 
+::: moniker range="< aspnetcore-3.0"
 
-::: moniker range=">= aspnetcore-2.0"
+### <a name="create-logs-in-startup"></a><span data-ttu-id="cdffd-163">Startup でログを作成する</span><span class="sxs-lookup"><span data-stu-id="cdffd-163">Create logs in Startup</span></span>
 
-### <a name="create-logs-in-startup"></a><span data-ttu-id="e5189-138">Startup でログを作成する</span><span class="sxs-lookup"><span data-stu-id="e5189-138">Create logs in Startup</span></span>
-
-<span data-ttu-id="e5189-139">`Startup` クラスでログを作成するには、コンストラクター シグネチャに `ILogger` パラメーターを追加します。</span><span class="sxs-lookup"><span data-stu-id="e5189-139">To write logs in the `Startup` class, include an `ILogger` parameter in the constructor signature:</span></span>
+<span data-ttu-id="cdffd-164">`Startup` クラスでログを作成するには、コンストラクター シグネチャに `ILogger` パラメーターを追加します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-164">To write logs in the `Startup` class, include an `ILogger` parameter in the constructor signature:</span></span>
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Startup.cs?name=snippet_Startup&highlight=3,5,8,20,27)]
 
-### <a name="create-logs-in-program"></a><span data-ttu-id="e5189-140">プログラムでログを作成する</span><span class="sxs-lookup"><span data-stu-id="e5189-140">Create logs in Program</span></span>
+### <a name="create-logs-in-the-program-class"></a><span data-ttu-id="cdffd-165">Program クラスでログを作成する</span><span class="sxs-lookup"><span data-stu-id="cdffd-165">Create logs in the Program class</span></span>
 
-<span data-ttu-id="e5189-141">`Program` クラスでログを作成するには、DI から `ILogger` インスタンスを取得します。</span><span class="sxs-lookup"><span data-stu-id="e5189-141">To write logs in the `Program` class, get an `ILogger` instance from DI:</span></span>
+<span data-ttu-id="cdffd-166">`Program` クラスでログを作成するには、DI から `ILogger` インスタンスを取得します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-166">To write logs in the `Program` class, get an `ILogger` instance from DI:</span></span>
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_LogFromMain&highlight=9,10)]
 
 ::: moniker-end
 
-### <a name="no-asynchronous-logger-methods"></a><span data-ttu-id="e5189-142">非同期でないロガー メソッド</span><span class="sxs-lookup"><span data-stu-id="e5189-142">No asynchronous logger methods</span></span>
+### <a name="no-asynchronous-logger-methods"></a><span data-ttu-id="cdffd-167">非同期でないロガー メソッド</span><span class="sxs-lookup"><span data-stu-id="cdffd-167">No asynchronous logger methods</span></span>
 
-<span data-ttu-id="e5189-143">ログ記録は高速に実行され、非同期コードのパフォーマンス コストを下回る必要があります。</span><span class="sxs-lookup"><span data-stu-id="e5189-143">Logging should be so fast that it isn't worth the performance cost of asynchronous code.</span></span> <span data-ttu-id="e5189-144">ログ記録のデータ ストアが低速の場合は、そこへ直接書き込むべきではありません。</span><span class="sxs-lookup"><span data-stu-id="e5189-144">If your logging data store is slow, don't write to it directly.</span></span> <span data-ttu-id="e5189-145">まずログ メッセージを高速なストアに書き込んでから、後で低速なストアに移動する方法を検討してください。</span><span class="sxs-lookup"><span data-stu-id="e5189-145">Consider writing the log messages to a fast store initially, then move them to the slow store later.</span></span> <span data-ttu-id="e5189-146">たとえば、SQL Server にログインしている場合、それを `Log` メソッドで直接実行したくはないでしょう。`Log` が同期メソッドであるためです。</span><span class="sxs-lookup"><span data-stu-id="e5189-146">For example, if you're logging to SQL Server, you don't want to do that directly in a `Log` method, since the `Log` methods are synchronous.</span></span> <span data-ttu-id="e5189-147">代わりに、ログ メッセージをインメモリ キューに同期的に追加し、バックグラウンド ワーカーにキューからメッセージをプルさせて、SQL Server にデータをプッシュする非同期処理を実行させます。</span><span class="sxs-lookup"><span data-stu-id="e5189-147">Instead, synchronously add log messages to an in-memory queue and have a background worker pull the messages out of the queue to do the asynchronous work of pushing data to SQL Server.</span></span>
+<span data-ttu-id="cdffd-168">ログ記録は高速に実行され、非同期コードのパフォーマンス コストを下回る必要があります。</span><span class="sxs-lookup"><span data-stu-id="cdffd-168">Logging should be so fast that it isn't worth the performance cost of asynchronous code.</span></span> <span data-ttu-id="cdffd-169">ログ記録のデータ ストアが低速の場合は、そこへ直接書き込むべきではありません。</span><span class="sxs-lookup"><span data-stu-id="cdffd-169">If your logging data store is slow, don't write to it directly.</span></span> <span data-ttu-id="cdffd-170">まずログ メッセージを高速なストアに書き込んでから、後で低速なストアに移動する方法を検討してください。</span><span class="sxs-lookup"><span data-stu-id="cdffd-170">Consider writing the log messages to a fast store initially, then move them to the slow store later.</span></span> <span data-ttu-id="cdffd-171">たとえば、SQL Server にログインしている場合、それを `Log` メソッドで直接実行したくはないでしょう。`Log` が同期メソッドであるためです。</span><span class="sxs-lookup"><span data-stu-id="cdffd-171">For example, if you're logging to SQL Server, you don't want to do that directly in a `Log` method, since the `Log` methods are synchronous.</span></span> <span data-ttu-id="cdffd-172">代わりに、ログ メッセージをインメモリ キューに同期的に追加し、バックグラウンド ワーカーにキューからメッセージをプルさせて、SQL Server にデータをプッシュする非同期処理を実行させます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-172">Instead, synchronously add log messages to an in-memory queue and have a background worker pull the messages out of the queue to do the asynchronous work of pushing data to SQL Server.</span></span>
 
-## <a name="configuration"></a><span data-ttu-id="e5189-148">構成</span><span class="sxs-lookup"><span data-stu-id="e5189-148">Configuration</span></span>
+## <a name="configuration"></a><span data-ttu-id="cdffd-173">構成</span><span class="sxs-lookup"><span data-stu-id="cdffd-173">Configuration</span></span>
 
-<span data-ttu-id="e5189-149">ログ プロバイダーの構成は、1 つまたは複数の構成プロバイダーによって提供されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-149">Logging provider configuration is provided by one or more configuration providers:</span></span>
+<span data-ttu-id="cdffd-174">ログ プロバイダーの構成は、1 つまたは複数の構成プロバイダーによって提供されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-174">Logging provider configuration is provided by one or more configuration providers:</span></span>
 
-* <span data-ttu-id="e5189-150">ファイル形式 (INI、JSON、および XML)。</span><span class="sxs-lookup"><span data-stu-id="e5189-150">File formats (INI, JSON, and XML).</span></span>
-* <span data-ttu-id="e5189-151">コマンド ライン引数。</span><span class="sxs-lookup"><span data-stu-id="e5189-151">Command-line arguments.</span></span>
-* <span data-ttu-id="e5189-152">環境変数。</span><span class="sxs-lookup"><span data-stu-id="e5189-152">Environment variables.</span></span>
-* <span data-ttu-id="e5189-153">メモリ内 .NET オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="e5189-153">In-memory .NET objects.</span></span>
-* <span data-ttu-id="e5189-154">暗号化されていない[シークレット マネージャー](xref:security/app-secrets)の記憶域。</span><span class="sxs-lookup"><span data-stu-id="e5189-154">The unencrypted [Secret Manager](xref:security/app-secrets) storage.</span></span>
-* <span data-ttu-id="e5189-155">[Azure Key Vault](xref:security/key-vault-configuration) などの暗号化されたユーザー ストア。</span><span class="sxs-lookup"><span data-stu-id="e5189-155">An encrypted user store, such as [Azure Key Vault](xref:security/key-vault-configuration).</span></span>
-* <span data-ttu-id="e5189-156">カスタム プロバイダー (インストール済みまたは作成済み)。</span><span class="sxs-lookup"><span data-stu-id="e5189-156">Custom providers (installed or created).</span></span>
+* <span data-ttu-id="cdffd-175">ファイル形式 (INI、JSON、および XML)。</span><span class="sxs-lookup"><span data-stu-id="cdffd-175">File formats (INI, JSON, and XML).</span></span>
+* <span data-ttu-id="cdffd-176">コマンド ライン引数。</span><span class="sxs-lookup"><span data-stu-id="cdffd-176">Command-line arguments.</span></span>
+* <span data-ttu-id="cdffd-177">環境変数。</span><span class="sxs-lookup"><span data-stu-id="cdffd-177">Environment variables.</span></span>
+* <span data-ttu-id="cdffd-178">メモリ内 .NET オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="cdffd-178">In-memory .NET objects.</span></span>
+* <span data-ttu-id="cdffd-179">暗号化されていない[シークレット マネージャー](xref:security/app-secrets)の記憶域。</span><span class="sxs-lookup"><span data-stu-id="cdffd-179">The unencrypted [Secret Manager](xref:security/app-secrets) storage.</span></span>
+* <span data-ttu-id="cdffd-180">[Azure Key Vault](xref:security/key-vault-configuration) などの暗号化されたユーザー ストア。</span><span class="sxs-lookup"><span data-stu-id="cdffd-180">An encrypted user store, such as [Azure Key Vault](xref:security/key-vault-configuration).</span></span>
+* <span data-ttu-id="cdffd-181">カスタム プロバイダー (インストール済みまたは作成済み)。</span><span class="sxs-lookup"><span data-stu-id="cdffd-181">Custom providers (installed or created).</span></span>
 
-<span data-ttu-id="e5189-157">たとえば、一般的に、ログの構成はアプリ設定ファイルの `Logging` セクションで指定されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-157">For example, logging configuration is commonly provided by the `Logging` section of app settings files.</span></span> <span data-ttu-id="e5189-158">次の例は、一般的な *appsettings.Development.json* ファイルの内容を示しています。</span><span class="sxs-lookup"><span data-stu-id="e5189-158">The following example shows the contents of a typical *appsettings.Development.json* file:</span></span>
+<span data-ttu-id="cdffd-182">たとえば、一般的に、ログの構成はアプリ設定ファイルの `Logging` セクションで指定されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-182">For example, logging configuration is commonly provided by the `Logging` section of app settings files.</span></span> <span data-ttu-id="cdffd-183">次の例は、一般的な *appsettings.Development.json* ファイルの内容を示しています。</span><span class="sxs-lookup"><span data-stu-id="cdffd-183">The following example shows the contents of a typical *appsettings.Development.json* file:</span></span>
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -146,39 +206,46 @@ ms.locfileid: "68410918"
 }
 ```
 
-<span data-ttu-id="e5189-159">`Logging` プロパティには `LogLevel` およびログ プロバイダーのプロパティ (Console が示されています) を含めることができます。</span><span class="sxs-lookup"><span data-stu-id="e5189-159">The `Logging` property can have `LogLevel` and log provider properties (Console is shown).</span></span>
+<span data-ttu-id="cdffd-184">`Logging` プロパティには `LogLevel` およびログ プロバイダーのプロパティ (Console が示されています) を含めることができます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-184">The `Logging` property can have `LogLevel` and log provider properties (Console is shown).</span></span>
 
-<span data-ttu-id="e5189-160">`Logging` の下の `LogLevel` プロパティでは、選択したカテゴリに対するログの最小の[レベル](#log-level)が指定されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-160">The `LogLevel` property under `Logging` specifies the minimum [level](#log-level) to log for selected categories.</span></span> <span data-ttu-id="e5189-161">この例では、`System` と `Microsoft` カテゴリが `Information` レベルで、その他はすべて `Debug` レベルでログに記録します。</span><span class="sxs-lookup"><span data-stu-id="e5189-161">In the example, `System` and `Microsoft` categories log at `Information` level, and all others log at `Debug` level.</span></span>
+<span data-ttu-id="cdffd-185">`Logging` の下の `LogLevel` プロパティでは、選択したカテゴリに対するログの最小の[レベル](#log-level)が指定されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-185">The `LogLevel` property under `Logging` specifies the minimum [level](#log-level) to log for selected categories.</span></span> <span data-ttu-id="cdffd-186">この例では、`System` と `Microsoft` カテゴリが `Information` レベルで、その他はすべて `Debug` レベルでログに記録します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-186">In the example, `System` and `Microsoft` categories log at `Information` level, and all others log at `Debug` level.</span></span>
 
-<span data-ttu-id="e5189-162">`Logging` の下のその他のプロパティではログ プロバイダーが指定されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-162">Other properties under `Logging` specify logging providers.</span></span> <span data-ttu-id="e5189-163">この例では、Console プロバイダーです。</span><span class="sxs-lookup"><span data-stu-id="e5189-163">The example is for the Console provider.</span></span> <span data-ttu-id="e5189-164">プロバイダーで[ログのスコープ](#log-scopes)がサポートされている場合、`IncludeScopes` によってそれを有効にするかどうかが指定されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-164">If a provider supports [log scopes](#log-scopes), `IncludeScopes` indicates whether they're enabled.</span></span> <span data-ttu-id="e5189-165">プロバイダーのプロパティ (例の `Console` など) では、`LogLevel` プロパティが指定される場合があります。</span><span class="sxs-lookup"><span data-stu-id="e5189-165">A provider property (such as `Console` in the example) may also specify a `LogLevel` property.</span></span> <span data-ttu-id="e5189-166">プロバイダーの下の `LogLevel` では、そのプロバイダーのログのレベルが指定されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-166">`LogLevel` under a provider specifies levels to log for that provider.</span></span>
+<span data-ttu-id="cdffd-187">`Logging` の下のその他のプロパティではログ プロバイダーが指定されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-187">Other properties under `Logging` specify logging providers.</span></span> <span data-ttu-id="cdffd-188">この例では、Console プロバイダーです。</span><span class="sxs-lookup"><span data-stu-id="cdffd-188">The example is for the Console provider.</span></span> <span data-ttu-id="cdffd-189">プロバイダーで[ログのスコープ](#log-scopes)がサポートされている場合、`IncludeScopes` によってそれを有効にするかどうかが指定されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-189">If a provider supports [log scopes](#log-scopes), `IncludeScopes` indicates whether they're enabled.</span></span> <span data-ttu-id="cdffd-190">プロバイダーのプロパティ (例の `Console` など) では、`LogLevel` プロパティが指定される場合があります。</span><span class="sxs-lookup"><span data-stu-id="cdffd-190">A provider property (such as `Console` in the example) may also specify a `LogLevel` property.</span></span> <span data-ttu-id="cdffd-191">プロバイダーの下の `LogLevel` では、そのプロバイダーのログのレベルが指定されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-191">`LogLevel` under a provider specifies levels to log for that provider.</span></span>
 
-<span data-ttu-id="e5189-167">`Logging.{providername}.LogLevel` でレベルが指定される場合、それによって `Logging.LogLevel` で設定されたものはすべてオーバーライドされます。</span><span class="sxs-lookup"><span data-stu-id="e5189-167">If levels are specified in `Logging.{providername}.LogLevel`, they override anything set in `Logging.LogLevel`.</span></span>
+<span data-ttu-id="cdffd-192">`Logging.{providername}.LogLevel` でレベルが指定される場合、それによって `Logging.LogLevel` で設定されたものはすべてオーバーライドされます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-192">If levels are specified in `Logging.{providername}.LogLevel`, they override anything set in `Logging.LogLevel`.</span></span>
 
 ::: moniker-end
 
-::: moniker range="< aspnetcore-2.1"
+<span data-ttu-id="cdffd-193">構成プロバイダーの実装について詳しくは、<xref:fundamentals/configuration/index> をご覧ください。</span><span class="sxs-lookup"><span data-stu-id="cdffd-193">For information on implementing configuration providers, see <xref:fundamentals/configuration/index>.</span></span>
 
-```json
-{
-  "Logging": {
-    "LogLevel": {
-      "Default": "Debug",
-      "System": "Information",
-      "Microsoft": "Information"
-    }
-  }
-}
+## <a name="sample-logging-output"></a><span data-ttu-id="cdffd-194">サンプルのログ記録の出力</span><span class="sxs-lookup"><span data-stu-id="cdffd-194">Sample logging output</span></span>
+
+<span data-ttu-id="cdffd-195">前のセクションで紹介したサンプル コードでは、コマンド ラインからアプリを実行するとコンソールにログが表示されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-195">With the sample code shown in the preceding section, logs appear in the console when the app is run from the command line.</span></span> <span data-ttu-id="cdffd-196">コンソールの出力例は次のとおりです。</span><span class="sxs-lookup"><span data-stu-id="cdffd-196">Here's an example of console output:</span></span>
+
+::: moniker range=">= aspnetcore-3.0"
+
+```console
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://localhost:5000/api/todo/0
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 84.26180000000001ms 307
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:5001/api/todo/0
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'TodoApiSample.Controllers.TodoController.GetById (TodoApiSample)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {action = "GetById", controller = "Todo", page = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetById(System.String) on controller TodoApiSample.Controllers.TodoController (TodoApiSample).
+info: TodoApiSample.Controllers.TodoController[1002]
+      Getting item 0
+warn: TodoApiSample.Controllers.TodoController[4000]
+      GetById(0) NOT FOUND
+info: Microsoft.AspNetCore.Mvc.StatusCodeResult[1]
+      Executing HttpStatusCodeResult, setting HTTP status code 404
 ```
 
-<span data-ttu-id="e5189-168">`LogLevel` キーは、ログ名を表します。</span><span class="sxs-lookup"><span data-stu-id="e5189-168">`LogLevel` keys represent log names.</span></span> <span data-ttu-id="e5189-169">`Default` キーは明示的に表示されていないログに適用されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-169">The `Default` key applies to logs not explicitly listed.</span></span> <span data-ttu-id="e5189-170">値は、指定されたログに適用された[ログ レベル](#log-level)を表します。</span><span class="sxs-lookup"><span data-stu-id="e5189-170">The value represents the [log level](#log-level) applied to the given log.</span></span>
-
 ::: moniker-end
 
-<span data-ttu-id="e5189-171">構成プロバイダーの実装について詳しくは、<xref:fundamentals/configuration/index> をご覧ください。</span><span class="sxs-lookup"><span data-stu-id="e5189-171">For information on implementing configuration providers, see <xref:fundamentals/configuration/index>.</span></span>
-
-## <a name="sample-logging-output"></a><span data-ttu-id="e5189-172">サンプルのログ記録の出力</span><span class="sxs-lookup"><span data-stu-id="e5189-172">Sample logging output</span></span>
-
-<span data-ttu-id="e5189-173">前のセクションで紹介したサンプル コードでは、コマンド ラインからアプリを実行するとコンソールにログが表示されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-173">With the sample code shown in the preceding section, logs appear in the console when the app is run from the command line.</span></span> <span data-ttu-id="e5189-174">コンソールの出力例は次のとおりです。</span><span class="sxs-lookup"><span data-stu-id="e5189-174">Here's an example of console output:</span></span>
+::: moniker range="< aspnetcore-3.0"
 
 ```console
 info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
@@ -197,9 +264,31 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
       Request finished in 148.889ms 404
 ```
 
-<span data-ttu-id="e5189-175">前のログは、`http://localhost:5000/api/todo/0` のサンプル アプリに向けて HTTP Get 要求を作成することで生成されました。</span><span class="sxs-lookup"><span data-stu-id="e5189-175">The preceding logs were generated by making an HTTP Get request to the sample app at `http://localhost:5000/api/todo/0`.</span></span>
+::: moniker-end
 
-<span data-ttu-id="e5189-176">Visual Studio でサンプル アプリを実行したときに [デバッグ] ウィンドウに表示されるログと同じログの例を、次に示します。</span><span class="sxs-lookup"><span data-stu-id="e5189-176">Here's an example of the same logs as they appear in the Debug window when you run the sample app in Visual Studio:</span></span>
+<span data-ttu-id="cdffd-197">前のログは、`http://localhost:5000/api/todo/0` のサンプル アプリに向けて HTTP Get 要求を作成することで生成されました。</span><span class="sxs-lookup"><span data-stu-id="cdffd-197">The preceding logs were generated by making an HTTP Get request to the sample app at `http://localhost:5000/api/todo/0`.</span></span>
+
+<span data-ttu-id="cdffd-198">Visual Studio でサンプル アプリを実行したときに [デバッグ] ウィンドウに表示されるログと同じログの例を、次に示します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-198">Here's an example of the same logs as they appear in the Debug window when you run the sample app in Visual Studio:</span></span>
+
+::: moniker range=">= aspnetcore-3.0"
+
+```console
+Microsoft.AspNetCore.Hosting.Diagnostics: Information: Request starting HTTP/2.0 GET https://localhost:44328/api/todo/0  
+Microsoft.AspNetCore.Routing.EndpointMiddleware: Information: Executing endpoint 'TodoApiSample.Controllers.TodoController.GetById (TodoApiSample)'
+Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker: Information: Route matched with {action = "GetById", controller = "Todo", page = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetById(System.String) on controller TodoApiSample.Controllers.TodoController (TodoApiSample).
+TodoApiSample.Controllers.TodoController: Information: Getting item 0
+TodoApiSample.Controllers.TodoController: Warning: GetById(0) NOT FOUND
+Microsoft.AspNetCore.Mvc.StatusCodeResult: Information: Executing HttpStatusCodeResult, setting HTTP status code 404
+Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker: Information: Executed action TodoApiSample.Controllers.TodoController.GetById (TodoApiSample) in 34.167ms
+Microsoft.AspNetCore.Routing.EndpointMiddleware: Information: Executed endpoint 'TodoApiSample.Controllers.TodoController.GetById (TodoApiSample)'
+Microsoft.AspNetCore.Hosting.Diagnostics: Information: Request finished in 98.41300000000001ms 404
+```
+
+<span data-ttu-id="cdffd-199">前のセクションで紹介した `ILogger` の呼び出しで作成されるログは、"TodoApiSample" から始まります。</span><span class="sxs-lookup"><span data-stu-id="cdffd-199">The logs that are created by the `ILogger` calls shown in the preceding section begin with "TodoApiSample".</span></span> <span data-ttu-id="cdffd-200">"Microsoft" カテゴリから始まるログは、ASP.NET Core のフレームワークのコードからのログです。</span><span class="sxs-lookup"><span data-stu-id="cdffd-200">The logs that begin with "Microsoft" categories are from ASP.NET Core framework code.</span></span> <span data-ttu-id="cdffd-201">ASP.NET Core とアプリケーション コードでは、同じログ API とログ プロバイダーが使用されています。</span><span class="sxs-lookup"><span data-stu-id="cdffd-201">ASP.NET Core and application code are using the same logging API and providers.</span></span>
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 ```console
 Microsoft.AspNetCore.Hosting.Internal.WebHost:Information: Request starting HTTP/1.1 GET http://localhost:53104/api/todo/0  
@@ -211,104 +300,151 @@ Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker:Information: Executed 
 Microsoft.AspNetCore.Hosting.Internal.WebHost:Information: Request finished in 316.3195ms 404
 ```
 
-<span data-ttu-id="e5189-177">前のセクションで紹介した `ILogger` の呼び出しで作成されるログは、"TodoApi.Controllers.TodoController" から始まります。</span><span class="sxs-lookup"><span data-stu-id="e5189-177">The logs that are created by the `ILogger` calls shown in the preceding section begin with "TodoApi.Controllers.TodoController".</span></span> <span data-ttu-id="e5189-178">"Microsoft" カテゴリから始まるログは、ASP.NET Core のフレームワークのコードからのログです。</span><span class="sxs-lookup"><span data-stu-id="e5189-178">The logs that begin with "Microsoft" categories are from ASP.NET Core framework code.</span></span> <span data-ttu-id="e5189-179">ASP.NET Core とアプリケーション コードでは、同じログ API とログ プロバイダーが使用されています。</span><span class="sxs-lookup"><span data-stu-id="e5189-179">ASP.NET Core and application code are using the same logging API and providers.</span></span>
+<span data-ttu-id="cdffd-202">前のセクションで紹介した `ILogger` の呼び出しで作成されるログは、"TodoApi" から始まります。</span><span class="sxs-lookup"><span data-stu-id="cdffd-202">The logs that are created by the `ILogger` calls shown in the preceding section begin with "TodoApi".</span></span> <span data-ttu-id="cdffd-203">"Microsoft" カテゴリから始まるログは、ASP.NET Core のフレームワークのコードからのログです。</span><span class="sxs-lookup"><span data-stu-id="cdffd-203">The logs that begin with "Microsoft" categories are from ASP.NET Core framework code.</span></span> <span data-ttu-id="cdffd-204">ASP.NET Core とアプリケーション コードでは、同じログ API とログ プロバイダーが使用されています。</span><span class="sxs-lookup"><span data-stu-id="cdffd-204">ASP.NET Core and application code are using the same logging API and providers.</span></span>
 
-<span data-ttu-id="e5189-180">以降、この記事では、ログ記録の詳細とオプションについて説明します。</span><span class="sxs-lookup"><span data-stu-id="e5189-180">The remainder of this article explains some details and options for logging.</span></span>
+::: moniker-end
 
-## <a name="nuget-packages"></a><span data-ttu-id="e5189-181">NuGet パッケージ</span><span class="sxs-lookup"><span data-stu-id="e5189-181">NuGet packages</span></span>
+<span data-ttu-id="cdffd-205">以降、この記事では、ログ記録の詳細とオプションについて説明します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-205">The remainder of this article explains some details and options for logging.</span></span>
 
-<span data-ttu-id="e5189-182">`ILogger` および `ILoggerFactory` インターフェイスは、[Microsoft.Extensions.Logging.Abstractions](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Abstractions/) 内にあり、それらの既定の実装は [Microsoft.Extensions.Logging](https://www.nuget.org/packages/microsoft.extensions.logging/) 内にあります。</span><span class="sxs-lookup"><span data-stu-id="e5189-182">The `ILogger` and `ILoggerFactory` interfaces are in [Microsoft.Extensions.Logging.Abstractions](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Abstractions/), and default implementations for them are in [Microsoft.Extensions.Logging](https://www.nuget.org/packages/microsoft.extensions.logging/).</span></span>
+## <a name="nuget-packages"></a><span data-ttu-id="cdffd-206">NuGet パッケージ</span><span class="sxs-lookup"><span data-stu-id="cdffd-206">NuGet packages</span></span>
 
-## <a name="log-category"></a><span data-ttu-id="e5189-183">ログのカテゴリ</span><span class="sxs-lookup"><span data-stu-id="e5189-183">Log category</span></span>
+<span data-ttu-id="cdffd-207">`ILogger` および `ILoggerFactory` インターフェイスは、[Microsoft.Extensions.Logging.Abstractions](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Abstractions/) 内にあり、それらの既定の実装は [Microsoft.Extensions.Logging](https://www.nuget.org/packages/microsoft.extensions.logging/) 内にあります。</span><span class="sxs-lookup"><span data-stu-id="cdffd-207">The `ILogger` and `ILoggerFactory` interfaces are in [Microsoft.Extensions.Logging.Abstractions](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Abstractions/), and default implementations for them are in [Microsoft.Extensions.Logging](https://www.nuget.org/packages/microsoft.extensions.logging/).</span></span>
 
-<span data-ttu-id="e5189-184">`ILogger` オブジェクトが作成されるときに、その "*カテゴリ*" が指定されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-184">When an `ILogger` object is created, a *category* is specified for it.</span></span> <span data-ttu-id="e5189-185">このカテゴリは、その `ILogger` のインスタンスによって作成される各ログ メッセージと共に含められます。</span><span class="sxs-lookup"><span data-stu-id="e5189-185">That category is included with each log message created by that instance of `ILogger`.</span></span> <span data-ttu-id="e5189-186">カテゴリには任意の文字列を指定できますが、"TodoApi.Controllers.TodoController" などのクラス名を使用するが慣例です。</span><span class="sxs-lookup"><span data-stu-id="e5189-186">The category may be any string, but the convention is to use the class name, such as "TodoApi.Controllers.TodoController".</span></span>
+## <a name="log-category"></a><span data-ttu-id="cdffd-208">ログのカテゴリ</span><span class="sxs-lookup"><span data-stu-id="cdffd-208">Log category</span></span>
 
-<span data-ttu-id="e5189-187">`ILogger<T>` を使用して、カテゴリとして `T` の完全修飾型名が使用される `ILogger` インスタンスを取得します。</span><span class="sxs-lookup"><span data-stu-id="e5189-187">Use `ILogger<T>` to get an `ILogger` instance that uses the fully qualified type name of `T` as the category:</span></span>
+<span data-ttu-id="cdffd-209">`ILogger` オブジェクトが作成されるときに、その "*カテゴリ*" が指定されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-209">When an `ILogger` object is created, a *category* is specified for it.</span></span> <span data-ttu-id="cdffd-210">このカテゴリは、その `ILogger` のインスタンスによって作成される各ログ メッセージと共に含められます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-210">That category is included with each log message created by that instance of `ILogger`.</span></span> <span data-ttu-id="cdffd-211">カテゴリには任意の文字列を指定できますが、"TodoApi.Controllers.TodoController" などのクラス名を使用するが慣例です。</span><span class="sxs-lookup"><span data-stu-id="cdffd-211">The category may be any string, but the convention is to use the class name, such as "TodoApi.Controllers.TodoController".</span></span>
 
-::: moniker range=">= aspnetcore-2.0"
+<span data-ttu-id="cdffd-212">`ILogger<T>` を使用して、カテゴリとして `T` の完全修飾型名が使用される `ILogger` インスタンスを取得します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-212">Use `ILogger<T>` to get an `ILogger` instance that uses the fully qualified type name of `T` as the category:</span></span>
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_LoggerDI&highlight=7)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_LoggerDI&highlight=7)]
 
 ::: moniker-end
 
-::: moniker range="< aspnetcore-2.0"
+<span data-ttu-id="cdffd-213">カテゴリを明示的に指定するには、`ILoggerFactory.CreateLogger` を呼び出します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-213">To explicitly specify the category, call `ILoggerFactory.CreateLogger`:</span></span>
 
-[!code-csharp[](index/samples/1.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_LoggerDI&highlight=7)]
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CreateLogger&highlight=7,10)]
 
 ::: moniker-end
 
-<span data-ttu-id="e5189-188">カテゴリを明示的に指定するには、`ILoggerFactory.CreateLogger` を呼び出します。</span><span class="sxs-lookup"><span data-stu-id="e5189-188">To explicitly specify the category, call `ILoggerFactory.CreateLogger`:</span></span>
-
-::: moniker range=">= aspnetcore-2.0"
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CreateLogger&highlight=7,10)]
 
 ::: moniker-end
 
-::: moniker range="< aspnetcore-2.0"
+<span data-ttu-id="cdffd-214">`ILogger<T>` は、`T` の完全修飾型名を使用した `CreateLogger` の呼び出しと同じです。</span><span class="sxs-lookup"><span data-stu-id="cdffd-214">`ILogger<T>` is equivalent to calling `CreateLogger` with the fully qualified type name of `T`.</span></span>
 
-[!code-csharp[](index/samples/1.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CreateLogger&highlight=7,10)]
+## <a name="log-level"></a><span data-ttu-id="cdffd-215">ログ レベル</span><span class="sxs-lookup"><span data-stu-id="cdffd-215">Log level</span></span>
+
+<span data-ttu-id="cdffd-216">すべてのログで <xref:Microsoft.Extensions.Logging.LogLevel> 値が指定されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-216">Every log specifies a <xref:Microsoft.Extensions.Logging.LogLevel> value.</span></span> <span data-ttu-id="cdffd-217">ログ レベルは、重大度または重要度を示します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-217">The log level indicates the severity or importance.</span></span> <span data-ttu-id="cdffd-218">たとえば、メソッドが正常に終了した場合は `Information` ログを、メソッドが *404 Not Found* 状態コードを返した場合は `Warning` ログを書き込む場合があります。</span><span class="sxs-lookup"><span data-stu-id="cdffd-218">For example, you might write an `Information` log when a method ends normally and a `Warning` log when a method returns a *404 Not Found* status code.</span></span>
+
+<span data-ttu-id="cdffd-219">`Information` および `Warning` ログを作成するコードを次に示します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-219">The following code creates `Information` and `Warning` logs:</span></span>
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CallLogMethods&highlight=3,7)]
 
 ::: moniker-end
 
-<span data-ttu-id="e5189-189">`ILogger<T>` は、`T` の完全修飾型名を使用した `CreateLogger` の呼び出しと同じです。</span><span class="sxs-lookup"><span data-stu-id="e5189-189">`ILogger<T>` is equivalent to calling `CreateLogger` with the fully qualified type name of `T`.</span></span>
-
-## <a name="log-level"></a><span data-ttu-id="e5189-190">ログ レベル</span><span class="sxs-lookup"><span data-stu-id="e5189-190">Log level</span></span>
-
-<span data-ttu-id="e5189-191">すべてのログで <xref:Microsoft.Extensions.Logging.LogLevel> 値が指定されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-191">Every log specifies a <xref:Microsoft.Extensions.Logging.LogLevel> value.</span></span> <span data-ttu-id="e5189-192">ログ レベルは、重大度または重要度を示します。</span><span class="sxs-lookup"><span data-stu-id="e5189-192">The log level indicates the severity or importance.</span></span> <span data-ttu-id="e5189-193">たとえば、メソッドが正常に終了した場合は `Information` ログを、メソッドが *404 Not Found* 状態コードを返した場合は `Warning` ログを書き込む場合があります。</span><span class="sxs-lookup"><span data-stu-id="e5189-193">For example, you might write an `Information` log when a method ends normally and a `Warning` log when a method returns a *404 Not Found* status code.</span></span>
-
-<span data-ttu-id="e5189-194">`Information` および `Warning` ログを作成するコードを次に示します。</span><span class="sxs-lookup"><span data-stu-id="e5189-194">The following code creates `Information` and `Warning` logs:</span></span>
-
-::: moniker range=">= aspnetcore-2.0"
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CallLogMethods&highlight=3,7)]
 
 ::: moniker-end
 
-::: moniker range="< aspnetcore-2.0"
+<span data-ttu-id="cdffd-220">前のコードでは、最初のパラメーターは[ログ イベント ID](#log-event-id) です。</span><span class="sxs-lookup"><span data-stu-id="cdffd-220">In the preceding code, the first parameter is the [Log event ID](#log-event-id).</span></span> <span data-ttu-id="cdffd-221">2 つ目のパラメーターは、他のメソッド パラメーターによって提供される引数値のプレースホルダーを含むメッセージ テンプレートです。</span><span class="sxs-lookup"><span data-stu-id="cdffd-221">The second parameter is a message template with placeholders for argument values provided by the remaining method parameters.</span></span> <span data-ttu-id="cdffd-222">メソッド パラメーターについては、この記事の後半の[メッセージ テンプレートのセクション](#log-message-template)で説明します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-222">The method parameters are explained in the [message template section](#log-message-template) later in this article.</span></span>
 
-[!code-csharp[](index/samples/1.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CallLogMethods&highlight=3,7)]
+<span data-ttu-id="cdffd-223">メソッド名にレベルを含むログ メソッド (たとえば `LogInformation` や `LogWarning`) は、[ILogger の拡張メソッド](xref:Microsoft.Extensions.Logging.LoggerExtensions)です。</span><span class="sxs-lookup"><span data-stu-id="cdffd-223">Log methods that include the level in the method name (for example, `LogInformation` and `LogWarning`) are [extension methods for ILogger](xref:Microsoft.Extensions.Logging.LoggerExtensions).</span></span> <span data-ttu-id="cdffd-224">これらのメソッドでは、`LogLevel` パラメーターを受け取る `Log` メソッドが呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-224">These methods call a `Log` method that takes a `LogLevel` parameter.</span></span> <span data-ttu-id="cdffd-225">これらの拡張メソッドのいずれかではなく、`Log` メソッドを直接呼び出すことができますが、構文は比較的複雑です。</span><span class="sxs-lookup"><span data-stu-id="cdffd-225">You can call the `Log` method directly rather than one of these extension methods, but the syntax is relatively complicated.</span></span> <span data-ttu-id="cdffd-226">詳細については、<xref:Microsoft.Extensions.Logging.ILogger> および[ロガー拡張ソース コード](https://github.com/aspnet/Extensions/blob/release/2.2/src/Logging/Logging.Abstractions/src/LoggerExtensions.cs)に関するページを参照してください。</span><span class="sxs-lookup"><span data-stu-id="cdffd-226">For more information, see <xref:Microsoft.Extensions.Logging.ILogger> and the [logger extensions source code](https://github.com/aspnet/Extensions/blob/release/2.2/src/Logging/Logging.Abstractions/src/LoggerExtensions.cs).</span></span>
+
+<span data-ttu-id="cdffd-227">ASP.NET Core には、次のログ レベルが定義されています (重大度の低いものから高い順)。</span><span class="sxs-lookup"><span data-stu-id="cdffd-227">ASP.NET Core defines the following log levels, ordered here from lowest to highest severity.</span></span>
+
+* <span data-ttu-id="cdffd-228">Trace = 0</span><span class="sxs-lookup"><span data-stu-id="cdffd-228">Trace = 0</span></span>
+
+  <span data-ttu-id="cdffd-229">通常はデバッグでのみ役立つ情報の場合。</span><span class="sxs-lookup"><span data-stu-id="cdffd-229">For information that's typically valuable only for debugging.</span></span> <span data-ttu-id="cdffd-230">これらのメッセージには機密性の高いアプリケーション データが含まれる可能性があるため、運用環境は有効にしないことをお勧めします。</span><span class="sxs-lookup"><span data-stu-id="cdffd-230">These messages may contain sensitive application data and so shouldn't be enabled in a production environment.</span></span> <span data-ttu-id="cdffd-231">*既定で無効です。*</span><span class="sxs-lookup"><span data-stu-id="cdffd-231">*Disabled by default.*</span></span>
+
+* <span data-ttu-id="cdffd-232">Debug = 1</span><span class="sxs-lookup"><span data-stu-id="cdffd-232">Debug = 1</span></span>
+
+  <span data-ttu-id="cdffd-233">開発とデバッグで役立つ可能性がある情報の場合。</span><span class="sxs-lookup"><span data-stu-id="cdffd-233">For information that may be useful in development and debugging.</span></span> <span data-ttu-id="cdffd-234">例:`Entering method Configure with flag set to true.` `Debug` レベルのログは、ログのサイズが大きくなるため、トラブルシューティングの場合を除き運用環境では有効にしません。</span><span class="sxs-lookup"><span data-stu-id="cdffd-234">Example: `Entering method Configure with flag set to true.` Enable `Debug` level logs in production only when troubleshooting, due to the high volume of logs.</span></span>
+
+* <span data-ttu-id="cdffd-235">Information = 2</span><span class="sxs-lookup"><span data-stu-id="cdffd-235">Information = 2</span></span>
+
+  <span data-ttu-id="cdffd-236">アプリの一般的なフローを追跡する場合。</span><span class="sxs-lookup"><span data-stu-id="cdffd-236">For tracking the general flow of the app.</span></span> <span data-ttu-id="cdffd-237">通常、これらのログには、長期的な値があります。</span><span class="sxs-lookup"><span data-stu-id="cdffd-237">These logs typically have some long-term value.</span></span> <span data-ttu-id="cdffd-238">例 : `Request received for path /api/todo`</span><span class="sxs-lookup"><span data-stu-id="cdffd-238">Example: `Request received for path /api/todo`</span></span>
+
+* <span data-ttu-id="cdffd-239">Warning = 3</span><span class="sxs-lookup"><span data-stu-id="cdffd-239">Warning = 3</span></span>
+
+  <span data-ttu-id="cdffd-240">アプリのフローで異常なイベントや予期しないイベントが発生した場合。</span><span class="sxs-lookup"><span data-stu-id="cdffd-240">For abnormal or unexpected events in the app flow.</span></span> <span data-ttu-id="cdffd-241">アプリの停止の原因にはならないが、調査する必要があるエラーやその他の状態がここに含まれる場合があります。</span><span class="sxs-lookup"><span data-stu-id="cdffd-241">These may include errors or other conditions that don't cause the app to stop but might need to be investigated.</span></span> <span data-ttu-id="cdffd-242">`Warning` ログ レベルが使用される一般的な場所として、例外の処理があります。</span><span class="sxs-lookup"><span data-stu-id="cdffd-242">Handled exceptions are a common place to use the `Warning` log level.</span></span> <span data-ttu-id="cdffd-243">例 : `FileNotFoundException for file quotes.txt.`</span><span class="sxs-lookup"><span data-stu-id="cdffd-243">Example: `FileNotFoundException for file quotes.txt.`</span></span>
+
+* <span data-ttu-id="cdffd-244">Error = 4</span><span class="sxs-lookup"><span data-stu-id="cdffd-244">Error = 4</span></span>
+
+  <span data-ttu-id="cdffd-245">処理できないエラーと例外の場合。</span><span class="sxs-lookup"><span data-stu-id="cdffd-245">For errors and exceptions that cannot be handled.</span></span> <span data-ttu-id="cdffd-246">これらのメッセージは、アプリ全体のエラーではなく、現在のアクティビティまたは操作 (現在の HTTP 要求など) におけるエラーを示します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-246">These messages indicate a failure in the current activity or operation (such as the current HTTP request), not an app-wide failure.</span></span> <span data-ttu-id="cdffd-247">ログ メッセージの例: `Cannot insert record due to duplicate key violation.`</span><span class="sxs-lookup"><span data-stu-id="cdffd-247">Example log message: `Cannot insert record due to duplicate key violation.`</span></span>
+
+* <span data-ttu-id="cdffd-248">Critical = 5</span><span class="sxs-lookup"><span data-stu-id="cdffd-248">Critical = 5</span></span>
+
+  <span data-ttu-id="cdffd-249">即時の注意が必要なエラーの場合。</span><span class="sxs-lookup"><span data-stu-id="cdffd-249">For failures that require immediate attention.</span></span> <span data-ttu-id="cdffd-250">例: データ損失のシナリオ、ディスク領域不足。</span><span class="sxs-lookup"><span data-stu-id="cdffd-250">Examples: data loss scenarios, out of disk space.</span></span>
+
+<span data-ttu-id="cdffd-251">ログ レベルを使用して、特定のストレージ メディアまたは表示ウィンドウに書き込むログの出力量を制御します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-251">Use the log level to control how much log output is written to a particular storage medium or display window.</span></span> <span data-ttu-id="cdffd-252">次に例を示します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-252">For example:</span></span>
+
+* <span data-ttu-id="cdffd-253">運用環境では、`Information` レベルを使用してボリューム データ ストアに `Trace` を送信します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-253">In production, send `Trace` through `Information` level to a volume data store.</span></span> <span data-ttu-id="cdffd-254">`Critical` を使用して値のデータ ストアに `Warning` を送信します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-254">Send `Warning` through `Critical` to a value data store.</span></span>
+* <span data-ttu-id="cdffd-255">開発中は `Critical` を使用してコンソールに `Warning` を送信し、トラブルシューティングの際は `Information` を使用して `Trace` を追加します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-255">During development, send `Warning` through `Critical` to the console, and add `Trace` through `Information` when troubleshooting.</span></span>
+
+<span data-ttu-id="cdffd-256">この記事で後述する「[ログのフィルター処理](#log-filtering)」セクションでは、プロバイダーで処理するログ レベルの制御方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-256">The [Log filtering](#log-filtering) section later in this article explains how to control which log levels a provider handles.</span></span>
+
+<span data-ttu-id="cdffd-257">ASP.NET Core では、フレームワーク イベントのログが書き込まれます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-257">ASP.NET Core writes logs for framework events.</span></span> <span data-ttu-id="cdffd-258">この記事の前のログの例では、`Information` レベル以下のログを除外したため、`Debug` または `Trace` レベルのログは作成されませんでした。</span><span class="sxs-lookup"><span data-stu-id="cdffd-258">The log examples earlier in this article excluded logs below `Information` level, so no `Debug` or `Trace` level logs were created.</span></span> <span data-ttu-id="cdffd-259">`Debug` ログを示すために構成したサンプル アプリを実行することで生成されるコンソールのログの例を、次に示します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-259">Here's an example of console logs produced by running the sample app configured to show `Debug` logs:</span></span>
+
+::: moniker range=">= aspnetcore-3.0"
+
+```console
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {action = "GetById", controller = "Todo", page = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetById(System.String) on controller TodoApiSample.Controllers.TodoController (TodoApiSample).
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[22]
+      Attempting to bind parameter 'id' of type 'System.String' ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinder[44]
+      Attempting to bind parameter 'id' of type 'System.String' using the name 'id' in request data ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinder[45]
+      Done attempting to bind parameter 'id' of type 'System.String'.
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[23]
+      Done attempting to bind parameter 'id' of type 'System.String'.
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[26]
+      Attempting to validate the bound parameter 'id' of type 'System.String' ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[27]
+      Done attempting to validate the bound parameter 'id' of type 'System.String'.
+info: TodoApiSample.Controllers.TodoController[1002]
+      Getting item 0
+warn: TodoApiSample.Controllers.TodoController[4000]
+      GetById(0) NOT FOUND
+info: Microsoft.AspNetCore.Mvc.StatusCodeResult[1]
+      Executing HttpStatusCodeResult, setting HTTP status code 404
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action TodoApiSample.Controllers.TodoController.GetById (TodoApiSample) in 32.690400000000004ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'TodoApiSample.Controllers.TodoController.GetById (TodoApiSample)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 176.9103ms 404
+```
 
 ::: moniker-end
 
-<span data-ttu-id="e5189-195">前のコードでは、最初のパラメーターは[ログ イベント ID](#log-event-id) です。</span><span class="sxs-lookup"><span data-stu-id="e5189-195">In the preceding code, the first parameter is the [Log event ID](#log-event-id).</span></span> <span data-ttu-id="e5189-196">2 つ目のパラメーターは、他のメソッド パラメーターによって提供される引数値のプレースホルダーを含むメッセージ テンプレートです。</span><span class="sxs-lookup"><span data-stu-id="e5189-196">The second parameter is a message template with placeholders for argument values provided by the remaining method parameters.</span></span> <span data-ttu-id="e5189-197">メソッド パラメーターについては、この記事の後半の[メッセージ テンプレートのセクション](#log-message-template)で説明します。</span><span class="sxs-lookup"><span data-stu-id="e5189-197">The method parameters are explained in the [message template section](#log-message-template) later in this article.</span></span>
-
-<span data-ttu-id="e5189-198">メソッド名にレベルを含むログ メソッド (たとえば `LogInformation` や `LogWarning`) は、[ILogger の拡張メソッド](xref:Microsoft.Extensions.Logging.LoggerExtensions)です。</span><span class="sxs-lookup"><span data-stu-id="e5189-198">Log methods that include the level in the method name (for example, `LogInformation` and `LogWarning`) are [extension methods for ILogger](xref:Microsoft.Extensions.Logging.LoggerExtensions).</span></span> <span data-ttu-id="e5189-199">これらのメソッドでは、`LogLevel` パラメーターを受け取る `Log` メソッドが呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-199">These methods call a `Log` method that takes a `LogLevel` parameter.</span></span> <span data-ttu-id="e5189-200">これらの拡張メソッドのいずれかではなく、`Log` メソッドを直接呼び出すことができますが、構文は比較的複雑です。</span><span class="sxs-lookup"><span data-stu-id="e5189-200">You can call the `Log` method directly rather than one of these extension methods, but the syntax is relatively complicated.</span></span> <span data-ttu-id="e5189-201">詳細については、<xref:Microsoft.Extensions.Logging.ILogger> および[ロガー拡張ソース コード](https://github.com/aspnet/Extensions/blob/release/2.2/src/Logging/Logging.Abstractions/src/LoggerExtensions.cs)に関するページを参照してください。</span><span class="sxs-lookup"><span data-stu-id="e5189-201">For more information, see <xref:Microsoft.Extensions.Logging.ILogger> and the [logger extensions source code](https://github.com/aspnet/Extensions/blob/release/2.2/src/Logging/Logging.Abstractions/src/LoggerExtensions.cs).</span></span>
-
-<span data-ttu-id="e5189-202">ASP.NET Core には、次のログ レベルが定義されています (重大度の低いものから高い順)。</span><span class="sxs-lookup"><span data-stu-id="e5189-202">ASP.NET Core defines the following log levels, ordered here from lowest to highest severity.</span></span>
-
-* <span data-ttu-id="e5189-203">Trace = 0</span><span class="sxs-lookup"><span data-stu-id="e5189-203">Trace = 0</span></span>
-
-  <span data-ttu-id="e5189-204">通常はデバッグでのみ役立つ情報の場合。</span><span class="sxs-lookup"><span data-stu-id="e5189-204">For information that's typically valuable only for debugging.</span></span> <span data-ttu-id="e5189-205">これらのメッセージには機密性の高いアプリケーション データが含まれる可能性があるため、運用環境は有効にしないことをお勧めします。</span><span class="sxs-lookup"><span data-stu-id="e5189-205">These messages may contain sensitive application data and so shouldn't be enabled in a production environment.</span></span> <span data-ttu-id="e5189-206">*既定で無効です。*</span><span class="sxs-lookup"><span data-stu-id="e5189-206">*Disabled by default.*</span></span>
-
-* <span data-ttu-id="e5189-207">Debug = 1</span><span class="sxs-lookup"><span data-stu-id="e5189-207">Debug = 1</span></span>
-
-  <span data-ttu-id="e5189-208">開発とデバッグで役立つ可能性がある情報の場合。</span><span class="sxs-lookup"><span data-stu-id="e5189-208">For information that may be useful in development and debugging.</span></span> <span data-ttu-id="e5189-209">例:`Entering method Configure with flag set to true.` `Debug` レベルのログは、ログのサイズが大きくなるため、トラブルシューティングの場合を除き運用環境では有効にしません。</span><span class="sxs-lookup"><span data-stu-id="e5189-209">Example: `Entering method Configure with flag set to true.` Enable `Debug` level logs in production only when troubleshooting, due to the high volume of logs.</span></span>
-
-* <span data-ttu-id="e5189-210">Information = 2</span><span class="sxs-lookup"><span data-stu-id="e5189-210">Information = 2</span></span>
-
-  <span data-ttu-id="e5189-211">アプリの一般的なフローを追跡する場合。</span><span class="sxs-lookup"><span data-stu-id="e5189-211">For tracking the general flow of the app.</span></span> <span data-ttu-id="e5189-212">通常、これらのログには、長期的な値があります。</span><span class="sxs-lookup"><span data-stu-id="e5189-212">These logs typically have some long-term value.</span></span> <span data-ttu-id="e5189-213">例 : `Request received for path /api/todo`</span><span class="sxs-lookup"><span data-stu-id="e5189-213">Example: `Request received for path /api/todo`</span></span>
-
-* <span data-ttu-id="e5189-214">Warning = 3</span><span class="sxs-lookup"><span data-stu-id="e5189-214">Warning = 3</span></span>
-
-  <span data-ttu-id="e5189-215">アプリのフローで異常なイベントや予期しないイベントが発生した場合。</span><span class="sxs-lookup"><span data-stu-id="e5189-215">For abnormal or unexpected events in the app flow.</span></span> <span data-ttu-id="e5189-216">アプリの停止の原因にはならないが、調査する必要があるエラーやその他の状態がここに含まれる場合があります。</span><span class="sxs-lookup"><span data-stu-id="e5189-216">These may include errors or other conditions that don't cause the app to stop but might need to be investigated.</span></span> <span data-ttu-id="e5189-217">`Warning` ログ レベルが使用される一般的な場所として、例外の処理があります。</span><span class="sxs-lookup"><span data-stu-id="e5189-217">Handled exceptions are a common place to use the `Warning` log level.</span></span> <span data-ttu-id="e5189-218">例 : `FileNotFoundException for file quotes.txt.`</span><span class="sxs-lookup"><span data-stu-id="e5189-218">Example: `FileNotFoundException for file quotes.txt.`</span></span>
-
-* <span data-ttu-id="e5189-219">Error = 4</span><span class="sxs-lookup"><span data-stu-id="e5189-219">Error = 4</span></span>
-
-  <span data-ttu-id="e5189-220">処理できないエラーと例外の場合。</span><span class="sxs-lookup"><span data-stu-id="e5189-220">For errors and exceptions that cannot be handled.</span></span> <span data-ttu-id="e5189-221">これらのメッセージは、アプリ全体のエラーではなく、現在のアクティビティまたは操作 (現在の HTTP 要求など) におけるエラーを示します。</span><span class="sxs-lookup"><span data-stu-id="e5189-221">These messages indicate a failure in the current activity or operation (such as the current HTTP request), not an app-wide failure.</span></span> <span data-ttu-id="e5189-222">ログ メッセージの例: `Cannot insert record due to duplicate key violation.`</span><span class="sxs-lookup"><span data-stu-id="e5189-222">Example log message: `Cannot insert record due to duplicate key violation.`</span></span>
-
-* <span data-ttu-id="e5189-223">Critical = 5</span><span class="sxs-lookup"><span data-stu-id="e5189-223">Critical = 5</span></span>
-
-  <span data-ttu-id="e5189-224">即時の注意が必要なエラーの場合。</span><span class="sxs-lookup"><span data-stu-id="e5189-224">For failures that require immediate attention.</span></span> <span data-ttu-id="e5189-225">例: データ損失のシナリオ、ディスク領域不足。</span><span class="sxs-lookup"><span data-stu-id="e5189-225">Examples: data loss scenarios, out of disk space.</span></span>
-
-<span data-ttu-id="e5189-226">ログ レベルを使用して、特定のストレージ メディアまたは表示ウィンドウに書き込むログの出力量を制御します。</span><span class="sxs-lookup"><span data-stu-id="e5189-226">Use the log level to control how much log output is written to a particular storage medium or display window.</span></span> <span data-ttu-id="e5189-227">次に例を示します。</span><span class="sxs-lookup"><span data-stu-id="e5189-227">For example:</span></span>
-
-* <span data-ttu-id="e5189-228">運用環境では、`Information` レベルを使用してボリューム データ ストアに `Trace` を送信します。</span><span class="sxs-lookup"><span data-stu-id="e5189-228">In production, send `Trace` through `Information` level to a volume data store.</span></span> <span data-ttu-id="e5189-229">`Critical` を使用して値のデータ ストアに `Warning` を送信します。</span><span class="sxs-lookup"><span data-stu-id="e5189-229">Send `Warning` through `Critical` to a value data store.</span></span>
-* <span data-ttu-id="e5189-230">開発中は `Critical` を使用してコンソールに `Warning` を送信し、トラブルシューティングの際は `Information` を使用して `Trace` を追加します。</span><span class="sxs-lookup"><span data-stu-id="e5189-230">During development, send `Warning` through `Critical` to the console, and add `Trace` through `Information` when troubleshooting.</span></span>
-
-<span data-ttu-id="e5189-231">この記事で後述する「[ログのフィルター処理](#log-filtering)」セクションでは、プロバイダーで処理するログ レベルの制御方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="e5189-231">The [Log filtering](#log-filtering) section later in this article explains how to control which log levels a provider handles.</span></span>
-
-<span data-ttu-id="e5189-232">ASP.NET Core では、フレームワーク イベントのログが書き込まれます。</span><span class="sxs-lookup"><span data-stu-id="e5189-232">ASP.NET Core writes logs for framework events.</span></span> <span data-ttu-id="e5189-233">この記事の前のログの例では、`Information` レベル以下のログを除外したため、`Debug` または `Trace` レベルのログは作成されませんでした。</span><span class="sxs-lookup"><span data-stu-id="e5189-233">The log examples earlier in this article excluded logs below `Information` level, so no `Debug` or `Trace` level logs were created.</span></span> <span data-ttu-id="e5189-234">`Debug` ログを示すために構成したサンプル アプリを実行することで生成されるコンソールのログの例を、次に示します。</span><span class="sxs-lookup"><span data-stu-id="e5189-234">Here's an example of console logs produced by running the sample app configured to show `Debug` logs:</span></span>
+::: moniker range="< aspnetcore-3.0"
 
 ```console
 info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
@@ -339,11 +475,21 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
       Request finished in 2.7286ms 404
 ```
 
-## <a name="log-event-id"></a><span data-ttu-id="e5189-235">ログ イベント ID</span><span class="sxs-lookup"><span data-stu-id="e5189-235">Log event ID</span></span>
+::: moniker-end
 
-<span data-ttu-id="e5189-236">各ログで "*イベント ID*" を指定できます。</span><span class="sxs-lookup"><span data-stu-id="e5189-236">Each log can specify an *event ID*.</span></span> <span data-ttu-id="e5189-237">サンプル アプリでは、この処理にローカルで定義された `LoggingEvents` クラスを使用します。</span><span class="sxs-lookup"><span data-stu-id="e5189-237">The sample app does this by using a locally defined `LoggingEvents` class:</span></span>
+## <a name="log-event-id"></a><span data-ttu-id="cdffd-260">ログ イベント ID</span><span class="sxs-lookup"><span data-stu-id="cdffd-260">Log event ID</span></span>
 
-::: moniker range=">= aspnetcore-2.0"
+<span data-ttu-id="cdffd-261">各ログで "*イベント ID*" を指定できます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-261">Each log can specify an *event ID*.</span></span> <span data-ttu-id="cdffd-262">サンプル アプリでは、この処理にローカルで定義された `LoggingEvents` クラスを使用します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-262">The sample app does this by using a locally defined `LoggingEvents` class:</span></span>
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CallLogMethods&highlight=3,7)]
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Core/LoggingEvents.cs?name=snippet_LoggingEvents)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CallLogMethods&highlight=3,7)]
 
@@ -351,17 +497,9 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
 
 ::: moniker-end
 
-::: moniker range="< aspnetcore-2.0"
+<span data-ttu-id="cdffd-263">イベント ID によって一連のイベントが関連付けられます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-263">An event ID associates a set of events.</span></span> <span data-ttu-id="cdffd-264">たとえば、ページ上に項目の一覧を表示する機能に関連するすべてのログを 1001 に設定します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-264">For example, all logs related to displaying a list of items on a page might be 1001.</span></span>
 
-[!code-csharp[](index/samples/1.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CallLogMethods&highlight=3,7)]
-
-[!code-csharp[](index/samples/1.x/TodoApiSample/Core/LoggingEvents.cs?name=snippet_LoggingEvents)]
-
-::: moniker-end
-
-<span data-ttu-id="e5189-238">イベント ID によって一連のイベントが関連付けられます。</span><span class="sxs-lookup"><span data-stu-id="e5189-238">An event ID associates a set of events.</span></span> <span data-ttu-id="e5189-239">たとえば、ページ上に項目の一覧を表示する機能に関連するすべてのログを 1001 に設定します。</span><span class="sxs-lookup"><span data-stu-id="e5189-239">For example, all logs related to displaying a list of items on a page might be 1001.</span></span>
-
-<span data-ttu-id="e5189-240">ログ プロバイダーでは、ID フィールドやログ メッセージにイベント ID が格納されたり、またはまったく格納されなかったりする場合があります。</span><span class="sxs-lookup"><span data-stu-id="e5189-240">The logging provider may store the event ID in an ID field, in the logging message, or not at all.</span></span> <span data-ttu-id="e5189-241">Debug プロバイダーでイベント ID が表示されることはありません。</span><span class="sxs-lookup"><span data-stu-id="e5189-241">The Debug provider doesn't show event IDs.</span></span> <span data-ttu-id="e5189-242">Console プロバイダーでは、カテゴリの後のブラケット内にイベント ID が表示されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-242">The console provider shows event IDs in brackets after the category:</span></span>
+<span data-ttu-id="cdffd-265">ログ プロバイダーでは、ID フィールドやログ メッセージにイベント ID が格納されたり、またはまったく格納されなかったりする場合があります。</span><span class="sxs-lookup"><span data-stu-id="cdffd-265">The logging provider may store the event ID in an ID field, in the logging message, or not at all.</span></span> <span data-ttu-id="cdffd-266">Debug プロバイダーでイベント ID が表示されることはありません。</span><span class="sxs-lookup"><span data-stu-id="cdffd-266">The Debug provider doesn't show event IDs.</span></span> <span data-ttu-id="cdffd-267">Console プロバイダーでは、カテゴリの後のブラケット内にイベント ID が表示されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-267">The console provider shows event IDs in brackets after the category:</span></span>
 
 ```console
 info: TodoApi.Controllers.TodoController[1002]
@@ -370,23 +508,23 @@ warn: TodoApi.Controllers.TodoController[4000]
       GetById(invalidid) NOT FOUND
 ```
 
-## <a name="log-message-template"></a><span data-ttu-id="e5189-243">ログ メッセージ テンプレート</span><span class="sxs-lookup"><span data-stu-id="e5189-243">Log message template</span></span>
+## <a name="log-message-template"></a><span data-ttu-id="cdffd-268">ログ メッセージ テンプレート</span><span class="sxs-lookup"><span data-stu-id="cdffd-268">Log message template</span></span>
 
-<span data-ttu-id="e5189-244">各ログでメッセージ テンプレートが指定されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-244">Each log specifies a message template.</span></span> <span data-ttu-id="e5189-245">メッセージ テンプレートには、指定される引数のためのプレースホルダーを含めることができます。</span><span class="sxs-lookup"><span data-stu-id="e5189-245">The message template can contain placeholders for which arguments are provided.</span></span> <span data-ttu-id="e5189-246">プレースホルダーには、数値ではなく名前を使用します。</span><span class="sxs-lookup"><span data-stu-id="e5189-246">Use names for the placeholders, not numbers.</span></span>
+<span data-ttu-id="cdffd-269">各ログでメッセージ テンプレートが指定されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-269">Each log specifies a message template.</span></span> <span data-ttu-id="cdffd-270">メッセージ テンプレートには、指定される引数のためのプレースホルダーを含めることができます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-270">The message template can contain placeholders for which arguments are provided.</span></span> <span data-ttu-id="cdffd-271">プレースホルダーには、数値ではなく名前を使用します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-271">Use names for the placeholders, not numbers.</span></span>
 
-::: moniker range=">= aspnetcore-2.0"
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CallLogMethods&highlight=3,7)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CallLogMethods&highlight=3,7)]
 
 ::: moniker-end
 
-::: moniker range="< aspnetcore-2.0"
-
-[!code-csharp[](index/samples/1.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CallLogMethods&highlight=3,7)]
-
-::: moniker-end
-
-<span data-ttu-id="e5189-247">プレースホルダーの名前ではなく、プレースホルダーの順序によって、値の指定に使用されるパラメーターが決まります。</span><span class="sxs-lookup"><span data-stu-id="e5189-247">The order of placeholders, not their names, determines which parameters are used to provide their values.</span></span> <span data-ttu-id="e5189-248">次のコードでは、パラメーター名がメッセージ テンプレート内のシーケンスの外にあることに注意してください。</span><span class="sxs-lookup"><span data-stu-id="e5189-248">In the following code, notice that the parameter names are out of sequence in the message template:</span></span>
+<span data-ttu-id="cdffd-272">プレースホルダーの名前ではなく、プレースホルダーの順序によって、値の指定に使用されるパラメーターが決まります。</span><span class="sxs-lookup"><span data-stu-id="cdffd-272">The order of placeholders, not their names, determines which parameters are used to provide their values.</span></span> <span data-ttu-id="cdffd-273">次のコードでは、パラメーター名がメッセージ テンプレート内のシーケンスの外にあることに注意してください。</span><span class="sxs-lookup"><span data-stu-id="cdffd-273">In the following code, notice that the parameter names are out of sequence in the message template:</span></span>
 
 ```csharp
 string p1 = "parm1";
@@ -394,506 +532,414 @@ string p2 = "parm2";
 _logger.LogInformation("Parameter values: {p2}, {p1}", p1, p2);
 ```
 
-<span data-ttu-id="e5189-249">このコードでは、シーケンス内のパラメーター値を含むログ メッセージが作成されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-249">This code creates a log message with the parameter values in sequence:</span></span>
+<span data-ttu-id="cdffd-274">このコードでは、シーケンス内のパラメーター値を含むログ メッセージが作成されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-274">This code creates a log message with the parameter values in sequence:</span></span>
 
-```
+```text
 Parameter values: parm1, parm2
 ```
 
-<span data-ttu-id="e5189-250">ログ プロバイダーが[セマンティック ログ記録 (または構造化ログ記録)](https://softwareengineering.stackexchange.com/questions/312197/benefits-of-structured-logging-vs-basic-logging)を実装できるようにするために、ログ フレームワークはこのように動作します。</span><span class="sxs-lookup"><span data-stu-id="e5189-250">The logging framework works this way so that logging providers can implement [semantic logging, also known as structured logging](https://softwareengineering.stackexchange.com/questions/312197/benefits-of-structured-logging-vs-basic-logging).</span></span> <span data-ttu-id="e5189-251">書式設定されたメッセージ テンプレートだけでなく、引数自体がログ システムに渡されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-251">The arguments themselves are passed to the logging system, not just the formatted message template.</span></span> <span data-ttu-id="e5189-252">この情報により、ログ プロバイダーはフィールドとしてパラメーター値を格納することができます。</span><span class="sxs-lookup"><span data-stu-id="e5189-252">This information enables logging providers to store the parameter values as fields.</span></span> <span data-ttu-id="e5189-253">たとえば、つぎのようなロガー メソッドの呼び出しがあるとします。</span><span class="sxs-lookup"><span data-stu-id="e5189-253">For example, suppose logger method calls look like this:</span></span>
+<span data-ttu-id="cdffd-275">ログ プロバイダーが[セマンティック ログ記録 (または構造化ログ記録)](https://softwareengineering.stackexchange.com/questions/312197/benefits-of-structured-logging-vs-basic-logging)を実装できるようにするために、ログ フレームワークはこのように動作します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-275">The logging framework works this way so that logging providers can implement [semantic logging, also known as structured logging](https://softwareengineering.stackexchange.com/questions/312197/benefits-of-structured-logging-vs-basic-logging).</span></span> <span data-ttu-id="cdffd-276">書式設定されたメッセージ テンプレートだけでなく、引数自体がログ システムに渡されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-276">The arguments themselves are passed to the logging system, not just the formatted message template.</span></span> <span data-ttu-id="cdffd-277">この情報により、ログ プロバイダーはフィールドとしてパラメーター値を格納することができます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-277">This information enables logging providers to store the parameter values as fields.</span></span> <span data-ttu-id="cdffd-278">たとえば、つぎのようなロガー メソッドの呼び出しがあるとします。</span><span class="sxs-lookup"><span data-stu-id="cdffd-278">For example, suppose logger method calls look like this:</span></span>
 
 ```csharp
 _logger.LogInformation("Getting item {ID} at {RequestTime}", id, DateTime.Now);
 ```
 
-<span data-ttu-id="e5189-254">Azure Table Storage にログを送信する場合、各 Azure Table エンティティに `ID` および `RequestTime` プロパティを指定し、ログ データのクエリを簡略化することができます。</span><span class="sxs-lookup"><span data-stu-id="e5189-254">If you're sending the logs to Azure Table Storage, each Azure Table entity can have `ID` and `RequestTime` properties, which simplifies queries on log data.</span></span> <span data-ttu-id="e5189-255">クエリによって指定した `RequestTime` の範囲内のすべてのログを検索できます。テキスト メッセージから時間を解析する必要はありません。</span><span class="sxs-lookup"><span data-stu-id="e5189-255">A query can find all logs within a particular `RequestTime` range without parsing the time out of the text message.</span></span>
+<span data-ttu-id="cdffd-279">Azure Table Storage にログを送信する場合、各 Azure Table エンティティに `ID` および `RequestTime` プロパティを指定し、ログ データのクエリを簡略化することができます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-279">If you're sending the logs to Azure Table Storage, each Azure Table entity can have `ID` and `RequestTime` properties, which simplifies queries on log data.</span></span> <span data-ttu-id="cdffd-280">クエリによって指定した `RequestTime` の範囲内のすべてのログを検索できます。テキスト メッセージから時間を解析する必要はありません。</span><span class="sxs-lookup"><span data-stu-id="cdffd-280">A query can find all logs within a particular `RequestTime` range without parsing the time out of the text message.</span></span>
 
-## <a name="logging-exceptions"></a><span data-ttu-id="e5189-256">ログ記録の例外</span><span class="sxs-lookup"><span data-stu-id="e5189-256">Logging exceptions</span></span>
+## <a name="logging-exceptions"></a><span data-ttu-id="cdffd-281">ログ記録の例外</span><span class="sxs-lookup"><span data-stu-id="cdffd-281">Logging exceptions</span></span>
 
-<span data-ttu-id="e5189-257">ロガー メソッドには、次の例のように、例外で渡すことができるオーバーロードがあります。</span><span class="sxs-lookup"><span data-stu-id="e5189-257">The logger methods have overloads that let you pass in an exception, as in the following example:</span></span>
+<span data-ttu-id="cdffd-282">ロガー メソッドには、次の例のように、例外で渡すことができるオーバーロードがあります。</span><span class="sxs-lookup"><span data-stu-id="cdffd-282">The logger methods have overloads that let you pass in an exception, as in the following example:</span></span>
 
-::: moniker range=">= aspnetcore-2.0"
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_LogException&highlight=3)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_LogException&highlight=3)]
 
 ::: moniker-end
 
-::: moniker range="< aspnetcore-2.0"
+<span data-ttu-id="cdffd-283">プロバイダーごとに、例外情報の処理方法は異なります。</span><span class="sxs-lookup"><span data-stu-id="cdffd-283">Different providers handle the exception information in different ways.</span></span> <span data-ttu-id="cdffd-284">前述のコードの Debug プロバイダーの出力の例を次に示します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-284">Here's an example of Debug provider output from the code shown above.</span></span>
 
-[!code-csharp[](index/samples/1.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_LogException&highlight=3)]
+```text
+TodoApiSample.Controllers.TodoController: Warning: GetById(55) NOT FOUND
+
+System.Exception: Item not found exception.
+   at TodoApiSample.Controllers.TodoController.GetById(String id) in C:\TodoApiSample\Controllers\TodoController.cs:line 226
+```
+
+## <a name="log-filtering"></a><span data-ttu-id="cdffd-285">ログのフィルター処理</span><span class="sxs-lookup"><span data-stu-id="cdffd-285">Log filtering</span></span>
+
+<span data-ttu-id="cdffd-286">特定のプロバイダーとカテゴリ、またはすべてのプロバイダーまたはすべてのカテゴリに最小ログ レベルを指定できます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-286">You can specify a minimum log level for a specific provider and category or for all providers or all categories.</span></span> <span data-ttu-id="cdffd-287">最小レベルを下回るログは、そのプロバイダーに渡されないので、表示または保存されません。</span><span class="sxs-lookup"><span data-stu-id="cdffd-287">Any logs below the minimum level aren't passed to that provider, so they don't get displayed or stored.</span></span>
+
+<span data-ttu-id="cdffd-288">すべてのログを抑制するには、最小ログ レベルに `LogLevel.None` を指定します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-288">To suppress all logs, specify `LogLevel.None` as the minimum log level.</span></span> <span data-ttu-id="cdffd-289">`LogLevel.None` の整数値は 6 であり、`LogLevel.Critical` (5) を超えます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-289">The integer value of `LogLevel.None` is 6, which is higher than `LogLevel.Critical` (5).</span></span>
+
+### <a name="create-filter-rules-in-configuration"></a><span data-ttu-id="cdffd-290">構成にフィルター規則を作成する</span><span class="sxs-lookup"><span data-stu-id="cdffd-290">Create filter rules in configuration</span></span>
+
+<span data-ttu-id="cdffd-291">プロジェクト テンプレートのコードでは `CreateDefaultBuilder` が呼び出され、Console プロバイダーと Debug プロバイダーのログ記録が設定されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-291">The project template code calls `CreateDefaultBuilder` to set up logging for the Console and Debug providers.</span></span> <span data-ttu-id="cdffd-292">`Logging`この記事で既に説明[したように、`CreateDefaultBuilder` メソッドでは、](#configuration) セクションで構成を検索するようにログが設定されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-292">The `CreateDefaultBuilder` method sets up logging to look for configuration in a `Logging` section, as explained [earlier in this article](#configuration).</span></span>
+
+<span data-ttu-id="cdffd-293">次の例のように、構成データでは、プロバイダーとカテゴリごとに最小ログ レベルを指定します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-293">The configuration data specifies minimum log levels by provider and category, as in the following example:</span></span>
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-json[](index/samples/3.x/TodoApiSample/appsettings.json)]
 
 ::: moniker-end
 
-<span data-ttu-id="e5189-258">プロバイダーごとに、例外情報の処理方法は異なります。</span><span class="sxs-lookup"><span data-stu-id="e5189-258">Different providers handle the exception information in different ways.</span></span> <span data-ttu-id="e5189-259">前述のコードの Debug プロバイダーの出力の例を次に示します。</span><span class="sxs-lookup"><span data-stu-id="e5189-259">Here's an example of Debug provider output from the code shown above.</span></span>
-
-```
-TodoApi.Controllers.TodoController:Warning: GetById(036dd898-fb01-47e8-9a65-f92eb73cf924) NOT FOUND
-
-System.Exception: Item not found exception.
- at TodoApi.Controllers.TodoController.GetById(String id) in C:\logging\sample\src\TodoApi\Controllers\TodoController.cs:line 226
-```
-
-## <a name="log-filtering"></a><span data-ttu-id="e5189-260">ログのフィルター処理</span><span class="sxs-lookup"><span data-stu-id="e5189-260">Log filtering</span></span>
-
-::: moniker range=">= aspnetcore-2.0"
-
-<span data-ttu-id="e5189-261">特定のプロバイダーとカテゴリ、またはすべてのプロバイダーまたはすべてのカテゴリに最小ログ レベルを指定できます。</span><span class="sxs-lookup"><span data-stu-id="e5189-261">You can specify a minimum log level for a specific provider and category or for all providers or all categories.</span></span> <span data-ttu-id="e5189-262">最小レベルを下回るログは、そのプロバイダーに渡されないので、表示または保存されません。</span><span class="sxs-lookup"><span data-stu-id="e5189-262">Any logs below the minimum level aren't passed to that provider, so they don't get displayed or stored.</span></span>
-
-<span data-ttu-id="e5189-263">すべてのログを抑制するには、最小ログ レベルに `LogLevel.None` を指定します。</span><span class="sxs-lookup"><span data-stu-id="e5189-263">To suppress all logs, specify `LogLevel.None` as the minimum log level.</span></span> <span data-ttu-id="e5189-264">`LogLevel.None` の整数値は 6 であり、`LogLevel.Critical` (5) を超えます。</span><span class="sxs-lookup"><span data-stu-id="e5189-264">The integer value of `LogLevel.None` is 6, which is higher than `LogLevel.Critical` (5).</span></span>
-
-### <a name="create-filter-rules-in-configuration"></a><span data-ttu-id="e5189-265">構成にフィルター規則を作成する</span><span class="sxs-lookup"><span data-stu-id="e5189-265">Create filter rules in configuration</span></span>
-
-<span data-ttu-id="e5189-266">プロジェクト テンプレートのコードでは `CreateDefaultBuilder` が呼び出され、Console プロバイダーと Debug プロバイダーのログ記録が設定されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-266">The project template code calls `CreateDefaultBuilder` to set up logging for the Console and Debug providers.</span></span> <span data-ttu-id="e5189-267">`CreateDefaultBuilder` メソッドは、次のようなコードを使用して、`Logging` セクションの構成を検索するログ記録も設定します。</span><span class="sxs-lookup"><span data-stu-id="e5189-267">The `CreateDefaultBuilder` method also sets up logging to look for configuration in a `Logging` section, using code like the following:</span></span>
-
-[!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_ExpandDefault&highlight=17)]
-
-<span data-ttu-id="e5189-268">次の例のように、構成データでは、プロバイダーとカテゴリごとに最小ログ レベルを指定します。</span><span class="sxs-lookup"><span data-stu-id="e5189-268">The configuration data specifies minimum log levels by provider and category, as in the following example:</span></span>
+::: moniker range="< aspnetcore-3.0"
 
 [!code-json[](index/samples/2.x/TodoApiSample/appsettings.json)]
 
-<span data-ttu-id="e5189-269">この JSON では、6 個のフィルター規則を作成します。1 つは Debug プロバイダー用、4 つは Console プロバイダー用、1 つはすべてのプロバイダー用です。</span><span class="sxs-lookup"><span data-stu-id="e5189-269">This JSON creates six filter rules: one for the Debug provider, four for the Console provider, and one for all providers.</span></span> <span data-ttu-id="e5189-270">`ILogger` オブジェクトが作成されると、各プロバイダーに対して 1 つの規則が選択されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-270">A single rule is chosen for each provider when an `ILogger` object is created.</span></span>
+::: moniker-end
 
-### <a name="filter-rules-in-code"></a><span data-ttu-id="e5189-271">コードのフィルター規則</span><span class="sxs-lookup"><span data-stu-id="e5189-271">Filter rules in code</span></span>
+<span data-ttu-id="cdffd-294">この JSON では、6 個のフィルター規則を作成します。1 つは Debug プロバイダー用、4 つは Console プロバイダー用、1 つはすべてのプロバイダー用です。</span><span class="sxs-lookup"><span data-stu-id="cdffd-294">This JSON creates six filter rules: one for the Debug provider, four for the Console provider, and one for all providers.</span></span> <span data-ttu-id="cdffd-295">`ILogger` オブジェクトが作成されると、各プロバイダーに対して 1 つの規則が選択されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-295">A single rule is chosen for each provider when an `ILogger` object is created.</span></span>
 
-<span data-ttu-id="e5189-272">コードにフィルター規則を登録する方法を次の例に示します。</span><span class="sxs-lookup"><span data-stu-id="e5189-272">The following example shows how to register filter rules in code:</span></span>
+### <a name="filter-rules-in-code"></a><span data-ttu-id="cdffd-296">コードのフィルター規則</span><span class="sxs-lookup"><span data-stu-id="cdffd-296">Filter rules in code</span></span>
+
+<span data-ttu-id="cdffd-297">コードにフィルター規則を登録する方法を次の例に示します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-297">The following example shows how to register filter rules in code:</span></span>
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_FilterInCode&highlight=4-5)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_FilterInCode&highlight=4-5)]
 
-<span data-ttu-id="e5189-273">2 つ目の `AddFilter` では、プロバイダーの種類名を使用して Debug プロバイダーを指定します。</span><span class="sxs-lookup"><span data-stu-id="e5189-273">The second `AddFilter` specifies the Debug provider by using its type name.</span></span> <span data-ttu-id="e5189-274">1 つ目の `AddFilter` は、プロバイダーの種類を指定していないため、すべてのプロバイダーに適用されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-274">The first `AddFilter` applies to all providers because it doesn't specify a provider type.</span></span>
+::: moniker-end
 
-### <a name="how-filtering-rules-are-applied"></a><span data-ttu-id="e5189-275">フィルター規則を適用する方法</span><span class="sxs-lookup"><span data-stu-id="e5189-275">How filtering rules are applied</span></span>
+<span data-ttu-id="cdffd-298">2 つ目の `AddFilter` では、プロバイダーの種類名を使用して Debug プロバイダーを指定します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-298">The second `AddFilter` specifies the Debug provider by using its type name.</span></span> <span data-ttu-id="cdffd-299">1 つ目の `AddFilter` は、プロバイダーの種類を指定していないため、すべてのプロバイダーに適用されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-299">The first `AddFilter` applies to all providers because it doesn't specify a provider type.</span></span>
 
-<span data-ttu-id="e5189-276">前の例の構成データと `AddFilter` コードでは、次の表に示す規則を作成します。</span><span class="sxs-lookup"><span data-stu-id="e5189-276">The configuration data and the `AddFilter` code shown in the preceding examples create the rules shown in the following table.</span></span> <span data-ttu-id="e5189-277">最初の 6 つは構成例、最後の 2 つはコード例のものです。</span><span class="sxs-lookup"><span data-stu-id="e5189-277">The first six come from the configuration example and the last two come from the code example.</span></span>
+### <a name="how-filtering-rules-are-applied"></a><span data-ttu-id="cdffd-300">フィルター規則を適用する方法</span><span class="sxs-lookup"><span data-stu-id="cdffd-300">How filtering rules are applied</span></span>
 
-| <span data-ttu-id="e5189-278">数値</span><span class="sxs-lookup"><span data-stu-id="e5189-278">Number</span></span> | <span data-ttu-id="e5189-279">プロバイダー</span><span class="sxs-lookup"><span data-stu-id="e5189-279">Provider</span></span>      | <span data-ttu-id="e5189-280">以下から始まるカテゴリ</span><span class="sxs-lookup"><span data-stu-id="e5189-280">Categories that begin with ...</span></span>          | <span data-ttu-id="e5189-281">最小ログ レベル</span><span class="sxs-lookup"><span data-stu-id="e5189-281">Minimum log level</span></span> |
+<span data-ttu-id="cdffd-301">前の例の構成データと `AddFilter` コードでは、次の表に示す規則を作成します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-301">The configuration data and the `AddFilter` code shown in the preceding examples create the rules shown in the following table.</span></span> <span data-ttu-id="cdffd-302">最初の 6 つは構成例、最後の 2 つはコード例のものです。</span><span class="sxs-lookup"><span data-stu-id="cdffd-302">The first six come from the configuration example and the last two come from the code example.</span></span>
+
+| <span data-ttu-id="cdffd-303">数値</span><span class="sxs-lookup"><span data-stu-id="cdffd-303">Number</span></span> | <span data-ttu-id="cdffd-304">プロバイダー</span><span class="sxs-lookup"><span data-stu-id="cdffd-304">Provider</span></span>      | <span data-ttu-id="cdffd-305">以下から始まるカテゴリ</span><span class="sxs-lookup"><span data-stu-id="cdffd-305">Categories that begin with ...</span></span>          | <span data-ttu-id="cdffd-306">最小ログ レベル</span><span class="sxs-lookup"><span data-stu-id="cdffd-306">Minimum log level</span></span> |
 | :----: | ------------- | --------------------------------------- | ----------------- |
-| <span data-ttu-id="e5189-282">1</span><span class="sxs-lookup"><span data-stu-id="e5189-282">1</span></span>      | <span data-ttu-id="e5189-283">デバッグ</span><span class="sxs-lookup"><span data-stu-id="e5189-283">Debug</span></span>         | <span data-ttu-id="e5189-284">すべてのカテゴリ</span><span class="sxs-lookup"><span data-stu-id="e5189-284">All categories</span></span>                          | <span data-ttu-id="e5189-285">情報</span><span class="sxs-lookup"><span data-stu-id="e5189-285">Information</span></span>       |
-| <span data-ttu-id="e5189-286">2</span><span class="sxs-lookup"><span data-stu-id="e5189-286">2</span></span>      | <span data-ttu-id="e5189-287">コンソール</span><span class="sxs-lookup"><span data-stu-id="e5189-287">Console</span></span>       | <span data-ttu-id="e5189-288">Microsoft.AspNetCore.Mvc.Razor.Internal</span><span class="sxs-lookup"><span data-stu-id="e5189-288">Microsoft.AspNetCore.Mvc.Razor.Internal</span></span> | <span data-ttu-id="e5189-289">警告</span><span class="sxs-lookup"><span data-stu-id="e5189-289">Warning</span></span>           |
-| <span data-ttu-id="e5189-290">3</span><span class="sxs-lookup"><span data-stu-id="e5189-290">3</span></span>      | <span data-ttu-id="e5189-291">コンソール</span><span class="sxs-lookup"><span data-stu-id="e5189-291">Console</span></span>       | <span data-ttu-id="e5189-292">Microsoft.AspNetCore.Mvc.Razor.Razor</span><span class="sxs-lookup"><span data-stu-id="e5189-292">Microsoft.AspNetCore.Mvc.Razor.Razor</span></span>    | <span data-ttu-id="e5189-293">デバッグ</span><span class="sxs-lookup"><span data-stu-id="e5189-293">Debug</span></span>             |
-| <span data-ttu-id="e5189-294">4</span><span class="sxs-lookup"><span data-stu-id="e5189-294">4</span></span>      | <span data-ttu-id="e5189-295">コンソール</span><span class="sxs-lookup"><span data-stu-id="e5189-295">Console</span></span>       | <span data-ttu-id="e5189-296">Microsoft.AspNetCore.Mvc.Razor</span><span class="sxs-lookup"><span data-stu-id="e5189-296">Microsoft.AspNetCore.Mvc.Razor</span></span>          | <span data-ttu-id="e5189-297">Error</span><span class="sxs-lookup"><span data-stu-id="e5189-297">Error</span></span>             |
-| <span data-ttu-id="e5189-298">5</span><span class="sxs-lookup"><span data-stu-id="e5189-298">5</span></span>      | <span data-ttu-id="e5189-299">コンソール</span><span class="sxs-lookup"><span data-stu-id="e5189-299">Console</span></span>       | <span data-ttu-id="e5189-300">すべてのカテゴリ</span><span class="sxs-lookup"><span data-stu-id="e5189-300">All categories</span></span>                          | <span data-ttu-id="e5189-301">情報</span><span class="sxs-lookup"><span data-stu-id="e5189-301">Information</span></span>       |
-| <span data-ttu-id="e5189-302">6</span><span class="sxs-lookup"><span data-stu-id="e5189-302">6</span></span>      | <span data-ttu-id="e5189-303">すべてのプロバイダー</span><span class="sxs-lookup"><span data-stu-id="e5189-303">All providers</span></span> | <span data-ttu-id="e5189-304">すべてのカテゴリ</span><span class="sxs-lookup"><span data-stu-id="e5189-304">All categories</span></span>                          | <span data-ttu-id="e5189-305">デバッグ</span><span class="sxs-lookup"><span data-stu-id="e5189-305">Debug</span></span>             |
-| <span data-ttu-id="e5189-306">7</span><span class="sxs-lookup"><span data-stu-id="e5189-306">7</span></span>      | <span data-ttu-id="e5189-307">すべてのプロバイダー</span><span class="sxs-lookup"><span data-stu-id="e5189-307">All providers</span></span> | <span data-ttu-id="e5189-308">システム</span><span class="sxs-lookup"><span data-stu-id="e5189-308">System</span></span>                                  | <span data-ttu-id="e5189-309">デバッグ</span><span class="sxs-lookup"><span data-stu-id="e5189-309">Debug</span></span>             |
-| <span data-ttu-id="e5189-310">8</span><span class="sxs-lookup"><span data-stu-id="e5189-310">8</span></span>      | <span data-ttu-id="e5189-311">デバッグ</span><span class="sxs-lookup"><span data-stu-id="e5189-311">Debug</span></span>         | <span data-ttu-id="e5189-312">Microsoft</span><span class="sxs-lookup"><span data-stu-id="e5189-312">Microsoft</span></span>                               | <span data-ttu-id="e5189-313">トレース</span><span class="sxs-lookup"><span data-stu-id="e5189-313">Trace</span></span>             |
+| <span data-ttu-id="cdffd-307">1</span><span class="sxs-lookup"><span data-stu-id="cdffd-307">1</span></span>      | <span data-ttu-id="cdffd-308">デバッグ</span><span class="sxs-lookup"><span data-stu-id="cdffd-308">Debug</span></span>         | <span data-ttu-id="cdffd-309">すべてのカテゴリ</span><span class="sxs-lookup"><span data-stu-id="cdffd-309">All categories</span></span>                          | <span data-ttu-id="cdffd-310">情報</span><span class="sxs-lookup"><span data-stu-id="cdffd-310">Information</span></span>       |
+| <span data-ttu-id="cdffd-311">2</span><span class="sxs-lookup"><span data-stu-id="cdffd-311">2</span></span>      | <span data-ttu-id="cdffd-312">コンソール</span><span class="sxs-lookup"><span data-stu-id="cdffd-312">Console</span></span>       | <span data-ttu-id="cdffd-313">Microsoft.AspNetCore.Mvc.Razor.Internal</span><span class="sxs-lookup"><span data-stu-id="cdffd-313">Microsoft.AspNetCore.Mvc.Razor.Internal</span></span> | <span data-ttu-id="cdffd-314">警告</span><span class="sxs-lookup"><span data-stu-id="cdffd-314">Warning</span></span>           |
+| <span data-ttu-id="cdffd-315">3</span><span class="sxs-lookup"><span data-stu-id="cdffd-315">3</span></span>      | <span data-ttu-id="cdffd-316">コンソール</span><span class="sxs-lookup"><span data-stu-id="cdffd-316">Console</span></span>       | <span data-ttu-id="cdffd-317">Microsoft.AspNetCore.Mvc.Razor.Razor</span><span class="sxs-lookup"><span data-stu-id="cdffd-317">Microsoft.AspNetCore.Mvc.Razor.Razor</span></span>    | <span data-ttu-id="cdffd-318">デバッグ</span><span class="sxs-lookup"><span data-stu-id="cdffd-318">Debug</span></span>             |
+| <span data-ttu-id="cdffd-319">4</span><span class="sxs-lookup"><span data-stu-id="cdffd-319">4</span></span>      | <span data-ttu-id="cdffd-320">コンソール</span><span class="sxs-lookup"><span data-stu-id="cdffd-320">Console</span></span>       | <span data-ttu-id="cdffd-321">Microsoft.AspNetCore.Mvc.Razor</span><span class="sxs-lookup"><span data-stu-id="cdffd-321">Microsoft.AspNetCore.Mvc.Razor</span></span>          | <span data-ttu-id="cdffd-322">Error</span><span class="sxs-lookup"><span data-stu-id="cdffd-322">Error</span></span>             |
+| <span data-ttu-id="cdffd-323">5</span><span class="sxs-lookup"><span data-stu-id="cdffd-323">5</span></span>      | <span data-ttu-id="cdffd-324">コンソール</span><span class="sxs-lookup"><span data-stu-id="cdffd-324">Console</span></span>       | <span data-ttu-id="cdffd-325">すべてのカテゴリ</span><span class="sxs-lookup"><span data-stu-id="cdffd-325">All categories</span></span>                          | <span data-ttu-id="cdffd-326">情報</span><span class="sxs-lookup"><span data-stu-id="cdffd-326">Information</span></span>       |
+| <span data-ttu-id="cdffd-327">6</span><span class="sxs-lookup"><span data-stu-id="cdffd-327">6</span></span>      | <span data-ttu-id="cdffd-328">すべてのプロバイダー</span><span class="sxs-lookup"><span data-stu-id="cdffd-328">All providers</span></span> | <span data-ttu-id="cdffd-329">すべてのカテゴリ</span><span class="sxs-lookup"><span data-stu-id="cdffd-329">All categories</span></span>                          | <span data-ttu-id="cdffd-330">デバッグ</span><span class="sxs-lookup"><span data-stu-id="cdffd-330">Debug</span></span>             |
+| <span data-ttu-id="cdffd-331">7</span><span class="sxs-lookup"><span data-stu-id="cdffd-331">7</span></span>      | <span data-ttu-id="cdffd-332">すべてのプロバイダー</span><span class="sxs-lookup"><span data-stu-id="cdffd-332">All providers</span></span> | <span data-ttu-id="cdffd-333">システム</span><span class="sxs-lookup"><span data-stu-id="cdffd-333">System</span></span>                                  | <span data-ttu-id="cdffd-334">デバッグ</span><span class="sxs-lookup"><span data-stu-id="cdffd-334">Debug</span></span>             |
+| <span data-ttu-id="cdffd-335">8</span><span class="sxs-lookup"><span data-stu-id="cdffd-335">8</span></span>      | <span data-ttu-id="cdffd-336">デバッグ</span><span class="sxs-lookup"><span data-stu-id="cdffd-336">Debug</span></span>         | <span data-ttu-id="cdffd-337">Microsoft</span><span class="sxs-lookup"><span data-stu-id="cdffd-337">Microsoft</span></span>                               | <span data-ttu-id="cdffd-338">トレース</span><span class="sxs-lookup"><span data-stu-id="cdffd-338">Trace</span></span>             |
 
-<span data-ttu-id="e5189-314">`ILogger` オブジェクトを作成すると、`ILoggerFactory` オブジェクトによって、そのロガーに適用するプロバイダーごとに 1 つの規則が選択されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-314">When an `ILogger` object is created, the `ILoggerFactory` object selects a single rule per provider to apply to that logger.</span></span> <span data-ttu-id="e5189-315">`ILogger` インスタンスによって書き込まれるすべてのメッセージは、選択した規則に基づいてフィルター処理されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-315">All messages written by an `ILogger` instance are filtered based on the selected rules.</span></span> <span data-ttu-id="e5189-316">使用できる規則から、各プロバイダーとカテゴリのペアごとに該当する最も限定的な規則が選択されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-316">The most specific rule possible for each provider and category pair is selected from the available rules.</span></span>
+<span data-ttu-id="cdffd-339">`ILogger` オブジェクトを作成すると、`ILoggerFactory` オブジェクトによって、そのロガーに適用するプロバイダーごとに 1 つの規則が選択されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-339">When an `ILogger` object is created, the `ILoggerFactory` object selects a single rule per provider to apply to that logger.</span></span> <span data-ttu-id="cdffd-340">`ILogger` インスタンスによって書き込まれるすべてのメッセージは、選択した規則に基づいてフィルター処理されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-340">All messages written by an `ILogger` instance are filtered based on the selected rules.</span></span> <span data-ttu-id="cdffd-341">使用できる規則から、各プロバイダーとカテゴリのペアごとに該当する最も限定的な規則が選択されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-341">The most specific rule possible for each provider and category pair is selected from the available rules.</span></span>
 
-<span data-ttu-id="e5189-317">特定のカテゴリに `ILogger` が作成されるときに、各プロバイダーに次のアルゴリズムが使用されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-317">The following algorithm is used for each provider when an `ILogger` is created for a given category:</span></span>
+<span data-ttu-id="cdffd-342">特定のカテゴリに `ILogger` が作成されるときに、各プロバイダーに次のアルゴリズムが使用されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-342">The following algorithm is used for each provider when an `ILogger` is created for a given category:</span></span>
 
-* <span data-ttu-id="e5189-318">プロバイダーとそのエイリアスと一致するすべての規則が選択されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-318">Select all rules that match the provider or its alias.</span></span> <span data-ttu-id="e5189-319">一致が見つからない場合は、空のプロバイダーですべての規則が選択されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-319">If no match is found, select all rules with an empty provider.</span></span>
-* <span data-ttu-id="e5189-320">前の手順の結果、最も長いカテゴリのプレフィックスが一致する規則が選択されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-320">From the result of the preceding step, select rules with longest matching category prefix.</span></span> <span data-ttu-id="e5189-321">一致が見つからない場合は、カテゴリを指定しないすべての規則が選択されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-321">If no match is found, select all rules that don't specify a category.</span></span>
-* <span data-ttu-id="e5189-322">複数の規則が選択されている場合は、**最後**の 1 つが使用されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-322">If multiple rules are selected, take the **last** one.</span></span>
-* <span data-ttu-id="e5189-323">規則が選択されていない場合は、`MinimumLevel` が使用されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-323">If no rules are selected, use `MinimumLevel`.</span></span>
+* <span data-ttu-id="cdffd-343">プロバイダーとそのエイリアスと一致するすべての規則が選択されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-343">Select all rules that match the provider or its alias.</span></span> <span data-ttu-id="cdffd-344">一致が見つからない場合は、空のプロバイダーですべての規則が選択されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-344">If no match is found, select all rules with an empty provider.</span></span>
+* <span data-ttu-id="cdffd-345">前の手順の結果、最も長いカテゴリのプレフィックスが一致する規則が選択されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-345">From the result of the preceding step, select rules with longest matching category prefix.</span></span> <span data-ttu-id="cdffd-346">一致が見つからない場合は、カテゴリを指定しないすべての規則が選択されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-346">If no match is found, select all rules that don't specify a category.</span></span>
+* <span data-ttu-id="cdffd-347">複数の規則が選択されている場合は、**最後**の 1 つが使用されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-347">If multiple rules are selected, take the **last** one.</span></span>
+* <span data-ttu-id="cdffd-348">規則が選択されていない場合は、`MinimumLevel` が使用されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-348">If no rules are selected, use `MinimumLevel`.</span></span>
 
-<span data-ttu-id="e5189-324">前の規則一覧を使用して、カテゴリ "Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine" に `ILogger` オブジェクトを作成するとします。</span><span class="sxs-lookup"><span data-stu-id="e5189-324">With the preceding list of rules, suppose you create an `ILogger` object for category "Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine":</span></span>
+<span data-ttu-id="cdffd-349">前の規則一覧を使用して、カテゴリ "Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine" に `ILogger` オブジェクトを作成するとします。</span><span class="sxs-lookup"><span data-stu-id="cdffd-349">With the preceding list of rules, suppose you create an `ILogger` object for category "Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine":</span></span>
 
-* <span data-ttu-id="e5189-325">Debug プロバイダーの場合、規則 1、6、8 が適用されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-325">For the Debug provider, rules 1, 6, and 8 apply.</span></span> <span data-ttu-id="e5189-326">規則 8 が最も限定的なので、規則 8 が選択されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-326">Rule 8 is most specific, so that's the one selected.</span></span>
-* <span data-ttu-id="e5189-327">Console プロバイダーの場合、規則 3、4、5、6 が適用されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-327">For the Console provider, rules 3, 4, 5, and 6 apply.</span></span> <span data-ttu-id="e5189-328">規則 3 が最も限定的です。</span><span class="sxs-lookup"><span data-stu-id="e5189-328">Rule 3 is most specific.</span></span>
+* <span data-ttu-id="cdffd-350">Debug プロバイダーの場合、規則 1、6、8 が適用されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-350">For the Debug provider, rules 1, 6, and 8 apply.</span></span> <span data-ttu-id="cdffd-351">規則 8 が最も限定的なので、規則 8 が選択されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-351">Rule 8 is most specific, so that's the one selected.</span></span>
+* <span data-ttu-id="cdffd-352">Console プロバイダーの場合、規則 3、4、5、6 が適用されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-352">For the Console provider, rules 3, 4, 5, and 6 apply.</span></span> <span data-ttu-id="cdffd-353">規則 3 が最も限定的です。</span><span class="sxs-lookup"><span data-stu-id="cdffd-353">Rule 3 is most specific.</span></span>
 
-<span data-ttu-id="e5189-329">作成される `ILogger` インスタンスでは、Debug プロバイダーに `Trace` レベル以上のログが送信されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-329">The resulting `ILogger` instance sends logs of `Trace` level and above to the Debug provider.</span></span> <span data-ttu-id="e5189-330">`Debug` レベル以上のログが Console プロバイダーに送信されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-330">Logs of `Debug` level and above are sent to the Console provider.</span></span>
+<span data-ttu-id="cdffd-354">作成される `ILogger` インスタンスでは、Debug プロバイダーに `Trace` レベル以上のログが送信されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-354">The resulting `ILogger` instance sends logs of `Trace` level and above to the Debug provider.</span></span> <span data-ttu-id="cdffd-355">`Debug` レベル以上のログが Console プロバイダーに送信されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-355">Logs of `Debug` level and above are sent to the Console provider.</span></span>
 
-### <a name="provider-aliases"></a><span data-ttu-id="e5189-331">プロバイダーのエイリアス</span><span class="sxs-lookup"><span data-stu-id="e5189-331">Provider aliases</span></span>
+### <a name="provider-aliases"></a><span data-ttu-id="cdffd-356">プロバイダーのエイリアス</span><span class="sxs-lookup"><span data-stu-id="cdffd-356">Provider aliases</span></span>
 
-<span data-ttu-id="e5189-332">各プロバイダーでは "*エイリアス*" が定義されます。これは構成で完全修飾型名の代わりに使用できます。</span><span class="sxs-lookup"><span data-stu-id="e5189-332">Each provider defines an *alias* that can be used in configuration in place of the fully qualified type name.</span></span>  <span data-ttu-id="e5189-333">組み込みのプロバイダーの場合は、次のエイリアスを使用してください。</span><span class="sxs-lookup"><span data-stu-id="e5189-333">For the built-in providers, use the following aliases:</span></span>
+<span data-ttu-id="cdffd-357">各プロバイダーでは "*エイリアス*" が定義されます。これは構成で完全修飾型名の代わりに使用できます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-357">Each provider defines an *alias* that can be used in configuration in place of the fully qualified type name.</span></span>  <span data-ttu-id="cdffd-358">組み込みのプロバイダーの場合は、次のエイリアスを使用してください。</span><span class="sxs-lookup"><span data-stu-id="cdffd-358">For the built-in providers, use the following aliases:</span></span>
 
-* <span data-ttu-id="e5189-334">コンソール</span><span class="sxs-lookup"><span data-stu-id="e5189-334">Console</span></span>
-* <span data-ttu-id="e5189-335">デバッグ</span><span class="sxs-lookup"><span data-stu-id="e5189-335">Debug</span></span>
-* <span data-ttu-id="e5189-336">EventSource</span><span class="sxs-lookup"><span data-stu-id="e5189-336">EventSource</span></span>
-* <span data-ttu-id="e5189-337">EventLog</span><span class="sxs-lookup"><span data-stu-id="e5189-337">EventLog</span></span>
-* <span data-ttu-id="e5189-338">TraceSource</span><span class="sxs-lookup"><span data-stu-id="e5189-338">TraceSource</span></span>
-* <span data-ttu-id="e5189-339">AzureAppServicesFile</span><span class="sxs-lookup"><span data-stu-id="e5189-339">AzureAppServicesFile</span></span>
-* <span data-ttu-id="e5189-340">AzureAppServicesBlob</span><span class="sxs-lookup"><span data-stu-id="e5189-340">AzureAppServicesBlob</span></span>
-* <span data-ttu-id="e5189-341">ApplicationInsights</span><span class="sxs-lookup"><span data-stu-id="e5189-341">ApplicationInsights</span></span>
+* <span data-ttu-id="cdffd-359">コンソール</span><span class="sxs-lookup"><span data-stu-id="cdffd-359">Console</span></span>
+* <span data-ttu-id="cdffd-360">デバッグ</span><span class="sxs-lookup"><span data-stu-id="cdffd-360">Debug</span></span>
+* <span data-ttu-id="cdffd-361">EventSource</span><span class="sxs-lookup"><span data-stu-id="cdffd-361">EventSource</span></span>
+* <span data-ttu-id="cdffd-362">EventLog</span><span class="sxs-lookup"><span data-stu-id="cdffd-362">EventLog</span></span>
+* <span data-ttu-id="cdffd-363">TraceSource</span><span class="sxs-lookup"><span data-stu-id="cdffd-363">TraceSource</span></span>
+* <span data-ttu-id="cdffd-364">AzureAppServicesFile</span><span class="sxs-lookup"><span data-stu-id="cdffd-364">AzureAppServicesFile</span></span>
+* <span data-ttu-id="cdffd-365">AzureAppServicesBlob</span><span class="sxs-lookup"><span data-stu-id="cdffd-365">AzureAppServicesBlob</span></span>
+* <span data-ttu-id="cdffd-366">ApplicationInsights</span><span class="sxs-lookup"><span data-stu-id="cdffd-366">ApplicationInsights</span></span>
 
-### <a name="default-minimum-level"></a><span data-ttu-id="e5189-342">既定の最小レベル</span><span class="sxs-lookup"><span data-stu-id="e5189-342">Default minimum level</span></span>
+### <a name="default-minimum-level"></a><span data-ttu-id="cdffd-367">既定の最小レベル</span><span class="sxs-lookup"><span data-stu-id="cdffd-367">Default minimum level</span></span>
 
-<span data-ttu-id="e5189-343">指定したプロバイダーとカテゴリに適用される構成またはコードの規則がない場合にのみ反映される最小レベルの設定があります。</span><span class="sxs-lookup"><span data-stu-id="e5189-343">There's a minimum level setting that takes effect only if no rules from configuration or code apply for a given provider and category.</span></span> <span data-ttu-id="e5189-344">最小レベルを設定する方法を次の例に示します。</span><span class="sxs-lookup"><span data-stu-id="e5189-344">The following example shows how to set the minimum level:</span></span>
+<span data-ttu-id="cdffd-368">指定したプロバイダーとカテゴリに適用される構成またはコードの規則がない場合にのみ反映される最小レベルの設定があります。</span><span class="sxs-lookup"><span data-stu-id="cdffd-368">There's a minimum level setting that takes effect only if no rules from configuration or code apply for a given provider and category.</span></span> <span data-ttu-id="cdffd-369">最小レベルを設定する方法を次の例に示します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-369">The following example shows how to set the minimum level:</span></span>
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_MinLevel&highlight=3)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_MinLevel&highlight=3)]
 
-<span data-ttu-id="e5189-345">最小レベルを明示的に設定しない場合、既定値は `Information` です。これは、`Trace` および `Debug` ログが無視されることを意味します。</span><span class="sxs-lookup"><span data-stu-id="e5189-345">If you don't explicitly set the minimum level, the default value is `Information`, which means that `Trace` and `Debug` logs are ignored.</span></span>
+::: moniker-end
 
-### <a name="filter-functions"></a><span data-ttu-id="e5189-346">フィルター関数</span><span class="sxs-lookup"><span data-stu-id="e5189-346">Filter functions</span></span>
+<span data-ttu-id="cdffd-370">最小レベルを明示的に設定しない場合、既定値は `Information` です。これは、`Trace` および `Debug` ログが無視されることを意味します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-370">If you don't explicitly set the minimum level, the default value is `Information`, which means that `Trace` and `Debug` logs are ignored.</span></span>
 
-<span data-ttu-id="e5189-347">フィルター関数は、構成またはコードによって規則が割り当てられていないすべてのプロバイダーとカテゴリについて呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-347">A filter function is invoked for all providers and categories that don't have rules assigned to them by configuration or code.</span></span> <span data-ttu-id="e5189-348">関数内のコードから、プロバイダーの種類、カテゴリ、ログ レベルにアクセスすることができます。</span><span class="sxs-lookup"><span data-stu-id="e5189-348">Code in the function has access to the provider type, category, and log level.</span></span> <span data-ttu-id="e5189-349">次に例を示します。</span><span class="sxs-lookup"><span data-stu-id="e5189-349">For example:</span></span>
+### <a name="filter-functions"></a><span data-ttu-id="cdffd-371">フィルター関数</span><span class="sxs-lookup"><span data-stu-id="cdffd-371">Filter functions</span></span>
+
+<span data-ttu-id="cdffd-372">フィルター関数は、構成またはコードによって規則が割り当てられていないすべてのプロバイダーとカテゴリについて呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-372">A filter function is invoked for all providers and categories that don't have rules assigned to them by configuration or code.</span></span> <span data-ttu-id="cdffd-373">関数内のコードから、プロバイダーの種類、カテゴリ、ログ レベルにアクセスすることができます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-373">Code in the function has access to the provider type, category, and log level.</span></span> <span data-ttu-id="cdffd-374">次に例を示します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-374">For example:</span></span>
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_FilterFunction&highlight=3-11)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_FilterFunction&highlight=5-13)]
 
 ::: moniker-end
 
-::: moniker range="< aspnetcore-2.0"
+## <a name="system-categories-and-levels"></a><span data-ttu-id="cdffd-375">システムのカテゴリとレベル</span><span class="sxs-lookup"><span data-stu-id="cdffd-375">System categories and levels</span></span>
 
-<span data-ttu-id="e5189-350">一部のログ プロバイダーでは、ログのレベルとカテゴリに基づいてログをストレージ メディアに書き込む場合や無視する場合を指定できます。</span><span class="sxs-lookup"><span data-stu-id="e5189-350">Some logging providers let you specify when logs should be written to a storage medium or ignored based on log level and category.</span></span>
+<span data-ttu-id="cdffd-376">ASP.NET Core と Entity Framework Core によって使用されるいくつかのカテゴリと、それらから想定されるログの種類に関するメモを、次に示します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-376">Here are some categories used by ASP.NET Core and Entity Framework Core, with notes about what logs to expect from them:</span></span>
 
-<span data-ttu-id="e5189-351">`AddConsole` および `AddDebug` 拡張メソッドには、フィルター条件を指定できるオーバーロードが用意されています。</span><span class="sxs-lookup"><span data-stu-id="e5189-351">The `AddConsole` and `AddDebug` extension methods provide overloads that accept filtering criteria.</span></span> <span data-ttu-id="e5189-352">次のサンプル コードを実行すると、Console プロバイダーは `Warning` レベル未満のログを無視し、Debug プロバイダーはフレームワークで作成されたログを無視します。</span><span class="sxs-lookup"><span data-stu-id="e5189-352">The following sample code causes the console provider to ignore logs below `Warning` level, while the Debug provider ignores logs that the framework creates.</span></span>
-
-[!code-csharp[](index/samples/1.x/TodoApiSample/Startup.cs?name=snippet_AddConsoleAndDebugWithFilter&highlight=6-7)]
-
-<span data-ttu-id="e5189-353">`AddEventLog` メソッドには、`EventLogSettings` インスタンスを受け取るオーバーロードがあります。このインスタンスの `Filter` プロパティにはフィルター関数を含めることができます。</span><span class="sxs-lookup"><span data-stu-id="e5189-353">The `AddEventLog` method has an overload that takes an `EventLogSettings` instance, which may contain a filtering function in its `Filter` property.</span></span> <span data-ttu-id="e5189-354">TraceSource プロバイダーには、これらのオーバーロードのいずれも用意されていません。これは、ログ レベルと他のパラメーターが、使用される `SourceSwitch` と `TraceListener` に基づいているためです。</span><span class="sxs-lookup"><span data-stu-id="e5189-354">The TraceSource provider doesn't provide any of those overloads, since its logging level and other parameters are based on the `SourceSwitch` and `TraceListener` it uses.</span></span>
-
-<span data-ttu-id="e5189-355">`ILoggerFactory` インスタンスに登録されているすべてのプロバイダーにフィルター規則を設定するには、`WithFilter` 拡張メソッドを使用します。</span><span class="sxs-lookup"><span data-stu-id="e5189-355">To set filtering rules for all providers that are registered with an `ILoggerFactory` instance, use the `WithFilter` extension method.</span></span> <span data-ttu-id="e5189-356">以下の例では、フレームワーク ログ ("Microsoft" または "System" で始まるカテゴリ) が警告に制限されますが、アプリケーション コードによって作成されたログはデバッグ レベルで記録されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-356">The example below limits framework logs (category begins with "Microsoft" or "System") to warnings while logging at debug level for logs created by application code.</span></span>
-
-[!code-csharp[](index/samples/1.x/TodoApiSample/Startup.cs?name=snippet_FactoryFilter&highlight=6-11)]
-
-<span data-ttu-id="e5189-357">あらゆるログの書き込みを防ぐには、最小のログ レベルとして `LogLevel.None` を指定します。</span><span class="sxs-lookup"><span data-stu-id="e5189-357">To prevent any logs from being written, specify `LogLevel.None` as the minimum log level.</span></span> <span data-ttu-id="e5189-358">`LogLevel.None` の整数値は 6 であり、`LogLevel.Critical` (5) を超えます。</span><span class="sxs-lookup"><span data-stu-id="e5189-358">The integer value of `LogLevel.None` is 6, which is higher than `LogLevel.Critical` (5).</span></span>
-
-<span data-ttu-id="e5189-359">`WithFilter` 拡張メソッドは [Microsoft.Extensions.Logging.Filter](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Filter) NuGet パッケージで提供されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-359">The `WithFilter` extension method is provided by the [Microsoft.Extensions.Logging.Filter](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Filter) NuGet package.</span></span> <span data-ttu-id="e5189-360">このメソッドは、登録されているすべてのログ プロバイダーに渡されたログ メッセージをフィルター処理する新しい `ILoggerFactory` インスタンスを返します。</span><span class="sxs-lookup"><span data-stu-id="e5189-360">The method returns a new `ILoggerFactory` instance that will filter the log messages passed to all logger providers registered with it.</span></span> <span data-ttu-id="e5189-361">これは、元の `ILoggerFactory` インスタンスを含め、他の `ILoggerFactory` インスタンスには影響がありません。</span><span class="sxs-lookup"><span data-stu-id="e5189-361">It doesn't affect any other `ILoggerFactory` instances, including the original `ILoggerFactory` instance.</span></span>
-
-::: moniker-end
-
-## <a name="system-categories-and-levels"></a><span data-ttu-id="e5189-362">システムのカテゴリとレベル</span><span class="sxs-lookup"><span data-stu-id="e5189-362">System categories and levels</span></span>
-
-<span data-ttu-id="e5189-363">ASP.NET Core と Entity Framework Core によって使用されるいくつかのカテゴリと、それらから想定されるログの種類に関するメモを、次に示します。</span><span class="sxs-lookup"><span data-stu-id="e5189-363">Here are some categories used by ASP.NET Core and Entity Framework Core, with notes about what logs to expect from them:</span></span>
-
-| <span data-ttu-id="e5189-364">カテゴリ</span><span class="sxs-lookup"><span data-stu-id="e5189-364">Category</span></span>                            | <span data-ttu-id="e5189-365">メモ</span><span class="sxs-lookup"><span data-stu-id="e5189-365">Notes</span></span> |
+| <span data-ttu-id="cdffd-377">カテゴリ</span><span class="sxs-lookup"><span data-stu-id="cdffd-377">Category</span></span>                            | <span data-ttu-id="cdffd-378">メモ</span><span class="sxs-lookup"><span data-stu-id="cdffd-378">Notes</span></span> |
 | ----------------------------------- | ----- |
-| <span data-ttu-id="e5189-366">Microsoft.AspNetCore</span><span class="sxs-lookup"><span data-stu-id="e5189-366">Microsoft.AspNetCore</span></span>                | <span data-ttu-id="e5189-367">ASP.NET Core の一般的な診断。</span><span class="sxs-lookup"><span data-stu-id="e5189-367">General ASP.NET Core diagnostics.</span></span> |
-| <span data-ttu-id="e5189-368">Microsoft.AspNetCore.DataProtection</span><span class="sxs-lookup"><span data-stu-id="e5189-368">Microsoft.AspNetCore.DataProtection</span></span> | <span data-ttu-id="e5189-369">どのキーが検討、検索、および使用されたか。</span><span class="sxs-lookup"><span data-stu-id="e5189-369">Which keys were considered, found, and used.</span></span> |
-| <span data-ttu-id="e5189-370">Microsoft.AspNetCore.HostFiltering</span><span class="sxs-lookup"><span data-stu-id="e5189-370">Microsoft.AspNetCore.HostFiltering</span></span>  | <span data-ttu-id="e5189-371">許可されるホスト。</span><span class="sxs-lookup"><span data-stu-id="e5189-371">Hosts allowed.</span></span> |
-| <span data-ttu-id="e5189-372">Microsoft.AspNetCore.Hosting</span><span class="sxs-lookup"><span data-stu-id="e5189-372">Microsoft.AspNetCore.Hosting</span></span>        | <span data-ttu-id="e5189-373">HTTP 要求が完了するまでにかかった時間と、それらの開始時刻。</span><span class="sxs-lookup"><span data-stu-id="e5189-373">How long HTTP requests took to complete and what time they started.</span></span> <span data-ttu-id="e5189-374">どのホスティング スタートアップ アセンブリが読み込まれたか。</span><span class="sxs-lookup"><span data-stu-id="e5189-374">Which hosting startup assemblies were loaded.</span></span> |
-| <span data-ttu-id="e5189-375">Microsoft.AspNetCore.Mvc</span><span class="sxs-lookup"><span data-stu-id="e5189-375">Microsoft.AspNetCore.Mvc</span></span>            | <span data-ttu-id="e5189-376">MVC と Razor の診断。</span><span class="sxs-lookup"><span data-stu-id="e5189-376">MVC and Razor diagnostics.</span></span> <span data-ttu-id="e5189-377">モデルの構築、フィルター処理の実行、ビューのコンパイル、アクションの選択。</span><span class="sxs-lookup"><span data-stu-id="e5189-377">Model binding, filter execution, view compilation, action selection.</span></span> |
-| <span data-ttu-id="e5189-378">Microsoft.AspNetCore.Routing</span><span class="sxs-lookup"><span data-stu-id="e5189-378">Microsoft.AspNetCore.Routing</span></span>        | <span data-ttu-id="e5189-379">一致する情報をルーティングします。</span><span class="sxs-lookup"><span data-stu-id="e5189-379">Route matching information.</span></span> |
-| <span data-ttu-id="e5189-380">Microsoft.AspNetCore.Server</span><span class="sxs-lookup"><span data-stu-id="e5189-380">Microsoft.AspNetCore.Server</span></span>         | <span data-ttu-id="e5189-381">接続の開始、停止、キープ アライブ応答。</span><span class="sxs-lookup"><span data-stu-id="e5189-381">Connection start, stop, and keep alive responses.</span></span> <span data-ttu-id="e5189-382">HTTPS 証明書情報。</span><span class="sxs-lookup"><span data-stu-id="e5189-382">HTTPS certificate information.</span></span> |
-| <span data-ttu-id="e5189-383">Microsoft.AspNetCore.StaticFiles</span><span class="sxs-lookup"><span data-stu-id="e5189-383">Microsoft.AspNetCore.StaticFiles</span></span>    | <span data-ttu-id="e5189-384">提供されるファイル。</span><span class="sxs-lookup"><span data-stu-id="e5189-384">Files served.</span></span> |
-| <span data-ttu-id="e5189-385">Microsoft.EntityFrameworkCore</span><span class="sxs-lookup"><span data-stu-id="e5189-385">Microsoft.EntityFrameworkCore</span></span>       | <span data-ttu-id="e5189-386">Entity Framework Core の一般的な診断。</span><span class="sxs-lookup"><span data-stu-id="e5189-386">General Entity Framework Core diagnostics.</span></span> <span data-ttu-id="e5189-387">データベースのアクティビティと構成、変更の検出、移行。</span><span class="sxs-lookup"><span data-stu-id="e5189-387">Database activity and configuration, change detection, migrations.</span></span> |
+| <span data-ttu-id="cdffd-379">Microsoft.AspNetCore</span><span class="sxs-lookup"><span data-stu-id="cdffd-379">Microsoft.AspNetCore</span></span>                | <span data-ttu-id="cdffd-380">ASP.NET Core の一般的な診断。</span><span class="sxs-lookup"><span data-stu-id="cdffd-380">General ASP.NET Core diagnostics.</span></span> |
+| <span data-ttu-id="cdffd-381">Microsoft.AspNetCore.DataProtection</span><span class="sxs-lookup"><span data-stu-id="cdffd-381">Microsoft.AspNetCore.DataProtection</span></span> | <span data-ttu-id="cdffd-382">どのキーが検討、検索、および使用されたか。</span><span class="sxs-lookup"><span data-stu-id="cdffd-382">Which keys were considered, found, and used.</span></span> |
+| <span data-ttu-id="cdffd-383">Microsoft.AspNetCore.HostFiltering</span><span class="sxs-lookup"><span data-stu-id="cdffd-383">Microsoft.AspNetCore.HostFiltering</span></span>  | <span data-ttu-id="cdffd-384">許可されるホスト。</span><span class="sxs-lookup"><span data-stu-id="cdffd-384">Hosts allowed.</span></span> |
+| <span data-ttu-id="cdffd-385">Microsoft.AspNetCore.Hosting</span><span class="sxs-lookup"><span data-stu-id="cdffd-385">Microsoft.AspNetCore.Hosting</span></span>        | <span data-ttu-id="cdffd-386">HTTP 要求が完了するまでにかかった時間と、それらの開始時刻。</span><span class="sxs-lookup"><span data-stu-id="cdffd-386">How long HTTP requests took to complete and what time they started.</span></span> <span data-ttu-id="cdffd-387">どのホスティング スタートアップ アセンブリが読み込まれたか。</span><span class="sxs-lookup"><span data-stu-id="cdffd-387">Which hosting startup assemblies were loaded.</span></span> |
+| <span data-ttu-id="cdffd-388">Microsoft.AspNetCore.Mvc</span><span class="sxs-lookup"><span data-stu-id="cdffd-388">Microsoft.AspNetCore.Mvc</span></span>            | <span data-ttu-id="cdffd-389">MVC と Razor の診断。</span><span class="sxs-lookup"><span data-stu-id="cdffd-389">MVC and Razor diagnostics.</span></span> <span data-ttu-id="cdffd-390">モデルの構築、フィルター処理の実行、ビューのコンパイル、アクションの選択。</span><span class="sxs-lookup"><span data-stu-id="cdffd-390">Model binding, filter execution, view compilation, action selection.</span></span> |
+| <span data-ttu-id="cdffd-391">Microsoft.AspNetCore.Routing</span><span class="sxs-lookup"><span data-stu-id="cdffd-391">Microsoft.AspNetCore.Routing</span></span>        | <span data-ttu-id="cdffd-392">一致する情報をルーティングします。</span><span class="sxs-lookup"><span data-stu-id="cdffd-392">Route matching information.</span></span> |
+| <span data-ttu-id="cdffd-393">Microsoft.AspNetCore.Server</span><span class="sxs-lookup"><span data-stu-id="cdffd-393">Microsoft.AspNetCore.Server</span></span>         | <span data-ttu-id="cdffd-394">接続の開始、停止、キープ アライブ応答。</span><span class="sxs-lookup"><span data-stu-id="cdffd-394">Connection start, stop, and keep alive responses.</span></span> <span data-ttu-id="cdffd-395">HTTPS 証明書情報。</span><span class="sxs-lookup"><span data-stu-id="cdffd-395">HTTPS certificate information.</span></span> |
+| <span data-ttu-id="cdffd-396">Microsoft.AspNetCore.StaticFiles</span><span class="sxs-lookup"><span data-stu-id="cdffd-396">Microsoft.AspNetCore.StaticFiles</span></span>    | <span data-ttu-id="cdffd-397">提供されるファイル。</span><span class="sxs-lookup"><span data-stu-id="cdffd-397">Files served.</span></span> |
+| <span data-ttu-id="cdffd-398">Microsoft.EntityFrameworkCore</span><span class="sxs-lookup"><span data-stu-id="cdffd-398">Microsoft.EntityFrameworkCore</span></span>       | <span data-ttu-id="cdffd-399">Entity Framework Core の一般的な診断。</span><span class="sxs-lookup"><span data-stu-id="cdffd-399">General Entity Framework Core diagnostics.</span></span> <span data-ttu-id="cdffd-400">データベースのアクティビティと構成、変更の検出、移行。</span><span class="sxs-lookup"><span data-stu-id="cdffd-400">Database activity and configuration, change detection, migrations.</span></span> |
 
-## <a name="log-scopes"></a><span data-ttu-id="e5189-388">ログのスコープ</span><span class="sxs-lookup"><span data-stu-id="e5189-388">Log scopes</span></span>
+## <a name="log-scopes"></a><span data-ttu-id="cdffd-401">ログのスコープ</span><span class="sxs-lookup"><span data-stu-id="cdffd-401">Log scopes</span></span>
 
- <span data-ttu-id="e5189-389">"*スコープ*" では、論理操作のセットをグループ化できます。</span><span class="sxs-lookup"><span data-stu-id="e5189-389">A *scope* can group a set of logical operations.</span></span> <span data-ttu-id="e5189-390">このグループ化を使用して、セットの一部として作成される各ログに同じデータをアタッチすることができます。</span><span class="sxs-lookup"><span data-stu-id="e5189-390">This grouping can be used to attach the same data to each log that's created as part of a set.</span></span> <span data-ttu-id="e5189-391">たとえば、トランザクション処理の一部として作成されるすべてのログに、トランザクション ID を含めることができます。</span><span class="sxs-lookup"><span data-stu-id="e5189-391">For example, every log created as part of processing a transaction can include the transaction ID.</span></span>
+ <span data-ttu-id="cdffd-402">"*スコープ*" では、論理操作のセットをグループ化できます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-402">A *scope* can group a set of logical operations.</span></span> <span data-ttu-id="cdffd-403">このグループ化を使用して、セットの一部として作成される各ログに同じデータをアタッチすることができます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-403">This grouping can be used to attach the same data to each log that's created as part of a set.</span></span> <span data-ttu-id="cdffd-404">たとえば、トランザクション処理の一部として作成されるすべてのログに、トランザクション ID を含めることができます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-404">For example, every log created as part of processing a transaction can include the transaction ID.</span></span>
 
-<span data-ttu-id="e5189-392">スコープは <xref:Microsoft.Extensions.Logging.ILogger.BeginScope*> メソッドから返される `IDisposable` の種類であり、破棄されるまで継続します。</span><span class="sxs-lookup"><span data-stu-id="e5189-392">A scope is an `IDisposable` type that's returned by the <xref:Microsoft.Extensions.Logging.ILogger.BeginScope*> method and lasts until it's disposed.</span></span> <span data-ttu-id="e5189-393">ロガーの呼び出しを `using` ブロックでラップすることによって、スコープを使用します。</span><span class="sxs-lookup"><span data-stu-id="e5189-393">Use a scope by wrapping logger calls in a `using` block:</span></span>
+<span data-ttu-id="cdffd-405">スコープは <xref:Microsoft.Extensions.Logging.ILogger.BeginScope*> メソッドから返される `IDisposable` の種類であり、破棄されるまで継続します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-405">A scope is an `IDisposable` type that's returned by the <xref:Microsoft.Extensions.Logging.ILogger.BeginScope*> method and lasts until it's disposed.</span></span> <span data-ttu-id="cdffd-406">ロガーの呼び出しを `using` ブロックでラップすることによって、スコープを使用します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-406">Use a scope by wrapping logger calls in a `using` block:</span></span>
 
-[!code-csharp[](index/samples/1.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_Scopes&highlight=4-5,13)]
+::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="e5189-394">次のコードでは、Console プロバイダーのスコープを有効にしています。</span><span class="sxs-lookup"><span data-stu-id="e5189-394">The following code enables scopes for the console provider:</span></span>
+[!code-csharp[](index/samples/3.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_Scopes&highlight=4-5,13)]
 
-::: moniker range="> aspnetcore-2.0"
+::: moniker-end
 
-<span data-ttu-id="e5189-395">*Program.cs*:</span><span class="sxs-lookup"><span data-stu-id="e5189-395">*Program.cs*:</span></span>
+::: moniker range="< aspnetcore-3.0"
+
+[!code-csharp[](index/samples/2.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_Scopes&highlight=4-5,13)]
+
+::: moniker-end
+
+<span data-ttu-id="cdffd-407">次のコードでは、Console プロバイダーのスコープを有効にしています。</span><span class="sxs-lookup"><span data-stu-id="cdffd-407">The following code enables scopes for the console provider:</span></span>
+
+<span data-ttu-id="cdffd-408">*Program.cs*:</span><span class="sxs-lookup"><span data-stu-id="cdffd-408">*Program.cs*:</span></span>
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_Scopes&highlight=6)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_Scopes&highlight=4)]
 
+::: moniker-end
+
 > [!NOTE]
-> <span data-ttu-id="e5189-396">スコープベースのログ記録を有効にするには、`IncludeScopes` コンソールのロガー オプションを構成する必要があります。</span><span class="sxs-lookup"><span data-stu-id="e5189-396">Configuring the `IncludeScopes` console logger option is required to enable scope-based logging.</span></span>
+> <span data-ttu-id="cdffd-409">スコープベースのログ記録を有効にするには、`IncludeScopes` コンソールのロガー オプションを構成する必要があります。</span><span class="sxs-lookup"><span data-stu-id="cdffd-409">Configuring the `IncludeScopes` console logger option is required to enable scope-based logging.</span></span>
 >
-> <span data-ttu-id="e5189-397">構成について詳しくは、「[構成](#configuration)」セクションをご覧ください。</span><span class="sxs-lookup"><span data-stu-id="e5189-397">For information on configuration, see the [Configuration](#configuration) section.</span></span>
+> <span data-ttu-id="cdffd-410">構成について詳しくは、「[構成](#configuration)」セクションをご覧ください。</span><span class="sxs-lookup"><span data-stu-id="cdffd-410">For information on configuration, see the [Configuration](#configuration) section.</span></span>
 
-::: moniker-end
-
-::: moniker range="= aspnetcore-2.0"
-
-<span data-ttu-id="e5189-398">*Program.cs*:</span><span class="sxs-lookup"><span data-stu-id="e5189-398">*Program.cs*:</span></span>
-
-[!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_Scopes&highlight=4)]
-
-> [!NOTE]
-> <span data-ttu-id="e5189-399">スコープベースのログ記録を有効にするには、`IncludeScopes` コンソールのロガー オプションを構成する必要があります。</span><span class="sxs-lookup"><span data-stu-id="e5189-399">Configuring the `IncludeScopes` console logger option is required to enable scope-based logging.</span></span>
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-<span data-ttu-id="e5189-400">*Startup.cs*:</span><span class="sxs-lookup"><span data-stu-id="e5189-400">*Startup.cs*:</span></span>
-
-[!code-csharp[](index/samples/1.x/TodoApiSample/Startup.cs?name=snippet_Scopes&highlight=6)]
-
-::: moniker-end
-
-<span data-ttu-id="e5189-401">各ログ メッセージには、スコープ内の情報が含まれます。</span><span class="sxs-lookup"><span data-stu-id="e5189-401">Each log message includes the scoped information:</span></span>
+<span data-ttu-id="cdffd-411">各ログ メッセージには、スコープ内の情報が含まれます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-411">Each log message includes the scoped information:</span></span>
 
 ```
-info: TodoApi.Controllers.TodoController[1002]
-      => RequestId:0HKV9C49II9CK RequestPath:/api/todo/0 => TodoApi.Controllers.TodoController.GetById (TodoApi) => Message attached to logs created in the using block
+info: TodoApiSample.Controllers.TodoController[1002]
+      => RequestId:0HKV9C49II9CK RequestPath:/api/todo/0 => TodoApiSample.Controllers.TodoController.GetById (TodoApi) => Message attached to logs created in the using block
       Getting item 0
-warn: TodoApi.Controllers.TodoController[4000]
-      => RequestId:0HKV9C49II9CK RequestPath:/api/todo/0 => TodoApi.Controllers.TodoController.GetById (TodoApi) => Message attached to logs created in the using block
+warn: TodoApiSample.Controllers.TodoController[4000]
+      => RequestId:0HKV9C49II9CK RequestPath:/api/todo/0 => TodoApiSample.Controllers.TodoController.GetById (TodoApi) => Message attached to logs created in the using block
       GetById(0) NOT FOUND
 ```
 
-## <a name="built-in-logging-providers"></a><span data-ttu-id="e5189-402">組み込みのログ プロバイダー</span><span class="sxs-lookup"><span data-stu-id="e5189-402">Built-in logging providers</span></span>
+## <a name="built-in-logging-providers"></a><span data-ttu-id="cdffd-412">組み込みのログ プロバイダー</span><span class="sxs-lookup"><span data-stu-id="cdffd-412">Built-in logging providers</span></span>
 
-<span data-ttu-id="e5189-403">ASP.NET Core には次のプロバイダーが付属しています。</span><span class="sxs-lookup"><span data-stu-id="e5189-403">ASP.NET Core ships the following providers:</span></span>
+<span data-ttu-id="cdffd-413">ASP.NET Core には次のプロバイダーが付属しています。</span><span class="sxs-lookup"><span data-stu-id="cdffd-413">ASP.NET Core ships the following providers:</span></span>
 
-* [<span data-ttu-id="e5189-404">コンソール</span><span class="sxs-lookup"><span data-stu-id="e5189-404">Console</span></span>](#console-provider)
-* [<span data-ttu-id="e5189-405">デバッグ</span><span class="sxs-lookup"><span data-stu-id="e5189-405">Debug</span></span>](#debug-provider)
-* [<span data-ttu-id="e5189-406">EventSource</span><span class="sxs-lookup"><span data-stu-id="e5189-406">EventSource</span></span>](#eventsource-provider)
-* [<span data-ttu-id="e5189-407">EventLog</span><span class="sxs-lookup"><span data-stu-id="e5189-407">EventLog</span></span>](#windows-eventlog-provider)
-* [<span data-ttu-id="e5189-408">TraceSource</span><span class="sxs-lookup"><span data-stu-id="e5189-408">TraceSource</span></span>](#tracesource-provider)
-* [<span data-ttu-id="e5189-409">AzureAppServicesFile</span><span class="sxs-lookup"><span data-stu-id="e5189-409">AzureAppServicesFile</span></span>](#azure-app-service-provider)
-* [<span data-ttu-id="e5189-410">AzureAppServicesBlob</span><span class="sxs-lookup"><span data-stu-id="e5189-410">AzureAppServicesBlob</span></span>](#azure-app-service-provider)
-* [<span data-ttu-id="e5189-411">ApplicationInsights</span><span class="sxs-lookup"><span data-stu-id="e5189-411">ApplicationInsights</span></span>](#azure-application-insights-trace-logging)
+* [<span data-ttu-id="cdffd-414">コンソール</span><span class="sxs-lookup"><span data-stu-id="cdffd-414">Console</span></span>](#console-provider)
+* [<span data-ttu-id="cdffd-415">デバッグ</span><span class="sxs-lookup"><span data-stu-id="cdffd-415">Debug</span></span>](#debug-provider)
+* [<span data-ttu-id="cdffd-416">EventSource</span><span class="sxs-lookup"><span data-stu-id="cdffd-416">EventSource</span></span>](#eventsource-provider)
+* [<span data-ttu-id="cdffd-417">EventLog</span><span class="sxs-lookup"><span data-stu-id="cdffd-417">EventLog</span></span>](#windows-eventlog-provider)
+* [<span data-ttu-id="cdffd-418">TraceSource</span><span class="sxs-lookup"><span data-stu-id="cdffd-418">TraceSource</span></span>](#tracesource-provider)
+* [<span data-ttu-id="cdffd-419">AzureAppServicesFile</span><span class="sxs-lookup"><span data-stu-id="cdffd-419">AzureAppServicesFile</span></span>](#azure-app-service-provider)
+* [<span data-ttu-id="cdffd-420">AzureAppServicesBlob</span><span class="sxs-lookup"><span data-stu-id="cdffd-420">AzureAppServicesBlob</span></span>](#azure-app-service-provider)
+* [<span data-ttu-id="cdffd-421">ApplicationInsights</span><span class="sxs-lookup"><span data-stu-id="cdffd-421">ApplicationInsights</span></span>](#azure-application-insights-trace-logging)
 
-<span data-ttu-id="e5189-412">ASP.NET Core モジュールを使用した stdout およびデバッグ ログの詳細については、「<xref:test/troubleshoot-azure-iis>」および「<xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="e5189-412">For information on stdout and debug logging with the ASP.NET Core Module, see <xref:test/troubleshoot-azure-iis> and <xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>.</span></span>
+<span data-ttu-id="cdffd-422">ASP.NET Core モジュールを使用した stdout およびデバッグ ログの詳細については、「<xref:test/troubleshoot-azure-iis>」および「<xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="cdffd-422">For information on stdout and debug logging with the ASP.NET Core Module, see <xref:test/troubleshoot-azure-iis> and <xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>.</span></span>
 
-### <a name="console-provider"></a><span data-ttu-id="e5189-413">Console プロバイダー</span><span class="sxs-lookup"><span data-stu-id="e5189-413">Console provider</span></span>
+### <a name="console-provider"></a><span data-ttu-id="cdffd-423">Console プロバイダー</span><span class="sxs-lookup"><span data-stu-id="cdffd-423">Console provider</span></span>
 
-<span data-ttu-id="e5189-414">[Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console) プロバイダー パッケージは、ログ出力をコンソールに送信します。</span><span class="sxs-lookup"><span data-stu-id="e5189-414">The [Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console) provider package sends log output to the console.</span></span> 
-
-::: moniker range=">= aspnetcore-2.0"
+<span data-ttu-id="cdffd-424">[Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console) プロバイダー パッケージは、ログ出力をコンソールに送信します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-424">The [Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console) provider package sends log output to the console.</span></span> 
 
 ```csharp
 logging.AddConsole();
 ```
 
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-```csharp
-loggerFactory.AddConsole();
-```
-
-<span data-ttu-id="e5189-415">[AddConsole オーバーロード](xref:Microsoft.Extensions.Logging.ConsoleLoggerExtensions)を使用すると、最小ログ レベル、フィルター関数、スコープがサポートされているかどうかを示すブール値を渡すことができます。</span><span class="sxs-lookup"><span data-stu-id="e5189-415">[AddConsole overloads](xref:Microsoft.Extensions.Logging.ConsoleLoggerExtensions) let you pass in a minimum log level, a filter function, and a boolean that indicates whether scopes are supported.</span></span> <span data-ttu-id="e5189-416">もう 1 つの選択肢として、`IConfiguration` オブジェクトを渡す方法があります。この場合、スコープのサポートとログ レベルを指定できます。</span><span class="sxs-lookup"><span data-stu-id="e5189-416">Another option is to pass in an `IConfiguration` object, which can specify scopes support and logging levels.</span></span>
-
-<span data-ttu-id="e5189-417">コンソール プロバイダーのオプションについては、「<xref:Microsoft.Extensions.Logging.Console.ConsoleLoggerOptions>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="e5189-417">For Console provider options, see <xref:Microsoft.Extensions.Logging.Console.ConsoleLoggerOptions>.</span></span>
-
-<span data-ttu-id="e5189-418">Console プロバイダーはパフォーマンスに大きな影響を及ぼすため、一般的に運用環境での使用には適していません。</span><span class="sxs-lookup"><span data-stu-id="e5189-418">The console provider has a significant impact on performance and is generally not appropriate for use in production.</span></span>
-
-<span data-ttu-id="e5189-419">Visual Studio で新しいプロジェクトを作成する場合、`AddConsole` メソッドは次のようになります。</span><span class="sxs-lookup"><span data-stu-id="e5189-419">When you create a new project in Visual Studio, the `AddConsole` method looks like this:</span></span>
-
-```csharp
-loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-```
-
-<span data-ttu-id="e5189-420">このコードは、*appSettings.json* ファイルの `Logging` セクションを参照しています。</span><span class="sxs-lookup"><span data-stu-id="e5189-420">This code refers to the `Logging` section of the *appSettings.json* file:</span></span>
-
-[!code-json[](index/samples/1.x/TodoApiSample/appsettings.json)]
-
-<span data-ttu-id="e5189-421">この設定ではフレームワークのログを警告に制限していますが、「[ログのフィルター処理](#log-filtering)」セクションで説明したように、アプリではデバッグ レベルでログに記録することができます。</span><span class="sxs-lookup"><span data-stu-id="e5189-421">The settings shown limit framework logs to warnings while allowing the app to log at debug level, as explained in the [Log filtering](#log-filtering) section.</span></span> <span data-ttu-id="e5189-422">詳細については、[構成](xref:fundamentals/configuration/index)に関するページを参照してください。</span><span class="sxs-lookup"><span data-stu-id="e5189-422">For more information, see [Configuration](xref:fundamentals/configuration/index).</span></span>
-
-::: moniker-end
-
-<span data-ttu-id="e5189-423">コンソールのログ出力を確認するには、プロジェクト フォルダーでコマンド プロンプトを開き、次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="e5189-423">To see console logging output, open a command prompt in the project folder and run the following command:</span></span>
+<span data-ttu-id="cdffd-425">コンソールのログ出力を確認するには、プロジェクト フォルダーでコマンド プロンプトを開き、次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-425">To see console logging output, open a command prompt in the project folder and run the following command:</span></span>
 
 ```console
 dotnet run
 ```
 
-### <a name="debug-provider"></a><span data-ttu-id="e5189-424">Debug プロバイダー</span><span class="sxs-lookup"><span data-stu-id="e5189-424">Debug provider</span></span>
+### <a name="debug-provider"></a><span data-ttu-id="cdffd-426">Debug プロバイダー</span><span class="sxs-lookup"><span data-stu-id="cdffd-426">Debug provider</span></span>
 
-<span data-ttu-id="e5189-425">[Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug) プロバイダー パッケージは、[System.Diagnostics.Debug](/dotnet/api/system.diagnostics.debug) クラス (`Debug.WriteLine` メソッドの呼び出し) を使用してログの出力を書き込みます。</span><span class="sxs-lookup"><span data-stu-id="e5189-425">The [Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug) provider package writes log output by using the [System.Diagnostics.Debug](/dotnet/api/system.diagnostics.debug) class (`Debug.WriteLine` method calls).</span></span>
+<span data-ttu-id="cdffd-427">[Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug) プロバイダー パッケージは、[System.Diagnostics.Debug](/dotnet/api/system.diagnostics.debug) クラス (`Debug.WriteLine` メソッドの呼び出し) を使用してログの出力を書き込みます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-427">The [Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug) provider package writes log output by using the [System.Diagnostics.Debug](/dotnet/api/system.diagnostics.debug) class (`Debug.WriteLine` method calls).</span></span>
 
-<span data-ttu-id="e5189-426">Linux では、このプロバイダーから */var/log/message* にログが書き込まれます。</span><span class="sxs-lookup"><span data-stu-id="e5189-426">On Linux, this provider writes logs to */var/log/message*.</span></span>
-
-::: moniker range=">= aspnetcore-2.0"
+<span data-ttu-id="cdffd-428">Linux では、このプロバイダーから */var/log/message* にログが書き込まれます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-428">On Linux, this provider writes logs to */var/log/message*.</span></span>
 
 ```csharp
 logging.AddDebug();
 ```
 
-::: moniker-end
+### <a name="eventsource-provider"></a><span data-ttu-id="cdffd-429">EventSource プロバイダー</span><span class="sxs-lookup"><span data-stu-id="cdffd-429">EventSource provider</span></span>
 
-::: moniker range="< aspnetcore-2.0"
-
-```csharp
-loggerFactory.AddDebug();
-```
-
-<span data-ttu-id="e5189-427">[AddDebug オーバーロード](xref:Microsoft.Extensions.Logging.DebugLoggerFactoryExtensions)を使用すると、最小ログ レベルまたはフィルター関数を渡すことができます。</span><span class="sxs-lookup"><span data-stu-id="e5189-427">[AddDebug overloads](xref:Microsoft.Extensions.Logging.DebugLoggerFactoryExtensions) let you pass in a minimum log level or a filter function.</span></span>
-
-::: moniker-end
-
-### <a name="eventsource-provider"></a><span data-ttu-id="e5189-428">EventSource プロバイダー</span><span class="sxs-lookup"><span data-stu-id="e5189-428">EventSource provider</span></span>
-
-<span data-ttu-id="e5189-429">ASP.NET Core 1.1.0 以降をターゲットとするアプリの場合、[Microsoft.Extensions.Logging.EventSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource) プロバイダー パッケージは、イベントのトレースを実装できます。</span><span class="sxs-lookup"><span data-stu-id="e5189-429">For apps that target ASP.NET Core 1.1.0 or later, the [Microsoft.Extensions.Logging.EventSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource) provider package can implement event tracing.</span></span> <span data-ttu-id="e5189-430">Windows では、[ETW](https://msdn.microsoft.com/library/windows/desktop/bb968803) を使用します。</span><span class="sxs-lookup"><span data-stu-id="e5189-430">On Windows, it uses [ETW](https://msdn.microsoft.com/library/windows/desktop/bb968803).</span></span> <span data-ttu-id="e5189-431">プロバイダーはクロスプラットフォームですが、Linux または macOS 用のイベント コレクションはまだ存在せず、ツールは表示されません。</span><span class="sxs-lookup"><span data-stu-id="e5189-431">The provider is cross-platform, but there are no event collection and display tools yet for Linux or macOS.</span></span>
-
-::: moniker range=">= aspnetcore-2.0"
+<span data-ttu-id="cdffd-430">ASP.NET Core 1.1.0 以降をターゲットとするアプリの場合、[Microsoft.Extensions.Logging.EventSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource) プロバイダー パッケージは、イベントのトレースを実装できます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-430">For apps that target ASP.NET Core 1.1.0 or later, the [Microsoft.Extensions.Logging.EventSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource) provider package can implement event tracing.</span></span> <span data-ttu-id="cdffd-431">Windows では、[ETW](https://msdn.microsoft.com/library/windows/desktop/bb968803) を使用します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-431">On Windows, it uses [ETW](https://msdn.microsoft.com/library/windows/desktop/bb968803).</span></span> <span data-ttu-id="cdffd-432">プロバイダーはクロスプラットフォームですが、Linux または macOS 用のイベント コレクションはまだ存在せず、ツールは表示されません。</span><span class="sxs-lookup"><span data-stu-id="cdffd-432">The provider is cross-platform, but there are no event collection and display tools yet for Linux or macOS.</span></span>
 
 ```csharp
 logging.AddEventSourceLogger();
 ```
 
-::: moniker-end
+<span data-ttu-id="cdffd-433">ログの収集と表示には、[PerfView utility](https://github.com/Microsoft/perfview) を使用することをお勧めします。</span><span class="sxs-lookup"><span data-stu-id="cdffd-433">A good way to collect and view logs is to use the [PerfView utility](https://github.com/Microsoft/perfview).</span></span> <span data-ttu-id="cdffd-434">ETW ログを表示できる他のツールはありますが、ASP.NET Core から出力される ETW イベントを操作する場合、PerfView は最適なエクスペリエンスを提供します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-434">There are other tools for viewing ETW logs, but PerfView provides the best experience for working with the ETW events emitted by ASP.NET Core.</span></span>
 
-::: moniker range="< aspnetcore-2.0"
-
-```csharp
-loggerFactory.AddEventSourceLogger();
-```
-
-::: moniker-end
-
-<span data-ttu-id="e5189-432">ログの収集と表示には、[PerfView utility](https://github.com/Microsoft/perfview) を使用することをお勧めします。</span><span class="sxs-lookup"><span data-stu-id="e5189-432">A good way to collect and view logs is to use the [PerfView utility](https://github.com/Microsoft/perfview).</span></span> <span data-ttu-id="e5189-433">ETW ログを表示できる他のツールはありますが、ASP.NET から出力される ETW イベントを操作する場合、PerfView は最適なエクスペリエンスを提供します。</span><span class="sxs-lookup"><span data-stu-id="e5189-433">There are other tools for viewing ETW logs, but PerfView provides the best experience for working with the ETW events emitted by ASP.NET.</span></span>
-
-<span data-ttu-id="e5189-434">このプロバイダーでログに記録されるイベントを収集するように PerfView を構成するには、 **[追加プロバイダー]** の一覧に文字列 `*Microsoft-Extensions-Logging` を追加します</span><span class="sxs-lookup"><span data-stu-id="e5189-434">To configure PerfView for collecting events logged by this provider, add the string `*Microsoft-Extensions-Logging` to the **Additional Providers** list.</span></span> <span data-ttu-id="e5189-435">(文字列の先頭に忘れずにアスタリスクを付けてください)。</span><span class="sxs-lookup"><span data-stu-id="e5189-435">(Don't miss the asterisk at the start of the string.)</span></span>
+<span data-ttu-id="cdffd-435">このプロバイダーでログに記録されるイベントを収集するように PerfView を構成するには、 **[追加プロバイダー]** の一覧に文字列 `*Microsoft-Extensions-Logging` を追加します</span><span class="sxs-lookup"><span data-stu-id="cdffd-435">To configure PerfView for collecting events logged by this provider, add the string `*Microsoft-Extensions-Logging` to the **Additional Providers** list.</span></span> <span data-ttu-id="cdffd-436">(文字列の先頭に忘れずにアスタリスクを付けてください)。</span><span class="sxs-lookup"><span data-stu-id="cdffd-436">(Don't miss the asterisk at the start of the string.)</span></span>
 
 ![Perfview の追加プロバイダー](index/_static/perfview-additional-providers.png)
 
-### <a name="windows-eventlog-provider"></a><span data-ttu-id="e5189-437">Windows EventLog プロバイダー</span><span class="sxs-lookup"><span data-stu-id="e5189-437">Windows EventLog provider</span></span>
+### <a name="windows-eventlog-provider"></a><span data-ttu-id="cdffd-438">Windows EventLog プロバイダー</span><span class="sxs-lookup"><span data-stu-id="cdffd-438">Windows EventLog provider</span></span>
 
-<span data-ttu-id="e5189-438">[Microsoft.Extensions.Logging.EventLog](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog) プロバイダー パッケージは、ログ出力を Windows イベント ログに送信します。</span><span class="sxs-lookup"><span data-stu-id="e5189-438">The [Microsoft.Extensions.Logging.EventLog](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog) provider package sends log output to the Windows Event Log.</span></span>
-
-::: moniker range=">= aspnetcore-2.0"
+<span data-ttu-id="cdffd-439">[Microsoft.Extensions.Logging.EventLog](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog) プロバイダー パッケージは、ログ出力を Windows イベント ログに送信します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-439">The [Microsoft.Extensions.Logging.EventLog](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog) provider package sends log output to the Windows Event Log.</span></span>
 
 ```csharp
 logging.AddEventLog();
 ```
 
-::: moniker-end
+<span data-ttu-id="cdffd-440">[AddEventLog のオーバーロード](xref:Microsoft.Extensions.Logging.EventLoggerFactoryExtensions)を使用すると、<xref:Microsoft.Extensions.Logging.EventLog.EventLogSettings> を渡すことができます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-440">[AddEventLog overloads](xref:Microsoft.Extensions.Logging.EventLoggerFactoryExtensions) let you pass in <xref:Microsoft.Extensions.Logging.EventLog.EventLogSettings>.</span></span>
 
-::: moniker range="< aspnetcore-2.0"
+### <a name="tracesource-provider"></a><span data-ttu-id="cdffd-441">TraceSource プロバイダー</span><span class="sxs-lookup"><span data-stu-id="cdffd-441">TraceSource provider</span></span>
 
-```csharp
-loggerFactory.AddEventLog();
-```
-
-<span data-ttu-id="e5189-439">[AddEventLog オーバーロード](xref:Microsoft.Extensions.Logging.EventLoggerFactoryExtensions)を使用すると、`EventLogSettings` または最小ログ レベルを渡すことができます。</span><span class="sxs-lookup"><span data-stu-id="e5189-439">[AddEventLog overloads](xref:Microsoft.Extensions.Logging.EventLoggerFactoryExtensions) let you pass in `EventLogSettings` or a minimum log level.</span></span>
-
-::: moniker-end
-
-### <a name="tracesource-provider"></a><span data-ttu-id="e5189-440">TraceSource プロバイダー</span><span class="sxs-lookup"><span data-stu-id="e5189-440">TraceSource provider</span></span>
-
-<span data-ttu-id="e5189-441">[Microsoft.Extensions.Logging.TraceSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.TraceSource) プロバイダー パッケージでは、<xref:System.Diagnostics.TraceSource> ライブラリとプロバイダーが使用されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-441">The [Microsoft.Extensions.Logging.TraceSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.TraceSource) provider package uses the <xref:System.Diagnostics.TraceSource> libraries and providers.</span></span>
-
-::: moniker range=">= aspnetcore-2.0"
+<span data-ttu-id="cdffd-442">[Microsoft.Extensions.Logging.TraceSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.TraceSource) プロバイダー パッケージでは、<xref:System.Diagnostics.TraceSource> ライブラリとプロバイダーが使用されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-442">The [Microsoft.Extensions.Logging.TraceSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.TraceSource) provider package uses the <xref:System.Diagnostics.TraceSource> libraries and providers.</span></span>
 
 ```csharp
 logging.AddTraceSource(sourceSwitchName);
 ```
 
-::: moniker-end
+<span data-ttu-id="cdffd-443">[AddTraceSource オーバーロード](xref:Microsoft.Extensions.Logging.TraceSourceFactoryExtensions)を使用すると、ソース スイッチとトレース リスナーを渡すことができます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-443">[AddTraceSource overloads](xref:Microsoft.Extensions.Logging.TraceSourceFactoryExtensions) let you pass in a source switch and a trace listener.</span></span>
 
-::: moniker range="< aspnetcore-2.0"
+<span data-ttu-id="cdffd-444">このプロバイダーを使用するには、アプリを (.NET Core ではなく) .NET Framework 上で実行する必要があります。</span><span class="sxs-lookup"><span data-stu-id="cdffd-444">To use this provider, an app has to run on the .NET Framework (rather than .NET Core).</span></span> <span data-ttu-id="cdffd-445">このプロバイダーでは、サンプル アプリで使用されている <xref:System.Diagnostics.TextWriterTraceListener> など、さまざまな[リスナー](/dotnet/framework/debug-trace-profile/trace-listeners)にメッセージをルーティングさせることができます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-445">The provider can route messages to a variety of [listeners](/dotnet/framework/debug-trace-profile/trace-listeners), such as the <xref:System.Diagnostics.TextWriterTraceListener> used in the sample app.</span></span>
 
-```csharp
-loggerFactory.AddTraceSource(sourceSwitchName);
-```
+### <a name="azure-app-service-provider"></a><span data-ttu-id="cdffd-446">Azure App Service プロバイダー</span><span class="sxs-lookup"><span data-stu-id="cdffd-446">Azure App Service provider</span></span>
 
-::: moniker-end
-
-<span data-ttu-id="e5189-442">[AddTraceSource オーバーロード](xref:Microsoft.Extensions.Logging.TraceSourceFactoryExtensions)を使用すると、ソース スイッチとトレース リスナーを渡すことができます。</span><span class="sxs-lookup"><span data-stu-id="e5189-442">[AddTraceSource overloads](xref:Microsoft.Extensions.Logging.TraceSourceFactoryExtensions) let you pass in a source switch and a trace listener.</span></span>
-
-<span data-ttu-id="e5189-443">このプロバイダーを使用するには、アプリを (.NET Core ではなく) .NET Framework 上で実行する必要があります。</span><span class="sxs-lookup"><span data-stu-id="e5189-443">To use this provider, an app has to run on the .NET Framework (rather than .NET Core).</span></span> <span data-ttu-id="e5189-444">このプロバイダーでは、サンプル アプリで使用されている <xref:System.Diagnostics.TextWriterTraceListener> など、さまざまな[リスナー](/dotnet/framework/debug-trace-profile/trace-listeners)にメッセージをルーティングさせることができます。</span><span class="sxs-lookup"><span data-stu-id="e5189-444">The provider can route messages to a variety of [listeners](/dotnet/framework/debug-trace-profile/trace-listeners), such as the <xref:System.Diagnostics.TextWriterTraceListener> used in the sample app.</span></span>
-
-::: moniker range="< aspnetcore-2.0"
-
-<span data-ttu-id="e5189-445">次の例では、`Warning` 以上のメッセージのログをコンソール ウィンドウに出力する `TraceSource` プロバイダーを構成します。</span><span class="sxs-lookup"><span data-stu-id="e5189-445">The following example configures a `TraceSource` provider that logs `Warning` and higher messages to the console window.</span></span>
-
-[!code-csharp[](index/samples/1.x/TodoApiSample/Startup.cs?name=snippet_TraceSource&highlight=9-12)]
-
-::: moniker-end
-
-### <a name="azure-app-service-provider"></a><span data-ttu-id="e5189-446">Azure App Service プロバイダー</span><span class="sxs-lookup"><span data-stu-id="e5189-446">Azure App Service provider</span></span>
-
-<span data-ttu-id="e5189-447">[Microsoft.Extensions.Logging.AzureAppServices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices) プロバイダー パッケージは、Azure App Service アプリのファイル システムのテキスト ファイルと、Azure Storage アカウントの [BLOB ストレージ](https://azure.microsoft.com/documentation/articles/storage-dotnet-how-to-use-blobs/#what-is-blob-storage)にログを書き込みます。</span><span class="sxs-lookup"><span data-stu-id="e5189-447">The [Microsoft.Extensions.Logging.AzureAppServices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices) provider package writes logs to text files in an Azure App Service app's file system and to [blob storage](https://azure.microsoft.com/documentation/articles/storage-dotnet-how-to-use-blobs/#what-is-blob-storage) in an Azure Storage account.</span></span> <span data-ttu-id="e5189-448">プロバイダー パッケージは、.NET Core 1.1 以降を対象とするアプリで使用可能です。</span><span class="sxs-lookup"><span data-stu-id="e5189-448">The provider package is available for apps targeting .NET Core 1.1 or later.</span></span>
-
-::: moniker range=">= aspnetcore-2.0"
-
-<span data-ttu-id="e5189-449">.NET Core を対象とする場合は、次の点に注意してください。</span><span class="sxs-lookup"><span data-stu-id="e5189-449">If targeting .NET Core, note the following points:</span></span>
-
-::: moniker-end
-
-::: moniker range="= aspnetcore-2.0"
-
-* <span data-ttu-id="e5189-450">プロバイダー パッケージは、ASP.NET Core の [Microsoft.AspNetCore.All メタパッケージ](xref:fundamentals/metapackage)に含まれます。</span><span class="sxs-lookup"><span data-stu-id="e5189-450">The provider package is included in the ASP.NET Core [Microsoft.AspNetCore.All metapackage](xref:fundamentals/metapackage).</span></span>
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-2.1"
-
-* <span data-ttu-id="e5189-451">プロバイダー パッケージは、[Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)には含まれません。</span><span class="sxs-lookup"><span data-stu-id="e5189-451">The provider package isn't included in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span> <span data-ttu-id="e5189-452">プロバイダーを使用するには、パッケージをインストールします。</span><span class="sxs-lookup"><span data-stu-id="e5189-452">To use the provider, install the package.</span></span>
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-2.0"
-
-<span data-ttu-id="e5189-453">.NET Framework をターゲットとする場合、または `Microsoft.AspNetCore.App` を参照している場合は、プロバイダー パッケージをプロジェクトに追加します。</span><span class="sxs-lookup"><span data-stu-id="e5189-453">If targeting .NET Framework or referencing the `Microsoft.AspNetCore.App` metapackage, add the provider package to the project.</span></span> <span data-ttu-id="e5189-454">`AddAzureWebAppDiagnostics` を呼び出します。</span><span class="sxs-lookup"><span data-stu-id="e5189-454">Invoke `AddAzureWebAppDiagnostics`:</span></span>
+<span data-ttu-id="cdffd-447">[Microsoft.Extensions.Logging.AzureAppServices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices) プロバイダー パッケージは、Azure App Service アプリのファイル システムのテキスト ファイルと、Azure Storage アカウントの [BLOB ストレージ](https://azure.microsoft.com/documentation/articles/storage-dotnet-how-to-use-blobs/#what-is-blob-storage)にログを書き込みます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-447">The [Microsoft.Extensions.Logging.AzureAppServices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices) provider package writes logs to text files in an Azure App Service app's file system and to [blob storage](https://azure.microsoft.com/documentation/articles/storage-dotnet-how-to-use-blobs/#what-is-blob-storage) in an Azure Storage account.</span></span>
 
 ```csharp
 logging.AddAzureWebAppDiagnostics();
 ```
 
-::: moniker-end
+::: moniker range=">= aspnetcore-3.0"
 
-::: moniker range="= aspnetcore-1.1"
-
-```csharp
-loggerFactory.AddAzureWebAppDiagnostics();
-```
+<span data-ttu-id="cdffd-448">プロバイダー パッケージは、共有フレームワークに含まれていません。</span><span class="sxs-lookup"><span data-stu-id="cdffd-448">The provider package isn't included in the shared framework.</span></span> <span data-ttu-id="cdffd-449">プロバイダーを使用するには、プロバイダー パッケージをプロジェクトに追加します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-449">To use the provider, add the provider package to the project.</span></span>
 
 ::: moniker-end
 
-::: moniker range="<= aspnetcore-2.1"
+::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
 
-<span data-ttu-id="e5189-455"><xref:Microsoft.Extensions.Logging.AzureAppServicesLoggerFactoryExtensions.AddAzureWebAppDiagnostics*> のオーバーロードによって <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureAppServicesDiagnosticsSettings> を渡すことができます。</span><span class="sxs-lookup"><span data-stu-id="e5189-455">An <xref:Microsoft.Extensions.Logging.AzureAppServicesLoggerFactoryExtensions.AddAzureWebAppDiagnostics*> overload lets you pass in <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureAppServicesDiagnosticsSettings>.</span></span> <span data-ttu-id="e5189-456">設定オブジェクトで既定の設定をオーバーライドできます。たとえば、ログの出力テンプレート、BLOB 名、ファイル サイズの制限などです。</span><span class="sxs-lookup"><span data-stu-id="e5189-456">The settings object can override default settings, such as the logging output template, blob name, and file size limit.</span></span> <span data-ttu-id="e5189-457">("*出力テンプレート*" は、`ILogger` メソッドの呼び出しと共に指定されるものに加えて、すべてのログに適用されるメッセージ テンプレートです。)</span><span class="sxs-lookup"><span data-stu-id="e5189-457">(*Output template* is a message template that's applied to all logs in addition to what's provided with an `ILogger` method call.)</span></span>
+<span data-ttu-id="cdffd-450">プロバイダー パッケージは、[Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)には含まれません。</span><span class="sxs-lookup"><span data-stu-id="cdffd-450">The provider package isn't included in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span> <span data-ttu-id="cdffd-451">.NET Framework をターゲットとする場合、または `Microsoft.AspNetCore.App` を参照している場合は、プロバイダー パッケージをプロジェクトに追加します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-451">When targeting .NET Framework or referencing the `Microsoft.AspNetCore.App` metapackage, add the provider package to the project.</span></span> 
 
 ::: moniker-end
 
-::: moniker range=">= aspnetcore-2.2"
+::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="e5189-458">プロバイダーの設定を構成するには、次の例のように <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureFileLoggerOptions> と <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureBlobLoggerOptions> を使用します。</span><span class="sxs-lookup"><span data-stu-id="e5189-458">To configure provider settings, use <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureFileLoggerOptions> and <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureBlobLoggerOptions>, as shown in the following example:</span></span>
+<span data-ttu-id="cdffd-452">プロバイダーの設定を構成するには、次の例のように <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureFileLoggerOptions> と <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureBlobLoggerOptions> を使用します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-452">To configure provider settings, use <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureFileLoggerOptions> and <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureBlobLoggerOptions>, as shown in the following example:</span></span>
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_AzLogOptions&highlight=17-28)]
+
+::: moniker-end
+
+::: moniker range="= aspnetcore-2.2"
+
+<span data-ttu-id="cdffd-453">プロバイダーの設定を構成するには、次の例のように <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureFileLoggerOptions> と <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureBlobLoggerOptions> を使用します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-453">To configure provider settings, use <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureFileLoggerOptions> and <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureBlobLoggerOptions>, as shown in the following example:</span></span>
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_AzLogOptions&highlight=19-27)]
 
 ::: moniker-end
 
-<span data-ttu-id="e5189-459">アプリケーションを App Service アプリにデプロイすると、Azure portal の **[App Service]** ページの [[App Service ログ]](/azure/app-service/web-sites-enable-diagnostic-log/#enablediag) セクションで指定された設定が適用されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-459">When you deploy to an App Service app, the application honors the settings in the [App Service logs](/azure/app-service/web-sites-enable-diagnostic-log/#enablediag) section of the **App Service** page of the Azure portal.</span></span> <span data-ttu-id="e5189-460">次の設定が更新されると、アプリの再起動や再デプロイを必要とせずに、変更がすぐに有効になります。</span><span class="sxs-lookup"><span data-stu-id="e5189-460">When the following settings are updated, the changes take effect immediately without requiring a restart or redeployment of the app.</span></span>
+::: moniker range="= aspnetcore-2.1"
 
-* <span data-ttu-id="e5189-461">**[アプリケーション ログ (ファイル システム)]**</span><span class="sxs-lookup"><span data-stu-id="e5189-461">**Application Logging (Filesystem)**</span></span>
-* <span data-ttu-id="e5189-462">**[アプリケーション ログ (BLOB)]**</span><span class="sxs-lookup"><span data-stu-id="e5189-462">**Application Logging (Blob)**</span></span>
+<span data-ttu-id="cdffd-454"><xref:Microsoft.Extensions.Logging.AzureAppServicesLoggerFactoryExtensions.AddAzureWebAppDiagnostics*> のオーバーロードによって <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureAppServicesDiagnosticsSettings> を渡すことができます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-454">An <xref:Microsoft.Extensions.Logging.AzureAppServicesLoggerFactoryExtensions.AddAzureWebAppDiagnostics*> overload lets you pass in <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureAppServicesDiagnosticsSettings>.</span></span> <span data-ttu-id="cdffd-455">設定オブジェクトで既定の設定をオーバーライドできます。たとえば、ログの出力テンプレート、BLOB 名、ファイル サイズの制限などです。</span><span class="sxs-lookup"><span data-stu-id="cdffd-455">The settings object can override default settings, such as the logging output template, blob name, and file size limit.</span></span> <span data-ttu-id="cdffd-456">("*出力テンプレート*" は、`ILogger` メソッドの呼び出しと共に指定されるものに加えて、すべてのログに適用されるメッセージ テンプレートです。)</span><span class="sxs-lookup"><span data-stu-id="cdffd-456">(*Output template* is a message template that's applied to all logs in addition to what's provided with an `ILogger` method call.)</span></span>
 
-<span data-ttu-id="e5189-463">ログ ファイルの既定の場所は、*D:\\home\\LogFiles\\Application* です。既定のファイル名は *diagnostics-yyyymmdd.txt* です。</span><span class="sxs-lookup"><span data-stu-id="e5189-463">The default location for log files is in the *D:\\home\\LogFiles\\Application* folder, and the default file name is *diagnostics-yyyymmdd.txt*.</span></span> <span data-ttu-id="e5189-464">既定のファイル サイズ制限は 10 MB です。保持されるファイルの既定の最大数は 2 です。</span><span class="sxs-lookup"><span data-stu-id="e5189-464">The default file size limit is 10 MB, and the default maximum number of files retained is 2.</span></span> <span data-ttu-id="e5189-465">既定の BLOB 名は *{app-name}{timestamp}/yyyy/mm/dd/hh/{guid}-applicationLog.txt* です。</span><span class="sxs-lookup"><span data-stu-id="e5189-465">The default blob name is *{app-name}{timestamp}/yyyy/mm/dd/hh/{guid}-applicationLog.txt*.</span></span>
-
-<span data-ttu-id="e5189-466">このプロバイダーは、プロジェクトが Azure 環境で実行される場合にのみ機能します。</span><span class="sxs-lookup"><span data-stu-id="e5189-466">The provider only works when the project runs in the Azure environment.</span></span> <span data-ttu-id="e5189-467">プロジェクトをローカルで実行しても、効果はありません&mdash;BLOB のローカル ファイルまたはローカル開発ストレージへの書き込みは行われません。</span><span class="sxs-lookup"><span data-stu-id="e5189-467">It has no effect when the project is run locally&mdash;it doesn't write to local files or local development storage for blobs.</span></span>
-
-#### <a name="azure-log-streaming"></a><span data-ttu-id="e5189-468">Azure ログのストリーミング</span><span class="sxs-lookup"><span data-stu-id="e5189-468">Azure log streaming</span></span>
-
-<span data-ttu-id="e5189-469">Azure ログのストリーミングを使用すると、以下からリアル タイムでログ アクティビティを確認できます。</span><span class="sxs-lookup"><span data-stu-id="e5189-469">Azure log streaming lets you view log activity in real time from:</span></span>
-
-* <span data-ttu-id="e5189-470">アプリ サーバー</span><span class="sxs-lookup"><span data-stu-id="e5189-470">The app server</span></span>
-* <span data-ttu-id="e5189-471">Web サーバー</span><span class="sxs-lookup"><span data-stu-id="e5189-471">The web server</span></span>
-* <span data-ttu-id="e5189-472">失敗した要求のトレース</span><span class="sxs-lookup"><span data-stu-id="e5189-472">Failed request tracing</span></span>
-
-<span data-ttu-id="e5189-473">Azure ログのストリーミングを構成するには</span><span class="sxs-lookup"><span data-stu-id="e5189-473">To configure Azure log streaming:</span></span>
-
-* <span data-ttu-id="e5189-474">アプリのポータル ページから **[App Service ログ]** ページに移動します。</span><span class="sxs-lookup"><span data-stu-id="e5189-474">Navigate to the **App Service logs** page from your app's portal page.</span></span>
-* <span data-ttu-id="e5189-475">**[アプリケーション ログ (ファイル システム)]** を **[オン]** に設定します。</span><span class="sxs-lookup"><span data-stu-id="e5189-475">Set **Application Logging (Filesystem)** to **On**.</span></span>
-* <span data-ttu-id="e5189-476">ログ **[レベル]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="e5189-476">Choose the log **Level**.</span></span>
-
-<span data-ttu-id="e5189-477">**[ログ ストリーム]** ページに移動して、アプリのメッセージを確認します。</span><span class="sxs-lookup"><span data-stu-id="e5189-477">Navigate to the **Log Stream** page to view app messages.</span></span> <span data-ttu-id="e5189-478">これらはアプリによって、`ILogger` インターフェイスを介してログに記録されます。</span><span class="sxs-lookup"><span data-stu-id="e5189-478">They're logged by the app through the `ILogger` interface.</span></span>
-
-::: moniker range=">= aspnetcore-1.1"
-
-### <a name="azure-application-insights-trace-logging"></a><span data-ttu-id="e5189-479">Azure Application Insights のトレース ログ</span><span class="sxs-lookup"><span data-stu-id="e5189-479">Azure Application Insights trace logging</span></span>
-
-<span data-ttu-id="e5189-480">[Microsoft.Extensions.Logging.ApplicationInsights](https://www.nuget.org/packages/Microsoft.Extensions.Logging.ApplicationInsights) プロバイダー パッケージでは、Azure Application Insights にログを書き込みます。</span><span class="sxs-lookup"><span data-stu-id="e5189-480">The [Microsoft.Extensions.Logging.ApplicationInsights](https://www.nuget.org/packages/Microsoft.Extensions.Logging.ApplicationInsights) provider package writes logs to Azure Application Insights.</span></span> <span data-ttu-id="e5189-481">Application Insights は、Web アプリを監視するサービスであり、クエリを実行してテレメトリ データを分析するためのツールを提供します。</span><span class="sxs-lookup"><span data-stu-id="e5189-481">Application Insights is a service that monitors a web app and provides tools for querying and analyzing the telemetry data.</span></span> <span data-ttu-id="e5189-482">このプロバイダーを使用する場合は、Application Insights ツールを使ってクエリを実行し、ログを分析できます。</span><span class="sxs-lookup"><span data-stu-id="e5189-482">If you use this provider, you can query and analyze your logs by using the Application Insights tools.</span></span>
-
-<span data-ttu-id="e5189-483">ログ プロバイダーは、[Microsoft.ApplicationInsights.AspNetCore](https://www.nuget.org/packages/Microsoft.ApplicationInsights.AspNetCore) の依存関係として組み込まれており、ASP.NET Core で利用可能なすべてのテレメトリを提供するパッケージです。</span><span class="sxs-lookup"><span data-stu-id="e5189-483">The logging provider is included as a dependency of [Microsoft.ApplicationInsights.AspNetCore](https://www.nuget.org/packages/Microsoft.ApplicationInsights.AspNetCore), which is the package that provides all available telemetry for ASP.NET Core.</span></span> <span data-ttu-id="e5189-484">このパッケージを使用する場合は、プロバイダー パッケージをインストールする必要はありません。</span><span class="sxs-lookup"><span data-stu-id="e5189-484">If you use this package, you don't have to install the provider package.</span></span>
-
-<span data-ttu-id="e5189-485">ASP.NET 4.x. に対応している [Microsoft.ApplicationInsights.Web](https://www.nuget.org/packages/Microsoft.ApplicationInsights.Web) パッケージを使用しないでください。</span><span class="sxs-lookup"><span data-stu-id="e5189-485">Don't use the [Microsoft.ApplicationInsights.Web](https://www.nuget.org/packages/Microsoft.ApplicationInsights.Web) package&mdash;that's for ASP.NET 4.x.</span></span>
-
-<span data-ttu-id="e5189-486">詳細については、次のリソースを参照してください。</span><span class="sxs-lookup"><span data-stu-id="e5189-486">For more information, see the following resources:</span></span>
-
-* [<span data-ttu-id="e5189-487">Application Insights の概要</span><span class="sxs-lookup"><span data-stu-id="e5189-487">Application Insights overview</span></span>](/azure/application-insights/app-insights-overview)
-* <span data-ttu-id="e5189-488">[Application Insights for ASP.NET Core アプリケーション](/azure/azure-monitor/app/asp-net-core) - ログ記録と共に完全な Application Insights テレメトリを実装する場合は、ここから開始します。</span><span class="sxs-lookup"><span data-stu-id="e5189-488">[Application Insights for ASP.NET Core applications](/azure/azure-monitor/app/asp-net-core) - Start here if you want to implement the full range of Application Insights telemetry along with logging.</span></span>
-* <span data-ttu-id="e5189-489">[ApplicationInsightsLoggerProvider for .NET Core ILogger ログ](/azure/azure-monitor/app/ilogger) - ログ プロバイダーを実装し、Application Insights テレメトリのそれ以外の部分は除く場合は、ここから開始します。</span><span class="sxs-lookup"><span data-stu-id="e5189-489">[ApplicationInsightsLoggerProvider for .NET Core ILogger logs](/azure/azure-monitor/app/ilogger) - Start here if you want to implement the logging provider without the rest of Application Insights telemetry.</span></span>
-* <span data-ttu-id="e5189-490">[Application Insights のログ アダプター](https://docs.microsoft.com/azure/azure-monitor/app/asp-net-trace-logs)。</span><span class="sxs-lookup"><span data-stu-id="e5189-490">[Application Insights logging adapters](https://docs.microsoft.com/azure/azure-monitor/app/asp-net-trace-logs).</span></span>
-* <span data-ttu-id="e5189-491">[Application Insights SDK のインストール、構成、および初期化](/learn/modules/instrument-web-app-code-with-application-insights) - Microsoft Learn サイト上にある対話型のチュートリアルです。</span><span class="sxs-lookup"><span data-stu-id="e5189-491">[Install, configure, and initialize the Application Insights SDK](/learn/modules/instrument-web-app-code-with-application-insights) - Interactive tutorial on the Microsoft Learn site.</span></span>
 ::: moniker-end
 
-## <a name="third-party-logging-providers"></a><span data-ttu-id="e5189-492">サードパーティ製のログ プロバイダー</span><span class="sxs-lookup"><span data-stu-id="e5189-492">Third-party logging providers</span></span>
+<span data-ttu-id="cdffd-457">アプリケーションを App Service アプリにデプロイすると、Azure portal の **[App Service]** ページの [[App Service ログ]](/azure/app-service/web-sites-enable-diagnostic-log/#enablediag) セクションで指定された設定が適用されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-457">When you deploy to an App Service app, the application honors the settings in the [App Service logs](/azure/app-service/web-sites-enable-diagnostic-log/#enablediag) section of the **App Service** page of the Azure portal.</span></span> <span data-ttu-id="cdffd-458">次の設定が更新されると、アプリの再起動や再デプロイを必要とせずに、変更がすぐに有効になります。</span><span class="sxs-lookup"><span data-stu-id="cdffd-458">When the following settings are updated, the changes take effect immediately without requiring a restart or redeployment of the app.</span></span>
 
-<span data-ttu-id="e5189-493">ASP.NET Core で使用できるサードパーティ製のログ記録フレームワークをいくつか紹介します。</span><span class="sxs-lookup"><span data-stu-id="e5189-493">Third-party logging frameworks that work with ASP.NET Core:</span></span>
+* <span data-ttu-id="cdffd-459">**[アプリケーション ログ (ファイル システム)]**</span><span class="sxs-lookup"><span data-stu-id="cdffd-459">**Application Logging (Filesystem)**</span></span>
+* <span data-ttu-id="cdffd-460">**[アプリケーション ログ (BLOB)]**</span><span class="sxs-lookup"><span data-stu-id="cdffd-460">**Application Logging (Blob)**</span></span>
 
-* <span data-ttu-id="e5189-494">[elmah.io](https://elmah.io/) ([GitHub リポジトリ](https://github.com/elmahio/Elmah.Io.Extensions.Logging))</span><span class="sxs-lookup"><span data-stu-id="e5189-494">[elmah.io](https://elmah.io/) ([GitHub repo](https://github.com/elmahio/Elmah.Io.Extensions.Logging))</span></span>
-* <span data-ttu-id="e5189-495">[Gelf](https://docs.graylog.org/en/2.3/pages/gelf.html) ([GitHub リポジトリ](https://github.com/mattwcole/gelf-extensions-logging))</span><span class="sxs-lookup"><span data-stu-id="e5189-495">[Gelf](https://docs.graylog.org/en/2.3/pages/gelf.html) ([GitHub repo](https://github.com/mattwcole/gelf-extensions-logging))</span></span>
-* <span data-ttu-id="e5189-496">[JSNLog](https://jsnlog.com/) ([GitHub リポジトリ](https://github.com/mperdeck/jsnlog))</span><span class="sxs-lookup"><span data-stu-id="e5189-496">[JSNLog](https://jsnlog.com/) ([GitHub repo](https://github.com/mperdeck/jsnlog))</span></span>
-* <span data-ttu-id="e5189-497">[KissLog.net](https://kisslog.net/) ([GitHub リポジトリ](https://github.com/catalingavan/KissLog-net))</span><span class="sxs-lookup"><span data-stu-id="e5189-497">[KissLog.net](https://kisslog.net/) ([GitHub repo](https://github.com/catalingavan/KissLog-net))</span></span>
-* <span data-ttu-id="e5189-498">[Loggr](https://loggr.net/) ([GitHub リポジトリ](https://github.com/imobile3/Loggr.Extensions.Logging))</span><span class="sxs-lookup"><span data-stu-id="e5189-498">[Loggr](https://loggr.net/) ([GitHub repo](https://github.com/imobile3/Loggr.Extensions.Logging))</span></span>
-* <span data-ttu-id="e5189-499">[NLog](https://nlog-project.org/) ([GitHub リポジトリ](https://github.com/NLog/NLog.Extensions.Logging))</span><span class="sxs-lookup"><span data-stu-id="e5189-499">[NLog](https://nlog-project.org/) ([GitHub repo](https://github.com/NLog/NLog.Extensions.Logging))</span></span>
-* <span data-ttu-id="e5189-500">[Sentry](https://sentry.io/welcome/) ([GitHub リポジトリ](https://github.com/getsentry/sentry-dotnet))</span><span class="sxs-lookup"><span data-stu-id="e5189-500">[Sentry](https://sentry.io/welcome/) ([GitHub repo](https://github.com/getsentry/sentry-dotnet))</span></span>
-* <span data-ttu-id="e5189-501">[Serilog](https://serilog.net/) ([GitHub リポジトリ](https://github.com/serilog/serilog-aspnetcore))</span><span class="sxs-lookup"><span data-stu-id="e5189-501">[Serilog](https://serilog.net/) ([GitHub repo](https://github.com/serilog/serilog-aspnetcore))</span></span>
-* <span data-ttu-id="e5189-502">[Stackdriver](https://cloud.google.com/dotnet/docs/stackdriver#logging) ([Github リポジトリ](https://github.com/googleapis/google-cloud-dotnet))</span><span class="sxs-lookup"><span data-stu-id="e5189-502">[Stackdriver](https://cloud.google.com/dotnet/docs/stackdriver#logging) ([Github repo](https://github.com/googleapis/google-cloud-dotnet))</span></span>
+<span data-ttu-id="cdffd-461">ログ ファイルの既定の場所は、*D:\\home\\LogFiles\\Application* です。既定のファイル名は *diagnostics-yyyymmdd.txt* です。</span><span class="sxs-lookup"><span data-stu-id="cdffd-461">The default location for log files is in the *D:\\home\\LogFiles\\Application* folder, and the default file name is *diagnostics-yyyymmdd.txt*.</span></span> <span data-ttu-id="cdffd-462">既定のファイル サイズ制限は 10 MB です。保持されるファイルの既定の最大数は 2 です。</span><span class="sxs-lookup"><span data-stu-id="cdffd-462">The default file size limit is 10 MB, and the default maximum number of files retained is 2.</span></span> <span data-ttu-id="cdffd-463">既定の BLOB 名は *{app-name}{timestamp}/yyyy/mm/dd/hh/{guid}-applicationLog.txt* です。</span><span class="sxs-lookup"><span data-stu-id="cdffd-463">The default blob name is *{app-name}{timestamp}/yyyy/mm/dd/hh/{guid}-applicationLog.txt*.</span></span>
 
-<span data-ttu-id="e5189-503">一部のサードパーティ製フレームワークは、[セマンティック ログ記録 (構造化ログ記録とも呼ばれます)](https://softwareengineering.stackexchange.com/questions/312197/benefits-of-structured-logging-vs-basic-logging) を実行できます。</span><span class="sxs-lookup"><span data-stu-id="e5189-503">Some third-party frameworks can perform [semantic logging, also known as structured logging](https://softwareengineering.stackexchange.com/questions/312197/benefits-of-structured-logging-vs-basic-logging).</span></span>
+<span data-ttu-id="cdffd-464">このプロバイダーは、プロジェクトが Azure 環境で実行される場合にのみ機能します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-464">The provider only works when the project runs in the Azure environment.</span></span> <span data-ttu-id="cdffd-465">プロジェクトをローカルで実行しても、効果はありません&mdash;BLOB のローカル ファイルまたはローカル開発ストレージへの書き込みは行われません。</span><span class="sxs-lookup"><span data-stu-id="cdffd-465">It has no effect when the project is run locally&mdash;it doesn't write to local files or local development storage for blobs.</span></span>
 
-<span data-ttu-id="e5189-504">サード パーティ製フレームワークを使用することは、組み込みのプロバイダーのいずれかを使用することと似ています。</span><span class="sxs-lookup"><span data-stu-id="e5189-504">Using a third-party framework is similar to using one of the built-in providers:</span></span>
+#### <a name="azure-log-streaming"></a><span data-ttu-id="cdffd-466">Azure ログのストリーミング</span><span class="sxs-lookup"><span data-stu-id="cdffd-466">Azure log streaming</span></span>
 
-1. <span data-ttu-id="e5189-505">プロジェクトに NuGet パッケージを追加します。</span><span class="sxs-lookup"><span data-stu-id="e5189-505">Add a NuGet package to your project.</span></span>
-1. <span data-ttu-id="e5189-506">`ILoggerFactory` を呼び出します。</span><span class="sxs-lookup"><span data-stu-id="e5189-506">Call an `ILoggerFactory`.</span></span>
+<span data-ttu-id="cdffd-467">Azure ログのストリーミングを使用すると、以下からリアル タイムでログ アクティビティを確認できます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-467">Azure log streaming lets you view log activity in real time from:</span></span>
 
-<span data-ttu-id="e5189-507">詳細については、各プロバイダーのドキュメントをご覧ください。</span><span class="sxs-lookup"><span data-stu-id="e5189-507">For more information, see each provider's documentation.</span></span> <span data-ttu-id="e5189-508">サード パーティ製のログ プロバイダーは、Microsoft ではサポートされていません。</span><span class="sxs-lookup"><span data-stu-id="e5189-508">Third-party logging providers aren't supported by Microsoft.</span></span>
+* <span data-ttu-id="cdffd-468">アプリ サーバー</span><span class="sxs-lookup"><span data-stu-id="cdffd-468">The app server</span></span>
+* <span data-ttu-id="cdffd-469">Web サーバー</span><span class="sxs-lookup"><span data-stu-id="cdffd-469">The web server</span></span>
+* <span data-ttu-id="cdffd-470">失敗した要求のトレース</span><span class="sxs-lookup"><span data-stu-id="cdffd-470">Failed request tracing</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="e5189-509">その他の技術情報</span><span class="sxs-lookup"><span data-stu-id="e5189-509">Additional resources</span></span>
+<span data-ttu-id="cdffd-471">Azure ログのストリーミングを構成するには</span><span class="sxs-lookup"><span data-stu-id="cdffd-471">To configure Azure log streaming:</span></span>
+
+* <span data-ttu-id="cdffd-472">アプリのポータル ページから **[App Service ログ]** ページに移動します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-472">Navigate to the **App Service logs** page from your app's portal page.</span></span>
+* <span data-ttu-id="cdffd-473">**[アプリケーション ログ (ファイル システム)]** を **[オン]** に設定します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-473">Set **Application Logging (Filesystem)** to **On**.</span></span>
+* <span data-ttu-id="cdffd-474">ログ **[レベル]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-474">Choose the log **Level**.</span></span>
+
+<span data-ttu-id="cdffd-475">**[ログ ストリーム]** ページに移動して、アプリのメッセージを確認します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-475">Navigate to the **Log Stream** page to view app messages.</span></span> <span data-ttu-id="cdffd-476">これらはアプリによって、`ILogger` インターフェイスを介してログに記録されます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-476">They're logged by the app through the `ILogger` interface.</span></span>
+
+### <a name="azure-application-insights-trace-logging"></a><span data-ttu-id="cdffd-477">Azure Application Insights のトレース ログ</span><span class="sxs-lookup"><span data-stu-id="cdffd-477">Azure Application Insights trace logging</span></span>
+
+<span data-ttu-id="cdffd-478">[Microsoft.Extensions.Logging.ApplicationInsights](https://www.nuget.org/packages/Microsoft.Extensions.Logging.ApplicationInsights) プロバイダー パッケージでは、Azure Application Insights にログを書き込みます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-478">The [Microsoft.Extensions.Logging.ApplicationInsights](https://www.nuget.org/packages/Microsoft.Extensions.Logging.ApplicationInsights) provider package writes logs to Azure Application Insights.</span></span> <span data-ttu-id="cdffd-479">Application Insights は、Web アプリを監視するサービスであり、クエリを実行してテレメトリ データを分析するためのツールを提供します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-479">Application Insights is a service that monitors a web app and provides tools for querying and analyzing the telemetry data.</span></span> <span data-ttu-id="cdffd-480">このプロバイダーを使用する場合は、Application Insights ツールを使ってクエリを実行し、ログを分析できます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-480">If you use this provider, you can query and analyze your logs by using the Application Insights tools.</span></span>
+
+<span data-ttu-id="cdffd-481">ログ プロバイダーは、[Microsoft.ApplicationInsights.AspNetCore](https://www.nuget.org/packages/Microsoft.ApplicationInsights.AspNetCore) の依存関係として組み込まれており、ASP.NET Core で利用可能なすべてのテレメトリを提供するパッケージです。</span><span class="sxs-lookup"><span data-stu-id="cdffd-481">The logging provider is included as a dependency of [Microsoft.ApplicationInsights.AspNetCore](https://www.nuget.org/packages/Microsoft.ApplicationInsights.AspNetCore), which is the package that provides all available telemetry for ASP.NET Core.</span></span> <span data-ttu-id="cdffd-482">このパッケージを使用する場合は、プロバイダー パッケージをインストールする必要はありません。</span><span class="sxs-lookup"><span data-stu-id="cdffd-482">If you use this package, you don't have to install the provider package.</span></span>
+
+<span data-ttu-id="cdffd-483">ASP.NET 4.x. に対応している [Microsoft.ApplicationInsights.Web](https://www.nuget.org/packages/Microsoft.ApplicationInsights.Web) パッケージを使用しないでください。</span><span class="sxs-lookup"><span data-stu-id="cdffd-483">Don't use the [Microsoft.ApplicationInsights.Web](https://www.nuget.org/packages/Microsoft.ApplicationInsights.Web) package&mdash;that's for ASP.NET 4.x.</span></span>
+
+<span data-ttu-id="cdffd-484">詳細については、次のリソースを参照してください。</span><span class="sxs-lookup"><span data-stu-id="cdffd-484">For more information, see the following resources:</span></span>
+
+* [<span data-ttu-id="cdffd-485">Application Insights の概要</span><span class="sxs-lookup"><span data-stu-id="cdffd-485">Application Insights overview</span></span>](/azure/application-insights/app-insights-overview)
+* <span data-ttu-id="cdffd-486">[Application Insights for ASP.NET Core アプリケーション](/azure/azure-monitor/app/asp-net-core) - ログ記録と共に完全な Application Insights テレメトリを実装する場合は、ここから開始します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-486">[Application Insights for ASP.NET Core applications](/azure/azure-monitor/app/asp-net-core) - Start here if you want to implement the full range of Application Insights telemetry along with logging.</span></span>
+* <span data-ttu-id="cdffd-487">[ApplicationInsightsLoggerProvider for .NET Core ILogger ログ](/azure/azure-monitor/app/ilogger) - ログ プロバイダーを実装し、Application Insights テレメトリのそれ以外の部分は除く場合は、ここから開始します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-487">[ApplicationInsightsLoggerProvider for .NET Core ILogger logs](/azure/azure-monitor/app/ilogger) - Start here if you want to implement the logging provider without the rest of Application Insights telemetry.</span></span>
+* <span data-ttu-id="cdffd-488">[Application Insights のログ アダプター](https://docs.microsoft.com/azure/azure-monitor/app/asp-net-trace-logs)。</span><span class="sxs-lookup"><span data-stu-id="cdffd-488">[Application Insights logging adapters](https://docs.microsoft.com/azure/azure-monitor/app/asp-net-trace-logs).</span></span>
+* <span data-ttu-id="cdffd-489">[Application Insights SDK のインストール、構成、および初期化](/learn/modules/instrument-web-app-code-with-application-insights) - Microsoft Learn サイト上にある対話型のチュートリアルです。</span><span class="sxs-lookup"><span data-stu-id="cdffd-489">[Install, configure, and initialize the Application Insights SDK](/learn/modules/instrument-web-app-code-with-application-insights) - Interactive tutorial on the Microsoft Learn site.</span></span>
+
+## <a name="third-party-logging-providers"></a><span data-ttu-id="cdffd-490">サードパーティ製のログ プロバイダー</span><span class="sxs-lookup"><span data-stu-id="cdffd-490">Third-party logging providers</span></span>
+
+<span data-ttu-id="cdffd-491">ASP.NET Core で使用できるサードパーティ製のログ記録フレームワークをいくつか紹介します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-491">Third-party logging frameworks that work with ASP.NET Core:</span></span>
+
+* <span data-ttu-id="cdffd-492">[elmah.io](https://elmah.io/) ([GitHub リポジトリ](https://github.com/elmahio/Elmah.Io.Extensions.Logging))</span><span class="sxs-lookup"><span data-stu-id="cdffd-492">[elmah.io](https://elmah.io/) ([GitHub repo](https://github.com/elmahio/Elmah.Io.Extensions.Logging))</span></span>
+* <span data-ttu-id="cdffd-493">[Gelf](https://docs.graylog.org/en/2.3/pages/gelf.html) ([GitHub リポジトリ](https://github.com/mattwcole/gelf-extensions-logging))</span><span class="sxs-lookup"><span data-stu-id="cdffd-493">[Gelf](https://docs.graylog.org/en/2.3/pages/gelf.html) ([GitHub repo](https://github.com/mattwcole/gelf-extensions-logging))</span></span>
+* <span data-ttu-id="cdffd-494">[JSNLog](https://jsnlog.com/) ([GitHub リポジトリ](https://github.com/mperdeck/jsnlog))</span><span class="sxs-lookup"><span data-stu-id="cdffd-494">[JSNLog](https://jsnlog.com/) ([GitHub repo](https://github.com/mperdeck/jsnlog))</span></span>
+* <span data-ttu-id="cdffd-495">[KissLog.net](https://kisslog.net/) ([GitHub リポジトリ](https://github.com/catalingavan/KissLog-net))</span><span class="sxs-lookup"><span data-stu-id="cdffd-495">[KissLog.net](https://kisslog.net/) ([GitHub repo](https://github.com/catalingavan/KissLog-net))</span></span>
+* <span data-ttu-id="cdffd-496">[Loggr](https://loggr.net/) ([GitHub リポジトリ](https://github.com/imobile3/Loggr.Extensions.Logging))</span><span class="sxs-lookup"><span data-stu-id="cdffd-496">[Loggr](https://loggr.net/) ([GitHub repo](https://github.com/imobile3/Loggr.Extensions.Logging))</span></span>
+* <span data-ttu-id="cdffd-497">[NLog](https://nlog-project.org/) ([GitHub リポジトリ](https://github.com/NLog/NLog.Extensions.Logging))</span><span class="sxs-lookup"><span data-stu-id="cdffd-497">[NLog](https://nlog-project.org/) ([GitHub repo](https://github.com/NLog/NLog.Extensions.Logging))</span></span>
+* <span data-ttu-id="cdffd-498">[Sentry](https://sentry.io/welcome/) ([GitHub リポジトリ](https://github.com/getsentry/sentry-dotnet))</span><span class="sxs-lookup"><span data-stu-id="cdffd-498">[Sentry](https://sentry.io/welcome/) ([GitHub repo](https://github.com/getsentry/sentry-dotnet))</span></span>
+* <span data-ttu-id="cdffd-499">[Serilog](https://serilog.net/) ([GitHub リポジトリ](https://github.com/serilog/serilog-aspnetcore))</span><span class="sxs-lookup"><span data-stu-id="cdffd-499">[Serilog](https://serilog.net/) ([GitHub repo](https://github.com/serilog/serilog-aspnetcore))</span></span>
+* <span data-ttu-id="cdffd-500">[Stackdriver](https://cloud.google.com/dotnet/docs/stackdriver#logging) ([Github リポジトリ](https://github.com/googleapis/google-cloud-dotnet))</span><span class="sxs-lookup"><span data-stu-id="cdffd-500">[Stackdriver](https://cloud.google.com/dotnet/docs/stackdriver#logging) ([Github repo](https://github.com/googleapis/google-cloud-dotnet))</span></span>
+
+<span data-ttu-id="cdffd-501">一部のサードパーティ製フレームワークは、[セマンティック ログ記録 (構造化ログ記録とも呼ばれます)](https://softwareengineering.stackexchange.com/questions/312197/benefits-of-structured-logging-vs-basic-logging) を実行できます。</span><span class="sxs-lookup"><span data-stu-id="cdffd-501">Some third-party frameworks can perform [semantic logging, also known as structured logging](https://softwareengineering.stackexchange.com/questions/312197/benefits-of-structured-logging-vs-basic-logging).</span></span>
+
+<span data-ttu-id="cdffd-502">サード パーティ製フレームワークを使用することは、組み込みのプロバイダーのいずれかを使用することと似ています。</span><span class="sxs-lookup"><span data-stu-id="cdffd-502">Using a third-party framework is similar to using one of the built-in providers:</span></span>
+
+1. <span data-ttu-id="cdffd-503">プロジェクトに NuGet パッケージを追加します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-503">Add a NuGet package to your project.</span></span>
+1. <span data-ttu-id="cdffd-504">`ILoggerFactory` を呼び出します。</span><span class="sxs-lookup"><span data-stu-id="cdffd-504">Call an `ILoggerFactory`.</span></span>
+
+<span data-ttu-id="cdffd-505">詳細については、各プロバイダーのドキュメントをご覧ください。</span><span class="sxs-lookup"><span data-stu-id="cdffd-505">For more information, see each provider's documentation.</span></span> <span data-ttu-id="cdffd-506">サード パーティ製のログ プロバイダーは、Microsoft ではサポートされていません。</span><span class="sxs-lookup"><span data-stu-id="cdffd-506">Third-party logging providers aren't supported by Microsoft.</span></span>
+
+## <a name="additional-resources"></a><span data-ttu-id="cdffd-507">その他の技術情報</span><span class="sxs-lookup"><span data-stu-id="cdffd-507">Additional resources</span></span>
 
 * <xref:fundamentals/logging/loggermessage>
