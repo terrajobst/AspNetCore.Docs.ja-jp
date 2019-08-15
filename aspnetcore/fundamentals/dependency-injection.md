@@ -5,14 +5,14 @@ description: ASP.NET Core で依存関係の挿入を実装する方法とそれ
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/06/2019
+ms.date: 08/14/2019
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: 27ae8ac979c267c666d6d63f4d1dd862ff20edba
-ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
+ms.openlocfilehash: a984bb766e6876db4f8ed4c850a1984ba87d627d
+ms.sourcegitcommit: 476ea5ad86a680b7b017c6f32098acd3414c0f6c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/06/2019
-ms.locfileid: "68819865"
+ms.lasthandoff: 08/14/2019
+ms.locfileid: "69022289"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>ASP.NET Core での依存関係の挿入
 
@@ -171,7 +171,7 @@ public void ConfigureServices(IServiceCollection services)
 有効期間がスコープのサービス (<xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddScoped*>) は、クライアント要求 (接続) ごとに 1 回作成されます。
 
 > [!WARNING]
-> ミドルウェアでスコープ サービスを使用している場合、サービスを `Invoke` または `InvokeAsync` メソッドに追加します。 コンストラクターを使用して挿入すると、サービスがシングルトンのように動作するよう強制されるので、コンストラクターを使用した挿入は行わないでください。 詳細については、<xref:fundamentals/middleware/index> を参照してください。
+> ミドルウェアでスコープ サービスを使用している場合、サービスを `Invoke` または `InvokeAsync` メソッドに追加します。 コンストラクターを使用して挿入すると、サービスがシングルトンのように動作するよう強制されるので、コンストラクターを使用した挿入は行わないでください。 詳細については、<xref:fundamentals/middleware/write#per-request-middleware-dependencies> を参照してください。
 
 ### <a name="singleton"></a>シングルトン
 

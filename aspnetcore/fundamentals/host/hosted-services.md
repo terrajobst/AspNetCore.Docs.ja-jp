@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/03/2019
 uid: fundamentals/host/hosted-services
-ms.openlocfilehash: 2dbb1a84a380ab06a4be7ecf628799a070afc9e3
-ms.sourcegitcommit: 5dd2ce9709c9e41142771e652d1a4bd0b5248cec
+ms.openlocfilehash: 3d4279a291182da60c0cb2fbb93a3922ed673cde
+ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/05/2019
-ms.locfileid: "66692516"
+ms.lasthandoff: 08/09/2019
+ms.locfileid: "68914016"
 ---
 # <a name="background-tasks-with-hosted-services-in-aspnet-core"></a>ASP.NET Core でホステッド サービスを使用するバックグラウンド タスク
 
@@ -45,7 +45,7 @@ ASP.NET Core ワーカー サービス テンプレートは、実行時間が�
 1. **[新しい ASP.NET Core Web アプリケーションを作成する]** ダイアログで、 **[.NET Core]** と **[ASP.NET Core 3.0]** が選択されていることを確認します。
 1. **[ワーカー サービス]** テンプレートを選択します。 **[作成]** を選択します。
 
-# <a name="visual-studio-code--net-core-clitabvisual-studio-codenetcore-cli"></a>[Visual Studio Code / .NET Core CLI](#tab/visual-studio-code+netcore-cli)
+# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 コマンド シェルから [dotnet new](/dotnet/core/tools/dotnet-new) コマンドと共にワーカー サービス (`worker`) テンプレートを使用します。 次の例では、`ContosoWorkerService` という名前のワーカー サービス アプリが作成されます。 このコマンドが実行されると、`ContosoWorkerService` アプリ用のフォルダーが自動的に作成されます。
 
@@ -80,8 +80,8 @@ dotnet new worker -o ContosoWorkerService
 
   既定の 5 秒のシャットダウン タイムアウトを延長するには、次を設定します。
 
-  * <xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*> (汎用ホストを使用するとき) 詳細については、「<xref:fundamentals/host/generic-host#shutdown-timeout>」を参照してください。
-  * シャットダウン タイムアウトのホスト構成設定 (Web ホストを使用するとき) 詳細については、「<xref:fundamentals/host/web-host#shutdown-timeout>」を参照してください。
+  * <xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*> (汎用ホストを使用するとき) 詳細については、<xref:fundamentals/host/generic-host#shutdown-timeout> を参照してください。
+  * シャットダウン タイムアウトのホスト構成設定 (Web ホストを使用するとき) 詳細については、<xref:fundamentals/host/web-host#shutdown-timeout> を参照してください。
 
 ホステッド サービスは、アプリの起動時に一度アクティブ化され、アプリのシャットダウン時に正常にシャットダウンされます。 バックグラウンド タスクの実行中にエラーがスローされた場合、`StopAsync` が呼び出されていなくても `Dispose` を呼び出す必要があります。
 

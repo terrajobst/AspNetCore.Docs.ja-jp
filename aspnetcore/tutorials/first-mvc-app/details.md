@@ -5,12 +5,12 @@ description: 基本的な ASP.NET Core MVC アプリの Details コントロー�
 ms.author: riande
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/details
-ms.openlocfilehash: 056017ea4f4073fa0b1cd747d06775b2a33616cf
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: d19e8cdb63da2bb9c66db1943dfcec183d432401
+ms.sourcegitcommit: 2719c70cd15a430479ab4007ff3e197fbf5dfee0
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64889577"
+ms.lasthandoff: 08/09/2019
+ms.locfileid: "68862968"
 ---
 # <a name="examine-the-details-and-delete-methods-of-an-aspnet-core-app"></a>ASP.NET Core アプリの Details メソッドと Delete メソッドの確認
 
@@ -24,7 +24,7 @@ Movie コントローラーを開き、`Details` メソッドを調べます。
 
 [!code-csharp[](start-mvc/sample/MvcMovie/Startup.cs?highlight=5&name=snippet_1)]
 
-EF は、`FirstOrDefaultAsync` メソッドによるデータの検索を簡単にします。 このメソッドには重要なセキュリティ機能が組み込まれています。それは、検索メソッドがムービーを見つけたということをコードが確認し、それからその見つけたムービーで何らかの処理を行うということです。 たとえば、リンクが作成する URL を `http://localhost:xxxx/Movies/Details/1` から `http://localhost:xxxx/Movies/Details/12345` のようなものに変更することで、ハッカーはサイトにエラーを誘発できます。 null のムービーを確認しなかった場合、アプリは例外をスローします。
+EF は、`FirstOrDefaultAsync` メソッドによるデータの検索を簡単にします。 このメソッドには重要なセキュリティ機能が組み込まれています。それは、検索メソッドがムービーを見つけたということをコードが確認し、それからその見つけたムービーで何らかの処理を行うということです。 たとえば、リンクが作成する URL を `http://localhost:{PORT}/Movies/Details/1` から `http://localhost:{PORT}/Movies/Details/12345` のようなものに変更することで、ハッカーはサイトにエラーを誘発できます。 null のムービーを確認しなかった場合、アプリは例外をスローします。
 
 `Delete` メソッドと `DeleteConfirmed` メソッドを調べます。
 

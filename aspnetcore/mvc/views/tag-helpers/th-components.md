@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: scaddie
 ms.date: 06/12/2019
 uid: mvc/views/tag-helpers/th-components
-ms.openlocfilehash: b5b3abea6492cfaa7d6acd0e54073a8db12eb2a5
-ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
+ms.openlocfilehash: 23e244649350b41e4112d10df63139864e5b4381
+ms.sourcegitcommit: 476ea5ad86a680b7b017c6f32098acd3414c0f6c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/12/2019
-ms.locfileid: "67034754"
+ms.lasthandoff: 08/14/2019
+ms.locfileid: "69022215"
 ---
 # <a name="tag-helper-components-in-aspnet-core"></a>ASP.NET Core のタグ ヘルパー コンポーネント
 
@@ -62,16 +62,9 @@ HTML `<head>` 要素内で、CSS ファイルは HTML `<link>` 要素でよく�
 
 タグ ヘルパー コンポーネントは、アプリのタグ ヘルパー コンポーネント コレクションに追加する必要があります。 コレクションに追加するには、次の 3 つの方法があります。
 
-* [ASP.NET Core のタグ ヘルパー コンポーネント](#tag-helper-components-in-aspnet-core)
-  * [ユース ケース](#use-cases)
-    * [HTML の head 要素の挿入](#inject-into-html-head-element)
-    * [HTML の body 要素に挿入](#inject-into-html-body-element)
-  * [コンポーネントの登録](#register-a-component)
-    * [サービス コンテナーによる登録](#registration-via-services-container)
-    * [Razor ファイルによる登録](#registration-via-razor-file)
-    * [ページ モデルまたはコントローラーによる登録](#registration-via-page-model-or-controller)
-  * [コンポーネントの作成](#create-a-component)
-  * [その他のリソース](#additional-resources)
+* [サービス コンテナーによる登録](#registration-via-services-container)
+* [Razor ファイルによる登録](#registration-via-razor-file)
+* [ページ モデルまたはコントローラーによる登録](#registration-via-page-model-or-controller)
 
 ### <a name="registration-via-services-container"></a>サービス コンテナーによる登録
 

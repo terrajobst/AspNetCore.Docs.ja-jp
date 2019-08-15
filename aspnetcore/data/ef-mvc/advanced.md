@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/advanced
-ms.openlocfilehash: caa821d36c192a06891a7b3d47c47436aea25a30
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 7b25ccad560d00801c1f6cb93d86163a8212bc12
+ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64886007"
+ms.lasthandoff: 08/13/2019
+ms.locfileid: "68993439"
 ---
 # <a name="tutorial-learn-about-advanced-scenarios---aspnet-mvc-with-ef-core"></a>チュートリアル: 高度なシナリオについて学習する - ASP.NET MVC と EF Core
 
@@ -55,7 +55,7 @@ Web アプリケーションで SQL コマンドを実行する場合は常に�
 
 [!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?name=snippet_RawSQL&highlight=8,9,10)]
 
-新しいコードが正しく動作することを確認するには、**[Departments]\(部門\)** タブを選択し、いずれかの部門の **[Details]\(詳細\)** を選択します。
+新しいコードが正しく動作することを確認するには、 **[Departments]\(部門\)** タブを選択し、いずれかの部門の **[Details]\(詳細\)** を選択します。
 
 ![部門の詳細](advanced/_static/department-details.png)
 
@@ -91,9 +91,9 @@ Contoso University の管理者が、すべてのコースの単位数を変更�
 
 **[更新]** ボタンをクリックすると、HttpPost メソッドが呼び出され、乗数がテキスト ボックスに入力した値になります。 このコードは次に、コースを更新し、影響を受けた行の数を`ViewData` のビューに返す SQL を実行します。 ビューが `RowsAffected` 値を取得すると、更新された行の数を表示します。
 
-**ソリューション エクスプローラー**で、*Views/Courses* フォルダーを右クリックし、**[追加] > [新しい項目]** の順にクリックします。
+**ソリューション エクスプローラー**で、*Views/Courses* フォルダーを右クリックし、 **[追加] > [新しい項目]** の順にクリックします。
 
-**[新しい項目の追加]** ダイアログで、左側のウィンドウの **[インストール済み]** の下の **[ASP.NET Core]** をクリックし、**[Razor ビュー]** をクリックして、新しいビューに *UpdateCourseCredits.cshtml* という名前を付けます。
+**[新しい項目の追加]** ダイアログで、左側のウィンドウの **[インストール済み]** の下の **[ASP.NET Core]** をクリックし、 **[Razor ビュー]** をクリックして、新しいビューに *UpdateCourseCredits.cshtml* という名前を付けます。
 
 *Views/Courses/UpdateCourseCredits.cshtml* で、テンプレート コードを次のコードに置き換えます。
 
@@ -109,7 +109,7 @@ Contoso University の管理者が、すべてのコースの単位数を変更�
 
 **[リストに戻る]** をクリックして、単位数が変更されたコースの一覧を表示します。
 
-実稼働コードでは、更新の結果が常に有効なデータになることが保証される点に注意してください。 ここに示した簡略化されたコードは、5 より大きい数値になるように単位数を乗算できます  (`Credits` プロパティには `[Range(0, 5)]` 属性があります)。更新クエリは機能しますが、無効なデータによって、5 以下の単位数を想定していたシステムの他の部分で予期しない結果が発生する可能性があります。
+実稼働コードでは、更新の結果が常に有効なデータになることが保証される点に注意してください。 ここに示した簡略化されたコードは、5 より大きい数値になるように単位数を乗算できます (`Credits` プロパティには `[Range(0, 5)]` 属性があります)。更新クエリは機能しますが、無効なデータによって、5 以下の単位数を想定していたシステムの他の部分で予期しない結果が発生する可能性があります。
 
 SQL クエリの詳細については、「[Raw SQL Queries](/ef/core/querying/raw-sql)」 (生 SQL クエリ) を参照してください。
 
@@ -211,9 +211,9 @@ Entity Framework Core のソースは、[https://github.com/aspnet/EntityFramewo
 
 > '...bin\Debug\netcoreapp1.0\ContosoUniversity.dll' を書き込み用に開けません -- '別のプロセスで使用されているため、プロセスはファイル '...\bin\Debug\netcoreapp1.0\ContosoUniversity.dll' にアクセスできません。
 
-解決方法 : 
+解決方法 :
 
-IIS express でサイトを停止します。 Windows システム トレイに戻り、IIS Express を見つけてそのアイコンを右クリックし、Contoso University サイトを選択し、**[サイトの停止]** をクリックします。
+IIS express でサイトを停止します。 Windows システム トレイに戻り、IIS Express を見つけてそのアイコンを右クリックし、Contoso University サイトを選択し、 **[サイトの停止]** をクリックします。
 
 ### <a name="migration-scaffolded-with-no-code-in-up-and-down-methods"></a>Up メソッドと Down メソッドでコードを使用せずに移行がスキャフォールディングされる
 
@@ -221,7 +221,7 @@ IIS express でサイトを停止します。 Windows システム トレイに�
 
 EF CLI コマンドは、コード ファイルを自動的に閉じて保存しません。 `migrations add` コマンドを実行するときに未保存の変更があると、EF は変更を検出しません。
 
-解決方法 : 
+解決方法 :
 
 `migrations remove` コマンドを実行して、コードの変更を保存し、`migrations add` コマンドを再実行します。
 
@@ -231,7 +231,7 @@ EF CLI コマンドは、コード ファイルを自動的に閉じて保存し
 
 最も簡単な方法は、*appsettings.json* でデータベースの名前を変更することです。 次に `database update` を実行したときに、新しいデータベースが作成されます。
 
-SSOX でデータベースを削除するには、そのデータベースを右クリックして、**[削除]** をクリックしてから、**[データベースの削除]** ダイアログ ボックスで **[既存の接続を閉じる]**、**[OK]** の順にクリックします。
+SSOX でデータベースを削除するには、そのデータベースを右クリックして、 **[削除]** をクリックしてから、 **[データベースの削除]** ダイアログ ボックスで **[既存の接続を閉じる]** 、 **[OK]** の順にクリックします。
 
 CLI を使用してデータベースを削除するには、`database drop` CLI コマンドを実行します。
 
@@ -243,9 +243,9 @@ dotnet ef database drop
 
 エラー メッセージ:
 
-> SQL Server への接続を確立しているときに、ネットワーク関連またはインスタンス固有のエラーが発生しました。 サーバーが見つからないかアクセスできません。 インスタンス名が正しいこと、および SQL Server がリモート接続を許可するように構成されていることを確認してください。 (プロバイダー:SQL ネットワーク インターフェイス、エラー:26 - 指定されたサーバーまたはインスタンスの位置を特定しているときにエラーが発生しました)
+> SQL Server への接続を確立しているときに、ネットワーク関連またはインスタンス固有のエラーが発生しました。 サーバーが見つからないかアクセスできません。 インスタンス名が正しいこと、および SQL Server がリモート接続を許可するように構成されていることを確認してください。 (プロバイダー:SQL ネットワーク インターフェイス。エラー: 26 - 指定されたサーバーまたはインスタンスの位置を特定しているときにエラーが発生しました)
 
-解決方法 : 
+解決方法 :
 
 接続文字列を確認します。 データベース ファイルを手動で削除した場合は、構築文字列でデータベースの名前を変更して、新しいデータベースで最初からやり直します。
 
@@ -279,4 +279,4 @@ Web アプリの展開方法については、「<xref:host-and-deploy/index>」
 これで、ASP.NET Core MVC アプリケーションでの Entity Framework Core の使用に関するチュートリアル シリーズは終了です。 このシリーズでは新しいデータベースが使用されました。別の方法としては、既存のデータベースからモデルをリバース エンジニアリングします。
 
 > [!div class="nextstepaction"]
-> [チュートリアル: EF Core と MVC、既存のデータベース](/ef/core/get-started/aspnetcore/new-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json)
+> [チュートリアル: EF Core と MVC、既存のデータベース](/ef/core/get-started/aspnetcore/existing-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json)

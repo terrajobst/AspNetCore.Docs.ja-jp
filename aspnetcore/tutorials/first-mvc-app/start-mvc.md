@@ -5,12 +5,12 @@ description: ASP.NET Core MVC の概要について説明します。
 ms.author: riande
 ms.date: 08/05/2019
 uid: tutorials/first-mvc-app/start-mvc
-ms.openlocfilehash: f6a92423546ebd9d4c8e1a92fb81b6b72f847f61
-ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
+ms.openlocfilehash: 36f4811f876a6e35440445103a1f86ae06b31b6a
+ms.sourcegitcommit: 476ea5ad86a680b7b017c6f32098acd3414c0f6c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/06/2019
-ms.locfileid: "68820090"
+ms.lasthandoff: 08/14/2019
+ms.locfileid: "69022520"
 ---
 # <a name="get-started-with-aspnet-core-mvc"></a>ASP.NET Core MVC の概要
 
@@ -126,7 +126,6 @@ Visual Studio では、作成した MVC プロジェクトに既定のテンプ�
 
   ![IIS Express](start-mvc/_static/iis_express.png)
 
-
   次の図はアプリを示しています。
 
   ![ホームまたはインデックス ページ](start-mvc/_static/home2.2.png)
@@ -140,12 +139,6 @@ Ctrl + F5 キーを押して、デバッガーなしで実行します。
   Visual Studio Code で [Kestrel](xref:fundamentals/servers/kestrel) が開始され、ブラウザーが起動して、`https://localhost:5001` に移動します。 アドレス バーには、`example.com` などではなく、`localhost:port:5001` が表示されます。 これは、`localhost` がローカル コンピューターの標準のホスト名であるためです。 localhost では、ローカル コンピューターからの Web 要求のみが処理されます。
 
   Ctrl + F5 キー (非デバッグ モード) でアプリを起動することで、コードの変更、ファイルの保存、ブラウザーの更新、コード変更の確認を行うことができます。 多くの開発者は、ページを更新して変更を確認できる非デバッグ モードの使用を好みます。
-
-* **[同意する]** を選択し、追跡に同意します。 このアプリでは個人情報は追跡されません。 テンプレートで生成されたコードには、[一般的なデータ保護規制 (GDPR)](xref:security/gdpr) を満たす資産が含まれます。
-
-  ![ホームまたはインデックス ページ](start-mvc/_static/privacy.png)
-
-  次の図は、追跡に同意した後のアプリを示しています。
 
   ![ホームまたはインデックス ページ](start-mvc/_static/home2.2.png)
 

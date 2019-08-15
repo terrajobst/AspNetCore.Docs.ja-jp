@@ -5,14 +5,14 @@ description: 構成 API を使用して、ASP.NET Core アプリを構成する�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/11/2019
+ms.date: 08/12/2019
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 3351ab743ce38b78b1c5857e52020fdeda12cbe7
-ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
+ms.openlocfilehash: 5723295c70f8d893f758ca5dc87180c6b707f493
+ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/12/2019
-ms.locfileid: "67855815"
+ms.lasthandoff: 08/13/2019
+ms.locfileid: "68994157"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core の構成
 
@@ -29,23 +29,62 @@ ASP.NET Core でのアプリの構成は、"*構成プロバイダー*" によ�
 * メモリ内 .NET オブジェクト
 * 設定ファイル
 
-一般的な構成プロバイダーのシナリオに向けた構成パッケージは、[Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)に含まれます。 以下とサンプル アプリのコード例では、<xref:Microsoft.Extensions.Configuration> 名前空間を使います。
+::: moniker range=">= aspnetcore-3.0"
+
+一般的な構成プロバイダーのシナリオの構成パッケージ ([Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/)) は、フレームワークによって暗黙的に含まれます。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+一般的な構成プロバイダーのシナリオに向けた構成パッケージ ([Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/)) は、[Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)に含まれます。
+
+::: moniker-end
+
+以下とサンプル アプリのコード例では、<xref:Microsoft.Extensions.Configuration> 名前空間を使います。
 
 ```csharp
 using Microsoft.Extensions.Configuration;
 ```
 
-"*オプション パターン*" は、このトピックで説明する構成の概念を拡張したものです。 オプションでは、クラスを使用して関連する設定のグループを表します。 オプション パターンの使用について詳しくは、「<xref:fundamentals/configuration/options>」をご覧ください。
+"*オプション パターン*" は、このトピックで説明する構成の概念を拡張したものです。 オプションでは、クラスを使用して関連する設定のグループを表します。 詳細については、<xref:fundamentals/configuration/options> を参照してください。
 
 [サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="host-versus-app-configuration"></a>ホストとアプリの構成
 
-アプリを構成して起動する前に、"*ホスト*" を構成して起動します。 ホストはアプリの起動と有効期間の管理を担当します。 アプリとホストは、両方ともこのトピックで説明する構成プロバイダーを使用して構成します。 ホストの構成のキーと値のペアは、アプリのグローバル構成の一部となります。 ホストをビルドするときの構成プロバイダーの使用方法、およびホストの構成に対する構成ソースの影響について詳しくは、[ホスト](xref:fundamentals/index#host)に関する説明を参照してください。
+アプリを構成して起動する前に、"*ホスト*" を構成して起動します。 ホストはアプリの起動と有効期間の管理を担当します。 アプリとホストは、両方ともこのトピックで説明する構成プロバイダーを使用して構成します。 ホスト構成のキーと値のペアも、アプリの構成に含まれます。 ホストをビルドするときの構成プロバイダーの使用方法、およびホストの構成に対する構成ソースの影響について詳しくは、「<xref:fundamentals/index#host>」をご覧ください。
 
 ## <a name="default-configuration"></a>既定の構成
 
-ASP.NET Core の [dotnet new](/dotnet/core/tools/dotnet-new) テンプレートに基づく Web アプリは、ホストの構築時に <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> を呼び出します。 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> により、次の順序でアプリの既定の構成が提供されます。
+::: moniker range=">= aspnetcore-3.0"
+
+ASP.NET Core の [dotnet new](/dotnet/core/tools/dotnet-new) テンプレートに基づく Web アプリは、ホストの構築時に <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> を呼び出します。 `CreateDefaultBuilder` により、次の順序でアプリの既定の構成が提供されます。
+
+[汎用ホスト](xref:fundamentals/host/generic-host)を使用するアプリに以下が適用されます。 [Web ホスト](xref:fundamentals/host/web-host)を使用する場合の既定の構成の詳細については、[このトピックの ASP.NET Core 2.2 バージョン](/aspnet/core/fundamentals/configuration/?view=aspnetcore-2.2)を参照してください。
+
+* ホストの構成は、次から提供されます。
+  * [環境変数構成プロバイダー](#environment-variables-configuration-provider)を使用する、プレフィックス `DOTNET_` (`DOTNET_ENVIRONMENT` など) が付いた環境変数。 構成のキーと値のペアが読み込まれるときに、プレフィックス (`DOTNET_`) は削除されます。
+  * [コマンドライン構成プロバイダー](#command-line-configuration-provider)を使用するコマンドライン引数。
+* Web ホストの既定の構成が確立されます (`ConfigureWebHostDefaults`)。
+  * Kestrel は Web サーバーとして使用され、アプリの構成プロバイダーを使用して構成されます。
+  * Host Filtering Middleware を追加します。
+  * `ASPNETCORE_FORWARDEDHEADERS_ENABLED` 環境変数が `true` に設定されている場合は、Forwarded Headers Middleware を追加します。
+  * IIS 統合を有効にします。
+* アプリの構成は、次から提供されます。
+  * [ファイル構成プロバイダー](#file-configuration-provider)を使用する *appsettings.json*。
+  * [ファイル構成プロバイダー](#file-configuration-provider)を使用する *appsettings.{Environment}.json*。
+  * エントリ アセンブリを使用して `Development` 環境でアプリが実行される場合に使用される[シークレット マネージャー](xref:security/app-secrets)。
+  * [環境変数構成プロバイダー](#environment-variables-configuration-provider)を使用する環境変数。
+  * [コマンドライン構成プロバイダー](#command-line-configuration-provider)を使用するコマンドライン引数。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+ASP.NET Core の [dotnet new](/dotnet/core/tools/dotnet-new) テンプレートに基づく Web アプリは、ホストの構築時に <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> を呼び出します。 `CreateDefaultBuilder` により、次の順序でアプリの既定の構成が提供されます。
+
+[Web ホスト](xref:fundamentals/host/web-host)を使用するアプリには、以下が適用されます。 [汎用ホスト](xref:fundamentals/host/generic-host)を使用する場合の既定の構成の詳細については、[このトピックの最新バージョン](xref:fundamentals/configuration/index)を参照してください。
 
 * ホストの構成は、次から提供されます。
   * [環境変数構成プロバイダー](#environment-variables-configuration-provider)を使用する、プレフィックス `ASPNETCORE_` (`ASPNETCORE_ENVIRONMENT` など) が付いた環境変数。 構成のキーと値のペアが読み込まれるときに、プレフィックス (`ASPNETCORE_`) は削除されます。
@@ -54,22 +93,25 @@ ASP.NET Core の [dotnet new](/dotnet/core/tools/dotnet-new) テンプレート�
   * [ファイル構成プロバイダー](#file-configuration-provider)を使用する *appsettings.json*。
   * [ファイル構成プロバイダー](#file-configuration-provider)を使用する *appsettings.{Environment}.json*。
   * エントリ アセンブリを使用して `Development` 環境でアプリが実行される場合に使用される[シークレット マネージャー](xref:security/app-secrets)。
-  * [環境変数構成プロバイダー](#environment-variables-configuration-provider)を使用する環境変数。 カスタム プレフィックスが使用されている場合 (たとえば、`PREFIX_` と `.AddEnvironmentVariables(prefix: "PREFIX_")`)、構成のキーと値のペアが読み込まれるときにプレフィックスが削除されます。
+  * [環境変数構成プロバイダー](#environment-variables-configuration-provider)を使用する環境変数。
   * [コマンドライン構成プロバイダー](#command-line-configuration-provider)を使用するコマンドライン引数。
 
-これらの構成プロバイダーについては、このトピックの後半で説明します。 ホストと <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> の詳細については、<xref:fundamentals/host/web-host#set-up-a-host> を参照してください。
+::: moniker-end
 
 ## <a name="security"></a>セキュリティ
 
-次のベスト プラクティスを採用します。
+機密性の高い構成データをセキュリティで保護するには、次の方法を採用します。
 
 * 構成プロバイダーのコードやプレーンテキストの構成ファイルには、パスワードなどの機密データを格納しないでください。
 * 開発環境やテスト環境では運用シークレットを使用しないでください。
 * プロジェクトの外部にシークレットを指定してください。そうすれば、誤ってリソース コード リポジトリにコミットされることはありません。
 
-[複数の環境を使用する方法](xref:fundamentals/environments)や、[シークレット マネージャーでの開発中のアプリ シークレットの安全な格納](xref:security/app-secrets)の管理 (機密データを格納するための環境変数の使用に関するアドバイスを含む) について、さらに学習することができます。 シークレット マネージャーは、ファイル構成プロバイダーを使用して、ユーザーの機密情報をローカル システム上の JSON ファイルに格納します。 ファイル構成プロバイダーについては、このトピックの後半で説明します。
+詳細については、次のトピックを参照してください。
 
-[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) は、アプリのシークレットを安全に格納するための 1 つのオプションです。 詳細については、<xref:security/key-vault-configuration> を参照してください。
+* <xref:fundamentals/environments>
+* <xref:security/app-secrets> &ndash; には、環境変数を使用して機密データを格納する場合に関するアドバイスが記載されています。 シークレット マネージャーは、ファイル構成プロバイダーを使用して、ユーザーの機密情報をローカル システム上の JSON ファイルに格納します。 ファイル構成プロバイダーについては、このトピックの後半で説明します。
+
+[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) では、ASP.NET Core アプリのアプリのシークレットが安全に保存されます。 詳細については、<xref:security/key-vault-configuration> を参照してください。
 
 ## <a name="hierarchical-configuration-data"></a>階層的な構成データ
 
@@ -97,9 +139,11 @@ ASP.NET Core の [dotnet new](/dotnet/core/tools/dotnet-new) テンプレート�
 * section1:key0
 * section1:key1
 
-<xref:Microsoft.Extensions.Configuration.ConfigurationSection.GetSection*> メソッドと <xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*> メソッドを使用して、構成データ内のセクションとセクションの子を分離することができます。 これらのメソッドについては、後ほど「[GetSection、GetChildren、Exists](#getsection-getchildren-and-exists)」で説明します。 `GetSection` は [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)内の [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) パッケージにあります。
+<xref:Microsoft.Extensions.Configuration.ConfigurationSection.GetSection*> メソッドと <xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*> メソッドを使用して、構成データ内のセクションとセクションの子を分離することができます。 これらのメソッドについては、後ほど「[GetSection、GetChildren、Exists](#getsection-getchildren-and-exists)」で説明します。
 
 ## <a name="conventions"></a>規約
+
+### <a name="sources-and-providers"></a>ソースとプロバイダー
 
 アプリの起動時に、各構成プロバイダーが指定されている順序で構成ソースが読み取られます。
 
@@ -124,15 +168,19 @@ public class IndexModel : PageModel
 
 構成プロバイダーでは DI を使用できません。ホストによって構成プロバイダーが設定されている場合、DI を使用できないためです。
 
+### <a name="keys"></a>キー
+
 構成キーでは、次の規則が採用されます。
 
 * キーでは、大文字と小文字は区別されません。 たとえば、`ConnectionString` と `connectionstring` は同等のキーとして扱われます。
 * 同じキーに対する値が、同じまたは別の構成プロバイダーによって設定された場合、最後にキーに設定された値が使用される値となります。
 * 階層キー
   * 構成 API 内では、すべてのプラットフォームでコロン (`:`) の区切りが機能します。
-  * 環境変数内では、コロン区切りがすべてのプラットフォームでは機能しない場合があります。 二重のアンダースコア (`__`) はすべてのプラットフォームでサポートされ、コロンに変換されます。
+  * 環境変数内では、コロン区切りがすべてのプラットフォームでは機能しない場合があります。 二重のアンダースコア (`__`) はすべてのプラットフォームでサポートされ、コロンに自動的に変換されます。
   * Azure Key Vault では、階層キーは区切り記号として `--` (2 つのダッシュ) を使用します。 コードを指定して、アプリの構成にシークレットが読み込まれるときにダッシュをコロンで置き換える必要があります。
 * <xref:Microsoft.Extensions.Configuration.ConfigurationBinder> は、構成キーで配列インデックスを使用して、オブジェクトに対する配列のバインドをサポートしています。 配列のバインドについては、「[配列をクラスにバインドする](#bind-an-array-to-a-class)」セクションで説明します。
+
+### <a name="values"></a>値
 
 構成値では、次の規則が採用されます。
 
@@ -161,21 +209,99 @@ ASP.NET Core アプリで使用できる構成プロバイダーを次の表に�
 
 1. ファイル (*appsettings.json*、*appsettings.{Environment}.json*。`{Environment}` はアプリの現在のホスト環境です)
 1. [Azure Key Vault](xref:security/key-vault-configuration)
-1. [ユーザー シークレット (Secret Manager)](xref:security/app-secrets) (開発環境の場合のみ)
+1. [ユーザー シークレット (Secret Manager)](xref:security/app-secrets) (開発環境のみ)
 1. 環境変数
 1. コマンド ライン引数
 
 コマンド ライン引数が他のプロバイダーによって設定された構成をオーバーライドできるようにするために、コマンド ラインの構成プロバイダーを一連のプロバイダーの最後に配置するのは、一般的な方法です。
 
-この一連のプロバイダーは、<xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> を使用して新しい <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> を初期化するときに配置されます。 詳細については、「[Web ホスト: ホストを設定する](xref:fundamentals/host/web-host#set-up-a-host)」を参照してください。
+この一連のプロバイダーは、`CreateDefaultBuilder` を使用して新しいホスト ビルダーを初期化するときに使用されます。 詳細については、「[既定の構成](#default-configuration)」セクションを参照してください。
+
+::: moniker range=">= aspnetcore-3.0"
+
+## <a name="configure-the-host-builder-with-configurehostconfiguration"></a>ConfigureHostConfiguration を使用してホスト ビルダーを構成する
+
+ホスト ビルダーを構成するには、<xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*> を呼び出し、構成を指定します。 `ConfigureHostConfiguration` は、後でビルド プロセスに使用する <xref:Microsoft.Extensions.Hosting.IHostEnvironment> を初期化するために使用されます。 `ConfigureHostConfiguration` を複数回呼び出して結果を追加できます。
+
+```csharp
+public static IHostBuilder CreateHostBuilder(string[] args) =>
+    Host.CreateDefaultBuilder(args)
+        .ConfigureHostConfiguration((hostingContext, config) =>
+        {
+            var dict = new Dictionary<string, string>
+            {
+                {"MemoryCollectionKey1", "value1"},
+                {"MemoryCollectionKey2", "value2"}
+            };
+
+            config.AddInMemoryCollection(dict);
+        })
+        .ConfigureWebHostDefaults(webBuilder =>
+        {
+            webBuilder.UseStartup<Startup>();
+        });
+```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+## <a name="configure-the-host-builder-with-useconfiguration"></a>UseConfiguration を使用してホスト ビルダーを構成する
+
+ホスト ビルダーを構成するには、構成を使用するホスト ビルダー上で <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> を呼び出します。
+
+```csharp
+public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+{
+    var dict = new Dictionary<string, string>
+    {
+        {"MemoryCollectionKey1", "value1"},
+        {"MemoryCollectionKey2", "value2"}
+    };
+
+    var config = new ConfigurationBuilder()
+        .AddInMemoryCollection(dict)
+        .Build();
+
+    return WebHost.CreateDefaultBuilder(args)
+        .UseConfiguration(config)
+        .UseStartup<Startup>();
+}
+```
+
+::: moniker-end
 
 ## <a name="configureappconfiguration"></a>ConfigureAppConfiguration
 
-ホストをビルドするときに <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> を呼び出し、<xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> によって自動的に追加されるものに加え、アプリの構成プロバイダーを指定します。
+ホストをビルドするときに `ConfigureAppConfiguration` を呼び出し、`CreateDefaultBuilder` によって自動的に追加されるものに加え、アプリの構成プロバイダーを指定します。
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/samples/3.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=20)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=20)]
 
-<xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> のアプリに指定した構成は、`Startup.ConfigureServices` などのアプリの起動中に使用できます。 詳細については、「[起動中に構成にアクセスする](#access-configuration-during-startup)」のセクションを参照してください。
+::: moniker-end
+
+### <a name="override-previous-configuration-with-command-line-arguments"></a>前の構成をコマンドライン引数でオーバーライドする
+
+コマンドライン引数でオーバーライドできるアプリ構成を指定するには、最後に `AddCommandLine` を呼び出します。
+
+```csharp
+.ConfigureAppConfiguration((hostingContext, config) =>
+{
+    // Call other providers here
+    config.AddCommandLine(args);
+})
+```
+
+### <a name="consume-configuration-during-app-startup"></a>アプリの起動時に構成を使用する
+
+`ConfigureAppConfiguration` のアプリに指定した構成は、`Startup.ConfigureServices` などのアプリの起動中に使用できます。 詳細については、「[起動中に構成にアクセスする](#access-configuration-during-startup)」のセクションを参照してください。
 
 ## <a name="command-line-configuration-provider"></a>コマンド ライン構成プロバイダー
 
@@ -183,54 +309,26 @@ ASP.NET Core アプリで使用できる構成プロバイダーを次の表に�
 
 コマンド ライン構成をアクティブにするために、<xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> 拡張メソッドが <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> のインスタンスで呼び出されます。
 
-<xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> で新しい <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> を初期化すると、自動的に `AddCommandLine` が呼び出されます。 詳細については、「[Web ホスト: ホストを設定する](xref:fundamentals/host/web-host#set-up-a-host)」を参照してください。
+`CreateDefaultBuilder(string [])` が呼び出されると、`AddCommandLine` が自動的に呼び出されます。 詳細については、「[既定の構成](#default-configuration)」セクションを参照してください。
 
 `CreateDefaultBuilder` では次のものも読み込まれます。
 
-* *appsettings.json* および *appsettings.{Environment}.json* からのオプションの構成。
-* [ユーザー シークレット (Secret Manager)](xref:security/app-secrets) (開発環境の場合)。
+* *appsettings.json* および *appsettings.{Environment}.json* ファイルの省略可能な構成。
+* 開発環境の[ユーザー シークレット (Secret Manager)](xref:security/app-secrets)。
 * 環境変数。
 
 `CreateDefaultBuilder` はコマンド ライン構成プロバイダーを最後に追加します。 実行時に渡されるコマンド ライン引数によって、他のプロバイダーによって設定された構成がオーバーライドされます。
 
 `CreateDefaultBuilder` は、ホストが作成されるときに機能します。 そのため、`CreateDefaultBuilder` によってアクティブ化されるコマンド ライン構成によって、ホストの構成方法に影響を与えることができます。
 
-ホストをビルドするときに <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> を呼び出して、アプリの構成を指定します。
-
-`AddCommandLine` は既に `CreateDefaultBuilder` によって呼び出されています。 アプリの構成を指定して、引き続きコマンドラインの引数でその構成をオーバーライドできるようにする必要がある場合、<xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> でアプリの追加のプロバイダーを呼び出し、最後に `AddCommandLine` を呼び出します。
+ASP.NET Core テンプレートに基づくアプリの場合、`AddCommandLine` は `CreateDefaultBuilder` によって既に呼び出されています。 さらに構成プロバイダーを追加し、コマンドライン引数を使用してそれらのプロバイダーの構成をオーバーライドする機能を維持するには、アプリの追加プロバイダーを `ConfigureAppConfiguration` で呼び出し、最後に `AddCommandLine` を呼び出します。
 
 ```csharp
-public class Program
+.ConfigureAppConfiguration((hostingContext, config) =>
 {
-    public static void Main(string[] args)
-    {
-        CreateWebHostBuilder(args).Build().Run();
-    }
-
-    public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-        WebHost.CreateDefaultBuilder(args)
-            .ConfigureAppConfiguration((hostingContext, config) =>
-            {
-                // Call other providers here and call AddCommandLine last.
-                config.AddCommandLine(args);
-            })
-            .UseStartup<Startup>();
-}
-```
-
-<xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> を直接作成する場合、次の構成で <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> を呼び出します。
-
-```csharp
-var config = new ConfigurationBuilder()
-    // Call additional providers here as needed.
-    // Call AddCommandLine last to allow arguments to override other configuration.
-    .AddCommandLine(args)
-    .Build();
-
-var host = new WebHostBuilder()
-    .UseConfiguration(config)
-    .UseKestrel()
-    .UseStartup<Startup>();
+    // Call other providers here
+    config.AddCommandLine(args);
+})
 ```
 
 **例**
@@ -244,7 +342,7 @@ var host = new WebHostBuilder()
 
 ### <a name="arguments"></a>引数
 
-値は等号 (`=`) の後に続ける必要があります。または、値をスペースの後に続ける場合は、キーにプレフィックス (`--`または`/`) を付ける必要があります。 等号を使用する場合は、値に null を指定できます (例: `CommandLineKey=`)。
+値は等号 (`=`) の後に続ける必要があります。または、値をスペースの後に続ける場合は、キーにプレフィックス (`--`または`/`) を付ける必要があります。 等号 (`CommandLineKey=` など) が使用されている場合、値は必要ありません。
 
 | キーのプレフィックス               | 例                                                |
 | ------------------------ | ------------------------------------------------------ |
@@ -273,35 +371,27 @@ dotnet run CommandLineKey1= CommandLineKey2=value2
 * スイッチはダッシュ (`-`) または二重ダッシュ (`--`) で開始する必要があります。
 * スイッチ マッピング ディクショナリに重複キーを含めることはできません。
 
-ホストをビルドするときに <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> を呼び出して、アプリの構成を指定します。
+スイッチ マッピング ディクショナリを作成します。 次の例では、2 つのスイッチ マッピングが作成されます。
 
 ```csharp
-public class Program
-{
-    public static readonly Dictionary<string, string> _switchMappings = 
-        new Dictionary<string, string>
-        {
-            { "-CLKey1", "CommandLineKey1" },
-            { "-CLKey2", "CommandLineKey2" }
-        };
-
-    public static void Main(string[] args)
+public static readonly Dictionary<string, string> _switchMappings = 
+    new Dictionary<string, string>
     {
-        CreateWebHostBuilder(args).Build().Run();
-    }
-
-    // Do not pass the args to CreateDefaultBuilder
-    public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-        WebHost.CreateDefaultBuilder()
-            .ConfigureAppConfiguration((hostingContext, config) =>
-            {
-                config.AddCommandLine(args, _switchMappings);
-            })
-            .UseStartup<Startup>();
-}
+        { "-CLKey1", "CommandLineKey1" },
+        { "-CLKey2", "CommandLineKey2" }
+    };
 ```
 
-前の例で示したように、スイッチ マッピングを使用する場合は `CreateDefaultBuilder` への呼び出しが引数を渡すことはできません。 `CreateDefaultBuilder` メソッドの `AddCommandLine` の呼び出しにはマップされたスイッチが含まれないため、スイッチ マッピング ディクショナリを `CreateDefaultBuilder` に渡す方法はありません。 引数にマップされたスイッチが含まれており、それが `CreateDefaultBuilder` に渡される場合は、その `AddCommandLine` プロバイダーは <xref:System.FormatException> で初期化に失敗します。 ソリューションでは `CreateDefaultBuilder` に引数を渡す代わりに、`ConfigurationBuilder` メソッドの `AddCommandLine` メソッドに、引数とスイッチ マッピング ディクショナリの両方を処理させることができます。
+ホストが構築されたら、スイッチ マッピング ディクショナリを使用して `AddCommandLine` を呼び出します。
+
+```csharp
+.ConfigureAppConfiguration((hostingContext, config) =>
+{
+    config.AddCommandLine(args, _switchMappings);
+})
+```
+
+スイッチ マッピングを使用するアプリでは、`CreateDefaultBuilder` への呼び出しで引数を渡すことはできません。 `CreateDefaultBuilder` メソッドの `AddCommandLine` の呼び出しにはマップされたスイッチが含まれないため、スイッチ マッピング ディクショナリを `CreateDefaultBuilder` に渡す方法はありません。 ソリューションでは `CreateDefaultBuilder` に引数を渡す代わりに、`ConfigurationBuilder` メソッドの `AddCommandLine` メソッドに、引数とスイッチ マッピング ディクショナリの両方を処理させることができます。
 
 スイッチ マッピング ディクショナリが作成されると、以下の表に示すデータが含まれます。
 
@@ -333,54 +423,39 @@ dotnet run -CLKey1=value1 -CLKey2=value2
 
 [Azure App Service](https://azure.microsoft.com/services/app-service/) を使用すると、環境変数構成プロバイダーを使用してアプリの構成をオーバーライドすることができる環境変数を、Azure Portal で設定できます。 詳細については、「[Azure アプリ: Azure Portal を使用してアプリの構成をオーバーライドする](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal)」を参照してください。
 
-新しい <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> が初期化されるときに、[ホスト構成](#host-versus-app-configuration) の `ASPNETCORE_` でプレフィックスされている環境変数を読み込むために `AddEnvironmentVariables` が使用されます。 詳細については、「[Web ホスト: ホストを設定する](xref:fundamentals/host/web-host#set-up-a-host)」を参照してください。
+::: moniker range=">= aspnetcore-3.0"
+
+新しいホスト ビルダーが[汎用ホスト](xref:fundamentals/host/generic-host)で初期化され、`CreateDefaultBuilder` が呼び出されると、`AddEnvironmentVariables` が使用され、[ホスト構成](#host-versus-app-configuration)の `DOTNET_` で始まる環境変数が読み込まれます。 詳細については、「[既定の構成](#default-configuration)」セクションを参照してください。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+新しいホスト ビルダーが [Web ホスト](xref:fundamentals/host/web-host)で初期化され、`CreateDefaultBuilder` が呼び出されると、`AddEnvironmentVariables` が使用され、[ホスト構成](#host-versus-app-configuration)の `ASPNETCORE_` で始まる環境変数が読み込まれます。 詳細については、「[既定の構成](#default-configuration)」セクションを参照してください。
+
+::: moniker-end
 
 `CreateDefaultBuilder` では次のものも読み込まれます。
 
 * プレフィックスなしの `AddEnvironmentVariables` 呼び出しによる、プレフィックスの付いていない環境変数からのアプリの構成。
-* *appsettings.json* および *appsettings.{Environment}.json* からのオプションの構成。
-* [ユーザー シークレット (Secret Manager)](xref:security/app-secrets) (開発環境の場合)。
+* *appsettings.json* および *appsettings.{Environment}.json* ファイルの省略可能な構成。
+* 開発環境の[ユーザー シークレット (Secret Manager)](xref:security/app-secrets)。
 * コマンド ライン引数。
 
 ユーザー シークレットと *appsettings* ファイルから構成が設定された後に、環境変数構成プロバイダーが呼び出されます。 この位置でプロバイダーを呼び出すことにより、実行時に読み込まれた環境変数が、ユーザー シークレットと *appsettings* ファイルによって設定された構成をオーバーライドすることができます。
 
-ホストをビルドするときに <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> を呼び出して、アプリの構成を指定します。
-
-追加の環境変数からアプリの構成を指定する必要がある場合は、<xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> のアプリの追加プロバイダーを呼び出し、そのプレフィックスを含む `AddEnvironmentVariables` を呼び出します。
+追加の環境変数からアプリの構成を指定する必要がある場合は、`ConfigureAppConfiguration` のアプリの追加プロバイダーを呼び出し、そのプレフィックスを含む `AddEnvironmentVariables` を呼び出します。
 
 ```csharp
-public class Program
+.ConfigureAppConfiguration((hostingContext, config) =>
 {
-    public static void Main(string[] args)
-    {
-        CreateWebHostBuilder(args).Build().Run();
-    }
-
-    public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-        WebHost.CreateDefaultBuilder(args)
-            .ConfigureAppConfiguration((hostingContext, config) =>
-            {
-                // Call additional providers here as needed.
-                // Call AddEnvironmentVariables last if you need to allow
-                // environment variables to override values from other 
-                // providers.
-                config.AddEnvironmentVariables(prefix: "PREFIX_");
-            })
-            .UseStartup<Startup>();
+    // Call additional providers here as needed.
+    // Call AddEnvironmentVariables last if you need to allow
+    // environment variables to override values from other 
+    // providers.
+    config.AddEnvironmentVariables(prefix: "PREFIX_");
+})
 }
-```
-
-<xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> を直接作成する場合、次の構成で <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> を呼び出します。
-
-```csharp
-var config = new ConfigurationBuilder()
-    .AddEnvironmentVariables()
-    .Build();
-
-var host = new WebHostBuilder()
-    .UseConfiguration(config)
-    .UseKestrel()
-    .UseStartup<Startup>();
 ```
 
 **例**
@@ -390,16 +465,7 @@ var host = new WebHostBuilder()
 1. サンプル アプリを実行します。 アプリに対して `http://localhost:5000` でブラウザーを開きます。
 1. 出力に、環境変数 `ENVIRONMENT` のキーと値のペアが含まれていることを観察します。 値には、アプリを実行している環境が反映されます (ローカルで実行している場合は通常 `Development`)。
 
-アプリによって表示される環境変数のリストを短くするために、アプリでは次で始まる環境変数がフィルター処理されます。
-
-* ASPNETCORE_
-* urls
-* ログの記録
-* ENVIRONMENT
-* contentRoot
-* AllowedHosts
-* applicationName
-* CommandLine
+アプリによってレンダリングされる環境変数の一覧を短く保つために、アプリでは環境変数がフィルター処理されます。 サンプル アプリの *Pages/Index.cshtml.cs* ファイルを参照してください。
 
 アプリで使用できるすべての環境変数を公開する場合は、*Pages/Index.cshtml.cs* の `FilteredConfiguration` を次のように変更します。
 
@@ -419,7 +485,7 @@ var config = new ConfigurationBuilder()
 
 構成のキーと値のペアが作成されるときに、プレフィックスは削除されます。
 
-静的な簡易メソッド `CreateDefaultBuilder` によって <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> が作成され、アプリのホストが確立されます。 `WebHostBuilder` は、作成されるときに、`ASPNETCORE_` というプレフィックスが付いた環境変数からホストの構成を見つけます。
+ホストビルダーが作成されると、環境変数によってホスト構成が指定されます。 これらの環境変数に使用されるプレフィックスの詳細については、「[既定の構成](#default-configuration)」セクションを参照してください。
 
 **接続文字列のプレフィックス**
 
@@ -466,45 +532,18 @@ INI ファイルの構成では、セクションの区切り記号としてコ�
 * ファイルが変更された場合に構成を再度読み込むかどうか。
 * ファイルにアクセスするために <xref:Microsoft.Extensions.FileProviders.IFileProvider> が使用されます。
 
-ホストをビルドするときに <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> を呼び出して、アプリの構成を指定します。
+ホストをビルドするときに `ConfigureAppConfiguration` を呼び出して、アプリの構成を指定します。
 
 ```csharp
-public class Program
+.ConfigureAppConfiguration((hostingContext, config) =>
 {
-    public static void Main(string[] args)
-    {
-        CreateWebHostBuilder(args).Build().Run();
-    }
-
-    public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-        WebHost.CreateDefaultBuilder(args)
-            .ConfigureAppConfiguration((hostingContext, config) =>
-            {
-                config.SetBasePath(Directory.GetCurrentDirectory());
-                config.AddIniFile(
-                    "config.ini", optional: true, reloadOnChange: true);
-            })
-            .UseStartup<Startup>();
-}
+    config.SetBasePath(Directory.GetCurrentDirectory());
+    config.AddIniFile(
+        "config.ini", optional: true, reloadOnChange: true);
+})
 ```
 
-基本パスは <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> に設定されています。 `SetBasePath` は [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)内の [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) パッケージにあります。
-
-<xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> を直接作成する場合、次の構成で <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> を呼び出します。
-
-```csharp
-var config = new ConfigurationBuilder()
-    .SetBasePath(Directory.GetCurrentDirectory())
-    .AddIniFile("config.ini", optional: true, reloadOnChange: true)
-    .Build();
-
-var host = new WebHostBuilder()
-    .UseConfiguration(config)
-    .UseKestrel()
-    .UseStartup<Startup>();
-```
-
-基本パスは <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> に設定されています。 `SetBasePath` は [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)内の [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) パッケージにあります。
+基本パスは <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> に設定されています。
 
 INI 構成ファイルの汎用的な例:
 
@@ -543,60 +582,33 @@ JSON ファイルの構成をアクティブにするには、<xref:Microsoft.Ex
 * ファイルが変更された場合に構成を再度読み込むかどうか。
 * ファイルにアクセスするために <xref:Microsoft.Extensions.FileProviders.IFileProvider> が使用されます。
 
-<xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> で新しい <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> を初期化すると、自動的に `AddJsonFile` が 2 回呼び出されます。 このメソッドは、次から構成を読み込むために呼び出されます。
+`CreateDefaultBuilder` を使用して新しいホスト ビルダーを初期化すると、`AddJsonFile` が自動的に 2 回呼び出されます。 このメソッドは、次から構成を読み込むために呼び出されます。
 
 * *appsettings.json* &ndash; このファイルが最初に読み取られます。 ファイルの環境バージョンは、*appsettings.json* ファイルによって指定される値をオーバーライドできます。
 * *appsettings.{Environment}.json* &ndash; ファイルの環境バージョンは、[IHostingEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*) に基づいて読み込まれます。
 
-詳細については、「[Web ホスト: ホストを設定する](xref:fundamentals/host/web-host#set-up-a-host)」を参照してください。
+詳細については、「[既定の構成](#default-configuration)」セクションを参照してください。
 
 `CreateDefaultBuilder` では次のものも読み込まれます。
 
 * 環境変数。
-* [ユーザー シークレット (Secret Manager)](xref:security/app-secrets) (開発環境の場合)。
+* 開発環境の[ユーザー シークレット (Secret Manager)](xref:security/app-secrets)。
 * コマンド ライン引数。
 
 JSON 構成プロバイダーが最初に確立されます。 このため、ユーザー シークレット、環境変数、およびコマンド ライン引数によって、*appsettings* ファイルによって設定された構成がオーバーライドされます。
 
-ホストのビルド時に <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> を呼び出して、*appsettings.json* と *appsettings.{Environment}.json* 以外のファイルにアプリの構成を指定します。
+ホストのビルド時に `ConfigureAppConfiguration` を呼び出して、*appsettings.json* と *appsettings.{Environment}.json* 以外のファイルにアプリの構成を指定します。
 
 ```csharp
-public class Program
+.ConfigureAppConfiguration((hostingContext, config) =>
 {
-    public static void Main(string[] args)
-    {
-        CreateWebHostBuilder(args).Build().Run();
-    }
-
-    public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-        WebHost.CreateDefaultBuilder(args)
-            .ConfigureAppConfiguration((hostingContext, config) =>
-            {
-                config.SetBasePath(Directory.GetCurrentDirectory());
-                config.AddJsonFile(
-                    "config.json", optional: true, reloadOnChange: true);
-            })
-            .UseStartup<Startup>();
-}
+    config.SetBasePath(Directory.GetCurrentDirectory());
+    config.AddJsonFile(
+        "config.json", optional: true, reloadOnChange: true);
+})
 ```
 
-基本パスは <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> に設定されています。 `SetBasePath` は [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)内の [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) パッケージにあります。
-
-<xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> を直接作成する場合、次の構成で <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> を呼び出します。
-
-```csharp
-var config = new ConfigurationBuilder()
-    .SetBasePath(Directory.GetCurrentDirectory())
-    .AddJsonFile("config.json", optional: true, reloadOnChange: true)
-    .Build();
-
-var host = new WebHostBuilder()
-    .UseConfiguration(config)
-    .UseKestrel()
-    .UseStartup<Startup>();
-```
-
-基本パスは <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> に設定されています。 `SetBasePath` は [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)内の [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) パッケージにあります。
+基本パスは <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> に設定されています。
 
 **例**
 
@@ -626,45 +638,18 @@ XML ファイルの構成をアクティブにするには、<xref:Microsoft.Ext
 
 構成ファイルのルート ノードは、構成のキーと値のペアを作成するときには無視されます。 ファイル内でドキュメント型定義 (DTD) または名前空間を指定しないでください。
 
-ホストをビルドするときに <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> を呼び出して、アプリの構成を指定します。
+ホストをビルドするときに `ConfigureAppConfiguration` を呼び出して、アプリの構成を指定します。
 
 ```csharp
-public class Program
+.ConfigureAppConfiguration((hostingContext, config) =>
 {
-    public static void Main(string[] args)
-    {
-        CreateWebHostBuilder(args).Build().Run();
-    }
-
-    public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-        WebHost.CreateDefaultBuilder(args)
-            .ConfigureAppConfiguration((hostingContext, config) =>
-            {
-                config.SetBasePath(Directory.GetCurrentDirectory());
-                config.AddXmlFile(
-                    "config.xml", optional: true, reloadOnChange: true);
-            })
-            .UseStartup<Startup>();
-}
+    config.SetBasePath(Directory.GetCurrentDirectory());
+    config.AddXmlFile(
+        "config.xml", optional: true, reloadOnChange: true);
+})
 ```
 
-基本パスは <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> に設定されています。 `SetBasePath` は [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)内の [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) パッケージにあります。
-
-<xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> を直接作成する場合、次の構成で <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> を呼び出します。
-
-```csharp
-var config = new ConfigurationBuilder()
-    .SetBasePath(Directory.GetCurrentDirectory())
-    .AddXmlFile("config.xml", optional: true, reloadOnChange: true)
-    .Build();
-
-var host = new WebHostBuilder()
-    .UseConfiguration(config)
-    .UseKestrel()
-    .UseStartup<Startup>();
-```
-
-基本パスは <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> に設定されています。 `SetBasePath` は [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)内の [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) パッケージにあります。
+基本パスは <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> に設定されています。
 
 XML 構成ファイルでは、繰り返しのセクション用に個別の要素名を使用できます。
 
@@ -742,44 +727,19 @@ XML 構成ファイルでは、繰り返しのセクション用に個別の要�
 
 アンダースコア 2 つ (`__`) は、ファイル名で構成キーの区切り記号として使用されます。 たとえば、ファイル名 `Logging__LogLevel__System` では、構成キー `Logging:LogLevel:System` が生成されます。
 
-ホストをビルドするときに <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> を呼び出して、アプリの構成を指定します。
+ホストをビルドするときに `ConfigureAppConfiguration` を呼び出して、アプリの構成を指定します。
 
 ```csharp
-public class Program
+.ConfigureAppConfiguration((hostingContext, config) =>
 {
-    public static void Main(string[] args)
-    {
-        CreateWebHostBuilder(args).Build().Run();
-    }
-
-    public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-        WebHost.CreateDefaultBuilder(args)
-            .ConfigureAppConfiguration((hostingContext, config) =>
-            {
-                config.SetBasePath(Directory.GetCurrentDirectory());
-                var path = Path.Combine(
-                    Directory.GetCurrentDirectory(), "path/to/files");
-                config.AddKeyPerFile(directoryPath: path, optional: true);
-            })
-            .UseStartup<Startup>();
-}
+    config.SetBasePath(Directory.GetCurrentDirectory());
+    var path = Path.Combine(
+        Directory.GetCurrentDirectory(), "path/to/files");
+    config.AddKeyPerFile(directoryPath: path, optional: true);
+})
 ```
 
-基本パスは <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> に設定されています。 `SetBasePath` は [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)内の [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) パッケージにあります。
-
-<xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> を直接作成する場合、次の構成で <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> を呼び出します。
-
-```csharp
-var path = Path.Combine(Directory.GetCurrentDirectory(), "path/to/files");
-var config = new ConfigurationBuilder()
-    .AddKeyPerFile(directoryPath: path, optional: true)
-    .Build();
-
-var host = new WebHostBuilder()
-    .UseConfiguration(config)
-    .UseKestrel()
-    .UseStartup<Startup>();
-```
+基本パスは <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> に設定されています。
 
 ## <a name="memory-configuration-provider"></a>メモリ構成プロバイダー
 
@@ -789,55 +749,31 @@ var host = new WebHostBuilder()
 
 構成プロバイダーは、`IEnumerable<KeyValuePair<String,String>>` を使用して初期化できます。
 
-ホストをビルドするときに <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> を呼び出して、アプリの構成を指定します。
+ホストをビルドするときに `ConfigureAppConfiguration` を呼び出して、アプリの構成を指定します。
+
+次の例では、構成ディクショナリが作成されます。
 
 ```csharp
-public class Program
-{
-    public static readonly Dictionary<string, string> _dict = 
-        new Dictionary<string, string>
-        {
-            {"MemoryCollectionKey1", "value1"},
-            {"MemoryCollectionKey2", "value2"}
-        };
-
-    public static void Main(string[] args)
-    {
-        CreateWebHostBuilder(args).Build().Run();
-    }
-
-    public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-        WebHost.CreateDefaultBuilder(args)
-            .ConfigureAppConfiguration((hostingContext, config) =>
-            {
-                config.AddInMemoryCollection(_dict);
-            })
-            .UseStartup<Startup>();
-}
-```
-
-<xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> を直接作成する場合、次の構成で <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> を呼び出します。
-
-```csharp
-var dict = new Dictionary<string, string>
+public static readonly Dictionary<string, string> _dict = 
+    new Dictionary<string, string>
     {
         {"MemoryCollectionKey1", "value1"},
         {"MemoryCollectionKey2", "value2"}
     };
+```
 
-var config = new ConfigurationBuilder()
-    .AddInMemoryCollection(dict)
-    .Build();
+ディクショナリは、構成を指定するために `AddInMemoryCollection` の呼び出しと共に使用されます。
 
-var host = new WebHostBuilder()
-    .UseConfiguration(config)
-    .UseKestrel()
-    .UseStartup<Startup>();
+```csharp
+.ConfigureAppConfiguration((hostingContext, config) =>
+{
+    config.AddInMemoryCollection(_dict);
+})
 ```
 
 ## <a name="getvalue"></a>GetValue
 
-[ConfigurationBinder.GetValue&lt;T&gt;](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) によって、指定したキーで構成から値が抽出され、それが指定した型に変換されます。 オーバーロードを使用すると、キーが見つからない場合に既定値を指定することができます。
+[ConfigurationBinder.GetValue\<T>](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) によって、指定したキーで構成から値が抽出され、それが指定した型に変換されます。 オーバーロードを使用すると、キーが見つからない場合に既定値を指定することができます。
 
 次のような例です。
 
@@ -902,7 +838,7 @@ public class IndexModel : PageModel
 
 ### <a name="getsection"></a>GetSection
 
-[IConfiguration.GetSection](xref:Microsoft.Extensions.Configuration.IConfiguration.GetSection*) では、指定したサブセクションのキーを持つ構成のサブセクションが抽出されます。 `GetSection` は [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)内の [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) パッケージにあります。
+[IConfiguration.GetSection](xref:Microsoft.Extensions.Configuration.IConfiguration.GetSection*) では、指定したサブセクションのキーを持つ構成のサブセクションが抽出されます。
 
 `section1` のキーと値のペアのみを含む <xref:Microsoft.Extensions.Configuration.IConfigurationSection> を返すには、`GetSection` を呼び出してセクション名を指定します。
 
@@ -949,15 +885,35 @@ var sectionExists = _config.GetSection("section2:subsection2").Exists();
 
 "*オプション パターン*" を使用して、関連する設定のグループを表すクラスに構成をバインドすることができます。 詳細については、<xref:fundamentals/configuration/options> を参照してください。
 
-構成値は文字列として返されますが、<xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> を呼び出すことで [POCO](https://wikipedia.org/wiki/Plain_Old_CLR_Object) オブジェクトを構築できます。 `Bind` は [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)内の [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) パッケージにあります。
+構成値は文字列として返されますが、<xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> を呼び出すことで [POCO](https://wikipedia.org/wiki/Plain_Old_CLR_Object) オブジェクトを構築できます。
 
 サンプル アプリには `Starship` モデル (*Models/Starship.cs*) が含まれます。
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/samples/3.x/ConfigurationSample/Models/Starship.cs?name=snippet1)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Models/Starship.cs?name=snippet1)]
+
+::: moniker-end
 
 サンプル アプリが JSON 構成プロバイダーを使用して構成を読み込むときに、*starship.json* ファイルの `starship` セクションで構成が作成されます。
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-json[](index/samples/3.x/ConfigurationSample/starship.json)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-json[](index/samples/2.x/ConfigurationSample/starship.json)]
+
+::: moniker-end
 
 次の構成のキーと値のペアが作成されます。
 
@@ -972,21 +928,49 @@ var sectionExists = _config.GetSection("section2:subsection2").Exists();
 
 サンプル アプリは `starship` キーを使用して `GetSection` を呼び出します。 `starship` のキーと値のペアは分離されます。 `Starship` クラスのインスタンスを渡すサブセクションで、`Bind` メソッドが呼び出されます。 インスタンスの値をバインドした後、インスタンスがレンダリング用のプロパティに割り当てられます。
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/samples/3.x/ConfigurationSample/Pages/Index.cshtml.cs?name=snippet_starship)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Pages/Index.cshtml.cs?name=snippet_starship)]
 
-`GetSection` は [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)内の [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) パッケージにあります。
+::: moniker-end
 
 ## <a name="bind-to-an-object-graph"></a>オブジェクト グラフにバインドする
 
-<xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> では、POCO オブジェクト グラフ全体をバインドすることができます。 `Bind` は [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)内の [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) パッケージにあります。
+<xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> では、POCO オブジェクト グラフ全体をバインドすることができます。
 
 サンプルには、オブジェクト グラフに `Metadata` クラスと `Actors` クラスが含まれる `TvShow` モデルが含まれます (*Models/TvShow.cs*)。
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/samples/3.x/ConfigurationSample/Models/TvShow.cs?name=snippet1)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Models/TvShow.cs?name=snippet1)]
+
+::: moniker-end
 
 サンプル アプリには、構成データを含む *tvshow.xml* ファイルが含まれます。
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-xml[](index/samples/3.x/ConfigurationSample/tvshow.xml)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-xml[](index/samples/2.x/ConfigurationSample/tvshow.xml)]
+
+::: moniker-end
 
 構成は、`Bind` メソッドを使用して、`TvShow` オブジェクト グラフ全体にバインドされます。 バインドされたインスタンスは、表示のためにプロパティに割り当てられます。
 
@@ -996,17 +980,25 @@ _config.GetSection("tvshow").Bind(tvShow);
 TvShow = tvShow;
 ```
 
-[ConfigurationBinder.Get&lt;T&gt;](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) によってバインドされ、指定した型が返されます。 `Get<T>` は `Bind` を使用するよりも便利です。 次のコードは、前の例と共に `Get<T>` を使用する方法を示しています。これにより、バインドされたインスタンスを、表示用に使用するプロパティに直接割り当てることができます。
+[ConfigurationBinder.Get\<T>](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) によってバインドされ、指定した型が返されます。 `Get<T>` は `Bind` を使用するよりも便利です。 次のコードは、前の例と共に `Get<T>` を使用する方法を示しています。これにより、バインドされたインスタンスを、表示用に使用するプロパティに直接割り当てることができます。
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/samples/3.x/ConfigurationSample/Pages/Index.cshtml.cs?name=snippet_tvshow)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Pages/Index.cshtml.cs?name=snippet_tvshow)]
 
-<xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*> は [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)内の [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) パッケージにあります。 `Get<T>` は、ASP.NET Core 1.1 以降で使用できます。 `GetSection` は [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)内の [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) パッケージにあります。
+::: moniker-end
 
 ## <a name="bind-an-array-to-a-class"></a>配列をクラスにバインドする
 
 *サンプル アプリは、このセクションで説明する概念を示しています。*
 
-<xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> は、構成キーで配列インデックスを使用して、オブジェクトに対する配列のバインドをサポートしています。 数値のキー セグメント (`:0:`、`:1:`、&hellip; `:{n}:`) を公開する配列形式は、すべて POCO クラスの配列にバインドできます。 `Bind` は [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)内の [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) パッケージにあります。
+<xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> は、構成キーで配列インデックスを使用して、オブジェクトに対する配列のバインドをサポートしています。 数値のキー セグメント (`:0:`、`:1:`、&hellip; `:{n}:`) を公開する配列形式は、すべて POCO クラスの配列にバインドできます。
 
 > [!NOTE]
 > バインドは慣例に従って指定されます。 カスタム構成プロバイダーが配列のバインドを実装する必要はありません。
@@ -1025,13 +1017,33 @@ TvShow = tvShow;
 
 これらのキーと値は、メモリ構成プロバイダーを使用してサンプル アプリに読み込まれます。
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/samples/3.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=5-12,23)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=5-12,23)]
+
+::: moniker-end
 
 配列は、インデックス &num;3 の値をスキップします。 構成バインダーは、null 値をバインドしたり、バインドされたオブジェクトに null エントリを作成したりすることはできません。このことは、この配列をオブジェクトにバインドした結果によって明らかになります。
 
 サンプル アプリでは、バインドされた構成データを保持するために POCO クラスを使用できます。
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/samples/3.x/ConfigurationSample/Models/ArrayExample.cs?name=snippet1)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Models/ArrayExample.cs?name=snippet1)]
+
+::: moniker-end
 
 構成データはオブジェクトにバインドされます。
 
@@ -1040,11 +1052,19 @@ var arrayExample = new ArrayExample();
 _config.GetSection("array").Bind(arrayExample);
 ```
 
-`GetSection` は [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)内の [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) パッケージにあります。
+また、[ConfigurationBinder.Get\<T>](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) 構文を使用して、コードをよりコンパクトにすることもできます。
 
-また、[ConfigurationBinder.Get&lt;T&gt; ](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) 構文を使用して、コードをよりコンパクトにすることもできます。
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/samples/3.x/ConfigurationSample/Pages/Index.cshtml.cs?name=snippet_array)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Pages/Index.cshtml.cs?name=snippet_array)]
+
+::: moniker-end
 
 バインドされたオブジェクト (`ArrayExample` のインスタンス) は、構成から配列データを受け取ります。
 
@@ -1068,10 +1088,11 @@ _config.GetSection("array").Bind(arrayExample);
 }
 ```
 
-<xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*>の場合:
+`ConfigureAppConfiguration`の場合:
 
 ```csharp
-config.AddJsonFile("missing_value.json", optional: false, reloadOnChange: false);
+config.AddJsonFile(
+    "missing_value.json", optional: false, reloadOnChange: false);
 ```
 
 表に示すキーと値のペアが構成に読み込まれます。
@@ -1095,7 +1116,17 @@ JSON 構成プロバイダーにインデックス &num;3 のエントリが含�
 
 JSON ファイルに配列が含まれる場合、配列要素の構成キーは、0 から始まるセクションのインデックスで作成されます。 次の構成ファイルにおいて、`subsection` は配列です。
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-json[](index/samples/3.x/ConfigurationSample/json_array.json)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-json[](index/samples/2.x/ConfigurationSample/json_array.json)]
+
+::: moniker-end
 
 JSON 構成プロバイダーは、次のキーと値のペアに構成データを読み取ります。
 
@@ -1108,7 +1139,17 @@ JSON 構成プロバイダーは、次のキーと値のペアに構成データ
 
 サンプル アプリでは、構成のキーと値のペアをバインドするために、次の POCO クラスを使用できます。
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/samples/3.x/ConfigurationSample/Models/JsonArrayExample.cs?name=snippet1)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Models/JsonArrayExample.cs?name=snippet1)]
+
+::: moniker-end
 
 バインド後、`JsonArrayExample.Key` は値 `valueA` を保持します。 サブセクションの値は、POCO 配列のプロパティ `Subsection` に格納されます。
 
@@ -1129,6 +1170,44 @@ JSON 構成プロバイダーは、次のキーと値のペアに構成データ
 * 変更時に再度読み込む機能は実装されていません。このため、アプリの起動後にデータベースを更新しても、アプリの構成には影響がありません。
 
 データベースに構成値を格納するための `EFConfigurationValue` エンティティを定義します。
+
+::: moniker range=">= aspnetcore-3.0"
+
+*Models/EFConfigurationValue.cs*:
+
+[!code-csharp[](index/samples/3.x/ConfigurationSample/Models/EFConfigurationValue.cs?name=snippet1)]
+
+構成した値を格納し、その値にアクセスするための `EFConfigurationContext` を追加します。
+
+*EFConfigurationProvider/EFConfigurationContext.cs*:
+
+[!code-csharp[](index/samples/3.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationContext.cs?name=snippet1)]
+
+<xref:Microsoft.Extensions.Configuration.IConfigurationSource> を実装するクラスを作成します。
+
+*EFConfigurationProvider/EFConfigurationSource.cs*:
+
+[!code-csharp[](index/samples/3.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationSource.cs?name=snippet1)]
+
+<xref:Microsoft.Extensions.Configuration.ConfigurationProvider> から継承して、カスタム構成プロバイダーを作成します。 データベースが空だった場合、構成プロバイダーはこれを初期化します。
+
+*EFConfigurationProvider/EFConfigurationProvider.cs*:
+
+[!code-csharp[](index/samples/3.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationProvider.cs?name=snippet1)]
+
+`AddEFConfiguration` 拡張メソッドを使用すると、`ConfigurationBuilder` に構成ソースを追加できます。
+
+*Extensions/EntityFrameworkExtensions.cs*:
+
+[!code-csharp[](index/samples/3.x/ConfigurationSample/Extensions/EntityFrameworkExtensions.cs?name=snippet1)]
+
+次のコードでは、*Program.cs* でカスタムの `EFConfigurationProvider` を使用する方法を示します。
+
+[!code-csharp[](index/samples/3.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=30-31)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 *Models/EFConfigurationValue.cs*:
 
@@ -1161,6 +1240,8 @@ JSON 構成プロバイダーは、次のキーと値のペアに構成データ
 次のコードでは、*Program.cs* でカスタムの `EFConfigurationProvider` を使用する方法を示します。
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=30-31)]
+
+::: moniker-end
 
 ## <a name="access-configuration-during-startup"></a>起動中に構成にアクセスする
 
@@ -1239,4 +1320,3 @@ MVC ビュー:
 ## <a name="additional-resources"></a>その他の技術情報
 
 * <xref:fundamentals/configuration/options>
-* [Microsoft の構成について詳しく調べる](https://www.paraesthesia.com/archive/2018/06/20/microsoft-extensions-configuration-deep-dive/)
