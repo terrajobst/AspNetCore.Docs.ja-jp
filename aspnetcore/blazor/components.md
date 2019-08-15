@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/13/2019
 uid: blazor/components
-ms.openlocfilehash: 8cb2dc4c3cd22fe71fe15c22762948f9dcd3c08f
-ms.sourcegitcommit: f5f0ff65d4e2a961939762fb00e654491a2c772a
+ms.openlocfilehash: 752f49f020acf26efcb304ed5e28e27c478dac83
+ms.sourcegitcommit: 7a46973998623aead757ad386fe33602b1658793
 ms.translationtype: MT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 08/15/2019
-ms.locfileid: "69030357"
+ms.locfileid: "69487591"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>ASP.NET Core Razor コンポーネントを作成して使用する
 
@@ -523,9 +523,10 @@ await callback.InvokeAsync(arg);
 
 * 子コンポーネントに属性を追加します。 [@ref](xref:mvc/views/razor#ref)
 * 子コンポーネントと同じ型のフィールドを定義します。
+* パラメーターを`@ref:suppressField`指定します。これにより、バッキングフィールドの生成が抑制されます。 詳細については、「 [3.0.0 での自動@refバッキングフィールドのサポートの削除-preview9](https://github.com/aspnet/Announcements/issues/381)」を参照してください。
 
 ```cshtml
-<MyLoginDialog @ref="loginDialog" ... />
+<MyLoginDialog @ref="loginDialog" @ref:suppressField ... />
 
 @code {
     private MyLoginDialog loginDialog;
@@ -1267,7 +1268,7 @@ Blazor サーバー側アプリはローカライズ[ミドルウェア](xref:fu
 
 カルチャは、次のいずれかの方法を使用して設定できます。
 
-* [クッキー](#cookies)
+* [Cookie](#cookies)
 * [カルチャを選択するための UI を提供する](#provide-ui-to-choose-the-culture)
 
 使用例を含む詳細については、「<xref:fundamentals/localization>」を参照してください。

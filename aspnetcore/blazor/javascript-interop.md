@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/13/2019
 uid: blazor/javascript-interop
-ms.openlocfilehash: ffd25fe0288159681f7fc052fc09e1f6fc425404
-ms.sourcegitcommit: f5f0ff65d4e2a961939762fb00e654491a2c772a
+ms.openlocfilehash: 00ea14ca95c328b5f8779785a92aa0720a96eb05
+ms.sourcegitcommit: 7a46973998623aead757ad386fe33602b1658793
 ms.translationtype: MT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 08/15/2019
-ms.locfileid: "69030305"
+ms.locfileid: "69487553"
 ---
 # <a name="aspnet-core-blazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 相互運用機能
 
@@ -125,11 +125,12 @@ JavaScript ファイルを参照する タグをwwwroot/index.htmlファイル(B
 
 * `@ref`属性を HTML 要素に追加します。
 * 属性の値と一致`ElementReference`する名前を持つ型のフィールドを定義します。 `@ref`
+* パラメーターを`@ref:suppressField`指定します。これにより、バッキングフィールドの生成が抑制されます。 詳細については、「 [3.0.0 での自動@refバッキングフィールドのサポートの削除-preview9](https://github.com/aspnet/Announcements/issues/381)」を参照してください。
 
 要素`<input>`へ`username`の参照をキャプチャする例を次に示します。
 
 ```cshtml
-<input @ref="username" ... />
+<input @ref="username" @ref:suppressField ... />
 
 @code {
     ElementReference username;
@@ -158,7 +159,7 @@ window.exampleJsFunctions = {
 ```cshtml
 @inject IJSRuntime JSRuntime
 
-<input @ref="username" />
+<input @ref="username" @ref:suppressField />
 <button @onclick="SetFocus">Set focus on username</button>
 
 @code {
@@ -188,7 +189,7 @@ public static Task Focus(this ElementReference elementRef, IJSRuntime jsRuntime)
 @inject IJSRuntime JSRuntime
 @using JsInteropClasses
 
-<input @ref="username" />
+<input @ref="username" @ref:suppressField />
 <button @onclick="SetFocus">Set focus on username</button>
 
 @code {
