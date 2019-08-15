@@ -1,39 +1,39 @@
 ---
-title: C core から ASP.NET Core への移行の gRPC サービス
+title: GRPC サービスの C-core から ASP.NET Core への移行
 author: juntaoluo
-description: ASP.NET Core スタック上で実行する既存の C core gRPC ベース アプリを移動する方法について説明します。
+description: 既存の C コアベースの gRPC アプリを移動して ASP.NET Core スタック上で実行する方法について説明します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 03/31/2019
 uid: grpc/migration
-ms.openlocfilehash: 47d74edd821124f0c8390d704ca7931b7eb6c4cd
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 39aa711a1a47cf11ec5b08903b4130c7caa1501c
+ms.sourcegitcommit: 476ea5ad86a680b7b017c6f32098acd3414c0f6c
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64895239"
+ms.lasthandoff: 08/14/2019
+ms.locfileid: "69022296"
 ---
-# <a name="migrating-grpc-services-from-c-core-to-aspnet-core"></a>C core から ASP.NET Core への移行の gRPC サービス
+# <a name="migrating-grpc-services-from-c-core-to-aspnet-core"></a>GRPC サービスの C-core から ASP.NET Core への移行
 
 作成者: [John Luo](https://github.com/juntaoluo)
 
-基になるスタックの実装により、すべての機能がの間で同じ方法で機能[C コア ベース gRPC](https://grpc.io/blog/grpc-stacks)アプリおよび ASP.NET Core ベースのアプリ。 このドキュメントには、2 つのスタック間を移行するための主な違いが強調表示されます。
+基になるスタックが実装されているため、 [C コアベースの gRPC](https://grpc.io/blog/grpc-stacks)アプリと ASP.NET Core ベースのアプリでは、すべての機能が同じ方法で動作するわけではありません。 このドキュメントでは、2つのスタック間の移行に関する主な違いについて説明します。
 
-## <a name="grpc-service-implementation-lifetime"></a>gRPC サービス実装の有効期間
+## <a name="grpc-service-implementation-lifetime"></a>gRPC サービスの実装の有効期間
 
-ASP.NET Core スタック、gRPC、既定ではで作成されたサービス、[有効期間がスコープ](xref:fundamentals/dependency-injection#service-lifetimes)します。 サービスに既定では、gRPC C コアがこれに対し、バインド、[シングルトン有効期間](xref:fundamentals/dependency-injection#service-lifetimes)します。
+ASP.NET Core スタックでは、既定で gRPC サービスが[スコープ有効期間](xref:fundamentals/dependency-injection#service-lifetimes)で作成されます。 これに対し、gRPC C-core は、既定では、[単一の有効期間](xref:fundamentals/dependency-injection#service-lifetimes)を持つサービスにバインドされます。
 
-有効期間がスコープには、有効期間のスコープを持つその他のサービスを解決するサービス実装ができるようにします。 たとえば、有効期間がスコープを解決できるも`DBContext`コンス トラクターの挿入を通じて DI コンテナーから。 スコープを持つ有効期間を使用します。
+スコープ内の有効期間を使用すると、サービス実装は、スコープの有効期間を持つ他のサービスを解決できます。 たとえば、スコープが指定された有効`DbContext`期間は、コンストラクターの挿入を通じて DI コンテナーから解決することもできます。 スコープ有効期間の使用:
 
-* 要求ごとに、サービス実装の新しいインスタンスが構築されます。
-* 実装の種類のインスタンス メンバーを使用して要求間で状態を共有することはできません。
-* DI コンテナー内のシングルトン サービスで共有状態を格納することを見込んでです。 ストアドの共有状態は、gRPC のサービス実装のコンス トラクターで解決されます。
+* サービス実装の新しいインスタンスは、要求ごとに作成されます。
+* 実装型のインスタンスメンバーを介して、要求間で状態を共有することはできません。
+* 共有状態は、単一のサービスに DI コンテナーに格納することを想定しています。 格納されている共有状態は、gRPC サービス実装のコンストラクターで解決されます。
 
-サービスの有効期間の詳細については、次を参照してください。<xref:fundamentals/dependency-injection#service-lifetimes>します。
+サービスの有効期間の詳細につい<xref:fundamentals/dependency-injection#service-lifetimes>ては、「」を参照してください。
 
-### <a name="add-a-singleton-service"></a>シングルトン サービスを追加します。
+### <a name="add-a-singleton-service"></a>シングルトンサービスを追加する
 
-GRPC C core の実装から ASP.NET Core への移行を容易にするには、サービスの実装からのサービスの有効期間を変更することスコープ シングルトンです。 これは、DI コンテナーへのサービス実装のインスタンスの追加が含まれます。
+GRPC C コア実装から ASP.NET Core への移行を容易にするために、サービス実装のサービスの有効期間をスコープからシングルトンに変更することができます。 これには、サービス実装のインスタンスを DI コンテナーに追加する必要があります。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -43,13 +43,13 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-ただし、シングルトン有効期間を持つサービスの実装では、コンス トラクターの挿入を通じてスコープを持つサービスを解決することはありません。
+ただし、シングルトンの有効期間を持つサービス実装では、コンストラクターの挿入によってスコープ付きサービスを解決できなくなりました。
 
-## <a name="configure-grpc-services-options"></a>GRPC サービス オプションを構成します。
+## <a name="configure-grpc-services-options"></a>GRPC サービスのオプションの構成
 
-C コア ベースのアプリなどの設定で`grpc.max_receive_message_length`と`grpc.max_send_message_length`で構成された`ChannelOption`とき[サーバー インスタンスを構築する](https://grpc.io/grpc/csharp/api/Grpc.Core.Server.html#Grpc_Core_Server__ctor_System_Collections_Generic_IEnumerable_Grpc_Core_ChannelOption__)します。
+C コアベースのアプリでは`grpc.max_receive_message_length` 、や`grpc.max_send_message_length`などの設定は、[サーバーインスタンスを構築](https://grpc.io/grpc/csharp/api/Grpc.Core.Server.html#Grpc_Core_Server__ctor_System_Collections_Generic_IEnumerable_Grpc_Core_ChannelOption__)するときにで`ChannelOption`構成されます。
 
-ASP.NET Core で gRPC を使用した構成を提供します、`GrpcServiceOptions`型。 たとえば、gRPC サービスの受信メッセージの最大サイズを使用して構成できる`AddGrpc`:
+ASP.NET Core では、grpc は型を`GrpcServiceOptions`使用して構成を提供します。 たとえば、gRPC サービスの最大受信メッセージサイズは、 `AddGrpc`次の方法で構成できます。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -61,11 +61,11 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-構成の詳細については、次を参照してください。<xref:grpc/configuration>します。
+構成の詳細については<xref:grpc/configuration>、「」を参照してください。
 
 ## <a name="logging"></a>ログの記録
 
-C コア ベースのアプリの依存、`GrpcEnvironment`に[ロガーを構成する](https://grpc.io/grpc/csharp/api/Grpc.Core.GrpcEnvironment.html?q=size#Grpc_Core_GrpcEnvironment_SetLogger_Grpc_Core_Logging_ILogger_)デバッグのためです。 ASP.NET Core スタックを通じてこの機能を提供する、[ログ API](xref:fundamentals/logging/index)します。 たとえば、コンス トラクターの挿入を使用して、gRPC サービスにロガーを追加できます。
+C コアベースのアプリは、を使用`GrpcEnvironment`して、デバッグの目的で[logger を構成](https://grpc.io/grpc/csharp/api/Grpc.Core.GrpcEnvironment.html?q=size#Grpc_Core_GrpcEnvironment_SetLogger_Grpc_Core_Logging_ILogger_)します。 ASP.NET Core スタックは、[ログ API](xref:fundamentals/logging/index)を介してこの機能を提供します。 たとえば、logger は、コンストラクターインジェクションを使用して gRPC サービスに追加できます。
 
 ```csharp
 public class GreeterService : Greeter.GreeterBase
@@ -78,13 +78,13 @@ public class GreeterService : Greeter.GreeterBase
 
 ## <a name="https"></a>HTTPS
 
-C コア ベースのアプリからの HTTPS を構成する、 [Server.Ports プロパティ](https://grpc.io/grpc/csharp/api/Grpc.Core.Server.html#Grpc_Core_Server_Ports)します。 同様の概念は、ASP.NET Core でのサーバーの構成に使用されます。 たとえば、Kestrel を使用して[エンドポイント構成](xref:fundamentals/servers/kestrel#endpoint-configuration)この機能のためです。
+C コアベースのアプリは、 [Server. Ports プロパティ](https://grpc.io/grpc/csharp/api/Grpc.Core.Server.html#Grpc_Core_Server_Ports)を使用して HTTPS を構成します。 同様の概念は、ASP.NET Core でサーバーを構成するために使用されます。 たとえば、Kestrel は、この機能に[エンドポイント構成](xref:fundamentals/servers/kestrel#endpoint-configuration)を使用します。
 
 ## <a name="interceptors-and-middleware"></a>インターセプターとミドルウェア
 
-ASP.NET Core[ミドルウェア](xref:fundamentals/middleware/index)gRPC の C コア ベースのアプリケーションでインターセプターと比較すると同様の機能を提供します。 ミドルウェアとインターセプターは概念的には、同じ両方は gRPC 要求を処理するパイプラインの構築に使用されるためです。 どちらは、パイプライン内の次のコンポーネントの前後に実行される処理を許可します。 インターセプターの抽象化を使用して、gRPC レイヤーを操作中にただし、ASP.NET Core のミドルウェアが、基になる http/2 メッセージに対して動作する、 [ServerCallContext](https://grpc.io/grpc/csharp/api/Grpc.Core.ServerCallContext.html)します。
+ASP.NET Core[ミドルウェア](xref:fundamentals/middleware/index)は、C コアベースの grpc アプリのインターセプターと比較して同様の機能を提供します。 ミドルウェアとインターセプターは、両方とも、gRPC 要求を処理するパイプラインを構築するために使用されるのと同じです。 どちらも、パイプライン内の次のコンポーネントの前または後に作業を実行できます。 ただし、ASP.NET Core ミドルウェアは基になる HTTP/2 メッセージに対して動作しますが、インターセプターは[ServerCallContext](https://grpc.io/grpc/csharp/api/Grpc.Core.ServerCallContext.html)を使用して、抽象の grpc レイヤーで動作します。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他の資料
 
 * <xref:grpc/index>
 * <xref:grpc/basics>

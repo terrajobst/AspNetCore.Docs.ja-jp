@@ -1,88 +1,90 @@
 ---
-title: ASP.NET Core で razor ページの単体テスト
+title: ASP.NET Core での単体テストの Razor Pages
 author: guardrex
-description: Razor ページ アプリの単体テストを作成する方法について説明します。
+description: Razor Pages アプリの単体テストを作成する方法について説明します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/07/2017
+ms.date: 08/14/2019
 uid: test/razor-pages-tests
-ms.openlocfilehash: f89b4fcb0065e725f70deec7859e373f9158b4bd
-ms.sourcegitcommit: 91cc1f07ef178ab709ea42f8b3a10399c970496e
+ms.openlocfilehash: 35feb5dd95fa79ceca7ff03523cef30d29ccbdd3
+ms.sourcegitcommit: 476ea5ad86a680b7b017c6f32098acd3414c0f6c
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/08/2019
-ms.locfileid: "67622786"
+ms.lasthandoff: 08/14/2019
+ms.locfileid: "69022570"
 ---
-# <a name="razor-pages-unit-tests-in-aspnet-core"></a>ASP.NET Core で razor ページの単体テスト
+# <a name="razor-pages-unit-tests-in-aspnet-core"></a>ASP.NET Core での単体テストの Razor Pages
 
 作成者: [Luke Latham](https://github.com/guardrex)
 
+::: moniker range=">= aspnetcore-3.0"
+
 ASP.NET Core では、Razor Pages のアプリの単体テストをサポートします。 データ アクセス層 (DAL) のテストとページ モデルによって、次が保証されます。
 
-* Razor ページ アプリのパーツでは、アプリの構築時とは独立してとを単位としてまとめてを動作します。
-* クラスとメソッドには、責任の範囲が制限されます。
-* アプリの動作に関するその他のドキュメントが存在します。
+* Razor Pages アプリの一部は、アプリの構築時に個別に1つの単位として機能します。
+* クラスとメソッドには、限られた範囲の責任があります。
+* アプリの動作に関する追加のドキュメントがあります。
 * コードのアップデートによってもたらされたエラーである回帰は、自動ビルドと配置中に検出されました。
 
-このトピックでは、Razor ページ アプリと単体テストの基本的な理解があることを前提としています。 Razor ページ アプリまたはテストの概念に詳しい場合は、次のトピックを参照してください。
+このトピックでは、Razor Pages アプリと単体テストについての基本的な知識があることを前提としています。 Razor Pages アプリまたはテストの概念に慣れていない場合は、次のトピックを参照してください。
 
 * <xref:razor-pages/index>
 * <xref:tutorials/razor-pages/razor-pages-start>
-* [単体テスト c# dotnet テストと xUnit を使用して .NET Core](/dotnet/articles/core/testing/unit-testing-with-dotnet-test)
+* [Dotnet テストC#と xunit を使用した .net Core での単体テスト](/dotnet/articles/core/testing/unit-testing-with-dotnet-test)
 
 [サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/razor-pages-tests/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
-サンプル プロジェクトは、2 つのアプリで構成されます。
+サンプルプロジェクトは、次の2つのアプリで構成されています。
 
-| アプリ         | プロジェクト フォルダー                     | 説明 |
+| アプリ         | プロジェクトフォルダー                     | 説明 |
 | ----------- | ---------------------------------- | ----------- |
-| メッセージ アプリ | *src/RazorPagesTestSample*         | ユーザーにメッセージを追加する、1 つのメッセージを削除、すべてのメッセージを削除、およびメッセージ (メッセージごとの単語の平均数を検索) を分析できます。 |
-| テスト アプリ    | *tests/RazorPagesTestSample.Tests* | 単体テスト、DAL とメッセージ アプリのインデックス ページのモデルに使用します。 |
+| メッセージアプリ | *src/RazorPagesTestSample*         | ユーザーがメッセージの追加、1つのメッセージの削除、すべてのメッセージの削除、およびメッセージの分析を実行できるようにします (メッセージあたりの平均単語数を検索します)。 |
+| アプリのテスト    | *テスト/RazorPagesTestSample* | メッセージアプリの DAL および Index ページモデルの単体テストに使用されます。 |
 
-などの IDE、組み込みのテスト機能を使用して、テストを実行できる[Visual Studio](/visualstudio/test/unit-test-your-code)または[Visual Studio for Mac](/dotnet/core/tutorials/using-on-mac-vs-full-solution)します。 使用して場合[Visual Studio Code](https://code.visualstudio.com/)またはコマンド プロンプトで次のコマンドを実行するコマンドライン、 *tests/RazorPagesTestSample.Tests*フォルダー。
+テストは、 [Visual Studio](/visualstudio/test/unit-test-your-code)や[VISUAL STUDIO FOR MAC](/dotnet/core/tutorials/using-on-mac-vs-full-solution)など、IDE の組み込みのテスト機能を使用して実行できます。 [Visual Studio Code](https://code.visualstudio.com/)またはコマンドラインを使用している場合は、Test */RazorPagesTestSample*フォルダーでコマンドプロンプトから次のコマンドを実行します。
 
 ```console
 dotnet test
 ```
 
-## <a name="message-app-organization"></a>メッセージ アプリ組織
+## <a name="message-app-organization"></a>メッセージアプリの組織
 
-メッセージ アプリでは、次の特性を持つ、Razor ページ メッセージ システムを示します。
+メッセージアプリは、次の特性を持つ Razor Pages メッセージシステムです。
 
-* アプリのインデックス ページ (*Pages/Index.cshtml*と*Pages/Index.cshtml.cs*) UI とページ モデルのメソッドを追加、削除、および分析 (の平均数を確認するメッセージの制御を提供しますワード 1 メッセージあたり)。
-* メッセージは、`Message`クラス (*Data/Message.cs*) 2 つのプロパティを持つ: `Id` (キー) と`Text`(メッセージ)。 `Text`プロパティは必須であり 200 文字に制限されます。
-* 使用してメッセージを保存する[Entity Framework のメモリ内データベース](/ef/core/providers/in-memory/)&#8224;します。
-* アプリに含まれる、データベース コンテキスト クラスの DAL `AppDbContext` (*Data/AppDbContext.cs*)。 DAL メソッドをマーク`virtual`テストで使用されるメソッドのモックを作成することができます。
-* データベースがアプリの起動時に空の場合、メッセージ ストアは、3 つのメッセージで初期化されます。 これら*シード処理されるメッセージ*テストでも使用されます。
+* アプリのインデックスページ (*pages/index. cshtml*と*pages/index. cshtml. .cs*) には、メッセージの追加、削除、および分析を制御する UI およびページモデルのメソッドが用意されています (メッセージあたりの平均単語数を検索します)。
+* メッセージは、 `Id` (キー) `Message`と`Text` (message) の2つのプロパティを持つクラス (*Data/message .cs*) によって記述されます。 `Text`プロパティは必須であり、200文字までに制限されています。
+* メッセージは[Entity Framework のメモリ内データベース](/ef/core/providers/in-memory/)&#8224;を使用して格納されます。
+* アプリには、データベースコンテキストクラス`AppDbContext` (*Data/appdbcontext .cs*) に DAL が含まれています。 DAL メソッドはとマーク`virtual`されます。これにより、テストで使用するメソッドをモックできます。
+* アプリケーションの起動時にデータベースが空の場合、メッセージストアは3つのメッセージで初期化されます。 これらのシード処理された*メッセージ*は、テストでも使用されます。
 
-&#8224;EF トピック[InMemory のテスト](/ef/core/miscellaneous/testing/in-memory)MSTest を使用したテストにメモリ内データベースを使用する方法について説明します。 このトピックでは、 [xUnit](https://xunit.github.io/)テスト フレームワーク。 テストの概念と別のテスト フレームワーク間でのテストの実装は似ていますが、同一ではないです。
+&#8224;EF トピック「InMemory を使用した[テスト](/ef/core/miscellaneous/testing/in-memory)」では、MSTest を使用したテストにメモリ内データベースを使用する方法について説明しています。 このトピックでは、 [Xunit](https://xunit.github.io/)テストフレームワークを使用します。 テストの概念とテストの実装は、テストフレームワークごとに似ていますが、同一ではありません。
 
-サンプル アプリ リポジトリ パターンを使用しないし、の有効な例はありませんが、 [Unit of Work (UoW) パターン](https://martinfowler.com/eaaCatalog/unitOfWork.html)、Razor ページは、これらのパターンの開発をサポートしています。 詳細については、次を参照してください。[インフラストラクチャの永続レイヤーの設計](/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design)と<xref:mvc/controllers/testing>(このサンプルは、リポジトリ パターンを実装)。
+サンプルアプリはリポジトリパターンを使用せず、[作業単位 (UoW) パターン](https://martinfowler.com/eaaCatalog/unitOfWork.html)の有効な例ではありませんが、Razor Pages はこれらの開発パターンをサポートしています。 詳細については、「[インフラストラクチャの永続化層の設計](/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design)」と<xref:mvc/controllers/testing> 「」を参照してください。
 
-## <a name="test-app-organization"></a>組織のアプリをテストします。
+## <a name="test-app-organization"></a>テストアプリの組織
 
-テスト アプリが内部でコンソール アプリ、 *tests/RazorPagesTestSample.Tests*フォルダー。
+テストアプリは、 *tests/RazorPagesTestSample*フォルダー内のコンソールアプリです。
 
-| アプリ フォルダーのテスト | 説明 |
+| テストアプリフォルダー | 説明 |
 | --------------- | ----------- |
-| *UnitTests*     | <ul><li>*DataAccessLayerTest.cs* DAL の単体テストが含まれています。</li><li>*IndexPageTests.cs*インデックス ページのモデルの単体テストが含まれています。</li></ul> |
-| *ユーティリティ*     | 含まれています、`TestDbContextOptions`メソッドを各テストのベースラインの状態にデータベースをリセットするために、各 DAL の単体テストのコンテキストのオプションを新しいデータベースに作成するために使用します。 |
+| *UnitTests*     | <ul><li>*DataAccessLayerTest.cs*には、DAL の単体テストが含まれています。</li><li>*IndexPageTests.cs*には、インデックスページモデルの単体テストが含まれています。</li></ul> |
+| *ユーティリティ*     | 各 DAL 単体テストの新しいデータベースコンテキストオプションを作成するために使用するメソッドが含まれています。これにより、各テストのベースライン条件にデータベースがリセットされます。`TestDbContextOptions` |
 
-テスト フレームワークは[xUnit](https://xunit.github.io/)します。 オブジェクトのモック作成フレームワークが[Moq](https://github.com/moq/moq4)します。
+テストフレームワークは[Xunit](https://xunit.github.io/)です。 オブジェクトモックフレームワークは[Moq](https://github.com/moq/moq4)です。
 
-## <a name="unit-tests-of-the-data-access-layer-dal"></a>単体テストのデータ アクセス層 (DAL)
+## <a name="unit-tests-of-the-data-access-layer-dal"></a>データアクセス層 (DAL) の単体テスト
 
-メッセージ アプリに含まれている 4 つの方法で、DAL が、`AppDbContext`クラス (*src/RazorPagesTestSample/Data/AppDbContext.cs*)。 各メソッドでは、テスト アプリで 1 つまたは 2 つの単体テストがあります。
+メッセージアプリには、 `AppDbContext`クラス (*src/RazorPagesTestSample/Data/appdbcontext .cs*) に含まれる4つのメソッドを持つ DAL があります。 各メソッドには、テストアプリに1つまたは2つの単体テストがあります。
 
 | DAL メソッド               | 関数                                                                   |
 | ------------------------ | -------------------------------------------------------------------------- |
-| `GetMessagesAsync`       | 取得、`List<Message>`データベースを順に並べ替えてから、`Text`プロパティ。 |
-| `AddMessageAsync`        | 追加、`Message`データベースにします。                                          |
-| `DeleteAllMessagesAsync` | すべてを削除します`Message`データベースからのエントリ。                           |
-| `DeleteMessageAsync`     | 1 つを削除します。`Message`によってデータベースから`Id`します。                      |
+| `GetMessagesAsync`       | プロパティによって並べ替えられたデータベースからを`List<Message>`取得します。 `Text` |
+| `AddMessageAsync`        | を`Message`データベースに追加します。                                          |
+| `DeleteAllMessagesAsync` | データベースから`Message`すべてのエントリを削除します。                           |
+| `DeleteMessageAsync`     | によって`Message` `Id`、1つのをデータベースから削除します。                      |
 
-DAL の単体テストを必要と<xref:Microsoft.EntityFrameworkCore.DbContextOptions>新しいを作成するときに`AppDbContext`テストごとにします。 作成する方法、`DbContextOptions`は、各テストを使用する、 <xref:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder>:
+DAL の単体テストでは<xref:Microsoft.EntityFrameworkCore.DbContextOptions> 、各テストに`AppDbContext`新しいを作成する必要があります。 各テスト`DbContextOptions`のを作成する方法の1つは、 <xref:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder>を使用することです。
 
 ```csharp
 var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>()
@@ -94,11 +96,11 @@ using (var db = new AppDbContext(optionsBuilder.Options))
 }
 ```
 
-このアプローチの問題は、各テストがどのような状態、前のテストが左でデータベースを受信します。 互いに干渉しないアトミック単位テストを作成しようとするとき、これは問題が発生します。 強制的に、`AppDbContext`テストごとに新しいデータベースのコンテキストを使用するを指定する、`DbContextOptions`新しいサービス プロバイダーに基づいているインスタンス。 テスト アプリを使用してこれを行う方法を示しています。 その`Utilities`クラス メソッド`TestDbContextOptions`(*tests/RazorPagesTestSample.Tests/Utilities/Utilities.cs*)。
+この方法の問題は、各テストが、前のテストでどのような状態でデータベースを受け取るかということです。 相互に干渉しない atomic 単体テストを作成しようとすると、問題が発生する可能性があります。 が`AppDbContext`各テストに新しいデータベースコンテキストを使用するように強制するに`DbContextOptions`は、新しいサービスプロバイダーに基づくインスタンスを指定します。 テストアプリでは、 `Utilities`クラスメソッド`TestDbContextOptions`を使用してこれを行う方法を示しています (tests/*RazorPagesTestSample/utilities/* utilities)。
 
-[!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/Utilities/Utilities.cs?name=snippet1)]
+[!code-csharp[](razor-pages-tests/samples/3.x/tests/RazorPagesTestSample.Tests/Utilities/Utilities.cs?name=snippet1)]
 
-使用して、 `DbContextOptions` DAL 単体テストによって、新しいデータベース インスタンスにアトミックに実行するには、各テスト。
+DAL 単体`DbContextOptions`テストでを使用すると、新しいデータベースインスタンスを使用して、各テストをアトミックに実行できます。
 
 ```csharp
 using (var db = new AppDbContext(Utilities.TestDbContextOptions()))
@@ -107,93 +109,279 @@ using (var db = new AppDbContext(Utilities.TestDbContextOptions()))
 }
 ```
 
-内の各テスト メソッド、`DataAccessLayerTest`クラス (*UnitTests/DataAccessLayerTest.cs*) 配置 Act アサートと同様のパターンに従います。
+`DataAccessLayerTest`クラス (*unittests/dataaccessレイヤーテスト .cs*) の各テストメソッドは、次のように同様の配置/操作アサートパターンに従います。
 
-1. 配置します。データベースがテストの構成や、予想される結果が定義されています。
-1. Act:テストを実行します。
-1. アサートします。アサーションは、テスト結果が成功したかどうかを決定されます。
+1. 名簿データベースがテスト用に構成されているか、予期される結果が定義されています。
+1. 作業テストが実行されます。
+1. アサートアサーションは、テスト結果が成功であるかどうかを判断するために作成されます。
 
-たとえば、`DeleteMessageAsync`で識別される 1 つのメッセージを削除するため、メソッドはその`Id`(*src/RazorPagesTestSample/Data/AppDbContext.cs*)。
+たとえば、 `DeleteMessageAsync`メソッドは、 `Id` (*src/RazorPagesTestSample/Data/appdbcontext .cs*) によって識別される1つのメッセージを削除します。
 
-[!code-csharp[](razor-pages-tests/samples/2.x/src/RazorPagesTestSample/Data/AppDbContext.cs?name=snippet4)]
+[!code-csharp[](razor-pages-tests/samples/3.x/src/RazorPagesTestSample/Data/AppDbContext.cs?name=snippet4)]
 
-このメソッドの 2 つのテストがあります。 メッセージがデータベースに存在する場合、メソッドはメッセージを削除します。 1 つのテストを確認します。 データベースを変更しないこと、その他のメソッド テスト メッセージ`Id`の削除が存在しません。 `DeleteMessageAsync_MessageIsDeleted_WhenMessageIsFound`メソッドを次に示します。
+このメソッドには2つのテストがあります。 1つのテストでは、メッセージがデータベース内に存在する場合に、メソッドによってメッセージが削除されることを確認します。 もう1つの方法では、削除するメッセージ`Id`が存在しない場合にデータベースが変更されないことをテストします。 `DeleteMessageAsync_MessageIsDeleted_WhenMessageIsFound`メソッドは次のようになります。
 
-[!code-csharp[](razor-pages-tests/samples_snapshot/2.x/tests/RazorPagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet1)]
+[!code-csharp[](razor-pages-tests/samples_snapshot/3.x/tests/RazorPagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet1)]
 
-最初に、メソッド実行の配置手順 Act ステップの準備が行われる場所。 シード処理のメッセージを取得し、保持されている`seedMessages`します。 シード処理のメッセージは、データベースに保存されます。 メッセージ、`Id`の`1`削除設定。 ときに、`DeleteMessageAsync`メソッドが実行され、予期されるメッセージには、すべてのメッセージを 1 つを除くが必要、`Id`の`1`します。 `expectedMessages`変数はこの予想される結果を表します。
+まず、メソッドは、Act ステップの準備が行われる配置手順を実行します。 シード処理メッセージは、で`seedMessages`取得および保持されます。 シード処理メッセージはデータベースに保存されます。 `Id` の`1`を持つメッセージは、削除の対象として設定されます。 メソッドが実行されるとき、予期されるメッセージには、 `Id`のがの`1`メッセージを除くすべてのメッセージが含まれている必要があります。 `DeleteMessageAsync` 変数`expectedMessages`は、この予想される結果を表します。
 
-[!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet1)]
+[!code-csharp[](razor-pages-tests/samples/3.x/tests/RazorPagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet1)]
 
-メソッドは機能します。`DeleteMessageAsync`を渡すメソッドが実行される、`recId`の`1`:
+メソッドは次のように動作します。メソッドは、の`recId` `1`を渡して実行されます。 `DeleteMessageAsync`
 
-[!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet2)]
+[!code-csharp[](razor-pages-tests/samples/3.x/tests/RazorPagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet2)]
 
-メソッドが最後に、取得した、`Messages`コンテキストからとを比較します、 `expectedMessages` 2 つが等しいことをアサートします。
+最後に、メソッドはコンテキスト`Messages`からを取得し、2つの`expectedMessages`が等しいことをアサートと比較します。
 
-[!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet3)]
+[!code-csharp[](razor-pages-tests/samples/3.x/tests/RazorPagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet3)]
 
-比較するために、2 つ`List<Message>`は、同じです。
+2つ`List<Message>`が同じであることを比較するために、次のようにします。
 
-* によって、メッセージの順序は`Id`します。
-* メッセージのペアの比較、`Text`プロパティ。
+* メッセージはによって`Id`並べ替えられます。
+* メッセージのペアは、 `Text`プロパティで比較されます。
 
-同様のテスト メソッド、`DeleteMessageAsync_NoMessageIsDeleted_WhenMessageIsNotFound`が存在しないメッセージを削除しようとしての結果を確認します。 この場合、データベースで、予期されるメッセージと同じになります、実際のメッセージの後に、`DeleteMessageAsync`メソッドが実行されます。 データベースのコンテンツへの変更はないはず。
+同様のテストメソッドは`DeleteMessageAsync_NoMessageIsDeleted_WhenMessageIsNotFound` 、存在しないメッセージを削除しようとした結果を確認します。 この場合、データベース内の予期されるメッセージは、 `DeleteMessageAsync`メソッドが実行された後の実際のメッセージと同じである必要があります。 データベースのコンテンツを変更することはできません。
 
-[!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet4)]
+[!code-csharp[](razor-pages-tests/samples/3.x/tests/RazorPagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet4)]
 
-## <a name="unit-tests-of-the-page-model-methods"></a>ページ モデルのメソッドの単体テスト
+## <a name="unit-tests-of-the-page-model-methods"></a>ページモデルメソッドの単体テスト
 
-別の一連の単体テストでは、ページ モデルのメソッドのテストを担当します。 メッセージ アプリでは、インデックス ページのモデル内にある、`IndexModel`クラス*src/RazorPagesTestSample/Pages/Index.cshtml.cs*します。
+別の単体テストのセットは、ページモデルメソッドのテストを担当します。 メッセージアプリでは、インデックスページモデルは、 `IndexModel` *src/RazorPagesTestSample/Pages/index. cshtml. .cs*のクラスにあります。
 
-| ページ モデル メソッド | 関数 |
+| ページモデルメソッド | 関数 |
 | ----------------- | -------- |
-| `OnGetAsync` | UI を使用して、DAL からメッセージを取得、`GetMessagesAsync`メソッド。 |
-| `OnPostAddMessageAsync` | 場合、 [ModelState](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary)が有効では、呼び出しの`AddMessageAsync`データベースにメッセージを追加します。 |
-| `OnPostDeleteAllMessagesAsync` | 呼び出し`DeleteAllMessagesAsync`すべてのデータベース内のメッセージを削除します。 |
-| `OnPostDeleteMessageAsync` | 実行`DeleteMessageAsync`でメッセージを削除する、`Id`指定します。 |
-| `OnPostAnalyzeMessagesAsync` | 1 つまたは複数のメッセージがデータベース内にある場合は、1 つのメッセージの単語の平均数を計算します。 |
+| `OnGetAsync` | `GetMessagesAsync`メソッドを使用して、UI の DAL からメッセージを取得します。 |
+| `OnPostAddMessageAsync` | [Modelstate](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary)が有効な場合、は`AddMessageAsync`を呼び出して、データベースにメッセージを追加します。 |
+| `OnPostDeleteAllMessagesAsync` | を`DeleteAllMessagesAsync`呼び出して、データベース内のすべてのメッセージを削除します。 |
+| `OnPostDeleteMessageAsync` | を`DeleteMessageAsync`実行して、 `Id`指定したを持つメッセージを削除します。 |
+| `OnPostAnalyzeMessagesAsync` | 1つ以上のメッセージがデータベースに含まれている場合は、によって、メッセージあたりの平均単語数が計算されます。 |
 
-ページ モデルのメソッドがテストで 7 つのテストを使用して、`IndexPageTests`クラス (*tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs*)。 テストでは、配置アサート Act の一般的なパターンを使用します。 これらのテストが焦点になりました。
+ページモデルメソッドは、 `IndexPageTests`クラスで7つのテストを使用してテストされます (*テスト/RazorPagesTestSample/unittests/indexpagetests .cs*)。 テストでは、使い慣れた配置/アサートパターンが使用されます。 これらのテストは次のことに焦点を当てます。
 
-* メソッドのかどうかは、次の正しい動作を決定するときに、 [ModelState](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary)が無効です。
-* 適切な方法を確認する生成<xref:Microsoft.AspNetCore.Mvc.IActionResult>します。
-* プロパティ値の割り当てが正しく行われたことを確認しています。
+* [Modelstate](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary)が無効な場合に、メソッドが正しい動作に従うかどうかを判断します。
+* メソッドによって正しい<xref:Microsoft.AspNetCore.Mvc.IActionResult>が生成されることを確認しています。
+* プロパティ値の割り当てが正しく行われていることを確認しています。
 
-このテストのグループは、多くの場合、ページ モデルのメソッドが実行される場所、Act の手順の必要なデータを生成するために DAL のメソッドをモックします。 たとえば、`GetMessagesAsync`のメソッド、`AppDbContext`出力を生成するモックを作成します。 ページ モデルのメソッドは、このメソッドを実行するとき、モックは、結果を返します。 データベースからは、データがありません。 これは、ページ モデルのテストで、DAL を使用するための予測可能な信頼性の高いテスト条件を作成します。
+この一連のテストでは、多くの場合、ページモデルメソッドを実行する Act ステップに対して予期されるデータを生成するために DAL のメソッドがモックされます。 たとえば`GetMessagesAsync` 、`AppDbContext`のメソッドは、出力を生成するモックです。 ページモデルメソッドがこのメソッドを実行すると、モックは結果を返します。 データはデータベースから取得されません。 これにより、ページモデルテストで DAL を使用するための、予測可能で信頼性の高いテスト条件が作成されます。
 
-`OnGetAsync_PopulatesThePageModel_WithAListOfMessages`表示をテストする方法、`GetMessagesAsync`メソッドは、ページ モデルのモックを作成します。
+テスト`OnGetAsync_PopulatesThePageModel_WithAListOfMessages`では、ページ`GetMessagesAsync`モデルに対してメソッドがモックされる方法を示しています。
 
-[!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet1&highlight=3-4)]
+[!code-csharp[](razor-pages-tests/samples/3.x/tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet1&highlight=3-4)]
 
-ときに、`OnGetAsync`メソッドが実行され、Act の手順で、ページ モデルの呼び出し`GetMessagesAsync`メソッド。
+Act ステップで`GetMessagesAsync` メソッドを実行すると、ページモデルのメソッドが`OnGetAsync`呼び出されます。
 
-単体テストの Act の手順 (*tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs*)。
+単体テストの Act ステップ (*tests/RazorPagesTestSample/unittests/IndexPageTests .cs*):
 
-[!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet2)]
+[!code-csharp[](razor-pages-tests/samples/3.x/tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet2)]
 
-`IndexPage` ページ モデルの`OnGetAsync`メソッド (*src/RazorPagesTestSample/Pages/Index.cshtml.cs*)。
+`IndexPage`ページモデルの`OnGetAsync`メソッド (*src/RazorPagesTestSample/Pages/Index. cshtml. .cs*):
 
-[!code-csharp[](razor-pages-tests/samples/2.x/src/RazorPagesTestSample/Pages/Index.cshtml.cs?name=snippet1&highlight=3)]
+[!code-csharp[](razor-pages-tests/samples/3.x/src/RazorPagesTestSample/Pages/Index.cshtml.cs?name=snippet1&highlight=3)]
 
-`GetMessagesAsync` DAL でメソッドがこのメソッドの呼び出しの結果を返しません。 モック バージョンのメソッドは、結果を返します。
+DAL `GetMessagesAsync`のメソッドは、このメソッド呼び出しの結果を返しません。 メソッドのモックバージョンは、結果を返します。
 
-`Assert`ステップ: 実際のメッセージ (`actualMessages`) から割り当てられている、`Messages`ページ モデルのプロパティ。 メッセージが割り当てられている場合、型チェックも実行されます。 予測と実際のメッセージの比較には、`Text`プロパティ。 テストのあることをアサート、2 つ`List<Message>`インスタンスは、同じメッセージを含めることができます。
+この手順では、ページモデルの`actualMessages` `Messages`プロパティから実際のメッセージ () が割り当てられます。 `Assert` 型チェックは、メッセージが割り当てられたときにも実行されます。 予想されるメッセージと実際のメッセージは`Text` 、プロパティによって比較されます。 テストでは、2つ`List<Message>`のインスタンスに同じメッセージが含まれていることをアサートします。
 
-[!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet3)]
+[!code-csharp[](razor-pages-tests/samples/3.x/tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet3)]
 
-このグループ内の他のテストは、ページが含まれるモデル オブジェクトを作成、 <xref:Microsoft.AspNetCore.Http.DefaultHttpContext>、 <xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary>、<xref:Microsoft.AspNetCore.Mvc.ActionContext>確立するために、 `PageContext`、 `ViewDataDictionary`、および`PageContext`します。 これらは、テストを実施するのに便利です。 たとえば、メッセージ アプリを確立、`ModelState`でエラーが発生<xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.AddModelError*>ことを確認する有効な<xref:Microsoft.AspNetCore.Mvc.RazorPages.PageResult>ときに返される`OnPostAddMessageAsync`が実行されます。
+このグループの他のテストでは、、、および<xref:Microsoft.AspNetCore.Http.DefaultHttpContext>を確立<xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary> `ViewDataDictionary` <xref:Microsoft.AspNetCore.Mvc.ActionContext> `PageContext` `PageContext`するためのを含むページモデルオブジェクトが作成されます。 これらは、テストの実施に役立ちます。 たとえば、メッセージアプリは、の実行`ModelState`時`OnPostAddMessageAsync`に<xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.AddModelError*>有効<xref:Microsoft.AspNetCore.Mvc.RazorPages.PageResult>なが返されることを確認するために、でエラーを設定します。
 
-[!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet4&highlight=11,26,29,32)]
+[!code-csharp[](razor-pages-tests/samples/3.x/tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet4&highlight=11,26,29,32)]
 
 ## <a name="additional-resources"></a>その他の技術情報
 
-* [単体テスト c# dotnet テストと xUnit を使用して .NET Core](/dotnet/articles/core/testing/unit-testing-with-dotnet-test)
+* [Dotnet テストC#と xunit を使用した .net Core での単体テスト](/dotnet/articles/core/testing/unit-testing-with-dotnet-test)
 * <xref:mvc/controllers/testing>
 * [コードの単体テスト](/visualstudio/test/unit-test-your-code)(Visual Studio)
 * <xref:test/integration-tests>
 * [xUnit.net](https://xunit.github.io/)
 * [Visual Studio for Mac を使用した macOS での完全な .NET Core ソリューションの構築](/dotnet/core/tutorials/using-on-mac-vs-full-solution)
-* [XUnit.net の概要.NET SDK のコマンドラインを使用した .NET Core を使用します。](https://xunit.github.io/docs/getting-started-dotnet-core)
+* [XUnit.net の概要:.Net Core と .NET SDK コマンドラインの使用](https://xunit.github.io/docs/getting-started-dotnet-core)
 * [Moq](https://github.com/moq/moq4)
-* [Moq のクイック スタート](https://github.com/Moq/moq4/wiki/Quickstart)
+* [Moq クイックスタート](https://github.com/Moq/moq4/wiki/Quickstart)
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+ASP.NET Core では、Razor Pages のアプリの単体テストをサポートします。 データ アクセス層 (DAL) のテストとページ モデルによって、次が保証されます。
+
+* Razor Pages アプリの一部は、アプリの構築時に個別に1つの単位として機能します。
+* クラスとメソッドには、限られた範囲の責任があります。
+* アプリの動作に関する追加のドキュメントがあります。
+* コードのアップデートによってもたらされたエラーである回帰は、自動ビルドと配置中に検出されました。
+
+このトピックでは、Razor Pages アプリと単体テストについての基本的な知識があることを前提としています。 Razor Pages アプリまたはテストの概念に慣れていない場合は、次のトピックを参照してください。
+
+* <xref:razor-pages/index>
+* <xref:tutorials/razor-pages/razor-pages-start>
+* [Dotnet テストC#と xunit を使用した .net Core での単体テスト](/dotnet/articles/core/testing/unit-testing-with-dotnet-test)
+
+[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/razor-pages-tests/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+
+サンプルプロジェクトは、次の2つのアプリで構成されています。
+
+| アプリ         | プロジェクトフォルダー                     | 説明 |
+| ----------- | ---------------------------------- | ----------- |
+| メッセージアプリ | *src/RazorPagesTestSample*         | ユーザーがメッセージの追加、1つのメッセージの削除、すべてのメッセージの削除、およびメッセージの分析を実行できるようにします (メッセージあたりの平均単語数を検索します)。 |
+| アプリのテスト    | *テスト/RazorPagesTestSample* | メッセージアプリの DAL および Index ページモデルの単体テストに使用されます。 |
+
+テストは、 [Visual Studio](/visualstudio/test/unit-test-your-code)や[VISUAL STUDIO FOR MAC](/dotnet/core/tutorials/using-on-mac-vs-full-solution)など、IDE の組み込みのテスト機能を使用して実行できます。 [Visual Studio Code](https://code.visualstudio.com/)またはコマンドラインを使用している場合は、Test */RazorPagesTestSample*フォルダーでコマンドプロンプトから次のコマンドを実行します。
+
+```console
+dotnet test
+```
+
+## <a name="message-app-organization"></a>メッセージアプリの組織
+
+メッセージアプリは、次の特性を持つ Razor Pages メッセージシステムです。
+
+* アプリのインデックスページ (*pages/index. cshtml*と*pages/index. cshtml. .cs*) には、メッセージの追加、削除、および分析を制御する UI およびページモデルのメソッドが用意されています (メッセージあたりの平均単語数を検索します)。
+* メッセージは、 `Id` (キー) `Message`と`Text` (message) の2つのプロパティを持つクラス (*Data/message .cs*) によって記述されます。 `Text`プロパティは必須であり、200文字までに制限されています。
+* メッセージは[Entity Framework のメモリ内データベース](/ef/core/providers/in-memory/)&#8224;を使用して格納されます。
+* アプリには、データベースコンテキストクラス`AppDbContext` (*Data/appdbcontext .cs*) に DAL が含まれています。 DAL メソッドはとマーク`virtual`されます。これにより、テストで使用するメソッドをモックできます。
+* アプリケーションの起動時にデータベースが空の場合、メッセージストアは3つのメッセージで初期化されます。 これらのシード処理された*メッセージ*は、テストでも使用されます。
+
+&#8224;EF トピック「InMemory を使用した[テスト](/ef/core/miscellaneous/testing/in-memory)」では、MSTest を使用したテストにメモリ内データベースを使用する方法について説明しています。 このトピックでは、 [Xunit](https://xunit.github.io/)テストフレームワークを使用します。 テストの概念とテストの実装は、テストフレームワークごとに似ていますが、同一ではありません。
+
+サンプルアプリはリポジトリパターンを使用せず、[作業単位 (UoW) パターン](https://martinfowler.com/eaaCatalog/unitOfWork.html)の有効な例ではありませんが、Razor Pages はこれらの開発パターンをサポートしています。 詳細については、「[インフラストラクチャの永続化層の設計](/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design)」と<xref:mvc/controllers/testing> 「」を参照してください。
+
+## <a name="test-app-organization"></a>テストアプリの組織
+
+テストアプリは、 *tests/RazorPagesTestSample*フォルダー内のコンソールアプリです。
+
+| テストアプリフォルダー | 説明 |
+| --------------- | ----------- |
+| *UnitTests*     | <ul><li>*DataAccessLayerTest.cs*には、DAL の単体テストが含まれています。</li><li>*IndexPageTests.cs*には、インデックスページモデルの単体テストが含まれています。</li></ul> |
+| *ユーティリティ*     | 各 DAL 単体テストの新しいデータベースコンテキストオプションを作成するために使用するメソッドが含まれています。これにより、各テストのベースライン条件にデータベースがリセットされます。`TestDbContextOptions` |
+
+テストフレームワークは[Xunit](https://xunit.github.io/)です。 オブジェクトモックフレームワークは[Moq](https://github.com/moq/moq4)です。
+
+## <a name="unit-tests-of-the-data-access-layer-dal"></a>データアクセス層 (DAL) の単体テスト
+
+メッセージアプリには、 `AppDbContext`クラス (*src/RazorPagesTestSample/Data/appdbcontext .cs*) に含まれる4つのメソッドを持つ DAL があります。 各メソッドには、テストアプリに1つまたは2つの単体テストがあります。
+
+| DAL メソッド               | 関数                                                                   |
+| ------------------------ | -------------------------------------------------------------------------- |
+| `GetMessagesAsync`       | プロパティによって並べ替えられたデータベースからを`List<Message>`取得します。 `Text` |
+| `AddMessageAsync`        | を`Message`データベースに追加します。                                          |
+| `DeleteAllMessagesAsync` | データベースから`Message`すべてのエントリを削除します。                           |
+| `DeleteMessageAsync`     | によって`Message` `Id`、1つのをデータベースから削除します。                      |
+
+DAL の単体テストでは<xref:Microsoft.EntityFrameworkCore.DbContextOptions> 、各テストに`AppDbContext`新しいを作成する必要があります。 各テスト`DbContextOptions`のを作成する方法の1つは、 <xref:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder>を使用することです。
+
+```csharp
+var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>()
+    .UseInMemoryDatabase("InMemoryDb");
+
+using (var db = new AppDbContext(optionsBuilder.Options))
+{
+    // Use the db here in the unit test.
+}
+```
+
+この方法の問題は、各テストが、前のテストでどのような状態でデータベースを受け取るかということです。 相互に干渉しない atomic 単体テストを作成しようとすると、問題が発生する可能性があります。 が`AppDbContext`各テストに新しいデータベースコンテキストを使用するように強制するに`DbContextOptions`は、新しいサービスプロバイダーに基づくインスタンスを指定します。 テストアプリでは、 `Utilities`クラスメソッド`TestDbContextOptions`を使用してこれを行う方法を示しています (tests/*RazorPagesTestSample/utilities/* utilities)。
+
+[!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/Utilities/Utilities.cs?name=snippet1)]
+
+DAL 単体`DbContextOptions`テストでを使用すると、新しいデータベースインスタンスを使用して、各テストをアトミックに実行できます。
+
+```csharp
+using (var db = new AppDbContext(Utilities.TestDbContextOptions()))
+{
+    // Use the db here in the unit test.
+}
+```
+
+`DataAccessLayerTest`クラス (*unittests/dataaccessレイヤーテスト .cs*) の各テストメソッドは、次のように同様の配置/操作アサートパターンに従います。
+
+1. 名簿データベースがテスト用に構成されているか、予期される結果が定義されています。
+1. 作業テストが実行されます。
+1. アサートアサーションは、テスト結果が成功であるかどうかを判断するために作成されます。
+
+たとえば、 `DeleteMessageAsync`メソッドは、 `Id` (*src/RazorPagesTestSample/Data/appdbcontext .cs*) によって識別される1つのメッセージを削除します。
+
+[!code-csharp[](razor-pages-tests/samples/2.x/src/RazorPagesTestSample/Data/AppDbContext.cs?name=snippet4)]
+
+このメソッドには2つのテストがあります。 1つのテストでは、メッセージがデータベース内に存在する場合に、メソッドによってメッセージが削除されることを確認します。 もう1つの方法では、削除するメッセージ`Id`が存在しない場合にデータベースが変更されないことをテストします。 `DeleteMessageAsync_MessageIsDeleted_WhenMessageIsFound`メソッドは次のようになります。
+
+[!code-csharp[](razor-pages-tests/samples_snapshot/2.x/tests/RazorPagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet1)]
+
+まず、メソッドは、Act ステップの準備が行われる配置手順を実行します。 シード処理メッセージは、で`seedMessages`取得および保持されます。 シード処理メッセージはデータベースに保存されます。 `Id` の`1`を持つメッセージは、削除の対象として設定されます。 メソッドが実行されるとき、予期されるメッセージには、 `Id`のがの`1`メッセージを除くすべてのメッセージが含まれている必要があります。 `DeleteMessageAsync` 変数`expectedMessages`は、この予想される結果を表します。
+
+[!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet1)]
+
+メソッドは次のように動作します。メソッドは、の`recId` `1`を渡して実行されます。 `DeleteMessageAsync`
+
+[!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet2)]
+
+最後に、メソッドはコンテキスト`Messages`からを取得し、2つの`expectedMessages`が等しいことをアサートと比較します。
+
+[!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet3)]
+
+2つ`List<Message>`が同じであることを比較するために、次のようにします。
+
+* メッセージはによって`Id`並べ替えられます。
+* メッセージのペアは、 `Text`プロパティで比較されます。
+
+同様のテストメソッドは`DeleteMessageAsync_NoMessageIsDeleted_WhenMessageIsNotFound` 、存在しないメッセージを削除しようとした結果を確認します。 この場合、データベース内の予期されるメッセージは、 `DeleteMessageAsync`メソッドが実行された後の実際のメッセージと同じである必要があります。 データベースのコンテンツを変更することはできません。
+
+[!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet4)]
+
+## <a name="unit-tests-of-the-page-model-methods"></a>ページモデルメソッドの単体テスト
+
+別の単体テストのセットは、ページモデルメソッドのテストを担当します。 メッセージアプリでは、インデックスページモデルは、 `IndexModel` *src/RazorPagesTestSample/Pages/index. cshtml. .cs*のクラスにあります。
+
+| ページモデルメソッド | 関数 |
+| ----------------- | -------- |
+| `OnGetAsync` | `GetMessagesAsync`メソッドを使用して、UI の DAL からメッセージを取得します。 |
+| `OnPostAddMessageAsync` | [Modelstate](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary)が有効な場合、は`AddMessageAsync`を呼び出して、データベースにメッセージを追加します。 |
+| `OnPostDeleteAllMessagesAsync` | を`DeleteAllMessagesAsync`呼び出して、データベース内のすべてのメッセージを削除します。 |
+| `OnPostDeleteMessageAsync` | を`DeleteMessageAsync`実行して、 `Id`指定したを持つメッセージを削除します。 |
+| `OnPostAnalyzeMessagesAsync` | 1つ以上のメッセージがデータベースに含まれている場合は、によって、メッセージあたりの平均単語数が計算されます。 |
+
+ページモデルメソッドは、 `IndexPageTests`クラスで7つのテストを使用してテストされます (*テスト/RazorPagesTestSample/unittests/indexpagetests .cs*)。 テストでは、使い慣れた配置/アサートパターンが使用されます。 これらのテストは次のことに焦点を当てます。
+
+* [Modelstate](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary)が無効な場合に、メソッドが正しい動作に従うかどうかを判断します。
+* メソッドによって正しい<xref:Microsoft.AspNetCore.Mvc.IActionResult>が生成されることを確認しています。
+* プロパティ値の割り当てが正しく行われていることを確認しています。
+
+この一連のテストでは、多くの場合、ページモデルメソッドを実行する Act ステップに対して予期されるデータを生成するために DAL のメソッドがモックされます。 たとえば`GetMessagesAsync` 、`AppDbContext`のメソッドは、出力を生成するモックです。 ページモデルメソッドがこのメソッドを実行すると、モックは結果を返します。 データはデータベースから取得されません。 これにより、ページモデルテストで DAL を使用するための、予測可能で信頼性の高いテスト条件が作成されます。
+
+テスト`OnGetAsync_PopulatesThePageModel_WithAListOfMessages`では、ページ`GetMessagesAsync`モデルに対してメソッドがモックされる方法を示しています。
+
+[!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet1&highlight=3-4)]
+
+Act ステップで`GetMessagesAsync` メソッドを実行すると、ページモデルのメソッドが`OnGetAsync`呼び出されます。
+
+単体テストの Act ステップ (*tests/RazorPagesTestSample/unittests/IndexPageTests .cs*):
+
+[!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet2)]
+
+`IndexPage`ページモデルの`OnGetAsync`メソッド (*src/RazorPagesTestSample/Pages/Index. cshtml. .cs*):
+
+[!code-csharp[](razor-pages-tests/samples/2.x/src/RazorPagesTestSample/Pages/Index.cshtml.cs?name=snippet1&highlight=3)]
+
+DAL `GetMessagesAsync`のメソッドは、このメソッド呼び出しの結果を返しません。 メソッドのモックバージョンは、結果を返します。
+
+この手順では、ページモデルの`actualMessages` `Messages`プロパティから実際のメッセージ () が割り当てられます。 `Assert` 型チェックは、メッセージが割り当てられたときにも実行されます。 予想されるメッセージと実際のメッセージは`Text` 、プロパティによって比較されます。 テストでは、2つ`List<Message>`のインスタンスに同じメッセージが含まれていることをアサートします。
+
+[!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet3)]
+
+このグループの他のテストでは、、、および<xref:Microsoft.AspNetCore.Http.DefaultHttpContext>を確立<xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary> `ViewDataDictionary` <xref:Microsoft.AspNetCore.Mvc.ActionContext> `PageContext` `PageContext`するためのを含むページモデルオブジェクトが作成されます。 これらは、テストの実施に役立ちます。 たとえば、メッセージアプリは、の実行`ModelState`時`OnPostAddMessageAsync`に<xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.AddModelError*>有効<xref:Microsoft.AspNetCore.Mvc.RazorPages.PageResult>なが返されることを確認するために、でエラーを設定します。
+
+[!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet4&highlight=11,26,29,32)]
+
+## <a name="additional-resources"></a>その他の技術情報
+
+* [Dotnet テストC#と xunit を使用した .net Core での単体テスト](/dotnet/articles/core/testing/unit-testing-with-dotnet-test)
+* <xref:mvc/controllers/testing>
+* [コードの単体テスト](/visualstudio/test/unit-test-your-code)(Visual Studio)
+* <xref:test/integration-tests>
+* [xUnit.net](https://xunit.github.io/)
+* [Visual Studio for Mac を使用した macOS での完全な .NET Core ソリューションの構築](/dotnet/core/tutorials/using-on-mac-vs-full-solution)
+* [XUnit.net の概要:.Net Core と .NET SDK コマンドラインの使用](https://xunit.github.io/docs/getting-started-dotnet-core)
+* [Moq](https://github.com/moq/moq4)
+* [Moq クイックスタート](https://github.com/Moq/moq4/wiki/Quickstart)
+
+::: moniker-end
