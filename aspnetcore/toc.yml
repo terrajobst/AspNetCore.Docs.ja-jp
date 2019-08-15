@@ -547,6 +547,8 @@
       uid: grpc/migration
     - name: HTTP API を使用した gRPC サービスの比較
       uid: grpc/comparison
+    - name: トラブルシューティング
+      uid: grpc/troubleshoot
 - name: テスト、デバッグ、およびトラブルシューティング
   items:
     - name: 単体テスト
