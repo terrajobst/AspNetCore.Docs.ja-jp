@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/13/2019
 uid: blazor/components
-ms.openlocfilehash: a95c186d30eaf342f10ecbe6f7add242d4679a0f
-ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
+ms.openlocfilehash: 8cb2dc4c3cd22fe71fe15c22762948f9dcd3c08f
+ms.sourcegitcommit: f5f0ff65d4e2a961939762fb00e654491a2c772a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/13/2019
-ms.locfileid: "68993413"
+ms.lasthandoff: 08/15/2019
+ms.locfileid: "69030357"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>ASP.NET Core Razor コンポーネントを作成して使用する
 
@@ -519,7 +519,10 @@ await callback.InvokeAsync(arg);
 
 ## <a name="capture-references-to-components"></a>コンポーネントへの参照をキャプチャする
 
-コンポーネント参照を使用すると、 `Show`や`Reset`などのコマンドをそのインスタンスに発行できるように、コンポーネントインスタンスを参照することができます。 コンポーネント参照をキャプチャするには、 [@ref](xref:mvc/views/razor#ref)子コンポーネントに属性を追加し、子コンポーネントと同じ名前と同じ型のフィールドを定義します。
+コンポーネント参照を使用すると、 `Show`や`Reset`などのコマンドをそのインスタンスに発行できるように、コンポーネントインスタンスを参照することができます。 コンポーネント参照をキャプチャするには、次のようにします。
+
+* 子コンポーネントに属性を追加します。 [@ref](xref:mvc/views/razor#ref)
+* 子コンポーネントと同じ型のフィールドを定義します。
 
 ```cshtml
 <MyLoginDialog @ref="loginDialog" ... />
@@ -538,6 +541,30 @@ await callback.InvokeAsync(arg);
 
 > [!IMPORTANT]
 > 変数は、コンポーネントがレンダリングされた後にのみ設定され`MyLoginDialog` 、その出力には要素が含まれます。 `loginDialog` この時点までは、参照するものはありません。 コンポーネント参照のレンダリングが完了した後にコンポーネント参照を`OnAfterRenderAsync`操作`OnAfterRender`するには、メソッドまたはメソッドを使用します。
+
+<!-- HOLD https://github.com/aspnet/AspNetCore.Docs/pull/13818
+Component references provide a way to reference a component instance so that you can issue commands to that instance, such as `Show` or `Reset`.
+
+The Razor compiler automatically generates a backing field for element and component references when using [@ref](xref:mvc/views/razor#ref). In the following example, there's no need to create a `myLoginDialog` field for the `LoginDialog` component:
+
+```cshtml
+<LoginDialog @ref="myLoginDialog" ... />
+
+@code {
+    private void OnSomething()
+    {
+        myLoginDialog.Show();
+    }
+}
+```
+
+When the component is rendered, the generated `myLoginDialog` field is populated with the `LoginDialog` component instance. You can then invoke .NET methods on the component instance.
+
+In some cases, a backing field is required. For example, declare a backing field when referencing generic components. To suppress backing field generation, specify the `@ref:suppressField` parameter.
+
+> [!IMPORTANT]
+> The generated `myLoginDialog` variable is only populated after the component is rendered and its output includes the `LoginDialog` element. Until that point, there's nothing to reference. To manipulate components references after the component has finished rendering, use the `OnAfterRenderAsync` or `OnAfterRender` methods.
+-->
 
 コンポーネント参照のキャプチャは、[要素参照のキャプチャ](xref:blazor/javascript-interop#capture-references-to-elements)に似た構文を使用しますが、 [JavaScript 相互運用](xref:blazor/javascript-interop)機能ではありません。 コンポーネント参照は、.net コードで&mdash;のみ使用されているため、JavaScript コードに渡されません。
 
@@ -620,19 +647,19 @@ await callback.InvokeAsync(arg);
 
 ## <a name="lifecycle-methods"></a>ライフサイクル メソッド
 
-`OnInitAsync`を`OnInit`実行し、コンポーネントを初期化するコードを実行します。 非同期操作を実行するには`OnInitAsync` 、操作`await`でおよびキーワードを使用します。
+`OnInitializedAsync`を`OnInitialized`実行し、コンポーネントを初期化するコードを実行します。 非同期操作を実行するには`OnInitializedAsync` 、操作`await`でおよびキーワードを使用します。
 
 ```csharp
-protected override async Task OnInitAsync()
+protected override async Task OnInitializedAsync()
 {
     await ...
 }
 ```
 
-同期操作の場合は、 `OnInit`次のように使用します。
+同期操作の場合は、 `OnInitialized`次のように使用します。
 
 ```csharp
-protected override void OnInit()
+protected override void OnInitialized()
 {
     ...
 }
@@ -674,7 +701,7 @@ protected override void OnAfterRender()
 
 ライフサイクルイベントで実行される非同期アクションは、コンポーネントがレンダリングされる前に完了していない可能性があります。 ライフサイクルメソッド`null`の実行中に、オブジェクトがデータと共に読み込まれたり、不完全になったりする可能性があります。 オブジェクトが初期化されていることを確認するためのレンダリングロジックを提供します。 オブジェクトが`null`のときに、プレースホルダー UI 要素 (読み込みメッセージなど) をレンダリングします。
 
-Blazor テンプレートの`OnInitAsync` `forecasts`コンポーネントでは、はユーザー receive 予測データ () に上書きされます。 `FetchData` `forecasts` が`null`の場合、読み込みメッセージがユーザーに表示されます。 によっ`Task`て`OnInitAsync`返されたが完了すると、コンポーネントは更新された状態とピアリングされます。
+Blazor テンプレートの`OnInitializedAsync` `forecasts`コンポーネントでは、はユーザー receive 予測データ () に上書きされます。 `FetchData` `forecasts` が`null`の場合、読み込みメッセージがユーザーに表示されます。 によっ`Task`て`OnInitializedAsync`返されたが完了すると、コンポーネントは更新された状態とピアリングされます。
 
 *Pages/FetchData.razor*:
 
@@ -685,7 +712,7 @@ Blazor テンプレートの`OnInitAsync` `forecasts`コンポーネントでは
 `SetParameters`をオーバーライドすると、パラメーターを設定する前にコードを実行できます。
 
 ```csharp
-public override void SetParameters(ParameterCollection parameters)
+public override void SetParameters(ParameterView parameters)
 {
     ...
 
