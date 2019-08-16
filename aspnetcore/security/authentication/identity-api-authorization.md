@@ -1,53 +1,53 @@
 ---
-title: ASP.NET Core でのシングル ページ アプリの認証の概要
+title: ASP.NET Core でのシングルページアプリの認証の概要
 author: javiercn
-description: ASP.NET Core アプリ内でホストされているシングル ページ アプリで Id を使用します。
+description: ASP.NET Core アプリ内でホストされるシングルページアプリで Id を使用します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 03/07/2019
+ms.date: 08/05/2019
 uid: security/authentication/identity/spa
-ms.openlocfilehash: 302a5e10a70e40e75ab9fe4b3e5a98c4e847b822
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 6b8818cc89a87e66ecec445ff8071348aacde64a
+ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815218"
+ms.lasthandoff: 08/06/2019
+ms.locfileid: "68819921"
 ---
-# <a name="authentication-and-authorization-for-spas"></a>Spa の認証と承認
+# <a name="authentication-and-authorization-for-spas"></a>SPAs の認証と承認
 
-ASP.NET Core 3.0 以降では、API 認証のサポートを使用してシングル ページ アプリ (Spa) での認証を提供します。 認証およびユーザーを格納するための ASP.NET Core Identity が組み合わされます[IdentityServer](https://identityserver.io/) Open ID Connect を実装するためです。
+ASP.NET Core 3.0 以降では、API 承認のサポートを使用して、シングルページアプリ (spa) で認証を提供します。 ユーザーを認証および格納するための ASP.NET Core Id は、Open ID Connect を実装するために、ユーザーと [IdentityServer](https://identityserver.io/) を組み合わせて使用されます。
 
-認証パラメーターに追加された、 **Angular**と**React**プロジェクト テンプレートでの認証パラメーターに似ている**Web アプリケーション (モデル-ビュー-コント ローラー)** (MVC) および**Web アプリケーション**(Razor ページ) のプロジェクト テンプレート。 許可されているパラメーター値は**None**と**個々**します。 **React.js と Redux**プロジェクト テンプレートは、現時点での認証パラメーターをサポートしません。
+認証パラメーターが、 **Web アプリケーション (モデルビューコントローラー)** (MVC) と**web アプリケーション**(Razor Pages) の認証パラメーターに似た**角度**で、**応答**するプロジェクトテンプレートに追加されました。プロジェクトテンプレート。 許可されるパラメーター値は、 **None**および**個人**です。 この時点では、対応する **.js および Redux**プロジェクトテンプレートで認証パラメーターがサポートされていません。
 
-## <a name="create-an-app-with-api-authorization-support"></a>API 認証のサポートをアプリを作成します。
+## <a name="create-an-app-with-api-authorization-support"></a>API authorization サポートを使用してアプリを作成する
 
-ユーザーの認証と承認は、Angular と React の Spa の両方で使用できます。 コマンド シェルを開き、次のコマンドを実行します。
+ユーザーの認証と承認は、両方の角度で使用でき、SPAs として対応します。 コマンド シェルを開き、次のコマンドを実行します。
 
-**Angular**:
+**角度**:
 
 ```console
 dotnet new angular -o <output_directory_name> -au Individual
 ```
 
-**React**:
+**反応**:
 
 ```console
 dotnet new react -o <output_directory_name> -au Individual
 ```
 
-上記のコマンドで ASP.NET Core アプリを作成し、 *ClientApp* SPA を含むディレクトリ。
+前のコマンドは、 *ClientApp*ディレクトリに SPA を含む ASP.NET Core アプリを作成します。
 
 ## <a name="general-description-of-the-aspnet-core-components-of-the-app"></a>アプリの ASP.NET Core コンポーネントの一般的な説明
 
-次のセクションでは認証のサポートが含まれる場合、プロジェクトへの追加について説明します。
+次のセクションでは、認証のサポートが含まれている場合のプロジェクトへの追加について説明します。
 
 ### <a name="startup-class"></a>Startup クラス
 
-`Startup`クラスには、次の追加。
+クラス`Startup`には、次の追加機能があります。
 
-* 内で、`Startup.ConfigureServices`メソッド。
-  * 既定の UI を持つ id:
+* `Startup.ConfigureServices`メソッド内:
+  * 既定の UI を使用した id:
 
     ```csharp
     services.AddDbContext<ApplicationDbContext>(options =>
@@ -58,28 +58,28 @@ dotnet new react -o <output_directory_name> -au Individual
         .AddEntityFrameworkStores<ApplicationDbContext>();
     ```
 
-  * 追加された IdentityServer`AddApiAuthorization`ヘルパー メソッドそのセットアップの一部の既定設定 IdentityServer の上に ASP.NET Core の表記規則。
+  * 次のように、 `AddApiAuthorization`既定の ASP.NET Core 規則を設定する追加のヘルパーメソッドを使用して、サーバーに追加することができます。
 
     ```csharp
     services.AddIdentityServer()
         .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
     ```
 
-  * 追加された認証`AddIdentityServerJwt`IdentityServer によって生成される JWT トークンを検証するアプリを構成するヘルパー メソッド。
+  * 次のように`AddIdentityServerJwt`追加のヘルパーメソッドを使用して認証します。これにより、アプリは、サービスによって生成された JWT トークンを検証します。
 
     ```csharp
     services.AddAuthentication()
         .AddIdentityServerJwt();
     ```
 
-* 内で、`Startup.Configure`メソッド。
-  * 要求の資格情報を検証および要求のコンテキストでユーザーを設定するため、認証ミドルウェア:
+* `Startup.Configure`メソッド内:
+  * 要求の資格情報を検証し、要求コンテキストでユーザーを設定する認証ミドルウェア。
 
     ```csharp
     app.UseAuthentication();
     ```
 
-  * Open ID Connect エンドポイントを公開する、IdentityServer ミドルウェア:
+  * Open ID Connect エンドポイントを公開するサーバーミドルウェア:
 
     ```csharp
     app.UseIdentityServer();
@@ -87,29 +87,29 @@ dotnet new react -o <output_directory_name> -au Individual
 
 ### <a name="addapiauthorization"></a>AddApiAuthorization
 
-このヘルパー メソッドでは、IdentityServer は、サポートされている構成を使用して構成します。 IdentityServer とは、アプリのセキュリティに関する注意事項を処理するための強力で拡張可能なフレームワークです。 同時に、最も一般的なシナリオは不必要に複雑さを公開します。 そのため、一連の規則と構成オプションは、適切な開始点と見なされるに提供されます。 認証のニーズの変化、IdentityServer の全機能を引き続きできるよう認証をニーズに合わせてカスタマイズになります。
+このヘルパーメソッドは、サポートされる構成を使用するようにサーバーを構成します。 サービスは、アプリのセキュリティの問題を処理するための強力で拡張可能なフレームワークです。 同時に、最も一般的なシナリオでは不必要な複雑さを公開します。 そのため、適切な出発点と見なされる一連の規則と構成オプションが用意されています。 認証を変更する必要がある場合でも、ユーザーのニーズに合わせて認証をカスタマイズするために、ユーザーサーバーの能力を最大限に活用できます。
 
 ### <a name="addidentityserverjwt"></a>AddIdentityServerJwt
 
-このヘルパー メソッドは、既定の認証ハンドラーとしてアプリのポリシー設定を構成します。 Identity Id URL 空間で任意のサブパスにルーティングされるすべての要求を処理できるようにするポリシーが構成されている"/Identity"。 `JwtBearerHandler`他のすべての要求を処理します。 さらに、このメソッドは、登録、 `<<ApplicationName>>API` API リソースの IdentityServer との既定のスコープを持つ`<<ApplicationName>>API`し、アプリの IdentityServer によって発行されたトークンを検証する JWT ベアラ トークン ミドルウェアを構成します。
+このヘルパーメソッドは、アプリのポリシースキームを既定の認証ハンドラーとして構成します。 Id URL 空間 "/identity" のサブパスにルーティングされるすべての要求を Id で処理できるように、ポリシーが構成されています。 は`JwtBearerHandler` 、他のすべての要求を処理します。 さらに、このメソッドは`<<ApplicationName>>API` API リソースをの既定の`<<ApplicationName>>API`スコープに登録し、JWT ベアラートークンミドルウェアを構成して、アプリのために、サービスによって発行されたトークンを検証します。
 
 ### <a name="sampledatacontroller"></a>SampleDataController
 
-*Controllers\SampleDataController.cs*ファイルに注意してください、`[Authorize]`リソースにアクセスする既定のポリシーに基づいて、ユーザーを承認する必要があることを示すクラスに適用される属性。 既定の承認ポリシーによって設定される既定の認証スキームを使用するように構成しようとしました`AddIdentityServerJwt`が上記のように作成したポリシーの構成、`JwtBearerHandler`によってこのようなヘルパー メソッドの既定のハンドラーを構成します。アプリに要求します。
+*Controllers\SampleDataController.cs*ファイルで、属性が`[Authorize]`クラスに適用されていることを確認します。これは、リソースにアクセスするための既定のポリシーに基づいてユーザーを承認する必要があることを示します。 既定の承認ポリシーは、前に説明したポリシースキームによって`AddIdentityServerJwt`設定される既定の認証スキームを使用するように構成され、このようなヘルパーメソッドによって構成されたは`JwtBearerHandler` 、の既定のハンドラーになります。アプリへの要求。
 
 ### <a name="applicationdbcontext"></a>ApplicationDbContext
 
-*Data\ApplicationDbContext.cs*ファイルで同じことを確認`DbContext`を拡張する例外の併用の Id に`ApiAuthorizationDbContext`(クラスから派生`IdentityDbContext`) IdentityServer は、スキーマを含めることができます。
+*Data\ApplicationDbContext.cs*ファイルで`DbContext`は、id で拡張`ApiAuthorizationDbContext`された例外 (から`IdentityDbContext`派生したクラス) を使用して、ユーザーのスキーマを含めることができます。
 
-データベース スキーマの完全な制御を取得するには、使用可能な Id のいずれかから継承`DbContext`クラスし、構成を呼び出すことによって Id スキーマを含めるコンテキスト`builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value)`上、`OnModelCreating`メソッド。
+データベーススキーマを完全に制御するには、使用可能な id `DbContext`クラスの1つを継承し、 `OnModelCreating`メソッドでを呼び出し`builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value)`て、id スキーマを含めるようにコンテキストを構成します。
 
 ### <a name="oidcconfigurationcontroller"></a>OidcConfigurationController
 
-*Controllers\OidcConfigurationController.cs*ファイルで、クライアントが使用する必要がある OIDC パラメーターを処理するためにプロビジョニングされたエンドポイントに注意してください。
+*Controllers\OidcConfigurationController.cs*ファイルで、クライアントが使用する必要のある oidc パラメーターを提供するためにプロビジョニングされたエンドポイントを確認します。
 
 ### <a name="appsettingsjson"></a>appsettings.json
 
-*Appsettings.json*ファイルをプロジェクトのルートが新しい`IdentityServer`セクションの一覧を記述するには、クライアントが構成されています。 次の例では、1 つのクライアントです。 クライアント名は、アプリ名に対応し、OAuth に規約によってマップされます`ClientId`パラメーター。 プロファイルでは、構成されているアプリの種類を示します。 サーバーの構成プロセスを簡略化されるドライブの表記規則を内部的に使用されます。 いくつかプロファイルが使用可能なで説明したように、[アプリケーション プロファイル](#application-profiles)セクション。
+プロジェクトルートの*appsettings*ファイルには、構成されたクライアントの一覧`IdentityServer`を説明する新しいセクションがあります。 次の例には、1つのクライアントがあります。 クライアント名はアプリケーション名に対応し、OAuth `ClientId`パラメーターに規約によってマップされます。 プロファイルは、構成されているアプリの種類を示します。 サーバーの構成プロセスを簡略化する規則を実現するために、内部的に使用されます。 「[アプリケーションプロファイル](#application-profiles)」セクションで説明されているように、使用可能なプロファイルがいくつかあります。
 
 ```json
 "IdentityServer": {
@@ -121,9 +121,9 @@ dotnet new react -o <output_directory_name> -au Individual
 }
 ```
 
-### <a name="appsettingsdevelopmentjson"></a>appsettings します。Development.json
+### <a name="appsettingsdevelopmentjson"></a>appsettings.開発. json
 
-*Appsettings します。Development.json*プロジェクトのルートのファイルがある、`IdentityServer`トークンの署名に使用するキーについて説明したセクション。 説明したように、キーがプロビジョニングして、アプリと共にデプロイする必要を運用環境にデプロイするとき、[を運用環境にデプロイ](#deploy-to-production)セクション。
+Appsettings で *。プロジェクトルートの開発用 json*ファイルには、トークンの`IdentityServer`署名に使用されるキーについて説明するセクションがあります。 運用環境にデプロイする場合は、「[運用環境にデプロイする](#deploy-to-production)」セクションで説明されているように、アプリと共にキーをプロビジョニングしてデプロイする必要があります。
 
 ```json
 "IdentityServer": {
@@ -133,43 +133,43 @@ dotnet new react -o <output_directory_name> -au Individual
 }
 ```
 
-## <a name="general-description-of-the-angular-app"></a>Angular アプリの一般的な説明
+## <a name="general-description-of-the-angular-app"></a>角度アプリの一般的な説明
 
-認証と承認の API をサポートして、Angular での Angular モジュールは独自のテンプレートが存在する、 *ClientApp\src\api 承認*ディレクトリ。 モジュールは、次の要素で構成されます。
+角度テンプレートでの認証と API 承認のサポートは、独自の角度モジュールの*Clientapp-authorization*ディレクトリに存在します。 モジュールは、次の要素で構成されています。
 
-* 3 つのコンポーネント:
-  * *login.component.ts*:アプリのログイン フローを処理します。
-  * *logout.component.ts*:アプリのログアウトのフローを処理します。
-  * *login-menu.component.ts*:次のリンクのセットのいずれかを表示するウィジェット。
-    * ユーザー プロファイルの管理とリンク、ユーザーが認証されるときにログアウトします。
-    * 登録と、ユーザーが認証されないときのリンクでのログ。
-* ルート guard`AuthorizeGuard`をルートに追加することができ、ルートにアクセスする前に認証するユーザーが必要です。
-* HTTP インターセプター`AuthorizeInterceptor`ユーザーが認証されるときに、API を対象とする HTTP 要求を送信するアクセス トークンをアタッチします。
-* サービス`AuthorizeService`を認証プロセスの低レベルの詳細を処理し、使用量のアプリの残りの部分に認証されたユーザーに関する情報を公開します。
-* アプリの認証の部分に関連付けられているルートを定義する Angular モジュール。 ログイン] メニューの [コンポーネント、インターセプターの保護、およびサービスをアプリの他の部分で使用を公開します。
+* 3個のコンポーネント:
+  * *login. component. ts*:アプリのログインフローを処理します。
+  * *logout. component. ts*:アプリのログアウトフローを処理します。
+  * *ログイン-メニュー. component. ts*:次のリンクのセットのいずれかを表示するウィジェット。
+    * ユーザーが認証されると、ユーザープロファイルの管理とログアウトのリンクがあります。
+    * ユーザーが認証されていない場合の登録とログインリンク。
+* ルートに追加`AuthorizeGuard`できるルートガード。ルートにアクセスする前にユーザーを認証する必要があります。
+* ユーザーが認証`AuthorizeInterceptor`されるときに、API を対象とする発信 http 要求にアクセストークンを関連付ける http インターセプター。
+* 認証プロセス`AuthorizeService`の下位レベルの詳細を処理し、認証されたユーザーに関する情報を、使用するアプリの残りの部分に公開するサービス。
+* アプリの認証部分に関連付けられているルートを定義する角度モジュール。 ログインメニューコンポーネント、インターセプター、ガード、およびアプリの残りの部分から使用するためのサービスを公開します。
 
-## <a name="general-description-of-the-react-app"></a>React のアプリの一般的な説明
+## <a name="general-description-of-the-react-app"></a>反応アプリの一般的な説明
 
-認証と React テンプレートでの API の承認のサポートが存在する、 *ClientApp\src\components\api 承認*ディレクトリ。 次の要素で構成されます。
+応答テンプレートでの認証と API 承認のサポートは、 *ClientApp\src\components\api-authorization*ディレクトリにあります。 これは、次の要素で構成されています。
 
-* 4 個のコンポーネント:
-  * *Login.js*:アプリのログイン フローを処理します。
-  * *Logout.js*:アプリのログアウトのフローを処理します。
-  * *LoginMenu.js*:次のリンクのセットのいずれかを表示するウィジェット。
-    * ユーザー プロファイルの管理とリンク、ユーザーが認証されるときにログアウトします。
-    * 登録と、ユーザーが認証されないときのリンクでのログ。
-  * *AuthorizeRoute.js*:示されているコンポーネントを表示する前に認証するユーザーを必要とするルート コンポーネント、`Component`パラメーター。
-* エクスポートした`authService`クラスのインスタンス`AuthorizeService`を認証プロセスの低レベルの詳細を処理し、使用量のアプリの残りの部分に認証されたユーザーに関する情報を公開します。
+* 4つのコンポーネント:
+  * *.Js*:アプリのログインフローを処理します。
+  * *Logout*:アプリのログアウトフローを処理します。
+  * *Loginmenu js*:次のリンクのセットのいずれかを表示するウィジェット。
+    * ユーザーが認証されると、ユーザープロファイルの管理とログアウトのリンクがあります。
+    * ユーザーが認証されていない場合の登録とログインリンク。
+  * *AuthorizeRoute*:`Component`パラメーターで指定されたコンポーネントを表示する前に、ユーザーを認証する必要があるルートコンポーネント。
+* 認証プロセス`authService`の下位レベル`AuthorizeService`の詳細を処理し、認証されたユーザーに関する情報をアプリの残りの部分に公開する、クラスのエクスポートされたインスタンス。
 
-を、ソリューションの主要なコンポーネントを確認するには、アプリの個々 のシナリオについて詳しく説明を実行できます。
+これで、ソリューションの主要なコンポーネントを確認できました。次は、アプリの個々のシナリオについて詳しく見ていきましょう。
 
-## <a name="require-authorization-on-a-new-api"></a>新しい API の承認を要求します。
+## <a name="require-authorization-on-a-new-api"></a>新しい API での承認が必要
 
-既定では、システムは簡単に新しい Api の承認を要求するように構成します。 これを行うには、新しいコント ローラーを作成し、追加、`[Authorize]`属性をコント ローラー クラスまたはコント ローラー内の任意のアクション。
+既定では、システムは新しい Api の承認を要求するように構成されています。 これを行うには、新しいコントローラーを作成し`[Authorize]` 、コントローラークラスまたはコントローラー内の任意のアクションに属性を追加します。
 
-## <a name="protect-a-client-side-route-angular"></a>クライアント側ルート (Angular) を保護します。
+## <a name="protect-a-client-side-route-angular"></a>クライアント側のルートを保護する (角度)
 
-クライアント側ルートを保護すると、ルートを構成するときに実行する警備員の一覧に、承認の保護を追加することで行われます。 表示できる例として、方法、`fetch-data`ルートは、メイン アプリケーションの Angular モジュール内で構成されます。
+クライアント側ルートの保護は、ルートを構成するときに実行するガードのリストに承認ガードを追加することによって行われます。 例として、主要なアプリの`fetch-data`角度モジュール内でルートがどのように構成されているかを確認できます。
 
 ```typescript
 RouterModule.forRoot([
@@ -178,36 +178,36 @@ RouterModule.forRoot([
 ])
 ```
 
-ルートを保護すると、実際のエンドポイントが保護しないことは言うまでも重要です (これが必要、`[Authorize]`属性が適用されて) が、認証が行われないときに、特定のクライアント側のルートに移動することから、ユーザーのみができないようにします。
+ルートを保護しても実際のエンドポイントが保護されないことに注意し`[Authorize]`てください (まだ属性が適用されている必要があります) が、ユーザーが認証されていないときに、特定のクライアント側ルートに移動できないようにします。
 
-## <a name="authenticate-api-requests-angular"></a>API の要求 (Angular) の認証します。
+## <a name="authenticate-api-requests-angular"></a>API 要求の認証 (角度)
 
-アプリと共にホストされている Api に要求の認証は、アプリによって定義されている HTTP クライアントのインターセプターを使用して自動的に行われます。
+アプリと共にホストされる Api に対する要求の認証は、アプリによって定義された HTTP クライアントインターセプターを使用することによって自動的に行われます。
 
-## <a name="protect-a-client-side-route-react"></a>クライアント側ルート (React) を保護します。
+## <a name="protect-a-client-side-route-react"></a>クライアント側のルートを保護する (応答)
 
-クライアント側ルートを使用して、保護、 `AuthorizeRoute` 、プレーンではなくコンポーネント`Route`コンポーネント。 たとえば、方法、`fetch-data`内でルートが構成されて、`App`コンポーネント。
+`AuthorizeRoute` プレーン`Route`コンポーネントの代わりにコンポーネントを使用して、クライアント側のルートを保護します。 たとえば、 `fetch-data` `App`コンポーネント内でルートがどのように構成されているかに注目してください。
 
 ```jsx
 <AuthorizeRoute path='/fetch-data' component={FetchData} />
 ```
 
-ルートの保護。
+ルートの保護:
 
-* 実際のエンドポイントを保護しません (これが必要、`[Authorize]`属性が適用されて)。
-* のみ、ユーザー、認証が行われないときに、特定のクライアント側のルートに移動できません。
+* は実際のエンドポイントを保護しません`[Authorize]` (まだ属性が適用されている必要があります)。
+* は、ユーザーが認証されていないときに、特定のクライアント側ルートに移動できないようにします。
 
-## <a name="authenticate-api-requests-react"></a>API の要求 (React) の認証します。
+## <a name="authenticate-api-requests-react"></a>API 要求の認証 (応答)
 
-最初のインポートを行うを React での要求の認証、`authService`インスタンスから、`AuthorizeService`します。 アクセス トークンがから取得した、`authService`され次に示すように、要求にアタッチされます。 React コンポーネントでは、この作業は通常で実行、`componentDidMount`ライフ サイクル メソッドまたは一部のユーザー操作から結果として。
+を使用して要求を認証するには`authService` 、 `AuthorizeService`まずからインスタンスをインポートします。 アクセストークンはから`authService`取得され、次に示すように要求にアタッチされます。 コンポーネントの反応では、通常、この作業は`componentDidMount`ライフサイクルメソッドで実行されるか、一部のユーザー操作の結果として行われます。
 
-### <a name="import-the-authservice-into-your-component"></a>コンポーネントへのインポート、authService
+### <a name="import-the-authservice-into-your-component"></a>コンポーネントに authService をインポートする
 
 ```javascript
 import authService from './api-authorization/AuthorizeService'
 ```
 
-### <a name="retrieve-and-attach-the-access-token-to-the-response"></a>取得し、アクセス トークンを応答にアタッチ
+### <a name="retrieve-and-attach-the-access-token-to-the-response"></a>アクセストークンを取得して応答にアタッチする
 
 ```javascript
 async populateWeatherData() {
@@ -220,19 +220,19 @@ async populateWeatherData() {
 }
 ```
 
-## <a name="deploy-to-production"></a>運用環境にデプロイします。
+## <a name="deploy-to-production"></a>運用環境へのデプロイ
 
-運用環境にアプリを展開するには、次のリソースをプロビジョニングする必要があります。
+アプリを運用環境にデプロイするには、次のリソースをプロビジョニングする必要があります。
 
-* Id のユーザー アカウントと、IdentityServer を格納するデータベースを許可します。
-* トークンの署名に使用する運用証明書。
-  * この証明書の特定の要件はありません。自己署名証明書または CA 機関を使用してプロビジョニング証明書を指定できます。
-  * PowerShell または OpenSSL などの標準のツールによって生成できます。
-  * ターゲット コンピューターの証明書ストアにインストールされているまたはとしてデプロイされていることができます、 *.pfx*強力なパスワードを持つファイル。
+* Id ユーザーアカウントとサーバー権限を格納するデータベース。
+* トークンの署名に使用する実稼働証明書。
+  * この証明書には特定の要件はありません。自己署名証明書、または CA 証明機関を通じてプロビジョニングされた証明書を使用できます。
+  * PowerShell や OpenSSL などの標準ツールを使用して生成できます。
+  * ターゲットコンピューターの証明書ストアにインストールすることも、強力なパスワードを使用して *.pfx*ファイルとして展開することもできます。
 
-### <a name="example-deploy-to-azure-websites"></a>例:Azure Websites にデプロイします。
+### <a name="example-deploy-to-azure-websites"></a>例:Azure Websites へのデプロイ
 
-このセクションでは、証明書ストアに格納されている証明書を使用して Azure の web サイトにアプリのデプロイについて説明します。 証明書ストアから証明書の読み込みにアプリを変更するには、App Service プランに以上である、Standard レベル、後の手順で構成するときに必要があります。 アプリの*appsettings.json*ファイルで、変更、`IdentityServer`セクションにキーの詳細を含めます。
+このセクションでは、証明書ストアに格納されている証明書を使用して、Azure websites にアプリをデプロイする方法について説明します。 証明書ストアから証明書を読み込むようにアプリを変更するには、後の手順でを構成するときに、App Service プランが少なくとも標準レベルになっている必要があります。 アプリの*appsettings*ファイルで、 `IdentityServer`セクションを変更して、キーの詳細を含めます。
 
 ```json
 "IdentityServer": {
@@ -245,46 +245,46 @@ async populateWeatherData() {
 }
 ```
 
-* 証明書の名前プロパティは、識別証明書の件名と一致します。
-* ストアの場所から証明書を読み込む場所を表します (`CurrentUser`または`LocalMachine`)。
-* ストアの名前は、証明書が格納されている証明書ストアの名前を表します。 この場合、これは、ユーザーの個人ストアを指します。
+* Certificate の name プロパティは、証明書の識別サブジェクトに対応します。
+* ストアの場所は、証明書を読み込む場所 (`CurrentUser`また`LocalMachine`は) を表します。
+* ストア名は、証明書が格納されている証明書ストアの名前を表します。 この場合、個人ユーザーストアを指します。
 
-Azure Websites にデプロイするには、次の手順では、アプリをデプロイ[アプリを Azure にデプロイ](xref:tutorials/publish-to-azure-webapp-using-vs#deploy-the-app-to-azure)を必要な Azure リソースを作成し、運用環境にアプリをデプロイします。
+Azure Websites にデプロイするには、「 [azure へのアプリのデプロイ](xref:tutorials/publish-to-azure-webapp-using-vs#deploy-the-app-to-azure)」の手順に従ってアプリをデプロイし、必要な azure リソースを作成して、アプリを運用環境にデプロイします。
 
-上記の手順を実行した後、アプリは Azure にデプロイされますはまだ機能しません。 アプリによって使用される証明書は、設定する必要があります。 使用する証明書の拇印を見つけるしで説明されている手順に従います[証明書の読み込み](/azure/app-service/app-service-web-ssl-cert-load#load-the-certificate-in-code)します。
+前述の手順に従うと、アプリは Azure にデプロイされますが、まだ機能していません。 アプリによって使用される証明書は、まだセットアップする必要があります。 使用する証明書のサムプリントを見つけて、「[証明書の読み込み](/azure/app-service/app-service-web-ssl-cert-load#load-the-certificate-in-code)」で説明されている手順に従います。
 
-中にこれらの手順には、SSL が言うまでは、**プライベート証明書**ポータルのセクションに、アプリで使用するプロビジョニング証明書をアップロードすることができます。
+これらの手順では SSL について説明していますが、ポータルには **[プライベート証明書]** セクションがあります。このセクションでは、アプリで使用するプロビジョニング済みの証明書をアップロードできます。
 
-この手順の後、アプリを再起動し、機能が必要です。
+この手順の後にアプリを再起動すると、アプリが機能するようになります。
 
-## <a name="other-configuration-options"></a>他の構成オプション
+## <a name="other-configuration-options"></a>その他の構成オプション
 
-API 認証のサポートは、一連の規則、既定値、および、Spa のエクスペリエンスを簡略化の機能強化を使用して、IdentityServer の上にビルドします。 もちろん、IdentityServer の能力を最大限はバック グラウンドで使用可能な ASP.NET Core 統合は、シナリオで説明されていない場合です。 ASP.NET Core のサポートは、「ファーストパーティ」アプリ、すべてのアプリを作成し、組織で展開する場所を重視されています。 そのため、同意またはフェデレーションなどのサポートが用意されていません。 これらのシナリオでは、IdentityServer を使用し、そのドキュメントに従ってください。
+API 承認のサポートは、一連の規則、既定値、および拡張機能を使用して、サーバー上に構築されます。これにより、SPAs のエクスペリエンスが簡単になります。 言うまでもありませんが、ASP.NET Core 統合によって実際のシナリオがカバーされていない場合は、サーバーの全機能をバックグラウンドで利用できます。 ASP.NET Core サポートは、すべてのアプリが組織によって作成および展開される "ファーストパーティ" アプリに重点を置いています。 そのため、同意やフェデレーションなどのサポートは提供されていません。 これらのシナリオでは、ユーザーを使用して、そのドキュメントに従ってください。
 
-### <a name="application-profiles"></a>アプリケーション プロファイル
+### <a name="application-profiles"></a>アプリケーションプロファイル
 
-アプリケーション プロファイルは、さらに、パラメーターを定義するアプリの定義済みの構成を示します。 この時点で、次のプロファイルがサポートされています。
+アプリケーションプロファイルは、そのパラメーターをさらに定義するアプリの事前定義された構成です。 現時点では、次のプロファイルがサポートされています。
 
-* `IdentityServerSPA`:1 つの単位として IdentityServer と共にホストされている SPA を表します。
-  * `redirect_uri`の既定値は`/authentication/login-callback`します。
-  * `post_logout_redirect_uri`の既定値は`/authentication/logout-callback`します。
-  * スコープのセットが含まれています、 `openid`、 `profile`、Api アプリに対して定義されているすべてのスコープとします。
-  * 許可されている OIDC 応答型のセットは、`id_token token`またはそれぞれ個別に (`id_token`、 `token`)。
-  * 許可される応答モードは`fragment`します。
-* `SPA` :IdentityServer とされていないホストされている SPA を表します。
-  * スコープのセットが含まれています、 `openid`、 `profile`、Api アプリに対して定義されているすべてのスコープとします。
-  * 許可されている OIDC 応答型のセットは、`id_token token`またはそれぞれ個別に (`id_token`、 `token`)。
-  * 許可される応答モードは`fragment`します。
-* `IdentityServerJwt`:IdentityServer とと共にホストされている API を表します。
-  * 既定値は、アプリ名を 1 つのスコープを持つアプリが構成されます。
-* `API`:IdentityServer でホストされていない API を表します。
-  * 既定値は、アプリ名を 1 つのスコープを持つアプリが構成されます。
+* `IdentityServerSPA` :サービスとしてホストされる SPA を1つの単位として表します。
+  * `redirect_uri` の`/authentication/login-callback`既定値はです。
+  * `post_logout_redirect_uri` の`/authentication/logout-callback`既定値はです。
+  * スコープのセットには、 `openid`アプリ`profile`内の api に対して定義されている、、、およびすべてのスコープが含まれます。
+  * 許可される oidc 応答の種類`id_token token`のセットは、それぞれ個別に ( `token``id_token`、) です。
+  * 許可される応答モード`fragment`はです。
+* `SPA`:サーバーでホストされていない SPA を表します。
+  * スコープのセットには、 `openid`アプリ`profile`内の api に対して定義されている、、、およびすべてのスコープが含まれます。
+  * 許可される oidc 応答の種類`id_token token`のセットは、それぞれ個別に ( `token``id_token`、) です。
+  * 許可される応答モード`fragment`はです。
+* `IdentityServerJwt` :サービスと共にホストされる API を表します。
+  * アプリは、アプリ名を既定とする1つのスコープを持つように構成されています。
+* `API`:は、サーバーでホストされていない API を表します。
+  * アプリは、アプリ名を既定とする1つのスコープを持つように構成されています。
 
 ### <a name="configuration-through-appsettings"></a>AppSettings を使用した構成
 
-一覧に追加することで、構成システムでアプリを構成する`Clients`または`Resources`します。
+構成システムを使用して、または`Clients` `Resources`の一覧にアプリを追加して、アプリを構成します。
 
-各クライアントの構成`redirect_uri`と`post_logout_redirect_uri`プロパティは、次の例に示すようにします。
+次の例に`redirect_uri`示す`post_logout_redirect_uri`ように、各クライアントのおよびプロパティを構成します。
 
 ```json
 "IdentityServer": {
@@ -298,7 +298,7 @@ API 認証のサポートは、一連の規則、既定値、および、Spa の
 }
 ```
 
-リソースを構成するときに、次に示すように、リソースのスコープを構成できます。
+リソースを構成するときは、次に示すように、リソースのスコープを構成できます。
 
 ```json
 "IdentityServer": {
@@ -313,7 +313,7 @@ API 認証のサポートは、一連の規則、既定値、および、Spa の
 
 ### <a name="configuration-through-code"></a>コードを使用した構成
 
-クライアントとのオーバー ロードを使用してコードを使用したリソースを構成することも`AddApiAuthorization`オプションを構成するアクションを取得します。
+また、オプションを構成するためのアクションを実行するの`AddApiAuthorization`オーバーロードを使用して、コードを使用してクライアントとリソースを構成することもできます。
 
 ```csharp
 AddApiAuthorization<ApplicationUser, ApplicationDbContext>(options =>
@@ -333,3 +333,4 @@ AddApiAuthorization<ApplicationUser, ApplicationDbContext>(options =>
 
 * <xref:spa/angular>
 * <xref:spa/react>
+* <xref:security/authentication/scaffold-identity>
