@@ -1,151 +1,155 @@
 ---
-title: ASP.NET Core でメモリ内キャッシュします。
+title: ASP.NET Core 内のメモリ内のキャッシュ
 author: rick-anderson
 description: ASP.NET Core でメモリにデータをキャッシュする方法について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/11/2019
+ms.date: 8/11/2019
 uid: performance/caching/memory
-ms.openlocfilehash: ffd21f014c02f46d19364a7a54686b8d5c95dc1a
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 474f71225371ea89b023ee077d4ecc03e9751681
+ms.sourcegitcommit: f5f0ff65d4e2a961939762fb00e654491a2c772a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815026"
+ms.lasthandoff: 08/15/2019
+ms.locfileid: "69030313"
 ---
-# <a name="cache-in-memory-in-aspnet-core"></a>ASP.NET Core でメモリ内キャッシュします。
+# <a name="cache-in-memory-in-aspnet-core"></a>ASP.NET Core 内のメモリ内のキャッシュ
 
-によって[Rick Anderson](https://twitter.com/RickAndMSFT)、 [John Luo](https://github.com/JunTaoLuo)、および[Steve Smith](https://ardalis.com/)
+[Rick Anderson](https://twitter.com/RickAndMSFT)、 [John luo](https://github.com/JunTaoLuo)、および[上田 Smith](https://ardalis.com/)
 
 [サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/memory/sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
-## <a name="caching-basics"></a>キャッシュの基礎
+## <a name="caching-basics"></a>キャッシュの基本
 
-キャッシュと、パフォーマンスとアプリケーションのスケーラビリティが大幅に、コンテンツの生成に必要な作業を減らすことで改善できます。 変更頻度の低いデータに最適なキャッシュのしくみです。 キャッシュで返すことができる多くのデータのコピー元のソースからよりも高速です。 アプリを記述およびテストする必要があります**決して**キャッシュされたデータに依存します。
+キャッシュを使用すると、コンテンツを生成するために必要な作業量を減らすことで、アプリのパフォーマンスとスケーラビリティを大幅に向上させることができます。 キャッシュは、あまり変更されないデータで最適に機能します。 キャッシュを使用すると、元のソースよりもはるかに高速に返されるデータのコピーが作成されます。 アプリは、キャッシュされたデータに依存し**ない**ように作成およびテストする必要があります。
 
-ASP.NET Core には、いくつかの異なるキャッシュがサポートしています。 最も単純なキャッシュがに基づいて、 [IMemoryCache](/dotnet/api/microsoft.extensions.caching.memory.imemorycache)、web サーバーのメモリに格納されているキャッシュを表します。 複数のサーバーのサーバー ファームで実行されるアプリでは、セッションをメモリ内キャッシュを使用する場合は固定ことを確認してください。 スティッキー セッションでは、すべてのクライアントからの後続の要求が同じサーバーに移動することを確認します。 たとえば、Azure Web アプリの使用[アプリケーション要求ルーティング処理](https://www.iis.net/learn/extensions/planning-for-arr)処理 (ARR) を同じサーバーにすべての後続の要求をルーティングします。
+ASP.NET Core は、いくつかの異なるキャッシュをサポートしています。 最も単純なキャッシュは、web サーバーのメモリに格納されているキャッシュを表す[IMemoryCache](/dotnet/api/microsoft.extensions.caching.memory.imemorycache)に基づいています。 複数のサーバーのサーバーファームで実行されるアプリでは、メモリ内キャッシュを使用するときにセッションが固定されていることを確認する必要があります。 固定セッションでは、クライアントからの後続の要求がすべて同じサーバーに送られるようにします。 たとえば、Azure Web apps では、[アプリケーション要求ルーティング](https://www.iis.net/learn/extensions/planning-for-arr)処理 (ARR) を使用して、後続のすべての要求を同じサーバーにルーティングします。
 
-Web ファーム内の非スティッキー セッションが必要です、[分散キャッシュ](distributed.md)キャッシュ整合性の問題を回避します。 一部のアプリでは、分散キャッシュはメモリ内キャッシュよりも高いスケール アウトをサポートできます。 分散キャッシュを使用して外部プロセスにキャッシュ メモリをオフロードします。
+Web ファームの固定されていないセッションでは、キャッシュ整合性の問題を回避するために[分散キャッシュ](distributed.md)が必要です。 アプリによっては、分散キャッシュがメモリ内キャッシュよりも高いスケールアウトをサポートする場合があります。 分散キャッシュを使用すると、キャッシュメモリが外部プロセスにオフロードされます。
 
 ::: moniker range="< aspnetcore-2.0"
 
-`IMemoryCache`しない限り、キャッシュがメモリ負荷の下でのキャッシュ エントリを削除は、[優先順位のキャッシュ](/dotnet/api/microsoft.extensions.caching.memory.cacheitempriority)に設定されている`CacheItemPriority.NeverRemove`します。 設定することができます、`CacheItemPriority`キャッシュがメモリの負荷の下の項目を削除する優先順位を調整します。
+キャッシュ`IMemoryCache`の[優先順位](/dotnet/api/microsoft.extensions.caching.memory.cacheitempriority)がに設定されていない限り、キャッシュは`CacheItemPriority.NeverRemove`メモリ不足のときにキャッシュエントリを削除します。 を設定して`CacheItemPriority` 、キャッシュがメモリ不足の状態にある見つけ項目の優先度を調整できます。
 
 ::: moniker-end
 
-メモリ内キャッシュは、すべてのオブジェクトを格納できます。分散キャッシュのインターフェイスに制限されます`byte[]`します。 キー/値ペアとしてし、インメモリ分散キャッシュ ストア キャッシュ項目。
+メモリ内キャッシュには、任意のオブジェクトを格納できます。分散キャッシュインターフェイスはに`byte[]`制限されています。 メモリ内および分散キャッシュストアは、キーと値のペアとしてキャッシュ項目を格納します。
 
-## <a name="systemruntimecachingmemorycache"></a>System.Runtime.Caching/MemoryCache
+## <a name="systemruntimecachingmemorycache"></a>System.string. キャッシュ/MemoryCache
 
-<xref:System.Runtime.Caching>/<xref:System.Runtime.Caching.MemoryCache> ([NuGet パッケージ](https://www.nuget.org/packages/System.Runtime.Caching/)) で使用できます。
+<xref:System.Runtime.Caching>/<xref:System.Runtime.Caching.MemoryCache>([NuGet パッケージ](https://www.nuget.org/packages/System.Runtime.Caching/)) は、次のものと共に使用できます。
 
-* .NET standard 2.0 以降。
-* すべて[.NET 実装](/dotnet/standard/net-standard#net-implementation-support).NET Standard 2.0 以降をターゲットとします。 たとえば、ASP.NET Core 2.0 以降です。
-* .NET framework 4.5 またはそれ以降。
+* .NET Standard 2.0 以降。
+* .NET Standard 2.0 以降を対象とするすべての[.net 実装](/dotnet/standard/net-standard#net-implementation-support)。 たとえば、2.0 以降の ASP.NET Core ます。
+* .NET Framework 4.5 以降。
 
-[Microsoft.Extensions.Caching.Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/) / `IMemoryCache` (この記事で説明) よりもお勧め`System.Runtime.Caching` / `MemoryCache`のため、これは、ASP.NET Core に統合して強化します。 たとえば、 `IMemoryCache` ASP.NET Core では、ネイティブ動作[依存関係の注入](xref:fundamentals/dependency-injection)します。
+[Microsoft.Extensions.Caching.Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)/`IMemoryCache` ASP.NET Core に統合することをお勧めします。そのため、この記事で説明されているように、このキャッシュはお勧めします`System.Runtime.Caching`/`MemoryCache`。 たとえば、 `IMemoryCache`は ASP.NET Core[依存関係の挿入](xref:fundamentals/dependency-injection)とネイティブに連携します。
 
-使用`System.Runtime.Caching` / `MemoryCache` ASP.NET からのコードを移植するときに互換性の仲介役としての ASP.NET core 4.x です。
+ASP.NET `System.Runtime.Caching` 4.x から ASP.NET Core にコードを移植するときは、互換性ブリッジとして使用/ `MemoryCache`します。
 
 ## <a name="cache-guidelines"></a>キャッシュのガイドライン
 
-* データをフェッチするフォールバック オプションがコードと**いない**利用されているキャッシュされた値に依存します。
-* キャッシュは、メモリ、不足しているリソースを使用します。 キャッシュ拡張を制限するには。
-  * **いない**キャッシュ キーと外部入力を使用します。
-  * 有効期限の設定を使用すると、キャッシュ増加を制限できます。
-  * [SetSize、サイズ、および SizeLimit を使用して、キャッシュ サイズを制限する](#use-setsize-size-and-sizelimit-to-limit-cache-size)します。 ASP.NET Core ランタイムでは、メモリの負荷に基づいてキャッシュのサイズは制限されません。 キャッシュ サイズを制限する開発者です。
+* コードには常に、データをフェッチするためのフォールバックオプションがあり、使用可能なキャッシュ値に依存し**ない**ようにする必要があります。
+* キャッシュは、不足しているリソース (メモリ) を使用します。 キャッシュ拡張の制限:
+  * 外部入力をキャッシュキーとして使用しないでください。
+  * キャッシュの拡張を制限するには、有効期限を使用します。
+  * [キャッシュサイズを制限するには、SetSize、Size、および SizeLimit を使用](#use-setsize-size-and-sizelimit-to-limit-cache-size)します。 ASP.NET Core ランタイムでは、メモリ負荷に基づいてキャッシュサイズが制限されません。 キャッシュサイズを制限するのは開発者だけです。
 
-## <a name="using-imemorycache"></a>IMemoryCache を使用します。
+## <a name="using-imemorycache"></a>IMemoryCache の使用
 
-メモリ内キャッシュは、*サービス*を使用して、アプリから参照される[依存関係の注入](../../fundamentals/dependency-injection.md)します。 呼び出す`AddMemoryCache`で`ConfigureServices`:
+> [!WARNING]
+> [依存関係の挿入](xref:fundamentals/dependency-injection)から*共有*メモリキャッシュを使用し`Size`、、 `SizeLimit` 、またはを呼び出し`SetSize`てキャッシュサイズを制限すると、アプリが失敗する可能性があります。 キャッシュにサイズ制限が設定されている場合、すべてのエントリは追加時にサイズを指定する必要があります。 これにより、開発者は共有キャッシュを使用する内容を完全に制御できない場合があるため、問題が発生する可能性があります。 たとえば、Entity Framework Core は共有キャッシュを使用し、サイズを指定しません。 アプリがキャッシュサイズの制限を設定し、EF Core を使用する場合、 `InvalidOperationException`アプリはをスローします。
+> 、 `SetSize` `SizeLimit` 、またはを使用してキャッシュを制限する場合は、キャッシュ用のキャッシュシングルトンを作成します。 `Size` 詳細と例については、「 [SetSize、サイズ、および SizeLimit を使用してキャッシュサイズを制限する](#use-setsize-size-and-sizelimit-to-limit-cache-size)」を参照してください。
+
+インメモリキャッシュは、[依存関係の挿入](xref:fundamentals/dependency-injection)を使用してアプリから参照される*サービス*です。 で`AddMemoryCache` の`ConfigureServices`呼び出し:
 
 [!code-csharp[](memory/sample/WebCache/Startup.cs?highlight=9)]
 
-要求、`IMemoryCache`コンス トラクターでインスタンス。
+コンストラクターに`IMemoryCache`インスタンスを要求します。
 
 [!code-csharp[](memory/sample/WebCache/Controllers/HomeController.cs?name=snippet_ctor)]
 
 ::: moniker range="< aspnetcore-2.0"
 
-`IMemoryCache` NuGet パッケージが必要です[Microsoft.Extensions.Caching.Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)します。
+`IMemoryCache`NuGet パッケージの[拡張](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)が必要です。
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.0"
 
-`IMemoryCache` NuGet パッケージが必要です[Microsoft.Extensions.Caching.Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)、用意されている、 [Microsoft.AspNetCore.All メタパッケージ](xref:fundamentals/metapackage)します。
+`IMemoryCache`では、 [AspNetCore メタパッケージ](xref:fundamentals/metapackage)で使用できる NuGet パッケージ[microsoft. extension. Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)が必要です。
 
 ::: moniker-end
 
 ::: moniker range="> aspnetcore-2.0"
 
-`IMemoryCache` NuGet パッケージが必要です[Microsoft.Extensions.Caching.Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)、用意されている、 [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)します。
+`IMemoryCache`では、 [AspNetCore メタパッケージ](xref:fundamentals/metapackage-app)で入手できる NuGet パッケージ[microsoft. extension. Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)が必要です。
 
 ::: moniker-end
 
-次のコードでは[TryGetValue](/dotnet/api/microsoft.extensions.caching.memory.imemorycache.trygetvalue?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_IMemoryCache_TryGetValue_System_Object_System_Object__)キャッシュ内、時間をチェックします。 新しいエントリが作成され、キャッシュに追加、時間がキャッシュされていない場合[設定](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.set?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_CacheExtensions_Set__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object___0_Microsoft_Extensions_Caching_Memory_MemoryCacheEntryOptions_)します。
+次のコードでは、 [TryGetValue](/dotnet/api/microsoft.extensions.caching.memory.imemorycache.trygetvalue?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_IMemoryCache_TryGetValue_System_Object_System_Object__)を使用して、時間がキャッシュ内にあるかどうかを確認します。 時間がキャッシュされていない場合は、新しいエントリが作成され、が[設定](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.set?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_CacheExtensions_Set__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object___0_Microsoft_Extensions_Caching_Memory_MemoryCacheEntryOptions_)されたキャッシュに追加されます。
 
 [!code-csharp [](memory/sample/WebCache/CacheKeys.cs)]
 
 [!code-csharp[](memory/sample/WebCache/Controllers/HomeController.cs?name=snippet1)]
 
-現在の時刻とキャッシュされた時刻が表示されます。
+現在の時刻とキャッシュされた時間が表示されます。
 
 [!code-cshtml[](memory/sample/WebCache/Views/Home/Cache.cshtml)]
 
-キャッシュされた`DateTime`タイムアウト期間内に要求があるときに値をキャッシュに保持します。 次の図は、現在の時刻と、キャッシュから取得した古い時刻を示します。
+キャッシュされた値は、タイムアウト期間内に要求があってもキャッシュに残ります。`DateTime` 次の図は、現在の時刻と、キャッシュから取得された古い時間を示しています。
 
-![インデックス ビューに表示される 2 つの時刻](memory/_static/time.png)
+![2つの異なる時刻が表示されたインデックスビュー](memory/_static/time.png)
 
-次のコードでは[GetOrCreate](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.getorcreate#Microsoft_Extensions_Caching_Memory_CacheExtensions_GetOrCreate__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object_System_Func_Microsoft_Extensions_Caching_Memory_ICacheEntry___0__)と[GetOrCreateAsync](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.getorcreateasync#Microsoft_Extensions_Caching_Memory_CacheExtensions_GetOrCreateAsync__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object_System_Func_Microsoft_Extensions_Caching_Memory_ICacheEntry_System_Threading_Tasks_Task___0___)データをキャッシュします。
+次のコードでは、 [Getorcreate](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.getorcreate#Microsoft_Extensions_Caching_Memory_CacheExtensions_GetOrCreate__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object_System_Func_Microsoft_Extensions_Caching_Memory_ICacheEntry___0__)と[Getorcreateasync](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.getorcreateasync#Microsoft_Extensions_Caching_Memory_CacheExtensions_GetOrCreateAsync__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object_System_Func_Microsoft_Extensions_Caching_Memory_ICacheEntry_System_Threading_Tasks_Task___0___)を使用してデータをキャッシュしています。
 
 [!code-csharp[](memory/sample/WebCache/Controllers/HomeController.cs?name=snippet2&highlight=3-7,14-19)]
 
-次のコード呼び出し[取得](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.get#Microsoft_Extensions_Caching_Memory_CacheExtensions_Get__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object_)キャッシュされる時間を取得します。
+次のコードは、 [Get](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.get#Microsoft_Extensions_Caching_Memory_CacheExtensions_Get__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object_)を呼び出して、キャッシュされた時間を取得します。
 
 [!code-csharp[](memory/sample/WebCache/Controllers/HomeController.cs?name=snippet_gct)]
 
-<xref:Microsoft.Extensions.Caching.Memory.CacheExtensions.GetOrCreate*> 、 <xref:Microsoft.Extensions.Caching.Memory.CacheExtensions.GetOrCreateAsync*>、および[取得](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.get#Microsoft_Extensions_Caching_Memory_CacheExtensions_Get__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object_)の拡張メソッドの一部である、 [CacheExtensions](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions)の機能を拡張するクラスを<xref:Microsoft.Extensions.Caching.Memory.IMemoryCache>します。 参照してください[IMemoryCache メソッド](/dotnet/api/microsoft.extensions.caching.memory.imemorycache)と[CacheExtensions メソッド](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions)の他のキャッシュ方法の説明。
+<xref:Microsoft.Extensions.Caching.Memory.CacheExtensions.GetOrCreate*>、 <xref:Microsoft.Extensions.Caching.Memory.CacheExtensions.GetOrCreateAsync*>、および[Get](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.get#Microsoft_Extensions_Caching_Memory_CacheExtensions_Get__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object_)は、の<xref:Microsoft.Extensions.Caching.Memory.IMemoryCache>機能を拡張する[cacheextensions](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions)クラスの拡張メソッドです。 他のキャッシュメソッドの詳細については、「 [IMemoryCache メソッド](/dotnet/api/microsoft.extensions.caching.memory.imemorycache)と[cacheextensions メソッド](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions)」を参照してください。
 
 ## <a name="memorycacheentryoptions"></a>MemoryCacheEntryOptions
 
-次のサンプル:
+次の例を次に示します。
 
-* 絶対有効期限を設定します。 これは、エントリをキャッシュできる最大時間であり、項目が古くなりすぎないスライド式有効期限が継続的に更新されることを防ぎます。
-* スライド式有効期限を設定します。 このキャッシュされた項目にアクセスする要求は、スライド式有効期限の時間にリセットされます。
-* キャッシュ優先度を設定`CacheItemPriority.NeverRemove`します。
-* セットを[PostEvictionDelegate](/dotnet/api/microsoft.extensions.caching.memory.postevictiondelegate)するエントリがキャッシュから削除された後に呼び出されます。 コールバックは、キャッシュから項目を削除するコードから別のスレッドで実行されます。
+* 絶対有効期限を設定します。 これは、エントリをキャッシュできる最大時間であり、スライド式有効期限が継続的に更新されるときに、項目が古くなるのを防ぐことができます。
+* スライド式有効期限を設定します。 このキャッシュされた項目にアクセスする要求は、スライド式有効期限をリセットします。
+* キャッシュの優先順位を`CacheItemPriority.NeverRemove`に設定します。
+* エントリがキャッシュから削除された後に呼び出される[PostEvictionDelegate](/dotnet/api/microsoft.extensions.caching.memory.postevictiondelegate)を設定します。 コールバックは、キャッシュから項目を削除するコードとは異なるスレッドで実行されます。
 
 [!code-csharp[](memory/sample/WebCache/Controllers/HomeController.cs?name=snippet_et&highlight=14-21)]
 
 ::: moniker range=">= aspnetcore-2.0"
 
-## <a name="use-setsize-size-and-sizelimit-to-limit-cache-size"></a>SetSize、サイズ、および SizeLimit を使用して、キャッシュ サイズを制限するには
+## <a name="use-setsize-size-and-sizelimit-to-limit-cache-size"></a>SetSize、サイズ、および SizeLimit を使用してキャッシュサイズを制限する
 
-A`MemoryCache`インスタンスが必要に応じて指定し、サイズ制限が適用されます。 メモリ サイズの制限は、キャッシュのエントリのサイズを測定するためのメカニズムがあるないために、メジャーの定義済みの単位がありません。 キャッシュ メモリ サイズの制限が設定されている場合、すべてのエントリはサイズを指定する必要があります。 ASP.NET Core ランタイムでは、メモリの負荷に基づいてキャッシュのサイズは制限されません。 キャッシュ サイズを制限する開発者です。 指定されたサイズは、単位、開発者が選択ができます。
+インスタンス`MemoryCache`では、必要に応じてサイズ制限を指定して適用できます。 キャッシュにはエントリのサイズを測定する機構がないため、メモリサイズの制限には定義された測定単位がありません。 キャッシュメモリサイズの制限が設定されている場合、すべてのエントリでサイズを指定する必要があります。 ASP.NET Core ランタイムでは、メモリ負荷に基づいてキャッシュサイズが制限されません。 キャッシュサイズを制限するのは開発者だけです。 指定されたサイズは、開発者が選択した単位で示されます。
 
 例:
 
-* Web アプリでは、文字列をキャッシュが主に、各キャッシュ エントリのサイズが文字列の長さになります。
-* アプリは、1 とすべてのエントリのサイズを指定できます、サイズ制限はエントリの数。
+* Web アプリが主に文字列をキャッシュしている場合は、各キャッシュエントリのサイズを文字列の長さにすることができます。
+* アプリでは、すべてのエントリのサイズを1と指定することができ、サイズ制限はエントリの数です。
 
-次のコード作成、単位のない固定サイズ[MemoryCache](/dotnet/api/microsoft.extensions.caching.memory.memorycache?view=aspnetcore-2.1)からアクセスできる[依存関係の注入](xref:fundamentals/dependency-injection):
+次のコードでは、[依存関係の挿入](xref:fundamentals/dependency-injection)によってアクセス可能な、単位固定サイズの[memorycache](/dotnet/api/microsoft.extensions.caching.memory.memorycache?view=aspnetcore-2.1)が作成されます。
 
 [!code-csharp[](memory/sample/RPcache/Services/MyMemoryCache.cs?name=snippet)]
 
-[SizeLimit](/dotnet/api/microsoft.extensions.caching.memory.memorycacheoptions.sizelimit?view=aspnetcore-2.1#Microsoft_Extensions_Caching_Memory_MemoryCacheOptions_SizeLimit)ユニットではありません。 キャッシュされたエントリは、キャッシュ メモリのサイズが設定されている場合に最も適切なと見なした単位でサイズを指定する必要があります。 キャッシュ インスタンスのすべてのユーザーには、同じ単位システムを使用する必要があります。 キャッシュ エントリ サイズの合計がで指定された値を超えた場合、エントリはキャッシュされません`SizeLimit`します。 キャッシュ サイズの制限が設定されていない場合のエントリを設定するキャッシュ サイズは無視されます。
+[Sizelimit](/dotnet/api/microsoft.extensions.caching.memory.memorycacheoptions.sizelimit?view=aspnetcore-2.1#Microsoft_Extensions_Caching_Memory_MemoryCacheOptions_SizeLimit)に単位がありません。 キャッシュメモリサイズが設定されている場合、キャッシュされたエントリは、最適と思われる任意の単位でサイズを指定する必要があります。 キャッシュインスタンスのすべてのユーザーは、同じ単体システムを使用する必要があります。 キャッシュされたエントリサイズの合計がで`SizeLimit`指定された値を超えた場合、エントリはキャッシュされません。 キャッシュサイズの制限が設定されていない場合、エントリに設定されているキャッシュサイズは無視されます。
 
-次のコードのレジスタ`MyMemoryCache`で、[依存関係の注入](xref:fundamentals/dependency-injection)コンテナー。
+次のコードは`MyMemoryCache` 、[依存関係挿入](xref:fundamentals/dependency-injection)コンテナーに登録します。
 
 [!code-csharp[](memory/sample/RPcache/Startup.cs?name=snippet&highlight=5)]
 
-`MyMemoryCache` 独立したキャッシュはこのサイズの上限のキャッシュを意識して、キャッシュ エントリのサイズを適切に設定する方法を理解しているコンポーネントとして作成されます。
+`MyMemoryCache`は、このサイズ制限付きキャッシュを認識し、キャッシュエントリサイズを適切に設定する方法を理解しているコンポーネントの独立したメモリキャッシュとして作成されます。
 
-次のコードでは`MyMemoryCache`:
+次のコードで`MyMemoryCache`は、を使用します。
 
 [!code-csharp[](memory/sample/RPcache/Pages/About.cshtml.cs?name=snippet)]
 
-キャッシュ エントリのサイズを設定できます[サイズ](/dotnet/api/microsoft.extensions.caching.memory.memorycacheentryoptions.size?view=aspnetcore-2.1#Microsoft_Extensions_Caching_Memory_MemoryCacheEntryOptions_Size)または[SetSize](/dotnet/api/microsoft.extensions.caching.memory.memorycacheentryextensions.setsize?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_MemoryCacheEntryExtensions_SetSize_Microsoft_Extensions_Caching_Memory_MemoryCacheEntryOptions_System_Int64_)拡張メソッド。
+キャッシュエントリのサイズは、 [size](/dotnet/api/microsoft.extensions.caching.memory.memorycacheentryoptions.size?view=aspnetcore-2.1#Microsoft_Extensions_Caching_Memory_MemoryCacheEntryOptions_Size)または[SetSize](/dotnet/api/microsoft.extensions.caching.memory.memorycacheentryextensions.setsize?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_MemoryCacheEntryExtensions_SetSize_Microsoft_Extensions_Caching_Memory_MemoryCacheEntryOptions_System_Int64_)拡張メソッドを使用して設定できます。
 
 [!code-csharp[](memory/sample/RPcache/Pages/About.cshtml.cs?name=snippet2&highlight=9,10,14,15)]
 
@@ -153,22 +157,22 @@ A`MemoryCache`インスタンスが必要に応じて指定し、サイズ制限
 
 ## <a name="cache-dependencies"></a>キャッシュの依存関係
 
-次の例では、依存するエントリの有効期限が切れる場合、キャッシュ エントリを期限切れする方法を示します。 A`CancellationChangeToken`キャッシュされた項目に追加されます。 ときに`Cancel`で呼び出される、 `CancellationTokenSource`、両方のキャッシュ エントリが削除されます。
+次のサンプルは、依存エントリの有効期限が切れた場合に、キャッシュエントリを期限切れにする方法を示しています。 `CancellationChangeToken`がキャッシュされた項目に追加されます。 でが呼び出される`Cancel`と、両方のキャッシュエントリが削除されます。`CancellationTokenSource`
 
 [!code-csharp[](memory/sample/WebCache/Controllers/HomeController.cs?name=snippet_ed)]
 
-使用して、`CancellationTokenSource`グループとして削除する複数のキャッシュ エントリを許可します。 `using`内で上記のコード パターンは、キャッシュ エントリの作成、`using`ブロックは、トリガーと有効期限の設定を継承します。
+を使用すると、複数のキャッシュエントリを1つのグループとして削除できます。`CancellationTokenSource` 上記のコードの`using` パターンでは、ブロック内に作成されたキャッシュエントリによって、トリガーと有効期限の設定が継承されます。`using`
 
 ## <a name="additional-notes"></a>補足メモ
 
-* コールバックを使用して、キャッシュ項目を再作成します。
+* コールバックを使用してキャッシュ項目を再作成する場合:
 
-  * コールバックが完了していないために、複数の要求には、キャッシュされたキーの値が空ことができます検索します。
-  * これは、結果、複数のスレッドが、キャッシュされた項目を再作成します。
+  * コールバックが完了していないため、複数の要求でキャッシュされたキー値を空にすることができます。
+  * これにより、複数のスレッドがキャッシュされた項目を再作成する可能性があります。
 
-* 1 つのキャッシュ エントリを使用して、別に作成したときに、子は親エントリの有効期限のトークンと有効期限の時間ベースの設定をコピーします。 子は、手動で削除して期限切れまたは親エントリの更新はありません。
+* あるキャッシュエントリを使用して別のキャッシュエントリを作成すると、子は親エントリの有効期限トークンと時間ベースの有効期限の設定をコピーします。 親エントリを手動で削除または更新しても、子の有効期限は切れません。
 
-* 使用[PostEvictionCallbacks](/dotnet/api/microsoft.extensions.caching.memory.icacheentry.postevictioncallbacks#Microsoft_Extensions_Caching_Memory_ICacheEntry_PostEvictionCallbacks)キャッシュ エントリがキャッシュから削除された後に起動されるコールバックを設定します。
+* キャッシュからキャッシュエントリが削除された後に起動されるコールバックを設定するには、 [PostEvictionCallbacks](/dotnet/api/microsoft.extensions.caching.memory.icacheentry.postevictioncallbacks#Microsoft_Extensions_Caching_Memory_ICacheEntry_PostEvictionCallbacks)を使用します。
 
 ## <a name="additional-resources"></a>その他の技術情報
 
