@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/13/2019
 uid: blazor/class-libraries
-ms.openlocfilehash: 6e93d48bbc684845952c3db8935ccc8b190044b7
-ms.sourcegitcommit: f5f0ff65d4e2a961939762fb00e654491a2c772a
+ms.openlocfilehash: b5857f2cf22bde801deeeaf227817fdf99862f4a
+ms.sourcegitcommit: 4cb0c7e74355f2e87c60e2a196f842b937247a99
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/15/2019
-ms.locfileid: "69030344"
+ms.lasthandoff: 08/16/2019
+ms.locfileid: "69545774"
 ---
 # <a name="aspnet-core-razor-components-class-libraries"></a>Razor コンポーネントクラスライブラリの ASP.NET Core
 
@@ -59,16 +59,6 @@ ms.locfileid: "69030344"
    ```
 
 ---
-
-## <a name="rcls-not-supported-for-client-side-apps"></a>クライアント側アプリでは、RCLs はサポートされていません
-
-現在の ASP.NET Core 3.0 プレビューでは、Razor クラスライブラリは Blazor クライアント側アプリと互換性がありません。 Blazor クライアント側アプリの場合は、コマンドシェルで`blazorlib`テンプレートによって作成された Blazor コンポーネントライブラリを使用します。
-
-```console
-dotnet new blazorlib -o MyComponentLib1
-```
-
-`blazorlib`テンプレートを使用するコンポーネントライブラリには、イメージ、JavaScript、スタイルシートなどの静的ファイルを含めることができます。 ビルド時には、静的ファイルがビルドされたアセンブリファイル ( *.dll*) に埋め込まれます。これにより、リソースを含める方法を気にすることなく、コンポーネントを使用できます。 `content`ディレクトリに含まれるすべてのファイルは、埋め込みリソースとしてマークされます。
 
 ## <a name="consume-a-library-component"></a>ライブラリコンポーネントの使用
 
@@ -117,12 +107,10 @@ dotnet pack
 dotnet nuget publish
 ```
 
-`blazorlib`テンプレートを使用すると、静的リソースが NuGet パッケージに含まれます。 ライブラリコンシューマーは自動的にスクリプトとスタイルシートを受け取るため、リソースを手動でインストールする必要はありません。
-
 ## <a name="create-a-razor-components-class-library-with-static-assets"></a>静的なアセットを含む Razor コンポーネントクラスライブラリを作成する
 
 RCL には、静的なアセットを含めることができます。 この静的アセットは、ライブラリを使用するすべてのアプリで使用できます。 詳細については、「 <xref:razor-pages/ui-class#create-an-rcl-with-static-assets> 」を参照してください。
 
-## <a name="additional-resources"></a>その他の資料
+## <a name="additional-resources"></a>その他の技術情報
 
 * <xref:razor-pages/ui-class>
