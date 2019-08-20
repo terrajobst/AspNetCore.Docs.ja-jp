@@ -966,6 +966,8 @@
           uid: security/key-vault-configuration
     - name: HTTPS の適用
       uid: security/enforcing-ssl
+    - name: HTTPS を使用した Docker のホスト
+      uid: security/docker-https
     - name: EU の一般データ保護規制 (GDPR) のサポート
       uid: security/gdpr
     - name: リクエスト フォージェリの対策
