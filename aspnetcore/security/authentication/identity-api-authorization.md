@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 08/05/2019
 uid: security/authentication/identity/spa
-ms.openlocfilehash: 6b8818cc89a87e66ecec445ff8071348aacde64a
-ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
+ms.openlocfilehash: cb51df0267a5eabd4a2694727e9c896d0554265e
+ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/06/2019
-ms.locfileid: "68819921"
+ms.lasthandoff: 08/19/2019
+ms.locfileid: "69583601"
 ---
 # <a name="authentication-and-authorization-for-spas"></a>SPAs の認証と承認
 
@@ -93,9 +93,9 @@ dotnet new react -o <output_directory_name> -au Individual
 
 このヘルパーメソッドは、アプリのポリシースキームを既定の認証ハンドラーとして構成します。 Id URL 空間 "/identity" のサブパスにルーティングされるすべての要求を Id で処理できるように、ポリシーが構成されています。 は`JwtBearerHandler` 、他のすべての要求を処理します。 さらに、このメソッドは`<<ApplicationName>>API` API リソースをの既定の`<<ApplicationName>>API`スコープに登録し、JWT ベアラートークンミドルウェアを構成して、アプリのために、サービスによって発行されたトークンを検証します。
 
-### <a name="sampledatacontroller"></a>SampleDataController
+### <a name="weatherforecastcontroller"></a>WeatherForecastController
 
-*Controllers\SampleDataController.cs*ファイルで、属性が`[Authorize]`クラスに適用されていることを確認します。これは、リソースにアクセスするための既定のポリシーに基づいてユーザーを承認する必要があることを示します。 既定の承認ポリシーは、前に説明したポリシースキームによって`AddIdentityServerJwt`設定される既定の認証スキームを使用するように構成され、このようなヘルパーメソッドによって構成されたは`JwtBearerHandler` 、の既定のハンドラーになります。アプリへの要求。
+*Controllers\WeatherForecastController.cs*ファイルで、属性が`[Authorize]`クラスに適用されていることを確認します。これは、リソースにアクセスするための既定のポリシーに基づいてユーザーを承認する必要があることを示します。 既定の承認ポリシーは、前に説明したポリシースキームによって`AddIdentityServerJwt`設定される既定の認証スキームを使用するように構成され、このようなヘルパーメソッドによって構成されたは`JwtBearerHandler` 、の既定のハンドラーになります。アプリへの要求。
 
 ### <a name="applicationdbcontext"></a>ApplicationDbContext
 
