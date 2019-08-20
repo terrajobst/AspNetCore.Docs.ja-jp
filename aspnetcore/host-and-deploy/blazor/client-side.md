@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/10/2019
 uid: host-and-deploy/blazor/client-side
-ms.openlocfilehash: be6b6c245440cb085a1a6b115f4f087306f7cc83
-ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
+ms.openlocfilehash: e9a42bd4e8511d426761746047fed2d4f7dfc6dd
+ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68308084"
+ms.lasthandoff: 08/13/2019
+ms.locfileid: "68994087"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor-client-side"></a>クライアント側の ASP.NET Core Blazor をホストして展開する
 
@@ -148,7 +148,7 @@ dotnet run --pathbase=/CoolApp
 
 詳しくは、[パス ベースのホスト構成値](#path-base)に関するセクションをご覧ください。
 
-アプリが[クライアント側のホスティング モデル](xref:blazor/hosting-models#client-side) (**Blazor (クライアント側)** プロジェクト テンプレートに基づく。[dotnet new](/dotnet/core/tools/dotnet-new) コマンドの使用時は `blazor` テンプレート) を使用し、ASP.NET Core アプリ内で IIS サブアプリとしてホストされている場合、継承された ASP.NET Core モジュール ハンドラーを無効とするか、*web.config* ファイル内のルート (親) アプリの `<handlers>` セクションがサブアプリに継承されていないことを確認することが必要となります。
+アプリが[クライアント側のホスティング モデル](xref:blazor/hosting-models#client-side) (**Blazor WebAssembly App** プロジェクト テンプレートに基づく。[dotnet new](/dotnet/core/tools/dotnet-new) コマンドの使用時は `blazorwasm` テンプレート) を使用し、ASP.NET Core アプリ内で IIS サブアプリとしてホストされている場合、継承された ASP.NET Core モジュール ハンドラーを無効とするか、*web.config* ファイル内のルート (親) アプリの `<handlers>` セクションがサブアプリに継承されていないことを確認することが必要となります。
 
 アプリの発行された *web.config* ファイル内のハンドラーを、`<handlers>` セクションをファイルに追加することで削除します。
 
@@ -180,7 +180,7 @@ dotnet run --pathbase=/CoolApp
 
 "*ホストされた展開*" により、クライアント側の Blazor アプリが、Web サーバー上で実行されている [ASP.NET Core アプリ](xref:index)からブラウザーに提供されます。
 
-Blazor アプリは、発行された出力に ASP.NET Core アプリと共に含まれているため、2 つのアプリを一緒に展開することができます。 ASP.NET Core アプリをホストできる Web サーバーが必要です。 ホストされている展開の場合、Visual Studio には **Blazor (ASP.NET Core でホストされる)** プロジェクト テンプレートが含まれています ([dotnet new](/dotnet/core/tools/dotnet-new) コマンドを使用する場合は `blazorhosted` テンプレート)。
+Blazor アプリは、発行された出力に ASP.NET Core アプリと共に含まれているため、2 つのアプリを一緒に展開することができます。 ASP.NET Core アプリをホストできる Web サーバーが必要です。 ホストされている展開の場合、Visual Studio には **Blazor WebAssembly App** プロジェクト テンプレートが含まれており ([dotnet new](/dotnet/core/tools/dotnet-new) コマンドを使用する場合は `blazorwasm` テンプレート)、 **[ホスト]** オプションが選択されています。
 
 ASP.NET Core アプリでのホストと展開の詳細については、「<xref:host-and-deploy/index>」を参照してください。
 

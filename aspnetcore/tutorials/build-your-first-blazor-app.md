@@ -5,14 +5,14 @@ description: Blazor アプリを段階的に構築します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/01/2019
+ms.date: 07/26/2019
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: d592c5bac1eb9822843a1ad1513a15fdfd6b1032
-ms.sourcegitcommit: eb3e51d58dd713eefc242148f45bd9486be3a78a
+ms.openlocfilehash: 88999350b9c7631e15ba9d0242da5880c8ae71ff
+ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/02/2019
-ms.locfileid: "67500320"
+ms.lasthandoff: 08/13/2019
+ms.locfileid: "68994211"
 ---
 # <a name="build-your-first-blazor-app"></a>最初の Blazor アプリを構築する
 
@@ -67,7 +67,7 @@ HTML 構文を使用して、別のコンポーネント内にコンポーネン
 
 ## <a name="component-parameters"></a>コンポーネントのパラメーター
 
-コンポーネントにパラメーターを持たせることもできます。 コンポーネントのパラメーターは、`[Parameter]` で修飾されたコンポーネント クラス上の、パブリックでないプロパティを使って定義します。 マークアップ内でコンポーネントの引数を指定するには、属性を使います。
+コンポーネントにパラメーターを持たせることもできます。 コンポーネントのパラメーターは、`[Parameter]` で修飾されたコンポーネント クラス上で、パブリック プロパティを使用して定義されます。 マークアップ内でコンポーネントの引数を指定するには、属性を使います。
 
 1. コンポーネントの `@code` に関する C# コードを更新します。
 
