@@ -5,12 +5,12 @@ description: Entity Framework Core (EF Core) を利用し、データベース�
 ms.author: riande
 ms.date: 07/22/2019
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: 6132f7b907014b4f57bb9ae0300e00b6ecb23f1a
-ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
+ms.openlocfilehash: 39e2a38e0b91b7dbecf05c084ca0be5e312dcb0d
+ms.sourcegitcommit: 2719c70cd15a430479ab4007ff3e197fbf5dfee0
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/06/2019
-ms.locfileid: "68820070"
+ms.lasthandoff: 08/09/2019
+ms.locfileid: "68862871"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>ASP.NET Core での Razor ページ アプリへのモデルの追加
 
@@ -135,18 +135,30 @@ ms.locfileid: "68820070"
 
 ---
 
-スキャフォールディングのプロセスが作成され、次のファイルが更新されます。
-
 ### <a name="files-created"></a>作成されたファイル
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+スキャフォールディングのプロセスが作成され、次のファイルが更新されます。
 
 * *Pages/Movies*: 作成、削除、詳細、編集、インデックス。
 * *Data/RazorPagesMovieContext.cs*
 
-### <a name="file-updated"></a>更新されたファイル
+### <a name="updated"></a>更新済み
 
 * *Startup.cs*
 
 作成および更新されたファイルについては、次のセクションで説明します。
+
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+
+スキャフォールディングのプロセスでは、次のファイルが作成されます。
+
+* *Pages/Movies*: 作成、削除、詳細、編集、インデックス。
+
+作成されたファイルについては、次のセクションで説明します。
+
+---
 
 <a name="pmc"></a>
 

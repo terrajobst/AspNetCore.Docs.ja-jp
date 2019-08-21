@@ -3,14 +3,14 @@ title: ASP.NET Core の区分
 author: rick-anderson
 description: 区分は ASP.NET MVC の機能であり、関連する機能を別の名前空間 (ルーティングの場合) およびフォルダー構造 (ビューの場合) としてグループにまとめるために使用する方法を説明します。
 ms.author: riande
-ms.date: 05/10/2019
+ms.date: 08/07/2019
 uid: mvc/controllers/areas
-ms.openlocfilehash: f3a75bc307a206e43241b421f448b09011868d08
-ms.sourcegitcommit: ffe3ed7921ec6c7c70abaac1d10703ec9a43374c
+ms.openlocfilehash: e44c726c47caa3dd0c8c92e3a2502a590bee82d1
+ms.sourcegitcommit: 2719c70cd15a430479ab4007ff3e197fbf5dfee0
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/11/2019
-ms.locfileid: "65535968"
+ms.lasthandoff: 08/09/2019
+ms.locfileid: "68862793"
 ---
 # <a name="areas-in-aspnet-core"></a>ASP.NET Core の区分
 
@@ -116,9 +116,13 @@ ASP.NET Core 2.2 で `MapAreaRoute` を使用するときは、[この GitHub �
 
 詳細については、「[コントローラー アクションへのルーティング](xref:mvc/controllers/routing)」を参照してください。
 
-### <a name="shared-layout-for-areas-using-the-viewstartcshtml-file"></a>_ViewStart.cshtml ファイルを使用した区分の共有レイアウト
+### <a name="shared-layout-for-areas-using-the-_viewstartcshtml-file"></a>_ViewStart.cshtml ファイルを使用した区分の共有レイアウト
 
 アプリ全体で共通レイアウトを共有するには、アプリケーションのルート フォルダーに *_ViewStart.cshtml* を移動します。
+
+### <a name="_viewimportscshtml"></a>_ViewImports.cshtml
+
+標準の場所では、 */Views/_ViewImports.cshtml* は区分に適用されません。 自分の領域で共通の[タグ ヘルパー](xref:mvc/views/tag-helpers/intro)、`@using`、または `@inject` を使用するには、適切な *_ViewImports.cshtml* ファイルを[区分ビューに確実に適用する](xref:mvc/views/layout#importing-shared-directives)ようにします。 すべてのビューで同じ動作が必要な場合は、 */Views/_ViewImports.cshtml* をアプリケーション ルートに移動します。
 
 <a name="rename"></a>
 
@@ -167,7 +171,7 @@ Razor Pages を使った区分を使うには、アプリのルートに *Areas/
 * `<a asp-page="/About">` から生成されるリンクは、前回の要求が `/Home` 内のページに向けられていた場合にのみ正しくなります。
 * コードは、[サンプル ダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples/RPareas)からのものです。
 
-### <a name="import-namespace-and-tag-helpers-with-viewimports-file"></a>_ViewImports ファイルを使って名前空間とタグ ヘルパーをインポートする
+### <a name="import-namespace-and-tag-helpers-with-_viewimports-file"></a>_ViewImports ファイルを使って名前空間とタグ ヘルパーをインポートする
 
 *_ViewImports.cshtml* ファイルを各区分の *Pages* フォルダーに追加して、フォルダー内の各 Razor ページに名前空間とタグ ヘルパーをインポートすることができます。
 

@@ -1,22 +1,187 @@
 ---
 title: ASP.NET Core の Razor ページと EF Core - CRUD - 2/8
 author: rick-anderson
-description: EF Core で作成、読み取り、更新、削除を行う方法を示します
+description: EF Core で作成、読み取り、更新、削除を行う方法を示します。
 ms.author: riande
-ms.date: 06/30/2017
+ms.date: 07/22/2019
 uid: data/ef-rp/crud
-ms.openlocfilehash: 2e2aaa3c84759bde39ec3f46ff5ba8699f6c219b
-ms.sourcegitcommit: 1bf80f4acd62151ff8cce517f03f6fa891136409
+ms.openlocfilehash: 8dad964826fbf020d250eaec1dbf2845d356ae91
+ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/15/2019
-ms.locfileid: "68223838"
+ms.lasthandoff: 08/09/2019
+ms.locfileid: "68914768"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---crud---2-of-8"></a>ASP.NET Core の Razor ページと EF Core - CRUD - 2/8
 
 作成者: [Tom Dykstra](https://github.com/tdykstra)、[Jon P Smith](https://twitter.com/thereformedprog)、[Rick Anderson](https://twitter.com/RickAndMSFT)
 
 [!INCLUDE [about the series](~/includes/RP-EF/intro.md)]
+
+::: moniker range=">= aspnetcore-3.0"
+
+このチュートリアルでは、スキャフォールディング CRUD (作成、読み取り、更新、削除) コードのレビューとカスタマイズを行います。
+
+## <a name="no-repository"></a>リポジトリがない
+
+一部の開発者は、サービス レイヤーまたはリポジトリ パターンを使用して、UI (Razor Pages) とデータ アクセス層との間に抽象化レイヤーを作成しています。 このチュートリアルでは、これは行いません。 複雑さを最小限に抑え、チュートリアルの焦点を EF Core に置くために、EF Core コードがページ モデル クラスに直接追加されます。 
+
+## <a name="update-the-details-page"></a>Details ページを更新する
+
+Students ページのスキャフォールディング コードには、登録データが含まれていません。 このセクションでは、Details ページに登録を追加します。
+
+### <a name="read-enrollments"></a>登録の読み取り
+
+学生の登録データをページに表示するには、そのデータを読み取る必要があります。 *Pages/Students/Details.cshtml.cs* のスキャフォールディング コードでは、Enrollment データを含まない Student データのみが読み取られます。
+
+[!code-csharp[Main](intro/samples/cu30snapshots/2-crud/Pages/Students/Details1.cshtml.cs?name=snippet_OnGetAsync&highlight=8)]
+
+`OnGetAsync` メソッドを次のコードに置き換えて、選択した学生の登録データを読み取ります。 変更が強調表示されます。
+
+[!code-csharp[Main](intro/samples/cu30/Pages/Students/Details.cshtml.cs?name=snippet_OnGetAsync&highlight=8-12)]
+
+[Include](/dotnet/api/microsoft.entityframeworkcore.entityframeworkqueryableextensions.include) メソッドと [ThenInclude](/dotnet/api/microsoft.entityframeworkcore.entityframeworkqueryableextensions.theninclude#Microsoft_EntityFrameworkCore_EntityFrameworkQueryableExtensions_ThenInclude__3_Microsoft_EntityFrameworkCore_Query_IIncludableQueryable___0_System_Collections_Generic_IEnumerable___1___System_Linq_Expressions_Expression_System_Func___1___2___) メソッドにより、コンテキストは `Student.Enrollments` ナビゲーション プロパティと、各登録内の `Enrollment.Course` ナビゲーション プロパティを読み込みます。 これらのメソッドは、[関連データの読み込み](xref:data/ef-rp/read-related-data)のチュートリアルで詳しく検討します。
+
+[AsNoTracking](/dotnet/api/microsoft.entityframeworkcore.entityframeworkqueryableextensions.asnotracking#Microsoft_EntityFrameworkCore_EntityFrameworkQueryableExtensions_AsNoTracking__1_System_Linq_IQueryable___0__) メソッドは、返されたエンティティが現在のコンテキストで更新されないシナリオでパフォーマンスを改善します。 `AsNoTracking` は、このチュートリアルで後述します。
+
+### <a name="display-enrollments"></a>登録の表示
+
+*Pages/Students/Details.cshtml* 内のコードを次のコードに置き換えて、登録のリストを表示します。 変更が強調表示されます。
+
+[!code-cshtml[Main](intro/samples/cu30/Pages/Students/Details.cshtml?highlight=32-53)]
+
+上記のコードは、`Enrollments` ナビゲーション プロパティ内でエンティティをループ処理します。 登録ごとに、コースのタイトルとグレードが表示されます。 コース タイトルは、Enrollments エンティティの `Course` ナビゲーション プロパティに格納されている Course エンティティから取得されます。
+
+アプリを実行し、 **[Students]** タブを選択し、学生用の **[詳細]** リンクをクリックします。 選択した受講者のコースとグレードの一覧が表示されます。
+
+### <a name="ways-to-read-one-entity"></a>1 つのエンティティを読み取る方法
+
+生成されたコードでは、[FirstOrDefaultAsync](/dotnet/api/microsoft.entityframeworkcore.entityframeworkqueryableextensions.firstordefaultasync#Microsoft_EntityFrameworkCore_EntityFrameworkQueryableExtensions_FirstOrDefaultAsync__1_System_Linq_IQueryable___0__System_Threading_CancellationToken_) を使用して 1 つのエンティティを読み取ります。 このメソッドでは、何も見つからない場合は null が返されます。それ以外の場合は、クエリのフィルター条件を満たす最初の行が返されます。 `FirstOrDefaultAsync` は、通常、次の代替手段よりも適しています。
+
+* [SingleOrDefaultAsync](/dotnet/api/microsoft.entityframeworkcore.entityframeworkqueryableextensions.singleordefaultasync#Microsoft_EntityFrameworkCore_EntityFrameworkQueryableExtensions_SingleOrDefaultAsync__1_System_Linq_IQueryable___0__System_Linq_Expressions_Expression_System_Func___0_System_Boolean___System_Threading_CancellationToken_) - クエリ フィルターを満たす複数のエンティティがある場合に、例外をスローします。 クエリによって複数の行が返される可能性があるかどうかを判断するため、`SingleOrDefaultAsync` は複数の行をフェッチしようとします。 一意のキーを検索する場合と同様に、クエリが 1 つのエンティティだけを返すことができる場合は、この追加作業は不要です。
+* [FindAsync](/dotnet/api/microsoft.entityframeworkcore.dbcontext.findasync#Microsoft_EntityFrameworkCore_DbContext_FindAsync_System_Type_System_Object___) - 主キー (PK) を持つエンティティを検索します。 PK を持つエンティティがコンテキストによって追跡されている場合、データベースに対する要求がなくても該当するエンティティが返されます。 このメソッドは、単一のエンティティを検索するように最適化されていますが、`FindAsync` を使用して `Include` を呼び出すことはできません。  したがって、関連データが必要な場合は、`FirstOrDefaultAsync` を選択することをお勧めします。
+
+### <a name="route-data-vs-query-string"></a>ルート データとクエリ文字列
+
+Details ページの URL は `https://localhost:<port>/Students/Details?id=1` です。 エンティティの主キー値がクエリ文字列に含まれています。 ルート データのキー値を渡すことを好む開発者もいます。`https://localhost:<port>/Students/Details/1` 詳細については、「[生成されたコードの更新](xref:tutorials/razor-pages/da1#update-the-generated-code)」を参照してください。
+
+## <a name="update-the-create-page"></a>Create ページを更新する
+
+Create ページのスキャフォールディングされた `OnPostAsync` コードは、[過剰ポスティング](#overposting)に対して脆弱です。 *Pages/Students/Create.cshtml.cs* の `OnPostAsync` メソッドを次のコードに置き換えます。
+
+[!code-csharp[Main](intro/samples/cu30/Pages/Students/Create.cshtml.cs?name=snippet_OnPostAsync)]
+
+<a name="TryUpdateModelAsync"></a>
+
+### <a name="tryupdatemodelasync"></a>TryUpdateModelAsync
+
+上記のコードでは、Student オブジェクトを作成し、ポストされたフォーム フィールドを使用して Student オブジェクトのプロパティを更新します。 [TryUpdateModelAsync](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.tryupdatemodelasync#Microsoft_AspNetCore_Mvc_ControllerBase_TryUpdateModelAsync_System_Object_System_Type_System_String_) メソッド:
+
+* [PageModel](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel) の [PageContext](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel.pagecontext#Microsoft_AspNetCore_Mvc_RazorPages_PageModel_PageContext) プロパティからポストされたフォーム値を使用します。
+* リストされたプロパティのみを更新します (`s => s.FirstMidName, s => s.LastName, s => s.EnrollmentDate`)。
+* "student" のプレフィックスを持つフォーム フィールドを検索します。 たとえば、`Student.FirstMidName` のようにします。 大文字と小文字の区別はありません。
+* [モデル バインド](xref:mvc/models/model-binding) システムを使用して、文字列からフォーム値を `Student` モデル内の型に変換します。 たとえば、`EnrollmentDate` は DateTime に変換する必要があります。
+
+アプリを実行し、Create ページをテストする student エンティティを作成します。
+
+## <a name="overposting"></a>過剰ポスティング
+
+ポストされた値を持つフィールドを更新するために `TryUpdateModel` を使用することは、過剰ポスティングの防止につながり、セキュリティ上のベスト プラクティスとなります。 たとえば、Student エンティティには、この Web ページで更新または追加できない `Secret` プロパティが含まれています。
+
+[!code-csharp[Main](intro/samples/cu30snapshots/2-crud/Models/StudentZsecret.cs?name=snippet_Intro&highlight=7)]
+
+アプリの作成または更新の Razor ページに `Secret` フィールドが含まれていない場合でも、ハッカーは過剰ポスティングによって `Secret` を設定することが可能です。 ハッカーは、Fiddler などのツールを使用するか、または何らかの JavaScript を作成して、`Secret` フォーム値をポストすることが可能です。 元のコードでは、Student インスタンスの作成時にモデル バインダーによって使用されるフィールドを制限していません。
+
+`Secret` フォーム フィールドに対してハッカーが指定した値はいずれも、データベース内で更新されます。 次の図では、Fiddler ツールを使用して、ポストされたフォームの値に `Secret` フィールド (値 "OverPost" を含む) が追加されています。
+
+![Fiddler による Secret フィールドの追加](../ef-mvc/crud/_static/fiddler.png)
+
+挿入された行の `Secret` プロパティに値 "OverPost" が正常に追加されています。 これは、アプリ デザイナーで、Create ページで `Secret` プロパティが設定されることを想定していない場合でも発生します。
+
+### <a name="view-model"></a>ビュー モデル
+
+ビュー モデルは、過剰ポスティングを防ぐもう 1 つの方法を提供します。
+
+アプリケーション モデルは、しばしばドメイン モデルと呼ばれます。 ドメイン モデルには、通常、データベース内の対応するエンティティによって必要とされるすべてのプロパティが含まれています。 ビュー モデルには、使用する UI に必要なプロパティのみが含まれています (たとえば、Create ページ)。
+
+一部のアプリでは、ビュー モデルに加えて、Razor ページのページ モデル クラスとブラウザーとの間でデータを渡すためにバインド モデルまたは入力モデルも使用します。 
+
+次の `Student` ビュー モデルを考えてみます。
+
+[!code-csharp[Main](intro/samples/cu30snapshots/2-crud/Models/StudentVM.cs)]
+
+次のコードでは、`StudentVM` ビュー モデルを使用して新しい受講生を作成します。
+
+[!code-csharp[Main](intro/samples/cu30snapshots/2-crud/Pages/Students/CreateVM.cshtml.cs?name=snippet_OnPostAsync)]
+
+[SetValues](/dotnet/api/microsoft.entityframeworkcore.changetracking.propertyvalues.setvalues#Microsoft_EntityFrameworkCore_ChangeTracking_PropertyValues_SetValues_System_Object_) メソッドでは、このオブジェクトの値を設定するために、別の [PropertyValues](/dotnet/api/microsoft.entityframeworkcore.changetracking.propertyvalues) オブジェクトから値を読み取ります。 `SetValues` では一致するプロパティ名が使用されます。 ビュー モデルの型はモデルの型に関連している必要はなく、プロパティが一致している必要があるだけです。
+
+`StudentVM` を使用するには、`Student` ではなく `StudentVM` を使用するように [Create.cshtml](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu30snapshots/2-crud/Pages/Students/CreateVM.cshtml) を更新する必要があります。
+
+## <a name="update-the-edit-page"></a>[編集] ページを更新する
+
+*Pages/Students/Edit.cshtml.cs* で、`OnGetAsync` メソッドと `OnPostAsync` メソッドを次のコードに置き換えます。
+
+[!code-csharp[Main](intro/samples/cu30/Pages/Students/Edit.cshtml.cs?name=snippet_OnGetPost)]
+
+コードの変更は [作成] ページに似ています。ただし、次のようないくつかの例外があります。
+
+* `FirstOrDefaultAsync` は、[FindAsync](/dotnet/api/microsoft.entityframeworkcore.dbset-1.findasync) に置換されています。 関連データを含める必要がない場合は、`FindAsync` の方が効率的です。
+* `OnPostAsync` には `id` パラメーターがあります。
+* 現在の学生は、空の学生を作成するのではなく、データベースからフェッチされます。
+
+アプリを実行し、学生を作成して編集することでアプリをテストします。
+
+## <a name="entity-states"></a>エンティティの状態
+
+データベース コンテキストは、メモリ内のエンティティが、データベース内の対応する行と同期状態にあるかどうかを追跡します。 この追跡情報により、[SaveChangesAsync](/dotnet/api/microsoft.entityframeworkcore.dbcontext.savechangesasync#Microsoft_EntityFrameworkCore_DbContext_SaveChangesAsync_System_Threading_CancellationToken_) が呼び出されたときに何が起こっているかを特定できます。 たとえば、新しいエンティティが [AddAsync](/dotnet/api/microsoft.entityframeworkcore.dbcontext.addasync) メソッドに渡されたとき、そのエンティティの状態は [Added](/dotnet/api/microsoft.entityframeworkcore.entitystate#Microsoft_EntityFrameworkCore_EntityState_Added) に設定されます。 `SaveChangesAsync` が呼び出されると、データベース コンテキストは SQL の INSERT コマンドを発行します。
+
+エンティティは、[次のいずれかの状態](/dotnet/api/microsoft.entityframeworkcore.entitystate)になる可能性があります。
+
+* `Added`:エンティティはデータベースにまだ存在しません。 `SaveChanges` メソッドは INSERT ステートメントを発行します。
+
+* `Unchanged`:このエンティティでは変更を保存する必要がありません。 エンティティがこの状態になるのは、エンティティがデータベースから読み取られた場合です。
+
+* `Modified`:エンティティのプロパティ値の一部またはすべてが変更されています。 `SaveChanges` メソッドは UPDATE ステートメントを発行します。
+
+* `Deleted`:エンティティには削除のマークが付けられています。 `SaveChanges` メソッドは DELETE ステートメントを発行します。
+
+* `Detached`:エンティティはデータベース コンテキストによって追跡されていません。
+
+デスクトップ アプリにおいて、通常、状態の変更は自動的に設定されます。 エンティティが読み取られ、変更が加えられると、エンティティの状態は自動的に `Modified` に変更されます。 `SaveChanges` を呼び出すと、変更されたプロパティのみを更新する SQL UPDATE ステートメントが生成されます。
+
+Web アプリにおいて、エンティティを読み取り、データを表示する `DbContext` は、ページが表示された後で破棄されます。 ページの `OnPostAsync` メソッドが呼び出されると、新しい Web 要求が行われ、`DbContext` の新しいインスタンスが使用されます。 その新しいコンテキスト内のエンティティの再読み取りを行うと、デスクトップの処理がシミュレートされます。
+
+## <a name="update-the-delete-page"></a>[削除] ページを更新する
+
+このセクションでは、`SaveChanges` の呼び出しが失敗したときにカスタム エラー メッセージを実装します。
+
+*Pages/Students/Delete.cshtml.cs* のコードを次のコードに置き換えます。 変更が強調表示されます (`using` ステートメントのクリーンアップ以外)。
+
+[!code-csharp[Main](intro/samples/cu30/Pages/Students/Delete.cshtml.cs?name=snippet_All&highlight=20,22,30,38-41,53-71)]
+
+上記のコードでは、省略可能なパラメーター `saveChangesError` を `OnGetAsync` メソッド シグネチャに追加します。 `saveChangesError` は、受講者オブジェクトの削除に失敗した後で、メソッドが呼び出されたかどうかを示します。 一時的なネットワークの問題により、削除操作が失敗する可能性があります。 データベースがクラウド内にある場合は、一時的なネットワーク エラーが発生する可能性が高くなります。 Delete ページの `OnGetAsync` が UI から呼び出された場合、`saveChangesError` パラメーターは false です。 `OnPostAsync` によって `OnGetAsync` が呼び出された場合 (削除操作が失敗したため)、`saveChangesError` パラメーターは true です。
+
+`OnPostAsync` メソッドは、選択されたエンティティを取得し、[Remove](/dotnet/api/microsoft.entityframeworkcore.dbcontext.remove#Microsoft_EntityFrameworkCore_DbContext_Remove_System_Object_) メソッドを呼び出して、エンティティの状態を `Deleted` に設定します。 `SaveChanges` が呼び出されると、SQL DELETE コマンドが生成されます。 `Remove` が失敗した場合:
+
+* データベース例外がキャッチされます。
+* [削除] ページの `OnGetAsync` メソッドが、`saveChangesError=true` を指定して呼び出されます。
+
+Delete Razor ページ (*Pages/Students/Delete.cshtml*) にエラー メッセージを追加します。
+
+[!code-cshtml[Main](intro/samples/cu30/Pages/Students/Delete.cshtml?highlight=10)]
+
+アプリを実行し、学生を削除して、Delete ページをテストします。
+
+## <a name="next-steps"></a>次の手順
+
+> [!div class="step-by-step"]
+> [前のチュートリアル](xref:data/ef-rp/intro)
+> [次のチュートリアル](xref:data/ef-rp/sort-filter-page)
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 このチュートリアルでは、スキャフォールディング CRUD (作成、読み取り、更新、削除) コードのレビューとカスタマイズを行います。
 
@@ -251,3 +416,5 @@ Razor ページに正しい `@page` ディレクティブが含まれている�
 > [!div class="step-by-step"]
 > [前へ](xref:data/ef-rp/intro)
 > [次へ](xref:data/ef-rp/sort-filter-page)
+
+::: moniker-end
