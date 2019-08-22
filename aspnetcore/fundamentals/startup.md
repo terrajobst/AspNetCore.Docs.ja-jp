@@ -2,21 +2,20 @@
 title: ASP.NET Core でのアプリケーションのスタートアップ
 author: tdykstra
 description: ASP.NET Core の Startup クラスがサービスとアプリケーションの要求パイプラインをどのように構成しているかを説明します。
-monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 01/17/2019
+ms.date: 8/7/2019
 uid: fundamentals/startup
-ms.openlocfilehash: 7e1741d2bed15f36a967713a2f9bd0d93801c8d0
-ms.sourcegitcommit: ccbb84ae307a5bc527441d3d509c20b5c1edde05
+ms.openlocfilehash: 0ee1a972bf2b94119767e79c2f4ea18d3265e356
+ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/19/2019
-ms.locfileid: "65874949"
+ms.lasthandoff: 08/09/2019
+ms.locfileid: "68913996"
 ---
 # <a name="app-startup-in-aspnet-core"></a>ASP.NET Core でのアプリケーションのスタートアップ
 
-作成者: [Tom Dykstra](https://github.com/tdykstra)、[Luke Latham](https://github.com/guardrex)、[Steve Smith](https://ardalis.com)
+作成者: [Rick Anderson](https://twitter.com/RickAndMSFT)、[Tom Dykstra](https://github.com/tdykstra)、[Luke Latham](https://github.com/guardrex)、[Steve Smith](https://ardalis.com)
 
 `Startup` クラスはサービスとアプリケーションの要求パイプラインを構成します。
 
@@ -29,11 +28,47 @@ ASP.NET Core アプリケーションでは `Startup` クラスが使用され�
 
 `ConfigureServices` と `Configure` はアプリの起動時に ASP.NET Core ランタイムによって呼び出されます。
 
-[!code-csharp[](startup/sample_snapshot/Startup1.cs?highlight=4,10)]
+::: moniker range=">= aspnetcore-3.0"
 
-アプリの`Startup`ホスト[がビルドされるとき、](xref:fundamentals/index#host) クラスがアプリに指定されます。 `Program` クラスのホスト ビルダーで `Build` が呼び出されるとき、アプリのホストがビルドされます。 `Startup` クラスは通常、ホスト ビルダーで [WebHostBuilderExtensions.UseStartup\<TStartup>](xref:Microsoft.AspNetCore.Hosting.WebHostBuilderExtensions.UseStartup*) メソッドを呼び出すことで指定されます。
+[!code-csharp[](startup/3.0_samples/StartupFilterSample/Startup.cs?name=snippet)]
 
-[!code-csharp[](startup/sample_snapshot/Program3.cs?name=snippet_Program&highlight=10)]
+上記のサンプルは [Razor Pages](xref:razor-pages/index) 用です。MVC バージョンは似ています。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+[!code-csharp[](startup/sample_snapshot/Startup1.cs)]
+
+::: moniker-end
+
+アプリの[ホスト](xref:fundamentals/index#host)がビルドされるときに、`Startup` クラスが指定されます。 通常、ホスト ビルダーで [`WebHostBuilderExtensions.UseStartup<TStartup>`](xref:Microsoft.AspNetCore.Hosting.WebHostBuilderExtensions.UseStartup*) メソッドを呼び出すことによって、`Startup` クラスは指定されます。
+
+::: moniker range="< aspnetcore-3.0"
+
+[!code-csharp[](startup/sample_snapshot/Program3.cs?name=snippet_Program&highlight=12)]
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](startup/3.0_samples/Program3.cs?name=snippet_Program&highlight=12)]
+
+ホストには、`Startup` クラス コンストラクターで使用できるサービスが用意されています。 アプリケーションから `ConfigureServices` 経由でサービスが追加されます。 ホスト サービスとアプリ サービスの両方が `Configure` 内とアプリ全体で使用できます。
+
+<xref:Microsoft.Extensions.Hosting.IHostBuilder> を使用すると、次のサービスの種類のみを `Startup` コンストラクターに挿入できます。
+
+* `IWebHostEnvironment`
+* `IHostEnvironment`
+* <xref:Microsoft.Extensions.Configuration.IConfiguration>
+
+[!code-csharp[](startup/3.0_samples/StartupFilterSample/StartUp2.cs?name=snippet)]
+
+ほとんどのサービスは、`Configure` メソッドが呼び出されるまで使用できません。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 ホストには、`Startup` クラス コンストラクターで使用できるサービスが用意されています。 アプリケーションから `ConfigureServices` 経由でサービスが追加されます。 これで、ホスト サービスとアプリケーション サービスの両方が `Configure` 内とアプリ全体で使用できるようになります。
 
@@ -45,7 +80,17 @@ ASP.NET Core アプリケーションでは `Startup` クラスが使用され�
 
 [!code-csharp[](startup/sample_snapshot/Startup2.cs?highlight=7-8)]
 
-`IHostingEnvironment` を挿入する代わりに、規約ベースのアプローチがあります。 アプリケーションの環境 (たとえば `StartupDevelopment`) ごとに個別の `Startup` クラスが定義されると、実行時に適切な `Startup` クラスが選択されます。 名前のサフィックスが現在の環境と一致するクラスが優先されます。 アプリケーションが Development 環境で実行され、`Startup` クラスと `StartupDevelopment` クラスの両方が含まれている場合は、`StartupDevelopment` クラスが使用されます。 詳細については、「[Use multiple environments](xref:fundamentals/environments#environment-based-startup-class-and-methods)」(複数の環境の使用) を参照してください。
+::: moniker-end
+`IWebHostEnvironment` を挿入する代わりに、規約ベースのアプローチがあります。
+::: moniker range=">= aspnetcore-3.0"
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+`IHostingEnvironment` を挿入する代わりに、規約ベースのアプローチがあります。
+::: moniker-end
+
+アプリケーションの環境 (たとえば `StartupDevelopment`) ごとに個別の `Startup` クラスが定義されると、実行時に適切な `Startup` クラスが選択されます。 名前のサフィックスが現在の環境と一致するクラスが優先されます。 アプリケーションが Development 環境で実行され、`Startup` クラスと `StartupDevelopment` クラスの両方が含まれている場合は、`StartupDevelopment` クラスが使用されます。 詳細については、「[Use multiple environments](xref:fundamentals/environments#environment-based-startup-class-and-methods)」(複数の環境の使用) を参照してください。
 
 ホストの詳細については、「[ホスト](xref:fundamentals/index#host)」を参照してください。 スタートアップ時のエラー処理については、「[Startup exception handling](xref:fundamentals/error-handling#startup-exception-handling)」(スタートアップ例外処理) を参照してください。
 
@@ -57,17 +102,29 @@ ASP.NET Core アプリケーションでは `Startup` クラスが使用され�
 * アプリケーションのサービスを構成する `Configure` メソッドの前にホストによって呼び出されます。
 * 規約によって[構成オプション](xref:fundamentals/configuration/index)が設定されます。
 
-一般的なパターンとしては、すべての `Add{Service}` メソッドを呼び出した後にすべての `services.Configure{Service}` メソッドを呼び出します。 たとえば、[Identity サービスの構成](xref:security/authentication/identity#pw)に関する記事をご覧ください。
-
 ホストでは、`Startup` メソッドが呼び出される前にいくつかのサービスを構成することができます。 詳細については、「[ホスト](xref:fundamentals/index#host)」を参照してください。
 
-多くの設定が必要な機能には、<xref:Microsoft.Extensions.DependencyInjection.IServiceCollection> 上の `Add{Service}` 拡張メソッドがあります。 一般的な ASP.NET Core アプリは、Entity Framework、Identity、および MVC のサービスを登録します。
+多くの設定が必要な機能には、<xref:Microsoft.Extensions.DependencyInjection.IServiceCollection> 上の `Add{Service}` 拡張メソッドがあります。 たとえば、**Add**DbContext、**Add**DefaultIdentity、**Add**EntityFrameworkStores、**Add**RazorPages です。
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](startup/3.0_samples/StartupFilterSample/StartupIdentity.cs ?name=snippet)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](startup/sample_snapshot/Startup3.cs)]
 
+::: moniker-end
+
 サービス コンテナーにサービスを追加すると、アプリケーション内と `Configure` メソッド内でサービスを利用できるようになります。 サービスは[依存関係の挿入](xref:fundamentals/dependency-injection)または <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ApplicationServices*> によって解決されます。
 
+::: moniker range="< aspnetcore-3.0"
+
 `SetCompatibilityVersion` について詳しくは、「[SetCompatibilityVersion](xref:mvc/compatibility-version)」をご覧ください。
+
+::: moniker-end
 
 ## <a name="the-configure-method"></a>Configure メソッド
 
@@ -80,36 +137,84 @@ ASP.NET Core アプリケーションでは `Startup` クラスが使用され�
 * [HTTP Strict Transport Security (HSTS)](xref:security/enforcing-ssl#http-strict-transport-security-protocol-hsts)
 * [HTTPS リダイレクト](xref:security/enforcing-ssl)
 * [静的ファイル](xref:fundamentals/static-files)
-* [一般データ保護規制 (GDPR)](xref:security/gdpr)
 * ASP.NET Core [MVC](xref:mvc/overview) と [Razor ページ](xref:razor-pages/index)
+
+::: moniker range="< aspnetcore-3.0"
+
+* [一般データ保護規制 (GDPR)](xref:security/gdpr)
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](startup/3.0_samples/StartupFilterSample/Startup.cs?name=snippet)]
+
+上記のサンプルは [Razor Pages](xref:razor-pages/index) 用です。MVC バージョンは似ています。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](startup/sample_snapshot/Startup4.cs)]
 
-各 `Use` 拡張メソッドによって、要求パイプラインに 1 つまたは複数のミドルウェア コンポーネントが追加されます。 たとえば、`UseMvc` 拡張メソッドでは、[ルーティング ミドルウェア](xref:fundamentals/routing)が要求パイプラインに追加され、既定のハンドラーとして [MVC](xref:mvc/overview) が構成されます。
+::: moniker-end
 
-要求パイプライン内の各ミドルウェア コンポーネントは、パイプラインの次のコンポーネントを呼び出すか、妥当な場合はチェーンをショートさせます。 ショート サーキットがミドルウェアのチェーンで発生しない場合、各ミドルウェアには、クライアントに送信される前に要求を処理する 2 度目の機会があります。
+各 `Use` 拡張メソッドによって、要求パイプラインに 1 つまたは複数のミドルウェア コンポーネントが追加されます。 たとえば、<xref:Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles*> では、[静的ファイル](xref:fundamentals/static-files)を提供するように、[ミドルウェア](xref:fundamentals/middleware/index)を構成します。
 
-また、`IHostingEnvironment` や `ILoggerFactory` などの追加サービスを `Configure` メソッド シグネチャで指定することもできます。 指定すると、(使用可能なサービスの場合) 追加サービスが挿入されます。
+要求パイプライン内の各ミドルウェア コンポーネントは、パイプラインの次のコンポーネントを呼び出すか、妥当な場合はチェーンをショートさせます。
+
+::: moniker range=">= aspnetcore-3.0"
+
+`IWebHostEnvironment`、`ILoggerFactory`、または `ConfigureServices` で定義された任意のものなどの追加サービスを `Configure` メソッド シグネチャで指定できます。 使用可能な場合、これらのサービスが挿入されます。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+`IHostingEnvironment` や `ILoggerFactory`、または `ConfigureServices` で定義された任意のものなどの追加サービスを `Configure` メソッド シグネチャで指定できます。 使用可能な場合、これらのサービスが挿入されます。
+
+::: moniker-end
 
 `IApplicationBuilder` の使用方法およびミドルウェアの処理の順序については、「<xref:fundamentals/middleware/index>」を参照してください。
 
-## <a name="convenience-methods"></a>簡易メソッド
+<a name="convenience-methods"></a>
+
+## <a name="configure-services-without-startup"></a>スタートアップを使用せずにサービスを構成する
 
 `Startup` クラスを使用せず、サービスと要求処理パイプラインを構成するには、ホスト ビルダーで便利なメソッド、`ConfigureServices` と `Configure` を呼び出します。 `ConfigureServices` の複数回の呼び出しでは、互いに追加されます。 `Configure` メソッドが複数回呼び出された場合、最後の `Configure` 呼び出しが使用されます。
 
+::: moniker range=">= aspnetcore-3.0"
+[!code-csharp[](startup/3.0_samples/StartupFilterSample/Program1.cs?name=snippet)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](startup/sample_snapshot/Program1.cs?highlight=16,20)]
+
+::: moniker-end
 
 ## <a name="extend-startup-with-startup-filters"></a>スタートアップ フィルターを使用した Startup の拡張
 
-<xref:Microsoft.AspNetCore.Hosting.IStartupFilter> を使用して、アプリケーションの [Configure](#the-configure-method) ミドルウェア パイプラインの先頭または末尾でミドルウェアを構成します。 `IStartupFilter` は、アプリケーションの要求処理パイプラインの先頭または末尾で、ライブラリによってミドルウェアが追加される前または後にミドルウェアを確実に実行する場合に便利です。
+<xref:Microsoft.AspNetCore.Hosting.IStartupFilter> を使用して、アプリケーションの [Configure](#the-configure-method) ミドルウェア パイプラインの先頭または末尾でミドルウェアを構成します。 `IStartupFilter` を使用して、`Configure` メソッドのパイプラインを作成します。 [IStartupFilter.Configure](xref:Microsoft.AspNetCore.Hosting.IStartupFilter.Configure*) では、ライブラリによって追加されたミドルウェアの前後に実行するように、ミドルウェアを設定することができます。
 
-`IStartupFilter` は、`Action<IApplicationBuilder>` を受け取って返す 1 つのメソッド <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*> を実装しています。 <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder> で、アプリケーションの要求パイプラインを構成するクラスを定義します。 詳細については、「[Create a middleware pipeline with IApplicationBuilder](xref:fundamentals/middleware/index#create-a-middleware-pipeline-with-iapplicationbuilder)」(IApplicationBuilder を使用したミドルウェア パイプラインの作成) を参照してください。
+`IStartupFilter` には、`Action<IApplicationBuilder>` を受け取って返す <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*> が実装されています。 <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder> で、アプリケーションの要求パイプラインを構成するクラスを定義します。 詳細については、「[Create a middleware pipeline with IApplicationBuilder](xref:fundamentals/middleware/index#create-a-middleware-pipeline-with-iapplicationbuilder)」(IApplicationBuilder を使用したミドルウェア パイプラインの作成) を参照してください。
 
-各 `IStartupFilter` は、要求パイプラインで 1 つまたは複数のミドルウェアを実装します。 フィルターは、サービス コンテナーに追加された順に呼び出されます。 フィルターは、コントロールを次のフィルターに渡す前または後にミドルウェアを追加できるため、アプリケーション パイプラインの先頭または末尾に追加されます。
+各 `IStartupFilter` によって、要求パイプラインで 1 つまたは複数のミドルウェアを追加できます。 フィルターは、サービス コンテナーに追加された順に呼び出されます。 フィルターは、コントロールを次のフィルターに渡す前または後にミドルウェアを追加できるため、アプリケーション パイプラインの先頭または末尾に追加されます。
 
-`IStartupFilter` でミドルウェアを登録する方法を次の例に示します。
+`IStartupFilter` でミドルウェアを登録する方法を次の例に示します。 `RequestSetOptionsMiddleware` ミドルウェアによって、クエリ文字列パラメーターからオプション値が設定されます。
 
-`RequestSetOptionsMiddleware` ミドルウェアによって、クエリ文字列パラメーターからオプション値が設定されます。
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](startup/3.0_samples/StartupFilterSample/RequestSetOptionsMiddleware.cs?name=snippet1)]
+
+`RequestSetOptionsMiddleware` は `RequestSetOptionsStartupFilter` クラスで構成されています。
+
+[!code-csharp[](startup/3.0_samples/StartupFilterSample/RequestSetOptionsStartupFilter.cs?name=snippet1&highlight=7)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](startup/sample_snapshot/RequestSetOptionsMiddleware.cs?name=snippet1&highlight=21)]
 
@@ -117,22 +222,35 @@ ASP.NET Core アプリケーションでは `Startup` クラスが使用され�
 
 [!code-csharp[](startup/sample_snapshot/RequestSetOptionsStartupFilter.cs?name=snippet1&highlight=7)]
 
-`IStartupFilter` は <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*> のサービス コンテナーに登録され、`Startup` クラスの外側から `Startup` を補強します。
+::: moniker-end
+
+`IStartupFilter` は <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*> のサービス コンテナーに登録されています。
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](startup/3.0_samples/StartupFilterSample/Program.cs?name=snippet&highlight=19-20)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](startup/sample_snapshot/Program2.cs?name=snippet1&highlight=4-5)]
 
-`option` のクエリ文字列パラメーターを指定すると、ミドルウェアは MVC ミドルウェアが応答をレンダリングする前に値の割り当てを処理します。
+::: moniker-end
 
-![レンダリングされたインデックス ページを表示するブラウザー ウィンドウ。 クエリ文字列パラメーターと 'From Middleware' に設定されたオプションの値を含むページの要求に基づいて、Option の値は 'From Middleware' とレンダリングされます。](startup/_static/index.png)
+`option` のクエリ文字列パラメーターを指定すると、ミドルウェアでは ASP.NET Core ミドルウェアによって応答がレンダリングされる前に値の割り当てを処理します。
 
 ミドルウェアの実行順序は、`IStartupFilter` の登録順に設定されています。
 
 * 複数の `IStartupFilter` の実装が、同じオブジェクトとやり取りする可能性があります。 順序が重要な場合は、ミドルウェアの実行順序に合わせて `IStartupFilter` サービスの登録順序を指定してください。
-* `IStartupFilter` に登録された他のアプリケーション ミドルウェアの前または後に実行される `IStartupFilter` の実装が 1 つまたは複数あるミドルウェアを、ライブラリで追加することができます。 ライブラリの `IStartupFilter` によって追加されたミドルウェアの前に `IStartupFilter` ミドルウェアを呼び出すには、ライブラリがサービス コンテナーに追加される前にサービスの登録を配置します。 後で呼び出すには、ライブラリが追加される後にサービスの登録を配置します。
+* `IStartupFilter` に登録された他のアプリケーション ミドルウェアの前または後に実行される `IStartupFilter` の実装が 1 つまたは複数あるミドルウェアを、ライブラリで追加することができます。 ライブラリの `IStartupFilter` よって追加されたミドルウェアの前に `IStartupFilter` ミドルウェアを呼び出すには、次のようにします。
+
+  * サービス コンテナーにライブラリを追加する前に、サービス登録を配置する
+  * 後で呼び出すために、ライブラリが追加された後にサービス登録を配置する
 
 ## <a name="add-configuration-at-startup-from-an-external-assembly"></a>外部アセンブリからの起動時に構成を追加する
 
-<xref:Microsoft.AspNetCore.Hosting.IHostingStartup> の実装により、アプリの `Startup` クラスの外部にある外部アセンブリから、起動時に拡張機能をアプリに追加できるようになります。 詳細については、「<xref:fundamentals/configuration/platform-specific-configuration>」を参照してください。
+<xref:Microsoft.AspNetCore.Hosting.IHostingStartup> の実装により、アプリの `Startup` クラスの外部にある外部アセンブリから、起動時に拡張機能をアプリに追加できるようになります。 詳細については、<xref:fundamentals/configuration/platform-specific-configuration> を参照してください。
 
 ## <a name="additional-resources"></a>その他の技術情報
 
