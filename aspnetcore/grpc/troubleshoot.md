@@ -5,14 +5,14 @@ description: .NET Core で gRPC を使用しているときのエラーのトラ
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.custom: mvc
-ms.date: 08/12/2019
+ms.date: 08/17/2019
 uid: grpc/troubleshoot
-ms.openlocfilehash: ad74bfa57d2dde316734d55d86075f463e78ee56
-ms.sourcegitcommit: 476ea5ad86a680b7b017c6f32098acd3414c0f6c
+ms.openlocfilehash: 7621266dfe26b7126d1607e195dd5dcaab4efa55
+ms.sourcegitcommit: 41f2c1a6b316e6e368a4fd27a8b18d157cef91e1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/14/2019
-ms.locfileid: "69029035"
+ms.lasthandoff: 08/21/2019
+ms.locfileid: "69886492"
 ---
 # <a name="troubleshoot-grpc-on-net-core"></a>.NET Core での gRPC のトラブルシューティング
 
@@ -84,6 +84,8 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
             webBuilder.UseStartup<Startup>();
         });
 ```
+
+HTTP/2 エンドポイントが TLS を使用せずに構成されている場合、エンドポイントの`HttpProtocols.Http2` [listenoptions](xref:fundamentals/servers/kestrel#listenoptionsprotocols)がに設定されている必要があります。 `HttpProtocols.Http1AndHttp2`HTTP/2 のネゴシエートに TLS が必要であるため、を使用することはできません。 TLS を使用しない場合、エンドポイントへのすべての接続は既定の HTTP/1.1 に設定され、gRPC の呼び出しは失敗します。
 
 GRPC クライアントは、TLS を使用しないように構成する必要もあります。 詳細については、「 [.Net Core クライアントを使用した安全でない gRPC サービスの呼び出し](#call-insecure-grpc-services-with-net-core-client)」を参照してください。
 

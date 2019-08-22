@@ -4,15 +4,15 @@ author: Rick-Anderson
 description: Razor を ASP.NET core クラス ライブラリの部分ビューを使用して再利用可能な UI を作成する方法について説明します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 06/28/2019
+ms.date: 08/20/2019
 ms.custom: mvc, seodec18
 uid: razor-pages/ui-class
-ms.openlocfilehash: 77c7d4a318610fcd424da0485abd41d11e3fad6a
-ms.sourcegitcommit: fbc66827e319d28bebed678ea5fd42f582fe3c34
+ms.openlocfilehash: 468d961c291810ca4dfbe615acd972cfd6e7572a
+ms.sourcegitcommit: 41f2c1a6b316e6e368a4fd27a8b18d157cef91e1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/25/2019
-ms.locfileid: "68493561"
+ms.lasthandoff: 08/21/2019
+ms.locfileid: "69886405"
 ---
 # <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a>ASP.NET Core の Razor クラスライブラリプロジェクトを使用して、再利用可能な UI を作成する
 
@@ -236,13 +236,49 @@ RCL では、RCL の消費アプリから参照できる、関連する静的ア
 
 RCL の一部としてコンパニオン資産を含めるには、クラスライブラリに*wwwroot*フォルダーを作成し、そのフォルダーに必要なファイルを含めます。
 
-RCL をパッキングすると、 *wwwroot*フォルダー内のすべてのコンパニオン資産が自動的にパッケージに含まれ、パッケージを参照するアプリで使用できるようになります。
+RCL をパッキングすると、 *wwwroot*フォルダー内のすべてのコンパニオン資産がパッケージに自動的に含まれます。
 
 ### <a name="consume-content-from-a-referenced-rcl"></a>参照されている RCL からのコンテンツの使用
 
-RCL の*wwwroot*フォルダーに含まれるファイルは、プレフィックス`_content/{LIBRARY NAME}/`の下にあるアプリに公開されます。 たとえば、*という名前*のライブラリを使用すると、の静的コンテンツ`_content/Razor.Class.Lib/`へのパスが生成されます。
+RCL の*wwwroot*フォルダーに含まれるファイルは、プレフィックス`_content/{LIBRARY NAME}/`の下にあるアプリに公開されます。 たとえば、という名前のライブラリを使用すると、の静的コンテンツ`_content/Razor.Class.Lib/`へのパスが生成されます。
 
-使用中のアプリは`<script>` `<img>`、、 `<style>`、、およびその他の HTML タグを使用して、ライブラリによって提供される静的アセットを参照します。 コンシューマーアプリでは、[静的ファイルのサポート](xref:fundamentals/static-files)が有効になっている必要があります。
+使用中のアプリは`<script>` `<img>`、、 `<style>`、、およびその他の HTML タグを使用して、ライブラリによって提供される静的アセットを参照します。 使用中のアプリでは、次の方法`Startup.Configure`で[静的ファイルのサポート](xref:fundamentals/static-files)を有効にする必要があります。
+
+```csharp
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+    ...
+
+    app.UseStaticFiles();
+
+    ...
+}
+```
+
+ビルド出力 (`dotnet run`) から使用中のアプリを実行すると、開発環境では、静的な web アセットが既定で有効になります。 ビルド出力から実行するときに他の環境のアセットを`UseStaticWebAssets`サポートするには、 *Program.cs*のホストビルダーでを呼び出します。
+
+```csharp
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        CreateHostBuilder(args).Build().Run();
+    }
+
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStaticWebAssets();
+                webBuilder.UseStartup<Startup>();
+            });
+}
+```
+
+発行`UseStaticWebAssets`された出力 (`dotnet publish`) からアプリを実行する場合、を呼び出す必要はありません。
 
 ### <a name="multi-project-development-flow"></a>複数プロジェクトの開発フロー
 
