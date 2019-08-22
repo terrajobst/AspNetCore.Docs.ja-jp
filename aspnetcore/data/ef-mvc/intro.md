@@ -1,18 +1,18 @@
 ---
 title: 'チュートリアル: ASP.NET MVC Web アプリでの EF Core の概要'
 description: これは、Contoso University のサンプル アプリケーションを一から作成する方法を説明するチュートリアル シリーズの 1 回目です。
-author: rick-anderson
+author: tdykstra
 ms.author: tdykstra
 ms.custom: mvc
 ms.date: 02/06/2019
 ms.topic: tutorial
 uid: data/ef-mvc/intro
-ms.openlocfilehash: a93d5af314f1ff679a8df636297a0d5849ebdb8d
-ms.sourcegitcommit: 6afe57fb8d9055f88fedb92b16470398c4b9b24a
+ms.openlocfilehash: 1b68c20ba206a5afe36f307525879f91d03d95d1
+ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/14/2019
-ms.locfileid: "65610214"
+ms.lasthandoff: 08/19/2019
+ms.locfileid: "69583344"
 ---
 # <a name="tutorial-get-started-with-ef-core-in-an-aspnet-mvc-web-app"></a>チュートリアル: ASP.NET MVC Web アプリでの EF Core の概要
 
@@ -65,17 +65,17 @@ Contoso University のサンプル Web アプリケーションでは、Entity F
 
 * **[ファイル]** メニューで **[新規作成]、[プロジェクト]** の順に選択します。
 
-* 左側のウィンドウで、**[インストール済み]、[Visual C#]、[Web]** の順に選択します。
+* 左側のウィンドウで、 **[インストール済み]、[Visual C#]、[Web]** の順に選択します。
 
 * **[ASP.NET Core Web アプリケーション]** プロジェクト テンプレートを選択します。
 
-* 名前に「**ContosoUniversity**」と入力し、**[OK]** をクリックします。
+* 名前に「**ContosoUniversity**」と入力し、 **[OK]** をクリックします。
 
   ![[新しいプロジェクト] ダイアログ](intro/_static/new-project2.png)
 
 * **[新しい ASP.NET Core Web アプリケーション]** ダイアログが表示されるのを待ちます。
 
-* **[.NET Core]**、**[ASP.NET Core 2.2]**、および **[Web アプリケーション (モデル ビュー コントローラー)]** テンプレートを選択します。
+* **[.NET Core]** 、 **[ASP.NET Core 2.2]** 、および **[Web アプリケーション (モデル ビュー コントローラー)]** テンプレートを選択します。
 
 * **[認証]** に **[認証なし]** が設定されていることを確認してください。
 
@@ -241,7 +241,7 @@ Entity Framework によって空のデータベースが自動的に作成され
 
 CRUD アクションのメソッドとビューの自動作成は、スキャフォールディングと言います。 一般的には生成されたコードは修正しないのに対し、スキャフォールディングされたコードを開始点として独自の要件に合うように変更できるという点で、スキャフォールディングはコード生成と異なります。 生成されたコードをカスタマイズする必要があるとき、部分クラスを利用するか、状況が変わったときにコードを再生成します。
 
-* **ソリューション エクスプローラー**の **Controllers** フォルダーを右クリックし、**[追加]、[スキャフォールディングされた新しい項目]** の順に選択します。
+* **ソリューション エクスプローラー**の **Controllers** フォルダーを右クリックし、 **[追加]、[スキャフォールディングされた新しい項目]** の順に選択します。
 
 * **[スキャフォールディングを追加]** ダイアログ ボックスで:
 
@@ -259,9 +259,9 @@ CRUD アクションのメソッドとビューの自動作成は、スキャフ
 
   * **[追加]** をクリックします。
 
-  **[追加]** をクリックすると、Visual Studio スキャフォールディング エンジンは *StudentsController.cs* ファイルと、コントローラーと連動する一連のビュー (*.cshtml* ファイル) を作成します。
+  **[追加]** をクリックすると、Visual Studio スキャフォールディング エンジンは *StudentsController.cs* ファイルと、コントローラーと連動する一連のビュー ( *.cshtml* ファイル) を作成します。
 
-(スキャフォールディング エンジンは、このチュートリアルで先に行ったように手動で最初に作成しない場合、データベース コンテキストを自動作成することもできます。 **[コントローラーの追加]** ボックスで新しいコンテキスト クラスを指定できます。**[データ コンテキスト クラス]** の右にあるプラス記号をクリックします。  Visual Studio はコントローラーやビューと共に `DbContext` クラスを作成します。)
+(スキャフォールディング エンジンは、このチュートリアルで先に行ったように手動で最初に作成しない場合、データベース コンテキストを自動作成することもできます。 **[コントローラーの追加]** ボックスで新しいコンテキスト クラスを指定できます。 **[データ コンテキスト クラス]** の右にあるプラス記号をクリックします。  Visual Studio はコントローラーやビューと共に `DbContext` クラスを作成します。)
 
 コントローラーがコンストラクター パラメーターとして `SchoolContext` を受け取ることがわかります。
 
@@ -301,7 +301,7 @@ SSOX で **(localdb)\MSSQLLocalDB > Databases** をクリックし、*appsetting
 
 ![SSOX のテーブル](intro/_static/ssox-tables.png)
 
-**[Student]** テーブルを右クリックし、**[データの表示]** をクリックすると、作成された列とテーブルに挿入された行が表示されます。
+**[Student]** テーブルを右クリックし、 **[データの表示]** をクリックすると、作成された列とテーブルに挿入された行が表示されます。
 
 ![SSOX の Student テーブル](intro/_static/ssox-student-table.png)
 

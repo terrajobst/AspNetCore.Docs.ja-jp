@@ -1,16 +1,16 @@
 ---
 title: ASP.NET Core の Razor ページと EF Core - 移行 - 4/8
-author: rick-anderson
+author: tdykstra
 description: このチュートリアルでは、ASP.NET Core MVC アプリでデータ モデルの変更を管理するための EF Core の移行機能の使用を開始します。
 ms.author: riande
 ms.date: 07/22/2019
 uid: data/ef-rp/migrations
-ms.openlocfilehash: 73624f515e8089b5852864b60ec66ad79c7475c3
-ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
+ms.openlocfilehash: 110ffa8ecea1fe6e55a2f979a4ce851ed59e1807
+ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68914064"
+ms.lasthandoff: 08/19/2019
+ms.locfileid: "69583510"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---migrations---4-of-8"></a>ASP.NET Core の Razor ページと EF Core - 移行 - 4/8
 

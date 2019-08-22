@@ -1,18 +1,18 @@
 ---
 title: 'チュートリアル: コンカレンシーの処理 - ASP.NET MVC と EF Core'
 description: このチュートリアルでは、複数のユーザーが同じエンティティを同時に更新するときの競合の処理方法について説明します。
-author: rick-anderson
+author: tdykstra
 ms.author: tdykstra
 ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/concurrency
-ms.openlocfilehash: bfe417a6153f74cf0ca2d9bcde4db1bba8453b3b
-ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
+ms.openlocfilehash: d4b83bd269b067ab6fa9e8666109bacc602589bd
+ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/17/2019
-ms.locfileid: "67152888"
+ms.lasthandoff: 08/19/2019
+ms.locfileid: "69583243"
 ---
 # <a name="tutorial-handle-concurrency---aspnet-mvc-with-ef-core"></a>チュートリアル: コンカレンシーの処理 - ASP.NET MVC と EF Core
 
@@ -194,9 +194,9 @@ _context.Entry(departmentToUpdate).Property("RowVersion").OriginalValue = rowVer
 
 ## <a name="test-concurrency-conflicts"></a>コンカレンシーの競合をテストする
 
-アプリを実行し、Departments Index ページに移動します。 English 部署の **[編集]** ハイパーリンクを右クリックし、**[新しいタブで開く]** を選択し、English 部署の **[編集]** ハイパーリンクをクリックします。 2 つのブラウザー タブに同じ情報が表示されます。
+アプリを実行し、Departments Index ページに移動します。 English 部署の **[編集]** ハイパーリンクを右クリックし、 **[新しいタブで開く]** を選択し、English 部署の **[編集]** ハイパーリンクをクリックします。 2 つのブラウザー タブに同じ情報が表示されます。
 
-最初のブラウザー タブでフィールドを変更し、**[保存]** をクリックします。
+最初のブラウザー タブでフィールドを変更し、 **[保存]** をクリックします。
 
 ![変更後の Department Edit ページ 1](concurrency/_static/edit-after-change-1.png)
 
@@ -262,9 +262,9 @@ public async Task<IActionResult> Delete(Department department)
 
 * `RowVersion` プロパティの非表示フィールドが追加されます。
 
-アプリを実行し、Departments Index ページに移動します。 English 部署の **[削除]** ハイパーリンクを右クリックし、**[新しいタブで開く]** を選択します。次に最初のタブで English 部署の **[編集]** ハイパーリンクをクリックします。
+アプリを実行し、Departments Index ページに移動します。 English 部署の **[削除]** ハイパーリンクを右クリックし、 **[新しいタブで開く]** を選択します。次に最初のタブで English 部署の **[編集]** ハイパーリンクをクリックします。
 
-最初のウィンドウで、いずれかの値を変更し、**[保存]** をクリックします。
+最初のウィンドウで、いずれかの値を変更し、 **[保存]** をクリックします。
 
 ![変更後/削除前の Department Edit ページ](concurrency/_static/edit-after-change-for-delete.png)
 

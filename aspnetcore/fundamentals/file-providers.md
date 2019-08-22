@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/30/2019
 uid: fundamentals/file-providers
-ms.openlocfilehash: 93eb48d81a853061a874641e84b4875849690a93
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: b93b2df7fad7c173f43ad69aec865f09de6c9c34
+ms.sourcegitcommit: 7a46973998623aead757ad386fe33602b1658793
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64886617"
+ms.lasthandoff: 08/15/2019
+ms.locfileid: "69487577"
 ---
 # <a name="file-providers-in-aspnet-core"></a>ASP.NET Core でのファイル プロバイダー
 
@@ -107,7 +107,7 @@ var physicalProvider = _env.ContentRootFileProvider;
 
 埋め込みファイルのマニフェストを生成するには、`<GenerateEmbeddedFilesManifest>` プロパティを `true` に設定します。 [&lt;EmbeddedResource&gt;](/dotnet/core/tools/csproj#default-compilation-includes-in-net-core-projects) を使用して埋め込むファイルを指定します。
 
-[!code-csharp[](file-providers/samples/2.x/FileProviderSample/FileProviderSample.csproj?highlight=5,13)]
+[!code-csharp[](file-providers/samples/2.x/FileProviderSample/FileProviderSample.csproj?highlight=6,14)]
 
 [glob パターン](#glob-patterns)を使用して、アセンブリに埋め込むファイルを 1 つまたは複数指定します。
 
@@ -175,4 +175,4 @@ Docker コンテナーやネットワーク共有など、一部のファイル 
 *directory* フォルダーのちょうど 1 つ下のレベルにあるディレクトリ内のすべての `appsettings.json` ファイルを照合します。
 
 **`directory/**/*.txt`**  
-*directory* フォルダーの下の任意の場所にある、*.txt* 拡張子を持つすべてのファイルを照合します。
+*directory* フォルダーの下の任意の場所にある、 *.txt* 拡張子を持つすべてのファイルを照合します。

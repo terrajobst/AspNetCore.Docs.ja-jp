@@ -1,17 +1,17 @@
 ---
 title: ASP.NET Core での Entity Framework Core を使用した Razor ページ - チュートリアル 1/8
-author: rick-anderson
+author: tdykstra
 description: Entity Framework Core を使用して Razor ページ アプリを作成する方法について説明します
 ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 07/22/2019
 uid: data/ef-rp/intro
-ms.openlocfilehash: 1a141e1d4c0bf64bfbbb7591a90faf55c6179e55
-ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
+ms.openlocfilehash: 5e81b58ebec2d9a50784facd5425f0e7c3524e10
+ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68914864"
+ms.lasthandoff: 08/19/2019
+ms.locfileid: "69583445"
 ---
 # <a name="razor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>ASP.NET Core での Entity Framework Core を使用した Razor ページ - チュートリアル 1/8
 

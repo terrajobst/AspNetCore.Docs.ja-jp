@@ -1,17 +1,17 @@
 ---
 title: ASP.NET Core の Razor ページと EF Core - コンカレンシー - 8/8
-author: rick-anderson
+author: tdykstra
 description: このチュートリアルでは、複数のユーザーが同じエンティティを同時に更新するときの競合の処理方法について説明します。
 ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 uid: data/ef-rp/concurrency
-ms.openlocfilehash: 4d1e8ef2f55910fa5456171e45311feacff16919
-ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
+ms.openlocfilehash: df3cc9eb3d0c1748ca9cd194ee58e4614bba24d5
+ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68914869"
+ms.lasthandoff: 08/19/2019
+ms.locfileid: "69583410"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---concurrency---8-of-8"></a>ASP.NET Core の Razor ページと EF Core - コンカレンシー - 8/8
 
@@ -206,7 +206,7 @@ SQLite データベースでは、エンティティ プロパティの `[Timest
 
 * *Pages/Departments* フォルダーを作成します。  
 * モデル クラスに `Department` を使用します。
-  * 新しいクラスを作成するのではなく、既存のコンテキスト クラスを使用します。
+  * 新しいコンテキスト クラスを作成するのではなく、既存のコンテキスト クラスを使用します。
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 

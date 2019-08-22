@@ -1,16 +1,16 @@
 ---
 title: ASP.NET Core の Razor ページと EF Core - CRUD - 2/8
-author: rick-anderson
+author: tdykstra
 description: EF Core で作成、読み取り、更新、削除を行う方法を示します。
 ms.author: riande
 ms.date: 07/22/2019
 uid: data/ef-rp/crud
-ms.openlocfilehash: 8dad964826fbf020d250eaec1dbf2845d356ae91
-ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
+ms.openlocfilehash: 57c4a1789d54c29a28ba7e67a1d15815415a461c
+ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68914768"
+ms.lasthandoff: 08/19/2019
+ms.locfileid: "69583123"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---crud---2-of-8"></a>ASP.NET Core の Razor ページと EF Core - CRUD - 2/8
 

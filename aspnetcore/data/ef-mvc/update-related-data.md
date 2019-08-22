@@ -1,18 +1,18 @@
 ---
 title: 'チュートリアル: 関連データを更新する - ASP.NET MVC と EF Core'
 description: このチュートリアルでは、外部キー フィールドとナビゲーション プロパティを更新することで関連データを更新します。
-author: rick-anderson
+author: tdykstra
 ms.author: tdykstra
 ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/update-related-data
-ms.openlocfilehash: e8aa2c6e33968a6cbc05591e4e5017ea9eac691d
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 4bf444d3334f32ff80a6e21607b250c00e0dc7ca
+ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64885677"
+ms.lasthandoff: 08/19/2019
+ms.locfileid: "69583418"
 ---
 # <a name="tutorial-update-related-data---aspnet-mvc-with-ef-core"></a>チュートリアル: 関連データを更新する - ASP.NET MVC と EF Core
 
@@ -77,13 +77,13 @@ Course の Details ページと Delete ページのパフォーマンスを最�
 
 ### <a name="modify-the-course-views"></a>Course ビューを変更する
 
-*Views/Courses/Create.cshtml* で、**[Department]\(部門\)** ドロップダウン リストに [Select Department]\(部門を選択\) オプションを追加し、キャプションを **[DepartmentID]** から **[Department]\(部門\)** に変更し、検証メッセージを追加します。
+*Views/Courses/Create.cshtml* で、 **[Department]\(部門\)** ドロップダウン リストに [Select Department]\(部門を選択\) オプションを追加し、キャプションを **[DepartmentID]** から **[Department]\(部門\)** に変更し、検証メッセージを追加します。
 
 [!code-html[](intro/samples/cu/Views/Courses/Create.cshtml?highlight=2-6&range=29-34)]
 
 *Views/Courses/Edit.cshtml* で、*Create.cshtml* で行ったのと同じ変更を [Department]\(部門\) フィールドに加えます。
 
-また、*Views/Courses/Edit.cshtml* で、**[Title]\(タイトル\)** フィールドの前にコース番号フィールドを追加します。 コース番号は主キーであるため表示されますが、変更することはできません。
+また、*Views/Courses/Edit.cshtml* で、 **[Title]\(タイトル\)** フィールドの前にコース番号フィールドを追加します。 コース番号は主キーであるため表示されますが、変更することはできません。
 
 [!code-html[](intro/samples/cu/Views/Courses/Edit.cshtml?range=15-18)]
 
@@ -97,7 +97,7 @@ Edit ビューには、コース番号の隠しフィールド (`<input type="hi
 
 ### <a name="test-the-course-pages"></a>Course ページをテストする
 
-アプリを実行して、**[Courses]** タブを選択し、**[新規作成]** をクリックして新しいコースのデータを入力します。
+アプリを実行して、 **[Courses]** タブを選択し、 **[新規作成]** をクリックして新しいコースのデータを入力します。
 
 ![Course/Create ページ](update-related-data/_static/course-create.png)
 
@@ -107,7 +107,7 @@ Courses/Index ページのコースで **[Edit]** をクリックします。
 
 ![Course/Edit ページ](update-related-data/_static/course-edit.png)
 
-ページ上のデータを変更し、**[Save]\(保存\)** をクリックします。 Courses/Index ページには、更新されたコース データが表示されます。
+ページ上のデータを変更し、 **[Save]\(保存\)** をクリックします。 Courses/Index ページには、更新されたコース データが表示されます。
 
 ## <a name="add-instructors-edit-page"></a>Instructors/Edit ページを追加する
 
@@ -161,11 +161,11 @@ HttpPost `Edit` メソッドを次のコードで置き換え、オフィスの�
 
 ### <a name="update-the-instructor-edit-view"></a>Instructors/Edit ビューを更新する
 
-*Views/Instructors/Edit.cshtml* で、オフィスの場所を編集するための新しいフィールドを、**[Save]\(保存\)** ボタンの直前に追加します。
+*Views/Instructors/Edit.cshtml* で、オフィスの場所を編集するための新しいフィールドを、 **[Save]\(保存\)** ボタンの直前に追加します。
 
 [!code-html[](intro/samples/cu/Views/Instructors/Edit.cshtml?range=30-34)]
 
-アプリを実行し、**[Instructors]\(インストラクター\)** タブを選択し、インストラクターで **[Edit]\(編集\)** をクリックします。 **[Office Location]\(オフィスの場所\)** を変更し、**[Save]\(保存\)** をクリックします。
+アプリを実行し、 **[Instructors]\(インストラクター\)** タブを選択し、インストラクターで **[Edit]\(編集\)** をクリックします。 **[Office Location]\(オフィスの場所\)** を変更し、 **[Save]\(保存\)** をクリックします。
 
 ![Instructor/Edit ページ](update-related-data/_static/instructor-edit-office.png)
 
@@ -233,7 +233,7 @@ Course エンティティと Instructor エンティティ間には、多対多�
 
 チェック ボックスが最初にレンダリングされるときに、インストラクターに割り当てられるコースのチェック ボックスが checked 属性を持ち、選択されます (チェック ボックスがオンになった状態で表示されます)。
 
-アプリを実行し、**[Instructors]\(インストラクター\)** タブを選択し、インストラクターで **[Edit]\(編集\)** をクリックして **Edit** ページを表示します。
+アプリを実行し、 **[Instructors]\(インストラクター\)** タブを選択し、インストラクターで **[Edit]\(編集\)** をクリックして **Edit** ページを表示します。
 
 ![コースが表示された Instructor/Edit ページ](update-related-data/_static/instructor-edit-courses.png)
 

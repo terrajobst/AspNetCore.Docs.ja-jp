@@ -1,17 +1,17 @@
 ---
 title: ASP.NET Core の Razor Pages と EF Core - 並べ替え、フィルター、ページング - 3/8
-author: rick-anderson
+author: tdykstra
 description: このチュートリアルでは、ASP.NET Core および Entity Framework Core を使用して並べ替え、フィルター、ページング機能を Razor ページに追加します。
 ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 uid: data/ef-rp/sort-filter-page
-ms.openlocfilehash: 70f4220674502265963410b928b9340aa20e0cea
-ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
+ms.openlocfilehash: b4cef98f3ad4973878c5fa65a47c0b86cdfc8686
+ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68914107"
+ms.lasthandoff: 08/19/2019
+ms.locfileid: "69583520"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---sort-filter-paging---3-of-8"></a>ASP.NET Core の Razor Pages と EF Core - 並べ替え、フィルター、ページング - 3/8
 

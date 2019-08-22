@@ -1,17 +1,17 @@
 ---
 title: 'チュートリアル: 並べ替え、フィルター処理、ページングを追加する - ASP.NET MVC と EF Core'
 description: このチュートリアルでは、Students インデックス ページに並べ替え、フィルター、およびページング機能を追加します。 単純なグループ化を実行するページも作成します。
-author: rick-anderson
+author: tdykstra
 ms.author: tdykstra
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/sort-filter-page
-ms.openlocfilehash: 921e27bf56587813f835357c9090c91a155c087b
-ms.sourcegitcommit: b508b115107e0f8d7f62b25cfcc8ad45e1373459
+ms.openlocfilehash: 4e52a3d3f56c4cf6f396ee9ff1c18061a2364c77
+ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/07/2019
-ms.locfileid: "65212553"
+ms.lasthandoff: 08/19/2019
+ms.locfileid: "69583389"
 ---
 # <a name="tutorial-add-sorting-filtering-and-paging---aspnet-mvc-with-ef-core"></a>チュートリアル: 並べ替え、フィルター処理、ページングを追加する - ASP.NET MVC と EF Core
 

@@ -1,17 +1,17 @@
 ---
 title: 'チュートリアル: 関連データを読み取る - ASP.NET MVC と EF Core'
 description: このチュートリアルでは、関連データ (Entity Framework がナビゲーション プロパティに読み込むデータ) の読み取りと表示を行います。
-author: rick-anderson
+author: tdykstra
 ms.author: tdykstra
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/read-related-data
-ms.openlocfilehash: 20f801e23f3e75d7915bcb7c095060b68d9cb03f
-ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
+ms.openlocfilehash: 43d05d0a5f938e60cdb54a0025d8bc277059c2e3
+ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/06/2019
-ms.locfileid: "68819780"
+ms.lasthandoff: 08/19/2019
+ms.locfileid: "69583428"
 ---
 # <a name="tutorial-read-related-data---aspnet-mvc-with-ef-core"></a>チュートリアル: 関連データを読み取る - ASP.NET MVC と EF Core
 

@@ -1,18 +1,18 @@
 ---
 title: 'チュートリアル: 複合データ モデルを作成する - ASP.NET MVC と EF Core'
 description: このチュートリアルでは、エンティティとリレーションシップをさらに追加し、書式設定、検証、マッピングの規則を指定してデータ モデルをカスタマイズします。
-author: rick-anderson
+author: tdykstra
 ms.author: tdykstra
 ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/complex-data-model
-ms.openlocfilehash: 8ef458108e60850d0d54e7b1e6472c5b92984ccc
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 3563bf279f2ed9c9d79b5a9da2709e18511620d2
+ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67813541"
+ms.lasthandoff: 08/19/2019
+ms.locfileid: "69583274"
 ---
 # <a name="tutorial-create-a-complex-data-model---aspnet-mvc-with-ef-core"></a>チュートリアル: 複合データ モデルを作成する - ASP.NET MVC と EF Core
 

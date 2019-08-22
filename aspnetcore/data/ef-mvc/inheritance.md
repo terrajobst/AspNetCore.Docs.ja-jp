@@ -1,18 +1,18 @@
 ---
 title: 'チュートリアル: 継承を実装する - ASP.NET MVC と EF Core'
 description: このチュートリアルでは、ASP.NET Core アプリケーションで Entity Framework Core を使用して、データ モデル内の継承を実装する方法を説明します。
-author: rick-anderson
+author: tdykstra
 ms.author: tdykstra
 ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/inheritance
-ms.openlocfilehash: f80de595fd23cc9c1065e5257ad1d2376ea40cf3
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 0d46d7238b4e6f79b17564db213047738629a467
+ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64886297"
+ms.lasthandoff: 08/19/2019
+ms.locfileid: "69583484"
 ---
 # <a name="tutorial-implement-inheritance---aspnet-mvc-with-ef-core"></a>チュートリアル: 継承を実装する - ASP.NET MVC と EF Core
 
@@ -121,7 +121,7 @@ dotnet ef migrations add Inheritance
 
 * 受講者をポイントする外部キー値を修正します。
 
-* 今は Person テーブルをポイントしている外部キー制約とインデックスを再作成します 
+* 今は Person テーブルをポイントしている外部キー制約とインデックスを再作成します
 
 (主キーの型として整数の代わりに GUID を使用した場合は、受講者の主キー値を変更する必要はなく、これらの手順のいくつかを省略できます)。
 
@@ -140,11 +140,11 @@ dotnet ef database update
 
 アプリを実行して、さまざまなページを試してください。 すべてが前と同じように動作します。
 
-**SQL Server オブジェクト エクスプローラー**で、**[データ接続/SchoolContext]** を展開し、**[テーブル]** を展開すると、Student テーブルと Instructor テーブルが Person テーブルに置き換えられていることを確認できます。 Person テーブル デザイナーを開くと、Student テーブルと Student テーブルに存在していたすべての列が表示されます。
+**SQL Server オブジェクト エクスプローラー**で、 **[データ接続/SchoolContext]** を展開し、 **[テーブル]** を展開すると、Student テーブルと Instructor テーブルが Person テーブルに置き換えられていることを確認できます。 Person テーブル デザイナーを開くと、Student テーブルと Student テーブルに存在していたすべての列が表示されます。
 
 ![SSOX の Person テーブル](inheritance/_static/ssox-person-table.png)
 
-Person テーブルを右クリックし、**[テーブル データの表示]** をクリックして識別子列を表示します。
+Person テーブルを右クリックし、 **[テーブル データの表示]** をクリックして識別子列を表示します。
 
 ![SSOX の Person テーブル - テーブル データ](inheritance/_static/ssox-person-data.png)
 
