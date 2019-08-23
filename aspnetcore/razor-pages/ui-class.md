@@ -4,15 +4,15 @@ author: Rick-Anderson
 description: Razor を ASP.NET core クラス ライブラリの部分ビューを使用して再利用可能な UI を作成する方法について説明します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 08/20/2019
+ms.date: 08/22/2019
 ms.custom: mvc, seodec18
 uid: razor-pages/ui-class
-ms.openlocfilehash: 468d961c291810ca4dfbe615acd972cfd6e7572a
-ms.sourcegitcommit: 41f2c1a6b316e6e368a4fd27a8b18d157cef91e1
+ms.openlocfilehash: 5b83cb44302a5900ec7b2ccc049790b4c1ca57e5
+ms.sourcegitcommit: 6189b0ced9c115248c6ede02efcd0b29d31f2115
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/21/2019
-ms.locfileid: "69886405"
+ms.lasthandoff: 08/23/2019
+ms.locfileid: "69985383"
 ---
 # <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a>ASP.NET Core の Razor クラスライブラリプロジェクトを使用して、再利用可能な UI を作成する
 
@@ -237,6 +237,39 @@ RCL では、RCL の消費アプリから参照できる、関連する静的ア
 RCL の一部としてコンパニオン資産を含めるには、クラスライブラリに*wwwroot*フォルダーを作成し、そのフォルダーに必要なファイルを含めます。
 
 RCL をパッキングすると、 *wwwroot*フォルダー内のすべてのコンパニオン資産がパッケージに自動的に含まれます。
+
+### <a name="exclude-static-assets"></a>静的アセットを除外する
+
+静的アセットを除外するには、目的の除外パス`$(DefaultItemExcludes)`をプロジェクトファイルのプロパティグループに追加します。 エントリをセミコロン (`;`) で区切ります。
+
+次の例では、 *wwwroot*フォルダーの *.lib*スタイルシートは静的アセットとは見なされず、公開された rcl には含まれていません。
+
+```xml
+<PropertyGroup>
+  <DefaultItemExcludes>$(DefaultItemExcludes);wwwroot\lib.css</DefaultItemExcludes>
+</PropertyGroup>
+```
+
+### <a name="typescript-integration"></a>Typescript の統合
+
+TypeScript ファイルを RCL に含めるには、次のようにします。
+
+1. TypeScript ファイル (*ts*) を*wwwroot*フォルダーの外側に配置します。 たとえば、ファイルを*クライアント*フォルダーに配置します。
+
+1. *Wwwroot*フォルダーの TypeScript ビルド出力を構成します。 プロジェクトファイル`TypescriptOutDir`の`PropertyGroup`内でプロパティを設定します。
+
+   ```xml
+   <TypescriptOutDir>wwwroot</TypescriptOutDir>
+   ```
+
+1. プロジェクトファイルの`PropertyGroup`内に次のターゲットを`ResolveCurrentProjectStaticWebAssets`追加することにより、TypeScript ターゲットをターゲットの依存関係として含めます。
+
+   ```xml
+   <ResolveCurrentProjectStaticWebAssetsInputsDependsOn>
+     TypeScriptCompile;
+     $(ResolveCurrentProjectStaticWebAssetsInputs)
+   </ResolveCurrentProjectStaticWebAssetsInputsDependsOn>
+   ```
 
 ### <a name="consume-content-from-a-referenced-rcl"></a>参照されている RCL からのコンテンツの使用
 

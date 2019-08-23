@@ -5,14 +5,14 @@ description: Blazor アプリをデバッグする方法について説明しま
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/31/2019
+ms.date: 08/22/2019
 uid: blazor/debug
-ms.openlocfilehash: 37c6009727a4f62b61793adca0d83cdd53be4b9a
-ms.sourcegitcommit: 3204bc89ae6354b61ee0a9b2770ebe5214b7790c
+ms.openlocfilehash: c3188a1fe1b699b787f7a95630f3918d295d0f68
+ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/01/2019
-ms.locfileid: "68948372"
+ms.lasthandoff: 08/22/2019
+ms.locfileid: "69974909"
 ---
 # <a name="debug-aspnet-core-blazor"></a>デバッグ ASP.NET Core Blazor
 
@@ -38,7 +38,7 @@ Chrome で実行される Blazor クライアント側アプリをデバッグ�
 
 さらにデバッグを行うシナリオの開発は、エンジニアリングチームにとって重視されています。
 
-## <a name="prerequisites"></a>必須コンポーネント
+## <a name="prerequisites"></a>前提条件
 
 デバッグには、次のいずれかのブラウザーが必要です。
 
@@ -51,6 +51,10 @@ Chrome で実行される Blazor クライアント側アプリをデバッグ�
 1. ブラウザーでアプリにアクセスします。
 1. 開発者ツールパネルではなく、アプリにキーボードフォーカスを置きます。 [開発者ツール] パネルは、デバッグを開始したときに閉じることができます。
 1. 次の Blazor に固有のキーボードショートカットを選択します。
+   * `Shift+Alt+D`Windows/Linux の場合
+   * `Shift+Cmd+D`macOS の場合
+1. 画面に表示されている手順に従って、リモートデバッグが有効になっているブラウザーを再起動します。
+1. 次の Blazor に固有のキーボードショートカットをもう一度選択して、デバッグセッションを開始します。
    * `Shift+Alt+D`Windows/Linux の場合
    * `Shift+Cmd+D`macOS の場合
 
