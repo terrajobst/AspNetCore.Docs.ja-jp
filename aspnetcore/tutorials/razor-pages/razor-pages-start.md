@@ -5,12 +5,12 @@ description: このチュートリアル シリーズでは、ASP.NET Core で R
 ms.author: riande
 ms.date: 07/25/2019
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: 57a10895c718c539ece280afcb27cb4033c7fb45
-ms.sourcegitcommit: 979dbfc5e9ce09b9470789989cddfcfb57079d94
+ms.openlocfilehash: 67a5fcee0a37861fd39a018443edbc0b9e513213
+ms.sourcegitcommit: 7a46973998623aead757ad386fe33602b1658793
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/31/2019
-ms.locfileid: "68682790"
+ms.lasthandoff: 08/15/2019
+ms.locfileid: "69487662"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>チュートリアル: ASP.NET Core の Razor ページの概要
 
@@ -92,15 +92,22 @@ ms.locfileid: "68682790"
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-端末から、次のコマンドを実行します。
+* **[ファイル]** > **[新しいソリューション]** の順に選択します。
 
-<!-- TODO: update these instruction once mac support 2.2 projects -->
+![macOS の新しいソリューション](../first-mvc-app/start-mvc/_static/new_project_vsmac.png)
 
-```console
-dotnet new webapp -o RazorPagesMovie
-```
+* **[.NET Core]** > **[アプリ]** > **[Web アプリケーション]** > **[次へ]** の順に選択します。
 
-上記のコマンドでは、[.NET Core CLI](/dotnet/core/tools/dotnet) を使用して、Razor ページ プロジェクトが作成されます。
+  ![macOS の [新しいプロジェクト] ダイアログ](razor-pages-start/_static/webapp.png)
+
+* **[Configure your new ASP.NET Core Web API]\(新しい ASP.NET Core Web API を構成する\)** ダイアログで、 **[ターゲット フレームワーク]** を **[.NET Core 3.0]** に設定します。
+
+  ![macOS .NET Core 3.0 の選択](razor-pages-start/_static/targetframework3.png)
+
+* プロジェクトに **RazorPagesMovie** という名前を付けて、 **[作成]** を選択します。
+
+  ![nameproj](razor-pages-start/_static/RazorPagesMovie.png)
+
 
 ## <a name="open-the-project"></a>プロジェクトを開く
 

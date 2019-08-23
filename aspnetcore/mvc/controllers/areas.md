@@ -3,14 +3,14 @@ title: ASP.NET Core の区分
 author: rick-anderson
 description: 区分は ASP.NET MVC の機能であり、関連する機能を別の名前空間 (ルーティングの場合) およびフォルダー構造 (ビューの場合) としてグループにまとめるために使用する方法を説明します。
 ms.author: riande
-ms.date: 08/07/2019
+ms.date: 08/16/2019
 uid: mvc/controllers/areas
-ms.openlocfilehash: e44c726c47caa3dd0c8c92e3a2502a590bee82d1
-ms.sourcegitcommit: 2719c70cd15a430479ab4007ff3e197fbf5dfee0
+ms.openlocfilehash: d0af3092776ee09469c879fffd3047c50b1a59b4
+ms.sourcegitcommit: 4cb0c7e74355f2e87c60e2a196f842b937247a99
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68862793"
+ms.lasthandoff: 08/16/2019
+ms.locfileid: "69545808"
 ---
 # <a name="areas-in-aspnet-core"></a>ASP.NET Core の区分
 
@@ -136,7 +136,7 @@ ASP.NET Core 2.2 で `MapAreaRoute` を使用するときは、[この GitHub �
 
 ## <a name="areas-with-razor-pages"></a>Razor Pages を使った区分
 
-Razor Pages を使った区分を使うには、アプリのルートに *Areas/&lt;区分名&gt;/Pages* フォルダーが必要です。 [サンプル ダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples)では次のフォルダー構造が使われます
+Razor Pages を使った区分には、アプリのルートに *Areas/<area name>/Pages* フォルダーが必要です。 [サンプル アプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples)では次のフォルダー構造が使われます。
 
 * Project name
   * Areas

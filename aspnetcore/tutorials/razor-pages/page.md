@@ -3,14 +3,14 @@ title: ASP.NET Core でスキャフォールディングされた Razor ペー�
 author: rick-anderson
 description: スキャフォールディングによって生成された Razor ページについて説明します。
 ms.author: riande
-ms.date: 07/22/2019
+ms.date: 08/17/2019
 uid: tutorials/razor-pages/page
-ms.openlocfilehash: 741ee4291cacbb1de0f8341673c8fd6ef0c9a462
-ms.sourcegitcommit: 849af69ee3c94cdb9fd8fa1f1bb8f5a5dda7b9eb
+ms.openlocfilehash: 00a8458b9bee4d30c5774a980ff5c23fb8872737
+ms.sourcegitcommit: 38cac2552029fc19428722bb204ff9e16eb94225
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/22/2019
-ms.locfileid: "68371840"
+ms.lasthandoff: 08/18/2019
+ms.locfileid: "69573143"
 ---
 # <a name="scaffolded-razor-pages-in-aspnet-core"></a>ASP.NET Core でスキャフォールディングされた Razor ページ
 
