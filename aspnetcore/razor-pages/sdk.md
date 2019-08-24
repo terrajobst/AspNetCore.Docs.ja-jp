@@ -5,14 +5,14 @@ description: ASP.NET Core の Razor ページを使用して、ページのコ�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 06/18/2019
+ms.date: 08/23/2019
 uid: razor-pages/sdk
-ms.openlocfilehash: 1dc001c7c5fe320629835e06fe6db7fadabff94d
-ms.sourcegitcommit: 6189b0ced9c115248c6ede02efcd0b29d31f2115
+ms.openlocfilehash: 81025c14ba68971ca5d3cfc9387c2f50dd247654
+ms.sourcegitcommit: 983b31449fe398e6e922eb13e9eb6f4287ec91e8
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/23/2019
-ms.locfileid: "69985390"
+ms.lasthandoff: 08/24/2019
+ms.locfileid: "70017401"
 ---
 # <a name="aspnet-core-razor-sdk"></a>ASP.NET Core の Razor SDK
 
@@ -22,26 +22,21 @@ ms.locfileid: "69985390"
 
 [!INCLUDE[](~/includes/2.1-SDK.md)]が含まれています、 `Microsoft.NET.Sdk.Razor` MSBuild SDK (Razor SDK)。 Razor SDK とは、次のとおりです。
 
-::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
+::: moniker range=">= aspnetcore-3.0"
+
+* は、ASP.NET Core MVC ベースまたは[Blazor](xref:blazor/index)プロジェクトの[Razor](xref:mvc/views/razor)ファイルを含むプロジェクトをビルド、パッケージ、および発行するために必要です。
+* には、Razor (*cshtml*または*razor*) ファイルのコンパイルをカスタマイズするための定義済みのターゲット、プロパティ、および項目のセットが含まれています。
+
+Razor SDK には`Content` 、 `**\*.cshtml`属性`Include`がおよび`**\*.razor`グロビングパターンに設定された項目が含まれています。 一致するファイルがパブリッシュされます。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 * ASP.NET Core MVC ベース プロジェクト用の [Razor](xref:mvc/views/razor) ファイルを含むプロジェクトのビルド、パッケージ、および発行に関わる表示と操作を標準化できます。
 * Razor ファイルのコンパイルのカスタマイズを可能にする事前定義されたターゲット、プロパティ、項目のセットを含みます。
-::: moniker-end
 
-::: moniker range=">= aspnetcore-3.0"
-* ASP.NET Core MVC ベースのプロジェクトまたは[Blazor](xref:blazor/index)プロジェクトの[Razor](xref:mvc/views/razor)ファイルを含むプロジェクトをビルド、パッケージ、および発行するために必要です
-* には、Razor (cshtml または razor) ファイルのコンパイルをカスタマイズするための定義済みのターゲット、プロパティ、および項目のセットが含まれています。
-::: moniker-end
-
-
-::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
-
-Razor SDK には、 `<Content>` `Include`属性が`**\*.cshtml`グロビングパターンに設定された要素が含まれています。 一致するファイルがパブリッシュされます。
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-3.0"
-
-Razor SDK には`<Content>` 、 `**\*.cshtml`属性`Include`がおよび`**\*.razor`グロビングパターンに設定された要素が含まれています。 一致するファイルがパブリッシュされます。
+Razor SDK には、 `Content` `Include`属性が`**\*.cshtml`グロビングパターンに設定された項目が含まれています。 一致するファイルがパブリッシュされます。
 
 ::: moniker-end
 
@@ -53,7 +48,14 @@ Razor SDK には`<Content>` 、 `**\*.cshtml`属性`Include`がおよび`**\*.ra
 
 ほとんどの web アプリは、Razor の SDK を明示的に参照する必要はありません。
 
-::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
+::: moniker range=">= aspnetcore-3.0"
+
+Razor SDK を使用して Razor ビューまたは Razor Pages を含むクラスライブラリをビルドするには、Razor クラスライブラリ (RCL) プロジェクトテンプレートから始めることをお勧めします。 Blazor (*razor*) ファイルのビルドに使用される rcl では、 [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Components)パッケージへの参照が最低限必要です。 Razor ビューまたはページ (*cshtml*ファイル) をビルドするために使用される rcl は`netcoreapp3.0` 、少なくとも`FrameworkReference`後でターゲットを設定する必要があり、そのプロジェクトファイルに[AspNetCore メタパッケージ](xref:fundamentals/metapackage-app)が含まれています。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 Razor SDK を使用して Razor ビューまたは Razor ページを含むクラス ライブラリを構築する方法は次のとおりです。
 
 * `Microsoft.NET.Sdk.Razor` の代わりに `Microsoft.NET.Sdk` を使用します。
@@ -78,11 +80,6 @@ Razor SDK を使用して Razor ビューまたは Razor ページを含むク�
   
 ::: moniker-end
 
-::: moniker range=">= aspnetcore-3.0"
-Razor SDK を使用して Razor ビューまたは Razor Pages を含むクラスライブラリをビルドするには、Razor クラスライブラリプロジェクトテンプレートから始めることをお勧めします。 Blazor (razor) ファイルのビルドに使用される razor クラスライブラリには、少なくとも`Microsoft.AspNetCore.Components`パッケージへの参照が必要です。 Razor ビューまたはページ (cshtml ファイル) のビルドに使用される razor クラスライブラリは、 `netcoreapp3.0` `FrameworkReference`を対象としたものであり`Microsoft.AspNetCore.App`、を持つ必要があります。
-
-::: moniker-end
-
 ::: moniker range="= aspnetcore-2.1"
 
 > [!WARNING]
@@ -100,15 +97,16 @@ Razor の SDK の動作は、プロジェクトをビルドする際に次のプ
 プロパティと、次の表の項目は、入力と剃刀 SDK への出力の構成に使用されます。
 
 ::: moniker range=">= aspnetcore-3.0"
-> [!WARNING]
-ASP.NET Core 3.0 以降では、または`RazorCompileOnBuild` `RazorCompileOnPublish`が無効になっている場合、MVC ビューまたは Razor Pages は既定では提供されません。 アプリケーションでは、ランタイムコンパイルを`Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation`使用して cshtml ファイルを処理する場合に、ランタイムコンパイルのサポートを追加するために、パッケージへの明示的な参照を追加する必要があります。
-::: moniker-end
 
+> [!WARNING]
+> ASP.NET Core 3.0 以降では、プロジェクトファイルの`RazorCompileOnBuild`または`RazorCompileOnPublish` MSBuild プロパティが無効になっている場合、MVC ビューまたは Razor Pages は既定では提供されません。 アプリケーションがランタイムコンパイルに依存して[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation)ファイルを処理する場合は、RuntimeCompilation パッケージへの明示的な参照を追加する必要があります。
+
+::: moniker-end
 
 | 項目 | 説明 |
 | ----- | ----------- |
 | `RazorGenerate` | コード生成の入力である項目要素 (*cshtml*ファイル)。 |
-| `RazorComponent` | コンポーネントコードの生成に入力する項目要素 (*razor*ファイル)。
+| `RazorComponent` | Razor コンポーネントのコード生成に入力する項目要素 (*razor*ファイル)。 |
 | `RazorCompile` | Razor コンパイルターゲットへの入力である項目要素 ( *.cs*ファイル)。 Razor アセンブリにコンパイルする追加ファイルを指定する場合に使用します。`ItemGroup` |
 | `RazorTargetAssemblyAttribute` | Razor アセンブリ用の属性をコード生成するために使用する項目要素です。 例:  <br>`RazorAssemblyAttribute`<br>`Include="System.Reflection.AssemblyMetadataAttribute"`<br>`_Parameter1="BuildSource" _Parameter2="https://docs.microsoft.com/">` |
 | `RazorEmbeddedResource` | 項目の要素が生成された Razor アセンブリに埋め込みリソースとして追加します。 |
@@ -135,9 +133,9 @@ ASP.NET Core 3.0 以降では、または`RazorCompileOnBuild` `RazorCompileOnPu
 
 Razor SDK では、次の 2 つの主要なターゲットが定義されています。
 
-* `RazorGenerate` &ndash; コード生成 *.cs*ファイルから`RazorGenerate`項目要素。 このターゲットの前後に実行する追加のターゲットを指定するには、`RazorGenerateDependsOn` プロパティを使用します。
-* `RazorCompile` &ndash; 生成されたコンパイル *.cs* Razor アセンブリへのファイルします。 このターゲットの前後に実行する追加のターゲットを指定するには、`RazorCompileDependsOn` を使用します。
-* `RazorComponentGenerate`コードによって、項目`RazorComponent`要素の .cs ファイルが生成されます。 &ndash; このターゲットの前後に実行する追加のターゲットを指定するには、`RazorComponentGenerateDependsOn` プロパティを使用します。
+* `RazorGenerate` &ndash; コード生成 *.cs*ファイルから`RazorGenerate`項目要素。 プロパティを`RazorGenerateDependsOn`使用して、このターゲットの前または後に実行できる追加のターゲットを指定します。
+* `RazorCompile` &ndash; 生成されたコンパイル *.cs* Razor アセンブリへのファイルします。 このターゲット`RazorCompileDependsOn`の前または後に実行できる追加のターゲットを指定するには、を使用します。
+* `RazorComponentGenerate`コードによって、項目`RazorComponent`要素の .cs ファイルが生成されます。 &ndash; プロパティを`RazorComponentGenerateDependsOn`使用して、このターゲットの前または後に実行できる追加のターゲットを指定します。
 
 ### <a name="runtime-compilation-of-razor-views"></a>Razor ビューの実行時のコンパイル
 

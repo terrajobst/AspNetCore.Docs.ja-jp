@@ -6,12 +6,12 @@ ms.author: riande
 ms.date: 12/18/2018
 ms.custom: mvc, seodec18
 uid: security/authorization/secure-data
-ms.openlocfilehash: 4b94cc53777308deb26521a079d8a1c2742744db
-ms.sourcegitcommit: 4fe3ae892f54dc540859bff78741a28c2daa9a38
+ms.openlocfilehash: 225d0e3aa51745253d03e614b1c8568b3a6ba731
+ms.sourcegitcommit: 983b31449fe398e6e922eb13e9eb6f4287ec91e8
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/04/2019
-ms.locfileid: "68776745"
+ms.lasthandoff: 08/24/2019
+ms.locfileid: "70017494"
 ---
 # <a name="create-an-aspnet-core-app-with-user-data-protected-by-authorization"></a>承認によって保護されたユーザー データと ASP.NET Core アプリを作成します。
 
@@ -37,7 +37,7 @@ ms.locfileid: "68776745"
 * **マネージャー**を承認または連絡先データを拒否します。 承認されたメンバーのみがユーザーに表示されます。
 * **管理者**承認または却下と編集/削除のすべてのデータをことができます。
 
-このドキュメント内のイメージは、最新のテンプレートと完全には一致しません。
+このドキュメントの画像は、最新のテンプレートと完全には一致しません。
 
 次の図では、ユーザー Rick の (`rick@example.com`) がサインインしています。 Rick は許可されている連絡先のみを表示し、**編集**/**削除**/**新規作成**彼の連絡先へのリンク。 最後のレコードのみが Rick、表示によって作成された**編集**と**削除**リンク。 他のユーザーは、管理者は、状態を"Approved"に変わるまで、最後のレコードを表示されません。
 
