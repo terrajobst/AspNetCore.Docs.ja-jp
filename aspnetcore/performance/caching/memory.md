@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 8/22/2019
 uid: performance/caching/memory
-ms.openlocfilehash: 3005adec9ffe41859d05a3f61c7c45b8e7bfeefc
-ms.sourcegitcommit: bdaee0e8c657fe7546fd6b7990db9c03c2af04df
+ms.openlocfilehash: 1519abbca6430063f037372a4927f5818f160457
+ms.sourcegitcommit: 776598f71da0d1e4c9e923b3b395d3c3b5825796
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69908373"
+ms.lasthandoff: 08/26/2019
+ms.locfileid: "70024786"
 ---
 # <a name="cache-in-memory-in-aspnet-core"></a>ASP.NET Core 内のメモリ内のキャッシュ
 
@@ -85,15 +85,15 @@ ASP.NET `System.Runtime.Caching` 4.x から ASP.NET Core にコードを移植�
 
 [!code-csharp[](memory/3.0sample/WebCacheSample/Controllers/HomeController.cs?name=snippet99)]
 
-スライド式有効期限付きのキャッシュされた項目セットは、有効期限にバインドされていないため、古くなる危険性があります。 キャッシュされた項目が絶対有効期限より古くなることを保証するために、スライド式有効期限付きの絶対有効期限を使用します。 絶対有効期限をスライディングと組み合わせて使用する場合、絶対有効期限は項目をキャッシュできる期間を上限として設定します。 絶対有効期限とは異なり、スライド式有効期限の間隔内にキャッシュから項目が要求されなかった場合、項目はキャッシュから削除されます。 絶対有効期限とスライド式有効期限を指定した場合、有効期限は論理的に論理和になります。
+スライド式有効期限付きのキャッシュされた項目セットは、古くなっている可能性があります。 スライディング有効期間よりも頻繁にアクセスされる場合、項目は期限切れになりません。 スライド式有効期限と絶対有効期限を組み合わせて、その絶対有効期限が過ぎると項目が期限切れになることを保証します。 絶対有効期限は、項目をキャッシュできる期間を上限として設定し、スライドしている有効期限の間隔内に項目が要求されていない場合は、前に期限切れになることを許可します。 絶対有効期限とスライド式有効期限の両方を指定した場合、有効期限は論理的に論理和になります。 スライド式有効期限間隔*または*絶対有効期限が経過すると、項目はキャッシュから削除されます。
 
-次のコードは、スライドと絶対有効期限のキャッシュされた項目を取得または作成します。
+次のコードは、スライディング*と*絶対の両方の有効期限を持つキャッシュされた項目を取得または作成します。
 
 [!code-csharp[](memory/3.0sample/WebCacheSample/Controllers/HomeController.cs?name=snippet9)]
 
 上記のコードでは、データが絶対時間より長くキャッシュされないことが保証されています。
 
-<xref:Microsoft.Extensions.Caching.Memory.CacheExtensions.GetOrCreate*>、 <xref:Microsoft.Extensions.Caching.Memory.CacheExtensions.GetOrCreateAsync*>、および<xref:Microsoft.Extensions.Caching.Memory.CacheExtensions.Get*>は、 <xref:Microsoft.Extensions.Caching.Memory.CacheExtensions> の<xref:Microsoft.Extensions.Caching.Memory.IMemoryCache>機能を拡張するクラスの拡張メソッドです。 他のキャッシュメソッドの詳細については、「 [IMemoryCache メソッド](/dotnet/api/microsoft.extensions.caching.memory.imemorycache)と[cacheextensions メソッド](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions)」を参照してください。
+<xref:Microsoft.Extensions.Caching.Memory.CacheExtensions.GetOrCreate*>、 <xref:Microsoft.Extensions.Caching.Memory.CacheExtensions.GetOrCreateAsync*>、および<xref:Microsoft.Extensions.Caching.Memory.CacheExtensions.Get*> は、クラスの拡張メソッドです。<xref:Microsoft.Extensions.Caching.Memory.CacheExtensions> これらのメソッドは、の<xref:Microsoft.Extensions.Caching.Memory.IMemoryCache>機能を拡張します。
 
 ## <a name="memorycacheentryoptions"></a>MemoryCacheEntryOptions
 
