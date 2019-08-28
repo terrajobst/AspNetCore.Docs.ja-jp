@@ -5,18 +5,20 @@ description: .NET Core で gRPC を使用しているときのエラーのトラ
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.custom: mvc
-ms.date: 08/17/2019
+ms.date: 08/26/2019
 uid: grpc/troubleshoot
-ms.openlocfilehash: 7621266dfe26b7126d1607e195dd5dcaab4efa55
-ms.sourcegitcommit: 41f2c1a6b316e6e368a4fd27a8b18d157cef91e1
+ms.openlocfilehash: 49bde2792f0fd7910de02d75f5f443000916dec7
+ms.sourcegitcommit: de17150e5ec7507d7114dde0e5dbc2e45a66ef53
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/21/2019
-ms.locfileid: "69886492"
+ms.lasthandoff: 08/28/2019
+ms.locfileid: "70112751"
 ---
 # <a name="troubleshoot-grpc-on-net-core"></a>.NET Core での gRPC のトラブルシューティング
 
 [James のニュートン-キング](https://twitter.com/jamesnk)別
+
+このドキュメントでは、.NET で gRPC アプリを開発するときによく発生する問題について説明します。
 
 ## <a name="mismatch-between-client-and-service-ssltls-configuration"></a>クライアントとサービスの SSL/TLS の構成が一致しません
 
@@ -47,6 +49,30 @@ static async Task Main(string[] args)
 
 すべての gRPC クライアント実装は TLS をサポートしています。 他の言語の gRPC クライアントには、通常、 `SslCredentials`で構成されたチャネルが必要です。 `SslCredentials`クライアントが使用する証明書を指定します。この証明書は、セキュリティで保護されていない資格情報の代わりに使用する必要があります。 異なる gRPC クライアント実装で TLS を使用するように構成する例については、「 [Grpc 認証](https://www.grpc.io/docs/guides/auth/)」を参照してください。
 
+## <a name="call-a-grpc-service-with-an-untrustedinvalid-certificate"></a>信頼されていない/無効な証明書を使用して gRPC サービスを呼び出す
+
+.NET gRPC クライアントでは、サービスに信頼された証明書が必要です。 信頼された証明書を使用せずに gRPC サービスを呼び出すと、次のエラーメッセージが返されます。
+
+> ハンドルされていない例外です。 System.net.http.httprequestexception (システム):SSL 接続を確立できませんでした。内部例外を参照してください。
+> ---> の認証を行います。 AuthenticationException:検証プロシージャによると、リモート証明書が無効です。
+
+このエラーは、アプリをローカルでテストしていて、ASP.NET Core HTTPS 開発証明書が信頼されていない場合に表示されることがあります。 この問題を解決する手順については、「 [Windows および macOS で ASP.NET CORE HTTPS 開発証明書を信頼](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos)する」を参照してください。
+
+別のコンピューターで gRPC サービスを呼び出していて、その証明書を信頼できない場合、gRPC クライアントは無効な証明書を無視するように構成できます。 次のコードでは、 [Httpclienthandler. ServerCertificateCustomValidationCallback](/dotnet/api/system.net.http.httpclienthandler.servercertificatecustomvalidationcallback)を使用して、信頼された証明書がない呼び出しを許可します。
+
+```csharp
+var httpClientHandler = new HttpClientHandler();
+// Return `true` to allow certificates that are untrusted/invalid
+httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+
+var httpClient = new HttpClient(httpClientHandler);
+httpClient.BaseAddress = new Uri("https://localhost:5001");
+var client = GrpcClient.Create<Greeter.GreeterClient>(httpClient);
+```
+
+> [!WARNING]
+> 信頼されていない証明書は、アプリの開発中にのみ使用してください。 実稼働アプリケーションでは、常に有効な証明書を使用する必要があります。
+
 ## <a name="call-insecure-grpc-services-with-net-core-client"></a>.NET Core クライアントを使用してセキュリティで保護される gRPC サービスを呼び出す
 
 .NET Core クライアントでセキュリティで保護されていない gRPC サービスを呼び出すには、追加の構成が必要です。 Grpc クライアントでは、 `System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport`スイッチをに`true`設定し、サーバーアドレスでを使用`http`する必要があります。
@@ -56,7 +82,7 @@ static async Task Main(string[] args)
 AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 
 var httpClient = new HttpClient();
-// The port number(5000) must match the port of the gRPC server.
+// The address starts with "http://"
 httpClient.BaseAddress = new Uri("http://localhost:5000");
 var client = GrpcClient.Create<Greeter.GreeterClient>(httpClient);
 ```
