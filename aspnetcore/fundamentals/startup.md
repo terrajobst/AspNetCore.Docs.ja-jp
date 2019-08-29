@@ -1,17 +1,17 @@
 ---
 title: ASP.NET Core でのアプリケーションのスタートアップ
-author: tdykstra
+author: rick-anderson
 description: ASP.NET Core の Startup クラスがサービスとアプリケーションの要求パイプラインをどのように構成しているかを説明します。
-ms.author: tdykstra
+ms.author: riande
 ms.custom: mvc
 ms.date: 8/7/2019
 uid: fundamentals/startup
-ms.openlocfilehash: 2ce4f2093c11066370160c62949888837065f129
-ms.sourcegitcommit: 2fa0ffe82a47c7317efc9ea908365881cbcb8ed7
+ms.openlocfilehash: 8866ee9210a91754d8050d0b91ff52c3d3fe0836
+ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/17/2019
-ms.locfileid: "69572838"
+ms.lasthandoff: 08/22/2019
+ms.locfileid: "69975439"
 ---
 # <a name="app-startup-in-aspnet-core"></a>ASP.NET Core でのアプリケーションのスタートアップ
 

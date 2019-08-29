@@ -5,12 +5,12 @@ description: 区分は ASP.NET MVC の機能であり、関連する機能を別
 ms.author: riande
 ms.date: 08/16/2019
 uid: mvc/controllers/areas
-ms.openlocfilehash: d0af3092776ee09469c879fffd3047c50b1a59b4
-ms.sourcegitcommit: 4cb0c7e74355f2e87c60e2a196f842b937247a99
+ms.openlocfilehash: 9065aa23a537add5a9376472e4f4478e9d4149bd
+ms.sourcegitcommit: 776598f71da0d1e4c9e923b3b395d3c3b5825796
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/16/2019
-ms.locfileid: "69545808"
+ms.lasthandoff: 08/26/2019
+ms.locfileid: "70024740"
 ---
 # <a name="areas-in-aspnet-core"></a>ASP.NET Core の区分
 
@@ -72,9 +72,7 @@ Razor Pages を使用している場合は、このドキュメントの「[Razo
 /Areas/<Area-Name>/Views/Shared/<Action-Name>.cshtml
 /Views/Shared/<Action-Name>.cshtml
 /Pages/Shared/<Action-Name>.cshtml
-   ```
-
-*Controllers* や *Models* など、ビュー以外のフォルダーの場所は問題では**ありません**。 たとえば、*Controllers* や *Models* のフォルダーは不要です。 *Controllers* と *Models* の内容はコードであり、.dll にコンパイルされます。 *Views* の内容は、ビューに対する要求が行われるまでコンパイルされません。
+```
 
 <a name="attribute"></a>
 

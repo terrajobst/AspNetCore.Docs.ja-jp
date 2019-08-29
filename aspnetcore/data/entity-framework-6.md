@@ -2,16 +2,16 @@
 title: ASP.NET Core と Entity Framework 6 の概要
 author: rick-anderson
 description: この記事では、ASP.NET Core アプリケーションで Entity Framework 6 を使用する方法を示します。
-ms.author: tdykstra
+ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: data/entity-framework-6
-ms.openlocfilehash: 50f51a72341cbad017872df581da214211b9920a
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: ace937e72efa2343e50b11d52ebc0a2530505758
+ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64886937"
+ms.lasthandoff: 08/22/2019
+ms.locfileid: "69975596"
 ---
 # <a name="get-started-with-aspnet-core-and-entity-framework-6"></a>ASP.NET Core と Entity Framework 6 の概要
 
@@ -67,10 +67,10 @@ Core プロジェクトの *Startup.cs* ファイルで、`ConfigureServices` �
 
 * ソリューションを作成します。
 
-* **[追加]** > **[新しいプロジェクト]** > **[Web]** > **[ASP.NET Core Web アプリケーション]**
+* **[追加]**  >  **[新しいプロジェクト]**  >  **[Web]**  >  **[ASP.NET Core Web アプリケーション]**
   * プロジェクト テンプレートの選択ダイアログで、ドロップダウンの [API] と [.NET Framework] を選択します。
 
-* **[追加]** > **[新しいプロジェクト]** > **[Windows デスクトップ]** > **[クラス ライブラリ (.NET Framework)]**
+* **[追加]**  >  **[新しいプロジェクト]**  >  **[Windows デスクトップ]**  >  **[クラス ライブラリ (.NET Framework)]**
 
 * 両方のプロジェクトの**パッケージ マネージャー コンソール** (PMC) ウィンドウで、`Install-Package Entityframework` コマンドを実行します。
 
@@ -84,7 +84,7 @@ Core プロジェクトの *Startup.cs* ファイルで、`ConfigureServices` �
 
 * Core プロジェクト内の *appsettings.json* で、接続文字列を追加します。
 
-* Core プロジェクトで、コントローラーとビューを追加してデータの読み書きができることを確認します  (ASP.NET Core MVC のスキャフォールディングは、クラス ライブラリから参照される EF6 コンテキストでは機能しないことに注意してください)。
+* Core プロジェクトで、コントローラーとビューを追加してデータの読み書きができることを確認します (ASP.NET Core MVC のスキャフォールディングは、クラス ライブラリから参照される EF6 コンテキストでは機能しないことに注意してください)。
 
 ## <a name="summary"></a>まとめ
 

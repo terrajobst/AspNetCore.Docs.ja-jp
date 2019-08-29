@@ -2,17 +2,17 @@
 title: 'チュートリアル: 移行機能の使用 - ASP.NET MVC と EF Core'
 description: このチュートリアルでは、ASP.NET Core MVC アプリケーションでデータ モデルの変更を管理するための EF Core の移行機能の使用を開始します。
 author: tdykstra
-ms.author: tdykstra
+ms.author: riande
 ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/migrations
-ms.openlocfilehash: 7ee383ff5fcd9dd79503321aaa188fd85ef18d7a
-ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
+ms.openlocfilehash: fcb238c132a774200e9f54f1141f5ba79fa2f802
+ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/19/2019
-ms.locfileid: "69583454"
+ms.lasthandoff: 08/22/2019
+ms.locfileid: "69975165"
 ---
 # <a name="tutorial-using-the-migrations-feature---aspnet-mvc-with-ef-core"></a>チュートリアル: 移行機能の使用 - ASP.NET MVC と EF Core
 

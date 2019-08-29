@@ -1,18 +1,18 @@
 ---
 title: ASP.NET Core のエラーを処理する
-author: tdykstra
+author: rick-anderson
 description: ASP.NET Core アプリでエラーを処理する方法について説明します。
 monikerRange: '>= aspnetcore-2.1'
-ms.author: tdykstra
+ms.author: riande
 ms.custom: mvc
 ms.date: 07/10/2019
 uid: fundamentals/error-handling
-ms.openlocfilehash: f9f91455b273b99608ca6f1524df6cb748a26669
-ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
+ms.openlocfilehash: 652a97a6b7fbe4c8cc678b86a92eea59937e809c
+ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68308204"
+ms.lasthandoff: 08/22/2019
+ms.locfileid: "69975582"
 ---
 # <a name="handle-errors-in-aspnet-core"></a>ASP.NET Core のエラーを処理する
 

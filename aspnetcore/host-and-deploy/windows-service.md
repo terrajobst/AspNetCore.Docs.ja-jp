@@ -3,16 +3,16 @@ title: Windows サービスでの ASP.NET Core のホスト
 author: guardrex
 description: Windows サービスで ASP.NET Core アプリケーションをホストする方法を説明します。
 monikerRange: '>= aspnetcore-2.1'
-ms.author: tdykstra
+ms.author: riande
 ms.custom: mvc
 ms.date: 06/03/2019
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: 703edff19d82d10415bedb9b92d83709c275100f
-ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
+ms.openlocfilehash: 308a8bd10371cc70c431b8858ef7d82c1bb624da
+ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68913914"
+ms.lasthandoff: 08/22/2019
+ms.locfileid: "69975406"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>Windows サービスでの ASP.NET Core のホスト
 

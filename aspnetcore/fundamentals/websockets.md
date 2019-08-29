@@ -3,16 +3,16 @@ title: ASP.NET Core での Websocket のサポート
 author: rick-anderson
 description: ASP.NET Core で Websocket の使用を開始する方法を説明します。
 monikerRange: '>= aspnetcore-1.1'
-ms.author: tdykstra
+ms.author: riande
 ms.custom: mvc
 ms.date: 05/10/2019
 uid: fundamentals/websockets
-ms.openlocfilehash: 4c49a5349c0718e5c59f30e6d51caf7a43fa0454
-ms.sourcegitcommit: c5339594101d30b189f61761275b7d310e80d18a
+ms.openlocfilehash: 5d4d9b02bd45e6650aa56448a3663cad06b3b45e
+ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/02/2019
-ms.locfileid: "66458446"
+ms.lasthandoff: 08/22/2019
+ms.locfileid: "69975457"
 ---
 # <a name="websockets-support-in-aspnet-core"></a>ASP.NET Core での Websocket のサポート
 
