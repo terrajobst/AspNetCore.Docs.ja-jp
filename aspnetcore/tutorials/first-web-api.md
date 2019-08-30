@@ -4,14 +4,14 @@ author: rick-anderson
 description: ASP.NET Core で Web API をビルドする方法を学習します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/14/2019
+ms.date: 08/27/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 99985e9fb1134c2ba808434f8d24c4a768773268
-ms.sourcegitcommit: 476ea5ad86a680b7b017c6f32098acd3414c0f6c
+ms.openlocfilehash: 25bfccb136d875b454034bd011828c9f3b6cd3d8
+ms.sourcegitcommit: de17150e5ec7507d7114dde0e5dbc2e45a66ef53
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/14/2019
-ms.locfileid: "69022594"
+ms.lasthandoff: 08/28/2019
+ms.locfileid: "70113285"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>チュートリアル: ASP.NET Core で Web API を作成する
 
@@ -462,9 +462,9 @@ Postman を使用して、To Do アイテムを削除します。
 * 削除するオブジェクトの URI (たとえば、`https://localhost:5001/api/TodoItems/1`) を設定します。
 * **[Send]** を選択します。
 
-## <a name="call-the-api-from-jquery"></a>jQuery から API を呼び出す
+## <a name="call-the-web-api-with-javascript"></a>JavaScript で Web API を呼び出す
 
-手順については、「[チュートリアル: Call an ASP.NET Core web API with jQuery](xref:tutorials/web-api-jquery)」(チュートリアル: jQuery を使用して ASP.NET Core Web API を呼び出す) を参照してください。
+手順については、「[チュートリアル: JavaScript を使用して ASP.NET Core Web API を呼び出す](xref:tutorials/web-api-javascript)」を参照してください。
 
 ::: moniker-end
 
@@ -480,9 +480,10 @@ Postman を使用して、To Do アイテムを削除します。
 > * ルーティングと URL パスを構成する。
 > * 戻り値を指定する。
 > * Postman で Web API を呼び出す。
-> * jQuery で Web API を呼び出す。
+> * JavaScript で Web API を呼び出す。
 
 最後に、リレーショナル データベースに格納されている "To Do" アイテムを管理できる Web API が作成されます。
+
 ## <a name="overview"></a>概要
 
 このチュートリアルでは、次の API を作成します。
@@ -737,7 +738,6 @@ To Do アイテムを取得する API を指定するには、`TodoController` �
 * 要求された ID と一致するアイテムがない場合、メソッドは 404 [NotFound](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.notfound) エラー コードを返します。
 * それ以外の場合、メソッドは JSON 応答本文で 200 を返します。 戻り値が `item` の場合、HTTP 200 応答が返されます。
 
-
 ## <a name="test-the-gettodoitems-method"></a>GetTodoItems メソッドのテスト
 
 このチュートリアルでは、Postman を使用して Web API をテストします。
@@ -863,9 +863,9 @@ Postman を使用して、To Do アイテムを削除します。
 
 サンプル アプリではすべてのアイテムを削除することができます。 ただし、最後のアイテムが削除されると、次回 API が呼び出されたときに、モデル クラス コンストラクターによって新しいアイテムが作成されます。
 
-## <a name="call-the-api-with-jquery"></a>jQuery での API の呼び出し
+## <a name="call-the-web-api-with-javascript"></a>JavaScript で Web API を呼び出す
 
-このセクションでは、jQuery を使用して Web API を呼び出す、HTML ページが追加されます。 jQuery で要求を開始し、API の応答からの詳細を含むページを更新します。
+このセクションでは、JavaScript を使用して Web API を呼び出す HTML ページを追加します。 Fetch API によって要求が開始されます。 JavaScript により、Web API の応答からの詳細でページが更新されます。
 
 *Startup.cs* を次の強調表示されたコードで更新して、[静的ファイルを提供](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_)し、[既定のファイル マッピングを有効にする](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_)ためのアプリを構成します。
 
@@ -886,19 +886,17 @@ Postman を使用して、To Do アイテムを削除します。
 * *Properties\launchSettings.json* を開きます。
 * アプリが強制的に *index.html*&mdash;プロジェクトの既定ファイルで開くようにするには、`launchUrl` プロパティを削除します。
 
-jQuery を取得するには、いくつかの方法があります。 前のスニペットでは、ライブラリは CDN から読み込まれます。
-
-このサンプルでは、API のすべての CRUD メソッドを呼び出します。 次に、API の呼び出しについて説明します。
+このサンプルでは、Web API のすべての CRUD メソッドを呼び出します。 次に、API の呼び出しについて説明します。
 
 ### <a name="get-a-list-of-to-do-items"></a>To Do アイテムのリストの取得
 
-jQuery [ajax](https://api.jquery.com/jquery.ajax/) 関数は、`GET` 要求を API に送信します。この API は、To Do アイテムの配列を表す JSON を返します。 要求が成功した場合、`success` コールバック関数が呼び出されます。 コールバックでは、DOM は To Do 情報で更新されます。
+Fetch により HTTP GET 要求が Web API に送信され、API からは To Do アイテムの配列を表す JSON が返されます。 要求が成功した場合、`success` コールバック関数が呼び出されます。 コールバックでは、DOM は To Do 情報で更新されます。
 
 [!code-javascript[](first-web-api/samples/2.2/TodoApi/wwwroot/site.js?name=snippet_GetData)]
 
 ### <a name="add-a-to-do-item"></a>To Do アイテムの追加
 
-[ajax](https://api.jquery.com/jquery.ajax/) 関数は、要求本文内で To Do アイテムと共に `POST` 要求を送信します。 `accepts` オプションと `contentType` オプションは `application/json` に設定されて、送受信されるメディアの種類を指定します。 To Do アイテムは、[JSON.stringify](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) を使用して JSON に変換されます。 API で正常な状況コードが返された場合、`getData` 関数が呼び出され、HTML テーブルを更新します。
+Fetch により、要求本文に To Do アイテムが含まれる HTTP POST 要求が送信されます。 `accepts` オプションと `contentType` オプションは `application/json` に設定されて、送受信されるメディアの種類を指定します。 To Do アイテムは、[JSON.stringify](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) を使用して JSON に変換されます。 API で正常な状況コードが返された場合、`getData` 関数が呼び出され、HTML テーブルを更新します。
 
 [!code-javascript[](first-web-api/samples/2.2/TodoApi/wwwroot/site.js?name=snippet_AddItem)]
 

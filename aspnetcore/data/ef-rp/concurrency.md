@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 uid: data/ef-rp/concurrency
-ms.openlocfilehash: df3cc9eb3d0c1748ca9cd194ee58e4614bba24d5
-ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
+ms.openlocfilehash: da57633c345ec087b1a4f24ddc7771e7a2d04720
+ms.sourcegitcommit: 0774a61a3a6c1412a7da0e7d932dc60c506441fc
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/19/2019
-ms.locfileid: "69583410"
+ms.lasthandoff: 08/27/2019
+ms.locfileid: "70059084"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---concurrency---8-of-8"></a>ASP.NET Core の Razor ページと EF Core - コンカレンシー - 8/8
 
@@ -234,7 +234,7 @@ SQLite データベースでは、エンティティ プロパティの `[Timest
 
 スキャフォールディング ツールにより Index ページに `RowVersion` 列が作成されましたが、そのフィールドは運用アプリには表示されません。 このチュートリアルでは、コンカレンシーの処理がどのように動作するのかを示すため、`RowVersion` の最後のバイトが表示されます。 最後のバイトは、それ自体では一意であるとは限りません。
 
-Index ページを更新するために、次を実行します。
+*Pages\Departments\Index.cshtml* ページを更新します。
 
 * Department で Index を置き換えます。
 * `RowVersion` が含まれるコードを、バイト配列の最後のバイトだけが表示されるように変更します。
