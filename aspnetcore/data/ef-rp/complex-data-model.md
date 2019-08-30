@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 uid: data/ef-rp/complex-data-model
-ms.openlocfilehash: 8a1c0759453b02f4ce1c45471a8f93da626f8261
-ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
+ms.openlocfilehash: 34b977f70f3e7e58e4ab6fcf3d8f69800896a65d
+ms.sourcegitcommit: 0774a61a3a6c1412a7da0e7d932dc60c506441fc
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/19/2019
-ms.locfileid: "69583288"
+ms.lasthandoff: 08/27/2019
+ms.locfileid: "70059126"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---data-model---5-of-8"></a>ASP.NET Core の Razor ページと EF Core - データ モデル - 5/8
 
@@ -134,13 +134,16 @@ public string FirstMidName { get; set; }
 
 `Required` 属性では、名前プロパティの必須フィールドを作成します。 値の型 (例: `DateTime`、`int`、`double`) などの null 非許容型では、`Required` 属性は必要ありません。 null にできない型は自動的に必須フィールドとして扱われます。
 
-`Required` 属性は、`StringLength` 属性の最小長パラメーターに置き換えることができます。
+`MinimumLength` を適用するには、`Required` 属性を `MinimumLength` と共に使用する必要があります。
 
 ```csharp
 [Display(Name = "Last Name")]
-[StringLength(50, MinimumLength=1)]
+[Required]
+[StringLength(50, MinimumLength=2)]
 public string LastName { get; set; }
 ```
+
+`MinimumLength` と `Required` を使用すると、空白で検証を満たすことができます。 文字列を完全に制御するには、`RegularExpression` 属性を使用します。
 
 ### <a name="the-display-attribute"></a>Display 属性
 
@@ -1353,7 +1356,7 @@ SSOX で DB を開きます。
 
 次の強調表示されたコードを追加します。 新しいコードが `.CreateTable( name: "Department"` ブロックの後に配置されます。
 
- [!code-csharp[](intro/samples/cu/Migrations/20171027005808_ComplexDataModel.cs?name=snippet_CreateDefaultValue&highlight=22-32)]
+[!code-csharp[](intro/samples/cu/Migrations/20171027005808_ComplexDataModel.cs?name=snippet_CreateDefaultValue&highlight=22-32)]
 
 前述の変更に伴い、既存の `Course` 行が、`ComplexDataModel` `Up` メソッドの実行後に "Temp" 学科に関連付けられます。
 
@@ -1368,8 +1371,6 @@ SSOX で DB を開きます。
 
 * [このチュートリアルの YouTube バージョン (パート 1)](https://www.youtube.com/watch?v=0n2f0ObgCoA)
 * [このチュートリアルの YouTube バージョン (パート 2)](https://www.youtube.com/watch?v=Je0Z5K1TNmY)
-
-
 
 > [!div class="step-by-step"]
 > [前へ](xref:data/ef-rp/migrations)
