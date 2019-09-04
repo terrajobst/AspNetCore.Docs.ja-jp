@@ -4,14 +4,14 @@ author: juntaoluo
 description: ASP.NET Core で gRPC サービスを作成する際の基本的な概念について説明します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
-ms.date: 08/28/2019
+ms.date: 09/03/2019
 uid: grpc/aspnetcore
-ms.openlocfilehash: 128f5b36eac9112460c33693db5537134a077476
-ms.sourcegitcommit: 23f79bd71d49c4efddb56377c1f553cc993d781b
+ms.openlocfilehash: 28e6b8589bbe0b6a3723b64736c723c883302571
+ms.sourcegitcommit: e6bd2bbe5683e9a7dbbc2f2eab644986e6dc8a87
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/29/2019
-ms.locfileid: "70130704"
+ms.lasthandoff: 09/03/2019
+ms.locfileid: "70238162"
 ---
 # <a name="grpc-services-with-aspnet-core"></a>ASP.NET Core を使用した gRPC サービス
 
@@ -71,10 +71,9 @@ Kestrel gRPC エンドポイント:
 
 #### <a name="http2"></a>HTTP/2
 
-Kestrel は、最新のオペレーティングシステムで[HTTP/2 をサポート](xref:fundamentals/servers/kestrel#http2-support)しています。 Kestrel エンドポイントは、既定で HTTP/1.1 接続と HTTP/2 接続をサポートするように構成されています。
+gRPC には HTTP/2 が必要です。 gRPC for ASP.NET Core では、 [HttpRequest](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*)が`HTTP/2`検証されます。
 
-> [!NOTE]
-> macOS では、[トランスポート層セキュリティ (TLS)](https://tools.ietf.org/html/rfc5246)を使用した ASP.NET Core grpc はサポートされていません。 macOS で gRPC サービスを正常に実行するには、追加の構成が必要です。 詳細については、[macOS で ASP.NET Core gRPC アプリを起動できない](xref:grpc/troubleshoot#unable-to-start-aspnet-core-grpc-app-on-macos)場合に関するページを参照してください。
+Kestrel は、最新のオペレーティングシステムで[HTTP/2 をサポート](xref:fundamentals/servers/kestrel#http2-support)しています。 Kestrel エンドポイントは、既定で HTTP/1.1 接続と HTTP/2 接続をサポートするように構成されています。
 
 #### <a name="https"></a>HTTPS
 
@@ -101,7 +100,7 @@ GRPC に使用される kestrel エンドポイントは、HTTPS で保護する
 }
 ```
 
-または、 *Program.cs*で Kestrel endspoints を構成することもできます。
+または、 *Program.cs*で Kestrel エンドポイントを構成することもできます。
 
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -122,7 +121,12 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
         });
 ```
 
+HTTP/2 エンドポイントが HTTPS を使用せずに構成されている場合、エンドポイントの`HttpProtocols.Http2` [listenoptions](xref:fundamentals/servers/kestrel#listenoptionsprotocols)がに設定されている必要があります。 `HttpProtocols.Http1AndHttp2`HTTP/2 のネゴシエートには HTTPS が必要であるため、を使用することはできません。 HTTPS を使用しない場合、エンドポイントへのすべての接続は既定の HTTP/1.1 に設定され、gRPC の呼び出しは失敗します。
+
 Kestrel での HTTP/2 および HTTPS の有効化の詳細については、「 [kestrel エンドポイントの構成](xref:fundamentals/servers/kestrel#endpoint-configuration)」を参照してください。
+
+> [!NOTE]
+> macOS では、[トランスポート層セキュリティ (TLS)](https://tools.ietf.org/html/rfc5246)を使用した ASP.NET Core grpc はサポートされていません。 macOS で gRPC サービスを正常に実行するには、追加の構成が必要です。 詳細については、[macOS で ASP.NET Core gRPC アプリを起動できない](xref:grpc/troubleshoot#unable-to-start-aspnet-core-grpc-app-on-macos)場合に関するページを参照してください。
 
 ## <a name="integration-with-aspnet-core-apis"></a>ASP.NET Core Api との統合
 

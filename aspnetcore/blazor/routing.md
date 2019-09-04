@@ -5,14 +5,14 @@ description: アプリで要求をルーティングする方法と、[ナビゲ
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/13/2019
+ms.date: 08/23/2019
 uid: blazor/routing
-ms.openlocfilehash: 197b1a91b3540d21639c3ee775b2c490da7b23fe
-ms.sourcegitcommit: f5f0ff65d4e2a961939762fb00e654491a2c772a
+ms.openlocfilehash: 067dad657c1e89a31fac45fdfa095cce4b10798d
+ms.sourcegitcommit: e6bd2bbe5683e9a7dbbc2f2eab644986e6dc8a87
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/15/2019
-ms.locfileid: "69030392"
+ms.lasthandoff: 09/03/2019
+ms.locfileid: "70238065"
 ---
 # <a name="aspnet-core-blazor-routing"></a>ASP.NET Core Blazor ルーティング
 
@@ -103,6 +103,21 @@ ASP.NET Core 3.0 Preview の Blazor アプリでは、省略可能なパラメ�
 > [!WARNING]
 > URL の妥当性を検証し、CLR 型 (`int` や `DateTime` など) に変換されるルート制約では、常にインバリアント カルチャが使用されます。 これらの制約では、URL がローカライズ不可であることが前提となります。
 
+### <a name="routing-with-urls-that-contain-dots"></a>ドットを含む Url を使用したルーティング
+
+Blazor サーバー側アプリでは、 *_Host*の既定のルートは`/` (`@page "/"`) です。 ドット (`.`) を含む要求 url が、既定のルートと一致しません。これは、url がファイルの要求によって表示されるためです。 Blazor アプリは、存在しない静的ファイルに対して*404-Not Found*応答を返します。 ドットを含むルートを使用するには、次のルートテンプレートを使用して *_Host*を構成します。
+
+```cshtml
+@page "/{**path}"
+```
+
+テンプレート`"/{**path}"`には次のものが含まれます。
+
+* 2つの*アスタリスク*`**`() を使用すると、スラッシュ (`/`) をエンコードせずに複数のフォルダー境界を越えてパスをキャプチャできます。
+* `path`ルートパラメーター名。
+
+詳細については、「 <xref:fundamentals/routing> 」を参照してください。
+
 ## <a name="navlink-component"></a>ナビゲーションリンクコンポーネント
 
 ナビゲーションリンク`NavLink`を作成するときは、HTML ハイパーリンク`<a>`要素 () の代わりにコンポーネントを使用します。 コンポーネント`NavLink` `<a>`は要素のように動作しますが、 `active`が現在の URL `href`と一致するかどうかに基づいて CSS クラスを切り替える点が異なります。 クラス`active`は、表示されているナビゲーションリンク内のどのページがアクティブページであるかをユーザーが理解するのに役立ちます。
@@ -163,3 +178,4 @@ ASP.NET Core 3.0 Preview の Blazor アプリでは、省略可能なパラメ�
     }
 }
 ```
+
