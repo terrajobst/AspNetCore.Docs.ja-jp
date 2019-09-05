@@ -5,14 +5,14 @@ description: HTTP REPL .NET Core グローバル ツールを使用して、ASP.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 07/25/2019
+ms.date: 08/29/2019
 uid: web-api/http-repl
-ms.openlocfilehash: d2c5f774595e7a2223e84cc76eecdb9baa04adfe
-ms.sourcegitcommit: 776598f71da0d1e4c9e923b3b395d3c3b5825796
+ms.openlocfilehash: 7121670856da4b123b1c3e780a7952da0fb696a1
+ms.sourcegitcommit: e6bd2bbe5683e9a7dbbc2f2eab644986e6dc8a87
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/26/2019
-ms.locfileid: "70024802"
+ms.lasthandoff: 09/03/2019
+ms.locfileid: "70238053"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>HTTP REPL を使用して Web API をテストする
 
@@ -325,52 +325,6 @@ pref set formatting.json.indentSize 4
 ]
 ```
 
-### <a name="set-indentation-size"></a>インデントのサイズを設定する
-
-応答インデント サイズのカスタマイズは、現在、JSON でのみサポートされています。 既定のサイズは 2 つのスペースです。 次に例を示します。
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Apple"
-  },
-  {
-    "id": 2,
-    "name": "Orange"
-  },
-  {
-    "id": 3,
-    "name": "Strawberry"
-  }
-]
-```
-
-既定のサイズを変更するには、`formatting.json.indentSize` キーを設定します。 たとえば、常に 4 つのスペースを使用するには、次のようにします。
-
-```console
-pref set formatting.json.indentSize 4
-```
-
-後続の応答では、4 つのスペースの設定が優先されます。
-
-```json
-[
-    {
-        "id": 1,
-        "name": "Apple"
-    },
-    {
-        "id": 2,
-        "name": "Orange"
-    },
-    {
-        "id": 3,
-        "name": "Strawberry"
-    }
-]
-```
-
 ### <a name="set-the-default-text-editor"></a>既定のテキスト エディターを設定する
 
 既定では、HTTP REPL には、使用するように構成されたテキスト エディターはありません。 HTTP 要求本文を必要とする Web API メソッドをテストするには、既定のテキスト エディターを設定する必要があります。 HTTP REPL ツールでは、要求本文を作成する目的のためだけに構成されたテキスト エディターが起動されます。 次のコマンドを実行して、優先テキストエディターを既定値として設定します。
@@ -419,7 +373,7 @@ HTTP REPL には既定の相対パスのセットがあり、`connect` コマン
 環境で別の検索パスのセットを使用するには、ユーザー設定 `swagger.searchPaths` を設定します。 値としては、パイプで区切られた相対パスのリストを指定する必要があります。 次に例を示します。
 
 ```console
-pref set swagger.searchPaths "swagger/v2/swagger.json|swagger/v3/swagger.json
+pref set swagger.searchPaths "swagger/v2/swagger.json|swagger/v3/swagger.json"
 ```
 
 ## <a name="test-http-get-requests"></a>HTTP GET 要求をテストする
