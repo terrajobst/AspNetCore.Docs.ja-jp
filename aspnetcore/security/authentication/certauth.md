@@ -1,33 +1,42 @@
 ---
-title: ASP.NET Core での証明書の認証を構成します。
+title: ASP.NET Core で証明書認証を構成する
 author: blowdart
-description: ASP.NET Core で IIS と HTTP.sys の証明書認証を構成する方法について説明します。
+description: IIS と http.sys の ASP.NET Core で証明書認証を構成する方法について説明します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: bdorrans
-ms.date: 06/11/2019
+ms.date: 08/19/2019
 uid: security/authentication/certauth
-ms.openlocfilehash: 8609c58265340da1d618135795915d6c49e750a3
-ms.sourcegitcommit: 0b9e767a09beaaaa4301915cdda9ef69daaf3ff2
+ms.openlocfilehash: ce7bcdbfb8ce0f1febf34b49786e92c917be139c
+ms.sourcegitcommit: 116bfaeab72122fa7d586cdb2e5b8f456a2dc92a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/03/2019
-ms.locfileid: "67538718"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70384850"
 ---
 # <a name="overview"></a>概要
 
-`Microsoft.AspNetCore.Authentication.Certificate` ような実装を含む[証明書認証](https://tools.ietf.org/html/rfc5246#section-7.4.4)ASP.NET Core 用です。 証明書の認証は、ASP.NET Core にこれまで到達する前に、長い、TLS レベルで行われます。 証明書を検証し、しにその証明書を解決できるイベントを提供する認証ハンドラーをより正確には、これは、`ClaimsPrincipal`します。 
+`Microsoft.AspNetCore.Authentication.Certificate`ASP.NET Core の[証明書認証](https://tools.ietf.org/html/rfc5246#section-7.4.4)に似た実装が含まれています。 証明書の認証は、TLS レベルで実行されますが、その前に ASP.NET Core になります。 より正確には、これは証明書を検証し、その証明書をに`ClaimsPrincipal`解決できるイベントを提供する認証ハンドラーです。 
 
-[ホストを構成する](#configure-your-host-to-require-certificates)証明書の認証は IIS、Kestrel、Azure Web Apps、またはあらゆる要素を使用します。
+証明書認証用に[ホストを構成](#configure-your-host-to-require-certificates)します。これは、IIS、Kestrel、Azure Web Apps など、使用している他のすべてのものになります。
+
+## <a name="proxy-and-load-balancer-scenarios"></a>プロキシとロードバランサーのシナリオ
+
+証明書認証は、主に、プロキシまたはロードバランサーがクライアントとサーバー間のトラフィックを処理しない場合に使用されるステートフルシナリオです。 プロキシまたはロードバランサーが使用されている場合、証明書の認証はプロキシまたはロードバランサーの場合にのみ機能します。
+
+* 認証を処理します。
+* 認証情報に対して動作するユーザー認証情報をアプリに渡します (要求ヘッダーなど)。
+
+プロキシとロードバランサーを使用する環境での証明書認証の代わりに、OpenID Connect (OIDC) を使用したフェデレーションサービス (ADFS) Active Directory ます。
 
 ## <a name="get-started"></a>作業開始
 
-HTTPS 証明書を取得、それを適用し、 [、ホストを構成する](#configure-your-host-to-require-certificates)証明書を要求します。
+HTTPS 証明書を取得して適用し、証明書を要求するように[ホストを構成](#configure-your-host-to-require-certificates)します。
 
-Web アプリへの参照を追加、`Microsoft.AspNetCore.Authentication.Certificate`パッケージ。 次に、`Startup.Configure`メソッドを呼び出します`app.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme).UseCertificateAuthentication(...);`オプションをご提供のデリゲート`OnCertificateValidated`要求と共に送信されるクライアント証明書の補助、検証を実行します。 その情報を有効にする、`ClaimsPrincipal`に設定し、`context.Principal`プロパティ。
+Web アプリで、 `Microsoft.AspNetCore.Authentication.Certificate`パッケージへの参照を追加します。 次に、 `Startup.Configure`メソッドで、 `app.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme).UseCertificateAuthentication(...);`オプションを指定してを呼び出し、 `OnCertificateValidated`要求と共に送信されるクライアント証明書に対して補助的な検証を実行するためのデリゲートを提供します。 その情報`ClaimsPrincipal`をに変換し、 `context.Principal`プロパティに設定します。
 
-認証が失敗したかどうか、このハンドラーを返します、`403 (Forbidden)`応答ではなく、`401 (Unauthorized)`想像どおり、します。 理由は、初期の TLS 接続中に、認証が発生することです。 ハンドラーに到達するまででは遅すぎます。 証明書のいずれかに匿名接続から接続をアップグレードする方法はありません。
+認証が失敗した場合、この`403 (Forbidden)`ハンドラーは、 `401 (Unauthorized)`予期したとおりに応答を返します。 これは、最初の TLS 接続中に認証が行われるということです。 ハンドラーに到達するまでには遅すぎます。 匿名接続から証明書を使用して接続をアップグレードする方法はありません。
 
-追加も`app.UseAuthentication();`で、`Startup.Configure`メソッド。 それ以外の場合、HttpContext.User は設定されません`ClaimsPrincipal`証明書から作成します。 例えば:
+また、 `app.UseAuthentication();` `Startup.Configure`メソッドにを追加します。 それ以外の場合、HttpContext は証明書から作成`ClaimsPrincipal`されるように設定されません。 例えば:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -46,50 +55,50 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 }
 ```
 
-前の例では、既定の証明書認証を追加する方法を示します。 ハンドラーは、一般的な証明書のプロパティを使用して、ユーザー プリンシパルを作成します。
+前の例では、証明書認証を追加する既定の方法を示しています。 ハンドラーは、共通の証明書のプロパティを使用してユーザープリンシパルを構築します。
 
-## <a name="configure-certificate-validation"></a>証明書の検証を構成します。
+## <a name="configure-certificate-validation"></a>証明書の検証の構成
 
-`CertificateAuthenticationOptions`ハンドラーがいくつか組み込みの検証は、最小の検証証明書でを実行する必要があります。 これらの各設定は、既定で有効です。
+`CertificateAuthenticationOptions`ハンドラーには、証明書に対して実行する必要のある検証の最小値である組み込みの検証がいくつかあります。 これらの各設定は既定で有効になっています。
 
-### <a name="allowedcertificatetypes--chained-selfsigned-or-all-chained--selfsigned"></a>AllowedCertificateTypes = さまざま、またはすべてのチェーン (チェーン |さまざま)
+### <a name="allowedcertificatetypes--chained-selfsigned-or-all-chained--selfsigned"></a>AllowedCertificateTypes = チェーン、自己署名、またはすべて (チェーン |自己署名済み)
 
-このチェックは、適切な証明書の種類のみが許可されていることを検証します。
+このチェックでは、適切な証明書の種類のみが許可されていることが検証されます。
 
 ### <a name="validatecertificateuse"></a>ValidateCertificateUse
 
-このチェックは、クライアントによって提示された証明書が、クライアント認証用のキーの使用 (EKU)、またはなしの Eku をすべての拡張を検証します。 ように、仕様と答えると、EKU が指定されていない場合、すべての Eku が有効と見なされます。
+このチェックでは、クライアントが提示した証明書にクライアント認証の拡張キー使用法 (EKU) があること、またはまったく Eku がないことを検証します。 仕様として、EKU が指定されていない場合は、すべての Eku が有効と見なされます。
 
 ### <a name="validatevalidityperiod"></a>ValidateValidityPeriod
 
-このチェックでは、その有効期間内で証明書が検証します。 要求ごとに、ハンドラーにより、ことが現在のセッション中に表示されたときに有効であった証明書が期限切れです。
+このチェックでは、証明書が有効期間内であることを検証します。 要求が発生するたびに、ハンドラーは、提示されたときに有効だった証明書が現在のセッション中に期限切れにならないようにします。
 
 ### <a name="revocationflag"></a>RevocationFlag
 
-チェーンの証明書は失効のチェックを指定するフラグ。
+チェーン内のどの証明書の失効を確認するかを指定するフラグ。
 
-失効のチェックが実行されるは、証明書がルート証明書にチェーンされたときにのみです。
+失効確認は、証明書がルート証明書にチェーンされている場合にのみ実行されます。
 
-### <a name="revocationmode"></a>revocationMode
+### <a name="revocationmode"></a>RevocationMode
 
-失効チェックを実行する方法を指定するフラグ。
+失効確認の実行方法を指定するフラグ。
 
-オンラインのチェックを指定すると、証明機関には接続中に長時間の遅延が発生することができます。
+オンラインチェックを指定すると、証明機関への接続中に長い遅延が発生する可能性があります。
 
-失効のチェックが実行されるは、証明書がルート証明書にチェーンされたときにのみです。
+失効確認は、証明書がルート証明書にチェーンされている場合にのみ実行されます。
 
-### <a name="can-i-configure-my-app-to-require-a-certificate-only-on-certain-paths"></a>特定のパスでのみ証明書を必要とするアプリを構成できますか。
+### <a name="can-i-configure-my-app-to-require-a-certificate-only-on-certain-paths"></a>特定のパスでのみ証明書を要求するようにアプリを構成することはできますか。
 
-これは、ことはできません。 HTTPS メッセージ交換の開始日は、そのサーバーが要求しているフィールドに基づくスコープにことはできませんので、その接続で、最初の要求が受信されるまで、証明書の交換を実行してください。
+これはできません。 証明書の交換は、HTTPS メッセージ交換の開始時に行われます。これは、その接続で最初の要求を受信する前にサーバーによって行われるため、要求フィールドに基づいてスコープを設定することはできません。
 
-## <a name="handler-events"></a>イベントのハンドラー
+## <a name="handler-events"></a>ハンドラーイベント
 
-ハンドラーでは、2 つのイベントがあります。
+ハンドラーには、次の2つのイベントがあります。
 
-* `OnAuthenticationFailed` &ndash; 例外が発生した認証時に、対応することができる場合に呼び出されます。
-* `OnCertificateValidated` &ndash; 証明書が検証される検証に合格し、既定のプリンシパルが作成された後に呼び出されます。 このイベントを使用すると、独自の検証を実行し、補強またはプリンシパルを置換できます。 例が含まれます。
-  * サービスに証明書が既知のかどうかを決定します。
-  * 独自のプリンシパルを作成します。 `Startup.ConfigureServices` での次の例を検討してください。
+* `OnAuthenticationFailed`&ndash;認証中に例外が発生し、応答できる場合に呼び出されます。
+* `OnCertificateValidated`&ndash;証明書が検証され、検証が渡され、既定のプリンシパルが作成された後に呼び出されます。 このイベントを使用すると、独自の検証を実行したり、プリンシパルを補強したり置き換えることができます。 例を次に示します。
+  * 証明書がサービスに対して認識されているかどうかを確認しています。
+  * 独自のプリンシパルを構築します。 `Startup.ConfigureServices` での次の例を検討してください。
 
 ```csharp
 services.AddAuthentication(
@@ -123,9 +132,9 @@ services.AddAuthentication(
     });
 ```
 
-受信証明書は、追加の検証を満たしていない場合は、呼び出す`context.Fail("failure reason")`エラー理由を使用します。
+受信証明書が追加の検証を満たしていない場合`context.Fail("failure reason")`は、失敗の理由でを呼び出します。
 
-実際の機能は、おそらくたいデータベースやその他のユーザー ストアに接続する依存関係の挿入に登録されているサービスを呼び出します。 デリゲートに渡されたコンテキストを使用して、サービスにアクセスします。 `Startup.ConfigureServices` での次の例を検討してください。
+実際の機能の場合は、データベースまたはその他の種類のユーザーストアに接続する依存関係の挿入に登録されているサービスを呼び出す必要があります。 デリゲートに渡されたコンテキストを使用してサービスにアクセスします。 `Startup.ConfigureServices` での次の例を検討してください。
 
 ```csharp
 services.AddAuthentication(
@@ -168,13 +177,13 @@ services.AddAuthentication(
     });
 ```
 
-概念的には、証明書の検証は、承認問題です。 チェックを追加すると、たとえば、発行者または内部ではなく、承認のポリシーで拇印`OnCertificateValidated`は差し支えありません。
+概念的には、証明書の検証は承認に関する問題です。 内部`OnCertificateValidated`ではなく、承認ポリシーの発行者や拇印などのチェックを追加することは、まったく可能です。
 
-## <a name="configure-your-host-to-require-certificates"></a>証明書を要求するように、ホストを構成します。
+## <a name="configure-your-host-to-require-certificates"></a>証明書を要求するようにホストを構成する
 
 ### <a name="kestrel"></a>Kestrel
 
-*Program.cs*、次のように Kestrel を構成します。
+*Program.cs*で、次のように Kestrel を構成します。
 
 ```csharp
 public static IWebHost BuildWebHost(string[] args) =>
@@ -191,14 +200,14 @@ public static IWebHost BuildWebHost(string[] args) =>
 
 ### <a name="iis"></a>IIS
 
-IIS マネージャーで次の手順を完了するには。
+IIS マネージャーで、次の手順を実行します。
 
-1. サイトを選択、**接続**タブ。
-1. ダブルクリックして、 **SSL 設定**オプション、**機能ビュー**ウィンドウ。
-1. チェック、 **SSL が必要** チェック ボックスを選択し、**を必要と**オプション ボタンをクリック、**クライアント証明書**セクション。
+1. **[接続]** タブからサイトを選択します。
+1. **[機能ビュー]** ウィンドウで、 **[SSL 設定]** オプションをダブルクリックします。
+1. **[SSL が必要]** チェックボックスをオンにし、 **[クライアント証明書]** セクションの **[必須]** オプションを選択します。
 
-![IIS でクライアント証明書の設定](README-IISConfig.png)
+![IIS でのクライアント証明書の設定](README-IISConfig.png)
 
 ### <a name="azure-and-custom-web-proxies"></a>Azure とカスタム web プロキシ
 
-参照してください、[ホストし、ドキュメントを配置](xref:host-and-deploy/proxy-load-balancer#certificate-forwarding)ミドルウェアを転送する証明書を構成するためです。
+証明書転送ミドルウェアを構成する方法については、[ホストを参照し、ドキュメントを展開](xref:host-and-deploy/proxy-load-balancer#certificate-forwarding)してください。

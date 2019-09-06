@@ -5,14 +5,14 @@ description: Blazor の認証と承認のシナリオについて説明します
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/26/2019
+ms.date: 08/29/2019
 uid: security/blazor/index
-ms.openlocfilehash: 87d61a7ccda209243a62bc54467b8f02dad92c24
-ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
+ms.openlocfilehash: 8714acbeb6e8a00992a601030811b24f53426b82
+ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/13/2019
-ms.locfileid: "68994187"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70310520"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor の認証と承認
 
@@ -219,17 +219,21 @@ public void ConfigureServices(IServiceCollection services)
 
 `user.Identity.IsAuthenticated` が `true` である場合、要求を列挙し、役割のメンバーシップを評価できます。
 
-`CascadingAuthenticationState` コンポーネントを使用して `Task<AuthenticationState>` カスケード パラメーターを設定します。
+`AuthorizeRouteView` および `CascadingAuthenticationState` のコンポーネントを使用して `Task<AuthenticationState>` カスケード パラメーターを設定します。
 
 ```cshtml
-<CascadingAuthenticationState>
-    <Router AppAssembly="typeof(Startup).Assembly">
-        <NotFoundContent>
-            <h1>Sorry</h1>
-            <p>Sorry, there's nothing at this address.</p>
-        </NotFoundContent>
-    </Router>
-</CascadingAuthenticationState>
+<Router AppAssembly="@typeof(Program).Assembly">
+    <Found Context="routeData">
+        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+    </Found>
+    <NotFound>
+        <CascadingAuthenticationState>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p>Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </CascadingAuthenticationState>
+    </NotFound>
+</Router>
 ```
 
 ## <a name="authorization"></a>承認
@@ -372,7 +376,7 @@ You can only see this if you're signed in.
 
 ## <a name="customize-unauthorized-content-with-the-router-component"></a>Router コンポーネントを使用して承認されていないコンテンツをカスタマイズする
 
-`Router` コンポーネントを使用すると、以下の場合にアプリはカスタム コンテンツを指定できます。
+`Router` コンポーネントを `AuthorizeRouteView` コンポーネントとともに使用すると、以下の場合にアプリがカスタム コンテンツを指定できます。
 
 * コンテンツが見つからない。
 * ユーザーはコンポーネントに適用されている `[Authorize]` 条件に失敗します。 `[Authorize]` 属性については、「[[Authorize] 属性](#authorize-attribute)」セクションを参照してください。
@@ -381,28 +385,34 @@ You can only see this if you're signed in.
 既定の Blazor サーバー側プロジェクト テンプレートでは、*App.razor* ファイルがカスタム コンテンツの設定方法を示しています。
 
 ```cshtml
-<CascadingAuthenticationState>
-    <Router AppAssembly="typeof(Startup).Assembly">
-        <NotFoundContent>
-            <h1>Sorry</h1>
-            <p>Sorry, there's nothing at this address.</p>
-        </NotFoundContent>
-        <NotAuthorizedContent>
-            <h1>Sorry</h1>
-            <p>You're not authorized to reach this page.</p>
-            <p>You may need to log in as a different user.</p>
-        </NotAuthorizedContent>
-        <AuthorizingContent>
-            <h1>Authentication in progress</h1>
-            <p>Only visible while authentication is in progress.</p>
-        </AuthorizingContent>
-    </Router>
-</CascadingAuthenticationState>
+<Router AppAssembly="@typeof(Program).Assembly">
+    <Found Context="routeData">
+        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+            <NotAuthorized>
+                <h1>Sorry</h1>
+                <p>You're not authorized to reach this page.</p>
+                <p>You may need to log in as a different user.</p>
+            </NotAuthorized>
+            <Authorizing>
+                <h1>Authentication in progress</h1>
+                <p>Only visible while authentication is in progress.</p>
+            </Authorizing>
+        </AuthorizeRouteView>
+    </Found>
+    <NotFound>
+        <CascadingAuthenticationState>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <h1>Sorry</h1>
+                <p>Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </CascadingAuthenticationState>
+    </NotFound>
+</Router>
 ```
 
-`<NotFoundContent>`、`<NotAuthorizedContent>`、および `<AuthorizingContent>` のコンテンツには、他の対話型コンポーネントなど、任意の項目を含めることができます。
+`<NotFound>`、`<NotAuthorized>`、および `<Authorizing>` のコンテンツには、他の対話型コンポーネントなど、任意の項目を含めることができます。
 
-`<NotAuthorizedContent>` が指定されていない場合、ルーターには次のフォールバック メッセージが使用されます。
+`<NotAuthorized>` が指定されていない場合、`<AuthorizeRouteView>` には次のフォールバック メッセージが使用されます。
 
 ```html
 Not authorized.
@@ -478,4 +488,5 @@ Blazor クライアント側アプリでは、すべてのクライアント側�
 ## <a name="additional-resources"></a>その他の技術情報
 
 * <xref:security/index>
+* <xref:security/blazor/server-side>
 * <xref:security/authentication/windowsauth>

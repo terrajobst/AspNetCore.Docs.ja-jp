@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 8/7/2019
 uid: fundamentals/startup
-ms.openlocfilehash: 8866ee9210a91754d8050d0b91ff52c3d3fe0836
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: 9407de4ee91ba43b2c95fa98f0cf479bf8539cab
+ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975439"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70310492"
 ---
 # <a name="app-startup-in-aspnet-core"></a>ASP.NET Core でのアプリケーションのスタートアップ
 
@@ -80,15 +80,11 @@ ASP.NET Core アプリケーションでは `Startup` クラスが使用され�
 
 [!code-csharp[](startup/sample_snapshot/Startup2.cs?highlight=7-8)]
 
-::: moniker-end
-`IWebHostEnvironment` を挿入する代わりに、規約ベースのアプローチがあります。
-::: moniker range=">= aspnetcore-3.0"
+ほとんどのサービスは、`Configure` メソッドが呼び出されるまで使用できません。
 
 ::: moniker-end
 
-::: moniker range="< aspnetcore-3.0"
-`IHostingEnvironment` を挿入する代わりに、規約ベースのアプローチがあります。
-::: moniker-end
+### <a name="multiple-startup"></a>マルチ スタートアップ
 
 アプリケーションの環境 (たとえば `StartupDevelopment`) ごとに個別の `Startup` クラスが定義されると、実行時に適切な `Startup` クラスが選択されます。 名前のサフィックスが現在の環境と一致するクラスが優先されます。 アプリケーションが Development 環境で実行され、`Startup` クラスと `StartupDevelopment` クラスの両方が含まれている場合は、`StartupDevelopment` クラスが使用されます。 詳細については、「[Use multiple environments](xref:fundamentals/environments#environment-based-startup-class-and-methods)」(複数の環境の使用) を参照してください。
 

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 uid: data/ef-rp/complex-data-model
-ms.openlocfilehash: 34b977f70f3e7e58e4ab6fcf3d8f69800896a65d
-ms.sourcegitcommit: 0774a61a3a6c1412a7da0e7d932dc60c506441fc
+ms.openlocfilehash: ab29cf687c80551d275cae69f28b7576016bfff6
+ms.sourcegitcommit: e6bd2bbe5683e9a7dbbc2f2eab644986e6dc8a87
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2019
-ms.locfileid: "70059126"
+ms.lasthandoff: 09/03/2019
+ms.locfileid: "70238125"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---data-model---5-of-8"></a>ASP.NET Core の Razor ページと EF Core - データ モデル - 5/8
 
@@ -390,7 +390,7 @@ public ICollection<Course> Courses { get; set; }
 
 規則により、EF Core では null 非許容の FK と多対多リレーションシップに対して連鎖削除が有効になります。 この既定の動作では、循環連鎖削除規則が適用される可能性があります。 循環連鎖削除規則が適用されると、移行の追加時に例外が発生します。
 
-たとえば、`Department.InstructorID` プロパティが null 非許容として定義されている場合、EF Core では連鎖削除規則が構成されます。 この場合、管理者として割り当てられた講師が削除されると、部門は削除されます。 このシナリオでは、制限規則がより合理的になります。 次の fluent API では、制限規則が設定されて、連鎖削除が無効になります。
+たとえば、`Department.InstructorID` プロパティが null 非許容として定義されている場合、EF Core では連鎖削除規則が構成されます。 この場合、管理者として割り当てられた講師が削除されると、部門は削除されます。 このシナリオでは、制限規則がより合理的になります。 次の [fluent API](#fluent-api-alternative-to-attributes) では、制限規則が設定されて、連鎖削除が無効になります。
 
   ```csharp
   modelBuilder.Entity<Department>()
@@ -1091,7 +1091,7 @@ public ICollection<Course> Courses { get; set; }
 
 * EF Core は、講師が削除されたときに学科を削除するように連鎖削除規則を構成します。
 * 講師が削除されたときに学科を削除するのは、意図した動作ではありません。
-* 次の fluent API で、連鎖の代わりに制限規則を設定します。
+* 次の [fluent API](#fluent-api-alternative-to-attributes) で、連鎖の代わりに制限規則を設定します。
 
    ```csharp
    modelBuilder.Entity<Department>()

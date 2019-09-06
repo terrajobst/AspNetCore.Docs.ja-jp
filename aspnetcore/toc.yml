@@ -301,7 +301,11 @@
         - name: JavaScript 相互運用
           uid: blazor/javascript-interop
         - name: セキュリティと ID
-          uid: security/blazor/index
+          items:
+            - name: 概要
+              uid: security/blazor/index
+            - name: サーバー側
+              uid: security/blazor/server-side
         - name: 状態管理
           uid: blazor/state-management
         - name: エラーの処理
@@ -540,13 +544,17 @@
       uid: grpc/basics
     - name: ASP.NET Core を使用した gRPC サービス
       uid: grpc/aspnetcore
+    - name: .NET クライアントを使用して gRPC サービスを呼び出す
+      uid: grpc/client
+    - name: gRPC クライアント ファクトリの統合
+      uid: grpc/clientfactory
     - name: 構成
       uid: grpc/configuration
     - name: 認証と承認
       uid: grpc/authn-and-authz
     - name: セキュリティの考慮事項
       uid: grpc/security
-    - name: C Core から ASP.NET Core に gRPC サービスを移行する
+    - name: C コアから gRPC サービスを移行する
       uid: grpc/migration
     - name: HTTP API を使用した gRPC サービスの比較
       uid: grpc/comparison
@@ -988,7 +996,11 @@
     - name: アプリケーションのセキュリティ - OWASP
       href: 'https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/DotNet_Security_Cheat_Sheet.md'
     - name: Blazor
-      uid: security/blazor/index
+      items:
+        - name: 概要
+          uid: security/blazor/index
+        - name: サーバー側
+          uid: security/blazor/server-side
 - name: パフォーマンス
   items:
     - name: 概要
