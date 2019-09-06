@@ -7,12 +7,12 @@ ms.author: jamesnk
 ms.custom: mvc
 ms.date: 08/26/2019
 uid: grpc/troubleshoot
-ms.openlocfilehash: 49bde2792f0fd7910de02d75f5f443000916dec7
-ms.sourcegitcommit: de17150e5ec7507d7114dde0e5dbc2e45a66ef53
+ms.openlocfilehash: e0c12aac083bc2e13f66831e756f2a93b7ee76b0
+ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/28/2019
-ms.locfileid: "70112751"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70310447"
 ---
 # <a name="troubleshoot-grpc-on-net-core"></a>.NET Core での gRPC のトラブルシューティング
 
@@ -40,10 +40,9 @@ info: Microsoft.Hosting.Lifetime[0]
 ```csharp
 static async Task Main(string[] args)
 {
-    var httpClient = new HttpClient();
     // The port number(5001) must match the port of the gRPC server.
-    httpClient.BaseAddress = new Uri("https://localhost:5001");
-    var client = GrpcClient.Create<Greeter.GreeterClient>(httpClient);
+    var channel = GrpcChannel.ForAddress("https://localhost:5001");
+    var client = new Greet.GreeterClient(channel);
 }
 ```
 
@@ -56,7 +55,7 @@ static async Task Main(string[] args)
 > ハンドルされていない例外です。 System.net.http.httprequestexception (システム):SSL 接続を確立できませんでした。内部例外を参照してください。
 > ---> の認証を行います。 AuthenticationException:検証プロシージャによると、リモート証明書が無効です。
 
-このエラーは、アプリをローカルでテストしていて、ASP.NET Core HTTPS 開発証明書が信頼されていない場合に表示されることがあります。 この問題を解決する手順については、「 [Windows および macOS で ASP.NET CORE HTTPS 開発証明書を信頼](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos)する」を参照してください。
+このエラーは、アプリをローカルでテストしていて、ASP.NET Core HTTPS 開発証明書が信頼されていない場合に表示されることがあります。 この問題を解決する手順については、「[Windows と macOS で ASP.NET Core HTTPS 開発証明書を信頼します](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos)」を参照してください。
 
 別のコンピューターで gRPC サービスを呼び出していて、その証明書を信頼できない場合、gRPC クライアントは無効な証明書を無視するように構成できます。 次のコードでは、 [Httpclienthandler. ServerCertificateCustomValidationCallback](/dotnet/api/system.net.http.httpclienthandler.servercertificatecustomvalidationcallback)を使用して、信頼された証明書がない呼び出しを許可します。
 
@@ -78,13 +77,12 @@ var client = GrpcClient.Create<Greeter.GreeterClient>(httpClient);
 .NET Core クライアントでセキュリティで保護されていない gRPC サービスを呼び出すには、追加の構成が必要です。 Grpc クライアントでは、 `System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport`スイッチをに`true`設定し、サーバーアドレスでを使用`http`する必要があります。
 
 ```csharp
-// This switch must be set before creating the HttpClient.
+// This switch must be set before creating the GrpcChannel/HttpClient.
 AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 
-var httpClient = new HttpClient();
-// The address starts with "http://"
-httpClient.BaseAddress = new Uri("http://localhost:5000");
-var client = GrpcClient.Create<Greeter.GreeterClient>(httpClient);
+// The port number(5000) must match the port of the gRPC server.
+var channel = GrpcChannel.ForAddress("https://localhost:5001");
+var client = new Greet.GreeterClient(channel);
 ```
 
 ## <a name="unable-to-start-aspnet-core-grpc-app-on-macos"></a>MacOS で gRPC アプリを開始できません ASP.NET Core

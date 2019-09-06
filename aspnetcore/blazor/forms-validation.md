@@ -5,14 +5,14 @@ description: Blazor でフォームとフィールドの検証シナリオを使
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/13/2019
+ms.date: 09/04/2019
 uid: blazor/forms-validation
-ms.openlocfilehash: 0b2e38cdbd974a28960b917fb6b5ce370f8c4659
-ms.sourcegitcommit: f5f0ff65d4e2a961939762fb00e654491a2c772a
+ms.openlocfilehash: 4531ef44a7df3951f3bebdf88e597165fa75f06e
+ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/15/2019
-ms.locfileid: "69030326"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70310325"
 ---
 # <a name="aspnet-core-blazor-forms-and-validation"></a>Blazor フォームと検証の ASP.NET Core
 
@@ -175,6 +175,25 @@ public class Starship
 
 は`EditForm` 、変更`EditContext`されたフィールドと現在の検証メッセージを含む、編集プロセスに関するメタデータを追跡する[カスケード値](xref:blazor/components#cascading-values-and-parameters)としてを作成します。 また`EditForm` 、は、有効かつ無効な送信 (`OnValidSubmit`, `OnInvalidSubmit`) の便利なイベントも提供します。 または、 `OnSubmit`を使用して、検証フィールドとチェックフィールドの値をカスタム検証コードでトリガーします。
 
+## <a name="inputtext-based-on-the-input-event"></a>入力イベントに基づく InputText
+
+イベントで`InputText`はなく`input`イベントを使用するカスタムコンポーネントを作成するには、コンポーネントを使用します。 `change`
+
+次のマークアップを使用してコンポーネントを作成し、その`InputText`コンポーネントを使用した場合と同じように使用します。
+
+```cshtml
+@inherits InputText
+
+<input 
+    @attributes="AdditionalAttributes" 
+    class="@CssClass" 
+    value="@CurrentValue" 
+    @oninput="EventCallback.Factory.CreateBinder<string>(
+        this, __value => CurrentValueAsString = __value, CurrentValueAsString)" />
+```
+
+## <a name="validation-support"></a>検証のサポート
+
 コンポーネント`DataAnnotationsValidator`は、データ注釈をカスケード`EditContext`に使用して検証サポートをアタッチします。 現在、データ注釈を使用した検証のサポートを有効にするには、この明示的なジェスチャが必要ですが、この動作を既定の動作に設定することを検討しています。 データ注釈とは異なる検証システムを使用するには`DataAnnotationsValidator` 、をカスタム実装に置き換えます。 ASP.NET Core の実装は、参照ソースの検査に使用できます。[DataAnnotationsValidator](https://github.com/aspnet/AspNetCore/blob/master/src/Components/Components/src/Forms/DataAnnotationsValidator.cs)/[AddDataAnnotationsValidation](https://github.com/aspnet/AspNetCore/blob/master/src/Components/Components/src/Forms/EditContextDataAnnotationsExtensions.cs)。 *ASP.NET Core の実装は、プレビューリリース期間中に迅速な更新が適用されます。*
 
 コンポーネント`ValidationSummary`は、検証の[概要タグヘルパー](xref:mvc/views/working-with-forms#the-validation-summary-tag-helper)に似たすべての検証メッセージを要約します。
@@ -186,3 +205,7 @@ public class Starship
 ```
 
 コンポーネント`ValidationMessage` と`ValidationSummary`コンポーネントは、任意の属性をサポートします。 コンポーネントパラメーターに一致しない属性は、生成`<div>`される要素また`<ul>`は要素に追加されます。
+
+### <a name="validation-of-complex-or-collection-type-properties"></a>複合型またはコレクション型のプロパティの検証
+
+モデルのプロパティに適用される検証属性は、フォームが送信されるときに検証されます。 ただし、モデルのコレクションや複合データ型のプロパティは、フォームの送信時に検証されません。 このシナリオで入れ子になった検証属性を使用するには、カスタム検証コンポーネントを使用します。 例については、 [aspnet/Samples GitHub リポジトリの Blazor 検証サンプル](https://github.com/aspnet/samples/tree/master/samples/aspnetcore/blazor/Validation)を参照してください。

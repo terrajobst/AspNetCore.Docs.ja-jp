@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/02/2019
 uid: blazor/dependency-injection
-ms.openlocfilehash: a9330caa81eec0910206312283b3424c70cd1289
-ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
+ms.openlocfilehash: a2bfa0cbe951e817ed6264f1a151d5a716cd795c
+ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/06/2019
-ms.locfileid: "68948392"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70310352"
 ---
 # <a name="aspnet-core-blazor-dependency-injection"></a>ASP.NET Core Blazor の依存関係の挿入
 
@@ -33,7 +33,7 @@ DI は、中央の場所で構成されたサービスにアクセスするた�
 | ------- | -------- | ----------- |
 | <xref:System.Net.Http.HttpClient> | シングルトン | URI によって識別されるリソースから HTTP 要求を送信し、HTTP 応答を受信するためのメソッドを提供します。 の`HttpClient`このインスタンスは、ブラウザーを使用して、バックグラウンドで HTTP トラフィックを処理することに注意してください。 [BaseAddress](xref:System.Net.Http.HttpClient.BaseAddress)は、アプリのベース URI プレフィックスに自動的に設定されます。 詳細については、「 <xref:blazor/call-web-api> 」を参照してください。 |
 | `IJSRuntime` | シングルトン | JavaScript 呼び出しがディスパッチされる JavaScript ランタイムのインスタンスを表します。 詳細については、「 <xref:blazor/javascript-interop> 」を参照してください。 |
-| `IUriHelper` | シングルトン | Uri とナビゲーション状態を操作するためのヘルパーが含まれています。 詳細については、「 [URI およびナビゲーション状態ヘルパー](xref:blazor/routing#uri-and-navigation-state-helpers)」を参照してください。 |
+| `NavigationManager` | シングルトン | Uri とナビゲーション状態を操作するためのヘルパーが含まれています。 詳細については、「 [URI およびナビゲーション状態ヘルパー](xref:blazor/routing#uri-and-navigation-state-helpers)」を参照してください。 |
 
 カスタムサービスプロバイダーは、表に示されている既定のサービスを自動的に提供しません。 カスタムサービスプロバイダーを使用し、表に示されているいずれかのサービスが必要な場合は、必要なサービスを新しいサービスプロバイダーに追加します。
 
@@ -125,7 +125,7 @@ public class DataAccess : IDataAccess
 * 該当するコンストラクターは*パブリック*である必要があります。
 * 1つの適用可能なコンストラクターが存在する必要があります。 あいまいさが発生した場合、DI は例外をスローします。
 
-## <a name="additional-resources"></a>その他の資料
+## <a name="additional-resources"></a>その他の技術情報
 
 * <xref:fundamentals/dependency-injection>
 * <xref:mvc/views/dependency-injection>

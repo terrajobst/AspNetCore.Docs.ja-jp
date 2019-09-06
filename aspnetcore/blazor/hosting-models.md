@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/01/2019
 uid: blazor/hosting-models
-ms.openlocfilehash: 64393e826cb17550085f468f5916fca55973908f
-ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
+ms.openlocfilehash: bf2bce4f89e8bfe6e5aeeb4860c85a60c5eb4b7c
+ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/13/2019
-ms.locfileid: "68993391"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70310387"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>Blazor ホスティングモデルの ASP.NET Core
 
@@ -99,35 +99,67 @@ Blazor サーバー側アプリは、サーバーへのクライアント接続�
  
 ```cshtml
 <body>
-    <app>@(await Html.RenderComponentAsync<App>())</app>
+    <app>@(await Html.RenderComponentAsync<App>(RenderMode.ServerPrerendered))</app>
  
     <script src="_framework/blazor.server.js"></script>
 </body>
 ```
+
+`RenderMode`コンポーネントを構成するかどうかを構成します。
+
+* ページに prerendered ます。
+* は、ページに静的 HTML として表示されるか、ユーザーエージェントから Blazor アプリをブートストラップするために必要な情報が含まれている場合に表示されます。
+
+| `RenderMode`        | 説明 |
+| ------------------- | ----------- |
+| `ServerPrerendered` | コンポーネントを静的 HTML にレンダリングし、Blazor サーバー側アプリのマーカーを含めます。 ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。 パラメーターはサポートされていません。 |
+| `Server`            | Blazor サーバー側アプリのマーカーをレンダリングします。 コンポーネントからの出力は含まれていません。 ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。 パラメーターはサポートされていません。 |
+| `Static`            | コンポーネントを静的 HTML にレンダリングします。 パラメーターがサポートされています。 |
+
+静的な HTML ページからのサーバーコンポーネントのレンダリングはサポートされていません。
  
 クライアントは、アプリの再レンダリングに使用されたのと同じ状態でサーバーに再接続します。 アプリの状態がまだメモリ内にある場合は、SignalR 接続が確立された後に、コンポーネントの状態が再び実行されることはありません。
 
 ### <a name="render-stateful-interactive-components-from-razor-pages-and-views"></a>Razor ページとビューからのステートフル対話型コンポーネントのレンダリング
  
-ステートフル対話型コンポーネントは、Razor ページまたはビューに追加できます。 ページまたはビューがレンダリングされると、コンポーネントは prerendered に表示されます。 その後、状態がまだメモリ内にある限り、クライアント接続が確立されると、アプリはコンポーネントの状態に再接続します。
+ステートフル対話型コンポーネントは、Razor ページまたはビューに追加できます。
+
+ページまたはビューが表示される場合:
+
+* コンポーネントは、ページまたはビューと prerendered ます。
+* プリレンダリングに使用される初期コンポーネントの状態は失われます。
+* SignalR 接続が確立されると、新しいコンポーネントの状態が作成されます。
  
-たとえば、次の Razor ページでは、 `Counter`フォームを使用して指定された初期カウントを持つコンポーネントがレンダリングされます。
+次の Razor ページでは`Counter` 、コンポーネントがレンダリングされます。
+
+```cshtml
+<h1>My Razor Page</h1>
+ 
+@(await Html.RenderComponentAsync<Counter>(RenderMode.ServerPrerendered))
+```
+
+### <a name="render-noninteractive-components-from-razor-pages-and-views"></a>Razor ページとビューからの非対話型コンポーネントのレンダリング
+
+次の Razor ページ`MyComponent`では、フォームを使用して指定された初期値を使用して、コンポーネントが静的にレンダリングされます。
  
 ```cshtml
 <h1>My Razor Page</h1>
 
 <form>
-    <input type="number" asp-for="InitialCount" />
-    <button type="submit">Set initial count</button>
+    <input type="number" asp-for="InitialValue" />
+    <button type="submit">Set initial value</button>
 </form>
  
-@(await Html.RenderComponentAsync<Counter>(new { InitialCount = InitialCount }))
+@(await Html.RenderComponentAsync<MyComponent>(RenderMode.Static, 
+    new { InitialValue = InitialValue }))
  
 @code {
     [BindProperty(SupportsGet=true)]
-    public int InitialCount { get; set; }
+    public int InitialValue { get; set; }
 }
 ```
+
+は`MyComponent`静的にレンダリングされるため、コンポーネントを対話形式にすることはできません。
 
 ### <a name="detect-when-the-app-is-prerendering"></a>アプリがプリレンダリングされるタイミングを検出する
  

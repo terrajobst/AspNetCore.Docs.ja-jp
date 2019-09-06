@@ -5,14 +5,14 @@ description: データにバインドする方法、イベントを処理する�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/13/2019
+ms.date: 09/04/2019
 uid: blazor/components
-ms.openlocfilehash: 07e9153ccfdc78d1da57b815d33220f7fa597cc7
-ms.sourcegitcommit: 4b00e77f9984ce76356e829cfe7f75f0f61a7a8f
+ms.openlocfilehash: ce9da14bbe19cbee960d215f6167a0e760bd607a
+ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/29/2019
-ms.locfileid: "70145737"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70310382"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>ASP.NET Core Razor コンポーネントを作成して使用する
 
@@ -28,7 +28,7 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 コンポーネントの名前は、大文字で始まる必要があります。 たとえば、 *MyCoolComponent*は有効で、 *MyCoolComponent*は無効です。
 
-`_RazorComponentInclude` MSBuild プロパティを使用してファイルが Razor コンポーネントファイルとして識別されている限り、ファイル拡張子を使用してコンポーネントを作成できます。 たとえば、 *Pages*フォルダーにあるすべての*Cshtml*ファイルを Razor コンポーネントファイルとして処理するように指定するアプリを次に示します。
+`_RazorComponentInclude` MSBuild プロパティを使用してファイルが Razor コンポーネントファイルとして識別されている限り、ファイル拡張子を使用してコンポーネントを作成*できます。* たとえば、 *Pages*フォルダーにあるすべての*Cshtml*ファイルを Razor コンポーネントファイルとして処理するように指定するアプリを次に示します。
 
 ```xml
 <PropertyGroup>
@@ -72,8 +72,8 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 ページまたはビューからコンポーネントを表示するには、 `RenderComponentAsync<TComponent>` HTML ヘルパーメソッドを使用します。
 
 ```cshtml
-<div id="Counter">
-    @(await Html.RenderComponentAsync<Counter>(new { IncrementAmount = 10 }))
+<div id="MyComponent">
+    @(await Html.RenderComponentAsync<MyComponent>(RenderMode.ServerPrerendered))
 </div>
 ```
 
@@ -420,23 +420,23 @@ Razor コンポーネントは、イベント処理機能を提供します。 �
 
 イベントによっては、イベント引数の型が許可されます。 これらのイベントの種類のいずれかにアクセスする必要がない場合は、メソッドの呼び出しで必要とされません。
 
-サポートされている[Uieventargs](https://github.com/aspnet/AspNetCore/blob/release/3.0-preview8/src/Components/Components/src/UIEventArgs.cs)を次の表に示します。
+サポートされている[EventArgs](https://github.com/aspnet/AspNetCore/tree/release/3.0-preview9/src/Components/Web/src/Web)を次の表に示します。
 
 | イベント | クラス |
 | ----- | ----- |
-| クリップボードのトピック | `UIClipboardEventArgs` |
-| 抗力  | `UIDragEventArgs`はドラッグアンドドロップ操作中にドラッグしたデータを保持するために使用され`UIDataTransferItem`、1つ以上のを保持できます。 &ndash; `DataTransfer` `UIDataTransferItem`1つのドラッグデータ項目を表します。 |
-| Error | `UIErrorEventArgs` |
-| フォーカス | `UIFocusEventArgs`には、の`relatedTarget`サポートは含まれていません。 &ndash; |
-| `<input>` の変更 | `UIChangeEventArgs` |
-| キーボード | `UIKeyboardEventArgs` |
-| マウス | `UIMouseEventArgs` |
-| マウスポインター | `UIPointerEventArgs` |
-| マウスホイール | `UIWheelEventArgs` |
-| 進行状況 | `UIProgressEventArgs` |
-| タッチ | `UITouchEventArgs`&ndash; タッチ感度デバイス上の単一のコンタクト`UITouchPoint`ポイントを表します。 |
+| クリップボードのトピック        | `ClipboardEventArgs` |
+| 抗力             | `DragEventArgs`ドラッグした項目データを保持し`DataTransferItem`ます。 &ndash; `DataTransfer` |
+| Error            | `ErrorEventArgs` |
+| フォーカス            | `FocusEventArgs`には、の`relatedTarget`サポートは含まれていません。 &ndash; |
+| `<input>` の変更 | `ChangeEventArgs` |
+| キーボード         | `KeyboardEventArgs` |
+| マウス            | `MouseEventArgs` |
+| マウスポインター    | `PointerEventArgs` |
+| マウスホイール      | `WheelEventArgs` |
+| 進行状況         | `ProgressEventArgs` |
+| タッチ            | `TouchEventArgs`&ndash; タッチ感度デバイス上の単一のコンタクト`TouchPoint`ポイントを表します。 |
 
-前の表に示したイベントのプロパティとイベント処理動作の詳細については、「[参照ソースの EventArgs クラス (aspnet/AspNetCore release/3.0-preview9 branch)](https://github.com/aspnet/AspNetCore/tree/release/3.0-preview9/src/Components/Web/src)」を参照してください。
+前の表に示したイベントのプロパティとイベント処理動作の詳細については、「[参照ソースの EventArgs クラス (aspnet/AspNetCore release/3.0-preview9 branch)](https://github.com/aspnet/AspNetCore/tree/release/3.0-preview9/src/Components/Web/src/Web)」を参照してください。
 
 ### <a name="lambda-expressions"></a>ラムダ式
 
@@ -523,10 +523,9 @@ await callback.InvokeAsync(arg);
 
 * 子コンポーネントに属性を追加します。 [@ref](xref:mvc/views/razor#ref)
 * 子コンポーネントと同じ型のフィールドを定義します。
-* パラメーターを`@ref:suppressField`指定します。これにより、バッキングフィールドの生成が抑制されます。 詳細については、「 [3.0.0 での自動@refバッキングフィールドのサポートの削除-preview9](https://github.com/aspnet/Announcements/issues/381)」を参照してください。
 
 ```cshtml
-<MyLoginDialog @ref="loginDialog" @ref:suppressField ... />
+<MyLoginDialog @ref="loginDialog" ... />
 
 @code {
     private MyLoginDialog loginDialog;
@@ -543,34 +542,67 @@ await callback.InvokeAsync(arg);
 > [!IMPORTANT]
 > 変数は、コンポーネントがレンダリングされた後にのみ設定され`MyLoginDialog` 、その出力には要素が含まれます。 `loginDialog` この時点までは、参照するものはありません。 コンポーネント参照のレンダリングが完了した後にコンポーネント参照を`OnAfterRenderAsync`操作`OnAfterRender`するには、メソッドまたはメソッドを使用します。
 
-<!-- HOLD https://github.com/aspnet/AspNetCore.Docs/pull/13818
-Component references provide a way to reference a component instance so that you can issue commands to that instance, such as `Show` or `Reset`.
-
-The Razor compiler automatically generates a backing field for element and component references when using [@ref](xref:mvc/views/razor#ref). In the following example, there's no need to create a `myLoginDialog` field for the `LoginDialog` component:
-
-```cshtml
-<LoginDialog @ref="myLoginDialog" ... />
-
-@code {
-    private void OnSomething()
-    {
-        myLoginDialog.Show();
-    }
-}
-```
-
-When the component is rendered, the generated `myLoginDialog` field is populated with the `LoginDialog` component instance. You can then invoke .NET methods on the component instance.
-
-In some cases, a backing field is required. For example, declare a backing field when referencing generic components. To suppress backing field generation, specify the `@ref:suppressField` parameter.
-
-> [!IMPORTANT]
-> The generated `myLoginDialog` variable is only populated after the component is rendered and its output includes the `LoginDialog` element. Until that point, there's nothing to reference. To manipulate components references after the component has finished rendering, use the `OnAfterRenderAsync` or `OnAfterRender` methods.
--->
-
 コンポーネント参照のキャプチャは、[要素参照のキャプチャ](xref:blazor/javascript-interop#capture-references-to-elements)に似た構文を使用しますが、 [JavaScript 相互運用](xref:blazor/javascript-interop)機能ではありません。 コンポーネント参照は、.net コードで&mdash;のみ使用されているため、JavaScript コードに渡されません。
 
 > [!NOTE]
 > 子コンポーネントの状態を変化**さ**せるためにコンポーネント参照を使用しないでください。 代わりに、通常の宣言型パラメーターを使用して、子コンポーネントにデータを渡します。 通常の宣言型パラメーターを使用すると、子コンポーネントが自動的にレンダリングされます。
+
+## <a name="invoke-component-methods-externally-to-update-state"></a>状態を更新するためにコンポーネントメソッドを外部に呼び出す
+
+Blazor はを`SynchronizationContext`使用して、1つの論理スレッドの実行を強制します。 Blazor によって発生するコンポーネントのライフサイクルメソッドとイベントコールバックは、この`SynchronizationContext`で実行されます。 タイマーやその他の通知など、外部のイベントに基づいてコンポーネントを更新する必要がある場合は、 `InvokeAsync`メソッドを使用します。このメソッド`SynchronizationContext`は、Blazor のにディスパッチされます。
+
+たとえば、更新された状態のすべてのリッスンコンポーネントに通知できる通知*サービス*を考えてみます。
+
+```csharp
+public class NotifierService
+{
+    // Can be called from anywhere
+    public async Task Update(string key, int value)
+    {
+        if (Notify != null)
+        {
+            await Notify.Invoke(key, value);
+        }
+    }
+
+    public event Action<string, int, Task> Notify;
+}
+```
+
+コンポーネントを更新`NotifierService`するためのの使用方法:
+
+```cshtml
+@page "/"
+@inject NotifierService Notifier
+@implements IDisposable
+
+<p>Last update: @lastNotification.key = @lastNotification.value</p>
+
+@code {
+    private (string key, int value) lastNotification;
+
+    protected override void OnInitialized()
+    {
+        Notifier.Notify += OnNotify;
+    }
+
+    public async Task OnNotify(string key, int value)
+    {
+        await InvokeAsync(() =>
+        {
+            lastNotification = (key, value);
+            StateHasChanged();
+        });
+    }
+
+    public void Dispose()
+    {
+        Notifier.Notify -= OnNotify;
+    }
+}
+```
+
+前の例では`NotifierService` 、は、Blazor `OnNotify`のの外側でコンポーネント`SynchronizationContext`のメソッドを呼び出します。 `InvokeAsync`は、正しいコンテキストに切り替え、レンダリングをキューに移動するために使用されます。
 
 ## <a name="use-key-to-control-the-preservation-of-elements-and-components"></a>キー \@を使用して要素とコンポーネントの保存を制御する
 
@@ -795,7 +827,7 @@ Blazor でのルーティングは、アプリ内のアクセス可能な各コ�
 Razor を使用して作成されたコンポーネントの名前空間は、次のものに基づいています。
 
 * プロジェクトの`RootNamespace`。
-* プロジェクトルートからコンポーネントへのパス。 たとえば、 `ComponentsSample/Pages/Index.razor`は名前空間`ComponentsSample.Pages`にあります。 コンポーネントはC# 、名前のバインド規則に従います。 *インデックス*の場合、同じフォルダー、*ページ*、および親フォルダー内のすべてのコンポーネントがスコープに含まれます。
+* プロジェクトルートからコンポーネントへのパス。 たとえば、 `ComponentsSample/Pages/Index.razor`は名前空間`ComponentsSample.Pages`にあります。 コンポーネントはC# 、名前のバインド規則に従います。 *インデックス*の場合、同じフォルダー、*ページ*、および親フォルダー内の*すべてのコンポーネント*がスコープに含まれます。
 
 別の名前空間で定義されているコンポーネントは、Razor の[ \@using](xref:mvc/views/razor#using)ディレクティブを使用してスコープに入れることができます。
 
@@ -1006,18 +1038,7 @@ public class ThemeInfo
 }
 ```
 
-カスケード値を使用するために、コンポーネントは、 `[CascadingParameter]`属性を使用するか文字列名の値に基づいて、カスケード型パラメーターを宣言します。
-
-```cshtml
-<CascadingValue Value=@PermInfo Name="UserPermissions">...</CascadingValue>
-
-[CascadingParameter(Name = "UserPermissions")]
-private PermInfo Permissions { get; set; }
-```
-
-同じ型のカスケード値が複数あり、同じサブツリー内で区別する必要がある場合は、文字列名値を使用したバインドが関係します。
-
-カスケード値は、型によってカスケード型パラメーターにバインドされます。
+カスケード値を使用するために、コンポーネントは`[CascadingParameter]`属性を使用してカスケード型パラメーターを宣言します。 カスケード値は、型によってカスケード型パラメーターにバインドされます。
 
 サンプルアプリ`CascadingValuesParametersTheme`では、カスケード値が`ThemeInfo`カスケード型パラメーターにバインドされます。 パラメーターは、コンポーネントによって表示されるボタンの1つに CSS クラスを設定するために使用されます。
 
@@ -1057,13 +1078,46 @@ private PermInfo Permissions { get; set; }
 }
 ```
 
+同じサブツリー内で同じ型の複数の値を連鎖させるに`Name`は、各`CascadingValue`コンポーネントとそれに`CascadingParameter`対応するに一意の文字列を指定します。 次の例では、 `CascadingValue` 2 つのコンポーネントが`MyCascadingType`名前によっての異なるインスタンスをカスケードしています。
+
+```cshtml
+<CascadingValue Value=@ParentCascadeParameter1 Name="CascadeParam1">
+    <CascadingValue Value=@ParentCascadeParameter2 Name="CascadeParam2">
+        ...
+    </CascadingValue>
+</CascadingValue>
+
+@code {
+    private MyCascadingType ParentCascadeParameter1;
+
+    [Parameter]
+    public MyCascadingType ParentCascadeParameter2 { get; set; }
+
+    ...
+}
+```
+
+子孫コンポーネントでは、カスケードされたパラメーターは、先祖コンポーネントの対応するカスケード値から名前で値を受け取ります。
+
+```cshtml
+...
+
+@code {
+    [CascadingParameter(Name = "CascadeParam1")]
+    protected MyCascadingType ChildCascadeParameter1 { get; set; }
+    
+    [CascadingParameter(Name = "CascadeParam2")]
+    protected MyCascadingType ChildCascadeParameter2 { get; set; }
+}
+```
+
 ### <a name="tabset-example"></a>TabSet の例
 
 カスケード型パラメーターを使用すると、コンポーネント階層全体でコンポーネントを連携させることもできます。 たとえば、サンプルアプリで次の*Tabset*の例を考えてみます。
 
 このサンプルアプリには`ITab` 、タブによって実装されるインターフェイスがあります。
 
-[!code-cs[](common/samples/3.x/BlazorSample/UIInterfaces/ITab.cs)]
+[!code-csharp[](common/samples/3.x/BlazorSample/UIInterfaces/ITab.cs)]
 
 コンポーネント`CascadingValuesParametersTabSet`は、次`TabSet`のコンポーネントを含む`Tab`コンポーネントを使用します。
 
@@ -1340,7 +1394,7 @@ public class CultureController : Controller
 次のコンポーネントは、ユーザーがカルチャを選択したときに最初のリダイレクトを実行する方法の例を示しています。
 
 ```cshtml
-@inject IUriHelper UriHelper
+@inject NavigationManager NavigationManager
 
 <h3>Select your language</h3>
 
@@ -1356,12 +1410,12 @@ public class CultureController : Controller
     private void OnSelected(UIChangeEventArgs e)
     {
         var culture = (string)e.Value;
-        var uri = new Uri(UriHelper.GetAbsoluteUri())
+        var uri = new Uri(NavigationManager.Uri())
             .GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
         var query = $"?culture={Uri.EscapeDataString(culture)}&" +
             $"redirectUri={Uri.EscapeDataString(uri)}";
 
-        UriHelper.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
+        NavigationManager.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
     }
 }
 ```
@@ -1381,3 +1435,21 @@ Blazor の`@bind`機能は、ユーザーの現在のカルチャに基づいて
 * `IHtmlLocalizer<>`、 `IViewLocalizer<>`、およびデータ注釈のローカライズは、Blazor アプリではサポートされて**いない**MVC シナリオ ASP.NET Core ます。
 
 詳細については、「 <xref:fundamentals/localization> 」を参照してください。
+
+## <a name="scalable-vector-graphics-svg-images"></a>スケーラブルベクターグラフィックス (SVG) イメージ
+
+Blazor は HTML をレンダリングするため、スケーラブルベクターグラフィックス (svg) イメージ (*svg*) を含むブラウザーでサポートされている`<img>`イメージは、タグによってサポートされています。
+
+```html
+<img alt="Example image" src="some-image.svg" />
+```
+
+同様に、SVG イメージは、スタイルシートファイル ( *.css*) の css 規則でサポートされています。
+
+```css
+.my-element {
+    background-image: url("some-image.svg");
+}
+```
+
+ただし、インライン SVG マークアップは、すべてのシナリオでサポートされているわけではありません。 コンポーネントファイル ( `<svg>` *razor*) にタグを直接配置した場合、基本的な画像レンダリングはサポートされますが、多くの高度なシナリオはサポートされていません。 たとえば、タグ`<use>`は現在尊重されて`@bind`いないため、一部の SVG タグでは使用できません。 今後のリリースでは、これらの制限に対処する予定です。

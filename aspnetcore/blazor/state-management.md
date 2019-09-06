@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/13/2019
 uid: blazor/state-management
-ms.openlocfilehash: af040635302fbf2dae8192dcf37d55bfcfedfcec
-ms.sourcegitcommit: f5f0ff65d4e2a961939762fb00e654491a2c772a
+ms.openlocfilehash: 01f32130e43b7235cb438ad71321256882f53573
+ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/15/2019
-ms.locfileid: "69030371"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70310303"
 ---
 # <a name="aspnet-core-blazor-state-management"></a>ASP.NET Core Blazor 状態管理
 
@@ -237,10 +237,7 @@ else
 
 このエラーを解決する方法の1つは、プリレンダリングを無効にすることです。 これは通常、アプリでブラウザーベースのストレージを多用する場合に最適な選択肢です。 プリレンダリングによって複雑さが`localStorage`増し、アプリには`sessionStorage`メリットがありません
 
-プリレンダリングを無効にするには
-
-1. *Pages/_Host*ファイルを開き、へ`Html.RenderComponentAsync`の呼び出しを削除します。
-1. ファイルを開き、の`endpoints.MapBlazorHub()`呼び出し`endpoints.MapBlazorHub<App>("app")`をに置き換えます。 `Startup.cs` `App`ルートコンポーネントの型を示します。 `"app"`は、ルートコンポーネントの場所を指定する CSS セレクターです。
+プリレンダリングを無効にするには、 *Pages/_Host*ファイルを開き、の`Html.RenderComponentAsync<App>(RenderMode.Server)`呼び出しを変更します。
 
 またはを使用`localStorage`しない他のページでは`sessionStorage`、プリレンダリングが役立つ場合があります。 プリレンダリングが有効な状態を維持するには、ブラウザーが回線に接続されるまで読み込み操作を延期します。 次に、カウンター値を格納する例を示します。
 

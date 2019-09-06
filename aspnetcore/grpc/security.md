@@ -7,12 +7,12 @@ ms.author: jamesnk
 ms.custom: mvc
 ms.date: 07/07/2019
 uid: grpc/security
-ms.openlocfilehash: 4a70cb16d8397dbc69a626435fb72a0512788b14
-ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
+ms.openlocfilehash: f84bec0ef485b701b2be36384a2e49b9b28e473d
+ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68308755"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70310367"
 ---
 # <a name="security-considerations-in-grpc-for-aspnet-core"></a>GRPC での ASP.NET Core のセキュリティに関する考慮事項
 
@@ -46,8 +46,8 @@ public void ConfigureServices(IServiceCollection services)
 {
     services.AddGrpc(options =>
     {
-        options.ReceiveMaxMessageSize = 1 * 1024 * 1024;  // 1 megabyte
-        options.SendMaxMessageSize = 1 * 1024 * 1024;     // 1 megabyte
+        options.MaxReceiveMessageSize = 1 * 1024 * 1024; // 1 MB
+        options.MaxSendMessageSize = 1 * 1024 * 1024; // 1 MB
     });
 }
 ```

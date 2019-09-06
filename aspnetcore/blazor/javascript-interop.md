@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/13/2019
 uid: blazor/javascript-interop
-ms.openlocfilehash: 00ea14ca95c328b5f8779785a92aa0720a96eb05
-ms.sourcegitcommit: 7a46973998623aead757ad386fe33602b1658793
+ms.openlocfilehash: e578a8ad1484a2ef93bdc7470985937c4f28b7ed
+ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/15/2019
-ms.locfileid: "69487553"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70310456"
 ---
 # <a name="aspnet-core-blazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 相互運用機能
 
@@ -125,12 +125,11 @@ JavaScript ファイルを参照する タグをwwwroot/index.htmlファイル(B
 
 * `@ref`属性を HTML 要素に追加します。
 * 属性の値と一致`ElementReference`する名前を持つ型のフィールドを定義します。 `@ref`
-* パラメーターを`@ref:suppressField`指定します。これにより、バッキングフィールドの生成が抑制されます。 詳細については、「 [3.0.0 での自動@refバッキングフィールドのサポートの削除-preview9](https://github.com/aspnet/Announcements/issues/381)」を参照してください。
 
 要素`<input>`へ`username`の参照をキャプチャする例を次に示します。
 
 ```cshtml
-<input @ref="username" @ref:suppressField ... />
+<input @ref="username" ... />
 
 @code {
     ElementReference username;
@@ -156,22 +155,7 @@ window.exampleJsFunctions = {
 
 を`IJSRuntime.InvokeAsync<T>`使用し`exampleJsFunctions.focusElement` 、を`ElementReference`使用してを呼び出し、要素にフォーカスを移動します。
 
-```cshtml
-@inject IJSRuntime JSRuntime
-
-<input @ref="username" @ref:suppressField />
-<button @onclick="SetFocus">Set focus on username</button>
-
-@code {
-    private ElementReference username;
-
-    public async void SetFocus()
-    {
-        await JSRuntime.InvokeAsync<object>(
-                "exampleJsFunctions.focusElement", username);
-    }
-}
-```
+[!code-cshtml[](javascript-interop/samples_snapshot/component1.razor?highlight=1,3,11-12)]
 
 拡張メソッドを使用して要素にフォーカスを移動するには、 `IJSRuntime`インスタンスを受け取る静的拡張メソッドを作成します。
 
@@ -185,71 +169,10 @@ public static Task Focus(this ElementReference elementRef, IJSRuntime jsRuntime)
 
 メソッドは、オブジェクトで直接呼び出されます。 次の例では、静的`Focus`メソッドを`JsInteropClasses`名前空間から使用できることを前提としています。
 
-```cshtml
-@inject IJSRuntime JSRuntime
-@using JsInteropClasses
-
-<input @ref="username" @ref:suppressField />
-<button @onclick="SetFocus">Set focus on username</button>
-
-@code {
-    private ElementReference username;
-
-    public async Task SetFocus()
-    {
-        await username.Focus(JSRuntime);
-    }
-}
-```
+[!code-cshtml[](javascript-interop/samples_snapshot/component2.razor?highlight=1,4,12)]
 
 > [!IMPORTANT]
 > `username`変数は、コンポーネントがレンダリングされた後にのみ設定されます。 いない`ElementReference`が javascript コードに渡されると、javascript コードは`null`値を受け取ります。 コンポーネントのレンダリングが完了した後に要素参照を操作する (要素に初期フォーカスを設定する`OnAfterRenderAsync` ) `OnAfterRender`には、または[コンポーネントライフサイクルメソッド](xref:blazor/components#lifecycle-methods)を使用します。
-
-<!-- HOLD https://github.com/aspnet/AspNetCore.Docs/pull/13818
-Capture a reference to an HTML element in a component by adding an `@ref` attribute to the HTML element. The following example shows capturing a reference to the `username` `<input>` element:
-
-```cshtml
-<input @ref="username" ... />
-```
-
-> [!NOTE]
-> Do **not** use captured element references as a way of populating or manipulating the DOM when Blazor interacts with the elements referenced. Doing so may interfere with the declarative rendering model.
-
-As far as .NET code is concerned, an `ElementReference` is an opaque handle. The *only* thing you can do with `ElementReference` is pass it through to JavaScript code via JavaScript interop. When you do so, the JavaScript-side code receives an `HTMLElement` instance, which it can use with normal DOM APIs.
-
-For example, the following code defines a .NET extension method that enables setting the focus on an element:
-
-*exampleJsInterop.js*:
-
-```javascript
-window.exampleJsFunctions = {
-  focusElement : function (element) {
-    element.focus();
-  }
-}
-```
-
-Use `IJSRuntime.InvokeAsync<T>` and call `exampleJsFunctions.focusElement` with an `ElementReference` to focus an element:
-
-[!code-cshtml[](javascript-interop/samples_snapshot/component1.razor?highlight=1,3,9-10)]
-
-To use an extension method to focus an element, create a static extension method that receives the `IJSRuntime` instance:
-
-```csharp
-public static Task Focus(this ElementReference elementRef, IJSRuntime jsRuntime)
-{
-    return jsRuntime.InvokeAsync<object>(
-        "exampleJsFunctions.focusElement", elementRef);
-}
-```
-
-The method is called directly on the object. The following example assumes that the static `Focus` method is available from the `JsInteropClasses` namespace:
-
-[!code-cshtml[](javascript-interop/samples_snapshot/component2.razor?highlight=1,4,10)]
-
-> [!IMPORTANT]
-> The `username` variable is only populated after the component is rendered. If an unpopulated `ElementReference` is passed to JavaScript code, the JavaScript code receives a value of `null`. To manipulate element references after the component has finished rendering (to set the initial focus on an element) use the `OnAfterRenderAsync` or `OnAfterRender` [component lifecycle methods](xref:blazor/components#lifecycle-methods).
--->
 
 ## <a name="invoke-net-methods-from-javascript-functions"></a>JavaScript 関数からの .NET メソッドの呼び出し
 
@@ -283,7 +206,7 @@ Array(4) [ 1, 2, 3, 4 ]
 
 JavaScript から .NET インスタンスメソッドを呼び出すこともできます。 JavaScript から .NET インスタンスメソッドを呼び出すには、次の手順を実行します。
 
-* `DotNetObjectRef`インスタンスにラップして、.net インスタンスを JavaScript に渡します。 .NET インスタンスは、JavaScript への参照によって渡されます。
+* `DotNetObjectReference`インスタンスにラップして、.net インスタンスを JavaScript に渡します。 .NET インスタンスは、JavaScript への参照によって渡されます。
 * `invokeMethod`または`invokeMethodAsync`関数を使用して、インスタンスで .net インスタンスメソッドを呼び出します。 .NET インスタンスは、JavaScript から他の .NET メソッドを呼び出すときに引数として渡すこともできます。
 
 > [!NOTE]
