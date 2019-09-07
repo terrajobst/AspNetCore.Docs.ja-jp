@@ -5,18 +5,18 @@ description: Blazor アプリ用の再利用可能なレイアウトコンポー
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/02/2019
+ms.date: 09/06/2019
 uid: blazor/layouts
-ms.openlocfilehash: 2d652e149381f0a93e3135da978ab5737d47c6f1
-ms.sourcegitcommit: 0b9e767a09beaaaa4301915cdda9ef69daaf3ff2
+ms.openlocfilehash: 05a38c10e18407d50422192ab1ddf3ff4b0f3a5b
+ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/03/2019
-ms.locfileid: "68948222"
+ms.lasthandoff: 09/07/2019
+ms.locfileid: "70800361"
 ---
 # <a name="aspnet-core-blazor-layouts"></a>Blazor レイアウトの ASP.NET Core
 
-[Rainer Stropek](https://www.timecockpit.com)
+By [Rainer Stropek](https://www.timecockpit.com)と[Luke latham](https://github.com/guardrex)
 
 メニュー、著作権メッセージ、会社のロゴなどの一部のアプリ要素は、通常、アプリの全体的なレイアウトの一部であり、アプリのすべてのコンポーネントで使用されます。 これらの要素のコードをアプリのすべてのコンポーネントにコピーすることは、要素&mdash;の1つが更新を必要とするたびに効率的な方法ではありません。すべてのコンポーネントを更新する必要があります。 このような重複を維持することは困難であり、時間の経過と共にコンテンツの一貫性が失われる可能性があります。 *レイアウト*はこの問題を解決します。
 
@@ -31,29 +31,41 @@ ms.locfileid: "68948222"
 
 [!code-cshtml[](layouts/sample_snapshot/3.x/MainLayout.razor?highlight=1,13)]
 
+Blazor アプリテンプレート`MainLayout`のいずれかに基づくアプリでは、コンポーネント (*mainlayout. razor*) はアプリの*共有*フォルダーにあります。
+
+## <a name="default-layout"></a>既定のレイアウト
+
+アプリの*アプリケーションの razor*ファイルで`Router` 、コンポーネントの既定のアプリレイアウトを指定します。 既定の`Router` Blazor テンプレートによって提供される次のコンポーネントを使用`MainLayout`すると、既定のレイアウトがコンポーネントに設定されます。
+
+[!code-cshtml[](layouts/sample_snapshot/3.x/App1.razor?highlight=3)]
+
+コンテンツの`NotFound`既定のレイアウトを指定するには、 `NotFound`コンテンツに対してを`LayoutView`指定します。
+
+[!code-cshtml[](layouts/sample_snapshot/3.x/App2.razor?highlight=6-9)]
+
+`Router`コンポーネントの詳細については、 <xref:blazor/routing>「」を参照してください。
+
 ## <a name="specify-a-layout-in-a-component"></a>コンポーネントでのレイアウトの指定
 
 コンポーネントにレイアウトを`@layout`適用するには、Razor ディレクティブを使用します。 コンパイラは、 `@layout`を`LayoutAttribute`に変換します。これは、コンポーネントクラスに適用されます。
 
-次のコンポーネントのコンテンツ ( *masterlist*) が、 `MainLayout`の`@Body`位置に挿入されます。
+次`MasterList`のコンポーネントの内容は、 `MasterLayout`の`@Body`位置でに挿入されます。
 
 [!code-cshtml[](layouts/sample_snapshot/3.x/MasterList.razor?highlight=1)]
 
 ## <a name="centralized-layout-selection"></a>一元的なレイアウト選択
 
-アプリのすべてのフォルダーには、必要に応じて、*インポート*という名前のテンプレートファイルを含めることができます。 コンパイラには、インポートファイルで指定されたディレクティブが同じフォルダー内のすべての Razor テンプレートに含まれ、そのすべてのサブフォルダーに再帰的に含まれています。 したがって、を含む`@layout MainLayout`インポートの razor ファイルを使用すると、フォルダー内のすべてのコンポーネントでが使用`MainLayout`されるようになります。 フォルダーおよびサブフォルダー内のすべて`@layout MainLayout`の*razor*ファイルに繰り返し追加する必要はありません。 `@using`ディレクティブは、同じ方法でコンポーネントにも適用されます。
+アプリのすべてのフォルダーには、必要に応じて、*インポート*という名前のテンプレートファイルを含めることができます。 コンパイラには、インポートファイルで指定されたディレクティブが同じフォルダー内のすべての Razor テンプレートに含まれ、そのすべてのサブフォルダーに再帰的に含まれています。 したがって、を含む`@layout MyCoolLayout`インポートの razor ファイルを使用すると、フォルダー内のすべてのコンポーネントでが使用`MyCoolLayout`されるようになります。 フォルダーおよびサブフォルダー内のすべて`@layout MyCoolLayout`の*razor*ファイルに繰り返し追加する必要はありません。 `@using`ディレクティブは、同じ方法でコンポーネントにも適用されます。
 
 次のインポートを実行し*ます。 razor ファイルのインポート (_c)* :
 
-* `MainLayout`。
+* `MyCoolLayout`。
 * 同じフォルダーおよびサブフォルダー内のすべての Razor コンポーネント。
 * `BlazorApp1.Data` 名前空間。
  
 [!code-cshtml[](layouts/sample_snapshot/3.x/_Imports.razor)]
 
-Razorファイルは、razor の[ビューとページの _ViewImports ファイル](xref:mvc/views/layout#importing-shared-directives)に似ていますが、razor コンポーネントファイルに特に適用されます。
-
-Blazor テンプレートでは、レイアウトを選択するために、 *razor*ファイルが使用されます。 Blazor テンプレートから作成されたアプリには、プロジェクトのルートと*Pages*フォルダーにある*インポートの razor*ファイルが含まれています。
+Razor*ファイルは*、razor の[ビューとページの _ViewImports ファイル](xref:mvc/views/layout#importing-shared-directives)に似ていますが、razor コンポーネントファイルに特に適用されます。
 
 ## <a name="nested-layouts"></a>入れ子になったレイアウト
 
@@ -67,10 +79,10 @@ Blazor テンプレートでは、レイアウトを選択するために、 *ra
 
 [!code-cshtml[](layouts/sample_snapshot/3.x/MasterListLayout.razor?highlight=1,9)]
 
-最後に`MasterLayout` 、 *masterlayout*には、ヘッダー、メインメニュー、フッターなどの最上位レベルのレイアウト要素が含まれています。 `MasterListLayout`が`EpisodesComponent`表示される`@Body`と、が表示されます。
+最後に`MasterLayout` 、 *masterlayout*には、ヘッダー、メインメニュー、フッターなどの最上位レベルのレイアウト要素が含まれています。 `MasterListLayout`が表示`EpisodesComponent`される`@Body`と、が表示されます。
 
 [!code-cshtml[](layouts/sample_snapshot/3.x/MasterLayout.razor?highlight=6)]
 
-## <a name="additional-resources"></a>その他の資料
+## <a name="additional-resources"></a>その他の技術情報
 
 * <xref:mvc/views/layout>

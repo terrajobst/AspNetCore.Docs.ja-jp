@@ -5,14 +5,14 @@ description: アプリで要求をルーティングする方法と、[ナビゲ
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/23/2019
+ms.date: 09/06/2019
 uid: blazor/routing
-ms.openlocfilehash: ae3d7ab01185dd6f2e8e0f59b78c2e693fe464b0
-ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
+ms.openlocfilehash: d348908261c51b477aa698a407266d05c0df5a33
+ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/05/2019
-ms.locfileid: "70310349"
+ms.lasthandoff: 09/07/2019
+ms.locfileid: "70800345"
 ---
 # <a name="aspnet-core-blazor-routing"></a>ASP.NET Core Blazor ルーティング
 
@@ -28,9 +28,7 @@ Blazor サーバー側は[ASP.NET Core エンドポイントルーティング](
 
 ## <a name="route-templates"></a>ルートテンプレート
 
-`Router`コンポーネントによってルーティングが有効になり、各ユーザー補助コンポーネントにルートテンプレートが提供されます。 この`Router`コンポーネントは、*アプリケーションの razor*ファイルに表示されます。
-
-Blazor サーバー側またはクライアント側アプリの場合:
+コンポーネント`Router`は、指定されたルートを使用して各コンポーネントにルーティングできるようにします。 この`Router`コンポーネントは、*アプリケーションの razor*ファイルに表示されます。
 
 ```cshtml
 <Router AppAssembly="typeof(Startup).Assembly">
@@ -43,20 +41,27 @@ Blazor サーバー側またはクライアント側アプリの場合:
 </Router>
 ```
 
-ディレクティブを含む<xref:Microsoft.AspNetCore.Mvc.RouteAttribute> `@page` razor ファイルがコンパイルされると、生成されたクラスにルートテンプレートを指定するが提供されます。 実行時に、ルーターはを`RouteAttribute`使用してコンポーネントクラスを検索し、要求された URL に一致するルートテンプレートを使用してコンポーネントをレンダリングします。
+ディレクティブを含む<xref:Microsoft.AspNetCore.Mvc.RouteAttribute> `@page` razor ファイルがコンパイルされると、生成されたクラスにルートテンプレートを指定するが提供されます。
+
+実行時には`RouteView` 、次のコンポーネントが実行されます。
+
+* 必要なパラメーターと`Router`共にからを受け取ります。`RouteData`
+* 指定されたパラメーターを使用して、指定されたコンポーネントをそのレイアウト (または任意の既定のレイアウト) でレンダリングします。
+
+必要に応じて、 `DefaultLayout`レイアウトクラスを含むパラメーターを指定して、レイアウトを指定しないコンポーネントに使用することもできます。 既定の Blazor テンプレートでは`MainLayout` 、コンポーネントが指定されています。 *Mainlayout。 razor*は、テンプレートプロジェクトの*共有*フォルダーにあります。 レイアウトの詳細については<xref:blazor/layouts>、「」を参照してください。
 
 コンポーネントには、複数のルートテンプレートを適用できます。 次のコンポーネントは、と`/BlazorRoute` `/DifferentBlazorRoute`に対する要求に応答します。
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRoute.razor?name=snippet_BlazorRoute)]
 
 > [!IMPORTANT]
-> Url を正しく解決するには、アプリの*wwwroot/index.html*ファイル (Blazor client 側) または*Pages/_Host*ファイル (Blazor サーバー側) に、 `href`属性に指定されているアプリのベースパスを含むタグを`<base>`含める必要があります (`<base href="/">`). 詳細については、「 <xref:host-and-deploy/blazor/client-side#app-base-path> 」を参照してください。
+> Url を正しく解決するには、アプリの*wwwroot/index.html*ファイル (Blazor client 側) または*Pages/_Host*ファイル (Blazor サーバー側) に、 `href`属性に指定されているアプリのベースパスを含むタグを`<base>`含める必要があります (`<base href="/">`). 詳細については、「 <xref:host-and-deploy/blazor/index#app-base-path> 」を参照してください。
 
 ## <a name="provide-custom-content-when-content-isnt-found"></a>コンテンツが見つからないときにカスタムコンテンツを提供する
 
 `Router`コンポーネントを使用すると、要求されたルートのコンテンツが見つからない場合に、アプリでカスタムコンテンツを指定できます。
 
-アプリケーションの*razor*ファイルで、 `<NotFound>` `Router`コンポーネントのテンプレートパラメーターにカスタムコンテンツを設定します。
+アプリケーションの*razor*ファイルで、 `NotFound` `Router`コンポーネントのテンプレートパラメーターにカスタムコンテンツを設定します。
 
 ```cshtml
 <Router AppAssembly="typeof(Startup).Assembly">
@@ -70,7 +75,13 @@ Blazor サーバー側またはクライアント側アプリの場合:
 </Router>
 ```
 
-の`<NotFound>`コンテンツには、他の対話型コンポーネントなど、任意の項目を含めることができます。
+タグの`<NotFound>`内容には、他の対話型コンポーネントなど、任意の項目を含めることができます。 コンテンツに`NotFound`既定のレイアウトを適用するに<xref:blazor/layouts>は、「」を参照してください。
+
+## <a name="route-to-components-from-multiple-assemblies"></a>複数のアセンブリからコンポーネントへのルーティング
+
+パラメーターを使用して、 `Router`ルーティング可能なコンポーネントを検索するときに考慮するコンポーネントの追加のアセンブリを指定します。 `AdditionalAssemblies` 指定されたアセンブリは、指定`AppAssembly`されたアセンブリに加えて考慮されます。 次の例では`Component1` 、は、参照先クラスライブラリで定義されているルーティング可能なコンポーネントです。 次`AdditionalAssemblies`の例では、のルーティング`Component1`がサポートされています。
+
+< Router AppAssembly = "typeof (Program).アセンブリ "AdditionalAssemblies =" new [] {typeof (Component1)。アセンブリ} >...</Router>
 
 ## <a name="route-parameters"></a>ルートパラメーター
 
@@ -181,4 +192,3 @@ Blazor サーバー側アプリでは、 *_Host*の既定のルートは`/` (`@p
     }
 }
 ```
-

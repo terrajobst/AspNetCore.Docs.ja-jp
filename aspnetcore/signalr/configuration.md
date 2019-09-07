@@ -7,12 +7,12 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 08/05/2019
 uid: signalr/configuration
-ms.openlocfilehash: 475d9664c588c06bfcd816959be8a425ee01c023
-ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
+ms.openlocfilehash: 156ffac83fbdf61fd88ad8acc307c2c701c46bca
+ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68915079"
+ms.lasthandoff: 09/06/2019
+ms.locfileid: "70773932"
 ---
 # <a name="aspnet-core-signalr-configuration"></a>ASP.NET Core SignalR の構成
 
@@ -122,6 +122,30 @@ services.AddSignalR().AddHubOptions<MyHub>(options =>
 
 ### <a name="advanced-http-configuration-options"></a>詳細な HTTP 構成オプション
 
+::: moniker range=">= aspnetcore-3.0"
+
+トランスポート`HttpConnectionDispatcherOptions`およびメモリバッファー管理に関連する詳細設定を構成するには、を使用します。 これらのオプションは、で`Startup.Configure` [maphub\<T >](/dotnet/api/microsoft.aspnetcore.builder.hubendpointroutebuilderextensions.maphub)にデリゲートを渡すことによって構成されます。
+
+```csharp
+public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+{
+    app.UseRouting();
+
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapHub<MyHub>("/myhub", options =>
+        {
+            options.Transports =
+                HttpTransportType.WebSockets |
+                HttpTransportType.LongPolling;
+        });
+    });
+}
+```
+::: moniker-end
+
+::: moniker range="<= aspnetcore-2.2"
+
 トランスポート`HttpConnectionDispatcherOptions`およびメモリバッファー管理に関連する詳細設定を構成するには、を使用します。 これらのオプションは、で`Startup.Configure` [maphub\<T >](/dotnet/api/microsoft.aspnetcore.signalr.hubroutebuilder.maphub)にデリゲートを渡すことによって構成されます。
 
 ```csharp
@@ -140,6 +164,8 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
     });
 }
 ```
+
+::: moniker-end
 
 次の表では、ASP.NET Core SignalR の詳細な HTTP オプションを構成するためのオプションについて説明します。
 

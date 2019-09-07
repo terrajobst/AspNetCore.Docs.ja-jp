@@ -5,14 +5,14 @@ description: Blazor アプリがコンポーネントにサービスを挿入す
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/02/2019
+ms.date: 09/06/2019
 uid: blazor/dependency-injection
-ms.openlocfilehash: a2bfa0cbe951e817ed6264f1a151d5a716cd795c
-ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
+ms.openlocfilehash: 0b48cd0cbe14d2b07627f56ab78611bbd3209fa1
+ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/05/2019
-ms.locfileid: "70310352"
+ms.lasthandoff: 09/07/2019
+ms.locfileid: "70800395"
 ---
 # <a name="aspnet-core-blazor-dependency-injection"></a>ASP.NET Core Blazor の依存関係の挿入
 
@@ -61,7 +61,7 @@ public void ConfigureServices(IServiceCollection services)
 
 | 有効期間 | 説明 |
 | -------- | ----------- |
-| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped*> | Blazor クライアント側には、現在、DI スコープという概念はありません。 `Scoped`-登録済みサービスは`Singleton`サービスのように動作します。 ただし、サーバー側ホスティングモデルでは、有効`Scoped`期間がサポートされています。 Razor コンポーネントでは、スコープ付きサービス登録のスコープは接続に設定されます。 このため、現在の目的がブラウザーでクライアント側を実行する場合でも、スコープ付きサービスを使用することは、現在のユーザーにスコープを設定する必要があるサービスに対して推奨されます。 |
+| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped*> | Blazor WebAssembly には、現在、DI スコープという概念はありません。 `Scoped`-登録済みサービスは`Singleton`サービスのように動作します。 ただし、サーバー側ホスティングモデルでは、有効`Scoped`期間がサポートされています。 Blazor Server apps では、スコープ付きサービス登録は*接続*に対してスコープが設定されています。 このため、現在の目的がブラウザーでクライアント側を実行する場合でも、スコープ付きサービスを使用することは、現在のユーザーにスコープを設定する必要があるサービスに対して推奨されます。 |
 | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Singleton*> | DI は、サービスの*1 つのインスタンス*を作成します。 サービスを必要と`Singleton`するすべてのコンポーネントは、同じサービスのインスタンスを受け取ります。 |
 | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Transient*> | コンポーネントは、サービスコンテナーから`Transient`サービスのインスタンスを取得するたびに、サービスの*新しいインスタンス*を受け取ります。 |
 
@@ -124,6 +124,29 @@ public class DataAccess : IDataAccess
 * すべての引数が DI によって満たされることができるコンストラクターが1つ存在する必要があります。 DI でカバーされない追加のパラメーターは、既定値を指定した場合に許可されます。
 * 該当するコンストラクターは*パブリック*である必要があります。
 * 1つの適用可能なコンストラクターが存在する必要があります。 あいまいさが発生した場合、DI は例外をスローします。
+
+## <a name="utility-base-component-classes-to-manage-a-di-scope"></a>DI スコープを管理するためのユーティリティの基本コンポーネントクラス
+
+ASP.NET Core アプリでは、スコープ付きサービスは通常、現在の要求にスコープが設定されます。 要求が完了すると、スコープまたは一時的なサービスが DI システムによって破棄されます。 Blazor Server apps では、要求スコープはクライアント接続の間継続されるため、一時的でスコープのあるサービスは予想よりもかなり長くなる可能性があります。
+
+サービスのスコープをコンポーネントの有効期間に限定するために`OwningComponentBase` 、 `OwningComponentBase<TService>`は基底クラスと基本クラスを使用できます。 これらの基本クラスは`ScopedServices` 、コンポーネントの`IServiceProvider`有効期間にスコープが設定されているサービスを解決する型のプロパティを公開します。 Razor の基底クラスから継承するコンポーネントを作成するには、 `@inherits`ディレクティブを使用します。
+
+```cshtml
+@page "/users"
+@attribute [Authorize]
+@inherits OwningComponentBase<Data.ApplicationDbContext>
+
+<h1>Users (@Service.Users.Count())</h1>
+<ul>
+    @foreach (var user in Service.Users)
+    {
+        <li>@user.UserName</li>
+    }
+</ul>
+```
+
+> [!NOTE]
+> またはを使用して`@inject`コンポーネントに`InjectAttribute`挿入されたサービスは、コンポーネントのスコープ内に作成されず、要求スコープに関連付けられます。
 
 ## <a name="additional-resources"></a>その他の技術情報
 
