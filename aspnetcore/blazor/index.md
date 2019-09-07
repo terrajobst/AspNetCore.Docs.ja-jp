@@ -5,14 +5,14 @@ description: ASP.NET Core アプリ内に .NET を使った対話型のクライ
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc, seoapril2019
-ms.date: 08/13/2019
+ms.date: 09/05/2019
 uid: blazor/index
-ms.openlocfilehash: b13446651603fe23c4595028272ba19ed7bbd5fd
-ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
+ms.openlocfilehash: 6b62eb372d642c1ad9df880a4b71e5d5a8e40b60
+ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/13/2019
-ms.locfileid: "68993379"
+ms.lasthandoff: 09/07/2019
+ms.locfileid: "70800329"
 ---
 # <a name="introduction-to-blazor"></a>Blazor の概要
 
