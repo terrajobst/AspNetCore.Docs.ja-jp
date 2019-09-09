@@ -115,7 +115,7 @@ Web サイトの登録済みユーザー。 [ユーザー](/dotnet/api/microsoft
 
 ## <a name="customize-the-user-class"></a>ユーザークラスをカスタマイズする
 
-ストレージプロバイダーを実装する場合は、ユーザークラスを作成し[ます。この](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuser)クラスは、ユーザークラスに相当します。
+ストレージプロバイダーを実装する場合は、ユーザークラスを作成します。このクラスは、[ユーザークラスに](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuser)相当します。
 
 少なくとも、ユーザークラスには`Id` `UserName`プロパティとプロパティが含まれている必要があります。
 
@@ -185,7 +185,7 @@ public class UserStore : IUserStore<IdentityUser>,
 
 ### <a name="identityuserclaim-identityuserlogin-and-identityuserrole"></a>ユーザー Id、ユーザー名、およびユーザー名
 
-名前`Microsoft.AspNet.Identity.EntityFramework`空間には、ユーザー [](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserclaim-1) [id](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuserlogin)[クラスの](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserrole-1)実装が含まれています。 これらの機能を使用している場合は、これらのクラスの独自のバージョンを作成し、アプリのプロパティを定義することができます。 ただし、基本操作 (ユーザーの要求の追加や削除など) を実行するときに、これらのエンティティをメモリに読み込まない方が効率的な場合もあります。 代わりに、バックエンドストアクラスは、データソースでこれらの操作を直接実行できます。 たとえば、 `UserStore.GetClaimsAsync`メソッドは、 `userClaimTable.FindByUserId(user.Id)`メソッドを呼び出して、そのテーブルに対してクエリを直接実行し、クレームの一覧を返すことができます。
+名前`Microsoft.AspNet.Identity.EntityFramework`空間[には、](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserclaim-1)ユーザー [id](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuserlogin)クラスの実装が含ま[れてい](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserrole-1)ます。 これらの機能を使用している場合は、これらのクラスの独自のバージョンを作成し、アプリのプロパティを定義することができます。 ただし、基本操作 (ユーザーの要求の追加や削除など) を実行するときに、これらのエンティティをメモリに読み込まない方が効率的な場合もあります。 代わりに、バックエンドストアクラスは、データソースでこれらの操作を直接実行できます。 たとえば、 `UserStore.GetClaimsAsync`メソッドは、 `userClaimTable.FindByUserId(user.Id)`メソッドを呼び出して、そのテーブルに対してクエリを直接実行し、クレームの一覧を返すことができます。
 
 ## <a name="customize-the-role-class"></a>ロールクラスをカスタマイズする
 
