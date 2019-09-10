@@ -10,6 +10,12 @@ ASP.NET Core の利点は次のとおりです。
 * クラウド対応で環境ベースの[構成システム](xref:fundamentals/configuration/index)。
 * 組み込まれている[依存性の注入](xref:fundamentals/dependency-injection)。
 * 軽量で[高パフォーマンス](https://github.com/aspnet/benchmarks)のモジュール化された HTTP 要求パイプライン。
-* [Kestrel](xref:fundamentals/servers/kestrel)、([IIS](xref:host-and-deploy/iis/index)、[Nginx](xref:host-and-deploy/linux-nginx)、[Apache](xref:host-and-deploy/linux-apache)、[Docker](xref:host-and-deploy/docker/index) でホストする、または独自のプロセスで自己ホストする機能。
+* 次がホストする機能です。
+  * [Kestrel](xref:fundamentals/servers/kestrel)
+  * [IIS](xref:host-and-deploy/iis/index)
+  * [HTTP.sys](xref:fundamentals/servers/httpsys)
+  * [Nginx](xref:host-and-deploy/linux-nginx)
+  * [Apache](xref:host-and-deploy/linux-apache)
+  * [Docker](xref:host-and-deploy/docker/index)
 * [side-by-side でのバージョン管理](/dotnet/standard/choosing-core-framework-server#a-need-for-side-by-side-of-net-versions-per-application-level)。
 * 最新の Web 開発を簡単にするツール。
