@@ -5,14 +5,14 @@ description: Blazor の認証と承認のシナリオについて説明します
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/29/2019
+ms.date: 09/05/2019
 uid: security/blazor/index
-ms.openlocfilehash: 8714acbeb6e8a00992a601030811b24f53426b82
-ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
+ms.openlocfilehash: 2ba7b0612c2be50ae0797c50dc3cb0d63c0f0c2d
+ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/05/2019
-ms.locfileid: "70310520"
+ms.lasthandoff: 09/07/2019
+ms.locfileid: "70800509"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor の認証と承認
 
@@ -277,7 +277,7 @@ public void ConfigureServices(IServiceCollection services)
 </AuthorizeView>
 ```
 
-`<Authorized>` と `<NotAuthorized>` のコンテンツには、他の対話型コンポーネントなど、任意の項目を含めることができます。
+`<Authorized>` および `<NotAuthorized>` タグには、他の対話型コンポーネントなど、任意の項目を含めることができます。
 
 UI オプションまたはアクセスを制御するロールやポリシーなどの承認条件については、「[承認](#authorization)」セクションを参照してください。
 
@@ -410,9 +410,9 @@ You can only see this if you're signed in.
 </Router>
 ```
 
-`<NotFound>`、`<NotAuthorized>`、および `<Authorizing>` のコンテンツには、他の対話型コンポーネントなど、任意の項目を含めることができます。
+`<NotFound>`、`<NotAuthorized>`、および `<Authorizing>` タグには、他の対話型コンポーネントなど、任意の項目を含めることができます。
 
-`<NotAuthorized>` が指定されていない場合、`<AuthorizeRouteView>` には次のフォールバック メッセージが使用されます。
+`<NotAuthorized>` 要素が指定されていない場合、`AuthorizeRouteView` には次のフォールバック メッセージが使用されます。
 
 ```html
 Not authorized.

@@ -5,14 +5,14 @@ description: この記事には、Azure のホストと展開リソースへの�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/28/2019
+ms.date: 09/07/2019
 uid: host-and-deploy/azure-apps/index
-ms.openlocfilehash: 5035a31526e0290964e0fdee05753aeaf6cb3790
-ms.sourcegitcommit: 0efb9e219fef481dee35f7b763165e488aa6cf9c
+ms.openlocfilehash: 5da32b5fd1026263f721db442b2676d45b239b8d
+ms.sourcegitcommit: 2d4c1732c4866ed26b83da35f7bc2ad021a9c701
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/29/2019
-ms.locfileid: "68602442"
+ms.lasthandoff: 09/09/2019
+ms.locfileid: "70815601"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>Azure App Service に ASP.NET Core アプリを展開する
 
@@ -97,17 +97,7 @@ Azure Portal でアプリの設定が作成または変更され、 **[保存]**
 
 ## <a name="monitoring-and-logging"></a>監視およびログ記録
 
-::: moniker range=">= aspnetcore-3.0"
-
-App Service にデプロイされる ASP.NET Core アプリは、App Service の拡張機能、**ASP.NET Core ログ記録の統合**を自動的に受け取ります。 拡張機能は、Azure App Service での ASP.NET Core アプリの統合のログ記録を有効にします。
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.0"
-
-App Service にデプロイされる ASP.NET Core アプリは、App Service の拡張機能、**ASP.NET Core ログ記録の拡張機能**を自動的に受け取ります。 拡張機能は、Azure App Service での ASP.NET Core アプリの統合のログ記録を有効にします。
-
-::: moniker-end
+Azure App Service には、ASP.NET Core アプリのログ統合を有効にする **ASP.NET Core のログ記録拡張機能**が用意されています。 この拡張機能を App Service に自動的に追加するには、**App Service** 発行プロファイルで Visual Studio の**発行**プロセスを使用します。 Visual Studio を使用してアプリをデプロイしていない場合は、App Service の **[開発ツール]**  >  **[拡張機能]** ダイアログを使用して、Azure portal に拡張機能を手動でインストールします。
 
 監視、ログ記録、トラブルシューティングに関する情報は、次の記事を参照してください。
 

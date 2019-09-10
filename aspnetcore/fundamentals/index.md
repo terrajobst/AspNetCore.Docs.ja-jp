@@ -5,14 +5,14 @@ description: ASP.NET Core アプリの構築に関する基本概念について
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/11/2019
+ms.date: 09/02/2019
 uid: fundamentals/index
-ms.openlocfilehash: a6c848987c97103864fd5410922346e85a68c353
-ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
+ms.openlocfilehash: 7e2901919c8b0165d0f169abf74fe5bc0edd8be4
+ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/12/2019
-ms.locfileid: "67856235"
+ms.lasthandoff: 09/06/2019
+ms.locfileid: "70773754"
 ---
 # <a name="aspnet-core-fundamentals"></a>ASP.NET Core の基礎
 
@@ -269,6 +269,18 @@ ASP.NET Core には、次などのエラー処理用の機能が組み込まれ�
 ## <a name="web-root"></a>Web ルート
 
 (*webroot* としても知られている) Web ルートは、CSS、JavaScript、およびイメージ ファイルなど、パブリックな静的リソースへの基本パスです。 既定で、この静的ファイル ミドルウェアは、Web ルート ディレクトリ (とそのサブディレクトリ) のファイルにのみサービスを提供します。 Web ルートのパスの既定値は、" *{コンテンツ ルート}/wwwroot*" ですが、[ホストの構築](#host)時に別の場所を指定することも可能です。
+
+::: moniker range=">= aspnetcore-3.0"
+
+詳細については、[ContentRootPath](/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-3.0#contentrootpath) に関するページを参照してください。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+詳細については、「[Web ルート](/aspnet/core/fundamentals/host/web-host#webroot)」を参照してください。
+
+::: moniker-end
 
 Razor ( *.cshtml*) のファイルの場合、チルダとスラッシュ `~/` が webroot を指します。 `~/` で始まるパスは仮想パスと呼ばれます。
 

@@ -5,14 +5,14 @@ description: Blazor アプリをホストおよびデプロイする方法を説
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/14/2019
+ms.date: 09/05/2019
 uid: host-and-deploy/blazor/index
-ms.openlocfilehash: d18abbf33c71dca5130bfc6b503b46c1d5bce537
-ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
+ms.openlocfilehash: 5a56bbda5bb7727c7dbeaed7f2a91d0dcb6e7e71
+ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68913926"
+ms.lasthandoff: 09/06/2019
+ms.locfileid: "70773583"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor"></a>ASP.NET Core Blazor のホストと展開
 
@@ -44,15 +44,48 @@ Blazor クライアント側アプリは、" */bin/Release/{ターゲット フ�
 
 フォルダー内のアセットは、Web サーバーに展開されます。 展開のプロセスが手動であるか自動であるかは、ご使用の展開ツールによって異なります。
 
+## <a name="app-base-path"></a>アプリのベース パス
+
+*アプリのベース パス*とは、アプリのルート URL パスのことです。 次のメイン アプリと Blazor アプリについて考えてみましょう。
+
+* メイン アプリは `MyApp` と言う名前です。
+  * このアプリは、物理的に *d:\\MyApp* にあります。
+  * 要求は、`https://www.contoso.com/{MYAPP RESOURCE}` で受信されます。
+* `CoolApp` という Blazor アプリは、`MyApp` のサブアプリです。
+  * このサブアプリは、物理的に *d:\\MyApp\\CoolApp* にあります。
+  * 要求は、`https://www.contoso.com/CoolApp/{COOLAPP RESOURCE}` で受信されます。
+
+`CoolApp` に対して構成を追加指定しない場合、このシナリオではサブ アプリにはそれがサーバー上のどこの場所にあるかわかりません。 たとえば、相対 URL パス `/CoolApp/` にあることがわからない場合、アプリはそのリソースに対する正しい相対 URL を作成できません。
+
+`<base>` タグの `href` 属性は、Blazor アプリのベース パスの `https://www.contoso.com/CoolApp/` に構成を指定するため、*wwwroot/index.html* ファイルの相対ルート パスに設定されます。
+
+```html
+<base href="/CoolApp/">
+```
+
+相対 URL を指定することにより、ルート ディレクトリに存在しないコンポーネントでアプリのルート パスへの相対 URL を構築できます。 ディレクトリ構造の別のレベルに存在するコンポーネントが、アプリ内のさまざまな場所にある他のリソースに対するリンクを構築できます。 リンクの `href` ターゲットがアプリのベース パス URI 空間内の場合に、そのハイパーリンクのクリックを阻止するためにも使用できます。つまり、Blazor のルーターにより内部ナビゲーションが処理されます。
+
+多くのホスティング シナリオでは、アプリへの相対 URL パスは、アプリのルートです。 これらの場合、アプリの相対 URL ベース パスは最初にスラッシュ (`<base href="/" />`) が付きます。これは、Blazor アプリの既定の構成です。 GitHub ページと IIS サブアプリなど、その他のホスティング シナリオの場合、アプリのベースパスは、アプリへのサーバーの相対 URL パスに設定する必要があります。
+
+アプリのベース パスを設定するには、*wwwroot/index.html* ファイルの `<head>` タグ要素内の `<base>` タグを更新します。 `href` 属性値を `/{RELATIVE URL PATH}/` (末尾にスラッシュが必要) に設定します。ここで、`{RELATIVE URL PATH}` は、アプリの完全な相対 URL パスです。
+
+ルート以外の相対 URL パスが構成されているアプリの場合 (例: `<base href="/CoolApp/">`)、そのアプリは*ローカルで実行*されると自身のリソースを見つけることができません。 ローカルでの開発およびテスト中は、実行時の `<base>` タグの `href` 値と一致する*パス ベース*引数を指定することで、この問題を克服することができます。 アプリをローカルで実行しているときにパス ベースの引数を渡すには、アプリのディレクトリから `--pathbase` オプションを指定して `dotnet run` コマンドを実行します。
+
+```console
+dotnet run --pathbase=/{RELATIVE URL PATH (no trailing slash)}
+```
+
+相対 URL パスが `/CoolApp/` (`<base href="/CoolApp/">`) のアプリについては、このコマンドは次のようになります。
+
+```console
+dotnet run --pathbase=/CoolApp
+```
+
+アプリは `http://localhost:port/CoolApp` でローカルで応答します。
+
 ## <a name="deployment"></a>配置
 
 展開のガイダンスについては、次のトピックを参照してください。
 
 * <xref:host-and-deploy/blazor/client-side>
 * <xref:host-and-deploy/blazor/server-side>
-
-## <a name="blazor-serverless-hosting-with-azure-storage"></a>Azure Storage を使った Blazor サーバーレス ホスティング
-
-クライアント側 Blazor アプリは、ストレージ コンテナーから直接静的コンテンツとして、[Azure Storage](https://azure.microsoft.com/services/storage/) からサービスを提供できます。
-
-詳細については、[クライアント側 ASP.NET Core Blazor のホストと展開 (スタンドアロン展開):Azure Storage](xref:host-and-deploy/blazor/client-side#azure-storage) に関するページをご覧ください。
