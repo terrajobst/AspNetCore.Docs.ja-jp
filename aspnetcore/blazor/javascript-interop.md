@@ -5,14 +5,14 @@ description: Blazor アプリで JavaScript から .NET および .NET メソッ
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/05/2019
+ms.date: 09/07/2019
 uid: blazor/javascript-interop
-ms.openlocfilehash: 4e2c979971f8f550af4aa9653880bfd1e5fae731
-ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
+ms.openlocfilehash: fa485420c01e6a6d4181f733d6848de08ffca730
+ms.sourcegitcommit: e7c56e8da5419bbc20b437c2dd531dedf9b0dc6b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/07/2019
-ms.locfileid: "70800282"
+ms.lasthandoff: 09/10/2019
+ms.locfileid: "70878358"
 ---
 # <a name="aspnet-core-blazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 相互運用機能
 
@@ -249,3 +249,23 @@ JavaScript 相互運用コードをクラスライブラリに含めることが
 ビルド済みの NuGet パッケージは、NuGet パッケージを参照するのと同じ方法で、アプリのプロジェクトファイルで参照されます。 パッケージが復元された後、アプリコードはと同じように JavaScript C#を呼び出すことができます。
 
 詳細については、「 <xref:blazor/class-libraries> 」を参照してください。
+
+## <a name="harden-js-interop-calls"></a>JS 相互運用呼び出しの強化
+
+JS 相互運用機能は、ネットワークエラーのために失敗する可能性があり、信頼性の低いものとして扱う必要があります。 既定では、Blazor サーバーアプリは、1分後に JS 相互運用機能呼び出しをサーバー上でタイムアウトします。 10秒など、アプリでより積極的なタイムアウトが許容される場合は、次のいずれかの方法を使用してタイムアウトを設定します。
+
+* でグローバル`Startup.ConfigureServices`にタイムアウトを指定します。
+
+  ```csharp
+  services.AddServerSideBlazor(
+      options => options.JSInteropDefaultCallTimeout = TimeSpan.FromSeconds({SECONDS}));
+  ```
+
+* コンポーネントコードでの呼び出しごとに、1回の呼び出しでタイムアウトを指定できます。
+
+  ```csharp
+  var result = await JSRuntime.InvokeAsync<string>("MyJSOperation", 
+      TimeSpan.FromSeconds({SECONDS}), new[] { "Arg1" });
+  ```
+
+リソース枯渇の詳細については<xref:security/blazor/server-side>、「」を参照してください。

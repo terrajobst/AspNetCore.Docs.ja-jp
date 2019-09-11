@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/06/2019
 uid: blazor/components
-ms.openlocfilehash: e877abfb568f71046c3603cac5e888e99ffc8d15
-ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
+ms.openlocfilehash: dbd0879d200061151e8307346adef784967bf123
+ms.sourcegitcommit: e7c56e8da5419bbc20b437c2dd531dedf9b0dc6b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/07/2019
-ms.locfileid: "70800419"
+ms.lasthandoff: 09/10/2019
+ms.locfileid: "70878395"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>ASP.NET Core Razor コンポーネントを作成して使用する
 
@@ -1466,3 +1466,7 @@ Blazor は HTML をレンダリングするため、スケーラブルベクタ�
 ```
 
 ただし、インライン SVG マークアップは、すべてのシナリオでサポートされているわけではありません。 コンポーネントファイル ( `<svg>` *razor*) にタグを直接配置した場合、基本的な画像レンダリングはサポートされますが、多くの高度なシナリオはサポートされていません。 たとえば、タグ`<use>`は現在尊重されて`@bind`いないため、一部の SVG タグでは使用できません。 今後のリリースでは、これらの制限に対処する予定です。
+
+## <a name="additional-resources"></a>その他の技術情報
+
+* <xref:security/blazor/server-side>&ndash;リソース枯渇に対処する必要がある Blazor サーバー側アプリの構築に関するガイダンスが含まれています。

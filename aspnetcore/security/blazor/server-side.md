@@ -5,14 +5,14 @@ description: Blazor サーバー側アプリに対するセキュリティ上の
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/05/2019
+ms.date: 09/07/2019
 uid: security/blazor/server-side
-ms.openlocfilehash: 13bb4475b4beac78cf489d83fb59a3e0d6d8f2d9
-ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
+ms.openlocfilehash: d30f19bfbbcdb6c142f03a6e0cc6e1fc154c2091
+ms.sourcegitcommit: e7c56e8da5419bbc20b437c2dd531dedf9b0dc6b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/07/2019
-ms.locfileid: "70800496"
+ms.lasthandoff: 09/10/2019
+ms.locfileid: "70878525"
 ---
 # <a name="secure-aspnet-core-blazor-server-side-apps"></a>ASP.NET Core Blazor のサーバー側アプリをセキュリティで保護する
 
@@ -115,7 +115,7 @@ Blazor クライアントは、セッションごとに1つの接続を確立し
 .NET メソッドから JavaScript への呼び出しの場合:
 
 * すべての呼び出し<xref:System.OperationCanceledException>には、失敗してから呼び出し元に返す、構成可能なタイムアウトがあります。
-  * 呼び出し (`CircuitOptions.JSInteropDefaultCallTimeout`) の既定のタイムアウトは1分です。
+  * 呼び出し (`CircuitOptions.JSInteropDefaultCallTimeout`) の既定のタイムアウトは1分です。 この制限を構成するに<xref:blazor/javascript-interop#harden-js-interop-calls>は、「」を参照してください。
   * キャンセルトークンを指定して、呼び出しごとに取り消しを制御できます。 キャンセルトークンが指定されている場合は、可能な限り既定の呼び出しタイムアウトを使用し、クライアントへの呼び出しに時間を制限します。
 * JavaScript 呼び出しの結果を信頼することはできません。 ブラウザーで実行されている Blazor アプリクライアントは、呼び出す JavaScript 関数を検索します。 関数が呼び出され、結果またはエラーが生成されます。 悪意のあるクライアントは次のことを試みることができます。
   * JavaScript 関数からエラーを返すことによって、アプリの問題を発生させます。
@@ -200,6 +200,72 @@ Blazor のサーバー側イベントは非同期であるため、新しいレ�
 ```
 
 ハンドラー内に`if (count < 3) { ... }`チェックを追加することにより、現在`count`のアプリの状態に基づいてインクリメントするかどうかを決定します。 この決定は、前の例とは異なり、一時的に古くなっている可能性がある UI の状態に基づいていません。
+
+### <a name="guard-against-multiple-dispatches"></a>複数のディスパッチに対して保護する
+
+イベントコールバックが、外部サービスまたはデータベースからのデータのフェッチなど、長時間実行される操作を呼び出す場合は、ガードの使用を検討してください。 ガードを使用すると、操作の進行中に視覚的なフィードバックが発生している間に、ユーザーが複数の操作をキューに入れることを防ぐことができます。 次のコンポーネントコードは`isLoading` 、 `true`が`GetForecastAsync`サーバーからデータを取得するときにをに設定します。 はです`true`が、UI ではボタンが無効になっています。 `isLoading`
+
+```cshtml
+@page "/fetchdata"
+@using BlazorServerSample.Data
+@inject WeatherForecastService ForecastService
+
+<button disabled="@isLoading" @onclick="UpdateForecasts">Update</button>
+
+@code {
+    private bool isLoading;
+    private WeatherForecast[] forecasts;
+
+    private async Task UpdateForecasts()
+    {
+        if (!isLoading)
+        {
+            isLoading = true;
+            forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+            isLoading = false;
+        }
+    }
+}
+```
+
+### <a name="cancel-early-and-avoid-use-after-dispose"></a>早期にキャンセルして、dispose を使用しないようにする
+
+「[複数のディスパッチに対するガード](#guard-against-multiple-dispatches)」で説明されているように、ガードを<xref:System.Threading.CancellationToken>使用するだけでなく、コンポーネントが破棄されたときに、を使用して実行時間の長い操作をキャンセルすることを検討してください。 このアプローチには、コンポーネントでの*dispose の使用*を回避するという追加の利点があります。
+
+```cshtml
+@implements IDisposable
+
+...
+
+@code {
+    private readonly CancellationTokenSource TokenSource = 
+        new CancellationTokenSource();
+
+    private async Task UpdateForecasts()
+    {
+        ...
+
+        forecasts = await ForecastService.GetForecastAsync(DateTime.Now, 
+            TokenSource.Token);
+
+        if (TokenSource.Token.IsCancellationRequested)
+        {
+           return;
+        }
+
+        ...
+    }
+
+    public void Dispose()
+    {
+        CancellationTokenSource.Cancel();
+    }
+}
+```
+
+### <a name="avoid-events-that-produce-large-amounts-of-data"></a>大量のデータを生成するイベントを回避する
+
+`oninput` や`onscroll`などの一部の DOM イベントは、大量のデータを生成できます。 Blazor server アプリではこれらのイベントを使用しないようにしてください。
 
 ## <a name="additional-security-guidance"></a>セキュリティに関するその他のガイダンス
 
@@ -330,6 +396,9 @@ Blazor のサーバー側アプリセッションが開始されると、サー�
 * クライアントが、バインドされていないメモリの量を割り当てないようにします。
   * コンポーネント内のデータ。
   * `DotNetObject`クライアントに返される参照。
+* 複数のディスパッチに対して保護します。
+* コンポーネントが破棄されるときに、実行時間の長い操作をキャンセルします。
+* 大量のデータを生成するイベントを回避します。
 * の呼び出し`NavigationManager.Navigate`の一部としてユーザー入力を使用せず、許可されたオリジンのセットに対する url のユーザー入力を、回避できない場合は先に検証します。
 * UI の状態に基づいて承認を決定するのではなく、コンポーネントの状態のみを確認してください。
 * [コンテンツセキュリティポリシー (CSP)](https://developer.mozilla.org/docs/Web/HTTP/CSP)を使用して XSS 攻撃から保護することを検討してください。
