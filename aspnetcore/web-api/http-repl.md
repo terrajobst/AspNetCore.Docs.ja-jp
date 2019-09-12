@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 08/29/2019
 uid: web-api/http-repl
-ms.openlocfilehash: 7121670856da4b123b1c3e780a7952da0fb696a1
-ms.sourcegitcommit: e6bd2bbe5683e9a7dbbc2f2eab644986e6dc8a87
+ms.openlocfilehash: b93641c96ad093b40aaa887f19409d4c2e1490df
+ms.sourcegitcommit: efb9c16321b34f8ede802822b26eb983de16479b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/03/2019
-ms.locfileid: "70238053"
+ms.lasthandoff: 09/09/2019
+ms.locfileid: "70842265"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>HTTP REPL を使用して Web API をテストする
 
@@ -55,24 +55,24 @@ dotnet tool install -g Microsoft.dotnet-httprepl --version "3.0.0-*"
 ツールのインストールが正常に完了したら、次のコマンドを実行して HTTP REPL を開始します。
 
 ```console
-dotnet httprepl
+httprepl
 ```
 
 使用可能な HTTP REPL コマンドを表示するには、次のコマンドのいずれかを実行します。
 
 ```console
-dotnet httprepl -h
+httprepl -h
 ```
 
 ```console
-dotnet httprepl --help
+httprepl --help
 ```
 
 次のような出力が表示されます。
 
 ```console
 Usage:
-  dotnet httprepl [<BASE_ADDRESS>] [options]
+  httprepl [<BASE_ADDRESS>] [options]
 
 Arguments:
   <BASE_ADDRESS> - The initial base address for the REPL.
@@ -131,13 +131,13 @@ HTTP REPL では、コマンド補完が提供されています。 <kbd>Tab</kb
 次のコマンドを実行して、Web API に接続します。
 
 ```console
-dotnet httprepl <ROOT URI>
+httprepl <ROOT URI>
 ```
 
 `<ROOT URI>` は、Web API のベース URI です。 次に例を示します。
 
 ```console
-dotnet httprepl https://localhost:5001
+httprepl https://localhost:5001
 ```
 
 または、HTTP REPL の実行中に、次のコマンドをいつでも実行します。
@@ -928,7 +928,7 @@ HTTP REPL コマンドの同じセットを頻繁に実行する場合は、そ�
 HTTP REPL ツールによってコマンド シェルに書き込まれたすべての出力を削除するには、`clear` コマンドまたは `cls` コマンドを実行します。 例として、コマンド シェルに次の出力が含まれているとします。
 
 ```console
-dotnet httprepl https://localhost:5001
+httprepl https://localhost:5001
 (Disconnected)~ set base "https://localhost:5001"
 Using swagger metadata from https://localhost:5001/swagger/v1/swagger.json
 

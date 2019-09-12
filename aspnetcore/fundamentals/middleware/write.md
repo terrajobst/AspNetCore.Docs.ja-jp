@@ -5,14 +5,14 @@ description: カスタム ASP.NET Core ミドルウェアを記述する方法�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/17/2019
+ms.date: 08/22/2019
 uid: fundamentals/middleware/write
-ms.openlocfilehash: 352db93dd7061070c76e34f6c03883f68e2041ee
-ms.sourcegitcommit: 28a2874765cefe9eaa068dceb989a978ba2096aa
+ms.openlocfilehash: e74bba9e1bd826d4f493b0ee642a198f984daada
+ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/17/2019
-ms.locfileid: "67167111"
+ms.lasthandoff: 09/06/2019
+ms.locfileid: "70773731"
 ---
 # <a name="write-custom-aspnet-core-middleware"></a>カスタム ASP.NET Core ミドルウェアを記述する
 
@@ -24,7 +24,7 @@ ms.locfileid: "67167111"
 
 ミドルウェアは一般に、クラスにカプセル化され、拡張メソッドを使用して公開されます。 クエリ文字列から現在の要求のカルチャを設定する次のようなミドルウェアを考慮します。
 
-[!code-csharp[](index/snapshot/Culture/StartupCulture.cs?name=snippet1)]
+[!code-csharp[](write/snapshot/StartupCulture.cs)]
 
 上のサンプル コードを使って、ミドルウェア コンポーネントの作成方法を示します。 ASP.NET Core に組み込まれているローカライズのサポートについては、「<xref:fundamentals/localization>」を参照してください。
 
@@ -32,7 +32,7 @@ ms.locfileid: "67167111"
 
 次のコードは、ミドルウェアのデリゲートをクラスに移動します。
 
-[!code-csharp[](index/snapshot/Culture/RequestCultureMiddleware.cs)]
+[!code-csharp[](write/snapshot/RequestCultureMiddleware.cs)]
 
 ミドルウェアのクラスには、次のものが含まれる必要があります。
 
@@ -76,11 +76,11 @@ public class CustomMiddleware
 
 次の拡張メソッドは、<xref:Microsoft.AspNetCore.Builder.IApplicationBuilder> を介してミドルウェアを公開します。
 
-[!code-csharp[](index/snapshot/Culture/RequestCultureMiddlewareExtensions.cs)]
+[!code-csharp[](write/snapshot/RequestCultureMiddlewareExtensions.cs)]
 
 次のコードは、`Startup.Configure` からミドルウェアを呼び出します。
 
-[!code-csharp[](index/snapshot/Culture/Startup.cs?name=snippet1&highlight=5)]
+[!code-csharp[](write/snapshot/Startup.cs?highlight=5)]
 
 ## <a name="additional-resources"></a>その他の技術情報
 
