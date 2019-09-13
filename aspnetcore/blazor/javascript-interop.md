@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/07/2019
 uid: blazor/javascript-interop
-ms.openlocfilehash: fa485420c01e6a6d4181f733d6848de08ffca730
-ms.sourcegitcommit: e7c56e8da5419bbc20b437c2dd531dedf9b0dc6b
+ms.openlocfilehash: 1572b9ee646577d094409cc33dd621f2f73dc863
+ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/10/2019
-ms.locfileid: "70878358"
+ms.lasthandoff: 09/13/2019
+ms.locfileid: "70964212"
 ---
 # <a name="aspnet-core-blazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 相互運用機能
 
@@ -28,15 +28,15 @@ JavaScript 関数を呼び出すために .NET コードが必要になる場合
 
 .Net から JavaScript を呼び出すには、 `IJSRuntime`抽象化を使用します。 メソッド`InvokeAsync<T>`は、任意の数の JSON シリアル化可能な引数と共に、呼び出す JavaScript 関数の識別子を受け取ります。 関数識別子は、グローバルスコープ (`window`) を基準にしています。 を呼び出す`window.someScope.someFunction`場合、識別子は`someScope.someFunction`になります。 呼び出される前に、関数を登録する必要はありません。 戻り値の`T`型は、JSON シリアル化可能である必要もあります。
 
-サーバー側アプリの場合:
+Blazor Server アプリの場合:
 
-* 複数のユーザー要求は、サーバー側アプリによって処理されます。 JavaScript 関数`JSRuntime.Current`を呼び出すために、コンポーネントでを呼び出さないでください。
+* 複数のユーザー要求は、Blazor Server アプリによって処理されます。 JavaScript 関数`JSRuntime.Current`を呼び出すために、コンポーネントでを呼び出さないでください。
 * 抽象化を`IJSRuntime`挿入し、挿入されたオブジェクトを使用して、JavaScript の相互運用呼び出しを発行します。
 * Blazor アプリのプリレンダリング中に、ブラウザーとの接続が確立されていないため、JavaScript を呼び出すことはできません。 詳細については、「 [Blazor アプリのプリレンダリングを検出する](#detect-when-a-blazor-app-is-prerendering)」セクションを参照してください。
 
 次の例は、JavaScript ベースの試験的なデコーダーである[Textdecoder](https://developer.mozilla.org/docs/Web/API/TextDecoder)に基づいています。 この例では、 C#メソッドから JavaScript 関数を呼び出す方法を示します。 JavaScript 関数は、 C#メソッドからバイト配列を受け取り、配列をデコードし、テキストをコンポーネントに返して表示できるようにします。
 
-Wwwroot/index.html (Blazor client側) または*Pages/_Host* (Blazor サーバー側) の`TextDecoder` 要素内で、渡された配列をデコードするために使用する関数を指定します。`<head>`
+Wwwroot/index.html (Blazor webassembly または*Pages/_Host* (Blazor Server) の`TextDecoder` 要素内で、渡された配列をデコードするために使用する関数を提供し`<head>`ます。
 
 [!code-html[](javascript-interop/samples_snapshot/index-script.html)]
 
@@ -70,7 +70,7 @@ Wwwroot/index.html (Blazor client側) または*Pages/_Host* (Blazor サーバ�
   IJSRuntime JSRuntime { get; set; }
   ```
 
-このトピックに付属しているクライアント側のサンプルアプリでは、クライアント側アプリで2つの JavaScript 関数を使用して、ユーザー入力を受け取り、ウェルカムメッセージを表示するために DOM と対話することができます。
+このトピックに付属しているクライアント側のサンプルアプリでは、ユーザー入力を受け取り、ウェルカムメッセージを表示するために、DOM と対話する2つの JavaScript 関数をアプリで使用できます。
 
 * `showPrompt`&ndash;ユーザー入力 (ユーザーの名前) を受け入れ、呼び出し元に名前を返すように求めるプロンプトを生成します。
 * `displayWelcome`呼び出し元から`id` の`welcome`を持つ DOM オブジェクトにウェルカムメッセージを割り当てます。 &ndash;
@@ -79,13 +79,13 @@ Wwwroot/index.html (Blazor client側) または*Pages/_Host* (Blazor サーバ�
 
 [!code-javascript[](./common/samples/3.x/BlazorSample/wwwroot/exampleJsInterop.js?highlight=2-7)]
 
-JavaScript ファイルを参照する タグをwwwroot/index.htmlファイル(Blazorclient側)またはPages/_Hostファイル(Blazorサーバー側)に配置し`<script>`ます。
+JavaScript ファイルを参照する タグをwwwroot/index.htmlファイル(Blazor)またはPages/_Hostファイル(BlazorServer)に配置し`<script>`ます。
 
-*wwwroot/index.html*(Blazor client 側):
+*wwwroot/index.html*(Blazor WebAssembly:
 
 [!code-html[](./common/samples/3.x/BlazorSample/wwwroot/index.html?highlight=15)]
 
-*Pages/_Host*(Blazor サーバー側):
+*Pages/_Host*(Blazor サーバー):
 
 [!code-cshtml[](javascript-interop/samples_snapshot/_Host.cshtml?highlight=29)]
 
@@ -93,7 +93,7 @@ JavaScript ファイルを参照する タグをwwwroot/index.htmlファイル(B
 
 .NET メソッドは、を呼び出す`IJSRuntime.InvokeAsync<T>`ことによって、 *ExampleJsInterop*ファイル内の JavaScript 関数と相互運用します。
 
-抽象化`IJSRuntime`は非同期であり、サーバー側のシナリオで使用できます。 アプリがクライアント側で実行され、JavaScript 関数を同期的に呼び出す必要がある`IJSInProcessRuntime`場合は`Invoke<T>` 、にダウンキャストし、代わりにを呼び出します。 ほとんどの JavaScript 相互運用機能ライブラリでは、非同期 Api を使用して、すべてのシナリオ、クライアント側またはサーバー側でライブラリを使用できるようにすることをお勧めします。
+抽象化`IJSRuntime`は、Blazor サーバーのシナリオを可能にするための非同期です。 アプリが Blazor webasアプリで、JavaScript 関数を同期的に呼び出す必要がある場合は、に`IJSInProcessRuntime`ダウンキャストし、代わりにを呼び出し`Invoke<T>`ます。 ほとんどの JavaScript 相互運用機能ライブラリでは、非同期 Api を使用して、すべてのシナリオでライブラリを使用できるようにすることをお勧めします。
 
 サンプルアプリには、JavaScript の相互運用機能を示すコンポーネントが含まれています。 コンポーネント:
 
@@ -178,7 +178,7 @@ public static Task Focus(this ElementReference elementRef, IJSRuntime jsRuntime)
 
 ### <a name="static-net-method-call"></a>静的 .NET メソッド呼び出し
 
-JavaScript から静的 .net メソッドを呼び出すに`DotNet.invokeMethod`は、関数または`DotNet.invokeMethodAsync`関数を使用します。 呼び出す静的メソッドの識別子、関数を含むアセンブリの名前、および任意の引数を渡します。 サーバー側のシナリオをサポートするには、非同期バージョンを使用することをお勧めします。 .Net メソッドを JavaScript から呼び出すには、.net メソッドが public、static、および`[JSInvokable]`属性を持っている必要があります。 既定では、メソッド識別子はメソッド名ですが、 `JSInvokableAttribute`コンストラクターを使用して別の識別子を指定することもできます。 オープンジェネリックメソッドを呼び出すことは現在サポートされていません。
+JavaScript から静的 .net メソッドを呼び出すに`DotNet.invokeMethod`は、関数または`DotNet.invokeMethodAsync`関数を使用します。 呼び出す静的メソッドの識別子、関数を含むアセンブリの名前、および任意の引数を渡します。 非同期バージョンは、Blazor Server のシナリオをサポートするために推奨されます。 .Net メソッドを JavaScript から呼び出すには、.net メソッドが public、static、および`[JSInvokable]`属性を持っている必要があります。 既定では、メソッド識別子はメソッド名ですが、 `JSInvokableAttribute`コンストラクターを使用して別の識別子を指定することもできます。 オープンジェネリックメソッドを呼び出すことは現在サポートされていません。
 
 サンプルアプリには、 C#の`int`配列を返すメソッドが含まれています。 `JSInvokable`属性はメソッドに適用されます。
 
@@ -268,4 +268,4 @@ JS 相互運用機能は、ネットワークエラーのために失敗する�
       TimeSpan.FromSeconds({SECONDS}), new[] { "Arg1" });
   ```
 
-リソース枯渇の詳細については<xref:security/blazor/server-side>、「」を参照してください。
+リソース枯渇の詳細については<xref:security/blazor/server>、「」を参照してください。

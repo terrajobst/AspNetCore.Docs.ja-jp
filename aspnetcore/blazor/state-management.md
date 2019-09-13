@@ -1,24 +1,24 @@
 ---
 title: ASP.NET Core Blazor 状態管理
 author: guardrex
-description: Blazor サーバー側アプリで状態を永続化する方法について説明します。
+description: Blazor Server アプリで状態を永続化する方法について説明します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 09/05/2019
 uid: blazor/state-management
-ms.openlocfilehash: 000736dde53670d1df76f41cc7cf4f95ef48800a
-ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
+ms.openlocfilehash: e1c3b030f466a820d49c36839d7ee26bb7cea4d3
+ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/07/2019
-ms.locfileid: "70800353"
+ms.lasthandoff: 09/13/2019
+ms.locfileid: "70963854"
 ---
 # <a name="aspnet-core-blazor-state-management"></a>ASP.NET Core Blazor 状態管理
 
 作成者: [Steve Sanderson](https://github.com/SteveSandersonMS)
 
-Blazor は、ステートフルなアプリケーションフレームワークです。 ほとんどの場合、アプリはサーバーへの継続的な接続を維持します。 ユーザーの状態は、*回線*内のサーバーのメモリに保持されます。 
+Blazor Server は、ステートフルアプリフレームワークです。 ほとんどの場合、アプリはサーバーへの継続的な接続を維持します。 ユーザーの状態は、*回線*内のサーバーのメモリに保持されます。 
 
 ユーザーの回線に保持されている状態の例を次に示します。
 
@@ -27,7 +27,7 @@ Blazor は、ステートフルなアプリケーションフレームワーク�
 * [依存関係の注入 (DI)](xref:fundamentals/dependency-injection)サービスインスタンスに保持されているデータ (回線にスコープされる)。
 
 > [!NOTE]
-> この記事では、Blazor サーバー側アプリの状態の永続化について説明します。 Blazor クライアント側アプリは、[ブラウザーでのクライアント側の状態の永続](#client-side-in-the-browser)化を利用できますが、この記事の範囲を超えてカスタムソリューションまたはサードパーティのパッケージが必要です。
+> この記事では、Blazor サーバーアプリの状態の永続化について説明します。 Blazor Webasのアプリは[、ブラウザーでのクライアント側の状態の永続](#client-side-in-the-browser)化を利用できますが、この記事の範囲を超えてカスタムソリューションまたはサードパーティのパッケージが必要です。
 
 ## <a name="blazor-circuits"></a>Blazor 回線
 
@@ -62,7 +62,7 @@ Blazor は、ステートフルなアプリケーションフレームワーク�
 
 ## <a name="where-to-persist-state"></a>状態を保持する場所
 
-Blazor サーバー側アプリで状態を永続化するための一般的な場所は3つあります。 各アプローチは、さまざまなシナリオに最適であり、さまざまな注意点があります。
+Blazor Server アプリで状態を永続化するための一般的な場所は3つあります。 各アプローチは、さまざまなシナリオに最適であり、さまざまな注意点があります。
 
 * [データベース内のサーバー側](#server-side-in-a-database)
 * [URL](#url)
@@ -100,7 +100,7 @@ Azure のデータストレージオプションの詳細については、 [Azu
 ユーザーがアクティブに作成している一時的なデータの場合、共通のバッキングストア`localStorage`は`sessionStorage` 、ブラウザーのおよびコレクションです。 回線が破棄された場合、保存されている状態を管理またはクリアするためにアプリは必要ありません。これは、サーバー側の記憶域よりも利点があります。
 
 > [!NOTE]
-> このセクションの「クライアント側」では、 [Blazor クライアント側のホスティングモデル](xref:blazor/hosting-models#client-side)ではなく、ブラウザーでのクライアント側のシナリオを参照しています。 `localStorage`と`sessionStorage`は、Blazor クライアント側アプリで使用できますが、カスタムコードを記述したり、サードパーティのパッケージを使用したりすることによってのみ使用できます。
+> このセクションの「クライアント側」では、 [Blazor WebAssembly ホスティングモデル](xref:blazor/hosting-models#blazor-webassembly)ではなく、ブラウザーでのクライアント側のシナリオを参照しています。 `localStorage`と`sessionStorage`は、カスタムコードを記述したり、サードパーティのパッケージを使用したりするだけで、Blazor webassembly で使用できます。
 
 `localStorage`と`sessionStorage`は次のように異なります。
 
@@ -118,7 +118,7 @@ Azure のデータストレージオプションの詳細については、 [Azu
 
 * サーバー側データベースを使用する場合と同様に、データの読み込みと保存は非同期です。
 * サーバー側データベースとは異なり、プリステージ中に要求されたページがブラウザーに存在しないため、プリステージ中にストレージを使用することはできません。
-* Blazor のサーバー側アプリでは、数キロバイトのデータを保存するのが妥当です。 ネットワーク経由でデータが読み込まれ、保存されるため、数キロバイトを超えるパフォーマンスへの影響を考慮する必要があります。
+* Blazor Server アプリでは、数キロバイトのデータを保存するのが妥当です。 ネットワーク経由でデータが読み込まれ、保存されるため、数キロバイトを超えるパフォーマンスへの影響を考慮する必要があります。
 * ユーザーは、データの表示や改ざんを行うことができます。 ASP.NET Core[データ保護](xref:security/data-protection/introduction)を使用すると、リスクを軽減できます。
 
 ## <a name="third-party-browser-storage-solutions"></a>サードパーティのブラウザーストレージソリューション
@@ -138,7 +138,7 @@ ASP.NET Core の[データ保護](xref:security/data-protection/introduction)を
 
 `Microsoft.AspNetCore.ProtectedBrowserStorage`パッケージをインストールするには:
 
-1. Blazor サーバー側アプリプロジェクトで、 [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage)へのパッケージ参照を追加します。
+1. Blazor Server app プロジェクトで、 [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage)へのパッケージ参照を追加します。
 1. 最上位レベルの HTML (たとえば、既定のプロジェクトテンプレートの*Pages/_Host*ファイル) で、次`<script>`のタグを追加します。
 
    ```html

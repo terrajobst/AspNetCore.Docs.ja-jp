@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/06/2019
 uid: blazor/handle-errors
-ms.openlocfilehash: 52f55af99881b09c84d9cf88f5845efcb1ea76a1
-ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
+ms.openlocfilehash: d3e261e83f375574339a8ce3428e8bfb73df4307
+ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68948452"
+ms.lasthandoff: 09/13/2019
+ms.locfileid: "70963985"
 ---
 # <a name="handle-errors-in-aspnet-core-blazor-apps"></a>ASP.NET Core Blazor アプリでのエラーの処理
 
@@ -22,7 +22,7 @@ ms.locfileid: "68948452"
 
 ## <a name="how-the-blazor-framework-reacts-to-unhandled-exceptions"></a>Blazor フレームワークがハンドルされない例外にどのように反応するか
 
-Blazor サーバー側は、ステートフルなフレームワークです。 ユーザーは、アプリを操作している間、*回線*と呼ばれるサーバーへの接続を維持します。 回線は、アクティブなコンポーネントインスタンスに加えて、次のような状態の他の多くの側面を保持します。
+Blazor Server は、ステートフルフレームワークです。 ユーザーは、アプリを操作している間、*回線*と呼ばれるサーバーへの接続を維持します。 回線は、アクティブなコンポーネントインスタンスに加えて、次のような状態の他の多くの側面を保持します。
 
 * コンポーネントの最新のレンダリング出力。
 * クライアント側のイベントによってトリガーされる可能性がある、現在のイベント処理デリゲートのセット。

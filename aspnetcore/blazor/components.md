@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/06/2019
 uid: blazor/components
-ms.openlocfilehash: dbd0879d200061151e8307346adef784967bf123
-ms.sourcegitcommit: e7c56e8da5419bbc20b437c2dd531dedf9b0dc6b
+ms.openlocfilehash: bc9fa06e5acccb773717fe87bf4aabb971b8dee5
+ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/10/2019
-ms.locfileid: "70878395"
+ms.lasthandoff: 09/13/2019
+ms.locfileid: "70963778"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>ASP.NET Core Razor コンポーネントを作成して使用する
 
@@ -79,7 +79,7 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 ページとビューはコンポーネントを使用できますが、逆の場合は真実ではありません。 コンポーネントでは、ビューおよびページ固有のシナリオ (部分ビューやセクションなど) を使用できません。 コンポーネントの部分ビューからロジックを使用するには、部分ビューのロジックをコンポーネントにします。
 
-コンポーネントがどのようにレンダリングされ、コンポーネントの状態が Blazor サーバー側アプリで管理されるか<xref:blazor/hosting-models>の詳細については、「」を参照してください。
+コンポーネントがどのようにレンダリングされ、コンポーネントの状態が Blazor Server apps で管理される<xref:blazor/hosting-models>かの詳細については、「」を参照してください。
 
 ## <a name="use-components"></a>コンポーネントを使う
 
@@ -217,7 +217,7 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 ```cshtml
 <input value="@CurrentValue"
-    @onchange="@((UIChangeEventArgs __e) => CurrentValue = __e.Value)" />
+    @onchange="@((ChangeEventArgs __e) => CurrentValue = __e.Value)" />
 ```
 
 コンポーネントがレンダリングされると、 `value`入力要素のが`CurrentValue`プロパティから取得されます。 ユーザーがテキストボックス`onchange`に入力すると、イベントが発生`CurrentValue`し、プロパティは変更された値に設定されます。 実際には、では、型変換が実行さ`@bind`れるいくつかのケースが処理されるため、コード生成が少し複雑になります。 原則とし`@bind`て、は、式の現在の値`value`を属性に関連付け、登録されたハンドラーを使用して変更を処理します。
@@ -379,7 +379,7 @@ Razor コンポーネントは、イベント処理機能を提供します。 �
 </button>
 
 @code {
-    private void UpdateHeading(UIMouseEventArgs e)
+    private void UpdateHeading(MouseEventArgs e)
     {
         ...
     }
@@ -409,7 +409,7 @@ Razor コンポーネントは、イベント処理機能を提供します。 �
 </button>
 
 @code {
-    private async Task UpdateHeading(UIMouseEventArgs e)
+    private async Task UpdateHeading(MouseEventArgs e)
     {
         ...
     }
@@ -446,7 +446,7 @@ Razor コンポーネントは、イベント処理機能を提供します。 �
 <button @onclick="@(e => Console.WriteLine("Hello, world!"))">Say hello</button>
 ```
 
-多くの場合、要素のセットを反復処理するときなど、追加の値を終了すると便利です。 次の例では、3つの`UpdateHeading`ボタンを作成します。各ボタンは、UI で選択したときにイベント引数 (`UIMouseEventArgs`) とそのボタン番号 (`buttonNumber`) を渡します。
+多くの場合、要素のセットを反復処理するときなど、追加の値を終了すると便利です。 次の例では、3つの`UpdateHeading`ボタンを作成します。各ボタンは、UI で選択したときにイベント引数 (`MouseEventArgs`) とそのボタン番号 (`buttonNumber`) を渡します。
 
 ```cshtml
 <h2>@message</h2>
@@ -464,7 +464,7 @@ Razor コンポーネントは、イベント処理機能を提供します。 �
 @code {
     private string message = "Select a button to learn its position.";
 
-    private void UpdateHeading(UIMouseEventArgs e, int buttonNumber)
+    private void UpdateHeading(MouseEventArgs e, int buttonNumber)
     {
         message = $"You selected Button #{buttonNumber} at " +
             $"mouse position: {e.ClientX} X {e.ClientY}.";
@@ -479,7 +479,7 @@ Razor コンポーネントは、イベント処理機能を提供します。 �
 
 入れ子になったコンポーネントの一般的なシナリオは、子コンポーネントのイベントが発生&mdash;したときに親コンポーネントのメソッドを実行することです。たとえば、子で`onclick`イベントが発生した場合などです。 コンポーネント間でイベントを公開するに`EventCallback`は、を使用します。 親コンポーネントは、コールバックメソッドを子コンポーネントの`EventCallback`に割り当てることができます。
 
-サンプル`ChildComponent`アプリのは、サンプルの`ParentComponent`から`EventCallback`デリゲートを`onclick`受け取るように、ボタンのハンドラーがどのように設定されているかを示しています。 は`EventCallback` 、周辺機器`UIMouseEventArgs`からの`onclick`イベントに適したを使用して型指定されます。
+サンプル`ChildComponent`アプリのは、サンプルの`ParentComponent`から`EventCallback`デリゲートを`onclick`受け取るように、ボタンのハンドラーがどのように設定されているかを示しています。 は`EventCallback` 、周辺機器`MouseEventArgs`からの`onclick`イベントに適したを使用して型指定されます。
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Components/ChildComponent.razor?highlight=5-7,17-18)]
 
@@ -516,6 +516,126 @@ await callback.InvokeAsync(arg);
 イベント`EventCallback`処理`EventCallback<T>`およびバインドコンポーネントのパラメーターには、およびを使用します。
 
 厳密に型指定`EventCallback<T>` `EventCallback`されたを優先します。 `EventCallback<T>`コンポーネントのユーザーに対して、より適切なエラーフィードバックを提供します。 他の UI イベントハンドラーと同様に、イベントパラメーターの指定は省略可能です。 コール`EventCallback`バックに値が渡されない場合は、を使用します。
+
+## <a name="chained-bind"></a>チェーンバインド
+
+一般的なシナリオでは、データバインドパラメーターをコンポーネントの出力のページ要素に連結します。 このシナリオは、複数のレベルのバインドが同時に発生するため、*チェーンバインド*と呼ばれます。
+
+チェーンバインドは、構文を使用`@bind`してページの要素に実装することはできません。 イベントハンドラーと値は、個別に指定する必要があります。 ただし、親コンポーネントでは、コンポーネント`@bind`のパラメーターと共に構文を使用できます。
+
+次`PasswordField`のコンポーネント (*passwordfield*):
+
+* 要素の値`Password`をプロパティに設定します。 `<input>`
+* [Eventcallback](#eventcallback)を使用`Password`して、プロパティの変更を親コンポーネントに公開します。
+
+```cshtml
+Password: 
+
+<input @oninput="OnPasswordChanged" 
+       required 
+       type="@(showPassword ? "text" : "password")" 
+       value="@Password" />
+
+<button class="btn btn-primary" @onclick="ToggleShowPassword">
+    Show password
+</button>
+
+@code {
+    private bool showPassword;
+
+    [Parameter]
+    public string Password { get; set; }
+
+    [Parameter]
+    public EventCallback<string> PasswordChanged { get; set; }
+
+    private Task OnPasswordChanged(ChangeEventArgs e)
+    {
+        Password = e.Value.ToString();
+
+        return PasswordChanged.InvokeAsync(Password);
+    }
+
+    private void ToggleShowPassword()
+    {
+        showPassword = !showPassword;
+    }
+}
+```
+
+コンポーネント`PasswordField`が別のコンポーネントで使用されています。
+
+```cshtml
+<PasswordField @bind-Password="password" />
+
+@code {
+    private string password;
+}
+```
+
+前の例で、パスワードの確認またはトラップエラーを実行するには、次の手順を実行します。
+
+* `Password` (`password`次のコード例の) のバッキングフィールドを作成します。
+* `Password` Setter でチェックまたはトラップエラーを実行します。
+
+次の例では、パスワードの値にスペースが使用されている場合に、ユーザーにすぐにフィードバックを提供します。
+
+```cshtml
+Password: 
+
+<input @oninput="OnPasswordChanged" 
+       required 
+       type="@(showPassword ? "text" : "password")" 
+       value="@Password" />
+
+<button class="btn btn-primary" @onclick="ToggleShowPassword">
+    Show password
+</button>
+
+<span class="text-danger">@validationMessage</span>
+
+@code {
+    private bool showPassword;
+    private string password;
+    private string validationMessage;
+
+    [Parameter]
+    public string Password
+    {
+        get { return password ?? string.Empty; }
+        set
+        {
+            if (password != value)
+            {
+                if (value.Contains(' '))
+                {
+                    validationMessage = "Spaces not allowed!";
+                }
+                else
+                {
+                    password = value;
+                    validationMessage = string.Empty;
+                }
+            }
+        }
+    }
+
+    [Parameter]
+    public EventCallback<string> PasswordChanged { get; set; }
+
+    private Task OnPasswordChanged(ChangeEventArgs e)
+    {
+        Password = e.Value.ToString();
+
+        return PasswordChanged.InvokeAsync(Password);
+    }
+
+    private void ToggleShowPassword()
+    {
+        showPassword = !showPassword;
+    }
+}
+```
 
 ## <a name="capture-references-to-components"></a>コンポーネントへの参照をキャプチャする
 
@@ -565,7 +685,7 @@ public class NotifierService
         }
     }
 
-    public event Action<string, int, Task> Notify;
+    public event Func<string, int, Task> Notify;
 }
 ```
 
@@ -613,7 +733,7 @@ public class NotifierService
 ```csharp
 @foreach (var person in People)
 {
-    <DetailsEditor Details="@person.Details" />
+    <DetailsEditor Details="person.Details" />
 }
 
 @code {
@@ -629,7 +749,7 @@ public class NotifierService
 ```csharp
 @foreach (var person in People)
 {
-    <DetailsEditor @key="@person" Details="@person.Details" />
+    <DetailsEditor @key="person" Details="person.Details" />
 }
 
 @code {
@@ -656,8 +776,8 @@ public class NotifierService
 また、を使用`@key`して、オブジェクトが変更されたときに、Blazor が要素またはコンポーネントのサブツリーを保持しないようにすることもできます。
 
 ```cshtml
-<div @key="@currentPerson">
-    ... content that depends on @currentPerson ...
+<div @key="currentPerson">
+    ... content that depends on currentPerson ...
 </div>
 ```
 
@@ -934,7 +1054,7 @@ HTML 要素の属性は、.NET の値に基づいて条件付きで表示され�
 テンプレート化されたコンポーネントを使用する場合、テンプレートパラメーターは、パラメーターの名前 (`TableHeader`および`RowTemplate`次の例では) と一致する子要素を使用して指定できます。
 
 ```cshtml
-<TableTemplate Items="@pets">
+<TableTemplate Items="pets">
     <TableHeader>
         <th>ID</th>
         <th>Name</th>
@@ -951,7 +1071,7 @@ HTML 要素の属性は、.NET の値に基づいて条件付きで表示され�
 要素として`RenderFragment<T>`渡された型のコンポーネント引数に`context`は、という名前の暗黙的なパラメーター `@context.PetId`があります (上記のコードサンプルの例で`Context`は)。ただし、子の属性を使用してパラメーター名を変更できます。element. 次の例では、 `RowTemplate`要素の`Context`属性によっ`pet`てパラメーターが指定されています。
 
 ```cshtml
-<TableTemplate Items="@pets">
+<TableTemplate Items="pets">
     <TableHeader>
         <th>ID</th>
         <th>Name</th>
@@ -966,7 +1086,7 @@ HTML 要素の属性は、.NET の値に基づいて条件付きで表示され�
 または、コンポーネント要素で`Context`属性を指定することもできます。 指定された属性は、指定されたすべてのテンプレートパラメーターに適用されます。`Context` これは、暗黙的な子コンテンツ (ラップする子要素を持たない) のコンテンツパラメーター名を指定する場合に便利です。 次の例`Context`では、属性が`TableTemplate`要素に表示され、すべてのテンプレートパラメーターに適用されます。
 
 ```cshtml
-<TableTemplate Items="@pets" Context="pet">
+<TableTemplate Items="pets" Context="pet">
     <TableHeader>
         <th>ID</th>
         <th>Name</th>
@@ -987,7 +1107,7 @@ HTML 要素の属性は、.NET の値に基づいて条件付きで表示され�
 ジェネリック型のコンポーネントを使用する場合、可能であれば型パラメーターは推論されます。
 
 ```cshtml
-<ListViewTemplate Items="@pets">
+<ListViewTemplate Items="pets">
     <ItemTemplate Context="pet">
         <li>@pet.Name</li>
     </ItemTemplate>
@@ -997,7 +1117,7 @@ HTML 要素の属性は、.NET の値に基づいて条件付きで表示され�
 それ以外の場合は、型パラメーターの名前と一致する属性を使用して、型パラメーターを明示的に指定する必要があります。 次の例では`TItem="Pet"` 、型を指定します。
 
 ```cshtml
-<ListViewTemplate Items="@pets" TItem="Pet">
+<ListViewTemplate Items="pets" TItem="Pet">
     <ItemTemplate Context="pet">
         <li>@pet.Name</li>
     </ItemTemplate>
@@ -1037,7 +1157,7 @@ public class ThemeInfo
             <NavMenu />
         </div>
         <div class="col-sm-9">
-            <CascadingValue Value="@theme">
+            <CascadingValue Value="theme">
                 <div class="content px-4">
                     @Body
                 </div>
@@ -1331,7 +1451,7 @@ builder.AddContent(seq++, "Second");
 
 ## <a name="localization"></a>ローカリゼーション
 
-Blazor サーバー側アプリはローカライズ[ミドルウェア](xref:fundamentals/localization#localization-middleware)を使用してローカライズされます。 ミドルウェアは、アプリからリソースを要求するユーザーに適切なカルチャを選択します。
+Blazor サーバーアプリはローカライズ[ミドルウェア](xref:fundamentals/localization#localization-middleware)を使用してローカライズされます。 ミドルウェアは、アプリからリソースを要求するユーザーに適切なカルチャを選択します。
 
 カルチャは、次のいずれかの方法を使用して設定できます。
 
@@ -1348,7 +1468,7 @@ Cookie を使用すると、WebSocket 接続がカルチャを正しく伝達で
 
 カルチャがローカライズ cookie に保存されている場合は、任意の手法を使用してカルチャを割り当てることができます。 アプリにサーバー側 ASP.NET Core 用に確立されたローカライズスキームが既にある場合は、引き続きアプリの既存のローカライズインフラストラクチャを使用し、アプリのスキーム内でローカライズカルチャ cookie を設定します。
 
-次の例では、ローカリゼーションミドルウェアが読み取ることができる cookie で現在のカルチャを設定する方法を示します。 Blazor サーバー側アプリに次の内容を含む*ページ/ホストの cshtml*ファイルを作成します。
+次の例では、ローカリゼーションミドルウェアが読み取ることができる cookie で現在のカルチャを設定する方法を示します。 Blazor Server アプリで次の内容を含む*ページ/ホストの cshtml*ファイルを作成します。
 
 ```csharp
 public class HostModel : PageModel
@@ -1370,9 +1490,9 @@ public class HostModel : PageModel
 1. ブラウザーは、アプリに最初の HTTP 要求を送信します。
 1. カルチャは、ローカリゼーションミドルウェアによって割り当てられます。
 1. _Host `OnGet`のメソッドは、応答の一部として cookie 内のカルチャを永続化します。
-1. ブラウザーは WebSocket 接続を開き、対話型の Blazor サーバー側セッションを作成します。
+1. ブラウザーは、WebSocket 接続を開き、対話型の Blazor サーバーセッションを作成します。
 1. ローカリゼーションミドルウェアは cookie を読み取り、カルチャを割り当てます。
-1. Blazor のサーバー側セッションは、正しいカルチャで開始されます。
+1. Blazor Server セッションは、正しいカルチャで開始されます。
 
 ## <a name="provide-ui-to-choose-the-culture"></a>カルチャを選択するための UI を提供する
 
@@ -1420,7 +1540,7 @@ public class CultureController : Controller
 @code {
     private double textNumber;
 
-    private void OnSelected(UIChangeEventArgs e)
+    private void OnSelected(ChangeEventArgs e)
     {
         var culture = (string)e.Value;
         var uri = new Uri(NavigationManager.Uri())
@@ -1469,4 +1589,4 @@ Blazor は HTML をレンダリングするため、スケーラブルベクタ�
 
 ## <a name="additional-resources"></a>その他の技術情報
 
-* <xref:security/blazor/server-side>&ndash;リソース枯渇に対処する必要がある Blazor サーバー側アプリの構築に関するガイダンスが含まれています。
+* <xref:security/blazor/server>&ndash;リソース枯渇に対処する必要がある Blazor サーバーアプリの構築に関するガイダンスが含まれています。

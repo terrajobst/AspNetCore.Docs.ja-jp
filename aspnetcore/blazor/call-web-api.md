@@ -7,31 +7,31 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/13/2019
 uid: blazor/call-web-api
-ms.openlocfilehash: 60ebd01bc07da22cd1dcd0b16297ee54c97867fc
-ms.sourcegitcommit: f5f0ff65d4e2a961939762fb00e654491a2c772a
+ms.openlocfilehash: 152a2d5ac9a4325592ca414e9ea5e70c947d079f
+ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/15/2019
-ms.locfileid: "69030378"
+ms.lasthandoff: 09/13/2019
+ms.locfileid: "70963704"
 ---
 # <a name="call-a-web-api-from-aspnet-core-blazor"></a>ASP.NET Core Blazor から web API を呼び出す
 
 [Luke Latham](https://github.com/guardrex)および[Daniel Roth](https://github.com/danroth27)
 
-Blazor クライアント側アプリは、構成済み`HttpClient`のサービスを使用して web api を呼び出します。 作成要求<xref:System.Net.Http.HttpRequestMessage>。 Blazor JSON ヘルパーまたはを使用して、JavaScript [Fetch API](https://developer.mozilla.org/docs/Web/API/Fetch_API)オプションを含めることができます。
+Blazor webassembly は、事前に構成済み`HttpClient`のサービスを使用して web api を呼び出します。 作成要求<xref:System.Net.Http.HttpRequestMessage>。 Blazor JSON ヘルパーまたはを使用して、JavaScript [Fetch API](https://developer.mozilla.org/docs/Web/API/Fetch_API)オプションを含めることができます。
 
-Blazor サーバー側アプリは、通常、を<xref:System.Net.Http.HttpClient>使用<xref:System.Net.Http.IHttpClientFactory>して作成されたインスタンスを使用して web api を呼び出します。 詳細については、「 <xref:fundamentals/http-requests> 」を参照してください。
+Blazor サーバーアプリは、通常、 <xref:System.Net.Http.HttpClient>を使用<xref:System.Net.Http.IHttpClientFactory>して作成されたインスタンスを使用して web api を呼び出します。 詳細については、「 <xref:fundamentals/http-requests> 」を参照してください。
 
 [サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
-Blazor のクライアント側の例については、サンプルアプリの次のコンポーネントを参照してください。
+Blazor WebAssembly 例については、サンプルアプリの次のコンポーネントを参照してください。
 
 * Web API の呼び出し (*Pages/CallWebAPI*)
 * HTTP 要求テスター (*Components/HTTPRequestTester*)
 
 ## <a name="httpclient-and-json-helpers"></a>HttpClient と JSON のヘルパー
 
-Blazor クライアント側アプリでは、 [Httpclient](xref:fundamentals/http-requests)は、要求を配信元サーバーに返すための事前に構成されたサービスとして利用できます。 JSON ヘルパー `HttpClient`を使用するには、へ`Microsoft.AspNetCore.Blazor.HttpClient`のパッケージ参照を追加します。 `HttpClient`また、JSON ヘルパーは、サードパーティの web API エンドポイントを呼び出すためにも使用されます。 `HttpClient`は、ブラウザー [FETCH API](https://developer.mozilla.org/docs/Web/API/Fetch_API)を使用して実装され、同じオリジンポリシーの適用などの制限が適用されます。
+Blazor WebAssembly では、 [Httpclient](xref:fundamentals/http-requests)は、要求を配信元サーバーに返すための事前に構成されたサービスとして利用できます。 JSON ヘルパー `HttpClient`を使用するには、へ`Microsoft.AspNetCore.Blazor.HttpClient`のパッケージ参照を追加します。 `HttpClient`また、JSON ヘルパーは、サードパーティの web API エンドポイントを呼び出すためにも使用されます。 `HttpClient`は、ブラウザー [FETCH API](https://developer.mozilla.org/docs/Web/API/Fetch_API)を使用して実装され、同じオリジンポリシーの適用などの制限が適用されます。
 
 クライアントのベースアドレスは、元のサーバーのアドレスに設定されます。 ディレクティブを使用してインスタンスを挿入します。`HttpClient` `@inject`
 
@@ -59,7 +59,7 @@ JSON ヘルパーメソッドは、要求を URI (次の例では web API) に�
 
 * `GetJsonAsync`&ndash; HTTP GET 要求を送信し、JSON 応答本文を解析してオブジェクトを作成します。
 
-  次のコード`_todoItems`では、がコンポーネントによって表示されます。 メソッドは、コンポーネントのレンダリングが終了したときにトリガーされます ([oninitializer edasync](xref:blazor/components#lifecycle-methods))。 `GetTodoItems` 完全な例については、サンプルアプリを参照してください。
+  次のコード`_todoItems`では、がコンポーネントによって表示されます。 メソッドは、コンポーネントのレンダリングが終了したときにトリガーされます ([oninitializer edasync)。](xref:blazor/components#lifecycle-methods) `GetTodoItems` 完全な例については、サンプルアプリを参照してください。
 
   ```cshtml
   @using System.Net.Http
@@ -151,7 +151,7 @@ JSON ヘルパーメソッドは、要求を URI (次の例では web API) に�
 
 ## <a name="httpclient-and-httprequestmessage-with-fetch-api-request-options"></a>HttpClient と HttpRequestMessage with Fetch API 要求オプション
 
-Blazor クライアント側アプリで webassembly 実行する場合は、 [httpclient](xref:fundamentals/http-requests)とを使用<xref:System.Net.Http.HttpRequestMessage>して要求をカスタマイズします。 たとえば、要求 URI、HTTP メソッド、および必要な要求ヘッダーを指定できます。
+Blazor webassembly で webassembly 実行する場合は、 [httpclient](xref:fundamentals/http-requests)とを使用<xref:System.Net.Http.HttpRequestMessage>して要求をカスタマイズします。 たとえば、要求 URI、HTTP メソッド、および必要な要求ヘッダーを指定できます。
 
 要求の`WebAssemblyHttpMessageHandler.FetchArgs`プロパティを使用して、基になる JavaScript [Fetch API](https://developer.mozilla.org/docs/Web/API/Fetch_API)に要求オプションを指定します。 次の例`credentials`に示すように、プロパティは次のいずれかの値に設定されます。
 
@@ -219,7 +219,7 @@ app.UseCors(policy =>
 
 詳細については<xref:security/cors> 、「」およびサンプルアプリの HTTP 要求テスターコンポーネント (*Components/HTTPRequestTester*) を参照してください。
 
-## <a name="additional-resources"></a>その他の資料
+## <a name="additional-resources"></a>その他の技術情報
 
 * <xref:fundamentals/http-requests>
 * [W3C でのクロスオリジンリソース共有 (CORS)](https://www.w3.org/TR/cors/)

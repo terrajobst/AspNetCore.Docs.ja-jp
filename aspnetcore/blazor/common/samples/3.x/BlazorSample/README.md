@@ -1,4 +1,4 @@
-# <a name="blazor-client-side-sample-app"></a>Blazor (クライアント側) のサンプルアプリ
+# <a name="blazor-webassembly-sample-app"></a>Blazor WebAssembly サンプルアプリ
 
 このサンプルでは、Blazor のドキュメントで説明されている Blazor シナリオの使用方法を示します。
 

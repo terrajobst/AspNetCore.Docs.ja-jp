@@ -1,63 +1,63 @@
 ---
 title: Blazor ホスティングモデルの ASP.NET Core
 author: guardrex
-description: Blazor クライアント側とサーバー側のホストモデルについて説明します。
+description: Blazor WebAssembly と Blazor のサーバーホスティングモデルを理解します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 09/07/2019
 uid: blazor/hosting-models
-ms.openlocfilehash: 7880affa59af1fa4fc47aee3dc98ae9aa53729af
-ms.sourcegitcommit: e7c56e8da5419bbc20b437c2dd531dedf9b0dc6b
+ms.openlocfilehash: 6e225e490e54e44877fa27573ff9b513c8dcd9a3
+ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/10/2019
-ms.locfileid: "70878347"
+ms.lasthandoff: 09/13/2019
+ms.locfileid: "70964023"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>Blazor ホスティングモデルの ASP.NET Core
 
 [Daniel Roth](https://github.com/danroth27)
 
-Blazor は、ブラウザーでブラウザーでクライアント側を実行するために設計された web フレームワークであり、ASP.NET Core (*Blazor サーバー側*) の [WebAssembly](https://webassembly.org/) ベースの .net ランタイム (*Blazor client 側*) またはサーバー側で作成されています。 ホスティングモデルに関係なく、アプリモデルとコンポーネントモデル*は同じ*です。
+Blazor は、ブラウザーでブラウザーでクライアント側を実行するように設計された web フレームワークで、 [WEBAS.NET](https://webassembly.org/)ランタイム (*Blazor Webassembly*) またはサーバー ASP.NET Core 側 (*Blazor サーバー*) で実行します。 ホスティングモデルに関係なく、アプリモデルとコンポーネントモデル*は同じ*です。
 
 この記事で説明されているホスティングモデルのプロジェクトを作成<xref:blazor/get-started>するには、「」を参照してください。
 
-## <a name="client-side"></a>クライアント側
+## <a name="blazor-webassembly"></a>Blazor webas
 
 Blazor のプリンシパルホスティングモデルは、ブラウザーでクライアント側で実行されます。 Blazor アプリ、その依存関係、.NET ランタイムがブラウザーにダウンロードされます。 アプリがブラウザー UI スレッド上で直接実行されます。 UI の更新とイベントの処理は、同じプロセス内で行われます。 アプリの資産は静的ファイルとして、静的コンテンツをクライアントに提供できる web サーバーまたはサービスに展開されます。
 
-![Blazor クライアント側:Blazor アプリは、ブラウザー内の UI スレッドで実行されます。](hosting-models/_static/client-side.png)
+![Blazor Webas:Blazor アプリは、ブラウザー内の UI スレッドで実行されます。](hosting-models/_static/blazor-webassembly.png)
 
 クライアント側のホスティングモデルを使用して Blazor アプリを作成するには、 **Blazor WebAssembly アプリ**テンプレート ([dotnet new blazorwasm](/dotnet/core/tools/dotnet-new)) を使用します。
 
-**Blazor WebAssembly アプリ**テンプレートを選択した後、[ホストされている**ASP.NET Core** ] チェックボックス ([new blazorwasm--hosted](/dotnet/core/tools/dotnet-new)) を選択して、ASP.NET Core バックエンドを使用するようにアプリを構成することができます。 ASP.NET Core アプリは、Blazor アプリをクライアントに提供します。 Blazor クライアント側アプリは、web API 呼び出しまたは[SignalR](xref:signalr/introduction)を使用して、ネットワーク経由でサーバーと通信できます。
+**Blazor WebAssembly アプリ**テンプレートを選択した後、[ホストされている**ASP.NET Core** ] チェックボックス ([new blazorwasm--hosted](/dotnet/core/tools/dotnet-new)) を選択して、ASP.NET Core バックエンドを使用するようにアプリを構成することができます。 ASP.NET Core アプリは、Blazor アプリをクライアントに提供します。 Blazor WebAssembly は、web API 呼び出しまたは[SignalR](xref:signalr/introduction)を使用して、ネットワーク経由でサーバーと通信できます。
 
 テンプレートには、を処理する*blazor*スクリプトが含まれています。
 
 * .NET ランタイム、アプリ、およびアプリの依存関係をダウンロードしています。
 * アプリを実行するランタイムの初期化。
 
-クライアント側ホスティングモデルには、いくつかの利点があります。
+Blazor WebAssembly ホスティングモデルには、いくつかの利点があります。
 
 * .NET サーバー側の依存関係はありません。 クライアントにダウンロードされた後、アプリは完全に機能しています。
 * クライアントのリソースと機能は完全に活用されています。
 * 作業はサーバーからクライアントにオフロードされます。
 * アプリケーションをホストするために ASP.NET Core web サーバーは必要ありません。 サーバーレスの展開シナリオが可能です (たとえば、CDN からアプリを提供するなど)。
 
-クライアント側のホストには欠点があります。
+Blazor WebAssembly には欠点があります。
 
 * アプリは、ブラウザーの機能に制限されています。
 * サポートされているクライアントハードウェアとソフトウェア (たとえば、WebAssembly サポート) が必要です。
 * ダウンロードサイズが大きくなり、アプリの読み込みに時間がかかります。
 * .NET ランタイムとツールのサポートの成熟度は低くなります。 たとえば、 [.NET Standard](/dotnet/standard/net-standard)のサポートとデバッグには制限があります。
 
-## <a name="server-side"></a>サーバー側
+## <a name="blazor-server"></a>Blazor サーバー
 
-サーバー側のホスティングモデルでは、アプリは ASP.NET Core アプリ内からサーバー上で実行されます。 UI の更新、イベント処理、JavaScript の呼び出しは、[SignalR](xref:signalr/introduction) 接続経由で処理されます。
+Blazor Server ホスティングモデルでは、アプリは ASP.NET Core アプリ内からサーバー上で実行されます。 UI の更新、イベント処理、JavaScript の呼び出しは、[SignalR](xref:signalr/introduction) 接続経由で処理されます。
 
-![ブラウザーは、SignalR 接続を介して、サーバー上の (ASP.NET Core アプリ内でホストされている) アプリと対話します。](hosting-models/_static/server-side.png)
+![ブラウザーは、SignalR 接続を介して、サーバー上の (ASP.NET Core アプリ内でホストされている) アプリと対話します。](hosting-models/_static/blazor-server.png)
 
-サーバー側のホスティングモデルを使用して Blazor アプリを作成するには、ASP.NET Core **Blazor Server アプリ**テンプレート ([dotnet new blazorserver](/dotnet/core/tools/dotnet-new)) を使用します。 ASP.NET Core アプリはサーバー側アプリをホストし、クライアントが接続する SignalR エンドポイントを作成します。
+Blazor サーバーホスティングモデルを使用して Blazor アプリを作成するには、ASP.NET Core **Blazor Server アプリケーション**テンプレート ([dotnet new blazorserver](/dotnet/core/tools/dotnet-new)) を使用します。 ASP.NET Core アプリは Blazor Server アプリをホストし、クライアントが接続する SignalR エンドポイントを作成します。
 
 ASP.NET Core アプリは、追加するアプリ`Startup`のクラスを参照します。
 
@@ -66,15 +66,15 @@ ASP.NET Core アプリは、追加するアプリ`Startup`のクラスを参照�
 
 *Blazor*スクリプト&dagger;は、クライアント接続を確立します。 アプリケーションの状態は、必要に応じて永続化および復元する必要があります (ネットワーク接続が切断された場合など)。
 
-サーバー側ホスティングモデルには、いくつかの利点があります。
+Blazor サーバーホスティングモデルには、いくつかの利点があります。
 
-* ダウンロードサイズがクライアント側のアプリよりも大幅に小さく、アプリの読み込みにかかる時間が大幅に短縮されます。
+* ダウンロードサイズは、Blazor Webasアプリよりも大幅に小さく、アプリの読み込みにかかる時間が大幅に短縮されます。
 * このアプリでは、.NET Core と互換性のある Api の使用を含め、サーバーの機能を最大限に活用できます。
 * サーバー上の .NET Core はアプリを実行するために使用されるため、デバッグなどの既存の .NET ツールは想定どおりに動作します。
-* シンクライアントがサポートされています。 たとえば、サーバー側のアプリは、WebAssembly サポートされていないブラウザーや、リソースが制限されたデバイスで動作します。
+* シンクライアントがサポートされています。 たとえば、Blazor Server apps は、WebAssembly サポートされていないブラウザーや、リソースに制約のあるデバイスで動作します。
 * アプリのコンポーネントコードをC#含む、アプリの .net/コードベースはクライアントに提供されません。
 
-サーバー側のホストには欠点があります。
+Blazor サーバーホストには、次のような欠点があります。
 
 * 通常、待機時間が長くなります。 すべてのユーザーの操作には、ネットワークホップが関係します。
 * オフラインサポートはありません。 クライアント接続が失敗した場合、アプリは動作を停止します。
@@ -104,7 +104,7 @@ Blazor の UI 更新は、次の方法でトリガーされます。
 
 グラフが再ピアリングされ、UI *diff* (差分) が計算されます。 この diff は、クライアントで UI を更新するために必要な DOM 編集の最小セットです。 Diff はバイナリ形式でクライアントに送信され、ブラウザーによって適用されます。
 
-コンポーネントは、ユーザーがクライアント上で移動した後に破棄されます。 ユーザーがコンポーネントを操作している間、コンポーネントの状態 (サービス、リソース) は、サーバーのメモリに保持されている必要があります。 多くのコンポーネントの状態は同時にサーバーによって維持される可能性があるため、メモリ不足に対処する必要があります。 Blazor Server アプリを作成してサーバーのメモリを最大限に活用する方法については<xref:security/blazor/server-side>、「」を参照してください。
+コンポーネントは、ユーザーがクライアント上で移動した後に破棄されます。 ユーザーがコンポーネントを操作している間、コンポーネントの状態 (サービス、リソース) は、サーバーのメモリに保持されている必要があります。 多くのコンポーネントの状態は同時にサーバーによって維持される可能性があるため、メモリ不足に対処する必要があります。 Blazor Server アプリを作成してサーバーのメモリを最大限に活用する方法については<xref:security/blazor/server>、「」を参照してください。
 
 ### <a name="circuits"></a>接続
 
@@ -120,16 +120,16 @@ UI 待機時間とは、開始されたアクションから UI が更新され�
 
 企業のプライベートネットワークに限定された基幹業務アプリの場合、ネットワーク待機時間による待ち時間のユーザーへの影響は、通常はなるべくです。 インターネット経由で展開されたアプリの場合、ユーザーにとって待機時間が顕著になる可能性があります。ユーザーが地理的に広く分散している場合は特にそうです。
 
-メモリ使用量は、アプリの待機時間に寄与する場合もあります。 メモリ使用量が増加すると、ガベージコレクションまたはメモリのページングが頻繁に発生します。どちらの場合も、アプリのパフォーマンスが低下し、その結果、UI の遅延が増加します。 詳細については、「 <xref:security/blazor/server-side> 」を参照してください。
+メモリ使用量は、アプリの待機時間に寄与する場合もあります。 メモリ使用量が増加すると、ガベージコレクションまたはメモリのページングが頻繁に発生します。どちらの場合も、アプリのパフォーマンスが低下し、その結果、UI の遅延が増加します。 詳細については、「 <xref:security/blazor/server> 」を参照してください。
 
-Blazor サーバーアプリは、ネットワーク待機時間とメモリ使用量を削減することで、UI の待機時間を最小限に抑えるように最適化する必要があります。 ネットワーク待機時間を測定する方法につい<xref:host-and-deploy/blazor/server-side#measure-network-latency>ては、「」を参照してください。 SignalR と Blazor の詳細については、次を参照してください。
+Blazor サーバーアプリは、ネットワーク待機時間とメモリ使用量を削減することで、UI の待機時間を最小限に抑えるように最適化する必要があります。 ネットワーク待機時間を測定する方法につい<xref:host-and-deploy/blazor/server#measure-network-latency>ては、「」を参照してください。 SignalR と Blazor の詳細については、次を参照してください。
 
-* <xref:host-and-deploy/blazor/server-side>
-* <xref:security/blazor/server-side>
+* <xref:host-and-deploy/blazor/server>
+* <xref:security/blazor/server>
 
 ### <a name="reconnection-to-the-same-server"></a>同じサーバーへの再接続
 
-Blazor サーバー側アプリには、サーバーへのアクティブな SignalR 接続が必要です。 接続が失われた場合、アプリはサーバーへの再接続を試みます。 クライアントの状態がまだメモリ内にある限り、クライアントセッションは状態を失うことなく再開されます。
+Blazor サーバーアプリには、サーバーへのアクティブな SignalR 接続が必要です。 接続が失われた場合、アプリはサーバーへの再接続を試みます。 クライアントの状態がまだメモリ内にある限り、クライアントセッションは状態を失うことなく再開されます。
 
 クライアントが接続が失われたことを検出すると、クライアントが再接続しようとしているときに、既定の UI がユーザーに表示されます。 再接続に失敗した場合、ユーザーには再試行のオプションが表示されます。 UI をカスタマイズするには、 *_Host*ページ`components-reconnect-modal` `id`でとしてを使用して要素を定義します。 クライアントは、接続の状態に基づいて、次のいずれかの CSS クラスを使用して、この要素を更新します。
 
@@ -139,7 +139,7 @@ Blazor サーバー側アプリには、サーバーへのアクティブな Sig
 
 ### <a name="stateful-reconnection-after-prerendering"></a>プリレンダリング後のステートフル再接続
 
-Blazor サーバー側アプリは、サーバーへのクライアント接続が確立される前に、サーバー上の UI を事前に設定するように既定で設定されます。 これは、 *_Host*ページで設定します。
+Blazor サーバーアプリは、サーバーへのクライアント接続が確立される前に、サーバー上の UI を事前に作成するために既定で設定されます。 これは、 *_Host*ページで設定します。
 
 ```cshtml
 <body>
@@ -156,8 +156,8 @@ Blazor サーバー側アプリは、サーバーへのクライアント接続�
 
 | `RenderMode`        | 説明 |
 | ------------------- | ----------- |
-| `ServerPrerendered` | コンポーネントを静的 HTML にレンダリングし、Blazor サーバー側アプリのマーカーを含めます。 ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。 パラメーターはサポートされていません。 |
-| `Server`            | Blazor サーバー側アプリのマーカーをレンダリングします。 コンポーネントからの出力は含まれていません。 ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。 パラメーターはサポートされていません。 |
+| `ServerPrerendered` | コンポーネントを静的 HTML にレンダリングし、Blazor Server アプリのマーカーを含めます。 ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。 パラメーターはサポートされていません。 |
+| `Server`            | Blazor Server アプリのマーカーをレンダリングします。 コンポーネントからの出力は含まれていません。 ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。 パラメーターはサポートされていません。 |
 | `Static`            | コンポーネントを静的 HTML にレンダリングします。 パラメーターがサポートされています。 |
 
 静的な HTML ページからのサーバーコンポーネントのレンダリングはサポートされていません。
@@ -209,9 +209,9 @@ Blazor サーバー側アプリは、サーバーへのクライアント接続�
 
 [!INCLUDE[](~/includes/blazor-prerendering.md)]
 
-### <a name="configure-the-signalr-client-for-blazor-server-side-apps"></a>Blazor サーバー側アプリ用に SignalR クライアントを構成する
+### <a name="configure-the-signalr-client-for-blazor-server-apps"></a>Blazor Server アプリ用に SignalR クライアントを構成する
 
-場合によっては、Blazor サーバー側アプリによって使用される SignalR クライアントを構成する必要があります。 たとえば、接続の問題を診断するために、SignalR クライアントのログ記録を構成することができます。
+場合によっては、Blazor サーバーアプリによって使用される SignalR クライアントを構成する必要があります。 たとえば、接続の問題を診断するために、SignalR クライアントのログ記録を構成することができます。
 
 *Pages/_Host*ファイルで SignalR クライアントを構成するには、次のようにします。
 

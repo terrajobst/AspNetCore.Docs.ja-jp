@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/05/2019
 uid: blazor/get-started
-ms.openlocfilehash: 7bff1d38de77adfa1835ee37f4e5f8912ba629cc
-ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
+ms.openlocfilehash: e33ca421676caa20c823faf635442eda2a40ba65
+ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/07/2019
-ms.locfileid: "70800314"
+ms.lasthandoff: 09/13/2019
+ms.locfileid: "70964011"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>ASP.NET Core Blazor を使ってみる
 
@@ -40,7 +40,7 @@ Blazor を使ってみる:
 
    4。 **プロジェクト名** フィールドにプロジェクト名を入力するか、既定のプロジェクト名をそのまま使用します。 **場所**エントリが正しいことを確認するか、プロジェクトの場所を指定します。 **[作成]** を選択します。
 
-   5。 Blazor のクライアント側のエクスペリエンスについては、 **Blazor WebAssembly**テンプレートを選択してください。 Blazor サーバー側のエクスペリエンスについては、 **Blazor Server アプリ**テンプレートを選択してください。 **[作成]** を選択します。 サーバー側とクライアント側の2つの Blazor ホスティングモデルの詳細については<xref:blazor/hosting-models>、「」を参照してください。
+   5。 Blazor WebAssembly エクスペリエンスについては、 **Blazor Webassembly**テンプレートを選択してください。 Blazor サーバーエクスペリエンスの場合は、 **Blazor Server アプリ**テンプレートを選択します。 **[作成]** を選択します。 *Blazor Server*と*Blazor Webassembly*の2つのホスティングモデルの詳細について<xref:blazor/hosting-models>は、「」を参照してください。
 
    6。 **F5 キー**を押してアプリを実行します。
 
@@ -53,25 +53,25 @@ Blazor を使ってみる:
 
    2。 [ C# Visual Studio Code 拡張機能の](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)最新版をインストールします。
 
-   3。 Blazor のクライアント側のエクスペリエンスについては、コマンドシェルで次のコマンドを実行します。
+   3。 Blazor WebAssembly を実現するには、コマンドシェルで次のコマンドを実行します。
 
       ```console
       dotnet new blazorwasm -o WebApplication1
       ```
 
-      Blazor のサーバー側のエクスペリエンスについては、コマンドシェルで次のコマンドを実行します。
+      Blazor サーバーエクスペリエンスの場合は、コマンドシェルで次のコマンドを実行します。
 
       ```console
       dotnet new blazorserver -o WebApplication1
       ```
 
-      サーバー側とクライアント側の2つの Blazor ホスティングモデルの詳細については<xref:blazor/hosting-models>、「」を参照してください。
+      *Blazor Server*と*Blazor Webassembly*の2つのホスティングモデルの詳細について<xref:blazor/hosting-models>は、「」を参照してください。
 
    4。 Visual Studio Code で*WebApplication1*フォルダーを開きます。
 
-   5。 Blazor のサーバー側プロジェクトの場合、IDE は、プロジェクトをビルドおよびデバッグするためにアセットを追加するように要求します。 **[はい]** を選択します。
+   5。 Blazor Server プロジェクトの場合、IDE は、プロジェクトをビルドおよびデバッグするためにアセットを追加するように要求します。 **[はい]** を選択します。
 
-   6。 Blazor サーバー側アプリを使用している場合は、Visual Studio Code デバッガーを使用してアプリを実行します。 Blazor クライアント側アプリを使用している場合`dotnet run`は、アプリのプロジェクトフォルダーからを実行します。
+   6。 Blazor Server アプリを使用している場合は、Visual Studio Code デバッガーを使用してアプリを実行します。 Blazor webassembly を使用する場合は、 `dotnet run`アプリのプロジェクトフォルダーからを実行します。
 
    7。 ブラウザーで、`https://localhost:5001` に移動します。
 
@@ -85,7 +85,7 @@ Blazor を使ってみる:
 
    3\. In the sidebar, select **.NET Core** > **App**.
 
-   4\. For a Blazor server-side experience, select the **Blazor Server App** template. For a Blazor client-side experience, select the **Blazor WebAssembly App** template. Select **Next**. For information on the two Blazor hosting models, server-side and client-side, see <xref:blazor/hosting-models>.
+   4\. For a Blazor Server experience, select the **Blazor Server App** template. For a Blazor WebAssembly experience, select the **Blazor WebAssembly App** template. Select **Next**. For information on the two Blazor hosting models, *Blazor Server* and *Blazor WebAssembly*, see <xref:blazor/hosting-models>.
 
    5\. The **Target Framework** defaults to **.NET Core 3.0**. Select **Next**.
 
@@ -97,7 +97,7 @@ Blazor を使ってみる:
 
    # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
 
-   Blazor のクライアント側のエクスペリエンスについては、コマンドシェルで次のコマンドを実行します。
+   Blazor WebAssembly を実現するには、コマンドシェルで次のコマンドを実行します。
 
    ```console
    dotnet new blazorwasm -o WebApplication1
@@ -105,7 +105,7 @@ Blazor を使ってみる:
    dotnet run
    ```
 
-   Blazor のサーバー側のエクスペリエンスについては、コマンドシェルで次のコマンドを実行します。
+   Blazor サーバーエクスペリエンスの場合は、コマンドシェルで次のコマンドを実行します。
 
    ```console
    dotnet new blazorserver -o WebApplication1
@@ -113,7 +113,7 @@ Blazor を使ってみる:
    dotnet run
    ```
 
-   サーバー側とクライアント側の2つの Blazor ホスティングモデルの詳細については<xref:blazor/hosting-models>、「」を参照してください。
+   *Blazor Server*と*Blazor Webassembly*の2つのホスティングモデルの詳細について<xref:blazor/hosting-models>は、「」を参照してください。
 
    ブラウザーで、`https://localhost:5001` に移動します。
 

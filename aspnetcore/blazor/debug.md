@@ -7,24 +7,24 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/22/2019
 uid: blazor/debug
-ms.openlocfilehash: c3188a1fe1b699b787f7a95630f3918d295d0f68
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: e9477e504d32fd1dd5d6c87392386d1131f46e9f
+ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69974909"
+ms.lasthandoff: 09/13/2019
+ms.locfileid: "70963994"
 ---
 # <a name="debug-aspnet-core-blazor"></a>デバッグ ASP.NET Core Blazor
 
 [Daniel Roth](https://github.com/danroth27)
 
-Chrome で実行される Blazor クライアント側アプリをデバッグするための*早期*サポートが存在します。
+Chrome で Blazor Webassembly アプリをデバッグするための*早期*サポートが存在します。
 
 デバッガーの機能は制限されています。 次のようなシナリオがあります。
 
 * ブレークポイントを設定および削除します。
 * コードを実行するか、コードの実行を再開`F8`() します。`F10`
-* [ローカル ] 表示で、、 `int` `string`、および`bool`型のすべてのローカル変数の値を確認します。
+* [ローカル *] 表示で*、、 `int` `string`、および`bool`型のすべてのローカル変数の値を確認します。
 * 呼び出し履歴を参照してください。これには、JavaScript から .NET への呼び出しチェーンや、.NET から JavaScript までの呼び出し履歴が含まれます。
 
 次のこと*はできません*。
@@ -38,7 +38,7 @@ Chrome で実行される Blazor クライアント側アプリをデバッグ�
 
 さらにデバッグを行うシナリオの開発は、エンジニアリングチームにとって重視されています。
 
-## <a name="prerequisites"></a>前提条件
+## <a name="prerequisites"></a>必須コンポーネント
 
 デバッグには、次のいずれかのブラウザーが必要です。
 
@@ -47,7 +47,7 @@ Chrome で実行される Blazor クライアント側アプリをデバッグ�
 
 ## <a name="procedure"></a>プロシージャ
 
-1. 構成で`Debug` Blazor クライアント側アプリを実行します。 [Dotnet run](/dotnet/core/tools/dotnet-run)コマンドに`--configuration Debug`オプションを渡します`dotnet run --configuration Debug`。
+1. 構成で`Debug` Blazor webassembly を実行します。 [Dotnet run](/dotnet/core/tools/dotnet-run)コマンドに`--configuration Debug`オプションを渡します`dotnet run --configuration Debug`。
 1. ブラウザーでアプリにアクセスします。
 1. 開発者ツールパネルではなく、アプリにキーボードフォーカスを置きます。 [開発者ツール] パネルは、デバッグを開始したときに閉じることができます。
 1. 次の Blazor に固有のキーボードショートカットを選択します。
@@ -64,7 +64,7 @@ Chrome で実行される Blazor クライアント側アプリをデバッグ�
 
 ## <a name="debug-the-app"></a>アプリをデバッグする
 
-リモートデバッグが有効になっている状態で Chrome を実行すると、デバッグ キーボードショートカットによって新しい デバッガー タブが開きます。しばらくすると、**ソース** タブにアプリ内の .net アセンブリの一覧が表示されます。 各アセンブリを展開し、デバッグに使用できる *.cs*/ソースファイルを見つけます。 ブレークポイントを設定し、アプリのタブに戻ります。ブレークポイントは、コードの実行時にヒットします。 ブレークポイントにヒットした後、コードを`F10`実行するか (`F8`)、コードの実行を正常に再開します。
+リモートデバッグが有効になっている状態で Chrome を実行すると、デバッグ キーボードショートカットによって新しい デバッガー タブが開きます。しばらくすると、**ソース** タブにアプリ内の .net アセンブリの一覧が表示されます。 各アセンブリを展開し、デバッグに使用できる *.cs*/*ソースファイルを見つけます。* ブレークポイントを設定し、アプリのタブに戻ります。ブレークポイントは、コードの実行時にヒットします。 ブレークポイントにヒットした後、コードを`F10`実行するか (`F8`)、コードの実行を正常に再開します。
 
 Blazor は、 [Chrome DevTools プロトコル](https://chromedevtools.github.io/devtools-protocol/)を実装し、でプロトコルを補強するデバッグプロキシを提供します。NET 固有の情報。 デバッグキーボードショートカットを押すと、Blazor は、プロキシで Chrome DevTools をポイントします。 プロキシは、デバッグしようとしているブラウザーウィンドウに接続します (したがって、リモートデバッグを有効にする必要があります)。
 

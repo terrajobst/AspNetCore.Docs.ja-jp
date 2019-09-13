@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/06/2019
 uid: blazor/routing
-ms.openlocfilehash: d348908261c51b477aa698a407266d05c0df5a33
-ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
+ms.openlocfilehash: 1c61eedf7dbf0bbc8796eaa11360783b9d7aba6c
+ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/07/2019
-ms.locfileid: "70800345"
+ms.lasthandoff: 09/13/2019
+ms.locfileid: "70963866"
 ---
 # <a name="aspnet-core-blazor-routing"></a>ASP.NET Core Blazor ルーティング
 
@@ -22,7 +22,7 @@ ms.locfileid: "70800345"
 
 ## <a name="aspnet-core-endpoint-routing-integration"></a>ASP.NET Core エンドポイントルーティングの統合
 
-Blazor サーバー側は[ASP.NET Core エンドポイントルーティング](xref:fundamentals/routing)に統合されています。 次の`MapBlazorHub` `Startup.Configure`のを使用して、対話型コンポーネントの着信接続を受け入れるように ASP.NET Core アプリを構成します。
+Blazor サーバーは[ASP.NET Core エンドポイントルーティング](xref:fundamentals/routing)に統合されています。 次の`MapBlazorHub` `Startup.Configure`のを使用して、対話型コンポーネントの着信接続を受け入れるように ASP.NET Core アプリを構成します。
 
 [!code-csharp[](routing/samples_snapshot/3.x/Startup.cs?highlight=5)]
 
@@ -55,7 +55,7 @@ Blazor サーバー側は[ASP.NET Core エンドポイントルーティング](
 [!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRoute.razor?name=snippet_BlazorRoute)]
 
 > [!IMPORTANT]
-> Url を正しく解決するには、アプリの*wwwroot/index.html*ファイル (Blazor client 側) または*Pages/_Host*ファイル (Blazor サーバー側) に、 `href`属性に指定されているアプリのベースパスを含むタグを`<base>`含める必要があります (`<base href="/">`). 詳細については、「 <xref:host-and-deploy/blazor/index#app-base-path> 」を参照してください。
+> Url が正しく解決されるようにするには`<base>` 、アプリで、 `href`属性 で指定されたアプリのベースパスを使用して、wwwroot/index.htmlファイル(Blazor)またはPages/_Hostファイル(BlazorServer)にタグを含める必要があります。`<base href="/">`). 詳細については、「 <xref:host-and-deploy/blazor/index#app-base-path> 」を参照してください。
 
 ## <a name="provide-custom-content-when-content-isnt-found"></a>コンテンツが見つからないときにカスタムコンテンツを提供する
 
@@ -120,7 +120,7 @@ ASP.NET Core 3.0 Preview の Blazor アプリでは、省略可能なパラメ�
 
 ### <a name="routing-with-urls-that-contain-dots"></a>ドットを含む Url を使用したルーティング
 
-Blazor サーバー側アプリでは、 *_Host*の既定のルートは`/` (`@page "/"`) です。 ドット (`.`) を含む要求 url が、既定のルートと一致しません。これは、url がファイルの要求によって表示されるためです。 Blazor アプリは、存在しない静的ファイルに対して*404-Not Found*応答を返します。 ドットを含むルートを使用するには、次のルートテンプレートを使用して *_Host*を構成します。
+Blazor Server apps では、 *_Host*の既定のルートは`/` (`@page "/"`) です。 ドット (`.`) を含む要求 url が、既定のルートと一致しません。これは、url がファイルの要求によって表示されるためです。 Blazor アプリは、存在しない静的ファイルに対して*404-Not Found*応答を返します。 ドットを含むルートを使用するには、次のルートテンプレートを使用して *_Host*を構成します。
 
 ```cshtml
 @page "/{**path}"
@@ -167,7 +167,7 @@ Blazor サーバー側アプリでは、 *_Host*の既定のルートは`/` (`@p
 | メンバー | 説明 |
 | ------ | ----------- |
 | `Uri` | 現在の絶対 URI を取得します。 |
-| `BaseUri` | 絶対 uri を生成するために、相対 URI パスの前に付加できるベース URI (末尾のスラッシュを含む) を取得します。 通常、 `BaseUri`は、 *wwwroot/index.html* (Blazor client 側) `<base>`または*Pages/_Host* (Blazor サーバー側) のドキュメントの要素の`href`属性に対応します。 |
+| `BaseUri` | 絶対 uri を生成するために、相対 URI パスの前に付加できるベース URI (末尾のスラッシュを含む) を取得します。 通常、 `BaseUri`は、wwwroot/index.html `href` (Blazor webassembly)または*Pages/* (Blazor Server) のドキュメントの`<base>`要素の属性に対応します。 |
 | `NavigateTo` | 指定された URI に移動します。 が`forceLoad` の`true`場合:<ul><li>クライアント側のルーティングはバイパスされます。</li><li>ブラウザーは、通常、URI がクライアント側ルーターによって処理されるかどうかにかかわらず、サーバーから新しいページを読み込みます。</li></ul> |
 | `LocationChanged` | ナビゲーション位置が変更されたときに発生するイベントです。 |
 | `ToAbsoluteUri` | 相対 URI を絶対 URI に変換します。 |
