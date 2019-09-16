@@ -6,12 +6,12 @@ ms.author: riande
 ms.date: 12/18/2018
 ms.custom: mvc, seodec18
 uid: security/authorization/secure-data
-ms.openlocfilehash: 225d0e3aa51745253d03e614b1c8568b3a6ba731
-ms.sourcegitcommit: 983b31449fe398e6e922eb13e9eb6f4287ec91e8
+ms.openlocfilehash: d95f44394d6ecc3c3896b45c5bebc73fa2d92445
+ms.sourcegitcommit: dc5b293e08336dc236de66ed1834f7ef78359531
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/24/2019
-ms.locfileid: "70017494"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71011195"
 ---
 # <a name="create-an-aspnet-core-app-with-user-data-protected-by-authorization"></a>承認によって保護されたユーザー データと ASP.NET Core アプリを作成します。
 
@@ -475,7 +475,7 @@ Update`Main`テストのパスワードを使用します。
 
 ## <a name="create-owner-manager-and-administrator-authorization-handlers"></a>所有者、マネージャー、および管理者の承認ハンドラーを作成します。
 
-作成、`ContactIsOwnerAuthorizationHandler`クラス、*承認*フォルダー。 `ContactIsOwnerAuthorizationHandler`リソースで動作しているユーザーがリソースを所有していることを確認します。
+*承認*フォルダーを作成し、そこ`ContactIsOwnerAuthorizationHandler`にクラスを作成します。 `ContactIsOwnerAuthorizationHandler`リソースで動作しているユーザーがリソースを所有していることを確認します。
 
 [!code-csharp[](secure-data/samples/final2.1/Authorization/ContactIsOwnerAuthorizationHandler.cs)]
 

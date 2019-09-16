@@ -5,14 +5,14 @@ description: Blazor でフォームとフィールドの検証シナリオを使
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/04/2019
+ms.date: 09/15/2019
 uid: blazor/forms-validation
-ms.openlocfilehash: 4531ef44a7df3951f3bebdf88e597165fa75f06e
-ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
+ms.openlocfilehash: 2fd76db90a53e328cd2ac8f452fba58365db0384
+ms.sourcegitcommit: dc5b293e08336dc236de66ed1834f7ef78359531
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/05/2019
-ms.locfileid: "70310325"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71011058"
 ---
 # <a name="aspnet-core-blazor-forms-and-validation"></a>Blazor フォームと検証の ASP.NET Core
 
@@ -194,7 +194,7 @@ public class Starship
 
 ## <a name="validation-support"></a>検証のサポート
 
-コンポーネント`DataAnnotationsValidator`は、データ注釈をカスケード`EditContext`に使用して検証サポートをアタッチします。 現在、データ注釈を使用した検証のサポートを有効にするには、この明示的なジェスチャが必要ですが、この動作を既定の動作に設定することを検討しています。 データ注釈とは異なる検証システムを使用するには`DataAnnotationsValidator` 、をカスタム実装に置き換えます。 ASP.NET Core の実装は、参照ソースの検査に使用できます。[DataAnnotationsValidator](https://github.com/aspnet/AspNetCore/blob/master/src/Components/Components/src/Forms/DataAnnotationsValidator.cs)/[AddDataAnnotationsValidation](https://github.com/aspnet/AspNetCore/blob/master/src/Components/Components/src/Forms/EditContextDataAnnotationsExtensions.cs)。 *ASP.NET Core の実装は、プレビューリリース期間中に迅速な更新が適用されます。*
+コンポーネント`DataAnnotationsValidator`は、データ注釈をカスケード`EditContext`に使用して検証サポートをアタッチします。 データ注釈を使用した検証のサポートを有効にするには、この明示的なジェスチャが必要です。 データ注釈とは異なる検証システムを使用するには`DataAnnotationsValidator` 、をカスタム実装に置き換えます。 ASP.NET Core の実装は、参照ソースの検査に使用できます。[DataAnnotationsValidator](https://github.com/aspnet/AspNetCore/blob/master/src/Components/Forms/src/DataAnnotationsValidator.cs)/[AddDataAnnotationsValidation](https://github.com/aspnet/AspNetCore/blob/master/src/Components/Forms/src/EditContextDataAnnotationsExtensions.cs)。
 
 コンポーネント`ValidationSummary`は、検証の[概要タグヘルパー](xref:mvc/views/working-with-forms#the-validation-summary-tag-helper)に似たすべての検証メッセージを要約します。
 
