@@ -5,44 +5,58 @@ description: ASP.NET Core SignalR .NET クライアントに関する情報
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 04/17/2019
+ms.date: 09/13/2019
 uid: signalr/dotnet-client
-ms.openlocfilehash: 97c553874cb1e4b678fa0e5cd65074f135193861
-ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
+ms.openlocfilehash: d2755f652e734bad6447ddeb9a82345dcde25b28
+ms.sourcegitcommit: 805f625d16d74e77f02f5f37326e5aceafcb78e3
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/17/2019
-ms.locfileid: "67153122"
+ms.lasthandoff: 09/13/2019
+ms.locfileid: "70985492"
 ---
 # <a name="aspnet-core-signalr-net-client"></a>ASP.NET Core SignalR .NET クライアント
 
-ASP.NET Core SignalR .NET クライアント ライブラリでは、.NET アプリからの SignalR ハブと通信できます。
+ASP.NET Core SignalR .NET クライアントライブラリを使用すると、.NET アプリから SignalR hub と通信できます。
 
 [サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/dotnet-client/sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
-この記事のサンプル コードは、ASP.NET Core SignalR .NET クライアントを使用する WPF アプリです。
+この記事のコードサンプルは、ASP.NET Core SignalR .NET クライアントを使用する WPF アプリです。
 
-## <a name="install-the-signalr-net-client-package"></a>SignalR .NET クライアント パッケージをインストールします。
+## <a name="install-the-signalr-net-client-package"></a>SignalR .NET クライアントパッケージをインストールする
 
-`Microsoft.AspNetCore.SignalR.Client` SignalR ハブに接続するための .NET クライアント パッケージが必要です。 クライアント ライブラリをインストールする、次のコマンドを実行、**パッケージ マネージャー コンソール**ウィンドウ。
+.NET クライアントが SignalR hub に接続するには、 [SignalR](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client)パッケージが必要です。
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+クライアントライブラリをインストールするには、**パッケージマネージャーコンソール**ウィンドウで次のコマンドを実行します。
 
 ```powershell
 Install-Package Microsoft.AspNetCore.SignalR.Client
 ```
 
+# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+
+クライアントライブラリをインストールするには、コマンドシェルで次のコマンドを実行します。
+
+```console
+dotnet add package Microsoft.AspNetCore.SignalR.Client
+```
+
+---
+
 ## <a name="connect-to-a-hub"></a>ハブへの接続します。
 
-接続を確立するには、作成、`HubConnectionBuilder`を呼び出すと`Build`します。 接続の作成中には、ハブの URL、プロトコル、トランスポートの種類、ログ レベル、ヘッダー、およびその他のオプションを構成できます。 挿入することで、必要なオプションを構成、`HubConnectionBuilder`メソッドに`Build`します。 接続を開始`StartAsync`します。
+接続を確立するには`HubConnectionBuilder` 、を作成し、を呼び出し`Build`ます。 接続の構築中に、ハブの URL、プロトコル、トランスポートの種類、ログレベル、ヘッダー、およびその他のオプションを構成できます。 任意の`HubConnectionBuilder`メソッドをに`Build`挿入して、必要なオプションを構成します。 との`StartAsync`接続を開始します。
 
 [!code-csharp[Build hub connection](dotnet-client/sample/signalrchatclient/MainWindow.xaml.cs?name=snippet_MainWindowClass&highlight=15-17,39)]
 
-## <a name="handle-lost-connection"></a>接続が失われたハンドル
+## <a name="handle-lost-connection"></a>失われた接続の処理
 
 ::: moniker range=">= aspnetcore-3.0"
 
-### <a name="automatically-reconnect"></a>自動的に再接続します。
+### <a name="automatically-reconnect"></a>自動的に再接続する
 
-<xref:Microsoft.AspNetCore.SignalR.Client.HubConnection>を使用して自動的に再接続するように構成できる、`WithAutomaticReconnect`メソッドを<xref:Microsoft.AspNetCore.SignalR.Client.HubConnectionBuilder>します。 既定では、自動的に再接続しません。
+は、の`WithAutomaticReconnect`メソッド<xref:Microsoft.AspNetCore.SignalR.Client.HubConnectionBuilder>を使用して自動的に再接続するように構成できます。<xref:Microsoft.AspNetCore.SignalR.Client.HubConnection> 既定では、自動的に再接続されません。
 
 ```csharp
 HubConnection connection= new HubConnectionBuilder()
@@ -51,9 +65,9 @@ HubConnection connection= new HubConnectionBuilder()
     .Build();
 ```
 
-任意のパラメーターを指定せず`WithAutomaticReconnect()`後、4 つの失敗した試行を停止する各再接続の試行を試す前に、それぞれ 0、2、10、および 30 秒間待機するクライアントを構成します。
+パラメーターを指定し`WithAutomaticReconnect()`ない場合、は、再接続を試行する前に、それぞれ0、2、10、および30秒間待機するようにクライアントを構成します。これにより、4回の試行が失敗すると停止します。
 
-任意の再接続試行を開始する前に、`HubConnection`への移行には、`HubConnectionState.Reconnecting`状態にあり、起動、`Reconnecting`イベント。  これは、UI 要素を無効にして、接続が失われたことをユーザーに警告する機会を提供します。 非対話型のアプリには、キューまたはメッセージのドロップを開始できます。
+再接続の試行を開始する`HubConnection`前に、は`HubConnectionState.Reconnecting`状態に遷移し`Reconnecting` 、イベントを発生させます。  これにより、接続が失われたことをユーザーに警告し、UI 要素を無効にすることができます。 非対話型アプリでは、メッセージのキューまたは削除を開始できます。
 
 ```csharp
 connection.Reconnecting += error =>
@@ -67,12 +81,12 @@ connection.Reconnecting += error =>
 };
 ```
 
-内の最初の 4 つの試行で、クライアントが再接続に成功した場合、`HubConnection`から戻るへの移行、`Connected`状態にあり、起動、`Reconnected`イベント。 これは、接続が再確立された、すべてのキューに置かれたメッセージをデキューするユーザーに通知する機会を提供します。
+最初の4回の試行でクライアントが正常に再`HubConnection`接続した場合、 `Connected`は状態に戻り`Reconnected` 、イベントを発生させます。 これにより、接続が再確立されたことをユーザーに通知し、キューに置かれたすべてのメッセージをデキューすることができます。
 
-接続は、サーバーから完全に新規に見えるため、新しい`ConnectionId`に提供される、`Reconnected`イベント ハンドラー。
+接続はサーバーにまったく新しいものであるため、 `ConnectionId` `Reconnected`イベントハンドラーに新しいが提供されます。
 
 > [!WARNING]
-> `Reconnected`イベント ハンドラーの`connectionId`パラメーターが null にする場合、`HubConnection`するように構成された[ネゴシエーションをスキップ](xref:signalr/configuration#configure-client-options)します。
+> が`Reconnected` [ネゴシエーションをスキップ](xref:signalr/configuration#configure-client-options)するように構成され`HubConnection`ている場合、イベントハンドラーの`connectionId`パラメーターは null になります。
 
 ```csharp
 connection.Reconnected += connectionId =>
@@ -86,7 +100,7 @@ connection.Reconnected += connectionId =>
 };
 ```
 
-`WithAutomaticReconnect()` 構成はありません、`HubConnection`起動障害を手動で処理する必要があるために、初回起動時の障害を再試行します。
+`WithAutomaticReconnect()`最初の開始`HubConnection`エラーを再試行するようにを構成しません。そのため、開始エラーは手動で処理する必要があります。
 
 ```csharp
 public static async Task<bool> ConnectWithRetryAsync(HubConnection connection, CancellationToken token)
@@ -114,7 +128,7 @@ public static async Task<bool> ConnectWithRetryAsync(HubConnection connection, C
 }
 ```
 
-内の最初の 4 つの試行で、クライアントが再接続が正常に場合、`HubConnection`への移行には、`Disconnected`状態にあり、起動、<xref:Microsoft.AspNetCore.SignalR.Client.HubConnection.Closed>イベント。 これは、接続を手動で再起動するか、接続が完全に失われたことをユーザーに通知しようとする機会を提供します。
+最初の4回の試行でクライアントが正常に再接続`HubConnection`されない場合`Disconnected` 、は状態に<xref:Microsoft.AspNetCore.SignalR.Client.HubConnection.Closed>遷移し、イベントを発生させます。 これにより、接続を手動で再起動したり、接続が完全に失われたことをユーザーに通知したりすることができます。
 
 ```csharp
 connection.Closed += error =>
@@ -127,7 +141,7 @@ connection.Closed += error =>
 };
 ```
 
-切断する前に再接続試行のカスタムの数を構成または再接続のタイミングを変更するには`WithAutomaticReconnect`再接続が試みられるたびに開始する前に待機するミリ秒の遅延を表す数値の配列を受け入れます。
+再接続のタイミングを切断または変更する前に、カスタムの再接続試行`WithAutomaticReconnect`回数を構成するために、では、各再接続の試行を開始するまでの待機時間 (ミリ秒) を表す数値の配列を受け取ります。
 
 ```csharp
 HubConnection connection= new HubConnectionBuilder()
@@ -138,19 +152,19 @@ HubConnection connection= new HubConnectionBuilder()
     // .WithAutomaticReconnect(new[] { TimeSpan.Zero, TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(30) }) yields the default behavior.
 ```
 
-上記の例では、`HubConnection`接続が失われた後にすぐに再接続しようとすると開始します。 またこれは、既定の構成に当てはまります。
+前の例では`HubConnection` 、接続が失われた直後に再接続を開始するようにを構成しています。 これは、既定の構成にも当てはまります。
 
-既定の構成でこれと同じように、2 秒待機しているのではなく、最初の再接続試行が失敗すると、2 回目の再接続試行がすぐに開始もは。
+最初の再接続の試行が失敗した場合、2回目の再接続試行も、既定の構成のように2秒間待機するのではなく、直ちに開始されます。
 
-2 回目の再接続の試行が失敗した場合、これは、既定の構成と同様にもう一度、10 秒後に、3 番目の再接続の試行が開始されます。
+2回目の再接続の試行が失敗した場合、3回目の再接続は10秒後に開始され、既定の構成のようになります。
 
-カスタム動作し、もう一度ブロックから分化既定の動作を 3 番目の再接続試行の失敗後に停止します。 既定の構成ではする 1 つより再接続別の 30 秒以内に試行します。
+その後、3回目の再接続の試行が失敗した後に停止することで、カスタム動作が既定の動作から再び逸脱します。 既定の構成では、もう1回は30秒後に再接続が試行されます。
 
-タイミングと自動の数をさらに多くのコントロールの接続試行、なら`WithAutomaticReconnect`実装するオブジェクトを受け入れる、`IRetryPolicy`インターフェイスという単一のメソッドを`NextRetryDelay`します。
+タイミングと自動再接続試行回数をさらに細かく制御する場合は、 `WithAutomaticReconnect` `IRetryPolicy`インターフェイスを実装するオブジェクトを受け取ります。このインターフェイスには`NextRetryDelay`、という名前の1つのメソッドがあります。
 
-`NextRetryDelay` 型の 1 つの引数`RetryContext`します。 `RetryContext`は 3 つのプロパティがあります: `PreviousRetryCount`、`ElapsedTime`と`RetryReason`である、 `long`、`TimeSpan`と`Exception`それぞれします。 最初の再接続試行する前に両方`PreviousRetryCount`と`ElapsedTime`ゼロ、および`RetryReason`接続が失われる原因となった例外になります。 各障害が発生した再試行後`PreviousRetryCount`、1 つずつ増えます`ElapsedTime`が再接続をこれまでに費やされた時間数を反映するように更新されます、`RetryReason`最後に再接続試行失敗の原因となった例外になります。
+`NextRetryDelay`型`RetryContext`の1つの引数を受け取ります。 `RetryReason` `ElapsedTime` `long` `PreviousRetryCount` `TimeSpan` には`Exception` 、、、およびの3つのプロパティがあります。`RetryContext` 最初の再接続を試行する`PreviousRetryCount`前`ElapsedTime`に、との`RetryReason`両方がゼロになり、は接続が失われる原因となった例外になります。 再試行が再試行されるたび`PreviousRetryCount`に、が`ElapsedTime` 1 ずつインクリメントされ、これまでに再接続に費やされた時間が反映さ`RetryReason`れます。また、は、最後の再接続の試行が失敗した原因となった例外になります。
 
-`NextRetryDelay` いずれかを表す TimeSpan 時間待ってから、[次へ] の再接続の試行を返す必要がありますまたは`null`場合、`HubConnection`再接続を停止する必要があります。
+`NextRetryDelay`次の再接続が試行される前に待機する時間を表す TimeSpan `null`を返す`HubConnection`か、またはの再接続を停止する必要があります。
 
 ```csharp
 public class RandomRetryPolicy : IRetryPolicy
@@ -181,22 +195,22 @@ HubConnection connection = new HubConnectionBuilder()
     .Build();
 ```
 
-再接続で示すように手動で、クライアント コードを記述する代わりに、[手動で再接続](#manually-reconnect)します。
+または、[手動で再接続](#manually-reconnect)する方法で示すように、手動でクライアントを再接続するコードを記述することもできます。
 
 ::: moniker-end
 
-### <a name="manually-reconnect"></a>手動での再接続します。
+### <a name="manually-reconnect"></a>手動で再接続する
 
 ::: moniker range="< aspnetcore-3.0"
 
 > [!WARNING]
-> 3\.0 では、前に SignalR 用の .NET クライアントは自動的に再接続しません。 クライアントを手動で再接続するコードを記述する必要があります。
+> 3\.0 より前では、SignalR 用の .NET クライアントは自動的に再接続しません。 クライアントを手動で再接続するコードを記述する必要があります。
 
 ::: moniker-end
 
-使用して、<xref:Microsoft.AspNetCore.SignalR.Client.HubConnection.Closed>失われた接続に応答するイベントです。 たとえば、再接続を自動化することがあります。
+失われ<xref:Microsoft.AspNetCore.SignalR.Client.HubConnection.Closed>た接続に応答するには、イベントを使用します。 たとえば、再接続を自動化することができます。
 
-`Closed`イベントを返すデリゲートが必要です、 `Task`、非同期コードを使用せずに実行することができます`async void`します。 デリゲートのシグネチャを満たすために、`Closed`イベント ハンドラーの実行を同期的に、返す`Task.CompletedTask`:
+イベント`Closed`には`Task`、を返すデリゲートが必要です。これにより、を使用`async void`せずに非同期コードを実行できます。 同期的に実行される`Closed`イベントハンドラーでデリゲートシグネチャを満たすには、次を返し`Task.CompletedTask`ます。
 
 ```csharp
 connection.Closed += (error) => {
@@ -205,38 +219,38 @@ connection.Closed += (error) => {
 };
 ```
 
-非同期サポートの主な理由とは、接続を再起動するためです。 非同期アクションは、接続を開始します。
+非同期サポートの主な理由は、接続を再起動できるようにするためです。 接続の開始は、非同期アクションです。
 
-`Closed`ハンドラー、接続の再起動時は、次の例に示すように、サーバーのオーバー ロードを防ぐためにランダムな時間の待機を検討してください。
+接続を再起動するハンドラーで、次の例に示すように、サーバーの過負荷を防ぐために、ランダムな遅延を待機することを検討してください。`Closed`
 
 [!code-csharp[Use Closed event handler to automate reconnection](dotnet-client/sample/signalrchatclient/MainWindow.xaml.cs?name=snippet_ClosedRestart)]
 
 ## <a name="call-hub-methods-from-client"></a>クライアントからのハブ メソッドの呼び出し
 
-`InvokeAsync` ハブのメソッドを呼び出します。 ハブ メソッドの名前およびハブ メソッドで定義されている引数を渡す`InvokeAsync`します。 SignalR が非同期でこれを使用して、`async`と`await`呼び出しを行うときにします。
+`InvokeAsync`ハブでメソッドを呼び出します。 ハブメソッドの名前と、ハブメソッドで定義されている`InvokeAsync`すべての引数をに渡します。 SignalR は非同期であるため`async` 、 `await`呼び出しを行うときにとを使用します。
 
 [!code-csharp[InvokeAsync method](dotnet-client/sample/signalrchatclient/MainWindow.xaml.cs?name=snippet_InvokeAsync)]
 
-`InvokeAsync`メソッドを返します。 を`Task`サーバー メソッドが戻るときに完了します。 戻り値は、存在する場合の結果として提供されます、`Task`します。 サーバー上のメソッドによってスローされた例外を生成するエラーが発生した`Task`します。 使用`await`サーバー メソッドが完了するまで待機するための構文と`try...catch`構文エラーを処理します。
+この`InvokeAsync`メソッドは、 `Task`サーバーメソッドから制御が戻ったときに完了するを返します。 戻り値 (存在する場合) は、 `Task`の結果として提供されます。 サーバー上のメソッドによってスローされた例外`Task`が発生すると、エラーが発生します。 構文`await`を使用して、サーバーメソッドが`try...catch`完了するのを待機し、構文を使用してエラーを処理します。
 
-`SendAsync`メソッドを返します。 を`Task`メッセージがサーバーに送信されたときにこれが完了するとします。 この戻り値が指定されていない`Task`サーバー メソッドが完了するまで待機しません。 メッセージの送信中に、クライアントでスローされた例外を生成、エラーが発生した`Task`します。 使用`await`と`try...catch`処理するために構文エラーを送信します。
+メソッド`SendAsync`は、メッセージ`Task`がサーバーに送信されたときに完了するを返します。 サーバーメソッドが完了するまで待機`Task`しないため、戻り値は提供されません。 メッセージの送信中にクライアントでスローされた例外は`Task`、エラーを生成します。 および`await`構文`try...catch`を使用して、送信エラーを処理します。
 
 > [!NOTE]
-> Azure SignalR サービスを使用している場合*サーバーレス モード*、クライアントからハブ メソッドを呼び出すことはできません。 詳細については、次を参照してください。、 [SignalR サービスのドキュメント](/azure/azure-signalr/signalr-concept-serverless-development-config)します。
+> *サーバーレスモード*で Azure SignalR サービスを使用している場合は、クライアントからハブメソッドを呼び出すことはできません。 詳細については、 [SignalR サービスのドキュメント](/azure/azure-signalr/signalr-concept-serverless-development-config)を参照してください。
 
 ## <a name="call-client-methods-from-hub"></a>ハブからのクライアント メソッドを呼び出す
 
-ハブ呼び出しを使用してメソッドを一切定義`connection.On`しますが、接続を開始する前に、ビルド後にします。
+ハブがビルド後、接続`connection.On`を開始する前にを使用して呼び出すメソッドを定義します。
 
 [!code-csharp[Define client methods](dotnet-client/sample/signalrchatclient/MainWindow.xaml.cs?name=snippet_ConnectionOn)]
 
-上記のコードで`connection.On`を使用してサーバー側コードから呼び出すときに実行される、`SendAsync`メソッド。
+の`connection.On`前のコードは、サーバー側のコードが`SendAsync`メソッドを使用して呼び出したときに実行されます。
 
 [!code-csharp[Call client method](dotnet-client/sample/signalrchat/hubs/chathub.cs?name=snippet_SendMessage)]
 
 ## <a name="error-handling-and-logging"></a>エラー処理とログ記録
 
-Try-catch ステートメントでエラーを処理します。 検査、`Exception`エラーが発生した後に実行する適切なアクションを決定するオブジェクト。
+Try-catch ステートメントを使用してエラーを処理します。 `Exception`オブジェクトを調べて、エラーが発生した後に実行する適切なアクションを決定します。
 
 [!code-csharp[Logging](dotnet-client/sample/signalrchatclient/MainWindow.xaml.cs?name=snippet_ErrorHandling)]
 
@@ -245,4 +259,4 @@ Try-catch ステートメントでエラーを処理します。 検査、`Excep
 * [ハブ](xref:signalr/hubs)
 * [JavaScript クライアント](xref:signalr/javascript-client)
 * [Azure に発行する](xref:signalr/publish-to-azure-web-app)
-* [Azure SignalR サービスのサーバーレス ドキュメント](/azure/azure-signalr/signalr-concept-serverless-development-config)
+* [Azure SignalR Service サーバーレスドキュメント](/azure/azure-signalr/signalr-concept-serverless-development-config)
