@@ -4,14 +4,14 @@ author: rick-anderson
 description: ASP.NET Core web アプリで HTTPS/TLS を要求する方法について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/06/2019
+ms.date: 09/14/2019
 uid: security/enforcing-ssl
-ms.openlocfilehash: 654b083a0dade2fc8df5cccf9fa434f30627794b
-ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
-ms.translationtype: HT
+ms.openlocfilehash: 8474b8f12d3e08e47a4cc9b20543d2a9e6e91998
+ms.sourcegitcommit: dc5b293e08336dc236de66ed1834f7ef78359531
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/06/2019
-ms.locfileid: "70774011"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71011071"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>ASP.NET Core に HTTPS を適用する
 
@@ -232,7 +232,7 @@ HTTPS リダイレクトミドルウェア (`UseHttpsRedirection`) を使用す�
 
 ## <a name="http-strict-transport-security-protocol-hsts"></a>HTTP Strict Transport Security Protocol (HSTS)
 
-[Owasp](https://www.owasp.org/index.php/About_The_Open_Web_Application_Security_Project)では、 [HTTP Strict Transport Security (hsts)](https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet)は、応答ヘッダーを使用して web アプリによって指定されるオプトインセキュリティ拡張機能です。 [HSTS をサポートするブラウザー](https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet#Browser_Support)がこのヘッダーを受け取ると、次のようになります。
+[Owasp](https://www.owasp.org/index.php/About_The_Open_Web_Application_Security_Project)では、 [HTTP Strict Transport Security (hsts)](https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html)は、応答ヘッダーを使用して web アプリによって指定されるオプトインセキュリティ拡張機能です。 [HSTS をサポートするブラウザー](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html#browser-support)がこのヘッダーを受け取ると、次のようになります。
 
 * ブラウザーには、HTTP 経由の通信を送信できないようにするドメインの構成が格納されます。 ブラウザーは、HTTPS 経由のすべての通信を強制的に実行します。
 * ブラウザーによって、ユーザーが信頼されていない証明書や無効な証明書を使用できなくなります。 ブラウザーは、ユーザーがこのような証明書を一時的に信頼できるようにするプロンプトを無効にします。

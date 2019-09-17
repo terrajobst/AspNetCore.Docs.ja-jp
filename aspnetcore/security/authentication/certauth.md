@@ -6,14 +6,14 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: bdorrans
 ms.date: 08/19/2019
 uid: security/authentication/certauth
-ms.openlocfilehash: ce7bcdbfb8ce0f1febf34b49786e92c917be139c
-ms.sourcegitcommit: 116bfaeab72122fa7d586cdb2e5b8f456a2dc92a
+ms.openlocfilehash: bb375cf380175daf2399f3b56f543819ee5692b8
+ms.sourcegitcommit: 07cd66e367d080acb201c7296809541599c947d1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/05/2019
-ms.locfileid: "70384850"
+ms.lasthandoff: 09/17/2019
+ms.locfileid: "71039242"
 ---
-# <a name="overview"></a>概要
+# <a name="configure-certificate-authentication-in-aspnet-core"></a>ASP.NET Core で証明書認証を構成する
 
 `Microsoft.AspNetCore.Authentication.Certificate`ASP.NET Core の[証明書認証](https://tools.ietf.org/html/rfc5246#section-7.4.4)に似た実装が含まれています。 証明書の認証は、TLS レベルで実行されますが、その前に ASP.NET Core になります。 より正確には、これは証明書を検証し、その証明書をに`ClaimsPrincipal`解決できるイベントを提供する認証ハンドラーです。 
 
