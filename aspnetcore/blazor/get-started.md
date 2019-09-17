@@ -7,73 +7,73 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/05/2019
 uid: blazor/get-started
-ms.openlocfilehash: e33ca421676caa20c823faf635442eda2a40ba65
-ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
+ms.openlocfilehash: cce91b6332295f77c639f881fe342b625fee7fca
+ms.sourcegitcommit: 92c901c7f32ee9efb335d99ec4c3add2cc9f3142
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2019
-ms.locfileid: "70964011"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71025513"
 ---
-# <a name="get-started-with-aspnet-core-blazor"></a><span data-ttu-id="9e3a1-103">ASP.NET Core Blazor を使ってみる</span><span class="sxs-lookup"><span data-stu-id="9e3a1-103">Get started with ASP.NET Core Blazor</span></span>
+# <a name="get-started-with-aspnet-core-blazor"></a><span data-ttu-id="33e03-103">ASP.NET Core Blazor を使ってみる</span><span class="sxs-lookup"><span data-stu-id="33e03-103">Get started with ASP.NET Core Blazor</span></span>
 
-<span data-ttu-id="9e3a1-104">作成者: [Daniel Roth](https://github.com/danroth27)、[Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="9e3a1-104">By [Daniel Roth](https://github.com/danroth27) and [Luke Latham](https://github.com/guardrex)</span></span>
+<span data-ttu-id="33e03-104">作成者: [Daniel Roth](https://github.com/danroth27)、[Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="33e03-104">By [Daniel Roth](https://github.com/danroth27) and [Luke Latham](https://github.com/guardrex)</span></span>
 
-<span data-ttu-id="9e3a1-105">Blazor を使ってみる:</span><span class="sxs-lookup"><span data-stu-id="9e3a1-105">Get started with Blazor:</span></span>
+<span data-ttu-id="33e03-105">Blazor を使ってみる:</span><span class="sxs-lookup"><span data-stu-id="33e03-105">Get started with Blazor:</span></span>
 
-1. <span data-ttu-id="9e3a1-106">最新の[.Net Core 3.0 PREVIEW SDK](https://dotnet.microsoft.com/download/dotnet-core/3.0)リリースをインストールします。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-106">Install the latest [.NET Core 3.0 Preview SDK](https://dotnet.microsoft.com/download/dotnet-core/3.0) release.</span></span>
+1. <span data-ttu-id="33e03-106">最新の[.Net Core 3.0 PREVIEW SDK](https://dotnet.microsoft.com/download/dotnet-core/3.0)リリースをインストールします。</span><span class="sxs-lookup"><span data-stu-id="33e03-106">Install the latest [.NET Core 3.0 Preview SDK](https://dotnet.microsoft.com/download/dotnet-core/3.0) release.</span></span>
 
-1. <span data-ttu-id="9e3a1-107">コマンドシェルで次のコマンドを実行して、Blazor テンプレートをインストールします。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-107">Install the Blazor templates by running the following command in a command shell:</span></span>
+1. <span data-ttu-id="33e03-107">コマンドシェルで次のコマンドを実行して、Blazor テンプレートをインストールします。</span><span class="sxs-lookup"><span data-stu-id="33e03-107">Install the Blazor templates by running the following command in a command shell:</span></span>
 
    ```console
-   dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.0.0-preview9.19424.4
+   dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.0.0-preview9.19457.4
    ```
 
-1. <span data-ttu-id="9e3a1-108">ツールの選択に関するガイダンスに従ってください。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-108">Follow the guidance for your choice of tooling:</span></span>
+1. <span data-ttu-id="33e03-108">ツールの選択に関するガイダンスに従ってください。</span><span class="sxs-lookup"><span data-stu-id="33e03-108">Follow the guidance for your choice of tooling:</span></span>
 
-   # <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="9e3a1-109">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="9e3a1-109">Visual Studio</span></span>](#tab/visual-studio)
+   # <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="33e03-109">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="33e03-109">Visual Studio</span></span>](#tab/visual-studio)
 
-   <span data-ttu-id="9e3a1-110">1。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-110">1\.</span></span> <span data-ttu-id="9e3a1-111">**ASP.NET と web 開発**ワークロードを使用して、最新の[Visual Studio preview](https://visualstudio.com/vs/preview)をインストールします。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-111">Install the latest [Visual Studio preview](https://visualstudio.com/vs/preview) with the **ASP.NET and web development** workload.</span></span>
+   <span data-ttu-id="33e03-110">1。</span><span class="sxs-lookup"><span data-stu-id="33e03-110">1\.</span></span> <span data-ttu-id="33e03-111">**ASP.NET と web 開発**ワークロードを使用して、最新の[Visual Studio preview](https://visualstudio.com/vs/preview)をインストールします。</span><span class="sxs-lookup"><span data-stu-id="33e03-111">Install the latest [Visual Studio preview](https://visualstudio.com/vs/preview) with the **ASP.NET and web development** workload.</span></span>
 
-   <span data-ttu-id="9e3a1-112">2。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-112">2\.</span></span> <span data-ttu-id="9e3a1-113">新しいプロジェクトを作成します。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-113">Create a new project.</span></span>
+   <span data-ttu-id="33e03-112">2。</span><span class="sxs-lookup"><span data-stu-id="33e03-112">2\.</span></span> <span data-ttu-id="33e03-113">新しいプロジェクトを作成します。</span><span class="sxs-lookup"><span data-stu-id="33e03-113">Create a new project.</span></span>
 
-   <span data-ttu-id="9e3a1-114">3。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-114">3\.</span></span> <span data-ttu-id="9e3a1-115">**[Blazor App]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-115">Select **Blazor App**.</span></span> <span data-ttu-id="9e3a1-116">**[次へ]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-116">Select **Next**.</span></span>
+   <span data-ttu-id="33e03-114">3。</span><span class="sxs-lookup"><span data-stu-id="33e03-114">3\.</span></span> <span data-ttu-id="33e03-115">**[Blazor App]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="33e03-115">Select **Blazor App**.</span></span> <span data-ttu-id="33e03-116">**[次へ]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="33e03-116">Select **Next**.</span></span>
 
-   <span data-ttu-id="9e3a1-117">4。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-117">4\.</span></span> <span data-ttu-id="9e3a1-118">**プロジェクト名** フィールドにプロジェクト名を入力するか、既定のプロジェクト名をそのまま使用します。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-118">Provide a project name in the **Project name** field or accept the default project name.</span></span> <span data-ttu-id="9e3a1-119">**場所**エントリが正しいことを確認するか、プロジェクトの場所を指定します。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-119">Confirm the **Location** entry is correct or provide a location for the project.</span></span> <span data-ttu-id="9e3a1-120">**[作成]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-120">Select **Create**.</span></span>
+   <span data-ttu-id="33e03-117">4。</span><span class="sxs-lookup"><span data-stu-id="33e03-117">4\.</span></span> <span data-ttu-id="33e03-118">**プロジェクト名** フィールドにプロジェクト名を入力するか、既定のプロジェクト名をそのまま使用します。</span><span class="sxs-lookup"><span data-stu-id="33e03-118">Provide a project name in the **Project name** field or accept the default project name.</span></span> <span data-ttu-id="33e03-119">**場所**エントリが正しいことを確認するか、プロジェクトの場所を指定します。</span><span class="sxs-lookup"><span data-stu-id="33e03-119">Confirm the **Location** entry is correct or provide a location for the project.</span></span> <span data-ttu-id="33e03-120">**[作成]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="33e03-120">Select **Create**.</span></span>
 
-   <span data-ttu-id="9e3a1-121">5。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-121">5\.</span></span> <span data-ttu-id="9e3a1-122">Blazor WebAssembly エクスペリエンスについては、 **Blazor Webassembly**テンプレートを選択してください。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-122">For a Blazor WebAssembly experience, choose the **Blazor WebAssembly App** template.</span></span> <span data-ttu-id="9e3a1-123">Blazor サーバーエクスペリエンスの場合は、 **Blazor Server アプリ**テンプレートを選択します。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-123">For a Blazor Server experience, choose the **Blazor Server App** template.</span></span> <span data-ttu-id="9e3a1-124">**[作成]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-124">Select **Create**.</span></span> <span data-ttu-id="9e3a1-125">*Blazor Server*と*Blazor Webassembly*の2つのホスティングモデルの詳細について<xref:blazor/hosting-models>は、「」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-125">For information on the two Blazor hosting models, *Blazor Server* and *Blazor WebAssembly*, see <xref:blazor/hosting-models>.</span></span>
+   <span data-ttu-id="33e03-121">5。</span><span class="sxs-lookup"><span data-stu-id="33e03-121">5\.</span></span> <span data-ttu-id="33e03-122">Blazor WebAssembly エクスペリエンスについては、 **Blazor Webassembly**テンプレートを選択してください。</span><span class="sxs-lookup"><span data-stu-id="33e03-122">For a Blazor WebAssembly experience, choose the **Blazor WebAssembly App** template.</span></span> <span data-ttu-id="33e03-123">Blazor サーバーエクスペリエンスの場合は、 **Blazor Server アプリ**テンプレートを選択します。</span><span class="sxs-lookup"><span data-stu-id="33e03-123">For a Blazor Server experience, choose the **Blazor Server App** template.</span></span> <span data-ttu-id="33e03-124">**[作成]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="33e03-124">Select **Create**.</span></span> <span data-ttu-id="33e03-125">*Blazor Server*と*Blazor Webassembly*の2つのホスティングモデルの詳細について<xref:blazor/hosting-models>は、「」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="33e03-125">For information on the two Blazor hosting models, *Blazor Server* and *Blazor WebAssembly*, see <xref:blazor/hosting-models>.</span></span>
 
-   <span data-ttu-id="9e3a1-126">6。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-126">6\.</span></span> <span data-ttu-id="9e3a1-127">**F5 キー**を押してアプリを実行します。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-127">Press **F5** to run the app.</span></span>
+   <span data-ttu-id="33e03-126">6。</span><span class="sxs-lookup"><span data-stu-id="33e03-126">6\.</span></span> <span data-ttu-id="33e03-127">**F5 キー**を押してアプリを実行します。</span><span class="sxs-lookup"><span data-stu-id="33e03-127">Press **F5** to run the app.</span></span>
 
    > [!NOTE]
-   > <span data-ttu-id="9e3a1-128">以前のプレビューリリースの ASP.NET Core Blazor (Preview 6 以前) 用に Blazor Visual Studio 拡張機能をインストールした場合は、拡張機能をアンインストールできます。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-128">If you installed the Blazor Visual Studio extension for a prior preview release of ASP.NET Core Blazor (Preview 6 or earlier), you can uninstall the extension.</span></span> <span data-ttu-id="9e3a1-129">Visual Studio でテンプレートを表示するには、コマンドシェルに Blazor テンプレートをインストールするだけで十分です。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-129">Installing the Blazor templates in a command shell is now sufficient to surface the templates in Visual Studio.</span></span>
+   > <span data-ttu-id="33e03-128">以前のプレビューリリースの ASP.NET Core Blazor (Preview 6 以前) 用に Blazor Visual Studio 拡張機能をインストールした場合は、拡張機能をアンインストールできます。</span><span class="sxs-lookup"><span data-stu-id="33e03-128">If you installed the Blazor Visual Studio extension for a prior preview release of ASP.NET Core Blazor (Preview 6 or earlier), you can uninstall the extension.</span></span> <span data-ttu-id="33e03-129">Visual Studio でテンプレートを表示するには、コマンドシェルに Blazor テンプレートをインストールするだけで十分です。</span><span class="sxs-lookup"><span data-stu-id="33e03-129">Installing the Blazor templates in a command shell is now sufficient to surface the templates in Visual Studio.</span></span>
 
-   # <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="9e3a1-130">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="9e3a1-130">Visual Studio Code</span></span>](#tab/visual-studio-code)
+   # <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="33e03-130">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="33e03-130">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-   <span data-ttu-id="9e3a1-131">1。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-131">1\.</span></span> <span data-ttu-id="9e3a1-132">[Visual Studio Code](https://code.visualstudio.com/) のインストール。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-132">Install [Visual Studio Code](https://code.visualstudio.com/).</span></span>
+   <span data-ttu-id="33e03-131">1。</span><span class="sxs-lookup"><span data-stu-id="33e03-131">1\.</span></span> <span data-ttu-id="33e03-132">[Visual Studio Code](https://code.visualstudio.com/) のインストール。</span><span class="sxs-lookup"><span data-stu-id="33e03-132">Install [Visual Studio Code](https://code.visualstudio.com/).</span></span>
 
-   <span data-ttu-id="9e3a1-133">2。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-133">2\.</span></span> <span data-ttu-id="9e3a1-134">[ C# Visual Studio Code 拡張機能の](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)最新版をインストールします。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-134">Install the latest [C# for Visual Studio Code extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp).</span></span>
+   <span data-ttu-id="33e03-133">2。</span><span class="sxs-lookup"><span data-stu-id="33e03-133">2\.</span></span> <span data-ttu-id="33e03-134">[ C# Visual Studio Code 拡張機能の](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)最新版をインストールします。</span><span class="sxs-lookup"><span data-stu-id="33e03-134">Install the latest [C# for Visual Studio Code extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp).</span></span>
 
-   <span data-ttu-id="9e3a1-135">3。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-135">3\.</span></span> <span data-ttu-id="9e3a1-136">Blazor WebAssembly を実現するには、コマンドシェルで次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-136">For a Blazor WebAssembly experience, execute the following command in a command shell:</span></span>
+   <span data-ttu-id="33e03-135">3。</span><span class="sxs-lookup"><span data-stu-id="33e03-135">3\.</span></span> <span data-ttu-id="33e03-136">Blazor WebAssembly を実現するには、コマンドシェルで次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="33e03-136">For a Blazor WebAssembly experience, execute the following command in a command shell:</span></span>
 
       ```console
       dotnet new blazorwasm -o WebApplication1
       ```
 
-      <span data-ttu-id="9e3a1-137">Blazor サーバーエクスペリエンスの場合は、コマンドシェルで次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-137">For a Blazor Server experience, execute the following command in a command shell:</span></span>
+      <span data-ttu-id="33e03-137">Blazor サーバーエクスペリエンスの場合は、コマンドシェルで次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="33e03-137">For a Blazor Server experience, execute the following command in a command shell:</span></span>
 
       ```console
       dotnet new blazorserver -o WebApplication1
       ```
 
-      <span data-ttu-id="9e3a1-138">*Blazor Server*と*Blazor Webassembly*の2つのホスティングモデルの詳細について<xref:blazor/hosting-models>は、「」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-138">For information on the two Blazor hosting models, *Blazor Server* and *Blazor WebAssembly*, see <xref:blazor/hosting-models>.</span></span>
+      <span data-ttu-id="33e03-138">*Blazor Server*と*Blazor Webassembly*の2つのホスティングモデルの詳細について<xref:blazor/hosting-models>は、「」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="33e03-138">For information on the two Blazor hosting models, *Blazor Server* and *Blazor WebAssembly*, see <xref:blazor/hosting-models>.</span></span>
 
-   <span data-ttu-id="9e3a1-139">4。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-139">4\.</span></span> <span data-ttu-id="9e3a1-140">Visual Studio Code で*WebApplication1*フォルダーを開きます。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-140">Open the *WebApplication1* folder in Visual Studio Code.</span></span>
+   <span data-ttu-id="33e03-139">4。</span><span class="sxs-lookup"><span data-stu-id="33e03-139">4\.</span></span> <span data-ttu-id="33e03-140">Visual Studio Code で*WebApplication1*フォルダーを開きます。</span><span class="sxs-lookup"><span data-stu-id="33e03-140">Open the *WebApplication1* folder in Visual Studio Code.</span></span>
 
-   <span data-ttu-id="9e3a1-141">5。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-141">5\.</span></span> <span data-ttu-id="9e3a1-142">Blazor Server プロジェクトの場合、IDE は、プロジェクトをビルドおよびデバッグするためにアセットを追加するように要求します。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-142">For a Blazor Server project, the IDE requests that you add assets to build and debug the project.</span></span> <span data-ttu-id="9e3a1-143">**[はい]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-143">Select **Yes**.</span></span>
+   <span data-ttu-id="33e03-141">5。</span><span class="sxs-lookup"><span data-stu-id="33e03-141">5\.</span></span> <span data-ttu-id="33e03-142">Blazor Server プロジェクトの場合、IDE は、プロジェクトをビルドおよびデバッグするためにアセットを追加するように要求します。</span><span class="sxs-lookup"><span data-stu-id="33e03-142">For a Blazor Server project, the IDE requests that you add assets to build and debug the project.</span></span> <span data-ttu-id="33e03-143">**[はい]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="33e03-143">Select **Yes**.</span></span>
 
-   <span data-ttu-id="9e3a1-144">6。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-144">6\.</span></span> <span data-ttu-id="9e3a1-145">Blazor Server アプリを使用している場合は、Visual Studio Code デバッガーを使用してアプリを実行します。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-145">If using a Blazor Server app, run the app using the Visual Studio Code debugger.</span></span> <span data-ttu-id="9e3a1-146">Blazor webassembly を使用する場合は、 `dotnet run`アプリのプロジェクトフォルダーからを実行します。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-146">If using a Blazor WebAssembly app, execute `dotnet run` from the app's project folder.</span></span>
+   <span data-ttu-id="33e03-144">6。</span><span class="sxs-lookup"><span data-stu-id="33e03-144">6\.</span></span> <span data-ttu-id="33e03-145">Blazor Server アプリを使用している場合は、Visual Studio Code デバッガーを使用してアプリを実行します。</span><span class="sxs-lookup"><span data-stu-id="33e03-145">If using a Blazor Server app, run the app using the Visual Studio Code debugger.</span></span> <span data-ttu-id="33e03-146">Blazor webassembly を使用する場合は、 `dotnet run`アプリのプロジェクトフォルダーからを実行します。</span><span class="sxs-lookup"><span data-stu-id="33e03-146">If using a Blazor WebAssembly app, execute `dotnet run` from the app's project folder.</span></span>
 
-   <span data-ttu-id="9e3a1-147">7。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-147">7\.</span></span> <span data-ttu-id="9e3a1-148">ブラウザーで、`https://localhost:5001` に移動します。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-148">In a browser, navigate to `https://localhost:5001`.</span></span>
+   <span data-ttu-id="33e03-147">7。</span><span class="sxs-lookup"><span data-stu-id="33e03-147">7\.</span></span> <span data-ttu-id="33e03-148">ブラウザーで、`https://localhost:5001` に移動します。</span><span class="sxs-lookup"><span data-stu-id="33e03-148">In a browser, navigate to `https://localhost:5001`.</span></span>
 
    <!--
 
@@ -95,9 +95,9 @@ ms.locfileid: "70964011"
 
    -->
 
-   # <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="9e3a1-149">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="9e3a1-149">.NET Core CLI</span></span>](#tab/netcore-cli/)
+   # <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="33e03-149">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="33e03-149">.NET Core CLI</span></span>](#tab/netcore-cli/)
 
-   <span data-ttu-id="9e3a1-150">Blazor WebAssembly を実現するには、コマンドシェルで次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-150">For a Blazor WebAssembly experience, execute the following commands in a command shell:</span></span>
+   <span data-ttu-id="33e03-150">Blazor WebAssembly を実現するには、コマンドシェルで次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="33e03-150">For a Blazor WebAssembly experience, execute the following commands in a command shell:</span></span>
 
    ```console
    dotnet new blazorwasm -o WebApplication1
@@ -105,7 +105,7 @@ ms.locfileid: "70964011"
    dotnet run
    ```
 
-   <span data-ttu-id="9e3a1-151">Blazor サーバーエクスペリエンスの場合は、コマンドシェルで次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-151">For a Blazor Server experience, execute the following commands in a command shell:</span></span>
+   <span data-ttu-id="33e03-151">Blazor サーバーエクスペリエンスの場合は、コマンドシェルで次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="33e03-151">For a Blazor Server experience, execute the following commands in a command shell:</span></span>
 
    ```console
    dotnet new blazorserver -o WebApplication1
@@ -113,64 +113,64 @@ ms.locfileid: "70964011"
    dotnet run
    ```
 
-   <span data-ttu-id="9e3a1-152">*Blazor Server*と*Blazor Webassembly*の2つのホスティングモデルの詳細について<xref:blazor/hosting-models>は、「」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-152">For information on the two Blazor hosting models, *Blazor Server* and *Blazor WebAssembly*, see <xref:blazor/hosting-models>.</span></span>
+   <span data-ttu-id="33e03-152">*Blazor Server*と*Blazor Webassembly*の2つのホスティングモデルの詳細について<xref:blazor/hosting-models>は、「」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="33e03-152">For information on the two Blazor hosting models, *Blazor Server* and *Blazor WebAssembly*, see <xref:blazor/hosting-models>.</span></span>
 
-   <span data-ttu-id="9e3a1-153">ブラウザーで、`https://localhost:5001` に移動します。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-153">In a browser, navigate to `https://localhost:5001`.</span></span>
+   <span data-ttu-id="33e03-153">ブラウザーで、`https://localhost:5001` に移動します。</span><span class="sxs-lookup"><span data-stu-id="33e03-153">In a browser, navigate to `https://localhost:5001`.</span></span>
 
    ---
 
-<span data-ttu-id="9e3a1-154">サイドバーのタブからは、複数のページを使用できます。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-154">Multiple pages are available from tabs in the sidebar:</span></span>
+<span data-ttu-id="33e03-154">サイドバーのタブからは、複数のページを使用できます。</span><span class="sxs-lookup"><span data-stu-id="33e03-154">Multiple pages are available from tabs in the sidebar:</span></span>
 
-* <span data-ttu-id="9e3a1-155">ホーム (Home)</span><span class="sxs-lookup"><span data-stu-id="9e3a1-155">Home</span></span>
-* <span data-ttu-id="9e3a1-156">カウンター</span><span class="sxs-lookup"><span data-stu-id="9e3a1-156">Counter</span></span>
-* <span data-ttu-id="9e3a1-157">データのフェッチ</span><span class="sxs-lookup"><span data-stu-id="9e3a1-157">Fetch data</span></span>
+* <span data-ttu-id="33e03-155">ホーム (Home)</span><span class="sxs-lookup"><span data-stu-id="33e03-155">Home</span></span>
+* <span data-ttu-id="33e03-156">カウンター</span><span class="sxs-lookup"><span data-stu-id="33e03-156">Counter</span></span>
+* <span data-ttu-id="33e03-157">データのフェッチ</span><span class="sxs-lookup"><span data-stu-id="33e03-157">Fetch data</span></span>
 
-<span data-ttu-id="9e3a1-158">Counter ページ上で **[クリックしてください]** ボタンを選択し、ページを更新することなくカウンターをインクリメントします。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-158">On the Counter page, select the **Click me** button to increment the counter without a page refresh.</span></span> <span data-ttu-id="9e3a1-159">通常、web ページでカウンターを増やすには JavaScript を記述する必要がありますがC#、を使用して Razor コンポーネントの方が優れています。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-159">Incrementing a counter in a webpage normally requires writing JavaScript, but Razor components provide a better approach using C#.</span></span>
+<span data-ttu-id="33e03-158">Counter ページ上で **[クリックしてください]** ボタンを選択し、ページを更新することなくカウンターをインクリメントします。</span><span class="sxs-lookup"><span data-stu-id="33e03-158">On the Counter page, select the **Click me** button to increment the counter without a page refresh.</span></span> <span data-ttu-id="33e03-159">通常、web ページでカウンターを増やすには JavaScript を記述する必要がありますがC#、を使用して Razor コンポーネントの方が優れています。</span><span class="sxs-lookup"><span data-stu-id="33e03-159">Incrementing a counter in a webpage normally requires writing JavaScript, but Razor components provide a better approach using C#.</span></span>
 
-<span data-ttu-id="9e3a1-160">*Pages/Counter.razor*:</span><span class="sxs-lookup"><span data-stu-id="9e3a1-160">*Pages/Counter.razor*:</span></span>
+<span data-ttu-id="33e03-160">*Pages/Counter.razor*:</span><span class="sxs-lookup"><span data-stu-id="33e03-160">*Pages/Counter.razor*:</span></span>
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Counter1.razor?highlight=7,12-15)]
 
-<span data-ttu-id="9e3a1-161">ブラウザーでの`/counter`要求が、上部の`@page`ディレクティブで指定されている場合、コンポーネント`Counter`はそのコンテンツをレンダリングします。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-161">A request for `/counter` in the browser, as specified by the `@page` directive at the top, causes the `Counter` component to render its content.</span></span> <span data-ttu-id="9e3a1-162">コンポーネントは、レンダリングツリーのメモリ内表現にレンダリングされ、柔軟で効率的な方法で UI を更新するために使用できます。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-162">Components render into an in-memory representation of the render tree that can then be used to update the UI in a flexible and efficient way.</span></span>
+<span data-ttu-id="33e03-161">ブラウザーでの`/counter`要求が、上部の`@page`ディレクティブで指定されている場合、コンポーネント`Counter`はそのコンテンツをレンダリングします。</span><span class="sxs-lookup"><span data-stu-id="33e03-161">A request for `/counter` in the browser, as specified by the `@page` directive at the top, causes the `Counter` component to render its content.</span></span> <span data-ttu-id="33e03-162">コンポーネントは、レンダリングツリーのメモリ内表現にレンダリングされ、柔軟で効率的な方法で UI を更新するために使用できます。</span><span class="sxs-lookup"><span data-stu-id="33e03-162">Components render into an in-memory representation of the render tree that can then be used to update the UI in a flexible and efficient way.</span></span>
 
-<span data-ttu-id="9e3a1-163">**[クリックし**てください] ボタンが選択されるたびに、次のようになります。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-163">Each time the **Click me** button is selected:</span></span>
+<span data-ttu-id="33e03-163">**[クリックし**てください] ボタンが選択されるたびに、次のようになります。</span><span class="sxs-lookup"><span data-stu-id="33e03-163">Each time the **Click me** button is selected:</span></span>
 
-* <span data-ttu-id="9e3a1-164">`onclick`イベントが発生します。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-164">The `onclick` event is fired.</span></span>
-* <span data-ttu-id="9e3a1-165">`IncrementCount` メソッドが呼び出された場合。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-165">The `IncrementCount` method is called.</span></span>
-* <span data-ttu-id="9e3a1-166">`currentCount`がインクリメントされます。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-166">The `currentCount` is incremented.</span></span>
-* <span data-ttu-id="9e3a1-167">コンポーネントが再び表示されます。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-167">The component is rendered again.</span></span>
+* <span data-ttu-id="33e03-164">`onclick`イベントが発生します。</span><span class="sxs-lookup"><span data-stu-id="33e03-164">The `onclick` event is fired.</span></span>
+* <span data-ttu-id="33e03-165">`IncrementCount` メソッドが呼び出された場合。</span><span class="sxs-lookup"><span data-stu-id="33e03-165">The `IncrementCount` method is called.</span></span>
+* <span data-ttu-id="33e03-166">`currentCount`がインクリメントされます。</span><span class="sxs-lookup"><span data-stu-id="33e03-166">The `currentCount` is incremented.</span></span>
+* <span data-ttu-id="33e03-167">コンポーネントが再び表示されます。</span><span class="sxs-lookup"><span data-stu-id="33e03-167">The component is rendered again.</span></span>
 
-<span data-ttu-id="9e3a1-168">ランタイムは、新しいコンテンツを前のコンテンツと比較し、変更されたコンテンツのみをドキュメントオブジェクトモデル (DOM) に適用します。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-168">The runtime compares the new content to the previous content and only applies the changed content to the Document Object Model (DOM).</span></span>
+<span data-ttu-id="33e03-168">ランタイムは、新しいコンテンツを前のコンテンツと比較し、変更されたコンテンツのみをドキュメントオブジェクトモデル (DOM) に適用します。</span><span class="sxs-lookup"><span data-stu-id="33e03-168">The runtime compares the new content to the previous content and only applies the changed content to the Document Object Model (DOM).</span></span>
 
-<span data-ttu-id="9e3a1-169">HTML 構文を使用してコンポーネントを別のコンポーネントに追加します。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-169">Add a component to another component using HTML syntax.</span></span> <span data-ttu-id="9e3a1-170">たとえば、コンポーネントに`Counter` `<Counter />` `Index`要素を追加して、コンポーネントをアプリのホームページに追加します。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-170">For example, add the `Counter` component to the app's homepage by adding a `<Counter />` element to the `Index` component.</span></span>
+<span data-ttu-id="33e03-169">HTML 構文を使用してコンポーネントを別のコンポーネントに追加します。</span><span class="sxs-lookup"><span data-stu-id="33e03-169">Add a component to another component using HTML syntax.</span></span> <span data-ttu-id="33e03-170">たとえば、コンポーネントに`Counter` `<Counter />` `Index`要素を追加して、コンポーネントをアプリのホームページに追加します。</span><span class="sxs-lookup"><span data-stu-id="33e03-170">For example, add the `Counter` component to the app's homepage by adding a `<Counter />` element to the `Index` component.</span></span>
 
-<span data-ttu-id="9e3a1-171">*Pages/Index.razor*:</span><span class="sxs-lookup"><span data-stu-id="9e3a1-171">*Pages/Index.razor*:</span></span>
+<span data-ttu-id="33e03-171">*Pages/Index.razor*:</span><span class="sxs-lookup"><span data-stu-id="33e03-171">*Pages/Index.razor*:</span></span>
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Index1.razor?highlight=7)]
 
-<span data-ttu-id="9e3a1-172">アプリを実行します。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-172">Run the app.</span></span> <span data-ttu-id="9e3a1-173">ホームページには、 `Counter`コンポーネントによって提供される独自のカウンターがあります。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-173">The homepage has its own counter provided by the `Counter` component.</span></span>
+<span data-ttu-id="33e03-172">アプリを実行します。</span><span class="sxs-lookup"><span data-stu-id="33e03-172">Run the app.</span></span> <span data-ttu-id="33e03-173">ホームページには、 `Counter`コンポーネントによって提供される独自のカウンターがあります。</span><span class="sxs-lookup"><span data-stu-id="33e03-173">The homepage has its own counter provided by the `Counter` component.</span></span>
 
-<span data-ttu-id="9e3a1-174">コンポーネントのパラメーターは、属性または[子コンテンツ](xref:blazor/components#child-content)を使用して指定されます。これにより、子コンポーネントのプロパティを設定できます。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-174">Component parameters are specified using attributes or [child content](xref:blazor/components#child-content), which allow you to set properties on the child component.</span></span> <span data-ttu-id="9e3a1-175">`Counter`コンポーネントにパラメーターを追加するには、コンポーネントの`@code`ブロックを更新します。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-175">To add a parameter to the `Counter` component, update the component's `@code` block:</span></span>
+<span data-ttu-id="33e03-174">コンポーネントのパラメーターは、属性または[子コンテンツ](xref:blazor/components#child-content)を使用して指定されます。これにより、子コンポーネントのプロパティを設定できます。</span><span class="sxs-lookup"><span data-stu-id="33e03-174">Component parameters are specified using attributes or [child content](xref:blazor/components#child-content), which allow you to set properties on the child component.</span></span> <span data-ttu-id="33e03-175">`Counter`コンポーネントにパラメーターを追加するには、コンポーネントの`@code`ブロックを更新します。</span><span class="sxs-lookup"><span data-stu-id="33e03-175">To add a parameter to the `Counter` component, update the component's `@code` block:</span></span>
 
-* <span data-ttu-id="9e3a1-176">属性`[Parameter]`を使用して`IncrementAmount` 、のパブリックプロパティを追加します。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-176">Add a public property for `IncrementAmount` with a `[Parameter]` attribute.</span></span>
-* <span data-ttu-id="9e3a1-177">`currentCount` の値を増やすときに `IncrementAmount` を使うように `IncrementCount` メソッドを変更します。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-177">Change the `IncrementCount` method to use the `IncrementAmount` when increasing the value of `currentCount`.</span></span>
+* <span data-ttu-id="33e03-176">属性`[Parameter]`を使用して`IncrementAmount` 、のパブリックプロパティを追加します。</span><span class="sxs-lookup"><span data-stu-id="33e03-176">Add a public property for `IncrementAmount` with a `[Parameter]` attribute.</span></span>
+* <span data-ttu-id="33e03-177">`currentCount` の値を増やすときに `IncrementAmount` を使うように `IncrementCount` メソッドを変更します。</span><span class="sxs-lookup"><span data-stu-id="33e03-177">Change the `IncrementCount` method to use the `IncrementAmount` when increasing the value of `currentCount`.</span></span>
 
-<span data-ttu-id="9e3a1-178">*Pages/Counter.razor*:</span><span class="sxs-lookup"><span data-stu-id="9e3a1-178">*Pages/Counter.razor*:</span></span>
+<span data-ttu-id="33e03-178">*Pages/Counter.razor*:</span><span class="sxs-lookup"><span data-stu-id="33e03-178">*Pages/Counter.razor*:</span></span>
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Counter2.razor?highlight=12-13,17)]
 
-<span data-ttu-id="9e3a1-179">属性を`IncrementAmount`使用し`Index`て、 `<Counter>`コンポーネントの要素でを指定します。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-179">Specify the `IncrementAmount` in the `Index` component's `<Counter>` element using an attribute.</span></span>
+<span data-ttu-id="33e03-179">属性を`IncrementAmount`使用し`Index`て、 `<Counter>`コンポーネントの要素でを指定します。</span><span class="sxs-lookup"><span data-stu-id="33e03-179">Specify the `IncrementAmount` in the `Index` component's `<Counter>` element using an attribute.</span></span>
 
-<span data-ttu-id="9e3a1-180">*Pages/Index.razor*:</span><span class="sxs-lookup"><span data-stu-id="9e3a1-180">*Pages/Index.razor*:</span></span>
+<span data-ttu-id="33e03-180">*Pages/Index.razor*:</span><span class="sxs-lookup"><span data-stu-id="33e03-180">*Pages/Index.razor*:</span></span>
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Index2.razor?highlight=7)]
 
-<span data-ttu-id="9e3a1-181">アプリを実行します。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-181">Run the app.</span></span> <span data-ttu-id="9e3a1-182">コンポーネントには、 **[クリックし**てください] ボタンが選択されるたびに10ずつ増加する独自のカウンターがあります。 `Index`</span><span class="sxs-lookup"><span data-stu-id="9e3a1-182">The `Index` component has its own counter that increments by ten each time the **Click me** button is selected.</span></span> <span data-ttu-id="9e3a1-183">の`Counter`コンポーネント (*Counter*) `/counter`は、1つずつ増加し続けています。</span><span class="sxs-lookup"><span data-stu-id="9e3a1-183">The `Counter` component (*Counter.razor*) at `/counter` continues to increment by one.</span></span>
+<span data-ttu-id="33e03-181">アプリを実行します。</span><span class="sxs-lookup"><span data-stu-id="33e03-181">Run the app.</span></span> <span data-ttu-id="33e03-182">コンポーネントには、 **[クリックし**てください] ボタンが選択されるたびに10ずつ増加する独自のカウンターがあります。 `Index`</span><span class="sxs-lookup"><span data-stu-id="33e03-182">The `Index` component has its own counter that increments by ten each time the **Click me** button is selected.</span></span> <span data-ttu-id="33e03-183">の`Counter`コンポーネント (*Counter*) `/counter`は、1つずつ増加し続けています。</span><span class="sxs-lookup"><span data-stu-id="33e03-183">The `Counter` component (*Counter.razor*) at `/counter` continues to increment by one.</span></span>
 
-## <a name="next-steps"></a><span data-ttu-id="9e3a1-184">次の手順</span><span class="sxs-lookup"><span data-stu-id="9e3a1-184">Next steps</span></span>
+## <a name="next-steps"></a><span data-ttu-id="33e03-184">次の手順</span><span class="sxs-lookup"><span data-stu-id="33e03-184">Next steps</span></span>
 
 <xref:tutorials/first-blazor-app>
 
-## <a name="additional-resources"></a><span data-ttu-id="9e3a1-185">その他の技術情報</span><span class="sxs-lookup"><span data-stu-id="9e3a1-185">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="33e03-185">その他の技術情報</span><span class="sxs-lookup"><span data-stu-id="33e03-185">Additional resources</span></span>
 
 * <xref:signalr/introduction>
