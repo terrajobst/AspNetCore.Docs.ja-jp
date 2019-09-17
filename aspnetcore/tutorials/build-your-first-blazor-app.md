@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/23/2019
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: 2f0410eb75a6ef3f3d361c75bce7e79ae6d42a61
-ms.sourcegitcommit: 983b31449fe398e6e922eb13e9eb6f4287ec91e8
+ms.openlocfilehash: ea1111f43b6b8b4f47061056e8ad8d505f92dba6
+ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/24/2019
-ms.locfileid: "70017502"
+ms.lasthandoff: 09/07/2019
+ms.locfileid: "70800478"
 ---
 # <a name="build-your-first-blazor-app"></a>最初の Blazor アプリを構築する
 
@@ -67,11 +67,11 @@ HTML 構文を使用して、別のコンポーネント内にコンポーネン
 
 ## <a name="component-parameters"></a>コンポーネントのパラメーター
 
-コンポーネントにパラメーターを持たせることもできます。 コンポーネントのパラメーターは、`[Parameter]` で修飾されたコンポーネント クラス上で、パブリック プロパティを使用して定義されます。 マークアップ内でコンポーネントの引数を指定するには、属性を使います。
+コンポーネントにパラメーターを持たせることもできます。 コンポーネントのパラメーターは、`[Parameter]` 属性が指定されたコンポーネント クラス上で、パブリック プロパティを使用して定義されます。 マークアップ内でコンポーネントの引数を指定するには、属性を使います。
 
 1. コンポーネントの `@code` に関する C# コードを更新します。
 
-   * `[Parameter]` 属性で修飾された `IncrementAmount` プロパティを追加します。
+   * 属性 `[Parameter]` を使用してパブリック `IncrementAmount` プロパティを追加します。
    * `currentCount` の値を増やすときに `IncrementAmount` を使うように `IncrementCount` メソッドを変更します。
 
    *Pages/Counter.razor*:

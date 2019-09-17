@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/01/2019
 uid: fundamentals/host/generic-host
-ms.openlocfilehash: 9f5ecc7840fc7ffd9432a3bb67d0418efb7e8fd6
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: 261abae499a0d5f807a14aebd224949881067bc7
+ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975624"
+ms.lasthandoff: 09/06/2019
+ms.locfileid: "70773808"
 ---
 # <a name="net-generic-host"></a>.NET での汎用ホスト
 
@@ -170,6 +170,8 @@ Web アプリでは `IWebHostEnvironment` インターフェイスが追加さ�
 
 このセクションでは、HTTP のワークロードと HTTP 以外のワークロードの両方に適用されるホストの設定を一覧します。 既定では、これらの設定を構成するのに使用する環境変数には、プレフィックスとして `DOTNET_` または `ASPNETCORE_` を付けることができます。
 
+<!-- In the following sections, two spaces at end of line are used to force line breaks in the rendered page. -->
+
 ### <a name="applicationname"></a>ApplicationName
 
 [IHostEnvironment.ApplicationName](xref:Microsoft.Extensions.Hosting.IHostEnvironment.ApplicationName*) プロパティは、ホストの構築時にホストの構成から設定されます。
@@ -312,8 +314,9 @@ webBuilder.UseSetting(WebHostDefaults.HostingStartupExcludeAssembliesKey, "assem
 
 HTTPS リダイレクト ポート。 [HTTPS の適用](xref:security/enforcing-ssl)に使用されます。
 
-**キー**: https_port **型**: *文字列*
-**既定値**:既定値は設定されていません。
+**キー**: https_port  
+**型**: *文字列*  
+**既定**:既定値は設定されていません。  
 **環境変数**: `<PREFIX_>HTTPS_PORT`
 
 この値を設定するには、構成を使用するか、または `UseSetting` を呼び出します。
@@ -356,8 +359,9 @@ webBuilder.UseSetting(WebHostDefaults.PreventHostingStartupKey, "true");
 
 `Startup` クラスを検索するアセンブリ。
 
-**キー**: startupAssembly **型**: *文字列*  
-**既定**:アプリのアセンブリ  
+**キー**: startupAssembly  
+**型**: *文字列*  
+**既定値**:アプリのアセンブリ  
 **環境変数**: `<PREFIX_>STARTUPASSEMBLY`
 
 この値を設定するには、環境変数を使用するか、または `UseStartup` を呼び出します。 `UseStartup` は、アセンブリ名 (`string`) または型 (`TStartup`) を取ることができます。 複数の `UseStartup` メソッドが呼び出された場合は、最後のメソッドが優先されます。
@@ -376,7 +380,7 @@ webBuilder.UseStartup<Startup>();
 
 **キー**: urls  
 **型**: *文字列*  
-**既定値**: `http://localhost:5000` および `https://localhost:5001`
+**既定値**: `http://localhost:5000` および `https://localhost:5001`  
 **環境変数**: `<PREFIX_>URLS`
 
 この値を設定するには、環境変数を使用するか、または `UseUrls` を呼び出します。

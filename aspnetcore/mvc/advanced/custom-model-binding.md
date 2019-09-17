@@ -5,12 +5,12 @@ description: モデル バインドにより ASP.NET Core のモデルの型を�
 ms.author: riande
 ms.date: 11/13/2018
 uid: mvc/advanced/custom-model-binding
-ms.openlocfilehash: 3623a29976a2e2a7b1bdb22d35716b8a3b448958
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 91f42393ffee3249f9167e10eaea7b279a7cb70b
+ms.sourcegitcommit: e7c56e8da5419bbc20b437c2dd531dedf9b0dc6b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64891227"
+ms.lasthandoff: 09/10/2019
+ms.locfileid: "70878414"
 ---
 # <a name="custom-model-binding-in-aspnet-core"></a>ASP.NET Core でのカスタム モデル バインド
 
@@ -104,7 +104,7 @@ public IModelBinder GetBinder(ModelBinderProviderContext context)
 
 [!code-csharp[](custom-model-binding/sample/CustomModelBindingSample/Controllers/BoundAuthorsController.cs?name=demo1&highlight=2)]
 
-この例では、引数の名前が既定の `authorId` ではないため、`ModelBinder` 属性を使用してパラメーターに指定されています。 コント ローラーとアクション メソッドの両方とも、アクション メソッドでのエンティティの検索と比べて簡素化されています。 Entity Framework Core を使用して作成者をフェッチするためのロジックは、モデル バインダーに移動しています。 これは、`Author` モデルにバインドするメソッドがいくつかある場合、大幅な簡略化になる可能性があります。
+この例では、引数の名前が既定の `authorId` ではないため、`ModelBinder` 属性を使用してパラメーターに指定されています。 アクション メソッドでエンティティを検索する場合と比較して、コントローラーとアクション メソッドの両方が簡略化されています。 Entity Framework Core を使用して作成者をフェッチするためのロジックは、モデル バインダーに移動しています。 これは、`Author` モデルにバインドするメソッドがいくつかある場合、大幅な簡略化になる可能性があります。
 
 `ModelBinder` 属性を (ビューモデルなどの) 個々のモデル プロパティまたはアクション メソッド パラメーターに適用して、その型やアクションのみを対象とする特定のモデル バインダーまたはモデル名を指定することができます。
 
@@ -129,6 +129,19 @@ public IModelBinder GetBinder(ModelBinderProviderContext context)
 コレクションの末尾にプロバイダーを追加すると、カスタム バインダーより前に組み込みのモデル バインダーが呼び出される可能性があります。 この例では、カスタム プロバイダーが `Author` アクションの引数で使用されるように、コレクションの先頭に追加されています。
 
 [!code-csharp[](custom-model-binding/sample/CustomModelBindingSample/Startup.cs?name=callout&highlight=5-9)]
+
+### <a name="polymorphic-model-binding"></a>ポリモーフィック モデル バインド
+
+派生型の異なるモデルへのバインドは、ポリモーフィック モデル バインドと呼ばれます。 カスタム モデル バインドは、要求値を特定の派生モデル型にバインドする必要がある場合に必要です。 このアプローチが必要でない限り、ポリモーフィック モデル バインドを避けることをお勧めします。 ポリモーフィック モデル バインドにより、バインドされているモデルに関する判断が困難になります。 ただし、アプリにポリモーフィック モデル バインドが必要な場合、実装は次のコードのようになります。
+
+派生型の異なるモデルへのバインドは、ポリモーフィック モデル バインドと呼ばれます。 カスタム モデル バインドは、要求値を特定の派生モデル型にバインドする必要がある場合に必要です。 ポリモーフィック モデル バインド:
+
+* すべての言語と相互運用できるように設計された REST API では一般的ではありません。
+* バインドされたモデルに関する判断が困難になります。
+
+ただし、アプリにポリモーフィック モデル バインドが必要な場合、実装は次のコードのようになります。
+
+[!code-csharp[](custom-model-binding/3.0sample/PolymorphicModelBinding/ModelBinders/PolymorphicModelBinder.cs?name=snippet)]
 
 ## <a name="recommendations-and-best-practices"></a>推奨事項とベスト プラクティス
 

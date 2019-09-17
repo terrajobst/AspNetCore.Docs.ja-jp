@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/12/2019
 uid: fundamentals/app-state
-ms.openlocfilehash: 4b02a9b5867559da493054bb128aabed4d920ace
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 578be568b58dc630e8aabf8cb355266766741b9e
+ms.sourcegitcommit: 116bfaeab72122fa7d586cdb2e5b8f456a2dc92a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67813623"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70384738"
 ---
 # <a name="session-and-app-state-in-aspnet-core"></a>ASP.NET Core でのセッションとアプリの状態
 
@@ -163,7 +163,29 @@ Name: @HttpContext.Session.GetString(IndexModel.SessionKeyName)
 
 ## <a name="tempdata"></a>TempData
 
-ASP.NET Core は、[Razor Pages ページ モデルの TempData プロパティ](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel.tempdata)または [MVC コントローラーの TempData](/dotnet/api/microsoft.aspnetcore.mvc.controller.tempdata) を公開します。 このプロパティは、読み取られるまでデータを格納します。 [Keep](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.itempdatadictionary.keep) メソッドと [Peek](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.itempdatadictionary.peek) メソッドは、削除せずにデータを確認するために使用できます。 TempData は特に、複数の要求にデータが必要な場合のリダイレクトに役立ちます。 TempData は、Cookie またはセッション状態を使って、TempData プロバイダーによって実装されます。
+ASP.NET Core によって、Razor Pages [TempData](xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel.TempData) または Controller <xref:Microsoft.AspNetCore.Mvc.Controller.TempData> が発行されます。 このプロパティには、別の要求で読み取られるまでデータが格納されます。 [Keep (String)](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionary.Keep*) メソッドと [Peek (String)](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionary.Peek*) メソッドを使用すると、要求の最後に削除せずにデータを調べることができます。 [Keep()](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionary.Keep*) によって、リテンション期間についてディクショナリ内のすべての項目がマークされます。 `TempData` は特に、複数の要求にデータが必要な場合のリダイレクトに役立ちます。 `TempData` は、`TempData` プロバイダーによって Cookie またはセッション状態を使用して実装されます。
+
+## <a name="tempdata-samples"></a>TempData のサンプル
+
+顧客を作成する次のページについて考えてみましょう。
+
+[!code-csharp[](app-state/3.0samples/RazorPagesContacts/Pages/Customers/Create.cshtml.cs?name=snippet&highlight=15-16,30)]
+
+次のページに `TempData["Message"]` が表示されます。
+
+[!code-cshtml[](app-state/3.0samples/RazorPagesContacts/Pages/Customers/IndexPeek.cshtml?range=1-14)]
+
+前のマークアップでは、`Peek` が使用されているため、要求の最後に `TempData["Message"]` が削除**されません**。 ページを更新すると `TempData["Message"]` が表示されます。
+
+次のマークアップは前のコードと似ていますが、`Keep` を使用して要求の最後にデータを保存しています。
+
+[!code-cshtml[](app-state/3.0samples/RazorPagesContacts/Pages/Customers/IndexKeep.cshtml?range=1-14)]
+
+*Indexpeek* ページと *IndexKeep* ページ間を移動しても `TempData["Message"]` は削除されません。
+
+次のコードでは `TempData["Message"]` が表示されますが、要求の最後に `TempData["Message"]` が削除されます。
+
+[!code-cshtml[](app-state/3.0samples/RazorPagesContacts/Pages/Customers/Index.cshtml?range=1-14)]
 
 ### <a name="tempdata-providers"></a>TempData プロバイダー
 
