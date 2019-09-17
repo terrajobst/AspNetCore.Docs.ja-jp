@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/05/2019
 uid: security/blazor/index
-ms.openlocfilehash: 2ba7b0612c2be50ae0797c50dc3cb0d63c0f0c2d
-ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
+ms.openlocfilehash: ab8cc547463ef647316b5a4e377c15021debc4b1
+ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/07/2019
-ms.locfileid: "70800509"
+ms.lasthandoff: 09/13/2019
+ms.locfileid: "70963966"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor の認証と承認
 
@@ -20,26 +20,26 @@ ms.locfileid: "70800509"
 
 ASP.NET Core は、Blazor アプリのセキュリティの構成と管理をサポートしています。
 
-Blazor のサーバー側アプリとクライアント側アプリのセキュリティ シナリオは異なります。 Blazor サーバー側アプリはサーバー上で動作するため、承認チェックでは以下のことを判断できます。
+Blazor サーバー アプリと Blazor WebAssembly アプリのセキュリティ シナリオは異なります。 Blazor サーバー アプリはサーバー上で動作するため、承認チェックでは以下のことを判断できます。
 
 * ユーザーに表示される UI オプション (たとえば、ユーザーが利用できるメニュー エントリ)。
 * アプリとコンポーネントの領域に対するアクセス規則。
 
-Blazor クライアント側アプリはクライアント上で動作します。 承認は、表示する UI オプションを決定するために "*のみ*" 使用されます。 クライアント側のチェックはユーザーによって変更またはバイパスされる可能性があるため、Blazor クライアント側アプリでは承認アクセス規則を適用できません。
+Blazor WebAssembly アプリはクライアント上で動作します。 承認は、表示する UI オプションを決定するために "*のみ*" 使用されます。 クライアント側のチェックはユーザーによって変更またはバイパスされる可能性があるため、Blazor WebAssembly アプリでは承認アクセス規則を適用できません。
 
 ## <a name="authentication"></a>認証
 
-Blazor は、既存の ASP.NET Core 認証メカニズムを使用してユーザーの ID を証明します。 詳細なメカニズムは、Blazor アプリのホスティング方法、サーバー側またはクライアント側かによって異なります。
+Blazor は、既存の ASP.NET Core 認証メカニズムを使用してユーザーの ID を証明します。 詳細なメカニズムは、Blazor アプリのホスティング方法、Blazor サーバーか Blazor WebAssembly かによって異なります。
 
-### <a name="blazor-server-side-authentication"></a>Blazor のサーバー側の認証
+### <a name="blazor-server-authentication"></a>Blazor サーバー認証
 
-Blazor サーバー側アプリは、SignalR を使用して作成されたリアルタイム接続を介して動作します。 [SignalR ベースのアプリの認証](xref:signalr/authn-and-authz)は、接続が確立したときに処理されます。 認証は、Cookie または他のベアラー トークンに基づいています。
+Blazor サーバー アプリは、SignalR を使用して作成されたリアルタイム接続を介して動作します。 [SignalR ベースのアプリの認証](xref:signalr/authn-and-authz)は、接続が確立したときに処理されます。 認証は、Cookie または他のベアラー トークンに基づいています。
 
-プロジェクトの作成時に、Blazor サーバー側プロジェクト テンプレートで認証を設定できます。
+プロジェクトの作成時に、Blazor サーバー プロジェクト テンプレートで認証を設定できます。
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-認証メカニズムを使用して新しい Blazor サーバー側プロジェクトを作成するには、<xref:blazor/get-started> の記事の Visual Studio のガイダンスに従ってください。
+認証メカニズムを使用して新しい Blazor サーバー プロジェクトを作成するには、<xref:blazor/get-started> の記事の Visual Studio のガイダンスに従ってください。
 
 **[新しい ASP.NET Core Web アプリケーションを作成する]** ダイアログで **[Blazor サーバー アプリ]** テンプレートを選択した後、 **[認証]** の下の **[変更]** を選択します。
 
@@ -54,7 +54,7 @@ Blazor サーバー側アプリは、SignalR を使用して作成されたリ�
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-認証メカニズムを使用して新しい Blazor サーバー側プロジェクトを作成するには、<xref:blazor/get-started> の記事の Visual Studio Code のガイダンスに従ってください。
+認証メカニズムを使用して新しい Blazor サーバー プロジェクトを作成するには、<xref:blazor/get-started> の記事の Visual Studio Code のガイダンスに従ってください。
 
 ```console
 dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
@@ -88,7 +88,7 @@ dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 <!--
 # [.NET Core CLI](#tab/netcore-cli/)
 
-Follow the .NET Core CLI guidance in the <xref:blazor/get-started> article to create a new Blazor server-side project with an authentication mechanism:
+Follow the .NET Core CLI guidance in the <xref:blazor/get-started> article to create a new Blazor Server project with an authentication mechanism:
 
 ```console
 dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
@@ -111,15 +111,15 @@ The command creates a folder named with the value provided for the `{APP NAME}` 
 
 ---
 
-### <a name="blazor-client-side-authentication"></a>Blazor のクライアント側の認証
+### <a name="blazor-webassembly-authentication"></a>Blazor WebAssembly 認証
 
-Blazor クライアント側アプリでは、すべてのクライアント側コードがユーザーによって変更される可能性があるため、認証チェックがバイパスされる可能性があります。 JavaScript SPA フレームワークや任意のオペレーティング システム用のネイティブ アプリを含め、すべてのクライアント側アプリのテクノロジにも同じことが当てはまります。
+Blazor WebAssembly アプリでは、すべてのクライアント側コードがユーザーによって変更される可能性があるため、認証チェックがバイパスされる可能性があります。 JavaScript SPA フレームワークや任意のオペレーティング システム用のネイティブ アプリを含め、すべてのクライアント側アプリのテクノロジにも同じことが当てはまります。
 
-Blazor クライアント側アプリ用のカスタム `AuthenticationStateProvider` サービスの実装については、以降のセクションで説明します。
+Blazor WebAssembly アプリ用のカスタム `AuthenticationStateProvider` サービスの実装については、以降のセクションで説明します。
 
 ## <a name="authenticationstateprovider-service"></a>AuthenticationStateProvider サービス
 
-Blazor サーバー側アプリには、ASP.NET Core の `HttpContext.User` から認証状態データを取得する組み込みの `AuthenticationStateProvider` サービスが含まれています。 このようにして、認証状態は既存の ASP.NET Core サーバー側認証メカニズムと統合されています。
+Blazor サーバー アプリには、ASP.NET Core の `HttpContext.User` から認証状態データを取得する組み込みの `AuthenticationStateProvider` サービスが含まれています。 このようにして、認証状態は既存の ASP.NET Core サーバー側認証メカニズムと統合されています。
 
 `AuthenticationStateProvider` は、認証状態を取得するために `AuthorizeView` コンポーネントと `CascadingAuthenticationState` コンポーネントによって使用される基となるサービスです。
 
@@ -157,7 +157,7 @@ Blazor サーバー側アプリには、ASP.NET Core の `HttpContext.User` か�
 
 ## <a name="implement-a-custom-authenticationstateprovider"></a>カスタム AuthenticationStateProvider の実装
 
-Blazor クライアント側アプリを構築している場合、またはアプリの仕様でカスタム プロバイダーが必要な場合は、プロバイダーを実装して `GetAuthenticationStateAsync` をオーバーライドします。
+Blazor WebAssembly アプリを構築している場合、またはアプリの仕様でカスタム プロバイダーが必要な場合は、プロバイダーを実装して `GetAuthenticationStateAsync` をオーバーライドします。
 
 ```csharp
 class CustomAuthStateProvider : AuthenticationStateProvider
@@ -310,13 +310,13 @@ UI オプションまたはアクセスを制御するロールやポリシー�
 
 要求ベースの承認は、ポリシーベースの承認の特殊なケースです。 たとえば、ユーザーが特定の要求持つことを必須にするポリシーを定義できます。 詳細については、<xref:security/authorization/policies> を参照してください。
 
-これらの API は、Blazor サーバー側または Blazor クライアント側のどちらのアプリでも使用できます。
+これらの API は、Blazor サーバー アプリまたは Blazor WebAssembly アプリのどちらでも使用できます。
 
 `Roles` も `Policy` も指定されていない場合、`AuthorizeView` には既定のポリシーが使用されます。
 
 ### <a name="content-displayed-during-asynchronous-authentication"></a>非同期認証中に表示されるコンテンツ
 
-Blazor では、認証状態を "*非同期的に*" 決定することができます。 このアプローチの主なシナリオは、認証のために外部エンドポイントに要求を送信する Blazor クライアント側アプリです。
+Blazor では、認証状態を "*非同期的に*" 決定することができます。 このアプローチの主なシナリオは、認証のために外部エンドポイントに要求を送信する Blazor WebAssembly アプリです。
 
 認証が進行中の間、`AuthorizeView` には既定でコンテンツが表示されません。 認証が行われている間にコンテンツを表示するには、`<Authorizing>` 要素を使用します。
 
@@ -333,7 +333,7 @@ Blazor では、認証状態を "*非同期的に*" 決定することができ�
 </AuthorizeView>
 ```
 
-通常、このアプローチは Blazor サーバー側アプリには適用されません。 Blazor サーバー側アプリでは、状態が確立されるとすぐに認証状態が認識されます。 `Authorizing` コンテンツは Blazor サーバー側アプリの `AuthorizeView` コンポーネントで提供できますが、コンテンツは表示されません。
+通常、このアプローチは Blazor サーバー アプリには適用されません。 Blazor サーバー アプリでは、状態が確立されるとすぐに認証状態が認識されます。 `Authorizing` コンテンツは Blazor サーバー アプリの `AuthorizeView` コンポーネントで提供できますが、コンテンツは表示されません。
 
 ## <a name="authorize-attribute"></a>[Authorize] 属性
 
@@ -382,7 +382,7 @@ You can only see this if you're signed in.
 * ユーザーはコンポーネントに適用されている `[Authorize]` 条件に失敗します。 `[Authorize]` 属性については、「[[Authorize] 属性](#authorize-attribute)」セクションを参照してください。
 * 非同期認証が実行中です。
 
-既定の Blazor サーバー側プロジェクト テンプレートでは、*App.razor* ファイルがカスタム コンテンツの設定方法を示しています。
+既定の Blazor サーバー プロジェクト テンプレートでは、*App.razor* ファイルがカスタム コンテンツの設定方法を示しています。
 
 ```cshtml
 <Router AppAssembly="@typeof(Program).Assembly">
@@ -459,9 +459,9 @@ Not authorized.
 }
 ```
 
-## <a name="authorization-in-blazor-client-side-apps"></a>Blazor クライアント側アプリでの承認
+## <a name="authorization-in-blazor-webassembly-apps"></a>Blazor WebAssembly アプリでの承認
 
-Blazor クライアント側アプリでは、すべてのクライアント側コードがユーザーによって変更される可能性があるため、承認チェックがバイパスされる可能性があります。 JavaScript SPA フレームワークや任意のオペレーティング システム用のネイティブ アプリを含め、すべてのクライアント側アプリのテクノロジにも同じことが当てはまります。
+Blazor WebAssembly アプリでは、すべてのクライアント側コードがユーザーによって変更される可能性があるため、承認チェックがバイパスされる可能性があります。 JavaScript SPA フレームワークや任意のオペレーティング システム用のネイティブ アプリを含め、すべてのクライアント側アプリのテクノロジにも同じことが当てはまります。
 
 **常に、クライアント側アプリからアクセスされるすべての API エンドポイント内のサーバー上で承認チェックを実行します。**
 
@@ -473,7 +473,7 @@ Blazor クライアント側アプリでは、すべてのクライアント側�
 
 * `authenticationStateTask` **に対して**`null` 値を受け取ります
 
-認証が有効な Blazor サーバー側テンプレートを使用してプロジェクトが作成されなかった可能性があります。 次のように、*App.razor* などの UI ツリーの一部に `<CascadingAuthenticationState>` をラップします。
+認証が有効な Blazor サーバー テンプレートを使用してプロジェクトが作成されなかった可能性があります。 次のように、*App.razor* などの UI ツリーの一部に `<CascadingAuthenticationState>` をラップします。
 
 ```cshtml
 <CascadingAuthenticationState>
@@ -488,5 +488,5 @@ Blazor クライアント側アプリでは、すべてのクライアント側�
 ## <a name="additional-resources"></a>その他の技術情報
 
 * <xref:security/index>
-* <xref:security/blazor/server-side>
+* <xref:security/blazor/server>
 * <xref:security/authentication/windowsauth>

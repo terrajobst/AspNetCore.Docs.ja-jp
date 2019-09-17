@@ -304,8 +304,8 @@
           items:
             - name: 概要
               uid: security/blazor/index
-            - name: サーバー側
-              uid: security/blazor/server-side
+            - name: Blazor サーバー
+              uid: security/blazor/server
         - name: 状態管理
           uid: blazor/state-management
         - name: エラーの処理
@@ -318,10 +318,10 @@
           items:
             - name: 概要
               uid: host-and-deploy/blazor/index
-            - name: クライアント側
-              uid: host-and-deploy/blazor/client-side
-            - name: サーバー側
-              uid: host-and-deploy/blazor/server-side
+            - name: Blazor WebAssembly
+              uid: host-and-deploy/blazor/webassembly
+            - name: Blazor サーバー
+              uid: host-and-deploy/blazor/server
             - name: リンカーを構成する
               uid: host-and-deploy/blazor/configure-linker
     - name: クライアント側の開発
@@ -383,7 +383,7 @@
               uid: mvc/views/tag-helpers/builtin-th/environment-tag-helper
             - name: フォーム
               href: 'mvc/views/working-with-forms.md#the-form-tag-helper'
-            - name: イメージ
+            - name: Image
               uid: mvc/views/tag-helpers/builtin-th/image-tag-helper
             - name: 入力
               href: 'mvc/views/working-with-forms.md#the-input-tag-helper'
@@ -785,10 +785,10 @@
       items:
         - name: 概要
           uid: host-and-deploy/blazor/index
-        - name: クライアント側
-          uid: host-and-deploy/blazor/client-side
-        - name: サーバー側
-          uid: host-and-deploy/blazor/server-side
+        - name: Blazor WebAssembly
+          uid: host-and-deploy/blazor/webassembly
+        - name: Blazor サーバー
+          uid: host-and-deploy/blazor/server
         - name: リンカーを構成する
           uid: host-and-deploy/blazor/configure-linker
 - name: セキュリティと ID
@@ -999,8 +999,8 @@
       items:
         - name: 概要
           uid: security/blazor/index
-        - name: サーバー側
-          uid: security/blazor/server-side
+        - name: Blazor サーバー
+          uid: security/blazor/server
 - name: パフォーマンス
   items:
     - name: 概要
