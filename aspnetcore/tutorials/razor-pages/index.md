@@ -5,12 +5,12 @@ description: Visual Studio、ASP.NET Core、EF Core を使用して Windows で 
 ms.author: riande
 ms.date: 08/09/2019
 uid: tutorials/razor-pages/index
-ms.openlocfilehash: 7c722a0992b9cf30731a11b31c839f183d40b9a0
-ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
+ms.openlocfilehash: 11a5f651aa3da0a01490d28d411a614cb2f355c2
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/13/2019
-ms.locfileid: "68994300"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71082390"
 ---
 # <a name="tutorial-create-a-razor-pages-web-app-with-aspnet-core"></a>チュートリアル: ASP.NET Core で Razor ページ Web アプリを作成する
 
@@ -36,3 +36,4 @@ ms.locfileid: "68994300"
 ## <a name="additional-resources"></a>その他の技術情報
 
 * [このチュートリアルの YouTube バージョン](https://www.youtube.com/watch?v=F0SP7Ry4flQ&feature=youtu.be)
+* [このチュートリアルの YouTube バージョン (トルコ語)](https://www.youtube.com/watch?v=wqW8ayrA5-E)
