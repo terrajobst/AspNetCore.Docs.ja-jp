@@ -1,18 +1,18 @@
 ---
 title: ASP.NET Core での Web サーバーの実装
-author: guardrex
+author: tdykstra
 description: ASP.NET Core の Web サーバー Kestrel と HTTP.sys を検出します。 サーバーを選択する方法と、リバース プロキシ サーバーを使用するタイミングについて説明します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/01/2019
+ms.date: 08/10/2019
 uid: fundamentals/servers/index
-ms.openlocfilehash: 404fec18409a675981fc0c068ee9a99001e06c16
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: cfea559725a644f167aa3afdf88c78bace4b5950
+ms.sourcegitcommit: dc5b293e08336dc236de66ed1834f7ef78359531
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975540"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71011152"
 ---
 # <a name="web-server-implementations-in-aspnet-core"></a>ASP.NET Core での Web サーバーの実装
 
@@ -34,7 +34,7 @@ Kestrel を使用する:
 
   ![IIS、Nginx、または Apache などのリバース プロキシ サーバーを介してインターネットと間接的に通信する Kestrel](kestrel/_static/kestrel-to-internet.png)
 
-いずれのホスティング構成も、リバース プロキシ サーバーの有無に関わらず、ASP.NET Core 2.1 以降のアプリに対してサポートされます。
+&mdash;リバース プロキシ サーバーの有無に関わらず&mdash;、いずれのホスティング構成もサポートされています。
 
 Kestrel の構成ガイダンスおよびリバース プロキシ構成で Kestrel を使用するときの情報については、「<xref:fundamentals/servers/kestrel>」をご覧ください。
 
