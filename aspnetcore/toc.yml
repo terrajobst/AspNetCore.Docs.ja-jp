@@ -153,6 +153,9 @@
 - name: チュートリアル (Microsoft Learn)
   displayName: tutorial
   items:
+    - name: Web アプリ
+      displayName: 'tutorial, razor, razor pages, ui'
+      href: /learn/modules/create-razor-pages-aspnet-core/
     - name: Web API アプリ
       href: /learn/modules/build-web-api-net-core/
     - name: データ アクセス
@@ -435,6 +438,8 @@
           uid: tutorials/get-started-with-nswag
     - name: アクションの戻り値の型
       uid: web-api/action-return-types
+    - name: JSON Patch 要求の処理
+      uid: web-api/jsonpatch
     - name: 応答データの書式設定
       uid: web-api/advanced/formatting
     - name: カスタム フォーマッタ
@@ -540,6 +545,10 @@
   items:
     - name: gRPC サービスの概要
       uid: grpc/index
+    - name: チュートリアル
+      items:
+        - name: gRPC サービスの概要
+          uid: tutorials/grpc/grpc-start
     - name: 'C# を使用した gRPC サービス'
       uid: grpc/basics
     - name: ASP.NET Core を使用した gRPC サービス
@@ -558,6 +567,8 @@
       uid: grpc/migration
     - name: HTTP API を使用した gRPC サービスの比較
       uid: grpc/comparison
+    - name: サンプル
+      href: 'https://github.com/grpc/grpc-dotnet/tree/master/examples'
     - name: トラブルシューティング
       uid: grpc/troubleshoot
 - name: テスト、デバッグ、およびトラブルシューティング
@@ -994,7 +1005,7 @@
     - name: IP セーフリスト
       uid: security/ip-safelist
     - name: アプリケーションのセキュリティ - OWASP
-      href: 'https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/DotNet_Security_Cheat_Sheet.md'
+      href: 'https://cheatsheetseries.owasp.org/cheatsheets/DotNet_Security_Cheat_Sheet.html'
     - name: Blazor
       items:
         - name: 概要
