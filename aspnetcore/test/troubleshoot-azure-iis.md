@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/18/2019
 uid: test/troubleshoot-azure-iis
-ms.openlocfilehash: deae568a6ba88c9a8365b9d7f2df629899bc64a1
-ms.sourcegitcommit: 16502797ea749e2690feaa5e652a65b89c007c89
+ms.openlocfilehash: 384ae6645ce083fba76a430dfc3bec3a59d3870e
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/25/2019
-ms.locfileid: "68483320"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081531"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service-and-iis"></a>Azure App Service および IIS での ASP.NET Core のトラブルシューティング
 
@@ -61,7 +61,7 @@ The Web server is configured to not list the contents of this directory.
 
 * アプリがホストシステムの間違ったフォルダーに配置されています。
 * 展開プロセスで、アプリのすべてのファイルとフォルダーを、ホスティングシステムの展開フォルダーに移動できませんでした。
-* 配置に*web.config ファイルが*ないか、 *web.config ファイルの*内容の形式が正しくありません。
+* 配置に web.config ファイルがないか、web.config*ファイルの内容*の*形式*が正しくありません。
 
 次の手順を実行します。
 
@@ -72,7 +72,7 @@ The Web server is configured to not list the contents of this directory.
    * アプリが IIS によってホストされている場合は、iis**マネージャー**の **[基本設定]** に表示されている iis の**物理パス**にアプリが展開されていることを確認します。
 1. ホスティングシステムの配置をプロジェクトの*publish*フォルダーの内容と比較することによって、アプリのすべてのファイルとフォルダーが展開されていることを確認します。
 
-発行された ASP.NET Core アプリのレイアウトの詳細について<xref:host-and-deploy/directory-structure>は、「」を参照してください。 Web.config*ファイルの*詳細については、「」 <xref:host-and-deploy/aspnet-core-module#configuration-with-webconfig>を参照してください。
+発行された ASP.NET Core アプリのレイアウトの詳細について<xref:host-and-deploy/directory-structure>は、「」を参照してください。 *Web.config ファイルの*詳細については、「」 <xref:host-and-deploy/aspnet-core-module#configuration-with-webconfig>を参照してください。
 
 ### <a name="500-internal-server-error"></a>500 内部サーバー エラー
 
@@ -265,7 +265,7 @@ Failed to start application '/LM/W3SVC/6/ROOT/', ErrorCode '0x800700c1'.
 1. 次のようにアプリを実行します。
    * アプリが[フレームワークに依存する展開](/dotnet/core/deploying/#framework-dependent-deployments-fdd)の場合:
 
-     ```console
+     ```dotnetcli
      dotnet .\{ASSEMBLY NAME}.dll
      ```
 
@@ -607,7 +607,7 @@ stdout ログを有効にして表示するには:
 1. プロジェクトを復元してリビルドします。
 1. アプリケーションを再展開する前に、サーバー上の展開フォルダーにあるすべてのファイルを削除します。
 
-## <a name="additional-resources"></a>その他の資料
+## <a name="additional-resources"></a>その他の技術情報
 
 * <xref:test/troubleshoot>
 * <xref:host-and-deploy/azure-iis-errors-reference>

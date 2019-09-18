@@ -6,12 +6,12 @@ ms.author: casoper
 ms.custom: mvc, seodec18
 ms.date: 10/24/2018
 uid: azure/devops/deploy-to-app-service
-ms.openlocfilehash: e09d03f1d30f128b1db1588aa92b28ec3e4ae626
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: df41f296e9c4e1eff6e31d45b29ec30ee1e20cf4
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64892639"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080436"
 ---
 # <a name="deploy-an-app-to-app-service"></a>App Service にアプリをデプロイします。
 
@@ -35,7 +35,7 @@ ms.locfileid: "64892639"
 
 コマンド シェルからコードをダウンロードしてプロジェクトをビルドして、次のように実行します。
 
-> *注:Linux または macOS ユーザーくださいパスについて、適切な変更など、フォワード スラッシュを使用して (`/`) バック スラッシュではなく (`\`)。*
+> *注:Linux/macOS ユーザーは、パスに対して適切な変更を行う必要があり`/`ます。たとえば、スラッシュ (`\`) ではなくスラッシュ () を使用します。*
 
 1. ローカル コンピューター上のフォルダーにコードを複製します。
 
@@ -51,13 +51,13 @@ ms.locfileid: "64892639"
 
 3. パッケージを復元し、ソリューションをビルドします。
 
-    ```console
+    ```dotnetcli
     dotnet build
     ```
 
 4. アプリを実行します。
 
-    ```console
+    ```dotnetcli
     dotnet run
     ```
 
@@ -73,17 +73,17 @@ ms.locfileid: "64892639"
 
 アプリを展開するには、アプリ サービスを作成する必要があります[Web アプリ](/azure/app-service/app-service-web-overview)します。 Web アプリの作成後は、Git を使用して、ローカル コンピューターからをデプロイします。
 
-1. サインイン、 [Azure Cloud Shell](https://shell.azure.com/bash)します。 メモ:初めてサインインすると、構成ファイルのストレージ アカウントを作成する Cloud Shell が求められます。 既定値を受け入れるか、一意の名前を指定します。
+1. サインイン、 [Azure Cloud Shell](https://shell.azure.com/bash)します。 メモ:初めてサインインするときに、構成ファイル用のストレージアカウントを作成するように Cloud Shell プロンプトが表示されます。 既定値を受け入れるか、一意の名前を指定します。
 
 2. 次の手順については、Cloud Shell を使用します。
 
-    a.  Web アプリの名前を格納する変数を宣言します。 名前は、既定の URL で使用される一意である必要があります。 使用して、`$RANDOM`名前を作成する Bash 関数は、一意性を保証しの形式で結果`webappname99999`します。
+    a. Web アプリの名前を格納する変数を宣言します。 名前は、既定の URL で使用される一意である必要があります。 使用して、`$RANDOM`名前を作成する Bash 関数は、一意性を保証しの形式で結果`webappname99999`します。
 
     ```console
     webappname=mywebapp$RANDOM
     ```
 
-    b.  リソース グループを作成します。 リソース グループは、グループとして管理する Azure リソースを集計するための手段を提供します。
+    b. リソース グループを作成します。 リソース グループは、グループとして管理する Azure リソースを集計するための手段を提供します。
 
     ```azure-cli
     az group create --location centralus --name AzureTutorial
@@ -123,13 +123,13 @@ ms.locfileid: "64892639"
 
 3. コマンド シェルを使用して、ローカル コンピューターで web アプリのプロジェクト フォルダーに移動します (たとえば、 `.\simple-feed-reader\SimpleFeedReader`)。 デプロイの URL にプッシュする Git のセットアップには、次のコマンドを実行します。
 
-    a.  ローカル リポジトリには、リモートの URL を追加します。
+    a. ローカル リポジトリには、リモートの URL を追加します。
 
     ```console
     git remote add azure-prod GIT_DEPLOYMENT_URL
     ```
 
-    b.  ローカルをプッシュ*マスター*に分岐、 *azure prod*リモートの*マスター*分岐します。
+    b. ローカルをプッシュ*マスター*に分岐、 *azure prod*リモートの*マスター*分岐します。
 
     ```console
     git push azure-prod master
@@ -141,7 +141,7 @@ ms.locfileid: "64892639"
 
 ## <a name="deployment-with-visual-studio"></a>Visual Studio でのデプロイ
 
-> *注:このセクションでは、Windows にのみ適用されます。Linux および macOS ユーザーには、次のステップ 2 で説明されている変更を加える必要があります。ファイルを保存しをローカル リポジトリに変更をコミット`git commit`します。最後に、変更をプッシュ`git push`最初のセクションのようにします。*
+> *注:このセクションは、Windows のみに適用されます。Linux および macOS ユーザーには、次のステップ 2 で説明されている変更を加える必要があります。ファイルを保存しをローカル リポジトリに変更をコミット`git commit`します。最後に、変更をプッシュ`git push`最初のセクションのようにします。*
 
 コマンド シェルから、アプリは既に展開されています。 Visual Studio の統合ツールを使用して、アプリに更新プログラムをデプロイしましょう。 バック グラウンドでは、Visual Studio には、Visual Studio の使い慣れた UI 内でコマンド ライン ツールと同じことが実現されます。
 
@@ -168,13 +168,13 @@ Visual Studio がビルドされ、アプリを Azure にデプロイします�
 1. サインイン、 [Azure Cloud Shell](https://shell.azure.com/bash)署名されていない場合は、します。
 2. ステージング スロットを作成します。
 
-    a.  デプロイ スロットを作成、名前を持つ*ステージング*します。
+    a. デプロイ スロットを作成、名前を持つ*ステージング*します。
 
     ```azure-cli
     az webapp deployment slot create --name $webappname --resource-group AzureTutorial --slot staging
     ```
 
-    b.  ローカルの Git および get からのデプロイを使用するステージング スロットの構成、**ステージング**デプロイの URL。 **後で参照に対して、この URL に注意してください**します。
+    b. ローカルの Git および get からのデプロイを使用するステージング スロットの構成、**ステージング**デプロイの URL。 **後で参照に対して、この URL に注意してください**します。
 
     ```azure-cli
     echo Git deployment URL for staging: $(az webapp deployment source config-local-git --name $webappname --resource-group AzureTutorial --slot staging --query url --output tsv)
@@ -196,13 +196,13 @@ Visual Studio がビルドされ、アプリを Azure にデプロイします�
 
 5. ローカル コンピューターのコマンド シェルを使用してでは、Git リモートとしてステージング配置の URL を追加し、コミットされた変更をプッシュします。
 
-    a.  ローカルの Git リポジトリには、ステージング用のリモート URL を追加します。
+    a. ローカルの Git リポジトリには、ステージング用のリモート URL を追加します。
 
     ```console
     git remote add azure-staging <Git_staging_deployment_URL>
     ```
 
-    b.  ローカルをプッシュ*マスター*に分岐、 *azure ステージング*リモートの*マスター*分岐します。
+    b. ローカルをプッシュ*マスター*に分岐、 *azure ステージング*リモートの*マスター*分岐します。
 
     ```console
     git push azure-staging master

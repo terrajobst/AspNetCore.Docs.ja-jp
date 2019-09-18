@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 03/07/2019
 uid: spa/react
-ms.openlocfilehash: 91a71498574d6d96c2c06e896283fed801e8adb3
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 0e61c5b3e31a0b050d356b8f8e16306dc1e2a7f3
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64893699"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080412"
 ---
 # <a name="use-the-react-project-template-with-aspnet-core"></a>ASP.NET Core で React プロジェクト テンプレートを使用する
 
@@ -26,7 +26,7 @@ ASP.NET Core 2.1 がインストールされている場合は、React プロジ
 
 コマンド プロンプトで `dotnet new react` コマンドを使用して、空のディレクトリの中に新しいプロジェクトを作成します。 たとえば、次のコマンドは、*my-new-app* ディレクトリにアプリを作成し、そのディレクトリに切り替えます。
 
-```console
+```dotnetcli
 dotnet new react -o my-new-app
 cd my-new-app
 ```
@@ -59,7 +59,7 @@ Visual Studio または .NET Core CLI からアプリを実行します。
 
 ## <a name="install-npm-packages"></a>npm パッケージをインストールする
 
-サードパーティ製の npm パッケージをインストールするには、*ClientApp* サブディレクトリでコマンド プロンプトを使用します。 例:
+サードパーティ製の npm パッケージをインストールするには、*ClientApp* サブディレクトリでコマンド プロンプトを使用します。 例えば:
 
 ```console
 cd ClientApp
@@ -78,15 +78,15 @@ npm install --save <package_name>
 
 ASP.NET Core アプリが開発モードで起動された場合、プロジェクトは、CRA 開発サーバーの独自のインスタンスをバックグラウンドで開始するように構成されます。 これが便利なのは、別のサーバーを手動で実行する必要がないためです。
 
-この既定の設定には欠点があります。 C# コードを変更し、ASP.NET Core アプリを再起動する必要がある場合、CRA サーバーが毎回再起動します。 再起動には数秒かかります。 C# コードを何度も編集するが、CRA サーバーが再起動するまで待ちたくない場合は、ASP.NET Core プロセスから独立した CRA サーバーを外部で実行します。 次の手順に従います。
+この既定の設定には欠点があります。 C# コードを変更し、ASP.NET Core アプリを再起動する必要がある場合、CRA サーバーが毎回再起動します。 再起動には数秒かかります。 C# コードを何度も編集するが、CRA サーバーが再起動するまで待ちたくない場合は、ASP.NET Core プロセスから独立した CRA サーバーを外部で実行します。 そのためには次を行います。
 
-1. 追加、 *.env*ファイルを*ClientApp*次の設定を持つサブディレクトリ。
+1. 次の設定を使用して、 *ClientApp*サブディレクトリに env ファイルを追加*し*ます。
 
     ```
     BROWSER=none
     ```
 
-    これにより、web ブラウザーを開く外部から CRA サーバーを開始するときにします。
+    これにより、CRA サーバーを外部で起動するときに、web ブラウザーを開くことができなくなります。
 
 2. コマンド プロンプトで、*ClientApp* サブディレクトリに切り替え、CRA 開発サーバーを起動します。
 
@@ -104,7 +104,7 @@ ASP.NET Core アプリが開発モードで起動された場合、プロジェ�
 ASP.NET Core アプリの起動時に CRA サーバーが起動されなくなります。 代わりに、手動で開始したインスタンスが使用されます。 これにより、起動と再起動を高速化できます。 React アプリが毎回リビルドされるまで待つ必要がなくなります。
 
 > [!IMPORTANT]
-> 「サーバー側レンダリング」は、このテンプレートのサポートされている機能ではありません。 このテンプレートでの目標は、「- react のアプリの作成」でパリティを満たすためにです。 そのため、シナリオと (SSR) などの「- react のアプリの作成」プロジェクトに含まれていない機能はサポートされていません、、ユーザーの練習のままです。
+> "サーバー側のレンダリング" は、このテンプレートではサポートされていません。 このテンプレートの目標は、"アプリケーションの作成" によってパリティを満たすことです。 そのため、"アプリケーションの作成" プロジェクト (SSR など) に含まれていないシナリオと機能はサポートされておらず、ユーザーのための演習として残されています。
 
 ## <a name="additional-resources"></a>その他の技術情報
 

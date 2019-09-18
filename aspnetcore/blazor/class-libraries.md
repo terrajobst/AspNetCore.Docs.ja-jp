@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/13/2019
 uid: blazor/class-libraries
-ms.openlocfilehash: b5857f2cf22bde801deeeaf227817fdf99862f4a
-ms.sourcegitcommit: 4cb0c7e74355f2e87c60e2a196f842b937247a99
+ms.openlocfilehash: 91c4ffb29649c162fc15e5cb70dc60144b53afea
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/16/2019
-ms.locfileid: "69545774"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080661"
 ---
 # <a name="aspnet-core-razor-components-class-libraries"></a>Razor コンポーネントクラスライブラリの ASP.NET Core
 
@@ -33,9 +33,9 @@ ms.locfileid: "69545774"
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 1. 新しいプロジェクトを作成します。
-1. [ **Razor クラスライブラリ**] を選択します。           **[次へ]** を選択します。
-1. [**新しい Razor クラスライブラリを作成**します] ダイアログで、[**作成**] を選択します。
-1. **[プロジェクト名]** フィールドにプロジェクト名を入力するか、既定のプロジェクト名をそのまま使用します。 このトピックの例では、プロジェクト名`MyComponentLib1`を使用します。 **[作成]** を選択します。
+1. **[Razor クラスライブラリ]** を選択します。 **[次へ]** を選択します。
+1. **[新しい Razor クラスライブラリを作成]** します ダイアログで、 **[作成]** を選択します。
+1. **プロジェクト名** フィールドにプロジェクト名を入力するか、既定のプロジェクト名をそのまま使用します。 このトピックの例では、プロジェクト名`MyComponentLib1`を使用します。 **[作成]** を選択します。
 1. RCL をソリューションに追加します。
    1. ソリューションを右クリックします。 [**既存のプロジェクト**の**追加** > ] を選択します。
    1. RCL のプロジェクトファイルに移動します。
@@ -48,13 +48,13 @@ ms.locfileid: "69545774"
 
 1. コマンドシェルの[dotnet new](/dotnet/core/tools/dotnet-new)コマンドで`razorclasslib` **Razor クラスライブラリ**テンプレート () を使用します。 次の例では、という名前`MyComponentLib1`の rcl が作成されます。 を保持`MyComponentLib1`するフォルダーは、コマンドの実行時に自動的に作成されます。
 
-   ```console
+   ```dotnetcli
    dotnet new razorclasslib -o MyComponentLib1
    ```
 
 1. 既存のプロジェクトにライブラリを追加するには、コマンドシェルで dotnet の [[参照の追加](/dotnet/core/tools/dotnet-add-reference)] コマンドを使用します。 次の例では、RCL がアプリに追加されています。 ライブラリへのパスを使用して、アプリのプロジェクトフォルダーから次のコマンドを実行します。
 
-   ```console
+   ```dotnetcli
    dotnet add reference {PATH TO LIBRARY}
    ```
 
@@ -97,13 +97,13 @@ Welcome to your new app.
 
 コンポーネントライブラリは標準の .NET ライブラリであるため、パッケージを NuGet にパッケージ化して配布することは、ライブラリをパッケージ化して NuGet に配布する場合と変わりはありません。 パッケージ化は、コマンドシェルで[dotnet pack](/dotnet/core/tools/dotnet-pack)コマンドを使用して実行されます。
 
-```console
+```dotnetcli
 dotnet pack
 ```
 
 コマンドシェルで[dotnet nuget publish](/dotnet/core/tools/dotnet-nuget-push)コマンドを使用して、nuget にパッケージをアップロードします。
 
-```console
+```dotnetcli
 dotnet nuget publish
 ```
 

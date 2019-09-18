@@ -1,22 +1,22 @@
 ---
-title: アカウントの確認と ASP.NET Core でのパスワードの回復
+title: ASP.NET Core でのアカウントの確認とパスワードの回復
 author: rick-anderson
-description: 電子メールの確認とパスワードのリセットと ASP.NET Core アプリを構築する方法について説明します。
+description: 電子メールの確認とパスワードのリセットを使用して ASP.NET Core アプリを構築する方法について説明します。
 ms.author: riande
 ms.date: 03/11/2019
 uid: security/authentication/accconfirm
-ms.openlocfilehash: 802ba446af04df6a35ac73187ad693b8ec80c654
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 8a515990be584aa1233fc3bf77811ae3784d9b1c
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67814847"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081558"
 ---
-# <a name="account-confirmation-and-password-recovery-in-aspnet-core"></a>アカウントの確認と ASP.NET Core でのパスワードの回復
+# <a name="account-confirmation-and-password-recovery-in-aspnet-core"></a>ASP.NET Core でのアカウントの確認とパスワードの回復
 
-によって[Rick Anderson](https://twitter.com/RickAndMSFT)、 [Ponant](https://github.com/Ponant)、および[Joe Audette](https://twitter.com/joeaudette)
+[Rick Anderson](https://twitter.com/RickAndMSFT)、 [Ponant](https://github.com/Ponant)、 [Joe Audette](https://twitter.com/joeaudette)
 
-このチュートリアルでは、電子メールの確認とパスワードのリセットと ASP.NET Core アプリをビルドする方法を示します。 このチュートリアルは**いない**先頭トピック。 理解しておく必要があります。
+このチュートリアルでは、電子メールの確認とパスワードのリセットを使用して ASP.NET Core アプリを構築する方法について説明します。 このチュートリアルは最初のトピックでは**ありません**。 理解しておく必要があります。
 
 * [ASP.NET Core](xref:tutorials/razor-pages/razor-pages-start)
 * [認証](xref:security/authentication/identity)
@@ -26,7 +26,7 @@ ms.locfileid: "67814847"
 
 ::: moniker range="<= aspnetcore-2.0"
 
-参照してください[この PDF ファイル](https://webpifeed.blob.core.windows.net/webpifeed/Partners/asp.net_repo_pdf_1-16-18.pdf)ASP.NET Core 1.1 バージョン。
+ASP.NET Core 1.1 バージョンについては、[この PDF ファイル](https://webpifeed.blob.core.windows.net/webpifeed/Partners/asp.net_repo_pdf_1-16-18.pdf)を参照してください。
 
 ::: moniker-end
 
@@ -34,47 +34,47 @@ ms.locfileid: "67814847"
 
 ## <a name="prerequisites"></a>必須コンポーネント
 
-[.NET core 3.0 SDK またはそれ以降](https://dotnet.microsoft.com/download/dotnet-core/3.0)
+[.NET Core 3.0 SDK 以降](https://dotnet.microsoft.com/download/dotnet-core/3.0)
 
-## <a name="create-and-test-a-web-app-with-authentication"></a>作成し、認証を使用した web アプリのテスト
+## <a name="create-and-test-a-web-app-with-authentication"></a>認証を使用した web アプリの作成とテスト
 
-認証を使用した web アプリを作成するには、次のコマンドを実行します。
+認証を使用して web アプリを作成するには、次のコマンドを実行します。
 
-```console
+```dotnetcli
 dotnet new webapp -au Individual -uld -o WebPWrecover
 cd WebPWrecover
 dotnet run
 ```
 
-アプリを実行し、選択、**登録**リンク、およびユーザーを登録します。 登録されると、リダイレクトされるの`/Identity/Account/RegisterConfirmation`シミュレート確認の電子メールへのリンクを含むページ。
+アプリを実行し、 **[登録]** リンクを選択して、ユーザーを登録します。 登録されると、電子メールの確認`/Identity/Account/RegisterConfirmation`をシミュレートするためのリンクを含む [to] ページにリダイレクトされます。
 
-* 選択、`Click here to confirm your account`リンク。
-* 選択、**ログイン**リンクと同じ資格情報でサインインします。
-* 選択、`Hello YourEmail@provider.com!`リンクをリダイレクトする、`/Identity/Account/Manage/PersonalData`ページ。
-* 選択、**個人データ**、左側のタブを選び**削除**します。
+* `Click here to confirm your account`リンクを選択します。
+* **ログイン**リンクを選択し、同じ資格情報でサインインします。
+* リンクを選択すると、 `/Identity/Account/Manage/PersonalData`ページにリダイレクトされます。 `Hello YourEmail@provider.com!`
+* 左側の **[Personal data]** タブを選択し、 **[削除]** を選択します。
 
-### <a name="configure-an-email-provider"></a>電子メール プロバイダーを構成します。
+### <a name="configure-an-email-provider"></a>電子メールプロバイダーを構成する
 
-このチュートリアルで[SendGrid](https://sendgrid.com)電子メールを送信するために使用します。 SendGrid アカウントとキーが電子メールを送信する必要があります。 その他の電子メール プロバイダーを使用することができます。 SendGrid または別の電子メール サービスを使用して電子メールを送信することをお勧めします。 SMTP では、セキュリティで保護し、設定を正しく困難です。
+このチュートリアルでは、 [Sendgrid](https://sendgrid.com)を使用して電子メールを送信します。 電子メールを送信するには、SendGrid アカウントとキーが必要です。 他の電子メールプロバイダーを使用することもできます。 SendGrid または別の電子メールサービスを使用して電子メールを送信することをお勧めします。 SMTP のセキュリティを保護し、正しく設定することは困難です。
 
-電子メールをセキュリティで保護されたキーを取得するためのクラスを作成します。 このサンプルでは、次のように作成します*Services/AuthMessageSenderOptions.cs*:。
+セキュリティで保護された電子メールキーを取得するクラスを作成します。 このサンプルでは、*サービス/認証の Enderoptions を作成します。*
 
 [!code-csharp[](accconfirm/sample/WebPWrecover30/Services/AuthMessageSenderOptions.cs?name=snippet1)]
 
-#### <a name="configure-sendgrid-user-secrets"></a>SendGrid のユーザーの機密情報を構成します。
+#### <a name="configure-sendgrid-user-secrets"></a>SendGrid ユーザーシークレットの構成
 
-設定、`SendGridUser`と`SendGridKey`で、 [secret manager ツール](xref:security/app-secrets)します。 例:
+`SendGridUser` と`SendGridKey`を、[シークレットマネージャーツール](xref:security/app-secrets)を使用して設定します。 例:
 
-```console
+```dotnetcli
 dotnet user-secrets set SendGridUser RickAndMSFT
 dotnet user-secrets set SendGridKey <key>
 
 Successfully saved SendGridUser = RickAndMSFT to the secret store.
 ```
 
-Secret Manager、Windows 上のキー/値のペアが格納、 *secrets.json*ファイル、`%APPDATA%/Microsoft/UserSecrets/<WebAppName-userSecretsId>`ディレクトリ。
+Windows では、シークレットマネージャーはキーと値のペアを*シークレットの json*ファイル`%APPDATA%/Microsoft/UserSecrets/<WebAppName-userSecretsId>`に格納します。
 
-内容、 *secrets.json*ファイルは暗号化されません。 次のマークアップに示す、 *secrets.json*ファイル。 `SendGridKey`値が削除されました。
+*シークレットの json*ファイルの内容は暗号化されていません。 次のマークアップは、*シークレットの json*ファイルを示しています。 `SendGridKey`値は削除されています。
 
 ```json
 {
@@ -83,19 +83,19 @@ Secret Manager、Windows 上のキー/値のペアが格納、 *secrets.json*フ
 }
 ```
 
-詳細については、次を参照してください。、[オプション パターン](xref:fundamentals/configuration/options)と[構成](xref:fundamentals/configuration/index)します。
+詳細については、「パターンと[構成](xref:fundamentals/configuration/index)の[オプション](xref:fundamentals/configuration/options)」を参照してください。
 
-### <a name="install-sendgrid"></a>SendGrid をインストールします。
+### <a name="install-sendgrid"></a>SendGrid のインストール
 
-このチュートリアルは、使用して電子メール通知を追加する方法を示します[SendGrid](https://sendgrid.com/)が SMTP およびその他のメカニズムを使用して電子メールを送信できます。
+このチュートリアルでは、 [Sendgrid](https://sendgrid.com/)を使用して電子メール通知を追加する方法について説明しますが、SMTP などのメカニズムを使用して電子メールを送信することもできます。
 
-インストール、 `SendGrid` NuGet パッケージ。
+NuGet パッケージ`SendGrid`をインストールします。
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-パッケージ マネージャー コンソールで、次のコマンドを入力します。
+パッケージマネージャーコンソールで、次のコマンドを入力します。
 
-``` PMC
+```powershell
 Install-Package SendGrid
 ```
 
@@ -103,115 +103,115 @@ Install-Package SendGrid
 
 コンソールで、次のコマンドを入力します。
 
-```cli
+```dotnetcli
 dotnet add package SendGrid
 ```
 
 ---
 
-参照してください[SendGrid を無料で開始する](https://sendgrid.com/free/)無料の SendGrid アカウントを登録します。
+無料の sendgrid アカウントを登録するには、「 [SendGrid を無料で開始](https://sendgrid.com/free/)する」を参照してください。
 
-### <a name="implement-iemailsender"></a>IEmailSender を実装します。
+### <a name="implement-iemailsender"></a>IEmailSender を実装する
 
-実装`IEmailSender`、作成*Services/EmailSender.cs*次のようなコードで。
+を実装`IEmailSender`するには、次のようなコードを使用して*サービス/emailsender*を作成します。
 
 [!code-csharp[](accconfirm/sample/WebPWrecover30/Services/EmailSender.cs)]
 
-### <a name="configure-startup-to-support-email"></a>電子メールをサポートするために起動時を構成します。
+### <a name="configure-startup-to-support-email"></a>電子メールをサポートするスタートアップの構成
 
-次のコードを追加、`ConfigureServices`メソッドで、 *Startup.cs*ファイル。
+`ConfigureServices` *Startup.cs*ファイルのメソッドに次のコードを追加します。
 
-* 追加`EmailSender`一時的なサービスとして。
-* 登録、`AuthMessageSenderOptions`構成インスタンス。
+* を`EmailSender`一時サービスとして追加します。
+* 構成インスタンス`AuthMessageSenderOptions`を登録します。
 
 [!code-csharp[](accconfirm/sample/WebPWrecover30/Startup.cs?name=snippet1&highlight=11-15)]
 
-## <a name="register-confirm-email-and-reset-password"></a>登録、確認の電子メール、およびパスワードのリセット
+## <a name="register-confirm-email-and-reset-password"></a>登録、電子メールの確認、およびパスワードのリセット
 
 Web アプリを実行し、アカウントの確認とパスワードの回復フローをテストします。
 
 * アプリを実行し、新しいユーザーの登録
-* アカウント確認用のリンクは、電子メールを確認します。 参照してください[デバッグ電子メール](#debug)電子メールが届かない場合。
-* 電子メールを確認するリンクをクリックします。
-* 電子メール アドレスとパスワードでサインインします。
+* アカウントの確認リンクについては、電子メールを確認してください。 電子メールを受信しない場合は、「[デバッグ電子メール](#debug)」を参照してください。
+* リンクをクリックして、電子メールを確認します。
+* 電子メールとパスワードを使用してサインインします。
 * サインアウトします。
 
-### <a name="test-password-reset"></a>テストのパスワードのリセット
+### <a name="test-password-reset"></a>パスワードリセットのテスト
 
-* サインインしている場合は、選択**ログアウト**します。
-* 選択、**ログイン**リンクし、選択、**パスワードを忘れた場合でしょうか。** リンク。
-* アカウントを登録するために使用する電子メール アドレスを入力します。
-* パスワードをリセットするリンクを含む電子メールが送信されます。 電子メールを確認し、パスワードをリセットするリンクをクリックします。 パスワードが正常にリセットされると後、はの電子メール アドレスと新しいパスワードでサインインすることができます。
+* サインインしている場合は、 **[ログアウト]** を選択します。
+* **[ログイン]** リンクを選択し、 **[パスワードを忘れ]** た場合 リンクを選択します。
+* アカウントの登録に使用した電子メールを入力します。
+* パスワードをリセットするためのリンクを含む電子メールが送信されます。 メールを確認し、リンクをクリックしてパスワードをリセットします。 パスワードが正常にリセットされたら、電子メールと新しいパスワードでサインインできます。
 
-## <a name="change-email-and-activity-timeout"></a>電子メールとアクティビティのタイムアウトを変更します。
+## <a name="change-email-and-activity-timeout"></a>電子メールとアクティビティのタイムアウトを変更する
 
-既定のアイドル タイムアウトは、14 日間です。 次のコードでは、アイドル タイムアウトを 5 日に設定します。
+既定の非アクティブタイムアウトは14日です。 次のコードは、非アクティブタイムアウトを5日間に設定します。
 
 [!code-csharp[](accconfirm/sample/WebPWrecover30/StartupAppCookie.cs?name=snippet1)]
 
-### <a name="change-all-data-protection-token-lifespans"></a>すべてのデータの保護トークン lifespans を変更します。
+### <a name="change-all-data-protection-token-lifespans"></a>すべてのデータ保護トークンの lifespans を変更する
 
-次のコードは、すべてのデータの保護トークンのタイムアウト期間を 3 時間に変更します。
+次のコードでは、すべてのデータ保護トークンのタイムアウト期間を3時間に変更します。
 
 [!code-csharp[](accconfirm/sample/WebPWrecover30/StartupAllTokens.cs?name=snippet1&highlight=11-12)]
 
-組み込みの Id のユーザー トークン (を参照してください[AspNetCore/src/Identity/Extensions.Core/src/TokenOptions.cs](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs) ) が、 [1 日のタイムアウト](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs)。
+組み込みの Id ユーザートークン (「 [AspNetCore/src/Identity/Extensions. Core/src/TokenOptions .cs](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs) 」を参照) には、 [1 日のタイムアウト](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs)があります。
 
-### <a name="change-the-email-token-lifespan"></a>電子メールのトークン有効期間を変更します。
+### <a name="change-the-email-token-lifespan"></a>電子メールトークンの有効期間を変更する
 
-既定のトークン有効期間[Id のユーザー トークン](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs)は[1 日](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs)します。 このセクションでは、電子メールのトークン有効期間を変更する方法を示します。
+[Id ユーザートークン](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs)の既定のトークン有効期間は[1 日](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs)です。 このセクションでは、電子メールトークンの有効期間を変更する方法について説明します。
 
-追加のカスタム[DataProtectorTokenProvider\<TUser >](/dotnet/api/microsoft.aspnetcore.identity.dataprotectortokenprovider-1)と<xref:Microsoft.AspNetCore.Identity.DataProtectionTokenProviderOptions>:
+カスタム[DataProtectorTokenProvider\<tuser >](/dotnet/api/microsoft.aspnetcore.identity.dataprotectortokenprovider-1)およびを追加<xref:Microsoft.AspNetCore.Identity.DataProtectionTokenProviderOptions>します。
 
 [!code-csharp[](accconfirm/sample/WebPWrecover30/TokenProviders/CustomTokenProvider.cs?name=snippet1)]
 
-サービス コンテナーには、カスタム プロバイダーを追加します。
+カスタムプロバイダーをサービスコンテナーに追加します。
 
 [!code-csharp[](accconfirm/sample/WebPWrecover30/StartupEmail.cs?name=snippet1&highlight=10-16)]
 
-### <a name="resend-email-confirmation"></a>確認の電子メールを再送信します。
+### <a name="resend-email-confirmation"></a>電子メールの再送信の確認
 
-参照してください[この GitHub の問題](https://github.com/aspnet/AspNetCore/issues/5410)します。
+[こちらの GitHub のイシュー](https://github.com/aspnet/AspNetCore/issues/5410)を参照してください。
 
 <a name="debug"></a>
 
-### <a name="debug-email"></a>電子メールをデバッグします。
+### <a name="debug-email"></a>デバッグ用電子メール
 
-電子メールの作業が発生したことはできません: 場合
+電子メールが機能しない場合:
 
-* ブレークポイントを設定`EmailSender.Execute`を確認する`SendGridClient.SendEmailAsync`が呼び出されます。
-* 作成、[電子メールを送信するためのコンソール アプリ](https://sendgrid.com/docs/Integrate/Code_Examples/v2_Mail/csharp.html)に同様のコードを使用して`EmailSender.Execute`します。
-* レビュー、[電子メール アクティビティ](https://sendgrid.com/docs/User_Guide/email_activity.html)ページ。
-* 迷惑メール フォルダーを確認します。
-* 別のメール プロバイダー (Microsoft、Yahoo、Gmail など) に別の電子メール エイリアスをお試しください。
-* 別のメール アカウントへの送信を再試行してください。
+* にブレークポイント`EmailSender.Execute`を設定し`SendGridClient.SendEmailAsync`て、が呼び出されることを確認します。
+* 同様のコード`EmailSender.Execute`を使用して[電子メールを送信するコンソールアプリ](https://sendgrid.com/docs/Integrate/Code_Examples/v2_Mail/csharp.html)を作成します。
+* [[電子メール活動](https://sendgrid.com/docs/User_Guide/email_activity.html)] ページを確認します。
+* 迷惑メールフォルダーを確認します。
+* 別の電子メールプロバイダー (Microsoft、Yahoo、Gmail など) で別の電子メールエイリアスを試してください。
+* 別の電子メールアカウントに送信してみてください。
 
-**セキュリティのベスト プラクティス**は**いない**テストと開発における運用シークレットを使用します。 アプリを Azure に発行する場合は、Web アプリを Azure portal でアプリケーション設定と SendGrid シークレットを設定します。 構成システムは、環境変数からキーの読み取りを設定します。
+**セキュリティのベストプラクティス**として、テストと開発では運用シークレットを使用し**ないこと**をお勧めします。 アプリを Azure に発行する場合は、Azure Web アプリポータルで SendGrid シークレットをアプリケーション設定として設定します。 構成システムは、環境変数からキーの読み取りを設定します。
 
-## <a name="combine-social-and-local-login-accounts"></a>ソーシャル、ローカルのログイン アカウントを組み合わせる
+## <a name="combine-social-and-local-login-accounts"></a>ソーシャルおよびローカルログインアカウントの結合
 
-このセクションを完了するには、まず、外部認証プロバイダーを有効にする必要があります。 参照してください[Facebook、Google、および外部プロバイダー認証](xref:security/authentication/social/index)します。
+このセクションを完了するには、まず外部認証プロバイダーを有効にする必要があります。 「 [Facebook、Google、および外部プロバイダーの認証](xref:security/authentication/social/index)」を参照してください。
 
-電子メールのリンクをクリックして、ローカルおよびソーシャル アカウントを組み合わせることができます。 次の順序で"RickAndMSFT@gmail.com"が最初に、ローカルのログインとして作成ただし、最初に、ソーシャル ログインとしてアカウントを作成し、ローカル ログインを追加します。
+電子メールリンクをクリックして、ローカルアカウントとソーシャルアカウントを組み合わせることができます。 次のシーケンスでは、RickAndMSFT@gmail.com"" は最初にローカルログインとして作成されますが、最初にアカウントをソーシャルログインとして作成してから、ローカルログインを追加することができます。
 
-![Web アプリケーション:RickAndMSFT@gmail.com認証されたユーザー](accconfirm/_static/rick.png)
+![Web アプリケーション: RickAndMSFT@gmail.comユーザー認証済み](accconfirm/_static/rick.png)
 
-をクリックして、**管理**リンク。 このアカウントに関連付けられた 0 外部 (ソーシャル ログイン) に注意してください。
+**[管理]** リンクをクリックします。 このアカウントに関連付けられている0外部 (ソーシャルログイン) に注意してください。
 
-![ビューを管理します。](accconfirm/_static/manage.png)
+![ビューの管理](accconfirm/_static/manage.png)
 
-別のログイン サービスへのリンクをクリックし、アプリの要求をそのまま使用します。 次の図では、Facebook は、外部認証プロバイダーは。
+別のログインサービスへのリンクをクリックし、アプリの要求を受け入れます。 次の図では、Facebook が外部認証プロバイダーです。
 
-![Facebook を一覧表示する、外部ログイン ビューを管理します。](accconfirm/_static/fb.png)
+![外部ログインビューを管理する Facebook の一覧表示](accconfirm/_static/fb.png)
 
-2 つのアカウントが統合されました。 いずれかのアカウントでサインインすることは。 ユーザーがソーシャル ログインの認証サービスがダウンしているか、自分のソーシャル アカウントにアクセスを紛失した可能性が高い場合に、ローカル アカウントを追加することができます。
+2つのアカウントが結合されています。 いずれかのアカウントでサインインできます。 ソーシャルログイン認証サービスがダウンした場合、またはソーシャルアカウントへのアクセスが失われた可能性がある場合は、ユーザーにローカルアカウントを追加することができます。
 
-## <a name="enable-account-confirmation-after-a-site-has-users"></a>サイトがユーザー アカウントの確認を有効にします。
+## <a name="enable-account-confirmation-after-a-site-has-users"></a>サイトにユーザーがいる場合のアカウントの確認を有効にする
 
-ユーザーとサイトのアカウント確認を有効にする既存のすべてのユーザーをロックアウトします。 自分のアカウントが確認されないために、既存のユーザーはロックアウトされます。 既存のユーザーのロックアウトを回避するには、次の方法のいずれかを使用します。
+ユーザーがサイトでアカウントの確認を有効にすると、すべての既存のユーザーがロックアウトされます。 アカウントが確認されていないため、既存のユーザーがロックアウトされています。 既存のユーザーロックアウトを回避するには、次のいずれかの方法を使用します。
 
-* 確認されているすべての既存ユーザーをマークするデータベースを更新します。
-* 既存のユーザーを確認します。 確認リンクを含むメールなどのバッチの送信をします。
+* データベースを更新して、すべての既存のユーザーを確認済みとしてマークします。
+* 既存のユーザーを確認します。 たとえば、確認リンクを含む電子メールをバッチ送信します。
 
 ::: moniker-end
 
@@ -219,13 +219,13 @@ Web アプリを実行し、アカウントの確認とパスワードの回復�
 
 ## <a name="prerequisites"></a>必須コンポーネント
 
-[.NET core 2.2 SDK またはそれ以降](https://www.microsoft.com/net/download/all)
+[.NET Core 2.2 SDK 以降](https://www.microsoft.com/net/download/all)
 
-## <a name="create-a-web--app-and-scaffold-identity"></a>Web アプリを作成し、Identity のスキャフォールディング
+## <a name="create-a-web--app-and-scaffold-identity"></a>Web アプリとスキャフォールディング Id を作成する
 
-認証を使用した web アプリを作成するには、次のコマンドを実行します。
+認証を使用して web アプリを作成するには、次のコマンドを実行します。
 
-```console
+```dotnetcli
 dotnet new webapp -au Individual -uld -o WebPWrecover
 cd WebPWrecover
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
@@ -237,50 +237,50 @@ dotnet run
 
 ```
 
-## <a name="test-new-user-registration"></a>新規ユーザー登録をテストします。
+## <a name="test-new-user-registration"></a>新しいユーザー登録をテストする
 
-アプリを実行し、選択、**登録**リンク、およびユーザーを登録します。 この時点では、電子メールの検証のみ、 [[EmailAddress]](/dotnet/api/system.componentmodel.dataannotations.emailaddressattribute)属性。 登録を送信した後は、アプリにログインします。 チュートリアルの後半では、自分の電子メールが検証されるまでに新しいユーザーがサインインできないように、コードが更新されます。
+アプリを実行し、 **[登録]** リンクを選択して、ユーザーを登録します。 この時点で、電子メールの検証は、 [[EmailAddress]](/dotnet/api/system.componentmodel.dataannotations.emailaddressattribute)属性でのみ行うことができます。 登録を送信すると、アプリにログインします。 このチュートリアルの後半では、電子メールが検証されるまで新しいユーザーがサインインできないように、コードが更新されています。
 
 [!INCLUDE[](~/includes/view-identity-db.md)]
 
-テーブルに注意してください`EmailConfirmed`フィールドは`False`します。
+テーブルの`EmailConfirmed`フィールドがである`False`ことに注意してください。
 
-アプリが送信された確認メールを送信するとき、次の手順でこの電子メールをもう一度使用する場合があります。 クリックし、行を右クリックして**削除**します。 電子メール エイリアスを削除する簡単で、次の手順。
+アプリが確認の電子メールを送信するときに、次の手順でもう一度このメールを使用することもできます。 行を右クリックし、 **[削除]** をクリックします。 電子メールエイリアスを削除すると、次の手順が簡単になります。
 
 <a name="prevent-login-at-registration"></a>
 
-## <a name="require-email-confirmation"></a>確認の電子メールが必要です。
+## <a name="require-email-confirmation"></a>電子メールの確認が必要
 
-新規ユーザー登録の電子メール アドレスを確認することをお勧めします。 電子メールの他のユーザーが偽装はいないしていることを確認することを確認できます (つまりに登録していない他のユーザーの電子メールで)。 ディスカッション フォーラムでは、行われていればし、しないようにする"yli@example.comとして登録する"から"nolivetto@contoso.com"。 電子メールの確認なし"nolivetto@contoso.com"アプリから不要な電子メールを受け取ることができます。 ユーザーが誤ってとして登録されているとします"ylo@example.com""yli"のスペル ミスを認識していなかったとします。 アプリは、正しいメール アドレスがあるないために、パスワードの回復を使用できるでしょう。 確認の電子メールは、ボットからの限られた保護を提供します。 確認の電子メールは、多くの電子メール アカウントを使用して悪意のあるユーザーから保護を提供しません。
+新しいユーザー登録の電子メールを確認することをお勧めします。 電子メールの確認では、他のユーザーの権限を借用していないこと (つまり、他のユーザーの電子メールに登録されていないこと) を確認できます。 ディスカッションフォーラムを使用していて、"yli@example.com" を ""nolivetto@contoso.comとして登録できないようにしたいとします。 電子メールを確認しnolivetto@contoso.comない場合、"" はアプリから不要な電子メールを受信する可能性があります。 ユーザーが誤って "ylo@example.com" として登録され、"yli" のスペルミスに気付かないとします。 アプリには正しい電子メールがないため、パスワードの回復を使用できません。 電子メールの確認では、ボットからの保護が制限されています。 電子メールの確認では、多くの電子メールアカウントを持つ悪意のあるユーザーからの保護は提供されません。
 
-新しいユーザーが確認された電子メールを受ける前に、web サイトにデータを送信するを防ぐために一般的にします。
+通常は、確認済みの電子メールを送信する前に、新しいユーザーが web サイトにデータを投稿できないようにします。
 
-Update`Startup.ConfigureServices`確認された電子メールを要求します。
+確認`Startup.ConfigureServices`済みの電子メールを要求するように更新します。
 
 [!code-csharp[](accconfirm/sample/WebPWrecover22/Startup.cs?name=snippet1&highlight=8-11)]
 
-`config.SignIn.RequireConfirmedEmail = true;` 登録済みのユーザーで自分の電子メールを確認するまでのログ記録はできません。
+`config.SignIn.RequireConfirmedEmail = true;`登録されたユーザーが電子メールを確認するまでログインできないようにします。
 
-### <a name="configure-email-provider"></a>電子メール プロバイダーを構成します。
+### <a name="configure-email-provider"></a>電子メールプロバイダーの構成
 
-このチュートリアルで[SendGrid](https://sendgrid.com)電子メールを送信するために使用します。 SendGrid アカウントとキーが電子メールを送信する必要があります。 その他の電子メール プロバイダーを使用することができます。 ASP.NET Core の 2.x を含む`System.Net.Mail`、アプリから電子メールを送信できます。 SendGrid または別の電子メール サービスを使用して電子メールを送信することをお勧めします。 SMTP では、セキュリティで保護し、設定を正しく困難です。
+このチュートリアルでは、 [Sendgrid](https://sendgrid.com)を使用して電子メールを送信します。 電子メールを送信するには、SendGrid アカウントとキーが必要です。 他の電子メールプロバイダーを使用することもできます。 ASP.NET Core 2.x には、 `System.Net.Mail`アプリから電子メールを送信できるようにするが含まれています。 SendGrid または別の電子メールサービスを使用して電子メールを送信することをお勧めします。 SMTP のセキュリティを保護し、正しく設定することは困難です。
 
-電子メールをセキュリティで保護されたキーを取得するためのクラスを作成します。 このサンプルでは、次のように作成します*Services/AuthMessageSenderOptions.cs*:。
+セキュリティで保護された電子メールキーを取得するクラスを作成します。 このサンプルでは、*サービス/認証の Enderoptions を作成します。*
 
 [!code-csharp[](accconfirm/sample/WebPWrecover22/Services/AuthMessageSenderOptions.cs?name=snippet1)]
 
-#### <a name="configure-sendgrid-user-secrets"></a>SendGrid のユーザーの機密情報を構成します。
+#### <a name="configure-sendgrid-user-secrets"></a>SendGrid ユーザーシークレットの構成
 
-設定、`SendGridUser`と`SendGridKey`で、 [secret manager ツール](xref:security/app-secrets)します。 例:
+`SendGridUser` と`SendGridKey`を、[シークレットマネージャーツール](xref:security/app-secrets)を使用して設定します。 例:
 
 ```console
 C:/WebAppl>dotnet user-secrets set SendGridUser RickAndMSFT
 info: Successfully saved SendGridUser = RickAndMSFT to the secret store.
 ```
 
-Secret Manager、Windows 上のキー/値のペアが格納、 *secrets.json*ファイル、`%APPDATA%/Microsoft/UserSecrets/<WebAppName-userSecretsId>`ディレクトリ。
+Windows では、シークレットマネージャーはキーと値のペアを*シークレットの json*ファイル`%APPDATA%/Microsoft/UserSecrets/<WebAppName-userSecretsId>`に格納します。
 
-内容、 *secrets.json*ファイルは暗号化されません。 次のマークアップに示す、 *secrets.json*ファイル。 `SendGridKey`値が削除されました。
+*シークレットの json*ファイルの内容は暗号化されていません。 次のマークアップは、*シークレットの json*ファイルを示しています。 `SendGridKey`値は削除されています。
 
 ```json
 {
@@ -289,19 +289,19 @@ Secret Manager、Windows 上のキー/値のペアが格納、 *secrets.json*フ
 }
 ```
 
-詳細については、次を参照してください。、[オプション パターン](xref:fundamentals/configuration/options)と[構成](xref:fundamentals/configuration/index)します。
+詳細については、「パターンと[構成](xref:fundamentals/configuration/index)の[オプション](xref:fundamentals/configuration/options)」を参照してください。
 
-### <a name="install-sendgrid"></a>SendGrid をインストールします。
+### <a name="install-sendgrid"></a>SendGrid のインストール
 
-このチュートリアルは、使用して電子メール通知を追加する方法を示します[SendGrid](https://sendgrid.com/)が SMTP およびその他のメカニズムを使用して電子メールを送信できます。
+このチュートリアルでは、 [Sendgrid](https://sendgrid.com/)を使用して電子メール通知を追加する方法について説明しますが、SMTP などのメカニズムを使用して電子メールを送信することもできます。
 
-インストール、 `SendGrid` NuGet パッケージ。
+NuGet パッケージ`SendGrid`をインストールします。
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-パッケージ マネージャー コンソールで、次のコマンドを入力します。
+パッケージマネージャーコンソールで、次のコマンドを入力します。
 
-``` PMC
+```powershell
 Install-Package SendGrid
 ```
 
@@ -309,134 +309,134 @@ Install-Package SendGrid
 
 コンソールで、次のコマンドを入力します。
 
-```cli
+```dotnetcli
 dotnet add package SendGrid
 ```
 
 ---
 
-参照してください[SendGrid を無料で開始する](https://sendgrid.com/free/)無料の SendGrid アカウントを登録します。
+無料の sendgrid アカウントを登録するには、「 [SendGrid を無料で開始](https://sendgrid.com/free/)する」を参照してください。
 
-### <a name="implement-iemailsender"></a>IEmailSender を実装します。
+### <a name="implement-iemailsender"></a>IEmailSender を実装する
 
-実装`IEmailSender`、作成*Services/EmailSender.cs*次のようなコードで。
+を実装`IEmailSender`するには、次のようなコードを使用して*サービス/emailsender*を作成します。
 
 [!code-csharp[](accconfirm/sample/WebPWrecover22/Services/EmailSender.cs)]
 
-### <a name="configure-startup-to-support-email"></a>電子メールをサポートするために起動時を構成します。
+### <a name="configure-startup-to-support-email"></a>電子メールをサポートするスタートアップの構成
 
-次のコードを追加、`ConfigureServices`メソッドで、 *Startup.cs*ファイル。
+`ConfigureServices` *Startup.cs*ファイルのメソッドに次のコードを追加します。
 
-* 追加`EmailSender`一時的なサービスとして。
-* 登録、`AuthMessageSenderOptions`構成インスタンス。
+* を`EmailSender`一時サービスとして追加します。
+* 構成インスタンス`AuthMessageSenderOptions`を登録します。
 
 [!code-csharp[](accconfirm/sample/WebPWrecover22/Startup.cs?name=snippet1&highlight=15-99)]
 
-## <a name="enable-account-confirmation-and-password-recovery"></a>アカウントの確認とパスワードの回復を有効にします。
+## <a name="enable-account-confirmation-and-password-recovery"></a>アカウントの確認とパスワードの回復を有効にする
 
-テンプレートには、アカウントの確認とパスワードの回復用コードがあります。 検索、`OnPostAsync`メソッド*Areas/Identity/Pages/Account/Register.cshtml.cs*します。
+このテンプレートには、アカウントの確認とパスワードの回復のためのコードが含まれています。 Areas/ `OnPostAsync` *Identity/Pages/Account/Register. cshtml. .cs*でメソッドを見つけます。
 
-新しく登録されたユーザーが、次の行をコメント アウトして自動的にサインインするようにします。
+新しく登録されたユーザーが自動的にサインインしないようにするには、次の行をコメントアウトします。
 
 ```csharp
 await _signInManager.SignInAsync(user, isPersistent: false);
 ```
 
-メソッド全体を強調表示されている変更された行が表示されます。
+完全なメソッドは、変更された行が強調表示された状態で表示されます。
 
 [!code-csharp[](accconfirm/sample/WebPWrecover22/Areas/Identity/Pages/Account/Register.cshtml.cs?highlight=22&name=snippet_Register)]
 
-## <a name="register-confirm-email-and-reset-password"></a>登録、確認の電子メール、およびパスワードのリセット
+## <a name="register-confirm-email-and-reset-password"></a>登録、電子メールの確認、およびパスワードのリセット
 
 Web アプリを実行し、アカウントの確認とパスワードの回復フローをテストします。
 
 * アプリを実行し、新しいユーザーの登録
-* アカウント確認用のリンクは、電子メールを確認します。 参照してください[デバッグ電子メール](#debug)電子メールが届かない場合。
-* 電子メールを確認するリンクをクリックします。
-* 電子メール アドレスとパスワードでサインインします。
+* アカウントの確認リンクについては、電子メールを確認してください。 電子メールを受信しない場合は、「[デバッグ電子メール](#debug)」を参照してください。
+* リンクをクリックして、電子メールを確認します。
+* 電子メールとパスワードを使用してサインインします。
 * サインアウトします。
 
-### <a name="view-the-manage-page"></a>ビューの管理 ページ
+### <a name="view-the-manage-page"></a>[管理] ページを表示する
 
-ブラウザーで、ユーザー名を選択:![ユーザー名を備えたブラウザー ウィンドウ](accconfirm/_static/un.png)
+ブラウザーでユーザー名を選択します![: ユーザー名が表示されたブラウザーウィンドウ](accconfirm/_static/un.png)
 
-管理ページが表示されますが、**プロファイル**タブを選択します。 **電子メール**電子メールを示すチェック ボックスが確認されているかを示します。
+管理 ページが、**プロファイル** タブが選択された状態で表示されます。 電子メールには、電子メールが確認されたことを示すチェックボックス**が表示さ**れます。
 
-### <a name="test-password-reset"></a>テストのパスワードのリセット
+### <a name="test-password-reset"></a>パスワードリセットのテスト
 
-* サインインしている場合は、選択**ログアウト**します。
-* 選択、**ログイン**リンクし、選択、**パスワードを忘れた場合でしょうか。** リンク。
-* アカウントを登録するために使用する電子メール アドレスを入力します。
-* パスワードをリセットするリンクを含む電子メールが送信されます。 電子メールを確認し、パスワードをリセットするリンクをクリックします。 パスワードが正常にリセットされると後、はの電子メール アドレスと新しいパスワードでサインインすることができます。
+* サインインしている場合は、 **[ログアウト]** を選択します。
+* **[ログイン]** リンクを選択し、 **[パスワードを忘れ]** た場合 リンクを選択します。
+* アカウントの登録に使用した電子メールを入力します。
+* パスワードをリセットするためのリンクを含む電子メールが送信されます。 メールを確認し、リンクをクリックしてパスワードをリセットします。 パスワードが正常にリセットされたら、電子メールと新しいパスワードでサインインできます。
 
-## <a name="change-email-and-activity-timeout"></a>電子メールとアクティビティのタイムアウトを変更します。
+## <a name="change-email-and-activity-timeout"></a>電子メールとアクティビティのタイムアウトを変更する
 
-既定のアイドル タイムアウトは、14 日間です。 次のコードでは、アイドル タイムアウトを 5 日に設定します。
+既定の非アクティブタイムアウトは14日です。 次のコードは、非アクティブタイムアウトを5日間に設定します。
 
 [!code-csharp[](accconfirm/sample/WebPWrecover22/StartupAppCookie.cs?name=snippet1)]
 
-### <a name="change-all-data-protection-token-lifespans"></a>すべてのデータの保護トークン lifespans を変更します。
+### <a name="change-all-data-protection-token-lifespans"></a>すべてのデータ保護トークンの lifespans を変更する
 
-次のコードは、すべてのデータの保護トークンのタイムアウト期間を 3 時間に変更します。
+次のコードでは、すべてのデータ保護トークンのタイムアウト期間を3時間に変更します。
 
 [!code-csharp[](accconfirm/sample/WebPWrecover22/StartupAllTokens.cs?name=snippet1&highlight=15-16)]
 
-組み込みの Id のユーザー トークン (を参照してください[AspNetCore/src/Identity/Extensions.Core/src/TokenOptions.cs](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs) ) が、 [1 日のタイムアウト](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs)。
+組み込みの Id ユーザートークン (「 [AspNetCore/src/Identity/Extensions. Core/src/TokenOptions .cs](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs) 」を参照) には、 [1 日のタイムアウト](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs)があります。
 
-### <a name="change-the-email-token-lifespan"></a>電子メールのトークン有効期間を変更します。
+### <a name="change-the-email-token-lifespan"></a>電子メールトークンの有効期間を変更する
 
-既定のトークン有効期間[Id のユーザー トークン](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs)は[1 日](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs)します。 このセクションでは、電子メールのトークン有効期間を変更する方法を示します。
+[Id ユーザートークン](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs)の既定のトークン有効期間は[1 日](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs)です。 このセクションでは、電子メールトークンの有効期間を変更する方法について説明します。
 
-追加のカスタム[DataProtectorTokenProvider\<TUser >](/dotnet/api/microsoft.aspnetcore.identity.dataprotectortokenprovider-1)と<xref:Microsoft.AspNetCore.Identity.DataProtectionTokenProviderOptions>:
+カスタム[DataProtectorTokenProvider\<tuser >](/dotnet/api/microsoft.aspnetcore.identity.dataprotectortokenprovider-1)およびを追加<xref:Microsoft.AspNetCore.Identity.DataProtectionTokenProviderOptions>します。
 
 [!code-csharp[](accconfirm/sample/WebPWrecover22/TokenProviders/CustomTokenProvider.cs?name=snippet1)]
 
-サービス コンテナーには、カスタム プロバイダーを追加します。
+カスタムプロバイダーをサービスコンテナーに追加します。
 
 [!code-csharp[](accconfirm/sample/WebPWrecover22/StartupEmail.cs?name=snippet1&highlight=10-13,18)]
 
-### <a name="resend-email-confirmation"></a>確認の電子メールを再送信します。
+### <a name="resend-email-confirmation"></a>電子メールの再送信の確認
 
-参照してください[この GitHub の問題](https://github.com/aspnet/AspNetCore/issues/5410)します。
+[こちらの GitHub のイシュー](https://github.com/aspnet/AspNetCore/issues/5410)を参照してください。
 
 <a name="debug"></a>
 
-### <a name="debug-email"></a>電子メールをデバッグします。
+### <a name="debug-email"></a>デバッグ用電子メール
 
-電子メールの作業が発生したことはできません: 場合
+電子メールが機能しない場合:
 
-* ブレークポイントを設定`EmailSender.Execute`を確認する`SendGridClient.SendEmailAsync`が呼び出されます。
-* 作成、[電子メールを送信するためのコンソール アプリ](https://sendgrid.com/docs/Integrate/Code_Examples/v2_Mail/csharp.html)に同様のコードを使用して`EmailSender.Execute`します。
-* レビュー、[電子メール アクティビティ](https://sendgrid.com/docs/User_Guide/email_activity.html)ページ。
-* 迷惑メール フォルダーを確認します。
-* 別のメール プロバイダー (Microsoft、Yahoo、Gmail など) に別の電子メール エイリアスをお試しください。
-* 別のメール アカウントへの送信を再試行してください。
+* にブレークポイント`EmailSender.Execute`を設定し`SendGridClient.SendEmailAsync`て、が呼び出されることを確認します。
+* 同様のコード`EmailSender.Execute`を使用して[電子メールを送信するコンソールアプリ](https://sendgrid.com/docs/Integrate/Code_Examples/v2_Mail/csharp.html)を作成します。
+* [[電子メール活動](https://sendgrid.com/docs/User_Guide/email_activity.html)] ページを確認します。
+* 迷惑メールフォルダーを確認します。
+* 別の電子メールプロバイダー (Microsoft、Yahoo、Gmail など) で別の電子メールエイリアスを試してください。
+* 別の電子メールアカウントに送信してみてください。
 
-**セキュリティのベスト プラクティス**は**いない**テストと開発における運用シークレットを使用します。 アプリを Azure に発行する場合は、Web アプリを Azure portal でアプリケーション設定と SendGrid シークレットを設定できます。 構成システムは、環境変数からキーの読み取りを設定します。
+**セキュリティのベストプラクティス**として、テストと開発では運用シークレットを使用し**ないこと**をお勧めします。 アプリを Azure に発行する場合は、Azure Web アプリポータルで SendGrid シークレットをアプリケーション設定として設定できます。 構成システムは、環境変数からキーの読み取りを設定します。
 
-## <a name="combine-social-and-local-login-accounts"></a>ソーシャル、ローカルのログイン アカウントを組み合わせる
+## <a name="combine-social-and-local-login-accounts"></a>ソーシャルおよびローカルログインアカウントの結合
 
-このセクションを完了するには、まず、外部認証プロバイダーを有効にする必要があります。 参照してください[Facebook、Google、および外部プロバイダー認証](xref:security/authentication/social/index)します。
+このセクションを完了するには、まず外部認証プロバイダーを有効にする必要があります。 「 [Facebook、Google、および外部プロバイダーの認証](xref:security/authentication/social/index)」を参照してください。
 
-電子メールのリンクをクリックして、ローカルおよびソーシャル アカウントを組み合わせることができます。 次の順序で"RickAndMSFT@gmail.com"が最初に、ローカルのログインとして作成ただし、最初に、ソーシャル ログインとしてアカウントを作成し、ローカル ログインを追加します。
+電子メールリンクをクリックして、ローカルアカウントとソーシャルアカウントを組み合わせることができます。 次のシーケンスでは、RickAndMSFT@gmail.com"" は最初にローカルログインとして作成されますが、最初にアカウントをソーシャルログインとして作成してから、ローカルログインを追加することができます。
 
-![Web アプリケーション:RickAndMSFT@gmail.com認証されたユーザー](accconfirm/_static/rick.png)
+![Web アプリケーション: RickAndMSFT@gmail.comユーザー認証済み](accconfirm/_static/rick.png)
 
-をクリックして、**管理**リンク。 このアカウントに関連付けられた 0 外部 (ソーシャル ログイン) に注意してください。
+**[管理]** リンクをクリックします。 このアカウントに関連付けられている0外部 (ソーシャルログイン) に注意してください。
 
-![ビューを管理します。](accconfirm/_static/manage.png)
+![ビューの管理](accconfirm/_static/manage.png)
 
-別のログイン サービスへのリンクをクリックし、アプリの要求をそのまま使用します。 次の図では、Facebook は、外部認証プロバイダーは。
+別のログインサービスへのリンクをクリックし、アプリの要求を受け入れます。 次の図では、Facebook が外部認証プロバイダーです。
 
-![Facebook を一覧表示する、外部ログイン ビューを管理します。](accconfirm/_static/fb.png)
+![外部ログインビューを管理する Facebook の一覧表示](accconfirm/_static/fb.png)
 
-2 つのアカウントが統合されました。 いずれかのアカウントでサインインすることは。 ユーザーがソーシャル ログインの認証サービスがダウンしているか、自分のソーシャル アカウントにアクセスを紛失した可能性が高い場合に、ローカル アカウントを追加することができます。
+2つのアカウントが結合されています。 いずれかのアカウントでサインインできます。 ソーシャルログイン認証サービスがダウンした場合、またはソーシャルアカウントへのアクセスが失われた可能性がある場合は、ユーザーにローカルアカウントを追加することができます。
 
-## <a name="enable-account-confirmation-after-a-site-has-users"></a>サイトがユーザー アカウントの確認を有効にします。
+## <a name="enable-account-confirmation-after-a-site-has-users"></a>サイトにユーザーがいる場合のアカウントの確認を有効にする
 
-ユーザーとサイトのアカウント確認を有効にする既存のすべてのユーザーをロックアウトします。 自分のアカウントが確認されないために、既存のユーザーはロックアウトされます。 既存のユーザーのロックアウトを回避するには、次の方法のいずれかを使用します。
+ユーザーがサイトでアカウントの確認を有効にすると、すべての既存のユーザーがロックアウトされます。 アカウントが確認されていないため、既存のユーザーがロックアウトされています。 既存のユーザーロックアウトを回避するには、次のいずれかの方法を使用します。
 
-* 確認されているすべての既存ユーザーをマークするデータベースを更新します。
-* 既存のユーザーを確認します。 確認リンクを含むメールなどのバッチの送信をします。
+* データベースを更新して、すべての既存のユーザーを確認済みとしてマークします。
+* 既存のユーザーを確認します。 たとえば、確認リンクを含む電子メールをバッチ送信します。
 
 ::: moniker-end

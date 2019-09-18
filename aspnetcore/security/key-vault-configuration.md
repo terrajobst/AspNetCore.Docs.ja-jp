@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/01/2019
 uid: security/key-vault-configuration
-ms.openlocfilehash: 0d0b6e20a1901d4a2630ce263b5fd0cd7bcca8fe
-ms.sourcegitcommit: 4fe3ae892f54dc540859bff78741a28c2daa9a38
+ms.openlocfilehash: fe6cdca1f7180f9da26fe2838e529becb26ccd45
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/04/2019
-ms.locfileid: "68776651"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081100"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>ASP.NET Core の構成プロバイダーの Azure Key Vault
 
@@ -61,13 +61,13 @@ Secret Manager ツールでは、 `<UserSecretsId>`アプリのプロジェク�
 
 シークレットマネージャーは、プロジェクトのコンテンツルートに開かれたコマンドシェルから使用され`{SECRET NAME}`ます。ここで`{SECRET VALUE}` 、は名前、は値です。
 
-```console
+```dotnetcli
 dotnet user-secrets set "{SECRET NAME}" "{SECRET VALUE}"
 ```
 
 プロジェクトのコンテンツルートからコマンドシェルで次のコマンドを実行して、サンプルアプリのシークレットを設定します。
 
-```console
+```dotnetcli
 dotnet user-secrets set "SecretName" "secret_value_1_dev"
 dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 ```
@@ -233,7 +233,7 @@ Azure CLI、PowerShell、または Azure portal を使用して**アプリを再
 
    [シークレットマネージャーツール](xref:security/app-secrets)を使用して、次のシークレットをローカルに保存します。
 
-   ```console
+   ```dotnetcli
    dotnet user-secrets set "5000-AppSecret" "5.0.0.0_secret_value_dev"
    dotnet user-secrets set "5100-AppSecret" "5.1.0.0_secret_value_dev"
    ```

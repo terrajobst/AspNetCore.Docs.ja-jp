@@ -5,12 +5,12 @@ description: ASP.NET Core アプリでは、Identity を使用します。 パ�
 ms.author: riande
 ms.date: 03/26/2019
 uid: security/authentication/identity
-ms.openlocfilehash: 325a61e6038e79b9a0db72c8360a5cbff2c8ddae
-ms.sourcegitcommit: dc5b293e08336dc236de66ed1834f7ef78359531
+ms.openlocfilehash: 979681cfc196aca9fb5097583d99a086e1c597ba
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71011205"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71082458"
 ---
 # <a name="introduction-to-identity-on-aspnet-core"></a>ASP.NET Core Identity の概要
 
@@ -53,7 +53,7 @@ Identity は、ユーザー名、パスワード、およびプロファイル �
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-```cli
+```dotnetcli
 dotnet new webapp --auth Individual -o WebApp1
 ```
 
@@ -77,7 +77,7 @@ dotnet new webapp --auth Individual -o WebApp1
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-```cli
+```dotnetcli
 dotnet ef database update
 ```
 
@@ -145,7 +145,7 @@ Register、Login、LogOut のファイルを追加します。
 
 **WebApp1**という名前のプロジェクトを作成した場合、次のコマンドを実行します。 それ以外の場合は、`ApplicationDbContext`に正しい名前空間を適用してください :
 
-```cli
+```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet aspnet-codegenerator identity -dc WebApp1.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.Logout"
 ```

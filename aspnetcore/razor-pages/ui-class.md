@@ -7,12 +7,12 @@ ms.author: riande
 ms.date: 08/22/2019
 ms.custom: mvc, seodec18
 uid: razor-pages/ui-class
-ms.openlocfilehash: 5b83cb44302a5900ec7b2ccc049790b4c1ca57e5
-ms.sourcegitcommit: 6189b0ced9c115248c6ede02efcd0b29d31f2115
+ms.openlocfilehash: 92c04c1ac4c70c6245accf272753bc914aaab860
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/23/2019
-ms.locfileid: "69985383"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081873"
 ---
 # <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a>ASP.NET Core の Razor クラスライブラリプロジェクトを使用して、再利用可能な UI を作成する
 
@@ -42,7 +42,7 @@ RCL には、次のプロジェクトファイルがあります。
 
 コマンド ラインから `dotnet new razorclasslib` を実行します。 例:
 
-```console
+```dotnetcli
 dotnet new razorclasslib -o RazorUIClassLib
 ```
 
@@ -77,13 +77,13 @@ Visual Studio で *.sln* ファイルを開きます。 アプリを実行しま
 
 *cli* ディレクトリのコマンド プロンプトから、RCL と Web アプリをビルドします。
 
-```console
+```dotnetcli
 dotnet build
 ```
 
 *WebApp1* ディレクトリに移動し、アプリを実行します。
 
-```console
+```dotnetcli
 dotnet run
 ```
 
@@ -110,7 +110,7 @@ RCL プロジェクトの作成:
 
 コマンド ラインから次を実行します。
 
-```console
+```dotnetcli
 dotnet new razorclasslib -o RazorUIClassLib
 dotnet new page -n _Message -np -o RazorUIClassLib/Areas/MyFeature/Pages/Shared
 dotnet new viewstart -o RazorUIClassLib/Areas/MyFeature/Pages
@@ -138,7 +138,7 @@ dotnet new viewstart -o RazorUIClassLib/Areas/MyFeature/Pages
 
 `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers` は部分ビュー (`<partial name="_Message" />`) を使用するために必要です。 `@addTagHelper` ディレクティブを含める代わりに、 *_ViewImports.cshtml* ファイルを追加できます。 例:
 
-```console
+```dotnetcli
 dotnet new viewimports -o RazorUIClassLib/Areas/MyFeature/Pages
 ```
 
@@ -146,7 +146,7 @@ dotnet new viewimports -o RazorUIClassLib/Areas/MyFeature/Pages
 
 * クラス ライブラリをビルドし、コンパイラ エラーがないことを確認します。
 
-```console
+```dotnetcli
 dotnet build RazorUIClassLib
 ```
 
@@ -176,7 +176,7 @@ Razor ページ Web アプリの作成:
 
 Razor Pages web アプリと、Razor Pages アプリと RCL を含むソリューションファイルを作成します。
 
-```console
+```dotnetcli
 dotnet new webapp -o WebApp1
 dotnet new sln
 dotnet sln add WebApp1
@@ -186,7 +186,7 @@ dotnet add WebApp1 reference RazorUIClassLib
 
 Web アプリをビルドし、実行します。
 
-```console
+```dotnetcli
 cd WebApp1
 dotnet run
 ```
@@ -273,7 +273,7 @@ TypeScript ファイルを RCL に含めるには、次のようにします。
 
 ### <a name="consume-content-from-a-referenced-rcl"></a>参照されている RCL からのコンテンツの使用
 
-RCL の*wwwroot*フォルダーに含まれるファイルは、プレフィックス`_content/{LIBRARY NAME}/`の下にあるアプリに公開されます。 たとえば、という名前のライブラリを使用すると、の静的コンテンツ`_content/Razor.Class.Lib/`へのパスが生成されます。
+RCL の*wwwroot*フォルダーに含まれるファイルは、プレフィックス`_content/{LIBRARY NAME}/`の下にあるアプリに公開されます。 たとえば、という名前のライブラリを使用*すると、* の静的コンテンツ`_content/Razor.Class.Lib/`へのパスが生成されます。
 
 使用中のアプリは`<script>` `<img>`、、 `<style>`、、およびその他の HTML タグを使用して、ライブラリによって提供される静的アセットを参照します。 使用中のアプリでは、次の方法`Startup.Configure`で[静的ファイルのサポート](xref:fundamentals/static-files)を有効にする必要があります。
 

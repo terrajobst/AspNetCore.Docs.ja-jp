@@ -7,12 +7,12 @@ ms.author: stevesa
 ms.custom: mvc
 ms.date: 03/07/2019
 uid: spa/angular
-ms.openlocfilehash: 6d0107ef52d63a0f6f5713c518ddc54ac4230d53
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 62654ca040be99de8063a63c7e4ac09cbb8564eb
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64893669"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080400"
 ---
 # <a name="use-the-angular-project-template-with-aspnet-core"></a>ASP.NET Core で Angular プロジェクト テンプレートを使用する
 
@@ -26,7 +26,7 @@ ASP.NET Core 2.1 がインストールされている場合は、Angular プロ�
 
 コマンド プロンプトで `dotnet new angular` コマンドを使用して、空のディレクトリの中に新しいプロジェクトを作成します。 たとえば、次のコマンドは、*my-new-app* ディレクトリにアプリを作成し、そのディレクトリに切り替えます。
 
-```console
+```dotnetcli
 dotnet new angular -o my-new-app
 cd my-new-app
 ```
@@ -53,7 +53,7 @@ Now listening on: http://localhost:<port>
 
 ブラウザーでこの URL に移動します。
 
-アプリは、Angular CLI サーバーのインスタンスをバックグラウンドで開始します。 次のようなメッセージがログに記録されます。*NG ライブ開発サーバーが localhost でリッスンしている:&lt;otherport&gt;でブラウザーを開いて http://localhost:&lt; otherport&gt;/* します。 このメッセージは無視してください。それは、結合された ASP.NET Core と Angular CLI アプリの URLでは**ありません**。
+アプリは、Angular CLI サーバーのインスタンスをバックグラウンドで開始します。 次のようなメッセージがログに記録されます。 *&lt;NG ライブ開発サーバーは localhost: otherport&gt;でリッスンしています。 http://localhost:&lt ブラウザーを開い&gt; て、otherport/ を開き*ます。 このメッセージは無視してください。それは、結合された ASP.NET Core と Angular CLI アプリの URLでは**ありません**。
 
 ---
 
@@ -79,7 +79,7 @@ cd ClientApp
 
 ## <a name="install-npm-packages"></a>npm パッケージをインストールする
 
-サードパーティ製の npm パッケージをインストールするには、*ClientApp* サブディレクトリでコマンド プロンプトを使用します。 例:
+サードパーティ製の npm パッケージをインストールするには、*ClientApp* サブディレクトリでコマンド プロンプトを使用します。 例えば:
 
 ```console
 cd ClientApp
@@ -90,7 +90,7 @@ npm install --save <package_name>
 
 開発中、アプリは、開発者に便利なように最適化されたモードで実行されます。 たとえば、JavaScript バンドルには、ソース マップが含まれます (デバッグ時に元の TypeScript コードを確認できるようにするためです)。 アプリは、ディスク上の TypeScript、HTML および CSS ファイルの変更を監視し、これらのファイルの変更が発生した場合は、再コンパイルと再読み込みを自動的に実行します。
 
-運用時は、パフォーマンスが最適化されたバージョンのアプリが提供されます。 これは、自動的に実行されるように構成されています。 発行すると、ビルド構成によって、クライアント側コードの縮小された Ahead Of Time (AoT) コンパイルが行われたビルドが生成されます。 開発ビルドとは異なり、運用環境のビルドが Node.js (サーバー側のレンダリング (SSR) を有効にしている) 場合を除き、サーバーにインストールする必要がありません。
+運用時は、パフォーマンスが最適化されたバージョンのアプリが提供されます。 これは、自動的に実行されるように構成されています。 発行すると、ビルド構成によって、クライアント側コードの縮小された Ahead Of Time (AoT) コンパイルが行われたビルドが生成されます。 開発ビルドとは異なり、運用ビルドでは、サーバーに node.js をインストールする必要はありません (サーバー側レンダリング (SSR) を有効にしている場合を除く)。
 
 標準的な [ASP.NET Core のホストと展開方法](xref:host-and-deploy/index)を使用できます。
 
@@ -98,7 +98,7 @@ npm install --save <package_name>
 
 ASP.NET Core アプリが開発モードで起動された場合、プロジェクトは、Angular CLI サーバーの独自のインスタンスをバックグラウンドで開始するように構成されます。 これが便利なのは、別のサーバーを手動で実行する必要がないためです。
 
-この既定の設定には欠点があります。 C# コードを変更し、ASP.NET Core アプリを再起動する必要がある場合、Angular CLI サーバーが毎回再起動します。 再起動には、約 10 秒必要です。 C# コードを何度も編集するが、Angular CLI が再起動するまで待ちたくない場合は、ASP.NET Core プロセスから独立した Angular CLI サーバーを外部で実行します。 次の手順に従います。
+この既定の設定には欠点があります。 C# コードを変更し、ASP.NET Core アプリを再起動する必要がある場合、Angular CLI サーバーが毎回再起動します。 再起動には、約 10 秒必要です。 C# コードを何度も編集するが、Angular CLI が再起動するまで待ちたくない場合は、ASP.NET Core プロセスから独立した Angular CLI サーバーを外部で実行します。 そのためには次を行います。
 
 1. コマンド プロンプトで、*ClientApp* サブディレクトリに切り替え、Angular CLI 開発サーバーを起動します。
 

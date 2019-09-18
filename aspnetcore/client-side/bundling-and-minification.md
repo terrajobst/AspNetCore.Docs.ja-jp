@@ -1,47 +1,47 @@
 ---
-title: バンドルし、縮小の ASP.NET Core で静的なアセット
+title: ASP.NET Core での静的資産のバンドルと縮小
 author: scottaddie
-description: バンドルと縮小の手法を適用することで、ASP.NET Core web アプリケーションで静的なリソースを最適化する方法について説明します。
+description: バンドルと縮小の手法を適用して ASP.NET Core web アプリケーションで静的リソースを最適化する方法について説明します。
 ms.author: scaddie
 ms.custom: mvc
 ms.date: 06/17/2019
 uid: client-side/bundling-and-minification
-ms.openlocfilehash: 6254a74fd0a11669706a2a89b156a3223e300d1c
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 7499381a24a2513a4fbd1205f245e624c86647c3
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67813506"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080559"
 ---
-# <a name="bundle-and-minify-static-assets-in-aspnet-core"></a>バンドルし、縮小の ASP.NET Core で静的なアセット
+# <a name="bundle-and-minify-static-assets-in-aspnet-core"></a>ASP.NET Core での静的資産のバンドルと縮小
 
-によって[Scott Addie](https://twitter.com/Scott_Addie)と[David 松](https://twitter.com/davidpine7)
+[Scott Addie](https://twitter.com/Scott_Addie)と[David 松](https://twitter.com/davidpine7)
 
-この記事では、バンドルや縮小、これらの機能を使用して ASP.NET Core web アプリの使用方法などを適用する利点について説明します。
+この記事では、ASP.NET Core web アプリでこれらの機能を使用する方法など、バンドルと縮小を適用する利点について説明します。
 
-## <a name="what-is-bundling-and-minification"></a>新機能のバンドルと縮小
+## <a name="what-is-bundling-and-minification"></a>バンドルと縮小とは
 
-バンドルと縮小は、web アプリに適用できる 2 つの個別のパフォーマンス最適化です。 を一緒に使用バンドルと縮小パフォーマンス向上のサーバー要求の数を減らすと、要求された静的なアセットのサイズを小さきます。
+バンドルと縮小は、web アプリで適用できる2つの異なるパフォーマンス最適化です。 サーバー要求の数を減らし、要求された静的な資産のサイズを小さくすることで、バンドルと縮小を一緒に使用してパフォーマンスを向上させます。
 
-バンドルと縮小は、最初のページ要求の読み込み時間を向上させる主にします。 Web ページを要求されたら、ブラウザーは、静的なアセット (JavaScript、CSS、およびイメージ) をキャッシュします。 その結果、バンドルと縮小しないパフォーマンスを向上させる、同じページで、または同じ資産を要求するのと同じサイト上のページを要求するときにします。 場合、有効期限が切れる資産にヘッダーが正しく設定されていないし、バンドルと縮小が使用されていない場合、ブラウザーの鮮度ヒューリスティック マーク資産古い数日後。 さらに、ブラウザーでは、各資産の検証要求が必要です。 この場合は、バンドルと縮小は、最初のページ要求した後でもパフォーマンスの向上を提供します。
+バンドルと縮小は、主に最初のページ要求の読み込み時間を短縮します。 Web ページが要求されると、ブラウザーは静的なアセット (JavaScript、CSS、およびイメージ) をキャッシュします。 そのため、同じサイトで同じ資産を要求している同じページまたはページを要求した場合、バンドルと縮小によってパフォーマンスが向上することはありません。 有効期限ヘッダーがアセットに対して正しく設定されていない場合、バンドルと縮小が使用されていない場合、ブラウザーの鮮度ヒューリスティックによって、数日後に古い資産が古くなっているとマークされます。 さらに、ブラウザーでは、各資産に対する検証要求が必要です。 この場合、バンドルと縮小によって、最初のページ要求の後でもパフォーマンスが向上します。
 
-### <a name="bundling"></a>バンドル
+### <a name="bundling"></a>まとめる
 
-1 つのファイルに複数のファイルを結合バンドルします。 バンドルは、web ページなどの web アセットを表示するために必要なサーバー要求の数を減らします。 CSS、JavaScript などの具体的には、任意の数の個別のバンドルを作成できます。少ないファイルでは、サーバーにブラウザーまたはアプリケーションを提供するサービスから HTTP の要求が減少を意味します。 この結果には、最初のページ読み込みのパフォーマンスが向上しました。
+バンドルは、複数のファイルを1つのファイルに結合します。 バンドルを行うと、web ページなどの web アセットをレンダリングするために必要なサーバー要求の数が減ります。 CSS や JavaScript などに対して、任意の数の個別バンドルを作成できます。ファイルが減るほど、ブラウザーからサーバーまたはアプリケーションを提供するサービスへの HTTP 要求が減少します。 その結果、最初のページ読み込みのパフォーマンスが向上します。
 
 ### <a name="minification"></a>縮小
 
-縮小では、機能を変更することがなく、コードから不要な文字を削除します。 要求されたアセット (CSS、画像、JavaScript ファイルなど) に大きなサイズの削減になります。 縮小の一般的な副作用は、1 つの文字を変数名を短く、コメントや不要な空白文字を削除するなどがあります。
+縮小機能を変更せずに、コードから不要な文字を削除します。 結果として、要求された資産 (CSS、画像、JavaScript ファイルなど) のサイズが大幅に削減されます。 縮小の一般的な副作用には、変数名を1文字に短縮し、コメントや不要な空白を削除することがあります。
 
-次の JavaScript 関数を検討してください。
+次の JavaScript 関数を考えてみます。
 
 [!code-javascript[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/wwwroot/js/site.js)]
 
-縮小では、次に関数を削減します。
+縮小により、関数が次のように短縮されます。
 
 [!code-javascript[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/wwwroot/js/site.min.js)]
 
-だけでなく、コメントと不要な空白文字を削除するには、次のパラメーターと変数名が名前を変更されました。
+コメントや不要な空白文字を削除するだけでなく、次のパラメーター名と変数名が次のように変更されました。
 
 元 | 名前の変更
 --- | :---:
@@ -51,63 +51,63 @@ ms.locfileid: "67813506"
 
 ## <a name="impact-of-bundling-and-minification"></a>バンドルと縮小の影響
 
-次の表では、個別に資産の読み込みとバンドルと縮小を使用して違いを示します。
+次の表は、アセットを個別に読み込んで、バンドルと縮小を使用する場合の違いをまとめたものです。
 
-アクション | B/m | B/分なし | [Change]
+アクション | B/M を使用 | B/M なし | [Change]
 --- | :---: | :---: | :---:
-ファイルの要求  | 7   | 18     | 157%
-サポート技術情報の転送 | 156 | 264.68 | 70%
+ファイル要求  | 7   | 18     | 157%
+転送された KB | 156 | 264.68 | 70%
 読み込み時間 (ミリ秒) | 885 | 2360   | 167%
 
-ブラウザーは HTTP 要求ヘッダーに関して非常に冗長です。 合計バイト数では、バンドルときに、メトリックが大幅に削減を見たを送信します。 ただし、この例をローカルで実行、読み込み時間が大幅に向上を示します。 アセットをバンドルと縮小を使用して、ネットワーク経由で転送されたときに、大きなパフォーマンスの向上が実現されます。
+ブラウザーは、HTTP 要求ヘッダーに関してかなり冗長です。 送信された合計バイト数のメトリックは、バンドルするときに大幅に削減されていました。 読み込み時間は大幅に改善されていますが、この例はローカルで実行されています。 ネットワーク経由で転送される資産でバンドルと縮小を使用すると、パフォーマンスが向上します。
 
-## <a name="choose-a-bundling-and-minification-strategy"></a>バンドルと縮小の戦略を選択します。
+## <a name="choose-a-bundling-and-minification-strategy"></a>バンドルと縮小の戦略を選択する
 
-MVC と Razor ページ プロジェクト テンプレートは、バンドルと縮小の JSON 構成ファイルで構成されるため、ボックスのソリューションを提供します。 サード パーティ製ツールなど、 [Grunt](xref:client-side/using-grunt)ランナーをタスクで、もう少し複雑さで同じタスクを実行します。 開発ワークフローにはバンドルと縮小を超える処理が必要な場合、サード パーティのツールは非常によく適合&mdash;lint 処理と画像の最適化など。 デザイン時のバンドルと縮小を使用すると、縮小されたファイルは、アプリのデプロイの前に作成されます。 バンドルと縮小を展開する前に、サーバー負荷の軽減の利点を提供します。 ただし、そのデザイン時のバンドルを認識することが重要と縮小はビルド複雑さも増すし、静的ファイルでのみ動作します。
+MVC と Razor Pages のプロジェクトテンプレートには、JSON 構成ファイルで構成されるバンドルと縮小のためのすぐに使用できるソリューションが用意されています。 [Grunt](xref:client-side/using-grunt)タスクランナーなどのサードパーティのツールでは、同じタスクを少し複雑にして実行します。 サードパーティ製のツールは、開発ワークフローが、ラインリングやイメージの最適化などの&mdash;バンドルと縮小を超える処理を必要とする場合に、非常に適しています。 デザイン時のバンドルと縮小を使用することにより、アプリの展開の前に縮小したファイルが作成されます。 配置前のバンドルと縮小によって、サーバーの負荷が軽減されます。 ただし、デザイン時のバンドルと縮小がビルドの複雑さを増し、静的ファイルでのみ機能することを認識することが重要です。
 
-## <a name="configure-bundling-and-minification"></a>バンドルと縮小を構成します。
+## <a name="configure-bundling-and-minification"></a>バンドルと縮小の構成
 
 ::: moniker range="<= aspnetcore-2.0"
 
-ASP.NET Core 2.0 以前では、MVC および Razor ページ プロジェクト テンプレートを提供する*bundleconfig.json*各バンドルするためのオプションを定義する構成ファイル。
+ASP.NET Core 2.0 以前では、MVC および Razor Pages のプロジェクトテンプレートには、各バンドルのオプションを定義する bundleconfig 構成ファイルが用意されて*い*ます。
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1"
 
-ASP.NET Core 2.1 以降では、追加、という名前の新しい JSON ファイル*bundleconfig.json*、Razor ページまたは MVC プロジェクトのルートにします。 開始点として、そのファイルに次の JSON を含めます。
+ASP.NET Core 2.1 以降では、MVC または Razor Pages プロジェクトルートに*bundleconfig*という名前の新しい json ファイルを追加します。 次の JSON を開始点としてそのファイルに含めます。
 
 ::: moniker-end
 
 [!code-json[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/bundleconfig.json)]
 
-*Bundleconfig.json*ファイルは、各バンドルするためのオプションを定義します。 カスタムの JavaScript の前の例では、1 つのバンドルの構成が定義されている (*wwwroot/js/site.js*) とスタイル シート (*wwwroot/css/site.css*) ファイル。
+Bundleconfig ファイルは、各バンドルのオプションを定義し*ます*。 前の例では、カスタム JavaScript (*wwwroot/js/* node.js) と stylesheet (*wwwroot/css/.css*) ファイルに対して1つのバンドル構成が定義されています。
 
 構成オプションは次のとおりです。
 
-* `outputFileName`:出力するバンドル ファイルの名前。 相対パスを含めることができます、 *bundleconfig.json*ファイル。 **必須**
-* `inputFiles`:一緒にバンドルするファイルの配列。 これらは、構成ファイルへの相対パスです。 **省略可能な**、* が空の出力ファイルに空の値の結果します。 [グロビング](https://www.tldp.org/LDP/abs/html/globbingref.html)パターンがサポートされています。
-* `minify` :出力の種類を縮小するオプション。 **省略可能な**、*既定 - `minify: { enabled: true }`*
+* `outputFileName`:出力するバンドルファイルの名前。 には、 *bundleconfig*ファイルからの相対パスを含めることができます。 **必須**
+* `inputFiles`:まとめてバンドルするファイルの配列。 これらは、構成ファイルへの相対パスです。 **省略可能**、* 空の値を指定すると、空の出力ファイルが生成されます。 [グロビング](https://www.tldp.org/LDP/abs/html/globbingref.html)パターンがサポートされています。
+* `minify`:出力の種類の縮小オプション。 **省略可能**、*既定`minify: { enabled: true }`値-*
   * 構成オプションは、出力ファイルの種類ごとに使用できます。
-    * [CSS の縮小化](https://github.com/madskristensen/BundlerMinifier/wiki/cssminifier)
-    * [JavaScript の縮小化](https://github.com/madskristensen/BundlerMinifier/wiki/JavaScript-Minifier-settings)
-    * [HTML の縮小化](https://github.com/madskristensen/BundlerMinifier/wiki)
-* `includeInProject`:プロジェクト ファイルに生成されたファイルを追加するかどうかを示すフラグします。 **省略可能な**、*既定値: false*
-* `sourceMap` :バンドルされているファイルのソース マップを生成するかどうかを示すフラグします。 **省略可能な**、*既定値: false*
-* `sourceMapRootPath`:生成されたソース マップ ファイルを保存するルート パス。
+    * [CSS ミニ識別子](https://github.com/madskristensen/BundlerMinifier/wiki/cssminifier)
+    * [JavaScript ミニ識別子](https://github.com/madskristensen/BundlerMinifier/wiki/JavaScript-Minifier-settings)
+    * [HTML ミニ識別子](https://github.com/madskristensen/BundlerMinifier/wiki)
+* `includeInProject`:生成されたファイルをプロジェクトファイルに追加するかどうかを示すフラグです。 **省略可能**、*既定値-false*
+* `sourceMap` :バンドルされたファイルのソースマップを生成するかどうかを示すフラグです。 **省略可能**、*既定値-false*
+* `sourceMapRootPath`:生成されたソースマップファイルを格納するためのルートパス。
 
 ## <a name="build-time-execution-of-bundling-and-minification"></a>バンドルと縮小のビルド時の実行
 
-[BuildBundlerMinifier](https://www.nuget.org/packages/BuildBundlerMinifier/) NuGet パッケージは、バンドルの実行とビルド時に縮小できるようにします。 パッケージを挿入します。 [MSBuild ターゲット](/visualstudio/msbuild/msbuild-targets)ビルドおよびクリーン時に実行します。 *Bundleconfig.json*定義済みの構成に基づいて、出力ファイルを生成するために、ビルド プロセスによってファイルを分析します。
+[BuildBundlerMinifier](https://www.nuget.org/packages/BuildBundlerMinifier/) NuGet パッケージを使用すると、ビルド時にバンドルと縮小を実行できます。 パッケージは、ビルド時とクリーンアップ時に実行される[MSBuild ターゲット](/visualstudio/msbuild/msbuild-targets)を挿入します。 *Bundleconfig*ファイルは、定義された構成に基づいて出力ファイルを生成するために、ビルドプロセスによって分析されます。
 
 > [!NOTE]
-> BuildBundlerMinifier は、github の Microsoft サポートを提供コミュニティが主導のプロジェクトに属していません。 問題を提出する必要があります[ここ](https://github.com/madskristensen/BundlerMinifier/issues)します。
+> BuildBundlerMinifier は、Microsoft がサポートしていない GitHub のコミュニティ主導のプロジェクトに属しています。 [ここで](https://github.com/madskristensen/BundlerMinifier/issues)問題を提出する必要があります。
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-追加、 *BuildBundlerMinifier*をプロジェクトにパッケージします。
+*BuildBundlerMinifier*パッケージをプロジェクトに追加します。
 
-プロジェクトをビルドします。 次の出力ウィンドウに表示されます。
+プロジェクトをビルドします。 [出力] ウィンドウに次のように表示されます。
 
 ```console
 1>------ Build started: Project: BuildBundlerMinifierApp, Configuration: Debug Any CPU ------
@@ -120,7 +120,7 @@ ASP.NET Core 2.1 以降では、追加、という名前の新しい JSON ファ
 ========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
 ```
 
-プロジェクトをクリーンアップします。 次の出力ウィンドウに表示されます。
+プロジェクトを消去します。 [出力] ウィンドウに次のように表示されます。
 
 ```console
 1>------ Clean started: Project: BuildBundlerMinifierApp, Configuration: Debug Any CPU ------
@@ -132,25 +132,25 @@ ASP.NET Core 2.1 以降では、追加、という名前の新しい JSON ファ
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-追加、 *BuildBundlerMinifier*パッケージをプロジェクト。
+*BuildBundlerMinifier*パッケージをプロジェクトに追加します。
 
-```console
+```dotnetcli
 dotnet add package BuildBundlerMinifier
 ```
 
-ASP.NET を使用して場合 Core 1.x を新しく追加されたパッケージを復元します。
+ASP.NET Core 1.x を使用している場合は、新しく追加したパッケージを復元します。
 
-```console
+```dotnetcli
 dotnet restore
 ```
 
 プロジェクトをビルドします。
 
-```console
+```dotnetcli
 dotnet build
 ```
 
-次が表示されます。
+次のように表示されます。
 
 ```console
 Microsoft (R) Build Engine version 15.4.8.50001 for .NET Core
@@ -162,9 +162,9 @@ Copyright (C) Microsoft Corporation. All rights reserved.
     BuildBundlerMinifierApp -> C:\BuildBundlerMinifierApp\bin\Debug\netcoreapp2.0\BuildBundlerMinifierApp.dll
 ```
 
-プロジェクトをクリーンアップします。
+プロジェクトを消去します。
 
-```console
+```dotnetcli
 dotnet clean
 ```
 
@@ -183,50 +183,50 @@ Copyright (C) Microsoft Corporation. All rights reserved.
 
 ## <a name="ad-hoc-execution-of-bundling-and-minification"></a>バンドルと縮小のアドホック実行
 
-プロジェクトをビルドせずにアドホック単位でバンドルや縮小タスクを実行することになります。 追加、 [BundlerMinifier.Core](https://www.nuget.org/packages/BundlerMinifier.Core/)をプロジェクトに NuGet パッケージ。
+プロジェクトをビルドしなくても、バンドルタスクと縮小タスクをアドホックベースで実行できます。 [BundlerMinifier](https://www.nuget.org/packages/BundlerMinifier.Core/) NuGet パッケージをプロジェクトに追加します。
 
 [!code-xml[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/BuildBundlerMinifierApp.csproj?range=10)]
 
 > [!NOTE]
-> BundlerMinifier.Core は、github の Microsoft サポートを提供コミュニティが主導のプロジェクトに属していません。 問題を提出する必要があります[ここ](https://github.com/madskristensen/BundlerMinifier/issues)します。
+> BundlerMinifier は、Microsoft がサポートしていない GitHub のコミュニティ主導のプロジェクトに属しています。 [ここで](https://github.com/madskristensen/BundlerMinifier/issues)問題を提出する必要があります。
 
-このパッケージに含める .NET Core CLI の拡張、 *dotnet バンドル*ツール。 パッケージ マネージャー コンソール (PMC) ウィンドウ、またはコマンド シェルで、次のコマンドを実行できます。
+このパッケージは、 *dotnet*ツールを含むように .NET Core CLI を拡張します。 次のコマンドは、パッケージマネージャーコンソール (PMC) ウィンドウまたはコマンドシェルで実行できます。
 
-```console
+```dotnetcli
 dotnet bundle
 ```
 
 > [!IMPORTANT]
-> NuGet パッケージ マネージャーとして、*.csproj ファイルに依存関係を追加します`<PackageReference />`ノード。 `dotnet bundle`コマンドが .NET Core CLI を使用して登録されている場合にのみ、`<DotNetCliToolReference />`ノードが使用されます。 適宜、*.csproj ファイルを変更します。
+> NuGet パッケージマネージャーは、* .csproj ファイルにノードとし`<PackageReference />`て依存関係を追加します。 コマンドは、 `<DotNetCliToolReference />`ノードが使用されている場合にのみ .NET Core CLI に登録されます。 `dotnet bundle` 必要に応じて * .csproj ファイルを変更します。
 
-## <a name="add-files-to-workflow"></a>ファイルをワークフローに追加します。
+## <a name="add-files-to-workflow"></a>ワークフローへのファイルの追加
 
-例を検討してください。 追加*custom.css* 、次のようなファイルが追加されます。
+次のように、追加の*カスタム .css*ファイルが追加される例を考えてみましょう。
 
 [!code-css[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/wwwroot/css/custom.css)]
 
-縮小する*custom.css*でバンドルと*site.css*に、 *site.min.css*ファイルを追加する相対パス*bundleconfig.json*:
+*カスタム .css*を縮小して、*サイト* *の .css ファイルに*バンドルするには、 *bundleconfig*への相対パスを追加します。
 
 [!code-json[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/bundleconfig2.json?highlight=6)]
 
 > [!NOTE]
-> または、次のグロビング パターンを使用できます。
+> または、次のグロビングパターンを使用することもできます。
 >
 > ```json
 > "inputFiles": ["wwwroot/**/*(*.css|!(*.min.css))"]
 > ```
 >
-> このグロビング パターンは、すべての CSS ファイルに一致し、縮小されたファイルのパターンを除外します。
+> このグロビングパターンは、すべての CSS ファイルに一致し、縮小されたファイルパターンは除外されます。
 
-アプリケーションをビルドします。 開いている*site.min.css*の内容に注意してくださいと*custom.css*がファイルの末尾に追加されます。
+アプリケーションをビルドします。 [ *.Css* ] を開き、[*カスタム .css* ] の内容がファイルの末尾に追加されていることを確認します。
 
 ## <a name="environment-based-bundling-and-minification"></a>環境ベースのバンドルと縮小
 
-ベスト プラクティスとして、アプリのバンドルと縮小されたファイルは、運用環境で使用する必要があります。 開発中は、元のファイルは、アプリのデバッグを容易のこと。
+ベストプラクティスとして、アプリのバンドルファイルと縮小版ファイルを運用環境で使用することをお勧めします。 開発時には、元のファイルによってアプリのデバッグが簡単になります。
 
-使用して、ページに含めるファイルを指定、[環境タグ ヘルパー](xref:mvc/views/tag-helpers/builtin-th/environment-tag-helper)ビューで。 環境タグ ヘルパーは、特定の実行時にのみその内容をレンダリング[環境](xref:fundamentals/environments)します。
+ビューで[環境タグヘルパー](xref:mvc/views/tag-helpers/builtin-th/environment-tag-helper)を使用して、ページに含めるファイルを指定します。 環境タグヘルパーは、特定の[環境](xref:fundamentals/environments)で実行されている場合にのみコンテンツをレンダリングします。
 
-次`environment`で実行する場合、タグが未処理の CSS ファイルをレンダリング、`Development`環境。
+次`environment`のタグは、 `Development`環境で実行されているときに、未処理の CSS ファイルをレンダリングします。
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -240,7 +240,7 @@ dotnet bundle
 
 ::: moniker-end
 
-次`environment`以外の環境で実行しているときに、タグがバンドルと縮小の CSS ファイルをレンダリング`Development`します。 たとえばで実行されている`Production`または`Staging`これらのスタイル シートのレンダリングをトリガーします。
+次`environment`のタグは、以外`Development`の環境で実行されている場合に、バンドルされた、縮小された CSS ファイルをレンダリングします。 たとえば、または`Production` `Staging`でを実行すると、次のスタイルシートのレンダリングがトリガーされます。
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -254,67 +254,67 @@ dotnet bundle
 
 ::: moniker-end
 
-## <a name="consume-bundleconfigjson-from-gulp"></a>Gulp から bundleconfig.json を使用します。
+## <a name="consume-bundleconfigjson-from-gulp"></a>Gulp から bundleconfig を使用する
 
-アプリのバンドルと縮小のワークフローに追加の処理が必要とする場合があります。 例には、イメージの最適化やキャッシュ バスティング、CDN 資産の処理が含まれます。 これらの要件を満たすためには、Gulp を使用するバンドルと縮小のワークフローに変換できます。
+アプリのバンドルと縮小ワークフローで追加の処理が必要になる場合があります。 例としては、イメージの最適化、キャッシュ処理、CDN 資産の処理などがあります。 これらの要件を満たすために、Gulp を使用するようにバンドルと縮小のワークフローを変換できます。
 
-### <a name="use-the-bundler--minifier-extension"></a>Bundler & Minifier 拡張機能を使用します。
+### <a name="use-the-bundler--minifier-extension"></a>Bundler & Minifier 拡張機能を使用する
 
-Visual Studio [Bundler & Minifier](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.BundlerMinifier)拡張機能は、Gulp への変換を処理します。
+Visual Studio [Bundler の & Minifier](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.BundlerMinifier)拡張機能は、への変換を処理します。
 
 > [!NOTE]
-> Bundler & Minifier 拡張機能は、github の Microsoft サポートを提供しないコミュニティが主導のプロジェクトに属しています。 問題を提出する必要があります[ここ](https://github.com/madskristensen/BundlerMinifier/issues)します。
+> Bundler & Minifier 拡張機能は、Microsoft がサポートしていない GitHub のコミュニティ主導のプロジェクトに属しています。 [ここで](https://github.com/madskristensen/BundlerMinifier/issues)問題を提出する必要があります。
 
-右クリックし、 *bundleconfig.json*ソリューション エクスプ ローラーでファイルおよび選択**Bundler & Minifier** > **Gulp に変換しています.** :
+ソリューションエクスプローラーで*bundleconfig*ファイルを右クリックし、[ **Bundler &**  > minifier**Convert To Gulp...** ] を選択します。
 
-![Gulp をで変換コンテキスト メニュー項目](../client-side/bundling-and-minification/_static/convert-to-gulp.png)
+![Gulp コンテキストメニュー項目に変換する](../client-side/bundling-and-minification/_static/convert-to-gulp.png)
 
-*Gulpfile.js*と*package.json*ファイルがプロジェクトに追加されます。 サポートしている[npm](https://www.npmjs.com/)で示されているパッケージ、 *package.json*ファイルの`devDependencies`セクションがインストールされています。
+*Gulpfile*ファイルと*パッケージ*ファイルがプロジェクトに追加されます。 *パッケージの json*ファイルの`devDependencies`セクションに一覧表示されている[npm](https://www.npmjs.com/)パッケージのサポートがインストールされます。
 
-グローバルの依存関係として Gulp CLI をインストールする PMC ウィンドウで、次のコマンドを実行します。
+PMC ウィンドウで次のコマンドを実行して、Gulp CLI をグローバルな依存関係としてインストールします。
 
 ```console
 npm i -g gulp-cli
 ```
 
-*Gulpfile.js*ファイルの読み取り、 *bundleconfig.json*ファイルの入力、出力、および設定します。
+*Gulpfile*ファイルは、入力、出力、および設定の*bundleconfig*ファイルを読み取ります。
 
 [!code-javascript[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/gulpfile.js?range=1-12&highlight=10)]
 
-### <a name="convert-manually"></a>手動で変換します。
+### <a name="convert-manually"></a>手動で変換
 
-Visual Studio や Bundler & Minifier 拡張機能を使用できない場合に、手動で変換します。
+Visual Studio または Bundler & Minifier の拡張機能が使用できない場合は、手動で変換します。
 
-追加、 *package.json*を次のファイル`devDependencies`プロジェクトのルート。
+次`devDependencies`のを含む*パッケージの json*ファイルをプロジェクトのルートに追加します。
 
 > [!WARNING]
-> `gulp-uglify` ECMAScript (ES) 2015 をサポートしていないモジュール/ES6 以降。 インストール[gulp terser](https://www.npmjs.com/package/gulp-terser)の代わりに`gulp-uglify`ES2015 を使用する/ES6 以降。
+> モジュール`gulp-uglify`は、ECMAScript (ES) 2015/ES6 以降をサポートしていません。 ES2015/ES6 以降を使用する`gulp-uglify`のではなく[、gulp を](https://www.npmjs.com/package/gulp-terser)インストールします。
 
 [!code-json[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/package.json?range=5-13)]
 
-同じレベルで、次のコマンドを実行して、依存関係をインストール*package.json*:
+次のコマンドを*package. json*と同じレベルで実行して、依存関係をインストールします。
 
 ```console
 npm i
 ```
 
-グローバルの依存関係として Gulp CLI をインストールします。
+グローバルな依存関係として Gulp CLI をインストールします。
 
 ```console
 npm i -g gulp-cli
 ```
 
-コピー、 *gulpfile.js*をプロジェクトのルート以下のファイルします。
+次の*gulpfile*ファイルをプロジェクトのルートにコピーします。
 
 [!code-javascript[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/gulpfile.js?range=1-11,14-)]
 
 ### <a name="run-gulp-tasks"></a>Gulp タスクの実行
 
-Visual Studio でプロジェクトをビルドする前に、Gulp 縮小タスクをトリガーするには、次のコードを追加[MSBuild ターゲット](/visualstudio/msbuild/msbuild-targets)*.csproj ファイルに。
+Visual Studio でプロジェクトをビルドする前に Gulp の縮小タスクをトリガーするには、次の[MSBuild ターゲット](/visualstudio/msbuild/msbuild-targets)を * .csproj ファイルに追加します。
 
 [!code-xml[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/BuildBundlerMinifierApp.csproj?range=14-16)]
 
-この例で、内で定義されたすべてのタスク、`MyPreCompileTarget`ターゲットを実行する前に、定義済み`Build`ターゲット。 Visual Studio の出力ウィンドウで、次のような出力が表示されます。
+この例では、 `MyPreCompileTarget`ターゲット内で定義されているすべてのタスクが、定義済み`Build`のターゲットの前に実行されます。 次のような出力が Visual Studio の出力ウィンドウに表示されます。
 
 ```console
 1>------ Build started: Project: BuildBundlerMinifierApp, Configuration: Debug Any CPU ------
@@ -329,7 +329,7 @@ Visual Studio でプロジェクトをビルドする前に、Gulp 縮小タス�
 ```
 
 
-## <a name="additional-resources"></a>その他の資料
+## <a name="additional-resources"></a>その他の技術情報
 
 * [Grunt の使用](xref:client-side/using-grunt)
 * [複数の環境の使用](xref:fundamentals/environments)

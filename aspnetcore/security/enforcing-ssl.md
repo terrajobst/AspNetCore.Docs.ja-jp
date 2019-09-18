@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/14/2019
 uid: security/enforcing-ssl
-ms.openlocfilehash: 8474b8f12d3e08e47a4cc9b20543d2a9e6e91998
-ms.sourcegitcommit: dc5b293e08336dc236de66ed1834f7ef78359531
+ms.openlocfilehash: eafb06d181ca3f085cccb314749c8d4deba074fa
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71011071"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71082557"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>ASP.NET Core に HTTPS を適用する
 
@@ -315,7 +315,7 @@ HTTPS/HSTS をオプトアウトするには、次のようにします。
 
 `--no-https` オプションを使用します。 次に例を示します。
 
-```console
+```dotnetcli
 dotnet new webapp --no-https
 ```
 
@@ -338,13 +338,13 @@ For more information on configuring HTTPS see https://go.microsoft.com/fwlink/?l
 
 .NET Core SDK をインストールすると、ローカル ユーザーの証明書ストアに ASP.NET Core HTTPS 開発証明書がインストールされます。 証明書はインストールされていますが、信頼されていません。 証明書を信頼するには、1回限りの手順を`dev-certs`実行して dotnet ツールを実行します。
 
-```console
+```dotnetcli
 dotnet dev-certs https --trust
 ```
 
 次のコマンドにより、`dev-certs` ツールに関するヘルプが表示されます。
 
-```console
+```dotnetcli
 dotnet dev-certs https --help
 ```
 

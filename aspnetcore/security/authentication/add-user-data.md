@@ -6,12 +6,12 @@ ms.author: riande
 ms.date: 06/18/2019
 ms.custom: mvc, seodec18
 uid: security/authentication/add-user-data
-ms.openlocfilehash: c219500b7595fd8d200e4e5e742b1e1fda836ba3
-ms.sourcegitcommit: a1283d486ac1dcedfc7ea302e1cc882833e2c515
+ms.openlocfilehash: f5a47ffd2e068414268ed9037d4376bfd21ba1bb
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/18/2019
-ms.locfileid: "67207732"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080809"
 ---
 # <a name="add-download-and-delete-custom-user-data-to-identity-in-an-aspnet-core-project"></a>ASP.NET Core プロジェクトにおける Identity へのカスタム ユーザーデータの追加、ダウンロードおよび削除
 
@@ -20,7 +20,7 @@ ms.locfileid: "67207732"
 この記事では方法。
 
 * ASP.NET Core web アプリにカスタム ユーザー データを追加します。
-* カスタム ユーザー データ モデルに装飾、<xref:Microsoft.AspNetCore.Identity.PersonalDataAttribute>属性にダウンロードおよび削除のために自動的に使用できるようにします。 データをダウンロードして、削除することを行うには、満たす助けとなる[GDPR](xref:security/gdpr)要件。
+* カスタムユーザーデータモデルを<xref:Microsoft.AspNetCore.Identity.PersonalDataAttribute>属性で装飾して、自動的にダウンロードおよび削除できるようにします。 データをダウンロードして、削除することを行うには、満たす助けとなる[GDPR](xref:security/gdpr)要件。
 
 プロジェクト サンプルは、Razor ページ web アプリから作成されますが、手順は ASP.NET Core MVC web アプリと同様。
 
@@ -36,13 +36,13 @@ ms.locfileid: "67207732"
 
 * Visual Studio の **[ファイル]** メニューから、 **[新規作成]**  >  **[プロジェクト]** の順に選択します。 プロジェクトに名前を**WebApp1**にする場合の名前空間と一致、[サンプルをダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/authentication/add-user-data)コード。
 * 選択**ASP.NET Core Web アプリケーション** > **OK**
-* 選択**ASP.NET Core 2.2**ドロップダウン
+* ドロップダウンで**ASP.NET Core 2.2**を選択します。
 * 選択**Web アプリケーション**  > **OK**
 * プロジェクトをビルドして実行します。
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-```cli
+```dotnetcli
 dotnet new webapp -o WebApp1
 ```
 
@@ -67,26 +67,26 @@ dotnet new webapp -o WebApp1
 
 ASP.NET Core scaffolder を以前インストールしていない場合は、今すぐインストールします。
 
-```cli
+```dotnetcli
 dotnet tool install -g dotnet-aspnet-codegenerator
 ```
 
 パッケージ参照を追加[Microsoft.VisualStudio.Web.CodeGeneration.Design](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.CodeGeneration.Design/)プロジェクト (.csproj) ファイル。 プロジェクト ディレクトリに、次のコマンドを実行します。
 
-```cli
+```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet restore
 ```
 
 Identity scaffolder オプションを一覧表示するには、次のコマンドを実行します。
 
-```cli
+```dotnetcli
 dotnet aspnet-codegenerator identity -h
 ```
 
 プロジェクト フォルダーでは、Identity scaffolder を実行します。
 
-```cli
+```dotnetcli
 dotnet aspnet-codegenerator identity -u WebApp1User -fi Account.Register;Account.Manage.Index
 ```
 
@@ -143,14 +143,14 @@ dotnet aspnet-codegenerator identity -u WebApp1User -fi Account.Register;Account
 
 Visual Studio で**パッケージ マネージャー コンソール**:
 
-```PMC
+```powershell
 Add-Migration CustomUserData
 Update-Database
 ```
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-```cli
+```dotnetcli
 dotnet ef migrations add CustomUserData
 dotnet ef database update
 ```

@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: H1Hack27Feb2017
 ms.date: 09/06/2019
 uid: client-side/spa-services
-ms.openlocfilehash: 16c9eb1d79bca792062d292795763c54dd02bd37
-ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
+ms.openlocfilehash: 7aff46f739239246191763e0590046b2d9995922
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/06/2019
-ms.locfileid: "70773414"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080508"
 ---
 # <a name="use-javascript-services-to-create-single-page-applications-in-aspnet-core"></a>JavaScript サービスを使用して ASP.NET Core にシングルページアプリケーションを作成する
 
@@ -219,7 +219,7 @@ JavaScript サービスには、構成済みのアプリケーションテンプ
 
 これらのテンプレートは、次のコマンドを実行して .NET Core CLI を使用してインストールできます。
 
-```console
+```dotnetcli
 dotnet new --install Microsoft.AspNetCore.SpaTemplates::*
 ```
 
@@ -233,7 +233,7 @@ dotnet new --install Microsoft.AspNetCore.SpaTemplates::*
 
 SPA テンプレートのいずれかを使用して新しいプロジェクトを作成するには含める、**短い名前**内のテンプレートの[新しい dotnet](/dotnet/core/tools/dotnet-new)コマンド。 次のコマンドでは、サーバー側用に構成された ASP.NET Core MVC で Angular アプリケーションを作成します。
 
-```console
+```dotnetcli
 dotnet new angular
 ```
 
@@ -254,13 +254,13 @@ ASP.NET Core という環境変数を使用して`ASPNETCORE_ENVIRONMENT`構成�
 
 プロジェクトのルートで、次のコマンドを実行してには、必要な NuGet と npm パッケージを復元します。
 
-```console
+```dotnetcli
 dotnet restore && npm i
 ```
 
 ビルドし、アプリケーションを実行します。
 
-```console
+```dotnetcli
 dotnet run
 ```
 
@@ -303,7 +303,7 @@ MSBuild ターゲットでは、次の責任があります。
 
 MSBuild ターゲットが実行するときに呼び出されます。
 
-```console
+```dotnetcli
 dotnet publish -c Release
 ```
 

@@ -6,12 +6,12 @@ ms.author: riande
 ms.date: 12/18/2018
 ms.custom: mvc, seodec18
 uid: security/authorization/secure-data
-ms.openlocfilehash: d95f44394d6ecc3c3896b45c5bebc73fa2d92445
-ms.sourcegitcommit: dc5b293e08336dc236de66ed1834f7ef78359531
+ms.openlocfilehash: d827f6f839c9e42e6d3d7b04fe8b24a1c9732aee
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71011195"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71082440"
 ---
 # <a name="create-an-aspnet-core-app-with-user-data-protected-by-authorization"></a>承認によって保護されたユーザー データと ASP.NET Core アプリを作成します。
 
@@ -103,7 +103,7 @@ ASP.NET を使用して、 [Identity](xref:security/authentication/identity)デ�
 
 新しい移行を作成し、データベースを更新します。
 
-```console
+```dotnetcli
 dotnet ef migrations add userID_Status
 dotnet ef database update
 ```
@@ -130,7 +130,7 @@ dotnet ef database update
 
 `SeedData`クラスは、2 つのアカウントを作成します。 管理者とマネージャー。 使用して、 [Secret Manager ツール](xref:security/app-secrets)これらのアカウントのパスワードを設定します。 プロジェクト ディレクトリから、パスワードの設定 (含まれるディレクトリ*Program.cs*)。
 
-```console
+```dotnetcli
 dotnet user-secrets set SeedUserPW <PW>
 ```
 
@@ -279,7 +279,7 @@ Entity Framework Core を使用してサービスを登録する必要があり�
 * 強力なパスワードを選択してください:8個以上の文字と、少なくとも1つの大文字の文字、数字、および記号を使用します。 たとえば、`Passw0rd!`強力なパスワード要件を満たしています。
 * プロジェクトのフォルダーから次のコマンドを実行、`<PW>`パスワードです。
 
-  ```console
+  ```dotnetcli
   dotnet user-secrets set SeedUserPW <PW>
   ```
 
@@ -310,7 +310,7 @@ Entity Framework Core を使用してサービスを登録する必要があり�
   * ファイル名「ContactManager」名前空間サンプルで使用する名前空間が一致するようにします。
   * `-uld` SQLite の代わりに LocalDB を指定します
 
-  ```console
+  ```dotnetcli
   dotnet new webapp -o ContactManager -au Individual -uld
   ```
 
@@ -321,14 +321,14 @@ Entity Framework Core を使用してサービスを登録する必要があり�
 * スキャフォールディング、`Contact`モデル。
 * 最初の移行を作成し、データベースを更新します。
 
-```console
+```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet tool install -g dotnet-aspnet-codegenerator
 dotnet aspnet-codegenerator razorpage -m Contact -udl -dc ApplicationDbContext -outDir Pages\Contacts --referenceScriptLibraries
 dotnet ef database drop -f
 dotnet ef migrations add initial
 dotnet ef database update
-  ```
+```
 
 `dotnet aspnet-codegenerator razorpage`コマンドでバグが発生した場合は、 [GitHub の問題](https://github.com/aspnet/Scaffolding/issues/984)を参照してください。
 
@@ -426,7 +426,7 @@ ASP.NET を使用して、 [Identity](xref:security/authentication/identity)デ�
 
 新しい移行を作成し、データベースを更新します。
 
-```console
+```dotnetcli
 dotnet ef migrations add userID_Status
 dotnet ef database update
 ```
@@ -453,7 +453,7 @@ dotnet ef database update
 
 `SeedData`クラスは、2 つのアカウントを作成します。 管理者とマネージャー。 使用して、 [Secret Manager ツール](xref:security/app-secrets)これらのアカウントのパスワードを設定します。 プロジェクト ディレクトリから、パスワードの設定 (含まれるディレクトリ*Program.cs*)。
 
-```console
+```dotnetcli
 dotnet user-secrets set SeedUserPW <PW>
 ```
 
@@ -602,16 +602,16 @@ Entity Framework Core を使用してサービスを登録する必要があり�
 * 強力なパスワードを選択してください:8個以上の文字と、少なくとも1つの大文字の文字、数字、および記号を使用します。 たとえば、`Passw0rd!`強力なパスワード要件を満たしています。
 * プロジェクトのフォルダーから次のコマンドを実行、`<PW>`パスワードです。
 
-  ```console
+  ```dotnetcli
   dotnet user-secrets set SeedUserPW <PW>
   ```
 
 * データベースを削除して更新する
 
-    ```console
-     dotnet ef database drop -f
-     dotnet ef database update  
-     ```
+  ```dotnetcli
+  dotnet ef database drop -f
+  dotnet ef database update  
+  ```
 
 * データベースをシードするアプリを再起動します。
 
@@ -637,7 +637,7 @@ Entity Framework Core を使用してサービスを登録する必要があり�
   * ファイル名「ContactManager」名前空間サンプルで使用する名前空間が一致するようにします。
   * `-uld` SQLite の代わりに LocalDB を指定します
 
-  ```console
+  ```dotnetcli
   dotnet new webapp -o ContactManager -au Individual -uld
   ```
 
@@ -648,7 +648,7 @@ Entity Framework Core を使用してサービスを登録する必要があり�
 * スキャフォールディング、`Contact`モデル。
 * 最初の移行を作成し、データベースを更新します。
 
-  ```console
+  ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Contact -udl -dc ApplicationDbContext -outDir Pages\Contacts --referenceScriptLibraries
   dotnet ef database drop -f
   dotnet ef migrations add initial

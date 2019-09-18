@@ -1,67 +1,67 @@
 ---
-title: ASP.NET Core で LibMan コマンド ライン インターフェイス (CLI) を使用します。
+title: ASP.NET Core で LibMan コマンドラインインターフェイス (CLI) を使用する
 author: scottaddie
-description: ASP.NET Core プロジェクトで LibMan コマンド ライン インターフェイス (CLI) を使用する方法について説明します。
+description: ASP.NET Core プロジェクトで LibMan コマンドラインインターフェイス (CLI) を使用する方法について説明します。
 ms.author: scaddie
 ms.custom: mvc
 ms.date: 08/30/2018
 uid: client-side/libman/libman-cli
-ms.openlocfilehash: 5667f79648a60b8fd9496f8041ef08891ab766af
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: cf61bab2f0c3fc33d293968b8ac380cb56958d29
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64894759"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080620"
 ---
-# <a name="use-the-libman-command-line-interface-cli-with-aspnet-core"></a>ASP.NET Core で LibMan コマンド ライン インターフェイス (CLI) を使用します。
+# <a name="use-the-libman-command-line-interface-cli-with-aspnet-core"></a>ASP.NET Core で LibMan コマンドラインインターフェイス (CLI) を使用する
 
 作成者: [Scott Addie](https://twitter.com/Scott_Addie)
 
-[LibMan](xref:client-side/libman/index) CLI は .NET Core がサポートされているすべての場所がサポートされるクロスプラット フォーム ツールです。
+[Libman](xref:client-side/libman/index) CLI は、.net Core がサポートされているすべての場所でサポートされるクロスプラットフォームツールです。
 
-## <a name="prerequisites"></a>必須コンポーネント
+## <a name="prerequisites"></a>前提条件
 
 * [!INCLUDE [2.1-SDK](../../includes/2.1-SDK.md)]
 
 ## <a name="installation"></a>インストール
 
-LibMan CLI のインストール。
+LibMan CLI をインストールするには:
 
-```console
+```dotnetcli
 dotnet tool install -g Microsoft.Web.LibraryManager.Cli
 ```
 
-A [.NET Core のグローバル ツール](/dotnet/core/tools/global-tools#install-a-global-tool)からインストールされている、 [Microsoft.Web.LibraryManager.Cli](https://www.nuget.org/packages/Microsoft.Web.LibraryManager.Cli/) NuGet パッケージ。
+[.Net Core グローバルツール](/dotnet/core/tools/global-tools#install-a-global-tool)は、 [Microsoft の Web. librarymanager](https://www.nuget.org/packages/Microsoft.Web.LibraryManager.Cli/)の NuGet パッケージからインストールされます。
 
-特定の NuGet パッケージのソースから LibMan CLI をインストールします。
+特定の NuGet パッケージソースから LibMan CLI をインストールするには、次のようにします。
 
-```console
+```dotnetcli
 dotnet tool install -g Microsoft.Web.LibraryManager.Cli --version 1.0.94-g606058a278 --add-source C:\Temp\
 ```
 
-ローカルの Windows コンピューターの前の例では、.NET Core のグローバル ツールがインストールされている*C:\Temp\Microsoft.Web.LibraryManager.Cli.1.0.94-g606058a278.nupkg*ファイル。
+前の例では、.NET Core グローバルツールがローカル Windows コンピューターの*C:\Temp\Microsoft.Web.LibraryManager.Cli.1.0.94-g606058a278.nupkg*ファイルからインストールされています。
 
-## <a name="usage"></a>使用法
+## <a name="usage"></a>使用方法
 
-CLI のインストールの成功後、次のコマンドを使用できます。
+CLI が正常にインストールされたら、次のコマンドを使用できます。
 
 ```console
 libman
 ```
 
-インストールされている CLI バージョンを表示します。
+インストールされている CLI のバージョンを表示するには:
 
 ```console
 libman --version
 ```
 
-使用可能な CLI コマンドを表示するには。
+使用可能な CLI コマンドを表示するには:
 
 ```console
 libman --help
 ```
 
-上記のコマンドには、次のような出力が表示されます。
+上記のコマンドでは、次のような出力が表示されます。
 
 ```console
  1.0.163+g45474d37ed
@@ -88,11 +88,11 @@ Commands:
 Use "libman [command] --help" for more information about a command.
 ```
 
-次のセクションでは、使用可能な CLI コマンドを説明します。
+次のセクションでは、使用可能な CLI コマンドの概要を示します。
 
-## <a name="initialize-libman-in-the-project"></a>LibMan をプロジェクトを初期化します。
+## <a name="initialize-libman-in-the-project"></a>プロジェクト内の LibMan を初期化します
 
-`libman init`コマンドは、作成、 *libman.json*ファイルのいずれかが存在しない場合。 既定の項目テンプレートのコンテンツ ファイルが作成されます。
+コマンド`libman init`を実行すると、 *libman. json*ファイルが存在しない場合は作成されます。 ファイルは、既定の項目テンプレートコンテンツを使用して作成されます。
 
 ### <a name="synopsis"></a>構文
 
@@ -103,15 +103,15 @@ libman init [-h|--help]
 
 ### <a name="options"></a>オプション
 
-次のオプションを使用できる、`libman init`コマンド。
+`libman init` コマンドには以下のオプションを使用できます。
 
 * `-d|--default-destination <PATH>`
 
-  現在のフォルダーの相対パス。 ライブラリ ファイルがこの場所にインストールされていない場合`destination`のライブラリのプロパティが定義されている*libman.json*します。 `<PATH>`に値が書き込まれる、`defaultDestination`プロパティの*libman.json*します。
+  現在のフォルダーを基準とした相対パス。 ライブラリファイルは、 *libman. json*の`destination`ライブラリに対してプロパティが定義されていない場合に、この場所にインストールされます。 値`<PATH>`は、 *libman. json*の`defaultDestination`プロパティに書き込まれます。
 
 * `-p|--default-provider <PROVIDER>`
 
-  指定したライブラリのプロバイダーが定義されていない場合に使用するプロバイダー。 `<PROVIDER>`に値が書き込まれる、`defaultProvider`プロパティの*libman.json*します。 置換`<PROVIDER>`次の値のいずれかの。
+  指定したライブラリにプロバイダーが定義されていない場合に使用するプロバイダー。 値`<PROVIDER>`は、 *libman. json*の`defaultProvider`プロパティに書き込まれます。 次`<PROVIDER>`のいずれかの値に置き換えます。
 
   [!INCLUDE [LibMan provider names](../../includes/libman-cli/provider-names.md)]
 
@@ -119,7 +119,7 @@ libman init [-h|--help]
 
 ### <a name="examples"></a>使用例
 
-作成する、 *libman.json* ASP.NET Core プロジェクト ファイル。
+ASP.NET Core プロジェクトに*libman. json*ファイルを作成するには、次のようにします。
 
 * プロジェクトのルートに移動します。
 * 次のコマンドを実行します。
@@ -128,13 +128,13 @@ libman init [-h|--help]
   libman init
   ```
 
-* キーを押して、既定のプロバイダーの名前を入力`Enter`CDNJS の既定のプロバイダーを使用します。 有効な値を次に示します。
+* 既定のプロバイダーの名前を入力するか、 `Enter`キーを押して既定の cdnjs プロバイダーを使用します。 有効な値は次のとおりです。
 
   [!INCLUDE [LibMan provider names](../../includes/libman-cli/provider-names.md)]
 
-  ![libman init コマンドの既定のプロバイダー](_static/libman-init-provider.png)
+  ![libman init コマンド-既定のプロバイダー](_static/libman-init-provider.png)
 
-A *libman.json*ファイル、プロジェクトのルート以下の内容に追加されます。
+*Libman. json*ファイルは、次の内容を含むプロジェクトルートに追加されます。
 
 ```json
 {
@@ -144,9 +144,9 @@ A *libman.json*ファイル、プロジェクトのルート以下の内容に�
 }
 ```
 
-## <a name="add-library-files"></a>ライブラリ ファイルを追加します。
+## <a name="add-library-files"></a>ライブラリファイルの追加
 
-`libman install`コマンドは、ダウンロードし、プロジェクトにライブラリ ファイルをインストールします。 A *libman.json*ファイルが存在していない場合に追加されます。 *Libman.json*ライブラリ ファイルの構成の詳細を格納するファイルを変更します。
+コマンド`libman install`を実行すると、ライブラリファイルがダウンロードされ、プロジェクトにインストールされます。 *Libman. json*ファイルが存在しない場合は追加されます。 *Libman. json*ファイルは、ライブラリファイルの構成の詳細を保存するように変更されています。
 
 ### <a name="synopsis"></a>構文
 
@@ -159,33 +159,33 @@ libman install [-h|--help]
 
 `LIBRARY`
 
-インストールするためにライブラリの名前。 この名前は、バージョン番号の表記法を含めることができます (たとえば、 `@1.2.0`)。
+インストールするライブラリの名前。 この名前には、バージョン番号の表記 (など`@1.2.0`) を含めることができます。
 
 ### <a name="options"></a>オプション
 
-次のオプションを使用できる、`libman install`コマンド。
+`libman install` コマンドには以下のオプションを使用できます。
 
 * `-d|--destination <PATH>`
 
-  ライブラリをインストールする場所。 指定しない場合、既定の場所が使用されます。 ない場合は`defaultDestination`プロパティが指定されて*libman.json*、このオプションが必要です。
+  ライブラリをインストールする場所。 指定しない場合は、既定の場所が使用されます。 `defaultDestination` *Libman. json*でプロパティが指定されていない場合、このオプションは必須です。
 
 * `--files <FILE>`
 
-  ライブラリからインストールするファイルの名前を指定します。 指定しない場合、ライブラリからすべてのファイルがインストールされます。 1 つ提供`--files`ファイルごとのオプションをインストールします。 相対パスはもサポートします。 たとえば、`--files dist/browser/signalr.js` のように指定します。
+  ライブラリからインストールするファイルの名前を指定します。 指定しない場合、ライブラリのすべてのファイルがインストールされます。 インストールする`--files`ファイルごとに1つのオプションを指定します。 相対パスもサポートされています。 たとえば、`--files dist/browser/signalr.js` のように指定します。
 
 * `-p|--provider <PROVIDER>`
 
-  ライブラリの取得を使用するプロバイダーの名前。 置換`<PROVIDER>`次の値のいずれかの。
+  ライブラリの取得に使用するプロバイダーの名前。 次`<PROVIDER>`のいずれかの値に置き換えます。
   
   [!INCLUDE [LibMan provider names](../../includes/libman-cli/provider-names.md)]
 
-  指定しない場合、`defaultProvider`プロパティ*libman.json*使用されます。 ない場合は`defaultProvider`プロパティが指定されて*libman.json*、このオプションが必要です。
+  指定しない場合は`defaultProvider` 、 *libman. json*のプロパティが使用されます。 `defaultProvider` *Libman. json*でプロパティが指定されていない場合、このオプションは必須です。
 
 [!INCLUDE [standard-cli-options](../../includes/libman-cli/standard-cli-options.md)]
 
 ### <a name="examples"></a>使用例
 
-次を考慮*libman.json*ファイル。
+次の*libman. json*ファイルについて考えてみます。
 
 ```json
 {
@@ -195,13 +195,13 @@ libman install [-h|--help]
 }
 ```
 
-3.2.1 jQuery バージョンをインストールする*jquery.min.js*ファイルを*jqueryスクリプト/wwwroot/* CDNJS プロバイダーを使用してフォルダー。
+CDNJS プロバイダーを使用して jQuery バージョン 3.2.1 *jquery*ファイルを*wwwroot/scripts/jQuery*フォルダーにインストールするには、次のようにします。
 
 ```console
 libman install jquery@3.2.1 --provider cdnjs --destination wwwroot/scripts/jquery --files jquery.min.js
 ```
 
-*Libman.json*ファイルが、次に似ています。
+*Libman. json*ファイルは次のようになります。
 
 ```json
 {
@@ -219,20 +219,20 @@ libman install jquery@3.2.1 --provider cdnjs --destination wwwroot/scripts/jquer
 }
 ```
 
-インストールする、 *calendar.js*と*calendar.css*ファイルから*c:\\temp\\contosoCalendar\\* ファイル システムを使用します。プロバイダー:
+ファイルシステムプロバイダーを使用して、 *C\\: temp\\contosoCalendar\\* から*calendar*ファイルと*calendar .css*ファイルをインストールするには、次のようにします。
 
   ```console
   libman install C:\temp\contosoCalendar\ --provider filesystem --files calendar.js --files calendar.css
   ```
 
-次のプロンプトは、2 つの理由が表示されます。
+次の2つの理由で、次のプロンプトが表示されます。
 
-* *Libman.json*ファイルが含まれていない、`defaultDestination`プロパティ。
-* `libman install`コマンドが含まれていない、`-d|--destination`オプション。
+* *Libman. json*ファイルには`defaultDestination`プロパティが含まれていません。
+* コマンド`libman install`に`-d|--destination`オプションが含まれていません。
 
-![libman インストール コマンド - 変換先](_static/libman-install-destination.png)
+![libman install コマンド-destination](_static/libman-install-destination.png)
 
-既定の転送先に同意した後、 *libman.json*ファイルが、次に似ています。
+既定の保存先を受け入れると、 *libman. json*ファイルは次のようになります。
 
 ```json
 {
@@ -259,13 +259,13 @@ libman install jquery@3.2.1 --provider cdnjs --destination wwwroot/scripts/jquer
 }
 ```
 
-## <a name="restore-library-files"></a>ライブラリ ファイルを復元します。
+## <a name="restore-library-files"></a>ライブラリファイルの復元
 
-`libman restore`コマンドで定義されているライブラリ ファイルはインストール*libman.json*します。 次の規則が適用されます。
+コマンド`libman restore`は、 *libman. json*で定義されているライブラリファイルをインストールします。 次の規則が適用されます。
 
-* ない場合は*libman.json*プロジェクトのルートにファイルが存在するエラーが返されます。
-* ライブラリは、プロバイダーを指定する場合、`defaultProvider`プロパティ*libman.json*は無視されます。
-* ライブラリは、変換先を指定する場合、`defaultDestination`プロパティ*libman.json*は無視されます。
+* プロジェクトルートに*libman. json*ファイルが存在しない場合は、エラーが返されます。
+* ライブラリがプロバイダーを指定して`defaultProvider`いる場合、 *libman. json*のプロパティは無視されます。
+* ライブラリが変換先を指定すると`defaultDestination` 、 *libman. json*のプロパティは無視されます。
 
 ### <a name="synopsis"></a>構文
 
@@ -276,21 +276,21 @@ libman restore [-h|--help]
 
 ### <a name="options"></a>オプション
 
-次のオプションを使用できる、`libman restore`コマンド。
+`libman restore` コマンドには以下のオプションを使用できます。
 
 [!INCLUDE [standard-cli-options](../../includes/libman-cli/standard-cli-options.md)]
 
 ### <a name="examples"></a>使用例
 
-定義されているライブラリ ファイルを復元する*libman.json*:
+*Libman. json*で定義されているライブラリファイルを復元するには、次のようにします。
 
 ```console
 libman restore
 ```
 
-## <a name="delete-library-files"></a>ライブラリ ファイルを削除します。
+## <a name="delete-library-files"></a>ライブラリファイルの削除
 
-`libman clean`コマンド LibMan を使用して以前に復元されたライブラリ ファイルを削除します。 この操作の後に空になったフォルダーは削除されます。 構成に関連するライブラリ ファイルの`libraries`プロパティの*libman.json*は削除されません。
+この`libman clean`コマンドは、libman を使用して以前に復元されたライブラリファイルを削除します。 この操作の後に空になるフォルダーは削除されます。 `libraries` *Libman. json*のプロパティのライブラリファイルに関連付けられている構成は削除されません。
 
 ### <a name="synopsis"></a>構文
 
@@ -301,31 +301,31 @@ libman clean [-h|--help]
 
 ### <a name="options"></a>オプション
 
-次のオプションを使用できる、`libman clean`コマンド。
+`libman clean` コマンドには以下のオプションを使用できます。
 
 [!INCLUDE [standard-cli-options](../../includes/libman-cli/standard-cli-options.md)]
 
 ### <a name="examples"></a>使用例
 
-LibMan 経由でインストールされているライブラリ ファイルを削除します。
+LibMan を使用してインストールされたライブラリファイルを削除するには
 
 ```console
 libman clean
 ```
 
-## <a name="uninstall-library-files"></a>ライブラリ ファイルをアンインストールします。
+## <a name="uninstall-library-files"></a>ライブラリファイルのアンインストール
 
-`libman uninstall`コマンド。
+次`libman uninstall`のコマンドを実行します。
 
-* 変換先から、指定したライブラリに関連付けられているすべてのファイルを削除します。 *libman.json*します。
-* 関連するライブラリの構成を削除します*libman.json*します。
+* 指定したライブラリに関連付けられているすべてのファイルを、 *libman. json*内のコピー先から削除します。
+* 関連付けられているライブラリ構成を*libman. json*から削除します。
 
-エラーが発生した場合。
+次の場合にエラーが発生します。
 
-* いいえ*libman.json*ファイル、プロジェクトのルートに存在します。
-* 指定したライブラリが存在しません。
+* プロジェクトルートに*libman. json*ファイルが存在しません。
+* 指定されたライブラリは存在しません。
 
-同じ名前の 1 つ以上のライブラリがインストールされている場合は、いずれかを選択するように求められます。
+同じ名前のライブラリが複数インストールされている場合は、1つを選択するように求められます。
 
 ### <a name="synopsis"></a>構文
 
@@ -338,21 +338,21 @@ libman uninstall [-h|--help]
 
 `LIBRARY`
 
-アンインストールするライブラリの名前。 この名前は、バージョン番号の表記法を含めることができます (たとえば、 `@1.2.0`)。
+アンインストールするライブラリの名前を指定します。 この名前には、バージョン番号の表記 (など`@1.2.0`) を含めることができます。
 
 ### <a name="options"></a>オプション
 
-次のオプションを使用できる、`libman uninstall`コマンド。
+`libman uninstall` コマンドには以下のオプションを使用できます。
 
 [!INCLUDE [standard-cli-options](../../includes/libman-cli/standard-cli-options.md)]
 
 ### <a name="examples"></a>使用例
 
-次を考慮*libman.json*ファイル。
+次の*libman. json*ファイルについて考えてみます。
 
 [!code-json[](samples/LibManSample/libman.json)]
 
-* 次のコマンドのいずれかの成功を jQuery をアンインストールするには。
+* JQuery をアンインストールするには、次のいずれかのコマンドを正常に実行します。
 
   ```console
   libman uninstall jquery
@@ -362,22 +362,22 @@ libman uninstall [-h|--help]
   libman uninstall jquery@3.3.1
   ```
 
-* Lodash パッケージ ファイルを使用してインストールをアンインストールする、`filesystem`プロバイダー。
+* `filesystem`プロバイダーを使用してインストールされた lodash ファイルをアンインストールするには、次のようにします。
 
   ```console
   libman uninstall C:\temp\lodash\
   ```
 
-## <a name="update-library-version"></a>ライブラリのバージョンを更新します。
+## <a name="update-library-version"></a>ライブラリバージョンの更新
 
-`libman update`コマンドは、指定されたバージョンに LibMan 経由でインストールされているライブラリを更新します。
+コマンド`libman update`は、libman を使用してインストールされたライブラリを、指定されたバージョンに更新します。
 
-エラーが発生した場合。
+次の場合にエラーが発生します。
 
-* いいえ*libman.json*ファイル、プロジェクトのルートに存在します。
-* 指定したライブラリが存在しません。
+* プロジェクトルートに*libman. json*ファイルが存在しません。
+* 指定されたライブラリは存在しません。
 
-同じ名前の 1 つ以上のライブラリがインストールされている場合は、いずれかを選択するように求められます。
+同じ名前のライブラリが複数インストールされている場合は、1つを選択するように求められます。
 
 ### <a name="synopsis"></a>構文
 
@@ -394,11 +394,11 @@ libman update [-h|--help]
 
 ### <a name="options"></a>オプション
 
-次のオプションを使用できる、`libman update`コマンド。
+`libman update` コマンドには以下のオプションを使用できます。
 
 * `-pre`
 
-  ライブラリの最新のプレリリース バージョンを取得します。
+  ライブラリの最新のプレリリースバージョンを取得します。
 
 * `--to <VERSION>`
 
@@ -408,27 +408,27 @@ libman update [-h|--help]
 
 ### <a name="examples"></a>使用例
 
-* JQuery を最新バージョンに更新します。
+* JQuery を最新バージョンに更新するには、次のようにします。
 
   ```console
   libman update jquery
   ```
 
-* バージョン 3.3.1 に jQuery を更新します。
+* JQuery をバージョン3.3.1 に更新するには:
 
   ```console
   libman update jquery --to 3.3.1
   ```
 
-* JQuery を最新のプレリリース バージョンに更新します。
+* JQuery を最新のプレリリースバージョンに更新するには:
 
   ```console
   libman update jquery -pre
   ```
 
-## <a name="manage-library-cache"></a>ライブラリのキャッシュを管理します。
+## <a name="manage-library-cache"></a>ライブラリキャッシュの管理
 
-`libman cache` LibMan ライブラリのキャッシュを管理するコマンド。 `filesystem`プロバイダーは、ライブラリのキャッシュを使用しません。
+コマンド`libman cache`は、libman ライブラリキャッシュを管理します。 プロバイダー `filesystem`がライブラリキャッシュを使用していません。
 
 ### <a name="synopsis"></a>構文
 
@@ -442,13 +442,13 @@ libman cache [-h|--help]
 
 `PROVIDER`
 
-のみ使用、`clean`コマンド。 クリーニングするプロバイダー キャッシュを指定します。 有効な値を次に示します。
+`clean`コマンドでのみ使用されます。 消去するプロバイダーキャッシュを指定します。 有効な値は次のとおりです。
 
 [!INCLUDE [LibMan provider names](../../includes/libman-cli/provider-names.md)]
 
 ### <a name="options"></a>オプション
 
-次のオプションを使用できる、`libman cache`コマンド。
+`libman cache` コマンドには以下のオプションを使用できます。
 
 * `--files`
 
@@ -462,7 +462,7 @@ libman cache [-h|--help]
 
 ### <a name="examples"></a>使用例
 
-* プロバイダーごとのキャッシュされたライブラリの名前を表示するには、次のコマンドのいずれかを使用します。
+* プロバイダーごとにキャッシュされたライブラリの名前を表示するには、次のコマンドのいずれかを使用します。
 
   ```console
   libman cache list
@@ -489,7 +489,7 @@ libman cache [-h|--help]
       react
   ```
 
-* プロバイダーごとにキャッシュされたライブラリ ファイルの名前を表示するには。
+* プロバイダーごとにキャッシュされたライブラリファイルの名前を表示するには、次のようにします。
 
   ```console
   libman cache list --files
@@ -538,15 +538,15 @@ libman cache [-h|--help]
           metadata.json
   ```
 
-  上記の出力に注意してください CDNJS プロバイダー バージョン 3.2.1 および 3.3.1 はキャッシュする jQuery を示します。
+  前の出力に、jQuery バージョン3.2.1 と3.3.1 が CDNJS プロバイダーでキャッシュされていることがわかります。
 
-* CDNJS プロバイダーのライブラリのキャッシュを空にします。
+* CDNJS プロバイダーのライブラリキャッシュを空にするには、次のようにします。
 
   ```console
   libman cache clean cdnjs
   ```
 
-  CDNJS プロバイダー キャッシュを空にした、`libman cache list`コマンドには、次が表示されます。
+  Cdnjs プロバイダーのキャッシュを空に`libman cache list`すると、次のようにコマンドが表示されます。
 
   ```console
   Cache contents:
@@ -559,13 +559,13 @@ libman cache [-h|--help]
       (empty)
   ```
 
-* すべてのキャッシュを空にするには、プロバイダーにサポートされています。
+* サポートされているすべてのプロバイダーのキャッシュを空にするには:
 
   ```console
   libman cache clean
   ```
 
-  プロバイダーのすべてのキャッシュを空にした、`libman cache list`コマンドには、次が表示されます。
+  すべてのプロバイダーキャッシュを空に`libman cache list`すると、次のようなコマンドが表示されます。
 
   ```console
   Cache contents:
@@ -578,6 +578,6 @@ libman cache [-h|--help]
 
 ## <a name="additional-resources"></a>その他の技術情報
 
-* [グローバル ツールをインストールします。](/dotnet/core/tools/global-tools#install-a-global-tool)
+* [グローバルツールをインストールする](/dotnet/core/tools/global-tools#install-a-global-tool)
 * <xref:client-side/libman/libman-vs>
 * [LibMan の GitHub リポジトリ](https://github.com/aspnet/LibraryManager)
