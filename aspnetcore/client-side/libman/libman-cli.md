@@ -1,67 +1,67 @@
 ---
-title: ASP.NET Core で LibMan コマンド ライン インターフェイス (CLI) を使用します。
+title: ASP.NET Core で LibMan コマンドラインインターフェイス (CLI) を使用する
 author: scottaddie
-description: ASP.NET Core プロジェクトで LibMan コマンド ライン インターフェイス (CLI) を使用する方法について説明します。
+description: ASP.NET Core プロジェクトで LibMan コマンドラインインターフェイス (CLI) を使用する方法について説明します。
 ms.author: scaddie
 ms.custom: mvc
 ms.date: 08/30/2018
 uid: client-side/libman/libman-cli
-ms.openlocfilehash: 5667f79648a60b8fd9496f8041ef08891ab766af
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: cf61bab2f0c3fc33d293968b8ac380cb56958d29
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64894759"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080620"
 ---
-# <a name="use-the-libman-command-line-interface-cli-with-aspnet-core"></a><span data-ttu-id="36569-103">ASP.NET Core で LibMan コマンド ライン インターフェイス (CLI) を使用します。</span><span class="sxs-lookup"><span data-stu-id="36569-103">Use the LibMan command-line interface (CLI) with ASP.NET Core</span></span>
+# <a name="use-the-libman-command-line-interface-cli-with-aspnet-core"></a><span data-ttu-id="b23f7-103">ASP.NET Core で LibMan コマンドラインインターフェイス (CLI) を使用する</span><span class="sxs-lookup"><span data-stu-id="b23f7-103">Use the LibMan command-line interface (CLI) with ASP.NET Core</span></span>
 
-<span data-ttu-id="36569-104">作成者: [Scott Addie](https://twitter.com/Scott_Addie)</span><span class="sxs-lookup"><span data-stu-id="36569-104">By [Scott Addie](https://twitter.com/Scott_Addie)</span></span>
+<span data-ttu-id="b23f7-104">作成者: [Scott Addie](https://twitter.com/Scott_Addie)</span><span class="sxs-lookup"><span data-stu-id="b23f7-104">By [Scott Addie](https://twitter.com/Scott_Addie)</span></span>
 
-<span data-ttu-id="36569-105">[LibMan](xref:client-side/libman/index) CLI は .NET Core がサポートされているすべての場所がサポートされるクロスプラット フォーム ツールです。</span><span class="sxs-lookup"><span data-stu-id="36569-105">The [LibMan](xref:client-side/libman/index) CLI is a cross-platform tool that's supported everywhere .NET Core is supported.</span></span>
+<span data-ttu-id="b23f7-105">[Libman](xref:client-side/libman/index) CLI は、.net Core がサポートされているすべての場所でサポートされるクロスプラットフォームツールです。</span><span class="sxs-lookup"><span data-stu-id="b23f7-105">The [LibMan](xref:client-side/libman/index) CLI is a cross-platform tool that's supported everywhere .NET Core is supported.</span></span>
 
-## <a name="prerequisites"></a><span data-ttu-id="36569-106">必須コンポーネント</span><span class="sxs-lookup"><span data-stu-id="36569-106">Prerequisites</span></span>
+## <a name="prerequisites"></a><span data-ttu-id="b23f7-106">前提条件</span><span class="sxs-lookup"><span data-stu-id="b23f7-106">Prerequisites</span></span>
 
 * [!INCLUDE [2.1-SDK](../../includes/2.1-SDK.md)]
 
-## <a name="installation"></a><span data-ttu-id="36569-107">インストール</span><span class="sxs-lookup"><span data-stu-id="36569-107">Installation</span></span>
+## <a name="installation"></a><span data-ttu-id="b23f7-107">インストール</span><span class="sxs-lookup"><span data-stu-id="b23f7-107">Installation</span></span>
 
-<span data-ttu-id="36569-108">LibMan CLI のインストール。</span><span class="sxs-lookup"><span data-stu-id="36569-108">To install the LibMan CLI:</span></span>
+<span data-ttu-id="b23f7-108">LibMan CLI をインストールするには:</span><span class="sxs-lookup"><span data-stu-id="b23f7-108">To install the LibMan CLI:</span></span>
 
-```console
+```dotnetcli
 dotnet tool install -g Microsoft.Web.LibraryManager.Cli
 ```
 
-<span data-ttu-id="36569-109">A [.NET Core のグローバル ツール](/dotnet/core/tools/global-tools#install-a-global-tool)からインストールされている、 [Microsoft.Web.LibraryManager.Cli](https://www.nuget.org/packages/Microsoft.Web.LibraryManager.Cli/) NuGet パッケージ。</span><span class="sxs-lookup"><span data-stu-id="36569-109">A [.NET Core Global Tool](/dotnet/core/tools/global-tools#install-a-global-tool) is installed from the [Microsoft.Web.LibraryManager.Cli](https://www.nuget.org/packages/Microsoft.Web.LibraryManager.Cli/) NuGet package.</span></span>
+<span data-ttu-id="b23f7-109">[.Net Core グローバルツール](/dotnet/core/tools/global-tools#install-a-global-tool)は、 [Microsoft の Web. librarymanager](https://www.nuget.org/packages/Microsoft.Web.LibraryManager.Cli/)の NuGet パッケージからインストールされます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-109">A [.NET Core Global Tool](/dotnet/core/tools/global-tools#install-a-global-tool) is installed from the [Microsoft.Web.LibraryManager.Cli](https://www.nuget.org/packages/Microsoft.Web.LibraryManager.Cli/) NuGet package.</span></span>
 
-<span data-ttu-id="36569-110">特定の NuGet パッケージのソースから LibMan CLI をインストールします。</span><span class="sxs-lookup"><span data-stu-id="36569-110">To install the LibMan CLI from a specific NuGet package source:</span></span>
+<span data-ttu-id="b23f7-110">特定の NuGet パッケージソースから LibMan CLI をインストールするには、次のようにします。</span><span class="sxs-lookup"><span data-stu-id="b23f7-110">To install the LibMan CLI from a specific NuGet package source:</span></span>
 
-```console
+```dotnetcli
 dotnet tool install -g Microsoft.Web.LibraryManager.Cli --version 1.0.94-g606058a278 --add-source C:\Temp\
 ```
 
-<span data-ttu-id="36569-111">ローカルの Windows コンピューターの前の例では、.NET Core のグローバル ツールがインストールされている*C:\Temp\Microsoft.Web.LibraryManager.Cli.1.0.94-g606058a278.nupkg*ファイル。</span><span class="sxs-lookup"><span data-stu-id="36569-111">In the preceding example, a .NET Core Global Tool is installed from the local Windows machine's *C:\Temp\Microsoft.Web.LibraryManager.Cli.1.0.94-g606058a278.nupkg* file.</span></span>
+<span data-ttu-id="b23f7-111">前の例では、.NET Core グローバルツールがローカル Windows コンピューターの*C:\Temp\Microsoft.Web.LibraryManager.Cli.1.0.94-g606058a278.nupkg*ファイルからインストールされています。</span><span class="sxs-lookup"><span data-stu-id="b23f7-111">In the preceding example, a .NET Core Global Tool is installed from the local Windows machine's *C:\Temp\Microsoft.Web.LibraryManager.Cli.1.0.94-g606058a278.nupkg* file.</span></span>
 
-## <a name="usage"></a><span data-ttu-id="36569-112">使用法</span><span class="sxs-lookup"><span data-stu-id="36569-112">Usage</span></span>
+## <a name="usage"></a><span data-ttu-id="b23f7-112">使用方法</span><span class="sxs-lookup"><span data-stu-id="b23f7-112">Usage</span></span>
 
-<span data-ttu-id="36569-113">CLI のインストールの成功後、次のコマンドを使用できます。</span><span class="sxs-lookup"><span data-stu-id="36569-113">After successful installation of the CLI, the following command can be used:</span></span>
+<span data-ttu-id="b23f7-113">CLI が正常にインストールされたら、次のコマンドを使用できます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-113">After successful installation of the CLI, the following command can be used:</span></span>
 
 ```console
 libman
 ```
 
-<span data-ttu-id="36569-114">インストールされている CLI バージョンを表示します。</span><span class="sxs-lookup"><span data-stu-id="36569-114">To view the installed CLI version:</span></span>
+<span data-ttu-id="b23f7-114">インストールされている CLI のバージョンを表示するには:</span><span class="sxs-lookup"><span data-stu-id="b23f7-114">To view the installed CLI version:</span></span>
 
 ```console
 libman --version
 ```
 
-<span data-ttu-id="36569-115">使用可能な CLI コマンドを表示するには。</span><span class="sxs-lookup"><span data-stu-id="36569-115">To view the available CLI commands:</span></span>
+<span data-ttu-id="b23f7-115">使用可能な CLI コマンドを表示するには:</span><span class="sxs-lookup"><span data-stu-id="b23f7-115">To view the available CLI commands:</span></span>
 
 ```console
 libman --help
 ```
 
-<span data-ttu-id="36569-116">上記のコマンドには、次のような出力が表示されます。</span><span class="sxs-lookup"><span data-stu-id="36569-116">The preceding command displays output similar to the following:</span></span>
+<span data-ttu-id="b23f7-116">上記のコマンドでは、次のような出力が表示されます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-116">The preceding command displays output similar to the following:</span></span>
 
 ```console
  1.0.163+g45474d37ed
@@ -88,53 +88,53 @@ Commands:
 Use "libman [command] --help" for more information about a command.
 ```
 
-<span data-ttu-id="36569-117">次のセクションでは、使用可能な CLI コマンドを説明します。</span><span class="sxs-lookup"><span data-stu-id="36569-117">The following sections outline the available CLI commands.</span></span>
+<span data-ttu-id="b23f7-117">次のセクションでは、使用可能な CLI コマンドの概要を示します。</span><span class="sxs-lookup"><span data-stu-id="b23f7-117">The following sections outline the available CLI commands.</span></span>
 
-## <a name="initialize-libman-in-the-project"></a><span data-ttu-id="36569-118">LibMan をプロジェクトを初期化します。</span><span class="sxs-lookup"><span data-stu-id="36569-118">Initialize LibMan in the project</span></span>
+## <a name="initialize-libman-in-the-project"></a><span data-ttu-id="b23f7-118">プロジェクト内の LibMan を初期化します</span><span class="sxs-lookup"><span data-stu-id="b23f7-118">Initialize LibMan in the project</span></span>
 
-<span data-ttu-id="36569-119">`libman init`コマンドは、作成、 *libman.json*ファイルのいずれかが存在しない場合。</span><span class="sxs-lookup"><span data-stu-id="36569-119">The `libman init` command creates a *libman.json* file if one doesn't exist.</span></span> <span data-ttu-id="36569-120">既定の項目テンプレートのコンテンツ ファイルが作成されます。</span><span class="sxs-lookup"><span data-stu-id="36569-120">The file is created with the default item template content.</span></span>
+<span data-ttu-id="b23f7-119">コマンド`libman init`を実行すると、 *libman. json*ファイルが存在しない場合は作成されます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-119">The `libman init` command creates a *libman.json* file if one doesn't exist.</span></span> <span data-ttu-id="b23f7-120">ファイルは、既定の項目テンプレートコンテンツを使用して作成されます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-120">The file is created with the default item template content.</span></span>
 
-### <a name="synopsis"></a><span data-ttu-id="36569-121">構文</span><span class="sxs-lookup"><span data-stu-id="36569-121">Synopsis</span></span>
+### <a name="synopsis"></a><span data-ttu-id="b23f7-121">構文</span><span class="sxs-lookup"><span data-stu-id="b23f7-121">Synopsis</span></span>
 
 ```console
 libman init [-d|--default-destination] [-p|--default-provider] [--verbosity]
 libman init [-h|--help]
 ```
 
-### <a name="options"></a><span data-ttu-id="36569-122">オプション</span><span class="sxs-lookup"><span data-stu-id="36569-122">Options</span></span>
+### <a name="options"></a><span data-ttu-id="b23f7-122">オプション</span><span class="sxs-lookup"><span data-stu-id="b23f7-122">Options</span></span>
 
-<span data-ttu-id="36569-123">次のオプションを使用できる、`libman init`コマンド。</span><span class="sxs-lookup"><span data-stu-id="36569-123">The following options are available for the `libman init` command:</span></span>
+<span data-ttu-id="b23f7-123">`libman init` コマンドには以下のオプションを使用できます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-123">The following options are available for the `libman init` command:</span></span>
 
 * `-d|--default-destination <PATH>`
 
-  <span data-ttu-id="36569-124">現在のフォルダーの相対パス。</span><span class="sxs-lookup"><span data-stu-id="36569-124">A path relative to the current folder.</span></span> <span data-ttu-id="36569-125">ライブラリ ファイルがこの場所にインストールされていない場合`destination`のライブラリのプロパティが定義されている*libman.json*します。</span><span class="sxs-lookup"><span data-stu-id="36569-125">Library files are installed in this location if no `destination` property is defined for a library in *libman.json*.</span></span> <span data-ttu-id="36569-126">`<PATH>`に値が書き込まれる、`defaultDestination`プロパティの*libman.json*します。</span><span class="sxs-lookup"><span data-stu-id="36569-126">The `<PATH>` value is written to the `defaultDestination` property of *libman.json*.</span></span>
+  <span data-ttu-id="b23f7-124">現在のフォルダーを基準とした相対パス。</span><span class="sxs-lookup"><span data-stu-id="b23f7-124">A path relative to the current folder.</span></span> <span data-ttu-id="b23f7-125">ライブラリファイルは、 *libman. json*の`destination`ライブラリに対してプロパティが定義されていない場合に、この場所にインストールされます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-125">Library files are installed in this location if no `destination` property is defined for a library in *libman.json*.</span></span> <span data-ttu-id="b23f7-126">値`<PATH>`は、 *libman. json*の`defaultDestination`プロパティに書き込まれます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-126">The `<PATH>` value is written to the `defaultDestination` property of *libman.json*.</span></span>
 
 * `-p|--default-provider <PROVIDER>`
 
-  <span data-ttu-id="36569-127">指定したライブラリのプロバイダーが定義されていない場合に使用するプロバイダー。</span><span class="sxs-lookup"><span data-stu-id="36569-127">The provider to use if no provider is defined for a given library.</span></span> <span data-ttu-id="36569-128">`<PROVIDER>`に値が書き込まれる、`defaultProvider`プロパティの*libman.json*します。</span><span class="sxs-lookup"><span data-stu-id="36569-128">The `<PROVIDER>` value is written to the `defaultProvider` property of *libman.json*.</span></span> <span data-ttu-id="36569-129">置換`<PROVIDER>`次の値のいずれかの。</span><span class="sxs-lookup"><span data-stu-id="36569-129">Replace `<PROVIDER>` with one of the following values:</span></span>
+  <span data-ttu-id="b23f7-127">指定したライブラリにプロバイダーが定義されていない場合に使用するプロバイダー。</span><span class="sxs-lookup"><span data-stu-id="b23f7-127">The provider to use if no provider is defined for a given library.</span></span> <span data-ttu-id="b23f7-128">値`<PROVIDER>`は、 *libman. json*の`defaultProvider`プロパティに書き込まれます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-128">The `<PROVIDER>` value is written to the `defaultProvider` property of *libman.json*.</span></span> <span data-ttu-id="b23f7-129">次`<PROVIDER>`のいずれかの値に置き換えます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-129">Replace `<PROVIDER>` with one of the following values:</span></span>
 
   [!INCLUDE [LibMan provider names](../../includes/libman-cli/provider-names.md)]
 
 [!INCLUDE [standard-cli-options](../../includes/libman-cli/standard-cli-options.md)]
 
-### <a name="examples"></a><span data-ttu-id="36569-130">使用例</span><span class="sxs-lookup"><span data-stu-id="36569-130">Examples</span></span>
+### <a name="examples"></a><span data-ttu-id="b23f7-130">使用例</span><span class="sxs-lookup"><span data-stu-id="b23f7-130">Examples</span></span>
 
-<span data-ttu-id="36569-131">作成する、 *libman.json* ASP.NET Core プロジェクト ファイル。</span><span class="sxs-lookup"><span data-stu-id="36569-131">To create a *libman.json* file in an ASP.NET Core project:</span></span>
+<span data-ttu-id="b23f7-131">ASP.NET Core プロジェクトに*libman. json*ファイルを作成するには、次のようにします。</span><span class="sxs-lookup"><span data-stu-id="b23f7-131">To create a *libman.json* file in an ASP.NET Core project:</span></span>
 
-* <span data-ttu-id="36569-132">プロジェクトのルートに移動します。</span><span class="sxs-lookup"><span data-stu-id="36569-132">Navigate to the project root.</span></span>
-* <span data-ttu-id="36569-133">次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="36569-133">Run the following command:</span></span>
+* <span data-ttu-id="b23f7-132">プロジェクトのルートに移動します。</span><span class="sxs-lookup"><span data-stu-id="b23f7-132">Navigate to the project root.</span></span>
+* <span data-ttu-id="b23f7-133">次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="b23f7-133">Run the following command:</span></span>
 
   ```console
   libman init
   ```
 
-* <span data-ttu-id="36569-134">キーを押して、既定のプロバイダーの名前を入力`Enter`CDNJS の既定のプロバイダーを使用します。</span><span class="sxs-lookup"><span data-stu-id="36569-134">Type the name of the default provider, or press `Enter` to use the default CDNJS provider.</span></span> <span data-ttu-id="36569-135">有効な値を次に示します。</span><span class="sxs-lookup"><span data-stu-id="36569-135">Valid values include:</span></span>
+* <span data-ttu-id="b23f7-134">既定のプロバイダーの名前を入力するか、 `Enter`キーを押して既定の cdnjs プロバイダーを使用します。</span><span class="sxs-lookup"><span data-stu-id="b23f7-134">Type the name of the default provider, or press `Enter` to use the default CDNJS provider.</span></span> <span data-ttu-id="b23f7-135">有効な値は次のとおりです。</span><span class="sxs-lookup"><span data-stu-id="b23f7-135">Valid values include:</span></span>
 
   [!INCLUDE [LibMan provider names](../../includes/libman-cli/provider-names.md)]
 
-  ![libman init コマンドの既定のプロバイダー](_static/libman-init-provider.png)
+  ![libman init コマンド-既定のプロバイダー](_static/libman-init-provider.png)
 
-<span data-ttu-id="36569-137">A *libman.json*ファイル、プロジェクトのルート以下の内容に追加されます。</span><span class="sxs-lookup"><span data-stu-id="36569-137">A *libman.json* file is added to the project root with the following content:</span></span>
+<span data-ttu-id="b23f7-137">*Libman. json*ファイルは、次の内容を含むプロジェクトルートに追加されます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-137">A *libman.json* file is added to the project root with the following content:</span></span>
 
 ```json
 {
@@ -144,48 +144,48 @@ libman init [-h|--help]
 }
 ```
 
-## <a name="add-library-files"></a><span data-ttu-id="36569-138">ライブラリ ファイルを追加します。</span><span class="sxs-lookup"><span data-stu-id="36569-138">Add library files</span></span>
+## <a name="add-library-files"></a><span data-ttu-id="b23f7-138">ライブラリファイルの追加</span><span class="sxs-lookup"><span data-stu-id="b23f7-138">Add library files</span></span>
 
-<span data-ttu-id="36569-139">`libman install`コマンドは、ダウンロードし、プロジェクトにライブラリ ファイルをインストールします。</span><span class="sxs-lookup"><span data-stu-id="36569-139">The `libman install` command downloads and installs library files into the project.</span></span> <span data-ttu-id="36569-140">A *libman.json*ファイルが存在していない場合に追加されます。</span><span class="sxs-lookup"><span data-stu-id="36569-140">A *libman.json* file is added if one doesn't exist.</span></span> <span data-ttu-id="36569-141">*Libman.json*ライブラリ ファイルの構成の詳細を格納するファイルを変更します。</span><span class="sxs-lookup"><span data-stu-id="36569-141">The *libman.json* file is modified to store configuration details for the library files.</span></span>
+<span data-ttu-id="b23f7-139">コマンド`libman install`を実行すると、ライブラリファイルがダウンロードされ、プロジェクトにインストールされます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-139">The `libman install` command downloads and installs library files into the project.</span></span> <span data-ttu-id="b23f7-140">*Libman. json*ファイルが存在しない場合は追加されます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-140">A *libman.json* file is added if one doesn't exist.</span></span> <span data-ttu-id="b23f7-141">*Libman. json*ファイルは、ライブラリファイルの構成の詳細を保存するように変更されています。</span><span class="sxs-lookup"><span data-stu-id="b23f7-141">The *libman.json* file is modified to store configuration details for the library files.</span></span>
 
-### <a name="synopsis"></a><span data-ttu-id="36569-142">構文</span><span class="sxs-lookup"><span data-stu-id="36569-142">Synopsis</span></span>
+### <a name="synopsis"></a><span data-ttu-id="b23f7-142">構文</span><span class="sxs-lookup"><span data-stu-id="b23f7-142">Synopsis</span></span>
 
 ```console
 libman install <LIBRARY> [-d|--destination] [--files] [-p|--provider] [--verbosity]
 libman install [-h|--help]
 ```
 
-### <a name="arguments"></a><span data-ttu-id="36569-143">引数</span><span class="sxs-lookup"><span data-stu-id="36569-143">Arguments</span></span>
+### <a name="arguments"></a><span data-ttu-id="b23f7-143">引数</span><span class="sxs-lookup"><span data-stu-id="b23f7-143">Arguments</span></span>
 
 `LIBRARY`
 
-<span data-ttu-id="36569-144">インストールするためにライブラリの名前。</span><span class="sxs-lookup"><span data-stu-id="36569-144">The name of the library to install.</span></span> <span data-ttu-id="36569-145">この名前は、バージョン番号の表記法を含めることができます (たとえば、 `@1.2.0`)。</span><span class="sxs-lookup"><span data-stu-id="36569-145">This name may include version number notation (for example, `@1.2.0`).</span></span>
+<span data-ttu-id="b23f7-144">インストールするライブラリの名前。</span><span class="sxs-lookup"><span data-stu-id="b23f7-144">The name of the library to install.</span></span> <span data-ttu-id="b23f7-145">この名前には、バージョン番号の表記 (など`@1.2.0`) を含めることができます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-145">This name may include version number notation (for example, `@1.2.0`).</span></span>
 
-### <a name="options"></a><span data-ttu-id="36569-146">オプション</span><span class="sxs-lookup"><span data-stu-id="36569-146">Options</span></span>
+### <a name="options"></a><span data-ttu-id="b23f7-146">オプション</span><span class="sxs-lookup"><span data-stu-id="b23f7-146">Options</span></span>
 
-<span data-ttu-id="36569-147">次のオプションを使用できる、`libman install`コマンド。</span><span class="sxs-lookup"><span data-stu-id="36569-147">The following options are available for the `libman install` command:</span></span>
+<span data-ttu-id="b23f7-147">`libman install` コマンドには以下のオプションを使用できます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-147">The following options are available for the `libman install` command:</span></span>
 
 * `-d|--destination <PATH>`
 
-  <span data-ttu-id="36569-148">ライブラリをインストールする場所。</span><span class="sxs-lookup"><span data-stu-id="36569-148">The location to install the library.</span></span> <span data-ttu-id="36569-149">指定しない場合、既定の場所が使用されます。</span><span class="sxs-lookup"><span data-stu-id="36569-149">If not specified, the default location is used.</span></span> <span data-ttu-id="36569-150">ない場合は`defaultDestination`プロパティが指定されて*libman.json*、このオプションが必要です。</span><span class="sxs-lookup"><span data-stu-id="36569-150">If no `defaultDestination` property is specified in *libman.json*, this option is required.</span></span>
+  <span data-ttu-id="b23f7-148">ライブラリをインストールする場所。</span><span class="sxs-lookup"><span data-stu-id="b23f7-148">The location to install the library.</span></span> <span data-ttu-id="b23f7-149">指定しない場合は、既定の場所が使用されます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-149">If not specified, the default location is used.</span></span> <span data-ttu-id="b23f7-150">`defaultDestination` *Libman. json*でプロパティが指定されていない場合、このオプションは必須です。</span><span class="sxs-lookup"><span data-stu-id="b23f7-150">If no `defaultDestination` property is specified in *libman.json*, this option is required.</span></span>
 
 * `--files <FILE>`
 
-  <span data-ttu-id="36569-151">ライブラリからインストールするファイルの名前を指定します。</span><span class="sxs-lookup"><span data-stu-id="36569-151">Specify the name of the file to install from the library.</span></span> <span data-ttu-id="36569-152">指定しない場合、ライブラリからすべてのファイルがインストールされます。</span><span class="sxs-lookup"><span data-stu-id="36569-152">If not specified, all files from the library are installed.</span></span> <span data-ttu-id="36569-153">1 つ提供`--files`ファイルごとのオプションをインストールします。</span><span class="sxs-lookup"><span data-stu-id="36569-153">Provide one `--files` option per file to be installed.</span></span> <span data-ttu-id="36569-154">相対パスはもサポートします。</span><span class="sxs-lookup"><span data-stu-id="36569-154">Relative paths are supported too.</span></span> <span data-ttu-id="36569-155">たとえば、`--files dist/browser/signalr.js` のように指定します。</span><span class="sxs-lookup"><span data-stu-id="36569-155">For example: `--files dist/browser/signalr.js`.</span></span>
+  <span data-ttu-id="b23f7-151">ライブラリからインストールするファイルの名前を指定します。</span><span class="sxs-lookup"><span data-stu-id="b23f7-151">Specify the name of the file to install from the library.</span></span> <span data-ttu-id="b23f7-152">指定しない場合、ライブラリのすべてのファイルがインストールされます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-152">If not specified, all files from the library are installed.</span></span> <span data-ttu-id="b23f7-153">インストールする`--files`ファイルごとに1つのオプションを指定します。</span><span class="sxs-lookup"><span data-stu-id="b23f7-153">Provide one `--files` option per file to be installed.</span></span> <span data-ttu-id="b23f7-154">相対パスもサポートされています。</span><span class="sxs-lookup"><span data-stu-id="b23f7-154">Relative paths are supported too.</span></span> <span data-ttu-id="b23f7-155">たとえば、`--files dist/browser/signalr.js` のように指定します。</span><span class="sxs-lookup"><span data-stu-id="b23f7-155">For example: `--files dist/browser/signalr.js`.</span></span>
 
 * `-p|--provider <PROVIDER>`
 
-  <span data-ttu-id="36569-156">ライブラリの取得を使用するプロバイダーの名前。</span><span class="sxs-lookup"><span data-stu-id="36569-156">The name of the provider to use for the library acquisition.</span></span> <span data-ttu-id="36569-157">置換`<PROVIDER>`次の値のいずれかの。</span><span class="sxs-lookup"><span data-stu-id="36569-157">Replace `<PROVIDER>` with one of the following values:</span></span>
+  <span data-ttu-id="b23f7-156">ライブラリの取得に使用するプロバイダーの名前。</span><span class="sxs-lookup"><span data-stu-id="b23f7-156">The name of the provider to use for the library acquisition.</span></span> <span data-ttu-id="b23f7-157">次`<PROVIDER>`のいずれかの値に置き換えます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-157">Replace `<PROVIDER>` with one of the following values:</span></span>
   
   [!INCLUDE [LibMan provider names](../../includes/libman-cli/provider-names.md)]
 
-  <span data-ttu-id="36569-158">指定しない場合、`defaultProvider`プロパティ*libman.json*使用されます。</span><span class="sxs-lookup"><span data-stu-id="36569-158">If not specified, the `defaultProvider` property in *libman.json* is used.</span></span> <span data-ttu-id="36569-159">ない場合は`defaultProvider`プロパティが指定されて*libman.json*、このオプションが必要です。</span><span class="sxs-lookup"><span data-stu-id="36569-159">If no `defaultProvider` property is specified in *libman.json*, this option is required.</span></span>
+  <span data-ttu-id="b23f7-158">指定しない場合は`defaultProvider` 、 *libman. json*のプロパティが使用されます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-158">If not specified, the `defaultProvider` property in *libman.json* is used.</span></span> <span data-ttu-id="b23f7-159">`defaultProvider` *Libman. json*でプロパティが指定されていない場合、このオプションは必須です。</span><span class="sxs-lookup"><span data-stu-id="b23f7-159">If no `defaultProvider` property is specified in *libman.json*, this option is required.</span></span>
 
 [!INCLUDE [standard-cli-options](../../includes/libman-cli/standard-cli-options.md)]
 
-### <a name="examples"></a><span data-ttu-id="36569-160">使用例</span><span class="sxs-lookup"><span data-stu-id="36569-160">Examples</span></span>
+### <a name="examples"></a><span data-ttu-id="b23f7-160">使用例</span><span class="sxs-lookup"><span data-stu-id="b23f7-160">Examples</span></span>
 
-<span data-ttu-id="36569-161">次を考慮*libman.json*ファイル。</span><span class="sxs-lookup"><span data-stu-id="36569-161">Consider the following *libman.json* file:</span></span>
+<span data-ttu-id="b23f7-161">次の*libman. json*ファイルについて考えてみます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-161">Consider the following *libman.json* file:</span></span>
 
 ```json
 {
@@ -195,13 +195,13 @@ libman install [-h|--help]
 }
 ```
 
-<span data-ttu-id="36569-162">3.2.1 jQuery バージョンをインストールする*jquery.min.js*ファイルを*jqueryスクリプト/wwwroot/* CDNJS プロバイダーを使用してフォルダー。</span><span class="sxs-lookup"><span data-stu-id="36569-162">To install the jQuery version 3.2.1 *jquery.min.js* file to the *wwwroot/scripts/jquery* folder using the CDNJS provider:</span></span>
+<span data-ttu-id="b23f7-162">CDNJS プロバイダーを使用して jQuery バージョン 3.2.1 *jquery*ファイルを*wwwroot/scripts/jQuery*フォルダーにインストールするには、次のようにします。</span><span class="sxs-lookup"><span data-stu-id="b23f7-162">To install the jQuery version 3.2.1 *jquery.min.js* file to the *wwwroot/scripts/jquery* folder using the CDNJS provider:</span></span>
 
 ```console
 libman install jquery@3.2.1 --provider cdnjs --destination wwwroot/scripts/jquery --files jquery.min.js
 ```
 
-<span data-ttu-id="36569-163">*Libman.json*ファイルが、次に似ています。</span><span class="sxs-lookup"><span data-stu-id="36569-163">The *libman.json* file resembles the following:</span></span>
+<span data-ttu-id="b23f7-163">*Libman. json*ファイルは次のようになります。</span><span class="sxs-lookup"><span data-stu-id="b23f7-163">The *libman.json* file resembles the following:</span></span>
 
 ```json
 {
@@ -219,20 +219,20 @@ libman install jquery@3.2.1 --provider cdnjs --destination wwwroot/scripts/jquer
 }
 ```
 
-<span data-ttu-id="36569-164">インストールする、 *calendar.js*と*calendar.css*ファイルから*c:\\temp\\contosoCalendar\\* ファイル システムを使用します。プロバイダー:</span><span class="sxs-lookup"><span data-stu-id="36569-164">To install the *calendar.js* and *calendar.css* files from *C:\\temp\\contosoCalendar\\* using the file system provider:</span></span>
+<span data-ttu-id="b23f7-164">ファイルシステムプロバイダーを使用して、 *C\\: temp\\contosoCalendar\\* から*calendar*ファイルと*calendar .css*ファイルをインストールするには、次のようにします。</span><span class="sxs-lookup"><span data-stu-id="b23f7-164">To install the *calendar.js* and *calendar.css* files from *C:\\temp\\contosoCalendar\\* using the file system provider:</span></span>
 
   ```console
   libman install C:\temp\contosoCalendar\ --provider filesystem --files calendar.js --files calendar.css
   ```
 
-<span data-ttu-id="36569-165">次のプロンプトは、2 つの理由が表示されます。</span><span class="sxs-lookup"><span data-stu-id="36569-165">The following prompt appears for two reasons:</span></span>
+<span data-ttu-id="b23f7-165">次の2つの理由で、次のプロンプトが表示されます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-165">The following prompt appears for two reasons:</span></span>
 
-* <span data-ttu-id="36569-166">*Libman.json*ファイルが含まれていない、`defaultDestination`プロパティ。</span><span class="sxs-lookup"><span data-stu-id="36569-166">The *libman.json* file doesn't contain a `defaultDestination` property.</span></span>
-* <span data-ttu-id="36569-167">`libman install`コマンドが含まれていない、`-d|--destination`オプション。</span><span class="sxs-lookup"><span data-stu-id="36569-167">The `libman install` command doesn't contain the `-d|--destination` option.</span></span>
+* <span data-ttu-id="b23f7-166">*Libman. json*ファイルには`defaultDestination`プロパティが含まれていません。</span><span class="sxs-lookup"><span data-stu-id="b23f7-166">The *libman.json* file doesn't contain a `defaultDestination` property.</span></span>
+* <span data-ttu-id="b23f7-167">コマンド`libman install`に`-d|--destination`オプションが含まれていません。</span><span class="sxs-lookup"><span data-stu-id="b23f7-167">The `libman install` command doesn't contain the `-d|--destination` option.</span></span>
 
-![libman インストール コマンド - 変換先](_static/libman-install-destination.png)
+![libman install コマンド-destination](_static/libman-install-destination.png)
 
-<span data-ttu-id="36569-169">既定の転送先に同意した後、 *libman.json*ファイルが、次に似ています。</span><span class="sxs-lookup"><span data-stu-id="36569-169">After accepting the default destination, the *libman.json* file resembles the following:</span></span>
+<span data-ttu-id="b23f7-169">既定の保存先を受け入れると、 *libman. json*ファイルは次のようになります。</span><span class="sxs-lookup"><span data-stu-id="b23f7-169">After accepting the default destination, the *libman.json* file resembles the following:</span></span>
 
 ```json
 {
@@ -259,100 +259,100 @@ libman install jquery@3.2.1 --provider cdnjs --destination wwwroot/scripts/jquer
 }
 ```
 
-## <a name="restore-library-files"></a><span data-ttu-id="36569-170">ライブラリ ファイルを復元します。</span><span class="sxs-lookup"><span data-stu-id="36569-170">Restore library files</span></span>
+## <a name="restore-library-files"></a><span data-ttu-id="b23f7-170">ライブラリファイルの復元</span><span class="sxs-lookup"><span data-stu-id="b23f7-170">Restore library files</span></span>
 
-<span data-ttu-id="36569-171">`libman restore`コマンドで定義されているライブラリ ファイルはインストール*libman.json*します。</span><span class="sxs-lookup"><span data-stu-id="36569-171">The `libman restore` command installs library files defined in *libman.json*.</span></span> <span data-ttu-id="36569-172">次の規則が適用されます。</span><span class="sxs-lookup"><span data-stu-id="36569-172">The following rules apply:</span></span>
+<span data-ttu-id="b23f7-171">コマンド`libman restore`は、 *libman. json*で定義されているライブラリファイルをインストールします。</span><span class="sxs-lookup"><span data-stu-id="b23f7-171">The `libman restore` command installs library files defined in *libman.json*.</span></span> <span data-ttu-id="b23f7-172">次の規則が適用されます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-172">The following rules apply:</span></span>
 
-* <span data-ttu-id="36569-173">ない場合は*libman.json*プロジェクトのルートにファイルが存在するエラーが返されます。</span><span class="sxs-lookup"><span data-stu-id="36569-173">If no *libman.json* file exists in the project root, an error is returned.</span></span>
-* <span data-ttu-id="36569-174">ライブラリは、プロバイダーを指定する場合、`defaultProvider`プロパティ*libman.json*は無視されます。</span><span class="sxs-lookup"><span data-stu-id="36569-174">If a library specifies a provider, the `defaultProvider` property in *libman.json* is ignored.</span></span>
-* <span data-ttu-id="36569-175">ライブラリは、変換先を指定する場合、`defaultDestination`プロパティ*libman.json*は無視されます。</span><span class="sxs-lookup"><span data-stu-id="36569-175">If a library specifies a destination, the `defaultDestination` property in *libman.json* is ignored.</span></span>
+* <span data-ttu-id="b23f7-173">プロジェクトルートに*libman. json*ファイルが存在しない場合は、エラーが返されます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-173">If no *libman.json* file exists in the project root, an error is returned.</span></span>
+* <span data-ttu-id="b23f7-174">ライブラリがプロバイダーを指定して`defaultProvider`いる場合、 *libman. json*のプロパティは無視されます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-174">If a library specifies a provider, the `defaultProvider` property in *libman.json* is ignored.</span></span>
+* <span data-ttu-id="b23f7-175">ライブラリが変換先を指定すると`defaultDestination` 、 *libman. json*のプロパティは無視されます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-175">If a library specifies a destination, the `defaultDestination` property in *libman.json* is ignored.</span></span>
 
-### <a name="synopsis"></a><span data-ttu-id="36569-176">構文</span><span class="sxs-lookup"><span data-stu-id="36569-176">Synopsis</span></span>
+### <a name="synopsis"></a><span data-ttu-id="b23f7-176">構文</span><span class="sxs-lookup"><span data-stu-id="b23f7-176">Synopsis</span></span>
 
 ```console
 libman restore [--verbosity]
 libman restore [-h|--help]
 ```
 
-### <a name="options"></a><span data-ttu-id="36569-177">オプション</span><span class="sxs-lookup"><span data-stu-id="36569-177">Options</span></span>
+### <a name="options"></a><span data-ttu-id="b23f7-177">オプション</span><span class="sxs-lookup"><span data-stu-id="b23f7-177">Options</span></span>
 
-<span data-ttu-id="36569-178">次のオプションを使用できる、`libman restore`コマンド。</span><span class="sxs-lookup"><span data-stu-id="36569-178">The following options are available for the `libman restore` command:</span></span>
+<span data-ttu-id="b23f7-178">`libman restore` コマンドには以下のオプションを使用できます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-178">The following options are available for the `libman restore` command:</span></span>
 
 [!INCLUDE [standard-cli-options](../../includes/libman-cli/standard-cli-options.md)]
 
-### <a name="examples"></a><span data-ttu-id="36569-179">使用例</span><span class="sxs-lookup"><span data-stu-id="36569-179">Examples</span></span>
+### <a name="examples"></a><span data-ttu-id="b23f7-179">使用例</span><span class="sxs-lookup"><span data-stu-id="b23f7-179">Examples</span></span>
 
-<span data-ttu-id="36569-180">定義されているライブラリ ファイルを復元する*libman.json*:</span><span class="sxs-lookup"><span data-stu-id="36569-180">To restore the library files defined in *libman.json*:</span></span>
+<span data-ttu-id="b23f7-180">*Libman. json*で定義されているライブラリファイルを復元するには、次のようにします。</span><span class="sxs-lookup"><span data-stu-id="b23f7-180">To restore the library files defined in *libman.json*:</span></span>
 
 ```console
 libman restore
 ```
 
-## <a name="delete-library-files"></a><span data-ttu-id="36569-181">ライブラリ ファイルを削除します。</span><span class="sxs-lookup"><span data-stu-id="36569-181">Delete library files</span></span>
+## <a name="delete-library-files"></a><span data-ttu-id="b23f7-181">ライブラリファイルの削除</span><span class="sxs-lookup"><span data-stu-id="b23f7-181">Delete library files</span></span>
 
-<span data-ttu-id="36569-182">`libman clean`コマンド LibMan を使用して以前に復元されたライブラリ ファイルを削除します。</span><span class="sxs-lookup"><span data-stu-id="36569-182">The `libman clean` command deletes library files previously restored via LibMan.</span></span> <span data-ttu-id="36569-183">この操作の後に空になったフォルダーは削除されます。</span><span class="sxs-lookup"><span data-stu-id="36569-183">Folders that become empty after this operation are deleted.</span></span> <span data-ttu-id="36569-184">構成に関連するライブラリ ファイルの`libraries`プロパティの*libman.json*は削除されません。</span><span class="sxs-lookup"><span data-stu-id="36569-184">The library files' associated configurations in the `libraries` property of *libman.json* aren't removed.</span></span>
+<span data-ttu-id="b23f7-182">この`libman clean`コマンドは、libman を使用して以前に復元されたライブラリファイルを削除します。</span><span class="sxs-lookup"><span data-stu-id="b23f7-182">The `libman clean` command deletes library files previously restored via LibMan.</span></span> <span data-ttu-id="b23f7-183">この操作の後に空になるフォルダーは削除されます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-183">Folders that become empty after this operation are deleted.</span></span> <span data-ttu-id="b23f7-184">`libraries` *Libman. json*のプロパティのライブラリファイルに関連付けられている構成は削除されません。</span><span class="sxs-lookup"><span data-stu-id="b23f7-184">The library files' associated configurations in the `libraries` property of *libman.json* aren't removed.</span></span>
 
-### <a name="synopsis"></a><span data-ttu-id="36569-185">構文</span><span class="sxs-lookup"><span data-stu-id="36569-185">Synopsis</span></span>
+### <a name="synopsis"></a><span data-ttu-id="b23f7-185">構文</span><span class="sxs-lookup"><span data-stu-id="b23f7-185">Synopsis</span></span>
 
 ```console
 libman clean [--verbosity]
 libman clean [-h|--help]
 ```
 
-### <a name="options"></a><span data-ttu-id="36569-186">オプション</span><span class="sxs-lookup"><span data-stu-id="36569-186">Options</span></span>
+### <a name="options"></a><span data-ttu-id="b23f7-186">オプション</span><span class="sxs-lookup"><span data-stu-id="b23f7-186">Options</span></span>
 
-<span data-ttu-id="36569-187">次のオプションを使用できる、`libman clean`コマンド。</span><span class="sxs-lookup"><span data-stu-id="36569-187">The following options are available for the `libman clean` command:</span></span>
+<span data-ttu-id="b23f7-187">`libman clean` コマンドには以下のオプションを使用できます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-187">The following options are available for the `libman clean` command:</span></span>
 
 [!INCLUDE [standard-cli-options](../../includes/libman-cli/standard-cli-options.md)]
 
-### <a name="examples"></a><span data-ttu-id="36569-188">使用例</span><span class="sxs-lookup"><span data-stu-id="36569-188">Examples</span></span>
+### <a name="examples"></a><span data-ttu-id="b23f7-188">使用例</span><span class="sxs-lookup"><span data-stu-id="b23f7-188">Examples</span></span>
 
-<span data-ttu-id="36569-189">LibMan 経由でインストールされているライブラリ ファイルを削除します。</span><span class="sxs-lookup"><span data-stu-id="36569-189">To delete library files installed via LibMan:</span></span>
+<span data-ttu-id="b23f7-189">LibMan を使用してインストールされたライブラリファイルを削除するには</span><span class="sxs-lookup"><span data-stu-id="b23f7-189">To delete library files installed via LibMan:</span></span>
 
 ```console
 libman clean
 ```
 
-## <a name="uninstall-library-files"></a><span data-ttu-id="36569-190">ライブラリ ファイルをアンインストールします。</span><span class="sxs-lookup"><span data-stu-id="36569-190">Uninstall library files</span></span>
+## <a name="uninstall-library-files"></a><span data-ttu-id="b23f7-190">ライブラリファイルのアンインストール</span><span class="sxs-lookup"><span data-stu-id="b23f7-190">Uninstall library files</span></span>
 
-<span data-ttu-id="36569-191">`libman uninstall`コマンド。</span><span class="sxs-lookup"><span data-stu-id="36569-191">The `libman uninstall` command:</span></span>
+<span data-ttu-id="b23f7-191">次`libman uninstall`のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="b23f7-191">The `libman uninstall` command:</span></span>
 
-* <span data-ttu-id="36569-192">変換先から、指定したライブラリに関連付けられているすべてのファイルを削除します。 *libman.json*します。</span><span class="sxs-lookup"><span data-stu-id="36569-192">Deletes all files associated with the specified library from the destination in *libman.json*.</span></span>
-* <span data-ttu-id="36569-193">関連するライブラリの構成を削除します*libman.json*します。</span><span class="sxs-lookup"><span data-stu-id="36569-193">Removes the associated library configuration from *libman.json*.</span></span>
+* <span data-ttu-id="b23f7-192">指定したライブラリに関連付けられているすべてのファイルを、 *libman. json*内のコピー先から削除します。</span><span class="sxs-lookup"><span data-stu-id="b23f7-192">Deletes all files associated with the specified library from the destination in *libman.json*.</span></span>
+* <span data-ttu-id="b23f7-193">関連付けられているライブラリ構成を*libman. json*から削除します。</span><span class="sxs-lookup"><span data-stu-id="b23f7-193">Removes the associated library configuration from *libman.json*.</span></span>
 
-<span data-ttu-id="36569-194">エラーが発生した場合。</span><span class="sxs-lookup"><span data-stu-id="36569-194">An error occurs when:</span></span>
+<span data-ttu-id="b23f7-194">次の場合にエラーが発生します。</span><span class="sxs-lookup"><span data-stu-id="b23f7-194">An error occurs when:</span></span>
 
-* <span data-ttu-id="36569-195">いいえ*libman.json*ファイル、プロジェクトのルートに存在します。</span><span class="sxs-lookup"><span data-stu-id="36569-195">No *libman.json* file exists in the project root.</span></span>
-* <span data-ttu-id="36569-196">指定したライブラリが存在しません。</span><span class="sxs-lookup"><span data-stu-id="36569-196">The specified library doesn't exist.</span></span>
+* <span data-ttu-id="b23f7-195">プロジェクトルートに*libman. json*ファイルが存在しません。</span><span class="sxs-lookup"><span data-stu-id="b23f7-195">No *libman.json* file exists in the project root.</span></span>
+* <span data-ttu-id="b23f7-196">指定されたライブラリは存在しません。</span><span class="sxs-lookup"><span data-stu-id="b23f7-196">The specified library doesn't exist.</span></span>
 
-<span data-ttu-id="36569-197">同じ名前の 1 つ以上のライブラリがインストールされている場合は、いずれかを選択するように求められます。</span><span class="sxs-lookup"><span data-stu-id="36569-197">If more than one library with the same name is installed, you're prompted to choose one.</span></span>
+<span data-ttu-id="b23f7-197">同じ名前のライブラリが複数インストールされている場合は、1つを選択するように求められます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-197">If more than one library with the same name is installed, you're prompted to choose one.</span></span>
 
-### <a name="synopsis"></a><span data-ttu-id="36569-198">構文</span><span class="sxs-lookup"><span data-stu-id="36569-198">Synopsis</span></span>
+### <a name="synopsis"></a><span data-ttu-id="b23f7-198">構文</span><span class="sxs-lookup"><span data-stu-id="b23f7-198">Synopsis</span></span>
 
 ```console
 libman uninstall <LIBRARY> [--verbosity]
 libman uninstall [-h|--help]
 ```
 
-### <a name="arguments"></a><span data-ttu-id="36569-199">引数</span><span class="sxs-lookup"><span data-stu-id="36569-199">Arguments</span></span>
+### <a name="arguments"></a><span data-ttu-id="b23f7-199">引数</span><span class="sxs-lookup"><span data-stu-id="b23f7-199">Arguments</span></span>
 
 `LIBRARY`
 
-<span data-ttu-id="36569-200">アンインストールするライブラリの名前。</span><span class="sxs-lookup"><span data-stu-id="36569-200">The name of the library to uninstall.</span></span> <span data-ttu-id="36569-201">この名前は、バージョン番号の表記法を含めることができます (たとえば、 `@1.2.0`)。</span><span class="sxs-lookup"><span data-stu-id="36569-201">This name may include version number notation (for example, `@1.2.0`).</span></span>
+<span data-ttu-id="b23f7-200">アンインストールするライブラリの名前を指定します。</span><span class="sxs-lookup"><span data-stu-id="b23f7-200">The name of the library to uninstall.</span></span> <span data-ttu-id="b23f7-201">この名前には、バージョン番号の表記 (など`@1.2.0`) を含めることができます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-201">This name may include version number notation (for example, `@1.2.0`).</span></span>
 
-### <a name="options"></a><span data-ttu-id="36569-202">オプション</span><span class="sxs-lookup"><span data-stu-id="36569-202">Options</span></span>
+### <a name="options"></a><span data-ttu-id="b23f7-202">オプション</span><span class="sxs-lookup"><span data-stu-id="b23f7-202">Options</span></span>
 
-<span data-ttu-id="36569-203">次のオプションを使用できる、`libman uninstall`コマンド。</span><span class="sxs-lookup"><span data-stu-id="36569-203">The following options are available for the `libman uninstall` command:</span></span>
+<span data-ttu-id="b23f7-203">`libman uninstall` コマンドには以下のオプションを使用できます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-203">The following options are available for the `libman uninstall` command:</span></span>
 
 [!INCLUDE [standard-cli-options](../../includes/libman-cli/standard-cli-options.md)]
 
-### <a name="examples"></a><span data-ttu-id="36569-204">使用例</span><span class="sxs-lookup"><span data-stu-id="36569-204">Examples</span></span>
+### <a name="examples"></a><span data-ttu-id="b23f7-204">使用例</span><span class="sxs-lookup"><span data-stu-id="b23f7-204">Examples</span></span>
 
-<span data-ttu-id="36569-205">次を考慮*libman.json*ファイル。</span><span class="sxs-lookup"><span data-stu-id="36569-205">Consider the following *libman.json* file:</span></span>
+<span data-ttu-id="b23f7-205">次の*libman. json*ファイルについて考えてみます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-205">Consider the following *libman.json* file:</span></span>
 
 [!code-json[](samples/LibManSample/libman.json)]
 
-* <span data-ttu-id="36569-206">次のコマンドのいずれかの成功を jQuery をアンインストールするには。</span><span class="sxs-lookup"><span data-stu-id="36569-206">To uninstall jQuery, either of the following commands succeed:</span></span>
+* <span data-ttu-id="b23f7-206">JQuery をアンインストールするには、次のいずれかのコマンドを正常に実行します。</span><span class="sxs-lookup"><span data-stu-id="b23f7-206">To uninstall jQuery, either of the following commands succeed:</span></span>
 
   ```console
   libman uninstall jquery
@@ -362,75 +362,75 @@ libman uninstall [-h|--help]
   libman uninstall jquery@3.3.1
   ```
 
-* <span data-ttu-id="36569-207">Lodash パッケージ ファイルを使用してインストールをアンインストールする、`filesystem`プロバイダー。</span><span class="sxs-lookup"><span data-stu-id="36569-207">To uninstall the Lodash files installed via the `filesystem` provider:</span></span>
+* <span data-ttu-id="b23f7-207">`filesystem`プロバイダーを使用してインストールされた lodash ファイルをアンインストールするには、次のようにします。</span><span class="sxs-lookup"><span data-stu-id="b23f7-207">To uninstall the Lodash files installed via the `filesystem` provider:</span></span>
 
   ```console
   libman uninstall C:\temp\lodash\
   ```
 
-## <a name="update-library-version"></a><span data-ttu-id="36569-208">ライブラリのバージョンを更新します。</span><span class="sxs-lookup"><span data-stu-id="36569-208">Update library version</span></span>
+## <a name="update-library-version"></a><span data-ttu-id="b23f7-208">ライブラリバージョンの更新</span><span class="sxs-lookup"><span data-stu-id="b23f7-208">Update library version</span></span>
 
-<span data-ttu-id="36569-209">`libman update`コマンドは、指定されたバージョンに LibMan 経由でインストールされているライブラリを更新します。</span><span class="sxs-lookup"><span data-stu-id="36569-209">The `libman update` command updates a library installed via LibMan to the specified version.</span></span>
+<span data-ttu-id="b23f7-209">コマンド`libman update`は、libman を使用してインストールされたライブラリを、指定されたバージョンに更新します。</span><span class="sxs-lookup"><span data-stu-id="b23f7-209">The `libman update` command updates a library installed via LibMan to the specified version.</span></span>
 
-<span data-ttu-id="36569-210">エラーが発生した場合。</span><span class="sxs-lookup"><span data-stu-id="36569-210">An error occurs when:</span></span>
+<span data-ttu-id="b23f7-210">次の場合にエラーが発生します。</span><span class="sxs-lookup"><span data-stu-id="b23f7-210">An error occurs when:</span></span>
 
-* <span data-ttu-id="36569-211">いいえ*libman.json*ファイル、プロジェクトのルートに存在します。</span><span class="sxs-lookup"><span data-stu-id="36569-211">No *libman.json* file exists in the project root.</span></span>
-* <span data-ttu-id="36569-212">指定したライブラリが存在しません。</span><span class="sxs-lookup"><span data-stu-id="36569-212">The specified library doesn't exist.</span></span>
+* <span data-ttu-id="b23f7-211">プロジェクトルートに*libman. json*ファイルが存在しません。</span><span class="sxs-lookup"><span data-stu-id="b23f7-211">No *libman.json* file exists in the project root.</span></span>
+* <span data-ttu-id="b23f7-212">指定されたライブラリは存在しません。</span><span class="sxs-lookup"><span data-stu-id="b23f7-212">The specified library doesn't exist.</span></span>
 
-<span data-ttu-id="36569-213">同じ名前の 1 つ以上のライブラリがインストールされている場合は、いずれかを選択するように求められます。</span><span class="sxs-lookup"><span data-stu-id="36569-213">If more than one library with the same name is installed, you're prompted to choose one.</span></span>
+<span data-ttu-id="b23f7-213">同じ名前のライブラリが複数インストールされている場合は、1つを選択するように求められます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-213">If more than one library with the same name is installed, you're prompted to choose one.</span></span>
 
-### <a name="synopsis"></a><span data-ttu-id="36569-214">構文</span><span class="sxs-lookup"><span data-stu-id="36569-214">Synopsis</span></span>
+### <a name="synopsis"></a><span data-ttu-id="b23f7-214">構文</span><span class="sxs-lookup"><span data-stu-id="b23f7-214">Synopsis</span></span>
 
 ```console
 libman update <LIBRARY> [-pre] [--to] [--verbosity]
 libman update [-h|--help]
 ```
 
-### <a name="arguments"></a><span data-ttu-id="36569-215">引数</span><span class="sxs-lookup"><span data-stu-id="36569-215">Arguments</span></span>
+### <a name="arguments"></a><span data-ttu-id="b23f7-215">引数</span><span class="sxs-lookup"><span data-stu-id="b23f7-215">Arguments</span></span>
 
 `LIBRARY`
 
-<span data-ttu-id="36569-216">更新するライブラリの名前。</span><span class="sxs-lookup"><span data-stu-id="36569-216">The name of the library to update.</span></span>
+<span data-ttu-id="b23f7-216">更新するライブラリの名前。</span><span class="sxs-lookup"><span data-stu-id="b23f7-216">The name of the library to update.</span></span>
 
-### <a name="options"></a><span data-ttu-id="36569-217">オプション</span><span class="sxs-lookup"><span data-stu-id="36569-217">Options</span></span>
+### <a name="options"></a><span data-ttu-id="b23f7-217">オプション</span><span class="sxs-lookup"><span data-stu-id="b23f7-217">Options</span></span>
 
-<span data-ttu-id="36569-218">次のオプションを使用できる、`libman update`コマンド。</span><span class="sxs-lookup"><span data-stu-id="36569-218">The following options are available for the `libman update` command:</span></span>
+<span data-ttu-id="b23f7-218">`libman update` コマンドには以下のオプションを使用できます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-218">The following options are available for the `libman update` command:</span></span>
 
 * `-pre`
 
-  <span data-ttu-id="36569-219">ライブラリの最新のプレリリース バージョンを取得します。</span><span class="sxs-lookup"><span data-stu-id="36569-219">Obtain the latest prerelease version of the library.</span></span>
+  <span data-ttu-id="b23f7-219">ライブラリの最新のプレリリースバージョンを取得します。</span><span class="sxs-lookup"><span data-stu-id="b23f7-219">Obtain the latest prerelease version of the library.</span></span>
 
 * `--to <VERSION>`
 
-  <span data-ttu-id="36569-220">ライブラリの特定のバージョンを取得します。</span><span class="sxs-lookup"><span data-stu-id="36569-220">Obtain a specific version of the library.</span></span>
+  <span data-ttu-id="b23f7-220">ライブラリの特定のバージョンを取得します。</span><span class="sxs-lookup"><span data-stu-id="b23f7-220">Obtain a specific version of the library.</span></span>
 
 [!INCLUDE [standard-cli-options](../../includes/libman-cli/standard-cli-options.md)]
 
-### <a name="examples"></a><span data-ttu-id="36569-221">使用例</span><span class="sxs-lookup"><span data-stu-id="36569-221">Examples</span></span>
+### <a name="examples"></a><span data-ttu-id="b23f7-221">使用例</span><span class="sxs-lookup"><span data-stu-id="b23f7-221">Examples</span></span>
 
-* <span data-ttu-id="36569-222">JQuery を最新バージョンに更新します。</span><span class="sxs-lookup"><span data-stu-id="36569-222">To update jQuery to the latest version:</span></span>
+* <span data-ttu-id="b23f7-222">JQuery を最新バージョンに更新するには、次のようにします。</span><span class="sxs-lookup"><span data-stu-id="b23f7-222">To update jQuery to the latest version:</span></span>
 
   ```console
   libman update jquery
   ```
 
-* <span data-ttu-id="36569-223">バージョン 3.3.1 に jQuery を更新します。</span><span class="sxs-lookup"><span data-stu-id="36569-223">To update jQuery to version 3.3.1:</span></span>
+* <span data-ttu-id="b23f7-223">JQuery をバージョン3.3.1 に更新するには:</span><span class="sxs-lookup"><span data-stu-id="b23f7-223">To update jQuery to version 3.3.1:</span></span>
 
   ```console
   libman update jquery --to 3.3.1
   ```
 
-* <span data-ttu-id="36569-224">JQuery を最新のプレリリース バージョンに更新します。</span><span class="sxs-lookup"><span data-stu-id="36569-224">To update jQuery to the latest prerelease version:</span></span>
+* <span data-ttu-id="b23f7-224">JQuery を最新のプレリリースバージョンに更新するには:</span><span class="sxs-lookup"><span data-stu-id="b23f7-224">To update jQuery to the latest prerelease version:</span></span>
 
   ```console
   libman update jquery -pre
   ```
 
-## <a name="manage-library-cache"></a><span data-ttu-id="36569-225">ライブラリのキャッシュを管理します。</span><span class="sxs-lookup"><span data-stu-id="36569-225">Manage library cache</span></span>
+## <a name="manage-library-cache"></a><span data-ttu-id="b23f7-225">ライブラリキャッシュの管理</span><span class="sxs-lookup"><span data-stu-id="b23f7-225">Manage library cache</span></span>
 
-<span data-ttu-id="36569-226">`libman cache` LibMan ライブラリのキャッシュを管理するコマンド。</span><span class="sxs-lookup"><span data-stu-id="36569-226">The `libman cache` command manages the LibMan library cache.</span></span> <span data-ttu-id="36569-227">`filesystem`プロバイダーは、ライブラリのキャッシュを使用しません。</span><span class="sxs-lookup"><span data-stu-id="36569-227">The `filesystem` provider doesn't use the library cache.</span></span>
+<span data-ttu-id="b23f7-226">コマンド`libman cache`は、libman ライブラリキャッシュを管理します。</span><span class="sxs-lookup"><span data-stu-id="b23f7-226">The `libman cache` command manages the LibMan library cache.</span></span> <span data-ttu-id="b23f7-227">プロバイダー `filesystem`がライブラリキャッシュを使用していません。</span><span class="sxs-lookup"><span data-stu-id="b23f7-227">The `filesystem` provider doesn't use the library cache.</span></span>
 
-### <a name="synopsis"></a><span data-ttu-id="36569-228">構文</span><span class="sxs-lookup"><span data-stu-id="36569-228">Synopsis</span></span>
+### <a name="synopsis"></a><span data-ttu-id="b23f7-228">構文</span><span class="sxs-lookup"><span data-stu-id="b23f7-228">Synopsis</span></span>
 
 ```console
 libman cache clean [<PROVIDER>] [--verbosity]
@@ -438,31 +438,31 @@ libman cache list [--files] [--libraries] [--verbosity]
 libman cache [-h|--help]
 ```
 
-### <a name="arguments"></a><span data-ttu-id="36569-229">引数</span><span class="sxs-lookup"><span data-stu-id="36569-229">Arguments</span></span>
+### <a name="arguments"></a><span data-ttu-id="b23f7-229">引数</span><span class="sxs-lookup"><span data-stu-id="b23f7-229">Arguments</span></span>
 
 `PROVIDER`
 
-<span data-ttu-id="36569-230">のみ使用、`clean`コマンド。</span><span class="sxs-lookup"><span data-stu-id="36569-230">Only used with the `clean` command.</span></span> <span data-ttu-id="36569-231">クリーニングするプロバイダー キャッシュを指定します。</span><span class="sxs-lookup"><span data-stu-id="36569-231">Specifies the provider cache to clean.</span></span> <span data-ttu-id="36569-232">有効な値を次に示します。</span><span class="sxs-lookup"><span data-stu-id="36569-232">Valid values include:</span></span>
+<span data-ttu-id="b23f7-230">`clean`コマンドでのみ使用されます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-230">Only used with the `clean` command.</span></span> <span data-ttu-id="b23f7-231">消去するプロバイダーキャッシュを指定します。</span><span class="sxs-lookup"><span data-stu-id="b23f7-231">Specifies the provider cache to clean.</span></span> <span data-ttu-id="b23f7-232">有効な値は次のとおりです。</span><span class="sxs-lookup"><span data-stu-id="b23f7-232">Valid values include:</span></span>
 
 [!INCLUDE [LibMan provider names](../../includes/libman-cli/provider-names.md)]
 
-### <a name="options"></a><span data-ttu-id="36569-233">オプション</span><span class="sxs-lookup"><span data-stu-id="36569-233">Options</span></span>
+### <a name="options"></a><span data-ttu-id="b23f7-233">オプション</span><span class="sxs-lookup"><span data-stu-id="b23f7-233">Options</span></span>
 
-<span data-ttu-id="36569-234">次のオプションを使用できる、`libman cache`コマンド。</span><span class="sxs-lookup"><span data-stu-id="36569-234">The following options are available for the `libman cache` command:</span></span>
+<span data-ttu-id="b23f7-234">`libman cache` コマンドには以下のオプションを使用できます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-234">The following options are available for the `libman cache` command:</span></span>
 
 * `--files`
 
-  <span data-ttu-id="36569-235">キャッシュされているファイルの名前を一覧表示します。</span><span class="sxs-lookup"><span data-stu-id="36569-235">List the names of files that are cached.</span></span>
+  <span data-ttu-id="b23f7-235">キャッシュされているファイルの名前を一覧表示します。</span><span class="sxs-lookup"><span data-stu-id="b23f7-235">List the names of files that are cached.</span></span>
 
 * `--libraries`
 
-  <span data-ttu-id="36569-236">キャッシュされているライブラリの名前を一覧表示します。</span><span class="sxs-lookup"><span data-stu-id="36569-236">List the names of libraries that are cached.</span></span>
+  <span data-ttu-id="b23f7-236">キャッシュされているライブラリの名前を一覧表示します。</span><span class="sxs-lookup"><span data-stu-id="b23f7-236">List the names of libraries that are cached.</span></span>
 
 [!INCLUDE [standard-cli-options](../../includes/libman-cli/standard-cli-options.md)]
 
-### <a name="examples"></a><span data-ttu-id="36569-237">使用例</span><span class="sxs-lookup"><span data-stu-id="36569-237">Examples</span></span>
+### <a name="examples"></a><span data-ttu-id="b23f7-237">使用例</span><span class="sxs-lookup"><span data-stu-id="b23f7-237">Examples</span></span>
 
-* <span data-ttu-id="36569-238">プロバイダーごとのキャッシュされたライブラリの名前を表示するには、次のコマンドのいずれかを使用します。</span><span class="sxs-lookup"><span data-stu-id="36569-238">To view the names of cached libraries per provider, use one of the following commands:</span></span>
+* <span data-ttu-id="b23f7-238">プロバイダーごとにキャッシュされたライブラリの名前を表示するには、次のコマンドのいずれかを使用します。</span><span class="sxs-lookup"><span data-stu-id="b23f7-238">To view the names of cached libraries per provider, use one of the following commands:</span></span>
 
   ```console
   libman cache list
@@ -472,7 +472,7 @@ libman cache [-h|--help]
   libman cache list --libraries
   ```
 
-  <span data-ttu-id="36569-239">次のような出力が表示されます。</span><span class="sxs-lookup"><span data-stu-id="36569-239">Output similar to the following is displayed:</span></span>
+  <span data-ttu-id="b23f7-239">次のような出力が表示されます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-239">Output similar to the following is displayed:</span></span>
 
   ```console
   Cache contents:
@@ -489,13 +489,13 @@ libman cache [-h|--help]
       react
   ```
 
-* <span data-ttu-id="36569-240">プロバイダーごとにキャッシュされたライブラリ ファイルの名前を表示するには。</span><span class="sxs-lookup"><span data-stu-id="36569-240">To view the names of cached library files per provider:</span></span>
+* <span data-ttu-id="b23f7-240">プロバイダーごとにキャッシュされたライブラリファイルの名前を表示するには、次のようにします。</span><span class="sxs-lookup"><span data-stu-id="b23f7-240">To view the names of cached library files per provider:</span></span>
 
   ```console
   libman cache list --files
   ```
 
-  <span data-ttu-id="36569-241">次のような出力が表示されます。</span><span class="sxs-lookup"><span data-stu-id="36569-241">Output similar to the following is displayed:</span></span>
+  <span data-ttu-id="b23f7-241">次のような出力が表示されます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-241">Output similar to the following is displayed:</span></span>
 
   ```console
   Cache contents:
@@ -538,15 +538,15 @@ libman cache [-h|--help]
           metadata.json
   ```
 
-  <span data-ttu-id="36569-242">上記の出力に注意してください CDNJS プロバイダー バージョン 3.2.1 および 3.3.1 はキャッシュする jQuery を示します。</span><span class="sxs-lookup"><span data-stu-id="36569-242">Notice the preceding output shows that jQuery versions 3.2.1 and 3.3.1 are cached under the CDNJS provider.</span></span>
+  <span data-ttu-id="b23f7-242">前の出力に、jQuery バージョン3.2.1 と3.3.1 が CDNJS プロバイダーでキャッシュされていることがわかります。</span><span class="sxs-lookup"><span data-stu-id="b23f7-242">Notice the preceding output shows that jQuery versions 3.2.1 and 3.3.1 are cached under the CDNJS provider.</span></span>
 
-* <span data-ttu-id="36569-243">CDNJS プロバイダーのライブラリのキャッシュを空にします。</span><span class="sxs-lookup"><span data-stu-id="36569-243">To empty the library cache for the CDNJS provider:</span></span>
+* <span data-ttu-id="b23f7-243">CDNJS プロバイダーのライブラリキャッシュを空にするには、次のようにします。</span><span class="sxs-lookup"><span data-stu-id="b23f7-243">To empty the library cache for the CDNJS provider:</span></span>
 
   ```console
   libman cache clean cdnjs
   ```
 
-  <span data-ttu-id="36569-244">CDNJS プロバイダー キャッシュを空にした、`libman cache list`コマンドには、次が表示されます。</span><span class="sxs-lookup"><span data-stu-id="36569-244">After emptying the CDNJS provider cache, the `libman cache list` command displays the following:</span></span>
+  <span data-ttu-id="b23f7-244">Cdnjs プロバイダーのキャッシュを空に`libman cache list`すると、次のようにコマンドが表示されます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-244">After emptying the CDNJS provider cache, the `libman cache list` command displays the following:</span></span>
 
   ```console
   Cache contents:
@@ -559,13 +559,13 @@ libman cache [-h|--help]
       (empty)
   ```
 
-* <span data-ttu-id="36569-245">すべてのキャッシュを空にするには、プロバイダーにサポートされています。</span><span class="sxs-lookup"><span data-stu-id="36569-245">To empty the cache for all supported providers:</span></span>
+* <span data-ttu-id="b23f7-245">サポートされているすべてのプロバイダーのキャッシュを空にするには:</span><span class="sxs-lookup"><span data-stu-id="b23f7-245">To empty the cache for all supported providers:</span></span>
 
   ```console
   libman cache clean
   ```
 
-  <span data-ttu-id="36569-246">プロバイダーのすべてのキャッシュを空にした、`libman cache list`コマンドには、次が表示されます。</span><span class="sxs-lookup"><span data-stu-id="36569-246">After emptying all provider caches, the `libman cache list` command displays the following:</span></span>
+  <span data-ttu-id="b23f7-246">すべてのプロバイダーキャッシュを空に`libman cache list`すると、次のようなコマンドが表示されます。</span><span class="sxs-lookup"><span data-stu-id="b23f7-246">After emptying all provider caches, the `libman cache list` command displays the following:</span></span>
 
   ```console
   Cache contents:
@@ -576,8 +576,8 @@ libman cache [-h|--help]
       (empty)
   ```
 
-## <a name="additional-resources"></a><span data-ttu-id="36569-247">その他の技術情報</span><span class="sxs-lookup"><span data-stu-id="36569-247">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="b23f7-247">その他の技術情報</span><span class="sxs-lookup"><span data-stu-id="b23f7-247">Additional resources</span></span>
 
-* [<span data-ttu-id="36569-248">グローバル ツールをインストールします。</span><span class="sxs-lookup"><span data-stu-id="36569-248">Install a Global Tool</span></span>](/dotnet/core/tools/global-tools#install-a-global-tool)
+* [<span data-ttu-id="b23f7-248">グローバルツールをインストールする</span><span class="sxs-lookup"><span data-stu-id="b23f7-248">Install a Global Tool</span></span>](/dotnet/core/tools/global-tools#install-a-global-tool)
 * <xref:client-side/libman/libman-vs>
-* [<span data-ttu-id="36569-249">LibMan の GitHub リポジトリ</span><span class="sxs-lookup"><span data-stu-id="36569-249">LibMan GitHub repository</span></span>](https://github.com/aspnet/LibraryManager)
+* [<span data-ttu-id="b23f7-249">LibMan の GitHub リポジトリ</span><span class="sxs-lookup"><span data-stu-id="b23f7-249">LibMan GitHub repository</span></span>](https://github.com/aspnet/LibraryManager)
