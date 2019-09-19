@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/01/2019
 uid: security/key-vault-configuration
-ms.openlocfilehash: fe6cdca1f7180f9da26fe2838e529becb26ccd45
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: f16891182d274333ddc05eea401c06468e0717b1
+ms.sourcegitcommit: b1e480e1736b0fe0e4d8dce4a4cf5c8e47fc2101
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081100"
+ms.lasthandoff: 09/19/2019
+ms.locfileid: "71108084"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>ASP.NET Core の構成プロバイダーの Azure Key Vault
 
@@ -90,13 +90,13 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 
 1. 次のコマンド`{RESOURCE GROUP NAME}`を使用してリソースグループを作成し`{LOCATION}`ます。は、新しいリソースグループのリソースグループ名で、は Azure リージョン (datacenter) です。
 
-   ```console
+   ```azure-cli
    az group create --name "{RESOURCE GROUP NAME}" --location {LOCATION}
    ```
 
 1. 次のコマンドを使用して、リソースグループにキーコンテナーを`{KEY VAULT NAME}`作成します。ここで、は新しい`{LOCATION}` key vault の名前、は Azure リージョン (datacenter) です。
 
-   ```console
+   ```azure-cli
    az keyvault create --name "{KEY VAULT NAME}" --resource-group "{RESOURCE GROUP NAME}" --location {LOCATION}
    ```
 
@@ -106,7 +106,7 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 
    サンプルアプリで使用するシークレットは次のとおりです。 値には、 `_prod`開発環境で読み込まれた`_dev`サフィックス値とユーザーシークレットから区別するためのサフィックスが含まれます。 は`{KEY VAULT NAME}` 、前の手順で作成したキーコンテナーの名前に置き換えます。
 
-   ```console
+   ```azure-cli
    az keyvault secret set --vault-name "{KEY VAULT NAME}" --name "SecretName" --value "secret_value_1_prod"
    az keyvault secret set --vault-name "{KEY VAULT NAME}" --name "Section--SecretName" --value "secret_value_2_prod"
    ```
@@ -176,7 +176,7 @@ Azure App Service にデプロイされたアプリは、サービスの作成�
 
 Azure CLI とアプリのオブジェクト ID を使用して、キーコンテナー `list`に`get`アクセスするためのアクセス許可とアクセス許可をアプリに付与します。
 
-```console
+```azure-cli
 az keyvault set-policy --name '{KEY VAULT NAME}' --object-id {OBJECT ID} --secret-permissions get list
 ```
 
@@ -240,7 +240,7 @@ Azure CLI、PowerShell、または Azure portal を使用して**アプリを再
 
 1. シークレットは、次の Azure CLI コマンドを使用して Azure Key Vault に保存されます。
 
-   ```console
+   ```azure-cli
    az keyvault secret set --vault-name "{KEY VAULT NAME}" --name "5000-AppSecret" --value "5.0.0.0_secret_value_prod"
    az keyvault secret set --vault-name "{KEY VAULT NAME}" --name "5100-AppSecret" --value "5.1.0.0_secret_value_prod"
    ```
