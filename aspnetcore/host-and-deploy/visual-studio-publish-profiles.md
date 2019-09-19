@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/21/2019
 uid: host-and-deploy/visual-studio-publish-profiles
-ms.openlocfilehash: 50be5a20f6d927270ef2d9dbc6c1cbf24196978f
-ms.sourcegitcommit: 28646e8ca62fb094db1557b5c0c02d5b45531824
+ms.openlocfilehash: fd08a5ebe5b85dcddcec4ef3e57d326a44ce2f2d
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/23/2019
-ms.locfileid: "67333415"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080856"
 ---
 # <a name="visual-studio-publish-profiles-for-aspnet-core-app-deployment"></a>ASP.NET Core アプリを配置するための Visual Studio 発行プロファイル
 
@@ -72,13 +72,13 @@ ASP.NET Core プロジェクトは、プロジェクト ファイルの `Microso
 
 コマンド ラインからの発行は、.NET Core をサポートするすべてのプラットフォームで機能し、Visual Studio は必要ありません。 次の例では、プロジェクト ディレクトリ ( *.csproj* ファイルが含まれているディレクトリ) から .NET Core CLI の [dotnet publish](/dotnet/core/tools/dotnet-publish) コマンドが実行されます。 プロジェクト フォルダーが現在の作業ディレクトリでない場合は、プロジェクト ファイルのパスで明示的に渡します。 次に例を示します。
 
-```console
+```dotnetcli
 dotnet publish C:\Webs\Web1
 ```
 
 Web アプリを作成して発行するには、次のコマンドを実行します。
 
-```console
+```dotnetcli
 dotnet new mvc
 dotnet publish
 ```
@@ -100,7 +100,7 @@ Copyright (C) Microsoft Corporation. All rights reserved.
 
 次のコマンドでは、`Release` ビルドと発行ディレクトリを指定します。
 
-```console
+```dotnetcli
 dotnet publish -c Release -o C:\MyWebs\test
 ```
 
@@ -113,7 +113,9 @@ MSBuild のプロパティは、次のいずれかの形式を使用して渡す
 
 たとえば、次のコマンドは、`Release` ビルドをネットワーク共有に発行します。 ネットワーク共有は、スラッシュを使用して指定します ( *//r8/* )。 .NET Core がサポートされるすべてのプラットフォームで使用できます。
 
-`dotnet publish -c Release /p:PublishDir=//r8/release/AdminWeb`
+```dotnetcli
+dotnet publish -c Release /p:PublishDir=//r8/release/AdminWeb
+```
 
 配置用に発行したアプリが実行されていないことを確認します。 アプリが実行中は、*publish* フォルダー内のファイルがロックされます。 ロックされているファイルはコピーできないため、配置は行われません。
 
@@ -156,19 +158,19 @@ ASP.NET Core で Web アプリを発行する方法の概要については、<x
 
 **フォルダー (クロス プラットフォームで動作します):**
 
-```console
+```dotnetcli
 dotnet publish WebApplication.csproj /p:PublishProfile=<FolderProfileName>
 ```
 
 **MSDeploy:**
 
-```console
+```dotnetcli
 dotnet publish WebApplication.csproj /p:PublishProfile=<MsDeployProfileName> /p:Password=<DeploymentPassword>
 ```
 
 **MSDeploy パッケージ:**
 
-```console
+```dotnetcli
 dotnet publish WebApplication.csproj /p:PublishProfile=<MsDeployPackageProfileName>
 ```
 
@@ -193,7 +195,7 @@ dotnet publish WebApplication.csproj /p:PublishProfile=<MsDeployPackageProfileNa
 
 次のコマンドを実行すると、発行するコンテンツが圧縮され、Kudu API を使用して Azure に発行されます。
 
-```console
+```dotnetcli
 dotnet publish /p:PublishProfile=Azure /p:Configuration=Release
 ```
 
@@ -245,7 +247,7 @@ MSBuild file.
 * `<LastUsedBuildConfiguration>` プロパティが `Release` に設定されている。 Visual Studio から発行すると、発行プロセスが開始されたときの値を使用して、`<LastUsedBuildConfiguration>` の値が設定されます。 `<LastUsedBuildConfiguration>` は特殊なので、インポートされる MSBuild ファイルでオーバーライドされないようにしてください。 ただし、このプロパティは次の方法のいずれかを使用してコマンドラインからオーバーライドすることができます。
   * .NET Core CLI の使用:
 
-    ```console
+    ```dotnetcli
     dotnet build -c Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
     ```
 
@@ -292,7 +294,7 @@ msbuild "AzureWebApp.csproj"
 
 Windows コマンド シェルからの .NET Core CLI の [dotnet msbuild](/dotnet/core/tools/dotnet-msbuild) コマンドで、発行プロファイルを使用することもできます。
 
-```console
+```dotnetcli
 dotnet msbuild "AzureWebApp.csproj"
     /p:DeployOnBuild=true 
     /p:PublishProfile="AzureWebApp - Web Deploy" 

@@ -6,12 +6,12 @@ ms.author: riserrad
 ms.custom: mvc
 ms.date: 07/10/2019
 uid: tutorials/publish-to-azure-webapp-using-vscode
-ms.openlocfilehash: 97e8fcb1e5470245c80fad0875abb5fdace7853c
-ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
+ms.openlocfilehash: a5d92775d6245494c34bfe691d7ade663b2078d5
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68308318"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71082404"
 ---
 # <a name="publish-an-aspnet-core-app-to-azure-with-visual-studio-code"></a>Visual Studio Code で ASP.NET Core アプリを Azure に公開する
 
@@ -37,8 +37,8 @@ App Service の配置に関する問題を解決するには、「<xref:test/tro
 
 ターミナルを使用し、プロジェクトを作成するフォルダーに移動し、次のコマンドを使用します。
 
-```cmd
-> dotnet new mvc
+```dotnetcli
+dotnet new mvc
 ```
 
 フォルダーの構造は次のようになります。

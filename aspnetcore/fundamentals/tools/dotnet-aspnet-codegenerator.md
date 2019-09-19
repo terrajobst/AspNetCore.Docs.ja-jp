@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 07/04/2019
 uid: fundamentals/tools/dotnet-aspnet-codegenerator
-ms.openlocfilehash: c2c815735ad1b4dcec761b26ea3992a4effebe62
-ms.sourcegitcommit: 979dbfc5e9ce09b9470789989cddfcfb57079d94
+ms.openlocfilehash: 1043a578f66d5bb57f4a81e9fe21afa5e3c37cb8
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/31/2019
-ms.locfileid: "68682688"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081506"
 ---
 # <a name="dotnet-aspnet-codegenerator"></a>dotnet aspnet-codegenerator
 
@@ -25,13 +25,13 @@ ms.locfileid: "68682688"
 
 `dotnet-aspnet-codegenerator` は[グローバル ツール](/dotnet/core/tools/global-tools)であり、インストールする必要があります。 次のコマンドを使うと、`dotnet-aspnet-codegenerator` ツールの最新の安定バージョンをインストールできます。
 
-```console
+```dotnetcli
 dotnet tool install -g dotnet-aspnet-codegenerator
 ```
 
 次のコマンドを使うと、インストール済みの .NET Core SDK から利用できる更新の安定バージョンに `dotnet-aspnet-codegenerator` を更新できます。
 
-```console
+```dotnetcli
 dotnet tool update -g dotnet-aspnet-codegenerator
 ```
 
@@ -56,9 +56,9 @@ dotnet aspnet-codegenerator [-h|--help]
 | ----------------- | ------------ | 
 | area      | [区分のスキャフォールディング](/aspnet/core/mvc/controllers/areas) |
   コントローラー| [コントローラーのスキャフォールディング](/aspnet/core/tutorials/first-mvc-app/adding-model) |
-  identity  | [Identity のスキャフォールディング](/aspnet/core/security/authentication/scaffold-identity) |
+  ID  | [Identity のスキャフォールディング](/aspnet/core/security/authentication/scaffold-identity) |
   razorpage | [Razor Pages のスキャフォールディング](/aspnet/core/tutorials/razor-pages/model) |
-  view      | [ビューのスキャフォールディング](/aspnet/core/mvc/views/overview) |
+  ビュー      | [ビューのスキャフォールディング](/aspnet/core/mvc/views/overview) |
 
 ## <a name="options"></a>オプション
 
@@ -98,7 +98,7 @@ NuGet パッケージのディレクトリを指定します。
 * コントローラー
 * Identity  
 * Razorpage
-* 表示
+* View
 
 <a name="area"></a>
 
@@ -137,7 +137,7 @@ NuGet パッケージのディレクトリを指定します。
 
 `aspnet-codegenerator controller` コマンドに関するヘルプを取得するには、`-h` スイッチを使います。
 
-```console
+```dotnetcli
 dotnet aspnet-codegenerator controller -h
 ```
 
@@ -158,7 +158,7 @@ dotnet aspnet-codegenerator controller -h
 
 たとえば、次のコマンドでは、編集テンプレートを使って *MyEdit.cshtml* と *MyEdit.cshtml.cs* が生成されます。
 
-```console
+```dotnetcli
 dotnet aspnet-codegenerator razorpage MyEdit Edit -m Movie -dc RazorPagesMovieContext -outDir Pages/Movies
 ```
 
@@ -184,7 +184,7 @@ dotnet aspnet-codegenerator razorpage MyEdit Edit -m Movie -dc RazorPagesMovieCo
 
 `aspnet-codegenerator razorpage` コマンドに関するヘルプを取得するには、`-h` スイッチを使います。
 
-```console
+```dotnetcli
 dotnet aspnet-codegenerator razorpage -h
 ```
 

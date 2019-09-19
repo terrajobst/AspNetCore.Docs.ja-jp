@@ -22,7 +22,7 @@ RazorPagesMovie プロジェクトで、*Data* という名前の新しいフォ
 
 RazorPagesMovie プロジェクトのターミナルを開きます。  デザイン/レイアウト バーでプロジェクト名を右クリックし、ターミナルで **[ツール]、[開く]** の順に進みます。 ターミナルで次の .NET Core CLI コマンドを実行します。
 
-```console
+```dotnetcli
 dotnet tool install --global dotnet-ef --version 3.0.0-*
 dotnet add package Microsoft.EntityFrameworkCore.SQLite --version 3.0.0-*
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 3.0.0-*
@@ -57,11 +57,10 @@ using Microsoft.EntityFrameworkCore;
 
 次の .NET Core CLI コマンドを実行し、SQLite と CodeGeneration.Design をプロジェクトに追加します。
 
-```console
+```dotnetcli
 dotnet add package Microsoft.EntityFrameworkCore.SQLite
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet add package Microsoft.EntityFrameworkCore.Design
-
 ```
 
 スキャフォールディングには `Microsoft.VisualStudio.Web.CodeGeneration.Design` パッケージが必要です。

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2019
 uid: host-and-deploy/iis/transform-webconfig
-ms.openlocfilehash: 58dee024f5b032d1ef13df02648727b6a07eac1f
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 32e66007d527f7f7b7cfd88d3bebc9b808251941
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67813361"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081461"
 ---
 # <a name="transform-webconfig"></a>web.config を変換する
 
@@ -58,7 +58,7 @@ ms.locfileid: "67813361"
 
 構成が *Release* に設定された場合、変換が適用されます。
 
-```console
+```dotnetcli
 dotnet publish --configuration Release
 ```
 
@@ -92,7 +92,7 @@ dotnet publish --configuration Release
 
 プロファイルが *FolderProfile* であった場合、変換が適用されます。
 
-```console
+```dotnetcli
 dotnet publish --configuration Release /p:PublishProfile=FolderProfile
 ```
 
@@ -128,7 +128,7 @@ dotnet publish --configuration Release /p:PublishProfile=FolderProfile
 
 環境が *Production* だった場合、変換が適用されます。
 
-```console
+```dotnetcli
 dotnet publish --configuration Release /p:EnvironmentName=Production
 ```
 
@@ -166,7 +166,7 @@ Visual Studio から発行プロファイルを使って発行する場合は、
 
 `CustomTransformFileName` プロパティが [dotnet publish](/dotnet/core/tools/dotnet-publish) コマンドに渡された場合、変換が適用されます。
 
-```console
+```dotnetcli
 dotnet publish --configuration Release /p:CustomTransformFileName=custom.transform
 ```
 
@@ -176,7 +176,7 @@ dotnet publish --configuration Release /p:CustomTransformFileName=custom.transfo
 
 *web.config* ファイルの変換を回避するには、MSBuild プロパティ `$(IsWebConfigTransformDisabled)` を設定します。
 
-```console
+```dotnetcli
 dotnet publish /p:IsWebConfigTransformDisabled=true
 ```
 

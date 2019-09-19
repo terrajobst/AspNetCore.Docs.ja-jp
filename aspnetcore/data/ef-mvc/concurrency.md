@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/concurrency
-ms.openlocfilehash: 0a42a8adbe485f47853fa05fb500f4480f06e3f5
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: e8c88ed2811ad221d94c963c6e14fea9bc1607ea
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975109"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080452"
 ---
 # <a name="tutorial-handle-concurrency---aspnet-mvc-with-ef-core"></a>チュートリアル: コンカレンシーの処理 - ASP.NET MVC と EF Core
 
@@ -116,11 +116,11 @@ modelBuilder.Entity<Department>()
 
 変更内容を保存し、プロジェクトをビルドしてください。その後、コマンド ウィンドウに次のコマンドを入力します。
 
-```console
+```dotnetcli
 dotnet ef migrations add RowVersion
 ```
 
-```console
+```dotnetcli
 dotnet ef database update
 ```
 

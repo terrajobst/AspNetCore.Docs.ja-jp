@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 uid: data/ef-rp/concurrency
-ms.openlocfilehash: da57633c345ec087b1a4f24ddc7771e7a2d04720
-ms.sourcegitcommit: 0774a61a3a6c1412a7da0e7d932dc60c506441fc
+ms.openlocfilehash: c9cbf8fd3ed85f32b3c166bf2df702fd26df4fc3
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2019
-ms.locfileid: "70059084"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080989"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---concurrency---8-of-8"></a>ASP.NET Core の Razor ページと EF Core - コンカレンシー - 8/8
 
@@ -156,7 +156,7 @@ SQLite データベースでは、エンティティ プロパティの `[Timest
 
 * 端末で次のコマンドを実行します。
 
-  ```console
+  ```dotnetcli
   dotnet ef migrations add RowVersion
   ```
 
@@ -190,7 +190,7 @@ SQLite データベースでは、エンティティ プロパティの `[Timest
 
 * 端末で次のコマンドを実行します。
 
-  ```console
+  ```dotnetcli
   dotnet ef database update
   ```
 
@@ -216,13 +216,13 @@ SQLite データベースでは、エンティティ プロパティの `[Timest
 
   **Windows の場合:**
 
-  ```console
+  ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Department -dc SchoolContext -udl -outDir Pages\Departments --referenceScriptLibraries
   ```
 
   **Linux または macOS の場合:**
 
-  ```console
+  ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Department -dc SchoolContext -udl -outDir Pages/Departments --referenceScriptLibraries
   ```
 
@@ -494,7 +494,7 @@ Visual Studio の出力ウィンドウでは、EF Core が生成する T-SQL を
 
 プロジェクトをビルドします。 コマンド ウィンドウに次を入力します。
 
-```console
+```dotnetcli
 dotnet ef migrations add RowVersion
 dotnet ef database update
 ```
@@ -520,7 +520,7 @@ dotnet ef database update
 
  次のコマンドを実行します。
 
-  ```console
+  ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Department -dc SchoolContext -udl -outDir Pages\Departments --referenceScriptLibraries
   ```
 

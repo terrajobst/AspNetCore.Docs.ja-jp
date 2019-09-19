@@ -11,7 +11,7 @@
 
 次のように、`h` スイッチを使用して、`aspnet-codegenerator controller` コマンドに関するヘルプを取得します。
 
-```console
+```dotnetcli
 dotnet aspnet-codegenerator controller -h
 ```
 

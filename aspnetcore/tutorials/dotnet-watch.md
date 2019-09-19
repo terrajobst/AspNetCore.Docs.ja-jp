@@ -5,12 +5,12 @@ description: このチュートリアルでは、.NET Core CLI のファイル �
 ms.author: riande
 ms.date: 05/31/2018
 uid: tutorials/dotnet-watch
-ms.openlocfilehash: 03b4f7f4ade5268915482a659890c7edc2d9a852
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 5462f89a3b5a257ed0a6a8439efb077653fb14f6
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64889877"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71082247"
 ---
 # <a name="develop-aspnet-core-apps-using-a-file-watcher"></a>ファイル ウォッチャーを使用した ASP.NET Core アプリの開発
 
@@ -24,7 +24,7 @@ ms.locfileid: "64889877"
 
 コマンド シェルで、*WebApp* フォルダーに移動します。 次のコマンドを実行します。
 
-```console
+```dotnetcli
 dotnet run
 ```
 
@@ -61,7 +61,7 @@ Web ブラウザーで、`http://localhost:<port number>/api/math/sum?a=4&b=5` �
 
 1. 次のコマンドを実行して `Microsoft.DotNet.Watcher.Tools` パッケージをインストールします。
 
-    ```console
+    ```dotnetcli
     dotnet restore
     ```
 
@@ -124,7 +124,7 @@ public static int Product(int a, int b)
 * `*.csproj`
 * `**/*.resx`
 
-ウォッチ リストに他の項目を追加するには、*.csproj* ファイルを編集します。 項目は個別に指定することも、glob パターンを使用して指定することもできます。
+ウォッチ リストに他の項目を追加するには、 *.csproj* ファイルを編集します。 項目は個別に指定することも、glob パターンを使用して指定することもできます。
 
 ```xml
 <ItemGroup>
@@ -135,7 +135,7 @@ public static int Product(int a, int b)
 
 ## <a name="opt-out-of-files-to-be-watched"></a>ウォッチするファイルのオプトアウト
 
-既定の設定を無視するように `dotnet-watch` を構成することができます。 特定のファイルを無視するには、*.csproj* ファイルで項目の定義に `Watch="false"` 属性を追加します。
+既定の設定を無視するように `dotnet-watch` を構成することができます。 特定のファイルを無視するには、 *.csproj* ファイルで項目の定義に `Watch="false"` 属性を追加します。
 
 ```xml
 <ItemGroup>
@@ -177,7 +177,7 @@ public static int Product(int a, int b)
 
 両方のプロジェクトでファイルの監視を開始するには、*test* フォルダーに変更します。 次のコマンドを実行します。
 
-```console
+```dotnetcli
 dotnet watch msbuild /t:Test
 ```
 
