@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 09/12/2019
 uid: web-api/index
-ms.openlocfilehash: 6e1868690a2c384307a23c89467505d3ed8916db
-ms.sourcegitcommit: 805f625d16d74e77f02f5f37326e5aceafcb78e3
+ms.openlocfilehash: aab9b848eb6e69055b019c9253c716898e9847e2
+ms.sourcegitcommit: a11f09c10ef3d4eeab7ae9ce993e7f30427741c1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2019
-ms.locfileid: "70985458"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71149345"
 ---
 # <a name="create-web-apis-with-aspnet-core"></a>ASP.NET Core を使って Web API を作成する
 
@@ -159,7 +159,7 @@ namespace WebApiSample
 
 ::: moniker-end
 
-## <a name="automatic-http-400-responses"></a>自動的な HTTP 400 応答
+### <a name="automatic-http-400-responses"></a>自動的な HTTP 400 応答
 
 `[ApiController]` 属性により、モデル検証エラーが発生すると HTTP 400 応答が自動的にトリガーされます。 その結果、アクション メソッド内の次のコードは不要になります。
 
@@ -172,7 +172,7 @@ if (!ModelState.IsValid)
 
 ASP.NET Core MVC では、<xref:Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter> アクション フィルターの使用により前のチェックが行われます。
 
-### <a name="default-badrequest-response"></a>既定の BadRequest 応答 
+### <a name="default-badrequest-response"></a>既定の BadRequest 応答
 
 2\.1 の互換性バージョンを使う場合、HTTP 400 応答に対する既定の応答の種類は <xref:Microsoft.AspNetCore.Mvc.SerializableError> です。 次の要求本文は、シリアル化された型の例です。
 
@@ -206,36 +206,6 @@ ASP.NET Core MVC では、<xref:Microsoft.AspNetCore.Mvc.Infrastructure.ModelSta
 
 * Web API 応答でエラーを指定するための、コンピューターが判読できる形式を提供します。
 * [RFC 7807 仕様](https://tools.ietf.org/html/rfc7807)に準拠しています。
-
-既定の応答の種類を `SerializableError` に変更するには、`Startup.ConfigureServices` で強調表示されている変更を適用します。
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-3.0"
-
-[!code-csharp[](index/samples/3.x/Startup.cs?name=snippet_DisableProblemDetailsInvalidModelStateResponseFactory&highlight=4-13)]
-
-::: moniker-end
-
-::: moniker range="= aspnetcore-2.2"
-
-[!code-csharp[](index/samples/2.x/Startup.cs?name=snippet_DisableProblemDetailsInvalidModelStateResponseFactory&highlight=5-14)]
-
-::: moniker-end
-
-### <a name="customize-badrequest-response"></a>BadRequest 応答をカスタマイズする
-
-検証エラーに起因する応答をカスタマイズするには、<xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.InvalidModelStateResponseFactory> を使います。 次に例を示します。
-
-::: moniker range=">= aspnetcore-3.0"
-
-[!code-csharp[](index/samples/3.x/Startup.cs?name=snippet_ConfigureBadRequestResponse&highlight=4-20)]
-
-::: moniker-end
-
-::: moniker range="<= aspnetcore-2.2"
-
-[!code-csharp[](index/samples/2.x/Startup.cs?name=snippet_ConfigureBadRequestResponse&highlight=5-21)]
 
 ::: moniker-end
 
@@ -283,7 +253,7 @@ ASP.NET Core MVC では、<xref:Microsoft.AspNetCore.Mvc.Infrastructure.ModelSta
 
 `[ApiController]` 属性により、アクション パラメーターの既定のデータ ソースに対する推論規則が適用されます。 これらの規則により、アクション パラメーターに属性を適用することで手動でバインディング ソースを特定する必要がなくなります。 バインディング ソースの推論規則は、次のように動作します。
 
-* `[FromBody]` は複合型パラメーターに対して推論されます。 `[FromBody]` 推論規則に対する例外は、<xref:Microsoft.AspNetCore.Http.IFormCollection> や <xref:System.Threading.CancellationToken> など、特殊な意味を持つ組み込みの複合型です。 バインディング ソース推論コードでは、そのような特殊な型は無視されます。 
+* `[FromBody]` は複合型パラメーターに対して推論されます。 `[FromBody]` 推論規則に対する例外は、<xref:Microsoft.AspNetCore.Http.IFormCollection> や <xref:System.Threading.CancellationToken> など、特殊な意味を持つ組み込みの複合型です。 バインディング ソース推論コードでは、そのような特殊な型は無視されます。
 * `[FromForm]` は <xref:Microsoft.AspNetCore.Http.IFormFile> および <xref:Microsoft.AspNetCore.Http.IFormFileCollection> 型のアクション パラメーターに対して推論されます。 簡易型またはユーザー定義型に対しては推論されません。
 * `[FromRoute]` は、ルート テンプレート内のパラメーターと一致する任意のアクション パラメーター名に対して推論されます。 複数のルートがアクション パラメーターと一致する場合、ルート値はいずれも `[FromRoute]` と見なされます。
 * `[FromQuery]` は他の任意のアクション パラメーターに対して推論されます。
@@ -375,22 +345,6 @@ ASP.NET Core MVC では、<xref:Microsoft.AspNetCore.Mvc.Infrastructure.ModelSta
 }
 ```
 
-### <a name="customize-problemdetails-response"></a>ProblemDetails 応答をカスタマイズする
-
-`ProblemDetails` の応答の内容を構成するには、<xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.ClientErrorMapping*> プロパティを使用します。 たとえば、次のコードにより、404 応答の `type` プロパティが更新されます。
-
-::: moniker range=">= aspnetcore-3.0"
-
-[!code-csharp[](index/samples/3.x/Startup.cs?name=snippet_ConfigureApiBehaviorOptions&highlight=8-9)]
-
-::: moniker-end
-
-::: moniker range="<= aspnetcore-2.2"
-
-[!code-csharp[](index/samples/2.x/Startup.cs?name=snippet_ConfigureApiBehaviorOptions&highlight=9-10)]
-
-::: moniker-end
-
 ### <a name="disable-problemdetails-response"></a>ProblemDetails 応答を無効にする
 
 <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressMapClientErrors*> プロパティが `true` に設定されている場合、`ProblemDetails` インスタンスの自動作成は無効になります。 `Startup.ConfigureServices` に次のコードを追加します。
@@ -407,9 +361,10 @@ ASP.NET Core MVC では、<xref:Microsoft.AspNetCore.Mvc.Infrastructure.ModelSta
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>その他の技術情報 
+## <a name="additional-resources"></a>その他の技術情報
 
 * <xref:web-api/action-return-types>
+* <xref:web-api/handle-errors>
 * <xref:web-api/advanced/custom-formatters>
 * <xref:web-api/advanced/formatting>
 * <xref:tutorials/web-api-help-pages-using-swagger>
