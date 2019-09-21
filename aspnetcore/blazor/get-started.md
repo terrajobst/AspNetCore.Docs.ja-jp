@@ -7,16 +7,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/05/2019
 uid: blazor/get-started
-ms.openlocfilehash: 58773ae6c605ddc7a3d85fb97eeae40d0bbe15fb
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: b1d0b1a99bac202567e44ae11986c57ab5891e43
+ms.sourcegitcommit: e5a74f882c14eaa0e5639ff082355e130559ba83
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080525"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71168103"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>ASP.NET Core Blazor を使ってみる
 
 作成者: [Daniel Roth](https://github.com/danroth27)、[Luke Latham](https://github.com/guardrex)
+
+[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
 Blazor を使ってみる:
 
@@ -32,28 +34,28 @@ Blazor を使ってみる:
 
    # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-   1。 **ASP.NET と web 開発**ワークロードを使用して、最新の[Visual Studio preview](https://visualstudio.com/vs/preview)をインストールします。
+   1 \。 **ASP.NET と web 開発**ワークロードを使用して、最新の[Visual Studio preview](https://visualstudio.com/vs/preview)をインストールします。
 
-   2。 新しいプロジェクトを作成します。
+   2 \。 新しいプロジェクトを作成します。
 
-   3。 **[Blazor App]** を選択します。 **[次へ]** を選択します。
+   3 \。 **[Blazor App]** を選択します。 **[次へ]** を選択します。
 
-   4。 **プロジェクト名** フィールドにプロジェクト名を入力するか、既定のプロジェクト名をそのまま使用します。 **場所**エントリが正しいことを確認するか、プロジェクトの場所を指定します。 **[作成]** を選択します。
+   4 \。 **プロジェクト名** フィールドにプロジェクト名を入力するか、既定のプロジェクト名をそのまま使用します。 **場所**エントリが正しいことを確認するか、プロジェクトの場所を指定します。 **[作成]** を選択します。
 
-   5。 Blazor WebAssembly エクスペリエンスについては、 **Blazor Webassembly**テンプレートを選択してください。 Blazor サーバーエクスペリエンスの場合は、 **Blazor Server アプリ**テンプレートを選択します。 **[作成]** を選択します。 *Blazor Server*と*Blazor Webassembly*の2つのホスティングモデルの詳細について<xref:blazor/hosting-models>は、「」を参照してください。
+   5 \。 Blazor WebAssembly エクスペリエンスについては、 **Blazor Webassembly**テンプレートを選択してください。 Blazor サーバーエクスペリエンスの場合は、 **Blazor Server アプリ**テンプレートを選択します。 **[作成]** を選択します。 *Blazor Server*と*Blazor Webassembly*の2つのホスティングモデルの詳細について<xref:blazor/hosting-models>は、「」を参照してください。
 
-   6。 **F5 キー**を押してアプリを実行します。
+   6 \。 **F5 キー**を押してアプリを実行します。
 
    > [!NOTE]
    > 以前のプレビューリリースの ASP.NET Core Blazor (Preview 6 以前) 用に Blazor Visual Studio 拡張機能をインストールした場合は、拡張機能をアンインストールできます。 Visual Studio でテンプレートを表示するには、コマンドシェルに Blazor テンプレートをインストールするだけで十分です。
 
    # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-   1。 [Visual Studio Code](https://code.visualstudio.com/) のインストール。
+   1 \。 [Visual Studio Code](https://code.visualstudio.com/) のインストール。
 
-   2。 [ C# Visual Studio Code 拡張機能の](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)最新版をインストールします。
+   2 \。 [ C# Visual Studio Code 拡張機能の](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)最新版をインストールします。
 
-   3。 Blazor WebAssembly を実現するには、コマンドシェルで次のコマンドを実行します。
+   3 \。 Blazor WebAssembly を実現するには、コマンドシェルで次のコマンドを実行します。
 
       ```dotnetcli
       dotnet new blazorwasm -o WebApplication1
@@ -67,13 +69,13 @@ Blazor を使ってみる:
 
       *Blazor Server*と*Blazor Webassembly*の2つのホスティングモデルの詳細について<xref:blazor/hosting-models>は、「」を参照してください。
 
-   4。 Visual Studio Code で*WebApplication1*フォルダーを開きます。
+   4 \。 Visual Studio Code で*WebApplication1*フォルダーを開きます。
 
-   5。 Blazor Server プロジェクトの場合、IDE は、プロジェクトをビルドおよびデバッグするためにアセットを追加するように要求します。 **[はい]** を選択します。
+   5 \。 Blazor Server プロジェクトの場合、IDE は、プロジェクトをビルドおよびデバッグするためにアセットを追加するように要求します。 **[はい]** を選択します。
 
-   6。 Blazor Server アプリを使用している場合は、Visual Studio Code デバッガーを使用してアプリを実行します。 Blazor webassembly を使用する場合は、 `dotnet run`アプリのプロジェクトフォルダーからを実行します。
+   6 \。 Blazor Server アプリを使用している場合は、Visual Studio Code デバッガーを使用してアプリを実行します。 Blazor webassembly を使用する場合は、 `dotnet run`アプリのプロジェクトフォルダーからを実行します。
 
-   7。 ブラウザーで、`https://localhost:5001` に移動します。
+   7 \。 ブラウザーで、`https://localhost:5001` に移動します。
 
    <!--
 
@@ -121,7 +123,7 @@ Blazor を使ってみる:
 
 サイドバーのタブからは、複数のページを使用できます。
 
-* ホーム (Home)
+* Home
 * カウンター
 * データのフェッチ
 

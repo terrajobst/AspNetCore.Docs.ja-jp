@@ -7,16 +7,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/13/2019
 uid: blazor/call-web-api
-ms.openlocfilehash: 152a2d5ac9a4325592ca414e9ea5e70c947d079f
-ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
+ms.openlocfilehash: 23131ac0357b722e7f229fcfe5dab8590cf34739
+ms.sourcegitcommit: e5a74f882c14eaa0e5639ff082355e130559ba83
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2019
-ms.locfileid: "70963704"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71168050"
 ---
 # <a name="call-a-web-api-from-aspnet-core-blazor"></a>ASP.NET Core Blazor から web API を呼び出す
 
 [Luke Latham](https://github.com/guardrex)および[Daniel Roth](https://github.com/danroth27)
+
+[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
 Blazor webassembly は、事前に構成済み`HttpClient`のサービスを使用して web api を呼び出します。 作成要求<xref:System.Net.Http.HttpRequestMessage>。 Blazor JSON ヘルパーまたはを使用して、JavaScript [Fetch API](https://developer.mozilla.org/docs/Web/API/Fetch_API)オプションを含めることができます。
 
