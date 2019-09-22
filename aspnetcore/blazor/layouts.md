@@ -5,14 +5,14 @@ description: Blazor アプリ用の再利用可能なレイアウトコンポー
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/06/2019
+ms.date: 09/21/2019
 uid: blazor/layouts
-ms.openlocfilehash: 05a38c10e18407d50422192ab1ddf3ff4b0f3a5b
-ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
+ms.openlocfilehash: 6ae795f720cd2cc1010ebec46bcee877b31d20c6
+ms.sourcegitcommit: 04ce94b3c1b01d167f30eed60c1c95446dfe759d
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/07/2019
-ms.locfileid: "70800361"
+ms.lasthandoff: 09/21/2019
+ms.locfileid: "71176427"
 ---
 # <a name="aspnet-core-blazor-layouts"></a>Blazor レイアウトの ASP.NET Core
 
@@ -45,6 +45,8 @@ Blazor アプリテンプレート`MainLayout`のいずれかに基づくアプ�
 
 `Router`コンポーネントの詳細については、 <xref:blazor/routing>「」を参照してください。
 
+ルーターでレイアウトを既定のレイアウトとして指定することは、コンポーネントごとまたはフォルダーごとにオーバーライドできるため、便利な方法です。 最も一般的な方法であるため、ルーターを使用してアプリの既定のレイアウトを設定することをお勧めします。
+
 ## <a name="specify-a-layout-in-a-component"></a>コンポーネントでのレイアウトの指定
 
 コンポーネントにレイアウトを`@layout`適用するには、Razor ディレクティブを使用します。 コンパイラは、 `@layout`を`LayoutAttribute`に変換します。これは、コンポーネントクラスに適用されます。
@@ -52,6 +54,8 @@ Blazor アプリテンプレート`MainLayout`のいずれかに基づくアプ�
 次`MasterList`のコンポーネントの内容は、 `MasterLayout`の`@Body`位置でに挿入されます。
 
 [!code-cshtml[](layouts/sample_snapshot/3.x/MasterList.razor?highlight=1)]
+
+コンポーネントにレイアウトを直接指定すると、ルーターの*既定のレイアウト*セットや`@layout` 、*インポート*からインポートされたディレクティブはオーバーライドされます。
 
 ## <a name="centralized-layout-selection"></a>一元的なレイアウト選択
 
@@ -66,6 +70,8 @@ Blazor アプリテンプレート`MainLayout`のいずれかに基づくアプ�
 [!code-cshtml[](layouts/sample_snapshot/3.x/_Imports.razor)]
 
 Razor*ファイルは*、razor の[ビューとページの _ViewImports ファイル](xref:mvc/views/layout#importing-shared-directives)に似ていますが、razor コンポーネントファイルに特に適用されます。
+
+インポートでレイアウトを指定すると、ルーターの*既定のレイアウト*として指定されたレイアウトが上書きされ*ます*。
 
 ## <a name="nested-layouts"></a>入れ子になったレイアウト
 

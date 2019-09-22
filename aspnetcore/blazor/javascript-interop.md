@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/07/2019
 uid: blazor/javascript-interop
-ms.openlocfilehash: aee9b981349e62dcc7ccf352dd5bab520969ed3b
-ms.sourcegitcommit: e5a74f882c14eaa0e5639ff082355e130559ba83
+ms.openlocfilehash: 505bd22c92c6723fb8f41621c05ba9fa3a74943b
+ms.sourcegitcommit: 04ce94b3c1b01d167f30eed60c1c95446dfe759d
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71168188"
+ms.lasthandoff: 09/21/2019
+ms.locfileid: "71176448"
 ---
 # <a name="aspnet-core-blazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 相互運用機能
 
@@ -113,7 +113,7 @@ JavaScript ファイルを参照する タグをwwwroot/index.htmlファイル(B
 
 ## <a name="call-a-void-javascript-function"></a>Void JavaScript 関数を呼び出す
 
-[Void (0)/void 0](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/void)または[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)を返す JavaScript 関数は、 `IJSRuntime.InvokeAsync<object>`を返す`null`を使用して呼び出されます。
+[Void (0)/void 0](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/void)または[Undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)を返す JavaScript 関数は、 `IJSRuntime.InvokeVoidAsync`を使用して呼び出されます。
 
 ## <a name="detect-when-a-blazor-app-is-prerendering"></a>Blazor アプリがプリレンダリングされるタイミングを検出する
  

@@ -7,21 +7,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/15/2019
 uid: blazor/forms-validation
-ms.openlocfilehash: 2fd76db90a53e328cd2ac8f452fba58365db0384
-ms.sourcegitcommit: dc5b293e08336dc236de66ed1834f7ef78359531
+ms.openlocfilehash: c68ebf7f7bf07b6c243ab16307716cea13870446
+ms.sourcegitcommit: 04ce94b3c1b01d167f30eed60c1c95446dfe759d
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71011058"
+ms.lasthandoff: 09/21/2019
+ms.locfileid: "71176346"
 ---
 # <a name="aspnet-core-blazor-forms-and-validation"></a>Blazor フォームと検証の ASP.NET Core
 
 作成者: [Daniel Roth](https://github.com/danroth27)、[Luke Latham](https://github.com/guardrex)
 
 [データ注釈](xref:mvc/models/validation)を使用して、Blazor でフォームおよび検証をサポートしています。
-
-> [!NOTE]
-> フォームと検証のシナリオは、プレビューリリースごとに変更される可能性があります。
 
 次`ExampleModel`の型は、データ注釈を使用して検証ロジックを定義します。
 

@@ -32,7 +32,6 @@ Blazor Server アプリをプリレンダリングするときに、ブラウザ
 @page "/prerendered-interop"
 @using Microsoft.AspNetCore.Components
 @using Microsoft.JSInterop
-@inject IComponentContext ComponentContext
 @inject IJSRuntime JSRuntime
 
 <p>
@@ -59,32 +58,5 @@ Blazor Server アプリをプリレンダリングするときに、ブラウザ
             StateHasChanged();
         }
     }
-}
-```
-
-アプリが現在プリレンダリングされているかどうかに基づいて異なるコンテンツ`IsConnected`を表示する`IComponentContext`には、サービスでプロパティを使用します。 Blazor サーバーアプリの場合`IsConnected` 、は`true` 、クライアントへのアクティブな接続がある場合にのみを返します。 常に、 `true` Blazor webasのアプリで返されます。
-
-```cshtml
-@page "/isconnected-example"
-@using Microsoft.AspNetCore.Components.Services
-@inject IComponentContext ComponentContext
-
-<h1>IsConnected Example</h1>
-
-<p>
-    Current state:
-    <strong id="connected-state">
-        @(ComponentContext.IsConnected ? "connected" : "not connected")
-    </strong>
-</p>
-
-<p>
-    Clicks:
-    <strong id="count">@count</strong>
-    <button id="increment-count" @onclick="@(() => count++)">Click me</button>
-</p>
-
-@code {
-    private int count;
 }
 ```
