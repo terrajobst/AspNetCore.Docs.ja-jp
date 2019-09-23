@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 05/29/2019
 uid: web-api/advanced/formatting
-ms.openlocfilehash: e3417c9bfd3824133b86de2fe74f5f71367e1560
-ms.sourcegitcommit: 41f2c1a6b316e6e368a4fd27a8b18d157cef91e1
+ms.openlocfilehash: 8bee4efdae5341ddab5bd3aec278ecfef37f0c08
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/21/2019
-ms.locfileid: "69886530"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71082357"
 ---
 <!-- DO NOT EDIT BEFORE https://github.com/aspnet/AspNetCore.Docs/pull/12077 MERGES -->
 # <a name="format-response-data-in-aspnet-core-web-api"></a>ASP.NET Core Web API の応答データの書式設定
@@ -106,13 +106,29 @@ services.AddMvc(options =>
 
 ### <a name="configure-systemtextjson-based-formatters"></a>System.Text.Json ベースのフォーマッタを構成する
 
-`System.Text.Json` ベースのフォーマッタの機能は、`Microsoft.AspNetCore.Mvc.MvcOptions.SerializerOptions` を使用して構成することができます。
+`System.Text.Json` ベースのフォーマッタの機能は、`Microsoft.AspNetCore.Mvc.JsonOptions.SerializerOptions` を使用して構成することができます。
 
 ```csharp
-services.AddMvc(options =>
+services.AddControllers().AddJsonOptions(options =>
 {
-    options.SerializerOptions.WriterSettings.Indented = true;
+    // Use the default property (Pascal) casing.
+    options.SerializerOptions.PropertyNamingPolicy = null;
+
+    // Configure a custom converter.
+    options.SerializerOptions.Converters.Add(new MyCustomJsonConverter());
 });
+```
+
+出力のシリアル化オプションは、アクションごとに `JsonResult` を使用して構成することができます。 次に例を示します。
+
+```csharp
+public IActionResult Get()
+{
+    return Json(model, new JsonSerializerOptions
+    {
+        options.WriteIndented = true,
+    });
+}
 ```
 
 ### <a name="add-newtonsoftjson-based-json-format-support"></a>Newtonsoft.Json ベースの JSON 形式のサポートを追加する
@@ -120,7 +136,7 @@ services.AddMvc(options =>
 ASP.NET Core 3.0 より前、MVC は既定で `Newtonsoft.Json` パッケージを使用して実装される JSON フォーマッタを使用していました。 ASP.NET Core 3.0 以降、既定の JSON フォーマッタは `System.Text.Json` に基づいています。 `Newtonsoft.Json` ベースのフォーマッタと機能のサポートは、[Microsoft.AspNetCore.Mvc.NewtonsoftJson](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/) NuGet パッケージをインストールして `Startup.ConfigureServices` で構成することで利用できます。
 
 ```csharp
-services.AddMvc()
+services.AddControllers()
     .AddNewtonsoftJson();
 ```
 
@@ -129,6 +145,31 @@ services.AddMvc()
 * `Newtonsoft.Json` 属性 (`[JsonProperty]` や `[JsonIgnore]` など) を使用する、シリアル化設定をカスタマイズする、または `Newtonsoft.Json` で提供される機能に依存している。
 * `Microsoft.AspNetCore.Mvc.JsonResult.SerializerSettings` を構成する。 ASP.NET Core 3.0 より前は、`JsonResult.SerializerSettings`が `Newtonsoft.Json` に固有の `JsonSerializerSettings` のインスタンスを受け入れます。
 * [OpenAPI](<xref:tutorials/web-api-help-pages-using-swagger>) ドキュメントを生成する。
+
+`Newtonsoft.Json` ベースのフォーマッタの機能は、`Microsoft.AspNetCore.Mvc.MvcNewtonsoftJsonOptions.SerializerSettings` を使用して構成することができます。
+
+```csharp
+services.AddControllers().AddNewtonsoftJson(options =>
+{
+    // Use the default property (Pascal) casing
+    options.SerializerSettings.ContractResolver = new DefautlContractResolver();
+
+    // Configure a custom converter
+    options.SerializerOptions.Converters.Add(new MyCustomJsonConverter());
+});
+```
+
+出力のシリアル化オプションは、アクションごとに `JsonResult` を使用して構成することができます。 次に例を示します。
+
+```csharp
+public IActionResult Get()
+{
+    return Json(model, new JsonSerializerSettings
+    {
+        options.Formatting = Formatting.Indented,
+    });
+}
+```
 
 ::: moniker-end
 

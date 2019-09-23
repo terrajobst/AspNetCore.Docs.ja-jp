@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/12/2019
 uid: mvc/views/partial
-ms.openlocfilehash: 901fd52f89969141713e443890781a77308bd901
-ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
+ms.openlocfilehash: 50c4f41d5d3099184aa3992ed7e176b74c488d2a
+ms.sourcegitcommit: 805f625d16d74e77f02f5f37326e5aceafcb78e3
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/12/2019
-ms.locfileid: "67034918"
+ms.lasthandoff: 09/13/2019
+ms.locfileid: "70985572"
 ---
 # <a name="partial-views-in-aspnet-core"></a>ASP.NET Core の部分ビュー
 
@@ -157,7 +157,7 @@ ASP.NET Core 2.2 以降では、別の方法としてハンドラー メソッ�
 <partial name="../Account/_PartialName.cshtml" />
 ```
 
-詳細については、「<xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper>」を参照してください。
+詳細については、<xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper> を参照してください。
 
 ::: moniker-end
 
@@ -308,7 +308,7 @@ HTML ヘルパーを使用している場合、ベスト プラクティスは <
 
 [!code-cshtml[](partial/sample/PartialViewsSample/Views/Articles/Read.cshtml?name=snippet_ReadPartialView&highlight=5,15-20)]
 
-*Views/Shared/_AuthorPartial.cshtml* は、*ReadRP.cshtml* マークアップ ファイルで参照される最初の部分ビューです。
+*Views/Shared/_AuthorPartial.cshtml* は、*Read.cshtml* マークアップ ファイルで参照される最初の部分ビューです。
 
 [!code-cshtml[](partial/sample/PartialViewsSample/Views/Shared/_AuthorPartial.cshtml)]
 

@@ -5,14 +5,14 @@ description: Blazor アプリを段階的に構築します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/23/2019
+ms.date: 09/15/2019
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: ea1111f43b6b8b4f47061056e8ad8d505f92dba6
-ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
+ms.openlocfilehash: b433d793ae615bc4ece7c63bebd72d349adf43ee
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/07/2019
-ms.locfileid: "70800478"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081263"
 ---
 # <a name="build-your-first-blazor-app"></a>最初の Blazor アプリを構築する
 
@@ -57,7 +57,7 @@ HTML 構文を使用して、別のコンポーネント内にコンポーネン
 
 1. `Index` コンポーネント (*Index.razor*) に `<Counter />` 要素を追加することで、アプリの `Index` コンポーネントに `Counter` コンポーネントを追加します。
 
-   このエクスペリエンスのためにクライアント側 Blazor を使っている場合、`Index` コンポーネントによって `SurveyPrompt` コンポーネントが使用されます。 `<SurveyPrompt>` 要素を `<Counter />` 要素に置き換えます。 このエクスペリエンスに Blazor サーバー側アプリを使用している場合は、`<Counter />` 要素を `Index` コンポーネントに追加します。
+   このエクスペリエンスのために Blazor WebAssembly を使用している場合、`Index` コンポーネントによって `SurveyPrompt` コンポーネントが使用されます。 `<SurveyPrompt>` 要素を `<Counter />` 要素に置き換えます。 このエクスペリエンスに Blazor サーバー アプリを使用している場合は、`<Counter />` 要素を `Index` コンポーネントに追加します。
 
    *Pages/Index.razor*:
 
@@ -97,11 +97,11 @@ HTML 構文を使用して、別のコンポーネント内にコンポーネン
 
 ## <a name="dependency-injection"></a>依存関係の挿入
 
-アプリのサービス コンテナーに登録されたサービスは、[依存関係の挿入 (DI)](xref:fundamentals/dependency-injection) を介してコンポーネントから使用できます。 `@inject` ディレクティブを使ってサービスをコンポーネントに挿入します。
+Blazor サーバー アプリを使用している場合、`WeatherForecastService` サービスは `Startup.ConfigureServices` の[シングルトン](xref:fundamentals/dependency-injection#service-lifetimes)として登録されます。 サービスのインスタンスは、[依存関係の挿入 (DI)](xref:fundamentals/dependency-injection) を介してアプリ全体で利用できます。
 
-`FetchData` コンポーネントのディレクティブを調べます。
+[!code-csharp[](build-your-first-blazor-app/samples_snapshot/3.x/Startup.cs?highlight=5)]
 
-サーバー側 Razor アプリを使用する場合、`WeatherForecastService` サービスは[シングルトン](xref:fundamentals/dependency-injection#service-lifetimes)として登録されているため、サービスの 1 つのインスタンスをアプリ全体で使用できます。 コンポーネントに `WeatherForecastService` サービスのインスタンスを挿入するために、`@inject` ディレクティブが使われています。
+`FetchData` コンポーネントに `WeatherForecastService` サービスのインスタンスを挿入するために、`@inject` ディレクティブが使われています。
 
 *Pages/FetchData.razor*:
 
@@ -111,7 +111,7 @@ HTML 構文を使用して、別のコンポーネント内にコンポーネン
 
 [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData2.razor?highlight=6)]
 
-クライアント側 Blazor アプリを使用する場合、*wwwroot/sample-data* フォルダー内の *weather.json* ファイルから天気予報データを取得するために、`HttpClient` が挿入されます。
+Blazor WebAssembly アプリを使用する場合、*wwwroot/sample-data* フォルダー内の *weather.json* ファイルから天気予報データを取得するために、`HttpClient` が挿入されます。
 
 *Pages/FetchData.razor*:
 
@@ -120,7 +120,6 @@ HTML 構文を使用して、別のコンポーネント内にコンポーネン
 各 forecast インスタンスを気象データのテーブルの行としてレンダリングするために、[\@foreach](/dotnet/csharp/language-reference/keywords/foreach-in) ループが使われています。
 
 [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData3.razor?highlight=11-19)]
-
 
 ## <a name="build-a-todo-list"></a>Todo リストを構築する
 

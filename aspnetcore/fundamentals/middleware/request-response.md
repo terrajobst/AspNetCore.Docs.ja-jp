@@ -7,12 +7,12 @@ ms.author: jukotali
 ms.custom: mvc
 ms.date: 08/29/2019
 uid: fundamentals/middleware/request-response
-ms.openlocfilehash: e992401da2d194b178afbe51a293d103def0f940
-ms.sourcegitcommit: e6bd2bbe5683e9a7dbbc2f2eab644986e6dc8a87
+ms.openlocfilehash: 5e531c0ce0ed48097054fd81ddc3655a66cc7c5f
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/03/2019
-ms.locfileid: "70238153"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081680"
 ---
 # <a name="request-and-response-operations-in-aspnet-core"></a>ASP.NET Core での要求と応答の操作
 
@@ -20,7 +20,7 @@ ms.locfileid: "70238153"
 
 この記事では、要求本文からの読み取りと、応答本文への書き込みを行う方法について説明します。 ミドルウェアを作成するときは、これらの操作のコードが必要になることがあります。 操作は MVC と Razor Pages によって処理されるため、ミドルウェアの作成以外では、通常、カスタムコードは必要ありません。
 
-要求と応答の本文には 2 つの抽象化があります: <xref:System.IO.Stream> と <xref:System.IO.Pipelines.Pipe> です。 要求の読み取りでは、[HttpRequest.Body](xref:Microsoft.AspNetCore.Http.HttpRequest.Body) は <xref:System.IO.Stream> に、`HttpRequest.BodyReader` は <xref:System.IO.Pipelines.PipeReader> になります。 応答の書き込みでは、[HttpResponse.Body](xref:Microsoft.AspNetCore.Http.HttpResponse.Body) は `HttpResponse.BodyWriter` は <xref:System.IO.Pipelines.PipeWriter> になります。
+要求と応答の本文には 2 つの抽象化があります: <xref:System.IO.Stream> と <xref:System.IO.Pipelines.Pipe> です。 要求の読み取りでは、[HttpRequest.Body](xref:Microsoft.AspNetCore.Http.HttpRequest.Body) は <xref:System.IO.Stream> に、`HttpRequest.BodyReader` は <xref:System.IO.Pipelines.PipeReader> になります。 応答の書き込みでは、[HttpResponse.Body](xref:Microsoft.AspNetCore.Http.HttpResponse.Body) は <xref:System.IO.Stream>、`HttpResponse.BodyWriter` は <xref:System.IO.Pipelines.PipeWriter> になります。
 
 パイプラインは、ストリームよりも推奨されます。 一部の単純な操作ではストリームの方が使いやすい場合がありますが、パイプラインの方がパフォーマンスに優れていて、ほとんどのシナリオでより簡単に使えます。 ASP.NET Core では、内部的にストリームではなくパイプラインが使われ始めています。 その例は次のとおりです。
 
