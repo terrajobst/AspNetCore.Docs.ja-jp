@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 8/26/2019
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: 7f80ead06f00037ae51b35d40dff9bc7f99bc5d8
-ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
+ms.openlocfilehash: 924aa3880fc7f2aa777d4ab2e5ea3bed38e227d4
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/05/2019
-ms.locfileid: "70310580"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081177"
 ---
 # <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a>チュートリアル: ASP.NET Core で gRPC のクライアントとサーバーを作成する
 
@@ -50,8 +50,8 @@ ms.locfileid: "70310580"
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* Visual Studio を開始し、 **[新しいプロジェクトの作成]** を選択します。 または、Visual Studio の **[ファイル]** メニューから、 **[新規作成]**  >  **[プロジェクト]** の順に選択します。
-* **[新しいプロジェクトの作成]** ダイアログで、 **[gPRC Service]\(gPRC サービス\)** を選択して、 **[次へ]** を選択します。
+* Visual Studio を開始し、**[新しいプロジェクトの作成]** を選択します。 または、Visual Studio の **[ファイル]** メニューから、**[新規作成]** > **[プロジェクト]** の順に選択します。
+* **[新しいプロジェクトの作成]** ダイアログで、**[gRPC サービス]** を選択して、**[次へ]** を選択します。
 
   ![**[新しいプロジェクトの作成]** ダイアログ](~/tutorials/grpc/grpc-start/static/cnp.png)
 
@@ -67,7 +67,7 @@ ms.locfileid: "70310580"
 * ディレクトリ (`cd`) を、プロジェクトを格納するフォルダーに変更します。
 * 次のコマンドを実行します。
 
-  ```console
+  ```dotnetcli
   dotnet new grpc -o GrpcGreeter
   code -r GrpcGreeter
   ```
@@ -75,23 +75,23 @@ ms.locfileid: "70310580"
   * `dotnet new` コマンドでは、*GrpcGreeter* フォルダー内に新しい gRPC サービスが作成されます。
   * `code` コマンドでは、Visual Studio Code の新しいインスタンス内に *GrpcGreeter* フォルダーが開かれます。
 
-  "**ビルドとデバッグに必要な資産が 'GrpcGreeter' にありません。追加しますか?** " という内容のダイアログ ボックスが表示されたら、
+  "**ビルドとデバッグに必要な資産が 'GrpcGreeter' にありません。追加しますか?**" という内容のダイアログ ボックスが表示されたら、
 * **[はい]** を選択します。
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 端末から、次のコマンドを実行します。
 
-```console
-  dotnet new grpc -o GrpcGreeter
-  cd GrpcGreeter
+```dotnetcli
+dotnet new grpc -o GrpcGreeter
+cd GrpcGreeter
 ```
 
 上記のコマンドでは、[.NET Core CLI](/dotnet/core/tools/dotnet) を使用して、gRPC サービスが作成されます。
 
 ### <a name="open-the-project"></a>プロジェクトを開く
 
-Visual Studio から、 **[ファイル]**  >  **[開く]** の順に選択し、*GrpcGreeter.sln* ファイルを選択します。
+Visual Studio から、**[ファイル]** > **[開く]** の順に選択し、*GrpcGreeter.sln* ファイルを選択します。
 
 ---
 
@@ -131,7 +131,7 @@ info: Microsoft.Hosting.Lifetime[0]
 
 ### <a name="examine-the-project-files"></a>プロジェクト ファイルを確認する
 
-*GrpcGreeter*プロジェクト ファイル:
+*GrpcGreeter*プロジェクト ファイル: 
 
 * *greet.proto* &ndash; *Protos/greet.proto* ファイルでは `Greeter` gRPC が定義されており、このファイルは gRPC サーバー資産を生成するために使用されます。 詳細については、「[gRPC の概要](xref:grpc/index)」を参照してください。
 * *Services* フォルダー:`Greeter` サービスの実装が含まれます。
@@ -143,9 +143,9 @@ info: Microsoft.Hosting.Lifetime[0]
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* Visual Studio のインスタンスをもう 1 つ開き、 **[新しいプロジェクトの作成]** を選択します。
-* **[新しいプロジェクトの作成]** ダイアログで、 **[コンソール アプリ (.NET Core)]** を選択し、 **[次へ]** を選択します。
-* **[名前]** テキスト ボックスに「**GrpcGreeterClient**」を入力し、 **[作成]** を選択します。
+* Visual Studio のインスタンスをもう 1 つ開き、**[新しいプロジェクトの作成]** を選択します。
+* **[新しいプロジェクトの作成]** ダイアログで、**[コンソール アプリ (.NET Core)]** を選択し、**[次へ]** を選択します。
+* **[名前]** テキスト ボックスに「**GrpcGreeterClient**」を入力し、**[作成]** を選択します。
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -153,7 +153,7 @@ info: Microsoft.Hosting.Lifetime[0]
 * ディレクトリ (`cd`) を、プロジェクトを格納するフォルダーに変更します。
 * 次のコマンドを実行します。
 
-  ```console
+  ```dotnetcli
   dotnet new console -o GrpcGreeterClient
   code -r GrpcGreeterClient
   ```
@@ -178,7 +178,7 @@ gRPC クライアント プロジェクトには、次のパッケージが必�
 
 #### <a name="pmc-option-to-install-packages"></a>パッケージをインストールするための PMC オプション
 
-* Visual Studio で **[ツール]** 、 **[NuGet パッケージ マネージャー]** 、 **[パッケージ マネージャー コンソール]** の順に選択します。
+* Visual Studio で **[ツール]**、**[NuGet パッケージ マネージャー]**、**[パッケージ マネージャー コンソール]** の順に選択します。
 * **[パッケージ マネージャー コンソール]** ウィンドウから `cd GrpcGreeterClient` を実行し、*GrpcGreeterClient.csproj* ファイルが含まれるフォルダーにディレクトリを変更します。
 * 次のコマンドを実行します。
 
@@ -190,17 +190,17 @@ gRPC クライアント プロジェクトには、次のパッケージが必�
 
 #### <a name="manage-nuget-packages-option-to-install-packages"></a>パッケージをインストールするための [NuGet パッケージの管理] オプション
 
-* **[ソリューション エクスプローラー]**  >  **[NuGet パッケージの管理]** でプロジェクトを右クリックします。
+* [**ソリューション エクスプローラー**] > [**NuGet パッケージの管理**] でプロジェクトを右クリックします。
 * **[参照]** タブを選択します。
 * 検索ボックスに「**Grpc.Net.Client**」と入力します。
-* **[参照]** タブから **Grpc.Net.Client** パッケージを選択し、 **[インストール]** を選択します。
+* **[参照]** タブから **Grpc.Net.Client** パッケージを選択し、**[インストール]** を選択します。
 * `Google.Protobuf` と `Grpc.Tools` に同じ手順を繰り返します。
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 **統合ターミナル**から次のコマンドを実行します。
 
-```console
+```dotnetcli
 dotnet add GrpcGreeterClient.csproj package Grpc.Net.Client
 dotnet add GrpcGreeterClient.csproj package Google.Protobuf
 dotnet add GrpcGreeterClient.csproj package Grpc.Tools
@@ -208,9 +208,9 @@ dotnet add GrpcGreeterClient.csproj package Grpc.Tools
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* **[Solution Pad]**  >  **[パッケージを追加]** で **[パッケージ]** フォルダーを右クリックします。
+* **[Solution Pad]** > **[パッケージを追加]** で **[パッケージ]** フォルダーを右クリックします。
 * 検索ボックスに「**Grpc.Net.Client**」と入力します。
-* 結果ウィンドウから **Grpc.Net.Client** パッケージを選択し、 **[パッケージを追加]** を選択します
+* 結果ウィンドウから **Grpc.Net.Client** パッケージを選択し、**[パッケージを追加]** を選択します
 * `Google.Protobuf` と `Grpc.Tools` に同じ手順を繰り返します。
 
 ---
@@ -223,7 +223,7 @@ dotnet add GrpcGreeterClient.csproj package Grpc.Tools
 
   # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-  プロジェクトを右クリックし、 **[プロジェクト ファイルの編集]** を選択します。
+  プロジェクトを右クリックし、**[プロジェクト ファイルの編集]** を選択します。
 
   # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -231,7 +231,7 @@ dotnet add GrpcGreeterClient.csproj package Grpc.Tools
 
   # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-  プロジェクトを右クリックし、 **[ツール]**  >  **[ファイルの編集]** の順に選択します。
+  プロジェクトを右クリックし、**[ツール]** > **[ファイルの編集]** の順に選択します。
 
   ---
 
