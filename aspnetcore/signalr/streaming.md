@@ -1,56 +1,56 @@
 ---
-title: ASP.NET Core SignalR では、ストリーミングを使用して、
+title: ASP.NET Core SignalR でストリーミングを使用する
 author: bradygaster
-description: クライアントとサーバー間でデータをストリーミングする方法について説明します。
+description: クライアントとサーバーの間でデータをストリーミングする方法について説明します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
 ms.date: 06/05/2019
 uid: signalr/streaming
-ms.openlocfilehash: a75156f398e113393ddb891d16eec3f09de80c09
-ms.sourcegitcommit: e7e04a45195d4e0527af6f7cf1807defb56dc3c3
+ms.openlocfilehash: d520c8eec3e777acb9604bdcb5969268deabf8da
+ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66750195"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71186929"
 ---
-# <a name="use-streaming-in-aspnet-core-signalr"></a>ASP.NET Core SignalR では、ストリーミングを使用して、
+# <a name="use-streaming-in-aspnet-core-signalr"></a>ASP.NET Core SignalR でストリーミングを使用する
 
-によって[真紀 Brennan](https://github.com/BrennanConroy)
+[Brennan Conroy](https://github.com/BrennanConroy)
 
 ::: moniker range=">= aspnetcore-3.0"
 
-ASP.NET Core SignalR は、クライアント サーバーからとサーバーからクライアントへのストリーミングをサポートします。 これは、時間の経過と共にデータの断片化が到着した場合に便利です。 ストリーミングする場合、各フラグメントが送信されるクライアントまたはサーバーになったとすぐに待機しているすべての使用可能になるデータではなく、使用可能です。
+ASP.NET Core SignalR は、クライアントからサーバー、およびサーバーからクライアントへのストリーミングをサポートしています。 これは、時間の経過と共にデータのフラグメントが到着するシナリオに役立ちます。 ストリーミング時には、すべてのデータが使用可能になるのを待機するのではなく、使用可能になるとすぐに各フラグメントがクライアントまたはサーバーに送信されます。
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-ASP.NET Core SignalR は、サーバーのメソッドの戻り値のストリーミングをサポートします。 これは、時間の経過と共にデータの断片化が到着した場合に便利です。 戻り値は、クライアントにストリーミングされるときに各フラグメントが送信されるクライアントになったとすぐに使用可能になるすべてのデータを待機するのではなく、使用可能な。
+ASP.NET Core SignalR は、サーバーメソッドのストリーミング戻り値をサポートしています。 これは、時間の経過と共にデータのフラグメントが到着するシナリオに役立ちます。 戻り値がクライアントにストリーミングされると、すべてのデータが使用可能になるまで待機するのではなく、使用可能になるとすぐに各フラグメントがクライアントに送信されます。
 
 ::: moniker-end
 
 [サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/signalr/streaming/samples/)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
-## <a name="set-up-a-hub-for-streaming"></a>ストリーミング用のハブを設定します。
+## <a name="set-up-a-hub-for-streaming"></a>ストリーミング用のハブを設定する
 
 ::: moniker range=">= aspnetcore-3.0"
 
-ハブ メソッドはストリーミングのハブ メソッドを自動的になりますが返されるときに<xref:System.Collections.Generic.IAsyncEnumerable`1>、 <xref:System.Threading.Channels.ChannelReader%601>、 `Task<IAsyncEnumerable<T>>`、または`Task<ChannelReader<T>>`します。
+ハブ<xref:System.Collections.Generic.IAsyncEnumerable`1>メソッドは<xref:System.Threading.Channels.ChannelReader%601> `Task<ChannelReader<T>>`、、、、またはを返すと、自動的にストリーミングハブメソッドになります。 `Task<IAsyncEnumerable<T>>`
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-ハブ メソッドはストリーミングのハブ メソッドを自動的になりますが返されるときに、<xref:System.Threading.Channels.ChannelReader%601>または`Task<ChannelReader<T>>`します。
+ハブメソッドは、 <xref:System.Threading.Channels.ChannelReader%601> `Task<ChannelReader<T>>`またはを返すと、自動的にストリーミングハブメソッドになります。
 
 ::: moniker-end
 
-### <a name="server-to-client-streaming"></a>サーバーからクライアントのストリーミング
+### <a name="server-to-client-streaming"></a>サーバーからクライアントへのストリーミング
 
 ::: moniker range=">= aspnetcore-3.0"
 
-ハブ メソッドのストリーミングを返せる`IAsyncEnumerable<T>`に加えて`ChannelReader<T>`します。 返す最も簡単な方法`IAsyncEnumerable<T>`は次の例に示すように、非同期反復子メソッドのハブ メソッドにすることです。 ハブ非同期反復子メソッドが受け入れることができます、`CancellationToken`ストリームからクライアントをアンサブスク ライブときにトリガーされるパラメーター。 非同期反復子メソッドが返されないなどのチャネルでの一般的な問題を回避、`ChannelReader`早期完了しなくても、メソッドを終了するか、<xref:System.Threading.Channels.ChannelWriter`1>します。
+ストリーミングハブのメソッドは`IAsyncEnumerable<T>` 、に加え`ChannelReader<T>`てを返すことができます。 を返す`IAsyncEnumerable<T>`最も簡単な方法は、次の例に示すように、ハブメソッドを非同期反復子メソッドにすることです。 ハブの非同期反復子メソッドは`CancellationToken` 、クライアントがストリームからアンサブスクライブしたときにトリガーされるパラメーターを受け取ることができます。 非同期反復子メソッドは、チャネルに共通する問題を回避し`ChannelReader` <xref:System.Threading.Channels.ChannelWriter`1>ます。たとえば、を完了しないうちに十分な初期状態を返さない場合や、メソッドを終了する場合などです。
 
 [!INCLUDE[](~/includes/csharp-8-required.md)]
 
@@ -58,12 +58,12 @@ ASP.NET Core SignalR は、サーバーのメソッドの戻り値のストリ�
 
 ::: moniker-end
 
-次の例では、ストリーミング チャネルを使用してクライアントにデータの基本を示します。 オブジェクトが書き込まれるたびに、<xref:System.Threading.Channels.ChannelWriter%601>オブジェクトがすぐに、クライアントに送信します。 最後に、`ChannelWriter`ストリームが閉じていることをクライアントに指示するのには完了します。
+次のサンプルは、チャネルを使用してクライアントにデータをストリーミングする方法の基本を示しています。 オブジェクトがに<xref:System.Threading.Channels.ChannelWriter%601>書き込まれるたびに、オブジェクトは直ちにクライアントに送信されます。 最後に、は、 `ChannelWriter`ストリームが閉じられていることをクライアントに通知するために完了します。
 
 > [!NOTE]
-> 書き込み、`ChannelWriter<T>`バック グラウンド スレッドと返された場合に、`ChannelReader`できるだけ早くします。 その他のハブ呼び出しがまでブロックされます、`ChannelReader`が返されます。
+> バックグラウンドスレッド`ChannelReader`でに書き込み、できるだけ早くを返します。 `ChannelWriter<T>` が返されるまで、 `ChannelReader`他のハブ呼び出しはブロックされます。
 >
-> 内のロジックをラップする`try ... catch`します。 完了、`Channel`で、`catch`内外の`catch`メソッドの呼び出しが正しく完了したハブを確認します。
+> でロジックをラップ`try ... catch`します。 ハブメソッドの呼び出し`catch`が正しく完了`catch`していることを確認するには、のとの外側にあるを完了します。`Channel`
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -85,24 +85,24 @@ ASP.NET Core SignalR は、サーバーのメソッドの戻り値のストリ�
 
 ::: moniker range=">= aspnetcore-2.2"
 
-ハブ メソッドのストリーミング サーバーからクライアントが受け入れることができます、`CancellationToken`ストリームからクライアントをアンサブスク ライブときにトリガーされるパラメーター。 このトークンを使用して、サーバーの操作を停止し、ストリームの終了前に、クライアントが切断した場合は、リソースを解放します。
+サーバーからクライアントへのストリーミングハブメソッドは、クライアント`CancellationToken`がストリームからアンサブスクライブしたときにトリガーされるパラメーターを受け取ることができます。 ストリームの終了前にクライアントが切断された場合は、このトークンを使用してサーバー操作を停止し、リソースを解放します。
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-3.0"
 
-### <a name="client-to-server-streaming"></a>クライアントとサーバーのストリーミング
+### <a name="client-to-server-streaming"></a>クライアントとサーバー間のストリーミング
 
-ハブ メソッドはクライアントからサーバーへのストリーミングのハブ メソッドを自動的になりますが、型の 1 つまたは複数のオブジェクトを受け入れる場合<xref:System.Threading.Channels.ChannelReader%601>または<xref:System.Collections.Generic.IAsyncEnumerable%601>します。 次の例では、クライアントから送信されたストリーミング データの読み取りの基礎を示します。 クライアントが書き込むたびに、<xref:System.Threading.Channels.ChannelWriter%601>に、データが書き込まれる、`ChannelReader`のハブ メソッドの読み取り元となるサーバー上。
+ハブメソッドは、型または<xref:System.Threading.Channels.ChannelReader%601> <xref:System.Collections.Generic.IAsyncEnumerable%601>型の1つ以上のオブジェクトを受け入れると、クライアントとサーバー間のストリーミングハブメソッドに自動的になります。 次のサンプルは、クライアントから送信されたストリーミングデータの読み取りの基本を示しています。 クライアントがに<xref:System.Threading.Channels.ChannelWriter%601>書き込むたびに、データはハブメソッドの読み取り`ChannelReader`元のサーバー上のに書き込まれます。
 
 [!code-csharp[Streaming upload hub method](streaming/samples/3.0/Hubs/StreamHub.cs?name=snippet2)]
 
-<xref:System.Collections.Generic.IAsyncEnumerable%601>メソッドのバージョンに依存します。
+メソッド<xref:System.Collections.Generic.IAsyncEnumerable%601>のバージョンは次のとおりです。
 
 [!INCLUDE[](~/includes/csharp-8-required.md)]
 
 ```csharp
-public async Task UploadStream(IAsyncEnumerable<Stream> stream) 
+public async Task UploadStream(IAsyncEnumerable<string> stream)
 {
     await foreach (var item in stream)
     {
@@ -115,14 +115,14 @@ public async Task UploadStream(IAsyncEnumerable<Stream> stream)
 
 ## <a name="net-client"></a>.NET クライアント
 
-### <a name="server-to-client-streaming"></a>サーバーからクライアントのストリーミング
+### <a name="server-to-client-streaming"></a>サーバーからクライアントへのストリーミング
 
 
 ::: moniker range=">= aspnetcore-3.0"
 
-`StreamAsync`と`StreamAsChannelAsync`メソッド`HubConnection`サーバーからクライアントにストリーミング メソッドの呼び出しに使用されます。 メソッド名のハブおよびハブ メソッドで定義されている引数を渡す`StreamAsync`または`StreamAsChannelAsync`します。 ジェネリック パラメーター`StreamAsync<T>`と`StreamAsChannelAsync<T>`ストリーミング メソッドによって返されるオブジェクトの種類を指定します。 型のオブジェクト`IAsyncEnumerable<T>`または`ChannelReader<T>`ストリーム呼び出しから返され、クライアントにストリームを表します。
+の`StreamAsync` `StreamAsChannelAsync`メソッドとメソッドは、サーバーからクライアントへのストリーミングメソッドを呼び出すために使用されます。 `HubConnection` ハブメソッドで定義されているハブメソッド名と引数`StreamAsync`を`StreamAsChannelAsync`またはに渡します。 `StreamAsync<T>` および`StreamAsChannelAsync<T>`のジェネリックパラメーターは、ストリーミングメソッドによって返されるオブジェクトの型を指定します。 または`IAsyncEnumerable<T>` `ChannelReader<T>`型のオブジェクトがストリーム呼び出しから返され、クライアントのストリームを表します。
 
-A`StreamAsync`を返す例`IAsyncEnumerable<int>`:
+を`StreamAsync` 返す`IAsyncEnumerable<int>`例を次に示します。
 
 ```csharp
 // Call "Cancel" on this CancellationTokenSource to send a cancellation message to
@@ -139,7 +139,7 @@ await foreach (var count in stream)
 Console.WriteLine("Streaming completed");
 ```
 
-対応する`StreamAsChannelAsync`を返す例`ChannelReader<int>`:
+を返す`StreamAsChannelAsync` `ChannelReader<int>`対応する例を次に示します。
 
 ```csharp
 // Call "Cancel" on this CancellationTokenSource to send a cancellation message to
@@ -165,7 +165,7 @@ Console.WriteLine("Streaming completed");
 
 ::: moniker range=">= aspnetcore-2.2"
 
-`StreamAsChannelAsync`メソッド`HubConnection`ストリーミング サーバーからクライアント メソッドを呼び出すために使用します。 メソッド名のハブおよびハブ メソッドで定義されている引数を渡す`StreamAsChannelAsync`します。 ジェネリック パラメーター`StreamAsChannelAsync<T>`ストリーミング メソッドによって返されるオブジェクトの種類を指定します。 A`ChannelReader<T>`ストリーム呼び出しから返され、クライアントにストリームを表します。
+`StreamAsChannelAsync` の`HubConnection`メソッドは、サーバーからクライアントへのストリーミングメソッドを呼び出すために使用されます。 ハブメソッドで定義されているハブメソッド名と引数`StreamAsChannelAsync`をに渡します。 の`StreamAsChannelAsync<T>`ジェネリックパラメーターは、ストリーミングメソッドによって返されるオブジェクトの型を指定します。 `ChannelReader<T>`はストリーム呼び出しから返され、クライアントのストリームを表します。
 
 ```csharp
 // Call "Cancel" on this CancellationTokenSource to send a cancellation message to
@@ -191,7 +191,7 @@ Console.WriteLine("Streaming completed");
 
 ::: moniker range="= aspnetcore-2.1"
 
-`StreamAsChannelAsync`メソッド`HubConnection`ストリーミング サーバーからクライアント メソッドを呼び出すために使用します。 メソッド名のハブおよびハブ メソッドで定義されている引数を渡す`StreamAsChannelAsync`します。 ジェネリック パラメーター`StreamAsChannelAsync<T>`ストリーミング メソッドによって返されるオブジェクトの種類を指定します。 A`ChannelReader<T>`ストリーム呼び出しから返され、クライアントにストリームを表します。
+`StreamAsChannelAsync` の`HubConnection`メソッドは、サーバーからクライアントへのストリーミングメソッドを呼び出すために使用されます。 ハブメソッドで定義されているハブメソッド名と引数`StreamAsChannelAsync`をに渡します。 の`StreamAsChannelAsync<T>`ジェネリックパラメーターは、ストリーミングメソッドによって返されるオブジェクトの型を指定します。 `ChannelReader<T>`はストリーム呼び出しから返され、クライアントのストリームを表します。
 
 ```csharp
 var channel = await hubConnection
@@ -214,13 +214,13 @@ Console.WriteLine("Streaming completed");
 
 ::: moniker range=">= aspnetcore-3.0"
 
-### <a name="client-to-server-streaming"></a>クライアントとサーバーのストリーミング
+### <a name="client-to-server-streaming"></a>クライアントとサーバー間のストリーミング
 
-.NET クライアントからサーバーへのクライアント ストリーミング ハブ メソッドを呼び出すための 2 つの方法はあります。 渡したりすることができます、`IAsyncEnumerable<T>`または`ChannelReader`への引数として`SendAsync`、 `InvokeAsync`、または`StreamAsChannelAsync`のハブ メソッドが呼び出されるとは異なりますが、します。
+.NET クライアントからクライアントとサーバー間のストリーミングハブメソッドを呼び出すには、2つの方法があります。 呼び出されたハブメソッドに`IAsyncEnumerable<T>`応じて`ChannelReader` 、またはを引数`InvokeAsync`とし`StreamAsChannelAsync`て、、またはに`SendAsync`渡すことができます。
 
-データが書き込まれるたびに、`IAsyncEnumerable`または`ChannelWriter`オブジェクト、サーバー上のハブ メソッドは、クライアントからのデータの新しい項目を受信します。
+オブジェクト`IAsyncEnumerable`または`ChannelWriter`オブジェクトにデータが書き込まれるたびに、サーバーのハブメソッドは、クライアントからのデータを使用して新しい項目を受け取ります。
 
-使用する場合、`IAsyncEnumerable`オブジェクト、ストリームが終了の項目を返すメソッドの後、ストリームを終了します。
+`IAsyncEnumerable`オブジェクトを使用している場合、ストリームは、ストリーム項目を返すメソッドが終了した後に終了します。
 
 [!INCLUDE[](~/includes/csharp-8-required.md)]
 
@@ -238,7 +238,7 @@ async IAsyncEnumerable<string> clientStreamData()
 await connection.SendAsync("UploadStream", clientStreamData());
 ```
 
-使用する場合や、 `ChannelWriter`、チャネルを完了する`channel.Writer.Complete()`:
+または、を使用し`ChannelWriter`ている場合は、次`channel.Writer.Complete()`のようにチャネルを完成させます。
 
 ```csharp
 var channel = Channel.CreateBounded<string>(10);
@@ -252,20 +252,20 @@ channel.Writer.Complete();
 
 ## <a name="javascript-client"></a>JavaScript クライアント
 
-### <a name="server-to-client-streaming"></a>サーバーからクライアントのストリーミング
+### <a name="server-to-client-streaming"></a>サーバーからクライアントへのストリーミング
 
-JavaScript クライアントでは、ハブでのサーバーからクライアントにストリーミング メソッドを呼び出す`connection.stream`します。 `stream`メソッドは 2 つの引数を受け取ります。
+JavaScript クライアントは、を使用して`connection.stream`ハブでサーバーからクライアントへのストリーミングメソッドを呼び出します。 `stream`メソッドは 2 つの引数を受け取ります。
 
-* ハブ メソッドの名前。 次の例ではハブのメソッド名は`Counter`します。
-* ハブ メソッドで定義されている引数。 次の例では、引数はストリーム項目を受信して、ストリームの項目間の遅延の数をカウントします。
+* ハブ メソッドの名前。 次の例では、ハブメソッド名は`Counter`です。
+* ハブメソッドで定義されている引数。 次の例では、引数は、受信するストリーム項目数とストリーム項目間の遅延をカウントします。
 
-`connection.stream` 返します、`IStreamResult`が含まれています、`subscribe`メソッド。 渡す、`IStreamSubscriber`に`subscribe`設定と、 `next`、 `error`、および`complete`から通知を受信するコールバック、`stream`呼び出し。
+`connection.stream`メソッドを`subscribe`含むを返します。 `IStreamResult` `IStreamSubscriber`を`next`に`subscribe`渡し、、 `stream` 、およびの`complete`各コールバックを設定して、呼び出しから通知を受信します。 `error`
 
 ::: moniker range=">= aspnetcore-2.2"
 
 [!code-javascript[Streaming javascript](streaming/samples/2.2/wwwroot/js/stream.js?range=19-36)]
 
-クライアントからストリームを終了するには、呼び出し、`dispose`メソッドを`ISubscription`から返される、`subscribe`メソッド。 このメソッドを呼び出すことにより、`CancellationToken`いずれかを指定した場合、ハブ メソッドのパラメーター。
+クライアントからストリームを終了するには、 `dispose` `subscribe`メソッドから返され`ISubscription`たに対してメソッドを呼び出します。 このメソッドを呼び出すと、 `CancellationToken`ハブメソッドのパラメーターがキャンセルされます (指定した場合)。
 
 ::: moniker-end
 
@@ -273,31 +273,31 @@ JavaScript クライアントでは、ハブでのサーバーからクライア
 
 [!code-javascript[Streaming javascript](streaming/samples/2.1/wwwroot/js/stream.js?range=19-36)]
 
-クライアントからストリームを終了するには、呼び出し、`dispose`メソッドを`ISubscription`から返される、`subscribe`メソッド。
+クライアントからストリームを終了するには、 `dispose` `subscribe`メソッドから返され`ISubscription`たに対してメソッドを呼び出します。
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-3.0"
 
-### <a name="client-to-server-streaming"></a>クライアントとサーバーのストリーミング
+### <a name="client-to-server-streaming"></a>クライアントとサーバー間のストリーミング
 
-JavaScript クライアントでは、ハブのクライアントとサーバーのストリーミング メソッドを呼び出すを渡すことによって、`Subject`への引数として`send`、 `invoke`、または`stream`のハブ メソッドが呼び出されるとは異なりますが、します。 `Subject`は次のようなクラス、`Subject`します。 たとえば、RxJS に使える、[サブジェクト](https://rxjs-dev.firebaseapp.com/api/index/class/Subject)ライブラリからのクラス。
+JavaScript クライアントは、呼び出されたハブメソッドに応じて、を`Subject`引数として、、または`send` `invoke` `stream`に渡すことによって、ハブでクライアントからサーバーへのストリーミングメソッドを呼び出します。 は、の`Subject`ように見えるクラスです。 `Subject` たとえば、RxJS では、そのライブラリの[サブジェクト](https://rxjs-dev.firebaseapp.com/api/index/class/Subject)クラスを使用できます。
 
 [!code-javascript[Upload javascript](streaming/samples/3.0/wwwroot/js/stream.js?range=41-51)]
 
-呼び出す`subject.next(item)`で項目が、項目をストリームに書き込みますおよびハブ メソッドは、サーバー上の項目を受信します。
+項目`subject.next(item)`を使用してを呼び出すと、項目がストリームに書き込まれ、ハブメソッドはサーバー上の項目を受け取ります。
 
-ストリームを終了するには、呼び出す`subject.complete()`します。
+ストリームを終了するには`subject.complete()`、を呼び出します。
 
 ## <a name="java-client"></a>Java クライアント
 
-### <a name="server-to-client-streaming"></a>サーバーからクライアントのストリーミング
+### <a name="server-to-client-streaming"></a>サーバーからクライアントへのストリーミング
 
-SignalR の Java クライアントを使用して、`stream`ストリーミング メソッドを呼び出すメソッド。 `stream` 次の 3 つ以上の引数を受け取ります。
+SignalR Java クライアントは、 `stream`メソッドを使用してストリーミングメソッドを呼び出します。 `stream`3つ以上の引数を受け取ります。
 
-* ストリームの項目の予測される型。
+* ストリーム項目の予期される型。
 * ハブ メソッドの名前。
-* ハブ メソッドで定義されている引数。
+* ハブメソッドで定義されている引数。
 
 ```java
 hubConnection.stream(String.class, "ExampleStreamingHubMethod", "Arg1")
@@ -307,7 +307,7 @@ hubConnection.stream(String.class, "ExampleStreamingHubMethod", "Arg1")
         () -> {/* Define your onCompleted handler here. */});
 ```
 
-`stream`メソッド`HubConnection`ストリーム項目の種類の観測可能なオブジェクトを返します。 監視可能な型の`subscribe`メソッドは、where `onNext`、`onError`と`onCompleted`ハンドラーが定義されています。
+`stream` の`HubConnection`メソッドは、ストリーム項目の型の観測可能なを返します。 観測可能な型`subscribe`のメソッドは`onNext`、 `onError` 、 `onCompleted`およびハンドラーが定義されている場所です。
 
 ::: moniker-end
 

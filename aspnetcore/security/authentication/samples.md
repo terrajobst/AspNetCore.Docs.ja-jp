@@ -5,12 +5,12 @@ description: ASP.NET Core リポジトリの認証サンプルへのリンクを
 ms.author: riande
 ms.date: 01/31/2019
 uid: security/authentication/samples
-ms.openlocfilehash: efa177245faceddad4eb80de9e6f6d38e1a4261c
-ms.sourcegitcommit: 476ea5ad86a680b7b017c6f32098acd3414c0f6c
+ms.openlocfilehash: d49aef198e926d88f1a6727f84b06f0861c8812d
+ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/14/2019
-ms.locfileid: "69022418"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71187300"
 ---
 # <a name="authentication-samples-for-aspnet-core"></a>ASP.NET Core の認証サンプル
 
@@ -20,13 +20,13 @@ ms.locfileid: "69022418"
 
 [ASP.NET Core リポジトリ](https://github.com/aspnet/AspNetCore)の*AspNetCore/src/Security/samples*フォルダーには次の通り認証についてのサンプルが含まれています 。
 
-* [要求の変換](https://github.com/aspnet/AspNetCore/tree/release/2.2/src/Security/samples/ClaimsTransformation)
-* [Cookie 認証](https://github.com/aspnet/AspNetCore/tree/release/2.2/src/Security/samples/Cookies)
-* [カスタムポリシープロバイダー-IAuthorizationPolicyProvider](https://github.com/aspnet/AspNetCore/tree/release/2.2/src/Security/samples/CustomPolicyProvider)
-* [動的な認証スキームとオプション](https://github.com/aspnet/AspNetCore/tree/release/2.2/src/Security/samples/DynamicSchemes)
-* [外部クレーム](https://github.com/aspnet/AspNetCore/tree/release/2.2/src/Security/samples/Identity.ExternalClaims)
-* [要求に基づくCookieと別の認証スキームの選択](https://github.com/aspnet/AspNetCore/tree/release/2.2/src/Security/samples/PathSchemeSelection)
-* [静的ファイルへのアクセス制限](https://github.com/aspnet/AspNetCore/tree/release/2.2/src/Security/samples/StaticFilesAuth)
+* [要求の変換](https://github.com/aspnet/AspNetCore/tree/release/3.0/src/Security/samples/ClaimsTransformation)
+* [Cookie 認証](https://github.com/aspnet/AspNetCore/tree/release/3.0/src/Security/samples/Cookies)
+* [カスタムポリシープロバイダー-IAuthorizationPolicyProvider](https://github.com/aspnet/AspNetCore/tree/release/3.0/src/Security/samples/CustomPolicyProvider)
+* [動的な認証スキームとオプション](https://github.com/aspnet/AspNetCore/tree/release/3.0/src/Security/samples/DynamicSchemes)
+* [外部クレーム](https://github.com/aspnet/AspNetCore/tree/release/3.0/src/Security/samples/Identity.ExternalClaims)
+* [要求に基づくCookieと別の認証スキームの選択](https://github.com/aspnet/AspNetCore/tree/release/3.0/src/Security/samples/PathSchemeSelection)
+* [静的ファイルへのアクセス制限](https://github.com/aspnet/AspNetCore/tree/release/3.0/src/Security/samples/StaticFilesAuth)
 
 ## <a name="run-the-samples"></a>サンプルの実行
 
