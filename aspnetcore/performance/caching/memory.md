@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 8/22/2019
 uid: performance/caching/memory
-ms.openlocfilehash: 1519abbca6430063f037372a4927f5818f160457
-ms.sourcegitcommit: 776598f71da0d1e4c9e923b3b395d3c3b5825796
+ms.openlocfilehash: 0479df14dd5d757710e361fce43782a8137588cb
+ms.sourcegitcommit: 0365af91518004c4a44a30dc3a8ac324558a399b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/26/2019
-ms.locfileid: "70024786"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71198896"
 ---
 # <a name="cache-in-memory-in-aspnet-core"></a>ASP.NET Core 内のメモリ内のキャッシュ
 
@@ -47,7 +47,7 @@ ASP.NET `System.Runtime.Caching` 4.x から ASP.NET Core にコードを移植�
 
 * コードには常に、データをフェッチするためのフォールバックオプションがあり、使用可能なキャッシュ値に依存し**ない**ようにする必要があります。
 * キャッシュは、不足しているリソース (メモリ) を使用します。 キャッシュ拡張の制限:
-  * 外部入力をキャッシュキーとして使用しないでください。
+  * 外部**入力をキャッシュ**キーとして使用しないでください。
   * キャッシュの拡張を制限するには、有効期限を使用します。
   * [キャッシュサイズを制限するには、SetSize、Size、および SizeLimit を使用](#use-setsize-size-and-sizelimit-to-limit-cache-size)します。 ASP.NET Core ランタイムでは、メモリ負荷に基づいてキャッシュサイズが制限**されません**。 キャッシュサイズを制限するのは開発者だけです。
 
@@ -63,7 +63,7 @@ ASP.NET `System.Runtime.Caching` 4.x から ASP.NET Core にコードを移植�
 
 次のコードでは、 [TryGetValue](/dotnet/api/microsoft.extensions.caching.memory.imemorycache.trygetvalue?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_IMemoryCache_TryGetValue_System_Object_System_Object__)を使用して、時間がキャッシュ内にあるかどうかを確認します。 時間がキャッシュされていない場合は、新しいエントリが作成され、が[設定](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.set?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_CacheExtensions_Set__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object___0_Microsoft_Extensions_Caching_Memory_MemoryCacheEntryOptions_)されたキャッシュに追加されます。 `CacheKeys`クラスは、ダウンロードサンプルに含まれています。
 
-[! code-csharp [] (memory/3.0 sample/WebCacheSample/CacheKeys .cs) [](memory/3.0sample/WebCacheSample/CacheKeys.cs)]
+[!code-csharp[](memory/3.0sample/WebCacheSample/CacheKeys.cs)]
 
 [!code-csharp[](memory/3.0sample/WebCacheSample/Controllers/HomeController.cs?name=snippet1)]
 
@@ -165,7 +165,7 @@ ASP.NET `System.Runtime.Caching` 4.x から ASP.NET Core にコードを移植�
 
 ## <a name="additional-notes"></a>補足メモ
 
-* 有効期限はバックグラウンドでは発生しません。 期限切れの項目のキャッシュをアクティブにスキャンするタイマーはありません。 キャッシュ (`Get`、 `Set`、 `Remove`) のすべてのアクティビティは、期限切れの項目に対してバックグラウンドスキャンをトリガーできます。 `CancellationTokenSource` (`CancelAfter`) のタイマーによって、エントリも削除され、期限切れの項目のスキャンがトリガーされます。 たとえば、を使用する`SetAbsoluteExpiration(TimeSpan.FromHours(1))`のではなく、登録済みのトークンにを使用`CancellationTokenSource.CancelAfter(TimeSpan.FromHours(1))`します。 このトークンが起動すると、エントリが直ちに削除され、削除コールバックが発生します。 詳細については、[この GitHub の問題](https://github.com/aspnet/Caching/issues/248)を参照してください。
+* 有効期限はバックグラウンドでは発生しません。 期限切れの項目のキャッシュをアクティブにスキャンするタイマーはありません。 キャッシュ (`Get`、 `Set`、 `Remove`) のすべてのアクティビティは、期限切れの項目に対してバックグラウンドスキャンをトリガーできます。 `CancellationTokenSource` (`CancelAfter`) のタイマーによって、エントリも削除され、期限切れの項目のスキャンがトリガーされます。 たとえば、を使用する`SetAbsoluteExpiration(TimeSpan.FromHours(1))`のではなく、登録済みのトークンにを使用`CancellationTokenSource.CancelAfter(TimeSpan.FromHours(1))`します。 このトークンが起動すると、エントリが直ちに削除され、削除コールバックが発生します。 詳細については、次を参照してください。[この GitHub の問題](https://github.com/aspnet/Caching/issues/248)します。
 * コールバックを使用してキャッシュ項目を再作成する場合:
 
   * コールバックが完了していないため、複数の要求でキャッシュされたキー値を空にすることができます。
@@ -220,7 +220,7 @@ ASP.NET `System.Runtime.Caching` 4.x から ASP.NET Core にコードを移植�
 
 * コードには常に、データをフェッチするためのフォールバックオプションがあり、使用可能なキャッシュ値に依存し**ない**ようにする必要があります。
 * キャッシュは、不足しているリソース (メモリ) を使用します。 キャッシュ拡張の制限:
-  * 外部入力をキャッシュキーとして使用しないでください。
+  * 外部**入力をキャッシュ**キーとして使用しないでください。
   * キャッシュの拡張を制限するには、有効期限を使用します。
   * [キャッシュサイズを制限するには、SetSize、Size、および SizeLimit を使用](#use-setsize-size-and-sizelimit-to-limit-cache-size)します。 ASP.NET Core ランタイムでは、メモリ負荷に基づいてキャッシュサイズが制限されません。 キャッシュサイズを制限するのは開発者だけです。
 
