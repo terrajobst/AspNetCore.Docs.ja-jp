@@ -5,14 +5,14 @@ description: Blazor アプリで JavaScript から .NET および .NET メソッ
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/07/2019
+ms.date: 09/23/2019
 uid: blazor/javascript-interop
-ms.openlocfilehash: 505bd22c92c6723fb8f41621c05ba9fa3a74943b
-ms.sourcegitcommit: 04ce94b3c1b01d167f30eed60c1c95446dfe759d
+ms.openlocfilehash: 2b5d1433fce6e09adf3caa58e55e678b00ad98ee
+ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/21/2019
-ms.locfileid: "71176448"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71211648"
 ---
 # <a name="aspnet-core-blazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 相互運用機能
 

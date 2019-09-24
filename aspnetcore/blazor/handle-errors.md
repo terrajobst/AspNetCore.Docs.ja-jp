@@ -5,14 +5,14 @@ description: Blazor が未処理の例外をどのように管理するか、お
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/06/2019
+ms.date: 09/23/2019
 uid: blazor/handle-errors
-ms.openlocfilehash: d3e261e83f375574339a8ce3428e8bfb73df4307
-ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
+ms.openlocfilehash: de0a2f74df84f41581ac93dbeec7a5c5e90c6fa2
+ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2019
-ms.locfileid: "70963985"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71207195"
 ---
 # <a name="handle-errors-in-aspnet-core-blazor-apps"></a>ASP.NET Core Blazor アプリでのエラーの処理
 

@@ -5,14 +5,14 @@ description: Blazor Server アプリに対するセキュリティ上の脅威�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/07/2019
+ms.date: 09/23/2019
 uid: security/blazor/server
-ms.openlocfilehash: 72788980ff7c7bd56f55e4e84d820a3684f7275e
-ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
+ms.openlocfilehash: 706f504738d9c6e5af3c368c382424f2e206bcbf
+ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2019
-ms.locfileid: "70964240"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71211714"
 ---
 # <a name="secure-aspnet-core-blazor-server-apps"></a>Blazor サーバーアプリをセキュリティで保護する ASP.NET Core
 
@@ -49,7 +49,7 @@ CPU の枯渇は、1つまたは複数のクライアントが大量の CPU 作�
 
 CPU 枯渇は、すべての公開アプリに関する問題です。 通常の web アプリでは、要求と接続は安全としてタイムアウトになりますが、Blazor サーバーアプリでは同じセーフガードが提供されません。 Blazor サーバーアプリには、CPU を集中的に使用する作業を実行する前に、適切なチェックと制限を含める必要があります。
 
-### <a name="memory"></a>Memory
+### <a name="memory"></a>メモリ
 
 メモリ不足は、1つまたは複数のクライアントがサーバーに大量のメモリを強制的に使用する場合に発生する可能性があります。
 
@@ -145,7 +145,7 @@ JavaScript から .NET メソッドへの呼び出しを信頼しません。 .N
 
 イベントは、Blazor サーバーアプリへのエントリポイントを提供します。 Web アプリでエンドポイントを保護する場合と同じ規則が、Blazor Server アプリのイベント処理に適用されます。 悪意のあるクライアントは、イベントのペイロードとして送信するデータを送信できます。
 
-例えば:
+次に例を示します。
 
 * の変更イベントは、 `<select>`アプリがクライアントに提示したオプションに含まれていない値を送信する可能性があります。
 * は`<input>` 、クライアント側の検証をバイパスして、テキストデータをサーバーに送信することができます。

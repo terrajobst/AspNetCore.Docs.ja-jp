@@ -5,14 +5,14 @@ description: Blazor アプリがコンポーネントにサービスを挿入す
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/06/2019
+ms.date: 09/23/2019
 uid: blazor/dependency-injection
-ms.openlocfilehash: 074d7a669c900eb242c8329147b28d1c50652915
-ms.sourcegitcommit: e5a74f882c14eaa0e5639ff082355e130559ba83
+ms.openlocfilehash: 00c874e43496eaad8841db91843f41a299813aec
+ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71168091"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71207168"
 ---
 # <a name="aspnet-core-blazor-dependency-injection"></a>ASP.NET Core Blazor の依存関係の挿入
 
