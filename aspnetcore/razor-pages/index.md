@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.date: 09/19/2019
 uid: razor-pages/index
-ms.openlocfilehash: 7e27bbc84816bd282b2b8de936772eb5c597d74f
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: bccdd7e5c1c90dd76ca1b788dbf09000c5cbe14b
+ms.sourcegitcommit: fae6f0e253f9d62d8f39de5884d2ba2b4b2a6050
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71207379"
+ms.lasthandoff: 09/25/2019
+ms.locfileid: "71256185"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>ASP.NET Core での Razor ページの概要
 
@@ -281,7 +281,9 @@ HTML で削除ボタンがレンダリングされる場合、その [formaction
   * クライアント側の検証。
   * 検証エラー レンダリング。
 
-* 次の HTML が生成されます。[!code-cshtml[](index/3.0sample/RazorPagesContacts/Pages/Customers/Create5.html)]
+* 次の HTML が生成されます。
+
+  [!code-cshtml[](index/3.0sample/RazorPagesContacts/Pages/Customers/Create5.html)]
 
 名前値なしで Create フォームを投稿すると、このフォームに "The Name field is required." (名前フィールドは必須です。) というエラー メッセージ が表示されます。 JavaScript がクライアントで有効になっている場合、サーバーに投稿されず、エラーがブラウザーに表示されます。
 
@@ -340,7 +342,7 @@ Razor Pages は、[偽造防止検証](xref:security/anti-request-forgery)によ
 
 ## <a name="using-layouts-partials-templates-and-tag-helpers-with-razor-pages"></a>Razor ページでのレイアウト、パーシャル、テンプレート、およびタグ ヘルパーの使用
 
-ページは、Razor ビュー エンジンのすべての機能で動作します。 レイアウト、パーシャル、テンプレート、タグ ヘルパー、 *_ViewStart.cshtml*、 *_ViewImports.cshtml* は、従来の Razor ビューと同じように動作します。
+ページは、Razor ビュー エンジンのすべての機能で動作します。 レイアウト、パーシャル、テンプレート、タグ ヘルパー、*_ViewStart.cshtml*、*_ViewImports.cshtml* は、従来の Razor ビューと同じように動作します。
 
 これらの機能の一部を利用してこのページをまとめてみましょう。
 
@@ -382,7 +384,7 @@ Razor ページからのビュー検索には、*Pages* フォルダーが含ま
 
 `@namespace` ディレクティブは、ページの名前空間を設定します。 `@model` ディレクティブには、名前空間を含める必要はありません。
 
-`@namespace` ディレクティブが *_ViewImports.cshtml* に含まれていると、指定した名前空間が `@namespace` ディレクティブをインポートするページで生成された名前空間のプレフィックスを提供します。 生成された名前空間の残りの部分 (サフィックスの部分) は、 *_ViewImports.cshtml* を含むフォルダーとページを含むフォルダー間のドットで区切られた相対パスです。
+`@namespace` ディレクティブが *_ViewImports.cshtml* に含まれていると、指定した名前空間が `@namespace` ディレクティブをインポートするページで生成された名前空間のプレフィックスを提供します。 生成された名前空間の残りの部分 (サフィックスの部分) は、*_ViewImports.cshtml* を含むフォルダーとページを含むフォルダー間のドットで区切られた相対パスです。
 
 たとえば、`PageModel` クラス *Pages/Customers/Edit.cshtml.cs* は名前空間を明示的に設定します。
 
@@ -394,15 +396,17 @@ Razor ページからのビュー検索には、*Pages* フォルダーが含ま
 
 *Pages/Customers/Edit.cshtml* Razor ページの生成された名前空間は、`PageModel` クラスと同じです。
 
-`@namespace`  *は従来の Razor ビューでも機能します。*
+`@namespace` * は従来の Razor ビューでも機能します。*
 
-*Pages/Create.cshtml* ビュー ファイル [!code-cshtml[](index/3.0sample/RazorPagesContacts/Pages/Customers/Create3.cshtml?highlight=2-3)] を考えてみましょう。
+*Pages/Create.cshtml* ビュー ファイル を考えてみましょう。
 
-更新後の *Pages/Create.cshtml* ビュー ファイル、 *_ViewImports.cshtml*、前のレイアウト ファイル:
+[!code-cshtml[](index/3.0sample/RazorPagesContacts/Pages/Customers/Create3.cshtml?highlight=2-3)]
+
+更新後の *Pages/Create.cshtml* ビュー ファイル、*_ViewImports.cshtml*、前のレイアウト ファイル:
 
 [!code-cshtml[](index/3.0sample/RazorPagesContacts/Pages/Customers/Create4.cshtml?highlight=2)]
 
-前のコードでは、 *_ViewImports.cshtml* によって名前空間とタグ ヘルパーがインポートされました。 レイアウト ファイルによって JavaScript ファイルがインポートされました。
+前のコードでは、*_ViewImports.cshtml* によって名前空間とタグ ヘルパーがインポートされました。 レイアウト ファイルによって JavaScript ファイルがインポートされました。
 
 [Razor ページのスタート プロジェクト](#rpvs17)には、クライアント側の検証をフックする *Pages/_ValidationScriptsPartial.cshtml* が含まれています。
 
@@ -535,7 +539,7 @@ public string Message { get; set; }
 
 前の例のフォームには、それぞれが `FormActionTagHelper` を使用して異なる URL に送信する 2 つの送信ボタンがあります。 `asp-page-handler` 属性は、`asp-page` のコンパニオンです。 `asp-page-handler` はページごとに定義されている各ハンドラー メソッドに送信する URL を生成します。 サンプルは現在のページにリンクしているため、`asp-page` は指定されません。
 
-ページ モデル:
+ページ モデル: 
 
 [!code-cs[](index/sample/RazorPagesContacts2/Pages/Customers/CreateFATH.cshtml.cs?highlight=20,32)]
 
@@ -547,7 +551,7 @@ public string Message { get; set; }
 
 ## <a name="custom-routes"></a>カスタム ルート
 
-`@page` ディレクティブを次に使用します:
+`@page` ディレクティブを次に使用します: 
 
 * カスタム ルートをページに指定します。 たとえば、[バージョン情報] ページへのルートを `@page "/Some/Other/Path"` を使用して `/Some/Other/Path` に設定することができます。
 * ページの既定のルートにセグメントを追加します。 たとえば、"item" セグメントを `@page "item"` を使用してページの既定のルートに追加することができます。
@@ -858,7 +862,7 @@ services.AddMvc()
 
 ## <a name="using-layouts-partials-templates-and-tag-helpers-with-razor-pages"></a>Razor ページでのレイアウト、パーシャル、テンプレート、およびタグ ヘルパーの使用
 
-ページは、Razor ビュー エンジンのすべての機能で動作します。 レイアウト、パーシャル、テンプレート、タグ ヘルパー、 *_ViewStart.cshtml*、 *_ViewImports.cshtml* は、従来の Razor ビューと同じように動作します。
+ページは、Razor ビュー エンジンのすべての機能で動作します。 レイアウト、パーシャル、テンプレート、タグ ヘルパー、*_ViewStart.cshtml*、*_ViewImports.cshtml* は、従来の Razor ビューと同じように動作します。
 
 これらの機能の一部を利用してこのページをまとめてみましょう。
 
@@ -899,7 +903,7 @@ Razor ページからのビュー検索には、*Pages* フォルダーが含ま
 
 ディレクティブは、ページの名前空間を設定します。 `@model` ディレクティブには、名前空間を含める必要はありません。
 
-`@namespace` ディレクティブが *_ViewImports.cshtml* に含まれていると、指定した名前空間が `@namespace` ディレクティブをインポートするページで生成された名前空間のプレフィックスを提供します。 生成された名前空間の残りの部分 (サフィックスの部分) は、 *_ViewImports.cshtml* を含むフォルダーとページを含むフォルダー間のドットで区切られた相対パスです。
+`@namespace` ディレクティブが *_ViewImports.cshtml* に含まれていると、指定した名前空間が `@namespace` ディレクティブをインポートするページで生成された名前空間のプレフィックスを提供します。 生成された名前空間の残りの部分 (サフィックスの部分) は、*_ViewImports.cshtml* を含むフォルダーとページを含むフォルダー間のドットで区切られた相対パスです。
 
 たとえば、`PageModel` クラス *Pages/Customers/Edit.cshtml.cs* は名前空間を明示的に設定します。
 
@@ -911,7 +915,7 @@ Razor ページからのビュー検索には、*Pages* フォルダーが含ま
 
 *Pages/Customers/Edit.cshtml* Razor ページの生成された名前空間は、`PageModel` クラスと同じです。
 
-`@namespace`  *は従来の Razor ビューでも機能します。*
+`@namespace` * は従来の Razor ビューでも機能します。*
 
 元の *Pages/Create.cshtml* ビュー ファイル:
 
@@ -1042,7 +1046,7 @@ public string Message { get; set; }
 
 前の例のフォームには、それぞれが `FormActionTagHelper` を使用して異なる URL に送信する 2 つの送信ボタンがあります。 `asp-page-handler` 属性は、`asp-page` のコンパニオンです。 `asp-page-handler` はページごとに定義されている各ハンドラー メソッドに送信する URL を生成します。 サンプルは現在のページにリンクしているため、`asp-page` は指定されません。
 
-ページ モデル:
+ページ モデル: 
 
 [!code-cs[](index/sample/RazorPagesContacts2/Pages/Customers/CreateFATH.cshtml.cs?highlight=20,32)]
 
@@ -1054,7 +1058,7 @@ public string Message { get; set; }
 
 ## <a name="custom-routes"></a>カスタム ルート
 
-`@page` ディレクティブを次に使用します:
+`@page` ディレクティブを次に使用します: 
 
 * カスタム ルートをページに指定します。 たとえば、[バージョン情報] ページへのルートを `@page "/Some/Other/Path"` を使用して `/Some/Other/Path` に設定することができます。
 * ページの既定のルートにセグメントを追加します。 たとえば、"item" セグメントを `@page "item"` を使用してページの既定のルートに追加することができます。
