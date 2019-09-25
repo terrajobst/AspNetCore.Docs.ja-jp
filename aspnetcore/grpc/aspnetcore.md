@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 09/03/2019
 uid: grpc/aspnetcore
-ms.openlocfilehash: 28e6b8589bbe0b6a3723b64736c723c883302571
-ms.sourcegitcommit: e6bd2bbe5683e9a7dbbc2f2eab644986e6dc8a87
+ms.openlocfilehash: 18a6dd2ddd4f3c3c4466e3b96dd1748fd0972e39
+ms.sourcegitcommit: fae6f0e253f9d62d8f39de5884d2ba2b4b2a6050
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/03/2019
-ms.locfileid: "70238162"
+ms.lasthandoff: 09/25/2019
+ms.locfileid: "71250801"
 ---
 # <a name="grpc-services-with-aspnet-core"></a>ASP.NET Core を使用した gRPC サービス
 
@@ -67,7 +67,7 @@ ASP.NET Core ミドルウェアと features はルーティングパイプライ
 Kestrel gRPC エンドポイント:
 
 * HTTP/2 が必要です。
-* HTTPS で保護されている必要があります。
+* は、[トランスポート層セキュリティ (TLS)](https://tools.ietf.org/html/rfc5246)を使用してセキュリティで保護する必要があります。
 
 #### <a name="http2"></a>HTTP/2
 
@@ -75,58 +75,28 @@ gRPC には HTTP/2 が必要です。 gRPC for ASP.NET Core では、 [HttpReque
 
 Kestrel は、最新のオペレーティングシステムで[HTTP/2 をサポート](xref:fundamentals/servers/kestrel#http2-support)しています。 Kestrel エンドポイントは、既定で HTTP/1.1 接続と HTTP/2 接続をサポートするように構成されています。
 
-#### <a name="https"></a>HTTPS
+#### <a name="tls"></a>TLS
 
-GRPC に使用される kestrel エンドポイントは、HTTPS で保護する必要があります。 開発時には、ASP.NET Core 開発証明書が`https://localhost:5001`存在するときに、HTTPS エンドポイントがに自動的に作成されます。 構成は必要ありません。
+GRPC に使用される kestrel エンドポイントは、TLS を使用してセキュリティで保護する必要があります。 開発では、TLS を使用してセキュリティで保護`https://localhost:5001`されたエンドポイントは、ASP.NET Core 開発証明書が存在するときに、に自動的に作成されます。 構成は必要ありません。 `https`プレフィックスは、kestrel エンドポイントが TLS を使用していることを確認します。
 
-運用環境では、HTTPS を明示的に構成する必要があります。 次の*appsettings*の例では、HTTPS で保護された HTTP/2 エンドポイントが提供されています。
+運用環境では、TLS を明示的に構成する必要があります。 次の*appsettings*の例では、TLS で保護された HTTP/2 エンドポイントが用意されています。
 
-```json
-{
-  "Kestrel": {
-    "Endpoints": {
-      "HttpsDefaultCert": {
-        "Url": "https://localhost:5001",
-        "Protocols": "Http2"
-      }
-    },
-    "Certificates": {
-      "Default": {
-        "Path": "<path to .pfx file>",
-        "Password": "<certificate password>"
-      }
-    }
-  }
-}
-```
+[!code-json[](~/grpc/aspnetcore/sample/appsettings.json?highlight=4)]
 
 または、 *Program.cs*で Kestrel エンドポイントを構成することもできます。
 
-```csharp
-public static IHostBuilder CreateHostBuilder(string[] args) =>
-    Host.CreateDefaultBuilder(args)
-        .ConfigureWebHostDefaults(webBuilder =>
-        {
-            webBuilder.ConfigureKestrel(options =>
-            {
-                // This endpoint will use HTTP/2 and HTTPS on port 5001.
-                options.Listen(IPAddress.Any, 5001, listenOptions =>
-                {
-                    listenOptions.Protocols = HttpProtocols.Http2;
-                    listenOptions.UseHttps("<path to .pfx file>", 
-                        "<certificate password>");
-                });
-            });
-            webBuilder.UseStartup<Startup>();
-        });
-```
+[!code-csharp[](~/grpc/aspnetcore/sample/Program.cs?highlight=7&name=snippet)]
 
-HTTP/2 エンドポイントが HTTPS を使用せずに構成されている場合、エンドポイントの`HttpProtocols.Http2` [listenoptions](xref:fundamentals/servers/kestrel#listenoptionsprotocols)がに設定されている必要があります。 `HttpProtocols.Http1AndHttp2`HTTP/2 のネゴシエートには HTTPS が必要であるため、を使用することはできません。 HTTPS を使用しない場合、エンドポイントへのすべての接続は既定の HTTP/1.1 に設定され、gRPC の呼び出しは失敗します。
+#### <a name="protocol-negotiation"></a>プロトコルネゴシエーション
 
-Kestrel での HTTP/2 および HTTPS の有効化の詳細については、「 [kestrel エンドポイントの構成](xref:fundamentals/servers/kestrel#endpoint-configuration)」を参照してください。
+TLS は、通信のセキュリティ保護以外にも使用されます。 エンドポイントで複数のプロトコルがサポートされている場合、TLS[アプリケーションレイヤープロトコルネゴシエーション (ALPN)](https://tools.ietf.org/html/rfc7301#section-3)ハンドシェイクを使用して、クライアントとサーバー間の接続プロトコルをネゴシエートします。 このネゴシエーションは、接続が HTTP/1.1 または HTTP/2 を使用するかどうかを判断します。
+
+HTTP/2 エンドポイントが TLS を使用せずに構成されている場合は、エンドポイント`HttpProtocols.Http2`の[listenoptions](xref:fundamentals/servers/kestrel#listenoptionsprotocols)がに設定されている必要があります。 ネゴシエーションがないため、複数のプロトコル ( `HttpProtocols.Http1AndHttp2`たとえば、) を持つエンドポイントを TLS なしで使用することはできません。 セキュリティで保護されていないエンドポイントへのすべての接続は、既定で HTTP/1.1 に設定され、gRPC の呼び出しは失敗します。
+
+Kestrel での HTTP/2 および TLS の有効化の詳細については、「 [kestrel エンドポイントの構成](xref:fundamentals/servers/kestrel#endpoint-configuration)」を参照してください。
 
 > [!NOTE]
-> macOS では、[トランスポート層セキュリティ (TLS)](https://tools.ietf.org/html/rfc5246)を使用した ASP.NET Core grpc はサポートされていません。 macOS で gRPC サービスを正常に実行するには、追加の構成が必要です。 詳細については、[macOS で ASP.NET Core gRPC アプリを起動できない](xref:grpc/troubleshoot#unable-to-start-aspnet-core-grpc-app-on-macos)場合に関するページを参照してください。
+> macOS の場合、ASP.NET Core gRPC と TLS の組み合わせに対応していません。 macOS で gRPC サービスを正常に実行するには、追加の構成が必要です。 詳細については、[macOS で ASP.NET Core gRPC アプリを起動できない](xref:grpc/troubleshoot#unable-to-start-aspnet-core-grpc-app-on-macos)場合に関するページを参照してください。
 
 ## <a name="integration-with-aspnet-core-apis"></a>ASP.NET Core Api との統合
 
