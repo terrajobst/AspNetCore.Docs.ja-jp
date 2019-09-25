@@ -1,23 +1,23 @@
 ---
-title: ASP.NET Core の gRPC の概要
+title: .NET Core の gRPC の概要
 author: juntaoluo
 description: Kestrel サーバーと ASP.NET Core の gRPC サービスについて説明します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
-ms.date: 02/26/2019
+ms.date: 09/20/2019
 uid: grpc/index
-ms.openlocfilehash: dd1c42744bfda965df91ea1fcc0b71814317b969
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 928eb58930743cd0905f185f54df46c5984b8e97
+ms.sourcegitcommit: fa61d882be9d0c48bd681f2efcb97e05522051d0
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65085559"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71205680"
 ---
-# <a name="introduction-to-grpc-on-aspnet-core"></a>ASP.NET Core の gRPC の概要
+# <a name="introduction-to-grpc-on-net-core"></a>.NET Core の gRPC の概要
 
-作成者: [John Luo](https://github.com/juntaoluo)
+作成者: [John Luo](https://github.com/juntaoluo)、[James Newton-King](https://twitter.com/jamesnk)
 
-[gRPC](https://grpc.io/docs/guides/) は言語に依存しない高性能なリモート プロシージャ コール (RPC) フレームワークです。 gRPC の基礎については、[gRPC ドキュメント ページ](https://grpc.io/docs/)を参照してください。
+[gRPC](https://grpc.io/docs/guides/) は言語に依存しない高性能なリモート プロシージャ コール (RPC) フレームワークです。
 
 gRPC の主な利点:
 * 最新の高性能軽量 RPC フレームワーク。
@@ -31,11 +31,100 @@ gRPC の主な利点:
 * 開発に複数の言語が必要になる多言語システム。
 * ストリーミングの要求または応答を処理する必要があるポイントツーポイントのリアルタイム サービス。
 
-公式の [gRPC ページ](https://grpc.io/docs/quickstart/csharp.html)では現在、C# 実装を利用できますが、現在の実装は C で記述されたネイティブ ライブラリに依存しています (gRPC [C-core](https://grpc.io/blog/grpc-stacks))。 Kestrel HTTP サーバーは完全管理の ASP.NET Core スタックを基盤とする新しい実装を提供するための作業が現在進行中です。 次のドキュメントは、この新しい実装で gRPC サービスを構築するための概要を提供します。
+## <a name="c-tooling-support-for-proto-files"></a>.proto ファイルに対する C# ツール サポート
+
+gRPC では、API 開発に対してコントラクト優先のアプローチが使われます。 サービスとメッセージは、 *\*.proto* ファイル内で定義されます。
+
+```protobuf
+syntax = "proto3";
+
+service Greeter {
+  rpc SayHello (HelloRequest) returns (HelloReply);
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloReply {
+  string message = 1;
+}
+```
+
+サービス、クライアント、およびメッセージの .NET 型は、プロジェクトに *\*.proto* ファイルを含めることで自動的に生成されます。
+
+* [Grpc.Tools](https://www.nuget.org/packages/Grpc.Tools/) パッケージにパッケージ参照を追加します。
+* `<Protobuf>` 項目グループに *\*.proto* ファイルを追加します。
+
+```xml
+<ItemGroup>
+  <Protobuf Include="Protos\greet.proto" />
+</ItemGroup>
+```
+
+gRPC ツール サポートについて詳しくは、「<xref:grpc/basics>」をご覧ください。
+
+## <a name="grpc-services-on-aspnet-core"></a>ASP.NET Core での gRPC サービス
+
+gRPC サービスは ASP.NET Core でホストできます。 サービスは、ログ記録、依存関係の注入 (DI)、認証、承認などの一般的な ASP.NET Core 機能と完全に統合されています。
+
+gRPC サービスのプロジェクト テンプレートには、スターター サービスが用意されています。
+
+```csharp
+public class GreeterService : Greeter.GreeterBase
+{
+    private readonly ILogger<GreeterService> _logger;
+
+    public GreeterService(ILogger<GreeterService> logger)
+    {
+        _logger = logger;
+    }
+
+    public override Task<HelloReply> SayHello(HelloRequest request,
+        ServerCallContext context)
+    {
+        _logger.LogInformation("Saying hello to " + request.Name);
+        return Task.FromResult(new HelloReply 
+        {
+            Message = "Hello " + request.Name
+        });
+    }
+}
+```
+
+`GreeterService` は `GreeterBase` 型を継承します。これは *\*.proto* ファイル内の `Greeter` サービスから生成されます。 サービスは、*Startup.cs* 内でクライアントがアクセスできるようになります。
+
+```csharp
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapGrpcService<GreeterService>();
+});
+```
+
+ASP.NET Core での gRPC サービスについて詳しくは、「<xref:grpc/aspnetcore>」をご覧ください。
+
+## <a name="call-grpc-services-with-a-net-client"></a>.NET クライアントを使用して gRPC サービスを呼び出す
+
+gRPC クライアントは、[ *\*.proto* ファイルから生成される](xref:grpc/basics#generated-c-assets)具体的なクライアントの種類です。 具体的な gRPC クライアントには、 *\*.proto* ファイルに含まれる gRPC サービスに変換されるメソッドがあります。
+
+```csharp
+var channel = GrpcChannel.ForAddress("https://localhost:5001");
+var client = new Greeter.GreeterClient(channel);
+
+var response = await client.SayHello(
+    new HelloRequest { Name = "World" });
+
+Console.WriteLine(response.Message);
+```
+
+gRPC クライアントはチャネルを使って作成され、これは gRPC サービスへの長期接続を表します。 チャネルは `GrpcChannel.ForAddress` を使って作成できます。
+
+クライアントの作成と、さまざまなサービス メソッドの呼び出しについて詳しくは、「<xref:grpc/client>」をご覧ください。
 
 ## <a name="additional-resources"></a>その他の技術情報
 
 * <xref:grpc/basics>
-* <xref:tutorials/grpc/grpc-start>
 * <xref:grpc/aspnetcore>
-* <xref:grpc/migration>
+* <xref:grpc/client>
+* <xref:grpc/clientfactory>
+* <xref:tutorials/grpc/grpc-start>

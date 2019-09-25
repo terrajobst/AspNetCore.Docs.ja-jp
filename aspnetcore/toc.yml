@@ -12,6 +12,8 @@
   uid: getting-started
 - name: 新機能
   items:
+    - name: 3.0 の新機能
+      uid: aspnetcore-3.0
     - name: 2.2 の新機能
       uid: aspnetcore-2.2
     - name: 2.1 の新機能
@@ -327,6 +329,8 @@
               uid: host-and-deploy/blazor/server
             - name: リンカーを構成する
               uid: host-and-deploy/blazor/configure-linker
+        - name: サンプル
+          href: 'https://github.com/aspnet/samples/tree/master/samples/aspnetcore/blazor'
     - name: クライアント側の開発
       items:
         - name: 単一ページのアプリ
@@ -436,6 +440,8 @@
           uid: tutorials/get-started-with-swashbuckle
         - name: NSwag の概要
           uid: tutorials/get-started-with-nswag
+        - name: OpenAPI ツール
+          uid: web-api/Microsoft.dotnet-openapi
     - name: アクションの戻り値の型
       uid: web-api/action-return-types
     - name: JSON Patch 要求の処理
@@ -487,6 +493,9 @@
     - name: クライアント
       displayName: signalr
       items:
+        - name: SignalR クライアントの機能
+          uid: signalr/client-features
+          displayName: signalr
         - name: .NET クライアント
           uid: signalr/dotnet-client
           displayName: signalr
@@ -563,6 +572,8 @@
       uid: grpc/configuration
     - name: 認証と承認
       uid: grpc/authn-and-authz
+    - name: ログの記録と診断
+      uid: grpc/diagnostics
     - name: セキュリティの考慮事項
       uid: grpc/security
     - name: C コアから gRPC サービスを移行する

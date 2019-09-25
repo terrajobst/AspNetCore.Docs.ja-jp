@@ -5,14 +5,14 @@ description: この記事には、Azure のホストと展開リソースへの�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/07/2019
+ms.date: 07/28/2019
 uid: host-and-deploy/azure-apps/index
-ms.openlocfilehash: 7736888c43aafd2f64e3d7b079f2099fe548a825
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 4dc150ff4534e42e1995a185f650cea9df70ccc4
+ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081084"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71187051"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>Azure App Service に ASP.NET Core アプリを展開する
 
@@ -97,7 +97,17 @@ Azure Portal でアプリの設定が作成または変更され、 **[保存]**
 
 ## <a name="monitoring-and-logging"></a>監視およびログ記録
 
-Azure App Service には、ASP.NET Core アプリのログ統合を有効にする **ASP.NET Core のログ記録拡張機能**が用意されています。 この拡張機能を App Service に自動的に追加するには、**App Service** 発行プロファイルで Visual Studio の**発行**プロセスを使用します。 Visual Studio を使用してアプリをデプロイしていない場合は、App Service の **[開発ツール]**  >  **[拡張機能]** ダイアログを使用して、Azure portal に拡張機能を手動でインストールします。
+::: moniker range=">= aspnetcore-3.0"
+
+App Service にデプロイされる ASP.NET Core アプリは、App Service の拡張機能、**ASP.NET Core ログ記録の統合**を自動的に受け取ります。 拡張機能は、Azure App Service での ASP.NET Core アプリの統合のログ記録を有効にします。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+App Service にデプロイされる ASP.NET Core アプリは、App Service の拡張機能、**ASP.NET Core ログ記録の拡張機能**を自動的に受け取ります。 拡張機能は、Azure App Service での ASP.NET Core アプリの統合のログ記録を有効にします。
+
+::: moniker-end
 
 監視、ログ記録、トラブルシューティングに関する情報は、次の記事を参照してください。
 
@@ -128,10 +138,21 @@ Azure App Service/IIS によってホストされるアプリの一般的な配�
 * Redis Cache
 
 詳細については、<xref:security/data-protection/implementation/key-storage-providers> を参照してください。
+<a name="deploy-aspnet-core-preview-release-to-azure-app-service"></a>
+<!-- revert this after 3.0 supported
+## Deploy ASP.NET Core preview release to Azure App Service
 
-## <a name="deploy-aspnet-core-preview-release-to-azure-app-service"></a>Azure App Service に ASP.NET Core プレビュー リリースを展開する
+Use one of the following approaches if the app relies on a preview release of .NET Core:
 
-アプリが .NET Core のプレビュー リリースに依存している場合は、次のいずれかの方法を使用します。
+* [Install the preview site extension](#install-the-preview-site-extension).
+* [Deploy a self-contained preview app](#deploy-a-self-contained-preview-app).
+* [Use Docker with Web Apps for containers](#use-docker-with-web-apps-for-containers).
+-->
+## <a name="deploy-aspnet-core-30-to-azure-app-service"></a>Azure App Service に ASP.NET Core 3.0 を展開する
+
+間もなく Azure App Service 上で ASP.NET Core 3.0 をご利用いただけるようになる予定です。
+
+アプリが .NET Core 3.0 に依存している場合は、次のいずれかの方法をお使いください。
 
 * [プレビュー サイト拡張機能をインストールする](#install-the-preview-site-extension)
 * [自己完結型のプレビュー アプリを展開する](#deploy-a-self-contained-preview-app)。
@@ -230,7 +251,7 @@ ARM テンプレートを使用してアプリを作成し、展開する場合�
 
 1. コマンド シェルから [dotnet publish](/dotnet/core/tools/dotnet-publish) コマンドを使って、リリースの構成でアプリを発行します。 次の例では、アプリがフレームワークに依存するアプリとして公開されています。
 
-   ```dotnetcli
+   ```console
    dotnet publish --configuration Release
    ```
 
@@ -268,7 +289,7 @@ ARM テンプレートを使用してアプリを作成し、展開する場合�
 
 1. コマンド シェルから [dotnet publish](/dotnet/core/tools/dotnet-publish) コマンドを使って、ホストのランタイムに対するリリースの構成でアプリを発行します。 次の例では、アプリは `win-x86` RID に発行されます。 `--runtime` オプションに指定された RID は、プロジェクト ファイルの `<RuntimeIdentifier>` (`<RuntimeIdentifiers>`) プロパティで提供される必要があります。
 
-   ```dotnetcli
+   ```console
    dotnet publish --configuration Release --runtime win-x86
    ```
 
