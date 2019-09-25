@@ -1,41 +1,130 @@
 ---
-title: ASP.NET Core の gRPC の概要
+title: .NET Core の gRPC の概要
 author: juntaoluo
 description: Kestrel サーバーと ASP.NET Core の gRPC サービスについて説明します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
-ms.date: 02/26/2019
+ms.date: 09/20/2019
 uid: grpc/index
-ms.openlocfilehash: dd1c42744bfda965df91ea1fcc0b71814317b969
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 928eb58930743cd0905f185f54df46c5984b8e97
+ms.sourcegitcommit: fa61d882be9d0c48bd681f2efcb97e05522051d0
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65085559"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71205680"
 ---
-# <a name="introduction-to-grpc-on-aspnet-core"></a><span data-ttu-id="4043d-103">ASP.NET Core の gRPC の概要</span><span class="sxs-lookup"><span data-stu-id="4043d-103">Introduction to gRPC on ASP.NET Core</span></span>
+# <a name="introduction-to-grpc-on-net-core"></a><span data-ttu-id="bee75-103">.NET Core の gRPC の概要</span><span class="sxs-lookup"><span data-stu-id="bee75-103">Introduction to gRPC on .NET Core</span></span>
 
-<span data-ttu-id="4043d-104">作成者: [John Luo](https://github.com/juntaoluo)</span><span class="sxs-lookup"><span data-stu-id="4043d-104">By [John Luo](https://github.com/juntaoluo)</span></span>
+<span data-ttu-id="bee75-104">作成者: [John Luo](https://github.com/juntaoluo)、[James Newton-King](https://twitter.com/jamesnk)</span><span class="sxs-lookup"><span data-stu-id="bee75-104">By [John Luo](https://github.com/juntaoluo) and [James Newton-King](https://twitter.com/jamesnk)</span></span>
 
-<span data-ttu-id="4043d-105">[gRPC](https://grpc.io/docs/guides/) は言語に依存しない高性能なリモート プロシージャ コール (RPC) フレームワークです。</span><span class="sxs-lookup"><span data-stu-id="4043d-105">[gRPC](https://grpc.io/docs/guides/) is a language agnostic, high-performance Remote Procedure Call (RPC) framework.</span></span> <span data-ttu-id="4043d-106">gRPC の基礎については、[gRPC ドキュメント ページ](https://grpc.io/docs/)を参照してください。</span><span class="sxs-lookup"><span data-stu-id="4043d-106">For more on gRPC fundamentals, see the [gRPC documentation page](https://grpc.io/docs/).</span></span>
+<span data-ttu-id="bee75-105">[gRPC](https://grpc.io/docs/guides/) は言語に依存しない高性能なリモート プロシージャ コール (RPC) フレームワークです。</span><span class="sxs-lookup"><span data-stu-id="bee75-105">[gRPC](https://grpc.io/docs/guides/) is a language agnostic, high-performance Remote Procedure Call (RPC) framework.</span></span>
 
-<span data-ttu-id="4043d-107">gRPC の主な利点:</span><span class="sxs-lookup"><span data-stu-id="4043d-107">The main benefits of gRPC are:</span></span>
-* <span data-ttu-id="4043d-108">最新の高性能軽量 RPC フレームワーク。</span><span class="sxs-lookup"><span data-stu-id="4043d-108">Modern high-performance lightweight RPC framework.</span></span>
-* <span data-ttu-id="4043d-109">既定でプロトコル バッファーを使用する契約優先の API 開発。言語に依存しない実装を可能にします。</span><span class="sxs-lookup"><span data-stu-id="4043d-109">Contract-first API development, using Protocol Buffers by default, allowing for language agnostic implementations.</span></span>
-* <span data-ttu-id="4043d-110">厳密に型指定されたサーバーとクライアントを生成する目的で、さまざまな言語で利用できるツール。</span><span class="sxs-lookup"><span data-stu-id="4043d-110">Tooling available for many languages to generate strongly-typed servers and clients.</span></span>
-* <span data-ttu-id="4043d-111">クライアント、サーバー、双方向ストリーミング呼び出しをサポートします。</span><span class="sxs-lookup"><span data-stu-id="4043d-111">Supports client, server, and bi-directional streaming calls.</span></span>
-* <span data-ttu-id="4043d-112">Protobuf バイナリ シリアル化でネットワークの使用率を減らします。</span><span class="sxs-lookup"><span data-stu-id="4043d-112">Reduced network usage with Protobuf binary serialization.</span></span>
+<span data-ttu-id="bee75-106">gRPC の主な利点:</span><span class="sxs-lookup"><span data-stu-id="bee75-106">The main benefits of gRPC are:</span></span>
+* <span data-ttu-id="bee75-107">最新の高性能軽量 RPC フレームワーク。</span><span class="sxs-lookup"><span data-stu-id="bee75-107">Modern high-performance lightweight RPC framework.</span></span>
+* <span data-ttu-id="bee75-108">既定でプロトコル バッファーを使用する契約優先の API 開発。言語に依存しない実装を可能にします。</span><span class="sxs-lookup"><span data-stu-id="bee75-108">Contract-first API development, using Protocol Buffers by default, allowing for language agnostic implementations.</span></span>
+* <span data-ttu-id="bee75-109">厳密に型指定されたサーバーとクライアントを生成する目的で、さまざまな言語で利用できるツール。</span><span class="sxs-lookup"><span data-stu-id="bee75-109">Tooling available for many languages to generate strongly-typed servers and clients.</span></span>
+* <span data-ttu-id="bee75-110">クライアント、サーバー、双方向ストリーミング呼び出しをサポートします。</span><span class="sxs-lookup"><span data-stu-id="bee75-110">Supports client, server, and bi-directional streaming calls.</span></span>
+* <span data-ttu-id="bee75-111">Protobuf バイナリ シリアル化でネットワークの使用率を減らします。</span><span class="sxs-lookup"><span data-stu-id="bee75-111">Reduced network usage with Protobuf binary serialization.</span></span>
 
-<span data-ttu-id="4043d-113">以上の利点から gRPC は以下に最適です。</span><span class="sxs-lookup"><span data-stu-id="4043d-113">These benefits make gRPC ideal for:</span></span>
-* <span data-ttu-id="4043d-114">効率性が重要となる軽量のマイクロサービス。</span><span class="sxs-lookup"><span data-stu-id="4043d-114">Lightweight microservices where efficiency is critical.</span></span>
-* <span data-ttu-id="4043d-115">開発に複数の言語が必要になる多言語システム。</span><span class="sxs-lookup"><span data-stu-id="4043d-115">Polyglot systems where multiple languages are required for development.</span></span>
-* <span data-ttu-id="4043d-116">ストリーミングの要求または応答を処理する必要があるポイントツーポイントのリアルタイム サービス。</span><span class="sxs-lookup"><span data-stu-id="4043d-116">Point-to-point real-time services that need to handle streaming requests or responses.</span></span>
+<span data-ttu-id="bee75-112">以上の利点から gRPC は以下に最適です。</span><span class="sxs-lookup"><span data-stu-id="bee75-112">These benefits make gRPC ideal for:</span></span>
+* <span data-ttu-id="bee75-113">効率性が重要となる軽量のマイクロサービス。</span><span class="sxs-lookup"><span data-stu-id="bee75-113">Lightweight microservices where efficiency is critical.</span></span>
+* <span data-ttu-id="bee75-114">開発に複数の言語が必要になる多言語システム。</span><span class="sxs-lookup"><span data-stu-id="bee75-114">Polyglot systems where multiple languages are required for development.</span></span>
+* <span data-ttu-id="bee75-115">ストリーミングの要求または応答を処理する必要があるポイントツーポイントのリアルタイム サービス。</span><span class="sxs-lookup"><span data-stu-id="bee75-115">Point-to-point real-time services that need to handle streaming requests or responses.</span></span>
 
-<span data-ttu-id="4043d-117">公式の [gRPC ページ](https://grpc.io/docs/quickstart/csharp.html)では現在、C# 実装を利用できますが、現在の実装は C で記述されたネイティブ ライブラリに依存しています (gRPC [C-core](https://grpc.io/blog/grpc-stacks))。</span><span class="sxs-lookup"><span data-stu-id="4043d-117">While a C# implementation is currently available on the official [gRPC page](https://grpc.io/docs/quickstart/csharp.html), the current implementation relies on the native library written in C (gRPC [C-core](https://grpc.io/blog/grpc-stacks)).</span></span> <span data-ttu-id="4043d-118">Kestrel HTTP サーバーは完全管理の ASP.NET Core スタックを基盤とする新しい実装を提供するための作業が現在進行中です。</span><span class="sxs-lookup"><span data-stu-id="4043d-118">Work is currently in progress to provide a new implementation based on the Kestrel HTTP server and the ASP.NET Core stack that is fully managed.</span></span> <span data-ttu-id="4043d-119">次のドキュメントは、この新しい実装で gRPC サービスを構築するための概要を提供します。</span><span class="sxs-lookup"><span data-stu-id="4043d-119">The following documents provide an introduction to building gRPC services with this new implementation.</span></span>
+## <a name="c-tooling-support-for-proto-files"></a><span data-ttu-id="bee75-116">.proto ファイルに対する C# ツール サポート</span><span class="sxs-lookup"><span data-stu-id="bee75-116">C# Tooling support for .proto files</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="4043d-120">その他の技術情報</span><span class="sxs-lookup"><span data-stu-id="4043d-120">Additional resources</span></span>
+<span data-ttu-id="bee75-117">gRPC では、API 開発に対してコントラクト優先のアプローチが使われます。</span><span class="sxs-lookup"><span data-stu-id="bee75-117">gRPC uses a contract-first approach to API development.</span></span> <span data-ttu-id="bee75-118">サービスとメッセージは、 *\*.proto* ファイル内で定義されます。</span><span class="sxs-lookup"><span data-stu-id="bee75-118">Services and messages are defined in *\*.proto* files:</span></span>
+
+```protobuf
+syntax = "proto3";
+
+service Greeter {
+  rpc SayHello (HelloRequest) returns (HelloReply);
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloReply {
+  string message = 1;
+}
+```
+
+<span data-ttu-id="bee75-119">サービス、クライアント、およびメッセージの .NET 型は、プロジェクトに *\*.proto* ファイルを含めることで自動的に生成されます。</span><span class="sxs-lookup"><span data-stu-id="bee75-119">.NET types for services, clients and messages are automatically generated by including *\*.proto* files in a project:</span></span>
+
+* <span data-ttu-id="bee75-120">[Grpc.Tools](https://www.nuget.org/packages/Grpc.Tools/) パッケージにパッケージ参照を追加します。</span><span class="sxs-lookup"><span data-stu-id="bee75-120">Add a package reference to [Grpc.Tools](https://www.nuget.org/packages/Grpc.Tools/) package.</span></span>
+* <span data-ttu-id="bee75-121">`<Protobuf>` 項目グループに *\*.proto* ファイルを追加します。</span><span class="sxs-lookup"><span data-stu-id="bee75-121">Add *\*.proto* files to the `<Protobuf>` item group.</span></span>
+
+```xml
+<ItemGroup>
+  <Protobuf Include="Protos\greet.proto" />
+</ItemGroup>
+```
+
+<span data-ttu-id="bee75-122">gRPC ツール サポートについて詳しくは、「<xref:grpc/basics>」をご覧ください。</span><span class="sxs-lookup"><span data-stu-id="bee75-122">For more information on gRPC tooling support, see <xref:grpc/basics>.</span></span>
+
+## <a name="grpc-services-on-aspnet-core"></a><span data-ttu-id="bee75-123">ASP.NET Core での gRPC サービス</span><span class="sxs-lookup"><span data-stu-id="bee75-123">gRPC services on ASP.NET Core</span></span>
+
+<span data-ttu-id="bee75-124">gRPC サービスは ASP.NET Core でホストできます。</span><span class="sxs-lookup"><span data-stu-id="bee75-124">gRPC services can be hosted on ASP.NET Core.</span></span> <span data-ttu-id="bee75-125">サービスは、ログ記録、依存関係の注入 (DI)、認証、承認などの一般的な ASP.NET Core 機能と完全に統合されています。</span><span class="sxs-lookup"><span data-stu-id="bee75-125">Services have full integration with popular ASP.NET Core features such as logging, dependency injection (DI), authentication and authorization.</span></span>
+
+<span data-ttu-id="bee75-126">gRPC サービスのプロジェクト テンプレートには、スターター サービスが用意されています。</span><span class="sxs-lookup"><span data-stu-id="bee75-126">The gRPC service project template provides a starter service:</span></span>
+
+```csharp
+public class GreeterService : Greeter.GreeterBase
+{
+    private readonly ILogger<GreeterService> _logger;
+
+    public GreeterService(ILogger<GreeterService> logger)
+    {
+        _logger = logger;
+    }
+
+    public override Task<HelloReply> SayHello(HelloRequest request,
+        ServerCallContext context)
+    {
+        _logger.LogInformation("Saying hello to " + request.Name);
+        return Task.FromResult(new HelloReply 
+        {
+            Message = "Hello " + request.Name
+        });
+    }
+}
+```
+
+<span data-ttu-id="bee75-127">`GreeterService` は `GreeterBase` 型を継承します。これは *\*.proto* ファイル内の `Greeter` サービスから生成されます。</span><span class="sxs-lookup"><span data-stu-id="bee75-127">`GreeterService` inherits from the `GreeterBase` type, which is generated from the `Greeter` service in the *\*.proto* file.</span></span> <span data-ttu-id="bee75-128">サービスは、*Startup.cs* 内でクライアントがアクセスできるようになります。</span><span class="sxs-lookup"><span data-stu-id="bee75-128">The service is made accessible to clients in *Startup.cs*:</span></span>
+
+```csharp
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapGrpcService<GreeterService>();
+});
+```
+
+<span data-ttu-id="bee75-129">ASP.NET Core での gRPC サービスについて詳しくは、「<xref:grpc/aspnetcore>」をご覧ください。</span><span class="sxs-lookup"><span data-stu-id="bee75-129">To learn more about gRPC services on ASP.NET Core, see <xref:grpc/aspnetcore>.</span></span>
+
+## <a name="call-grpc-services-with-a-net-client"></a><span data-ttu-id="bee75-130">.NET クライアントを使用して gRPC サービスを呼び出す</span><span class="sxs-lookup"><span data-stu-id="bee75-130">Call gRPC services with a .NET client</span></span>
+
+<span data-ttu-id="bee75-131">gRPC クライアントは、[ *\*.proto* ファイルから生成される](xref:grpc/basics#generated-c-assets)具体的なクライアントの種類です。</span><span class="sxs-lookup"><span data-stu-id="bee75-131">gRPC clients are concrete client types that are [generated from *\*.proto* files](xref:grpc/basics#generated-c-assets).</span></span> <span data-ttu-id="bee75-132">具体的な gRPC クライアントには、 *\*.proto* ファイルに含まれる gRPC サービスに変換されるメソッドがあります。</span><span class="sxs-lookup"><span data-stu-id="bee75-132">The concrete gRPC client has methods that translate to the gRPC service in the *\*.proto* file.</span></span>
+
+```csharp
+var channel = GrpcChannel.ForAddress("https://localhost:5001");
+var client = new Greeter.GreeterClient(channel);
+
+var response = await client.SayHello(
+    new HelloRequest { Name = "World" });
+
+Console.WriteLine(response.Message);
+```
+
+<span data-ttu-id="bee75-133">gRPC クライアントはチャネルを使って作成され、これは gRPC サービスへの長期接続を表します。</span><span class="sxs-lookup"><span data-stu-id="bee75-133">A gRPC client is created using a channel, which represents a long-lived connection to a gRPC service.</span></span> <span data-ttu-id="bee75-134">チャネルは `GrpcChannel.ForAddress` を使って作成できます。</span><span class="sxs-lookup"><span data-stu-id="bee75-134">A channel can be created using `GrpcChannel.ForAddress`.</span></span>
+
+<span data-ttu-id="bee75-135">クライアントの作成と、さまざまなサービス メソッドの呼び出しについて詳しくは、「<xref:grpc/client>」をご覧ください。</span><span class="sxs-lookup"><span data-stu-id="bee75-135">For more information on creating clients, and calling different service methods, see <xref:grpc/client>.</span></span>
+
+## <a name="additional-resources"></a><span data-ttu-id="bee75-136">その他の技術情報</span><span class="sxs-lookup"><span data-stu-id="bee75-136">Additional resources</span></span>
 
 * <xref:grpc/basics>
-* <xref:tutorials/grpc/grpc-start>
 * <xref:grpc/aspnetcore>
-* <xref:grpc/migration>
+* <xref:grpc/client>
+* <xref:grpc/clientfactory>
+* <xref:tutorials/grpc/grpc-start>
