@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.date: 09/19/2019
 uid: razor-pages/index
-ms.openlocfilehash: 284fb0fa64b26cf51f822b9ef42fe9bb7247e421
-ms.sourcegitcommit: e7dc89620fa02c2ff80bee1e3f77297f97616968
+ms.openlocfilehash: 7e27bbc84816bd282b2b8de936772eb5c597d74f
+ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71151159"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71207379"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>ASP.NET Core での Razor ページの概要
 
@@ -414,7 +414,7 @@ Razor ページからのビュー検索には、*Pages* フォルダーが含ま
 
 上に示した `Create` ページでは、`RedirectToPage` を使用します。
 
-[!code-cs[](index/3.0sample/RazorPagesContacts/Pages/Customers/Create.cshtml.cs?name=snippet_PageModel&highlight=15-16)]
+[!code-cs[](index/3.0sample/RazorPagesContacts/Pages/Customers/Create.cshtml.cs?name=snippet_PageModel&highlight=28)]
 
 アプリには次のファイル/フォルダー構造があります。
 
@@ -428,13 +428,13 @@ Razor ページからのビュー検索には、*Pages* フォルダーが含ま
     * *Edit.cshtml*
     * *Index.cshtml*
 
-成功すると、*Pages/Customers/Create.cshtml* ページと *Pages/Customers/Edit.cshtml* ページが *Pages/Customers/Index.cshtml* にリダイレクトされます。 文字列 `./Index` は前のページにアクセスするための URI の一部です。 文字列 `./Index` は、*Pages/Customers/Index.cshtml* ページへの URI を生成するために使用できます。 次に例を示します。
+成功すると、*Pages/Customers/Create.cshtml* ページと *Pages/Customers/Edit.cshtml* ページが *Pages/Customers/Index.cshtml* にリダイレクトされます。 文字列 `./Index` は、前のページにアクセスするために使用される相対ページ名です。 これは、*Pages/Customers/Index.cshtml* ページへの URI を生成するために使われます。 次に例を示します。
 
 * `Url.Page("./Index", ...)`
-* `<a asp-page="/Customers/Index">Customers Index Page</a>`
+* `<a asp-page="./Index">Customers Index Page</a>`
 * `RedirectToPage("./Index")`
 
-文字列 `/Index` は、*Pages/Index.cshtml* ページへの URI を生成するために使用できます。 次に例を示します。
+絶対ページ名 `/Index` は、*Pages/Index.cshtml* ページへの URL を生成するために使われます。 次に例を示します。
 
 * `Url.Page("/Index", ...)`
 * `<a asp-page="/Index">Home Index Page</a>`
