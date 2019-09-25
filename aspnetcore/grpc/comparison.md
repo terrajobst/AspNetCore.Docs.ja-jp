@@ -1,36 +1,38 @@
 ---
-title: HTTP API を使用した gRPC サービスの比較
+title: GRPC サービスと HTTP Api の比較
 author: jamesnk
 description: GRPC と HTTP Api との比較、および推奨されるシナリオについて説明します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
-ms.date: 03/31/2019
+ms.date: 09/25/2019
 uid: grpc/comparison
-ms.openlocfilehash: c34c7ecb668e478e2be3271928a2439979a746d9
-ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
+ms.openlocfilehash: 935078d890998fe6af366e3f6a7bf21f53c20cf7
+ms.sourcegitcommit: a7813a776809a5029c94aa503ee71994f156231f
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/05/2019
-ms.locfileid: "70310471"
+ms.lasthandoff: 09/25/2019
+ms.locfileid: "71267714"
 ---
-# <a name="comparing-grpc-services-with-http-apis"></a>HTTP API を使用した gRPC サービスの比較
+# <a name="compare-grpc-services-with-http-apis"></a>GRPC サービスと HTTP Api の比較
 
 [James のニュートン-キング](https://twitter.com/jamesnk)別
 
-この記事では、 [Grpc サービス](https://grpc.io/docs/guides/)と HTTP api (ASP.NET Core [Web api](xref:web-api/index)を含む) の比較について説明します。 アプリの API を提供するために使用されるテクノロジは重要な選択であり、gRPC は HTTP Api と比較して独自の利点を提供します。 この記事では、gRPC の長所と短所について説明し、他のテクノロジで gRPC を使用する場合のシナリオを推奨します。
+この記事では、 [Grpc サービス](https://grpc.io/docs/guides/)と HTTP api (ASP.NET Core [web api](xref:web-api/index)を含む) の比較について説明します。 アプリの API を提供するために使用されるテクノロジは重要な選択であり、gRPC は HTTP Api と比較して独自の利点を提供します。 この記事では、gRPC の長所と短所について説明し、他のテクノロジで gRPC を使用する場合のシナリオを推奨します。
 
-#### <a name="overview"></a>概要
+## <a name="high-level-comparison"></a>高レベルの比較
+
+次の表は、gRPC と JSON を使用した HTTP Api の機能の概要を示しています。
 
 | 機能          | gRPC                                               | HTTP Api と JSON           |
 | ---------------- | -------------------------------------------------- | ----------------------------- |
 | コントラクト         | 必須 (*プロトコル*)                                | 省略可能 (OpenAPI)            |
 | Transport        | HTTP/2                                             | HTTP                          |
 | Payload          | [Protobuf (小、バイナリ)](#performance)           | JSON (大規模で人間が読みやすい)  |
-| Prescriptiveness | [厳密な指定](#strict-specification)      | ペイント. HTTP はすべて有効です      |
+| Prescriptiveness | [厳密な指定](#strict-specification)      | ペイント. HTTP はすべて有効です。      |
 | ストリーム        | [クライアント、サーバー、双方向](#streaming)       | クライアント、サーバー                |
-| ブラウザー サポート  | [いいえ (grpc-web が必要)](#limited-browser-support) | [はい]                           |
+| ブラウザー サポート  | [いいえ (grpc-web が必要)](#limited-browser-support) | はい                           |
 | セキュリティ         | トランスポート (HTTPS)                                  | トランスポート (HTTPS)             |
-| クライアントコード生成  | [はい](#code-generation)                            | OpenAPI + サードパーティ製ツール |
+| クライアントコード生成 | [はい](#code-generation)                      | OpenAPI + サードパーティ製ツール |
 
 ## <a name="grpc-strengths"></a>gRPC の長所
 
@@ -47,7 +49,7 @@ gRPC は http/2 向けに設計されており、http 1.x に比べてパフォ�
 
 すべての gRPC フレームワークは、コード生成のためのファーストクラスのサポートを提供します。 GRPC 開発の中核となるファイルは、gRPC サービスとメッセージのコントラクトを定義する[*プロトコル*ファイル](https://developers.google.com/protocol-buffers/docs/proto3)です。 このファイルから、gRPC フレームワークによって、サービスの基本クラス、メッセージ、および完全なクライアントがコードによって生成されます。
 
-サーバーとクライアント`*.proto`の間でファイルを共有することにより、メッセージとクライアントコードをエンドツーエンドで生成できます。 クライアントのコード生成によって、クライアントとサーバー上のメッセージの重複が排除され、厳密に型指定されたクライアントが作成されます。 クライアントを作成する必要がない場合は、多くのサービスを持つアプリケーションで大幅な開発時間を節約できます。
+サーバーとクライアントの間で*プロトコル*ファイルを共有することにより、メッセージとクライアントコードをエンドツーエンドから生成できます。 クライアントのコード生成によって、クライアントとサーバー上のメッセージの重複が排除され、厳密に型指定されたクライアントが作成されます。 クライアントを作成する必要がない場合は、多くのサービスを持つアプリケーションで大幅な開発時間を節約できます。
 
 ### <a name="strict-specification"></a>厳密な指定
 
@@ -95,7 +97,7 @@ Grpc のすべての機能が gRPC-Web でサポートされているわけで�
 
 HTTP API 要求はテキストとして送信され、人間が読み取りや作成を行うことができます。
 
-gRPC メッセージは、既定で Protobuf を使用してエンコードされます。 Protobuf は送信と受信が効率的ですが、バイナリ形式は人間が判読できません。 Protobuf では、 `*.proto`ファイルで指定されているメッセージのインターフェイスの説明を適切に逆シリアル化する必要があります。 ネットワーク上の Protobuf ペイロードを分析し、手動で要求を作成するために、追加のツールが必要です。
+gRPC メッセージは、既定で Protobuf を使用してエンコードされます。 Protobuf は送信と受信が効率的ですが、バイナリ形式は人間が判読できません。 Protobuf では、適切に逆シリアル化するために、*プロトコル*ファイルに指定されているメッセージのインターフェイスの説明が必要です。 ネットワーク上の Protobuf ペイロードを分析し、手動で要求を作成するために、追加のツールが必要です。
 
 [サーバーリフレクション](https://github.com/grpc/grpc/blob/master/doc/server-reflection.md)や[grpc コマンドラインツール](https://github.com/grpc/grpc/blob/master/doc/command_line_tool.md)などの機能は、バイナリ Protobuf メッセージを支援するために用意されています。 また、Protobuf メッセージは[JSON との間の変換を](https://developers.google.com/protocol-buffers/docs/proto3#json)サポートしています。 組み込みの JSON 変換は、デバッグ時に、Protobuf メッセージを人間が判読できる形式に変換するための効率的な方法を提供します。
 
