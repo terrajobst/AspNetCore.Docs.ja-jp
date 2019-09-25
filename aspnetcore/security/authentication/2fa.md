@@ -7,12 +7,12 @@ ms.author: riande
 ms.date: 09/22/2018
 ms.custom: mvc, seodec18
 uid: security/authentication/2fa
-ms.openlocfilehash: 96b4cc98f191d7c24637b8f352acbed3f46806f8
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 68219579be9b7a7b25da6e348054e1ff2015cf5f
+ms.sourcegitcommit: e54672f5c493258dc449fac5b98faf47eb123b28
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64893429"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71248388"
 ---
 # <a name="two-factor-authentication-with-sms-in-aspnet-core"></a>ASP.NET Core での SMS で 2 要素認証
 
@@ -27,29 +27,29 @@ ms.locfileid: "64893429"
 
 ## <a name="create-a-new-aspnet-core-project"></a>新しい ASP.NET Core プロジェクトを作成する
 
-という名前の新しい ASP.NET Core web アプリ作成`Web2FA`個々 のユーザー アカウントを使用します。 指示に従って<xref:security/enforcing-ssl>を設定し、HTTPS が必要です。
+という名前の新しい ASP.NET Core web アプリ作成`Web2FA`個々 のユーザー アカウントを使用します。 「」の<xref:security/enforcing-ssl>手順に従って、HTTPS を設定し、要求します。
 
 ### <a name="create-an-sms-account"></a>SMS アカウントを作成します。
 
-例については、SMS アカウントの作成[twilio](https://www.twilio.com/)または[ASPSMS](https://www.aspsms.com/asp.net/identity/core/testcredits/)します。 認証資格情報を記録 (twilio: accountSid および authToken、ASPSMS の。別子-Userkey とパスワード)。
+例については、SMS アカウントの作成[twilio](https://www.twilio.com/)または[ASPSMS](https://www.aspsms.com/asp.net/identity/core/testcredits/)します。 認証資格情報を記録します (twilio: accountSid および authToken の場合は、ASPSMS の場合:ユーザーキーとパスワード) を入力します。
 
 #### <a name="figuring-out-sms-provider-credentials"></a>SMS プロバイダーの資格情報を見極める
 
-**Twilio:**
+**Twilio**
 
-Twilio アカウントのダッシュ ボード タブで、コピー、**アカウント SID**と**認証トークン**します。
+Twilio アカウントの [ダッシュボード] タブで、**アカウント SID**と**認証トークン**をコピーします。
 
 **ASPSMS:**
 
-アカウントの設定に移動します。**別子-Userkey**と共にそれをコピーし、**パスワード**します。
+アカウントの設定から**ユーザーキー**に移動し、**パスワード**と共にコピーします。
 
 キー内 secret manager ツールを使用してこれらの値を後で保存`SMSAccountIdentification`と`SMSAccountPassword`します。
 
 #### <a name="specifying-senderid--originator"></a>SenderID を指定する/発信元
 
-**Twilio:** 数値 タブで、コピー、Twilio**電話番号**します。
+**Twilio**[数値] タブで、Twilio**電話番号**をコピーします。
 
-**ASPSMS:** ロックを解除発信者メニュー内では、発信者の 1 つまたは複数のロックを解除または発信元が英数字であることを (すべてのネットワークではサポートされていません) を選択します。
+**ASPSMS:** [発信元のロック解除] メニュー内で、1つ以上の発信者をロック解除するか、英数字の発信者を選択します (すべてのネットワークでサポートされていません)。
 
 キー内のシークレット マネージャー ツールを使用してこの値を後で保存`SMSAccountFrom`します。
 
@@ -70,7 +70,7 @@ info: Successfully saved SMSAccountIdentification = 12345 to the secret store.
 
 * SMS プロバイダーの NuGet パッケージを追加します。 パッケージ マネージャー コンソール (PMC) を実行します。
 
-**Twilio:**
+**Twilio**
 
 `Install-Package Twilio`
 
@@ -80,9 +80,11 @@ info: Successfully saved SMSAccountIdentification = 12345 to the secret store.
 
 * 内のコードを追加、 *Services/MessageServices.cs* SMS が有効にするファイル。 Twilio または ASPSMS セクションのいずれかを使用します。
 
-**Twilio:** [!code-csharp[](2fa/sample/Web2FA/Services/MessageServices_twilio.cs)]
+**Twilio**  
+[!code-csharp[](2fa/sample/Web2FA/Services/MessageServices_twilio.cs)]
 
-**ASPSMS:** [!code-csharp[](2fa/sample/Web2FA/Services/MessageServices_ASPSMS.cs)]
+**ASPSMS:**  
+[!code-csharp[](2fa/sample/Web2FA/Services/MessageServices_ASPSMS.cs)]
 
 ### <a name="configure-startup-to-use-smsoptions"></a>使用するスタートアップを構成します。 `SMSoptions`
 
@@ -92,7 +94,7 @@ info: Successfully saved SMSAccountIdentification = 12345 to the secret store.
 
 ### <a name="enable-two-factor-authentication"></a>2 要素認証を有効にします。
 
-開く、 *Views/Manage/Index.cshtml* Razor ビュー ファイルと、コメント文字 (マークアップがないコメント アウトされています) ため削除します。
+*Views/Manage/Index. cshtml* Razor ビューファイルを開き、コメント文字を削除します (マークアップがコメントアウトされることはありません)。
 
 ## <a name="log-in-with-two-factor-authentication"></a>2 要素認証をログインします。
 
@@ -140,7 +142,7 @@ info: Successfully saved SMSAccountIdentification = 12345 to the secret store.
 
 ## <a name="account-lockout-for-protecting-against-brute-force-attacks"></a>ブルート フォース攻撃から保護するためのアカウントのロックアウト
 
-2 fa では、アカウントのロックアウトをお勧めします。 ユーザーがローカル アカウントまたはソーシャル アカウントでサインインすると、2 fa に失敗した場合は各が格納されます。 ユーザーがロックアウトされた場合は、最大の失敗したアクセス試行に達すると、(既定。5 分後のロックアウト 5 にはアクセス試行が失敗しました)。 成功した認証は失敗したアクセス試行数がリセットされ、時計をリセットします。 失敗したアクセス試行の最大値とロックアウト時刻で設定できる[MaxFailedAccessAttempts](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions.maxfailedaccessattempts)と[DefaultLockoutTimeSpan](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions.defaultlockouttimespan)します。 次で 10 アクセス試行の失敗後 10 分間のアカウントのロックアウトが構成されます。
+2 fa では、アカウントのロックアウトをお勧めします。 ユーザーがローカル アカウントまたはソーシャル アカウントでサインインすると、2 fa に失敗した場合は各が格納されます。 失敗したアクセス試行の最大回数に達した場合、ユーザーはロックアウトされます (既定:5分間のロックアウトは5分間のアクセス試行に失敗しました)。 成功した認証は失敗したアクセス試行数がリセットされ、時計をリセットします。 失敗したアクセス試行の最大値とロックアウト時刻で設定できる[MaxFailedAccessAttempts](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions.maxfailedaccessattempts)と[DefaultLockoutTimeSpan](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions.defaultlockouttimespan)します。 次で 10 アクセス試行の失敗後 10 分間のアカウントのロックアウトが構成されます。
 
 [!code-csharp[](2fa/sample/Web2FA/Startup.cs?name=snippet2&highlight=13-17)]
 
