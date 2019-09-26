@@ -7,16 +7,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/15/2019
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: b433d793ae615bc4ece7c63bebd72d349adf43ee
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 10feb5467a6a6b5a43e0df739fa72902af9854da
+ms.sourcegitcommit: e5a74f882c14eaa0e5639ff082355e130559ba83
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081263"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71168366"
 ---
 # <a name="build-your-first-blazor-app"></a>最初の Blazor アプリを構築する
 
 作成者: [Daniel Roth](https://github.com/danroth27)、[Luke Latham](https://github.com/guardrex)
+
+[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
 このチュートリアルでは、Blazor アプリをビルドして変更する方法を示します。
 

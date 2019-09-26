@@ -3,14 +3,14 @@ title: ASP.NET Core での Razor ページ アプリへのモデルの追加
 author: rick-anderson
 description: Entity Framework Core (EF Core) を利用し、データベースでムービーを管理するためのクラスを追加する方法について説明します。
 ms.author: riande
-ms.date: 07/22/2019
+ms.date: 9/22/2019
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: 18cf9aea930a7989bb844bc6c40dfa1ce84b7b4d
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: dcbcf37dfd95d784ebe249ec6e9e4184a8853d3d
+ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082599"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71187180"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>ASP.NET Core での Razor ページ アプリへのモデルの追加
 
@@ -99,7 +99,7 @@ ms.locfileid: "71082599"
 * スキャフォールディング ツールをインストールします。
 
   ```dotnetcli
-   dotnet tool install --global dotnet-aspnet-codegenerator --version 3.0.0-*
+   dotnet tool install --global dotnet-aspnet-codegenerator
    ```
 
 * **Windows の場合**:次のコマンドを実行します。
@@ -122,7 +122,7 @@ ms.locfileid: "71082599"
 * スキャフォールディング ツールをインストールします。
 
   ```dotnetcli
-   dotnet tool install --global dotnet-aspnet-codegenerator --version 3.0.0-*
+   dotnet tool install --global dotnet-aspnet-codegenerator
    ```
 
 * 次のコマンドを実行します。

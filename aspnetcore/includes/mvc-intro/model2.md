@@ -20,17 +20,7 @@
 
 ### <a name="add-nuget-packages-and-ef-tools"></a>NuGet パッケージと EF ツールを追加します。
 
-次の .NET Core CLI コマンドを実行します。
-
-```dotnetcli
-dotnet tool install --global dotnet-ef --version 3.0.0-*
-dotnet add package Microsoft.EntityFrameworkCore.SQLite --version 3.0.0-*
-dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 3.0.0-*
-dotnet add package Microsoft.EntityFrameworkCore.Design --version 3.0.0-*
-dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.0.0-*
-```
-
-上記のコマンドでは、.NET CLI 用の Entity Framework Core ツールと複数のパッケージがプロジェクトに追加されます。 スキャフォールディングには `Microsoft.VisualStudio.Web.CodeGeneration.Design` パッケージが必要です。
+[!INCLUDE[](~/includes/add-EF-NuGet-SQLite-CLI.md)]
 
 <a name="reg"></a>
 

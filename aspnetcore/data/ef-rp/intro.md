@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 07/22/2019
 uid: data/ef-rp/intro
-ms.openlocfilehash: 107b348b4484301b86eeb5528833914fe4c1eaf7
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 6b7d2ca1cea23efd195f1ae0e0a749c6d2d9b622
+ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080937"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71186954"
 ---
 # <a name="razor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>ASP.NET Core での Entity Framework Core を使用した Razor ページ - チュートリアル 1/8
 
@@ -87,7 +87,7 @@ SQLite の使用を選択した場合は、SQLite データベースを管理お
 * プロジェクト フォルダーのコマンド プロンプトで、次のコマンドを実行します。
 
   ```dotnetcli
-  dotnet tool install --global dotnet-ef --version 3.0.0-*
+  dotnet tool install --global dotnet-ef
   dotnet ef database update
   ```
 
@@ -227,14 +227,17 @@ EF Core は、プロパティの名前が `<navigation property name><primary ke
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 次の .NET Core CLI コマンドを実行して、必要な NuGet パッケージをインストールします。
-
+<!-- TO DO  After testing, Replace with
+[!INCLUDE[](~/includes/includes/add-EF-NuGet-SQLite-CLI.md)]
+remove dotnet tool install --global  below
+ -->
   ```dotnetcli
-  dotnet add package Microsoft.EntityFrameworkCore.SQLite --version 3.0.0-*
-  dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.0.0-*
-  dotnet add package Microsoft.EntityFrameworkCore.Design --version 3.0.0-*
-  dotnet add package Microsoft.EntityFrameworkCore.Tools --version 3.0.0-*
-  dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 3.0.0-*
-  dotnet add package Microsoft.Extensions.Logging.Debug --version 3.0.0-*
+  dotnet add package Microsoft.EntityFrameworkCore.SQLite
+  dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+  dotnet add package Microsoft.EntityFrameworkCore.Design
+  dotnet add package Microsoft.EntityFrameworkCore.Tools
+  dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+  dotnet add package Microsoft.Extensions.Logging.Debug
   ```
 
   スキャフォールディングには、Microsoft.VisualStudio.Web.CodeGeneration.Design パッケージが必要です。 アプリでは SQL Server は使用されませんが、スキャフォールディング ツールには SQL Server パッケージが必要です。
@@ -244,7 +247,7 @@ EF Core は、プロパティの名前が `<navigation property name><primary ke
 * 次のコマンドを実行して、[aspnet-codegenerator スキャフォールディング ツール](xref:fundamentals/tools/dotnet-aspnet-codegenerator)をインストールします。
 
   ```dotnetcli
-  dotnet tool install --global dotnet-aspnet-codegenerator --version 3.0.0-*
+  dotnet tool install --global dotnet-aspnet-codegenerator
   ```
 
 * 次のコマンドを実行して、Student ページをスキャフォールディングします。

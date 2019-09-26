@@ -4,14 +4,14 @@ author: bradygaster
 description: このチュートリアルでは、ASP.NET Core SignalR を使用するチャット アプリを作成します。
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 07/08/2019
+ms.date: 09/24/2019
 uid: tutorials/signalr
-ms.openlocfilehash: 2dfa994b9763a0139cb70cbf9847ac3b02b568e4
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 7a6574bd3c463f0890f5dc076944f1ab0f0c919a
+ms.sourcegitcommit: e54672f5c493258dc449fac5b98faf47eb123b28
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081967"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71248396"
 ---
 # <a name="tutorial-get-started-with-aspnet-core-signalr"></a>チュートリアル: ASP.NET Core SignalR の概要
 
@@ -484,6 +484,10 @@ SignalR 要求が SignalR に渡されるように SignalR サーバーを構成
 > [!TIP]
 > アプリが動作しない場合は、ご利用のブラウザーの開発者ツール (F12) を開き、コンソールに移動します。 HTML および JavaScript コードに関連するエラーが発生している場合があります。 たとえば、*signalr.js* を指示されたフォルダーとは別のフォルダーに配置したとします。 その場合、そのファイルへの参照は機能せず、コンソールに 404 エラーが表示されます。
 > ![エラー "signalr.js が見つかりませんでした"](signalr/_static/2.x/f12-console.png)
+
+## <a name="additional-resources"></a>その他の技術情報
+
+* [このチュートリアルの YouTube バージョン](https://www.youtube.com/watch?v=iKlVmu-r0JQ)
 
 ## <a name="next-steps"></a>次の手順
 
