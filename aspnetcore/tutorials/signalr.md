@@ -4,128 +4,128 @@ author: bradygaster
 description: このチュートリアルでは、ASP.NET Core SignalR を使用するチャット アプリを作成します。
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 07/08/2019
+ms.date: 09/24/2019
 uid: tutorials/signalr
-ms.openlocfilehash: 2dfa994b9763a0139cb70cbf9847ac3b02b568e4
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 7a6574bd3c463f0890f5dc076944f1ab0f0c919a
+ms.sourcegitcommit: e54672f5c493258dc449fac5b98faf47eb123b28
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081967"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71248396"
 ---
-# <a name="tutorial-get-started-with-aspnet-core-signalr"></a><span data-ttu-id="d66f6-103">チュートリアル: ASP.NET Core SignalR の概要</span><span class="sxs-lookup"><span data-stu-id="d66f6-103">Tutorial: Get started with ASP.NET Core SignalR</span></span>
+# <a name="tutorial-get-started-with-aspnet-core-signalr"></a><span data-ttu-id="c34cf-103">チュートリアル: ASP.NET Core SignalR の概要</span><span class="sxs-lookup"><span data-stu-id="c34cf-103">Tutorial: Get started with ASP.NET Core SignalR</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="d66f6-104">このチュートリアルでは、SignalR を使用してリアルタイム アプリをビルドするための基礎について説明します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-104">This tutorial teaches the basics of building a real-time app using SignalR.</span></span> <span data-ttu-id="d66f6-105">以下の方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-105">You learn how to:</span></span>
+<span data-ttu-id="c34cf-104">このチュートリアルでは、SignalR を使用してリアルタイム アプリをビルドするための基礎について説明します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-104">This tutorial teaches the basics of building a real-time app using SignalR.</span></span> <span data-ttu-id="c34cf-105">以下の方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-105">You learn how to:</span></span>
 
 > [!div class="checklist"]
-> * <span data-ttu-id="d66f6-106">Web プロジェクトを作成します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-106">Create a web project.</span></span>
-> * <span data-ttu-id="d66f6-107">SignalR クライアント ライブラリを追加する。</span><span class="sxs-lookup"><span data-stu-id="d66f6-107">Add the SignalR client library.</span></span>
-> * <span data-ttu-id="d66f6-108">SignalR ハブを作成する。</span><span class="sxs-lookup"><span data-stu-id="d66f6-108">Create a SignalR hub.</span></span>
-> * <span data-ttu-id="d66f6-109">SignalR を使用するようにプロジェクトを構成する。</span><span class="sxs-lookup"><span data-stu-id="d66f6-109">Configure the project to use SignalR.</span></span>
-> * <span data-ttu-id="d66f6-110">任意のクライアントから、接続されているすべてのクライアントにメッセージを送信するコードを追加します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-110">Add code that sends messages from any client to all connected clients.</span></span>
+> * <span data-ttu-id="c34cf-106">Web プロジェクトを作成します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-106">Create a web project.</span></span>
+> * <span data-ttu-id="c34cf-107">SignalR クライアント ライブラリを追加する。</span><span class="sxs-lookup"><span data-stu-id="c34cf-107">Add the SignalR client library.</span></span>
+> * <span data-ttu-id="c34cf-108">SignalR ハブを作成する。</span><span class="sxs-lookup"><span data-stu-id="c34cf-108">Create a SignalR hub.</span></span>
+> * <span data-ttu-id="c34cf-109">SignalR を使用するようにプロジェクトを構成する。</span><span class="sxs-lookup"><span data-stu-id="c34cf-109">Configure the project to use SignalR.</span></span>
+> * <span data-ttu-id="c34cf-110">任意のクライアントから、接続されているすべてのクライアントにメッセージを送信するコードを追加します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-110">Add code that sends messages from any client to all connected clients.</span></span>
 
-<span data-ttu-id="d66f6-111">最後には、次のように動作するチャット アプリが作成されます。</span><span class="sxs-lookup"><span data-stu-id="d66f6-111">At the end, you'll have a working chat app:</span></span>
+<span data-ttu-id="c34cf-111">最後には、次のように動作するチャット アプリが作成されます。</span><span class="sxs-lookup"><span data-stu-id="c34cf-111">At the end, you'll have a working chat app:</span></span>
 
 ![SignalR のサンプル アプリ](signalr/_static/3.x/signalr-get-started-finished.png)
 
-## <a name="prerequisites"></a><span data-ttu-id="d66f6-113">必須コンポーネント</span><span class="sxs-lookup"><span data-stu-id="d66f6-113">Prerequisites</span></span>
+## <a name="prerequisites"></a><span data-ttu-id="c34cf-113">必須コンポーネント</span><span class="sxs-lookup"><span data-stu-id="c34cf-113">Prerequisites</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="d66f6-114">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="d66f6-114">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="c34cf-114">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="c34cf-114">Visual Studio</span></span>](#tab/visual-studio)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vs-3.0.md)]
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="d66f6-115">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="d66f6-115">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="c34cf-115">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="c34cf-115">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vsc-3.0.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="d66f6-116">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="d66f6-116">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="c34cf-116">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="c34cf-116">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/net-core-prereqs-mac-3.0.md)]
 
 ---
 
-## <a name="create-a-web-app-project"></a><span data-ttu-id="d66f6-117">Web アプリ プロジェクトを作成する</span><span class="sxs-lookup"><span data-stu-id="d66f6-117">Create a web app project</span></span>
+## <a name="create-a-web-app-project"></a><span data-ttu-id="c34cf-117">Web アプリ プロジェクトを作成する</span><span class="sxs-lookup"><span data-stu-id="c34cf-117">Create a web app project</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="d66f6-118">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="d66f6-118">Visual Studio</span></span>](#tab/visual-studio/)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="c34cf-118">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="c34cf-118">Visual Studio</span></span>](#tab/visual-studio/)
 
-* <span data-ttu-id="d66f6-119">メニューから、 **[ファイル]、[新規プロジェクト]** の順に選択します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-119">From the menu, select **File > New Project**.</span></span>
+* <span data-ttu-id="c34cf-119">メニューから、 **[ファイル]、[新規プロジェクト]** の順に選択します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-119">From the menu, select **File > New Project**.</span></span>
 
-* <span data-ttu-id="d66f6-120">**[新しいプロジェクト]** ダイアログで、 **[ASP.NET Core Web アプリケーション]** 、 **[次へ]** の順に選択します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-120">In the **Create a new project** dialog, select **ASP.NET Core Web Application**, and then select **Next**.</span></span>
+* <span data-ttu-id="c34cf-120">**[新しいプロジェクト]** ダイアログで、 **[ASP.NET Core Web アプリケーション]** 、 **[次へ]** の順に選択します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-120">In the **Create a new project** dialog, select **ASP.NET Core Web Application**, and then select **Next**.</span></span>
 
-* <span data-ttu-id="d66f6-121">**[新しいプロジェクトの構成]** ダイアログで、プロジェクトに *SignalRChat* という名前を付けて、 **[作成]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-121">In the **Configure your new project** dialog, name the project *SignalRChat*, and then select **Create**.</span></span>
+* <span data-ttu-id="c34cf-121">**[新しいプロジェクトの構成]** ダイアログで、プロジェクトに *SignalRChat* という名前を付けて、 **[作成]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-121">In the **Configure your new project** dialog, name the project *SignalRChat*, and then select **Create**.</span></span>
 
-* <span data-ttu-id="d66f6-122">**[新しい ASP.NET Core Web アプリケーションを作成する]** ダイアログで、 **[.NET Core]** と **[ASP.NET Core 3.0]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-122">In the **Create a new ASP.NET Core Web Application** dialog, select **.NET Core** and **ASP.NET Core 3.0**.</span></span> 
+* <span data-ttu-id="c34cf-122">**[新しい ASP.NET Core Web アプリケーションを作成する]** ダイアログで、 **[.NET Core]** と **[ASP.NET Core 3.0]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-122">In the **Create a new ASP.NET Core Web Application** dialog, select **.NET Core** and **ASP.NET Core 3.0**.</span></span> 
 
-* <span data-ttu-id="d66f6-123">Razor Pages を使用するプロジェクトを作成するには **[Web アプリケーション]** を選択し、次に **[作成]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-123">Select **Web Application** to create a project that uses Razor Pages, and then select **Create**.</span></span>
+* <span data-ttu-id="c34cf-123">Razor Pages を使用するプロジェクトを作成するには **[Web アプリケーション]** を選択し、次に **[作成]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-123">Select **Web Application** to create a project that uses Razor Pages, and then select **Create**.</span></span>
 
   ![Visual Studio の [新しいプロジェクト] ダイアログ ボックス](signalr/_static/3.x/signalr-new-project-dialog.png)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="d66f6-125">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="d66f6-125">Visual Studio Code</span></span>](#tab/visual-studio-code/)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="c34cf-125">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="c34cf-125">Visual Studio Code</span></span>](#tab/visual-studio-code/)
 
-* <span data-ttu-id="d66f6-126">新しいプロジェクト フォルダーを作成するフォルダーで[統合ターミナル](https://code.visualstudio.com/docs/editor/integrated-terminal)を開きます。</span><span class="sxs-lookup"><span data-stu-id="d66f6-126">Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal) to the folder in which the new project folder will be created.</span></span>
+* <span data-ttu-id="c34cf-126">新しいプロジェクト フォルダーを作成するフォルダーで[統合ターミナル](https://code.visualstudio.com/docs/editor/integrated-terminal)を開きます。</span><span class="sxs-lookup"><span data-stu-id="c34cf-126">Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal) to the folder in which the new project folder will be created.</span></span>
 
-* <span data-ttu-id="d66f6-127">次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-127">Run the following commands:</span></span>
+* <span data-ttu-id="c34cf-127">次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-127">Run the following commands:</span></span>
 
    ```dotnetcli
    dotnet new webapp -o SignalRChat
    code -r SignalRChat
    ```
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="d66f6-128">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="d66f6-128">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="c34cf-128">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="c34cf-128">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-* <span data-ttu-id="d66f6-129">メニューから、 **[ファイル]、[新しいソリューション]** の順に選択します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-129">From the menu, select **File > New Solution**.</span></span>
+* <span data-ttu-id="c34cf-129">メニューから、 **[ファイル]、[新しいソリューション]** の順に選択します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-129">From the menu, select **File > New Solution**.</span></span>
 
-* <span data-ttu-id="d66f6-130">**[.NET Core] > [アプリ] > [Web アプリケーション]** の順に選択し ( **[Web アプリケーション (Model-View-Controller)]** は選択しないでください)、 **[次へ]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-130">Select **.NET Core > App > Web Application** (Don't select **Web Application (Model-View-Controller)**), and then select **Next**.</span></span>
+* <span data-ttu-id="c34cf-130">**[.NET Core] > [アプリ] > [Web アプリケーション]** の順に選択し ( **[Web アプリケーション (Model-View-Controller)]** は選択しないでください)、 **[次へ]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-130">Select **.NET Core > App > Web Application** (Don't select **Web Application (Model-View-Controller)**), and then select **Next**.</span></span>
 
-* <span data-ttu-id="d66f6-131">**[ターゲット フレームワーク]** が **.NET Core 3.0** に設定されていることを確認してから、 **[次へ]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-131">Make sure the **Target Framework** is set to **.NET Core 3.0**, and then select **Next**.</span></span>
+* <span data-ttu-id="c34cf-131">**[ターゲット フレームワーク]** が **.NET Core 3.0** に設定されていることを確認してから、 **[次へ]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-131">Make sure the **Target Framework** is set to **.NET Core 3.0**, and then select **Next**.</span></span>
 
-* <span data-ttu-id="d66f6-132">プロジェクトに *SignalRChat* という名前を付けて、 **[作成]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-132">Name the project *SignalRChat*, and then select **Create**.</span></span>
+* <span data-ttu-id="c34cf-132">プロジェクトに *SignalRChat* という名前を付けて、 **[作成]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-132">Name the project *SignalRChat*, and then select **Create**.</span></span>
 
 ---
 
-## <a name="add-the-signalr-client-library"></a><span data-ttu-id="d66f6-133">SignalR クライアント ライブラリを追加する</span><span class="sxs-lookup"><span data-stu-id="d66f6-133">Add the SignalR client library</span></span>
+## <a name="add-the-signalr-client-library"></a><span data-ttu-id="c34cf-133">SignalR クライアント ライブラリを追加する</span><span class="sxs-lookup"><span data-stu-id="c34cf-133">Add the SignalR client library</span></span>
 
-<span data-ttu-id="d66f6-134">SignalR サーバー ライブラリは、ASP.NET Core 3.0 共有フレームワークに含まれています。</span><span class="sxs-lookup"><span data-stu-id="d66f6-134">The SignalR server library is included in the ASP.NET Core 3.0 shared framework.</span></span> <span data-ttu-id="d66f6-135">JavaScript クライアント ライブラリはプロジェクトに自動的に含まれません。</span><span class="sxs-lookup"><span data-stu-id="d66f6-135">The JavaScript client library isn't automatically included in the project.</span></span> <span data-ttu-id="d66f6-136">このチュートリアルでは、ライブラリ マネージャー (LibMan) を使用して *unpkg* からクライアント ライブラリを取得します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-136">For this tutorial, you use Library Manager (LibMan) to get the client library from *unpkg*.</span></span> <span data-ttu-id="d66f6-137">unpkg は、npm (Node.js パッケージ マネージャー) で見つかるものすべてを配信できるコンテンツ配信ネットワーク (CDN) です。</span><span class="sxs-lookup"><span data-stu-id="d66f6-137">unpkg is a content delivery network (CDN)) that can deliver anything found in npm, the Node.js package manager.</span></span>
+<span data-ttu-id="c34cf-134">SignalR サーバー ライブラリは、ASP.NET Core 3.0 共有フレームワークに含まれています。</span><span class="sxs-lookup"><span data-stu-id="c34cf-134">The SignalR server library is included in the ASP.NET Core 3.0 shared framework.</span></span> <span data-ttu-id="c34cf-135">JavaScript クライアント ライブラリはプロジェクトに自動的に含まれません。</span><span class="sxs-lookup"><span data-stu-id="c34cf-135">The JavaScript client library isn't automatically included in the project.</span></span> <span data-ttu-id="c34cf-136">このチュートリアルでは、ライブラリ マネージャー (LibMan) を使用して *unpkg* からクライアント ライブラリを取得します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-136">For this tutorial, you use Library Manager (LibMan) to get the client library from *unpkg*.</span></span> <span data-ttu-id="c34cf-137">unpkg は、npm (Node.js パッケージ マネージャー) で見つかるものすべてを配信できるコンテンツ配信ネットワーク (CDN) です。</span><span class="sxs-lookup"><span data-stu-id="c34cf-137">unpkg is a content delivery network (CDN)) that can deliver anything found in npm, the Node.js package manager.</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="d66f6-138">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="d66f6-138">Visual Studio</span></span>](#tab/visual-studio/)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="c34cf-138">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="c34cf-138">Visual Studio</span></span>](#tab/visual-studio/)
 
-* <span data-ttu-id="d66f6-139">**ソリューション エクスプローラー**で、プロジェクトを右クリックし、 **[追加]** > **[クライアント側のライブラリ]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-139">In **Solution Explorer**, right-click the project, and select **Add** > **Client-Side Library**.</span></span>
+* <span data-ttu-id="c34cf-139">**ソリューション エクスプローラー**で、プロジェクトを右クリックし、 **[追加]** > **[クライアント側のライブラリ]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-139">In **Solution Explorer**, right-click the project, and select **Add** > **Client-Side Library**.</span></span>
 
-* <span data-ttu-id="d66f6-140">**[Add Client-Side Library]\(クライアント側のライブラリの追加\)** ダイアログで、 **[プロバイダー]** に対して **[unpkg]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-140">In the **Add Client-Side Library** dialog, for **Provider** select **unpkg**.</span></span>
+* <span data-ttu-id="c34cf-140">**[Add Client-Side Library]\(クライアント側のライブラリの追加\)** ダイアログで、 **[プロバイダー]** に対して **[unpkg]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-140">In the **Add Client-Side Library** dialog, for **Provider** select **unpkg**.</span></span>
 
-* <span data-ttu-id="d66f6-141">**[ライブラリ]** に、「`@aspnet/signalr@next`」と入力します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-141">For **Library**, enter `@aspnet/signalr@next`.</span></span>
+* <span data-ttu-id="c34cf-141">**[ライブラリ]** に、「`@aspnet/signalr@next`」と入力します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-141">For **Library**, enter `@aspnet/signalr@next`.</span></span>
 <!-- when 3.0 is released, change @next to @latest -->
 
-* <span data-ttu-id="d66f6-142">**[Choose specific files]\(特定のファイルの選択\)** を選択して *dist/browser* フォルダーを展開し、*signalr.js* と *signalr.min.js* を選択します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-142">Select **Choose specific files**, expand the *dist/browser* folder, and select *signalr.js* and *signalr.min.js*.</span></span>
+* <span data-ttu-id="c34cf-142">**[Choose specific files]\(特定のファイルの選択\)** を選択して *dist/browser* フォルダーを展開し、*signalr.js* と *signalr.min.js* を選択します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-142">Select **Choose specific files**, expand the *dist/browser* folder, and select *signalr.js* and *signalr.min.js*.</span></span>
 
-* <span data-ttu-id="d66f6-143">**[ターゲットの場所]** を *wwwroot/lib/signalr/* に設定して、 **[インストール]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-143">Set **Target Location** to *wwwroot/lib/signalr/*, and select **Install**.</span></span>
+* <span data-ttu-id="c34cf-143">**[ターゲットの場所]** を *wwwroot/lib/signalr/* に設定して、 **[インストール]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-143">Set **Target Location** to *wwwroot/lib/signalr/*, and select **Install**.</span></span>
 
   ![クライアント側のライブラリの追加ダイアログ - ライブラリの選択](signalr/_static/3.x/libman1.png)
 
-  <span data-ttu-id="d66f6-145">LibMan によって *wwwroot/lib/signalr* フォルダーが作成され、そこに選択したファイルがコピーされます。</span><span class="sxs-lookup"><span data-stu-id="d66f6-145">LibMan creates a *wwwroot/lib/signalr* folder and copies the selected files to it.</span></span>
+  <span data-ttu-id="c34cf-145">LibMan によって *wwwroot/lib/signalr* フォルダーが作成され、そこに選択したファイルがコピーされます。</span><span class="sxs-lookup"><span data-stu-id="c34cf-145">LibMan creates a *wwwroot/lib/signalr* folder and copies the selected files to it.</span></span>
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="d66f6-146">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="d66f6-146">Visual Studio Code</span></span>](#tab/visual-studio-code/)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="c34cf-146">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="c34cf-146">Visual Studio Code</span></span>](#tab/visual-studio-code/)
 
-* <span data-ttu-id="d66f6-147">統合端末で、次のコマンドを実行して LibMan をインストールします。</span><span class="sxs-lookup"><span data-stu-id="d66f6-147">In the integrated terminal, run the following command to install LibMan.</span></span>
+* <span data-ttu-id="c34cf-147">統合端末で、次のコマンドを実行して LibMan をインストールします。</span><span class="sxs-lookup"><span data-stu-id="c34cf-147">In the integrated terminal, run the following command to install LibMan.</span></span>
 
   ```dotnetcli
   dotnet tool install -g Microsoft.Web.LibraryManager.Cli
   ```
 
-* <span data-ttu-id="d66f6-148">次のコマンドを実行して、LibMan を使用して SignalR クライアント ライブラリを取得します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-148">Run the following command to get the SignalR client library by using LibMan.</span></span> <span data-ttu-id="d66f6-149">出力が表示されるまでに数秒待機する必要がある場合があります。</span><span class="sxs-lookup"><span data-stu-id="d66f6-149">You might have to wait a few seconds before seeing output.</span></span>
+* <span data-ttu-id="c34cf-148">次のコマンドを実行して、LibMan を使用して SignalR クライアント ライブラリを取得します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-148">Run the following command to get the SignalR client library by using LibMan.</span></span> <span data-ttu-id="c34cf-149">出力が表示されるまでに数秒待機する必要がある場合があります。</span><span class="sxs-lookup"><span data-stu-id="c34cf-149">You might have to wait a few seconds before seeing output.</span></span>
 
   ```console
   libman install @aspnet/signalr@next -p unpkg -d wwwroot/lib/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js
   ```
 
-  <span data-ttu-id="d66f6-150">パラメーターによって次のオプションが指定されます。</span><span class="sxs-lookup"><span data-stu-id="d66f6-150">The parameters specify the following options:</span></span>
-  * <span data-ttu-id="d66f6-151">unpkg プロバイダーを使用する。</span><span class="sxs-lookup"><span data-stu-id="d66f6-151">Use the unpkg provider.</span></span>
-  * <span data-ttu-id="d66f6-152">ファイルを *wwwroot/lib/signalr* にコピーする。</span><span class="sxs-lookup"><span data-stu-id="d66f6-152">Copy files to the *wwwroot/lib/signalr* destination.</span></span>
-  * <span data-ttu-id="d66f6-153">指定したファイルのみをコピーする。</span><span class="sxs-lookup"><span data-stu-id="d66f6-153">Copy only the specified files.</span></span>
+  <span data-ttu-id="c34cf-150">パラメーターによって次のオプションが指定されます。</span><span class="sxs-lookup"><span data-stu-id="c34cf-150">The parameters specify the following options:</span></span>
+  * <span data-ttu-id="c34cf-151">unpkg プロバイダーを使用する。</span><span class="sxs-lookup"><span data-stu-id="c34cf-151">Use the unpkg provider.</span></span>
+  * <span data-ttu-id="c34cf-152">ファイルを *wwwroot/lib/signalr* にコピーする。</span><span class="sxs-lookup"><span data-stu-id="c34cf-152">Copy files to the *wwwroot/lib/signalr* destination.</span></span>
+  * <span data-ttu-id="c34cf-153">指定したファイルのみをコピーする。</span><span class="sxs-lookup"><span data-stu-id="c34cf-153">Copy only the specified files.</span></span>
 
-  <span data-ttu-id="d66f6-154">出力は次の例のようになります。</span><span class="sxs-lookup"><span data-stu-id="d66f6-154">The output looks like the following example:</span></span>
+  <span data-ttu-id="c34cf-154">出力は次の例のようになります。</span><span class="sxs-lookup"><span data-stu-id="c34cf-154">The output looks like the following example:</span></span>
 
   ```console
   wwwroot/lib/signalr/dist/browser/signalr.js written to disk
@@ -133,28 +133,28 @@ ms.locfileid: "71081967"
   Installed library "@aspnet/signalr@next" to "wwwroot/lib/signalr"
   ```
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="d66f6-155">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="d66f6-155">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="c34cf-155">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="c34cf-155">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-* <span data-ttu-id="d66f6-156">**[端末]** で、次のコマンドを実行して LibMan をインストールします。</span><span class="sxs-lookup"><span data-stu-id="d66f6-156">In the **Terminal**, run the following command to install LibMan.</span></span>
+* <span data-ttu-id="c34cf-156">**[端末]** で、次のコマンドを実行して LibMan をインストールします。</span><span class="sxs-lookup"><span data-stu-id="c34cf-156">In the **Terminal**, run the following command to install LibMan.</span></span>
 
   ```dotnetcli
   dotnet tool install -g Microsoft.Web.LibraryManager.Cli
   ```
 
-* <span data-ttu-id="d66f6-157">プロジェクト フォルダー (ファイル *SignalRChat.csproj* を含んでいるフォルダー) に移動します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-157">Navigate to the project folder (the one that contains the *SignalRChat.csproj* file).</span></span>
+* <span data-ttu-id="c34cf-157">プロジェクト フォルダー (ファイル *SignalRChat.csproj* を含んでいるフォルダー) に移動します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-157">Navigate to the project folder (the one that contains the *SignalRChat.csproj* file).</span></span>
 
-* <span data-ttu-id="d66f6-158">次のコマンドを実行して、LibMan を使用して SignalR クライアント ライブラリを取得します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-158">Run the following command to get the SignalR client library by using LibMan.</span></span>
+* <span data-ttu-id="c34cf-158">次のコマンドを実行して、LibMan を使用して SignalR クライアント ライブラリを取得します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-158">Run the following command to get the SignalR client library by using LibMan.</span></span>
 
   ```console
   libman install @aspnet/signalr@next -p unpkg -d wwwroot/lib/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js
   ```
 
-  <span data-ttu-id="d66f6-159">パラメーターによって次のオプションが指定されます。</span><span class="sxs-lookup"><span data-stu-id="d66f6-159">The parameters specify the following options:</span></span>
-  * <span data-ttu-id="d66f6-160">unpkg プロバイダーを使用する。</span><span class="sxs-lookup"><span data-stu-id="d66f6-160">Use the unpkg provider.</span></span>
-  * <span data-ttu-id="d66f6-161">ファイルを *wwwroot/lib/signalr* にコピーする。</span><span class="sxs-lookup"><span data-stu-id="d66f6-161">Copy files to the *wwwroot/lib/signalr* destination.</span></span>
-  * <span data-ttu-id="d66f6-162">指定したファイルのみをコピーする。</span><span class="sxs-lookup"><span data-stu-id="d66f6-162">Copy only the specified files.</span></span>
+  <span data-ttu-id="c34cf-159">パラメーターによって次のオプションが指定されます。</span><span class="sxs-lookup"><span data-stu-id="c34cf-159">The parameters specify the following options:</span></span>
+  * <span data-ttu-id="c34cf-160">unpkg プロバイダーを使用する。</span><span class="sxs-lookup"><span data-stu-id="c34cf-160">Use the unpkg provider.</span></span>
+  * <span data-ttu-id="c34cf-161">ファイルを *wwwroot/lib/signalr* にコピーする。</span><span class="sxs-lookup"><span data-stu-id="c34cf-161">Copy files to the *wwwroot/lib/signalr* destination.</span></span>
+  * <span data-ttu-id="c34cf-162">指定したファイルのみをコピーする。</span><span class="sxs-lookup"><span data-stu-id="c34cf-162">Copy only the specified files.</span></span>
 
-  <span data-ttu-id="d66f6-163">出力は次の例のようになります。</span><span class="sxs-lookup"><span data-stu-id="d66f6-163">The output looks like the following example:</span></span>
+  <span data-ttu-id="c34cf-163">出力は次の例のようになります。</span><span class="sxs-lookup"><span data-stu-id="c34cf-163">The output looks like the following example:</span></span>
 
   ```console
   wwwroot/lib/signalr/dist/browser/signalr.js written to disk
@@ -164,211 +164,211 @@ ms.locfileid: "71081967"
 
 ---
 
-## <a name="create-a-signalr-hub"></a><span data-ttu-id="d66f6-164">SignalR ハブを作成する</span><span class="sxs-lookup"><span data-stu-id="d66f6-164">Create a SignalR hub</span></span>
+## <a name="create-a-signalr-hub"></a><span data-ttu-id="c34cf-164">SignalR ハブを作成する</span><span class="sxs-lookup"><span data-stu-id="c34cf-164">Create a SignalR hub</span></span>
 
-<span data-ttu-id="d66f6-165">*ハブ*はクライアント サーバー通信を処理するハイレベル パイプラインとして機能するクラスです。</span><span class="sxs-lookup"><span data-stu-id="d66f6-165">A *hub* is a class that serves as a high-level pipeline that handles client-server communication.</span></span>
+<span data-ttu-id="c34cf-165">*ハブ*はクライアント サーバー通信を処理するハイレベル パイプラインとして機能するクラスです。</span><span class="sxs-lookup"><span data-stu-id="c34cf-165">A *hub* is a class that serves as a high-level pipeline that handles client-server communication.</span></span>
 
-* <span data-ttu-id="d66f6-166">SignalRChat プロジェクト フォルダー内で、*Hubs* フォルダーを作成します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-166">In the SignalRChat project folder, create a *Hubs* folder.</span></span>
+* <span data-ttu-id="c34cf-166">SignalRChat プロジェクト フォルダー内で、*Hubs* フォルダーを作成します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-166">In the SignalRChat project folder, create a *Hubs* folder.</span></span>
 
-* <span data-ttu-id="d66f6-167">*Hubs* フォルダー内で、次のコードを使用して *ChatHub.cs* ファイルを作成します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-167">In the *Hubs* folder, create a *ChatHub.cs* file with the following code:</span></span>
+* <span data-ttu-id="c34cf-167">*Hubs* フォルダー内で、次のコードを使用して *ChatHub.cs* ファイルを作成します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-167">In the *Hubs* folder, create a *ChatHub.cs* file with the following code:</span></span>
 
   [!code-csharp[Startup](signalr/sample-snapshot/3.x/ChatHub.cs)]
 
-  <span data-ttu-id="d66f6-168">`ChatHub` クラスは、SignalR `Hub` クラスを継承します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-168">The `ChatHub` class inherits from the SignalR `Hub` class.</span></span> <span data-ttu-id="d66f6-169">`Hub` クラスでは、接続、グループ、およびメッセージングが管理されます。</span><span class="sxs-lookup"><span data-stu-id="d66f6-169">The `Hub` class manages connections, groups, and messaging.</span></span>
+  <span data-ttu-id="c34cf-168">`ChatHub` クラスは、SignalR `Hub` クラスを継承します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-168">The `ChatHub` class inherits from the SignalR `Hub` class.</span></span> <span data-ttu-id="c34cf-169">`Hub` クラスでは、接続、グループ、およびメッセージングが管理されます。</span><span class="sxs-lookup"><span data-stu-id="c34cf-169">The `Hub` class manages connections, groups, and messaging.</span></span>
 
-  <span data-ttu-id="d66f6-170">`SendMessage` メソッドは、メッセージをすべてのクライアントに送信するために、接続されたクライアントによって呼び出される場合があります。</span><span class="sxs-lookup"><span data-stu-id="d66f6-170">The `SendMessage` method can be called by a connected client to send a message to all clients.</span></span> <span data-ttu-id="d66f6-171">このメソッドを呼び出す JavaScript クライアント コードは、チュートリアルの後半で示されます。</span><span class="sxs-lookup"><span data-stu-id="d66f6-171">JavaScript client code that calls the method is shown later in the tutorial.</span></span> <span data-ttu-id="d66f6-172">最大のスケーラビリティを実現するために、SignalR コードは非同期になっています。</span><span class="sxs-lookup"><span data-stu-id="d66f6-172">SignalR code is asynchronous to provide maximum scalability.</span></span>
+  <span data-ttu-id="c34cf-170">`SendMessage` メソッドは、メッセージをすべてのクライアントに送信するために、接続されたクライアントによって呼び出される場合があります。</span><span class="sxs-lookup"><span data-stu-id="c34cf-170">The `SendMessage` method can be called by a connected client to send a message to all clients.</span></span> <span data-ttu-id="c34cf-171">このメソッドを呼び出す JavaScript クライアント コードは、チュートリアルの後半で示されます。</span><span class="sxs-lookup"><span data-stu-id="c34cf-171">JavaScript client code that calls the method is shown later in the tutorial.</span></span> <span data-ttu-id="c34cf-172">最大のスケーラビリティを実現するために、SignalR コードは非同期になっています。</span><span class="sxs-lookup"><span data-stu-id="c34cf-172">SignalR code is asynchronous to provide maximum scalability.</span></span>
 
-## <a name="configure-signalr"></a><span data-ttu-id="d66f6-173">SignalR を構成する</span><span class="sxs-lookup"><span data-stu-id="d66f6-173">Configure SignalR</span></span>
+## <a name="configure-signalr"></a><span data-ttu-id="c34cf-173">SignalR を構成する</span><span class="sxs-lookup"><span data-stu-id="c34cf-173">Configure SignalR</span></span>
 
-<span data-ttu-id="d66f6-174">SignalR 要求が SignalR に渡されるように SignalR サーバーを構成する必要があります。</span><span class="sxs-lookup"><span data-stu-id="d66f6-174">The SignalR server must be configured to pass SignalR requests to SignalR.</span></span>
+<span data-ttu-id="c34cf-174">SignalR 要求が SignalR に渡されるように SignalR サーバーを構成する必要があります。</span><span class="sxs-lookup"><span data-stu-id="c34cf-174">The SignalR server must be configured to pass SignalR requests to SignalR.</span></span>
 
-* <span data-ttu-id="d66f6-175">次の強調表示されたコードを *Startup.cs* ファイルに追加します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-175">Add the following highlighted code to the *Startup.cs* file.</span></span>
+* <span data-ttu-id="c34cf-175">次の強調表示されたコードを *Startup.cs* ファイルに追加します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-175">Add the following highlighted code to the *Startup.cs* file.</span></span>
 
   [!code-csharp[Startup](signalr/sample-snapshot/3.x/Startup.cs?highlight=6,30,58)]
 
-  <span data-ttu-id="d66f6-176">これらの変更によって、SignalR が ASP.NET Core 依存関係挿入およびルーティング システムに追加されます。</span><span class="sxs-lookup"><span data-stu-id="d66f6-176">These changes add SignalR to the ASP.NET Core dependency injection and routing systems.</span></span>
+  <span data-ttu-id="c34cf-176">これらの変更によって、SignalR が ASP.NET Core 依存関係挿入およびルーティング システムに追加されます。</span><span class="sxs-lookup"><span data-stu-id="c34cf-176">These changes add SignalR to the ASP.NET Core dependency injection and routing systems.</span></span>
 
-## <a name="add-signalr-client-code"></a><span data-ttu-id="d66f6-177">SignalR クライアント コードを追加する</span><span class="sxs-lookup"><span data-stu-id="d66f6-177">Add SignalR client code</span></span>
+## <a name="add-signalr-client-code"></a><span data-ttu-id="c34cf-177">SignalR クライアント コードを追加する</span><span class="sxs-lookup"><span data-stu-id="c34cf-177">Add SignalR client code</span></span>
 
-* <span data-ttu-id="d66f6-178">*Pages\Index.cshtml* のコンテンツを次のコードに変更します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-178">Replace the content in *Pages\Index.cshtml* with the following code:</span></span>
+* <span data-ttu-id="c34cf-178">*Pages\Index.cshtml* のコンテンツを次のコードに変更します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-178">Replace the content in *Pages\Index.cshtml* with the following code:</span></span>
 
   [!code-cshtml[Index](signalr/sample-snapshot/3.x/Index.cshtml)]
 
-  <span data-ttu-id="d66f6-179">上のコードでは以下の操作が行われます。</span><span class="sxs-lookup"><span data-stu-id="d66f6-179">The preceding code:</span></span>
+  <span data-ttu-id="c34cf-179">上のコードでは以下の操作が行われます。</span><span class="sxs-lookup"><span data-stu-id="c34cf-179">The preceding code:</span></span>
 
-  * <span data-ttu-id="d66f6-180">名前およびメッセージ テキスト用のテキスト ボックスと送信ボタンを作成します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-180">Creates text boxes for name and message text, and a submit button.</span></span>
-  * <span data-ttu-id="d66f6-181">SignalR ハブから受信したメッセージを表示するために、`id="messagesList"` を使用してリストを作成します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-181">Creates a list with `id="messagesList"` for displaying messages that are received from the SignalR hub.</span></span>
-  * <span data-ttu-id="d66f6-182">SignalR へのスクリプト参照と、次の手順で作成する *chat.js* アプリケーション コードを含めます。</span><span class="sxs-lookup"><span data-stu-id="d66f6-182">Includes script references to SignalR and the *chat.js* application code that you create in the next step.</span></span>
+  * <span data-ttu-id="c34cf-180">名前およびメッセージ テキスト用のテキスト ボックスと送信ボタンを作成します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-180">Creates text boxes for name and message text, and a submit button.</span></span>
+  * <span data-ttu-id="c34cf-181">SignalR ハブから受信したメッセージを表示するために、`id="messagesList"` を使用してリストを作成します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-181">Creates a list with `id="messagesList"` for displaying messages that are received from the SignalR hub.</span></span>
+  * <span data-ttu-id="c34cf-182">SignalR へのスクリプト参照と、次の手順で作成する *chat.js* アプリケーション コードを含めます。</span><span class="sxs-lookup"><span data-stu-id="c34cf-182">Includes script references to SignalR and the *chat.js* application code that you create in the next step.</span></span>
 
-* <span data-ttu-id="d66f6-183">*wwwroot/js* フォルダー内に、次のコードを使用して *chat.js* ファイルを作成します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-183">In the *wwwroot/js* folder, create a *chat.js* file with the following code:</span></span>
+* <span data-ttu-id="c34cf-183">*wwwroot/js* フォルダー内に、次のコードを使用して *chat.js* ファイルを作成します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-183">In the *wwwroot/js* folder, create a *chat.js* file with the following code:</span></span>
 
   [!code-javascript[Index](signalr/sample-snapshot/3.x/chat.js)]
 
-  <span data-ttu-id="d66f6-184">上のコードでは以下の操作が行われます。</span><span class="sxs-lookup"><span data-stu-id="d66f6-184">The preceding code:</span></span>
+  <span data-ttu-id="c34cf-184">上のコードでは以下の操作が行われます。</span><span class="sxs-lookup"><span data-stu-id="c34cf-184">The preceding code:</span></span>
 
-  * <span data-ttu-id="d66f6-185">接続を作成して開始します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-185">Creates and starts a connection.</span></span>
-  * <span data-ttu-id="d66f6-186">ハブにメッセージを送信するハンドラーを送信ボタンに追加します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-186">Adds to the submit button a handler that sends messages to the hub.</span></span>
-  * <span data-ttu-id="d66f6-187">ハブからメッセージを受信してからそれをリストに追加するハンドラーを接続オブジェクトに追加します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-187">Adds to the connection object a handler that receives messages from the hub and adds them to the list.</span></span>
+  * <span data-ttu-id="c34cf-185">接続を作成して開始します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-185">Creates and starts a connection.</span></span>
+  * <span data-ttu-id="c34cf-186">ハブにメッセージを送信するハンドラーを送信ボタンに追加します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-186">Adds to the submit button a handler that sends messages to the hub.</span></span>
+  * <span data-ttu-id="c34cf-187">ハブからメッセージを受信してからそれをリストに追加するハンドラーを接続オブジェクトに追加します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-187">Adds to the connection object a handler that receives messages from the hub and adds them to the list.</span></span>
 
-## <a name="run-the-app"></a><span data-ttu-id="d66f6-188">アプリを実行する</span><span class="sxs-lookup"><span data-stu-id="d66f6-188">Run the app</span></span>
+## <a name="run-the-app"></a><span data-ttu-id="c34cf-188">アプリを実行する</span><span class="sxs-lookup"><span data-stu-id="c34cf-188">Run the app</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="d66f6-189">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="d66f6-189">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="c34cf-189">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="c34cf-189">Visual Studio</span></span>](#tab/visual-studio)
 
-* <span data-ttu-id="d66f6-190">**Ctrl + F5** キーを押して、デバッグを行わずにアプリを実行します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-190">Press **CTRL+F5** to run the app without debugging.</span></span>
+* <span data-ttu-id="c34cf-190">**Ctrl + F5** キーを押して、デバッグを行わずにアプリを実行します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-190">Press **CTRL+F5** to run the app without debugging.</span></span>
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="d66f6-191">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="d66f6-191">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="c34cf-191">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="c34cf-191">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-* <span data-ttu-id="d66f6-192">統合端末で、次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-192">In the integrated terminal, run the following command:</span></span>
+* <span data-ttu-id="c34cf-192">統合端末で、次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-192">In the integrated terminal, run the following command:</span></span>
 
   ```dotnetcli
   dotnet run -p SignalRChat.csproj
   ```
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="d66f6-193">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="d66f6-193">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="c34cf-193">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="c34cf-193">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-* <span data-ttu-id="d66f6-194">メニューから、 **[実行]、[デバッグなしで開始]** の順に選択します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-194">From the menu, select **Run > Start Without Debugging**.</span></span>
+* <span data-ttu-id="c34cf-194">メニューから、 **[実行]、[デバッグなしで開始]** の順に選択します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-194">From the menu, select **Run > Start Without Debugging**.</span></span>
 
 ---
 
-* <span data-ttu-id="d66f6-195">アドレス バーから URL をコピーし、別のブラウザー インスタンスまたはタブを開き、アドレス バーに URL を貼り付けます。</span><span class="sxs-lookup"><span data-stu-id="d66f6-195">Copy the URL from the address bar, open another browser instance or tab, and paste the URL in the address bar.</span></span>
+* <span data-ttu-id="c34cf-195">アドレス バーから URL をコピーし、別のブラウザー インスタンスまたはタブを開き、アドレス バーに URL を貼り付けます。</span><span class="sxs-lookup"><span data-stu-id="c34cf-195">Copy the URL from the address bar, open another browser instance or tab, and paste the URL in the address bar.</span></span>
 
-* <span data-ttu-id="d66f6-196">いずれかのブラウザーを選択し、名前とメッセージを入力し、 **[Send Message]\(メッセージの送信\)** ボタンを選択します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-196">Choose either browser, enter a name and message, and select the **Send Message** button.</span></span>
+* <span data-ttu-id="c34cf-196">いずれかのブラウザーを選択し、名前とメッセージを入力し、 **[Send Message]\(メッセージの送信\)** ボタンを選択します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-196">Choose either browser, enter a name and message, and select the **Send Message** button.</span></span>
 
-  <span data-ttu-id="d66f6-197">次の瞬間、両方のページに名前とメッセージが表示されます。</span><span class="sxs-lookup"><span data-stu-id="d66f6-197">The name and message are displayed on both pages instantly.</span></span>
+  <span data-ttu-id="c34cf-197">次の瞬間、両方のページに名前とメッセージが表示されます。</span><span class="sxs-lookup"><span data-stu-id="c34cf-197">The name and message are displayed on both pages instantly.</span></span>
 
   ![SignalR のサンプル アプリ](signalr/_static/3.x/signalr-get-started-finished.png)
 
 > [!TIP]
-> * <span data-ttu-id="d66f6-199">アプリが動作しない場合は、ご利用のブラウザーの開発者ツール (F12) を開き、コンソールに移動します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-199">If the app doesn't work, open your browser developer tools (F12) and go to the console.</span></span> <span data-ttu-id="d66f6-200">HTML および JavaScript コードに関連するエラーが発生している場合があります。</span><span class="sxs-lookup"><span data-stu-id="d66f6-200">You might see errors related to your HTML and JavaScript code.</span></span> <span data-ttu-id="d66f6-201">たとえば、*signalr.js* を指示されたフォルダーとは別のフォルダーに配置したとします。</span><span class="sxs-lookup"><span data-stu-id="d66f6-201">For example, suppose you put *signalr.js* in a different folder than directed.</span></span> <span data-ttu-id="d66f6-202">その場合、そのファイルへの参照は機能せず、コンソールに 404 エラーが表示されます。</span><span class="sxs-lookup"><span data-stu-id="d66f6-202">In that case the reference to that file won't work and you'll see a 404 error in the console.</span></span>
->   <span data-ttu-id="d66f6-203">![エラー "signalr.js が見つかりませんでした"](signalr/_static/3.x/f12-console.png)</span><span class="sxs-lookup"><span data-stu-id="d66f6-203">![signalr.js not found error](signalr/_static/3.x/f12-console.png)</span></span>
-> * <span data-ttu-id="d66f6-204">Chrome でエラーERR_SPDY_INADEQUATE_TRANSPORT_SECURITY が発生、または Firefox でエラー NS_ERROR_NET_INADEQUATE_SECURITY が発生した場合は、次のコマンドを実行してご利用の開発証明書を更新します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-204">If you get the error ERR_SPDY_INADEQUATE_TRANSPORT_SECURITY in Chrome or NS_ERROR_NET_INADEQUATE_SECURITY in Firefox, run these commands to update your development certificate:</span></span>
+> * <span data-ttu-id="c34cf-199">アプリが動作しない場合は、ご利用のブラウザーの開発者ツール (F12) を開き、コンソールに移動します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-199">If the app doesn't work, open your browser developer tools (F12) and go to the console.</span></span> <span data-ttu-id="c34cf-200">HTML および JavaScript コードに関連するエラーが発生している場合があります。</span><span class="sxs-lookup"><span data-stu-id="c34cf-200">You might see errors related to your HTML and JavaScript code.</span></span> <span data-ttu-id="c34cf-201">たとえば、*signalr.js* を指示されたフォルダーとは別のフォルダーに配置したとします。</span><span class="sxs-lookup"><span data-stu-id="c34cf-201">For example, suppose you put *signalr.js* in a different folder than directed.</span></span> <span data-ttu-id="c34cf-202">その場合、そのファイルへの参照は機能せず、コンソールに 404 エラーが表示されます。</span><span class="sxs-lookup"><span data-stu-id="c34cf-202">In that case the reference to that file won't work and you'll see a 404 error in the console.</span></span>
+>   <span data-ttu-id="c34cf-203">![エラー "signalr.js が見つかりませんでした"](signalr/_static/3.x/f12-console.png)</span><span class="sxs-lookup"><span data-stu-id="c34cf-203">![signalr.js not found error](signalr/_static/3.x/f12-console.png)</span></span>
+> * <span data-ttu-id="c34cf-204">Chrome でエラーERR_SPDY_INADEQUATE_TRANSPORT_SECURITY が発生、または Firefox でエラー NS_ERROR_NET_INADEQUATE_SECURITY が発生した場合は、次のコマンドを実行してご利用の開発証明書を更新します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-204">If you get the error ERR_SPDY_INADEQUATE_TRANSPORT_SECURITY in Chrome or NS_ERROR_NET_INADEQUATE_SECURITY in Firefox, run these commands to update your development certificate:</span></span>
 >
 >   ```dotnetcli
 >   dotnet dev-certs https --clean
 >   dotnet dev-certs https --trust
 >   ```
 
-## <a name="next-steps"></a><span data-ttu-id="d66f6-205">次の手順</span><span class="sxs-lookup"><span data-stu-id="d66f6-205">Next steps</span></span>
+## <a name="next-steps"></a><span data-ttu-id="c34cf-205">次の手順</span><span class="sxs-lookup"><span data-stu-id="c34cf-205">Next steps</span></span>
 
-<span data-ttu-id="d66f6-206">SignalR の詳細については、次の概要を参照してください。</span><span class="sxs-lookup"><span data-stu-id="d66f6-206">To learn more about SignalR, see the introduction:</span></span>
+<span data-ttu-id="c34cf-206">SignalR の詳細については、次の概要を参照してください。</span><span class="sxs-lookup"><span data-stu-id="c34cf-206">To learn more about SignalR, see the introduction:</span></span>
 
 > [!div class="nextstepaction"]
-> [<span data-ttu-id="d66f6-207">ASP.NET Core SignalR の概要</span><span class="sxs-lookup"><span data-stu-id="d66f6-207">Introduction to ASP.NET Core SignalR</span></span>](xref:signalr/introduction)
+> [<span data-ttu-id="c34cf-207">ASP.NET Core SignalR の概要</span><span class="sxs-lookup"><span data-stu-id="c34cf-207">Introduction to ASP.NET Core SignalR</span></span>](xref:signalr/introduction)
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-<span data-ttu-id="d66f6-208">このチュートリアルでは、SignalR を使用してリアルタイム アプリをビルドするための基礎について説明します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-208">This tutorial teaches the basics of building a real-time app using SignalR.</span></span> <span data-ttu-id="d66f6-209">以下の方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-209">You learn how to:</span></span>
+<span data-ttu-id="c34cf-208">このチュートリアルでは、SignalR を使用してリアルタイム アプリをビルドするための基礎について説明します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-208">This tutorial teaches the basics of building a real-time app using SignalR.</span></span> <span data-ttu-id="c34cf-209">以下の方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-209">You learn how to:</span></span>
 
 > [!div class="checklist"]
-> * <span data-ttu-id="d66f6-210">Web プロジェクトを作成します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-210">Create a web project.</span></span>
-> * <span data-ttu-id="d66f6-211">SignalR クライアント ライブラリを追加する。</span><span class="sxs-lookup"><span data-stu-id="d66f6-211">Add the SignalR client library.</span></span>
-> * <span data-ttu-id="d66f6-212">SignalR ハブを作成する。</span><span class="sxs-lookup"><span data-stu-id="d66f6-212">Create a SignalR hub.</span></span>
-> * <span data-ttu-id="d66f6-213">SignalR を使用するようにプロジェクトを構成する。</span><span class="sxs-lookup"><span data-stu-id="d66f6-213">Configure the project to use SignalR.</span></span>
-> * <span data-ttu-id="d66f6-214">任意のクライアントから、接続されているすべてのクライアントにメッセージを送信するコードを追加します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-214">Add code that sends messages from any client to all connected clients.</span></span>
+> * <span data-ttu-id="c34cf-210">Web プロジェクトを作成します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-210">Create a web project.</span></span>
+> * <span data-ttu-id="c34cf-211">SignalR クライアント ライブラリを追加する。</span><span class="sxs-lookup"><span data-stu-id="c34cf-211">Add the SignalR client library.</span></span>
+> * <span data-ttu-id="c34cf-212">SignalR ハブを作成する。</span><span class="sxs-lookup"><span data-stu-id="c34cf-212">Create a SignalR hub.</span></span>
+> * <span data-ttu-id="c34cf-213">SignalR を使用するようにプロジェクトを構成する。</span><span class="sxs-lookup"><span data-stu-id="c34cf-213">Configure the project to use SignalR.</span></span>
+> * <span data-ttu-id="c34cf-214">任意のクライアントから、接続されているすべてのクライアントにメッセージを送信するコードを追加します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-214">Add code that sends messages from any client to all connected clients.</span></span>
 
-<span data-ttu-id="d66f6-215">最後には、次のように動作するチャット アプリが作成されます。</span><span class="sxs-lookup"><span data-stu-id="d66f6-215">At the end, you'll have a working chat app:</span></span>
+<span data-ttu-id="c34cf-215">最後には、次のように動作するチャット アプリが作成されます。</span><span class="sxs-lookup"><span data-stu-id="c34cf-215">At the end, you'll have a working chat app:</span></span>
 
 ![SignalR のサンプル アプリ](signalr/_static/2.x/signalr-get-started-finished.png)
 
-## <a name="prerequisites"></a><span data-ttu-id="d66f6-217">必須コンポーネント</span><span class="sxs-lookup"><span data-stu-id="d66f6-217">Prerequisites</span></span>
+## <a name="prerequisites"></a><span data-ttu-id="c34cf-217">必須コンポーネント</span><span class="sxs-lookup"><span data-stu-id="c34cf-217">Prerequisites</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="d66f6-218">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="d66f6-218">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="c34cf-218">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="c34cf-218">Visual Studio</span></span>](#tab/visual-studio)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vs2017-2.2.md)]
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="d66f6-219">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="d66f6-219">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="c34cf-219">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="c34cf-219">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vsc-2.2.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="d66f6-220">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="d66f6-220">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="c34cf-220">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="c34cf-220">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/net-core-prereqs-mac-2.2.md)]
 
 ---
 
-## <a name="create-a-web-project"></a><span data-ttu-id="d66f6-221">Web プロジェクトを作成する</span><span class="sxs-lookup"><span data-stu-id="d66f6-221">Create a web project</span></span>
+## <a name="create-a-web-project"></a><span data-ttu-id="c34cf-221">Web プロジェクトを作成する</span><span class="sxs-lookup"><span data-stu-id="c34cf-221">Create a web project</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="d66f6-222">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="d66f6-222">Visual Studio</span></span>](#tab/visual-studio/)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="c34cf-222">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="c34cf-222">Visual Studio</span></span>](#tab/visual-studio/)
 
-* <span data-ttu-id="d66f6-223">メニューから、 **[ファイル]、[新規プロジェクト]** の順に選択します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-223">From the menu, select **File > New Project**.</span></span>
+* <span data-ttu-id="c34cf-223">メニューから、 **[ファイル]、[新規プロジェクト]** の順に選択します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-223">From the menu, select **File > New Project**.</span></span>
 
-* <span data-ttu-id="d66f6-224">**[新しいプロジェクト]** ダイアログで、 **[インストール]、[Visual C#]、[Web]、[ASP.NET Core Web アプリケーション]** の順に選択します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-224">In the **New Project** dialog, select **Installed > Visual C# > Web > ASP.NET Core Web Application**.</span></span> <span data-ttu-id="d66f6-225">プロジェクトに "*SignalRChat*" という名前を付けます。</span><span class="sxs-lookup"><span data-stu-id="d66f6-225">Name the project *SignalRChat*.</span></span>
+* <span data-ttu-id="c34cf-224">**[新しいプロジェクト]** ダイアログで、 **[インストール]、[Visual C#]、[Web]、[ASP.NET Core Web アプリケーション]** の順に選択します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-224">In the **New Project** dialog, select **Installed > Visual C# > Web > ASP.NET Core Web Application**.</span></span> <span data-ttu-id="c34cf-225">プロジェクトに "*SignalRChat*" という名前を付けます。</span><span class="sxs-lookup"><span data-stu-id="c34cf-225">Name the project *SignalRChat*.</span></span>
 
   ![Visual Studio の [新しいプロジェクト] ダイアログ ボックス](signalr/_static/2.x/signalr-new-project-dialog.png)
 
-* <span data-ttu-id="d66f6-227">**[Web アプリケーション]** を選択して、Razor Pages を使用するプロジェクトを作成します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-227">Select **Web Application** to create a project that uses Razor Pages.</span></span>
+* <span data-ttu-id="c34cf-227">**[Web アプリケーション]** を選択して、Razor Pages を使用するプロジェクトを作成します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-227">Select **Web Application** to create a project that uses Razor Pages.</span></span>
 
-* <span data-ttu-id="d66f6-228">**.NET Core** のターゲット フレームワークを選択し、**ASP.NET Core 2.2** を選択して、 **[OK]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="d66f6-228">Select a target framework of **.NET Core**, select **ASP.NET Core 2.2**, and click **OK**.</span></span>
+* <span data-ttu-id="c34cf-228">**.NET Core** のターゲット フレームワークを選択し、**ASP.NET Core 2.2** を選択して、 **[OK]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="c34cf-228">Select a target framework of **.NET Core**, select **ASP.NET Core 2.2**, and click **OK**.</span></span>
 
   ![Visual Studio の [新しいプロジェクト] ダイアログ ボックス](signalr/_static/2.x/signalr-new-project-choose-type.png)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="d66f6-230">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="d66f6-230">Visual Studio Code</span></span>](#tab/visual-studio-code/)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="c34cf-230">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="c34cf-230">Visual Studio Code</span></span>](#tab/visual-studio-code/)
 
-* <span data-ttu-id="d66f6-231">新しいプロジェクト フォルダーを作成するフォルダーで[統合ターミナル](https://code.visualstudio.com/docs/editor/integrated-terminal)を開きます。</span><span class="sxs-lookup"><span data-stu-id="d66f6-231">Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal) to the folder in which the new project folder will be created.</span></span>
+* <span data-ttu-id="c34cf-231">新しいプロジェクト フォルダーを作成するフォルダーで[統合ターミナル](https://code.visualstudio.com/docs/editor/integrated-terminal)を開きます。</span><span class="sxs-lookup"><span data-stu-id="c34cf-231">Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal) to the folder in which the new project folder will be created.</span></span>
 
-* <span data-ttu-id="d66f6-232">次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-232">Run the following commands:</span></span>
+* <span data-ttu-id="c34cf-232">次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-232">Run the following commands:</span></span>
 
    ```dotnetcli
    dotnet new webapp -o SignalRChat
    code -r SignalRChat
    ```
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="d66f6-233">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="d66f6-233">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="c34cf-233">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="c34cf-233">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-* <span data-ttu-id="d66f6-234">メニューから、 **[ファイル]、[新しいソリューション]** の順に選択します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-234">From the menu, select **File > New Solution**.</span></span>
+* <span data-ttu-id="c34cf-234">メニューから、 **[ファイル]、[新しいソリューション]** の順に選択します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-234">From the menu, select **File > New Solution**.</span></span>
 
-* <span data-ttu-id="d66f6-235">**[.NET Core]、[アプリ]、[ASP.NET Core Web アプリ]** の順に選択します ( **[ASP.NET Core Web アプリ (MVC)]** を選択しないでください)。</span><span class="sxs-lookup"><span data-stu-id="d66f6-235">Select **.NET Core > App > ASP.NET Core Web App** (Don't select **ASP.NET Core Web App (MVC)**).</span></span>
+* <span data-ttu-id="c34cf-235">**[.NET Core]、[アプリ]、[ASP.NET Core Web アプリ]** の順に選択します ( **[ASP.NET Core Web アプリ (MVC)]** を選択しないでください)。</span><span class="sxs-lookup"><span data-stu-id="c34cf-235">Select **.NET Core > App > ASP.NET Core Web App** (Don't select **ASP.NET Core Web App (MVC)**).</span></span>
 
-* <span data-ttu-id="d66f6-236">**[次へ]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-236">Select **Next**.</span></span>
+* <span data-ttu-id="c34cf-236">**[次へ]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-236">Select **Next**.</span></span>
 
-* <span data-ttu-id="d66f6-237">プロジェクトに *SignalRChat* という名前を付けて、 **[作成]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-237">Name the project *SignalRChat*, and then select **Create**.</span></span>
+* <span data-ttu-id="c34cf-237">プロジェクトに *SignalRChat* という名前を付けて、 **[作成]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-237">Name the project *SignalRChat*, and then select **Create**.</span></span>
 
 ---
 
-## <a name="add-the-signalr-client-library"></a><span data-ttu-id="d66f6-238">SignalR クライアント ライブラリを追加する</span><span class="sxs-lookup"><span data-stu-id="d66f6-238">Add the SignalR client library</span></span>
+## <a name="add-the-signalr-client-library"></a><span data-ttu-id="c34cf-238">SignalR クライアント ライブラリを追加する</span><span class="sxs-lookup"><span data-stu-id="c34cf-238">Add the SignalR client library</span></span>
 
-<span data-ttu-id="d66f6-239">SignalR サーバー ライブラリは、`Microsoft.AspNetCore.App` メタパッケージに含まれています。</span><span class="sxs-lookup"><span data-stu-id="d66f6-239">The SignalR server library is included in the `Microsoft.AspNetCore.App` metapackage.</span></span> <span data-ttu-id="d66f6-240">JavaScript クライアント ライブラリはプロジェクトに自動的に含まれません。</span><span class="sxs-lookup"><span data-stu-id="d66f6-240">The JavaScript client library isn't automatically included in the project.</span></span> <span data-ttu-id="d66f6-241">このチュートリアルでは、ライブラリ マネージャー (LibMan) を使用して *unpkg* からクライアント ライブラリを取得します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-241">For this tutorial, you use Library Manager (LibMan) to get the client library from *unpkg*.</span></span> <span data-ttu-id="d66f6-242">unpkg は、npm (Node.js パッケージ マネージャー) で見つかるものすべてを配信できるコンテンツ配信ネットワーク (CDN) です。</span><span class="sxs-lookup"><span data-stu-id="d66f6-242">unpkg is a content delivery network (CDN)) that can deliver anything found in npm, the Node.js package manager.</span></span>
+<span data-ttu-id="c34cf-239">SignalR サーバー ライブラリは、`Microsoft.AspNetCore.App` メタパッケージに含まれています。</span><span class="sxs-lookup"><span data-stu-id="c34cf-239">The SignalR server library is included in the `Microsoft.AspNetCore.App` metapackage.</span></span> <span data-ttu-id="c34cf-240">JavaScript クライアント ライブラリはプロジェクトに自動的に含まれません。</span><span class="sxs-lookup"><span data-stu-id="c34cf-240">The JavaScript client library isn't automatically included in the project.</span></span> <span data-ttu-id="c34cf-241">このチュートリアルでは、ライブラリ マネージャー (LibMan) を使用して *unpkg* からクライアント ライブラリを取得します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-241">For this tutorial, you use Library Manager (LibMan) to get the client library from *unpkg*.</span></span> <span data-ttu-id="c34cf-242">unpkg は、npm (Node.js パッケージ マネージャー) で見つかるものすべてを配信できるコンテンツ配信ネットワーク (CDN) です。</span><span class="sxs-lookup"><span data-stu-id="c34cf-242">unpkg is a content delivery network (CDN)) that can deliver anything found in npm, the Node.js package manager.</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="d66f6-243">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="d66f6-243">Visual Studio</span></span>](#tab/visual-studio/)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="c34cf-243">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="c34cf-243">Visual Studio</span></span>](#tab/visual-studio/)
 
-* <span data-ttu-id="d66f6-244">**ソリューション エクスプローラー**で、プロジェクトを右クリックし、 **[追加]** > **[クライアント側のライブラリ]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-244">In **Solution Explorer**, right-click the project, and select **Add** > **Client-Side Library**.</span></span>
+* <span data-ttu-id="c34cf-244">**ソリューション エクスプローラー**で、プロジェクトを右クリックし、 **[追加]** > **[クライアント側のライブラリ]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-244">In **Solution Explorer**, right-click the project, and select **Add** > **Client-Side Library**.</span></span>
 
-* <span data-ttu-id="d66f6-245">**[Add Client-Side Library]\(クライアント側のライブラリの追加\)** ダイアログで、 **[プロバイダー]** に対して **[unpkg]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-245">In the **Add Client-Side Library** dialog, for **Provider** select **unpkg**.</span></span>
+* <span data-ttu-id="c34cf-245">**[Add Client-Side Library]\(クライアント側のライブラリの追加\)** ダイアログで、 **[プロバイダー]** に対して **[unpkg]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-245">In the **Add Client-Side Library** dialog, for **Provider** select **unpkg**.</span></span>
 
-* <span data-ttu-id="d66f6-246">**[ライブラリ]** に対して「`@aspnet/signalr@1`」を入力し、プレビューでない最新のバージョンを選択します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-246">For **Library**, enter `@aspnet/signalr@1`, and select the latest version that isn't preview.</span></span>
+* <span data-ttu-id="c34cf-246">**[ライブラリ]** に対して「`@aspnet/signalr@1`」を入力し、プレビューでない最新のバージョンを選択します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-246">For **Library**, enter `@aspnet/signalr@1`, and select the latest version that isn't preview.</span></span>
 
   ![クライアント側のライブラリの追加ダイアログ - ライブラリの選択](signalr/_static/2.x/libman1.png)
 
-* <span data-ttu-id="d66f6-248">**[Choose specific files]\(特定のファイルの選択\)** を選択して *dist/browser* フォルダーを展開し、*signalr.js* と *signalr.min.js* を選択します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-248">Select **Choose specific files**, expand the *dist/browser* folder, and select *signalr.js* and *signalr.min.js*.</span></span>
+* <span data-ttu-id="c34cf-248">**[Choose specific files]\(特定のファイルの選択\)** を選択して *dist/browser* フォルダーを展開し、*signalr.js* と *signalr.min.js* を選択します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-248">Select **Choose specific files**, expand the *dist/browser* folder, and select *signalr.js* and *signalr.min.js*.</span></span>
 
-* <span data-ttu-id="d66f6-249">**[ターゲットの場所]** を *wwwroot/lib/signalr/* に設定して、 **[インストール]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-249">Set **Target Location** to *wwwroot/lib/signalr/*, and select **Install**.</span></span>
+* <span data-ttu-id="c34cf-249">**[ターゲットの場所]** を *wwwroot/lib/signalr/* に設定して、 **[インストール]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-249">Set **Target Location** to *wwwroot/lib/signalr/*, and select **Install**.</span></span>
 
   ![クライアント側のライブラリの追加ダイアログ - ファイルと保存先の選択](signalr/_static/2.x/libman2.png)
 
-  <span data-ttu-id="d66f6-251">LibMan によって *wwwroot/lib/signalr* フォルダーが作成され、そこに選択したファイルがコピーされます。</span><span class="sxs-lookup"><span data-stu-id="d66f6-251">LibMan creates a *wwwroot/lib/signalr* folder and copies the selected files to it.</span></span>
+  <span data-ttu-id="c34cf-251">LibMan によって *wwwroot/lib/signalr* フォルダーが作成され、そこに選択したファイルがコピーされます。</span><span class="sxs-lookup"><span data-stu-id="c34cf-251">LibMan creates a *wwwroot/lib/signalr* folder and copies the selected files to it.</span></span>
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="d66f6-252">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="d66f6-252">Visual Studio Code</span></span>](#tab/visual-studio-code/)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="c34cf-252">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="c34cf-252">Visual Studio Code</span></span>](#tab/visual-studio-code/)
 
-* <span data-ttu-id="d66f6-253">統合端末で、次のコマンドを実行して LibMan をインストールします。</span><span class="sxs-lookup"><span data-stu-id="d66f6-253">In the integrated terminal, run the following command to install LibMan.</span></span>
+* <span data-ttu-id="c34cf-253">統合端末で、次のコマンドを実行して LibMan をインストールします。</span><span class="sxs-lookup"><span data-stu-id="c34cf-253">In the integrated terminal, run the following command to install LibMan.</span></span>
 
   ```dotnetcli
   dotnet tool install -g Microsoft.Web.LibraryManager.Cli
   ```
 
-* <span data-ttu-id="d66f6-254">次のコマンドを実行して、LibMan を使用して SignalR クライアント ライブラリを取得します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-254">Run the following command to get the SignalR client library by using LibMan.</span></span> <span data-ttu-id="d66f6-255">出力が表示されるまでに数秒待機する必要がある場合があります。</span><span class="sxs-lookup"><span data-stu-id="d66f6-255">You might have to wait a few seconds before seeing output.</span></span>
+* <span data-ttu-id="c34cf-254">次のコマンドを実行して、LibMan を使用して SignalR クライアント ライブラリを取得します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-254">Run the following command to get the SignalR client library by using LibMan.</span></span> <span data-ttu-id="c34cf-255">出力が表示されるまでに数秒待機する必要がある場合があります。</span><span class="sxs-lookup"><span data-stu-id="c34cf-255">You might have to wait a few seconds before seeing output.</span></span>
 
   ```console
   libman install @aspnet/signalr -p unpkg -d wwwroot/lib/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js
   ```
 
-  <span data-ttu-id="d66f6-256">パラメーターによって次のオプションが指定されます。</span><span class="sxs-lookup"><span data-stu-id="d66f6-256">The parameters specify the following options:</span></span>
-  * <span data-ttu-id="d66f6-257">unpkg プロバイダーを使用する。</span><span class="sxs-lookup"><span data-stu-id="d66f6-257">Use the unpkg provider.</span></span>
-  * <span data-ttu-id="d66f6-258">ファイルを *wwwroot/lib/signalr* にコピーする。</span><span class="sxs-lookup"><span data-stu-id="d66f6-258">Copy files to the *wwwroot/lib/signalr* destination.</span></span>
-  * <span data-ttu-id="d66f6-259">指定したファイルのみをコピーする。</span><span class="sxs-lookup"><span data-stu-id="d66f6-259">Copy only the specified files.</span></span>
+  <span data-ttu-id="c34cf-256">パラメーターによって次のオプションが指定されます。</span><span class="sxs-lookup"><span data-stu-id="c34cf-256">The parameters specify the following options:</span></span>
+  * <span data-ttu-id="c34cf-257">unpkg プロバイダーを使用する。</span><span class="sxs-lookup"><span data-stu-id="c34cf-257">Use the unpkg provider.</span></span>
+  * <span data-ttu-id="c34cf-258">ファイルを *wwwroot/lib/signalr* にコピーする。</span><span class="sxs-lookup"><span data-stu-id="c34cf-258">Copy files to the *wwwroot/lib/signalr* destination.</span></span>
+  * <span data-ttu-id="c34cf-259">指定したファイルのみをコピーする。</span><span class="sxs-lookup"><span data-stu-id="c34cf-259">Copy only the specified files.</span></span>
 
-  <span data-ttu-id="d66f6-260">出力は次の例のようになります。</span><span class="sxs-lookup"><span data-stu-id="d66f6-260">The output looks like the following example:</span></span>
+  <span data-ttu-id="c34cf-260">出力は次の例のようになります。</span><span class="sxs-lookup"><span data-stu-id="c34cf-260">The output looks like the following example:</span></span>
 
   ```console
   wwwroot/lib/signalr/dist/browser/signalr.js written to disk
@@ -376,28 +376,28 @@ ms.locfileid: "71081967"
   Installed library "@aspnet/signalr@1.0.3" to "wwwroot/lib/signalr"
   ```
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="d66f6-261">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="d66f6-261">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="c34cf-261">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="c34cf-261">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-* <span data-ttu-id="d66f6-262">**[端末]** で、次のコマンドを実行して LibMan をインストールします。</span><span class="sxs-lookup"><span data-stu-id="d66f6-262">In the **Terminal**, run the following command to install LibMan.</span></span>
+* <span data-ttu-id="c34cf-262">**[端末]** で、次のコマンドを実行して LibMan をインストールします。</span><span class="sxs-lookup"><span data-stu-id="c34cf-262">In the **Terminal**, run the following command to install LibMan.</span></span>
 
   ```dotnetcli
   dotnet tool install -g Microsoft.Web.LibraryManager.Cli
   ```
 
-* <span data-ttu-id="d66f6-263">プロジェクト フォルダー (ファイル *SignalRChat.csproj* を含んでいるフォルダー) に移動します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-263">Navigate to the project folder (the one that contains the *SignalRChat.csproj* file).</span></span>
+* <span data-ttu-id="c34cf-263">プロジェクト フォルダー (ファイル *SignalRChat.csproj* を含んでいるフォルダー) に移動します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-263">Navigate to the project folder (the one that contains the *SignalRChat.csproj* file).</span></span>
 
-* <span data-ttu-id="d66f6-264">次のコマンドを実行して、LibMan を使用して SignalR クライアント ライブラリを取得します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-264">Run the following command to get the SignalR client library by using LibMan.</span></span>
+* <span data-ttu-id="c34cf-264">次のコマンドを実行して、LibMan を使用して SignalR クライアント ライブラリを取得します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-264">Run the following command to get the SignalR client library by using LibMan.</span></span>
 
   ```console
   libman install @aspnet/signalr -p unpkg -d wwwroot/lib/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js
   ```
 
-  <span data-ttu-id="d66f6-265">パラメーターによって次のオプションが指定されます。</span><span class="sxs-lookup"><span data-stu-id="d66f6-265">The parameters specify the following options:</span></span>
-  * <span data-ttu-id="d66f6-266">unpkg プロバイダーを使用する。</span><span class="sxs-lookup"><span data-stu-id="d66f6-266">Use the unpkg provider.</span></span>
-  * <span data-ttu-id="d66f6-267">ファイルを *wwwroot/lib/signalr* にコピーする。</span><span class="sxs-lookup"><span data-stu-id="d66f6-267">Copy files to the *wwwroot/lib/signalr* destination.</span></span>
-  * <span data-ttu-id="d66f6-268">指定したファイルのみをコピーする。</span><span class="sxs-lookup"><span data-stu-id="d66f6-268">Copy only the specified files.</span></span>
+  <span data-ttu-id="c34cf-265">パラメーターによって次のオプションが指定されます。</span><span class="sxs-lookup"><span data-stu-id="c34cf-265">The parameters specify the following options:</span></span>
+  * <span data-ttu-id="c34cf-266">unpkg プロバイダーを使用する。</span><span class="sxs-lookup"><span data-stu-id="c34cf-266">Use the unpkg provider.</span></span>
+  * <span data-ttu-id="c34cf-267">ファイルを *wwwroot/lib/signalr* にコピーする。</span><span class="sxs-lookup"><span data-stu-id="c34cf-267">Copy files to the *wwwroot/lib/signalr* destination.</span></span>
+  * <span data-ttu-id="c34cf-268">指定したファイルのみをコピーする。</span><span class="sxs-lookup"><span data-stu-id="c34cf-268">Copy only the specified files.</span></span>
 
-  <span data-ttu-id="d66f6-269">出力は次の例のようになります。</span><span class="sxs-lookup"><span data-stu-id="d66f6-269">The output looks like the following example:</span></span>
+  <span data-ttu-id="c34cf-269">出力は次の例のようになります。</span><span class="sxs-lookup"><span data-stu-id="c34cf-269">The output looks like the following example:</span></span>
 
   ```console
   wwwroot/lib/signalr/dist/browser/signalr.js written to disk
@@ -407,98 +407,102 @@ ms.locfileid: "71081967"
 
 ---
 
-## <a name="create-a-signalr-hub"></a><span data-ttu-id="d66f6-270">SignalR ハブを作成する</span><span class="sxs-lookup"><span data-stu-id="d66f6-270">Create a SignalR hub</span></span>
+## <a name="create-a-signalr-hub"></a><span data-ttu-id="c34cf-270">SignalR ハブを作成する</span><span class="sxs-lookup"><span data-stu-id="c34cf-270">Create a SignalR hub</span></span>
 
-<span data-ttu-id="d66f6-271">*ハブ*はクライアント サーバー通信を処理するハイレベル パイプラインとして機能するクラスです。</span><span class="sxs-lookup"><span data-stu-id="d66f6-271">A *hub* is a class that serves as a high-level pipeline that handles client-server communication.</span></span>
+<span data-ttu-id="c34cf-271">*ハブ*はクライアント サーバー通信を処理するハイレベル パイプラインとして機能するクラスです。</span><span class="sxs-lookup"><span data-stu-id="c34cf-271">A *hub* is a class that serves as a high-level pipeline that handles client-server communication.</span></span>
 
-* <span data-ttu-id="d66f6-272">SignalRChat プロジェクト フォルダー内で、*Hubs* フォルダーを作成します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-272">In the SignalRChat project folder, create a *Hubs* folder.</span></span>
+* <span data-ttu-id="c34cf-272">SignalRChat プロジェクト フォルダー内で、*Hubs* フォルダーを作成します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-272">In the SignalRChat project folder, create a *Hubs* folder.</span></span>
 
-* <span data-ttu-id="d66f6-273">*Hubs* フォルダー内で、次のコードを使用して *ChatHub.cs* ファイルを作成します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-273">In the *Hubs* folder, create a *ChatHub.cs* file with the following code:</span></span>
+* <span data-ttu-id="c34cf-273">*Hubs* フォルダー内で、次のコードを使用して *ChatHub.cs* ファイルを作成します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-273">In the *Hubs* folder, create a *ChatHub.cs* file with the following code:</span></span>
 
   [!code-csharp[Startup](signalr/sample-snapshot/2.x/ChatHub.cs)]
 
-  <span data-ttu-id="d66f6-274">`ChatHub` クラスは、SignalR `Hub` クラスを継承します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-274">The `ChatHub` class inherits from the SignalR `Hub` class.</span></span> <span data-ttu-id="d66f6-275">`Hub` クラスでは、接続、グループ、およびメッセージングが管理されます。</span><span class="sxs-lookup"><span data-stu-id="d66f6-275">The `Hub` class manages connections, groups, and messaging.</span></span>
+  <span data-ttu-id="c34cf-274">`ChatHub` クラスは、SignalR `Hub` クラスを継承します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-274">The `ChatHub` class inherits from the SignalR `Hub` class.</span></span> <span data-ttu-id="c34cf-275">`Hub` クラスでは、接続、グループ、およびメッセージングが管理されます。</span><span class="sxs-lookup"><span data-stu-id="c34cf-275">The `Hub` class manages connections, groups, and messaging.</span></span>
 
-  <span data-ttu-id="d66f6-276">`SendMessage` メソッドは、メッセージをすべてのクライアントに送信するために、接続されたクライアントによって呼び出される場合があります。</span><span class="sxs-lookup"><span data-stu-id="d66f6-276">The `SendMessage` method can be called by a connected client to send a message to all clients.</span></span> <span data-ttu-id="d66f6-277">このメソッドを呼び出す JavaScript クライアント コードは、チュートリアルの後半で示されます。</span><span class="sxs-lookup"><span data-stu-id="d66f6-277">JavaScript client code that calls the method is shown later in the tutorial.</span></span> <span data-ttu-id="d66f6-278">最大のスケーラビリティを実現するために、SignalR コードは非同期になっています。</span><span class="sxs-lookup"><span data-stu-id="d66f6-278">SignalR code is asynchronous to provide maximum scalability.</span></span>
+  <span data-ttu-id="c34cf-276">`SendMessage` メソッドは、メッセージをすべてのクライアントに送信するために、接続されたクライアントによって呼び出される場合があります。</span><span class="sxs-lookup"><span data-stu-id="c34cf-276">The `SendMessage` method can be called by a connected client to send a message to all clients.</span></span> <span data-ttu-id="c34cf-277">このメソッドを呼び出す JavaScript クライアント コードは、チュートリアルの後半で示されます。</span><span class="sxs-lookup"><span data-stu-id="c34cf-277">JavaScript client code that calls the method is shown later in the tutorial.</span></span> <span data-ttu-id="c34cf-278">最大のスケーラビリティを実現するために、SignalR コードは非同期になっています。</span><span class="sxs-lookup"><span data-stu-id="c34cf-278">SignalR code is asynchronous to provide maximum scalability.</span></span>
 
-## <a name="configure-signalr"></a><span data-ttu-id="d66f6-279">SignalR を構成する</span><span class="sxs-lookup"><span data-stu-id="d66f6-279">Configure SignalR</span></span>
+## <a name="configure-signalr"></a><span data-ttu-id="c34cf-279">SignalR を構成する</span><span class="sxs-lookup"><span data-stu-id="c34cf-279">Configure SignalR</span></span>
 
-<span data-ttu-id="d66f6-280">SignalR 要求が SignalR に渡されるように SignalR サーバーを構成する必要があります。</span><span class="sxs-lookup"><span data-stu-id="d66f6-280">The SignalR server must be configured to pass SignalR requests to SignalR.</span></span>
+<span data-ttu-id="c34cf-280">SignalR 要求が SignalR に渡されるように SignalR サーバーを構成する必要があります。</span><span class="sxs-lookup"><span data-stu-id="c34cf-280">The SignalR server must be configured to pass SignalR requests to SignalR.</span></span>
 
-* <span data-ttu-id="d66f6-281">次の強調表示されたコードを *Startup.cs* ファイルに追加します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-281">Add the following highlighted code to the *Startup.cs* file.</span></span>
+* <span data-ttu-id="c34cf-281">次の強調表示されたコードを *Startup.cs* ファイルに追加します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-281">Add the following highlighted code to the *Startup.cs* file.</span></span>
 
   [!code-csharp[Startup](signalr/sample-snapshot/2.x/Startup.cs?highlight=7,33,52-55)]
 
-  <span data-ttu-id="d66f6-282">これらの変更によって、SignalR が ASP.NET Core 依存関係挿入システムとミドルウェア パイプラインに追加されます。</span><span class="sxs-lookup"><span data-stu-id="d66f6-282">These changes add SignalR to the ASP.NET Core dependency injection system and the middleware pipeline.</span></span>
+  <span data-ttu-id="c34cf-282">これらの変更によって、SignalR が ASP.NET Core 依存関係挿入システムとミドルウェア パイプラインに追加されます。</span><span class="sxs-lookup"><span data-stu-id="c34cf-282">These changes add SignalR to the ASP.NET Core dependency injection system and the middleware pipeline.</span></span>
 
-## <a name="add-signalr-client-code"></a><span data-ttu-id="d66f6-283">SignalR クライアント コードを追加する</span><span class="sxs-lookup"><span data-stu-id="d66f6-283">Add SignalR client code</span></span>
+## <a name="add-signalr-client-code"></a><span data-ttu-id="c34cf-283">SignalR クライアント コードを追加する</span><span class="sxs-lookup"><span data-stu-id="c34cf-283">Add SignalR client code</span></span>
 
-* <span data-ttu-id="d66f6-284">*Pages\Index.cshtml* のコンテンツを次のコードに変更します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-284">Replace the content in *Pages\Index.cshtml* with the following code:</span></span>
+* <span data-ttu-id="c34cf-284">*Pages\Index.cshtml* のコンテンツを次のコードに変更します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-284">Replace the content in *Pages\Index.cshtml* with the following code:</span></span>
 
   [!code-cshtml[Index](signalr/sample-snapshot/2.x/Index.cshtml)]
 
-  <span data-ttu-id="d66f6-285">上のコードでは以下の操作が行われます。</span><span class="sxs-lookup"><span data-stu-id="d66f6-285">The preceding code:</span></span>
+  <span data-ttu-id="c34cf-285">上のコードでは以下の操作が行われます。</span><span class="sxs-lookup"><span data-stu-id="c34cf-285">The preceding code:</span></span>
 
-  * <span data-ttu-id="d66f6-286">名前およびメッセージ テキスト用のテキスト ボックスと送信ボタンを作成します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-286">Creates text boxes for name and message text, and a submit button.</span></span>
-  * <span data-ttu-id="d66f6-287">SignalR ハブから受信したメッセージを表示するために、`id="messagesList"` を使用してリストを作成します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-287">Creates a list with `id="messagesList"` for displaying messages that are received from the SignalR hub.</span></span>
-  * <span data-ttu-id="d66f6-288">SignalR へのスクリプト参照と、次の手順で作成する *chat.js* アプリケーション コードを含めます。</span><span class="sxs-lookup"><span data-stu-id="d66f6-288">Includes script references to SignalR and the *chat.js* application code that you create in the next step.</span></span>
+  * <span data-ttu-id="c34cf-286">名前およびメッセージ テキスト用のテキスト ボックスと送信ボタンを作成します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-286">Creates text boxes for name and message text, and a submit button.</span></span>
+  * <span data-ttu-id="c34cf-287">SignalR ハブから受信したメッセージを表示するために、`id="messagesList"` を使用してリストを作成します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-287">Creates a list with `id="messagesList"` for displaying messages that are received from the SignalR hub.</span></span>
+  * <span data-ttu-id="c34cf-288">SignalR へのスクリプト参照と、次の手順で作成する *chat.js* アプリケーション コードを含めます。</span><span class="sxs-lookup"><span data-stu-id="c34cf-288">Includes script references to SignalR and the *chat.js* application code that you create in the next step.</span></span>
 
-* <span data-ttu-id="d66f6-289">*wwwroot/js* フォルダー内に、次のコードを使用して *chat.js* ファイルを作成します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-289">In the *wwwroot/js* folder, create a *chat.js* file with the following code:</span></span>
+* <span data-ttu-id="c34cf-289">*wwwroot/js* フォルダー内に、次のコードを使用して *chat.js* ファイルを作成します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-289">In the *wwwroot/js* folder, create a *chat.js* file with the following code:</span></span>
 
   [!code-javascript[Index](signalr/sample-snapshot/2.x/chat.js)]
 
-  <span data-ttu-id="d66f6-290">上のコードでは以下の操作が行われます。</span><span class="sxs-lookup"><span data-stu-id="d66f6-290">The preceding code:</span></span>
+  <span data-ttu-id="c34cf-290">上のコードでは以下の操作が行われます。</span><span class="sxs-lookup"><span data-stu-id="c34cf-290">The preceding code:</span></span>
 
-  * <span data-ttu-id="d66f6-291">接続を作成して開始します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-291">Creates and starts a connection.</span></span>
-  * <span data-ttu-id="d66f6-292">ハブにメッセージを送信するハンドラーを送信ボタンに追加します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-292">Adds to the submit button a handler that sends messages to the hub.</span></span>
-  * <span data-ttu-id="d66f6-293">ハブからメッセージを受信してからそれをリストに追加するハンドラーを接続オブジェクトに追加します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-293">Adds to the connection object a handler that receives messages from the hub and adds them to the list.</span></span>
+  * <span data-ttu-id="c34cf-291">接続を作成して開始します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-291">Creates and starts a connection.</span></span>
+  * <span data-ttu-id="c34cf-292">ハブにメッセージを送信するハンドラーを送信ボタンに追加します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-292">Adds to the submit button a handler that sends messages to the hub.</span></span>
+  * <span data-ttu-id="c34cf-293">ハブからメッセージを受信してからそれをリストに追加するハンドラーを接続オブジェクトに追加します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-293">Adds to the connection object a handler that receives messages from the hub and adds them to the list.</span></span>
 
-## <a name="run-the-app"></a><span data-ttu-id="d66f6-294">アプリを実行する</span><span class="sxs-lookup"><span data-stu-id="d66f6-294">Run the app</span></span>
+## <a name="run-the-app"></a><span data-ttu-id="c34cf-294">アプリを実行する</span><span class="sxs-lookup"><span data-stu-id="c34cf-294">Run the app</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="d66f6-295">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="d66f6-295">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="c34cf-295">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="c34cf-295">Visual Studio</span></span>](#tab/visual-studio)
 
-* <span data-ttu-id="d66f6-296">**Ctrl + F5** キーを押して、デバッグを行わずにアプリを実行します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-296">Press **CTRL+F5** to run the app without debugging.</span></span>
+* <span data-ttu-id="c34cf-296">**Ctrl + F5** キーを押して、デバッグを行わずにアプリを実行します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-296">Press **CTRL+F5** to run the app without debugging.</span></span>
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="d66f6-297">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="d66f6-297">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="c34cf-297">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="c34cf-297">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-* <span data-ttu-id="d66f6-298">統合端末で、次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-298">In the integrated terminal, run the following command:</span></span>
+* <span data-ttu-id="c34cf-298">統合端末で、次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-298">In the integrated terminal, run the following command:</span></span>
 
   ```dotnetcli
   dotnet run -p SignalRChat.csproj
   ```
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="d66f6-299">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="d66f6-299">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="c34cf-299">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="c34cf-299">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-* <span data-ttu-id="d66f6-300">メニューから、 **[実行]、[デバッグなしで開始]** の順に選択します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-300">From the menu, select **Run > Start Without Debugging**.</span></span>
+* <span data-ttu-id="c34cf-300">メニューから、 **[実行]、[デバッグなしで開始]** の順に選択します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-300">From the menu, select **Run > Start Without Debugging**.</span></span>
 
 ---
 
-* <span data-ttu-id="d66f6-301">アドレス バーから URL をコピーし、別のブラウザー インスタンスまたはタブを開き、アドレス バーに URL を貼り付けます。</span><span class="sxs-lookup"><span data-stu-id="d66f6-301">Copy the URL from the address bar, open another browser instance or tab, and paste the URL in the address bar.</span></span>
+* <span data-ttu-id="c34cf-301">アドレス バーから URL をコピーし、別のブラウザー インスタンスまたはタブを開き、アドレス バーに URL を貼り付けます。</span><span class="sxs-lookup"><span data-stu-id="c34cf-301">Copy the URL from the address bar, open another browser instance or tab, and paste the URL in the address bar.</span></span>
 
-* <span data-ttu-id="d66f6-302">いずれかのブラウザーを選択し、名前とメッセージを入力し、 **[Send Message]\(メッセージの送信\)** ボタンを選択します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-302">Choose either browser, enter a name and message, and select the **Send Message** button.</span></span>
+* <span data-ttu-id="c34cf-302">いずれかのブラウザーを選択し、名前とメッセージを入力し、 **[Send Message]\(メッセージの送信\)** ボタンを選択します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-302">Choose either browser, enter a name and message, and select the **Send Message** button.</span></span>
 
-  <span data-ttu-id="d66f6-303">次の瞬間、両方のページに名前とメッセージが表示されます。</span><span class="sxs-lookup"><span data-stu-id="d66f6-303">The name and message are displayed on both pages instantly.</span></span>
+  <span data-ttu-id="c34cf-303">次の瞬間、両方のページに名前とメッセージが表示されます。</span><span class="sxs-lookup"><span data-stu-id="c34cf-303">The name and message are displayed on both pages instantly.</span></span>
 
   ![SignalR のサンプル アプリ](signalr/_static/2.x/signalr-get-started-finished.png)
 
 > [!TIP]
-> <span data-ttu-id="d66f6-305">アプリが動作しない場合は、ご利用のブラウザーの開発者ツール (F12) を開き、コンソールに移動します。</span><span class="sxs-lookup"><span data-stu-id="d66f6-305">If the app doesn't work, open your browser developer tools (F12) and go to the console.</span></span> <span data-ttu-id="d66f6-306">HTML および JavaScript コードに関連するエラーが発生している場合があります。</span><span class="sxs-lookup"><span data-stu-id="d66f6-306">You might see errors related to your HTML and JavaScript code.</span></span> <span data-ttu-id="d66f6-307">たとえば、*signalr.js* を指示されたフォルダーとは別のフォルダーに配置したとします。</span><span class="sxs-lookup"><span data-stu-id="d66f6-307">For example, suppose you put *signalr.js* in a different folder than directed.</span></span> <span data-ttu-id="d66f6-308">その場合、そのファイルへの参照は機能せず、コンソールに 404 エラーが表示されます。</span><span class="sxs-lookup"><span data-stu-id="d66f6-308">In that case the reference to that file won't work and you'll see a 404 error in the console.</span></span>
-> <span data-ttu-id="d66f6-309">![エラー "signalr.js が見つかりませんでした"](signalr/_static/2.x/f12-console.png)</span><span class="sxs-lookup"><span data-stu-id="d66f6-309">![signalr.js not found error](signalr/_static/2.x/f12-console.png)</span></span>
+> <span data-ttu-id="c34cf-305">アプリが動作しない場合は、ご利用のブラウザーの開発者ツール (F12) を開き、コンソールに移動します。</span><span class="sxs-lookup"><span data-stu-id="c34cf-305">If the app doesn't work, open your browser developer tools (F12) and go to the console.</span></span> <span data-ttu-id="c34cf-306">HTML および JavaScript コードに関連するエラーが発生している場合があります。</span><span class="sxs-lookup"><span data-stu-id="c34cf-306">You might see errors related to your HTML and JavaScript code.</span></span> <span data-ttu-id="c34cf-307">たとえば、*signalr.js* を指示されたフォルダーとは別のフォルダーに配置したとします。</span><span class="sxs-lookup"><span data-stu-id="c34cf-307">For example, suppose you put *signalr.js* in a different folder than directed.</span></span> <span data-ttu-id="c34cf-308">その場合、そのファイルへの参照は機能せず、コンソールに 404 エラーが表示されます。</span><span class="sxs-lookup"><span data-stu-id="c34cf-308">In that case the reference to that file won't work and you'll see a 404 error in the console.</span></span>
+> <span data-ttu-id="c34cf-309">![エラー "signalr.js が見つかりませんでした"](signalr/_static/2.x/f12-console.png)</span><span class="sxs-lookup"><span data-stu-id="c34cf-309">![signalr.js not found error](signalr/_static/2.x/f12-console.png)</span></span>
 
-## <a name="next-steps"></a><span data-ttu-id="d66f6-310">次の手順</span><span class="sxs-lookup"><span data-stu-id="d66f6-310">Next steps</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="c34cf-310">その他の技術情報</span><span class="sxs-lookup"><span data-stu-id="c34cf-310">Additional resources</span></span>
 
-<span data-ttu-id="d66f6-311">このチュートリアルでは、次の作業を行う方法を学びました。</span><span class="sxs-lookup"><span data-stu-id="d66f6-311">In this tutorial, you learned how to:</span></span>
+* [<span data-ttu-id="c34cf-311">このチュートリアルの YouTube バージョン</span><span class="sxs-lookup"><span data-stu-id="c34cf-311">Youtube version of this tutorial</span></span>](https://www.youtube.com/watch?v=iKlVmu-r0JQ)
+
+## <a name="next-steps"></a><span data-ttu-id="c34cf-312">次の手順</span><span class="sxs-lookup"><span data-stu-id="c34cf-312">Next steps</span></span>
+
+<span data-ttu-id="c34cf-313">このチュートリアルでは、次の作業を行う方法を学びました。</span><span class="sxs-lookup"><span data-stu-id="c34cf-313">In this tutorial, you learned how to:</span></span>
 
 > [!div class="checklist"]
-> * <span data-ttu-id="d66f6-312">Web アプリ プロジェクトを作成する。</span><span class="sxs-lookup"><span data-stu-id="d66f6-312">Create a web app project.</span></span>
-> * <span data-ttu-id="d66f6-313">SignalR クライアント ライブラリを追加する。</span><span class="sxs-lookup"><span data-stu-id="d66f6-313">Add the SignalR client library.</span></span>
-> * <span data-ttu-id="d66f6-314">SignalR ハブを作成する。</span><span class="sxs-lookup"><span data-stu-id="d66f6-314">Create a SignalR hub.</span></span>
-> * <span data-ttu-id="d66f6-315">SignalR を使用するようにプロジェクトを構成する。</span><span class="sxs-lookup"><span data-stu-id="d66f6-315">Configure the project to use SignalR.</span></span>
-> * <span data-ttu-id="d66f6-316">ハブを使用して任意のクライアントから接続済みのすべてのクライアントにメッセージを送信する、コードを追加する。</span><span class="sxs-lookup"><span data-stu-id="d66f6-316">Add code that uses the hub to send messages from any client to all connected clients.</span></span>
+> * <span data-ttu-id="c34cf-314">Web アプリ プロジェクトを作成する。</span><span class="sxs-lookup"><span data-stu-id="c34cf-314">Create a web app project.</span></span>
+> * <span data-ttu-id="c34cf-315">SignalR クライアント ライブラリを追加する。</span><span class="sxs-lookup"><span data-stu-id="c34cf-315">Add the SignalR client library.</span></span>
+> * <span data-ttu-id="c34cf-316">SignalR ハブを作成する。</span><span class="sxs-lookup"><span data-stu-id="c34cf-316">Create a SignalR hub.</span></span>
+> * <span data-ttu-id="c34cf-317">SignalR を使用するようにプロジェクトを構成する。</span><span class="sxs-lookup"><span data-stu-id="c34cf-317">Configure the project to use SignalR.</span></span>
+> * <span data-ttu-id="c34cf-318">ハブを使用して任意のクライアントから接続済みのすべてのクライアントにメッセージを送信する、コードを追加する。</span><span class="sxs-lookup"><span data-stu-id="c34cf-318">Add code that uses the hub to send messages from any client to all connected clients.</span></span>
 
-<span data-ttu-id="d66f6-317">SignalR の詳細については、次の概要を参照してください。</span><span class="sxs-lookup"><span data-stu-id="d66f6-317">To learn more about SignalR, see the introduction:</span></span>
+<span data-ttu-id="c34cf-319">SignalR の詳細については、次の概要を参照してください。</span><span class="sxs-lookup"><span data-stu-id="c34cf-319">To learn more about SignalR, see the introduction:</span></span>
 
 > [!div class="nextstepaction"]
-> [<span data-ttu-id="d66f6-318">ASP.NET Core SignalR の概要</span><span class="sxs-lookup"><span data-stu-id="d66f6-318">Introduction to ASP.NET Core SignalR</span></span>](xref:signalr/introduction)
+> [<span data-ttu-id="c34cf-320">ASP.NET Core SignalR の概要</span><span class="sxs-lookup"><span data-stu-id="c34cf-320">Introduction to ASP.NET Core SignalR</span></span>](xref:signalr/introduction)
 
 ::: moniker-end
