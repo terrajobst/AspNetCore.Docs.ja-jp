@@ -4,14 +4,14 @@ author: juntaoluo
 description: 既存の C コアベースの gRPC アプリを移動して ASP.NET Core スタック上で実行する方法について説明します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
-ms.date: 03/31/2019
+ms.date: 09/25/2019
 uid: grpc/migration
-ms.openlocfilehash: 39aa711a1a47cf11ec5b08903b4130c7caa1501c
-ms.sourcegitcommit: 476ea5ad86a680b7b017c6f32098acd3414c0f6c
+ms.openlocfilehash: 8f0d9dd980fa3281f30dc29d329d10ccd352ae72
+ms.sourcegitcommit: 994da92edb0abf856b1655c18880028b15a28897
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/14/2019
-ms.locfileid: "69022296"
+ms.lasthandoff: 09/25/2019
+ms.locfileid: "71278698"
 ---
 # <a name="migrating-grpc-services-from-c-core-to-aspnet-core"></a>GRPC サービスの C-core から ASP.NET Core への移行
 
@@ -49,14 +49,14 @@ public void ConfigureServices(IServiceCollection services)
 
 C コアベースのアプリでは`grpc.max_receive_message_length` 、や`grpc.max_send_message_length`などの設定は、[サーバーインスタンスを構築](https://grpc.io/grpc/csharp/api/Grpc.Core.Server.html#Grpc_Core_Server__ctor_System_Collections_Generic_IEnumerable_Grpc_Core_ChannelOption__)するときにで`ChannelOption`構成されます。
 
-ASP.NET Core では、grpc は型を`GrpcServiceOptions`使用して構成を提供します。 たとえば、gRPC サービスの最大受信メッセージサイズは、 `AddGrpc`次の方法で構成できます。
+ASP.NET Core では、grpc は型を`GrpcServiceOptions`使用して構成を提供します。 たとえば、gRPC サービスの最大受信メッセージサイズは、を使用`AddGrpc`して構成できます。 次の例では、 `ReceiveMaxMessageSize`既定の 4 mb を 16 mb に変更します。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
     services.AddGrpc(options =>
     {
-        options.ReceiveMaxMessageSize = 16384; // 16 MB
+        options.ReceiveMaxMessageSize = 16 * 1024 * 1024; // 16 MB
     });
 }
 ```
@@ -84,7 +84,7 @@ C コアベースのアプリは、 [Server. Ports プロパティ](https://grpc
 
 ASP.NET Core[ミドルウェア](xref:fundamentals/middleware/index)は、C コアベースの grpc アプリのインターセプターと比較して同様の機能を提供します。 ミドルウェアとインターセプターは、両方とも、gRPC 要求を処理するパイプラインを構築するために使用されるのと同じです。 どちらも、パイプライン内の次のコンポーネントの前または後に作業を実行できます。 ただし、ASP.NET Core ミドルウェアは基になる HTTP/2 メッセージに対して動作しますが、インターセプターは[ServerCallContext](https://grpc.io/grpc/csharp/api/Grpc.Core.ServerCallContext.html)を使用して、抽象の grpc レイヤーで動作します。
 
-## <a name="additional-resources"></a>その他の資料
+## <a name="additional-resources"></a>その他の技術情報
 
 * <xref:grpc/index>
 * <xref:grpc/basics>

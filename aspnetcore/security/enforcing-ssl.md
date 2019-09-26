@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/14/2019
 uid: security/enforcing-ssl
-ms.openlocfilehash: eafb06d181ca3f085cccb314749c8d4deba074fa
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: aa42b1c7199e951714be809de9c9c5f857473485
+ms.sourcegitcommit: 994da92edb0abf856b1655c18880028b15a28897
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082557"
+ms.lasthandoff: 09/25/2019
+ms.locfileid: "71278751"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>ASP.NET Core に HTTPS を適用する
 
@@ -362,6 +362,58 @@ Windows Subsystem for Linux (WSL) は、HTTPS 自己署名証明書を生成し�
 * WSL ウィンドウで、次のコマンドを実行します。`ASPNETCORE_Kestrel__Certificates__Default__Password="<cryptic-password>" ASPNETCORE_Kestrel__Certificates__Default__Path=/mnt/c/Users/user-name/.aspnet/https/aspnetapp.pfx dotnet watch run`
 
   上記のコマンドは、Linux が Windows の信頼された証明書を使用するように環境変数を設定します。
+
+## <a name="troubleshoot-certificate-problems"></a>証明書に関する問題のトラブルシューティング
+
+このセクションでは ASP.NET Core の HTTPS 開発証明書がインストールされ、[信頼](#trust)されているが、証明書が信頼されていないことを示すブラウザーの警告が表示される場合に役立つ情報を提供します。
+
+### <a name="all-platforms---certificate-not-trusted"></a>すべてのプラットフォーム-信頼されていない証明書
+
+次のコマンドを実行します。
+
+```dotnetcli
+dotnet devcerts https --clean
+dotnet devcerts https --trust
+```
+
+開いているすべてのブラウザーインスタンスを閉じます。 新しいブラウザーウィンドウを開いてアプリを開きます。 証明書の信頼は、ブラウザーによってキャッシュされます。
+
+上記のコマンドは、ほとんどのブラウザーの信頼の問題を解決します。 ブラウザーがまだ証明書を信頼していない場合は、次のプラットフォーム固有の提案に従ってください。
+
+### <a name="docker---certificate-not-trusted"></a>Docker-信頼されていない証明書
+
+* *C:\Users\{USER} \AppData\Roaming\ASP.NET\Https*フォルダーを削除します。
+* ソリューションをクリーンアップします。 *bin* フォルダーと *obj* フォルダーを削除します。
+* 開発ツールを再起動します。 たとえば、Visual Studio、Visual Studio Code、Visual Studio for Mac などです。
+
+### <a name="windows---certificate-not-trusted"></a>Windows-信頼されていない証明書
+
+* 証明書ストア内の証明書を確認します。 との両方`localhost` `ASP.NET Core HTTPS development certificate`に、フレンドリ名を持つ証明書が存在する必要があります。 `Current User > Personal > Certificates``Current User > Trusted root certification authorities > Certificates`
+* 個人証明書と信頼されたルート証明機関の両方から、検出されたすべての証明書を削除します。 IIS Express localhost 証明書**は削除しないでください。**
+* 次のコマンドを実行します。
+
+```dotnetcli
+dotnet devcerts https --clean
+dotnet devcerts https --trust
+```
+
+開いているすべてのブラウザーインスタンスを閉じます。 新しいブラウザーウィンドウを開いてアプリを開きます。
+
+### <a name="os-x---certificate-not-trusted"></a>OS X-信頼されていない証明書
+
+* キーチェーンアクセスを開きます。
+* システムキーチェーンを選択します。
+* Localhost 証明書の存在を確認します。
+* アイコンに`+`シンボルが含まれていることを確認し、すべてのユーザーに対して信頼されていることを示します。
+* システムキーチェーンから証明書を削除します。
+* 次のコマンドを実行します。
+
+```dotnetcli
+dotnet devcerts https --clean
+dotnet devcerts https --trust
+```
+
+開いているすべてのブラウザーインスタンスを閉じます。 新しいブラウザーウィンドウを開いてアプリを開きます。
 
 ## <a name="additional-information"></a>追加情報
 
