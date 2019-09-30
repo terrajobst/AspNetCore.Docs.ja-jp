@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/22/2019
 uid: getting-started
-ms.openlocfilehash: 0f05ab120d64832a4bc2fd70921efc7238ee9eac
-ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
+ms.openlocfilehash: c9cd5e05f52c8bdefa931adc654087dac91e2f05
+ms.sourcegitcommit: e644258c95dd50a82284f107b9bf3becbc43b2b2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71187058"
+ms.lasthandoff: 09/26/2019
+ms.locfileid: "71317761"
 ---
 # <a name="tutorial-get-started-with-aspnet-core"></a>チュートリアル: ASP.NET Core の概要
 
@@ -90,18 +90,18 @@ HTTPS 開発証明書を信頼する方法については、Linux ディスト�
 
 ```dotnetcli
 cd aspnetcoreapp
-dotnet run
+dotnet watch run
 ```
 
 コマンド シェルでアプリが開始したことが示されたら、[https://localhost:5001](https://localhost:5001) を参照します。 **[Accept]\(承認\)** をクリックして、プライバシーとクッキーのポリシーを受け入れます。 このアプリで個人情報が保持されることはありません。
 
 ## <a name="edit-a-razor-page"></a>Razor ページを編集する
 
-*Pages/Index.cshtml* を開き、次の強調表示されたマークアップでページを変更します。
+*Pages/Index.cshtml* を開き、次の強調表示されたマークアップを使ってページを変更し、保存します。
 
 [!code-cshtml[](sample/index.cshtml?highlight=9)]
 
-[https://localhost:5001](https://localhost:5001) を参照して、変更が表示されていることを確認します。
+[https://localhost:5001](https://localhost:5001) に移動し、ページを更新して、変更が表示されていることを確認します。
 
 ## <a name="next-steps"></a>次の手順
 
