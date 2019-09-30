@@ -83,7 +83,7 @@ Web アプリの運用 ASP.NET Core では次のものを使用することを�
 * 既定の[HttpsRedirectionOptions statuscode](/dotnet/api/microsoft.aspnetcore.httpspolicy.httpsredirectionoptions.redirectstatuscode) ([Status307TemporaryRedirect](/dotnet/api/microsoft.aspnetcore.http.statuscodes.status307temporaryredirect)) を使用します。
 * `ASPNETCORE_HTTPS_PORT` 環境変数または [IServerAddressesFeature](/dotnet/api/microsoft.aspnetcore.hosting.server.features.iserveraddressesfeature) でオーバーライドされない限り、既定の [HttpsRedirectionOptions.HttpsPort](/dotnet/api/microsoft.aspnetcore.httpspolicy.httpsredirectionoptions.httpsport) (null) を使用します。
 
-永続的なリダイレクトではなく、一時的なリダイレクトを使用することをお勧めします。 リンクキャッシュを使用すると、開発環境で不安定な動作が発生する可能性があります。 アプリが非開発環境にあるときに永続的なリダイレクト状態コードを送信する場合は、「運用環境[で永続的なリダイレクトを構成](#configure-permanent-redirects-in-production)する」セクションを参照してください。 [Hsts](#http-strict-transport-security-protocol-hsts)を使用して、セキュリティで保護されたリソース要求のみをアプリケーションに送信する (運用環境のみ) ことをクライアントに通知することをお勧めします。
+永続的なリダイレクトではなく、一時的なリダイレクトを使用することをお勧めします。 リンクキャッシュを使用すると、開発環境で不安定な動作が発生する可能性があります。 アプリが非開発環境にあるときに永続的なリダイレクト状態コードを送信する場合は、「[運用環境での永続的なリダイレクトの構成](#configure-permanent-redirects-in-production)」セクションを参照してください。 [Hsts](#http-strict-transport-security-protocol-hsts)を使用して、セキュリティで保護されたリソース要求のみをアプリケーションに送信する (運用環境のみ) ことをクライアントに通知することをお勧めします。
 
 ### <a name="port-configuration"></a>ポートの構成
 
