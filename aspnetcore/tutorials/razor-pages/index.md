@@ -5,12 +5,12 @@ description: Visual Studio、ASP.NET Core、EF Core を使用して Windows で 
 ms.author: riande
 ms.date: 08/09/2019
 uid: tutorials/razor-pages/index
-ms.openlocfilehash: 11a5f651aa3da0a01490d28d411a614cb2f355c2
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 03acfc381cf5dca2f8b834da75191cd8053e0da4
+ms.sourcegitcommit: dc96d76f6b231de59586fcbb989a7fb5106d26a8
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082390"
+ms.lasthandoff: 10/01/2019
+ms.locfileid: "71703781"
 ---
 # <a name="tutorial-create-a-razor-pages-web-app-with-aspnet-core"></a>チュートリアル: ASP.NET Core で Razor ページ Web アプリを作成する
 
@@ -32,8 +32,3 @@ ms.locfileid: "71082390"
 最後には、映画のデータベースを表示して管理できるアプリができあがります。
 
 ![サンプル アプリのサンプル ページ](index/_static/sample-page.png)
-
-## <a name="additional-resources"></a>その他の技術情報
-
-* [このチュートリアルの YouTube バージョン](https://www.youtube.com/watch?v=F0SP7Ry4flQ&feature=youtu.be)
-* [このチュートリアルの YouTube バージョン (トルコ語)](https://www.youtube.com/watch?v=wqW8ayrA5-E)
