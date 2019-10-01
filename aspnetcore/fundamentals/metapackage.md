@@ -7,14 +7,20 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/25/2018
 uid: fundamentals/metapackage
-ms.openlocfilehash: 5d49213e6d694f121d8301c94ba71782b2dc45cf
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 91f39fc59e5682fb19f8cbc6e9ebe5b30e5dcf3c
+ms.sourcegitcommit: 8a36be1bfee02eba3b07b7a86085ec25c38bae6b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65086931"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71219135"
 ---
 # <a name="microsoftaspnetcoreall-metapackage-for-aspnet-core-20"></a>ASP.NET Core 2.0 用の Microsoft.AspNetCore.All メタパッケージ
+
+::: moniker range=">= aspnetcore-3.0"
+
+`Microsoft.AspNetCore.All` メタパケージは ASP.NET Core 3.0 以降には含まれません。 詳細については、[こちらの GitHub の問題](https://github.com/aspnet/Announcements/issues/314)のページを参照してください。
+
+::: moniker-end
 
 > [!NOTE]
 > ASP.NET Core 2.1 以降を対象とするアプリケーションは、このパッケージではなく [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app) を使うことをお勧めします。 この記事の「[Microsoft.AspNetCore.All から Microsoft.AspNetCore.App への移行](#migrate)」をご覧ください。
@@ -86,7 +92,7 @@ ASP.NET Core 2.1 以降では、バージョンなしで `Microsoft.AspNetCore.A
 
 ## <a name="update-aspnet-core-21"></a>ASP.NET Core 2.1 を更新する
 
-2.1 以降用の `Microsoft.AspNetCore.App` メタパッケージに移行することをお勧めします。 `Microsoft.AspNetCore.All` メタパッケージを引き続き使用し、最新のバージョンの修正プログラムが配置されていることを確認するには、次のようにします。
+2\.1 以降用の `Microsoft.AspNetCore.App` メタパッケージに移行することをお勧めします。 `Microsoft.AspNetCore.All` メタパッケージを引き続き使用し、最新のバージョンの修正プログラムが配置されていることを確認するには、次のようにします。
 
 * 開発用コンピューターおよびビルド サーバーの場合:最新の [.NET Core SDK](https://www.microsoft.com/net/download) をインストールします。
 * 配置サーバーの場合:最新の [.NET Core ランタイム](https://www.microsoft.com/net/download)をインストールします。

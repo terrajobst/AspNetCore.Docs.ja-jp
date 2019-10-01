@@ -5,12 +5,12 @@ description: モデル バインドにより ASP.NET Core のモデルの型を�
 ms.author: riande
 ms.date: 11/13/2018
 uid: mvc/advanced/custom-model-binding
-ms.openlocfilehash: 91f42393ffee3249f9167e10eaea7b279a7cb70b
-ms.sourcegitcommit: e7c56e8da5419bbc20b437c2dd531dedf9b0dc6b
+ms.openlocfilehash: b2fbe6a9f11315d1fb8863fbf62e8929c7ff3fc2
+ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/10/2019
-ms.locfileid: "70878414"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71186886"
 ---
 # <a name="custom-model-binding-in-aspnet-core"></a>ASP.NET Core でのカスタム モデル バインド
 
@@ -132,9 +132,7 @@ public IModelBinder GetBinder(ModelBinderProviderContext context)
 
 ### <a name="polymorphic-model-binding"></a>ポリモーフィック モデル バインド
 
-派生型の異なるモデルへのバインドは、ポリモーフィック モデル バインドと呼ばれます。 カスタム モデル バインドは、要求値を特定の派生モデル型にバインドする必要がある場合に必要です。 このアプローチが必要でない限り、ポリモーフィック モデル バインドを避けることをお勧めします。 ポリモーフィック モデル バインドにより、バインドされているモデルに関する判断が困難になります。 ただし、アプリにポリモーフィック モデル バインドが必要な場合、実装は次のコードのようになります。
-
-派生型の異なるモデルへのバインドは、ポリモーフィック モデル バインドと呼ばれます。 カスタム モデル バインドは、要求値を特定の派生モデル型にバインドする必要がある場合に必要です。 ポリモーフィック モデル バインド:
+派生型の異なるモデルへのバインドは、ポリモーフィック モデル バインドと呼ばれます。 ポリモーフィック カスタム モデル バインドは、要求値を特定の派生モデル型にバインドする必要がある場合に必要です。 ポリモーフィック モデル バインド:
 
 * すべての言語と相互運用できるように設計された REST API では一般的ではありません。
 * バインドされたモデルに関する判断が困難になります。
