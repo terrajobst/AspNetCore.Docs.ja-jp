@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/28/2019
 uid: host-and-deploy/azure-apps/index
-ms.openlocfilehash: 4dc150ff4534e42e1995a185f650cea9df70ccc4
-ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
+ms.openlocfilehash: 7489868fac513948cbe6f48391e7260a34b2175e
+ms.sourcegitcommit: dc96d76f6b231de59586fcbb989a7fb5106d26a8
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71187051"
+ms.lasthandoff: 10/01/2019
+ms.locfileid: "71703749"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>Azure App Service に ASP.NET Core アプリを展開する
 
@@ -27,6 +27,8 @@ Visual Studio を使用して ASP.NET Core Web アプリを作成し、Windows �
 
 [App Service on Linux で ASP.NET Core アプリを作成する](/azure/app-service/containers/quickstart-dotnetcore)  
 コマンド ラインを使用して ASP.NET Core Web アプリを作成し、Linux の Azure App Service に配置します。
+
+Azure App Service で利用可能な ASP.NET Core のバージョンについては、「[App Service ダッシュボードの ASP.NET Core](https://aspnetcoreon.azurewebsites.net/)」を参照してください。
 
 ASP.NET Core のドキュメントでは、次の記事を参照できます。
 
