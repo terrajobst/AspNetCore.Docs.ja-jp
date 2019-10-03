@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/09/2019
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: 995fdd2bbba30ff983bc2055fcb97c14541e2ac6
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 544037a2a1f836e51b4f10551316312ef55c68da
+ms.sourcegitcommit: fe88748b762525cb490f7e39089a4760f6a73a24
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081480"
+ms.lasthandoff: 09/30/2019
+ms.locfileid: "71688079"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>Windows サービスでの ASP.NET Core のホスト
 
@@ -36,21 +36,7 @@ ASP.NET Core ワーカー サービス テンプレートは、実行時間が�
 1. .NET Core テンプレートからワーカー サービス アプリを作成します。
 1. 「[アプリの構成](#app-configuration)」セクションのガイダンスに従って、Windows サービスとして実行できるようにワーカー サービス アプリを更新します。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
-
-1. 新しいプロジェクトを作成します。
-1. **[ASP.NET Core Web アプリケーション]** を選択します。 **[次へ]** を選択します。
-1. **[プロジェクト名]** フィールドにプロジェクト名を入力するか、既定のプロジェクト名をそのまま使用します。 **[作成]** を選択します。
-1. **[新しい ASP.NET Core Web アプリケーションを作成する]** ダイアログで、 **[.NET Core]** と **[ASP.NET Core 3.0]** が選択されていることを確認します。
-1. **[ワーカー サービス]** テンプレートを選択します。 **[作成]** を選択します。
-
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
-
-コマンド シェルから [dotnet new](/dotnet/core/tools/dotnet-new) コマンドと共にワーカー サービス (`worker`) テンプレートを使用します。 次の例では、`ContosoWorkerService` という名前のワーカー サービス アプリが作成されます。 このコマンドが実行されると、`ContosoWorkerService` アプリ用のフォルダーが自動的に作成されます。
-
-```dotnetcli
-dotnet new worker -o ContosoWorkerService
-```
+[!INCLUDE[](~/includes/worker-template-instructions.md)]
 
 ---
 
