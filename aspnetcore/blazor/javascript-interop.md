@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/23/2019
 uid: blazor/javascript-interop
-ms.openlocfilehash: 2b5d1433fce6e09adf3caa58e55e678b00ad98ee
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: b30bce6ef3ebf1cd2f4f3fe8d046e1db9b6929d5
+ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71211648"
+ms.lasthandoff: 10/03/2019
+ms.locfileid: "71924647"
 ---
 # <a name="aspnet-core-blazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 相互運用機能
 
@@ -38,7 +38,7 @@ Blazor Server アプリの場合:
 
 次の例は、JavaScript ベースの試験的なデコーダーである[Textdecoder](https://developer.mozilla.org/docs/Web/API/TextDecoder)に基づいています。 この例では、 C#メソッドから JavaScript 関数を呼び出す方法を示します。 JavaScript 関数は、 C#メソッドからバイト配列を受け取り、配列をデコードし、テキストをコンポーネントに返して表示できるようにします。
 
-Wwwroot/index.html (Blazor webassembly または*Pages/_Host* (Blazor Server) の`TextDecoder` 要素内で、渡された配列をデコードするために使用する関数を提供し`<head>`ます。
+*Wwwroot/index.html*の `<head>` 要素 (Blazor WebAssembly または*Pages/_Host* (Blazor Server) 内で、渡された配列をデコードするために @no__t 3 を使用する関数を提供します。
 
 [!code-html[](javascript-interop/samples_snapshot/index-script.html)]
 
@@ -81,13 +81,13 @@ Wwwroot/index.html (Blazor webassembly または*Pages/_Host* (Blazor Server) �
 
 [!code-javascript[](./common/samples/3.x/BlazorSample/wwwroot/exampleJsInterop.js?highlight=2-7)]
 
-JavaScript ファイルを参照する タグをwwwroot/index.htmlファイル(Blazor)またはPages/_Hostファイル(BlazorServer)に配置し`<script>`ます。
+JavaScript ファイルを参照する `<script>` タグを、 *wwwroot/index.html*ファイル (Blazor) または*Pages/_Host*ファイル (Blazor Server) に配置します。
 
 *wwwroot/index.html*(Blazor WebAssembly:
 
 [!code-html[](./common/samples/3.x/BlazorSample/wwwroot/index.html?highlight=15)]
 
-*Pages/_Host*(Blazor サーバー):
+*Pages/_Host* (Blazor Server):
 
 [!code-cshtml[](javascript-interop/samples_snapshot/_Host.cshtml?highlight=29)]
 
@@ -139,7 +139,7 @@ JavaScript ファイルを参照する タグをwwwroot/index.htmlファイル(B
 ```
 
 > [!NOTE]
-> Blazor が参照されている要素と対話するときに、DOM を作成または操作する方法として、キャプチャ**さ**れた要素参照を使用しないでください。 これを行うと、宣言型のレンダリングモデルに干渉する可能性があります。
+> キャプチャ**さ**れた要素参照を DOM に設定する方法としては使用しないでください。 これを行うと、宣言型のレンダリングモデルに干渉する可能性があります。
 
 .Net コードに関し`ElementReference`ては、は不透明なハンドルです。 この操作を実行`ElementReference`できるのは、javascript の相互運用機能を使用して javascript コードに渡すことだけです。 これを行うと、JavaScript 側のコードは、通常`HTMLElement`の DOM api で使用できるインスタンスを受け取ります。
 

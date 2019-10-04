@@ -5,14 +5,14 @@ description: Blazor WebAssembly と Blazor のサーバーホスティングモ�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 10/03/2019
 uid: blazor/hosting-models
-ms.openlocfilehash: 766b52df82f75ea1223e20d8471faa5732311f91
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: bc3ad9c7c4731b685fc161844d9f55e51722c0ea
+ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71207228"
+ms.lasthandoff: 10/03/2019
+ms.locfileid: "71924670"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>Blazor ホスティングモデルの ASP.NET Core
 
@@ -133,11 +133,14 @@ Blazor サーバーアプリは、ネットワーク待機時間とメモリ使�
 
 Blazor サーバーアプリには、サーバーへのアクティブな SignalR 接続が必要です。 接続が失われた場合、アプリはサーバーへの再接続を試みます。 クライアントの状態がまだメモリ内にある限り、クライアントセッションは状態を失うことなく再開されます。
 
-クライアントが接続が失われたことを検出すると、クライアントが再接続しようとしているときに、既定の UI がユーザーに表示されます。 再接続に失敗した場合、ユーザーには再試行のオプションが表示されます。 UI をカスタマイズするには、 *_Host*ページ`components-reconnect-modal` `id`でとしてを使用して要素を定義します。 クライアントは、接続の状態に基づいて、次のいずれかの CSS クラスを使用して、この要素を更新します。
+クライアントが接続が失われたことを検出すると、クライアントが再接続しようとしているときに、既定の UI がユーザーに表示されます。 再接続に失敗した場合、ユーザーには再試行のオプションが表示されます。 UI をカスタマイズするには、 *_Host*ページで `components-reconnect-modal` と `id` を指定して、要素を定義します。 クライアントは、接続の状態に基づいて、次のいずれかの CSS クラスを使用して、この要素を更新します。
 
-* `components-reconnect-show`&ndash;接続が失われたことを示す UI を表示し、クライアントが再接続を試みていることを示します。
+* `components-reconnect-show` &ndash; の場合、接続が失われたことを示す UI が表示され、クライアントは再接続を試みています。
 * `components-reconnect-hide`&ndash;クライアントにアクティブな接続があり、UI が非表示になっています。
-* `components-reconnect-failed`&ndash;再接続に失敗しました。 再度再接続を試みるに`window.Blazor.reconnect()`は、を呼び出します。
+* `components-reconnect-failed` &ndash; の再接続に失敗しました。ネットワーク障害が原因である可能性があります。 再接続を試行するには、`window.Blazor.reconnect()` を呼び出します。
+* `components-reconnect-rejected` &ndash; の再接続が拒否されました。 サーバーに到達したが接続を拒否したため、サーバー上のユーザーの状態が失われました。 アプリを再度読み込むには、`location.reload()` を呼び出します。 この接続状態は、次の場合に発生する可能性があります。
+  * 回線のクラッシュ (サーバー側コード) が発生します。
+  * サーバーがユーザーの状態を削除するのに十分な時間、クライアントが接続されていません。 ユーザーが操作していたコンポーネントのインスタンスは破棄されます。
 
 ### <a name="stateful-reconnection-after-prerendering"></a>プリレンダリング後のステートフル再接続
 

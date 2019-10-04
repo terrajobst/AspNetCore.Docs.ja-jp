@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/14/2019
 uid: security/enforcing-ssl
-ms.openlocfilehash: 1d1bba6a1f1da2af959bc69b31f79bac53bf48b9
-ms.sourcegitcommit: fe3e556bf438fc4136fcf0bac61cf96e3e91caf5
+ms.openlocfilehash: 25e4f7cd6ae3cd58813c89d13262e91a706644b3
+ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/27/2019
-ms.locfileid: "71341467"
+ms.lasthandoff: 10/03/2019
+ms.locfileid: "71924723"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>ASP.NET Core に HTTPS を適用する
 
@@ -56,7 +56,7 @@ API がないと、クライアントが最初の要求で機微なデータを�
 
 Web アプリの運用 ASP.NET Core では次のものを使用することをお勧めします。
 
-* HTTP 要求を HTTPS にリダイレクトする HTTPS リダイレクトミドルウェア (UseHttpsRedirection)。
+* HTTP 要求を https<xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection*>にリダイレクトする https リダイレクトミドルウェア ()。
 * HSTS ミドルウェア ([Usehsts](#http-strict-transport-security-protocol-hsts)) を介して、HTTP Strict Transport Security Protocol (hsts) ヘッダーをクライアントに送信します。
 
 > [!NOTE]
@@ -140,7 +140,7 @@ Kestrel または http.sys が公開エッジサーバーとして使用され�
 
 セキュリティで保護されていない要求をアプリケーションが受信し、セキュリティで保護されたポートにクライアントをリダイレクトするには、セキュリティで保護されていないポートにクライアントがアクセスできる必要があります。
 
-詳細については、「Kestrel エンドポイントの構成」または「ASP.NET Core での HTTP.sys Web サーバーの実装」を参照してください。
+詳細については、「 [Kestrel エンドポイントの構成](xref:fundamentals/servers/kestrel#endpoint-configuration)」または<xref:fundamentals/servers/httpsys>「」を参照してください。
 
 ### <a name="deployment-scenarios"></a>展開シナリオ
 
@@ -148,7 +148,7 @@ Kestrel または http.sys が公開エッジサーバーとして使用され�
 
 リバースプロキシ構成で要求が転送される場合は、HTTPS リダイレクトミドルウェアを呼び出す前に、転送された[ヘッダーミドルウェア](xref:host-and-deploy/proxy-load-balancer)を使用します。 転送されたヘッダー `Request.Scheme`ミドルウェアは、 `X-Forwarded-Proto`ヘッダーを使用してを更新します。 ミドルウェアは、リダイレクト Uri とその他のセキュリティポリシーを正しく動作させることを許可します。 転送ヘッダーミドルウェアが使用されていない場合、バックエンドアプリは正しいスキームを受信せず、リダイレクトループで終了する可能性があります。 一般的なエンドユーザーエラーメッセージは、リダイレクトされた回数が多すぎることを示しています。
 
-Azure App Service にデプロイする場合は、「チュートリアル: Azure App Service への SSL 証明書のアップロードとバインド」のガイダンスに従ってください。
+Azure App Service にデプロイする場合は、チュートリアルの[ガイダンスに従ってください。既存のカスタム SSL 証明書を Azure Web Apps にバインドする](/azure/app-service/app-service-web-tutorial-custom-ssl)」をご覧ください。
 
 ### <a name="options"></a>オプション
 
@@ -372,8 +372,8 @@ Windows Subsystem for Linux (WSL) は、HTTPS 自己署名証明書を生成し�
 次のコマンドを実行します。
 
 ```dotnetcli
-dotnet devcerts https --clean
-dotnet devcerts https --trust
+dotnet dev-certs https --clean
+dotnet dev-certs https --trust
 ```
 
 開いているすべてのブラウザーインスタンスを閉じます。 新しいブラウザーウィンドウを開いてアプリを開きます。 証明書の信頼は、ブラウザーによってキャッシュされます。

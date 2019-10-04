@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 07/03/2019
 uid: grpc/basics
-ms.openlocfilehash: e17a4561f2d4f8ceccb293a8a8c237de58e4ee3c
-ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
+ms.openlocfilehash: 8d99d036fd4b00fc4568e67ea5225dc006dea4b1
+ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/05/2019
-ms.locfileid: "70310419"
+ms.lasthandoff: 10/03/2019
+ms.locfileid: "71925183"
 ---
 # <a name="grpc-services-with-c"></a>gRPC サービスと C\#
 
@@ -19,7 +19,7 @@ ms.locfileid: "70310419"
 
 ## <a name="proto-file"></a>プロトコルファイル
 
-gRPC は、API 開発に対してコントラクト優先のアプローチを使用します。 プロトコルバッファー (protobuf) は、既定ではインターフェイスデザイン言語 (IDL) として使用されます。 *\*プロトコル*ファイルには次のものが含まれます。
+gRPC では、API 開発に対してコントラクト優先のアプローチが使われます。 プロトコルバッファー (protobuf) は、既定ではインターフェイスデザイン言語 (IDL) として使用されます。 *@No__t の-1*ファイルには次のものが含まれます。
 
 * GRPC サービスの定義。
 * クライアントとサーバーの間で送信されるメッセージ。
@@ -36,11 +36,11 @@ Protobuf ファイルの構文の詳細については、[公式のドキュメ�
 
 ## <a name="add-a-proto-file-to-a-c-app"></a>プロトコルファイルを C\#アプリに追加する
 
-Proto ファイルは、 `<Protobuf>`項目グループに追加することによってプロジェクトに含まれます。  *\**
+*@No__t-1*ファイルは、次のように @no__t 項目グループに追加することによってプロジェクトに含められます。
 
 [!code-xml[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/GrpcGreeter.csproj?highlight=2&range=7-9)]
 
-## <a name="c-tooling-support-for-proto-files"></a>C#Proto ファイルのツールサポート
+## <a name="c-tooling-support-for-proto-files"></a>.proto ファイルに対する C# ツール サポート
 
 ファイルからC# *アセットを生成するには、ツールパッケージ [Grpc.Tools](https://www.nuget.org/packages/Grpc.Tools/) が必要\*です。* 生成されたアセット (ファイル):
 
@@ -58,7 +58,7 @@ Proto ファイルは、 `<Protobuf>`項目グループに追加することに�
 
 ## <a name="generated-c-assets"></a>生成C#されたアセット
 
-ツールパッケージは、含まC#  *\** れているプロトコルファイルで定義されているメッセージを表す型を生成します。
+ツールパッケージは、含まC#れている *\** ファイルで定義されているメッセージを表す型を生成します。
 
 サーバー側アセットの場合、抽象サービスの基本型が生成されます。 基本型には、 *proto*ファイルに含まれるすべての grpc 呼び出しの定義が含まれています。 この基本型から派生し、gRPC 呼び出しのロジックを実装する具象サービス実装を作成します。 では、前に説明した例で`GreeterBase`は、仮想`SayHello`メソッドを含む抽象型が生成されます。 `greet.proto` 具象実装`GreeterService`は、メソッドをオーバーライドし、grpc 呼び出しを処理するロジックを実装します。
 
@@ -68,11 +68,13 @@ Proto ファイルは、 `<Protobuf>`項目グループに追加することに�
 
 [!code-csharp[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?name=snippet)]
 
-既定では、サーバーとクライアントのアセットは、 `<Protobuf>`項目グループに含まれる各 *\*プロトコル*ファイルに対して生成されます。 サーバープロジェクト`GrpcServices`でサーバー資産のみが生成されるようにするには、属性を`Server`に設定します。
+既定では、サーバーとクライアントの資産は、@no__t 2 つの項目グループに含まれる *@no__t*の各ファイルに対して生成されます。 サーバープロジェクト`GrpcServices`でサーバー資産のみが生成されるようにするには、属性を`Server`に設定します。
 
 [!code-xml[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/GrpcGreeter.csproj?highlight=2&range=7-9)]
 
 同様に、クライアントプロジェクトでは`Client` 、属性はに設定されます。
+
+[!INCLUDE[](~/includes/gRPCazure.md)]
 
 ## <a name="additional-resources"></a>その他の技術情報
 
