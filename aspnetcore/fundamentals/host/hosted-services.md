@@ -5,14 +5,14 @@ description: ASP.NET Core でホステッド サービスを使用するバッ�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/18/2019
+ms.date: 09/26/2019
 uid: fundamentals/host/hosted-services
-ms.openlocfilehash: 8df86b10d7ba853edb3265df0e02eabbf8a2c058
-ms.sourcegitcommit: fa61d882be9d0c48bd681f2efcb97e05522051d0
+ms.openlocfilehash: 0eaa3a62370c1e413840bb65f597dc664adafc38
+ms.sourcegitcommit: fe88748b762525cb490f7e39089a4760f6a73a24
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71205713"
+ms.lasthandoff: 09/30/2019
+ms.locfileid: "71688090"
 ---
 # <a name="background-tasks-with-hosted-services-in-aspnet-core"></a>ASP.NET Core でホステッド サービスを使用するバックグラウンド タスク
 
@@ -37,29 +37,7 @@ ASP.NET Core では、バックグラウンド タスクを*ホステッド サ�
 
 ASP.NET Core ワーカー サービス テンプレートは、実行時間が長いサービス アプリを作成する場合の出発点として利用できます。 ホステッド サービス アプリの基礎としてテンプレートを使用するには:
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
-
-1. 新しいプロジェクトを作成します。
-1. **[ASP.NET Core Web アプリケーション]** を選択します。 **[次へ]** を選択します。
-1. **[プロジェクト名]** フィールドにプロジェクト名を入力するか、既定のプロジェクト名をそのまま使用します。 **[作成]** を選択します。
-1. **[新しい ASP.NET Core Web アプリケーションを作成する]** ダイアログで、 **[.NET Core]** と **[ASP.NET Core 3.0]** が選択されていることを確認します。
-1. **[ワーカー サービス]** テンプレートを選択します。 **[作成]** を選択します。
-
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
-
-1. 新しいプロジェクトを作成します。
-1. サイドバーの **[.NET Core]** の下で **[アプリ]** を選択します。
-1. **[ASP.NET Core]** の下の **[ワーカー]** を選択します。 **[次へ]** を選択します。
-1. **[ターゲット フレームワーク]** で **[.NET Core 3.0]** を選択します。 **[次へ]** を選択します。
-1. **[プロジェクト名]** フィールドに名前を指定します。 **[作成]** を選択します。
-
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
-
-コマンド シェルから [dotnet new](/dotnet/core/tools/dotnet-new) コマンドと共にワーカー サービス (`worker`) テンプレートを使用します。 次の例では、`ContosoWorker` という名前のワーカー サービス アプリが作成されます。 このコマンドが実行されると、`ContosoWorker` アプリ用のフォルダーが自動的に作成されます。
-
-```dotnetcli
-dotnet new worker -o ContosoWorker
-```
+[!INCLUDE[](~/includes/worker-template-instructions.md)]
 
 ---
 
@@ -123,10 +101,12 @@ dotnet new worker -o ContosoWorker
 
 ## <a name="backgroundservice"></a>BackgroundService
 
-`BackgroundService` は、長期 <xref:Microsoft.Extensions.Hosting.IHostedService> を実装するための基底クラスです。 `BackgroundService` によって、バックグラウンド操作のための2つのメソッドを定義します。
+`BackgroundService` は、長期 <xref:Microsoft.Extensions.Hosting.IHostedService> を実装するための基底クラスです。 `BackgroundService` により、サービスのロジックを格納するための `ExecuteAsync(CancellationToken stoppingToken)` 抽象メソッドが提供されます。 [IHostedService.StopAsync](xref:Microsoft.Extensions.Hosting.IHostedService.StopAsync*) が呼び出されると、`stoppingToken` がトリガーされます。 このメソッドの実装では、バックグラウンド サービスの有効期間全体を表す `Task` が返されます。
 
-* `ExecuteAsync(CancellationToken stoppingToken)` &ndash; `ExecuteAsync` <xref:Microsoft.Extensions.Hosting.IHostedService> が開始したときに呼び出されます。 この実装では、実行される長期操作の有効期間を表す `Task` が返されます。 `stoppingToken` [IHostedService.StopAsync](xref:Microsoft.Extensions.Hosting.IHostedService.StopAsync*) が呼び出されるとトリガーされます。
-* `StopAsync(CancellationToken stoppingToken)` &ndash; `StopAsync` は、アプリケーション ホストが正常なシャットダウンを実行しているときにトリガーされます。 `stoppingToken` は、シャットダウン プロセスが正常でなくなったことを示します。
+また、*必要に応じて*、サービスのスタートアップ コードとシャットダウン コードを実行するために、`IHostedService` で定義されているメソッドをオーバーライドします。
+
+* `StopAsync(CancellationToken cancellationToken)` &ndash; `StopAsync` は、アプリケーション ホストが正常なシャットダウンを実行しているときに呼び出されます。 `cancellationToken` は、ホストによって強制的にサービスを強制終了することが決定されたときに通知されます。 このメソッドがオーバーライドされた場合、サービスが正常にシャットダウンされるように、基本クラス メソッドを呼び出す (および `await` する) **必要があります**。
+* `StartAsync(CancellationToken cancellationToken)` &ndash; `StartAsync` は、バックグラウンド サービスを開始するために呼び出されます。 `cancellationToken` は、スタートアップ プロセスが中断された場合に通知されます。 この実装では、サービスのスタートアップ プロセスを表す `Task` が返されます。 この `Task` が完了するまで、これ以上のサービスは開始されません。 このメソッドがオーバーライドされた場合、サービスが正常に開始されるように、基本クラス メソッドを呼び出す (および `await` する) **必要があります**。
 
 ## <a name="timed-background-tasks"></a>時間が指定されたバックグラウンド タスク
 

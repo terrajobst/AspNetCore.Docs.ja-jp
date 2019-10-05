@@ -4,14 +4,14 @@ author: rick-anderson
 description: ASP.NET Core で Web API をビルドする方法を学習します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/27/2019
+ms.date: 09/29/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 5e5215f246c6c7a805a4c99f485d51a2fb3c712d
-ms.sourcegitcommit: cf9ffcce4fe0b69fe795aae9ae06e99fdb18bdfc
+ms.openlocfilehash: 7bb98fe5befa8eea80885d246da31ad87d5cfc2d
+ms.sourcegitcommit: fe88748b762525cb490f7e39089a4760f6a73a24
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/26/2019
-ms.locfileid: "71306662"
+ms.lasthandoff: 09/30/2019
+ms.locfileid: "71691209"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>チュートリアル: ASP.NET Core で Web API を作成する
 
@@ -83,7 +83,7 @@ ms.locfileid: "71306662"
 
    ```dotnetcli
    dotnet new webapi -o TodoApi
-   cd TodoAPI
+   cd TodoApi
    dotnet add package Microsoft.EntityFrameworkCore.SqlServer
    dotnet add package Microsoft.EntityFrameworkCore.InMemory
    code -r ../TodoApi
@@ -271,9 +271,9 @@ ASP.NET Core で、サービス (DB コンテキストなど) を[依存関係�
 * **[Entity Framework を使用したアクションがある API コントローラー]** を選択してから、 **[追加]** を選択します。
 * **[Entity Framework を使用したアクションがある API コントローラー]** ダイアログで次を実行します。
 
-  * **モデル クラス**で **[TodoItem (TodoAPI.Models)]** を選択します。
-  * **データ コンテキスト クラス**で **[TodoContext (TodoAPI.Models)]** を選択します。
-  * **[追加]** を選択します。
+  * **モデル クラス**で **[TodoItem (TodoApi.Models)]** を選択します。
+  * **データ コンテキスト クラス**で **[TodoContext (TodoApi.Models)]** を選択します。
+  * **[追加]** を選びます。
 
 # <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
@@ -283,7 +283,7 @@ ASP.NET Core で、サービス (DB コンテキストなど) を[依存関係�
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet add package Microsoft.EntityFrameworkCore.Design
 dotnet tool install --global dotnet-aspnet-codegenerator
-dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m TodoItem -dc TodoContext  -outDir Controllers
+dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m TodoItem -dc TodoContext -outDir Controllers
 ```
 
 上のコマンドでは以下の操作が行われます。
@@ -322,7 +322,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 * Web アプリを起動します。
 * Postman を起動します。
 * **SSL 証明書の検証**を無効にします。
-* **[ファイル] > [設定]** (\* *[全般]* タブ) で、 **SSL 証明書の検証** を無効にします。
+* **[ファイル]** > **[設定]** ( **[全般]** タブ) で、**SSL 証明書の検証**を無効にします。
     > [!WARNING]
     > コントローラーをテストした後、SSL 証明書の検証を再度有効にします。
 

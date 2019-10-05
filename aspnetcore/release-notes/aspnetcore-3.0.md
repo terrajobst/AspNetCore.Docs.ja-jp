@@ -4,14 +4,14 @@ author: rick-anderson
 description: ASP.NET Core 3.0 の新機能について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 09/26/2019
 uid: aspnetcore-3.0
-ms.openlocfilehash: 490d00da7282e2efe28fcc52e593dd71d7324d3f
-ms.sourcegitcommit: 0365af91518004c4a44a30dc3a8ac324558a399b
+ms.openlocfilehash: ec3de5b35883752b7b3dbefceccec55da3986f39
+ms.sourcegitcommit: dc96d76f6b231de59586fcbb989a7fb5106d26a8
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71198995"
+ms.lasthandoff: 10/01/2019
+ms.locfileid: "71703675"
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>ASP.NET Core 3.0 の新機能
 
@@ -319,6 +319,17 @@ Json.NET を ASP.NET Core 3.0 に追加するには、「[Newtonsoft.Json ベー
 * [@attribute](xref:mvc/views/razor#attribute) &ndash; `@attribute` ディレクティブでは、指定された属性が生成されたページまたはビューのクラスに適用されます。 たとえば、`@attribute [Authorize]` のようにします。
 * [@implements](xref:mvc/views/razor#implements) &ndash; `@implements` ディレクティブでは、生成されたクラスのインターフェイスが実装されます。 たとえば、`@implements IDisposable` のようにします。
 
+## <a name="identityserver4-supports-authentication-and-authorization-for-web-apis-and-spas"></a>IdentityServer4 では、Web API と SPA の認証と承認がサポートされています
+
+[IdentityServer4](https://identityserver.io) は、ASP.NET Core 3.0 用の OpenID Connect および OAuth 2.0 フレームワークです。 IdentityServer4 により、次のセキュリティ機能が有効になります。
+
+* サービスとしての認証 (AaaS)
+* 複数のアプリケーションの種類でのシングル サインオン/オフ (SSO)
+* API のアクセス制御
+* Federation Gateway
+
+詳細については、「[ようこそ! IdentityServer4](http://docs.identityserver.io/en/latest/index.html)」を参照してください。
+
 ## <a name="certificate-and-kerberos-authentication"></a>証明書および Kerberos 認証
 
 証明書認証には以下が必要です。
@@ -412,7 +423,7 @@ ASP.NET Core 3.0 リリースよりも前には、`ASPNETCORE_` というプレ�
 * 接続アダプターは Kestrel から削除され、接続ミドルウェアで置き換えられました。これは ASP.NET Core パイプラインの HTTP ミドルウェアに似ていますが下位レベルの接続用です。
 * Kestrel トランスポート層は、`Connections.Abstractions` のパブリック インターフェイスとして公開されています。
 * ヘッダーとトレーラーのあいまいさは、末尾のヘッダーを新しいコレクションに移動することによって解決されました。
-* 同期 IO の API (`HttpReqeuest.Body.Read` など) は、アプリのクラッシュにつながるスレッド スタベーションの一般的な原因です。 3\.0 では、`AllowSynchronousIO` は既定で無効になっています。
+* 同期 IO の API (`HttpRequest.Body.Read` など) は、アプリのクラッシュにつながるスレッド スタベーションの一般的な原因です。 3\.0 では、`AllowSynchronousIO` は既定で無効になっています。
 
 詳細については、<xref:migration/22-to-30#kestrel> を参照してください。
 
@@ -420,9 +431,9 @@ ASP.NET Core 3.0 リリースよりも前には、`ASPNETCORE_` というプレ�
 
 HTTP/2 は、Kestrel では HTTPS エンドポイントに対して既定で有効です。 IIS または HTTP.sys での HTTP/2 サポートは、オペレーティング システムでサポートされる場合に有効です。
 
-## <a name="request-counters"></a>要求カウンター
+## <a name="eventcounters-on-request"></a>要求時の EventCounter
 
-ホスティング EventSource (Microsoft.AspNetCore.Hosting) は、受信要求に関連する次の EventCounter を出力します。
+ホスティング EventSource `Microsoft.AspNetCore.Hosting` は、受信要求に関連する次の新しい種類の <xref:System.Diagnostics.Tracing.EventCounter> を出力します。
 
 * `requests-per-second`
 * `total-requests`

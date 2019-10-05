@@ -3,14 +3,14 @@ title: ASP.NET Core の Razor 構文リファレンス
 author: rick-anderson
 description: Web ページにサーバー ベースのコードを埋め込むための Razor マークアップの構文について説明します。
 ms.author: riande
-ms.date: 09/19/2019
+ms.date: 09/28/2019
 uid: mvc/views/razor
-ms.openlocfilehash: 9a319f7efb6d879559afd9faca6955aba719fa2f
-ms.sourcegitcommit: e5a74f882c14eaa0e5639ff082355e130559ba83
+ms.openlocfilehash: 6f8835419dbf4c271617f57484c3408e0af30617
+ms.sourcegitcommit: f62014bb558ff6f8fdaef2e96cb05986e216aacd
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71168294"
+ms.lasthandoff: 09/28/2019
+ms.locfileid: "71592323"
 ---
 # <a name="razor-syntax-reference-for-aspnet-core"></a>ASP.NET Core の Razor 構文リファレンス
 
@@ -227,7 +227,7 @@ HTML タグによって囲まれていない HTML をレンダリングするに
 * `<text>` タグの間の内容だけがレンダリングされます。
 * `<text>` タグの前後にある空白文字は HTML の出力には表示されません。
 
-### <a name="explicit-line-transition-with-colon"></a>\@&colon; による明示的な行の遷移
+### <a name="explicit-line-transition"></a>明示的な行の遷移
 
 残りの行全体をコード ブロック内に HTML としてレンダリングするには、`@:` 構文を使います。
 

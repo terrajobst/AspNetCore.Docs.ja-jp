@@ -3,15 +3,15 @@ title: 'チュートリアル: 関連データを読み取る - ASP.NET MVC と 
 description: このチュートリアルでは、関連データ (Entity Framework がナビゲーション プロパティに読み込むデータ) の読み取りと表示を行います。
 author: tdykstra
 ms.author: riande
-ms.date: 03/27/2019
+ms.date: 09/28/2019
 ms.topic: tutorial
 uid: data/ef-mvc/read-related-data
-ms.openlocfilehash: 2bf556dae5d30819c54ecc3f0dadfbd3316db1cc
-ms.sourcegitcommit: 0774a61a3a6c1412a7da0e7d932dc60c506441fc
+ms.openlocfilehash: cb691dce757a72a01bfd29717710d1be590c4150
+ms.sourcegitcommit: f62014bb558ff6f8fdaef2e96cb05986e216aacd
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2019
-ms.locfileid: "70059104"
+ms.lasthandoff: 09/28/2019
+ms.locfileid: "71592285"
 ---
 # <a name="tutorial-read-related-data---aspnet-mvc-with-ef-core"></a>チュートリアル: 関連データを読み取る - ASP.NET MVC と EF Core
 
@@ -188,7 +188,7 @@ Index メソッドを次のコードに置き換えて、関連データの一�
   }
   ```
 
-* インストラクターごとに担当したコースを表示する **Courses** 列を追加しました。 詳細は、Razor 構文記事の「[@: による明示的な行の遷移](xref:mvc/views/razor#explicit-line-transition-with-)」セクションを参照してください。
+* インストラクターごとに担当したコースを表示する **Courses** 列を追加しました。 詳細については、Razor 構文記事の「[明示的な行の遷移](xref:mvc/views/razor#explicit-line-transition)」セクションを参照してください。
 
 * 選択したインストラクターの `tr` 要素に `class="success"` を動的に追加するコードを追加しました。 これは、ブートストラップ クラスを使用して、選択した行の背景色を設定します。
 
