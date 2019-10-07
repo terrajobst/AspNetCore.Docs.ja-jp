@@ -122,13 +122,8 @@
               uid: data/ef-rp/update-related-data
             - name: コンカレンシーの競合の処理
               uid: data/ef-rp/concurrency
-        - name: EF Core と MVC、既存のデータベース
+        - name: EF Core と MVC
           displayName: tutorial
-          href: /ef/core/get-started/aspnetcore/existing-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-        - name: EF Core と MVC、新しいデータベース
-          displayName: tutorial
-          href: /ef/core/get-started/aspnetcore/new-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-        - name: EF Core と MVC、10 チュートリアル
           items:
             - name: 概要
               uid: data/ef-mvc/index
@@ -231,8 +226,6 @@
           uid: razor-pages/filter
         - name: ルートとアプリの規則
           uid: razor-pages/razor-pages-conventions
-        - name: ファイルのアップロード
-          uid: razor-pages/upload-files
         - name: Razor SDK
           uid: razor-pages/sdk
     - name: MVC
@@ -271,8 +264,6 @@
           uid: mvc/controllers/actions
         - name: ルーティング
           uid: mvc/controllers/routing
-        - name: ファイルのアップロード
-          uid: mvc/models/file-uploads
         - name: 依存関係の注入 - コントローラー
           uid: mvc/controllers/dependency-injection
         - name: 依存関係の注入 - ビュー
@@ -418,6 +409,8 @@
           uid: mvc/controllers/filters
         - name: Areas
           uid: mvc/controllers/areas
+        - name: ファイルのアップロード
+          uid: mvc/models/file-uploads
         - name: アプリのパーツ
           uid: mvc/extensibility/app-parts
         - name: aspnet-codegenerator
@@ -632,11 +625,7 @@
               uid: data/ef-rp/update-related-data
             - name: コンカレンシーの競合の処理
               uid: data/ef-rp/concurrency
-        - name: EF Core と MVC、新しいデータベース
-          href: /ef/core/get-started/aspnetcore/new-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-        - name: EF Core と MVC、既存のデータベース
-          href: /ef/core/get-started/aspnetcore/existing-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-        - name: EF Core と MVC、10 チュートリアル
+        - name: EF Core と MVC
           items:
             - name: 概要
               uid: data/ef-mvc/index

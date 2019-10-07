@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 09/20/2019
 uid: grpc/index
-ms.openlocfilehash: 88ceeba329ff2c7d764b7a5eabd5413da6ace765
-ms.sourcegitcommit: 8a36be1bfee02eba3b07b7a86085ec25c38bae6b
+ms.openlocfilehash: 2f32bf6e8df2c5b3574c337682cdc2845991630c
+ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71219123"
+ms.lasthandoff: 10/03/2019
+ms.locfileid: "71925171"
 ---
 # <a name="introduction-to-grpc-on-net-core"></a>.NET Core の gRPC の概要
 
@@ -105,7 +105,7 @@ ASP.NET Core での gRPC サービスについて詳しくは、「<xref:grpc/as
 
 ## <a name="call-grpc-services-with-a-net-client"></a>.NET クライアントを使用して gRPC サービスを呼び出す
 
-gRPC クライアントは、[ *\*.proto* ファイルから生成される](xref:grpc/basics#generated-c-assets)具体的なクライアントの種類です。 具体的な gRPC クライアントには、 *\*.proto* ファイルに含まれる gRPC サービスに変換されるメソッドがあります。
+gRPC クライアントは、[ *\*.proto* ファイルから生成される](xref:grpc/basics#generated-c-assets)具象的なクライアントの種類です。 具象 gRPC クライアントには、 *\*.proto* ファイル内の gRPC サービスに変換するためのメソッドが含まれます。
 
 ```csharp
 var channel = GrpcChannel.ForAddress("https://localhost:5001");
@@ -120,6 +120,8 @@ Console.WriteLine(response.Message);
 gRPC クライアントはチャネルを使って作成され、これは gRPC サービスへの長期接続を表します。 チャネルは `GrpcChannel.ForAddress` を使って作成できます。
 
 クライアントの作成と、さまざまなサービス メソッドの呼び出しについて詳しくは、「<xref:grpc/client>」をご覧ください。
+
+[!INCLUDE[](~/includes/gRPCazure.md)]
 
 ## <a name="additional-resources"></a>その他の技術情報
 
