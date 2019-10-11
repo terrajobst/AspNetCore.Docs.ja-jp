@@ -1,18 +1,18 @@
 ---
 title: .NET Core および ASP.NET Core でのログ記録
-author: tdykstra
+author: rick-anderson
 description: Microsoft.Extensions.Logging NuGet パッケージで提供されるログ記録フレームワークの使用方法について説明します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/07/2019
+ms.date: 10/08/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: 9f7b39cc1c557356b75608817db4e8d6f61af794
-ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
+ms.openlocfilehash: 697e6cf0cd1b51ad6c2942e21bc084d1fe6bfa4e
+ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/07/2019
-ms.locfileid: "72007024"
+ms.lasthandoff: 10/11/2019
+ms.locfileid: "72259736"
 ---
 # <a name="logging-in-net-core-and-aspnet-core"></a>.NET Core および ASP.NET Core でのログ記録
 
@@ -394,8 +394,12 @@ ASP.NET Core には、次のログ レベルが定義されています (重大�
 
 ログ レベルを使用して、特定のストレージ メディアまたは表示ウィンドウに書き込むログの出力量を制御します。 次に例を示します。
 
-* 運用環境では、`Information` レベルを使用してボリューム データ ストアに `Trace` を送信します。 `Critical` を使用して値のデータ ストアに `Warning` を送信します。
-* 開発中は `Critical` を使用してコンソールに `Warning` を送信し、トラブルシューティングの際は `Information` を使用して `Trace` を追加します。
+* 運用環境:
+  * `Trace` から `Information` までのレベルでログを記録すると、詳細なログ メッセージが大量に生成されます。 コストを制御し、データ ストレージの上限を超えないようにするには、`Trace` から `Information` のレベルのメッセージを、大量の低コストのデータ ストアに記録します。
+  * `Warning` から `Critical` までのレベルでログを記録すると、通常はより少ないログ メッセージが生成されます。 そのため、コストとストレージの制限は通常は問題にならないため、データ ストアの選択肢がより柔軟になります。
+* 開発中:
+  * コンソールに `Warning` から `Critical` のメッセージを記録します。
+  * トラブルシューティングの際に `Trace` から `Information` のメッセージを追加します。
 
 この記事で後述する「[ログのフィルター処理](#log-filtering)」セクションでは、プロバイダーで処理するログ レベルの制御方法について説明します。
 

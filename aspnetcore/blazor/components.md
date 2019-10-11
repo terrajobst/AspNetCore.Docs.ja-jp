@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/05/2019
 uid: blazor/components
-ms.openlocfilehash: 438b3802087e2ac3df4cbe69a700b878c1cbbf63
-ms.sourcegitcommit: 73a451e9a58ac7102f90b608d661d8c23dd9bbaf
-ms.translationtype: HT
+ms.openlocfilehash: 3e0966bf978c99fc00db7682bea3292306cbb03c
+ms.sourcegitcommit: d81912782a8b0bd164f30a516ad80f8defb5d020
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/08/2019
-ms.locfileid: "72037424"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72179035"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>ASP.NET Core Razor コンポーネントを作成して使用する
 
@@ -194,30 +194,42 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 ## <a name="data-binding"></a>データ バインディング
 
-コンポーネントと DOM 要素の両方に対するデータバインディングは、 [@bind](xref:mvc/views/razor#bind)属性を使用して実行されます。 次の例では、`_italicsCheck` フィールドをチェックボックスのオン状態にバインドします。
+コンポーネントと DOM 要素の両方に対するデータバインディングは、 [@bind](xref:mvc/views/razor#bind)属性を使用して実行されます。 次の例では、`CurrentValue` プロパティをテキストボックスの値にバインドします。
 
 ```cshtml
-<input type="checkbox" class="form-check-input" id="italicsCheck" 
-    @bind="_italicsCheck" />
+<input @bind="CurrentValue" />
+
+@code {
+    private string CurrentValue { get; set; }
+}
 ```
 
-このチェックボックスをオンにしてオフにすると、プロパティの値はそれぞれ `true` と `false` に更新されます。
+テキストボックスがフォーカスを失うと、プロパティの値が更新されます。
 
-このチェックボックスは、プロパティの値の変更に対する応答ではなく、コンポーネントがレンダリングされたときにのみ UI で更新されます。 イベントハンドラーのコードを実行した後にコンポーネントがレンダリングされるため、通常、プロパティの更新は UI に直ちに反映されます。
+テキストボックスは、プロパティの値の変更に対する応答ではなく、コンポーネントがレンダリングされたときにのみ UI で更新されます。 イベントハンドラーのコードを実行した後にコンポーネントがレンダリングされるため、*通常*、イベントハンドラーがトリガーされた直後に、プロパティの更新が UI に反映されます。
 
-@No__t-0 と `CurrentValue` プロパティ (`<input @bind="CurrentValue" />`) を使用することは、基本的に次のようになります。
+@No__t-0 を `CurrentValue` プロパティ (`<input @bind="CurrentValue" />`) と共に使用することは、基本的に次のようになります。
 
 ```cshtml
 <input value="@CurrentValue"
-    @onchange="@((ChangeEventArgs __e) => CurrentValue = __e.Value)" />
+    @onchange="@((ChangeEventArgs __e) => CurrentValue = 
+        __e.Value.ToString())" />
+        
+@code {
+    private string CurrentValue { get; set; }
+}
 ```
 
-コンポーネントがレンダリングされると、入力要素の @no__t 0 は、`CurrentValue` プロパティから取得されます。 ユーザーがテキストボックスに入力すると、@no__t 0 のイベントが発生し、`CurrentValue` プロパティが変更された値に設定されます。 実際には、`@bind` が型変換を実行するいくつかのケースを処理するため、コード生成は少し複雑になります。 原則として、`@bind` は、式の現在の値を `value` 属性に関連付け、登録されたハンドラーを使用して変更を処理します。
+コンポーネントがレンダリングされると、入力要素の @no__t 0 は、`CurrentValue` プロパティから取得されます。 ユーザーがテキストボックスに入力し、要素のフォーカスを変更すると、`onchange` イベントが発生し、`CurrentValue` プロパティが変更された値に設定されます。 実際には、`@bind` は型変換が実行されるケースを処理するため、コード生成はより複雑になります。 原則として、`@bind` は、式の現在の値を `value` 属性に関連付け、登録されたハンドラーを使用して変更を処理します。
 
 @No__t-1 構文を使用した @no__t 0 イベントの処理に加えて、プロパティまたはフィールドを他のイベントを使用してバインドするには、 [@bind-value](xref:mvc/views/razor#bind)属性に `event` パラメーター ([@bind-value:event](xref:mvc/views/razor#bind)) を指定します。 次の例では、`oninput` イベントの `CurrentValue` プロパティをバインドします。
 
 ```cshtml
 <input @bind-value="CurrentValue" @bind-value:event="oninput" />
+
+@code {
+    private string CurrentValue { get; set; }
+}
 ```
 
 要素がフォーカスを失ったときに発生する `onchange` とは異なり、テキストボックスの値が変更されたときに `oninput` が発生します。
