@@ -310,7 +310,7 @@
           uid: blazor/debug
         - name: Web API を呼び出す
           uid: blazor/call-web-api
-        - name: ホスティングと配置
+        - name: ホストと配置
           items:
             - name: 概要
               uid: host-and-deploy/blazor/index
@@ -387,7 +387,7 @@
               href: 'mvc/views/working-with-forms.md#the-input-tag-helper'
             - name: group1
               href: 'mvc/views/working-with-forms.md#the-label-tag-helper'
-            - name: Partial
+            - name: 部分的
               uid: mvc/views/tag-helpers/builtin-th/partial-tag-helper
             - name: 選択
               href: 'mvc/views/working-with-forms.md#the-select-tag-helper'
@@ -507,7 +507,7 @@
         - name: JavaScript API リファレンス
           href: /javascript/api/?view=signalr-js-latest
           displayName: signalr
-    - name: ホスティングおよびスケーリング
+    - name: ホストとスケール
       displayName: signalr
       items:
         - name: 概要
@@ -661,13 +661,13 @@
           href: /azure/visual-studio/vs-storage-aspnet5-getting-started-queues?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
         - name: Table ストレージ
           href: /azure/visual-studio/vs-storage-aspnet5-getting-started-tables?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-- name: ホスティングと配置
+- name: ホストと配置
   displayName: publish
   items:
     - name: 概要
       displayName: 'azure, deploy, publish'
       uid: host-and-deploy/index
-    - name: Azure App Service でのホスト
+    - name: Azure App Service
       displayName: 'deploy, publish'
       items:
         - name: 概要
@@ -717,7 +717,7 @@
         - name: 次の手順
           displayName: 'azure, deploy, publish'
           uid: azure/devops/next-steps
-    - name: IIS による Windows 上のホスト
+    - name: IIS
       displayName: 'deploy, publish'
       items:
         - name: 概要
@@ -749,16 +749,16 @@
     - name: HTTP.sys
       displayName: 'deploy, publish, server'
       uid: fundamentals/servers/httpsys
-    - name: Windows サービスでのホスト
+    - name: Windows サービス
       displayName: 'deploy, publish'
       uid: host-and-deploy/windows-service
-    - name: Nginx による Linux でのホスト
+    - name: Nginx を使用した Linux
       displayName: 'deploy, publish'
       uid: host-and-deploy/linux-nginx
-    - name: Apache による Linux でのホスト
+    - name: Apache を使用した Linux
       displayName: 'deploy, publish'
       uid: host-and-deploy/linux-apache
-    - name: Docker でのホスト
+    - name: Docker
       displayName: 'deploy, publish'
       items:
         - name: 概要
@@ -779,7 +779,7 @@
     - name: プロキシとロード バランサーの構成
       displayName: 'deploy, publish'
       uid: host-and-deploy/proxy-load-balancer
-    - name: Web ファームでのホスト
+    - name: Web ファーム
       displayName: 'deploy, publish'
       uid: host-and-deploy/web-farm
     - name: Visual Studio のプロファイルの発行
