@@ -4,14 +4,14 @@ author: ssougnez
 description: このチュートリアルでは、クライアントが TypeScript で記述された ASP.NET Core SignalR Web アプリをバンドルおよびビルドするために Webpack を構成します。
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 04/23/2019
+ms.date: 10/04/2019
 uid: tutorials/signalr-typescript-webpack
-ms.openlocfilehash: 99628b4f52980e6d32c70d11bb0d8a770dac7f86
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 630e8cb5efe9c313479960626d3d864c4923cbd1
+ms.sourcegitcommit: 3ffcd8cbff8b49128733842f72270bc58279de70
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081568"
+ms.lasthandoff: 10/04/2019
+ms.locfileid: "71955927"
 ---
 # <a name="use-aspnet-core-signalr-with-typescript-and-webpack"></a>TypeScript と Webpack で ASP.NET Core SignalR を使用する
 
@@ -267,7 +267,7 @@ dotnet new web -o SignalRWebPack
 
 ::: moniker-end
 
-::: moniker range="<= aspnetcore-2.2"
+::: moniker range="< aspnetcore-3.0"
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -413,8 +413,6 @@ dotnet new web -o SignalRWebPack
 1. */hub* ルートを `ChatHub` ハブにマップします。 `Startup.Configure` メソッドの末尾に、次の行を追加します。
 
     [!code-csharp[Startup](signalr-typescript-webpack/sample/2.x/Startup.cs?name=snippet_UseSignalR)]
-
-::: moniker-end
 
 1. プロジェクト ルートに *Hubs* という新しいディレクトリを作成します。 その目的は、次の手順で作成される SignalR ハブを格納することです。
 

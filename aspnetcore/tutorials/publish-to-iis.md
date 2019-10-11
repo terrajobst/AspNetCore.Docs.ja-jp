@@ -5,14 +5,14 @@ description: IIS サーバーで ASP.NET Core アプリをホストする方法�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/08/2019
+ms.date: 10/03/2019
 uid: tutorials/publish-to-iis
-ms.openlocfilehash: 4ac7b3a2f738e443263dd888f556e0aff7c8099b
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 820527cc15f883c906d2fdf1c073d443a5b3b40e
+ms.sourcegitcommit: d8b12cc1716ee329d7bd2300e201b61e15d506ac
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082372"
+ms.lasthandoff: 10/04/2019
+ms.locfileid: "71942880"
 ---
 # <a name="publish-an-aspnet-core-app-to-iis"></a>IIS に ASP.NET Core アプリを発行する
 
@@ -43,7 +43,7 @@ ms.locfileid: "71082372"
 
 ## <a name="install-the-net-core-hosting-bundle"></a>.NET Core ホスティング バンドルのインストール
 
-*.NET Core ホスティング バンドル*を IIS サーバーにインストールします。 このバンドルをインストールすることで、.NET Core ランタイム、.NET Core ライブラリ、[ASP.NET Core モジュール](xref:host-and-deploy/aspnet-core-module)がインストールされます。 このモジュールでは、ASP.NET Core アプリが IIS の背後で実行できるようになります。 システムにインターネット接続が設定されていない場合は、.NET Core ホスティング バンドルをインストールする前に、[Microsoft Visual C++ 2015 再頒布可能パッケージ](https://www.microsoft.com/download/details.aspx?id=53840)を入手してインストールしてください。
+*.NET Core ホスティング バンドル*を IIS サーバーにインストールします。 このバンドルをインストールすることで、.NET Core ランタイム、.NET Core ライブラリ、[ASP.NET Core モジュール](xref:host-and-deploy/aspnet-core-module)がインストールされます。 このモジュールでは、ASP.NET Core アプリが IIS の背後で実行できるようになります。
 
 次のリンクを使用してインストーラーをダウンロードします。
 

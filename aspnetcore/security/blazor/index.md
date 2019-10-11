@@ -5,14 +5,14 @@ description: Blazor の認証と承認のシナリオについて説明します
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 10/05/2019
 uid: security/blazor/index
-ms.openlocfilehash: b0536b4290cd39397ceb440e0508b75d0373bc88
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: 1fcd54e954d09e66b8bb1c9a51ef56193f3acf93
+ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71211728"
+ms.lasthandoff: 10/07/2019
+ms.locfileid: "72007425"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor の認証と承認
 
@@ -117,6 +117,8 @@ The command creates a folder named with the value provided for the `{APP NAME}` 
 
 Blazor WebAssembly アプリでは、すべてのクライアント側コードがユーザーによって変更される可能性があるため、認証チェックがバイパスされる可能性があります。 JavaScript SPA フレームワークや任意のオペレーティング システム用のネイティブ アプリを含め、すべてのクライアント側アプリのテクノロジにも同じことが当てはまります。
 
+アプリのプロジェクト ファイルに、[Microsoft.AspNetCore.Components.Authorization](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.Authorization/) のパッケージ参照を追加します。
+
 Blazor WebAssembly アプリ用のカスタム `AuthenticationStateProvider` サービスの実装については、以降のセクションで説明します。
 
 ## <a name="authenticationstateprovider-service"></a>AuthenticationStateProvider サービス
@@ -131,6 +133,7 @@ Blazor サーバー アプリには、ASP.NET Core の `HttpContext.User` から
 
 ```cshtml
 @page "/"
+@using Microsoft.AspNetCore.Components.Authorization
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
 <button @onclick="@LogUsername">Write user info to console</button>
@@ -162,18 +165,25 @@ Blazor サーバー アプリには、ASP.NET Core の `HttpContext.User` から
 Blazor WebAssembly アプリを構築している場合、またはアプリの仕様でカスタム プロバイダーが必要な場合は、プロバイダーを実装して `GetAuthenticationStateAsync` をオーバーライドします。
 
 ```csharp
-class CustomAuthStateProvider : AuthenticationStateProvider
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.Authorization;
+
+namespace BlazorSample.Services
 {
-    public override Task<AuthenticationState> GetAuthenticationStateAsync()
+    public class CustomAuthStateProvider : AuthenticationStateProvider
     {
-        var identity = new ClaimsIdentity(new[]
+        public override Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            new Claim(ClaimTypes.Name, "mrfibuli"),
-        }, "Fake authentication type");
+            var identity = new ClaimsIdentity(new[]
+            {
+                new Claim(ClaimTypes.Name, "mrfibuli"),
+            }, "Fake authentication type");
 
-        var user = new ClaimsPrincipal(identity);
+            var user = new ClaimsPrincipal(identity);
 
-        return Task.FromResult(new AuthenticationState(user));
+            return Task.FromResult(new AuthenticationState(user));
+        }
     }
 }
 ```
@@ -181,10 +191,10 @@ class CustomAuthStateProvider : AuthenticationStateProvider
 `CustomAuthStateProvider` サービスは `Startup.ConfigureServices` に登録されています。
 
 ```csharp
-public void ConfigureServices(IServiceCollection services)
-{
-    services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
-}
+// using Microsoft.AspNetCore.Components.Authorization;
+// using BlazorSample.Services;
+
+services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 ```
 
 `CustomAuthStateProvider` を使用すると、すべてのユーザーはユーザー名 `mrfibuli` で認証されます。
@@ -218,6 +228,9 @@ public void ConfigureServices(IServiceCollection services)
     }
 }
 ```
+
+> [!NOTE]
+> Blazor WebAssembly アプリ コンポーネントで、`Microsoft.AspNetCore.Components.Authorization` 名前空間 (`@using Microsoft.AspNetCore.Components.Authorization`) を追加します。
 
 `user.Identity.IsAuthenticated` が `true` である場合、要求を列挙し、役割のメンバーシップを評価できます。
 
@@ -339,7 +352,7 @@ Blazor では、認証状態を "*非同期的に*" 決定することができ�
 
 ## <a name="authorize-attribute"></a>[Authorize] 属性
 
-アプリが MVC コントローラーまたは Razor ページと共に `[Authorize]` を使用できることと同様に、`[Authorize]` は Razor コンポーネントと共に使用できます。
+`[Authorize]` 属性は Razor コンポーネント内で使用できます。
 
 ```cshtml
 @page "/"
@@ -348,10 +361,11 @@ Blazor では、認証状態を "*非同期的に*" 決定することができ�
 You can only see this if you're signed in.
 ```
 
+> [!NOTE]
+> Blazor WebAssembly アプリ コンポーネントで、このセクション内の例に `Microsoft.AspNetCore.Authorization` 名前空間 (`@using Microsoft.AspNetCore.Authorization`) を追加します。
+
 > [!IMPORTANT]
 > Blazor ルーター経由で到達した `@page` コンポーネントにのみ `[Authorize]` を使用してください。 承認はルーティングの一面としてのみ実行され、ページ内にレンダリングされた子コンポーネントに対しては実行され "*ません*"。 ページ内の特定部分の表示を承認するには、代わりに `AuthorizeView` を使用します。
-
-コンポーネントをコンパイルするには、必要に応じてコンポーネントまたは *_Imports.razor* ファイルのいずれかに `@using Microsoft.AspNetCore.Authorization` を追加します。
 
 `[Authorize]` 属性は、ロールベースまたはポリシーベースの承認もサポートしています。 ロールベースの承認の場合は、`Roles` パラメーターを使用します。
 
@@ -460,6 +474,14 @@ Not authorized.
     }
 }
 ```
+
+> [!NOTE]
+> Blazor WebAssembly アプリ コンポーネントで、`Microsoft.AspNetCore.Authorization` と `Microsoft.AspNetCore.Components.Authorization` 名前空間を追加します。
+>
+> ```cshtml
+> @using Microsoft.AspNetCore.Authorization
+> @using Microsoft.AspNetCore.Components.Authorization
+> ```
 
 ## <a name="authorization-in-blazor-webassembly-apps"></a>Blazor WebAssembly アプリでの承認
 

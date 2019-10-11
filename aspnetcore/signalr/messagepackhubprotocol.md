@@ -1,42 +1,42 @@
 ---
-title: ASP.NET core SignalR で MessagePack Hub プロトコルを使用します。
+title: ASP.NET Core には、SignalR の MessagePack ハブプロトコルを使用します。
 author: bradygaster
-description: ASP.NET Core SignalR には、MessagePack Hub プロトコルを追加します。
+description: MessagePack ハブプロトコルを ASP.NET Core SignalR に追加します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 02/27/2019
+ms.date: 10/08/2019
 uid: signalr/messagepackhubprotocol
-ms.openlocfilehash: 7742f6f8bb53fb3c299ff98ae52a0da519ff396c
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: fe09b646eba5ae15cbd9e568b276aaf7763e4b1b
+ms.sourcegitcommit: fcdf9aaa6c45c1a926bd870ed8f893bdb4935152
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64896519"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72165405"
 ---
-# <a name="use-messagepack-hub-protocol-in-signalr-for-aspnet-core"></a>ASP.NET core SignalR で MessagePack Hub プロトコルを使用します。
+# <a name="use-messagepack-hub-protocol-in-signalr-for-aspnet-core"></a>ASP.NET Core には、SignalR の MessagePack ハブプロトコルを使用します。
 
-によって[真紀 Brennan](https://github.com/BrennanConroy)
+[Brennan Conroy](https://github.com/BrennanConroy)
 
-この記事では、リーダーがで説明するトピックを熟知前提としています。[開始](xref:tutorials/signalr)します。
+この記事では、「[作業の開始](xref:tutorials/signalr)」で説明されているトピックについての知識がある読者を想定しています。
 
-## <a name="what-is-messagepack"></a>MessagePack とは何ですか。
+## <a name="what-is-messagepack"></a>MessagePack とは
 
-[MessagePack](https://msgpack.org/index.html)は高速でコンパクトなバイナリ シリアル化形式です。 パフォーマンスと帯域幅が、問題になると比較して小さいメッセージを作成するため、場合に便利です[JSON](https://www.json.org/)します。 バイナリ形式であるため、メッセージは、読み取り可能なバイトが MessagePack パーサーから渡されていない限り、ネットワーク トレースとログを見ると。 SignalR は、MessagePack 形式の組み込みサポートを備え、使用するには、クライアントとサーバーの Api を提供します。
+[Messagepack](https://msgpack.org/index.html)は、高速でコンパクトなバイナリシリアル化形式です。 これは、 [JSON](https://www.json.org/)と比較して小さいメッセージを作成するため、パフォーマンスと帯域幅が問題になる場合に便利です。 バイナリ形式であるため、メッセージが MessagePack パーサーによって渡されない限り、ネットワークトレースとログを確認するときにメッセージを読み取ることはできません。 SignalR には MessagePack 形式のサポートが組み込まれており、クライアントとサーバーが使用する Api が用意されています。
 
-## <a name="configure-messagepack-on-the-server"></a>MessagePack をサーバーを構成します。
+## <a name="configure-messagepack-on-the-server"></a>サーバーでの MessagePack の構成
 
-サーバーの MessagePack Hub プロトコルを有効にするにはインストール、`Microsoft.AspNetCore.SignalR.Protocols.MessagePack`パッケージをアプリにします。 Startup.cs ファイルで追加`AddMessagePackProtocol`を`AddSignalR`呼び出し、サーバー上の MessagePack サポートを有効にします。
+サーバーで MessagePack ハブプロトコルを有効にするには、アプリに @no__t 0 パッケージをインストールします。 Startup.cs ファイルで `AddMessagePackProtocol` を @no__t の呼び出しに追加して、サーバーで MessagePack のサポートを有効にします。
 
 > [!NOTE]
-> JSON は、既定で有効です。 MessagePack を追加すると、JSON、MessagePack の両方のクライアントのサポートができます。
+> JSON は既定で有効になっています。 MessagePack を追加すると、JSON と MessagePack クライアントの両方のサポートが有効になります。
 
 ```csharp
 services.AddSignalR()
     .AddMessagePackProtocol();
 ```
 
-MessagePack が、データを書式設定する方法をカスタマイズする`AddMessagePackProtocol`オプションを構成するデリゲートを受け取る。 そのデリゲートで、 `FormatterResolvers` MessagePack シリアル化オプションを構成するプロパティを使用できます。 競合回避モジュールの動作方法の詳細については、MessagePack ライブラリを参照してください。 [MessagePack CSharp](https://github.com/neuecc/MessagePack-CSharp)します。 属性は、処理方法を定義するシリアル化するオブジェクトで使用できます。
+MessagePack によるデータの書式設定方法をカスタマイズするために、`AddMessagePackProtocol` はオプションを構成するためのデリゲートを受け取ります。 このデリゲートでは、`FormatterResolvers` プロパティを使用して MessagePack のシリアル化オプションを構成できます。 リゾルバーの動作の詳細については、 [messagepack-CSharp](https://github.com/neuecc/MessagePack-CSharp)の messagepack ライブラリを参照してください。 属性は、シリアル化するオブジェクトに対して使用して、どのように処理するかを定義できます。
 
 ```csharp
 services.AddSignalR()
@@ -49,14 +49,14 @@ services.AddSignalR()
     });
 ```
 
-## <a name="configure-messagepack-on-the-client"></a>MessagePack client を構成します。
+## <a name="configure-messagepack-on-the-client"></a>クライアントでの MessagePack の構成
 
 > [!NOTE]
-> JSON は、サポートされているクライアントの既定で有効です。 クライアントは、1 つのプロトコルのみをサポートできます。 構成されたプロトコルを MessagePack サポートは置き換える前に追加します。
+> JSON は、サポートされているクライアントに対して既定で有効になっています。 クライアントは、1つのプロトコルのみをサポートできます。 MessagePack サポートを追加すると、以前に構成したプロトコルがすべて置き換えられます。
 
 ### <a name="net-client"></a>.NET クライアント
 
-MessagePack、.NET クライアントを有効にするにはインストール、`Microsoft.AspNetCore.SignalR.Protocols.MessagePack`パッケージと呼び出し`AddMessagePackProtocol`で`HubConnectionBuilder`します。
+.NET クライアントで MessagePack を有効にするには、@no__t 0 のパッケージをインストールし、`HubConnectionBuilder` で `AddMessagePackProtocol` を呼び出します。
 
 ```csharp
 var hubConnection = new HubConnectionBuilder()
@@ -66,20 +66,48 @@ var hubConnection = new HubConnectionBuilder()
 ```
 
 > [!NOTE]
-> これは、`AddMessagePackProtocol`呼び出しは、サーバーと同様のオプションを構成するためのデリゲートを受け取ります。
+> この `AddMessagePackProtocol` 呼び出しは、サーバーと同様にオプションを構成するためのデリゲートを受け取ります。
 
 ### <a name="javascript-client"></a>JavaScript クライアント
 
-JavaScript クライアント MessagePack サポートが提供、 `@aspnet/signalr-protocol-msgpack` npm パッケージ。
+::: moniker range=">= aspnetcore-3.0"
+
+JavaScript クライアントの MessagePack のサポートは、`@microsoft/signalr-protocol-msgpack` npm パッケージによって提供されます。 コマンドシェルで次のコマンドを実行して、パッケージをインストールします。
+
+```console
+npm install @microsoft/signalr-protocol-msgpack
+```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+JavaScript クライアントの MessagePack のサポートは、`@aspnet/signalr-protocol-msgpack` npm パッケージによって提供されます。 コマンドシェルで次のコマンドを実行して、パッケージをインストールします。
 
 ```console
 npm install @aspnet/signalr-protocol-msgpack
 ```
 
-Npm パッケージをインストールした後、モジュール、JavaScript モジュール ローダーを使用して直接使用したり参照することで、ブラウザーにインポート、 *node_modules\\@aspnet\signalr-protocol-msgpack\dist\browser\signalr-protocol-msgpack.js* ファイル。 ブラウザーで、`msgpack5`ライブラリが参照することも必要があります。 使用して、`<script>`参照を作成するタグ。 ライブラリに掲載する*node_modules\msgpack5\dist\msgpack5.js*します。
+::: moniker-end
+
+Npm パッケージをインストールした後、モジュールは JavaScript モジュールローダーで直接使用することも、次のファイルを参照してブラウザーにインポートすることもできます。
+
+::: moniker range=">= aspnetcore-3.0"
+
+*node_modules @ no__t-1 @ no__t* 
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+*node_modules @ no__t-1 @ no__t* 
+
+::: moniker-end
+
+ブラウザーでは、`msgpack5` ライブラリも参照する必要があります。 参照を作成するには、@no__t 0 のタグを使用します。 ライブラリは*node_modules\msgpack5\dist\msgpack5.js*にあります。
 
 > [!NOTE]
-> 使用する場合、`<script>`要素の順序は重要です。 場合*signalr-プロトコル-msgpack.js*する前に参照が*msgpack5.js*MessagePack で接続する際にエラーが発生します。 *signalr.js*する必要がありますも*signalr-プロトコル-msgpack.js*します。
+> @No__t-0 要素を使用する場合、順序は重要です。 *Msgpack5*の前に*signalr-protocol-msgpack*が参照されている場合、messagepack に接続しようとするとエラーが発生します。 *signalr*は、 *signalr-protocol-msgpack*の前にも必要です。
 
 ```html
 <script src="~/lib/signalr/signalr.js"></script>
@@ -87,7 +115,7 @@ Npm パッケージをインストールした後、モジュール、JavaScript
 <script src="~/lib/signalr/signalr-protocol-msgpack.js"></script>
 ```
 
-追加`.withHubProtocol(new signalR.protocols.msgpack.MessagePackHubProtocol())`を`HubConnectionBuilder`MessagePack プロトコルを使用して、サーバーに接続するときにクライアントを構成します。
+@No__t-1 に `.withHubProtocol(new signalR.protocols.msgpack.MessagePackHubProtocol())` を追加すると、サーバーに接続するときに MessagePack プロトコルを使用するようにクライアントが構成されます。
 
 ```javascript
 const connection = new signalR.HubConnectionBuilder()
@@ -97,15 +125,15 @@ const connection = new signalR.HubConnectionBuilder()
 ```
 
 > [!NOTE]
-> この時点では、JavaScript クライアントでは、MessagePack プロトコルの構成オプションはありません。
+> 現時点では、JavaScript クライアントの MessagePack プロトコルの構成オプションはありません。
 
-## <a name="messagepack-quirks"></a>MessagePack quirks
+## <a name="messagepack-quirks"></a>MessagePack の特性
 
-MessagePack Hub プロトコルを使用する場合の注意すべきいくつかの問題があります。
+MessagePack ハブプロトコルを使用する場合に注意する必要がある問題がいくつかあります。
 
-### <a name="messagepack-is-case-sensitive"></a>MessagePack 小文字が区別されます。
+### <a name="messagepack-is-case-sensitive"></a>MessagePack では大文字と小文字が区別されます
 
-MessagePack プロトコルは、大文字小文字を区別します。 たとえば、次C#クラス。
+MessagePack プロトコルでは大文字と小文字が区別されます。 たとえば、次C#のクラスについて考えてみます。
 
 ```csharp
 public class ChatMessage
@@ -115,35 +143,35 @@ public class ChatMessage
 }
 ```
 
-使用する必要があります、JavaScript クライアントからの送信時に`PascalCased`プロパティの名前、大文字と小文字が一致する必要がありますので、C#クラスを正確にします。 例:
+JavaScript クライアントから送信する場合は、大文字と小文字が正確に一致C#する必要があるため、`PascalCased` のプロパティ名を使用する必要があります。 以下に例を示します。
 
 ```javascript
 connection.invoke("SomeMethod", { Sender: "Sally", Message: "Hello!" });
 ```
 
-使用して`camelCased`名に正しくバインドされません、C#クラス。 使用して、これを回避することができますできます、 `Key` MessagePack プロパティに別の名前を指定する属性。 詳細については、次を参照してください。 [MessagePack CSharp ドキュメント](https://github.com/neuecc/MessagePack-CSharp#object-serialization)します。
+@No__t-0 の名前を使用してもC# 、クラスに正しくバインドされません。 この問題を回避するには、`Key` 属性を使用して、MessagePack プロパティに別の名前を指定します。 詳細については、 [MessagePack-CSharp のドキュメント](https://github.com/neuecc/MessagePack-CSharp#object-serialization)を参照してください。
 
-### <a name="datetimekind-is-not-preserved-when-serializingdeserializing"></a>シリアル化/逆シリアル化時 DateTime.Kind は保持されません。
+### <a name="datetimekind-is-not-preserved-when-serializingdeserializing"></a>シリアル化/逆シリアル化時には DateTime. Kind は保持されません
 
-MessagePack プロトコルは、エンコードする方法を提供しません、`Kind`の値を`DateTime`します。 結果として、日付を逆シリアル化するときに受信日付が UTC 形式で MessagePack ハブのプロトコルが想定します。 使用している場合`DateTime`現地時刻の値、お勧めしますに送信する前に、UTC に変換します。 乗り換え UTC から現地時刻に表示された場合。
+MessagePack プロトコルは、`DateTime` の @no__t 0 値をエンコードする手段を提供していません。 その結果、MessagePack ハブプロトコルでは、日付を逆シリアル化するときに、受信日が UTC 形式であると見なされます。 現地時刻で @no__t 0 の値を使用している場合は、送信する前に UTC に変換することをお勧めします。 これらを受信時に UTC からローカル時刻に変換します。
 
-この制限の詳細については、GitHub を参照してください。 問題[aspnet/SignalR #2632](https://github.com/aspnet/SignalR/issues/2632)します。
+この制限の詳細については、「GitHub issue [aspnet/SignalR # 2632](https://github.com/aspnet/SignalR/issues/2632)」を参照してください。
 
-### <a name="datetimeminvalue-is-not-supported-by-messagepack-in-javascript"></a>JavaScript で MessagePack によって DateTime.MinValue はサポートされていません
+### <a name="datetimeminvalue-is-not-supported-by-messagepack-in-javascript"></a>MinValue は、JavaScript の MessagePack ではサポートされていません
 
-[Msgpack5](https://github.com/mcollina/msgpack5) SignalR JavaScript クライアントによって使用されるライブラリをサポートしていない、 `timestamp96` MessagePack 内の型。 この型は、非常に大きな日付の値 (過去または将来的に非常にまでに非常に早い段階か) のエンコードに使用されます。 値`DateTime.MinValue`は`January 1, 0001`でエンコードする必要があります、`timestamp96`値。 このため、送信のため`DateTime.MinValue`を javascript クライアントはサポートされていません。 ときに`DateTime.MinValue`が受信される、JavaScript クライアントで、次のエラーがスローされます。
+SignalR JavaScript クライアントによって使用される[msgpack5](https://github.com/mcollina/msgpack5)ライブラリは、messagepack の `timestamp96` 型をサポートしていません。 この型は、非常に大きな日付値をエンコードするために使用されます (過去またはそれ以降の非常に早い段階)。 @No__t-0 の値は `January 1, 0001` で、`timestamp96` の値でエンコードする必要があります。 このため、JavaScript クライアントへの `DateTime.MinValue` の送信はサポートされていません。 @No__t-0 が JavaScript クライアントによって受信されると、次のエラーがスローされます。
 
 ```
 Uncaught Error: unable to find ext type 255 at decoder.js:427
 ```
 
-通常、`DateTime.MinValue`エンコードが使用される、「が見つかりません」または`null`値。 MessagePack でその値をエンコードする必要がある場合は、null 許容使用`DateTime`値 (`DateTime?`)、別のエンコードまたは`bool`日付が存在するかどうかを示す値。
+通常、`DateTime.MinValue` は、"missing" 値または `null` 値をエンコードするために使用されます。 MessagePack でその値をエンコードする必要がある場合は、null 許容の @no__t 0 の値 (`DateTime?`) を使用するか、日付が存在するかどうかを示す別個の `bool` の値をエンコードします。
 
-この制限の詳細については、GitHub を参照してください。 問題[aspnet/SignalR #2228](https://github.com/aspnet/SignalR/issues/2228)します。
+この制限の詳細については、「GitHub issue [aspnet/SignalR # 2228](https://github.com/aspnet/SignalR/issues/2228)」を参照してください。
 
-### <a name="messagepack-support-in-ahead-of-time-compilation-environment"></a>"Ahead の time"コンパイル環境で MessagePack サポート
+### <a name="messagepack-support-in-ahead-of-time-compilation-environment"></a>"事前に" コンパイル環境での MessagePack のサポート
 
-[MessagePack CSharp](https://github.com/neuecc/MessagePack-CSharp) .NET クライアントおよびサーバーで使用されるライブラリでは、コードの生成を使用して、シリアル化を最適化します。 その結果、既定では"先読み-"コンパイル (Xamarin iOS、Unity など) を使用している環境でサポートされていません。 これらの環境で「事前コードを生成する」シリアライザー/デシリアライザーによって MessagePack を使用することになります。 詳細については、次を参照してください。 [MessagePack CSharp ドキュメント](https://github.com/neuecc/MessagePack-CSharp#pre-code-generationunityxamarin-supports)します。 シリアライザーを事前生成した後に渡される構成デリゲートを使用してそれらを登録できます`AddMessagePackProtocol`:
+.NET クライアントとサーバーで使用される[Messagepack-CSharp](https://github.com/neuecc/MessagePack-CSharp)ライブラリは、コード生成を使用してシリアル化を最適化します。 その結果、"事前に" コンパイル (Xamarin iOS や Unity など) を使用する環境では、既定ではサポートされません。 これらの環境では、シリアライザー/デシリアライザーコードを "事前に生成する" ことで MessagePack を使用することができます。 詳細については、 [MessagePack-CSharp のドキュメント](https://github.com/neuecc/MessagePack-CSharp#pre-code-generationunityxamarin-supports)を参照してください。 シリアライザーを事前に生成したら、`AddMessagePackProtocol` に渡された構成デリゲートを使用してそれらを登録できます。
 
 ```csharp
 services.AddSignalR()
@@ -157,15 +185,15 @@ services.AddSignalR()
     });
 ```
 
-### <a name="type-checks-are-more-strict-in-messagepack"></a>型チェックは MessagePack でより厳密です
+### <a name="type-checks-are-more-strict-in-messagepack"></a>MessagePack での型チェックの方が厳しい場合
 
-JSON のハブ プロトコルでは、型変換を逆シリアル化中に実行します。 たとえば、入力方向のオブジェクトがプロパティの値を持つ場合の数では (`{ foo: 42 }`) が型の .NET クラスのプロパティでは`string`値に変換されます。 ただし、MessagePack では、この変換は実行されませんし、サーバー側のログ (とコンソールで) 表示できる例外がスローされます。
+JSON ハブプロトコルは、逆シリアル化中に型変換を実行します。 たとえば、受信したオブジェクトのプロパティ値が数値 (`{ foo: 42 }`) であっても、.NET クラスのプロパティの型が `string` の場合、その値は変換されます。 ただし、MessagePack では、この変換は実行されず、サーバー側のログ (およびコンソール) で確認できる例外がスローされます。
 
 ```
 InvalidDataException: Error binding arguments. Make sure that the types of the provided values match the types of the hub method being invoked.
 ```
 
-この制限の詳細については、GitHub を参照してください。 問題[aspnet/SignalR #2937](https://github.com/aspnet/SignalR/issues/2937)します。
+この制限の詳細については、「GitHub issue [aspnet/SignalR # 2937](https://github.com/aspnet/SignalR/issues/2937)」を参照してください。
 
 ## <a name="related-resources"></a>関連資料
 

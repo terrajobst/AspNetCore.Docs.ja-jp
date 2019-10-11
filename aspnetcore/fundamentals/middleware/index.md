@@ -5,14 +5,14 @@ description: ASP.NET Core のミドルウェアと要求パイプラインにつ
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/22/2019
+ms.date: 10/08/2019
 uid: fundamentals/middleware/index
-ms.openlocfilehash: 674e89cd22ce113474dfbba44b57d9255446fc3e
-ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
+ms.openlocfilehash: 5d02e1eb37693881d5b1855e1ed163590d8a44d3
+ms.sourcegitcommit: fcdf9aaa6c45c1a926bd870ed8f893bdb4935152
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/06/2019
-ms.locfileid: "70773783"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72165305"
 ---
 # <a name="aspnet-core-middleware"></a>ASP.NET Core のミドルウェア
 
@@ -68,7 +68,7 @@ ASP.NET Core 要求パイプラインは、順番に呼び出される一連の�
 1. 例外/エラー処理
    * 開発環境でアプリを実行する場合:
      * 開発者例外ページ ミドルウェア (<xref:Microsoft.AspNetCore.Builder.DeveloperExceptionPageExtensions.UseDeveloperExceptionPage*>) によりアプリの実行時エラーが報告されます。
-     * データベース エラー ページ ミドルウェア (<xref:Microsoft.AspNetCore.Builder.DatabaseErrorPageExtensions.UseDatabaseErrorPage*>) によりデータベースの実行時エラーが報告されます。
+     * データベース エラー ページ ミドルウェアによりデータベースの実行時エラーが報告されます。
    * 運用環境でアプリを実行する場合:
      * 例外ハンドラー ミドルウェア (<xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*>) によって、後続のミドルウェアによってスローされた例外がキャッチされます。
      * HTTP Strict Transport Security プロトコル (HSTS) ミドルウェア (<xref:Microsoft.AspNetCore.Builder.HstsBuilderExtensions.UseHsts*>) により `Strict-Transport-Security` ヘッダーが追加されます。
@@ -80,6 +80,18 @@ ASP.NET Core 要求パイプラインは、順番に呼び出される一連の�
 1. 承認ミドルウェア (`UseAuthorization`) により、ユーザーがセキュリティで保護されたリソースにアクセスすることが承認されます。
 1. セッション ミドルウェア (<xref:Microsoft.AspNetCore.Builder.SessionMiddlewareExtensions.UseSession*>) により、セッション状態が確立され保持されます。 アプリでセッション状態が使用されている場合は、Cookie ポリシー ミドルウェアの後、MVC ミドルウェアの前に、セッション ミドルウェアを呼び出します。
 1. エンドポイント ルーティング ミドルウェア (`MapRazorPages` を含む `UseEndpoints`) により、Razor Pages エンドポイントが要求パイプラインに追加されます。
+
+<!--
+
+FUTURE UPDATE
+
+On the next topic overhaul/release update, add API crosslink to "Database Error Page Middleware" in Item 1 of the list ...
+
+Microsoft.AspNetCore.Builder.DatabaseErrorPageExtensions.UseDatabaseErrorPage*
+
+... when available via the API docs.
+
+-->
 
 ```csharp
 public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

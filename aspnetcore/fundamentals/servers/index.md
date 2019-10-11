@@ -1,18 +1,18 @@
 ---
 title: ASP.NET Core での Web サーバーの実装
-author: tdykstra
+author: rick-anderson
 description: ASP.NET Core の Web サーバー Kestrel と HTTP.sys を検出します。 サーバーを選択する方法と、リバース プロキシ サーバーを使用するタイミングについて説明します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 08/10/2019
 uid: fundamentals/servers/index
-ms.openlocfilehash: cfea559725a644f167aa3afdf88c78bace4b5950
-ms.sourcegitcommit: dc5b293e08336dc236de66ed1834f7ef78359531
+ms.openlocfilehash: 3bdc2bf776946b8fae8886a37ecd3ed5e3f860fe
+ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71011152"
+ms.lasthandoff: 10/11/2019
+ms.locfileid: "72259830"
 ---
 # <a name="web-server-implementations-in-aspnet-core"></a>ASP.NET Core での Web サーバーの実装
 

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/14/2019
 uid: security/enforcing-ssl
-ms.openlocfilehash: 25e4f7cd6ae3cd58813c89d13262e91a706644b3
-ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
+ms.openlocfilehash: 044e9d594fa037214d80898e3ecc420d80a6f869
+ms.sourcegitcommit: 73a451e9a58ac7102f90b608d661d8c23dd9bbaf
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/03/2019
-ms.locfileid: "71924723"
+ms.lasthandoff: 10/08/2019
+ms.locfileid: "72037620"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>ASP.NET Core に HTTPS を適用する
 
@@ -56,7 +56,7 @@ API がないと、クライアントが最初の要求で機微なデータを�
 
 Web アプリの運用 ASP.NET Core では次のものを使用することをお勧めします。
 
-* HTTP 要求を https<xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection*>にリダイレクトする https リダイレクトミドルウェア ()。
+* HTTP 要求を HTTPS にリダイレクトする HTTPS リダイレクトミドルウェア (<xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection*>)。
 * HSTS ミドルウェア ([Usehsts](#http-strict-transport-security-protocol-hsts)) を介して、HTTP Strict Transport Security Protocol (hsts) ヘッダーをクライアントに送信します。
 
 > [!NOTE]
@@ -64,7 +64,7 @@ Web アプリの運用 ASP.NET Core では次のものを使用することを�
 
 ### <a name="usehttpsredirection"></a>UseHttpsRedirection
 
-次のコードは`UseHttpsRedirection` 、 `Startup`クラス内でを呼び出します。
+次のコードは、`Startup` クラスの `UseHttpsRedirection` を呼び出します。
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -98,38 +98,38 @@ Web アプリの運用 ASP.NET Core では次のものを使用することを�
 
 ::: moniker range=">= aspnetcore-3.0"
 
-* `https_port` [ホスト設定](/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-3.0#https_port)を設定します。
+* @No__t-0[ホスト設定](/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-3.0#https_port)を設定します。
 
   * ホスト構成。
-  * `ASPNETCORE_HTTPS_PORT`環境変数を設定します。
+  * @No__t-0 環境変数を設定します。
   * 次のようにして、 *appsettings*にトップレベルのエントリを追加します。
 
     [!code-json[](enforcing-ssl/sample-snapshot/3.x/appsettings.json?highlight=2)]
 
-* [ASPNETCORE_URLS 環境変数](/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-3.0#urls)を使用して、セキュリティで保護されたスキームのポートを指定します。 環境変数によってサーバーが構成されます。 ミドルウェアは、を使用<xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature>して HTTPS ポートを間接的に検出します。 リバースプロキシの展開では、この方法は使用できません。
+* [ASPNETCORE_URLS 環境変数](/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-3.0#urls)を使用して、セキュリティで保護されたスキームのポートを指定します。 環境変数によってサーバーが構成されます。 ミドルウェアは、<xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature> を使用して HTTPS ポートを間接的に検出します。 リバースプロキシの展開では、この方法は使用できません。
 
 ::: moniker-end
 
 ::: moniker range="<= aspnetcore-2.2"
 
-* `https_port` [ホスト設定](xref:fundamentals/host/web-host#https-port)を設定します。
+* @No__t-0[ホスト設定](xref:fundamentals/host/web-host#https-port)を設定します。
 
   * ホスト構成。
-  * `ASPNETCORE_HTTPS_PORT`環境変数を設定します。
+  * @No__t-0 環境変数を設定します。
   * 次のようにして、 *appsettings*にトップレベルのエントリを追加します。
 
     [!code-json[](enforcing-ssl/sample-snapshot/2.x/appsettings.json?highlight=2)]
 
-* [ASPNETCORE_URLS 環境変数](xref:fundamentals/host/web-host#server-urls)を使用して、セキュリティで保護されたスキームのポートを指定します。 環境変数によってサーバーが構成されます。 ミドルウェアは、を使用<xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature>して HTTPS ポートを間接的に検出します。 リバースプロキシの展開では、この方法は使用できません。
+* [ASPNETCORE_URLS 環境変数](xref:fundamentals/host/web-host#server-urls)を使用して、セキュリティで保護されたスキームのポートを指定します。 環境変数によってサーバーが構成されます。 ミドルウェアは、<xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature> を使用して HTTPS ポートを間接的に検出します。 リバースプロキシの展開では、この方法は使用できません。
 
 ::: moniker-end
 
 * 開発では、 *launchsettings. json*に HTTPS URL を設定します。 IIS Express が使用されている場合は、HTTPS を有効にします。
 
-* [Kestrel](xref:fundamentals/servers/kestrel) [サーバーまたは http.sys サーバー](xref:fundamentals/servers/httpsys)の公開エッジデプロイの HTTPS URL エンドポイントを構成します。 アプリケーションで使用される**HTTPS ポートは1つ**だけです。 ミドルウェアは、を使用<xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature>してポートを検出します。
+* [Kestrel](xref:fundamentals/servers/kestrel) [サーバーまたは http.sys サーバー](xref:fundamentals/servers/httpsys)の公開エッジデプロイの HTTPS URL エンドポイントを構成します。 アプリケーションで使用される**HTTPS ポートは1つ**だけです。 ミドルウェアは <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature> を使用してポートを検出します。
 
 > [!NOTE]
-> リバースプロキシ構成でアプリを実行する場合、 <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature>は使用できません。 このセクションで説明する他の方法のいずれかを使用して、ポートを設定します。
+> リバースプロキシ構成でアプリを実行する場合、<xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature> は使用できません。 このセクションで説明する他の方法のいずれかを使用して、ポートを設定します。
 
 ### <a name="edge-deployments"></a>エッジデプロイ 
 
@@ -140,15 +140,15 @@ Kestrel または http.sys が公開エッジサーバーとして使用され�
 
 セキュリティで保護されていない要求をアプリケーションが受信し、セキュリティで保護されたポートにクライアントをリダイレクトするには、セキュリティで保護されていないポートにクライアントがアクセスできる必要があります。
 
-詳細については、「 [Kestrel エンドポイントの構成](xref:fundamentals/servers/kestrel#endpoint-configuration)」または<xref:fundamentals/servers/httpsys>「」を参照してください。
+詳細については、「 [Kestrel エンドポイントの構成](xref:fundamentals/servers/kestrel#endpoint-configuration)」または「<xref:fundamentals/servers/httpsys>」を参照してください。
 
 ### <a name="deployment-scenarios"></a>展開シナリオ
 
 クライアントとサーバーの間のファイアウォールでは、トラフィック用の通信ポートも開いている必要があります。
 
-リバースプロキシ構成で要求が転送される場合は、HTTPS リダイレクトミドルウェアを呼び出す前に、転送された[ヘッダーミドルウェア](xref:host-and-deploy/proxy-load-balancer)を使用します。 転送されたヘッダー `Request.Scheme`ミドルウェアは、 `X-Forwarded-Proto`ヘッダーを使用してを更新します。 ミドルウェアは、リダイレクト Uri とその他のセキュリティポリシーを正しく動作させることを許可します。 転送ヘッダーミドルウェアが使用されていない場合、バックエンドアプリは正しいスキームを受信せず、リダイレクトループで終了する可能性があります。 一般的なエンドユーザーエラーメッセージは、リダイレクトされた回数が多すぎることを示しています。
+リバースプロキシ構成で要求が転送される場合は、HTTPS リダイレクトミドルウェアを呼び出す前に、転送された[ヘッダーミドルウェア](xref:host-and-deploy/proxy-load-balancer)を使用します。 転送されたヘッダーミドルウェアは、`X-Forwarded-Proto` ヘッダーを使用して @no__t 0 を更新します。 ミドルウェアは、リダイレクト Uri とその他のセキュリティポリシーを正しく動作させることを許可します。 転送ヘッダーミドルウェアが使用されていない場合、バックエンドアプリは正しいスキームを受信せず、リダイレクトループで終了する可能性があります。 一般的なエンドユーザーエラーメッセージは、リダイレクトされた回数が多すぎることを示しています。
 
-Azure App Service にデプロイする場合は、チュートリアルの[ガイダンスに従ってください。既存のカスタム SSL 証明書を Azure Web Apps にバインドする](/azure/app-service/app-service-web-tutorial-custom-ssl)」をご覧ください。
+Azure App Service にデプロイする場合は、@no__t 0Tutorial のガイダンスに従ってください。既存のカスタム SSL 証明書を Azure Web Apps にバインドする](/azure/app-service/app-service-web-tutorial-custom-ssl)」をご覧ください。
 
 ### <a name="options"></a>オプション
 
@@ -168,11 +168,11 @@ Azure App Service にデプロイする場合は、チュートリアルの[ガ�
 ::: moniker-end
 
 
-を`AddHttpsRedirection`呼び出す必要があるのは、 `HttpsPort`また`RedirectStatusCode`はの値を変更することだけです。
+@No__t-0 を呼び出す必要があるのは、`HttpsPort` または `RedirectStatusCode` の値を変更する場合のみです。
 
 前の強調表示されているコード:
 
-* [HttpsRedirectionOptions](xref:Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionOptions.RedirectStatusCode*)をに<xref:Microsoft.AspNetCore.Http.StatusCodes.Status307TemporaryRedirect>設定します。これは既定値です。 <xref:Microsoft.AspNetCore.Http.StatusCodes> へ`RedirectStatusCode`の割り当てには、クラスのフィールドを使用します。
+* [HttpsRedirectionOptions](xref:Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionOptions.RedirectStatusCode*)を <xref:Microsoft.AspNetCore.Http.StatusCodes.Status307TemporaryRedirect> に設定します。これは既定値です。 割り当てには <xref:Microsoft.AspNetCore.Http.StatusCodes> クラスのフィールドを使用し、`RedirectStatusCode` にします。
 * HTTPS ポートを5001に設定します。 既定値は443です。
 
 #### <a name="configure-permanent-redirects-in-production"></a>運用環境での永続的なリダイレクトの構成
@@ -224,9 +224,9 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="https-redirection-middleware-alternative-approach"></a>HTTPS リダイレクトミドルウェアの代替アプローチ
 
-HTTPS リダイレクトミドルウェア (`UseHttpsRedirection`) を使用する代わりに、URL リライトミドルウェア (`AddRedirectToHttps`) を使用することもできます。 `AddRedirectToHttps`また、リダイレクトの実行時に状態コードとポートを設定することもできます。 さらに詳しい情報は、[URL 書き換えミドルウェア](xref:fundamentals/url-rewriting) を参照してください。
+HTTPS リダイレクトミドルウェア (`UseHttpsRedirection`) を使用する代わりに、URL リライトミドルウェア (`AddRedirectToHttps`) を使用することもできます。 `AddRedirectToHttps` は、リダイレクトの実行時に状態コードとポートを設定することもできます。 さらに詳しい情報は、[URL 書き換えミドルウェア](xref:fundamentals/url-rewriting) を参照してください。
 
-追加のリダイレクト規則を必要とせずに https にリダイレクトする場合は、このトピック`UseHttpsRedirection`で説明する https リダイレクトミドルウェア () を使用することをお勧めします。
+追加のリダイレクト規則を必要とせずに HTTPS にリダイレクトする場合は、このトピックで説明する HTTPS リダイレクトミドルウェア (`UseHttpsRedirection`) を使用することをお勧めします。
 
 <a name="hsts"></a>
 
@@ -243,7 +243,7 @@ HSTS はクライアントによって適用されるため、いくつかの制
 * HSTS で HSTS ポリシーを確立するには、少なくとも1つの HTTPS 要求が必要です。
 * アプリケーションは、すべての HTTP 要求を確認し、HTTP 要求をリダイレクトまたは拒否する必要があります。
 
-ASP.NET Core 2.1 以降では、 `UseHsts`拡張メソッドを使用して hsts を実装します。 次のコードは`UseHsts` 、アプリが[開発モード](xref:fundamentals/environments)でない場合にを呼び出します。
+ASP.NET Core 2.1 以降では、@no__t 0 の拡張メソッドを使用して HSTS を実装します。 次のコードでは、アプリが[開発モード](xref:fundamentals/environments)でない場合に `UseHsts` が呼び出されます。
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -257,9 +257,9 @@ ASP.NET Core 2.1 以降では、 `UseHsts`拡張メソッドを使用して hsts
 
 ::: moniker-end
 
-`UseHsts`HSTS の設定はブラウザーによって高度なキャッシュが可能であるため、開発では推奨されません。 既定では`UseHsts` 、はローカルループバックアドレスを除外します。
+HSTS の設定はブラウザーによって非常にキャッシュ可能であるため、`UseHsts` は開発では推奨されません。 既定では、`UseHsts` はローカルループバックアドレスを除外します。
 
-初めて HTTPS を実装する運用環境では、 <xref:System.TimeSpan>メソッドのいずれかを使用して、初期の[HstsOptions](xref:Microsoft.AspNetCore.HttpsPolicy.HstsOptions.MaxAge*)を小さい値に設定します。 HTTPS インフラストラクチャを HTTP に戻す必要がある場合に備えて、値を時間から1日以内に設定します。 HTTPS 構成の持続性を確認したら、HSTS の最長有効期間の値を増やします。一般的に使用される値は1年です。
+初めて HTTPS を実装する運用環境では、<xref:System.TimeSpan> メソッドの1つを使用して、初期の[HstsOptions](xref:Microsoft.AspNetCore.HttpsPolicy.HstsOptions.MaxAge*)を小さい値に設定します。 HTTPS インフラストラクチャを HTTP に戻す必要がある場合に備えて、値を時間から1日以内に設定します。 HTTPS 構成の持続性を確認したら、HSTS の最長有効期間の値を増やします。一般的に使用される値は1年です。
 
 コード例を次に示します。
 
@@ -280,9 +280,9 @@ ASP.NET Core 2.1 以降では、 `UseHsts`拡張メソッドを使用して hsts
 * Strict-Transport-Security ヘッダーのプリロードパラメーターを設定します。 プリロードは[RFC hsts 仕様](https://tools.ietf.org/html/rfc6797)の一部ではありませんが、web ブラウザーでは、新規インストール時に hsts サイトを事前に読み込むことがサポートされています。 詳細については、「[https://hstspreload.org/](https://hstspreload.org/)」を参照してください。
 * HSTS ポリシーをホストサブドメインに適用する[includeSubDomain](https://tools.ietf.org/html/rfc6797#section-6.1.2)を有効にします。
 * 厳密な-Transport-Security ヘッダーの最長有効期間パラメーターを60日に明示的に設定します。 設定されていない場合、既定値は30日です。 詳細については、「[最長有効期間」ディレクティブ](https://tools.ietf.org/html/rfc6797#section-6.1.1)を参照してください。
-* 除外`example.com`するホストの一覧にを追加します。
+* 除外するホストの一覧に `example.com` を追加します。
 
-`UseHsts`次のループバックホストを除外します。
+`UseHsts` は、次のループバックホストを除外します。
 
 * `localhost` は、次のとおりです。IPv4 ループバックアドレス。
 * `127.0.0.1` は、次のとおりです。IPv4 ループバックアドレス。
@@ -325,7 +325,7 @@ dotnet new webapp --no-https
 
 ## <a name="trust-the-aspnet-core-https-development-certificate-on-windows-and-macos"></a>Windows および macOS で ASP.NET Core HTTPS 開発証明書を信頼する
 
-.NET Core SDK には、HTTPS 開発証明書が含まれています。 証明書は、最初の実行エクスペリエンスの一部としてインストールされます。 たとえば、は`dotnet --info`次のような出力を生成します。
+.NET Core SDK には、HTTPS 開発証明書が含まれています。 証明書は、最初の実行エクスペリエンスの一部としてインストールされます。 たとえば、`dotnet --info` の場合、次のような出力が生成されます。
 
 ```text
 ASP.NET Core
@@ -336,7 +336,7 @@ For establishing trust on other platforms refer to the platform specific documen
 For more information on configuring HTTPS see https://go.microsoft.com/fwlink/?linkid=848054.
 ```
 
-.NET Core SDK をインストールすると、ローカル ユーザーの証明書ストアに ASP.NET Core HTTPS 開発証明書がインストールされます。 証明書はインストールされていますが、信頼されていません。 証明書を信頼するには、1回限りの手順を`dev-certs`実行して dotnet ツールを実行します。
+.NET Core SDK をインストールすると、ローカル ユーザーの証明書ストアに ASP.NET Core HTTPS 開発証明書がインストールされます。 証明書はインストールされていますが、信頼されていません。 証明書を信頼するには、1回限りの手順を実行して dotnet `dev-certs` ツールを実行します。
 
 ```dotnetcli
 dotnet dev-certs https --trust
@@ -358,8 +358,8 @@ dotnet dev-certs https --help
 
 Windows Subsystem for Linux (WSL) は、HTTPS 自己署名証明書を生成します。WSL 証明書を信頼するように Windows 証明書ストアを構成するには、次のようにします。
 
-* 次のコマンドを実行して、WSL によって生成された証明書をエクスポートします。`dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p <cryptic-password>`
-* WSL ウィンドウで、次のコマンドを実行します。`ASPNETCORE_Kestrel__Certificates__Default__Password="<cryptic-password>" ASPNETCORE_Kestrel__Certificates__Default__Path=/mnt/c/Users/user-name/.aspnet/https/aspnetapp.pfx dotnet watch run`
+* 次のコマンドを実行して、WSL によって生成された証明書をエクスポートします。 `dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p <cryptic-password>`
+* WSL ウィンドウで、次のコマンドを実行します。 `ASPNETCORE_Kestrel__Certificates__Default__Password="<cryptic-password>" ASPNETCORE_Kestrel__Certificates__Default__Path=/mnt/c/Users/user-name/.aspnet/https/aspnetapp.pfx dotnet watch run`
 
   上記のコマンドは、Linux が Windows の信頼された証明書を使用するように環境変数を設定します。
 
@@ -382,13 +382,13 @@ dotnet dev-certs https --trust
 
 ### <a name="docker---certificate-not-trusted"></a>Docker-信頼されていない証明書
 
-* *C:\Users\{USER} \AppData\Roaming\ASP.NET\Https*フォルダーを削除します。
+* *C:\Users @ no__t-1USER} \AppData\Roaming\ASP.NET\Https*フォルダーを削除します。
 * ソリューションをクリーンアップします。 *bin* フォルダーと *obj* フォルダーを削除します。
 * 開発ツールを再起動します。 たとえば、Visual Studio、Visual Studio Code、Visual Studio for Mac などです。
 
 ### <a name="windows---certificate-not-trusted"></a>Windows-信頼されていない証明書
 
-* 証明書ストア内の証明書を確認します。 との両方`localhost` `ASP.NET Core HTTPS development certificate`に、フレンドリ名を持つ証明書が存在する必要があります。 `Current User > Personal > Certificates``Current User > Trusted root certification authorities > Certificates`
+* 証明書ストア内の証明書を確認します。 @No__t-2 と `Current User > Trusted root certification authorities > Certificates` の両方で `ASP.NET Core HTTPS development certificate` のフレンドリ名を持つ @no__t 0 証明書が存在する必要があります。
 * 個人証明書と信頼されたルート証明機関の両方から、検出されたすべての証明書を削除します。 IIS Express localhost 証明書**は削除しないでください。**
 * 次のコマンドを実行します。
 
@@ -404,13 +404,13 @@ dotnet dev-certs https --trust
 * キーチェーンアクセスを開きます。
 * システムキーチェーンを選択します。
 * Localhost 証明書の存在を確認します。
-* アイコンに`+`シンボルが含まれていることを確認し、すべてのユーザーに対して信頼されていることを示します。
+* すべてのユーザーに対して信頼されていることを示すために、アイコンに @no__t 0 の記号が含まれていることを確認します。
 * システムキーチェーンから証明書を削除します。
 * 次のコマンドを実行します。
 
 ```dotnetcli
-dotnet devcerts https --clean
-dotnet devcerts https --trust
+dotnet dev-certs https --clean
+dotnet dev-certs https --trust
 ```
 
 開いているすべてのブラウザーインスタンスを閉じます。 新しいブラウザーウィンドウを開いてアプリを開きます。
@@ -418,7 +418,7 @@ dotnet devcerts https --trust
 ## <a name="additional-information"></a>追加情報
 
 * <xref:host-and-deploy/proxy-load-balancer>
-* [Apache を使用した Linux でのホスト ASP.NET Core:HTTPS の構成](xref:host-and-deploy/linux-apache#https-configuration)
-* [Nginx を使用した Linux でのホスト ASP.NET Core:HTTPS の構成](xref:host-and-deploy/linux-nginx#https-configuration)
+* Apache を使用した Linux での @no__t 0Host ASP.NET Core:HTTPS 構成 @ no__t
+* Nginx を使用した Linux での @no__t 0Host ASP.NET Core:HTTPS 構成 @ no__t
 * [IIS で SSL を設定する方法](/iis/manage/configuring-security/how-to-set-up-ssl-on-iis)
 * [OWASP HSTS ブラウザーサポート](https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet#Browser_Support)

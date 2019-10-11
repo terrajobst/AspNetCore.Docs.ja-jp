@@ -4,14 +4,14 @@ author: rick-anderson
 description: ASP.NET Core 3.0 の新機能について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/26/2019
+ms.date: 10/08/2019
 uid: aspnetcore-3.0
-ms.openlocfilehash: ec3de5b35883752b7b3dbefceccec55da3986f39
-ms.sourcegitcommit: dc96d76f6b231de59586fcbb989a7fb5106d26a8
+ms.openlocfilehash: 90433773bec2efc5a2bc39d71ce7ae324b922046
+ms.sourcegitcommit: fcdf9aaa6c45c1a926bd870ed8f893bdb4935152
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/01/2019
-ms.locfileid: "71703675"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72165364"
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>ASP.NET Core 3.0 の新機能
 
@@ -302,7 +302,7 @@ subject.complete();
 
 直前の 2 つのスニペットのようなコードを使用して、リアルタイム ストリーミング エクスペリエンスを作成できます。
 
-### <a name="new-json-serialization"></a>新しい JSON シリアル化
+## <a name="new-json-serialization"></a>新しい JSON シリアル化
 
 現在、ASP.NET Core 3.0 では、JSON シリアル化のために既定で <xref:System.Text.Json> が使用されます。
 
@@ -397,7 +397,7 @@ Web UI テンプレート (Razor Pages、コントローラーとビューを含
 
 Angular テンプレートは、Angular 8 を使用するように更新されました。
 
-Razor クラス ライブラリ (RCL) テンプレートは Razor コンポーネント開発での既定です。 Visual Studio の新しいテンプレート オプションによって、ページとビューのテンプレート サポートが提供されます。 コマンド シェルでテンプレートから RCL を作成するときは、`-support-pages-and-views` オプション (`dotnet new razorclasslib -support-pages-and-views`) を渡します。
+Razor クラス ライブラリ (RCL) テンプレートは Razor コンポーネント開発での既定です。 Visual Studio の新しいテンプレート オプションによって、ページとビューのテンプレート サポートが提供されます。 コマンド シェルでテンプレートから RCL を作成するときは、`--support-pages-and-views` オプション (`dotnet new razorclasslib --support-pages-and-views`) を渡します。
 
 ## <a name="generic-host"></a>汎用ホスト
 

@@ -4,14 +4,14 @@ author: Rick-Anderson
 description: ASP.NET Core の Razor ページを使用して、ページのコーディングに重点を置いたシナリオをより簡略化して、MVC を使用する場合よりも生産性を高める方法について説明します。
 monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
-ms.date: 09/19/2019
+ms.date: 10/07/2019
 uid: razor-pages/index
-ms.openlocfilehash: 63938b0347dc698a67f2ba8c083097c55c6c9c66
-ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
+ms.openlocfilehash: 61b1c3a17b378524c8fea9004b615c2d3d480135
+ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/03/2019
-ms.locfileid: "71925276"
+ms.lasthandoff: 10/07/2019
+ms.locfileid: "72007474"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>ASP.NET Core での Razor ページの概要
 
@@ -583,7 +583,7 @@ URL 内のクエリ文字列 `?handler=JoinList` が気に入らない場合は�
 
 ### <a name="specify-that-razor-pages-are-at-the-content-root"></a>Razor ページをコンテンツのルートに指定する
 
-Razor ページのルートは既定で */Pages* ディレクトリです。 Razor ページをアプリのコンテンツ ルート (<xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.ContentRootPath>) に置くように指定するには <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.WithRazorPagesAtContentRoot*> を追加します。
+Razor ページのルートは既定で */Pages* ディレクトリです。 <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.WithRazorPagesAtContentRoot*> を追加して、Razor Pages をアプリの[コンテンツ ルート](xref:fundamentals/index#content-root) (<xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.ContentRootPath>) に置くように指定します。
 
 [!code-cs[](index/3.0sample/RazorPagesContacts/StartupWithRazorPagesAtContentRoot.cs?name=snippet)]
 
@@ -1092,7 +1092,7 @@ URL 内のクエリ文字列 `?handler=JoinList` が気に入らない場合は�
 
 ### <a name="specify-that-razor-pages-are-at-the-content-root"></a>Razor ページをコンテンツのルートに指定する
 
-Razor ページのルートは既定で */Pages* ディレクトリです。 Razor ページをアプリのコンテンツ ルート ([ContentRootPath](/dotnet/api/microsoft.aspnetcore.hosting.ihostingenvironment.contentrootpath)) に指定するには、[WithRazorPagesAtContentRoot](/dotnet/api/microsoft.extensions.dependencyinjection.mvcrazorpagesmvcbuilderextensions.withrazorpagesatcontentroot) を [AddMvc](/dotnet/api/microsoft.extensions.dependencyinjection.mvcservicecollectionextensions.addmvc#Microsoft_Extensions_DependencyInjection_MvcServiceCollectionExtensions_AddMvc_Microsoft_Extensions_DependencyInjection_IServiceCollection_) に追加します。
+Razor ページのルートは既定で */Pages* ディレクトリです。 [WithRazorPagesAtContentRoot](/dotnet/api/microsoft.extensions.dependencyinjection.mvcrazorpagesmvcbuilderextensions.withrazorpagesatcontentroot) を [AddMvc](/dotnet/api/microsoft.extensions.dependencyinjection.mvcservicecollectionextensions.addmvc#Microsoft_Extensions_DependencyInjection_MvcServiceCollectionExtensions_AddMvc_Microsoft_Extensions_DependencyInjection_IServiceCollection_) に追加して、Razor Pages をアプリの[コンテンツ ルート](xref:fundamentals/index#content-root) ([ContentRootPath](/dotnet/api/microsoft.aspnetcore.hosting.ihostingenvironment.contentrootpath)) に置くように指定します。
 
 ```csharp
 services.AddMvc()

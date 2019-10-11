@@ -4,15 +4,15 @@ author: Rick-Anderson
 description: Razor を ASP.NET core クラス ライブラリの部分ビューを使用して再利用可能な UI を作成する方法について説明します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 09/21/2019
+ms.date: 10/08/2019
 ms.custom: mvc, seodec18
 uid: razor-pages/ui-class
-ms.openlocfilehash: 1b544e208be049f02d01e35daa6eb3bfba94265a
-ms.sourcegitcommit: 04ce94b3c1b01d167f30eed60c1c95446dfe759d
-ms.translationtype: MT
+ms.openlocfilehash: d656e924033f1b217cdd8c86f7d00411c5d71beb
+ms.sourcegitcommit: 73a451e9a58ac7102f90b608d661d8c23dd9bbaf
+ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/21/2019
-ms.locfileid: "71176469"
+ms.lasthandoff: 10/08/2019
+ms.locfileid: "72037588"
 ---
 # <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a>ASP.NET Core の Razor クラスライブラリプロジェクトを使用して、再利用可能な UI を作成する
 
@@ -32,19 +32,19 @@ Razor ビュー、ページ、コントローラー、ページモデル、 [raz
 * **[ASP.NET Core Web アプリケーション]** を選択します。
 * ライブラリに名前を付け ("RazorClassLib" など)、 **[OK]** を選択します。 生成されたビュー ライブラリとファイル名の競合を避けるため、ライブラリ名の末尾が `.Views` ではないことを確認します。
 * **ASP.NET Core 3.0**以降が選択されていることを確認します。
-* [ **Razor クラスライブラリ** > **] [OK]** を選択します。
+* [ **Razor クラスライブラリ**> **OK]** を選択します。
 
-Razor クラスライブラリ (RCL) テンプレートは、既定で Razor コンポーネントの開発に既定で設定されています。 Visual Studio のテンプレートオプションを使用すると、ページとビューのテンプレートをサポートできます。
+Razor クラス ライブラリ (RCL) テンプレートは Razor コンポーネント開発での既定です。 Visual Studio のテンプレートオプションを使用すると、ページとビューのテンプレートをサポートできます。
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-コマンド ラインから `dotnet new razorclasslib` を実行します。 次に例を示します。
+コマンド ラインから `dotnet new razorclasslib` を実行します。 以下に例を示します。
 
 ```dotnetcli
 dotnet new razorclasslib -o RazorUIClassLib
 ```
 
-Razor クラスライブラリ (RCL) テンプレートは、既定で Razor コンポーネントの開発に既定で設定されています。 オプション ( `-support-pages-and-views` `dotnet new razorclasslib -support-pages-and-views`) を渡して、ページとビューのサポートを提供します。
+Razor クラス ライブラリ (RCL) テンプレートは Razor コンポーネント開発での既定です。 @No__t-0 オプション (`dotnet new razorclasslib --support-pages-and-views`) を渡して、ページとビューのサポートを提供します。
 
 詳細については、「[dotnet new](/dotnet/core/tools/dotnet-new)」を参照してください。 生成されたビュー ライブラリとファイル名の競合を避けるため、ライブラリ名の末尾が `.Views` ではないことを確認します。
 
@@ -52,7 +52,7 @@ Razor クラスライブラリ (RCL) テンプレートは、既定で Razor コ
 
 Razor ファイルを RCL に追加します。
 
-ASP.NET Core テンプレートは、RCL コンテンツが前提としています。、*領域*フォルダー。 「 [Rcl ページのレイアウト](#rcl-pages-layout)」を参照して、では`~/Pages`なく`~/Areas/Pages`、でコンテンツを公開する rcl を作成します。
+ASP.NET Core テンプレートは、RCL コンテンツが前提としています。、*領域*フォルダー。 @No__t ではなく `~/Pages` でコンテンツを公開する RCL を作成するには、「 [Rcl ページレイアウト](#rcl-pages-layout)」を参照してください。
 
 ## <a name="reference-rcl-content"></a>RCL コンテンツの参照
 
@@ -96,7 +96,7 @@ RCL をパッキングすると、 *wwwroot*フォルダー内のすべてのコ
 
 ### <a name="exclude-static-assets"></a>静的アセットを除外する
 
-静的アセットを除外するには、目的の除外パス`$(DefaultItemExcludes)`をプロジェクトファイルのプロパティグループに追加します。 エントリをセミコロン (`;`) で区切ります。
+静的アセットを除外するには、目的の除外パスをプロジェクトファイルの `$(DefaultItemExcludes)` プロパティグループに追加します。 エントリをセミコロン (`;`) で区切ります。
 
 次の例では、 *wwwroot*フォルダーの *.lib*スタイルシートは静的アセットとは見なされず、公開された rcl には含まれていません。
 
@@ -112,13 +112,13 @@ TypeScript ファイルを RCL に含めるには、次のようにします。
 
 1. TypeScript ファイル (*ts*) を*wwwroot*フォルダーの外側に配置します。 たとえば、ファイルを*クライアント*フォルダーに配置します。
 
-1. *Wwwroot*フォルダーの TypeScript ビルド出力を構成します。 プロジェクトファイル`TypescriptOutDir`の`PropertyGroup`内でプロパティを設定します。
+1. *Wwwroot*フォルダーの TypeScript ビルド出力を構成します。 プロジェクトファイルの `PropertyGroup` 内の `TypescriptOutDir` プロパティを設定します。
 
    ```xml
    <TypescriptOutDir>wwwroot</TypescriptOutDir>
    ```
 
-1. プロジェクトファイルの`PropertyGroup`内に次のターゲットを`ResolveCurrentProjectStaticWebAssets`追加することにより、TypeScript ターゲットをターゲットの依存関係として含めます。
+1. @No__t-0 ターゲットの依存関係として TypeScript ターゲットを追加します。そのためには、プロジェクトファイルの `PropertyGroup` 内に次のターゲットを追加します。
 
    ```xml
    <ResolveCurrentProjectStaticWebAssetsInputsDependsOn>
@@ -129,9 +129,9 @@ TypeScript ファイルを RCL に含めるには、次のようにします。
 
 ### <a name="consume-content-from-a-referenced-rcl"></a>参照されている RCL からのコンテンツの使用
 
-RCL の*wwwroot*フォルダーに含まれるファイルは、プレフィックス`_content/{LIBRARY NAME}/`の下にあるアプリに公開されます。 たとえば、という名前のライブラリを使用*すると、* の静的コンテンツ`_content/Razor.Class.Lib/`へのパスが生成されます。
+RCL の*wwwroot*フォルダーに含まれるファイルは、消費側のアプリのプレフィックス `_content/{LIBRARY NAME}/` で公開されます。 たとえば、という名前のライブラリを使用*すると、* `_content/Razor.Class.Lib/` の静的コンテンツへのパスが生成されます。
 
-使用中のアプリは`<script>` `<img>`、、 `<style>`、、およびその他の HTML タグを使用して、ライブラリによって提供される静的アセットを参照します。 使用中のアプリでは、次の方法`Startup.Configure`で[静的ファイルのサポート](xref:fundamentals/static-files)を有効にする必要があります。
+使用中のアプリは、`<script>`、`<style>`、`<img>`、およびその他の HTML タグを持つライブラリによって提供される静的アセットを参照します。 コンシューマーアプリでは、`Startup.Configure` で[静的ファイルサポート](xref:fundamentals/static-files)を有効にする必要があります。
 
 ```csharp
 public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -144,7 +144,7 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 }
 ```
 
-ビルド出力 (`dotnet run`) から使用中のアプリを実行すると、開発環境では、静的な web アセットが既定で有効になります。 ビルド出力から実行するときに他の環境のアセットを`UseStaticWebAssets`サポートするには、 *Program.cs*のホストビルダーでを呼び出します。
+ビルド出力 (`dotnet run`) から使用中のアプリを実行すると、開発環境では、静的な web アセットが既定で有効になります。 ビルド出力から実行するときに他の環境のアセットをサポートするには、 *Program.cs*のホストビルダーで `UseStaticWebAssets` を呼び出します。
 
 ```csharp
 using Microsoft.AspNetCore.Hosting;
@@ -167,7 +167,7 @@ public class Program
 }
 ```
 
-発行`UseStaticWebAssets`された出力 (`dotnet publish`) からアプリを実行する場合、を呼び出す必要はありません。
+発行された出力からアプリを実行する場合は、`UseStaticWebAssets` を呼び出す必要はありません (`dotnet publish`)。
 
 ### <a name="multi-project-development-flow"></a>複数プロジェクトの開発フロー
 
@@ -178,9 +178,9 @@ public class Program
 
 RCL がビルドされると、静的な web 資産の場所を記述するマニフェストが生成されます。 コンシューマーアプリは、実行時にマニフェストを読み取り、参照されたプロジェクトとパッケージのアセットを使用します。 RCL に新しいアセットが追加されたときに、使用中のアプリが新しい資産にアクセスできるようにするには、そのマニフェストを更新するために RCL を再構築する必要があります。
 
-### <a name="publish"></a>公開
+### <a name="publish"></a>パブリッシュ
 
-アプリが発行されると、参照されているすべてのプロジェクトおよびパッケージの関連する資産が、で`_content/{LIBRARY NAME}/`発行されたアプリの wwwroot フォルダーにコピーされます。
+アプリが発行されると、参照されているすべてのプロジェクトおよびパッケージのコンパニオン資産が、`_content/{LIBRARY NAME}/` の下で、発行されたアプリの*wwwroot*フォルダーにコピーされます。
 
 ::: moniker-end
 
@@ -198,7 +198,7 @@ Razor ビュー、ページ、コントローラー、ページモデル、 [raz
 * **[ASP.NET Core Web アプリケーション]** を選択します。
 * ライブラリに名前を付け ("RazorClassLib" など)、 **[OK]** を選択します。 生成されたビュー ライブラリとファイル名の競合を避けるため、ライブラリ名の末尾が `.Views` ではないことを確認します。
 * **ASP.NET Core 2.1** 以降が選択されていることを確認します。
-* [ **Razor クラスライブラリ** > **] [OK]** を選択します。
+* [ **Razor クラスライブラリ**> **OK]** を選択します。
 
 RCL には、次のプロジェクトファイルがあります。
 
@@ -218,7 +218,7 @@ dotnet new razorclasslib -o RazorUIClassLib
 
 Razor ファイルを RCL に追加します。
 
-ASP.NET Core テンプレートは、RCL コンテンツが前提としています。、*領域*フォルダー。 「 [Rcl ページのレイアウト](#rcl-pages-layout)」を参照して、では`~/Pages`なく`~/Areas/Pages`、でコンテンツを公開する rcl を作成します。
+ASP.NET Core テンプレートは、RCL コンテンツが前提としています。、*領域*フォルダー。 @No__t ではなく `~/Pages` でコンテンツを公開する RCL を作成するには、「 [Rcl ページレイアウト](#rcl-pages-layout)」を参照してください。
 
 ## <a name="reference-rcl-content"></a>RCL コンテンツの参照
 
@@ -267,9 +267,9 @@ RCL プロジェクトの作成:
 
 * Visual Studio の **[ファイル]** メニューから、 **[新規作成]** 、> **[プロジェクト]** の順に選択します。
 * **[ASP.NET Core Web アプリケーション]** を選択します。
-* アプリの名前を**RazorUIClassLib** > **OK**にします。
+* アプリに**RazorUIClassLib**という名前を > **OK をクリック**します。
 * **ASP.NET Core 2.1** 以降が選択されていることを確認します。
-* [ **Razor クラスライブラリ** > **] [OK]** を選択します。
+* [ **Razor クラスライブラリ**> **OK]** を選択します。
 * *RazorUIClassLib/Areas/MyFeature/Pages/Shared/_Message.cshtml* という名前が付いた Razor 部分ビュー ファイルを追加します。
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
@@ -284,7 +284,7 @@ dotnet new viewstart -o RazorUIClassLib/Areas/MyFeature/Pages
 
 上のコマンドでは以下の操作が行われます。
 
-* Rcl `RazorUIClassLib`を作成します。
+* @No__t-0 RCL を作成します。
 * Razor _Message ページが作成され、RCL に追加されます。 `-np` パラメーターによって、`PageModel` なしでページが作成されます。
 * 作成、 [_ViewStart.cshtml](xref:mvc/views/layout#running-code-before-each-view)ファイルを開き、RCL に追加します。
 
@@ -324,17 +324,17 @@ dotnet new viewstart -o RazorUIClassLib/Areas/MyFeature/Pages
 
 Razor ページ Web アプリの作成:
 
-* **ソリューションエクスプローラー**で、ソリューションを右クリックし、[**新しいプロジェクト**の**追加** >] > ます。
+* **ソリューションエクスプローラー**から、ソリューションを右クリックして > >**新しいプロジェクト**を**追加**します。
 * **[ASP.NET Core Web アプリケーション]** を選択します。
 * アプリに **WebApp1** という名前を付けます。
 * **ASP.NET Core 2.1** 以降が選択されていることを確認します。
-* [ **Web アプリケーション** > **] [OK]** を選択します。
+* [ **Web アプリケーション**> **OK]** を選択します。
 
 * **ソリューション エクスプローラー**で、**WebApp1** を右クリックし、 **[スタートアップ プロジェクトに設定]** を選択します。
-* **ソリューションエクスプローラー**で、 **[WebApp1]** を右クリックし、[**ビルド依存関係** > **プロジェクトの依存関係**] を選択します。
+* **ソリューションエクスプローラー**で、 **[WebApp1]** を右クリックし、 **[ビルドの依存]** 関係 を選択し @no__t**プロジェクトの依存関係**を選択します。
 * **WebApp1** の依存関係として **RazorUIClassLib** を選択します。
-* **ソリューションエクスプローラー**から**WebApp1**を右クリックし、[**参照**の**追加** > ] を選択します。
-* **[参照マネージャー]** ダイアログで、[ **RazorUIClassLib** > **OK]** を確認します。
+* **ソリューションエクスプローラー**で、 **[WebApp1]** を右クリックし、@no__t の **[追加]** を選択**します。**
+* **[参照マネージャー]** ダイアログで、[ **RazorUIClassLib** > **OK]** をオンにします。
 
 アプリを実行します。
 
@@ -361,7 +361,7 @@ dotnet run
 
 ### <a name="test-webapp1"></a>テスト WebApp1
 
-に`/MyFeature/Page1`移動して、Razor UI クラスライブラリが使用されていることを確認します。
+@No__t-0 を参照して、Razor UI クラスライブラリが使用されていることを確認します。
 
 ## <a name="override-views-partial-views-and-pages"></a>ビュー、部分ビュー、ページのオーバーライド
 

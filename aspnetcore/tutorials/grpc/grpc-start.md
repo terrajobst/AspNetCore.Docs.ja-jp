@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 8/26/2019
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: 8c0f57e69d4cdee5b5f5510d7db04991ed6df475
-ms.sourcegitcommit: fae6f0e253f9d62d8f39de5884d2ba2b4b2a6050
+ms.openlocfilehash: 9eeb71ca751005780560f0f2200edc2013541c34
+ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/25/2019
-ms.locfileid: "71250821"
+ms.lasthandoff: 10/03/2019
+ms.locfileid: "71925222"
 ---
 # <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a>チュートリアル: ASP.NET Core で gRPC のクライアントとサーバーを作成する
 
@@ -314,6 +314,8 @@ info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
 
 > [!NOTE]
 > この記事のコードでは、gRPC サービスをセキュリティで保護するために、ASP.NET Core HTTPS 開発証明書が必要です。 クライアントが `The remote certificate is invalid according to the validation procedure.` というメッセージで失敗する場合、その開発証明書は信頼されていません。 この問題を解決する手順については、「[Windows と macOS で ASP.NET Core HTTPS 開発証明書を信頼します](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos)」を参照してください。
+
+[!INCLUDE[](~/includes/gRPCazure.md)]
 
 ### <a name="next-steps"></a>次の手順
 

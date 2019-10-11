@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/18/2019
 uid: host-and-deploy/docker/building-net-docker-images
-ms.openlocfilehash: 12665fb2e7a9c75747f5c83129a617aea6adfbbf
-ms.sourcegitcommit: e644258c95dd50a82284f107b9bf3becbc43b2b2
+ms.openlocfilehash: 64503ed55438b24f2d3d87092107408ddcb515d7
+ms.sourcegitcommit: fcdf9aaa6c45c1a926bd870ed8f893bdb4935152
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/26/2019
-ms.locfileid: "71317694"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72165274"
 ---
 # <a name="docker-images-for-aspnet-core"></a>ASP.NET Core 向けの Docker イメージ
 
@@ -19,7 +19,7 @@ ms.locfileid: "71317694"
 
 このチュートリアルでは、次の作業を行いました。
 > [!div class="checklist"]
-> * Microsoft .NET Core Docker イメージについて学習する 
+> * Microsoft .NET Core Docker イメージについて学習する
 > * ASP.NET Core サンプル アプリをダウンロードする
 > * サンプル アプリをローカルで実行する
 > * Linux コンテナー内でサンプル アプリを実行する
@@ -36,13 +36,21 @@ ms.locfileid: "71317694"
 
   サンプルでは、アプリをビルドするためにこのイメージを使用します。 イメージには、コマンド ライン ツール (CLI) が組み込まれた .NET Core SDK が含まれています。 イメージはローカル開発、デバッグ、および単体テスト用に最適化されています。 開発とコンパイルのためにツールがインストールされているため、これは比較的大きなイメージになっています。 
 
-* `dotnet/core/aspnet` 
+* `dotnet/core/aspnet`
 
    サンプルでは、アプリを実行するためにこのイメージを使用します。 イメージには ASP.NET Core ランタイムとライブラリが含まれており、実稼働環境でアプリを実行するために最適化されています。 デプロイとアプリ起動の速度に対応した設計になっており、Docker レジストリから Docker ホストへのネットワーク パフォーマンスが最適化されていることから、イメージは比較的小さいです。 アプリの実行に必要なバイナリとコンテンツのみが、コンテナーにコピーされます。 コンテンツは実行できる状態になっており、`Docker run` からアプリの起動までを最速で行うことができます。 動的コード コンパイルは Docker モデルで必要ありません。
 
 ## <a name="prerequisites"></a>必須コンポーネント
+::: moniker range="< aspnetcore-3.0"
+
+* [.NET Core 2.2 SDK](https://www.microsoft.com/net/core)
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
 
 * [.NET Core SDK 3.0](https://dotnet.microsoft.com/download)
+
+::: moniker-end
 
 * Docker クライアント 18.03 以降
 
@@ -168,6 +176,8 @@ ms.locfileid: "71317694"
 
 Docker コンテナー内で手動で発行されたアプリケーションを使用するには、新しい Dockerfile を作成し、`docker build .` コマンドを使用してコンテナーをビルドします。
 
+::: moniker range="< aspnetcore-3.0"
+
 ```console
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS runtime
 WORKDIR /app
@@ -200,6 +210,51 @@ COPY --from=build /app/aspnetapp/out ./
 ENTRYPOINT ["dotnet", "aspnetapp.dll"]
 ```
 
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+
+```console
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.0 AS runtime
+WORKDIR /app
+COPY published/aspnetapp.dll ./
+ENTRYPOINT ["dotnet", "aspnetapp.dll"]
+```
+
+### <a name="the-dockerfile"></a>Dockerfile
+
+ここに示すのは、先ほど実行した `docker build` コマンドで使用された *Dockerfile* です。  このセクションで実行したときと同じ方法で `dotnet publish` を使用して、ビルドとデプロイを行います。  
+
+```dockerfile
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0 AS build
+WORKDIR /app
+
+# copy csproj and restore as distinct layers
+COPY *.sln .
+COPY aspnetapp/*.csproj ./aspnetapp/
+RUN dotnet restore
+
+# copy everything else and build app
+COPY aspnetapp/. ./aspnetapp/
+WORKDIR /app/aspnetapp
+RUN dotnet publish -c Release -o out
+
+
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.0 AS runtime
+WORKDIR /app
+COPY --from=build /app/aspnetapp/out ./
+ENTRYPOINT ["dotnet", "aspnetapp.dll"]
+```
+
+::: moniker-end
+
+```console
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.0 AS runtime
+WORKDIR /app
+COPY published/aspnetapp.dll ./
+ENTRYPOINT ["dotnet", "aspnetapp.dll"]
+```
+
 ## <a name="additional-resources"></a>その他の技術情報
 
 * [Docker の build コマンド](https://docs.docker.com/engine/reference/commandline/build)
@@ -210,15 +265,6 @@ ENTRYPOINT ["dotnet", "aspnetapp.dll"]
 * [Visual Studio Code でのデバッグ](https://code.visualstudio.com/docs/nodejs/debugging-recipes#_debug-nodejs-in-docker-containers) 
 
 ## <a name="next-steps"></a>次の手順
-
-このチュートリアルでは、次の作業を行いました。
-> [!div class="checklist"]
-> * Microsoft .NET Core Docker イメージについて学習しました 
-> * ASP.NET Core サンプル アプリをダウンロードしました
-> * サンプル アプリをローカルで実行しました
-> * Linux コンテナー内でサンプル アプリを実行しました
-> * Windows コンテナー内でサンプルを実行しました
-> * 手動でビルドしてデプロイしました
 
 同じアプリを格納している Git リポジトリにも、ドキュメントが用意されています。 リポジトリ内にある利用可能なリソースの概要については、[README ファイル](https://github.com/dotnet/dotnet-docker/blob/master/samples/aspnetapp/README.md)をご覧ください。 特に、HTTPS を実装する方法について確認してください。
 

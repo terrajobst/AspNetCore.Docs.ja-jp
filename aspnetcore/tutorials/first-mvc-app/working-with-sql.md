@@ -5,12 +5,12 @@ description: ASP.NET Core MVC アプリ内で SQL Server LocalDB または SQLit
 ms.author: riande
 ms.date: 8/16/2019
 uid: tutorials/first-mvc-app/working-with-sql
-ms.openlocfilehash: d2784d9edc32b79e67dbcd193be55b44bc8d2c49
-ms.sourcegitcommit: 7a46973998623aead757ad386fe33602b1658793
+ms.openlocfilehash: cb356bca50540d7c471cf625a26bfe2dd155b627
+ms.sourcegitcommit: 3ffcd8cbff8b49128733842f72270bc58279de70
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/15/2019
-ms.locfileid: "69487631"
+ms.lasthandoff: 10/04/2019
+ms.locfileid: "71955920"
 ---
 # <a name="work-with-sql-in-aspnet-core"></a>ASP.NET Core での SQL の操作
 
@@ -93,7 +93,7 @@ if (context.Movie.Any())
 
 *Program.cs* の内容を次のコードで置き換えます。
 
-[!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Program.cs)]
+[!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Program.cs)]
 
 アプリのテスト
 
