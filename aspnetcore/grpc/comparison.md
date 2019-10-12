@@ -1,19 +1,19 @@
 ---
-title: GRPC サービスと HTTP Api の比較
+title: HTTP API を使用した gRPC サービスの比較
 author: jamesnk
 description: GRPC と HTTP Api との比較、および推奨されるシナリオについて説明します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 09/25/2019
 uid: grpc/comparison
-ms.openlocfilehash: 935078d890998fe6af366e3f6a7bf21f53c20cf7
-ms.sourcegitcommit: a7813a776809a5029c94aa503ee71994f156231f
+ms.openlocfilehash: 5c3ea7a78401e6483425fa0774b3051b3d20f516
+ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/25/2019
-ms.locfileid: "71267714"
+ms.lasthandoff: 10/12/2019
+ms.locfileid: "72289040"
 ---
-# <a name="compare-grpc-services-with-http-apis"></a>GRPC サービスと HTTP Api の比較
+# <a name="compare-grpc-services-with-http-apis"></a>HTTP API を使用した gRPC サービスの比較
 
 [James のニュートン-キング](https://twitter.com/jamesnk)別
 
@@ -26,7 +26,7 @@ ms.locfileid: "71267714"
 | 機能          | gRPC                                               | HTTP Api と JSON           |
 | ---------------- | -------------------------------------------------- | ----------------------------- |
 | コントラクト         | 必須 (*プロトコル*)                                | 省略可能 (OpenAPI)            |
-| Transport        | HTTP/2                                             | HTTP                          |
+| [トランスポート]        | HTTP/2                                             | HTTP                          |
 | Payload          | [Protobuf (小、バイナリ)](#performance)           | JSON (大規模で人間が読みやすい)  |
 | Prescriptiveness | [厳密な指定](#strict-specification)      | ペイント. HTTP はすべて有効です。      |
 | ストリーム        | [クライアント、サーバー、双方向](#streaming)       | クライアント、サーバー                |
@@ -55,7 +55,7 @@ gRPC は http/2 向けに設計されており、http 1.x に比べてパフォ�
 
 JSON での HTTP API の正式な仕様は存在しません。 開発者は、Url、HTTP 動詞、および応答コードの最適な形式について議論します。
 
-[Grpc 仕様](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)は、grpc サービスが従う必要がある形式について規範としています。 gRPC は、gPRC がプラットフォームと実装全体で一貫しているため、開発時間を短縮し、開発者の時間を節約します。
+[Grpc 仕様](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)は、grpc サービスが従う必要がある形式について規範としています。 grpc はプラットフォームと実装全体で一貫しているため、開発時間を短縮し、開発者の時間を節約します。
 
 ### <a name="streaming"></a>ストリーム
 
@@ -79,9 +79,9 @@ gRPC を使用すると、クライアントが RPC の完了を待機する時�
 gRPC は、次のシナリオに適しています。
 
 * **マイクロサービス**&ndash; grpc は、待機時間が短く、スループットの高い通信を実現するように設計されています。 gRPC は、効率性が非常に重要な軽量マイクロサービスに適しています。
-* **ポイントツーポイントのリアルタイム通信**&ndash; grpc は双方向ストリーミングに対して優れたサポートをしています。 gRPC サービスは、ポーリングせずにリアルタイムでメッセージをプッシュできます。
-* **多言語環境**&ndash; grpc ツールは、一般的なすべての開発言語をサポートしています。 grpc は、多言語環境に適しています。
-* **ネットワークの制約付き環境**&ndash; grpc メッセージは、ライトウェイトメッセージ形式である Protobuf を使用してシリアル化されます。 GRPC メッセージは、常に同等の JSON メッセージよりも小さくなります。
+* **ポイントツーポイントのリアルタイム通信**&ndash; grpc は双方向ストリーミングを強力にサポートしています。 gRPC サービスは、ポーリングせずにリアルタイムでメッセージをプッシュできます。
+* **多言語環境**&ndash; grpc ツールは、一般的なすべての開発言語をサポートしているため、grpc は多言語環境に適しています。
+* **ネットワークの制約付き環境**&ndash; grpc メッセージは、ライトウェイトメッセージ形式である Protobuf でシリアル化されます。 GRPC メッセージは、常に同等の JSON メッセージよりも小さくなります。
 
 ## <a name="grpc-weaknesses"></a>gRPC の短所
 
@@ -105,9 +105,9 @@ gRPC メッセージは、既定で Protobuf を使用してエンコードさ�
 
 次のシナリオでは、gRPC よりも他のフレームワークをお勧めします。
 
-* **ブラウザーでアクセス可能な api**&ndash; grpc はブラウザーで完全にはサポートされていません。 gRPC-Web はブラウザーサポートを提供できますが、制限があり、サーバープロキシも導入されています。
-* **リアルタイム通信をブロードキャスト**する&ndash; grpc では、ストリーミングによるリアルタイム通信がサポートされていますが、登録済み接続へのメッセージのブロードキャストの概念は存在しません。 たとえば、チャットルーム内のすべてのクライアントに新しいチャットメッセージを送信するチャットルームの場合、新しいチャットメッセージをクライアントに個別にストリーミングするには、各 gRPC 呼び出しが必要です。 [SignalR](xref:signalr/introduction)は、このシナリオに便利なフレームワークです。 SignalR には、永続的な接続と、メッセージをブロードキャストするための組み込みサポートの概念があります。
-* **プロセス間通信**&ndash;プロセスは、着信 grpc 呼び出しを受け入れるために、HTTP/2 サーバーをホストする必要があります。 Windows では、プロセス間通信[パイプ](/dotnet/standard/io/pipe-operations)は高速で軽量な通信方法です。
+* **ブラウザーでアクセス可能な api** &ndash; grpc はブラウザーで完全にはサポートされていません。 gRPC-Web はブラウザーサポートを提供できますが、制限があり、サーバープロキシも導入されています。
+* **ブロードキャストのリアルタイム通信**&ndash; grpc はストリーミングを使用したリアルタイム通信をサポートしますが、登録された接続へのメッセージのブロードキャストの概念は存在しません。 たとえば、チャットルーム内のすべてのクライアントに新しいチャットメッセージを送信するチャットルームの場合、新しいチャットメッセージをクライアントに個別にストリーミングするには、各 gRPC 呼び出しが必要です。 [SignalR](xref:signalr/introduction)は、このシナリオに便利なフレームワークです。 SignalR には、永続的な接続と、メッセージをブロードキャストするための組み込みサポートの概念があります。
+* **プロセス間通信**&ndash; プロセスは、着信 grpc 呼び出しを受け入れるために HTTP/2 サーバーをホストする必要があります。 Windows では、プロセス間通信[パイプ](/dotnet/standard/io/pipe-operations)は高速で軽量な通信方法です。
 
 ## <a name="additional-resources"></a>その他の技術情報
 

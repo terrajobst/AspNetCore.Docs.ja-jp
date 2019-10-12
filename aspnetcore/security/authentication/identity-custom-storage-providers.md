@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/23/2019
 uid: security/authentication/identity-custom-storage-providers
-ms.openlocfilehash: da5293462451447766f7b3b5ff733e1ea9449f18
-ms.sourcegitcommit: f30b18442ed12831c7e86b0db249183ccd749f59
+ms.openlocfilehash: 500824807307840a9279dd00c2fe632835737c2d
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/23/2019
-ms.locfileid: "68412516"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080790"
 ---
 # <a name="custom-storage-providers-for-aspnet-core-identity"></a>ASP.NET Core Id のカスタムストレージプロバイダー
 
@@ -21,7 +21,7 @@ ASP.NET Core Id は拡張可能なシステムであり、カスタム記憶域�
 
 [GitHub のサンプルを表示またはダウンロードしてください](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity/sample)。
 
-## <a name="introduction"></a>概要
+## <a name="introduction"></a>はじめに
 
 既定では、ASP.NET Core Id システムは Entity Framework Core を使用して SQL Server データベースにユーザー情報を格納します。 多くのアプリでは、この方法が適しています。 ただし、別の永続化メカニズムまたはデータスキーマを使用することをお勧めします。 例えば:
 
@@ -35,7 +35,7 @@ ASP.NET Core Id は、Visual Studio の [個別のユーザーアカウント] �
 
 .NET Core CLI を使用する場合は`-au Individual`、次のように追加します。
 
-```console
+```dotnetcli
 dotnet new mvc -au Individual
 ```
 
@@ -69,7 +69,7 @@ Web サイトの登録済みユーザー。 [ユーザー](/dotnet/api/microsoft
 
 ユーザーのログイン時に使用する外部認証プロバイダー (Facebook や Microsoft アカウントなど) に関する情報。 [例](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuserlogin)
 
-### <a name="roles"></a>役割
+### <a name="roles"></a>ロール
 
 サイトの承認グループ。 ロール Id とロール名 ("Admin" や "Employee" など) が含まれます。 [例](/dotnet/api/microsoft.aspnet.identity.corecompat.identityrole)
 
@@ -115,7 +115,7 @@ Web サイトの登録済みユーザー。 [ユーザー](/dotnet/api/microsoft
 
 ## <a name="customize-the-user-class"></a>ユーザークラスをカスタマイズする
 
-ストレージプロバイダーを実装する場合は、ユーザークラスを作成します。このクラスは、[ユーザークラスに](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuser)相当します。
+ストレージプロバイダーを実装する場合は、ユーザークラスを作成し[ます。この](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuser)クラスは、ユーザークラスに相当します。
 
 少なくとも、ユーザークラスには`Id` `UserName`プロパティとプロパティが含まれている必要があります。
 
@@ -185,7 +185,7 @@ public class UserStore : IUserStore<IdentityUser>,
 
 ### <a name="identityuserclaim-identityuserlogin-and-identityuserrole"></a>ユーザー Id、ユーザー名、およびユーザー名
 
-名前`Microsoft.AspNet.Identity.EntityFramework`空間[には、](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserclaim-1)ユーザー [id](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuserlogin)クラスの実装が含ま[れてい](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserrole-1)ます。 これらの機能を使用している場合は、これらのクラスの独自のバージョンを作成し、アプリのプロパティを定義することができます。 ただし、基本操作 (ユーザーの要求の追加や削除など) を実行するときに、これらのエンティティをメモリに読み込まない方が効率的な場合もあります。 代わりに、バックエンドストアクラスは、データソースでこれらの操作を直接実行できます。 たとえば、 `UserStore.GetClaimsAsync`メソッドは、 `userClaimTable.FindByUserId(user.Id)`メソッドを呼び出して、そのテーブルに対してクエリを直接実行し、クレームの一覧を返すことができます。
+名前`Microsoft.AspNet.Identity.EntityFramework`空間には、ユーザー [IdentityUserClaim](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserclaim-1) [IdentityUserLogin](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuserlogin)[IdentityUserRole](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserrole-1)クラスの実装が含まれています。 これらの機能を使用している場合は、これらのクラスの独自のバージョンを作成し、アプリのプロパティを定義することができます。 ただし、基本操作 (ユーザーの要求の追加や削除など) を実行するときに、これらのエンティティをメモリに読み込まない方が効率的な場合もあります。 代わりに、バックエンドストアクラスは、データソースでこれらの操作を直接実行できます。 たとえば、 `UserStore.GetClaimsAsync`メソッドは、 `userClaimTable.FindByUserId(user.Id)`メソッドを呼び出して、そのテーブルに対してクエリを直接実行し、クレームの一覧を返すことができます。
 
 ## <a name="customize-the-role-class"></a>ロールクラスをカスタマイズする
 

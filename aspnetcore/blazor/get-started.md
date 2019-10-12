@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/25/2019
 uid: blazor/get-started
-ms.openlocfilehash: 5aec91eff7de0732a47fec1aafa5e094c89c37a4
-ms.sourcegitcommit: 14b25156e34c82ed0495b4aff5776ac5b1950b5e
+ms.openlocfilehash: ef9113dbfdbbd5920c4358cdac0c77c60f40b7c8
+ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/26/2019
-ms.locfileid: "71295441"
+ms.lasthandoff: 10/12/2019
+ms.locfileid: "72288796"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>ASP.NET Core Blazor を使ってみる
 
@@ -42,7 +42,7 @@ Blazor を使ってみる:
 
    4 \。 **プロジェクト名** フィールドにプロジェクト名を入力するか、既定のプロジェクト名をそのまま使用します。 **場所**エントリが正しいことを確認するか、プロジェクトの場所を指定します。 **[作成]** を選択します。
 
-   5 \。 Blazor WebAssembly エクスペリエンスについては、 **Blazor Webassembly**テンプレートを選択してください。 Blazor サーバーエクスペリエンスの場合は、 **Blazor Server アプリ**テンプレートを選択します。 **[作成]** を選択します。 *Blazor Server*と*Blazor Webassembly*の2つのホスティングモデルの詳細について<xref:blazor/hosting-models>は、「」を参照してください。
+   5 \。 Blazor WebAssembly エクスペリエンスについては、 **Blazor Webassembly**テンプレートを選択してください。 Blazor サーバーエクスペリエンスの場合は、 **Blazor Server アプリ**テンプレートを選択します。 **[作成]** を選択します。 *Blazor Server*と*Blazor Webassembly*の2つのホスティングモデルの詳細については、<xref:blazor/hosting-models> を参照してください。
 
    6 \。 **F5 キー**を押してアプリを実行します。
 
@@ -67,13 +67,13 @@ Blazor を使ってみる:
       dotnet new blazorserver -o WebApplication1
       ```
 
-      *Blazor Server*と*Blazor Webassembly*の2つのホスティングモデルの詳細について<xref:blazor/hosting-models>は、「」を参照してください。
+      *Blazor Server*と*Blazor Webassembly*の2つのホスティングモデルの詳細については、<xref:blazor/hosting-models> を参照してください。
 
    4 \。 Visual Studio Code で*WebApplication1*フォルダーを開きます。
 
    5 \。 Blazor Server プロジェクトの場合、IDE は、プロジェクトをビルドおよびデバッグするためにアセットを追加するように要求します。 **[はい]** を選択します。
 
-   6 \。 Blazor Server アプリを使用している場合は、Visual Studio Code デバッガーを使用してアプリを実行します。 Blazor webassembly を使用する場合は、 `dotnet run`アプリのプロジェクトフォルダーからを実行します。
+   6 \。 Blazor Server アプリを使用している場合は、Visual Studio Code デバッガーを使用してアプリを実行します。 Blazor WebAssembly を使用する場合は、アプリのプロジェクトフォルダーから `dotnet run` を実行します。
 
    7 \。 ブラウザーで、`https://localhost:5001` に移動します。
 
@@ -115,7 +115,7 @@ Blazor を使ってみる:
    dotnet run
    ```
 
-   *Blazor Server*と*Blazor Webassembly*の2つのホスティングモデルの詳細について<xref:blazor/hosting-models>は、「」を参照してください。
+   *Blazor Server*と*Blazor Webassembly*の2つのホスティングモデルの詳細については、<xref:blazor/hosting-models> を参照してください。
 
    ブラウザーで、`https://localhost:5001` に移動します。
 
@@ -123,51 +123,51 @@ Blazor を使ってみる:
 
 サイドバーのタブからは、複数のページを使用できます。
 
-* Home
+* ホーム (Home)
 * カウンター
 * データのフェッチ
 
-Counter ページ上で **[クリックしてください]** ボタンを選択し、ページを更新することなくカウンターをインクリメントします。 通常、web ページでカウンターを増やすには JavaScript を記述する必要がありますがC#、を使用して Razor コンポーネントの方が優れています。
+Counter ページ上で **[クリックしてください]** ボタンを選択し、ページを更新することなくカウンターをインクリメントします。 通常、web ページ内のカウンターを増やすには JavaScript を記述する必要がC#ありますが、Blazor を使用することもできます。
 
 *Pages/Counter.razor*:
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Counter1.razor?highlight=7,12-15)]
 
-ブラウザーでの`/counter`要求が、上部の`@page`ディレクティブで指定されている場合、コンポーネント`Counter`はそのコンテンツをレンダリングします。 コンポーネントは、レンダリングツリーのメモリ内表現にレンダリングされ、柔軟で効率的な方法で UI を更新するために使用できます。
+上部の `@page` ディレクティブで指定されているように、ブラウザーで `/counter` に対する要求を行うと、`Counter` コンポーネントによってそのコンテンツがレンダリングされます。 コンポーネントは、レンダリングツリーのメモリ内表現にレンダリングされ、柔軟で効率的な方法で UI を更新するために使用できます。
 
 **[クリックし**てください] ボタンが選択されるたびに、次のようになります。
 
-* `onclick`イベントが発生します。
+* @No__t-0 イベントが発生します。
 * `IncrementCount` メソッドが呼び出された場合。
-* `currentCount`がインクリメントされます。
+* @No__t-0 がインクリメントされます。
 * コンポーネントが再び表示されます。
 
 ランタイムは、新しいコンテンツを前のコンテンツと比較し、変更されたコンテンツのみをドキュメントオブジェクトモデル (DOM) に適用します。
 
-HTML 構文を使用してコンポーネントを別のコンポーネントに追加します。 たとえば、コンポーネントに`Counter` `<Counter />` `Index`要素を追加して、コンポーネントをアプリのホームページに追加します。
+HTML 構文を使用してコンポーネントを別のコンポーネントに追加します。 たとえば、`Index` コンポーネントに `<Counter />` 要素を追加して、`Counter` コンポーネントをアプリのホームページに追加します。
 
 *Pages/Index.razor*:
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Index1.razor?highlight=7)]
 
-アプリを実行します。 ホームページには、 `Counter`コンポーネントによって提供される独自のカウンターがあります。
+アプリを実行します。 ホームページには、`Counter` コンポーネントによって提供される独自のカウンターがあります。
 
-コンポーネントのパラメーターは、属性または[子コンテンツ](xref:blazor/components#child-content)を使用して指定されます。これにより、子コンポーネントのプロパティを設定できます。 `Counter`コンポーネントにパラメーターを追加するには、コンポーネントの`@code`ブロックを更新します。
+コンポーネントのパラメーターは、属性または[子コンテンツ](xref:blazor/components#child-content)を使用して指定されます。これにより、子コンポーネントのプロパティを設定できます。 @No__t-0 コンポーネントにパラメーターを追加するには、コンポーネントの `@code` ブロックを更新します。
 
-* 属性`[Parameter]`を使用して`IncrementAmount` 、のパブリックプロパティを追加します。
+* @No__t-1 属性を持つ `IncrementAmount` のパブリックプロパティを追加します。
 * `currentCount` の値を増やすときに `IncrementAmount` を使うように `IncrementCount` メソッドを変更します。
 
 *Pages/Counter.razor*:
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Counter2.razor?highlight=12-13,17)]
 
-属性を`IncrementAmount`使用し`Index`て、 `<Counter>`コンポーネントの要素でを指定します。
+属性を使用して、`Index` コンポーネントの `<Counter>` 要素に `IncrementAmount` を指定します。
 
 *Pages/Index.razor*:
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Index2.razor?highlight=7)]
 
-アプリを実行します。 コンポーネントには、 **[クリックし**てください] ボタンが選択されるたびに10ずつ増加する独自のカウンターがあります。 `Index` の`Counter`コンポーネント (*Counter*) `/counter`は、1つずつ増加し続けています。
+アプリを実行します。 @No__t-0 コンポーネントには、 **[クリックし**てください] ボタンが選択されるたびに10ずつ増加する独自のカウンターがあります。 @No__t 2 の @no__t 0 コンポーネント (*Counter*) は、1つずつ増加し続けます。
 
 ## <a name="next-steps"></a>次の手順
 
