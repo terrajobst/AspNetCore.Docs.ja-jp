@@ -4,14 +4,14 @@ author: rick-anderson
 description: インターネットに接続された最新のクラウド ベース アプリケーションを構築するための、クロス プラットフォームで高パフォーマンスのオープン ソース フレームワークである ASP.NET Core について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/07/2019
+ms.date: 10/10/2019
 uid: index
-ms.openlocfilehash: c9b33b16de354c8bac804e8fd5e8e3ce3af688fc
-ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
+ms.openlocfilehash: 1ccc1f5d095833e89fc20127ee23b8fa3dc4c79f
+ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/06/2019
-ms.locfileid: "70773702"
+ms.lasthandoff: 10/12/2019
+ms.locfileid: "72289049"
 ---
 # <a name="introduction-to-aspnet-core"></a>ASP.NET Core の概要
 
@@ -77,10 +77,12 @@ ASP.NET Core アプリを開発する場合の概要として、次の順序で�
 
    |アプリの種類  |シナリオ  |チュートリアル  |
    |----------|----------|----------|
-   |Web アプリ       | 新規の開発        |[Razor ページの概要](xref:tutorials/razor-pages/razor-pages-start) |
-   |Web アプリ       | MVC アプリの管理 |[MVC の概要](xref:tutorials/first-mvc-app/start-mvc)|
-   |Web API       |                            |[Web API の作成](xref:tutorials/first-web-api)\*  |
-   |リアルタイムのアプリ |                            |[SignalR の概要](xref:tutorials/signalr) |
+   |Web アプリ                   | 新規の開発        |[Razor ページの概要](xref:tutorials/razor-pages/razor-pages-start) |
+   |Web アプリ                   | MVC アプリの管理 |[MVC の概要](xref:tutorials/first-mvc-app/start-mvc)|
+   |Web API                   |                            |[Web API の作成](xref:tutorials/first-web-api)\*  |
+   |リアルタイムのアプリ             |                            |[SignalR の概要](xref:tutorials/signalr) |
+   |Blazor アプリ                |                            |[Blazor の概要](xref:blazor/get-started) |
+   |リモート プロシージャ コール アプリ |                            |[gRPC サービスの概要](xref:tutorials/grpc/grpc-start) |
 
 1. 基本のデータ アクセスの実行方法を示すチュートリアルは次のとおりです。
 
@@ -107,7 +109,7 @@ ASP.NET Core アプリを開発する場合の概要として、次の順序で�
 
 ### <a name="preprocessor-directives-in-sample-code"></a>サンプル コードのプリプロセッサ ディレクティブ
 
-複数のシナリオを示すため、サンプル アプリでは `#define` と `#if-#else/#elif-#endif` の C# ステートメントを使用してさまざまなサンプル コードのセクションを選択してコンパイルし、実行します。 このアプローチを活用するサンプルでは、C# ファイルの上部にある `#define` ステートメントを、実行するシナリオに関連付けられたシンボルに設定します。 一部のサンプルでは、シナリオを実行するために複数のファイルの上部でシンボルを設定する必要があります。
+複数のシナリオを示すため、サンプル アプリでは `#define` と `#if-#else/#elif-#endif` のプリプロセッサ ディレクティブを使用してさまざまなサンプル コードのセクションを選択してコンパイルし、実行します。 このアプローチを活用するサンプルでは、C# ファイルの上部にある `#define` ディレクティブを設定して、実行するシナリオに関連付けられたシンボルを定義します。 一部のサンプルでは、シナリオを実行するために複数のファイルの上部でシンボルを定義する必要があります。
 
 たとえば、次の `#define` のシンボル一覧は、4 つのシナリオが使用可能である (シンボルごとに 1 つのシナリオ) ことを示しています。 現在のサンプル構成では `TemplateCode` のシナリオが実行されます。
 
@@ -125,28 +127,27 @@ ASP.NET Core アプリを開発する場合の概要として、次の順序で�
 
 ### <a name="regions-in-sample-code"></a>サンプル コードのリージョン
 
-一部のサンプル アプリには、[#region](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-region) と [#end-region](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-endregion) の C# ステートメントに囲まれたコードのセクションが含まれています。 ドキュメントのビルド システムによって、レンダリングされたドキュメントのトピックにこのリージョンが挿入されます。  
+一部のサンプル アプリには、[#region](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-region) と [#end-region](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-endregion) の C# ディレクティブに囲まれたコードのセクションが含まれています。 ドキュメントのビルド システムによって、レンダリングされたドキュメントのトピックにこのリージョンが挿入されます。  
 
-リージョン名には通常、"snippet" という単語が含まれています。 次の例は `snippet_FilterInCode` という名前のリージョンを示しています。
+リージョン名には通常、"snippet" という単語が含まれています。 次の例は `snippet_WebHostDefaults` という名前のリージョンを示しています。
 
 ```csharp
-#region snippet_FilterInCode
-WebHost.CreateDefaultBuilder(args)
-    .UseStartup<Startup>()
-    .ConfigureLogging(logging =>
-        logging.AddFilter("System", LogLevel.Debug)
-            .AddFilter<DebugLoggerProvider>("Microsoft", LogLevel.Trace))
-            .Build();
+#region snippet_WebHostDefaults
+Host.CreateDefaultBuilder(args)
+    .ConfigureWebHostDefaults(webBuilder =>
+    {
+        webBuilder.UseStartup<Startup>();
+    });
 #endregion
 ```
 
 先述の C# コード スニペットは、トピックのマークダウン ファイルの次の行で示されています。
 
 ```md
-[!code-csharp[](sample/SampleApp/Program.cs?name=snippet_FilterInCode)]
+[!code-csharp[](sample/SampleApp/Program.cs?name=snippet_WebHostDefaults)]
 ```
 
-コードを囲む `#region` と `#endregion` のステートメントは安全に無視 (または削除) することができます。 トピックで説明されているサンプル シナリオを実行する予定がある場合は、これらのステートメント内のコードを変更しないでください。 他のシナリオを試す場合は、自由にコードを変更できます。
+コードを囲む `#region` と `#endregion` のディレクティブは安全に無視 (または削除) することができます。 トピックで説明されているサンプル シナリオを実行する予定がある場合は、これらのディレクティブ内のコードを変更しないでください。 他のシナリオを試す場合は、自由にコードを変更できます。
 
 詳細については、「[Contribute to the ASP.NET documentation: Code snippets (ASP.NET に貢献する: コード スニペット)](https://github.com/aspnet/AspNetCore.Docs/blob/master/CONTRIBUTING.md#code-snippets)」を参照してください。
 

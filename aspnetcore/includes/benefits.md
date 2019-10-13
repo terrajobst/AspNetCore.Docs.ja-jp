@@ -7,6 +7,7 @@ ASP.NET Core の利点は次のとおりです。
 * Windows、macOS、Linux 上で開発および実行できること。
 * オープン ソースで[コミュニティ重視](https://live.asp.net/)。
 * [最新のクライアント側フレームワーク](xref:blazor/index)と開発ワークフローの統合。
+* [gRPC](xref:grpc/index) を使用したリモート プロシージャ コール (RPC) サービスのホストのサポート。
 * クラウド対応で環境ベースの[構成システム](xref:fundamentals/configuration/index)。
 * 組み込まれている[依存性の注入](xref:fundamentals/dependency-injection)。
 * 軽量で[高パフォーマンス](https://github.com/aspnet/benchmarks)のモジュール化された HTTP 要求パイプライン。
