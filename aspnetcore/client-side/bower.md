@@ -15,7 +15,7 @@ ms.locfileid: "67813528"
 ---
 # <a name="manage-client-side-packages-with-bower-in-aspnet-core"></a>ASP.NET Core での Bower でのクライアント側パッケージを管理します。
 
-によって[Rick Anderson](https://twitter.com/RickAndMSFT)、 [Noel Rice](https://twitter.com/noelrice1)、および[Scott Addie](https://scottaddie.com)
+作成者: [Rick Anderson](https://twitter.com/RickAndMSFT)、 [Noel Rice](https://twitter.com/noelrice1)、および[Scott Addie](https://scottaddie.com)
 
 > [!IMPORTANT]
 > Bower を保持したまま、別のソリューションを使用して、管理者がお勧めします。 [ライブラリ マネージャー](https://blogs.msdn.microsoft.com/webdev/2018/04/18/what-happened-to-bower/) (略して LibMan) は、Visual Studio の新しいクライアント側ライブラリ取得ツール (Visual Studio 15.8 またはそれ以降)。 詳細については、「 <xref:client-side/libman/index> 」を参照してください。 Bower は、Visual studio バージョン 15.5 でサポートされます。
