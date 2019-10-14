@@ -15,7 +15,7 @@ ms.locfileid: "67815623"
 ---
 # <a name="performance-diagnostic-tools"></a>パフォーマンスの診断ツール
 
-によって[Mike Rousos](https://github.com/mjrousos)
+作成者: [Mike Rousos](https://github.com/mjrousos)
 
 この記事では、ASP.NET Core でのパフォーマンスの問題を診断するためのツールを紹介します。
 
