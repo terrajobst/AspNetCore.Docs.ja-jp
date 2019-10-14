@@ -16,7 +16,7 @@ ms.locfileid: "64894479"
 ---
 # <a name="send-messages-from-outside-a-hub"></a>ハブの外部からのメッセージを送信します。
 
-によって[Mikael Mengistu](https://twitter.com/MikaelM_12)
+作成者: [Mikael Mengistu](https://twitter.com/MikaelM_12)
 
 SignalR ハブは、SignalR のサーバーに接続しているクライアントにメッセージを送信するための中核となる抽象化です。 アプリを使用して、その他の場所からメッセージを送信することも、`IHubContext`サービス。 この記事は、SignalR にアクセスする方法を説明します`IHubContext`ハブ外からのクライアントに通知を送信します。
 
