@@ -16,7 +16,7 @@ ms.locfileid: "64897809"
 ---
 # <a name="signalr-api-design-considerations"></a>SignalR の API の設計に関する考慮事項
 
-によって[Andrew Stanton-nurse](https://twitter.com/anurse)
+作成者: [Andrew Stanton-nurse](https://twitter.com/anurse)
 
 この記事では、SignalR ベースの Api を構築するためのガイダンスを提供します。
 
