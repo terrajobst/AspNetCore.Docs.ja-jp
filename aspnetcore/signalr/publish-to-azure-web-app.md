@@ -16,7 +16,7 @@ ms.locfileid: "67406114"
 ---
 # <a name="publish-an-aspnet-core-signalr-app-to-azure-app-service"></a>発行、ASP.NET Core SignalR にアプリを Azure App Service
 
-によって[Brady Gaster](https://twitter.com/bradygaster)
+作成者: [Brady Gaster](https://twitter.com/bradygaster)
 
 [Azure App Service](/azure/app-service/app-service-web-overview)は、 [Microsoft クラウド コンピューティング](https://azure.microsoft.com/)ASP.NET Core を含む、web アプリをホストするためのプラットフォーム サービスです。
 
