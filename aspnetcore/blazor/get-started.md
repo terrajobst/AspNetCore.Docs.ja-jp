@@ -24,38 +24,38 @@ Blazor を使ってみる:
 
 1. 最新の[.Net Core 3.0 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.0)リリースをインストールします。
 
-2. コマンドシェルで次のコマンドを実行して、 [Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly)テンプレートをインストールします。
+1. コマンドシェルで次のコマンドを実行して、 [Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly)テンプレートをインストールします。
 
    ```dotnetcli
    dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.0.0-preview9.19465.2
    ```
 
-3. ツールの選択に関するガイダンスに従ってください。
+1. ツールの選択に関するガイダンスに従ってください。
 
    # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-   1. **ASP.NET と web 開発**ワークロードを使用して、最新の[Visual Studio](https://visualstudio.com/vs/)をインストールします。
+   1 \。 **ASP.NET と web 開発**ワークロードを使用して、最新の[Visual Studio](https://visualstudio.com/vs/)をインストールします。
 
-   2. 新しいプロジェクトを作成します。
+   2 \。 新しいプロジェクトを作成します。
 
-   3. **[Blazor App]** を選択します。 **[次へ]** を選択します。
+   3 \。 **[Blazor App]** を選択します。 **[次へ]** を選択します。
 
-   4. **プロジェクト名** フィールドにプロジェクト名を入力するか、既定のプロジェクト名をそのまま使用します。 **場所**エントリが正しいことを確認するか、プロジェクトの場所を指定します。 **[作成]** を選択します。
+   4 \。 **プロジェクト名** フィールドにプロジェクト名を入力するか、既定のプロジェクト名をそのまま使用します。 **場所**エントリが正しいことを確認するか、プロジェクトの場所を指定します。 **[作成]** を選択します。
 
-   5. Blazor WebAssembly エクスペリエンスについては、 **Blazor Webassembly**テンプレートを選択してください。 Blazor サーバーエクスペリエンスの場合は、 **Blazor Server アプリ**テンプレートを選択します。 **[作成]** を選択します。 *Blazor Server*と*Blazor Webassembly*の2つのホスティングモデルの詳細については、<xref:blazor/hosting-models> を参照してください。
+   5 \。 Blazor WebAssembly エクスペリエンスについては、 **Blazor Webassembly**テンプレートを選択してください。 Blazor サーバーエクスペリエンスの場合は、 **Blazor Server アプリ**テンプレートを選択します。 **[作成]** を選択します。 *Blazor Server*と*Blazor Webassembly*の2つのホスティングモデルの詳細については、<xref:blazor/hosting-models> を参照してください。
 
-   6. **F5 キー**を押してアプリを実行します。
+   6 \。 **F5 キー**を押してアプリを実行します。
 
    > [!NOTE]
    > 以前のプレビューリリースの ASP.NET Core Blazor (Preview 6 以前) 用に Blazor Visual Studio 拡張機能をインストールした場合は、拡張機能をアンインストールできます。 Visual Studio でテンプレートを表示するには、コマンドシェルに Blazor テンプレートをインストールするだけで十分です。
 
    # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-   1. [Visual Studio Code](https://code.visualstudio.com/) のインストール。
+   1 \。 [Visual Studio Code](https://code.visualstudio.com/) のインストール。
 
-   2. [ C# Visual Studio Code 拡張機能の](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)最新版をインストールします。
+   2 \。 [ C# Visual Studio Code 拡張機能の](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)最新版をインストールします。
 
-   3. Blazor WebAssembly を実現するには、コマンドシェルで次のコマンドを実行します。
+   3 \。 Blazor WebAssembly を実現するには、コマンドシェルで次のコマンドを実行します。
 
       ```dotnetcli
       dotnet new blazorwasm -o WebApplication1
@@ -69,13 +69,13 @@ Blazor を使ってみる:
 
       *Blazor Server*と*Blazor Webassembly*の2つのホスティングモデルの詳細については、<xref:blazor/hosting-models> を参照してください。
 
-   4. Visual Studio Code で*WebApplication1*フォルダーを開きます。
+   4 \。 Visual Studio Code で*WebApplication1*フォルダーを開きます。
 
-   5. Blazor Server プロジェクトの場合、IDE は、プロジェクトをビルドおよびデバッグするためにアセットを追加するように要求します。 **[はい]** を選択します。
+   5 \。 Blazor Server プロジェクトの場合、IDE は、プロジェクトをビルドおよびデバッグするためにアセットを追加するように要求します。 **[はい]** を選択します。
 
-   6. Blazor Server アプリを使用している場合は、Visual Studio Code デバッガーを使用してアプリを実行します。 Blazor WebAssembly を使用する場合は、アプリのプロジェクトフォルダーから `dotnet run` を実行します。
+   6 \。 Blazor Server アプリを使用している場合は、Visual Studio Code デバッガーを使用してアプリを実行します。 Blazor WebAssembly を使用する場合は、アプリのプロジェクトフォルダーから `dotnet run` を実行します。
 
-   7. ブラウザーで、`https://localhost:5001` に移動します。
+   7 \。 ブラウザーで、`https://localhost:5001` に移動します。
 
    <!--
 
@@ -137,9 +137,9 @@ Counter ページ上で **[クリックしてください]** ボタンを選択�
 
 **[クリックし**てください] ボタンが選択されるたびに、次のようになります。
 
-* `onclick` イベントが発生します。
+* @No__t-0 イベントが発生します。
 * `IncrementCount` メソッドが呼び出された場合。
-* `currentCount` がインクリメントされます。
+* @No__t-0 がインクリメントされます。
 * コンポーネントが再び表示されます。
 
 ランタイムは、新しいコンテンツを前のコンテンツと比較し、変更されたコンテンツのみをドキュメントオブジェクトモデル (DOM) に適用します。
@@ -152,9 +152,9 @@ HTML 構文を使用してコンポーネントを別のコンポーネントに
 
 アプリを実行します。 ホームページには、`Counter` コンポーネントによって提供される独自のカウンターがあります。
 
-コンポーネントのパラメーターは、属性または[子コンテンツ](xref:blazor/components#child-content)を使用して指定されます。これにより、子コンポーネントのプロパティを設定できます。`Counter` コンポーネントにパラメーターを追加するには、コンポーネントの `@code` ブロックを更新します。
+コンポーネントのパラメーターは、属性または[子コンテンツ](xref:blazor/components#child-content)を使用して指定されます。これにより、子コンポーネントのプロパティを設定できます。 @No__t-0 コンポーネントにパラメーターを追加するには、コンポーネントの `@code` ブロックを更新します。
 
-* `[Parameter]` 属性を持つ `IncrementAmount` のパブリックプロパティを追加します。
+* @No__t-1 属性を持つ `IncrementAmount` のパブリックプロパティを追加します。
 * `currentCount` の値を増やすときに `IncrementAmount` を使うように `IncrementCount` メソッドを変更します。
 
 *Pages/Counter.razor*:
@@ -167,7 +167,7 @@ HTML 構文を使用してコンポーネントを別のコンポーネントに
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Index2.razor?highlight=7)]
 
-アプリを実行します。 `Index` コンポーネントには、 **[クリックし**てください] ボタンが選択されるたびに10ずつ増加する独自のカウンターがあります。 `/counter` の `Counter` コンポーネント (*Counter.razor*) は、1つずつ増加し続けます。
+アプリを実行します。 @No__t-0 コンポーネントには、 **[クリックし**てください] ボタンが選択されるたびに10ずつ増加する独自のカウンターがあります。 @No__t 2 の @no__t 0 コンポーネント (*Counter*) は、1つずつ増加し続けます。
 
 ## <a name="next-steps"></a>次の手順
 
