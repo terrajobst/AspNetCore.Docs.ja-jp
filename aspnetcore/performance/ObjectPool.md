@@ -15,7 +15,7 @@ ms.locfileid: "67815526"
 ---
 # <a name="object-reuse-with-objectpool-in-aspnet-core"></a>ASP.NET Core で ObjectPool でオブジェクトを再利用
 
-によって[Steve Gordon](https://twitter.com/stevejgordon)、 [Ryan Nowak](https://github.com/rynowak)、および[Rick Anderson](https://twitter.com/RickAndMSFT)
+作成者: [Steve Gordon](https://twitter.com/stevejgordon)、 [Ryan Nowak](https://github.com/rynowak)、および[Rick Anderson](https://twitter.com/RickAndMSFT)
 
 <xref:Microsoft.Extensions.ObjectPool> 収集されたガベージ オブジェクトではなく、再利用するためのメモリ内オブジェクトのグループを維持することをサポートする ASP.NET Core インフラストラクチャの一部です。
 
