@@ -42,7 +42,7 @@ ms.locfileid: "71211568"
 | Mozilla Firefox                  | [現在]    |
 | Google Chrome (Android を含む) | [現在]    |
 | Safari (iOS を含む)            | [現在]    |
-| Microsoft Internet Explorer      | 個&dagger; |
+| Microsoft Internet Explorer      | 11&dagger; |
 
 &dagger;追加の polyfills が必要です (たとえば、 [Polyfill.io](https://polyfill.io/v3/)バンドルを使用して追加することができます)。
 
