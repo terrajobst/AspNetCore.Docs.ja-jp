@@ -5,14 +5,14 @@ description: アプリの起動と有効期間の管理を行う .NET Core 汎�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/01/2019
+ms.date: 10/07/2019
 uid: fundamentals/host/generic-host
-ms.openlocfilehash: 75af6dc58d31aaad888b14640268bf05c193272d
-ms.sourcegitcommit: e54672f5c493258dc449fac5b98faf47eb123b28
+ms.openlocfilehash: 1582955cd18e6739111af05c9a892cd5cb4e270d
+ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71248290"
+ms.lasthandoff: 10/07/2019
+ms.locfileid: "72007229"
 ---
 # <a name="net-generic-host"></a>.NET での汎用ホスト
 
@@ -78,7 +78,7 @@ Entity Framework Core がアプリで使用されている場合は、`CreateHos
 
 <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> メソッド:
 
-* <xref:System.IO.Directory.GetCurrentDirectory*> によって返されるパスにコンテンツ ルートを設定します。
+* [コンテンツ ルート](xref:fundamentals/index#content-root)を、<xref:System.IO.Directory.GetCurrentDirectory*> によって返されるパスに設定します。
 * 次からホスト構成を読み込みます。
   * プレフィックス "DOTNET_" が付いた環境変数。
   * コマンド ライン引数。
@@ -119,7 +119,7 @@ Entity Framework Core がアプリで使用されている場合は、`CreateHos
 
 起動後タスクとグレースフル シャットダウン タスクを処理するために <xref:Microsoft.Extensions.Hosting.IHostApplicationLifetime> (旧称 `IApplicationLifetime`) サービスを任意のクラスに注入します。 インターフェイス上の 3 つのプロパティは、アプリの起動およびアプリの停止のイベント ハンドラー メソッドを登録するために使用されるキャンセル トークンです。 インターフェイスには `StopApplication` メソッドも含まれています。
 
-次の例は、以下の `IApplicationLifetime` イベントを登録する `IHostedService` 実装です。
+次の例は、`IHostApplicationLifetime` イベントを登録する `IHostedService` の実装です。
 
 [!code-csharp[](generic-host/samples-snapshot/3.x/LifetimeEventsHostedService.cs?name=snippet_LifetimeEvents)]
 
@@ -199,6 +199,11 @@ Host.CreateDefaultBuilder(args)
     .UseContentRoot("c:\\content-root")
     //...
 ```
+
+詳細については次を参照してください:
+
+* [基礎: コンテンツ ルート](xref:fundamentals/index#content-root)
+* [WebRoot](#webroot)
 
 ### <a name="environmentname"></a>EnvironmentName
 
@@ -397,7 +402,7 @@ Kestrel には独自のエンドポイント構成 API があります。 詳細
 
 **キー**: webroot  
 **型**: *文字列*  
-**既定**: パスが存在する場合は *(コンテンツ ルート)/wwwroot*。 パスが存在しない場合は、no-op ファイル プロバイダーが使用されます。  
+**既定**:既定値は、`wwwroot` です。 *{content root}/wwwroot* へのパスが存在する必要があります。 パスが存在しない場合は、no-op ファイル プロバイダーが使用されます。  
 **環境変数**: `<PREFIX_>WEBROOT`
 
 この値を設定するには、環境変数を使用するか、または `UseWebRoot` を呼び出します。
@@ -405,6 +410,11 @@ Kestrel には独自のエンドポイント構成 API があります。 詳細
 ```csharp
 webBuilder.UseWebRoot("public");
 ```
+
+詳細については次を参照してください:
+
+* [基礎: Web ルート](xref:fundamentals/index#web-root)
+* [ContentRootPath](#contentrootpath)
 
 ## <a name="manage-the-host-lifetime"></a>ホストの有効期間を管理する
 
@@ -574,6 +584,8 @@ var host = new HostBuilder()
 パスが存在しない場合は、ホストを起動できません。
 
 [!code-csharp[](generic-host/samples-snapshot/2.x/GenericHostSample/Program.cs?name=snippet_UseContentRoot)]
+
+詳細については、[基礎: コンテンツ ルート](xref:fundamentals/index#content-root)に関する記事を参照してください。
 
 ### <a name="environment"></a>環境
 

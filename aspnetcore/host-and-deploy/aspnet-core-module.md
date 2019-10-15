@@ -5,14 +5,14 @@ description: ASP.NET Core アプリをホストするための ASP.NET Core モ�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/24/2019
+ms.date: 10/08/2019
 uid: host-and-deploy/aspnet-core-module
-ms.openlocfilehash: 811aafce6686b446440b146efd7449b598ed1722
-ms.sourcegitcommit: e54672f5c493258dc449fac5b98faf47eb123b28
+ms.openlocfilehash: c1c34f368cb3f7767bf0f229ff70c5ab53c6005f
+ms.sourcegitcommit: fcdf9aaa6c45c1a926bd870ed8f893bdb4935152
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71248342"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72165322"
 ---
 # <a name="aspnet-core-module"></a>ASP.NET Core モジュール
 
@@ -79,13 +79,15 @@ ASP.NET Core アプリの既定はインプロセス ホスティング モデ�
 
 ### <a name="out-of-process-hosting-model"></a>アウト プロセス ホスティング モデル
 
-アウト プロセス ホスティングでアプリを構成するには、`<AspNetCoreHostingModel>` プロパティの値を `OutOfProcess` に設定します (インプロセス ホスティングは既定値の `InProcess` で設定されます)。
+アウトプロセス ホスティング用にアプリを構成するには、プロジェクト ファイル ( *.csproj*) で、`<AspNetCoreHostingModel>` プロパティの値を `OutOfProcess` に設定します。
 
 ```xml
 <PropertyGroup>
   <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
 </PropertyGroup>
 ```
+
+インプロセス ホスティングは `InProcess` で設定され、これが既定値です。
 
 IIS HTTP サーバー (`IISHttpServer`) の代わりに、[Kestrel](xref:fundamentals/servers/kestrel) サーバーが使用されます。
 
@@ -182,11 +184,11 @@ IIS サブアプリケーション構成について詳しくは、「<xref:host
 | `stdoutLogEnabled` | <p>省略可能な Boolean 属性です。</p><p>true の場合、**processPath** で指定されているプロセスの **stdout** と **stderr** は、**stdoutLogFile** で指定されているファイルにリダイレクトされます。</p> | `false` |
 | `stdoutLogFile` | <p>省略可能な文字列属性。</p><p>**processPath** で指定されているプロセスからの **stdout** と **stderr** がログに記録される相対ファイル パスまたは絶対ファイル パスを指定します。 相対パスの基準はサイトのルートです。 `.` で始まっているパスはすべてサイト ルートに対する相対パスであり、他のすべてのパスは絶対パスとして扱われます。 パスで指定されたフォルダーは、ログ ファイルの作成時、モジュールによって作成されます。 アンダースコアの区切り記号を使って、タイムスタンプ、プロセス ID、およびファイル拡張子 ( *.log*) が、**stdoutLogFile** パスの最後のセグメントに追加されます。 たとえば、値として `.\logs\stdout` を指定し、2018 年 2 月 5 日の 19:41:32 にプロセス ID 1934 で保存すると、stdout ログは *logs* フォルダーに *stdout_20180205194132_1934.log* として保存されます。</p> | `aspnetcore-stdout` |
 
-### <a name="setting-environment-variables"></a>環境変数の設定
+### <a name="set-environment-variables"></a>環境変数の設定
 
 `processPath` 属性で、プロセスに対する環境変数を指定できます。 `<environmentVariables>` コレクション要素の `<environmentVariable>` 子要素で、環境変数を指定します。 このセクションで設定された環境変数は、システム環境変数より優先されます。
 
-次の例では、2 つの環境変数を設定しています。 `ASPNETCORE_ENVIRONMENT` は、`Development` に対するアプリの環境を構成します。 開発者は、アプリの例外をデバッグするときに[開発者例外ページ](xref:fundamentals/error-handling)を強制的に読み込むため、*web.config* ファイルでこの値を一時的に設定できます。 `CONFIG_DIR` はユーザー定義の環境変数の例です。開発者はここに、アプリの構成ファイルを読み込むためのパスを形成するために起動時に値を読み取るコードを記述してあります。
+次の例では、*web.config* で 2 つの環境変数を設定します。`ASPNETCORE_ENVIRONMENT` では、アプリの環境が `Development` に構成されます。 開発者は、アプリの例外をデバッグするときに[開発者例外ページ](xref:fundamentals/error-handling)を強制的に読み込むため、*web.config* ファイルでこの値を一時的に設定できます。 `CONFIG_DIR` はユーザー定義の環境変数の例です。開発者はここに、アプリの構成ファイルを読み込むためのパスを形成するために起動時に値を読み取るコードを記述してあります。
 
 ```xml
 <aspNetCore processPath="dotnet"
@@ -245,7 +247,7 @@ stdout ログの使用は、アプリ起動時の問題をトラブルシュー�
 
 `stdoutLogEnabled` が false の場合は、アプリの起動時に発生するエラーがキャプチャされ、30 KB までイベント ログに出力されます。 起動後、すべての追加のログが破棄されます。
 
-次の `aspNetCore` 要素の例では、Azure App Service でホストされているアプリの stdout ログを構成しています。 ローカル ログには、ローカル パスまたはネットワーク共有パスを使用できます。 AppPool のユーザー ID に、指定されたパスへの書き込みアクセス許可があることを確認してください。
+次の例の *web.config* ファイルの `aspNetCore` 要素では、Azure App Service でホストされているアプリの stdout ログが構成されます。 ローカル ログには、ローカル パスまたはネットワーク共有パスを使用できます。 AppPool のユーザー ID に、指定されたパスへの書き込みアクセス許可があることを確認してください。
 
 ```xml
 <aspNetCore processPath="dotnet"
@@ -304,7 +306,7 @@ ASP.NET Core モジュールは、強化された診断ログを提供するよ�
 
 "*インプロセス ホスティング モデルを使用している場合にのみ適用されます。* "
 
-`stackSize` 設定を使ってマネージド スタック サイズを構成します (バイト単位)。 既定のサイズは `1048576` バイト (1 MB) です。
+*web.config* で `stackSize` の設定を使用してマネージド スタックのサイズを構成します (バイト単位)。既定のサイズは `1048576` バイト (1 MB) です。
 
 ```xml
 <aspNetCore processPath="dotnet"

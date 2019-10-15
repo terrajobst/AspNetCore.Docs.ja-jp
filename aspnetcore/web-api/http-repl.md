@@ -5,14 +5,14 @@ description: HTTP REPL .NET Core グローバル ツールを使用して、ASP.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 08/29/2019
+ms.date: 10/07/2019
 uid: web-api/http-repl
-ms.openlocfilehash: 086ac141a04ab4a560f2c26fb049ef8a5493dc97
-ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
+ms.openlocfilehash: bb3757f51487a307ebfb97452b80995f84e95e4b
+ms.sourcegitcommit: 73a451e9a58ac7102f90b608d661d8c23dd9bbaf
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71187246"
+ms.lasthandoff: 10/08/2019
+ms.locfileid: "72037713"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>HTTP REPL を使用して Web API をテストする
 
@@ -790,25 +790,107 @@ options <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:
 
 HTTP 要求ヘッダーを設定するには、次のいずれかの方法を使用します。
 
-1. HTTP 要求でインラインを設定します。 次に例を示します。
+* HTTP 要求でインラインを設定します。 次に例を示します。
 
-  ```console
-  https://localhost:5001/people~ post -h Content-Type=application/json
-  ```
+    ```console
+    https://localhost:5001/people~ post -h Content-Type=application/json
+    ```
+    
+    上記の方法では、個別の HTTP 要求ヘッダーごとに独自の `-h` オプションが必要です。
 
-  上記の方法では、個別の HTTP 要求ヘッダーごとに独自の `-h` オプションが必要です。
+* HTTP 要求を送信する前に設定します。 次に例を示します。
 
-1. HTTP 要求を送信する前に設定します。 次に例を示します。
+    ```console
+    https://localhost:5001/people~ set header Content-Type application/json
+    ```
+    
+    要求を送信する前にヘッダーを設定すると、コマンド シェル セッションの間はヘッダーが設定されたままになります。 ヘッダーをクリアするには、空の値を指定します。 次に例を示します。
+    
+    ```console
+    https://localhost:5001/people~ set header Content-Type
+    ```
 
-  ```console
-  https://localhost:5001/people~ set header Content-Type application/json
-  ```
+## <a name="test-secured-endpoints"></a>セキュリティで保護されたエンドポイントをテストする
 
-  要求を送信する前にヘッダーを設定すると、コマンド シェル セッションの間はヘッダーが設定されたままになります。 ヘッダーをクリアするには、空の値を指定します。 次に例を示します。
+HTTP REPL では、セキュリティで保護されたエンドポイントの、HTTP 要求ヘッダーを使用したテストがサポートされています。 サポートされている認証および承認スキームの例としては、基本認証、JWT ベアラー トークン、ダイジェスト認証などがあります。 たとえば、次のコマンドを使用して、ベアラー トークンをエンドポイントに送信できます。
 
-  ```console
-  https://localhost:5001/people~ set header Content-Type
-  ```
+```console
+set header Authorization "bearer <TOKEN VALUE>"
+```
+
+Azure でホストされたエンドポイントにアクセスしたり、[Azure REST API](/rest/api/azure/) を使用したりするには、ベアラー トークンが必要です。 [Azure CLI](/cli/azure/) で自分の Azure サブスクリプションのベアラー トークンを取得するには、次の手順を使用します。 HTTP REPL では、HTTP 要求ヘッダーにベアラー トークンが設定され、Azure App Service Web Apps のリストが取得されます。
+
+1. Azure へのログイン:
+
+    ```azcli
+    az login
+    ```
+
+1. 次のコマンドで、サブスクリプション ID を取得します。
+
+    ```azcli
+    az account show --query id
+    ```
+
+1. サブスクリプション ID をコピーし、次のコマンドを実行します。
+
+    ```azcli
+    az account set --subscription "<SUBSCRIPTION ID>"
+    ```
+
+1. 次のコマンドで、ベアラー トークンを取得します。
+
+    ```azcli
+    az account get-access-token --query accessToken
+    ```
+
+1. HTTP REPL を使用して、Azure REST API に接続します。
+
+    ```console
+    httprepl https://management.azure.com
+    ```
+
+1. `Authorization` HTTP 要求ヘッダーを設定します。
+
+    ```console
+    https://management.azure.com/> set header Authorization "bearer <ACCESS TOKEN>"
+    ```
+
+1. サブスクリプションに移動します。
+
+    ```console
+    https://management.azure.com/> cd subscriptions/<SUBSCRIPTION ID>
+    ```
+
+1. サブスクリプションの Azure App Service Web Apps のリストを取得します。
+
+    ```console
+    https://management.azure.com/subscriptions/{SUBSCRIPTION ID}> get providers/Microsoft.Web/sites?api-version=2016-08-01
+    ```
+
+    次の応答が示されます。
+
+    ```console
+    HTTP/1.1 200 OK
+    Cache-Control: no-cache
+    Content-Length: 35948
+    Content-Type: application/json; charset=utf-8
+    Date: Thu, 19 Sep 2019 23:04:03 GMT
+    Expires: -1
+    Pragma: no-cache
+    Strict-Transport-Security: max-age=31536000; includeSubDomains
+    X-Content-Type-Options: nosniff
+    x-ms-correlation-request-id: <em>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</em>
+    x-ms-original-request-ids: <em>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx;xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</em>
+    x-ms-ratelimit-remaining-subscription-reads: 11999
+    x-ms-request-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+    x-ms-routing-request-id: WESTUS:xxxxxxxxxxxxxxxx:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxx
+    {
+      "value": [
+        <AZURE RESOURCES LIST>
+      ]
+    }
+    ```
 
 ## <a name="toggle-http-request-display"></a>HTTP 要求の表示を切り替える
 

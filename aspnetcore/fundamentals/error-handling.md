@@ -5,14 +5,14 @@ description: ASP.NET Core アプリでエラーを処理する方法について
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/10/2019
+ms.date: 10/08/2019
 uid: fundamentals/error-handling
-ms.openlocfilehash: 652a97a6b7fbe4c8cc678b86a92eea59937e809c
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: a5bdbc3ce75f5897c9cd67fe18897281bf2fb57b
+ms.sourcegitcommit: 73a451e9a58ac7102f90b608d661d8c23dd9bbaf
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975582"
+ms.lasthandoff: 10/08/2019
+ms.locfileid: "72037575"
 ---
 # <a name="handle-errors-in-aspnet-core"></a>ASP.NET Core のエラーを処理する
 
@@ -208,7 +208,7 @@ if (statusCodePagesFeature != null)
 
 ## <a name="database-error-page"></a>データベース エラー ページ
 
-[データベース エラー ページ](<xref:Microsoft.AspNetCore.Builder.DatabaseErrorPageExtensions.UseDatabaseErrorPage*>) ミドルウェアでは、Entity Framework の移行を使って解決できるデータベース関連の例外がキャプチャされます。 これらの例外が発生すると、問題が解決する可能性のあるアクションの詳細を含む HTML 応答が生成されます。 このページは、開発環境でのみ有効にする必要があります。 ページを有効にするには、コードを `Startup.Configure` に追加します。
+データベース エラー ページ ミドルウェアでは、Entity Framework の移行を使って解決できるデータベース関連の例外がキャプチャされます。 これらの例外が発生すると、問題が解決する可能性のあるアクションの詳細を含む HTML 応答が生成されます。 このページは、開発環境でのみ有効にする必要があります。 ページを有効にするには、コードを `Startup.Configure` に追加します。
 
 ```csharp
 if (env.IsDevelopment())
@@ -216,6 +216,8 @@ if (env.IsDevelopment())
     app.UseDatabaseErrorPage();
 }
 ```
+
+<!-- FUTURE UPDATE: On the next topic overhaul/release update, add API crosslink to this section for xref:Microsoft.AspNetCore.Builder.DatabaseErrorPageExtensions.UseDatabaseErrorPage* when available via the API docs. -->
 
 ## <a name="exception-filters"></a>例外フィルター
 

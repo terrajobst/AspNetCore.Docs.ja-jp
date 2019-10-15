@@ -4,14 +4,14 @@ author: ardalis
 description: フィルターのしくみと ASP.NET Core でそれを使用する方法について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/08/2019
+ms.date: 09/28/2019
 uid: mvc/controllers/filters
-ms.openlocfilehash: 50b199744f32ad19335080da406db69665ec1ae9
-ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
+ms.openlocfilehash: ed48c2074360768b8d8c5af7057b353b00592394
+ms.sourcegitcommit: 73a451e9a58ac7102f90b608d661d8c23dd9bbaf
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/12/2019
-ms.locfileid: "67856153"
+ms.lasthandoff: 10/08/2019
+ms.locfileid: "72037700"
 ---
 # <a name="filters-in-aspnet-core"></a>ASP.NET Core フィルター
 
@@ -437,9 +437,12 @@ FiltersSample.Filters.LogConstantFilter:Information: Method 'Hi' called
 
 [!code-csharp[](./filters/sample/FiltersSample/Filters/LoggingAddHeaderFilter.cs?name=snippet_ResultFilter)]
 
-実行されている結果の種類は、アクションに依存します。 ビューを返すアクションには、実行されている <xref:Microsoft.AspNetCore.Mvc.ViewResult> の一部として、すべての razor 処理が含まれます。 API メソッドは、結果の実行の一部としていくつかのシリアル化を実行できます。 アクション結果に関する詳細は、[こちら](xref:mvc/controllers/actions)を参照してください。
+実行されている結果の種類は、アクションに依存します。 ビューを返すアクションには、実行されている <xref:Microsoft.AspNetCore.Mvc.ViewResult> の一部として、すべての razor 処理が含まれます。 API メソッドは、結果の実行の一部としていくつかのシリアル化を実行できます。 [アクション結果](xref:mvc/controllers/actions)に関する詳細を参照してください。
 
-結果フィルターは、アクションまたはアクション フィルターがアクションの結果を生成するときに、成功した結果に対してのみ実行されます。 例外フィルターが例外を処理するときには、結果フィルターは実行されません。
+結果フィルターは、アクションまたはアクション フィルターによってアクション結果を生成される場合にのみ実行されます。 結果フィルターは、次の場合には実行されません。
+
+* 承認フィルターまたはリソース フィルターによって、パイプラインがショートサーキットされる。
+* アクションの結果を生成することで、例外フィルターによって例外が処理されます。
 
 <xref:Microsoft.AspNetCore.Mvc.Filters.IResultFilter.OnResultExecuting*?displayProperty=fullName> メソッドは、<xref:Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContext.Cancel?displayProperty=fullName> を `true` に設定することで、アクションの結果と後続の結果フィルターの実行をショートサーキットできます。 ショートサーキットする場合は、空の応答が生成されないように応答オブジェクトに記述します。 `IResultFilter.OnResultExecuting` で例外をスローすることで:
 
@@ -471,12 +474,10 @@ If an exception was thrown **IN THE RESULT FILTER**, the response body is not se
 
 ### <a name="ialwaysrunresultfilter-and-iasyncalwaysrunresultfilter"></a>IAlwaysRunResultFilter および IAsyncAlwaysRunResultFilter
 
-<xref:Microsoft.AspNetCore.Mvc.Filters.IAlwaysRunResultFilter> および <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncAlwaysRunResultFilter> インターフェイスでは、すべてのアクションの結果に対して実行される <xref:Microsoft.AspNetCore.Mvc.Filters.IResultFilter> の実装が宣言されます。 次の場合を除き、フィルターはすべてのアクションの結果に適用されます。
+<xref:Microsoft.AspNetCore.Mvc.Filters.IAlwaysRunResultFilter> および <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncAlwaysRunResultFilter> インターフェイスでは、すべてのアクションの結果に対して実行される <xref:Microsoft.AspNetCore.Mvc.Filters.IResultFilter> の実装が宣言されます。 これには、以下によって生成されるアクションの結果が含まれます。
 
-* <xref:Microsoft.AspNetCore.Mvc.Filters.IExceptionFilter> または <xref:Microsoft.AspNetCore.Mvc.Filters.IAuthorizationFilter> が適用され、応答がショートサーキットされます。
-* アクションの結果を生成することで、例外フィルターによって例外が処理されます。
-
-`IExceptionFilter` と `IAuthorizationFilter` 以外のフィルターによって `IAlwaysRunResultFilter` と `IAsyncAlwaysRunResultFilter` がショートサーキットされることはありません。
+* ショートサーキットが行われる承認フィルターとリソース フィルター。
+* 例外フィルター。
 
 たとえば、次のフィルターは常に実行され、コンテンツ ネゴシエーションが失敗した場合に "*422 処理不可エンティティ*" 状態コードを使ってアクションの結果 (<xref:Microsoft.AspNetCore.Mvc.ObjectResult>) を設定します。
 

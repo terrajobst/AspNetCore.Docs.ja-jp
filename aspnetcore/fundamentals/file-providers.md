@@ -5,14 +5,14 @@ description: ASP.NET Core がファイル プロバイダーを使用してフ�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/26/2019
+ms.date: 10/07/2019
 uid: fundamentals/file-providers
-ms.openlocfilehash: 44c439dce893d486668bf8ac3f20cdf7952c5186
-ms.sourcegitcommit: 0774a61a3a6c1412a7da0e7d932dc60c506441fc
+ms.openlocfilehash: 3a92b44efc70d156596ee9fe80b4f6a65266e73d
+ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2019
-ms.locfileid: "70059089"
+ms.lasthandoff: 10/07/2019
+ms.locfileid: "72007172"
 ---
 # <a name="file-providers-in-aspnet-core"></a>ASP.NET Core でのファイル プロバイダー
 
@@ -22,7 +22,7 @@ ms.locfileid: "70059089"
 
 ASP.NET Core は、ファイル プロバイダーを使用してファイル システムへのアクセスを抽象化します。 ファイル プロバイダーは、ASP.NET Core フレームワークの全体で使用されます。
 
-* `IWebHostEnvironment` では、アプリのコンテンツ ルートと Web ルートを `IFileProvider` 型として公開します。
+* `IWebHostEnvironment` では、アプリの[コンテンツ ルート](xref:fundamentals/index#content-root)と [Web ルート](xref:fundamentals/index#web-root)が `IFileProvider` 型として公開されます。
 * [静的ファイル ミドルウェア](xref:fundamentals/static-files)では、ファイル プロバイダーを使用して静的なファイルを見つけます。
 * [Razor](xref:mvc/views/razor) では、ファイル プロバイダーを使用してページとビューを見つけます。
 * .NET Core Tooling では、ファイル プロバイダーと glob パターンを使用して、公開するファイルを指定します。
@@ -171,7 +171,7 @@ Docker コンテナーやネットワーク共有など、一部のファイル 
 
 ASP.NET Core は、ファイル プロバイダーを使用してファイル システムへのアクセスを抽象化します。 ファイル プロバイダーは、ASP.NET Core フレームワークの全体で使用されます。
 
-* <xref:Microsoft.Extensions.Hosting.IHostingEnvironment> では、アプリのコンテンツ ルートと Web ルートを `IFileProvider` 型として公開します。
+* <xref:Microsoft.Extensions.Hosting.IHostingEnvironment> では、アプリの[コンテンツ ルート](xref:fundamentals/index#content-root)と [Web ルート](xref:fundamentals/index#web-root)が `IFileProvider` 型として公開されます。
 * [静的ファイル ミドルウェア](xref:fundamentals/static-files)では、ファイル プロバイダーを使用して静的なファイルを見つけます。
 * [Razor](xref:mvc/views/razor) では、ファイル プロバイダーを使用してページとビューを見つけます。
 * .NET Core Tooling では、ファイル プロバイダーと glob パターンを使用して、公開するファイルを指定します。

@@ -4,14 +4,14 @@ author: rick-anderson
 description: 静的ファイルを提供したり、それをセキュリティで保護したりする方法、および ASP.NET Core Web アプリで静的ファイルをホストするミドルウェアの動作を構成する方法について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/8/2019
+ms.date: 10/07/2019
 uid: fundamentals/static-files
-ms.openlocfilehash: 1c665d1206e984fe41e9f57bb5356839c354dde2
-ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
+ms.openlocfilehash: 2f153551a86860616469200862723528e4a8cc1c
+ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68308192"
+ms.lasthandoff: 10/07/2019
+ms.locfileid: "72007328"
 ---
 # <a name="static-files-in-aspnet-core"></a>ASP.NET Core の静的ファイル
 
@@ -23,7 +23,7 @@ HTML、CSS、画像、JavaScript などの静的ファイルは、ASP.NET Core �
 
 ## <a name="serve-static-files"></a>静的ファイルの提供
 
-静的ファイルは、プロジェクトの Web ルート ディレクトリ内に格納されています。 既定のディレクトリは、 *\<content_root>/wwwroot* ですが、[UseWebRoot](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.usewebroot#Microsoft_AspNetCore_Hosting_HostingAbstractionsWebHostBuilderExtensions_UseWebRoot_Microsoft_AspNetCore_Hosting_IWebHostBuilder_System_String_) メソッドを使用して変更することができます。 詳細については、「[コンテンツ ルート](xref:fundamentals/index#content-root)」および「[Web ルート](xref:fundamentals/index#web-root)」を参照してください。
+静的ファイルは、プロジェクトの [Web ルート](xref:fundamentals/index#web-root) ディレクトリ内に格納されています。 既定のディレクトリは *{content root}/wwwroot* ですが、[UseWebRoot](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.usewebroot#Microsoft_AspNetCore_Hosting_HostingAbstractionsWebHostBuilderExtensions_UseWebRoot_Microsoft_AspNetCore_Hosting_IWebHostBuilder_System_String_) メソッドを使用して変更できます。 詳細については、「[コンテンツ ルート](xref:fundamentals/index#content-root)」および「[Web ルート](xref:fundamentals/index#web-root)」を参照してください。
 
 アプリの Web ホストでは、コンテンツのルート ディレクトリが把握されている必要があります。
 
@@ -43,7 +43,7 @@ HTML、CSS、画像、JavaScript などの静的ファイルは、ASP.NET Core �
 
 ::: moniker-end
 
-静的なファイルには、Web ルートへの相対パスを使用してアクセスできます。 たとえば、**Web アプリケーション** プロジェクト テンプレートには、*wwwroot* フォルダー内の次のいくつかフォルダーが含まれています。
+静的ファイルには、[Web ルート](xref:fundamentals/index#web-root)に対する相対パスを使用してアクセスできます。 たとえば、**Web アプリケーション** プロジェクト テンプレートには、*wwwroot* フォルダー内の次のいくつかフォルダーが含まれています。
 
 * **wwwroot**
   * **css**
@@ -78,15 +78,15 @@ HTML、CSS、画像、JavaScript などの静的ファイルは、ASP.NET Core �
 
 [!code-csharp[](static-files/samples/1x/StartupStaticFiles.cs?name=snippet_ConfigureMethod&highlight=3)]
 
-パラメーターなしの `UseStaticFiles` メソッド オーバーロードによって、Web ルート内のファイルが提供可能とマークされます。 次のマークアップは、*wwwroot/images/banner1.svg* を参照します。
+`UseStaticFiles` メソッドのパラメーターなしのオーバーロードによって、[Web ルート](xref:fundamentals/index#web-root)内のファイルが提供可能とマークされます。 次のマークアップは、*wwwroot/images/banner1.svg* を参照します。
 
 [!code-cshtml[](static-files/samples/1x/Views/Home/Index.cshtml?name=snippet_static_file_wwwroot)]
 
-上記のコードでは、チルダ文字 `~/` が webroot を指します。 詳細については、「[Web ルート](xref:fundamentals/index#web-root)」を参照してください。
+上記のコードでは、チルダ文字 `~/` が [Web ルート](xref:fundamentals/index#web-root)を指します。
 
 ### <a name="serve-files-outside-of-web-root"></a>Web ルート外のファイルの提供
 
-提供する静的ファイルが、Web ルート外にあるディレクトリ階層があるとします。
+提供する静的ファイルが [Web ルート](xref:fundamentals/index#web-root)の外にあるディレクトリ階層について考えます。
 
 * **wwwroot**
   * **css**
@@ -108,7 +108,7 @@ HTML、CSS、画像、JavaScript などの静的ファイルは、ASP.NET Core �
 
 ### <a name="set-http-response-headers"></a>HTTP 応答ヘッダーの設定
 
-[StaticFileOptions](/dotnet/api/microsoft.aspnetcore.builder.staticfileoptions) オブジェクトを使用すると、HTTP 応答ヘッダーを設定できます。 Web ルートから提供される静的ファイルが構成され、また、次のコードによって、`Cache-Control` ヘッダーが設定されます。
+[StaticFileOptions](/dotnet/api/microsoft.aspnetcore.builder.staticfileoptions) オブジェクトを使用すると、HTTP 応答ヘッダーを設定できます。 [Web ルート](xref:fundamentals/index#web-root)から提供される静的ファイルの構成に加えて、次のコードで `Cache-Control` ヘッダーを設定します。
 
 [!code-csharp[](static-files/samples/1x/StartupAddHeader.cs?name=snippet_ConfigureMethod)]
 
@@ -256,7 +256,7 @@ app.UseFileServer(enableDirectoryBrowsing: true);
 > [!WARNING]
 > IIS の静的ファイル ハンドラーが有効になっており、**かつ**、ASP.NET Core モジュールが正しく構成されていない場合、静的ファイルにサービスが提供されます。 これは、たとえば、*web.config* ファイルが配置されていない場合などで発生します。
 
-* アプリ プロジェクトの Web ルートの外に、( *.cs* と *.cshtml* を含む) コード ファイルを配置します。 これにより、アプリのクライアント側コンテンツとサーバー ベースのコードの間で、論理的な分離が作成されます。 これによって、サーバー側のコードが漏洩するのを防ぎます。
+* アプリ プロジェクトの [Web ルート](xref:fundamentals/index#web-root)の外に、コード ファイル ( *.cs* と *.cshtml* を含む) を配置します。 これにより、アプリのクライアント側コンテンツとサーバー ベースのコードの間で、論理的な分離が作成されます。 これによって、サーバー側のコードが漏洩するのを防ぎます。
 
 ## <a name="additional-resources"></a>その他の技術情報
 

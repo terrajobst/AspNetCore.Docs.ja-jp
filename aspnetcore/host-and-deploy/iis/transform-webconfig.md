@@ -5,14 +5,14 @@ description: ASP.NET Core アプリを発行するときに web.config ファイ
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/07/2019
+ms.date: 10/07/2019
 uid: host-and-deploy/iis/transform-webconfig
-ms.openlocfilehash: 32e66007d527f7f7b7cfd88d3bebc9b808251941
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: d28c362a200ad433e316bc1af710231a169a30a4
+ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081461"
+ms.lasthandoff: 10/07/2019
+ms.locfileid: "72007315"
 ---
 # <a name="transform-webconfig"></a>web.config を変換する
 
@@ -28,9 +28,9 @@ ms.locfileid: "71081461"
 これらの変換は、次のいずれかの *web.config* の生成シナリオで発生します。
 
 * `Microsoft.NET.Sdk.Web` SDK によって自動的に生成された。
-* 開発者によってアプリのコンテンツのルートに提供された。
+* 開発者によってアプリの[コンテンツ ルート](xref:fundamentals/index#content-root)に提供された。
 
-## <a name="build-configuration"></a>ビルド構成
+## <a name="build-configuration"></a>[ビルド構成]
 
 ビルド構成の変換は、最初に実行されます。
 

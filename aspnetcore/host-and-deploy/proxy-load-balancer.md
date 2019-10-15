@@ -5,14 +5,14 @@ description: プロキシ サーバーとロード バランサーの背後に�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/12/2019
+ms.date: 10/07/2019
 uid: host-and-deploy/proxy-load-balancer
-ms.openlocfilehash: 3243f5d3254e6585ff9ca48900a3326aa9b6f502
-ms.sourcegitcommit: 8a36be1bfee02eba3b07b7a86085ec25c38bae6b
+ms.openlocfilehash: 5eb69c2a253d1b8c42edd39b64b595898e6fb948
+ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71219176"
+ms.lasthandoff: 10/07/2019
+ms.locfileid: "72007282"
 ---
 # <a name="configure-aspnet-core-to-work-with-proxy-servers-and-load-balancers"></a>プロキシ サーバーとロード バランサーを使用するために ASP.NET Core を構成する
 
@@ -252,6 +252,60 @@ if (string.Equals(
 }
 ```
 
+::: moniker range=">= aspnetcore-3.0"
+
+## <a name="certificate-forwarding"></a>証明書の転送 
+
+### <a name="azure"></a>Azure
+
+証明書の転送用に Azure App Service を構成するには、「[Azure App Service に対する TLS 相互認証の構成](/azure/app-service/app-service-web-configure-tls-mutual-auth)」を参照してください。 次のガイダンスは、ASP.NET Core アプリの構成に関するものです。
+
+`Startup.Configure` で、`app.UseAuthentication();` の呼び出しの前に次のコードを追加します。
+
+```csharp
+app.UseCertificateForwarding();
+```
+
+
+Azure で使用されるヘッダー名を指定するように、証明書転送ミドルウェアを構成します。 `Startup.ConfigureServices` に次のコードを追加し、ミドルウェアによる証明書作成の基になるヘッダーを構成します。
+
+```csharp
+services.AddCertificateForwarding(options =>
+    options.CertificateHeader = "X-ARR-ClientCert");
+```
+
+### <a name="other-web-proxies"></a>他の Web プロキシ
+
+使用されているプロキシが、IIS でも、Azure App Service のアプリケーション要求ルーティング処理 (ARR) でもない場合は、HTTP ヘッダーで受け取った証明書を転送するように、プロキシを構成します。 `Startup.Configure` で、`app.UseAuthentication();` の呼び出しの前に次のコードを追加します。
+
+```csharp
+app.UseCertificateForwarding();
+```
+
+ヘッダー名を指定するように証明書の転送ミドルウェアを構成します。 `Startup.ConfigureServices` に次のコードを追加し、ミドルウェアによる証明書作成の基になるヘッダーを構成します。
+
+```csharp
+services.AddCertificateForwarding(options =>
+    options.CertificateHeader = "YOUR_CERTIFICATE_HEADER_NAME");
+```
+
+プロキシで証明書が base64 エンコードではない場合は (Nginx の場合と同様)、`HeaderConverter` オプションを設定します。 `Startup.ConfigureServices` での次の例を検討してください。
+
+```csharp
+services.AddCertificateForwarding(options =>
+{
+    options.CertificateHeader = "YOUR_CUSTOM_HEADER_NAME";
+    options.HeaderConverter = (headerValue) => 
+    {
+        var clientCertificate = 
+           /* some conversion logic to create an X509Certificate2 */
+        return clientCertificate;
+    }
+});
+```
+
+::: moniker-end
+
 ## <a name="troubleshoot"></a>トラブルシューティング
 
 ヘッダーが意図したとおりに転送されない場合は、[ログ](xref:fundamentals/logging/index) を有効にします。 ログで問題のトラブルシューティングに十分な情報が提供されない場合は、サーバーが受信した要求ヘッダーを列挙します。 インライン ミドルウェアを使用し、アプリ応答に要求ヘッダーを書き込んだり、ヘッダーをログに記録したりします。 
@@ -336,53 +390,6 @@ services.Configure<ForwardedHeadersOptions>(options =>
 
 > [!IMPORTANT]
 > 信頼されているプロキシとネットワークにのみ、ヘッダーの転送を許可します。 それ以外に許可すると、[IP なりすまし](https://www.iplocation.net/ip-spoofing)攻撃が可能になります。
-
-## <a name="certificate-forwarding"></a>証明書の転送 
-
-### <a name="on-azure"></a>Azure の場合
-
-Azure Web Apps を構成するには、[Azure のドキュメント](/azure/app-service/app-service-web-configure-tls-mutual-auth)を参照してください。 ご利用のアプリの `Startup.Configure` メソッドで、`app.UseAuthentication();` の呼び出し前に次のコードを追加します。
-
-```csharp
-app.UseCertificateForwarding();
-```
-
-また、Azure で使用されるヘッダー名を指定するように証明書の転送ミドルウェアを構成する必要もあります。 ご利用のアプリの `Startup.ConfigureServices` メソッドで、ミドルウェアが証明書を作成する元となるヘッダーを構成するための次のコードを追加します。
-
-```csharp
-services.AddCertificateForwarding(options =>
-    options.CertificateHeader = "X-ARR-ClientCert");
-```
-
-### <a name="with-other-web-proxies"></a>その他の Web プロキシの場合
-
-使用しているプロキシが IIS でも Azure の Web Apps アプリケーション要求ルーティング処理でもない場合は、HTTP ヘッダーで受信した証明書を転送するようにそのプロキシを構成します。 ご利用のアプリの `Startup.Configure` メソッドで、`app.UseAuthentication();` の呼び出し前に次のコードを追加します。
-
-```csharp
-app.UseCertificateForwarding();
-```
-
-また、ヘッダー名を指定するように証明書の転送ミドルウェアを構成する必要もあります。 ご利用のアプリの `Startup.ConfigureServices` メソッドで、ミドルウェアが証明書を作成する元となるヘッダーを構成するための次のコードを追加します。
-
-```csharp
-services.AddCertificateForwarding(options =>
-    options.CertificateHeader = "YOUR_CERTIFICATE_HEADER_NAME");
-```
-
-最後に、プロキシで証明書の base64 エンコード以外の処理が何か行われている場合 (Nginx の場合のように)、`HeaderConverter` オプションを設定します。 `Startup.ConfigureServices` での次の例を検討してください。
-
-```csharp
-services.AddCertificateForwarding(options =>
-{
-    options.CertificateHeader = "YOUR_CUSTOM_HEADER_NAME";
-    options.HeaderConverter = (headerValue) => 
-    {
-        var clientCertificate = 
-           /* some conversion logic to create an X509Certificate2 */
-        return clientCertificate;
-    }
-});
-```
 
 ## <a name="additional-resources"></a>その他の技術情報
 
