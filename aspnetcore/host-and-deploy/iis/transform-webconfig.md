@@ -5,38 +5,38 @@ description: ASP.NET Core アプリを発行するときに web.config ファイ
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/07/2019
+ms.date: 10/07/2019
 uid: host-and-deploy/iis/transform-webconfig
-ms.openlocfilehash: 32e66007d527f7f7b7cfd88d3bebc9b808251941
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: d28c362a200ad433e316bc1af710231a169a30a4
+ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081461"
+ms.lasthandoff: 10/07/2019
+ms.locfileid: "72007315"
 ---
-# <a name="transform-webconfig"></a><span data-ttu-id="e2c5a-103">web.config を変換する</span><span class="sxs-lookup"><span data-stu-id="e2c5a-103">Transform web.config</span></span>
+# <a name="transform-webconfig"></a><span data-ttu-id="7aa8e-103">web.config を変換する</span><span class="sxs-lookup"><span data-stu-id="7aa8e-103">Transform web.config</span></span>
 
-<span data-ttu-id="e2c5a-104">作成者: [Vijay Ramakrishnan](https://github.com/vijayrkn)、[Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="e2c5a-104">By [Vijay Ramakrishnan](https://github.com/vijayrkn) and [Luke Latham](https://github.com/guardrex)</span></span>
+<span data-ttu-id="7aa8e-104">作成者: [Vijay Ramakrishnan](https://github.com/vijayrkn)、[Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="7aa8e-104">By [Vijay Ramakrishnan](https://github.com/vijayrkn) and [Luke Latham](https://github.com/guardrex)</span></span>
 
-<span data-ttu-id="e2c5a-105">次のものに基づいてアプリを発行する場合、*web.config* ファイルに対する変換を自動的に適用することができます。</span><span class="sxs-lookup"><span data-stu-id="e2c5a-105">Transformations to the *web.config* file can be applied automatically when an app is published based on:</span></span>
+<span data-ttu-id="7aa8e-105">次のものに基づいてアプリを発行する場合、*web.config* ファイルに対する変換を自動的に適用することができます。</span><span class="sxs-lookup"><span data-stu-id="7aa8e-105">Transformations to the *web.config* file can be applied automatically when an app is published based on:</span></span>
 
-* [<span data-ttu-id="e2c5a-106">ビルド構成</span><span class="sxs-lookup"><span data-stu-id="e2c5a-106">Build configuration</span></span>](#build-configuration)
-* [<span data-ttu-id="e2c5a-107">Profile</span><span class="sxs-lookup"><span data-stu-id="e2c5a-107">Profile</span></span>](#profile)
-* [<span data-ttu-id="e2c5a-108">環境</span><span class="sxs-lookup"><span data-stu-id="e2c5a-108">Environment</span></span>](#environment)
-* [<span data-ttu-id="e2c5a-109">カスタム</span><span class="sxs-lookup"><span data-stu-id="e2c5a-109">Custom</span></span>](#custom)
+* [<span data-ttu-id="7aa8e-106">ビルド構成</span><span class="sxs-lookup"><span data-stu-id="7aa8e-106">Build configuration</span></span>](#build-configuration)
+* [<span data-ttu-id="7aa8e-107">Profile</span><span class="sxs-lookup"><span data-stu-id="7aa8e-107">Profile</span></span>](#profile)
+* [<span data-ttu-id="7aa8e-108">環境</span><span class="sxs-lookup"><span data-stu-id="7aa8e-108">Environment</span></span>](#environment)
+* [<span data-ttu-id="7aa8e-109">カスタム</span><span class="sxs-lookup"><span data-stu-id="7aa8e-109">Custom</span></span>](#custom)
 
-<span data-ttu-id="e2c5a-110">これらの変換は、次のいずれかの *web.config* の生成シナリオで発生します。</span><span class="sxs-lookup"><span data-stu-id="e2c5a-110">These transformations occur for either of the following *web.config* generation scenarios:</span></span>
+<span data-ttu-id="7aa8e-110">これらの変換は、次のいずれかの *web.config* の生成シナリオで発生します。</span><span class="sxs-lookup"><span data-stu-id="7aa8e-110">These transformations occur for either of the following *web.config* generation scenarios:</span></span>
 
-* <span data-ttu-id="e2c5a-111">`Microsoft.NET.Sdk.Web` SDK によって自動的に生成された。</span><span class="sxs-lookup"><span data-stu-id="e2c5a-111">Generated automatically by the `Microsoft.NET.Sdk.Web` SDK.</span></span>
-* <span data-ttu-id="e2c5a-112">開発者によってアプリのコンテンツのルートに提供された。</span><span class="sxs-lookup"><span data-stu-id="e2c5a-112">Provided by the developer in the content root of the app.</span></span>
+* <span data-ttu-id="7aa8e-111">`Microsoft.NET.Sdk.Web` SDK によって自動的に生成された。</span><span class="sxs-lookup"><span data-stu-id="7aa8e-111">Generated automatically by the `Microsoft.NET.Sdk.Web` SDK.</span></span>
+* <span data-ttu-id="7aa8e-112">開発者によってアプリの[コンテンツ ルート](xref:fundamentals/index#content-root)に提供された。</span><span class="sxs-lookup"><span data-stu-id="7aa8e-112">Provided by the developer in the [content root](xref:fundamentals/index#content-root) of the app.</span></span>
 
-## <a name="build-configuration"></a><span data-ttu-id="e2c5a-113">ビルド構成</span><span class="sxs-lookup"><span data-stu-id="e2c5a-113">Build configuration</span></span>
+## <a name="build-configuration"></a><span data-ttu-id="7aa8e-113">[ビルド構成]</span><span class="sxs-lookup"><span data-stu-id="7aa8e-113">Build configuration</span></span>
 
-<span data-ttu-id="e2c5a-114">ビルド構成の変換は、最初に実行されます。</span><span class="sxs-lookup"><span data-stu-id="e2c5a-114">Build configuration transforms are run first.</span></span>
+<span data-ttu-id="7aa8e-114">ビルド構成の変換は、最初に実行されます。</span><span class="sxs-lookup"><span data-stu-id="7aa8e-114">Build configuration transforms are run first.</span></span>
 
-<span data-ttu-id="e2c5a-115">*web.config* の変換を必要とする[ビルド構成 (デバッグ|リリース)](/dotnet/core/tools/dotnet-publish#options) ごとに、*web.{CONFIGURATION}.config* ファイルを含めます。</span><span class="sxs-lookup"><span data-stu-id="e2c5a-115">Include a *web.{CONFIGURATION}.config* file for each [build configuration (Debug|Release)](/dotnet/core/tools/dotnet-publish#options) requiring a *web.config* transformation.</span></span>
+<span data-ttu-id="7aa8e-115">*web.config* の変換を必要とする[ビルド構成 (デバッグ|リリース)](/dotnet/core/tools/dotnet-publish#options) ごとに、*web.{CONFIGURATION}.config* ファイルを含めます。</span><span class="sxs-lookup"><span data-stu-id="7aa8e-115">Include a *web.{CONFIGURATION}.config* file for each [build configuration (Debug|Release)](/dotnet/core/tools/dotnet-publish#options) requiring a *web.config* transformation.</span></span>
 
-<span data-ttu-id="e2c5a-116">次の例では、構成固有の環境変数が *web.Release.config* 内で設定されています。</span><span class="sxs-lookup"><span data-stu-id="e2c5a-116">In the following example, a configuration-specific environment variable is set in *web.Release.config*:</span></span>
+<span data-ttu-id="7aa8e-116">次の例では、構成固有の環境変数が *web.Release.config* 内で設定されています。</span><span class="sxs-lookup"><span data-stu-id="7aa8e-116">In the following example, a configuration-specific environment variable is set in *web.Release.config*:</span></span>
 
 ```xml
 <?xml version="1.0"?>
@@ -56,21 +56,21 @@ ms.locfileid: "71081461"
 </configuration>
 ```
 
-<span data-ttu-id="e2c5a-117">構成が *Release* に設定された場合、変換が適用されます。</span><span class="sxs-lookup"><span data-stu-id="e2c5a-117">The transform is applied when the configuration is set to *Release*:</span></span>
+<span data-ttu-id="7aa8e-117">構成が *Release* に設定された場合、変換が適用されます。</span><span class="sxs-lookup"><span data-stu-id="7aa8e-117">The transform is applied when the configuration is set to *Release*:</span></span>
 
 ```dotnetcli
 dotnet publish --configuration Release
 ```
 
-<span data-ttu-id="e2c5a-118">構成の MSBuild プロパティは `$(Configuration)` です。</span><span class="sxs-lookup"><span data-stu-id="e2c5a-118">The MSBuild property for the configuration is `$(Configuration)`.</span></span>
+<span data-ttu-id="7aa8e-118">構成の MSBuild プロパティは `$(Configuration)` です。</span><span class="sxs-lookup"><span data-stu-id="7aa8e-118">The MSBuild property for the configuration is `$(Configuration)`.</span></span>
 
-## <a name="profile"></a><span data-ttu-id="e2c5a-119">Profile</span><span class="sxs-lookup"><span data-stu-id="e2c5a-119">Profile</span></span>
+## <a name="profile"></a><span data-ttu-id="7aa8e-119">Profile</span><span class="sxs-lookup"><span data-stu-id="7aa8e-119">Profile</span></span>
 
-<span data-ttu-id="e2c5a-120">プロファイルの変換は、[ビルド構成](#build-configuration)の変換の後、2 番目に実行されます。</span><span class="sxs-lookup"><span data-stu-id="e2c5a-120">Profile transformations are run second, after [Build configuration](#build-configuration) transforms.</span></span>
+<span data-ttu-id="7aa8e-120">プロファイルの変換は、[ビルド構成](#build-configuration)の変換の後、2 番目に実行されます。</span><span class="sxs-lookup"><span data-stu-id="7aa8e-120">Profile transformations are run second, after [Build configuration](#build-configuration) transforms.</span></span>
 
-<span data-ttu-id="e2c5a-121">*web.config* の変換を必要とするプロファイル構成ごとに、*web.{PROFILE}.config* ファイルを含めます。</span><span class="sxs-lookup"><span data-stu-id="e2c5a-121">Include a *web.{PROFILE}.config* file for each profile configuration requiring a *web.config* transformation.</span></span>
+<span data-ttu-id="7aa8e-121">*web.config* の変換を必要とするプロファイル構成ごとに、*web.{PROFILE}.config* ファイルを含めます。</span><span class="sxs-lookup"><span data-stu-id="7aa8e-121">Include a *web.{PROFILE}.config* file for each profile configuration requiring a *web.config* transformation.</span></span>
 
-<span data-ttu-id="e2c5a-122">次の例では、プロファイル固有の環境変数が *web.FolderProfile.config* 内でフォルダーの発行プロファイルに対して設定されています。</span><span class="sxs-lookup"><span data-stu-id="e2c5a-122">In the following example, a profile-specific environment variable is set in *web.FolderProfile.config* for a folder publish profile:</span></span>
+<span data-ttu-id="7aa8e-122">次の例では、プロファイル固有の環境変数が *web.FolderProfile.config* 内でフォルダーの発行プロファイルに対して設定されています。</span><span class="sxs-lookup"><span data-stu-id="7aa8e-122">In the following example, a profile-specific environment variable is set in *web.FolderProfile.config* for a folder publish profile:</span></span>
 
 ```xml
 <?xml version="1.0"?>
@@ -90,23 +90,23 @@ dotnet publish --configuration Release
 </configuration>
 ```
 
-<span data-ttu-id="e2c5a-123">プロファイルが *FolderProfile* であった場合、変換が適用されます。</span><span class="sxs-lookup"><span data-stu-id="e2c5a-123">The transform is applied when the profile is *FolderProfile*:</span></span>
+<span data-ttu-id="7aa8e-123">プロファイルが *FolderProfile* であった場合、変換が適用されます。</span><span class="sxs-lookup"><span data-stu-id="7aa8e-123">The transform is applied when the profile is *FolderProfile*:</span></span>
 
 ```dotnetcli
 dotnet publish --configuration Release /p:PublishProfile=FolderProfile
 ```
 
-<span data-ttu-id="e2c5a-124">プロファイル名の MSBuild プロパティは `$(PublishProfile)` です。</span><span class="sxs-lookup"><span data-stu-id="e2c5a-124">The MSBuild property for the profile name is `$(PublishProfile)`.</span></span>
+<span data-ttu-id="7aa8e-124">プロファイル名の MSBuild プロパティは `$(PublishProfile)` です。</span><span class="sxs-lookup"><span data-stu-id="7aa8e-124">The MSBuild property for the profile name is `$(PublishProfile)`.</span></span>
 
-<span data-ttu-id="e2c5a-125">プロファイルが渡されなかった場合、既定のプロファイル名は **FileSystem** です。また、アプリのコンテンツのルートにそのファイルが存在していた場合、*web.FileSystem.config* が適用されます。</span><span class="sxs-lookup"><span data-stu-id="e2c5a-125">If no profile is passed, the default profile name is **FileSystem** and *web.FileSystem.config* is applied if the file is present in the app's content root.</span></span>
+<span data-ttu-id="7aa8e-125">プロファイルが渡されなかった場合、既定のプロファイル名は **FileSystem** です。また、アプリのコンテンツのルートにそのファイルが存在していた場合、*web.FileSystem.config* が適用されます。</span><span class="sxs-lookup"><span data-stu-id="7aa8e-125">If no profile is passed, the default profile name is **FileSystem** and *web.FileSystem.config* is applied if the file is present in the app's content root.</span></span>
 
-## <a name="environment"></a><span data-ttu-id="e2c5a-126">環境</span><span class="sxs-lookup"><span data-stu-id="e2c5a-126">Environment</span></span>
+## <a name="environment"></a><span data-ttu-id="7aa8e-126">環境</span><span class="sxs-lookup"><span data-stu-id="7aa8e-126">Environment</span></span>
 
-<span data-ttu-id="e2c5a-127">環境の変換は、[ビルド構成](#build-configuration)および[プロファイル](#profile)の変換の後、3 番目に実行されます。</span><span class="sxs-lookup"><span data-stu-id="e2c5a-127">Environment transformations are run third, after [Build configuration](#build-configuration) and [Profile](#profile) transforms.</span></span>
+<span data-ttu-id="7aa8e-127">環境の変換は、[ビルド構成](#build-configuration)および[プロファイル](#profile)の変換の後、3 番目に実行されます。</span><span class="sxs-lookup"><span data-stu-id="7aa8e-127">Environment transformations are run third, after [Build configuration](#build-configuration) and [Profile](#profile) transforms.</span></span>
 
-<span data-ttu-id="e2c5a-128">*web.config* の変換を必要とする[環境](xref:fundamentals/environments)ごとに、*web.{ENVIRONMENT}.config* ファイルを含めます。</span><span class="sxs-lookup"><span data-stu-id="e2c5a-128">Include a *web.{ENVIRONMENT}.config* file for each [environment](xref:fundamentals/environments) requiring a *web.config* transformation.</span></span>
+<span data-ttu-id="7aa8e-128">*web.config* の変換を必要とする[環境](xref:fundamentals/environments)ごとに、*web.{ENVIRONMENT}.config* ファイルを含めます。</span><span class="sxs-lookup"><span data-stu-id="7aa8e-128">Include a *web.{ENVIRONMENT}.config* file for each [environment](xref:fundamentals/environments) requiring a *web.config* transformation.</span></span>
 
-<span data-ttu-id="e2c5a-129">次の例では、環境固有の環境変数が *web.Production.config* 内で Production 環境に対して設定されています。</span><span class="sxs-lookup"><span data-stu-id="e2c5a-129">In the following example, a environment-specific environment variable is set in *web.Production.config* for the Production environment:</span></span>
+<span data-ttu-id="7aa8e-129">次の例では、環境固有の環境変数が *web.Production.config* 内で Production 環境に対して設定されています。</span><span class="sxs-lookup"><span data-stu-id="7aa8e-129">In the following example, a environment-specific environment variable is set in *web.Production.config* for the Production environment:</span></span>
 
 ```xml
 <?xml version="1.0"?>
@@ -126,25 +126,25 @@ dotnet publish --configuration Release /p:PublishProfile=FolderProfile
 </configuration>
 ```
 
-<span data-ttu-id="e2c5a-130">環境が *Production* だった場合、変換が適用されます。</span><span class="sxs-lookup"><span data-stu-id="e2c5a-130">The transform is applied when the environment is *Production*:</span></span>
+<span data-ttu-id="7aa8e-130">環境が *Production* だった場合、変換が適用されます。</span><span class="sxs-lookup"><span data-stu-id="7aa8e-130">The transform is applied when the environment is *Production*:</span></span>
 
 ```dotnetcli
 dotnet publish --configuration Release /p:EnvironmentName=Production
 ```
 
-<span data-ttu-id="e2c5a-131">環境の MSBuild プロパティは `$(EnvironmentName)` です。</span><span class="sxs-lookup"><span data-stu-id="e2c5a-131">The MSBuild property for the environment is `$(EnvironmentName)`.</span></span>
+<span data-ttu-id="7aa8e-131">環境の MSBuild プロパティは `$(EnvironmentName)` です。</span><span class="sxs-lookup"><span data-stu-id="7aa8e-131">The MSBuild property for the environment is `$(EnvironmentName)`.</span></span>
 
-<span data-ttu-id="e2c5a-132">Visual Studio から発行プロファイルを使って発行する場合は、<xref:host-and-deploy/visual-studio-publish-profiles#set-the-environment> をご覧ください。</span><span class="sxs-lookup"><span data-stu-id="e2c5a-132">When publishing from Visual Studio and using a publish profile, see <xref:host-and-deploy/visual-studio-publish-profiles#set-the-environment>.</span></span>
+<span data-ttu-id="7aa8e-132">Visual Studio から発行プロファイルを使って発行する場合は、<xref:host-and-deploy/visual-studio-publish-profiles#set-the-environment> をご覧ください。</span><span class="sxs-lookup"><span data-stu-id="7aa8e-132">When publishing from Visual Studio and using a publish profile, see <xref:host-and-deploy/visual-studio-publish-profiles#set-the-environment>.</span></span>
 
-<span data-ttu-id="e2c5a-133">環境名を指定すると、環境変数 `ASPNETCORE_ENVIRONMENT` が自動的に *web.config* ファイルに追加されます。</span><span class="sxs-lookup"><span data-stu-id="e2c5a-133">The `ASPNETCORE_ENVIRONMENT` environment variable is automatically added to the *web.config* file when the environment name is specified.</span></span>
+<span data-ttu-id="7aa8e-133">環境名を指定すると、環境変数 `ASPNETCORE_ENVIRONMENT` が自動的に *web.config* ファイルに追加されます。</span><span class="sxs-lookup"><span data-stu-id="7aa8e-133">The `ASPNETCORE_ENVIRONMENT` environment variable is automatically added to the *web.config* file when the environment name is specified.</span></span>
 
-## <a name="custom"></a><span data-ttu-id="e2c5a-134">カスタム</span><span class="sxs-lookup"><span data-stu-id="e2c5a-134">Custom</span></span>
+## <a name="custom"></a><span data-ttu-id="7aa8e-134">カスタム</span><span class="sxs-lookup"><span data-stu-id="7aa8e-134">Custom</span></span>
 
-<span data-ttu-id="e2c5a-135">カスタム変換は、[ビルド構成](#build-configuration)、[プロファイル](#profile)、および[環境](#environment)の変換の後、最後に実行されます。</span><span class="sxs-lookup"><span data-stu-id="e2c5a-135">Custom transformations are run last, after [Build configuration](#build-configuration), [Profile](#profile), and [Environment](#environment) transforms.</span></span>
+<span data-ttu-id="7aa8e-135">カスタム変換は、[ビルド構成](#build-configuration)、[プロファイル](#profile)、および[環境](#environment)の変換の後、最後に実行されます。</span><span class="sxs-lookup"><span data-stu-id="7aa8e-135">Custom transformations are run last, after [Build configuration](#build-configuration), [Profile](#profile), and [Environment](#environment) transforms.</span></span>
 
-<span data-ttu-id="e2c5a-136">*web.config* の変換を必要とするカスタム構成ごとに、 *{CUSTOM_NAME}.transform* ファイルを含めます。</span><span class="sxs-lookup"><span data-stu-id="e2c5a-136">Include a *{CUSTOM_NAME}.transform* file for each custom configuration requiring a *web.config* transformation.</span></span>
+<span data-ttu-id="7aa8e-136">*web.config* の変換を必要とするカスタム構成ごとに、 *{CUSTOM_NAME}.transform* ファイルを含めます。</span><span class="sxs-lookup"><span data-stu-id="7aa8e-136">Include a *{CUSTOM_NAME}.transform* file for each custom configuration requiring a *web.config* transformation.</span></span>
 
-<span data-ttu-id="e2c5a-137">次の例では、カスタム変換の環境変数が *custom.transform* 内で設定されています。</span><span class="sxs-lookup"><span data-stu-id="e2c5a-137">In the following example, a custom transform environment variable is set in *custom.transform*:</span></span>
+<span data-ttu-id="7aa8e-137">次の例では、カスタム変換の環境変数が *custom.transform* 内で設定されています。</span><span class="sxs-lookup"><span data-stu-id="7aa8e-137">In the following example, a custom transform environment variable is set in *custom.transform*:</span></span>
 
 ```xml
 <?xml version="1.0"?>
@@ -164,23 +164,23 @@ dotnet publish --configuration Release /p:EnvironmentName=Production
 </configuration>
 ```
 
-<span data-ttu-id="e2c5a-138">`CustomTransformFileName` プロパティが [dotnet publish](/dotnet/core/tools/dotnet-publish) コマンドに渡された場合、変換が適用されます。</span><span class="sxs-lookup"><span data-stu-id="e2c5a-138">The transform is applied when the `CustomTransformFileName` property is passed to the [dotnet publish](/dotnet/core/tools/dotnet-publish) command:</span></span>
+<span data-ttu-id="7aa8e-138">`CustomTransformFileName` プロパティが [dotnet publish](/dotnet/core/tools/dotnet-publish) コマンドに渡された場合、変換が適用されます。</span><span class="sxs-lookup"><span data-stu-id="7aa8e-138">The transform is applied when the `CustomTransformFileName` property is passed to the [dotnet publish](/dotnet/core/tools/dotnet-publish) command:</span></span>
 
 ```dotnetcli
 dotnet publish --configuration Release /p:CustomTransformFileName=custom.transform
 ```
 
-<span data-ttu-id="e2c5a-139">プロファイル名の MSBuild プロパティは `$(CustomTransformFileName)` です。</span><span class="sxs-lookup"><span data-stu-id="e2c5a-139">The MSBuild property for the profile name is `$(CustomTransformFileName)`.</span></span>
+<span data-ttu-id="7aa8e-139">プロファイル名の MSBuild プロパティは `$(CustomTransformFileName)` です。</span><span class="sxs-lookup"><span data-stu-id="7aa8e-139">The MSBuild property for the profile name is `$(CustomTransformFileName)`.</span></span>
 
-## <a name="prevent-webconfig-transformation"></a><span data-ttu-id="e2c5a-140">web.config の変換を回避する</span><span class="sxs-lookup"><span data-stu-id="e2c5a-140">Prevent web.config transformation</span></span>
+## <a name="prevent-webconfig-transformation"></a><span data-ttu-id="7aa8e-140">web.config の変換を回避する</span><span class="sxs-lookup"><span data-stu-id="7aa8e-140">Prevent web.config transformation</span></span>
 
-<span data-ttu-id="e2c5a-141">*web.config* ファイルの変換を回避するには、MSBuild プロパティ `$(IsWebConfigTransformDisabled)` を設定します。</span><span class="sxs-lookup"><span data-stu-id="e2c5a-141">To prevent transformations of the *web.config* file, set the MSBuild property `$(IsWebConfigTransformDisabled)`:</span></span>
+<span data-ttu-id="7aa8e-141">*web.config* ファイルの変換を回避するには、MSBuild プロパティ `$(IsWebConfigTransformDisabled)` を設定します。</span><span class="sxs-lookup"><span data-stu-id="7aa8e-141">To prevent transformations of the *web.config* file, set the MSBuild property `$(IsWebConfigTransformDisabled)`:</span></span>
 
 ```dotnetcli
 dotnet publish /p:IsWebConfigTransformDisabled=true
 ```
 
-## <a name="additional-resources"></a><span data-ttu-id="e2c5a-142">その他の技術情報</span><span class="sxs-lookup"><span data-stu-id="e2c5a-142">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="7aa8e-142">その他の技術情報</span><span class="sxs-lookup"><span data-stu-id="7aa8e-142">Additional resources</span></span>
 
-* [<span data-ttu-id="e2c5a-143">Web アプリケーション プロジェクト配置の Web.config 変換構文</span><span class="sxs-lookup"><span data-stu-id="e2c5a-143">Web.config Transformation Syntax for Web Application Project Deployment</span></span>](https://go.microsoft.com/fwlink/?LinkId=301874)
-* <span data-ttu-id="e2c5a-144">[Visual Studio を使用する Web プロジェクト配置の Web.config 変換構文](https://docs.microsoft.com/previous-versions/aspnet/dd465326(v=vs.110))</span><span class="sxs-lookup"><span data-stu-id="e2c5a-144">[Web.config Transformation Syntax for Web Project Deployment Using Visual Studio](https://docs.microsoft.com/previous-versions/aspnet/dd465326(v=vs.110))</span></span>
+* [<span data-ttu-id="7aa8e-143">Web アプリケーション プロジェクト配置の Web.config 変換構文</span><span class="sxs-lookup"><span data-stu-id="7aa8e-143">Web.config Transformation Syntax for Web Application Project Deployment</span></span>](https://go.microsoft.com/fwlink/?LinkId=301874)
+* <span data-ttu-id="7aa8e-144">[Visual Studio を使用する Web プロジェクト配置の Web.config 変換構文](https://docs.microsoft.com/previous-versions/aspnet/dd465326(v=vs.110))</span><span class="sxs-lookup"><span data-stu-id="7aa8e-144">[Web.config Transformation Syntax for Web Project Deployment Using Visual Studio](https://docs.microsoft.com/previous-versions/aspnet/dd465326(v=vs.110))</span></span>
