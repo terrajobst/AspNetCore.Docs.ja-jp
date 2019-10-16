@@ -5,14 +5,14 @@ description: Blazor Server アプリで状態を永続化する方法につい�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 10/15/2019
 uid: blazor/state-management
-ms.openlocfilehash: 9d42fa64181bc175cfba97fd149528d5b7cf4ff8
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: 67042fa9b86125fe95d877dbce246abeb6f35dd0
+ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71211641"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72391269"
 ---
 # <a name="aspnet-core-blazor-state-management"></a>ASP.NET Core Blazor 状態管理
 
@@ -24,7 +24,7 @@ Blazor Server は、ステートフルアプリフレームワークです。 �
 
 ユーザーの回線に保持されている状態の例を次に示します。
 
-* コンポーネントインスタンスの&mdash;階層と最新のレンダリング出力の UI。
+* レンダリングされた UI @ no__t-0the インスタンスの階層と最新のレンダリング出力。
 * コンポーネントインスタンス内のフィールドとプロパティの値。
 * [依存関係の注入 (DI)](xref:fundamentals/dependency-injection)サービスインスタンスに保持されているデータ (回線にスコープされる)。
 
@@ -50,12 +50,12 @@ Blazor Server は、ステートフルアプリフレームワークです。 �
 
 一般に、回線をまたいで状態を維持することは、既に存在するデータを単に読み取るだけではなく、ユーザーが積極的にデータを作成するシナリオに適用されます。
 
-1つの回線を超えて状態を維持するために、*データをサーバーのメモリに格納するだけではいけません*。 アプリは、他の保存場所にデータを保持する必要があります。 状態の永続化&mdash;は自動ではありません。アプリケーションを開発してステートフルなデータ永続化を実装するには、手順を実行する必要があります
+1つの回線を超えて状態を維持するために、*データをサーバーのメモリに格納するだけではいけません*。 アプリは、他の保存場所にデータを保持する必要があります。 状態の永続化が自動的に行われない @ no__t-0 ステートフルなデータ永続化を実装するアプリを開発する場合は、手順を実行する必要があります。
 
 通常、データの永続化は、ユーザーが作成に労力を費やす高価値状態の場合にのみ必要です。 次の例では、状態の永続化によって時間が節約されるか、商用活動の支援が行われます。
 
-* 複数の&ndash;手順を追った web フォームでは、ユーザーが状態が失われた場合に、複数の手順で完了したプロセスのデータを再入力するのに時間がかかります。 このシナリオでは、ユーザーがマルチステップ形式から移動し、後でフォームに戻ると、状態が失われます。
-* ショッピングカート&ndash;は、潜在的な収益を表すアプリの市販の重要なコンポーネントを維持できます。 自分の状態やショッピングカートを紛失したユーザーは、後でサイトに戻ったときに、より多くの製品やサービスを購入することができます。
+* 複数ステップの web フォーム &ndash;: ユーザーが状態が失われた場合に、複数の手順で完了したプロセスのデータを再入力するのに時間がかかります。 このシナリオでは、ユーザーがマルチステップ形式から移動し、後でフォームに戻ると、状態が失われます。
+* ショッピングカート &ndash; は、潜在的な収益を表すアプリの商用の重要なコンポーネントを保持できます。 自分の状態やショッピングカートを紛失したユーザーは、後でサイトに戻ったときに、より多くの製品やサービスを購入することができます。
 
 通常、送信されていないサインインダイアログに入力したユーザー名など、簡単に再作成された状態を維持する必要はありません。
 
@@ -93,28 +93,28 @@ Azure のデータストレージオプションの詳細については、 [Azu
 ブラウザーのアドレスバーの内容は保持されます。
 
 * ユーザーが手動でページを再読み込みした場合。
-* Web サーバーが使用できなく&mdash;なった場合、ユーザーは別のサーバーに接続するために、ページの再読み込みを強制されます。
+* Web サーバーが使用できなくなると、ユーザーは別のサーバーに接続するために、ページの再読み込みを強制的に no__t ます。
 
-`@page`ディレクティブを使用して URL パターンを定義する方法<xref:blazor/routing>の詳細については、「」を参照してください。
+@No__t-0 ディレクティブを使用して URL パターンを定義する方法の詳細については、「<xref:blazor/routing>」を参照してください。
 
 ### <a name="client-side-in-the-browser"></a>クライアント側 (ブラウザー)
 
-ユーザーがアクティブに作成している一時的なデータの場合、共通のバッキングストア`localStorage`は`sessionStorage` 、ブラウザーのおよびコレクションです。 回線が破棄された場合、保存されている状態を管理またはクリアするためにアプリは必要ありません。これは、サーバー側の記憶域よりも利点があります。
+ユーザーがアクティブに作成している一時的なデータについては、一般的なバッキングストアはブラウザーの `localStorage` および `sessionStorage` のコレクションです。 回線が破棄された場合、保存されている状態を管理またはクリアするためにアプリは必要ありません。これは、サーバー側の記憶域よりも利点があります。
 
 > [!NOTE]
-> このセクションの「クライアント側」では、 [Blazor WebAssembly ホスティングモデル](xref:blazor/hosting-models#blazor-webassembly)ではなく、ブラウザーでのクライアント側のシナリオを参照しています。 `localStorage`と`sessionStorage`は、カスタムコードを記述したり、サードパーティのパッケージを使用したりするだけで、Blazor webassembly で使用できます。
+> このセクションの「クライアント側」では、 [Blazor WebAssembly ホスティングモデル](xref:blazor/hosting-models#blazor-webassembly)ではなく、ブラウザーでのクライアント側のシナリオを参照しています。 `localStorage` および `sessionStorage` は、Blazor WebAssembly で使用できますが、カスタムコードを記述したり、サードパーティのパッケージを使用したりすることによってのみ使用できます。
 
-`localStorage`と`sessionStorage`は次のように異なります。
+`localStorage` および `sessionStorage` は次のように異なります。
 
-* `localStorage`は、ユーザーのブラウザーにスコープが設定されています。 ユーザーがページを再読み込みするか、ブラウザーを閉じてから再度開くと、状態は維持されます。 ユーザーが複数のブラウザータブを開いた場合、状態はタブ間で共有されます。 明示的に`localStorage`クリアされるまで、データはに保持されます。
-* `sessionStorage`は、ユーザーのブラウザータブにスコープが設定されています。ユーザーがタブを再読み込みすると、状態は維持されます。 ユーザーがタブまたはブラウザーを閉じた場合、状態は失われます。 ユーザーが複数のブラウザータブを開いた場合、各タブには独立したバージョンのデータが含まれます。
+* `localStorage` は、ユーザーのブラウザーにスコープが設定されています。 ユーザーがページを再読み込みするか、ブラウザーを閉じてから再度開くと、状態は維持されます。 ユーザーが複数のブラウザータブを開いた場合、状態はタブ間で共有されます。 データは、明示的にクリアされるまで @no__t 0 に保持されます。
+* `sessionStorage` は、ユーザーのブラウザータブにスコープが設定されています。ユーザーがタブを再読み込みすると、状態は維持されます。 ユーザーがタブまたはブラウザーを閉じた場合、状態は失われます。 ユーザーが複数のブラウザータブを開いた場合、各タブには独立したバージョンのデータが含まれます。
 
-一般に`sessionStorage` 、を使用する方が安全です。 `sessionStorage`ユーザーが複数のタブを開いて、次のことが発生するリスクを回避します。
+一般に、`sessionStorage` は安全に使用できます。 `sessionStorage` にすると、ユーザーが複数のタブを開いて次のことが発生するリスクを回避できます。
 
 * タブ間の状態ストレージのバグ。
 * タブが他のタブの状態を上書きするときの動作がわかりにくい。
 
-`localStorage`は、ブラウザーを閉じて再度開いている間にアプリが状態を保持する必要がある場合に適しています。
+`localStorage` は、ブラウザーを閉じて再度開いている間にアプリが状態を保持する必要がある場合に適しています。
 
 ブラウザーの記憶域を使用する場合の注意事項:
 
@@ -125,29 +125,29 @@ Azure のデータストレージオプションの詳細については、 [Azu
 
 ## <a name="third-party-browser-storage-solutions"></a>サードパーティのブラウザーストレージソリューション
 
-サードパーティの NuGet パッケージは`localStorage` 、および`sessionStorage`を操作するための api を提供します。
+サードパーティの NuGet パッケージは、`localStorage` および `sessionStorage` を操作するための Api を提供します。
 
 ASP.NET Core の[データ保護](xref:security/data-protection/introduction)を透過的に使用するパッケージを選択することを検討してください。 ASP.NET Core データ保護は、格納されているデータを暗号化し、格納されたデータを改ざんするリスクを軽減します。 JSON でシリアル化されたデータがプレーンテキストで格納されている場合、ユーザーはブラウザー開発者ツールを使用してデータを表示し、格納されているデータも変更できます。 データのセキュリティ保護は、本質的には単純であるため、常に問題になるとは限りません。 たとえば、UI 要素に格納されている色の読み取りや変更は、ユーザーや組織にとって重要なセキュリティ上のリスクとは言えません。 *機密データ*を検査または改ざんすることをユーザーに許可しないでください。
 
 ## <a name="protected-browser-storage-experimental-package"></a>保護されたブラウザーストレージの試験的パッケージ
 
-`localStorage` と `sessionStorage` の[データ保護](xref:security/data-protection/introduction)を提供するNuGetパッケージの例は、[Microsoft.AspNetCore.ProtectedBrowserStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage)です。
+@No__t-1 と @no__t の[データ保護](xref:security/data-protection/introduction)を提供する NuGet パッケージの例は、 [AspNetCore. ProtectedBrowserStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage)です。
 
 > [!WARNING]
-> `Microsoft.AspNetCore.ProtectedBrowserStorage`現時点では、サポートされていない実験用パッケージが運用環境で使用するのに適していません。
+> `Microsoft.AspNetCore.ProtectedBrowserStorage` は、現時点では運用環境で使用するのに適していない、サポートされていない実験的なパッケージです。
 
 ### <a name="installation"></a>インストール
 
-`Microsoft.AspNetCore.ProtectedBrowserStorage`パッケージをインストールするには:
+@No__t 0 のパッケージをインストールするには:
 
 1. Blazor Server app プロジェクトで、 [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage)へのパッケージ参照を追加します。
-1. 最上位レベルの HTML (たとえば、既定のプロジェクトテンプレートの*Pages/_Host*ファイル) で、次`<script>`のタグを追加します。
+1. 最上位レベルの HTML (たとえば、既定のプロジェクトテンプレートの*Pages/_Host*ファイル) で、次の `<script>` タグを追加します。
 
    ```html
    <script src="_content/Microsoft.AspNetCore.ProtectedBrowserStorage/protectedBrowserStorage.js"></script>
    ```
 
-1. メソッドで、を呼び出し`AddProtectedBrowserStorage`てサービス`localStorage`コレクション`sessionStorage`におよびサービスを追加します。 `Startup.ConfigureServices`
+1. @No__t-0 メソッドで `AddProtectedBrowserStorage` を呼び出して、サービスコレクションに `localStorage` および @no__t サービスを追加します。
 
    ```csharp
    services.AddProtectedBrowserStorage();
@@ -155,21 +155,21 @@ ASP.NET Core の[データ保護](xref:security/data-protection/introduction)を
 
 ### <a name="save-and-load-data-within-a-component"></a>コンポーネント内のデータを保存して読み込む
 
-ブラウザーストレージへのデータの読み込みまたは保存を必要とする[@inject](xref:blazor/dependency-injection#request-a-service-in-a-component)コンポーネントでは、を使用して、次のいずれかのインスタンスを挿入します。
+ブラウザーストレージへのデータの読み込みまたは保存を必要とするコンポーネントでは、 [@inject](xref:blazor/dependency-injection#request-a-service-in-a-component)を使用して、次のいずれかのインスタンスを挿入します。
 
 * `ProtectedLocalStorage`
 * `ProtectedSessionStorage`
 
-選択は、使用するバッキングストアによって異なります。 次の例では`sessionStorage` 、が使用されています。
+選択は、使用するバッキングストアによって異なります。 次の例では、`sessionStorage` が使用されています。
 
 ```cshtml
 @using Microsoft.AspNetCore.ProtectedBrowserStorage
 @inject ProtectedSessionStorage ProtectedSessionStore
 ```
 
-ステートメント`@using`は、コンポーネントではなく、*インポートの razor*ファイルに配置できます。 *インポートの razor*ファイルを使用すると、アプリまたはアプリ全体で名前空間を使用できるようになります。
+@No__t-0 ステートメントは、コンポーネントではなく、*インポートの razor*ファイルに配置できます。 *インポートの razor*ファイルを使用すると、アプリまたはアプリ全体で名前空間を使用できるようになります。
 
-プロジェクトテンプレートの`currentCount` `Counter`コンポーネントに値を保持するには、 `ProtectedSessionStore.SetAsync`次のようにメソッドを変更します。`IncrementCount`
+プロジェクトテンプレートの `Counter` コンポーネントに @no__t 0 の値を保持するには、`IncrementCount` のメソッドを次のように変更して `ProtectedSessionStore.SetAsync` を使用します。
 
 ```csharp
 private async Task IncrementCount()
@@ -179,11 +179,11 @@ private async Task IncrementCount()
 }
 ```
 
-大規模でより現実的なアプリでは、個々のフィールドを格納するシナリオはほとんどありません。 アプリは、複雑な状態を含むモデルオブジェクト全体を格納する可能性が高くなります。 `ProtectedSessionStore`JSON データを自動的にシリアル化および逆シリアル化します。
+大規模でより現実的なアプリでは、個々のフィールドを格納するシナリオはほとんどありません。 アプリは、複雑な状態を含むモデルオブジェクト全体を格納する可能性が高くなります。 `ProtectedSessionStore` は、JSON データを自動的にシリアル化および逆シリアル化します。
 
-前のコード例`currentCount`では、データはとして`sessionStorage['count']`ユーザーのブラウザーに格納されます。 データはプレーンテキストで保存されるのではなく、ASP.NET Core の[データ保護](xref:security/data-protection/introduction)を使用して保護されます。 暗号化されたデータは、 `sessionStorage['count']`ブラウザーの開発者コンソールでが評価された場合に表示されます。
+前のコード例では、@no__t 0 のデータは、ユーザーのブラウザーに `sessionStorage['count']` として格納されます。 データはプレーンテキストで保存されるのではなく、ASP.NET Core の[データ保護](xref:security/data-protection/introduction)を使用して保護されます。 暗号化されたデータは、ブラウザーの developer console で `sessionStorage['count']` が評価された場合に表示されます。
 
-ユーザーが後`currentCount`で (まったく新しい回線を使用`Counter` `ProtectedSessionStore.GetAsync`しているかどうかを含めて) コンポーネントに戻ったときにデータを回復するには、次のように指定します。
+ユーザーが後で (まったく新しい回線上にあるかどうかを含めて) `Counter` コンポーネントに戻った場合に @no__t 0 のデータを回復するには、`ProtectedSessionStore.GetAsync` を使用します。
 
 ```csharp
 protected override async Task OnInitializedAsync()
@@ -192,7 +192,7 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
-コンポーネントのパラメーターにナビゲーション状態が含まれて`ProtectedSessionStore.GetAsync`いる場合は、を`OnParametersSetAsync`呼び出し、 `OnInitializedAsync`ではなく結果をに代入します。 `OnInitializedAsync`は、コンポーネントが最初にインスタンス化されるときに1回だけ呼び出されます。 `OnInitializedAsync`は、ユーザーが同じページで別の URL に移動した場合に、後で再度呼び出されることはありません。
+コンポーネントのパラメーターにナビゲーション状態が含まれている場合は、`ProtectedSessionStore.GetAsync` を呼び出し、`OnInitializedAsync` ではなく `OnParametersSetAsync` に結果を代入します。 `OnInitializedAsync` は、コンポーネントが最初にインスタンス化されるときに1回だけ呼び出されます。 `OnInitializedAsync` は、ユーザーが同じページで別の URL に移動した場合に、後で再度呼び出されることはありません。
 
 > [!WARNING]
 > このセクションの例は、サーバーのプリレンダリングが有効になっていない場合にのみ機能します。 プリレンダリングが有効になっていると、次のようなエラーが生成されます。
@@ -205,7 +205,7 @@ protected override async Task OnInitializedAsync()
 
 ブラウザーストレージは非同期 (ネットワーク接続経由でアクセスされる) であるため、データが読み込まれてコンポーネントで使用できるようになるまでには、常に一定の時間があります。 最適な結果を得るには、読み込み中に、空白または既定のデータを表示するのではなく、読み込み状態メッセージを表示します。
 
-1つの方法は、データが`null` (まだ読み込み中である) かどうかを追跡することです。 既定`Counter`のコンポーネントでは、カウントは`int`に保持されます。 型`currentCount` `?`()`int`に疑問符 () を追加して null 値を許容するようにします。
+1つの方法は、データが @no__t 0 (まだ読み込み中) かどうかを追跡することです。 既定の `Counter` コンポーネントでは、カウントは `int` で保持されます。 型 (`int`) に疑問符 (`?`) を追加して、@no__t 0 を許容するようにします。
 
 ```csharp
 private int? currentCount;
@@ -233,15 +233,15 @@ else
 * ユーザーのブラウザーへの対話型接続は存在しません。
 * ブラウザーには、JavaScript コードを実行できるページがまだありません。
 
-`localStorage`また`sessionStorage`はが、プリレンダリング中に使用できません。 コンポーネントがストレージを操作しようとすると、次のようなエラーが生成されます。
+`localStorage` または `sessionStorage` は、プリレンダリング中には使用できません。 コンポーネントがストレージを操作しようとすると、次のようなエラーが生成されます。
 
 > この時点では、JavaScript の相互運用呼び出しは発行できません。 これは、コンポーネントが prerendered されているためです。
 
-このエラーを解決する方法の1つは、プリレンダリングを無効にすることです。 これは通常、アプリでブラウザーベースのストレージを多用する場合に最適な選択肢です。 プリレンダリングによって複雑さが`localStorage`増し、アプリには`sessionStorage`メリットがありません
+このエラーを解決する方法の1つは、プリレンダリングを無効にすることです。 これは通常、アプリでブラウザーベースのストレージを多用する場合に最適な選択肢です。 プリレンダリングによって複雑さが増し、アプリにはメリットがありません。 `localStorage` または `sessionStorage` が利用可能になるまで、アプリは役に立つコンテンツを事前に使用できないからです。
 
-プリレンダリングを無効にするには、 *Pages/_Host*ファイルを開き、の`Html.RenderComponentAsync<App>(RenderMode.Server)`呼び出しを変更します。
+プリレンダリングを無効にするには、 *Pages/_Host*ファイルを開き、呼び出しを `Html.RenderComponentAsync<App>(RenderMode.Server)` に変更します。
 
-またはを使用`localStorage`しない他のページでは`sessionStorage`、プリレンダリングが役立つ場合があります。 プリレンダリングが有効な状態を維持するには、ブラウザーが回線に接続されるまで読み込み操作を延期します。 次に、カウンター値を格納する例を示します。
+プリレンダリングは、`localStorage` または `sessionStorage` を使用しない他のページに便利な場合があります。 プリレンダリングが有効な状態を維持するには、ブラウザーが回線に接続されるまで読み込み操作を延期します。 次に、カウンター値を格納する例を示します。
 
 ```cshtml
 @using Microsoft.AspNetCore.ProtectedBrowserStorage
@@ -282,7 +282,7 @@ else
 
 多くのコンポーネントがブラウザーベースのストレージに依存している場合は、状態プロバイダーコードを何度も再実装すると、コードの重複が発生します。 コードの重複を回避するためのオプションの1つは、状態プロバイダーのロジックをカプセル化する*状態プロバイダーの親コンポーネント*を作成することです。 子コンポーネントは、状態の永続化メカニズムに関係なく、永続化されたデータを処理できます。
 
-次の`CounterStateProvider`コンポーネントの例では、カウンターデータが永続化されます。
+@No__t-0 コンポーネントの次の例では、カウンターデータが永続化されます。
 
 ```cshtml
 @using Microsoft.AspNetCore.ProtectedBrowserStorage
@@ -320,9 +320,9 @@ else
 }
 ```
 
-読み込み`CounterStateProvider`が完了するまで子コンテンツをレンダリングしないことで、コンポーネントは読み込みフェーズを処理します。
+@No__t-0 コンポーネントは、読み込みが完了するまで子コンテンツをレンダリングしないことによって、読み込みフェーズを処理します。
 
-`CounterStateProvider`コンポーネントを使用するには、カウンターの状態へのアクセスを必要とする他のコンポーネントの周囲にコンポーネントのインスタンスをラップします。 アプリ内の`CounterStateProvider`すべての`Router` `App`コンポーネントから状態にアクセスできるようにするには、コンポーネント (*app.xaml*) のを周囲にコンポーネントをラップします。
+@No__t-0 コンポーネントを使用するには、カウンターの状態へのアクセスを必要とする他のコンポーネントの周囲にコンポーネントのインスタンスをラップします。 アプリ内のすべてのコンポーネントに対して状態をアクセス可能にするには、`App` コンポーネント (*app.xaml*) の `Router` の周囲に `CounterStateProvider` コンポーネントをラップします。
 
 ```cshtml
 <CounterStateProvider>
@@ -332,7 +332,7 @@ else
 </CounterStateProvider>
 ```
 
-ラップされたコンポーネントはを受け取り、永続化されたカウンターの状態を変更できます。 次`Counter`のコンポーネントは、というパターンを実装しています。
+ラップされたコンポーネントはを受け取り、永続化されたカウンターの状態を変更できます。 次の `Counter` コンポーネントは、というパターンを実装しています。
 
 ```cshtml
 @page "/counter"
@@ -353,9 +353,9 @@ else
 }
 ```
 
-前のコンポーネントは、との`ProtectedBrowserStorage`対話には必要ありません。また、"読み込み中" フェーズも処理しません。
+前のコンポーネントは `ProtectedBrowserStorage` との対話には必要ありません。また、"読み込み中" フェーズも処理しません。
 
-前に説明したように、 `CounterStateProvider`プリレンダリングを処理するには、カウンターデータを使用するすべてのコンポーネントがプリレンダリングで自動的に動作するように、を修正できます。 詳細については、「[ハンドルのプリレンダリング](#handle-prerendering)」を参照してください。
+前に説明したように、プリレンダリングを処理するには、カウンターデータを使用するすべてのコンポーネントがプリレンダリングで自動的に動作するように `CounterStateProvider` を修正します。 詳細については、「[ハンドルのプリレンダリング](#handle-prerendering)」を参照してください。
 
 一般に、*状態プロバイダーの親コンポーネント*パターンをお勧めします。
 

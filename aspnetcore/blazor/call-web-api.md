@@ -5,14 +5,14 @@ description: クロスオリジンリソース共有 (CORS) 要求の作成な�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/05/2019
+ms.date: 10/15/2019
 uid: blazor/call-web-api
-ms.openlocfilehash: 3d70af2226eb29870458a5fd3c2bbbc3ee5c14ce
-ms.sourcegitcommit: 73a451e9a58ac7102f90b608d661d8c23dd9bbaf
+ms.openlocfilehash: b08fdf5c2f9a523314b1744a33087eb64fa4c14a
+ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/08/2019
-ms.locfileid: "72037443"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72390830"
 ---
 # <a name="call-a-web-api-from-aspnet-core-blazor"></a>ASP.NET Core Blazor から web API を呼び出す
 
@@ -22,7 +22,7 @@ ms.locfileid: "72037443"
 
 Blazor WebAssembly は、構成済みの @no__t 0 サービスを使用して web Api を呼び出します。 Blazor JSON ヘルパーまたは <xref:System.Net.Http.HttpRequestMessage> を使用して、JavaScript [FETCH API](https://developer.mozilla.org/docs/Web/API/Fetch_API)オプションを含めることができるように要求を作成します。
 
-Blazor サーバーアプリは、通常 <xref:System.Net.Http.IHttpClientFactory> を使用して作成された @no__t 0 のインスタンスを使用して web Api を呼び出します。 詳細については、「 <xref:fundamentals/http-requests> 」を参照してください。
+Blazor サーバーアプリは、通常 <xref:System.Net.Http.IHttpClientFactory> を使用して作成された @no__t 0 のインスタンスを使用して web Api を呼び出します。 詳細については、「<xref:fundamentals/http-requests>」を参照してください。
 
 [サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
@@ -145,7 +145,7 @@ JSON ヘルパーメソッドは、要求を URI (次の例では web API) に�
 
 ## <a name="cross-origin-resource-sharing-cors"></a>クロスオリジンリソース共有 (CORS)
 
-ブラウザーのセキュリティでは、web ページが web ページを提供したものとは異なるドメインに要求を作成できないようにします。 この制限は、*同一オリジン ポリシー*と呼ばれます。 同一オリジン ポリシーは、悪意のあるサイトが別のサイトから機密データを読み取ることを防ぎます。 ブラウザーから別のオリジンのエンドポイントへの要求を行うには、*エンドポイント*が[クロスオリジンリソース共有 (CORS)](https://www.w3.org/TR/cors/)を有効にする必要があります。
+ブラウザーのセキュリティでは、web ページが web ページを提供したものとは異なるドメインに要求を作成できないようにします。 この制限は、*同じオリジンポリシー*と呼ばれます。 同じ配信元ポリシーでは、悪意のあるサイトが別のサイトから機密データを読み取れないようにします。 ブラウザーから別のオリジンのエンドポイントへの要求を行うには、*エンドポイント*が[クロスオリジンリソース共有 (CORS)](https://www.w3.org/TR/cors/)を有効にする必要があります。
 
 このサンプルアプリでは、呼び出し Web API コンポーネント (*Pages/CallWebAPI*) で CORS を使用する方法を示しています。
 
@@ -200,7 +200,7 @@ Blazor webassembly で WebAssembly 実行する場合は、 [Httpclient](xref:fu
 }
 ```
 
-Fetch API オプションの詳細については、次を参照してください [MDN web docs:WindowOrWorkerGlobalScope ():P arameters @ no__t-0。
+Fetch API オプションの詳細については、 [MDN の web ドキュメント: WindowOrWorkerGlobalScope ():P arameters](https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)を参照してください。
 
 CORS 要求で資格情報 (承認 cookie/ヘッダー) を送信する場合、CORS ポリシーによって `Authorization` ヘッダーが許可されている必要があります。
 

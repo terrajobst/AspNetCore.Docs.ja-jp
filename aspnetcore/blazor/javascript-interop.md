@@ -5,14 +5,14 @@ description: Blazor アプリで JavaScript から .NET および .NET メソッ
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 10/15/2019
 uid: blazor/javascript-interop
-ms.openlocfilehash: b30bce6ef3ebf1cd2f4f3fe8d046e1db9b6929d5
-ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
+ms.openlocfilehash: b4776a20c6da6c722d2c057d19863c570f530a21
+ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/03/2019
-ms.locfileid: "71924647"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72391064"
 ---
 # <a name="aspnet-core-blazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 相互運用機能
 
@@ -28,12 +28,12 @@ Blazor アプリは、javascript コードから .NET および .NET メソッ�
 
 JavaScript 関数を呼び出すために .NET コードが必要になる場合があります。 たとえば、JavaScript 呼び出しは、ブラウザーの機能や機能を JavaScript ライブラリからアプリに公開できます。
 
-.Net から JavaScript を呼び出すには、 `IJSRuntime`抽象化を使用します。 メソッド`InvokeAsync<T>`は、任意の数の JSON シリアル化可能な引数と共に、呼び出す JavaScript 関数の識別子を受け取ります。 関数識別子は、グローバルスコープ (`window`) を基準にしています。 を呼び出す`window.someScope.someFunction`場合、識別子は`someScope.someFunction`になります。 呼び出される前に、関数を登録する必要はありません。 戻り値の`T`型は、JSON シリアル化可能である必要もあります。
+.NET から JavaScript を呼び出すには、@no__t 0 の抽象化を使用します。 @No__t-0 メソッドは、任意の数の JSON シリアル化可能な引数と共に呼び出す JavaScript 関数の識別子を受け取ります。 関数識別子は、グローバルスコープ (`window`) に対して相対的です。 @No__t-0 を呼び出す場合は、識別子が-1 @no__t ます。 呼び出される前に、関数を登録する必要はありません。 戻り値の型 `T` も JSON シリアル化可能である必要があります。
 
 Blazor Server アプリの場合:
 
-* 複数のユーザー要求は、Blazor Server アプリによって処理されます。 JavaScript 関数`JSRuntime.Current`を呼び出すために、コンポーネントでを呼び出さないでください。
-* 抽象化を`IJSRuntime`挿入し、挿入されたオブジェクトを使用して、JavaScript の相互運用呼び出しを発行します。
+* 複数のユーザー要求は、Blazor Server アプリによって処理されます。 JavaScript 関数を呼び出すために、コンポーネントで `JSRuntime.Current` を呼び出さないでください。
+* @No__t 0 の抽象化を挿入し、挿入されたオブジェクトを使用して、JavaScript の相互運用呼び出しを発行します。
 * Blazor アプリのプリレンダリング中に、ブラウザーとの接続が確立されていないため、JavaScript を呼び出すことはできません。 詳細については、「 [Blazor アプリのプリレンダリングを検出する](#detect-when-a-blazor-app-is-prerendering)」セクションを参照してください。
 
 次の例は、JavaScript ベースの試験的なデコーダーである[Textdecoder](https://developer.mozilla.org/docs/Web/API/TextDecoder)に基づいています。 この例では、 C#メソッドから JavaScript 関数を呼び出す方法を示します。 JavaScript 関数は、 C#メソッドからバイト配列を受け取り、配列をデコードし、テキストをコンポーネントに返して表示できるようにします。
@@ -50,22 +50,22 @@ Blazor Server アプリの場合:
 
 次のコンポーネント:
 
-* コンポーネントボタン`ConvertArray` (配列の`JsRuntime` **変換**) が選択されている場合に、を使用して JavaScript 関数を呼び出します。
+* コンポーネントボタン (**配列の変換**) が選択されている場合に `JsRuntime` を使用して @no__t 0 JavaScript 関数を呼び出します。
 * JavaScript 関数が呼び出されると、渡された配列が文字列に変換されます。 文字列は、表示のためにコンポーネントに返されます。
 
 [!code-cshtml[](javascript-interop/samples_snapshot/call-js-example.razor?highlight=2,34-35)]
 
-`IJSRuntime`抽象化を使用するには、次のいずれかの方法を採用します。
+@No__t 0 の抽象化を使用するには、次のいずれかの方法を採用します。
 
-* Razor コンポーネント`IJSRuntime` (*razor*) に抽象を挿入します。
+* Razor コンポーネント (*razor*) に @no__t 0 の抽象化を挿入します。
 
   [!code-cshtml[](javascript-interop/samples_snapshot/inject-abstraction.razor?highlight=1)]
 
-* 抽象化を`IJSRuntime`クラス ( *.cs*) に挿入します。
+* @No__t 0 の抽象化をクラス ( *.cs*) に挿入します。
 
   [!code-csharp[](javascript-interop/samples_snapshot/inject-abstraction-class.cs?highlight=5)]
 
-* [BuildRenderTree](xref:blazor/components#manual-rendertreebuilder-logic)を使用した動的なコンテンツ生成`[Inject]`の場合は、属性を使用します。
+* [BuildRenderTree](xref:blazor/components#manual-rendertreebuilder-logic)を使用した動的なコンテンツ生成の場合は、`[Inject]` 属性を使用します。
 
   ```csharp
   [Inject]
@@ -74,8 +74,8 @@ Blazor Server アプリの場合:
 
 このトピックに付属しているクライアント側のサンプルアプリでは、ユーザー入力を受け取り、ウェルカムメッセージを表示するために、DOM と対話する2つの JavaScript 関数をアプリで使用できます。
 
-* `showPrompt`&ndash;ユーザー入力 (ユーザーの名前) を受け入れ、呼び出し元に名前を返すように求めるプロンプトを生成します。
-* `displayWelcome`呼び出し元から`id` の`welcome`を持つ DOM オブジェクトにウェルカムメッセージを割り当てます。 &ndash;
+* `showPrompt` &ndash; を指定すると、ユーザー入力 (ユーザーの名前) を受け入れ、呼び出し元に名前を返すように求めるメッセージが表示されます。
+* `displayWelcome` &ndash; は、`welcome` の @no__t を持つ DOM オブジェクトに、呼び出し元からのウェルカムメッセージを割り当てます。
 
 *wwwroot/exampleJsInterop*:
 
@@ -83,7 +83,7 @@ Blazor Server アプリの場合:
 
 JavaScript ファイルを参照する `<script>` タグを、 *wwwroot/index.html*ファイル (Blazor) または*Pages/_Host*ファイル (Blazor Server) に配置します。
 
-*wwwroot/index.html*(Blazor WebAssembly:
+*wwwroot/index.html* (Blazor webas):
 
 [!code-html[](./common/samples/3.x/BlazorSample/wwwroot/index.html?highlight=15)]
 
@@ -91,11 +91,11 @@ JavaScript ファイルを参照する `<script>` タグを、 *wwwroot/index.ht
 
 [!code-cshtml[](javascript-interop/samples_snapshot/_Host.cshtml?highlight=29)]
 
-タグを動的`<script>`に更新できない`<script>`ため、コンポーネントファイルにタグを配置しないでください。
+@No__t-1 タグを動的に更新できないため、コンポーネントファイルに @no__t 0 タグを配置しないでください。
 
-.NET メソッドは、を呼び出す`IJSRuntime.InvokeAsync<T>`ことによって、 *ExampleJsInterop*ファイル内の JavaScript 関数と相互運用します。
+@No__t-1 を呼び出して、 *exampleJsInterop*ファイル内の JavaScript 関数との相互運用を行う .net メソッド。
 
-抽象化`IJSRuntime`は、Blazor サーバーのシナリオを可能にするための非同期です。 アプリが Blazor webasアプリで、JavaScript 関数を同期的に呼び出す必要がある場合は、に`IJSInProcessRuntime`ダウンキャストし、代わりにを呼び出し`Invoke<T>`ます。 ほとんどの JavaScript 相互運用機能ライブラリでは、非同期 Api を使用して、すべてのシナリオでライブラリを使用できるようにすることをお勧めします。
+@No__t 0 の抽象化は非同期であり、Blazor サーバーシナリオで使用できます。 アプリが Blazor Webasアプリで、JavaScript 関数を同期的に呼び出す必要がある場合は、`IJSInProcessRuntime` にダウンキャストし、代わりに `Invoke<T>` を呼び出します。 ほとんどの JavaScript 相互運用機能ライブラリでは、非同期 Api を使用して、すべてのシナリオでライブラリを使用できるようにすることをお勧めします。
 
 サンプルアプリには、JavaScript の相互運用機能を示すコンポーネントが含まれています。 コンポーネント:
 
@@ -107,13 +107,13 @@ JavaScript ファイルを参照する `<script>` タグを、 *wwwroot/index.ht
 
 [!code-cshtml[](./common/samples/3.x/BlazorSample/Pages/JsInterop.razor?name=snippet_JSInterop1&highlight=3,19-21,23-25)]
 
-1. コンポーネント`TriggerJsPrompt`の **[トリガー JavaScript プロンプト]** ボタンを選択してを実行する`showPrompt`と、 *wwwroot/exampleJsInterop*ファイルに指定された javascript 関数が呼び出されます。
-1. 関数`showPrompt`は、HTML エンコードされ、コンポーネントに返されるユーザー入力 (ユーザーの名前) を受け取ります。 コンポーネントは、ユーザーの名前をローカル変数`name`に格納します。
-1. に`name`格納されている文字列は、ウェルカムメッセージに組み込まれています。これ`displayWelcome`は、ウェルカムメッセージを見出しタグに表示する JavaScript 関数に渡されます。
+1. コンポーネントの **[トリガー JavaScript プロンプト]** ボタンを選択して `TriggerJsPrompt` を実行すると、 *wwwroot/exampleJsInterop*ファイルに指定されている javascript `showPrompt` 関数が呼び出されます。
+1. @No__t 0 関数は、ユーザー入力 (ユーザーの名前) を受け取ります。これは HTML でエンコードされ、コンポーネントに返されます。 このコンポーネントでは、ユーザーの名前がローカル変数に格納されます (`name`)。
+1. @No__t-0 に格納されている文字列は、ウェルカムメッセージに組み込まれます。このメッセージは、JavaScript 関数に渡されます。つまり、ウェルカムメッセージを見出しタグにレンダリングする `displayWelcome` です。
 
 ## <a name="call-a-void-javascript-function"></a>Void JavaScript 関数を呼び出す
 
-[Void (0)/void 0](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/void)または[Undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)を返す JavaScript 関数は、 `IJSRuntime.InvokeVoidAsync`を使用して呼び出されます。
+[Void (0)/void 0](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/void)または[Undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)を返す JavaScript 関数は、`IJSRuntime.InvokeVoidAsync` を使用して呼び出されます。
 
 ## <a name="detect-when-a-blazor-app-is-prerendering"></a>Blazor アプリがプリレンダリングされるタイミングを検出する
  
@@ -121,14 +121,14 @@ JavaScript ファイルを参照する `<script>` タグを、 *wwwroot/index.ht
 
 ## <a name="capture-references-to-elements"></a>要素への参照をキャプチャする
 
-一部の[JavaScript の相互運用](xref:blazor/javascript-interop)シナリオでは、HTML 要素への参照が必要です。 たとえば、UI ライブラリに初期化のための要素参照が必要な場合や、要素 ( `focus`や`play`など) でコマンドに似た api を呼び出す必要がある場合があります。
+一部の[JavaScript の相互運用](xref:blazor/javascript-interop)シナリオでは、HTML 要素への参照が必要です。 たとえば、UI ライブラリに初期化のための要素参照が必要な場合や、`focus` や `play` などの要素に対してコマンドに似た Api を呼び出す必要がある場合があります。
 
 次の方法を使用して、コンポーネント内の HTML 要素への参照をキャプチャします。
 
-* `@ref`属性を HTML 要素に追加します。
-* 属性の値と一致`ElementReference`する名前を持つ型のフィールドを定義します。 `@ref`
+* @No__t-0 属性を HTML 要素に追加します。
+* @No__t-1 属性の値と名前が一致する `ElementReference` 型のフィールドを定義します。
 
-要素`<input>`へ`username`の参照をキャプチャする例を次に示します。
+次の例は、`username` `<input>` 要素への参照をキャプチャする方法を示しています。
 
 ```cshtml
 <input @ref="username" ... />
@@ -141,7 +141,7 @@ JavaScript ファイルを参照する `<script>` タグを、 *wwwroot/index.ht
 > [!NOTE]
 > キャプチャ**さ**れた要素参照を DOM に設定する方法としては使用しないでください。 これを行うと、宣言型のレンダリングモデルに干渉する可能性があります。
 
-.Net コードに関し`ElementReference`ては、は不透明なハンドルです。 この操作を実行`ElementReference`できるのは、javascript の相互運用機能を使用して javascript コードに渡すことだけです。 これを行うと、JavaScript 側のコードは、通常`HTMLElement`の DOM api で使用できるインスタンスを受け取ります。
+.NET コードに関しては、@no__t 0 は不透明なハンドルです。 @No__t-1 で実行できるのは、JavaScript の相互運用機能を使用して JavaScript コードに渡すこと*だけ*です。 これを行うと、JavaScript 側のコードは @no__t 0 のインスタンスを受け取ります。このインスタンスは、通常の DOM Api で使用できます。
 
 たとえば、次のコードでは、要素にフォーカスを設定できるようにする .NET 拡張メソッドを定義しています。
 
@@ -155,11 +155,11 @@ window.exampleJsFunctions = {
 }
 ```
 
-を`IJSRuntime.InvokeAsync<T>`使用し`exampleJsFunctions.focusElement` 、を`ElementReference`使用してを呼び出し、要素にフォーカスを移動します。
+@No__t-0 を使用し、@no__t 2 を持つ `exampleJsFunctions.focusElement` を呼び出して要素にフォーカスを移動します。
 
 [!code-cshtml[](javascript-interop/samples_snapshot/component1.razor?highlight=1,3,11-12)]
 
-拡張メソッドを使用して要素にフォーカスを移動するには、 `IJSRuntime`インスタンスを受け取る静的拡張メソッドを作成します。
+拡張メソッドを使用して要素にフォーカスを移動するには、@no__t 0 のインスタンスを受け取る静的拡張メソッドを作成します。
 
 ```csharp
 public static Task Focus(this ElementReference elementRef, IJSRuntime jsRuntime)
@@ -169,20 +169,20 @@ public static Task Focus(this ElementReference elementRef, IJSRuntime jsRuntime)
 }
 ```
 
-メソッドは、オブジェクトで直接呼び出されます。 次の例では、静的`Focus`メソッドを`JsInteropClasses`名前空間から使用できることを前提としています。
+メソッドは、オブジェクトで直接呼び出されます。 次の例では、静的 `Focus` メソッドが `JsInteropClasses` 名前空間から使用できることを前提としています。
 
 [!code-cshtml[](javascript-interop/samples_snapshot/component2.razor?highlight=1,4,12)]
 
 > [!IMPORTANT]
-> `username`変数は、コンポーネントがレンダリングされた後にのみ設定されます。 いない`ElementReference`が javascript コードに渡されると、javascript コードは`null`値を受け取ります。 コンポーネントのレンダリングが完了した後に要素参照を操作する (要素に初期フォーカスを設定する`OnAfterRenderAsync` ) `OnAfterRender`には、または[コンポーネントライフサイクルメソッド](xref:blazor/components#lifecycle-methods)を使用します。
+> @No__t 0 の変数は、コンポーネントがレンダリングされた後にのみ設定されます。 いない `ElementReference` が JavaScript コードに渡されると、JavaScript コードは `null` の値を受け取ります。 コンポーネントのレンダリングが完了した後に要素参照を操作するには (要素に初期フォーカスを設定するには)、`OnAfterRenderAsync` または @no__t[コンポーネントライフサイクルメソッド](xref:blazor/components#lifecycle-methods)を使用します。
 
 ## <a name="invoke-net-methods-from-javascript-functions"></a>JavaScript 関数からの .NET メソッドの呼び出し
 
 ### <a name="static-net-method-call"></a>静的 .NET メソッド呼び出し
 
-JavaScript から静的 .net メソッドを呼び出すに`DotNet.invokeMethod`は、関数または`DotNet.invokeMethodAsync`関数を使用します。 呼び出す静的メソッドの識別子、関数を含むアセンブリの名前、および任意の引数を渡します。 非同期バージョンは、Blazor Server のシナリオをサポートするために推奨されます。 .Net メソッドを JavaScript から呼び出すには、.net メソッドが public、static、および`[JSInvokable]`属性を持っている必要があります。 既定では、メソッド識別子はメソッド名ですが、 `JSInvokableAttribute`コンストラクターを使用して別の識別子を指定することもできます。 オープンジェネリックメソッドを呼び出すことは現在サポートされていません。
+JavaScript から静的 .NET メソッドを呼び出すには、`DotNet.invokeMethod` または `DotNet.invokeMethodAsync` 関数を使用します。 呼び出す静的メソッドの識別子、関数を含むアセンブリの名前、および任意の引数を渡します。 非同期バージョンは、Blazor Server のシナリオをサポートするために推奨されます。 .Net メソッドを JavaScript から呼び出すには、.NET メソッドが public、static、および @no__t 0 属性を持っている必要があります。 既定では、メソッド識別子はメソッド名ですが、`JSInvokableAttribute` コンストラクターを使用して別の識別子を指定することもできます。 オープンジェネリックメソッドを呼び出すことは現在サポートされていません。
 
-サンプルアプリには、 C#の`int`配列を返すメソッドが含まれています。 `JSInvokable`属性はメソッドに適用されます。
+サンプルアプリには、 C# `int`s の配列を返すメソッドが含まれています。 @No__t-0 属性がメソッドに適用されます。
 
 *Pages/JsInterop*:
 
@@ -202,25 +202,25 @@ JavaScript から静的 .net メソッドを呼び出すに`DotNet.invokeMethod`
 Array(4) [ 1, 2, 3, 4 ]
 ```
 
-4番目の配列値は、によっ`data.push(4);`て`ReturnArrayAsync`返される配列 () にプッシュされます。
+4番目の配列値は、`ReturnArrayAsync` によって返される配列 (`data.push(4);`) にプッシュされます。
 
 ### <a name="instance-method-call"></a>インスタンスメソッドの呼び出し
 
 JavaScript から .NET インスタンスメソッドを呼び出すこともできます。 JavaScript から .NET インスタンスメソッドを呼び出すには、次の手順を実行します。
 
-* `DotNetObjectReference`インスタンスにラップして、.net インスタンスを JavaScript に渡します。 .NET インスタンスは、JavaScript への参照によって渡されます。
-* `invokeMethod`または`invokeMethodAsync`関数を使用して、インスタンスで .net インスタンスメソッドを呼び出します。 .NET インスタンスは、JavaScript から他の .NET メソッドを呼び出すときに引数として渡すこともできます。
+* .NET インスタンスを @no__t 0 のインスタンスにラップして JavaScript に渡します。 .NET インスタンスは、JavaScript への参照によって渡されます。
+* @No__t-0 または `invokeMethodAsync` 関数を使用して、インスタンスで .NET インスタンスメソッドを呼び出します。 .NET インスタンスは、JavaScript から他の .NET メソッドを呼び出すときに引数として渡すこともできます。
 
 > [!NOTE]
 > サンプルアプリは、メッセージをクライアント側コンソールに記録します。 サンプルアプリで示されている次の例については、ブラウザーの開発者ツールでブラウザーのコンソール出力を確認してください。
 
-**[.Net インスタンスメソッドをトリガーする HelloHelper]** ボタンが選択さ`ExampleJsInterop.CallHelloHelperSayHello`れている場合、が呼び出さ`Blazor`れ、メソッドに名前が渡されます。
+**[.Net インスタンスメソッドをトリガーする HelloHelper]** ボタンが選択されている場合、`ExampleJsInterop.CallHelloHelperSayHello` が呼び出され、メソッドに @no__t 2 の名前を渡します。
 
 *Pages/JsInterop*:
 
 [!code-cshtml[](./common/samples/3.x/BlazorSample/Pages/JsInterop.razor?name=snippet_JSInterop3&highlight=8-9)]
 
-`CallHelloHelperSayHello``sayHello` の`HelloHelper`新しいインスタンスを使用して JavaScript 関数を呼び出します。
+`CallHelloHelperSayHello` は、`HelloHelper` の新しいインスタンスを使用して JavaScript 関数 `sayHello` を呼び出します。
 
 *JsInteropClasses/ExampleJsInterop*:
 
@@ -230,7 +230,7 @@ JavaScript から .NET インスタンスメソッドを呼び出すこともで
 
 [!code-javascript[](./common/samples/3.x/BlazorSample/wwwroot/exampleJsInterop.js?highlight=15-18)]
 
-この名前は、 `HelloHelper` `HelloHelper.Name`プロパティを設定するのコンストラクターに渡されます。 Javascript 関数`sayHello`が実行されると`HelloHelper.SayHello` 、は`Hello, {Name}!`メッセージを返します。これは、javascript 関数によってコンソールに書き込まれます。
+名前は `HelloHelper` のコンストラクターに渡され、`HelloHelper.Name` プロパティを設定します。 JavaScript 関数 `sayHello` が実行されると、`HelloHelper.SayHello` は、JavaScript 関数によってコンソールに書き込まれた `Hello, {Name}!` メッセージを返します。
 
 *JsInteropClasses/HelloHelper*:
 
@@ -250,13 +250,13 @@ JavaScript 相互運用コードをクラスライブラリに含めることが
 
 ビルド済みの NuGet パッケージは、NuGet パッケージを参照するのと同じ方法で、アプリのプロジェクトファイルで参照されます。 パッケージが復元された後、アプリコードはと同じように JavaScript C#を呼び出すことができます。
 
-詳細については、「 <xref:blazor/class-libraries> 」を参照してください。
+詳細については、「<xref:blazor/class-libraries>」を参照してください。
 
 ## <a name="harden-js-interop-calls"></a>JS 相互運用呼び出しの強化
 
 JS 相互運用機能は、ネットワークエラーのために失敗する可能性があり、信頼性の低いものとして扱う必要があります。 既定では、Blazor サーバーアプリは、1分後に JS 相互運用機能呼び出しをサーバー上でタイムアウトします。 10秒など、アプリでより積極的なタイムアウトが許容される場合は、次のいずれかの方法を使用してタイムアウトを設定します。
 
-* でグローバル`Startup.ConfigureServices`にタイムアウトを指定します。
+* @No__t-0 のグローバルに、タイムアウトを指定します。
 
   ```csharp
   services.AddServerSideBlazor(
@@ -270,4 +270,4 @@ JS 相互運用機能は、ネットワークエラーのために失敗する�
       TimeSpan.FromSeconds({SECONDS}), new[] { "Arg1" });
   ```
 
-リソース枯渇の詳細については<xref:security/blazor/server>、「」を参照してください。
+リソース枯渇の詳細については、「<xref:security/blazor/server>」を参照してください。

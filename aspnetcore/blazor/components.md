@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/05/2019
 uid: blazor/components
-ms.openlocfilehash: 3e0966bf978c99fc00db7682bea3292306cbb03c
-ms.sourcegitcommit: d81912782a8b0bd164f30a516ad80f8defb5d020
+ms.openlocfilehash: a71bbf3921417cbd23aeb14d0d78ad8354d6e93a
+ms.sourcegitcommit: dd026eceee79e943bd6b4a37b144803b50617583
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72179035"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72378690"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>ASP.NET Core Razor コンポーネントを作成して使用する
 
@@ -238,7 +238,7 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 データバインド要素に解析できない値を指定すると、バインドイベントがトリガーされたときに、解析されていない値が自動的に前の値に戻されます。
 
-次のシナリオを考えてみましょう。
+次のシナリオについて検討してください。
 
 * @No__t-0 要素は、初期値 `123` を持つ `int` 型にバインドされます。
 
@@ -305,9 +305,9 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 前のコードでは、@no__t 0 要素のフィールドの種類 (`type`) は既定で `text` に設定されています。 `@bind:format` は、次の .NET 型のバインドに対してサポートされています。
 
 * <xref:System.DateTime?displayProperty=fullName>
-* <xref:System.DateTime?displayProperty=fullName> ですか。
+* <xref:System.DateTime?displayProperty=fullName>?
 * <xref:System.DateTimeOffset?displayProperty=fullName>
-* <xref:System.DateTimeOffset?displayProperty=fullName> ですか。
+* <xref:System.DateTimeOffset?displayProperty=fullName>?
 
 @No__t-0 属性は、`<input>` 要素の `value` に適用する日付形式を指定します。 この形式は、@no__t 0 イベントが発生したときに値を解析するためにも使用されます。
 
@@ -454,7 +454,7 @@ Razor コンポーネントは、イベント処理機能を提供します。 @
 
 サポートされている `EventArgs` を次の表に示します。
 
-| イベント | クラス |
+| event | インスタンス |
 | ----- | ----- |
 | クリップボードのトピック        | `ClipboardEventArgs` |
 | 抗力             | `DragEventArgs` &ndash; `DataTransfer` および `DataTransferItem` は、ドラッグされた項目データを保持します。 |
@@ -692,7 +692,7 @@ Password:
 コンポーネントがレンダリングされると、@no__t 0 のフィールドに @no__t 1 つの子コンポーネントインスタンスが設定されます。 その後、コンポーネントインスタンスで .NET メソッドを呼び出すことができます。
 
 > [!IMPORTANT]
-> @No__t-0 変数は、コンポーネントがレンダリングされた後にのみ設定され、その出力には `MyLoginDialog` 要素が含まれます。 この時点までは、参照するものはありません。 コンポーネント参照のレンダリングが完了した後にコンポーネント参照を操作するには、`OnAfterRenderAsync` または `OnAfterRender` のいずれかのメソッドを使用します。
+> @No__t-0 変数は、コンポーネントがレンダリングされた後にのみ設定され、その出力には `MyLoginDialog` 要素が含まれます。 この時点までは、参照するものはありません。 コンポーネント参照のレンダリングが完了した後にコンポーネント参照を操作するに[は、OnAfterRenderAsync メソッドまたは OnAfterRender メソッド](#lifecycle-methods)を使用します。
 
 コンポーネント参照のキャプチャは、[要素参照のキャプチャ](xref:blazor/javascript-interop#capture-references-to-elements)に似た構文を使用しますが、 [JavaScript 相互運用](xref:blazor/javascript-interop)機能ではありません。 コンポーネント参照は、.NET コードでのみ使用される JavaScript コード @ no__t に渡されません。
 
@@ -841,6 +841,9 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
+> [!NOTE]
+> @No__t 0 のライフサイクルイベント中に、コンポーネントの初期化時に非同期作業を行う必要があります。
+
 同期操作の場合は、`OnInitialized` を使用します。
 
 ```csharp
@@ -859,6 +862,9 @@ protected override async Task OnParametersSetAsync()
 }
 ```
 
+> [!NOTE]
+> パラメーターとプロパティ値を適用するときの非同期処理は、@no__t 0 のライフサイクルイベント中に発生する必要があります。
+
 ```csharp
 protected override void OnParametersSet()
 {
@@ -868,7 +874,7 @@ protected override void OnParametersSet()
 
 `OnAfterRenderAsync` および `OnAfterRender` は、コンポーネントのレンダリングが完了した後に呼び出されます。 この時点で、要素参照とコンポーネント参照が設定されます。 レンダリングされた DOM 要素を操作するサードパーティ製の JavaScript ライブラリをアクティブ化するなど、レンダリングされたコンテンツを使用して追加の初期化手順を実行するには、この段階を使用します。
 
-`OnAfterRender`*は、サーバーでのプリレンダリング時には呼び出されません。*
+サーバーでのプリレンダリング時に `OnAfterRender` は*呼び出されません。*
 
 @No__t-1 と `OnAfterRender` の `firstRender` パラメーターは次のとおりです。
 
@@ -884,6 +890,9 @@ protected override async Task OnAfterRenderAsync(bool firstRender)
     }
 }
 ```
+
+> [!NOTE]
+> @No__t 0 のライフサイクルイベント中に、レンダリング直後の非同期作業が発生する必要があります。
 
 ```csharp
 protected override void OnAfterRender(bool firstRender)
@@ -1051,7 +1060,7 @@ HTML 要素の属性は、.NET の値に基づいて条件付きで表示され�
 <input type="checkbox" />
 ```
 
-詳細については、「 <xref:mvc/views/razor> 」を参照してください。
+詳細については、「<xref:mvc/views/razor>」を参照してください。
 
 > [!WARNING]
 > [Aria](https://developer.mozilla.org/docs/Web/Accessibility/ARIA/Roles/button_role#Toggle_buttons)などの一部の HTML 属性は、.net 型が `bool` の場合、正しく機能しません。 そのような場合は、`bool` ではなく、@no__t 0 の型を使用します。
@@ -1294,7 +1303,7 @@ public class ThemeInfo
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Pages/CascadingValuesParametersTabSet.razor?name=snippet_TabSet)]
 
-子 `Tab` コンポーネントは、パラメーターとして `TabSet` に明示的に渡されません。 代わりに、子 `Tab` のコンポーネントは、`TabSet` の子コンテンツの一部になります。 ただし、`TabSet` は、ヘッダーとアクティブなタブをレンダリングできるように、各 `Tab` コンポーネントについて認識している必要があります。追加のコードを必要とせずにこの調整を可能にするために、@no__t 0 のコンポーネントは*それ自体をカスケード値として提供*し、その後、子孫の @no__t 2 コンポーネントによって取得されます。
+子 `Tab` コンポーネントは、パラメーターとして `TabSet` に明示的に渡されません。 代わりに、子 `Tab` のコンポーネントは、`TabSet` の子コンテンツの一部になります。 ただし、`TabSet` は、ヘッダーとアクティブなタブをレンダリングできるように、各 `Tab` コンポーネントについて認識している必要があります。追加のコードを必要とせずにこの調整を可能にするために、@no__t 2 のコンポーネントは*それ自体をカスケード値として提供*し、その後、子孫の `Tab` コンポーネントによって取得されます。
 
 `TabSet` コンポーネント:
 
@@ -1429,14 +1438,14 @@ builder.AddContent(1, "Second");
 
 コードを初めて実行する場合、`someFlag` が `true` の場合、ビルダーは次のメッセージを受け取ります。
 
-| Sequence | 種類      | data   |
+| シーケンス | [種類]      | データ   |
 | :------: | --------- | :----: |
 | 0        | テキスト ノード | First  |
 | 1        | テキスト ノード | Second |
 
 @No__t-0 が @no__t になり、マークアップが再び表示されることを想像してください。 この時点で、ビルダーは次のものを受け取ります。
 
-| Sequence | 種類       | data   |
+| シーケンス | [種類]       | データ   |
 | :------: | ---------- | :----: |
 | 1        | テキスト ノード  | Second |
 
@@ -1461,14 +1470,14 @@ builder.AddContent(seq++, "Second");
 
 これで、最初の出力は次のようになります。
 
-| Sequence | 種類      | data   |
+| シーケンス | [種類]      | データ   |
 | :------: | --------- | :----: |
 | 0        | テキスト ノード | First  |
 | 1        | テキスト ノード | Second |
 
 この結果は前のケースと同じであるため、負の問題は存在しません。 `someFlag` は2番目のレンダリングでは-1 @no__t、出力は次のようになります。
 
-| Sequence | 種類      | data   |
+| シーケンス | [種類]      | データ   |
 | :------: | --------- | ------ |
 | 0        | テキスト ノード | Second |
 
@@ -1495,7 +1504,7 @@ Blazor サーバーアプリはローカライズ[ミドルウェア](xref:funda
 
 カルチャは、次のいずれかの方法を使用して設定できます。
 
-* [Cookie](#cookies)
+* [クッキー](#cookies)
 * [カルチャを選択するための UI を提供する](#provide-ui-to-choose-the-culture)
 
 使用例を含む詳細については、「<xref:fundamentals/localization>」を参照してください。
@@ -1562,7 +1571,7 @@ public class CultureController : Controller
 ```
 
 > [!WARNING]
-> @No__t-0 アクションの結果を使用して、開いているリダイレクト攻撃を防止します。 詳細については、「 <xref:security/preventing-open-redirects> 」を参照してください。
+> @No__t-0 アクションの結果を使用して、開いているリダイレクト攻撃を防止します。 詳細については、「<xref:security/preventing-open-redirects>」を参照してください。
 
 次のコンポーネントは、ユーザーがカルチャを選択したときに最初のリダイレクトを実行する方法の例を示しています。
 
@@ -1607,7 +1616,7 @@ Blazor の @no__t 0 機能は、ユーザーの現在のカルチャに基づい
 * Blazor アプリでは、`IStringLocalizer<>`*がサポートされて*います。
 * @no__t 0、`IViewLocalizer<>`、データ注釈のローカライズは MVC シナリオ ASP.NET Core、Blazor アプリではサポートされて**いません**。
 
-詳細については、「 <xref:fundamentals/localization> 」を参照してください。
+詳細については、「<xref:fundamentals/localization>」を参照してください。
 
 ## <a name="scalable-vector-graphics-svg-images"></a>スケーラブルベクターグラフィックス (SVG) イメージ
 

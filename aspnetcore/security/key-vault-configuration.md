@@ -5,18 +5,18 @@ description: Azure Key Vault 構成プロバイダーを使用して、実行時
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/07/2019
+ms.date: 10/14/2019
 uid: security/key-vault-configuration
-ms.openlocfilehash: cc3894df4df169d941f54ef3dfad5d3e6f798aad
-ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
+ms.openlocfilehash: c8e76068dbcf2a59a15fa75a1fc5aa0032e6acc5
+ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/07/2019
-ms.locfileid: "72007406"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72334206"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>ASP.NET Core の構成プロバイダーの Azure Key Vault
 
-作成者 [Luke Latham](https://github.com/guardrex)および [Andrew Stanton-Nurse](https://github.com/anurse)
+[Luke Latham](https://github.com/guardrex)および[Andrew Stanton-看護師](https://github.com/anurse)
 
 このドキュメントでは、 [Microsoft Azure Key Vault](https://azure.microsoft.com/services/key-vault/)構成プロバイダーを使用して Azure Key Vault シークレットからアプリ構成値を読み込む方法について説明します。 Azure Key Vault は、アプリとサービスで使用される暗号化キーとシークレットを保護するのに役立つクラウドベースのサービスです。 ASP.NET Core アプリで Azure Key Vault を使用する一般的なシナリオは次のとおりです。
 
@@ -31,7 +31,7 @@ ms.locfileid: "72007406"
 
 Azure Key Vault 構成プロバイダーを使用するには、パッケージへの参照を[Microsoft. extension. AzureKeyVault](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.AzureKeyVault/)パッケージに追加します。
 
-[Azure リソースの管理対象 id](/azure/active-directory/managed-identities-azure-resources/overview)のシナリオを採用するには、[Microsoft.Azure.Services.AppAuthentication](https://www.nuget.org/packages/Microsoft.Azure.Services.AppAuthentication/) にパッケージ参照を追加します。
+[Azure リソースの管理対象 id](/azure/active-directory/managed-identities-azure-resources/overview)のシナリオを採用するには、パッケージ参照を追加し[ます。](https://www.nuget.org/packages/Microsoft.Azure.Services.AppAuthentication/)
 
 > [!NOTE]
 > このドキュメントの執筆時点では、`Microsoft.Azure.Services.AppAuthentication`、version `1.0.3` の最新の安定したリリースで、[システムによって割り当てられたマネージド id](/azure/active-directory/managed-identities-azure-resources/overview#how-does-the-managed-identities-for-azure-resources-work)がサポートされています。 *ユーザー割り当てのマネージド id*のサポートは、`1.2.0-preview2` パッケージで利用できます。 このトピックでは、システム管理の id の使用方法を示します。提供されるサンプルアプリでは、`Microsoft.Azure.Services.AppAuthentication` パッケージのバージョン `1.0.3` を使用します。
@@ -76,7 +76,7 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 
 ## <a name="secret-storage-in-the-production-environment-with-azure-key-vault"></a>Azure Key Vault を使用した運用環境のシークレットストレージ
 
-@No__t 0Quickstart スタートで提供されている手順は次のとおりです。Azure Key Vault を作成し、サンプルアプリで使用されるシークレットを格納するために、ここでは Azure CLI @ no__t-0 トピックを使用して Azure Key Vault からシークレットを設定して取得します。 詳細については、「」を参照してください。
+クイックスタートに記載されている手順[: Azure CLI トピックを使用して Azure Key Vault からシークレットを設定して取得](/azure/key-vault/quick-create-cli)する方法については、Azure Key Vault の作成とサンプルアプリで使用するシークレットの保存に関するページを参照してください。 詳細については、「」を参照してください。
 
 1. [Azure portal](https://portal.azure.com/)の次のいずれかの方法を使用して、Azure Cloud shell を開きます。
 
@@ -141,8 +141,8 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 
 @No__t 0 のサンプルアプリは、シークレット名と同じ名前の `IConfigurationRoot` から構成値を取得します。
 
-* 非階層値:@No__t-0 の値は、`config["SecretName"]` を使用して取得されます。
-* 階層値 (セクション):@No__t-0 (コロン) 表記または `GetSection` 拡張メソッドを使用します。 次のいずれかの方法を使用して、構成値を取得します。
+* 非階層値: `SecretName` の値は `config["SecretName"]` で取得されます。
+* 階層値 (セクション): `:` (コロン) 表記または `GetSection` 拡張メソッドを使用します。 次のいずれかの方法を使用して、構成値を取得します。
   * `config["Section:SecretName"]`
   * `config.GetSection("Section")["SecretName"]`
 
@@ -189,6 +189,16 @@ Azure CLI、PowerShell、または Azure portal を使用して**アプリを再
 * @No__t 0 のインスタンスは `IKeyVaultSecretManager` の既定の実装で使用されます。この実装では、すべてのシークレット値が読み込まれ、二重ダッシュ (`--`) がキー名のコロン (`:`) に置き換えられます。
 
 [!code-csharp[](key-vault-configuration/sample/Program.cs?name=snippet2&highlight=13-21)]
+
+Key vault 名の例値: `contosovault`
+    
+*appsettings.json*:
+
+```json
+{
+  "KeyVaultName": "Key Vault Name"
+}
+```
 
 アプリを実行すると、web ページに読み込まれたシークレット値が表示されます。 開発環境では、シークレット値はユーザーシークレットによって提供されるため、@no__t 0 のサフィックスが付いています。 運用環境では、値は Azure Key Vault によって提供されるため、@no__t 0 のサフィックスで読み込まれます。
 
@@ -258,7 +268,7 @@ Azure CLI、PowerShell、または Azure portal を使用して**アプリを再
 
 プロバイダーは、POCO 配列にバインドするために、配列に構成値を読み取ることができます。
 
-キーがコロン (@no__t 0) の区切り記号を含むように構成ソースから読み取る場合、配列を構成するキー (`:0:`、`:1:`、...) を区別するために、数値キーセグメントが使用されます。 `:{n}:`) 詳細については、「[Configuration:配列をクラス @ no__t-0 にバインドします。
+キーがコロン (@no__t 0) の区切り記号を含むように構成ソースから読み取る場合、配列を構成するキー (`:0:`、`:1:`、...) を区別するために、数値キーセグメントが使用されます。 `:{n}:`) 詳細については、「[構成: 配列をクラスにバインドする](xref:fundamentals/configuration/index#bind-an-array-to-a-class)」を参照してください。
 
 Azure Key Vault キーでは、区切り記号としてコロンを使用することはできません。 このトピックで説明する方法では、階層値 (セクション) の区切り記号として二重ダッシュ (`--`) を使用します。 配列キーは、2つのダッシュと数値のキーセグメント (`--0--`、`--1--`、&hellip; `--{n}--`) を使用して Azure Key Vault に格納されます。
 
@@ -287,7 +297,7 @@ JSON ファイルによって提供される次の[Serilog](https://serilog.net/
 
 前の JSON ファイルに示されている構成は、二重ダッシュ (@no__t 0) 表記と数値セグメントを使用して Azure Key Vault に格納されます。
 
-| キー | 値 |
+| キー | [値] |
 | --- | ----- |
 | `Serilog--WriteTo--0--Name` | `AzureTableStorage` |
 | `Serilog--WriteTo--0--Args--storageTableName` | `logs` |
@@ -323,9 +333,9 @@ Configuration.Reload();
 ## <a name="additional-resources"></a>その他の技術情報
 
 * <xref:fundamentals/configuration/index>
-* [Microsoft Azure:Key Vault @ no__t-0
-* [Microsoft Azure:Key Vault のドキュメント @ no__t-0
+* [Microsoft Azure: Key Vault](https://azure.microsoft.com/services/key-vault/)
+* [Microsoft Azure: Key Vault のドキュメント](/azure/key-vault/)
 * [Azure Key Vault 用に HSM で保護されたキーを生成して転送する方法](/azure/key-vault/key-vault-hsm-protected-keys)
 * [KeyVaultClient クラス](/dotnet/api/microsoft.azure.keyvault.keyvaultclient)
-* [クイック スタート:.NET web アプリを使用して Azure Key Vault からシークレットを設定および取得する @ no__t-0
-* [チュートリアル: の Azure Windows 仮想マシンで Azure Key Vault を使用する方法について説明します。NET @ no__t-0
+* [クイックスタート: .NET web アプリを使用して Azure Key Vault からシークレットを設定および取得する](/azure/key-vault/quick-create-net)
+* [チュートリアル: .NET で Azure Windows 仮想マシンと共に Azure Key Vault を使用する方法](/azure/key-vault/tutorial-net-windows-virtual-machine)

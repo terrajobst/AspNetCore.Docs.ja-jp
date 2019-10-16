@@ -5,14 +5,14 @@ description: アプリで要求をルーティングする方法と、[ナビゲ
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/09/2019
+ms.date: 10/15/2019
 uid: blazor/routing
-ms.openlocfilehash: 8f48112237e6dd3fed88404c53b8d7d9137ef6ff
-ms.sourcegitcommit: 0b8a7571bf7acf85bf16118acb2435001cbe4b5d
+ms.openlocfilehash: a71709d6b87d8182e90f827d952090aa1e38d701
+ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/10/2019
-ms.locfileid: "72236526"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72391191"
 ---
 # <a name="aspnet-core-blazor-routing"></a>ASP.NET Core Blazor ルーティング
 
@@ -59,7 +59,7 @@ Blazor サーバーは[ASP.NET Core エンドポイントルーティング](xre
 [!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRoute.razor?name=snippet_BlazorRoute)]
 
 > [!IMPORTANT]
-> Url が正しく解決されるようにするには、アプリで*wwwroot/index.html*ファイル (Blazor) または*Pages/_Host*ファイル (Blazor Server) に @no__t 0 タグを含める必要があります。このとき、アプリの基本パスは、`href` 属性 (`<base href="/">`) で指定します。 詳細については、「 <xref:host-and-deploy/blazor/index#app-base-path> 」を参照してください。
+> Url が正しく解決されるようにするには、アプリで*wwwroot/index.html*ファイル (Blazor) または*Pages/_Host*ファイル (Blazor Server) に @no__t 0 タグを含める必要があります。このとき、アプリの基本パスは、`href` 属性 (`<base href="/">`) で指定します。 詳細については、「<xref:host-and-deploy/blazor/index#app-base-path>」を参照してください。
 
 ## <a name="provide-custom-content-when-content-isnt-found"></a>コンテンツが見つからないときにカスタムコンテンツを提供する
 
@@ -88,7 +88,7 @@ Blazor サーバーは[ASP.NET Core エンドポイントルーティング](xre
 ```cshtml
 <Router
     AppAssembly="typeof(Program).Assembly"
-    AdditionalAssemblies="new[] { typeof(Component1).Assembly }>
+    AdditionalAssemblies="new[] { typeof(Component1).Assembly }">
     ...
 </Router>
 ```
@@ -116,14 +116,14 @@ ASP.NET Core 3.0 の Blazor アプリでは、省略可能なパラメーター�
 
 | 制約 | 例           | 一致の例                                                                  | インバリアント<br>カルチャ<br>一致 |
 | ---------- | ----------------- | -------------------------------------------------------------------------------- | :------------------------------: |
-| `bool`     | `{active:bool}`   | `true`, `FALSE`                                                                  | いいえ                               |
-| `datetime` | `{dob:datetime}`  | `2016-12-31`, `2016-12-31 7:32pm`                                                | [はい]                              |
-| `decimal`  | `{price:decimal}` | `49.99`, `-1,000.01`                                                             | [はい]                              |
-| `double`   | `{weight:double}` | `1.234`, `-1,001.01e8`                                                           | [はい]                              |
-| `float`    | `{weight:float}`  | `1.234`, `-1,001.01e8`                                                           | [はい]                              |
-| `guid`     | `{id:guid}`       | `CD2C1638-1638-72D5-1638-DEADBEEF1638`, `{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | いいえ                               |
-| `int`      | `{id:int}`        | `123456789`, `-123456789`                                                        | [はい]                              |
-| `long`     | `{ticks:long}`    | `123456789`, `-123456789`                                                        | [はい]                              |
+| `bool`     | `{active:bool}`   | `true`、 `FALSE`                                                                  | Ｘ                               |
+| `datetime` | `{dob:datetime}`  | `2016-12-31`、 `2016-12-31 7:32pm`                                                | [はい]                              |
+| `decimal`  | `{price:decimal}` | `49.99`、 `-1,000.01`                                                             | [はい]                              |
+| `double`   | `{weight:double}` | `1.234`、 `-1,001.01e8`                                                           | [はい]                              |
+| `float`    | `{weight:float}`  | `1.234`、 `-1,001.01e8`                                                           | [はい]                              |
+| `guid`     | `{id:guid}`       | `CD2C1638-1638-72D5-1638-DEADBEEF1638`、 `{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | Ｘ                               |
+| `int`      | `{id:int}`        | `123456789`、 `-123456789`                                                        | [はい]                              |
+| `long`     | `{ticks:long}`    | `123456789`、 `-123456789`                                                        | [はい]                              |
 
 > [!WARNING]
 > URL の妥当性を検証し、CLR 型 (`int` や `DateTime` など) に変換されるルート制約では、常にインバリアント カルチャが使用されます。 これらの制約では、URL がローカライズ不可であることが前提となります。
@@ -141,13 +141,13 @@ Blazor Server apps では、 *_Host*の既定のルートは `/` (`@page "/"`) �
 * 2つの*アスタリスク (* `**`) を使用すると、スラッシュ (@no__t) をエンコードせずに複数のフォルダー境界を越えてパスをキャプチャできます。
 * @No__t-0 ルートパラメーター名。
 
-詳細については、「 <xref:fundamentals/routing> 」を参照してください。
+詳細については、「<xref:fundamentals/routing>」を参照してください。
 
 ## <a name="navlink-component"></a>ナビゲーションリンクコンポーネント
 
 ナビゲーションリンクを作成するときは、HTML ハイパーリンク要素の代わりに `NavLink` コンポーネントを使用します (`<a>`)。 @No__t 0 のコンポーネントは、`<a>` の要素のように動作しますが、@no__t 2 の CSS クラスが現在の URL と一致するかどう @no__t かに基づいて2の CSS クラスを切り替える点が異なります。 @No__t-0 クラスは、表示されているナビゲーションリンク内のどのページがアクティブページであるかをユーザーが理解するのに役立ちます。
 
-次の `NavMenu` コンポーネントでは、`NavLink` コンポーネントの使用方法を示す[ブートストラップ](https://getbootstrap.com/docs/)ナビゲーションバーが作成されます。
+次の `NavMenu` コンポーネントでは、@no__t コンポーネントの使用方法を示す[ブートストラップ](https://getbootstrap.com/docs/)ナビゲーションバーが作成されます。
 
 [!code-cshtml[](routing/samples_snapshot/3.x/NavMenu.razor?highlight=4,9)]
 
