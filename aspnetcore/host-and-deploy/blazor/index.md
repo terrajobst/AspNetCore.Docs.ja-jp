@@ -5,14 +5,14 @@ description: Blazor アプリをホストおよびデプロイする方法を説
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 10/15/2019
 uid: host-and-deploy/blazor/index
-ms.openlocfilehash: 1cfe87c7194b34c2461429225c560f9e689168ae
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: 271135a0ebe67d31fd8e2bcf672e723814727147
+ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71211699"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72391341"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor"></a>ASP.NET Core Blazor のホストと展開
 
