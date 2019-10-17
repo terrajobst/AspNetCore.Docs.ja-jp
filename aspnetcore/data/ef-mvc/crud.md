@@ -1,18 +1,18 @@
 ---
 title: 'チュートリアル: CRUD 機能を実装する - ASP.NET MVC と EF Core'
 description: このチュートリアルでは、MVC スキャフォールディングがコントローラーとビュー用に自動的に作成する CRUD (作成、読み取り、更新、削除) コードを確認およびカスタマイズします。
-author: tdykstra
+author: rick-anderson
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/04/2019
 ms.topic: tutorial
 uid: data/ef-mvc/crud
-ms.openlocfilehash: 843ac3523f3ab4bd43f8970ff8e8e2f997fec4d2
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: f0c5bcff4c4b0808f9b4703e1429c3a6d1a7a2d7
+ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975077"
+ms.lasthandoff: 10/11/2019
+ms.locfileid: "72259725"
 ---
 # <a name="tutorial-implement-crud-functionality---aspnet-mvc-with-ef-core"></a>チュートリアル: CRUD 機能を実装する - ASP.NET MVC と EF Core
 
