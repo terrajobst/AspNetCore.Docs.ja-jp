@@ -1,23 +1,23 @@
 ---
-title: Dotnet-grpc を使用して Protobuf 参照を管理する
+title: dotnet-grpc を使用して Protobuf 参照を管理する
 author: juntaoluo
 description: Dotnet-grpc グローバルツールを使用した Protobuf 参照の追加、更新、削除、および一覧表示について説明します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
-ms.date: 09/24/2019
+ms.date: 10/17/2019
 uid: grpc/dotnet-grpc
-ms.openlocfilehash: ebd57419be24f7f4ed9765e36cf14189be8438b1
-ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
+ms.openlocfilehash: 994597c854a95bb33de1686ab025cb3744cf6845
+ms.sourcegitcommit: e71b6a85b0e94a600af607107e298f932924c849
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/12/2019
-ms.locfileid: "72290047"
+ms.lasthandoff: 10/17/2019
+ms.locfileid: "72519038"
 ---
-# <a name="manage-protobuf-references-with-dotnet-grpc"></a>Dotnet-grpc を使用して Protobuf 参照を管理する
+# <a name="manage-protobuf-references-with-dotnet-grpc"></a>dotnet-grpc を使用して Protobuf 参照を管理する
 
 作成者: [John Luo](https://github.com/juntaoluo)
 
-`dotnet-grpc` は、.NET gRPC プロジェクト内の Protobuf 参照を管理するための .NET Core グローバルツールです。 このツールを使用すると、Protobuf 参照の追加、更新、削除、および一覧表示を行うことができます。
+`dotnet-grpc` は、.NET gRPC プロジェクト内の[Protobuf (*proto*)](xref:grpc/basics#proto-file)参照を管理するための .net Core グローバルツールです。 このツールを使用すると、Protobuf 参照の追加、更新、削除、および一覧表示を行うことができます。
 
 ## <a name="installation"></a>インストール
 
@@ -32,10 +32,10 @@ dotnet tool install -g dotnet-grpc
 `dotnet-grpc` を使用すると、 *.csproj*ファイルに `<Protobuf />` 項目として Protobuf 参照を追加できます。
 
 ```xml
-<Protobuf Include="..\Proto\count.proto" GrpcServices="Server" Link="Protos\count.proto" />
+<Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
 ```
 
-Protobuf 参照は、 C#クライアントまたはサーバーの資産を生成するために使用されます。 @No__t 0tool では次のことができます。
+Protobuf 参照は、 C#クライアントまたはサーバーの資産を生成するために使用されます。 @No__t 0 のツールでは、次のことができます。
 
 * ディスク上のローカルファイルから Protobuf 参照を作成します。
 * URL で指定されたリモートファイルから Protobuf 参照を作成します。
@@ -62,16 +62,16 @@ dotnet grpc add-file [options] <files>...
 
 | 引数 | 説明 |
 |-|-|
-| files | Protobuf ファイル参照。 ローカル protobuf ファイルの場合は、glob のパスを指定できます。 |
+| ファイル | Protobuf ファイル参照。 ローカル protobuf ファイルの場合は、glob のパスを指定できます。 |
 
-#### <a name="options"></a>および
+#### <a name="options"></a>オプション
 
 | 短いオプション | 長いオプション | 説明 |
 |-|-|-|
 | -p | --project | 操作するプロジェクトファイルのパス。 ファイルが指定されていない場合、コマンドは現在のディレクトリを検索します。
 | -s | --サービス | 生成する必要がある gRPC サービスの種類。 @No__t-0 が指定されている場合は、Web プロジェクトに対して `Both` が使用され、非 Web プロジェクトには `Client` が使用されます。 指定できる値は `Both`、`Client`、`Default`、`None`、`Server` です。
 | -i | --追加-インポート-ディレクトリ | Protobuf ファイルのインポートを解決するときに使用する追加のディレクトリ。 これは、セミコロンで区切られたパスの一覧です。
-| | --アクセス | 生成されC#たクラスに使用するアクセス修飾子。 既定値は `Public` です。 許容される値は `Internal` および `Public` です。
+| | --アクセス | 生成されC#たクラスに使用するアクセス修飾子。 既定値は `Public`です。 許容される値は `Internal` および `Public` です。
 
 ### <a name="add-url"></a>URL の追加
 
@@ -89,7 +89,7 @@ dotnet-grpc add-url [options] <url>
 |-|-|
 | url | リモート protobuf ファイルの URL。 |
 
-#### <a name="options"></a>および
+#### <a name="options"></a>オプション
 
 | 短いオプション | 長いオプション | 説明 |
 |-|-|-|
@@ -116,15 +116,15 @@ dotnet-grpc remove [options] <references>...
 
 | 引数 | 説明 |
 |-|-|
-| references | 削除する protobuf 参照の Url またはファイルパス。 |
+| 参照 | 削除する protobuf 参照の Url またはファイルパス。 |
 
-### <a name="options"></a>および
+### <a name="options"></a>オプション
 
 | 短いオプション | 長いオプション | 説明 |
 |-|-|-|
 | -p | --project | 操作するプロジェクトファイルのパス。 ファイルが指定されていない場合、コマンドは現在のディレクトリを検索します。
 
-## <a name="refresh"></a>Refresh
+## <a name="refresh"></a>最新の情報に更新
 
 @No__t-0 コマンドは、ソース URL の最新のコンテンツを使用してリモート参照を更新するために使用されます。 ダウンロードファイルパスとソース URL の両方を使用して、更新する参照を指定できます。 メモ:
 
@@ -143,9 +143,9 @@ dotnet-grpc refresh [options] [<references>...]
 
 | 引数 | 説明 |
 |-|-|
-| references | 更新する必要があるリモート protobuf 参照への Url またはファイルパス。 すべてのリモート参照を更新するには、この引数を空のままにします。 |
+| 参照 | 更新する必要があるリモート protobuf 参照への Url またはファイルパス。 すべてのリモート参照を更新するには、この引数を空のままにします。 |
 
-### <a name="options"></a>および
+### <a name="options"></a>オプション
 
 | 短いオプション | 長いオプション | 説明 |
 |-|-|-|
@@ -162,7 +162,7 @@ dotnet-grpc refresh [options] [<references>...]
 dotnet-grpc list [options]
 ```
 
-### <a name="options"></a>および
+### <a name="options"></a>オプション
 
 | 短いオプション | 長いオプション | 説明 |
 |-|-|-|
