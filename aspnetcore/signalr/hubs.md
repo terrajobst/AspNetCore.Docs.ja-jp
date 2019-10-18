@@ -16,7 +16,7 @@ ms.locfileid: "70746513"
 ---
 # <a name="use-hubs-in-signalr-for-aspnet-core"></a>ASP.NET Core SignalR でのハブの使用
 
-作成者: [Rachel Appel](https://twitter.com/rachelappel)および[Kevin Griffin](https://twitter.com/1kevgriff)
+作成者: [Rachel Appel](https://twitter.com/rachelappel) および [Kevin Griffin](https://twitter.com/1kevgriff)
 
 [サンプルコードの表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/hubs/sample/ ) [(ダウンロード方法)](xref:index#how-to-download-a-sample)
 
@@ -66,13 +66,13 @@ public class ChatHub : Hub
 }
 ```
 
-任意のC#のメソッドの場合と同様に、戻り値の型とパラメーター (複合型や配列を含む) を指定できます。 SignalR は、パラメーターと戻り値の複合オブジェクトおよび配列のシリアル化と逆シリアル化を処理します。
+任意の C# のメソッドの場合と同様に、戻り値の型とパラメーター (複合型や配列を含む) を指定できます。 SignalR は、パラメーターと戻り値の複合オブジェクトおよび配列のシリアル化と逆シリアル化を処理します。
 
 > [!NOTE]
 > ハブは一時的なものです。
 >
 > * ハブクラスのプロパティに状態を格納しないでください。 すべてのハブメソッド呼び出しは、新しいハブインスタンスで実行されます。
-> * ハブをキープアライブに依存する非同期メソッドを呼び出すときに`await`使用してください。 たとえば、`Clients.All.SendAsync(...)`のようなメソッドが `await`を指定せずに呼び出され、`SendAsync`が終了する前にハブメソッドが完了した場合は失敗する可能性があります。
+> * ハブをキープアライブに依存する非同期メソッドを呼び出すときに`await`を使用してください。 たとえば、`Clients.All.SendAsync(...)`のようなメソッドが `await`を指定せずに呼び出され、`SendAsync`が終了する前にハブメソッドが完了した場合は失敗する可能性があります。
 
 ## <a name="the-context-object"></a>コンテキストオブジェクト
 
@@ -81,9 +81,9 @@ public class ChatHub : Hub
 | プロパティ | 説明 |
 | ------ | ----------- |
 | `ConnectionId` | SignalR によって割り当てられる、接続の一意の ID を取得します。 接続ごとに1つの接続 ID があります。|
-| `UserIdentifier` | [ユーザー識別子](xref:signalr/groups)を取得します。 既定では、SignalR は接続に関連付けられている`ClaimsPrincipal`の`ClaimTypes.NameIdentifier`をユーザー識別子として使用します。 |
+| `UserIdentifier` | [ユーザー識別子](xref:signalr/groups) を取得します。 既定では、SignalR は接続に関連付けられている`ClaimsPrincipal`の`ClaimTypes.NameIdentifier`をユーザー識別子として使用します。 |
 | `User` | 現在のユーザーに関連付けられている`ClaimsPrincipal` を取得します。|
-| `Items` | この接続のスコープ内でデータを共有するために使用できるキー/値のコレクションを取得します。 このコレクションにデータを格納することができ、さまざまなハブメソッド呼び出し間の接続で保持されます。 |
+| `Items` | この接続のスコープ内でデータを共有するために使用できるキー/値のコレクションを取得します。 このコレクションにデータを格納することができ、さまざまなハブメソッドの呼び出し間の接続で保持されます。 |
 | `Features` | 接続で使用できる機能のコレクションを取得します。 現時点では、ほとんどのシナリオでこのコレクションは必要ないため、詳細には記載されていません。 |
 | `ConnectionAborted` | 接続の中止を通知する`CancellationToken`を取得します。 |
 
@@ -144,7 +144,7 @@ public class ChatHub : Hub
 
 `Hub<IChatClient>`を使用すると、クライアントメソッドのコンパイル時チェックが有効になります。 これにより、`Hub<T>`は、インターフェイスで定義されたメソッドへのアクセスのみを提供できるため、マジックストリングを使用した場合に発生する問題を回避できます。
 
-厳密に型指定された`Hub<T>`を使用すると、`SendAsync`を使用することができなくなります。 インターフェイスで定義されているメソッドは、引き続き非同期として定義できます。 実際、これらの各メソッドはを`Task`返す必要があります。 これはインターフェイスであるため、 `async`キーワードを使用しないでください。 例:
+厳密に型指定された`Hub<T>`を使用すると、`SendAsync`を使用することができなくなります。 インターフェイスで定義されているメソッドは、引き続き非同期として定義できます。 実際、これらの各メソッドは`Task`を返す必要があります。 これはインターフェイスであるため、 `async`キーワードを使用しないでください。 例:
 
 ```csharp
 public interface IClient
@@ -168,13 +168,13 @@ SignalR Hub API は、接続の管理と追跡のため`OnConnectedAsync`およ�
 
 [!code-csharp[Handle connection](hubs/sample/hubs/chathub.cs?name=OnConnectedAsync)]
 
-クライアントの接続が切断されたときにアクションを実行するには、`OnDisconnectedAsync`仮想メソッドをオーバーライドします。 クライアントが意図的に切断された場合(たとえば、`connection.stop()を`呼び出した場合)、`exception`パラメーターはに`null`なります。 ただし、エラー (ネットワークエラーなど) が原因でクライアントが切断された場合、`exception`パラメーターにはエラーを説明する例外が含まれます。
+クライアントの接続が切断されたときにアクションを実行するには、`OnDisconnectedAsync`仮想メソッドをオーバーライドします。 クライアントが意図的に切断された場合 (たとえば、`connection.stop()`を呼び出した場合)、`exception`パラメーターは`null`になります。 ただし、エラー (ネットワークエラーなど) が原因でクライアントが切断された場合、`exception`パラメーターにはエラーを説明する例外が含まれます。
 
 [!code-csharp[Handle disconnection](hubs/sample/hubs/chathub.cs?name=OnDisconnectedAsync)]
 
 ## <a name="handle-errors"></a>エラーの処理
 
-ハブメソッドでスローされた例外は、メソッドを呼び出したクライアントに送信されます。 JavaScript クライアントでは、メソッド`invoke`は JavaScript の[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Using_promises)を返します。 クライアントは、`catch`を使用してpromise にアタッチされたハンドラーでエラーを受信すると、それを呼び出し、JavaScript の`Error`オブジェクトとして渡されます。
+ハブメソッドでスローされた例外は、メソッドを呼び出したクライアントに送信されます。 JavaScript クライアントでは、`invoke`メソッドは JavaScript の [Promise](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Using_promises) を返します。 クライアントは、`catch`を使用して promise にアタッチされたハンドラーでエラーを受信すると、それを呼び出し、JavaScript の`Error`オブジェクトとして渡されます。
 
 [!code-javascript[Error](hubs/sample/wwwroot/js/chat.js?range=23)]
 
@@ -186,12 +186,12 @@ Microsoft.AspNetCore.SignalR.HubException: An unexpected error occurred invoking
 
 予期しない例外には、データベース接続が失敗したときにトリガーされる例外に含まれるデータベースのサーバー名など、重要な情報が含まれていることがよくあります。 SignalR では、これらの詳細なエラーメッセージは既定でセキュリティ対策として公開されません。 例外の詳細が抑制される理由の詳細については、「[セキュリティに関する考慮事項](xref:signalr/security#exceptions)」を参照してください。
 
-クライアントに伝達する必要のある*例外的な条件*がある場合は、 `HubException`クラスを使用できます。 ハブメソッドから`HubException`をスローした場合、SignalR**は**メッセージ全体を変更せずにクライアントに送信します。
+クライアントに伝達する必要のある*例外的な条件*がある場合は、 `HubException`クラスを使用できます。 ハブメソッドから`HubException`をスローした場合、SignalR **は** メッセージ全体を変更せずにクライアントに送信します。
 
 [!code-csharp[ThrowHubException](hubs/sample/hubs/chathub.cs?name=ThrowHubException&highlight=3)]
 
 > [!NOTE]
-> SignalR は、例外の`Message`プロパティだけをクライアントに送信します。 例外のスタックトレースやその他のプロパティは、クライアントでは使用できません。
+> SignalR は、例外の`Message`プロパティのみをクライアントに送信します。 例外のスタックトレースやその他のプロパティは、クライアントでは使用できません。
 
 ## <a name="related-resources"></a>関連資料
 
