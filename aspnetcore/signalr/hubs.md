@@ -82,7 +82,9 @@ public class ChatHub : Hub
 | ------ | ----------- |
 | `ConnectionId` | SignalR によって割り当てられる、接続の一意の ID を取得します。 接続ごとに1つの接続 ID があります。|
 | `UserIdentifier` | [ユーザー識別子](xref:signalr/groups) を取得します。 既定では、SignalR は接続に関連付けられている`ClaimsPrincipal`の`ClaimTypes.NameIdentifier`をユーザー識別子として使用します。 |
+
 | `User` | 現在のユーザーに関連付けられている`ClaimsPrincipal` を取得します。|
+
 | `Items` | この接続のスコープ内でデータを共有するために使用できるキー/値のコレクションを取得します。 このコレクションにデータを格納することができ、さまざまなハブメソッドの呼び出し間の接続で保持されます。 |
 | `Features` | 接続で使用できる機能のコレクションを取得します。 現時点では、ほとんどのシナリオでこのコレクションは必要ないため、詳細には記載されていません。 |
 | `ConnectionAborted` | 接続の中止を通知する`CancellationToken`を取得します。 |
@@ -126,7 +128,9 @@ public class ChatHub : Hub
 
 * `SendMessage`は`Clients.All`を使用して、接続されているすべてのクライアントにメッセージを送信します。
 * `SendMessageToCaller`は`Clients.Caller`を使用して、呼び出し元にメッセージを返信します。
+
 * `SendMessageToGroups`は、`SignalR Users`グループ内のすべてのクライアントにメッセージを送信します。
+
 
 [!code-csharp[Send messages](hubs/sample/hubs/chathub.cs?name=HubMethods)]
 

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/15/2019
 uid: blazor/javascript-interop
-ms.openlocfilehash: b4776a20c6da6c722d2c057d19863c570f530a21
-ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
+ms.openlocfilehash: a8c3a0951761faab1c11507834aeef2507388d71
+ms.sourcegitcommit: ce2bfb01f2cc7dd83f8a97da0689d232c71bcdc4
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72391064"
+ms.lasthandoff: 10/17/2019
+ms.locfileid: "72531129"
 ---
 # <a name="aspnet-core-blazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 相互運用機能
 
@@ -38,7 +38,7 @@ Blazor Server アプリの場合:
 
 次の例は、JavaScript ベースの試験的なデコーダーである[Textdecoder](https://developer.mozilla.org/docs/Web/API/TextDecoder)に基づいています。 この例では、 C#メソッドから JavaScript 関数を呼び出す方法を示します。 JavaScript 関数は、 C#メソッドからバイト配列を受け取り、配列をデコードし、テキストをコンポーネントに返して表示できるようにします。
 
-*Wwwroot/index.html*の `<head>` 要素 (Blazor WebAssembly または*Pages/_Host* (Blazor Server) 内で、渡された配列をデコードするために @no__t 3 を使用する関数を提供します。
+*Wwwroot/index.html* (Blazor WebAssembly または*Pages/_Host* (Blazor Server) の `<head>` 要素内で、渡された配列をデコードする `TextDecoder` を使用する関数を提供します。
 
 [!code-html[](javascript-interop/samples_snapshot/index-script.html)]
 
@@ -79,17 +79,17 @@ Blazor Server アプリの場合:
 
 *wwwroot/exampleJsInterop*:
 
-[!code-javascript[](./common/samples/3.x/BlazorSample/wwwroot/exampleJsInterop.js?highlight=2-7)]
+[!code-javascript[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/exampleJsInterop.js?highlight=2-7)]
 
-JavaScript ファイルを参照する `<script>` タグを、 *wwwroot/index.html*ファイル (Blazor) または*Pages/_Host*ファイル (Blazor Server) に配置します。
+JavaScript ファイルを参照する `<script>` タグを、 *wwwroot/index.html*ファイル (Blazor WebAssembly) または*Pages/_Host*ファイル (Blazor Server) に配置します。
 
 *wwwroot/index.html* (Blazor webas):
 
-[!code-html[](./common/samples/3.x/BlazorSample/wwwroot/index.html?highlight=15)]
+[!code-html[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/index.html?highlight=15)]
 
 *Pages/_Host* (Blazor Server):
 
-[!code-cshtml[](javascript-interop/samples_snapshot/_Host.cshtml?highlight=29)]
+[!code-cshtml[](./common/samples/3.x/BlazorServerSample/Pages/_Host.cshtml?highlight=21)]
 
 @No__t-1 タグを動的に更新できないため、コンポーネントファイルに @no__t 0 タグを配置しないでください。
 
@@ -105,7 +105,7 @@ JavaScript ファイルを参照する `<script>` タグを、 *wwwroot/index.ht
 
 *Pages/JSInterop*:
 
-[!code-cshtml[](./common/samples/3.x/BlazorSample/Pages/JsInterop.razor?name=snippet_JSInterop1&highlight=3,19-21,23-25)]
+[!code-cshtml[](./common/samples/3.x/BlazorWebAssemblySample/Pages/JsInterop.razor?name=snippet_JSInterop1&highlight=3,19-21,23-25)]
 
 1. コンポーネントの **[トリガー JavaScript プロンプト]** ボタンを選択して `TriggerJsPrompt` を実行すると、 *wwwroot/exampleJsInterop*ファイルに指定されている javascript `showPrompt` 関数が呼び出されます。
 1. @No__t 0 関数は、ユーザー入力 (ユーザーの名前) を受け取ります。これは HTML でエンコードされ、コンポーネントに返されます。 このコンポーネントでは、ユーザーの名前がローカル変数に格納されます (`name`)。
@@ -180,19 +180,19 @@ public static Task Focus(this ElementReference elementRef, IJSRuntime jsRuntime)
 
 ### <a name="static-net-method-call"></a>静的 .NET メソッド呼び出し
 
-JavaScript から静的 .NET メソッドを呼び出すには、`DotNet.invokeMethod` または `DotNet.invokeMethodAsync` 関数を使用します。 呼び出す静的メソッドの識別子、関数を含むアセンブリの名前、および任意の引数を渡します。 非同期バージョンは、Blazor Server のシナリオをサポートするために推奨されます。 .Net メソッドを JavaScript から呼び出すには、.NET メソッドが public、static、および @no__t 0 属性を持っている必要があります。 既定では、メソッド識別子はメソッド名ですが、`JSInvokableAttribute` コンストラクターを使用して別の識別子を指定することもできます。 オープンジェネリックメソッドを呼び出すことは現在サポートされていません。
+JavaScript から静的 .NET メソッドを呼び出すには、`DotNet.invokeMethod` または `DotNet.invokeMethodAsync` 関数を使用します。 呼び出す静的メソッドの識別子、関数を含むアセンブリの名前、および任意の引数を渡します。 非同期バージョンは、Blazor Server のシナリオをサポートするために推奨されます。 .Net メソッドを JavaScript から呼び出すには、.NET メソッドが public、static、および `[JSInvokable]` 属性を持っている必要があります。 既定では、メソッド識別子はメソッド名ですが、`JSInvokableAttribute` コンストラクターを使用して別の識別子を指定することもできます。 オープンジェネリックメソッドを呼び出すことは現在サポートされていません。
 
 サンプルアプリには、 C# `int`s の配列を返すメソッドが含まれています。 @No__t-0 属性がメソッドに適用されます。
 
 *Pages/JsInterop*:
 
-[!code-cshtml[](./common/samples/3.x/BlazorSample/Pages/JsInterop.razor?name=snippet_JSInterop2&highlight=7-11)]
+[!code-cshtml[](./common/samples/3.x/BlazorWebAssemblySample/Pages/JsInterop.razor?name=snippet_JSInterop2&highlight=7-11)]
 
 クライアントに提供される JavaScript はC# 、.net メソッドを呼び出します。
 
 *wwwroot/exampleJsInterop*:
 
-[!code-javascript[](./common/samples/3.x/BlazorSample/wwwroot/exampleJsInterop.js?highlight=8-14)]
+[!code-javascript[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/exampleJsInterop.js?highlight=8-14)]
 
 **[.Net 静的メソッド ReturnArrayAsync のトリガー]** ボタンが選択されている場合は、ブラウザーの web developer ツールでコンソール出力を確認します。
 
@@ -218,23 +218,23 @@ JavaScript から .NET インスタンスメソッドを呼び出すこともで
 
 *Pages/JsInterop*:
 
-[!code-cshtml[](./common/samples/3.x/BlazorSample/Pages/JsInterop.razor?name=snippet_JSInterop3&highlight=8-9)]
+[!code-cshtml[](./common/samples/3.x/BlazorWebAssemblySample/Pages/JsInterop.razor?name=snippet_JSInterop3&highlight=8-9)]
 
 `CallHelloHelperSayHello` は、`HelloHelper` の新しいインスタンスを使用して JavaScript 関数 `sayHello` を呼び出します。
 
 *JsInteropClasses/ExampleJsInterop*:
 
-[!code-csharp[](./common/samples/3.x/BlazorSample/JsInteropClasses/ExampleJsInterop.cs?name=snippet1&highlight=10-16)]
+[!code-csharp[](./common/samples/3.x/BlazorWebAssemblySample/JsInteropClasses/ExampleJsInterop.cs?name=snippet1&highlight=10-16)]
 
 *wwwroot/exampleJsInterop*:
 
-[!code-javascript[](./common/samples/3.x/BlazorSample/wwwroot/exampleJsInterop.js?highlight=15-18)]
+[!code-javascript[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/exampleJsInterop.js?highlight=15-18)]
 
 名前は `HelloHelper` のコンストラクターに渡され、`HelloHelper.Name` プロパティを設定します。 JavaScript 関数 `sayHello` が実行されると、`HelloHelper.SayHello` は、JavaScript 関数によってコンソールに書き込まれた `Hello, {Name}!` メッセージを返します。
 
 *JsInteropClasses/HelloHelper*:
 
-[!code-csharp[](./common/samples/3.x/BlazorSample/JsInteropClasses/HelloHelper.cs?name=snippet1&highlight=5,10-11)]
+[!code-csharp[](./common/samples/3.x/BlazorWebAssemblySample/JsInteropClasses/HelloHelper.cs?name=snippet1&highlight=5,10-11)]
 
 ブラウザーの web 開発者ツールのコンソール出力:
 

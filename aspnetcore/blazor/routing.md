@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/15/2019
 uid: blazor/routing
-ms.openlocfilehash: a71709d6b87d8182e90f827d952090aa1e38d701
-ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
+ms.openlocfilehash: d9f81c8aa2cf07f8bfaede65efcb7328088f55b9
+ms.sourcegitcommit: ce2bfb01f2cc7dd83f8a97da0689d232c71bcdc4
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72391191"
+ms.lasthandoff: 10/17/2019
+ms.locfileid: "72531139"
 ---
 # <a name="aspnet-core-blazor-routing"></a>ASP.NET Core Blazor ルーティング
 
@@ -56,10 +56,10 @@ Blazor サーバーは[ASP.NET Core エンドポイントルーティング](xre
 
 コンポーネントには、複数のルートテンプレートを適用できます。 次のコンポーネントは `/BlazorRoute` および `/DifferentBlazorRoute` の要求に応答します。
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRoute.razor?name=snippet_BlazorRoute)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/BlazorRoute.razor?name=snippet_BlazorRoute)]
 
 > [!IMPORTANT]
-> Url が正しく解決されるようにするには、アプリで*wwwroot/index.html*ファイル (Blazor) または*Pages/_Host*ファイル (Blazor Server) に @no__t 0 タグを含める必要があります。このとき、アプリの基本パスは、`href` 属性 (`<base href="/">`) で指定します。 詳細については、「<xref:host-and-deploy/blazor/index#app-base-path>」を参照してください。
+> Url を正しく解決するには、アプリで、`href` 属性 (`<base href="/">`) で指定されたアプリのベースパスを使用して、 *wwwroot/index.html*ファイル (Blazor WebAssembly または*Pages/_Host*ファイル (Blazor Server) に `<base>` タグを含める必要があります。 詳細については、「<xref:host-and-deploy/blazor/index#app-base-path>」を参照してください。
 
 ## <a name="provide-custom-content-when-content-isnt-found"></a>コンテンツが見つからないときにカスタムコンテンツを提供する
 
@@ -97,7 +97,7 @@ Blazor サーバーは[ASP.NET Core エンドポイントルーティング](xre
 
 ルーターはルートパラメーターを使用して、同じ名前の対応するコンポーネントパラメーターを設定します (大文字と小文字は区別されません)。
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/RouteParameter.razor?name=snippet_RouteParameter&highlight=2,7-8)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/RouteParameter.razor?name=snippet_RouteParameter&highlight=2,7-8)]
 
 ASP.NET Core 3.0 の Blazor アプリでは、省略可能なパラメーターはサポートされていません。 前の例では、2つの `@page` ディレクティブが適用されています。 最初のは、パラメーターを指定せずにコンポーネントへの移動を許可します。 2番目の `@page` ディレクティブは、`{text}` route パラメーターを受け取り、`Text` プロパティに値を割り当てます。
 
