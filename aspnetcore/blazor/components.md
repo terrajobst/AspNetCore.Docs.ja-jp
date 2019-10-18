@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/05/2019
 uid: blazor/components
-ms.openlocfilehash: a71bbf3921417cbd23aeb14d0d78ad8354d6e93a
-ms.sourcegitcommit: dd026eceee79e943bd6b4a37b144803b50617583
+ms.openlocfilehash: cd48111e8d601fc67e8a938fcdd686759a9ddeca
+ms.sourcegitcommit: ce2bfb01f2cc7dd83f8a97da0689d232c71bcdc4
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72378690"
+ms.lasthandoff: 10/17/2019
+ms.locfileid: "72531120"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>ASP.NET Core Razor コンポーネントを作成して使用する
 
@@ -37,8 +37,8 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 コンポーネントメンバーは、`@` で始まる式を使用してC# 、コンポーネントのレンダリングロジックの一部として使用できます。 たとえば、 C#フィールドは、フィールド名にプレフィックス `@` を付けることによって表示されます。 次の例では、が評価され、レンダリングされます。
 
-* `font-style` の CSS プロパティ値に `_headingFontStyle`。
-* `_headingText` `<h1>` 要素の内容になります。
+* `font-style` の CSS プロパティ値に `_headingFontStyle` します。
+* `<h1>` 要素の内容に `_headingText` します。
 
 ```cshtml
 <h1 style="font-style:@_headingFontStyle">@_headingText</h1>
@@ -81,27 +81,27 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 *Index. razor*の次のマークアップは、`HeadingComponent` インスタンスをレンダリングします。
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/Index.razor?name=snippet_HeadingComponent)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/Index.razor?name=snippet_HeadingComponent)]
 
 *Components/HeadingComponent*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Components/HeadingComponent.razor)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/HeadingComponent.razor)]
 
 コンポーネント名と一致しない大文字の最初の文字を含む HTML 要素がコンポーネントに含まれている場合は、要素に予期しない名前が付いていることを示す警告が出力されます。 コンポーネントの名前空間に `@using` ステートメントを追加すると、コンポーネントが使用可能になり、警告が削除されます。
 
 ## <a name="component-parameters"></a>コンポーネントのパラメーター
 
-コンポーネントには、コンポーネントクラスのパブリックプロパティを使用して定義されるコンポーネント*パラメーター*を含めることができます。これは、`[Parameter]` 属性を使用して指定します。 マークアップ内でコンポーネントの引数を指定するには、属性を使います。
+コンポーネントには、コンポーネントクラスのパブリックプロパティを使用して定義されるコンポーネント*パラメーター*を含めることができます。これは、`[Parameter]` 属性を使用して構成します。 マークアップ内でコンポーネントの引数を指定するには、属性を使います。
 
 *Components/ChildComponent。 razor*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Components/ChildComponent.razor?highlight=11-12)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=11-12)]
 
 次の例では、`ParentComponent` は `ChildComponent` の `Title` プロパティの値を設定します。
 
 *Pages/ParentComponent。 razor*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ParentComponent.razor?name=snippet_ParentComponent&highlight=5-6)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/ParentComponent.razor?name=snippet_ParentComponent&highlight=5-6)]
 
 ## <a name="child-content"></a>子コンテンツ
 
@@ -111,7 +111,7 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 *Components/ChildComponent。 razor*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Components/ChildComponent.razor?highlight=3,14-15)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=3,14-15)]
 
 > [!NOTE]
 > @No__t 0 のコンテンツを受け取るプロパティには、規則に従って `ChildContent` を指定する必要があります。
@@ -120,7 +120,7 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 *Pages/ParentComponent。 razor*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ParentComponent.razor?name=snippet_ParentComponent&highlight=7-8)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/ParentComponent.razor?name=snippet_ParentComponent&highlight=7-8)]
 
 ## <a name="attribute-splatting-and-arbitrary-parameters"></a>属性スプラッティングと任意のパラメーター
 
@@ -181,7 +181,7 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
        size="50">
 ```
 
-任意の属性を受け入れるには、`CaptureUnmatchedValues` プロパティが `true` に設定された `[Parameter]` 属性を使用して、コンポーネントパラメーターを定義します。
+任意の属性を受け入れるには、`CaptureUnmatchedValues` プロパティを `true` に設定して、`[Parameter]` 属性を使用してコンポーネントパラメーターを定義します。
 
 ```cshtml
 @code {
@@ -190,7 +190,7 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 }
 ```
 
-@No__t-1 の `CaptureUnmatchedValues` プロパティを使用すると、パラメーターを他のパラメーターと一致しないすべての属性と一致させることができます。 コンポーネントで定義できるのは、`CaptureUnmatchedValues` の1つのパラメーターのみです。 @No__t-0 と共に使用されるプロパティの型は、文字列キーを使用して `Dictionary<string, object>` から割り当て可能である必要があります。 `IEnumerable<KeyValuePair<string, object>>` または `IReadOnlyDictionary<string, object>` は、このシナリオのオプションでもあります。
+@No__t_1 の `CaptureUnmatchedValues` プロパティを使用すると、パラメーターを他のパラメーターと一致しないすべての属性と一致させることができます。 コンポーネントで定義できるのは、`CaptureUnmatchedValues` の1つのパラメーターのみです。 @No__t-0 と共に使用されるプロパティの型は、文字列キーを使用して `Dictionary<string, object>` から割り当て可能である必要があります。 `IEnumerable<KeyValuePair<string, object>>` または `IReadOnlyDictionary<string, object>` は、このシナリオのオプションでもあります。
 
 ## <a name="data-binding"></a>データ バインディング
 
@@ -513,11 +513,11 @@ Razor コンポーネントは、イベント処理機能を提供します。 @
 
 サンプルアプリの `ChildComponent` は、ボタンの @no__t ハンドラーが、サンプルの `ParentComponent` から @no__t 2 デリゲートを受け取るように設定されている方法を示しています。 @No__t-0 は、`MouseEventArgs` で入力されます。これは、周辺機器の @no__t 2 イベントに適しています。
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Components/ChildComponent.razor?highlight=5-7,17-18)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=5-7,17-18)]
 
 @No__t-0 は、子の `EventCallback<T>` を `ShowMessage` メソッドに設定します。
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ParentComponent.razor?name=snippet_ParentComponent&highlight=6,16-19)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/ParentComponent.razor?name=snippet_ParentComponent&highlight=6,16-19)]
 
 @No__t-0 でボタンが選択されると、次のようになります。
 
@@ -968,7 +968,7 @@ Blazor でのルーティングは、アプリ内のアクセス可能な各コ�
 
 コンポーネントには、複数のルートテンプレートを適用できます。 次のコンポーネントは `/BlazorRoute` および `/DifferentBlazorRoute` の要求に応答します。
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRoute.razor?name=snippet_BlazorRoute)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/BlazorRoute.razor?name=snippet_BlazorRoute)]
 
 ## <a name="route-parameters"></a>ルートパラメーター
 
@@ -976,7 +976,7 @@ Blazor でのルーティングは、アプリ内のアクセス可能な各コ�
 
 *ルートパラメーターコンポーネント*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/RouteParameter.razor?name=snippet_RouteParameter)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/RouteParameter.razor?name=snippet_RouteParameter)]
 
 省略可能なパラメーターはサポートされていないため、上記の例では2つの `@page` ディレクティブが適用されます。 最初のは、パラメーターを指定せずにコンポーネントへの移動を許可します。 2番目の `@page` ディレクティブは、`{text}` route パラメーターを受け取り、`Text` プロパティに値を割り当てます。
 
@@ -988,11 +988,11 @@ Blazor でのルーティングは、アプリ内のアクセス可能な各コ�
 
 *Pages/BlazorRocks*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRocks.razor?name=snippet_BlazorRocks)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/BlazorRocks.razor?name=snippet_BlazorRocks)]
 
 *BlazorRocksBase.cs*:
 
-[!code-csharp[](common/samples/3.x/BlazorSample/Pages/BlazorRocksBase.cs)]
+[!code-csharp[](common/samples/3.x/BlazorWebAssemblySample/Pages/BlazorRocksBase.cs)]
 
 基底クラスは `ComponentBase` から派生する必要があります。
 
@@ -1096,7 +1096,7 @@ HTML 要素の属性は、.NET の値に基づいて条件付きで表示され�
 
 `TableTemplate` コンポーネント:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Components/TableTemplate.razor)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/TableTemplate.razor)]
 
 テンプレート化されたコンポーネントを使用する場合は、パラメーターの名前と一致する子要素を使用してテンプレートパラメーターを指定できます (次の例では `TableHeader` および `RowTemplate`)。
 
@@ -1149,7 +1149,7 @@ HTML 要素の属性は、.NET の値に基づいて条件付きで表示され�
 
 多くの場合、テンプレート化されたコンポーネントは一般的に型指定されます たとえば、汎用 `ListViewTemplate` コンポーネントを使用して、`IEnumerable<T>` の値を表示できます。 ジェネリックコンポーネントを定義するには、 [@typeparam](xref:mvc/views/razor#typeparam)ディレクティブを使用して、型パラメーターを指定します。
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Components/ListViewTemplate.razor)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/ListViewTemplate.razor)]
 
 ジェネリック型のコンポーネントを使用する場合、可能であれば型パラメーターは推論されます。
 
@@ -1297,23 +1297,23 @@ public class ThemeInfo
 
 このサンプルアプリには、タブに実装されている @no__t 0 のインターフェイスがあります。
 
-[!code-csharp[](common/samples/3.x/BlazorSample/UIInterfaces/ITab.cs)]
+[!code-csharp[](common/samples/3.x/BlazorWebAssemblySample/UIInterfaces/ITab.cs)]
 
 @No__t-0 コンポーネントは `TabSet` コンポーネントを使用します。これには、いくつかの @no__t 2 つのコンポーネントが含まれています。
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/CascadingValuesParametersTabSet.razor?name=snippet_TabSet)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/CascadingValuesParametersTabSet.razor?name=snippet_TabSet)]
 
 子 `Tab` コンポーネントは、パラメーターとして `TabSet` に明示的に渡されません。 代わりに、子 `Tab` のコンポーネントは、`TabSet` の子コンテンツの一部になります。 ただし、`TabSet` は、ヘッダーとアクティブなタブをレンダリングできるように、各 `Tab` コンポーネントについて認識している必要があります。追加のコードを必要とせずにこの調整を可能にするために、@no__t 2 のコンポーネントは*それ自体をカスケード値として提供*し、その後、子孫の `Tab` コンポーネントによって取得されます。
 
 `TabSet` コンポーネント:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Components/TabSet.razor)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/TabSet.razor)]
 
 子孫の `Tab` コンポーネントは、それ @no__t を含むをカスケードパラメーターとしてキャプチャします。そのため、@no__t 2 つのコンポーネントは、アクティブなタブの @no__t に追加します。
 
 `Tab` コンポーネント:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Components/Tab.razor)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/Tab.razor)]
 
 ## <a name="razor-templates"></a>Razor テンプレート
 
@@ -1406,7 +1406,7 @@ public class ThemeInfo
 }
 ```
 
-> !要する@No__t-0 の型により、表示操作の*結果*を処理できます。 これらは、Blazor framework 実装の内部的な詳細です。 これらの型は*不安定*であると見なされ、今後のリリースで変更される可能性があります。
+> !要する@No__t_0 の型により、レンダリング操作の*結果*を処理できます。 これらは、Blazor framework 実装の内部的な詳細です。 これらの型は*不安定*であると見なされ、今後のリリースで変更される可能性があります。
 
 ### <a name="sequence-numbers-relate-to-code-line-numbers-and-not-execution-order"></a>シーケンス番号は、実行順序ではなくコード行番号に関連します
 
