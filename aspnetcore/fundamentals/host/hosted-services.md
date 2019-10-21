@@ -7,16 +7,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/26/2019
 uid: fundamentals/host/hosted-services
-ms.openlocfilehash: 0eaa3a62370c1e413840bb65f597dc664adafc38
-ms.sourcegitcommit: fe88748b762525cb490f7e39089a4760f6a73a24
+ms.openlocfilehash: c1fbb5ae8ffc4ee506f42df6a4cbbe845b2b903d
+ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/30/2019
-ms.locfileid: "71688090"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72333655"
 ---
 # <a name="background-tasks-with-hosted-services-in-aspnet-core"></a>ASP.NET Core でホステッド サービスを使用するバックグラウンド タスク
 
-作成者: [Luke Latham](https://github.com/guardrex)
+著者: [Luke Latham](https://github.com/guardrex)、[Jeow Li Huan](https://github.com/huan086)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -147,13 +147,17 @@ ASP.NET Core ワーカー サービス テンプレートは、実行時間が�
 
 * `ExecuteAsync` で待機していた `BackgroundProcessing` メソッドが `Task`を返します。
 * `BackgroundProcessing` で、キュー内のバックグラウンド タスクがデキューされ、実行されます。
+* 作業項目が待機されてから、`StopAsync` でサービスが停止します。
 
-[!code-csharp[](hosted-services/samples/3.x/BackgroundTasksSample/Services/QueuedHostedService.cs?name=snippet1&highlight=28,39-40,44)]
+[!code-csharp[](hosted-services/samples/3.x/BackgroundTasksSample/Services/QueuedHostedService.cs?name=snippet1&highlight=28-29,33)]
 
 `MonitorLoop` サービスは、`w` キーが入力デバイスで選択されると常に、ホステッド サービスのためにタスクのエンキューを処理します。
 
 * `IBackgroundTaskQueue` が `MonitorLoop` サービスに挿入されます。
 * `IBackgroundTaskQueue.QueueBackgroundWorkItem` が呼び出され、作業項目がエンキューされます。
+* 作業項目により、実行時間の長いバックグラウンド タスクがシミュレートされます。
+  * 5 秒間の遅延が 3 回実行されます (`Task.Delay`)。
+  * タスクが取り消された場合、`try-catch` ステートメントによって <xref:System.OperationCanceledException> がトラップされます。
 
 [!code-csharp[](hosted-services/samples/3.x/BackgroundTasksSample/Services/MonitorLoop.cs?name=snippet_Monitor&highlight=7,33)]
 
@@ -234,7 +238,7 @@ ASP.NET Core では、バックグラウンド タスクを*ホステッド サ�
 
 ## <a name="queued-background-tasks"></a>キューに格納されたバックグラウンド タスク
 
-バックグラウンド タスク キューは、.NET 4.x <xref:System.Web.Hosting.HostingEnvironment.QueueBackgroundWorkItem*> ([ASP.NET Core 用に暫定的に組み込まれる予定](https://github.com/aspnet/Hosting/issues/1280)) に基づいています。
+バックグラウンド タスク キューは、.NET Framework 4.x <xref:System.Web.Hosting.HostingEnvironment.QueueBackgroundWorkItem*> ([暫定的に ASP.NET Core に組み込まれる予定](https://github.com/aspnet/Hosting/issues/1280)) に基づいています。
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample/Services/BackgroundTaskQueue.cs?name=snippet1)]
 

@@ -5,14 +5,14 @@ description: Visual Studio で発行プロファイルを作成し、それら�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/21/2019
+ms.date: 10/12/2019
 uid: host-and-deploy/visual-studio-publish-profiles
-ms.openlocfilehash: fd08a5ebe5b85dcddcec4ef3e57d326a44ce2f2d
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: a3d6cc450e42d7eb6b694cd4985828ce52fa7519
+ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080856"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72333761"
 ---
 # <a name="visual-studio-publish-profiles-for-aspnet-core-app-deployment"></a>ASP.NET Core アプリを配置するための Visual Studio 発行プロファイル
 
@@ -152,14 +152,24 @@ Azure ターゲットに発行する場合、 *.pubxml* ファイルには、Azu
 
 機微な情報 (発行パスワードなど) は、個々のユーザー/コンピューター レベルで暗号化されます。 それは、*Properties/PublishProfiles/{PROFILE NAME}.pubxml.user* ファイルに格納されます。 このファイルには機微な情報が格納される可能性があるため、ソース コード管理にチェックインしないでください。
 
-ASP.NET Core で Web アプリを発行する方法の概要については、<xref:host-and-deploy/index> を参照してください。 ASP.NET Core で Web アプリを発行するために必要な MSBuild タスクとターゲットは、[aspnet/websdk リポジトリ](https://github.com/aspnet/websdk)のオープン ソースです。
+ASP.NET Core で Web アプリを発行する方法の概要については、<xref:host-and-deploy/index> を参照してください。 ASP.NET Core Web アプリを発行するために必要な MSBuild タスクとターゲットは、[aspnet/websdk リポジトリ](https://github.com/aspnet/websdk)のオープン ソースです。
 
-`dotnet publish` コマンドは、フォルダー、MSDeploy、および [Kudu](https://github.com/projectkudu/kudu/wiki) 発行プロファイルを使用できます。 MSDeploy にはクロス プラットフォームのサポートがないため、次の MSDeploy オプションは、Windows でのみサポートされます。
+以下のコマンドでは、フォルダー、MSDeploy、および [Kudu](https://github.com/projectkudu/kudu/wiki) 発行プロファイルを使用できます。 MSDeploy にはクロス プラットフォームのサポートがないため、次の MSDeploy オプションは、Windows でのみサポートされます。
 
 **フォルダー (クロス プラットフォームで動作します):**
 
+<!--
+
+NOTE: Add back the following 'dotnet publish' folder publish example after https://github.com/aspnet/websdk/issues/888 is resolved.
+
 ```dotnetcli
 dotnet publish WebApplication.csproj /p:PublishProfile=<FolderProfileName>
+```
+
+-->
+
+```dotnetcli
+dotnet build WebApplication.csproj /p:DeployOnBuild=true /p:PublishProfile=<FolderProfileName>
 ```
 
 **MSDeploy:**
@@ -168,17 +178,26 @@ dotnet publish WebApplication.csproj /p:PublishProfile=<FolderProfileName>
 dotnet publish WebApplication.csproj /p:PublishProfile=<MsDeployProfileName> /p:Password=<DeploymentPassword>
 ```
 
+```dotnetcli
+dotnet build WebApplication.csproj /p:DeployOnBuild=true /p:PublishProfile=<MsDeployProfileName> /p:Password=<DeploymentPassword>
+```
+
 **MSDeploy パッケージ:**
 
 ```dotnetcli
 dotnet publish WebApplication.csproj /p:PublishProfile=<MsDeployPackageProfileName>
 ```
 
-上記の例で、`deployonbuild` を `dotnet publish` に渡さないようにしてください。
+```dotnetcli
+dotnet build WebApplication.csproj /p:DeployOnBuild=true /p:PublishProfile=<MsDeployPackageProfileName>
+```
+
+前の例では、
+
+* `dotnet publish` と `dotnet build` により、任意のプラットフォームから Azure に発行する Kudu API がサポートされています。 Visual Studio の発行は、Kudu API をサポートしていますが、Azure へのクロスプラットフォームの発行は WebSDK がサポートしています。
+* `dotnet publish` コマンドに `DeployOnBuild` を渡さないでください。
 
 詳細については、「[Microsoft.NET.Sdk.Publish](https://github.com/aspnet/websdk#microsoftnetsdkpublish)」を参照してください。
-
-`dotnet publish` は、任意のプラットフォームから Azure に発行する Kudu API をサポートしています。 Visual Studio の発行は、Kudu API をサポートしていますが、Azure へのクロスプラットフォームの発行は WebSDK がサポートしています。
 
 次の内容の発行プロファイルを、プロジェクトの *Properties/PublishProfiles* フォルダーに追加します。
 
@@ -193,21 +212,20 @@ dotnet publish WebApplication.csproj /p:PublishProfile=<MsDeployPackageProfileNa
 </Project>
 ```
 
-次のコマンドを実行すると、発行するコンテンツが圧縮され、Kudu API を使用して Azure に発行されます。
+## <a name="folder-publish-example"></a>フォルダーの発行の例
 
-```dotnetcli
-dotnet publish /p:PublishProfile=Azure /p:Configuration=Release
-```
+*FolderProfile* という名前のプロファイルを使用して発行する場合は、次のいずれかのコマンドを使用します。
 
-発行プロファイルを使用する場合、次の MSBuild プロパティを設定します。
+<!--
 
-* `DeployOnBuild=true`
-* `PublishProfile={PUBLISH PROFILE}`
+NOTE: Temporarily removed until https://github.com/aspnet/websdk/issues/888 is resolved.
 
-*FolderProfile* という名前のプロファイルを使用して発行する場合は、以下のいずれかのコマンドを実行できます。
+* `dotnet publish /p:Configuration=Release /p:PublishProfile=FolderProfile`
+
+-->
 
 * `dotnet build /p:DeployOnBuild=true /p:PublishProfile=FolderProfile`
-* `msbuild      /p:DeployOnBuild=true /p:PublishProfile=FolderProfile`
+* `msbuild /p:DeployOnBuild=true /p:PublishProfile=FolderProfile`
 
 .NET Core CLI の [dotnet build](/dotnet/core/tools/dotnet-build) コマンドにより `msbuild` が呼び出されて、ビルドと発行プロセスが実行されます。 `dotnet build` と `msbuild` のコマンドは、フォルダー プロファイルで渡す場合は同等です。 Windows で `msbuild` を直接呼び出すと、MSBuild の .NET Framework バージョンが使用されます。 フォルダー以外のプロファイルで `dotnet build` を呼び出すと:
 
@@ -243,6 +261,16 @@ MSBuild file.
 前の例の場合:
 
 * `<ExcludeApp_Data>` プロパティは、XML スキーマの要件を満たすためだけに存在します。 プロジェクトのルートに *App_Data* フォルダーがある場合でも、`<ExcludeApp_Data>` プロパティが発行プロセスに影響することはありません。 *App_Data* フォルダーは ASP.NET 4.x プロジェクトのように特別な処理を受信しません。
+
+<!--
+
+NOTE: Temporarily removed from 'Using the .NET Core CLI' below until https://github.com/aspnet/websdk/issues/888 is resolved.
+
+    ```dotnetcli
+    dotnet publish /p:Configuration=Release /p:PublishProfile=FolderProfile
+    ```
+
+-->
 
 * `<LastUsedBuildConfiguration>` プロパティが `Release` に設定されている。 Visual Studio から発行すると、発行プロセスが開始されたときの値を使用して、`<LastUsedBuildConfiguration>` の値が設定されます。 `<LastUsedBuildConfiguration>` は特殊なので、インポートされる MSBuild ファイルでオーバーライドされないようにしてください。 ただし、このプロパティは次の方法のいずれかを使用してコマンドラインからオーバーライドすることができます。
   * .NET Core CLI の使用:

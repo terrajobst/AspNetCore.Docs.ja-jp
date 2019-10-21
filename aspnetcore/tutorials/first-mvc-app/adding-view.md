@@ -5,12 +5,12 @@ description: 単純な ASP.NET Core MVC アプリにビューを追加する
 ms.author: riande
 ms.date: 8/04/2019
 uid: tutorials/first-mvc-app/adding-view
-ms.openlocfilehash: 1c29b59f9306774316ff37eeb57cc441fe5c7370
-ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
+ms.openlocfilehash: de75c3b0651c0cda6629af786d7db9dc83bc4fef
+ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/06/2019
-ms.locfileid: "68820082"
+ms.lasthandoff: 10/12/2019
+ms.locfileid: "72288828"
 ---
 # <a name="add-a-view-to-an-aspnet-core-mvc-app"></a>ASP.NET Core MVC アプリへのビューの追加
 
@@ -86,7 +86,7 @@ ms.locfileid: "68820082"
 
 ## <a name="change-the-title-footer-and-menu-link-in-the-layout-file"></a>レイアウト ファイルでのタイトル、フッター、およびメニュー リンクの変更
 
-*Views\Shared\_Layout.cshtml* ファイルの内容を次のマークアップに置き換えます。 変更が強調表示されています。
+*Views/Shared/_Layout.cshtml* ファイルの内容を次のマークアップに置き換えます。 変更が強調表示されています。
 
 [!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Views/Shared/_Layout.cshtml?highlight=6,14,40)]
 

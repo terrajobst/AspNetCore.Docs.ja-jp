@@ -5,12 +5,12 @@ description: Entity Framework Core (EF Core) を利用し、データベース�
 ms.author: riande
 ms.date: 9/22/2019
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: dcbcf37dfd95d784ebe249ec6e9e4184a8853d3d
-ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
+ms.openlocfilehash: 4f8b80cb51bd10eb3b136a780dc123c41d61c0a5
+ms.sourcegitcommit: e71b6a85b0e94a600af607107e298f932924c849
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71187180"
+ms.lasthandoff: 10/17/2019
+ms.locfileid: "72519079"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>ASP.NET Core での Razor ページ アプリへのモデルの追加
 
@@ -196,9 +196,9 @@ Update-Database
 
 この警告は無視して構いません。後のチュートリアルで修正されます。
 
-`ef migrations add InitialCreate` コマンドによって最初のデータベース スキーマを作成するコードが生成されます。 このスキーマは、`DbContext` で指定されたモデルに基づきます (*RazorPagesMovieContext.cs* ファイル内)。 `InitialCreate` 引数は移行の命名に使用されます。 任意の名前を使用できますが、規則により、移行を説明する名前が選択されます。
+移行コマンドによって、最初のデータベース スキーマを作成するコードが生成されます。 このスキーマは、`DbContext` で指定されたモデルに基づきます。 `InitialCreate` 引数は移行の命名に使用されます。 任意の名前を使用できますが、規則により、移行を説明する名前が選択されます。
 
-`ef database update` コマンドは、*Migrations/\<time-stamp>_InitialCreate.cs* ファイルの `Up` メソッドを実行します。 `Up` メソッドにより、データベースが作成されます。
+`update` コマンドにより、適用されていない移行で `Up` メソッドが実行されます。 この場合、`update` により、*Migrations/\<time-stamp>_InitialCreate.cs* ファイルで `Up` メソッドが実行され、データベースが作成されます。
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -229,10 +229,6 @@ ASP.NET Core には、[依存関係挿入](xref:fundamentals/dependency-injectio
 `Up` メソッドを調べます。
 
 ---
-
-`Add-Migration` コマンドによって最初のデータベース スキーマを作成するコードが生成されます。 このスキーマは、`RazorPagesMovieContext` で指定されたモデルに基づきます (*Data/RazorPagesMovieContext.cs* ファイル内)。 `Initial` 引数は移行の命名に使用されます。 任意の名前を使用できますが、規則により、移行を説明する名前が使用されます。 詳細については、<xref:data/ef-mvc/migrations> を参照してください。
-
-`Update-Database` コマンドは、データベースを作成する、*Migrations/{time-stamp}_InitialCreate.cs* ファイルの `Up` メソッドを実行します。
 
 <a name="test"></a>
 
@@ -422,10 +418,14 @@ to use Data, it should not use models. That will make the namespace the same for
 
 PMC で、次のコマンドを入力します。
 
-```PMC
+```Powershell
 Add-Migration Initial
 Update-Database
 ```
+
+`Add-Migration` コマンドによって最初のデータベース スキーマを作成するコードが生成されます。 このスキーマは、`DbContext` で指定されたモデルに基づきます (*RazorPagesMovieContext.cs* ファイル内)。 `InitialCreate` 引数は、移行の名前を指定するために使用されます。 任意の名前を使用できますが、規則により、移行を説明する名前が使用されます。 詳細については、<xref:data/ef-mvc/migrations> を参照してください。
+
+`Update-Database` コマンドは、*Migrations/\<time-stamp>_InitialCreate.cs* ファイルの `Up` メソッドを実行します。 `Up` メソッドにより、データベースが作成されます。
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -436,14 +436,8 @@ Update-Database
 [!INCLUDE [initial migration](~/includes/RP/model3.md)]
 
 ---
-
-上記のコマンドで次の警告が生成されます。"エンティティ型 'Movie' の decimal 列 'Price' に型が指定されていません。 これにより、値が既定の有効桁数と小数点以下桁数に収まらない場合、自動的に切り捨てられます。 'HasColumnType()' を使用してすべての値に適合する SQL server 列の型を明示的に指定します。"
-
-この警告は無視して構いません。後のチュートリアルで修正されます。
-
-`ef migrations add InitialCreate` コマンドによって最初のデータベース スキーマを作成するコードが生成されます。 このスキーマは、`DbContext` で指定されたモデルに基づきます (*RazorPagesMovieContext.cs* ファイル内)。 `InitialCreate` 引数は移行の命名に使用されます。 任意の名前を使用できますが、規則により、移行を説明する名前が選択されます。
-
-`ef database update` コマンドは、*Migrations/\<time-stamp>_InitialCreate.cs* ファイルの `Up` メソッドを実行します。 `Up` メソッドにより、データベースが作成されます。
+> [!NOTE]
+> 上記のコマンドで次の警告が生成されます。"*エンティティ型 'Movie' の decimal 列 'Price' に型が指定されていません。これにより、値が既定の有効桁数と小数点以下桁数に収まらない場合、自動的に切り捨てられます。'HasColumnType()' を使用してすべての値に適合する SQL server 列の型を明示的に指定します。* " この警告は無視して構いません。後のチュートリアルで修正されます。
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -474,10 +468,6 @@ ASP.NET Core には、[依存関係挿入](xref:fundamentals/dependency-injectio
 `Up` メソッドを調べます。
 
 ---
-
-`Add-Migration` コマンドによって最初のデータベース スキーマを作成するコードが生成されます。 このスキーマは、`RazorPagesMovieContext` で指定されたモデルに基づきます (*Data/RazorPagesMovieContext.cs* ファイル内)。 `Initial` 引数は移行の命名に使用されます。 任意の名前を使用できますが、規則により、移行を説明する名前が使用されます。 詳細については、<xref:data/ef-mvc/migrations> を参照してください。
-
-`Update-Database` コマンドは、データベースを作成する、*Migrations/{time-stamp}_InitialCreate.cs* ファイルの `Up` メソッドを実行します。
 
 <a name="test"></a>
 

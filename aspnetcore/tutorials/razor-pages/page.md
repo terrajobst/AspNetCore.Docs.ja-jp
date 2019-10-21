@@ -5,12 +5,12 @@ description: スキャフォールディングによって生成された Razor 
 ms.author: riande
 ms.date: 08/17/2019
 uid: tutorials/razor-pages/page
-ms.openlocfilehash: 00a8458b9bee4d30c5774a980ff5c23fb8872737
-ms.sourcegitcommit: 38cac2552029fc19428722bb204ff9e16eb94225
+ms.openlocfilehash: 939ed5c3cdf33d8d99712e3166d8d07d3bac719f
+ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/18/2019
-ms.locfileid: "69573143"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72334084"
 ---
 # <a name="scaffolded-razor-pages-in-aspnet-core"></a>ASP.NET Core でスキャフォールディングされた Razor ページ
 
@@ -30,9 +30,9 @@ ms.locfileid: "69573143"
 
 Razor ページは `PageModel` から派生します。 慣例により、`PageModel` 派生クラスは `<PageName>Model` と呼ばれます。 コンストラクターは[依存性の注入](xref:fundamentals/dependency-injection)を使用して、`RazorPagesMovieContext` をページに追加します。 スキャフォールディングされたページではすべてこのパターンに従います。 Entity Framework での非同期プログラミングの詳細については、「[非同期コード](xref:data/ef-rp/intro#asynchronous-code)」を参照してください。
 
-ページに対して要求が行われると、`OnGetAsync` メソッドは Razor ページにムービーのリストを返します。 Razor ページで `OnGetAsync` または `OnGet` が呼び出され、ページの状態が初期化されます。 この場合、`OnGetAsync` でムービーのリストを取得し、表示します。
+ページに対して要求が行われると、`OnGetAsync` メソッドは Razor ページにムービーのリストを返します。 `OnGetAsync` または `OnGet` が呼び出され、ページの状態が初期化されます。 この場合、`OnGetAsync` でムービーのリストを取得し、表示します。
 
-`OnGet` が `void` を返す場合、または `OnGetAsync` が `Task` を返す場合、return メソッドは使用されません。 戻り値の型が `IActionResult` または `Task<IActionResult>` の場合は、return ステートメントを指定する必要があります。 たとえば、*Pages/Movies/Create.cshtml.cs* `OnPostAsync` メソッドでは、次のようになります。
+`OnGet` によって `void` が返される場合、または `OnGetAsync` によって `Task` が返される場合は、return ステートメントは使用されません。 戻り値の型が `IActionResult` または `Task<IActionResult>` の場合は、return ステートメントを指定する必要があります。 たとえば、*Pages/Movies/Create.cshtml.cs* `OnPostAsync` メソッドでは、次のようになります。
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Create.cshtml.cs?name=snippet)]
 
@@ -42,7 +42,9 @@ Razor ページは `PageModel` から派生します。 慣例により、`PageM
 
 Razor では、HTML から C# または Razor 固有のマークアップに移行できます。 `@` シンボルの後に [Razor で予約済みのキーワード](xref:mvc/views/razor#razor-reserved-keywords)が続いている場合は、Razor 固有のマークアップに移行します。それ以外の場合は、C# に移行します。
 
-`@page` Razor ディレクティブはファイルを MVC アクションに分割します。これは、要求を処理できることを意味します。 `@page` はページで最初の Razor ディレクティブである必要があります。 `@page` は、Razor 固有のマークアップへの移行の例です。 詳細については、「[Razor syntax](xref:mvc/views/razor#razor-syntax)」 (Razor の構文) を参照してください。
+### <a name="the-page-directive"></a>@page ディレクティブ
+
+`@page` Razor ディレクティブを使うと、ファイルが MVC アクションになります。つまり、これで要求を処理できます。 `@page` はページで最初の Razor ディレクティブである必要があります。 `@page` は、Razor 固有のマークアップへの移行の例です。 詳細については、「[Razor syntax](xref:mvc/views/razor#razor-syntax)」 (Razor の構文) を参照してください。
 
 次の HTML ヘルパーで使用されるラムダ式を確認します。
 
@@ -81,7 +83,7 @@ Razor では、HTML から C# または Razor 固有のマークアップに移�
 
 上の強調表示されたマークアップは、Razor の C# への移行例です。 `{` 文字と `}` 文字で C# コードのブロックを囲みます。
 
-`PageModel` 基本クラスには `ViewData` 辞書プロパティが含まれており、これを使用してデータを追加し、ビューに渡すことができます。 オブジェクトは、キー/値のパターンを使用して `ViewData` 辞書に追加されます。 上のサンプルでは、`"Title"` プロパティが `ViewData` 辞書に追加されます。
+`PageModel` 基底クラスには `ViewData` 辞書プロパティが含まれており、これを使用してビューにデータを渡すことができます。 オブジェクトは、キー/値のパターンを使用して `ViewData` 辞書に追加されます。 上のサンプルでは、`"Title"` プロパティが `ViewData` 辞書に追加されます。
 
 `"Title"` プロパティは *Pages/Shared/_Layout.cshtml* ファイルで使用されます。 次のマークアップは、 *_Layout.cshtml* ファイルの最初の数行を示しています。
 

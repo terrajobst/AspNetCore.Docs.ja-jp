@@ -5,12 +5,12 @@ description: データベースと ASP.NET Core の使用について説明し�
 ms.author: riande
 ms.date: 7/22/2019
 uid: tutorials/razor-pages/sql
-ms.openlocfilehash: 197697f28e9faa45c1ac2b7f993bde15994957e5
-ms.sourcegitcommit: 051f068c78931432e030b60094c38376d64d013e
+ms.openlocfilehash: b5acb573f8fa39e5300ecdb359113d8697d78934
+ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/24/2019
-ms.locfileid: "68440387"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72334232"
 ---
 # <a name="work-with-a-database-and-aspnet-core"></a>データベースと ASP.NET Core を使用する
 
@@ -38,7 +38,7 @@ ASP.NET Core の[構成](xref:fundamentals/configuration/index)システムは `
 
 データベースの名前の値は (`Database={Database name}`) ユーザーが生成したコードでは異なります。 名前の値は任意です。
 
-[!code-json[](razor-pages-start/sample/RazorPagesMovie30/appsettings.json)]
+[!code-json[](razor-pages-start/sample/RazorPagesMovie30/appsettings.json?highlight=10-12)]
 
 # <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
@@ -52,7 +52,7 @@ ASP.NET Core の[構成](xref:fundamentals/configuration/index)システムは `
 
 ## <a name="sql-server-express-localdb"></a>SQL Server Express LocalDB
 
-LocalDB は、プログラム開発を対象にした、SQL Server Express データベース エンジンの軽量版です。 LocalDB は要求時に開始され、ユーザー モードで実行されるため、複雑な構成はありません。 LocalDB データベースでは、既定で `C:/Users/<user/>` ディレクトリに `*.mdf` ファイルが作成されます。
+LocalDB は、プログラム開発を対象にした、SQL Server Express データベース エンジンの軽量版です。 LocalDB は要求時に開始され、ユーザー モードで実行されるため、複雑な構成はありません。 LocalDB データベースでは、既定で `C:\Users\<user>\` ディレクトリに `*.mdf` ファイルが作成されます。
 
 <a name="ssox"></a>
 * **[表示]** メニューの **[SQL Server オブジェクト エクスプローラー]** (SSOX) を開きます。
@@ -107,10 +107,10 @@ if (context.Movie.Any())
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Program.cs)]
 
-運用アプリは `Database.Migrate` を呼び出しません。 これは、`Update-Database` が実行されていないとき、前述のコードに追加され、次の例外を阻止します。
+`Update-Database` が実行されていなかった場合、次の例外が発生します。
 
-SqlException:Cannot open database "RazorPagesMovieContext-21" requested by the login. (SqlException: ログインで要求されている "RazorPagesMovieContext-21" データベースを開くことができませんでした。) The login failed.\(ログインに失敗しました。\)
-Login failed for user 'user name'.\(ユーザー 'ユーザー名' はログインできませんでした。\)
+> `SqlException: Cannot open database "RazorPagesMovieContext-" requested by the login. The login failed.`
+> `Login failed for user 'user name'.`
 
 ### <a name="test-the-app"></a>アプリのテスト
 

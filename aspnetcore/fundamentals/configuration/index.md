@@ -5,14 +5,14 @@ description: 構成 API を使用して、ASP.NET Core アプリを構成する�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/12/2019
+ms.date: 10/18/2019
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 357a3d89648086f0329cd16bc9d72863df9bdcd6
-ms.sourcegitcommit: 8a36be1bfee02eba3b07b7a86085ec25c38bae6b
+ms.openlocfilehash: 0a9b1a1a08617ef4ca8a36295cec8910ec111acd
+ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71217786"
+ms.lasthandoff: 10/18/2019
+ms.locfileid: "72589912"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core の構成
 
@@ -773,7 +773,7 @@ public static readonly Dictionary<string, string> _dict =
 
 ## <a name="getvalue"></a>GetValue
 
-[ConfigurationBinder.GetValue\<T>](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) によって、指定したキーで構成から値が抽出され、それが指定した型に変換されます。 オーバーロードを使用すると、キーが見つからない場合に既定値を指定することができます。
+[ConfigurationBinder.GetValue\<T>](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) によって、指定したキーで構成から単一の値が抽出され、それが指定したコレクション以外の型に変換されます。 オーバーロードは、既定値を受け入れます。
 
 次のような例です。
 
@@ -1275,7 +1275,7 @@ public class Startup
 
 Razor Pages ページまたは MVC ビューで構成設定にアクセスするには、[Microsoft.Extensions.Configuration 名前空間](xref:Microsoft.Extensions.Configuration)に [using ディレクティブ](xref:mvc/views/razor#using) ([C# リファレンス: using ディレクティブ](/dotnet/csharp/language-reference/keywords/using-directive)) を追加して、<xref:Microsoft.Extensions.Configuration.IConfiguration> をページまたはビューに挿入します。
 
-Razor ページ: 
+Razor ページ:
 
 ```cshtml
 @page
@@ -1295,7 +1295,7 @@ Razor ページ:
 </html>
 ```
 
-MVC ビュー: 
+MVC ビュー:
 
 ```cshtml
 @using Microsoft.Extensions.Configuration

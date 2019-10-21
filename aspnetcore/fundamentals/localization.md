@@ -5,18 +5,16 @@ description: ASP.NET Core がコンテンツをさまざまな言語と文化に
 ms.author: riande
 ms.date: 01/14/2017
 uid: fundamentals/localization
-ms.openlocfilehash: 6dfbeae201a3586dfea6620917083130c4985b22
-ms.sourcegitcommit: dc96d76f6b231de59586fcbb989a7fb5106d26a8
+ms.openlocfilehash: 9ed133c93a9ec95c63869b710d120eca9fda1b6e
+ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/01/2019
-ms.locfileid: "71703811"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72333701"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>ASP.NET Core のグローバリゼーションおよびローカリゼーション
 
 作成者: [Rick Anderson](https://twitter.com/RickAndMSFT)、[Damien Bowden](https://twitter.com/damien_bod)、[Bart Calixto](https://twitter.com/bartmax)、[Nadeem Afana](https://afana.me/)、[Hisham Bin Ateya](https://twitter.com/hishambinateya)
-
-このドキュメントが ASP.NET Core 3.0 用に更新されるまでは、Hisham のブログ「[What is new in Localization in ASP.NET Core 3.0](http://hishambinateya.com/what-is-new-in-localization-in-asp.net-core-3.0)」(ASP.NET Core 3.0 のローカライズの新機能) を参照してください。
 
 ASP.NET Core で多言語の Web サイトを作成すると、より幅広い対象者がサイトにアクセスできるようになります。 ASP.NET Core は、さまざまな言語と文化にローカライズするためのサービスとミドルウェアを提供します。
 
@@ -275,10 +273,36 @@ Cookie の形式は `c=%LANGCODE%|uic=%LANGCODE%` です。ここで、`c` は `
 
 6. 言語をタップして、 **[上へ移動]** をタップします。
 
+::: moniker range=">= aspnetcore-3.0"
+### <a name="the-content-language-http-header"></a>Content-Language HTTP ヘッダー
+
+[Content-Language](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Language) エンティティ ヘッダーは、
+
+ - 対象ユーザー用に想定した言語を説明するために使用されます。
+ - ユーザーが、そのユーザー独自の優先言語に従って区別することを可能にします。
+
+エンティティ ヘッダーは、HTTP 要求と応答の両方で使用されます。
+
+ASP.NET Core 3.0 では、プロパティ `ApplyCurrentCultureToResponseHeaders` を設定することによって `Content-Language` ヘッダーを追加できます。
+
+`Content-Language` ヘッダーを追加すると、
+
+ - RequestLocalizationMiddleware で `CurrentUICulture` を使って `Content-Language` を設定できるようになります。
+ - 応答ヘッダーの `Content-Language` を明示的に設定する必要がなくなります。
+
+```csharp
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    ApplyCurrentCultureToResponseHeaders = true
+});
+```
+::: moniker-end
+
 ### <a name="use-a-custom-provider"></a>カスタム プロバイダーを使用する
 
 お客様がデータベースに言語とカルチャを格納できるようにしたいとします。 ユーザーのためにこれらの値を検索するプロバイダーを記述することもできます。 次のコードは、カスタム プロバイダーを追加する方法を示しています。
 
+::: moniker range="< aspnetcore-3.0"
 ```csharp
 private const string enUSCulture = "en-US";
 
@@ -301,6 +325,32 @@ services.Configure<RequestLocalizationOptions>(options =>
     }));
 });
 ```
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+```csharp
+private const string enUSCulture = "en-US";
+
+services.Configure<RequestLocalizationOptions>(options =>
+{
+    var supportedCultures = new[]
+    {
+        new CultureInfo(enUSCulture),
+        new CultureInfo("fr")
+    };
+
+    options.DefaultRequestCulture = new RequestCulture(culture: enUSCulture, uiCulture: enUSCulture);
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+
+    options.AddInitialRequestCultureProvider(new CustomRequestCultureProvider(async context =>
+    {
+        // My custom request culture logic
+        return new ProviderCultureResult("en");
+    }));
+});
+```
+::: moniker-end
 
 ローカリゼーション プロバイダーを追加または削除するには、`RequestLocalizationOptions` を使用します。
 
@@ -341,7 +391,11 @@ services.Configure<RequestLocalizationOptions>(options =>
 * 親カルチャ:特定のカルチャを含むニュートラル カルチャ。 (たとえば、"en" は "en-US" および "en-GB" の親カルチャです)。
 * ロケール:ロケールはカルチャと同じです。
 
-[!INCLUDE[](~/includes/currency.md)]
+[!INCLUDE[](~/includes/localization/currency.md)]
+
+::: moniker range=">= aspnetcore-3.0"
+[!INCLUDE[](~/includes/localization/unsupported-culture-log-level.md)]
+::: moniker-end
 
 ## <a name="additional-resources"></a>その他の技術情報
 
@@ -351,3 +405,4 @@ services.Configure<RequestLocalizationOptions>(options =>
 * [.resx ファイル内のリソース](/dotnet/framework/resources/working-with-resx-files-programmatically)
 * [Microsoft 多言語アプリ ツールキット](https://marketplace.visualstudio.com/items?itemName=MultilingualAppToolkit.MultilingualAppToolkit-18308)
 * [ローカリゼーションとジェネリック](https://github.com/hishamco/hishambinateya.com/blob/master/Posts/localization-and-generics.md)
+* [ASP.NET Core 3.0 のローカライズに関する新機能](http://hishambinateya.com/what-is-new-in-localization-in-asp.net-core-3.0)

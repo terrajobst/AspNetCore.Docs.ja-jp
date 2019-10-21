@@ -1,0 +1,2 @@
+> [!NOTE]
+> ASP.NET Core 3.0 より前の Web アプリでは、要求されたカルチャがサポートされていない場合、要求ごとに `LogLevel.Warning` の種類のログが 1 つ書き込まれます。 要求ごとに 1 つの `LogLevel.Warning` をログに記録する場合、冗長な情報を含む大きなログ ファイルが作成される可能性があります。 この動作は、ASP.NET 3.0 で変更されています。 `RequestLocalizationMiddleware` によって `LogLevel.Debug` の種類のログが書き込まれるため、運用ログのサイズが縮小されます。

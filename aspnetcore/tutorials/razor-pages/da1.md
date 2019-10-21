@@ -5,12 +5,12 @@ description: ASP.NET Core アプリで生成済みページを更新する方法
 ms.author: riande
 ms.date: 12/20/2018
 uid: tutorials/razor-pages/da1
-ms.openlocfilehash: f1f69b7facf584d46248405c808e75bdd8448d2b
-ms.sourcegitcommit: 051f068c78931432e030b60094c38376d64d013e
+ms.openlocfilehash: 0f6535462fe2d308825bf7289c10d2b0690cebd4
+ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/24/2019
-ms.locfileid: "68440324"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72334109"
 ---
 # <a name="update-the-generated-pages-in-an-aspnet-core-app"></a>ASP.NET Core アプリで生成済みページを更新する
 
@@ -53,6 +53,8 @@ Pages/Movies を参照し、 **[編集]** リンクをポイントしてター�
 ```
 
 動的に生成されたリンクは、クエリ文字列を含むムービー ID を渡します (例: `https://localhost:5001/Movies/Details?id=1` の `?id=1`)。
+
+### <a name="add-route-template"></a>ルート テンプレートの追加
 
 "{id:int}" ルート テンプレートを使用するには、[編集]、[詳細]、および [削除] Razor ページを更新します。 これらの各ページのページ ディレクティブを `@page` から `@page "{id:int}"` に変更します。 アプリを実行してから、ソースを表示します。 生成される HTML では、次のように URL のパス部分に ID を追加します。
 

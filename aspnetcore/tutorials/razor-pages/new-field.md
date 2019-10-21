@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 7/23/2019
 uid: tutorials/razor-pages/new-field
-ms.openlocfilehash: 0629605f4d5597a9694cb20ce00b91ff4a768468
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 1b08e1515afe656b95be9fb436caa00cd53ab9ad
+ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082466"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72334104"
 ---
 # <a name="add-a-new-field-to-a-razor-page-in-aspnet-core"></a>ASP.NET Core で Razor ページに新しいフィールドを追加する
 
@@ -28,7 +28,7 @@ ms.locfileid: "71082466"
 
 EF Code First を使用してデータベースを自動的に作成する場合、Code First では次が実行されます。
 
-* テーブルをデータベースに追加し、データベースのスキーマが生成元のモデル クラスと同期しているかを追跡します。
+* データベースに `__EFMigrationsHistory` テーブルが追加され、データベースのスキーマが生成元のモデル クラスと同期しているかどうかが追跡されます。
 * モデル クラスがデータベースと同期されていない場合、EF は例外をスローします。
 
 同期中のスキーマ/モデルが自動的に検証されるようにすると、整合性のないデータベース/コードの問題を発見しやすくなります。
@@ -51,11 +51,11 @@ EF Code First を使用してデータベースを自動的に作成する場合
 * [Create.cshtml](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Create.cshtml) を `Rating` フィールドを使用して更新します。
 * [編集] ページに、`Rating` フィールドを追加します。
 
-DB を更新して新しいフィールドが含まれるようになるまでアプリは動作しません。 ここで実行すると、アプリによって `SqlException` がスローされます。
+DB を更新して新しいフィールドが含まれるようになるまでアプリは動作しません。 データベースを更新せずにアプリを実行すると、次の `SqlException` がスローされます。
 
 `SqlException: Invalid column name 'Rating'.`
 
-このエラーが表示されるのは、更新された Movie モデル クラスがデータベースの Movie テーブルのスキーマと異なるためです。 (データベース テーブルに `Rating` 列はありません)。
+`SqlException` 例外が発生するのは、更新された Movie モデル クラスが、データベースの Movie テーブルのスキーマと異なるためです。 (データベース テーブルに `Rating` 列はありません)。
 
 このエラーを解決するための手法がいくつかあります。
 
@@ -96,7 +96,7 @@ Update-Database
 
 "Rating (評価)" という名前は任意です。移行ファイルに名前を付けるために利用されます。 移行ファイルには意味のある名前を使用すると便利です。
 
-フレームワークは、データベースにスキーマ変更を適用するように、`Update-Database` コマンドから指示されます。
+`Update-Database` コマンドを使うと、データベースにスキーマ変更を適用し、既存のデータを保持するようにフレームワークに指示できます。
 
 <a name="ssox"></a>
 

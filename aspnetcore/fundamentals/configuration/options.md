@@ -5,14 +5,14 @@ description: ASP.NET Core アプリの関連のある設定のグループを表
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/19/2019
+ms.date: 10/11/2019
 uid: fundamentals/configuration/options
-ms.openlocfilehash: 22dde4b05ea20fedb696c6a4b144755a957e8c0d
-ms.sourcegitcommit: 41f2c1a6b316e6e368a4fd27a8b18d157cef91e1
+ms.openlocfilehash: eb0b7f3f4596b63cf3142017c5c5fe4923aac3a4
+ms.sourcegitcommit: dd026eceee79e943bd6b4a37b144803b50617583
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/21/2019
-ms.locfileid: "69886370"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72378743"
 ---
 # <a name="options-pattern-in-aspnet-core"></a>ASP.NET Core のオプション パターン
 
@@ -29,9 +29,9 @@ ms.locfileid: "69886370"
 
 [サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/options/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
-## <a name="prerequisites"></a>必須コンポーネント
+## <a name="package"></a>Package
 
-[Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app) を参照するか、[Microsoft.Extensions.Options.ConfigurationExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Options.ConfigurationExtensions/) パッケージへのパッケージ参照を追加します。
+ASP.NET Core アプリでは、[Microsoft.Extensions.Options.ConfigurationExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Options.ConfigurationExtensions/) パッケージが暗黙的に参照されます。
 
 ## <a name="options-interfaces"></a>オプションのインターフェイス
 
@@ -138,7 +138,7 @@ delegate_option1 = value1_configured_by_delegate, delegate_option2 = 500
 
 [!code-csharp[](options/samples/3.x/OptionsSample/Startup.cs?name=snippet_Example3)]
 
-拡張メソッド `GetSection` は、[Microsoft.Extensions.Options.ConfigurationExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Options.ConfigurationExtensions/) NuGet パッケージを必要とします。 アプリで [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app) (ASP.NET Core 2.1 以降) を使用している場合、このパッケージは自動的に含まれます。
+拡張メソッド `GetSection` は、[Microsoft.Extensions.Options.ConfigurationExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Options.ConfigurationExtensions/) NuGet パッケージを必要とします。 ASP.NET Core アプリでは、`Microsoft.Extensions.Options.ConfigurationExtensions` が暗黙的に参照されます。
 
 サンプルの *appsettings.json* ファイルは、`suboption1` と `suboption2` のキーで `subsection` メンバーを定義します。
 
@@ -342,9 +342,10 @@ public interface IValidateOptions<TOptions> where TOptions : class
 }
 ```
 
-データ注釈に基づく検証は、`OptionsBuilder<TOptions>` で <xref:Microsoft.Extensions.DependencyInjection.OptionsBuilderDataAnnotationsExtensions.ValidateDataAnnotations*> メソッドを呼び出すことにより、[Microsoft.Extensions.Options.DataAnnotations](https://www.nuget.org/packages/Microsoft.Extensions.Options.DataAnnotations) パッケージから利用できます。 `Microsoft.Extensions.Options.DataAnnotations` は、[Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)に含まれます (ASP.NET Core 2.2 以降)。
+データ注釈に基づく検証は、`OptionsBuilder<TOptions>` で <xref:Microsoft.Extensions.DependencyInjection.OptionsBuilderDataAnnotationsExtensions.ValidateDataAnnotations*> メソッドを呼び出すことにより、[Microsoft.Extensions.Options.DataAnnotations](https://www.nuget.org/packages/Microsoft.Extensions.Options.DataAnnotations) パッケージから利用できます。 ASP.NET Core アプリでは、`Microsoft.Extensions.Options.DataAnnotations` が暗黙的に参照されます。
 
 ```csharp
+using System.ComponentModel.DataAnnotations;
 using Microsoft.Extensions.DependencyInjection;
 
 private class AnnotatedOptions
@@ -375,7 +376,7 @@ public void CanValidateDataAnnotations()
     var sp = services.BuildServiceProvider();
 
     var error = Assert.Throws<OptionsValidationException>(() => 
-        sp.GetRequiredService<IOptionsMonitor<AnnotatedOptions>>().Value);
+        sp.GetRequiredService<IOptionsMonitor<AnnotatedOptions>>().CurrentValue);
     ValidateFailure<AnnotatedOptions>(error, Options.DefaultName, 1,
         "DataAnnotation validation failed for members Required " +
             "with the error 'The Required field is required.'.",
@@ -422,7 +423,8 @@ services.PostConfigureAll<MyOptions>(myOptions =>
 サービスは `Configure` メソッドの実行前に構築されるため、<xref:Microsoft.Extensions.Options.IOptions%601> および <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> は `Startup.Configure` で使用できます。
 
 ```csharp
-public void Configure(IApplicationBuilder app, IOptionsMonitor<MyOptions> optionsAccessor)
+public void Configure(IApplicationBuilder app, 
+    IOptionsMonitor<MyOptions> optionsAccessor)
 {
     var option1 = optionsAccessor.CurrentValue.Option1;
 }
@@ -756,7 +758,7 @@ public interface IValidateOptions<TOptions> where TOptions : class
 }
 ```
 
-データ注釈に基づく検証は、`OptionsBuilder<TOptions>` で <xref:Microsoft.Extensions.DependencyInjection.OptionsBuilderDataAnnotationsExtensions.ValidateDataAnnotations*> メソッドを呼び出すことにより、[Microsoft.Extensions.Options.DataAnnotations](https://www.nuget.org/packages/Microsoft.Extensions.Options.DataAnnotations) パッケージから利用できます。 `Microsoft.Extensions.Options.DataAnnotations` は、[Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)に含まれます (ASP.NET Core 2.2 以降)。
+データ注釈に基づく検証は、`OptionsBuilder<TOptions>` で <xref:Microsoft.Extensions.DependencyInjection.OptionsBuilderDataAnnotationsExtensions.ValidateDataAnnotations*> メソッドを呼び出すことにより、[Microsoft.Extensions.Options.DataAnnotations](https://www.nuget.org/packages/Microsoft.Extensions.Options.DataAnnotations) パッケージから利用できます。 `Microsoft.Extensions.Options.DataAnnotations` は、[Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)に含まれています。
 
 ```csharp
 using Microsoft.Extensions.DependencyInjection;
@@ -789,7 +791,7 @@ public void CanValidateDataAnnotations()
     var sp = services.BuildServiceProvider();
 
     var error = Assert.Throws<OptionsValidationException>(() => 
-        sp.GetRequiredService<IOptionsMonitor<AnnotatedOptions>>().Value);
+        sp.GetRequiredService<IOptionsMonitor<AnnotatedOptions>>().CurrentValue);
     ValidateFailure<AnnotatedOptions>(error, Options.DefaultName, 1,
         "DataAnnotation validation failed for members Required " +
             "with the error 'The Required field is required.'.",

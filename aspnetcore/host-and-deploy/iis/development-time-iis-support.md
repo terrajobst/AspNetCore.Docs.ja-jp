@@ -5,14 +5,14 @@ description: ASP.NET Core アプリが Windows Server 上の IIS で実行され
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/08/2019
+ms.date: 10/10/2019
 uid: host-and-deploy/iis/development-time-iis-support
-ms.openlocfilehash: f2d5dbbdc80eec035616ddea234ee5d3343eeae8
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: e5da4f7202bf31e65c366d6f7de54212f5b0fed7
+ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815185"
+ms.lasthandoff: 10/11/2019
+ms.locfileid: "72259801"
 ---
 # <a name="development-time-iis-support-in-visual-studio-for-aspnet-core"></a>Visual Studio for ASP.NET Core の開発時 IIS サポート
 
@@ -140,7 +140,7 @@ Visual Studio を使用していない場合は、起動プロファイルを *P
 Visual Studio を管理者として実行します。
 
 * ビルド構成のドロップダウン リストが **[デバッグ]** に設定されていることを確認します。
-* [実行] ボタンを **[IIS]** プロファイルに設定し、ボタンを選択してアプリを起動します。
+* [[デバッグの開始] ボタン](/visualstudio/debugger/debugger-feature-tour)を **[IIS]** プロファイルに設定し、ボタンを選択してアプリを起動します。
 
 管理者として実行していない場合、Visual Studio によって再起動を求められる場合があります。 その場合は、Visual Studio を再起動します。
 

@@ -5,14 +5,14 @@ description: Blazor アプリを段階的に構築します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/15/2019
+ms.date: 10/15/2019
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: 10feb5467a6a6b5a43e0df739fa72902af9854da
-ms.sourcegitcommit: e5a74f882c14eaa0e5639ff082355e130559ba83
+ms.openlocfilehash: c357b324905ee3a4c9f4bd167dbbcacaf7e1bc76
+ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71168366"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72391202"
 ---
 # <a name="build-your-first-blazor-app"></a>最初の Blazor アプリを構築する
 
@@ -99,6 +99,8 @@ HTML 構文を使用して、別のコンポーネント内にコンポーネン
 
 ## <a name="dependency-injection"></a>依存関係の挿入
 
+### <a name="blazor-server-experience"></a>Blazor サーバーのエクスペリエンス
+
 Blazor サーバー アプリを使用している場合、`WeatherForecastService` サービスは `Startup.ConfigureServices` の[シングルトン](xref:fundamentals/dependency-injection#service-lifetimes)として登録されます。 サービスのインスタンスは、[依存関係の挿入 (DI)](xref:fundamentals/dependency-injection) を介してアプリ全体で利用できます。
 
 [!code-csharp[](build-your-first-blazor-app/samples_snapshot/3.x/Startup.cs?highlight=5)]
@@ -113,13 +115,15 @@ Blazor サーバー アプリを使用している場合、`WeatherForecastServi
 
 [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData2.razor?highlight=6)]
 
+### <a name="blazor-webassembly-experience"></a>Blazor WebAssembly のエクスペリエンス
+
 Blazor WebAssembly アプリを使用する場合、*wwwroot/sample-data* フォルダー内の *weather.json* ファイルから天気予報データを取得するために、`HttpClient` が挿入されます。
 
 *Pages/FetchData.razor*:
 
 [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData1_client.razor?highlight=7-8)]
 
-各 forecast インスタンスを気象データのテーブルの行としてレンダリングするために、[\@foreach](/dotnet/csharp/language-reference/keywords/foreach-in) ループが使われています。
+各 forecast 変数を気象データのテーブルの行としてレンダリングするために、[@foreach](/dotnet/csharp/language-reference/keywords/foreach-in) ループが使われています。
 
 [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData3.razor?highlight=11-19)]
 

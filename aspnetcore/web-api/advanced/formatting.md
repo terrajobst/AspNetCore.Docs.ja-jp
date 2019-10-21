@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 8/22/2019
 uid: web-api/advanced/formatting
-ms.openlocfilehash: e503df3d81efbb2800503c0cb4ff5ae093b6e1ac
-ms.sourcegitcommit: 023495344053dc59115c80538f0ece935e7490a2
+ms.openlocfilehash: 78fe620ea8fdd681a276253f77939bcb2a56ebb9
+ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/28/2019
-ms.locfileid: "71592348"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72391291"
 ---
 # <a name="format-response-data-in-aspnet-core-web-api"></a>ASP.NET Core Web API の応答データの書式設定
 
@@ -57,9 +57,7 @@ ASP.NET Core MVC では、応答データの書式設定がサポートされま
 
 [!code-csharp[](./formatting/sample/Controllers/AuthorsController.cs?name=snippet_search)]
 
-別の形式が要求され、その要求された形式をサーバーが返せる場合を除き、JSON で書式設定された応答が返されます。 [Fiddler](https://www.telerik.com/fiddler) や [Postman](https://www.getpostman.com/tools) のようなツールは、`Accept` ヘッダーを設定して戻り値の形式を指定できます。 `Accept` に含まれる型がサーバーでサポートされるときは、その型が返されます。
-
-既定では、ASP.NET Core では JSON のみがサポートされます。 既定値を変更しないアプリの場合は、クライアントの要求に関係なく、JSON で書式設定された応答が常に返されます。 フォーマッタの追加方法は次のセクションで説明します。
+ASP.NET Core では、規定で `application/json`、`text/json`、`text/plain` のメディアの種類がサポートされています。 [Fiddler](https://www.telerik.com/fiddler) や [Postman](https://www.getpostman.com/tools) のようなツールでは、`Accept` 要求ヘッダーを設定して戻り値の形式を指定できます。 サーバーでサポートされている型が `Accept` ヘッダーに含まれている場合は、その型が返されます。 フォーマッタの追加方法は次のセクションで説明します。
 
 コントローラー アクションは POCO (単純な従来の CLR オブジェクト) を返すことができます。 POCO が返されると、ランタイムはそのオブジェクトをラップする `ObjectResult` を自動的に作成します。 クライアントは、書式設定されたシリアル化オブジェクトを取得します。 返されるオブジェクトが `null` の場合は、`204 No Content` という応答が返されます。
 
@@ -221,16 +219,16 @@ XML の書式設定には、[Microsoft.AspNetCore.Mvc.Formatters.Xml](https://ww
 
 ### <a name="special-case-formatters"></a>特殊なケースのフォーマッタ
 
-一部の特殊なケースが組み込みのフォーマッタで実装されます。 既定では、戻り値の型 `string` は *text/plain* として書式設定されます (`Accept` ヘッダー経由で要求された場合は *text/html*)。 この動作は <xref:Microsoft.AspNetCore.Mvc.Formatters.TextOutputFormatter> を削除することで削除できます。 フォーマッタは `Configure` メソッドで削除します。 戻り値の型としてモデル オブジェクトをともなうアクションは、`null` を返すとき、`204 No Content` を返します。 この動作は <xref:Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter> を削除することで削除できます。 次のコードでは、`TextOutputFormatter` と `HttpNoContentOutputFormatter` が削除されます。
+一部の特殊なケースが組み込みのフォーマッタで実装されます。 既定では、戻り値の型 `string` は *text/plain* として書式設定されます (`Accept` ヘッダー経由で要求された場合は *text/html*)。 この動作は <xref:Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter> を削除することで削除できます。 フォーマッタは `ConfigureServices` メソッドで削除します。 戻り値の型としてモデル オブジェクトをともなうアクションは、`null` を返すとき、`204 No Content` を返します。 この動作は <xref:Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter> を削除することで削除できます。 次のコードでは、`StringOutputFormatter` と `HttpNoContentOutputFormatter` が削除されます。
 
 ::: moniker range=">= aspnetcore-3.0"
-[!code-csharp[](./formatting/3.0sample/StartupTextOutputFormatter.cs?name=snippet)]
+[!code-csharp[](./formatting/3.0sample/StartupStringOutputFormatter.cs?name=snippet)]
 ::: moniker-end
 ::: moniker range="< aspnetcore-3.0"
-[!code-csharp[](./formatting/sample/StartupTextOutputFormatter.cs?name=snippet)]
+[!code-csharp[](./formatting/sample/StartupStringOutputFormatter.cs?name=snippet)]
 ::: moniker-end
 
-`TextOutputFormatter` がないと、戻り値の型 `string` は `406 Not Acceptable` を返します。 XML フォーマッタが存在するときは、`TextOutputFormatter` が削除された場合、戻り値の型 `string` が書式設定されます。
+`StringOutputFormatter` がない場合は、組み込みの JSON フォーマッタによって戻り値の型 `string` が書式設定されます。 組み込みの JSON フォーマッタが削除され、XML フォーマッタを使用できる場合は、XML フォーマッタによって戻り値の型 `string` が書式設定されます。 それ以外の場合は、戻り値の型 `string` で `406 Not Acceptable` が返されます。
 
 `HttpNoContentOutputFormatter` がない場合、構成されているフォーマッタを利用し、null オブジェクトが書式設定されます。 次に例を示します。
 

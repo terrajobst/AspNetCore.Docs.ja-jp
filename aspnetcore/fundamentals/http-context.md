@@ -4,14 +4,14 @@ author: coderandhiker
 description: ASP.NET Core で HttpContext にアクセスする方法について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/27/2018
+ms.date: 10/11/2018
 uid: fundamentals/httpcontext
-ms.openlocfilehash: 373c036e0839ce51259e23f8503fbe4691b48751
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 888adf6d61e6968127385952e65f942e86b7eb63
+ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64886517"
+ms.lasthandoff: 10/12/2019
+ms.locfileid: "72288969"
 ---
 # <a name="access-httpcontext-in-aspnet-core"></a>ASP.NET Core で HttpContext にアクセスする
 
@@ -137,7 +137,7 @@ public class UserRepository : IUserRepository
 `HttpContext` はスレッド セーフではありません。 要求の処理以外で `HttpContext` のプロパティを読み書きすると、結果的に `NullReferenceException` になることがあります。
 
 > [!NOTE]
-> 要求の処理以外で `HttpContext` を使用すると、結果的に `NullReferenceException` になることがしばしばあります。 アプリで `NullReferenceException` が散発的に生成される場合、コードの中で、バックグラウンド処理を開始する部分や要求完了後に処理を続行する部分を見直してください。 コントローラー メソッドを `async void` として定義しているなどの間違いがないか探してください。
+> 要求の処理以外で `HttpContext` を使用すると、結果的に `NullReferenceException` になることがしばしばあります。 アプリで `NullReferenceException` が散発的に生成される場合、コードの中で、バックグラウンド処理を開始する部分や要求完了後に処理を続行する部分を見直してください。 コントローラー メソッドを `async void` として定義するなどの間違いを探します。
 
 `HttpContext` データでバックグラウンド作業を安全に実行するには:
 

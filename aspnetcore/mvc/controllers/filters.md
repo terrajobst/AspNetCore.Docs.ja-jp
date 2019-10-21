@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/28/2019
 uid: mvc/controllers/filters
-ms.openlocfilehash: ed48c2074360768b8d8c5af7057b353b00592394
-ms.sourcegitcommit: 73a451e9a58ac7102f90b608d661d8c23dd9bbaf
+ms.openlocfilehash: 0c3597f24e02af40517e12a86127b140ed4fb550
+ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/08/2019
-ms.locfileid: "72037700"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72333928"
 ---
 # <a name="filters-in-aspnet-core"></a>ASP.NET Core フィルター
 
@@ -449,18 +449,7 @@ FiltersSample.Filters.LogConstantFilter:Information: Method 'Hi' called
 * アクション結果と後続フィルターの実行が回避されます。
 * 結果は成功ではなく、失敗として処理されます。
 
-<xref:Microsoft.AspNetCore.Mvc.Filters.IResultFilter.OnResultExecuted*?displayProperty=fullName> メソッドが実行されると:
-
-* 応答はおそらくクライアントに送信されており、変更できません。
-* 例外がスローされた場合、応答本文は送信されていません。
-
-<!-- Review preceding "If an exception was thrown: Original 
-When the OnResultExecuted method runs, the response has likely been sent to the client and cannot be changed further (unless an exception was thrown).
-
-SHould that be , 
-If an exception was thrown **IN THE RESULT FILTER**, the response body is not sent.
-
- -->
+<xref:Microsoft.AspNetCore.Mvc.Filters.IResultFilter.OnResultExecuted*?displayProperty=fullName> メソッドが実行されたとき、応答が既にクライアントに送信されている可能性があります。 応答が既にクライアントに送信されていた場合は、それ以上変更することはできません。
 
 別のフィルターによってアクションの結果の実行がショートサーキットされた場合、`ResultExecutedContext.Canceled` は `true` に設定されます。
 
@@ -532,7 +521,7 @@ What's a non-named attribute?
 
 ミドルウェアをフィルターとして使用するには、フィルター パイプラインに挿入するミドルウェアを指定する `Configure` メソッドを使用して型を作成します。 ローカリゼーション ミドルウェアを使用して要求の現在のカルチャを確立する例を次に示します。
 
-[!code-csharp[](./filters/sample/FiltersSample/Filters/LocalizationPipeline.cs?name=snippet_MiddlewareFilter&highlight=3,21)]
+[!code-csharp[](./filters/sample/FiltersSample/Filters/LocalizationPipeline.cs?name=snippet_MiddlewareFilter&highlight=3,22)]
 
 <xref:Microsoft.AspNetCore.Mvc.MiddlewareFilterAttribute> を使用し、ミドルウェアを実行します。
 
@@ -542,5 +531,5 @@ What's a non-named attribute?
 
 ## <a name="next-actions"></a>次の操作
 
-* [Razor Pages のフィルター メソッド](xref:razor-pages/filter)に関するページをご覧ください
+* [Razor Pages のフィルター メソッド](xref:razor-pages/filter)に関するページをご覧ください。
 * フィルターを試すには、[GitHub のサンプルをダウンロードして、テストおよび変更を行います](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/sample)。

@@ -5,14 +5,14 @@ description: ASP.NET Core を使用して Blazor サーバー アプリをホス
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 10/05/2019
 uid: host-and-deploy/blazor/server
-ms.openlocfilehash: aedef7fe695dd4a0cbf04d3f3e9947f33f7afa40
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: 693d7ff67bad3a0c5bd050b795833763056ed511
+ms.sourcegitcommit: dd026eceee79e943bd6b4a37b144803b50617583
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71211607"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72378821"
 ---
 # <a name="host-and-deploy-blazor-server"></a>Blazor サーバーをホストして展開する
 
@@ -52,7 +52,11 @@ Blazor サーバー アプリでは、ブラウザーとの通信に ASP.NET Cor
 
 Blazor は、待ち時間、信頼性、および[セキュリティ](xref:signalr/security)が低いために WebSocket を SignalR トランスポートとして使用する場合に最適です。 WebSocket が使用できない場合や、ロング ポーリングを使用するようにアプリが明示的に構成されている場合は、SignalR によってロング ポーリングが使用されます。 Azure App Service にデプロイする場合は、サービスの Azure portal 設定で WebSocket を使用するようにアプリを構成します。 Azure App Service 用にアプリを構成する方法の詳細については、[SignalR の発行ガイドライン](xref:signalr/publish-to-azure-web-app)を参照してください。
 
-Blazor サーバー アプリには [Azure SignalR Service](/azure/azure-signalr) を使用することをお勧めします。 このサービスでは、多数の同時 SignalR 接続に対して Blazor Server アプリをスケールアップできます。 さらに、SignalR サービスのグローバル リーチと高パフォーマンスのデータ センターは、地理的条件による待機時間の短縮に役立ちます。
+Blazor サーバー アプリには [Azure SignalR Service](/azure/azure-signalr) を使用することをお勧めします。 このサービスでは、多数の同時 SignalR 接続に対して Blazor Server アプリをスケールアップできます。 さらに、SignalR サービスのグローバル リーチと高パフォーマンスのデータ センターは、地理的条件による待機時間の短縮に役立ちます。 アプリの構成 (および必要に応じてプロビジョニング) を行うために、Azure SignalR Service によって次が実行されます。
+
+* Blazor サーバー アプリ用に、Visual Studio に Azure アプリ発行プロファイルを作成する。
+* プロファイルに **Azure SignalR Service** の依存関係を追加する。 Azure サブスクリプションに、アプリに割り当てる既存の Azure SignalR Service のインスタンスがない場合は、 **[新しい Azure SignalR Service のインスタンスを作成する]** を選択して新しいサービス インスタンスをプロビジョニングします。
+* アプリを Azure に発行する
 
 ### <a name="measure-network-latency"></a>ネットワーク待機時間の測定
 

@@ -5,14 +5,14 @@ description: ASP.NET Core アプリをホストするための ASP.NET Core モ�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/08/2019
+ms.date: 10/13/2019
 uid: host-and-deploy/aspnet-core-module
-ms.openlocfilehash: c1c34f368cb3f7767bf0f229ff70c5ab53c6005f
-ms.sourcegitcommit: fcdf9aaa6c45c1a926bd870ed8f893bdb4935152
+ms.openlocfilehash: 917ee462a8f9592120685b53d059a661cb4a7452
+ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72165322"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72333891"
 ---
 # <a name="aspnet-core-module"></a>ASP.NET Core モジュール
 
@@ -76,6 +76,8 @@ ASP.NET Core アプリの既定はインプロセス ホスティング モデ�
       app.UseAuthentication();
   }
   ```
+  
+  * [Web パッケージ (単一ファイル) の配置](/aspnet/web-forms/overview/deployment/web-deployment-in-the-enterprise/deploying-web-packages)はサポートされていません。
 
 ### <a name="out-of-process-hosting-model"></a>アウト プロセス ホスティング モデル
 

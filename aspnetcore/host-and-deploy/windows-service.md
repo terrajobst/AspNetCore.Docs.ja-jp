@@ -5,14 +5,14 @@ description: Windows サービスで ASP.NET Core アプリケーションをホ
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/07/2019
+ms.date: 10/10/2019
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: 32226c06ba005b4a61c473d6584b2b762733dcbd
-ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
+ms.openlocfilehash: b02e627af875f15a81d68b0d625a2eccf25c0657
+ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/07/2019
-ms.locfileid: "72007306"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72333798"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>Windows サービスでの ASP.NET Core のホスト
 
@@ -302,10 +302,12 @@ Remove-Service -Name {NAME}
 
 既定では、ASP.NET Core は `http://localhost:5000` にバインドされます。 `ASPNETCORE_URLS` 環境変数を設定して、URL とポートを構成します。
 
-HTTPS エンドポイントのサポートなど、追加の URL とポートの構成方法については、次のトピックを参照してください。
+追加の URL とポートの構成方法については、関連するサーバーの記事を参照してください。
 
-* <xref:fundamentals/servers/kestrel#endpoint-configuration> (Kestrel)
-* <xref:fundamentals/servers/httpsys#configure-windows-server> (HTTP.sys)
+* <xref:fundamentals/servers/kestrel#endpoint-configuration>
+* <xref:fundamentals/servers/httpsys#configure-windows-server>
+
+上記のガイダンスでは、HTTPS エンドポイントのサポートについて説明しています。 たとえば、Windows サービスで認証が使用されている場合は、アプリを HTTPS 用に構成します。
 
 > [!NOTE]
 > サービス エンドポイントをセキュリティで保護するために ASP.NET Core の HTTPS 開発証明書を使用することはできません。
