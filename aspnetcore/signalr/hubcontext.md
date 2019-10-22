@@ -14,34 +14,34 @@ ms.contentlocale: ja-JP
 ms.lasthandoff: 04/27/2019
 ms.locfileid: "64894479"
 ---
-# <a name="send-messages-from-outside-a-hub"></a>ハブの外部からのメッセージを送信します。
+# <a name="send-messages-from-outside-a-hub"></a>ハブの外部からのメッセージ送信
 
 作成者: [Mikael Mengistu](https://twitter.com/MikaelM_12)
 
-SignalR ハブは、SignalR のサーバーに接続しているクライアントにメッセージを送信するための中核となる抽象化です。 アプリを使用して、その他の場所からメッセージを送信することも、`IHubContext`サービス。 この記事は、SignalR にアクセスする方法を説明します`IHubContext`ハブ外からのクライアントに通知を送信します。
+SignalR ハブは、SignalR のサーバーに接続しているクライアントにメッセージを送信するための中核となる抽象化です。 `IHubContext`サービスを使用して、アプリ内の他の場所からメッセージを送信することもできます。 この記事は、ハブの外部からのクライアントに通知を送信するためにSignalR の`IHubContext`にアクセスする方法を説明します。
 
-[サンプル コードのダウンロードを表示または](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/hubcontext/sample/) [(ダウンロードする方法)](xref:index#how-to-download-a-sample)
+[サンプルコードの表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/hubcontext/sample/) [(ダウンロードする方法)](xref:index#how-to-download-a-sample)
 
-## <a name="get-an-instance-of-ihubcontext"></a>IHubContext のインスタンスを取得します。
+## <a name="get-an-instance-of-ihubcontext"></a>IHubContext インスタンスの取得
 
-ASP.NET Core signalr でのインスタンスにアクセスすることができます`IHubContext`依存関係の挿入を使用しています。 インスタンスを挿入できる`IHubContext`コント ローラー、ミドルウェア、またはその他の DI サービスにします。 インスタンスを使用して、クライアントにメッセージを送信します。
+ASP.NET Core SignalRでは 依存関係の挿入を介して`IHubContext`インスタンスにアクセスすることができます。 コントローラー、ミドルウェア、またはその他の DI サービスに`IHubContext`インスタンスを挿入できます。クライアントへのメッセージ送信にインスタンスを使用します。
 
 > [!NOTE]
-> 一方、ASP.NET 4.x GlobalHost にアクセスできるようにするために使用する SignalR、`IHubContext`します。 ASP.NET Core は、このグローバル シングルトンの必要性を削除する依存関係挿入フレームワークです。
+> これは GlobalHost を使用して`IHubContext`へのアクセスを提供した ASP.NET 4.x SignalR とは異なります。 ASP.NET Core には、このグローバルシングルトンの必要性を取り除く依存関係挿入フレームワークがあります。
 
-### <a name="inject-an-instance-of-ihubcontext-in-a-controller"></a>IHubContext のコント ローラーのインスタンスを挿入します。
+### <a name="inject-an-instance-of-ihubcontext-in-a-controller"></a>コントローラーへの IHubContext インスタンスの挿入
 
-インスタンスを挿入できる`IHubContext`コンス トラクターに追加して、コント ローラーにします。
+コンストラクターに`IHubContext`を追加することでコントローラーにそのインスタンスを挿入できます。
 
 [!code-csharp[IHubContext](hubcontext/sample/Controllers/HomeController.cs?range=12-19,57)]
 
-現在のインスタンスへのアクセスで`IHubContext`、ハブ自体で必要がある場合は、ハブ メソッドを呼び出すことができます。
+これで、`IHubContext`インスタンスにアクセスすると、ハブ自体の中のようにハブメソッドを呼び出すことができます。
 
 [!code-csharp[IHubContext](hubcontext/sample/Controllers/HomeController.cs?range=21-25)]
 
-### <a name="get-an-instance-of-ihubcontext-in-middleware"></a>IHubContext のミドルウェア内でインスタンスを取得します。
+### <a name="get-an-instance-of-ihubcontext-in-middleware"></a>ミドルウェア内での IHubContext インスタンスの取得
 
-アクセス、`IHubContext`ミドルウェア パイプライン内で次のようにします。
+ミドルウェアパイプライン内で`IHubContext`にアクセスするには次のようにします。
 
 ```csharp
 app.Use(async (context, next) =>
@@ -53,11 +53,11 @@ app.Use(async (context, next) =>
 ```
 
 > [!NOTE]
-> ハブ メソッドの外部から呼び出されるときに、`Hub`クラスは、呼び出しに関連付けられている呼び出し元はありません。 そのためへのアクセスはありません、 `ConnectionId`、 `Caller`、および`Others`プロパティ。
+> `Hub`クラスの外部からハブメソッドが呼び出されるときは、呼び出しに関連付けられている呼び出し元はありません。 そのため `ConnectionId`、`Caller`、および`Others`プロパティへアクセスすることはできません。
 
-### <a name="inject-a-strongly-typed-hubcontext"></a>厳密に型指定された HubContext を挿入します。
+### <a name="inject-a-strongly-typed-hubcontext"></a>厳密に型指定された HubContext の挿入
 
-厳密に型指定された HubContext を挿入するように、ハブが継承`Hub<T>`します。 挿入を使用して、`IHubContext<THub, T>`インターフェイスなく`IHubContext<THub>`します。
+厳密に型指定された HubContext を挿入するには、ハブが`Hub<T>`を継承していることを確認します。`IHubContext<THub>`ではなく`IHubContext<THub, T>`インターフェースを使用して挿入します。
 
 ```csharp
 public class ChatController : Controller
