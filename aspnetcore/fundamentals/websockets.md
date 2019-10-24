@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/10/2019
 uid: fundamentals/websockets
-ms.openlocfilehash: 5d4d9b02bd45e6650aa56448a3663cad06b3b45e
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: 098e6826d6f7114baceb9578dc6d9883eb83f0aa
+ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975457"
+ms.lasthandoff: 10/18/2019
+ms.locfileid: "72589703"
 ---
 # <a name="websockets-support-in-aspnet-core"></a>ASP.NET Core での Websocket のサポート
 
@@ -78,7 +78,7 @@ ms.locfileid: "69975457"
 次の設定を構成できます。
 
 * `KeepAliveInterval`: プロキシの接続の維持を保証する、クライアントに "ping" フレームを送信する頻度。 既定値は 2 分です。
-* `ReceiveBufferSize`: データの受信に使用されるバッファーのサイズ。 これは、上級ユーザーが、データのサイズに応じたパフォーマンス調整のために変更する必要がある場合があります。 既定値は 4 KB です。
+* <xref:Microsoft.AspNetCore.Builder.WebSocketOptions.ReceiveBufferSize>: データの受信に使用されるバッファーのサイズ。 これは、上級ユーザーが、データのサイズに応じたパフォーマンス調整のために変更する必要がある場合があります。 既定値は 4 KB です。
 * `AllowedOrigins` - WebSocket 要求で許可される配信元ヘッダー値の一覧。 既定では、すべての配信元が許可されています。 詳細については、下記の "WebSocket の配信元の制限" を参照してください。
 
 ::: moniker-end
