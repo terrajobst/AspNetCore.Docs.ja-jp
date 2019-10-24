@@ -18,13 +18,13 @@ ms.locfileid: "64894479"
 
 作成者: [Mikael Mengistu](https://twitter.com/MikaelM_12)
 
-SignalR ハブは、SignalR のサーバーに接続しているクライアントにメッセージを送信するための中核となる抽象化です。 `IHubContext`サービスを使用して、アプリ内の他の場所からメッセージを送信することもできます。 この記事は、ハブの外部からのクライアントに通知を送信するためにSignalR の`IHubContext`にアクセスする方法を説明します。
+SignalR ハブは、SignalR のサーバーに接続しているクライアントにメッセージを送信するための中核となる抽象化です。 `IHubContext`サービスを使用して、アプリ内の他の場所からメッセージを送信することもできます。 この記事は、ハブの外部からのクライアントに通知を送信するために SignalR の`IHubContext`にアクセスする方法を説明します。
 
 [サンプルコードの表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/hubcontext/sample/) [(ダウンロードする方法)](xref:index#how-to-download-a-sample)
 
 ## <a name="get-an-instance-of-ihubcontext"></a>IHubContext インスタンスの取得
 
-ASP.NET Core SignalRでは 依存関係の挿入を介して`IHubContext`インスタンスにアクセスすることができます。 コントローラー、ミドルウェア、またはその他の DI サービスに`IHubContext`インスタンスを挿入できます。クライアントへのメッセージ送信にインスタンスを使用します。
+ASP.NET Core SignalRでは 依存関係の挿入を介して`IHubContext`インスタンスにアクセスすることができます。 コントローラー、ミドルウェア、またはその他の DI サービスに`IHubContext`インスタンスを挿入できます。 クライアントへのメッセージ送信にインスタンスを使用します。
 
 > [!NOTE]
 > これは GlobalHost を使用して`IHubContext`へのアクセスを提供した ASP.NET 4.x SignalR とは異なります。 ASP.NET Core には、このグローバルシングルトンの必要性を取り除く依存関係挿入フレームワークがあります。
@@ -41,7 +41,7 @@ ASP.NET Core SignalRでは 依存関係の挿入を介して`IHubContext`イン�
 
 ### <a name="get-an-instance-of-ihubcontext-in-middleware"></a>ミドルウェア内での IHubContext インスタンスの取得
 
-ミドルウェアパイプライン内で`IHubContext`にアクセスするには次のようにします。
+ミドルウェア パイプライン内で`IHubContext`にアクセスするには次のようにします。
 
 ```csharp
 app.Use(async (context, next) =>
@@ -53,11 +53,11 @@ app.Use(async (context, next) =>
 ```
 
 > [!NOTE]
-> `Hub`クラスの外部からハブメソッドが呼び出されるときは、呼び出しに関連付けられている呼び出し元はありません。 そのため `ConnectionId`、`Caller`、および`Others`プロパティへアクセスすることはできません。
+> `Hub`クラスの外部からハブ メソッドが呼び出されるときは、呼び出しに関連付けられている呼び出し元はありません。 そのため `ConnectionId`、`Caller`、および`Others`プロパティへアクセスすることはできません。
 
 ### <a name="inject-a-strongly-typed-hubcontext"></a>厳密に型指定された HubContext の挿入
 
-厳密に型指定された HubContext を挿入するには、ハブが`Hub<T>`を継承していることを確認します。`IHubContext<THub>`ではなく`IHubContext<THub, T>`インターフェースを使用して挿入します。
+厳密に型指定された HubContext を挿入するには、ハブが`Hub<T>`を継承していることを確認します。 `IHubContext<THub>`ではなく`IHubContext<THub, T>`インターフェースを使用して挿入します。
 
 ```csharp
 public class ChatController : Controller
