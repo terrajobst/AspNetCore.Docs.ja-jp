@@ -6,21 +6,33 @@ Blazor Server アプリをプリレンダリングするときに、ブラウザ
 @using Microsoft.JSInterop
 @inject IJSRuntime JSRuntime
 
-<input @ref="myInput" value="Value set during render" />
+<div @ref="divElement">Text during render</div>
 
 @code {
-    private ElementReference myInput;
+    private ElementReference divElement;
 
-    protected override void OnAfterRender(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            JSRuntime.InvokeVoidAsync(
-                "setElementValue", myInput, "Value set after render");
+            await JSRuntime.InvokeVoidAsync(
+                "setElementText", divElement, "Text after render");
         }
     }
 }
 ```
+
+前のコード例では、 *wwwroot/index.html* (Blazor WebAssembly または*Pages/_Host* (Blazor Server) の `<head>` 要素内に JavaScript 関数 `setElementText` を指定します。 関数は `IJSRuntime.InvokeVoidAsync` と共に呼び出され、値を返しません。
+
+```html
+<!--  -->
+<script>
+  window.setElementText = (element, text) => element.innerText = text;
+</script>
+```
+
+> [!WARNING]
+> 前の例では、デモンストレーションのみを目的として、ドキュメントオブジェクトモデル (DOM) を直接変更しています。 Javascript で DOM を直接変更することは、ほとんどのシナリオでは推奨されません。これは、JavaScript が Blazor の変更の追跡に干渉する可能性があるためです。
 
 次のコンポーネントは、プリレンダリングと互換性のある方法で、コンポーネントの初期化ロジックの一部として JavaScript の相互運用機能を使用する方法を示しています。 コンポーネントには、`OnAfterRenderAsync` 内からレンダリングの更新をトリガーできることが示されています。 このシナリオでは、開発者が無限ループを作成しないようにする必要があります。
 
@@ -39,24 +51,36 @@ JavaScript の相互運用呼び出しから取得された新しい状態をコ
     <strong id="val-get-by-interop">@(infoFromJs ?? "No value yet")</strong>
 </p>
 
-<p>
-    Set value via JS interop call:
-    <input id="val-set-by-interop" @ref="myElem" />
-</p>
+Set value via JS interop call:
+<div id="val-set-by-interop" @ref="divElement"></div>
 
 @code {
     private string infoFromJs;
-    private ElementReference myElem;
+    private ElementReference divElement;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender && infoFromJs == null)
         {
             infoFromJs = await JSRuntime.InvokeAsync<string>(
-                "setElementValue", myElem, "Hello from interop call");
+                "setElementText", divElement, "Hello from interop call!");
 
             StateHasChanged();
         }
     }
 }
 ```
+
+前のコード例では、 *wwwroot/index.html* (Blazor WebAssembly または*Pages/_Host* (Blazor Server) の `<head>` 要素内に JavaScript 関数 `setElementText` を指定します。 関数は `IJSRuntime.InvokeAsync` を指定して呼び出され、値を返します。
+
+```html
+<script>
+  window.setElementText = (element, text) => {
+    element.innerText = text;
+    return text;
+  };
+</script>
+```
+
+> [!WARNING]
+> 前の例では、デモンストレーションのみを目的として、ドキュメントオブジェクトモデル (DOM) を直接変更しています。 Javascript で DOM を直接変更することは、ほとんどのシナリオでは推奨されません。これは、JavaScript が Blazor の変更の追跡に干渉する可能性があるためです。

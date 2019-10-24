@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 09/25/2019
 uid: grpc/migration
-ms.openlocfilehash: 8f0d9dd980fa3281f30dc29d329d10ccd352ae72
-ms.sourcegitcommit: 994da92edb0abf856b1655c18880028b15a28897
+ms.openlocfilehash: 596eca0f510387a18472eb353672980e0a8e0d24
+ms.sourcegitcommit: eb4fcdeb2f9e8413117624de42841a4997d1d82d
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/25/2019
-ms.locfileid: "71278698"
+ms.lasthandoff: 10/21/2019
+ms.locfileid: "72697995"
 ---
 # <a name="migrating-grpc-services-from-c-core-to-aspnet-core"></a>GRPC サービスの C-core から ASP.NET Core への移行
 
@@ -23,13 +23,13 @@ ms.locfileid: "71278698"
 
 ASP.NET Core スタックでは、既定で gRPC サービスが[スコープ有効期間](xref:fundamentals/dependency-injection#service-lifetimes)で作成されます。 これに対し、gRPC C-core は、既定では、[単一の有効期間](xref:fundamentals/dependency-injection#service-lifetimes)を持つサービスにバインドされます。
 
-スコープ内の有効期間を使用すると、サービス実装は、スコープの有効期間を持つ他のサービスを解決できます。 たとえば、スコープが指定された有効`DbContext`期間は、コンストラクターの挿入を通じて DI コンテナーから解決することもできます。 スコープ有効期間の使用:
+スコープ内の有効期間を使用すると、サービス実装は、スコープの有効期間を持つ他のサービスを解決できます。 たとえば、スコープが指定された有効期間は、コンストラクターの挿入によって DI コンテナーから `DbContext` を解決することもできます。 スコープ有効期間の使用:
 
 * サービス実装の新しいインスタンスは、要求ごとに作成されます。
 * 実装型のインスタンスメンバーを介して、要求間で状態を共有することはできません。
 * 共有状態は、単一のサービスに DI コンテナーに格納することを想定しています。 格納されている共有状態は、gRPC サービス実装のコンストラクターで解決されます。
 
-サービスの有効期間の詳細につい<xref:fundamentals/dependency-injection#service-lifetimes>ては、「」を参照してください。
+サービスの有効期間の詳細については、「<xref:fundamentals/dependency-injection#service-lifetimes>」を参照してください。
 
 ### <a name="add-a-singleton-service"></a>シングルトンサービスを追加する
 
@@ -47,25 +47,25 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="configure-grpc-services-options"></a>GRPC サービスのオプションの構成
 
-C コアベースのアプリでは`grpc.max_receive_message_length` 、や`grpc.max_send_message_length`などの設定は、[サーバーインスタンスを構築](https://grpc.io/grpc/csharp/api/Grpc.Core.Server.html#Grpc_Core_Server__ctor_System_Collections_Generic_IEnumerable_Grpc_Core_ChannelOption__)するときにで`ChannelOption`構成されます。
+C コアベースのアプリでは、`grpc.max_receive_message_length` や `grpc.max_send_message_length` などの設定は、[サーバーインスタンスの構築](https://grpc.io/grpc/csharp/api/Grpc.Core.Server.html#Grpc_Core_Server__ctor_System_Collections_Generic_IEnumerable_Grpc_Core_ChannelOption__)時に `ChannelOption` で構成されます。
 
-ASP.NET Core では、grpc は型を`GrpcServiceOptions`使用して構成を提供します。 たとえば、gRPC サービスの最大受信メッセージサイズは、を使用`AddGrpc`して構成できます。 次の例では、 `ReceiveMaxMessageSize`既定の 4 mb を 16 mb に変更します。
+ASP.NET Core では、gRPC は `GrpcServiceOptions` の種類を使用して構成を提供します。 たとえば、gRPC サービスの最大受信メッセージサイズは、`AddGrpc` を使用して構成できます。 次の例では、既定の `MaxReceiveMessageSize` を 4 MB から 16 MB に変更します。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
     services.AddGrpc(options =>
     {
-        options.ReceiveMaxMessageSize = 16 * 1024 * 1024; // 16 MB
+        options.MaxReceiveMessageSize = 16 * 1024 * 1024; // 16 MB
     });
 }
 ```
 
-構成の詳細については<xref:grpc/configuration>、「」を参照してください。
+構成の詳細については、「<xref:grpc/configuration>」を参照してください。
 
 ## <a name="logging"></a>ログの記録
 
-C コアベースのアプリは、を使用`GrpcEnvironment`して、デバッグの目的で[logger を構成](https://grpc.io/grpc/csharp/api/Grpc.Core.GrpcEnvironment.html?q=size#Grpc_Core_GrpcEnvironment_SetLogger_Grpc_Core_Logging_ILogger_)します。 ASP.NET Core スタックは、[ログ API](xref:fundamentals/logging/index)を介してこの機能を提供します。 たとえば、logger は、コンストラクターインジェクションを使用して gRPC サービスに追加できます。
+C コアベースのアプリは、デバッグの目的で[logger を構成](https://grpc.io/grpc/csharp/api/Grpc.Core.GrpcEnvironment.html?q=size#Grpc_Core_GrpcEnvironment_SetLogger_Grpc_Core_Logging_ILogger_)するために `GrpcEnvironment` に依存しています。 ASP.NET Core スタックは、[ログ API](xref:fundamentals/logging/index)を介してこの機能を提供します。 たとえば、logger は、コンストラクターインジェクションを使用して gRPC サービスに追加できます。
 
 ```csharp
 public class GreeterService : Greeter.GreeterBase
