@@ -5,14 +5,14 @@ description: ASP.NET Core で依存関係の挿入を実装する方法とそれ
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/24/2019
+ms.date: 10/12/2019
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: fefd0b9df71d5b0e7c30a31620292fd37eeecfa4
-ms.sourcegitcommit: e54672f5c493258dc449fac5b98faf47eb123b28
+ms.openlocfilehash: b07ed6d1c23454c95778a5942de615684b70bc36
+ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71248270"
+ms.lasthandoff: 10/18/2019
+ms.locfileid: "72589901"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>ASP.NET Core での依存関係の挿入
 
@@ -270,15 +270,15 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="service-registration-methods"></a>サービス登録メソッド
 
-各サービス登録拡張メソッドでは、特定のシナリオで役立つオーバーロードが提供されます。
+サービス登録拡張メソッドでは、特定のシナリオで役立つオーバーロードが提供されます。
 
 | メソッド | 自動<br>object<br>破棄 | 複数<br>実装 | 引数を渡す |
 | ------ | :-----------------------------: | :-------------------------: | :-------: |
-| `Add{LIFETIME}<{SERVICE}, {IMPLEMENTATION}>()`<br>例:<br>`services.AddScoped<IMyDep, MyDep>();` | はい | はい | いいえ |
-| `Add{LIFETIME}<{SERVICE}>(sp => new {IMPLEMENTATION})`<br>次に例を示します。<br>`services.AddScoped<IMyDep>(sp => new MyDep());`<br>`services.AddScoped<IMyDep>(sp => new MyDep("A string!"));` | はい | はい | はい |
-| `Add{LIFETIME}<{IMPLEMENTATION}>()`<br>例:<br>`services.AddScoped<MyDep>();` | はい | × | いいえ |
-| `Add{LIFETIME}<{SERVICE}>(new {IMPLEMENTATION})`<br>次に例を示します。<br>`services.AddScoped<IMyDep>(new MyDep());`<br>`services.AddScoped<IMyDep>(new MyDep("A string!"));` | いいえ | [はい] | はい |
-| `Add{LIFETIME}(new {IMPLEMENTATION})`<br>次に例を示します。<br>`services.AddScoped(new MyDep());`<br>`services.AddScoped(new MyDep("A string!"));` | いいえ | × | はい |
+| `Add{LIFETIME}<{SERVICE}, {IMPLEMENTATION}>()`<br>例:<br>`services.AddSingleton<IMyDep, MyDep>();` | はい | はい | いいえ |
+| `Add{LIFETIME}<{SERVICE}>(sp => new {IMPLEMENTATION})`<br>次に例を示します。<br>`services.AddSingleton<IMyDep>(sp => new MyDep());`<br>`services.AddSingleton<IMyDep>(sp => new MyDep("A string!"));` | はい | はい | はい |
+| `Add{LIFETIME}<{IMPLEMENTATION}>()`<br>例:<br>`services.AddSingleton<MyDep>();` | はい | × | いいえ |
+| `AddSingleton<{SERVICE}>(new {IMPLEMENTATION})`<br>次に例を示します。<br>`services.AddSingleton<IMyDep>(new MyDep());`<br>`services.AddSingleton<IMyDep>(new MyDep("A string!"));` | いいえ | [はい] | はい |
+| `AddSingleton(new {IMPLEMENTATION})`<br>次に例を示します。<br>`services.AddSingleton(new MyDep());`<br>`services.AddSingleton(new MyDep("A string!"));` | いいえ | × | はい |
 
 型の廃棄の詳細については、「[サービスの破棄](#disposal-of-services)」を参照してください。 実装が複数の場合の一般的なシナリオとしては、[テスト用に型のモックを作成](xref:test/integration-tests#inject-mock-services)します。
 

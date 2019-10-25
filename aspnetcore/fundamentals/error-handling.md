@@ -7,18 +7,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/08/2019
 uid: fundamentals/error-handling
-ms.openlocfilehash: a610c42d75864259b609e11b8bf0776c5ab8e507
-ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
+ms.openlocfilehash: bff526e196ecc378d4687e1c38188977aeeccfd9
+ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/12/2019
-ms.locfileid: "72288848"
+ms.lasthandoff: 10/18/2019
+ms.locfileid: "72589889"
 ---
 # <a name="handle-errors-in-aspnet-core"></a>ASP.NET Core のエラーを処理する
 
 作成者: [Tom Dykstra](https://github.com/tdykstra/)、[Luke Latham](https://github.com/guardrex)、[Steve Smith](https://ardalis.com/)
 
-この記事では、ASP.NET Core アプリでエラーを処理するための一般的な手法について取り上げます。
+この記事では、ASP.NET Core Web アプリでエラーを処理するための一般的な手法について取り上げます。 Web API については、<xref:web-api/handle-errors> を参照してください。
 
 [サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples)します。 ([ダウンロード方法](xref:index#how-to-download-a-sample)。)この記事には、サンプル アプリでプリプロセッサ ディレクティブ (`#if`、`#endif`、`#define`) を設定して、異なるシナリオを有効にする方法についての説明が含まれます。
 

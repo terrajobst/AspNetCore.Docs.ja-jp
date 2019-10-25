@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/29/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 7bb98fe5befa8eea80885d246da31ad87d5cfc2d
-ms.sourcegitcommit: fe88748b762525cb490f7e39089a4760f6a73a24
+ms.openlocfilehash: 6f2d62600da828261ecfc3a1df688ce914eccf33
+ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/30/2019
-ms.locfileid: "71691209"
+ms.lasthandoff: 10/18/2019
+ms.locfileid: "72590016"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>チュートリアル: ASP.NET Core で Web API を作成する
 
@@ -864,7 +864,7 @@ Postman を使用して、To Do アイテムを削除します。
 
 ## <a name="call-the-web-api-with-javascript"></a>JavaScript で Web API を呼び出す
 
-このセクションでは、JavaScript を使用して Web API を呼び出す HTML ページを追加します。 Fetch API によって要求が開始されます。 JavaScript により、Web API の応答からの詳細でページが更新されます。
+このセクションでは、JavaScript を使用して Web API を呼び出す HTML ページを追加します。 jQuery によって要求が開始されます。 JavaScript により、Web API の応答からの詳細を使ってページが更新されます。
 
 *Startup.cs* を次の強調表示されたコードで更新して、[静的ファイルを提供](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_)し、[既定のファイル マッピングを有効にする](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_)ためのアプリを構成します。
 
@@ -889,13 +889,13 @@ Postman を使用して、To Do アイテムを削除します。
 
 ### <a name="get-a-list-of-to-do-items"></a>To Do アイテムのリストの取得
 
-Fetch により HTTP GET 要求が Web API に送信され、API からは To Do アイテムの配列を表す JSON が返されます。 要求が成功した場合、`success` コールバック関数が呼び出されます。 コールバックでは、DOM は To Do 情報で更新されます。
+jQuery により HTTP GET 要求が Web API に送信され、API からは To Do アイテムの配列を表す JSON が返されます。 要求が成功した場合、`success` コールバック関数が呼び出されます。 コールバックでは、DOM は To Do 情報で更新されます。
 
 [!code-javascript[](first-web-api/samples/2.2/TodoApi/wwwroot/site.js?name=snippet_GetData)]
 
 ### <a name="add-a-to-do-item"></a>To Do アイテムの追加
 
-Fetch により、要求本文に To Do アイテムが含まれる HTTP POST 要求が送信されます。 `accepts` オプションと `contentType` オプションは `application/json` に設定されて、送受信されるメディアの種類を指定します。 To Do アイテムは、[JSON.stringify](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) を使用して JSON に変換されます。 API で正常な状況コードが返された場合、`getData` 関数が呼び出され、HTML テーブルを更新します。
+jQuery により、要求本文に To Do アイテムが含まれる HTTP POST 要求が送信されます。 `accepts` オプションと `contentType` オプションは `application/json` に設定されて、送受信されるメディアの種類を指定します。 To Do アイテムは、[JSON.stringify](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) を使用して JSON に変換されます。 API で正常な状況コードが返された場合、`getData` 関数が呼び出され、HTML テーブルを更新します。
 
 [!code-javascript[](first-web-api/samples/2.2/TodoApi/wwwroot/site.js?name=snippet_AddItem)]
 
