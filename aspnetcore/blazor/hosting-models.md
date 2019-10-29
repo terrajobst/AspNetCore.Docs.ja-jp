@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/15/2019
 uid: blazor/hosting-models
-ms.openlocfilehash: 072f9bbdcf7171ede63383b085f9f0f030bf1076
-ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
+ms.openlocfilehash: be67c129af4f071d10719e0bbf121de761dde9f4
+ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72391168"
+ms.lasthandoff: 10/29/2019
+ms.locfileid: "73033990"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>Blazor ホスティングモデルの ASP.NET Core
 
@@ -61,12 +61,12 @@ Blazor Server ホスティングモデルでは、アプリは ASP.NET Core ア�
 
 Blazor サーバーホスティングモデルを使用して Blazor アプリを作成するには、ASP.NET Core **Blazor Server アプリケーション**テンプレート ([dotnet new blazorserver](/dotnet/core/tools/dotnet-new)) を使用します。 ASP.NET Core アプリは Blazor Server アプリをホストし、クライアントが接続する SignalR エンドポイントを作成します。
 
-ASP.NET Core アプリはアプリの @no__t 0 クラスを参照して、次を追加します。
+ASP.NET Core アプリは、追加するアプリの `Startup` クラスを参照します。
 
 * サーバー側サービス。
 * 要求処理パイプラインに対するアプリ。
 
-*Blazor*スクリプト @ no__t-1 は、クライアント接続を確立します。 アプリケーションの状態は、必要に応じて永続化および復元する必要があります (ネットワーク接続が切断された場合など)。
+*Blazor*スクリプト&dagger; によって、クライアント接続が確立されます。 アプリケーションの状態は、必要に応じて永続化および復元する必要があります (ネットワーク接続が切断された場合など)。
 
 Blazor サーバーホスティングモデルには、いくつかの利点があります。
 
@@ -83,7 +83,7 @@ Blazor サーバーホストには、次のような欠点があります。
 * 多くのユーザーがいるアプリでは、スケーラビリティが困難です。 サーバーは、複数のクライアント接続を管理し、クライアントの状態を処理する必要があります。
 * アプリを提供するには、ASP.NET Core サーバーが必要です。 サーバーレス展開シナリオは使用できません (たとえば、CDN からアプリを提供するなど)。
 
-@no__t- *0the*スクリプトは、ASP.NET Core 共有フレームワークの埋め込みリソースから提供されます。
+&dagger;、 *blazor*スクリプトは、ASP.NET Core 共有フレームワークの埋め込みリソースから提供されます。
 
 ### <a name="comparison-to-server-rendered-ui"></a>サーバーレンダリングの UI との比較
 
@@ -133,10 +133,10 @@ Blazor サーバーアプリは、ネットワーク待機時間とメモリ使�
 
 Blazor サーバーアプリには、サーバーへのアクティブな SignalR 接続が必要です。 接続が失われた場合、アプリはサーバーへの再接続を試みます。 クライアントの状態がまだメモリ内にある限り、クライアントセッションは状態を失うことなく再開されます。
 
-クライアントが接続が失われたことを検出すると、クライアントが再接続しようとしているときに、既定の UI がユーザーに表示されます。 再接続に失敗した場合、ユーザーには再試行のオプションが表示されます。 UI をカスタマイズするには、 *_Host*ページで `components-reconnect-modal` と `id` を指定して、要素を定義します。 クライアントは、接続の状態に基づいて、次のいずれかの CSS クラスを使用して、この要素を更新します。
+クライアントが接続が失われたことを検出すると、クライアントが再接続しようとしているときに、既定の UI がユーザーに表示されます。 再接続に失敗した場合、ユーザーには再試行のオプションが表示されます。 UI をカスタマイズするには、 *_Host*ページで `id` として `components-reconnect-modal` を持つ要素を定義します。 クライアントは、接続の状態に基づいて、次のいずれかの CSS クラスを使用して、この要素を更新します。
 
 * `components-reconnect-show` &ndash; の場合、接続が失われたことを示す UI が表示され、クライアントは再接続を試みています。
-* `components-reconnect-hide` @no__t クライアントにアクティブな接続がある場合は、UI を非表示にします。
+* クライアントにアクティブな接続がある &ndash; `components-reconnect-hide`、UI を非表示にします。
 * `components-reconnect-failed` &ndash; の再接続に失敗しました。ネットワーク障害が原因である可能性があります。 再接続を試行するには、`window.Blazor.reconnect()` を呼び出します。
 * `components-reconnect-rejected` &ndash; の再接続が拒否されました。 サーバーに到達したが接続を拒否したため、サーバー上のユーザーの状態が失われました。 アプリを再度読み込むには、`location.reload()` を呼び出します。 この接続状態は、次の場合に発生する可能性があります。
   * 回線のクラッシュ (サーバー側コード) が発生します。
@@ -179,7 +179,7 @@ Blazor サーバーアプリは、サーバーへのクライアント接続が�
 * プリレンダリングに使用される初期コンポーネントの状態は失われます。
 * SignalR 接続が確立されると、新しいコンポーネントの状態が作成されます。
 
-次の Razor ページでは、@no__t 0 のコンポーネントがレンダリングされます。
+次の Razor ページでは、`Counter` コンポーネントがレンダリングされます。
 
 ```cshtml
 <h1>My Razor Page</h1>
@@ -208,7 +208,7 @@ Blazor サーバーアプリは、サーバーへのクライアント接続が�
 }
 ```
 
-@No__t-0 は静的にレンダリングされるため、コンポーネントを対話形式にすることはできません。
+`MyComponent` は静的にレンダリングされるため、コンポーネントを対話形式にすることはできません。
 
 ### <a name="detect-when-the-app-is-prerendering"></a>アプリがプリレンダリングされるタイミングを検出する
 
@@ -221,14 +221,14 @@ Blazor サーバーアプリは、サーバーへのクライアント接続が�
 *Pages/_Host*ファイルで SignalR クライアントを構成するには、次のようにします。
 
 * *Blazor*スクリプトの `<script>` タグに `autostart="false"` 属性を追加します。
-* @No__t-0 を呼び出し、SignalR builder を指定する構成オブジェクトを渡します。
+* `Blazor.start` を呼び出し、SignalR builder を指定する構成オブジェクトを渡します。
 
 ```html
 <script src="_framework/blazor.server.js" autostart="false"></script>
 <script>
   Blazor.start({
     configureSignalR: function (builder) {
-      builder.configureLogging(2); // LogLevel.Information
+      builder.configureLogging("information"); // LogLevel.Information
     }
   });
 </script>

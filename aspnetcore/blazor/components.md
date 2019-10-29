@@ -5,14 +5,14 @@ description: データにバインドする方法、イベントを処理する�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/20/2019
+ms.date: 10/21/2019
 uid: blazor/components
-ms.openlocfilehash: 065a3a078c56f813ed38f85d7414f22061217dff
-ms.sourcegitcommit: eb4fcdeb2f9e8413117624de42841a4997d1d82d
+ms.openlocfilehash: 8c228b168cdbd58928ef3f57ff26bc86e8dfc1ba
+ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/21/2019
-ms.locfileid: "72697956"
+ms.lasthandoff: 10/29/2019
+ms.locfileid: "73033977"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>ASP.NET Core Razor コンポーネントを作成して使用する
 
@@ -30,14 +30,14 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 コンポーネントの UI は、HTML を使用して定義されます。 動的なレンダリング ロジック (たとえばループ、条件、式) が、[Razor](xref:mvc/views/razor) と呼ばれる埋め込みの C# 構文を使って追加されています。 アプリがコンパイルされると、HTML マークアップC#およびレンダリングロジックはコンポーネントクラスに変換されます。 生成されたクラスの名前は、ファイルの名前と一致します。
 
-コンポーネント クラスのメンバーは、`@code` ブロック内で定義されています。 @No__t_0 ブロックでは、コンポーネントの状態 (プロパティ、フィールド) は、イベント処理のメソッド、またはその他のコンポーネントロジックを定義するために指定されます。 複数の `@code` ブロックが許容されます。
+コンポーネント クラスのメンバーは、`@code` ブロック内で定義されています。 `@code` ブロックでは、コンポーネントの状態 (プロパティ、フィールド) は、イベント処理のメソッド、またはその他のコンポーネントロジックを定義するために指定されます。 複数の `@code` ブロックが許容されます。
 
 > [!NOTE]
 > ASP.NET Core 3.0 の以前のプレビューでは、`@functions` のブロックが Razor コンポーネントの `@code` ブロックと同じ目的で使用されていました。 `@functions` のブロックは Razor コンポーネントで引き続き機能しますが、ASP.NET Core 3.0 Preview 6 以降では `@code` ブロックを使用することをお勧めします。
 
 コンポーネントメンバーは、`@` で始まる式を使用してC# 、コンポーネントのレンダリングロジックの一部として使用できます。 たとえば、 C#フィールドは、フィールド名にプレフィックス `@` を付けることによって表示されます。 次の例では、が評価され、レンダリングされます。
 
-* `font-style` の CSS プロパティ値に `_headingFontStyle` します。
+* `font-style`の CSS プロパティ値に `_headingFontStyle` します。
 * `<h1>` 要素の内容に `_headingText` します。
 
 ```cshtml
@@ -107,14 +107,14 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 コンポーネントでは、別のコンポーネントのコンテンツを設定できます。 割り当てコンポーネントは、受信コンポーネントを指定するタグの間にコンテンツを提供します。
 
-次の例では、`ChildComponent` は、レンダリングする UI のセグメントを表す、`RenderFragment` を表す `ChildContent` プロパティを持っています。 @No__t_0 の値は、コンテンツをレンダリングする必要があるコンポーネントのマークアップに配置されます。 @No__t_0 の値は、親コンポーネントから受信され、ブートストラップパネルの `panel-body` 内に表示されます。
+次の例では、`ChildComponent` は、レンダリングする UI のセグメントを表す、`RenderFragment` を表す `ChildContent` プロパティを持っています。 `ChildContent` の値は、コンテンツをレンダリングする必要があるコンポーネントのマークアップに配置されます。 `ChildContent` の値は、親コンポーネントから受信され、ブートストラップパネルの `panel-body`内に表示されます。
 
 *Components/ChildComponent。 razor*:
 
 [!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=3,14-15)]
 
 > [!NOTE]
-> @No__t_0 コンテンツを受け取るプロパティには、規約によって `ChildContent` 名前を付ける必要があります。
+> `RenderFragment` コンテンツを受け取るプロパティには、規約によって `ChildContent` 名前を付ける必要があります。
 
 次の `ParentComponent` では、コンテンツを `<ChildComponent>` タグ内に配置することによって、`ChildComponent` を表示するためのコンテンツを提供できます。
 
@@ -181,7 +181,7 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
        size="50">
 ```
 
-任意の属性を受け入れるには、`CaptureUnmatchedValues` プロパティを `true` に設定して、`[Parameter]` 属性を使用してコンポーネントパラメーターを定義します。
+任意の属性を受け入れるには、`CaptureUnmatchedValues` プロパティを `true`に設定して、`[Parameter]` 属性を使用してコンポーネントパラメーターを定義します。
 
 ```cshtml
 @code {
@@ -190,7 +190,53 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 }
 ```
 
-@No__t_1 の `CaptureUnmatchedValues` プロパティを使用すると、パラメーターを他のパラメーターと一致しないすべての属性と一致させることができます。 コンポーネントで定義できるのは、`CaptureUnmatchedValues` の1つのパラメーターのみです。 @No__t_0 で使用されるプロパティの型は、文字列キーを使用して `Dictionary<string, object>` から割り当て可能である必要があります。 `IEnumerable<KeyValuePair<string, object>>` または `IReadOnlyDictionary<string, object>` は、このシナリオのオプションでもあります。
+`[Parameter]` の `CaptureUnmatchedValues` プロパティを使用すると、パラメーターを他のパラメーターと一致しないすべての属性と一致させることができます。 コンポーネントで定義できるのは、`CaptureUnmatchedValues` の1つのパラメーターのみです。 `CaptureUnmatchedValues` で使用されるプロパティの型は、文字列キーを使用して `Dictionary<string, object>` から割り当て可能である必要があります。 `IEnumerable<KeyValuePair<string, object>>` または `IReadOnlyDictionary<string, object>` は、このシナリオのオプションでもあります。
+
+要素属性の位置を基準とした `@attributes` の位置が重要です。 要素に対して `@attributes` が splatted されると、属性は右から左 (最後から順) に処理されます。 `Child` コンポーネントを使用するコンポーネントの次の例を考えてみます。
+
+*Parentcomponent。 razor*:
+
+```cshtml
+<ChildComponent extra="10" />
+```
+
+*Childcomponent。 razor*:
+
+```cshtml
+<div @attributes="AdditionalAttributes" extra="5" />
+
+[Parameter(CaptureUnmatchedValues = true)]
+public IDictionary<string, object> AdditionalAttributes { get; set; }
+```
+
+`Child` コンポーネントの `extra` 属性が `@attributes`の右側に設定されます。 属性が右から左に処理されるため、`Parent` コンポーネントのレンダリングされる `<div>` には `extra="5"` が含まれます。
+
+```html
+<div extra="5" />
+```
+
+次の例では、`Child` コンポーネントの `<div>`で `extra` と `@attributes` の順序が逆になっています。
+
+*Parentcomponent。 razor*:
+
+```cshtml
+<ChildComponent extra="10" />
+```
+
+*Childcomponent。 razor*:
+
+```cshtml
+<div extra="5" @attributes="AdditionalAttributes" />
+
+[Parameter(CaptureUnmatchedValues = true)]
+public IDictionary<string, object> AdditionalAttributes { get; set; }
+```
+
+`Parent` コンポーネントに表示される `<div>` には、追加の属性を通じて渡された `extra="10"` が含まれます。
+
+```html
+<div extra="10" />
+```
 
 ## <a name="data-binding"></a>データ バインディング
 
@@ -208,7 +254,7 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 テキストボックスは、プロパティの値の変更に対する応答ではなく、コンポーネントがレンダリングされたときにのみ UI で更新されます。 イベントハンドラーのコードを実行した後にコンポーネントがレンダリングされるため、*通常*、イベントハンドラーがトリガーされた直後に、プロパティの更新が UI に反映されます。
 
-@No__t_1 プロパティ (`<input @bind="CurrentValue" />`) で `@bind` を使用することは、基本的に次のようなものです。
+`CurrentValue` プロパティ (`<input @bind="CurrentValue" />`) で `@bind` を使用することは、基本的に次のようなものです。
 
 ```cshtml
 <input value="@CurrentValue"
@@ -222,7 +268,7 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 コンポーネントがレンダリングされると、入力要素の `value` は `CurrentValue` プロパティから取得されます。 ユーザーがテキストボックスに入力し、要素のフォーカスを変更すると、`onchange` イベントが発生し、`CurrentValue` プロパティが変更された値に設定されます。 実際には、`@bind` は型変換が実行されるケースを処理するため、コード生成はより複雑になります。 原則として、`@bind` は、式の現在の値を `value` 属性に関連付け、登録されたハンドラーを使用して変更を処理します。
 
-@No__t_1 構文を使用した `onchange` イベントの処理に加えて、`event` パラメーター ([ @bind-value:event](xref:mvc/views/razor#bind)) を使用して[@bind-value](xref:mvc/views/razor#bind)属性を指定することで、プロパティまたはフィールドを他のイベントを使用してバインドできます。 次の例では、`oninput` イベントの `CurrentValue` プロパティをバインドします。
+`@bind` 構文を使用した `onchange` イベントの処理に加えて、`event` パラメーター ([@bind-value:event](xref:mvc/views/razor#bind)) を使用して[@bind-value](xref:mvc/views/razor#bind)属性を指定することで、プロパティまたはフィールドを他のイベントを使用してバインドできます。 次の例では、`oninput` イベントの `CurrentValue` プロパティをバインドします。
 
 ```cshtml
 <input @bind-value="CurrentValue" @bind-value:event="oninput" />
@@ -240,7 +286,7 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 次のシナリオについて検討してください。
 
-* @No__t_0 要素は、初期値 `123` を持つ `int` 型にバインドされます。
+* `<input>` 要素は、初期値 `123`を持つ `int` 型にバインドされます。
 
   ```cshtml
   <input @bind="MyProperty" />
@@ -252,13 +298,13 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
   ```
 * ユーザーは、要素の値をページの `123.45` に更新し、要素のフォーカスを変更します。
 
-前のシナリオでは、要素の値は `123` に戻されます。 @No__t_1 の元の値を優先して `123.45` 値が拒否された場合、ユーザーはその値が受け入れられていないことを認識します。
+前のシナリオでは、要素の値は `123` に戻されます。 `123`の元の値を優先して `123.45` 値が拒否された場合、ユーザーはその値が受け入れられていないことを認識します。
 
-既定では、バインドは要素の `onchange` イベント (`@bind="{PROPERTY OR FIELD}"`) に適用されます。 別のイベントを設定するには、`@bind-value="{PROPERTY OR FIELD}" @bind-value:event={EVENT}` を使用します。 @No__t_0 イベント (`@bind-value:event="oninput"`) の場合、解析できない値を導入するキーストロークの後に再設定が発生します。 @No__t_1 バインドされた型の `oninput` イベントを対象とする場合、ユーザーは `.` 文字を入力できません。 @No__t_0 文字はすぐに削除されるので、ユーザーは、整数のみが許可されるというフィードバックをすぐに受け取ることができます。 @No__t_0 イベントの値を元に戻すことは、ユーザーが解析できない `<input>` 値のクリアを許可する必要がある場合など、理想的ではありません。 代替手段は次のとおりです。
+既定では、バインドは要素の `onchange` イベント (`@bind="{PROPERTY OR FIELD}"`) に適用されます。 別のイベントを設定するには、`@bind-value="{PROPERTY OR FIELD}" @bind-value:event={EVENT}` を使用します。 `oninput` イベント (`@bind-value:event="oninput"`) の場合、解析できない値を導入するキーストロークの後に再設定が発生します。 `int`バインドされた型の `oninput` イベントを対象とする場合、ユーザーは `.` 文字を入力できません。 `.` 文字はすぐに削除されるので、ユーザーは、整数のみが許可されるというフィードバックをすぐに受け取ることができます。 `oninput` イベントの値を元に戻すことは、ユーザーが解析できない `<input>` 値のクリアを許可する必要がある場合など、理想的ではありません。 代替手段は次のとおりです。
 
-* @No__t_0 イベントは使用しないでください。 既定の `onchange` イベント (`@bind="{PROPERTY OR FIELD}"`) を使用します。この場合、要素がフォーカスを失うまで無効な値は元に戻されません。
-* @No__t_0 や `string` などの null 許容型にバインドし、無効なエントリを処理するカスタムロジックを提供します。
-* @No__t_1 や `InputDate` などの[フォーム検証コンポーネント](xref:blazor/forms-validation)を使用します。 フォーム検証コンポーネントには、無効な入力を管理するためのサポートが組み込まれています。 フォーム検証コンポーネント:
+* `oninput` イベントは使用しないでください。 既定の `onchange` イベント (`@bind="{PROPERTY OR FIELD}"`) を使用します。この場合、要素がフォーカスを失うまで無効な値は元に戻されません。
+* `int?` や `string`などの null 許容型にバインドし、無効なエントリを処理するカスタムロジックを提供します。
+* `InputNumber` や `InputDate`などの[フォーム検証コンポーネント](xref:blazor/forms-validation)を使用します。 フォーム検証コンポーネントには、無効な入力を管理するためのサポートが組み込まれています。 フォーム検証コンポーネント:
   * ユーザーが無効な入力を提供し、関連付けられている `EditContext` に検証エラーを受信することを許可します。
   * 追加の web フォームデータを入力するユーザーに干渉することなく、UI に検証エラーを表示します。
 
@@ -285,7 +331,7 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 * `month`
 * `week`
 
-`@bind` は、値の解析と書式設定に <xref:System.Globalization.CultureInfo?displayProperty=fullName> を提供するために、`@bind:culture` パラメーターをサポートしています。 @No__t_0 および `number` のフィールドの種類を使用する場合は、カルチャを指定しないことをお勧めします。 `date` および `number` には、必要なカルチャを提供する Blazor サポートが組み込まれています。
+`@bind` は、値の解析と書式設定に <xref:System.Globalization.CultureInfo?displayProperty=fullName> を提供するために、`@bind:culture` パラメーターをサポートしています。 `date` および `number` のフィールドの種類を使用する場合は、カルチャを指定しないことをお勧めします。 `date` および `number` には、必要なカルチャを提供する Blazor サポートが組み込まれています。
 
 ユーザーのカルチャを設定する方法については、「[ローカリゼーション](#localization)」セクションを参照してください。
 
@@ -309,7 +355,7 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 * <xref:System.DateTimeOffset?displayProperty=fullName>
 * <xref:System.DateTimeOffset?displayProperty=fullName>?
 
-@No__t_0 属性は、`<input>` 要素の `value` に適用する日付形式を指定します。 この形式は、`onchange` イベントが発生したときに値を解析するためにも使用されます。
+`@bind:format` 属性は、`<input>` 要素の `value` に適用する日付形式を指定します。 この形式は、`onchange` イベントが発生したときに値を解析するためにも使用されます。
 
 Blazor には日付を書式設定するためのサポートが組み込まれているため、`date` フィールド型の形式を指定することは推奨されません。
 
@@ -361,7 +407,7 @@ Blazor には日付を書式設定するためのサポートが組み込まれ�
 }
 ```
 
-@No__t_0 を読み込むと、次のマークアップが生成されます。
+`ParentComponent` を読み込むと、次のマークアップが生成されます。
 
 ```html
 <h1>Parent Component</h1>
@@ -373,7 +419,7 @@ Blazor には日付を書式設定するためのサポートが組み込まれ�
 <p>Year: 1978</p>
 ```
 
-@No__t_1 のボタンを選択して `ParentYear` プロパティの値が変更された場合は、`ChildComponent` の `Year` プロパティが更新されます。 @No__t_0 の新しい値は、`ParentComponent` が再度実行されたときに UI に表示されます。
+`ParentComponent`のボタンを選択して `ParentYear` プロパティの値が変更された場合は、`ChildComponent` の `Year` プロパティが更新されます。 `Year` の新しい値は、`ParentComponent` が再度実行されたときに UI に表示されます。
 
 ```html
 <h1>Parent Component</h1>
@@ -385,7 +431,7 @@ Blazor には日付を書式設定するためのサポートが組み込まれ�
 <p>Year: 1986</p>
 ```
 
-@No__t_0 パラメーターは、`Year` パラメーターの型と一致するコンパニオン `YearChanged` イベントがあるため、バインド可能です。
+`Year` パラメーターは、`Year` パラメーターの型と一致するコンパニオン `YearChanged` イベントがあるため、バインド可能です。
 
 慣例により、`<ChildComponent @bind-Year="ParentYear" />` は基本的には書き込みと同じです。
 
@@ -401,7 +447,7 @@ Blazor には日付を書式設定するためのサポートが組み込まれ�
 
 ## <a name="event-handling"></a>イベント処理
 
-Razor コンポーネントは、イベント処理機能を提供します。 @No__t_0 という名前の HTML 要素属性 (`onclick`、`onsubmit` など) とデリゲート型の値がある場合、Razor コンポーネントはその属性の値をイベントハンドラーとして扱います。 属性の名前は、常に[{event} @on](xref:mvc/views/razor#onevent)書式設定されます。
+Razor コンポーネントは、イベント処理機能を提供します。 `on{event}` という名前の HTML 要素属性 (`onclick`、`onsubmit`など) とデリゲート型の値がある場合、Razor コンポーネントはその属性の値をイベントハンドラーとして扱います。 属性の名前は、常に[{event} @on](xref:mvc/views/razor#onevent)書式設定されます。
 
 次のコードは、UI でボタンが選択されたときに `UpdateHeading` メソッドを呼び出します。
 
@@ -431,7 +477,7 @@ Razor コンポーネントは、イベント処理機能を提供します。 @
 }
 ```
 
-イベントハンドラーを非同期にして、<xref:System.Threading.Tasks.Task> を返すこともできます。 @No__t_0 を手動で呼び出す必要はありません。 例外は、発生するとログに記録されます。
+イベントハンドラーを非同期にして、<xref:System.Threading.Tasks.Task> を返すこともできます。 `StateHasChanged()`を手動で呼び出す必要はありません。 例外は、発生するとログに記録されます。
 
 次の例では、ボタンが選択されたときに `UpdateHeading` が非同期に呼び出されます。
 
@@ -511,17 +557,17 @@ Razor コンポーネントは、イベント処理機能を提供します。 @
 
 入れ子になったコンポーネントを使用する一般的なシナリオは、子コンポーネントのイベントが発生したときに親コンポーネントのメソッドを実行することです。たとえば、子に `onclick` イベントが発生した場合などです。 コンポーネント間でイベントを公開するには、`EventCallback` を使用します。 親コンポーネントは、コールバックメソッドを子コンポーネントの `EventCallback` に割り当てることができます。
 
-サンプルアプリの `ChildComponent` は、ボタンの `onclick` ハンドラーが、サンプルの `ParentComponent` から `EventCallback` デリゲートを受け取るように設定されている方法を示しています。 @No__t_0 は `MouseEventArgs` で入力されます。これは、周辺機器の `onclick` イベントに適しています。
+サンプルアプリの `ChildComponent` は、ボタンの `onclick` ハンドラーが、サンプルの `ParentComponent` から `EventCallback` デリゲートを受け取るように設定されている方法を示しています。 `EventCallback` は `MouseEventArgs`で入力されます。これは、周辺機器の `onclick` イベントに適しています。
 
 [!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=5-7,17-18)]
 
-@No__t_0 は、子の `EventCallback<T>` を `ShowMessage` メソッドに設定します。
+`ParentComponent` は、子の `EventCallback<T>` を `ShowMessage` メソッドに設定します。
 
 [!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/ParentComponent.razor?name=snippet_ParentComponent&highlight=6,16-19)]
 
-@No__t_0 でボタンが選択されている場合:
+`ChildComponent`でボタンが選択されている場合:
 
-* @No__t_0 の `ShowMessage` メソッドが呼び出されます。 `messageText` が更新され、`ParentComponent` に表示されます。
+* `ParentComponent`の `ShowMessage` メソッドが呼び出されます。 `messageText` が更新され、`ParentComponent` に表示されます。
 * コールバックのメソッド (`ShowMessage`) で `StateHasChanged` を呼び出す必要はありません。 `StateHasChanged` は、子イベントと同様に、子の内部で実行されるイベントハンドラーでコンポーネントの実行がトリガーされるのと同様に、`ParentComponent` をレンダリングするために自動的に呼び出されます。
 
 `EventCallback` および `EventCallback<T>` は、非同期デリゲートを許可します。 `EventCallback<T>` は厳密に型指定され、特定の引数の型を必要とします。 `EventCallback` は弱く型指定され、任意の引数の型を使用できます。
@@ -539,7 +585,7 @@ Razor コンポーネントは、イベント処理機能を提供します。 @
 }
 ```
 
-@No__t_2 で `EventCallback` または `EventCallback<T>` を呼び出し、<xref:System.Threading.Tasks.Task> を待機します。
+`InvokeAsync` で `EventCallback` または `EventCallback<T>` を呼び出し、<xref:System.Threading.Tasks.Task>を待機します。
 
 ```csharp
 await callback.InvokeAsync(arg);
@@ -557,7 +603,7 @@ await callback.InvokeAsync(arg);
 
 次の `PasswordField` コンポーネント (*Passwordfield*):
 
-* @No__t_1 プロパティに `<input>` 要素の値を設定します。
+* `Password` プロパティに `<input>` 要素の値を設定します。
 * [Eventcallback](#eventcallback)を使用して、`Password` プロパティの変更を親コンポーネントに公開します。
 
 ```cshtml
@@ -595,7 +641,7 @@ Password:
 }
 ```
 
-@No__t_0 コンポーネントが別のコンポーネントで使用されています。
+`PasswordField` コンポーネントが別のコンポーネントで使用されています。
 
 ```cshtml
 <PasswordField @bind-Password="password" />
@@ -607,8 +653,8 @@ Password:
 
 前の例で、パスワードの確認またはトラップエラーを実行するには、次の手順を実行します。
 
-* @No__t_0 のバッキングフィールドを作成します (次のコード例では `password`)。
-* @No__t_0 setter で、チェックまたはトラップのエラーを実行します。
+* `Password` のバッキングフィールドを作成します (次のコード例では`password`)。
+* `Password` setter で、チェックまたはトラップのエラーを実行します。
 
 次の例では、パスワードの値にスペースが使用されている場合に、ユーザーにすぐにフィードバックを提供します。
 
@@ -692,7 +738,7 @@ Password:
 コンポーネントがレンダリングされると、[`loginDialog`] フィールドに `MyLoginDialog` 子コンポーネントインスタンスが設定されます。 その後、コンポーネントインスタンスで .NET メソッドを呼び出すことができます。
 
 > [!IMPORTANT]
-> @No__t_0 変数は、コンポーネントがレンダリングされた後にのみ設定され、その出力には `MyLoginDialog` 要素が含まれます。 この時点までは、参照するものはありません。 コンポーネント参照のレンダリングが完了した後にコンポーネント参照を操作するに[は、OnAfterRenderAsync メソッドまたは OnAfterRender メソッド](#lifecycle-methods)を使用します。
+> `loginDialog` 変数は、コンポーネントがレンダリングされた後にのみ設定され、その出力には `MyLoginDialog` 要素が含まれます。 この時点までは、参照するものはありません。 コンポーネント参照のレンダリングが完了した後にコンポーネント参照を操作するに[は、OnAfterRenderAsync メソッドまたは OnAfterRender メソッド](#lifecycle-methods)を使用します。
 
 コンポーネント参照のキャプチャは、[要素参照のキャプチャ](xref:blazor/javascript-interop#capture-references-to-elements)に似た構文を使用しますが、 [JavaScript 相互運用](xref:blazor/javascript-interop)機能ではありません。 コンポーネント参照は、.NET コードでのみ使用される &mdash;they JavaScript コードに渡されません。
 
@@ -756,7 +802,7 @@ public class NotifierService
 
 前の例では、`NotifierService` によって、コンポーネントの `OnNotify` メソッドが Blazor の `SynchronizationContext` の外部で呼び出されます。 `InvokeAsync` は、正しいコンテキストに切り替え、レンダリングをキューに移動するために使用されます。
 
-## <a name="use-key-to-control-the-preservation-of-elements-and-components"></a>@No__t_0key を使用して要素とコンポーネントの保存を制御する
+## <a name="use-key-to-control-the-preservation-of-elements-and-components"></a>\@キーを使用して要素とコンポーネントの保存を制御する
 
 要素またはコンポーネントのリストをレンダリングするときに、要素またはコンポーネントが変更された場合、Blazor の比較アルゴリズムは、前の要素またはコンポーネントを保持できるかどうか、およびモデルオブジェクトをどのようにマップするかを決定する必要があります。 通常、このプロセスは自動的に実行され、無視することができますが、プロセスの制御が必要になる場合があります。
 
@@ -774,7 +820,7 @@ public class NotifierService
 }
 ```
 
-@No__t_0 コレクションの内容は、挿入、削除、または順序変更されたエントリで変更される可能性があります。 コンポーネントのれ時に、`<DetailsEditor>` コンポーネントが異なる `Details` パラメーター値を受け取るように変更されることがあります。 これにより、予想よりも複雑な再リリースが発生する可能性があります。 場合によっては、要素のフォーカスの喪失など、表示される動作の違いが発生する可能性があります。
+`People` コレクションの内容は、挿入、削除、または順序変更されたエントリで変更される可能性があります。 コンポーネントのれ時に、`<DetailsEditor>` コンポーネントが異なる `Details` パラメーター値を受け取るように変更されることがあります。 これにより、予想よりも複雑な再リリースが発生する可能性があります。 場合によっては、要素のフォーカスの喪失など、表示される動作の違いが発生する可能性があります。
 
 マッピングプロセスは、`@key` ディレクティブ属性を使用して制御できます。 `@key` にすると、キーの値に基づいて要素またはコンポーネントの保持が比較アルゴリズムによって保証されます。
 
@@ -790,18 +836,18 @@ public class NotifierService
 }
 ```
 
-@No__t_0 コレクションが変更されると、比較アルゴリズムによって、`<DetailsEditor>` インスタンスと `person` インスタンスの間の関連付けが保持されます。
+`People` コレクションが変更されると、比較アルゴリズムによって、`<DetailsEditor>` インスタンスと `person` インスタンスの間の関連付けが保持されます。
 
-* @No__t_0 が `People` の一覧から削除された場合は、対応する `<DetailsEditor>` インスタンスだけが UI から削除されます。 その他のインスタンスは変更されません。
+* `Person` が `People` の一覧から削除された場合は、対応する `<DetailsEditor>` インスタンスだけが UI から削除されます。 その他のインスタンスは変更されません。
 * リスト内のある位置に `Person` が挿入されると、その対応する位置に1つの新しい `<DetailsEditor>` インスタンスが挿入されます。 その他のインスタンスは変更されません。
-* @No__t_0 エントリが再順序付けされている場合は、対応する `<DetailsEditor>` インスタンスが UI に保持され、並べ替えられます。
+* `Person` エントリが再順序付けされている場合は、対応する `<DetailsEditor>` インスタンスが UI に保持され、並べ替えられます。
 
 シナリオによっては、`@key` を使用すると、回避の複雑さが最小限に抑えられ、フォーカス位置など、DOM のステートフルな部分に対する潜在的な問題を回避できます。
 
 > [!IMPORTANT]
 > キーは、各コンテナー要素またはコンポーネントに対してローカルです。 キーがドキュメント全体でグローバルに比較されることはありません。
 
-### <a name="when-to-use-key"></a>@No__t_0key を使用する場合
+### <a name="when-to-use-key"></a>\@キーを使用する場合
 
 通常は、リストがレンダリングされるたびに (たとえば、`@foreach` ブロックで) `@key` を使用し、`@key` を定義するための適切な値が存在することを意味します。
 
@@ -813,22 +859,22 @@ public class NotifierService
 </div>
 ```
 
-@No__t_0 が変更された場合、`@key` attribute ディレクティブは、Blazor が `<div>` とその子孫全体を破棄し、新しい要素とコンポーネントで UI 内のサブツリーを再構築することを強制します。 これは、`@currentPerson` の変更時に UI の状態が保持されないことを保証する必要がある場合に役立ちます。
+`@currentPerson` が変更された場合、`@key` attribute ディレクティブは、Blazor が `<div>` とその子孫全体を破棄し、新しい要素とコンポーネントで UI 内のサブツリーを再構築することを強制します。 これは、`@currentPerson` の変更時に UI の状態が保持されないことを保証する必要がある場合に役立ちます。
 
-### <a name="when-not-to-use-key"></a>@No__t_0key を使用しない場合
+### <a name="when-not-to-use-key"></a>\@キーを使用しない場合
 
-@No__t_0 を使用すると、パフォーマンスが低下します。 パフォーマンスコストは大きくありませんが、要素またはコンポーネントの保存ルールを制御することによってアプリが恩恵を受ける場合は、`@key` を指定するだけで十分です。
+`@key`を使用すると、パフォーマンスが低下します。 パフォーマンスコストは大きくありませんが、要素またはコンポーネントの保存ルールを制御することによってアプリが恩恵を受ける場合は、`@key` を指定するだけで十分です。
 
-@No__t_0 が使用されていない場合でも、Blazor は子要素とコンポーネントインスタンスを可能な限り保持します。 @No__t_0 を使用する唯一の利点は、マッピングを選択する比較アルゴリズムではなく、保持されているコンポーネントインスタンスにモデルインスタンスをマップする*方法*を制御することです。
+`@key` が使用されていない場合でも、Blazor は子要素とコンポーネントインスタンスを可能な限り保持します。 `@key` を使用する唯一の利点は、マッピングを選択する比較アルゴリズムではなく、保持されているコンポーネントインスタンスにモデルインスタンスをマップする*方法*を制御することです。
 
-### <a name="what-values-to-use-for-key"></a>@No__t_0key に使用する値
+### <a name="what-values-to-use-for-key"></a>\@キーに使用する値
 
 一般に、`@key` には次のいずれかの値を指定するのが理にかなっています。
 
 * モデルオブジェクトインスタンス (たとえば、前の例のように、`Person` インスタンス)。 これにより、オブジェクト参照の等価性に基づいて保持されます。
 * 一意の識別子 (たとえば、型 `int`、`string`、または `Guid`) の主キー値。
 
-@No__t_0 に使用される値が競合しないようにしてください。 競合するの値が同じ親要素内で検出された場合、Blazor は、古い要素またはコンポーネントを新しい要素またはコンポーネントに確定的にマップできないため、例外をスローします。 個別の値 (オブジェクトインスタンスや主キー値など) のみを使用してください。
+`@key` に使用される値が競合しないようにしてください。 競合するの値が同じ親要素内で検出された場合、Blazor は、古い要素またはコンポーネントを新しい要素またはコンポーネントに確定的にマップできないため、例外をスローします。 個別の値 (オブジェクトインスタンスや主キー値など) のみを使用してください。
 
 ## <a name="lifecycle-methods"></a>ライフサイクル メソッド
 
@@ -842,7 +888,7 @@ protected override async Task OnInitializedAsync()
 ```
 
 > [!NOTE]
-> @No__t_0 のライフサイクルイベント中に、コンポーネントの初期化時に非同期作業を行う必要があります。
+> `OnInitializedAsync` のライフサイクルイベント中に、コンポーネントの初期化時に非同期作業を行う必要があります。
 
 同期操作の場合は、`OnInitialized` を使用します。
 
@@ -876,7 +922,7 @@ protected override void OnParametersSet()
 
 サーバーでのプリレンダリング時に `OnAfterRender` は*呼び出されません。*
 
-@No__t_1 と `OnAfterRender` の `firstRender` パラメーターは次のとおりです。
+`OnAfterRenderAsync` と `OnAfterRender` の `firstRender` パラメーターは次のとおりです。
 
 * コンポーネントインスタンスを初めて呼び出すときは、`true` に設定します。
 * 初期化作業が1回だけ実行されるようにします。
@@ -892,7 +938,7 @@ protected override async Task OnAfterRenderAsync(bool firstRender)
 ```
 
 > [!NOTE]
-> @No__t_0 のライフサイクルイベント中に、レンダリング直後の非同期作業が発生する必要があります。
+> `OnAfterRenderAsync` のライフサイクルイベント中に、レンダリング直後の非同期作業が発生する必要があります。
 
 ```csharp
 protected override void OnAfterRender(bool firstRender)
@@ -908,7 +954,7 @@ protected override void OnAfterRender(bool firstRender)
 
 ライフサイクルイベントで実行される非同期アクションは、コンポーネントがレンダリングされる前に完了していない可能性があります。 ライフサイクルメソッドの実行中に、オブジェクトが `null` されているか、データが不完全に設定されている可能性があります。 オブジェクトが初期化されていることを確認するためのレンダリングロジックを提供します。 オブジェクトの `null` 中に、プレースホルダー UI 要素 (読み込みメッセージなど) をレンダリングします。
 
-Blazor テンプレートの `FetchData` コンポーネントでは、`OnInitializedAsync` がユーザー receive 予測データ (`forecasts`) に上書きされます。 @No__t_0 が `null` と、読み込みメッセージがユーザーに表示されます。 @No__t_1 によって返された `Task` が完了すると、コンポーネントは更新された状態とピアリングされます。
+Blazor テンプレートの `FetchData` コンポーネントでは、`OnInitializedAsync` がユーザー receive 予測データ (`forecasts`) に上書きされます。 `forecasts` が `null`と、読み込みメッセージがユーザーに表示されます。 `OnInitializedAsync` によって返された `Task` が完了すると、コンポーネントは更新された状態とピアリングされます。
 
 *Pages/FetchData.razor*:
 
@@ -927,11 +973,11 @@ public override void SetParameters(ParameterView parameters)
 }
 ```
 
-@No__t_0 が呼び出されない場合、カスタムコードでは、必要に応じて受信パラメーター値を解釈できます。 たとえば、受信したパラメーターをクラスのプロパティに割り当てる必要はありません。
+`base.SetParameters` が呼び出されない場合、カスタムコードでは、必要に応じて受信パラメーター値を解釈できます。 たとえば、受信したパラメーターをクラスのプロパティに割り当てる必要はありません。
 
 ### <a name="suppress-refreshing-of-the-ui"></a>UI の更新を抑制する
 
-`ShouldRender` は、UI の更新を抑制するためにオーバーライドできます。 実装によって `true` が返された場合は、UI が更新されます。 @No__t_0 がオーバーライドされた場合でも、コンポーネントは常に最初に表示されます。
+`ShouldRender` は、UI の更新を抑制するためにオーバーライドできます。 実装によって `true` が返された場合は、UI が更新されます。 `ShouldRender` がオーバーライドされた場合でも、コンポーネントは常に最初に表示されます。
 
 ```csharp
 protected override bool ShouldRender()
@@ -961,13 +1007,13 @@ protected override bool ShouldRender()
 ```
 
 > [!NOTE]
-> @No__t_1 での `StateHasChanged` の呼び出しはサポートされていません。 `StateHasChanged` は、破棄されているレンダラーの一部として呼び出されることがあります。 その時点での UI 更新の要求はサポートされていません。
+> `Dispose` での `StateHasChanged` の呼び出しはサポートされていません。 `StateHasChanged` は、破棄されているレンダラーの一部として呼び出されることがあります。 その時点での UI 更新の要求はサポートされていません。
 
 ## <a name="routing"></a>ルーティング
 
 Blazor でのルーティングは、アプリ内のアクセス可能な各コンポーネントにルートテンプレートを提供することで実現されます。
 
-@No__t_0 ディレクティブを含む Razor ファイルがコンパイルされると、生成されたクラスにルートテンプレートを指定する <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> が与えられます。 実行時に、ルーターは `RouteAttribute` を持つコンポーネントクラスを検索し、要求された URL に一致するルートテンプレートを持つコンポーネントをレンダリングします。
+`@page` ディレクティブを含む Razor ファイルがコンパイルされると、生成されたクラスにルートテンプレートを指定する <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> が与えられます。 実行時に、ルーターは `RouteAttribute` を持つコンポーネントクラスを検索し、要求された URL に一致するルートテンプレートを持つコンポーネントをレンダリングします。
 
 コンポーネントには、複数のルートテンプレートを適用できます。 次のコンポーネントは `/BlazorRoute` および `/DifferentBlazorRoute` の要求に応答します。
 
@@ -1015,7 +1061,7 @@ Razor コンポーネントは部分クラスとして生成されます。 Razo
 }
 ```
 
-@No__t_0 コンポーネントは、部分クラスの分離コードファイルを使用して作成することもできます。
+`Counter` コンポーネントは、部分クラスの分離コードファイルを使用して作成することもできます。
 
 *Counter。 razor*:
 
@@ -1052,7 +1098,7 @@ namespace BlazorApp.Pages
 
 ## <a name="specify-a-component-base-class"></a>コンポーネントの基本クラスを指定する
 
-@No__t_0 ディレクティブは、コンポーネントの基底クラスを指定するために使用できます。
+`@inherits` ディレクティブは、コンポーネントの基底クラスを指定するために使用できます。
 
 この[サンプルアプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)では、コンポーネントが基本クラス (`BlazorRocksBase`) を継承して、コンポーネントのプロパティとメソッドを提供する方法を示しています。
 
@@ -1115,7 +1161,7 @@ This is the Index page.
 ```
 
 > [!NOTE]
-> @No__t_0 の修飾はサポートされていません。
+> `global::` の修飾はサポートされていません。
 >
 > エイリアスを使用した `using` ステートメント (たとえば、`@using Foo = Bar`) を持つコンポーネントのインポートはサポートされていません。
 >
@@ -1136,13 +1182,13 @@ HTML 要素の属性は、.NET の値に基づいて条件付きで表示され�
 }
 ```
 
-@No__t_0 が `true` 場合、このチェックボックスは次のように表示されます。
+`IsCompleted` が `true`場合、このチェックボックスは次のように表示されます。
 
 ```html
 <input type="checkbox" checked />
 ```
 
-@No__t_0 が `false` 場合、このチェックボックスは次のように表示されます。
+`IsCompleted` が `false`場合、このチェックボックスは次のように表示されます。
 
 ```html
 <input type="checkbox" />
@@ -1180,7 +1226,7 @@ HTML 要素の属性は、.NET の値に基づいて条件付きで表示され�
 
 ### <a name="template-parameters"></a>テンプレート パラメーター
 
-@No__t_0 または `RenderFragment<T>` 型の1つ以上のコンポーネントパラメーターを指定して、テンプレート化されたコンポーネントを定義します。 レンダーフラグメントは、レンダリングする UI のセグメントを表します。 `RenderFragment<T>` は、render フラグメントが呼び出されたときに指定できる型パラメーターを受け取ります。
+`RenderFragment` または `RenderFragment<T>`型の1つ以上のコンポーネントパラメーターを指定して、テンプレート化されたコンポーネントを定義します。 レンダーフラグメントは、レンダリングする UI のセグメントを表します。 `RenderFragment<T>` は、render フラグメントが呼び出されたときに指定できる型パラメーターを受け取ります。
 
 `TableTemplate` コンポーネント:
 
@@ -1276,7 +1322,7 @@ public class ThemeInfo
 }
 ```
 
-先祖コンポーネントでは、カスケード値コンポーネントを使用してカスケード値を指定できます。 @No__t_0 コンポーネントは、コンポーネント階層のサブツリーをラップし、そのサブツリー内のすべてのコンポーネントに単一の値を提供します。
+先祖コンポーネントでは、カスケード値コンポーネントを使用してカスケード値を指定できます。 `CascadingValue` コンポーネントは、コンポーネント階層のサブツリーをラップし、そのサブツリー内のすべてのコンポーネントに単一の値を提供します。
 
 たとえば、サンプルアプリでは、アプリのレイアウトの1つで、`@Body` プロパティのレイアウト本体を構成するすべてのコンポーネントのカスケード型パラメーターとしてテーマ情報 (`ThemeInfo`) を指定します。 `ButtonClass` には、レイアウトコンポーネントで `btn-success` の値が割り当てられます。 すべての子孫コンポーネントは、`ThemeInfo` カスケードオブジェクトを介してこのプロパティを使用できます。
 
@@ -1387,7 +1433,7 @@ public class ThemeInfo
 
 [!code-csharp[](common/samples/3.x/BlazorWebAssemblySample/UIInterfaces/ITab.cs)]
 
-@No__t_0 コンポーネントは、いくつかの `Tab` コンポーネントを含む `TabSet` コンポーネントを使用します。
+`CascadingValuesParametersTabSet` コンポーネントは、いくつかの `Tab` コンポーネントを含む `TabSet` コンポーネントを使用します。
 
 [!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/CascadingValuesParametersTabSet.razor?name=snippet_TabSet)]
 
@@ -1459,7 +1505,7 @@ public class ThemeInfo
 }
 ```
 
-次の例では、`CreateComponent` メソッドのループによって、3つの `PetDetails` コンポーネントが生成されます。 @No__t_0 メソッドを呼び出してコンポーネント (`OpenComponent` と `AddAttribute`) を作成する場合、シーケンス番号はソースコードの行番号です。 Blazor の相違アルゴリズムは、個別の呼び出し呼び出しではなく、個別のコード行に対応するシーケンス番号に依存します。 @No__t_0 メソッドを使用してコンポーネントを作成する場合は、シーケンス番号の引数をハードコーディングします。 **計算またはカウンターを使用してシーケンス番号を生成すると、パフォーマンスが低下する可能性があります。** 詳細については、「[シーケンス番号はコード行番号に関連し、実行順序を](#sequence-numbers-relate-to-code-line-numbers-and-not-execution-order)使用しない」セクションを参照してください。
+次の例では、`CreateComponent` メソッドのループによって、3つの `PetDetails` コンポーネントが生成されます。 `RenderTreeBuilder` メソッドを呼び出してコンポーネント (`OpenComponent` と `AddAttribute`) を作成する場合、シーケンス番号はソースコードの行番号です。 Blazor の相違アルゴリズムは、個別の呼び出し呼び出しではなく、個別のコード行に対応するシーケンス番号に依存します。 `RenderTreeBuilder` メソッドを使用してコンポーネントを作成する場合は、シーケンス番号の引数をハードコーディングします。 **計算またはカウンターを使用してシーケンス番号を生成すると、パフォーマンスが低下する可能性があります。** 詳細については、「[シーケンス番号はコード行番号に関連し、実行順序を](#sequence-numbers-relate-to-code-line-numbers-and-not-execution-order)使用しない」セクションを参照してください。
 
 `BuiltContent` コンポーネント:
 
@@ -1494,7 +1540,7 @@ public class ThemeInfo
 }
 ```
 
-> !要する@No__t_0 の型により、レンダリング操作の*結果*を処理できます。 これらは、Blazor framework 実装の内部的な詳細です。 これらの型は*不安定*であると見なされ、今後のリリースで変更される可能性があります。
+> !要する`Microsoft.AspNetCore.Components.RenderTree` の型により、レンダリング操作の*結果*を処理できます。 これらは、Blazor framework 実装の内部的な詳細です。 これらの型は*不安定*であると見なされ、今後のリリースで変更される可能性があります。
 
 ### <a name="sequence-numbers-relate-to-code-line-numbers-and-not-execution-order"></a>シーケンス番号は、実行順序ではなくコード行番号に関連します
 
@@ -1531,7 +1577,7 @@ builder.AddContent(1, "Second");
 | 0        | テキスト ノード | First  |
 | 1        | テキスト ノード | Second |
 
-@No__t_0 が `false` になり、マークアップが再び表示されるとします。 この時点で、ビルダーは次のものを受け取ります。
+`someFlag` が `false`になり、マークアップが再び表示されるとします。 この時点で、ビルダーは次のものを受け取ります。
 
 | シーケンス | [種類]       | データ   |
 | :------: | ---------- | :----: |
@@ -1582,7 +1628,7 @@ builder.AddContent(seq++, "Second");
 
 * シーケンス番号が動的に生成される場合、アプリのパフォーマンスが低下します。
 * コンパイル時にキャプチャされない場合、必要な情報が存在しないため、実行時にフレームワークで独自のシーケンス番号を自動的に作成することはできません。
-* 手動で実装された長いブロックを作成しないでください `RenderTreeBuilder` のロジックです。 @No__t_0 ファイルを優先し、コンパイラがシーケンス番号を処理できるようにします。 手動の `RenderTreeBuilder` ロジックを回避できない場合は、長いブロックのコードを `OpenRegion` / `CloseRegion` 呼び出しでラップされた小さな部分に分割します。 各リージョンにはシーケンス番号の個別のスペースがあるため、各リージョン内のゼロ (または任意の任意の数) から再起動できます。
+* 手動で実装された長いブロックを作成しないでください `RenderTreeBuilder` のロジックです。 `.razor` ファイルを優先し、コンパイラがシーケンス番号を処理できるようにします。 手動の `RenderTreeBuilder` ロジックを回避できない場合は、長いブロックのコードを `OpenRegion` / `CloseRegion` 呼び出しでラップされた小さな部分に分割します。 各リージョンにはシーケンス番号の個別のスペースがあるため、各リージョン内のゼロ (または任意の任意の数) から再起動できます。
 * シーケンス番号がハードコードされている場合、diff アルゴリズムでは、シーケンス番号の値を大きくする必要があります。 初期値とギャップは関係ありません。 正当な選択肢の1つは、コード行番号をシーケンス番号として使用するか、ゼロから開始し、1または数百 (または任意の間隔) で増やすことです。 
 * Blazor はシーケンス番号を使用しますが、他のツリー比較 UI フレームワークでは使用しません。 シーケンス番号が使用されている場合、比較ははるかに高速です。 Blazor には、`.razor` ファイルを作成する開発者に対して、シーケンス番号を自動的に処理するコンパイル手順の利点があります。
 
@@ -1659,7 +1705,7 @@ public class CultureController : Controller
 ```
 
 > [!WARNING]
-> @No__t_0 アクションの結果を使用して、開いているリダイレクト攻撃を防止します。 詳細については、「<xref:security/preventing-open-redirects>」を参照してください。
+> `LocalRedirect` アクションの結果を使用して、開いているリダイレクト攻撃を防止します。 詳細については、「<xref:security/preventing-open-redirects>」を参照してください。
 
 次のコンポーネントは、ユーザーがカルチャを選択したときに最初のリダイレクトを実行する方法の例を示しています。
 

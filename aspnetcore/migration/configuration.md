@@ -1,53 +1,53 @@
 ---
-title: ASP.NET Core 構成を移行します。
+title: 構成を ASP.NET Core に移行する
 author: ardalis
 description: ASP.NET MVC プロジェクトから ASP.NET Core MVC プロジェクトに構成を移行する方法について説明します。
 ms.author: riande
 ms.date: 10/14/2016
 uid: migration/configuration
-ms.openlocfilehash: c379f1f64dc5ab8aeb48055124e86e4e60d93785
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 455e66b94dd69ee6aab88768b64c525d56b8bbcf
+ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64894929"
+ms.lasthandoff: 10/29/2019
+ms.locfileid: "73033902"
 ---
-# <a name="migrate-configuration-to-aspnet-core"></a>ASP.NET Core 構成を移行します。
+# <a name="migrate-configuration-to-aspnet-core"></a>構成を ASP.NET Core に移行する
 
 作成者: [Steve Smith](https://ardalis.com/)、[Scott Addie](https://scottaddie.com)
 
-前の記事では[ASP.NET MVCプロジェクトからASP.NET Core MVCへの移行](xref:migration/mvc)を開始しました。 この記事では、構成を移行します。
+前の記事では、 [ASP.NET mvc プロジェクトの ASP.NET CORE mvc への移行](xref:migration/mvc)を開始しました。 この記事では、構成を移行します。
 
 [サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/migration/configuration/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="setup-configuration"></a>セットアップの構成
 
-ASP.NET Core を使用しなく、 *Global.asax*と*web.config*ファイルを以前のバージョンの ASP.NET を使用します。 以前のバージョンの ASP.NET では、アプリケーションの起動ロジックが格納された、`Application_StartUp`メソッド内で*Global.asax*します。 ASP.NET MVC では、以降、 *Startup.cs* ; プロジェクトのルートにファイルが含まれているし、アプリケーションの起動時に呼び出されました。 ASP.NET Core はすべてのスタートアップ ロジックを配置することでこの方法を完全に採用が、 *Startup.cs*ファイル。
+ASP.NET Core は、以前のバージョンの ASP.NET が使用されていた*global.asax* *および web.config ファイルを使用*しなくなりました。 以前のバージョンの ASP.NET では、アプリケーションのスタートアップロジックは*global.asax*内の `Application_StartUp` メソッドに配置されました。 その後、ASP.NET MVC では、 *Startup.cs*ファイルがプロジェクトのルートに含まれていました。また、アプリケーションの起動時に呼び出されました。 ASP.NET Core は、すべてのスタートアップロジックを*Startup.cs*ファイルに配置することによって、この方法を完全に採用しています。
 
-*Web.config*ファイルは ASP.NET Core で置き換えられてもします。 説明されているアプリケーションのスタートアップ プロシージャの一部として、構成自体を構成ようになりましたことができます*Startup.cs*します。 構成は、XML ファイルにも引き続き使用できますが、通常 ASP.NET Core プロジェクトが配置の構成値で JSON 形式のファイルなど*appsettings.json*します。 ASP.NET Core の構成システムは、環境変数は、指定できますも簡単にアクセスできます、[よりセキュリティで保護された信頼性の高い場所](xref:security/app-secrets)環境固有の値。 これは、接続文字列とソース管理にチェックインしないでください API キーのような機密情報に特に当てはまります。 参照してください[構成](xref:fundamentals/configuration/index)を ASP.NET Core での構成の詳細を参照してください。
+Web.config*ファイルも*ASP.NET Core で置き換えられました。 *Startup.cs*で説明されているアプリケーションのスタートアップ手順の一部として、構成自体を構成できるようになりました。 構成でも XML ファイルを利用できますが、通常は ASP.NET Core プロジェクトは、構成値を JSON 形式のファイル (たとえば、 *appsettings*) に配置します。 ASP.NET Core の構成システムは、環境変数に簡単にアクセスすることもできます。これにより、環境固有の値に対して[より安全かつ堅牢な場所](xref:security/app-secrets)を提供できます。 これは、ソース管理にチェックインしない接続文字列や API キーなどのシークレットに特に当てはまります。 ASP.NET Core の構成の詳細については、「[構成](xref:fundamentals/configuration/index)」を参照してください。
 
-この記事では、部分的に移行した ASP.NET Core プロジェクトで開始します[前の記事](xref:migration/mvc)します。 構成のセットアップ、次のコンス トラクターとプロパティを追加する、 *Startup.cs*プロジェクトのルートにあるファイル。
+この記事では、[前の記事](xref:migration/mvc)の部分的に移行された ASP.NET Core プロジェクトから始めます。 構成を設定するには、次のコンストラクターとプロパティをプロジェクトのルートにある*Startup.cs*ファイルに追加します。
 
 [!code-csharp[](configuration/samples/WebApp1/src/WebApp1/Startup.cs?range=11-16)]
 
-現時点ことに注意してください、 *Startup.cs*ように、次を追加する必要があります、ファイルはコンパイルされません`using`ステートメント。
+この時点で、 *Startup.cs*ファイルはコンパイルされません。ただし、次の `using` ステートメントを追加する必要があるためです。
 
 ```csharp
 using Microsoft.Extensions.Configuration;
 ```
 
-追加、 *appsettings.json*適切な項目テンプレートを使用して、プロジェクトのルートにファイル。
+適切な項目テンプレートを使用して、プロジェクトのルートに*appsettings*ファイルを追加します。
 
-![AppSettings の JSON を追加します。](configuration/_static/add-appsettings-json.png)
+![AppSettings JSON の追加](configuration/_static/add-appsettings-json.png)
 
-## <a name="migrate-configuration-settings-from-webconfig"></a>Web.config ファイルから構成設定を移行します。
+## <a name="migrate-configuration-settings-from-webconfig"></a>Web.config から構成設定を移行する
 
-ASP.NET MVC プロジェクトに必要なデータベース接続文字列が含まれている*web.config*の`<connectionStrings>`要素。 この ASP.NET Core プロジェクトでこの情報を格納するつもりが、 *appsettings.json*ファイル。 開いている*appsettings.json*、および次既に含まれていることに注意してください。
+ASP.NET MVC プロジェクトでは、必要なデータベース接続文字列が*web.config の `<connectionStrings>`* 要素に含まれていました。 この ASP.NET Core プロジェクトでは、この情報を*appsettings*ファイルに格納します。 *Appsettings*を開き、次のものが既に含まれていることに注意してください。
 
 [!code-json[](../migration/configuration/samples/WebApp1/src/WebApp1/appsettings.json?highlight=4)]
 
-強調表示された行を上に示したでデータベースの名前を変更 **_CHANGE_ME**データベースの名前にします。
+上の強調表示された行で、データベースの名前をデータベースの**名前に変更**します。
 
 ## <a name="summary"></a>まとめ
 
-ASP.NET Core では、1 つのファイル、これで、必要なサービスと依存関係を定義および構成できるアプリケーションのすべてのスタートアップ ロジックを配置します。 置き換えられます、 *web.config*ファイルのさまざまな環境変数と同様に、JSON などのファイル形式を利用できる柔軟な構成機能を使用します。
+ASP.NET Core によって、アプリケーションのすべてのスタートアップロジックが1つのファイルに配置されます。このファイルで、必要なサービスと依存関係を定義して構成することができます。 *Web.config ファイルは*、JSON などのさまざまなファイル形式や環境変数を利用できる柔軟な構成機能に置き換えられています。

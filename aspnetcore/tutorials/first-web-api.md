@@ -250,7 +250,7 @@ Ctrl キーを押しながら F5 キーを押して、アプリを実行しま�
 
 ## <a name="register-the-database-context"></a>データベース コンテキストの登録
 
-ASP.NET Core で、サービス (DB コンテキストなど) を[依存関係の挿入 (DI) コンテナー](xref:fundamentals/dependency-injection)に登録する必要があります。 コンテナーは、コントローラーにサービスを提供します。
+ASP.NET Core で、サービス (DB コンテキストなど) を[依存関係の挿入 (DI)](xref:fundamentals/dependency-injection)コンテナーに登録する必要があります。 コンテナーは、コントローラーにサービスを提供します。
 
 次の強調表示されているコードを使用して、*Startup.cs* を更新します。
 
@@ -294,13 +294,13 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 ---
 
-生成されたコード:
+生成されたコードでは次の操作が行われます。
 
 * メソッドを使用せず、API コントローラー クラスを定義します。
-* クラスを [[ApiController]](/dotnet/api/microsoft.aspnetcore.mvc.apicontrollerattribute) 属性で修飾します。 この属性は、コントローラーが Web API 要求に応答することを示します。 属性によって有効化される特定の動作については、<xref:web-api/index> を参照してください。
+* クラスを [[ApiController]](/dotnet/api/microsoft.aspnetcore.mvc.apicontrollerattribute) 属性で修飾します。 この属性は、コントローラーが Web API 要求に応答することを示します。 属性によって有効化される特定の動作については、「<xref:web-api/index>」 を参照してください。
 * DI を使用して、データベース コンテキスト (`TodoContext`) をコントローラーに挿入します。 データベース コンテキストは、コントローラーの各 [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) メソッドで使用されます。
 
-## <a name="examine-the-posttodoitem-create-method"></a>PostTodoItem create 作成メソッドを確認する
+## <a name="examine-the-posttodoitem-create-method"></a>PostTodoItem 作成メソッドの確認
 
 [nameof](/dotnet/csharp/language-reference/operators/nameof) 演算子を使用するために、`PostTodoItem` で return ステートメントを置き換えます。
 
@@ -322,7 +322,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 * Web アプリを起動します。
 * Postman を起動します。
 * **SSL 証明書の検証**を無効にします。
-* **[ファイル]** > **[設定]** ( **[全般]** タブ) で、**SSL 証明書の検証**を無効にします。
+* **[ファイル]** > **[設定]** ( **[全般]** タブ) で、 **[SSL 証明書の確認]** を無効にします。
     > [!WARNING]
     > コントローラーをテストした後、SSL 証明書の検証を再度有効にします。
 
@@ -643,7 +643,7 @@ Ctrl キーを押しながら F5 キーを押して、アプリを実行しま�
 
 ## <a name="register-the-database-context"></a>データベース コンテキストの登録
 
-ASP.NET Core で、サービス (DB コンテキストなど) を[依存関係の挿入 (DI) コンテナー](xref:fundamentals/dependency-injection)に登録する必要があります。 コンテナーは、コントローラーにサービスを提供します。
+ASP.NET Core で、サービス (DB コンテキストなど) を[依存関係の挿入 (DI)](xref:fundamentals/dependency-injection)コンテナーに登録する必要があります。 コンテナーは、コントローラーにサービスを提供します。
 
 次の強調表示されているコードを使用して、*Startup.cs* を更新します。
 
@@ -679,7 +679,7 @@ ASP.NET Core で、サービス (DB コンテキストなど) を[依存関係�
 上のコードでは以下の操作が行われます。
 
 * メソッドを使用せず、API コントローラー クラスを定義します。
-* クラスを [[ApiController]](/dotnet/api/microsoft.aspnetcore.mvc.apicontrollerattribute) 属性で修飾します。 この属性は、コントローラーが Web API 要求に応答することを示します。 属性によって有効化される特定の動作については、<xref:web-api/index> を参照してください。
+* クラスを [[ApiController]](/dotnet/api/microsoft.aspnetcore.mvc.apicontrollerattribute) 属性で修飾します。 この属性は、コントローラーが Web API 要求に応答することを示します。 属性によって有効化される特定の動作については、「<xref:web-api/index>」 を参照してください。
 * DI を使用して、データベース コンテキスト (`TodoContext`) をコントローラーに挿入します。 データベース コンテキストは、コントローラーの各 [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) メソッドで使用されます。
 * 追加データベースが空の場合、`Item1` という名前のアイテムをデータベースにします。 このコードはコンストラクター内にあるので、新しい HTTP 要求が行われるたびに実行されます。 すべてのアイテムを削除した場合、コンストラクターは、次回に API メソッドが呼び出されたときに `Item1` をもう一度作成します。 そのため、削除が実際には機能していても、機能しなかったように見える場合があります。
 
@@ -748,7 +748,7 @@ To Do アイテムを取得する API を指定するには、`TodoController` �
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* **[ファイル]** > **[設定]** ( **[全般]** タブ) で、**SSL 証明書の検証**を無効にします。
+* **[ファイル]** > **[設定]** ( **[全般]** タブ) で、 **[SSL 証明書の確認]** を無効にします。
 
 # <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
