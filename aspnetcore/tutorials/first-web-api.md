@@ -186,7 +186,7 @@ Ctrl キーを押しながら F5 キーを押して、アプリを実行しま�
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* **ソリューション エクスプローラー**で、プロジェクトを右クリックします。 **[追加]**  >  **[新しいフォルダー]** の順に選択します。 フォルダーに *Models* という名前を付けます。
+* **ソリューション エクスプローラー**で、プロジェクトを右クリックします。 **[追加]**  >  **[新しいフォルダー]** の順に選択します。 フォルダーに「*Models*」という名前を付けます。
 
 * *Models* フォルダーを右クリックし、 **[追加]**  >  **[クラス]** の順にクリックします。 クラスに「*TodoItem*」という名前を付け、 **[追加]** を選択します。
 
@@ -200,7 +200,7 @@ Ctrl キーを押しながら F5 キーを押して、アプリを実行しま�
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* プロジェクトを右クリックします。 **[追加]**  >  **[新しいフォルダー]** の順に選択します。 フォルダーに *Models* という名前を付けます。
+* プロジェクトを右クリックします。 **[追加]**  >  **[新しいフォルダー]** の順に選択します。 フォルダーに「*Models*」という名前を付けます。
 
   ![新しいフォルダー](first-web-api-mac/_static/folder.png)
 
@@ -256,7 +256,7 @@ ASP.NET Core で、サービス (DB コンテキストなど) を[依存関係�
 
 [!code-csharp[](first-web-api/samples/3.0/TodoApi/Startup.cs?highlight=7-8,23-24&name=snippet_all)]
 
-上のコードでは以下の操作が行われます。
+上記のコードでは次の操作が行われます。
 
 * 不要な `using` 宣言を削除します。
 * DI コンテナーにデータベース コンテキストを追加します。
@@ -321,7 +321,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 * [Postman](https://www.getpostman.com/downloads/) をインストールします。
 * Web アプリを起動します。
 * Postman を起動します。
-* **SSL 証明書の検証**を無効にします。
+* **[SSL 証明書の確認]** を無効にします。
 * **[ファイル]** > **[設定]** ( **[全般]** タブ) で、 **[SSL 証明書の確認]** を無効にします。
     > [!WARNING]
     > コントローラーをテストした後、SSL 証明書の検証を再度有効にします。
@@ -402,7 +402,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
   [!code-csharp[](first-web-api/samples/3.0/TodoApi/Controllers/TodoItemsController.cs?name=TodoController&highlight=1)]
 
 * `[controller]` をコントローラーの名前 (慣例では "Controller" サフィックスを除くコントローラー クラス名) に置き換えます。 このサンプルでは、コントローラー クラス名は **TodoItems**Controller なので、コントローラー名は "TodoItems" です。 ASP.NET Core の[ルーティング](xref:mvc/controllers/routing)では、大文字と小文字が区別されません。
-* `[HttpGet]` 属性にルート テンプレート (例: `[HttpGet("products")]`) がある場合は、それをパスに追加します。 このサンプルではテンプレートを使用しません。 詳細については、「[Http[Verb] 属性を使用する属性ルーティング](xref:mvc/controllers/routing#attribute-routing-with-httpverb-attributes)」を参照してください。
+* `[HttpGet]` 属性にルート テンプレート (たとえば、`[HttpGet("products")]`) がある場合は、それをパスに追加します。 このサンプルではテンプレートを使用しません。 詳細については、「[Http[Verb] 属性を使用する属性ルーティング](xref:mvc/controllers/routing#attribute-routing-with-httpverb-attributes)」を参照してください。
 
 次の `GetTodoItem` メソッドで、`"{id}"` は To Do アイテムの一意識別子に使用するプレースホルダーの変数です。 `GetTodoItem` が呼び出されると、その `id` パラメーター内のメソッドに URL の `"{id}"` の値が指定されます。
 
@@ -410,7 +410,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 ## <a name="return-values"></a>戻り値
 
-`GetTodoItems` メソッドと `GetTodoItem` メソッドの戻り値の型は、[ActionResult\<T > 型](xref:web-api/action-return-types#actionresultt-type)です。 ASP.NET Core は自動的にオブジェクトを [JSON](https://www.json.org/) にシリアル化して、応答メッセージの本文に JSON を書き込みます。 この戻り値の型の応答コードは 200 で、ハンドルされない例外がないものと想定します。 ハンドルされない例外は 5xx エラーに変換されます。
+`GetTodoItems` メソッドと `GetTodoItem` メソッドの戻り値の型は、[ActionResult\<T> 型です](xref:web-api/action-return-types#actionresultt-type)。 ASP.NET Core は自動的にオブジェクトを [JSON](https://www.json.org/) にシリアル化して、応答メッセージの本文に JSON を書き込みます。 この戻り値の型の応答コードは 200 で、ハンドルされない例外がないものと想定します。 ハンドルされない例外は 5xx エラーに変換されます。
 
 `ActionResult` 戻り値の型は、幅広い範囲の HTTP 状態コードを表すことができます。 たとえば、`GetTodoItem` は、次の 2 つの異なる状態値を返す可能性があります。
 
@@ -591,7 +591,7 @@ Ctrl キーを押しながら F5 キーを押して、アプリを実行しま�
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* **ソリューション エクスプローラー**で、プロジェクトを右クリックします。 **[追加]**  >  **[新しいフォルダー]** の順に選択します。 フォルダーに *Models* という名前を付けます。
+* **ソリューション エクスプローラー**で、プロジェクトを右クリックします。 **[追加]**  >  **[新しいフォルダー]** の順に選択します。 フォルダーに「*Models*」という名前を付けます。
 
 * *Models* フォルダーを右クリックし、 **[追加]**  >  **[クラス]** の順にクリックします。 クラスに「*TodoItem*」という名前を付け、 **[追加]** を選択します。
 
@@ -605,7 +605,7 @@ Ctrl キーを押しながら F5 キーを押して、アプリを実行しま�
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* プロジェクトを右クリックします。 **[追加]**  >  **[新しいフォルダー]** の順に選択します。 フォルダーに *Models* という名前を付けます。
+* プロジェクトを右クリックします。 **[追加]**  >  **[新しいフォルダー]** の順に選択します。 フォルダーに「*Models*」という名前を付けます。
 
   ![新しいフォルダー](first-web-api-mac/_static/folder.png)
 
@@ -649,7 +649,7 @@ ASP.NET Core で、サービス (DB コンテキストなど) を[依存関係�
 
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Startup1.cs?highlight=5,8,25-26&name=snippet_all)]
 
-上のコードでは以下の操作が行われます。
+上記のコードでは次の操作が行われます。
 
 * 不要な `using` 宣言を削除します。
 * DI コンテナーにデータベース コンテキストを追加します。
@@ -676,7 +676,7 @@ ASP.NET Core で、サービス (DB コンテキストなど) を[依存関係�
 
   [!code-csharp[](first-web-api/samples/2.2/TodoApi/Controllers/TodoController2.cs?name=snippet_todo1)]
 
-上のコードでは以下の操作が行われます。
+上記のコードでは次の操作が行われます。
 
 * メソッドを使用せず、API コントローラー クラスを定義します。
 * クラスを [[ApiController]](/dotnet/api/microsoft.aspnetcore.mvc.apicontrollerattribute) 属性で修飾します。 この属性は、コントローラーが Web API 要求に応答することを示します。 属性によって有効化される特定の動作については、「<xref:web-api/index>」 を参照してください。
@@ -722,7 +722,7 @@ To Do アイテムを取得する API を指定するには、`TodoController` �
   [!code-csharp[](first-web-api/samples/2.2/TodoApi/Controllers/TodoController.cs?name=TodoController&highlight=3)]
 
 * `[controller]` をコントローラーの名前 (慣例では "Controller" サフィックスを除くコントローラー クラス名) に置き換えます。 このサンプルでは、コントローラー クラス名は **Todo**Controller なので、コントローラー名は "todo" です。 ASP.NET Core の[ルーティング](xref:mvc/controllers/routing)では、大文字と小文字が区別されません。
-* `[HttpGet]` 属性にルート テンプレート (例: `[HttpGet("products")]`) がある場合は、それをパスに追加します。 このサンプルではテンプレートを使用しません。 詳細については、「[Http[Verb] 属性を使用する属性ルーティング](xref:mvc/controllers/routing#attribute-routing-with-httpverb-attributes)」を参照してください。
+* `[HttpGet]` 属性にルート テンプレート (たとえば、`[HttpGet("products")]`) がある場合は、それをパスに追加します。 このサンプルではテンプレートを使用しません。 詳細については、「[Http[Verb] 属性を使用する属性ルーティング](xref:mvc/controllers/routing#attribute-routing-with-httpverb-attributes)」を参照してください。
 
 次の `GetTodoItem` メソッドで、`"{id}"` は To Do アイテムの一意識別子に使用するプレースホルダーの変数です。 `GetTodoItem` が呼び出されると、その `id` パラメーター内のメソッドに URL の `"{id}"` の値が指定されます。
 
@@ -730,7 +730,7 @@ To Do アイテムを取得する API を指定するには、`TodoController` �
 
 ## <a name="return-values"></a>戻り値
 
-`GetTodoItems` メソッドと `GetTodoItem` メソッドの戻り値の型は、[ActionResult\<T > 型](xref:web-api/action-return-types#actionresultt-type)です。 ASP.NET Core は自動的にオブジェクトを [JSON](https://www.json.org/) にシリアル化して、応答メッセージの本文に JSON を書き込みます。 この戻り値の型の応答コードは 200 で、ハンドルされない例外がないものと想定します。 ハンドルされない例外は 5xx エラーに変換されます。
+`GetTodoItems` メソッドと `GetTodoItem` メソッドの戻り値の型は、[ActionResult\<T> 型です](xref:web-api/action-return-types#actionresultt-type)。 ASP.NET Core は自動的にオブジェクトを [JSON](https://www.json.org/) にシリアル化して、応答メッセージの本文に JSON を書き込みます。 この戻り値の型の応答コードは 200 で、ハンドルされない例外がないものと想定します。 ハンドルされない例外は 5xx エラーに変換されます。
 
 `ActionResult` 戻り値の型は、幅広い範囲の HTTP 状態コードを表すことができます。 たとえば、`GetTodoItem` は、次の 2 つの異なる状態値を返す可能性があります。
 
@@ -744,7 +744,7 @@ To Do アイテムを取得する API を指定するには、`TodoController` �
 * [Postman](https://www.getpostman.com/downloads/) をインストールします。
 * Web アプリを起動します。
 * Postman を起動します。
-* **SSL 証明書の検証**を無効にします。
+* **[SSL 証明書の確認]** を無効にします。
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
