@@ -22,7 +22,7 @@ ms.locfileid: "72165405"
 
 ## <a name="what-is-messagepack"></a>MessagePack とは
 
-[Messagepack](https://msgpack.org/index.html)は、高速でコンパクトなバイナリシリアル化形式です。 これは、 [JSON](https://www.json.org/)と比較して小さいメッセージを作成するため、パフォーマンスと帯域幅が問題になる場合に便利です。 バイナリ形式であるため、メッセージが MessagePack パーサーによって渡されない限り、ネットワークトレースとログを確認するときにメッセージを読み取ることはできません。 SignalR には MessagePack 形式のサポートが組み込まれており、クライアントとサーバーが使用する Api が用意されています。
+[MessagePack](https://msgpack.org/index.html)は、高速でコンパクトなバイナリシリアル化形式です。 これは、 [JSON](https://www.json.org/)と比較して小さいメッセージを作成するため、パフォーマンスと帯域幅が問題になる場合に便利です。 バイナリ形式であるため、メッセージが MessagePack パーサーによって渡されない限り、ネットワークトレースとログを確認するときにメッセージを読み取ることはできません。 SignalR には MessagePack 形式のサポートが組み込まれており、クライアントとサーバーが使用する API が用意されています。
 
 ## <a name="configure-messagepack-on-the-server"></a>サーバーでの MessagePack の構成
 
@@ -36,7 +36,7 @@ services.AddSignalR()
     .AddMessagePackProtocol();
 ```
 
-MessagePack によるデータの書式設定方法をカスタマイズするために、`AddMessagePackProtocol` はオプションを構成するためのデリゲートを受け取ります。 このデリゲートでは、`FormatterResolvers` プロパティを使用して MessagePack のシリアル化オプションを構成できます。 リゾルバーの動作の詳細については、 [messagepack-CSharp](https://github.com/neuecc/MessagePack-CSharp)の messagepack ライブラリを参照してください。 属性は、シリアル化するオブジェクトに対して使用して、どのように処理するかを定義できます。
+MessagePack によるデータの書式設定方法をカスタマイズするために、`AddMessagePackProtocol` はオプションを構成するためのデリゲートを受け取ります。 このデリゲートでは、`FormatterResolvers` プロパティを使用して MessagePack のシリアル化オプションを構成できます。 リゾルバーの動作の詳細については、 [MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp)の MessagePack ライブラリを参照してください。 属性は、シリアル化するオブジェクトに対して使用して、どのように処理するかを定義できます。
 
 ```csharp
 services.AddSignalR()
@@ -90,7 +90,7 @@ npm install @aspnet/signalr-protocol-msgpack
 
 ::: moniker-end
 
-Npm パッケージをインストールした後、モジュールは JavaScript モジュールローダーで直接使用することも、次のファイルを参照してブラウザーにインポートすることもできます。
+npm パッケージをインストールした後、モジュールは JavaScript モジュールローダーで直接使用することも、次のファイルを参照してブラウザーにインポートすることもできます。
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -159,7 +159,7 @@ MessagePack プロトコルは、`DateTime` の @no__t 0 値をエンコード�
 
 ### <a name="datetimeminvalue-is-not-supported-by-messagepack-in-javascript"></a>MinValue は、JavaScript の MessagePack ではサポートされていません
 
-SignalR JavaScript クライアントによって使用される[msgpack5](https://github.com/mcollina/msgpack5)ライブラリは、messagepack の `timestamp96` 型をサポートしていません。 この型は、非常に大きな日付値をエンコードするために使用されます (過去またはそれ以降の非常に早い段階)。 @No__t-0 の値は `January 1, 0001` で、`timestamp96` の値でエンコードする必要があります。 このため、JavaScript クライアントへの `DateTime.MinValue` の送信はサポートされていません。 @No__t-0 が JavaScript クライアントによって受信されると、次のエラーがスローされます。
+SignalR JavaScript クライアントによって使用される[msgpack5](https://github.com/mcollina/msgpack5)ライブラリは、MessagePack の `timestamp96` 型をサポートしていません。 この型は、非常に大きな日付値をエンコードするために使用されます (過去またはそれ以降の非常に早い段階)。 @No__t-0 の値は `January 1, 0001` で、`timestamp96` の値でエンコードする必要があります。 このため、JavaScript クライアントへの `DateTime.MinValue` の送信はサポートされていません。 @No__t-0 が JavaScript クライアントによって受信されると、次のエラーがスローされます。
 
 ```
 Uncaught Error: unable to find ext type 255 at decoder.js:427
