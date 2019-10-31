@@ -5,14 +5,14 @@ description: 構成 API を使用して、ASP.NET Core アプリを構成する�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/24/2019
+ms.date: 10/29/2019
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 263f9f7c4c800a74b745fd636196e1e135afc91b
-ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
+ms.openlocfilehash: c63609cfb91a1668b8e125c54fcfecf5f4ec259b
+ms.sourcegitcommit: de0fc77487a4d342bcc30965ec5c142d10d22c03
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/29/2019
-ms.locfileid: "73033912"
+ms.lasthandoff: 10/30/2019
+ms.locfileid: "73143350"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core の構成
 
@@ -296,6 +296,18 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 {
     // Call other providers here
     config.AddCommandLine(args);
+})
+```
+
+### <a name="remove-providers-added-by-createdefaultbuilder"></a>CreateDefaultBuilder によって追加されたプロバイダーの削除
+
+`CreateDefaultBuilder` によって追加されたプロバイダーを削除するには、最初に [IConfigurationBuilder.Sources](xref:Microsoft.Extensions.Configuration.IConfigurationBuilder.Sources) の [クリア](/dotnet/api/system.collections.generic.icollection-1.clear) を呼び出します。
+
+```csharp
+.ConfigureAppConfiguration((hostingContext, config) =>
+{
+    config.Sources.Clear();
+    // Add providers here
 })
 ```
 

@@ -16,7 +16,7 @@ ms.locfileid: "72165405"
 ---
 # <a name="use-messagepack-hub-protocol-in-signalr-for-aspnet-core"></a>ASP.NET Core には、SignalR の MessagePack ハブプロトコルを使用します。
 
-[Brennan Conroy](https://github.com/BrennanConroy)
+作成者: [Brennan Conroy](https://github.com/BrennanConroy)
 
 この記事では、「[作業の開始](xref:tutorials/signalr)」で説明されているトピックについての知識がある読者を想定しています。
 
@@ -143,7 +143,7 @@ public class ChatMessage
 }
 ```
 
-JavaScript クライアントから送信する場合は、大文字と小文字が正確に一致C#する必要があるため、`PascalCased` のプロパティ名を使用する必要があります。 以下に例を示します。
+JavaScript クライアントから送信する場合は、大文字と小文字が正確に C# のクラスと一致する必要があるため、`PascalCased` のプロパティ名を使用する必要があります。 以下に例を示します。
 
 ```javascript
 connection.invoke("SomeMethod", { Sender: "Sally", Message: "Hello!" });
@@ -157,7 +157,7 @@ MessagePack プロトコルは、`DateTime` の @no__t 0 値をエンコード�
 
 この制限の詳細については、「GitHub issue [aspnet/SignalR # 2632](https://github.com/aspnet/SignalR/issues/2632)」を参照してください。
 
-### <a name="datetimeminvalue-is-not-supported-by-messagepack-in-javascript"></a>MinValue は、JavaScript の MessagePack ではサポートされていません
+### <a name="datetimeminvalue-is-not-supported-by-messagepack-in-javascript"></a>DateTime.MinValue は、JavaScript の MessagePack ではサポートされていません
 
 SignalR JavaScript クライアントによって使用される[msgpack5](https://github.com/mcollina/msgpack5)ライブラリは、MessagePack の `timestamp96` 型をサポートしていません。 この型は、非常に大きな日付値をエンコードするために使用されます (過去またはそれ以降の非常に早い段階)。 @No__t-0 の値は `January 1, 0001` で、`timestamp96` の値でエンコードする必要があります。 このため、JavaScript クライアントへの `DateTime.MinValue` の送信はサポートされていません。 @No__t-0 が JavaScript クライアントによって受信されると、次のエラーがスローされます。
 
@@ -185,7 +185,7 @@ services.AddSignalR()
     });
 ```
 
-### <a name="type-checks-are-more-strict-in-messagepack"></a>MessagePack での型チェックの方が厳しい場合
+### <a name="type-checks-are-more-strict-in-messagepack"></a>MessagePack での型チェックの方が厳しい
 
 JSON ハブプロトコルは、逆シリアル化中に型変換を実行します。 たとえば、受信したオブジェクトのプロパティ値が数値 (`{ foo: 42 }`) であっても、.NET クラスのプロパティの型が `string` の場合、その値は変換されます。 ただし、MessagePack では、この変換は実行されず、サーバー側のログ (およびコンソール) で確認できる例外がスローされます。
 
