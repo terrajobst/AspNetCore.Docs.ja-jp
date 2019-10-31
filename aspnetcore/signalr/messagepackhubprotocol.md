@@ -1,5 +1,5 @@
 ---
-title: ASP.NET Core には、SignalR の MessagePack ハブプロトコルを使用します。
+title: ASP.NET Core SignalR で MessagePack ハブプロトコルを使用する
 author: bradygaster
 description: MessagePack ハブプロトコルを ASP.NET Core SignalR に追加します。
 monikerRange: '>= aspnetcore-2.1'
@@ -14,7 +14,7 @@ ms.contentlocale: ja-JP
 ms.lasthandoff: 10/09/2019
 ms.locfileid: "72165405"
 ---
-# <a name="use-messagepack-hub-protocol-in-signalr-for-aspnet-core"></a>ASP.NET Core には、SignalR の MessagePack ハブプロトコルを使用します。
+# <a name="use-messagepack-hub-protocol-in-signalr-for-aspnet-core"></a>ASP.NET Core SignalR で MessagePack ハブプロトコルを使用する
 
 作成者: [Brennan Conroy](https://github.com/BrennanConroy)
 
