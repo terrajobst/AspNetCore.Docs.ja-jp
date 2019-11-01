@@ -48,27 +48,27 @@ Microsoft.AspNetCore.SignalR.HubException: Failed to invoke 'GetTotalLength' due
 System.IO.InvalidDataException: Invocation provides 1 argument(s) but target expects 2.
 ```
 
-古いクライアントでは、1 つのパラメーターのみ送信されるが、新しいサーバー API には 2 つのパラメーターが必要です。 カスタムオブジェクトをパラメーターとして使用すると柔軟性が向上します。 カスタムオブジェクトを使用して元の API のデザインを変更しましょう。
+古いクライアントでは、1 つのパラメーターのみ送信されますが、新しいサーバー API には 2 つのパラメーターが必要です。 カスタム オブジェクトをパラメーターとして使用すると柔軟性が向上します。 カスタム オブジェクトを使用して元の API のデザインを変更しましょう。
 
 [!code-csharp[ObjectBasedOldVersion](api-design/sample/Samples.cs?name=ObjectBasedOldVersion)]
 
-そして、クライアントではメソッドの呼び出しにオブジェクトを使用します。
+ここで、クライアントはメソッドの呼び出しにオブジェクトを使用します。
 
 [!code-typescript[CallWithObject](api-design/sample/Samples.ts?name=CallWithObject)]
 
-パラメーターを追加する代わりに、`TotalLengthRequest`オブジェクトにプロパティを追加します。
+パラメーターを追加する代わりに、`TotalLengthRequest` オブジェクトにプロパティを追加します。
 
 [!code-csharp[ObjectBasedNewVersion](api-design/sample/Samples.cs?name=ObjectBasedNewVersion&highlight=4,9-13)]
 
-古いクライアントが1つのパラメーターを送信するときは、`Param2`プロパティは`null`になります。`Param2`が`null`であることをチェックして古いクライアントから送信されたメッセージであることを検出し、既定値を適用することができます。 新しいクライアントは、両方のパラメーターを送信できます。
+古いクライアントが 1 つのパラメーターを送信するときは、`Param2` プロパティは `null` になります。`Param2` が `null` であることをチェックして古いクライアントから送信されたメッセージであることを検出し、既定値を適用することができます。 新しいクライアントは、両方のパラメーターを送信できます。
 
 [!code-typescript[CallWithObjectNew](api-design/sample/Samples.ts?name=CallWithObjectNew)]
 
-同じ手法では、クライアントで定義されているメソッドに対して機能します。 サーバー側から、カスタムオブジェクトを送信できます。
+同じ手法では、クライアントで定義されているメソッドに対して機能します。 サーバー側からは、カスタム オブジェクトを送信できます。
 
 [!code-csharp[ClientSideObjectBasedOld](api-design/sample/Samples.cs?name=ClientSideObjectBasedOld)]
 
-クライアント側では、`Message`パラメーターを使用するのではなく、プロパティにアクセスします。
+クライアント側では、`Message` パラメーターを使用するのではなく、プロパティにアクセスします。
 
 [!code-typescript[OnWithObjectOld](api-design/sample/Samples.ts?name=OnWithObjectOld)]
 
@@ -76,8 +76,8 @@ System.IO.InvalidDataException: Invocation provides 1 argument(s) but target exp
 
 [!code-csharp[ClientSideObjectBasedNew](api-design/sample/Samples.cs?name=ClientSideObjectBasedNew&highlight=5)]
 
-古いクライアントには`Sender`値が必要ないためそれを無視します。 新しいクライアントは新しいプロパティを読み取るために更新して、それを受け取ることができます。
+古いクライアントには `Sender` 値が必要ないためそれを無視します。 新しいクライアントは新しいプロパティを読み取るために更新して、それを受け取ることができます。
 
 [!code-typescript[OnWithObjectNew](api-design/sample/Samples.ts?name=OnWithObjectNew&highlight=2-5)]
 
-この場合は、新しいクライアントは`Sender`の値を提供しない古いサーバーに対して寛容です。 古いサーバーは`Sender`の値を提供しないため、クライアントはアクセスする前に存在するかどうかを確認します。
+この場合は、新しいクライアントは `Sender` の値を提供しない古いサーバーに対してトレラントです。 古いサーバーは `Sender` の値を提供しないため、クライアントはアクセスする前に存在するかどうかを確認します。
