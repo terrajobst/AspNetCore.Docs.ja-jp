@@ -60,7 +60,7 @@ System.IO.InvalidDataException: Invocation provides 1 argument(s) but target exp
 
 [!code-csharp[ObjectBasedNewVersion](api-design/sample/Samples.cs?name=ObjectBasedNewVersion&highlight=4,9-13)]
 
-古いクライアントが 1 つのパラメーターを送信するときは、`Param2` プロパティは `null` になります。`Param2` が `null` であることをチェックして古いクライアントから送信されたメッセージであることを検出し、既定値を適用することができます。 新しいクライアントは、両方のパラメーターを送信できます。
+古いクライアントが 1 つのパラメーターを送信するときは、`Param2` プロパティは `null` になります。 `Param2` が `null` であることをチェックして古いクライアントから送信されたメッセージであることを検出し、既定値を適用することができます。 新しいクライアントは、両方のパラメーターを送信できます。
 
 [!code-typescript[CallWithObjectNew](api-design/sample/Samples.ts?name=CallWithObjectNew)]
 

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/24/2019
 uid: fundamentals/routing
-ms.openlocfilehash: c8037d79c79c5b7eb3b99d9724aa3e5361f92b8c
-ms.sourcegitcommit: 5d25a7f22c50ca6fdd0f8ecd8e525822e1b35b7a
+ms.openlocfilehash: 8b4da4e1e262ec82225413d0338b3492d0b5e152
+ms.sourcegitcommit: 032113208bb55ecfb2faeb6d3e9ea44eea827950
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/28/2019
-ms.locfileid: "71482042"
+ms.lasthandoff: 10/31/2019
+ms.locfileid: "73190503"
 ---
 # <a name="routing-in-aspnet-core"></a>ASP.NET Core のルーティング
 
@@ -591,6 +591,81 @@ routes.MapRoute("blog_route", "blog/{*slug}",
 複雑なセグメント (例: `[Route("/x{token}y")]`) は、リテラルを右から左に最短一致の方法で照合することによって処理されます。 複雑なセグメントの一致方法に関する詳しい説明については、[こちらのコード](https://github.com/aspnet/AspNetCore/blob/release/2.2/src/Http/Routing/src/Patterns/RoutePatternMatcher.cs#L293)をご覧ください。 この[コード サンプル](https://github.com/aspnet/AspNetCore/blob/release/2.2/src/Http/Routing/src/Patterns/RoutePatternMatcher.cs#L293)は ASP.NET Core では使われていませんが、複雑なセグメントに関する優れた説明が提供されています。
 <!-- While that code is no longer used by ASP.NET Core for complex segment matching, it provides a good match to the current algorithm. The [current code](https://github.com/aspnet/AspNetCore/blob/91514c9af7e0f4c44029b51f05a01c6fe4c96e4c/src/Http/Routing/src/Matching/DfaMatcherBuilder.cs#L227-L244) is too abstracted from matching to be useful for understanding complex segment matching.
 -->
+
+## <a name="configuring-endpoint-metadata"></a>エンドポイント メタデータの構成
+
+次のリンクでは、エンドポイント メタデータの構成に関する情報を提供します。
+
+* [エンドポイント ルーティングで CORS を有効にする](xref:security/cors#enable-cors-with-endpoint-routing)
+* カスタム `[MinimumAgeAuthorize]` 属性を使用する [IAuthorizationPolicyProvider のサンプル](https://github.com/aspnet/AspNetCore/tree/release/3.0/src/Security/samples/CustomPolicyProvider)
+* [[Authorize] 属性を使用して認証をテストする](xref:security/authentication/identity#test-identity)
+* <xref:Microsoft.AspNetCore.Builder.AuthorizationEndpointConventionBuilderExtensions.RequireAuthorization*>
+* [[Authorize] 属性を使用してスキームを選択する](xref:security/authorization/limitingidentitybyscheme#selecting-the-scheme-with-the-authorize-attribute)
+* [[Authorize] 属性を使用してポリシーを適用する](xref:security/authorization/policies#applying-policies-to-mvc-controllers)
+* <xref:security/authorization/roles>
+
+<a name="hostmatch"></a>
+
+## <a name="host-matching-in-routes-with-requirehost"></a>RequireHost とルートが一致するホスト
+
+`RequireHost` では、指定したホストが必要であるという制約がルートに適用されます。 `RequireHost` または `[Host]` パラメーターには、次のいずれかを指定できます。
+
+* ホスト: `www.domain.com` (`www.domain.com` の任意のポートと一致します)
+* ホストとワイルドカード: `*.domain.com` (`www.domain.com`、`subdomain.domain.com`、または `www.subdomain.domain.com` の任意のポートと一致します)
+* ポート: `*:5000` (任意のホストのポート 5000 と一致します)
+* ホストとポート: `www.domain.com:5000`、`*.domain.com:5000` (ホストとポートと一致します)
+
+`RequireHost` または `[Host]` を使用して、複数のパラメーターを指定できます。 制約は、いずれかのパラメーターに対して有効なホストと一致します。 たとえば、`[Host("domain.com", "*.domain.com")]` は `domain.com`、`www.domain.com`、または `subdomain.domain.com` と一致します。
+
+次のコードでは、`RequireHost` を使用して、指定したホストをルートに対して要求します。
+
+```csharp
+public void Configure(IApplicationBuilder app)
+{
+    app.UseRouting();
+
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapGet("/", context => context.Response.WriteAsync("Hi Contoso!"))
+            .RequireHost("contoso.com");
+        endpoints.MapGet("/", context => context.Response.WriteAsync("Hi AdventureWorks!"))
+            .RequireHost("adventure-works.com");
+        endpoints.MapHealthChecks("/healthz").RequireHost("*:8080");
+    });
+}
+```
+
+次のコードでは、`[Host]` 属性を使用して、指定したホストをコントローラーに対して要求します。
+
+```csharp
+[Host("contoso.com", "adventure-works.com")]
+public class HomeController : Controller
+{
+    private readonly ILogger<HomeController> _logger;
+
+    public HomeController(ILogger<HomeController> logger)
+    {
+        _logger = logger;
+    }
+
+    public IActionResult Index()
+    {
+        return View();
+    }
+
+    [Host("example.com:8080")]
+    public IActionResult Privacy()
+    {
+        return View();
+    }
+
+}
+```
+
+`[Host]` 属性がコントローラーとアクション メソッドの両方に適用される場合は、次のようになります。
+
+* アクションの属性が使用されます。
+* コントローラーの属性は無視されます。
 
 ::: moniker-end
 
