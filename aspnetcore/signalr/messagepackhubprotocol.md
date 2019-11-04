@@ -26,7 +26,7 @@ ms.locfileid: "72165405"
 
 ## <a name="configure-messagepack-on-the-server"></a>サーバーでの MessagePack の構成
 
-サーバーで MessagePack ハブプロトコルを有効にするには、アプリに @no__t 0 パッケージをインストールします。 Startup.cs ファイルで `AddMessagePackProtocol` を @no__t の呼び出しに追加して、サーバーで MessagePack のサポートを有効にします。
+サーバーで MessagePack ハブプロトコルを有効にするには、アプリに `Microsoft.AspNetCore.SignalR.Protocols.MessagePack` パッケージをインストールします。 Startup.cs ファイルで `AddMessagePackProtocol` を `AddSignalR` の呼び出しに追加して、サーバーで MessagePack のサポートを有効にします。
 
 > [!NOTE]
 > JSON は既定で有効になっています。 MessagePack を追加すると、JSON と MessagePack クライアントの両方のサポートが有効になります。
@@ -56,7 +56,7 @@ services.AddSignalR()
 
 ### <a name="net-client"></a>.NET クライアント
 
-.NET クライアントで MessagePack を有効にするには、@no__t 0 のパッケージをインストールし、`HubConnectionBuilder` で `AddMessagePackProtocol` を呼び出します。
+.NET クライアントで MessagePack を有効にするには、`Microsoft.AspNetCore.SignalR.Protocols.MessagePack` のパッケージをインストールし、`HubConnectionBuilder` で `AddMessagePackProtocol` を呼び出します。
 
 ```csharp
 var hubConnection = new HubConnectionBuilder()
@@ -94,17 +94,17 @@ npm パッケージをインストールした後、モジュールは JavaScrip
 
 ::: moniker range=">= aspnetcore-3.0"
 
-*node_modules @ no__t-1 @ no__t* 
+*node_modules\\@microsoft\signalr-protocol-msgpack\dist\browser\signalr-protocol-msgpack.js* 
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-*node_modules @ no__t-1 @ no__t* 
+*\\@aspnet\signalr-protocol-msgpack\dist\browser\signalr-protocol-msgpack.js* 
 
 ::: moniker-end
 
-ブラウザーでは、`msgpack5` ライブラリも参照する必要があります。 参照を作成するには、@no__t 0 のタグを使用します。 ライブラリは*node_modules\msgpack5\dist\msgpack5.js*にあります。
+ブラウザーでは、`msgpack5` ライブラリも参照する必要があります。 参照を作成するには、`<script>` のタグを使用します。 ライブラリは*node_modules\msgpack5\dist\msgpack5.js*にあります。
 
 > [!NOTE]
 > @No__t-0 要素を使用する場合、順序は重要です。 *Msgpack5*の前に*signalr-protocol-msgpack*が参照されている場合、messagepack に接続しようとするとエラーが発生します。 *signalr*は、 *signalr-protocol-msgpack*の前にも必要です。
@@ -151,9 +151,9 @@ connection.invoke("SomeMethod", { Sender: "Sally", Message: "Hello!" });
 
 @No__t-0 の名前を使用してもC# 、クラスに正しくバインドされません。 この問題を回避するには、`Key` 属性を使用して、MessagePack プロパティに別の名前を指定します。 詳細については、 [MessagePack-CSharp のドキュメント](https://github.com/neuecc/MessagePack-CSharp#object-serialization)を参照してください。
 
-### <a name="datetimekind-is-not-preserved-when-serializingdeserializing"></a>シリアル化/逆シリアル化時には DateTime. Kind は保持されません
+### <a name="datetimekind-is-not-preserved-when-serializingdeserializing"></a>DateTime.Kind はシリアル化/逆シリアル化時に保持されません
 
-MessagePack プロトコルは、`DateTime` の @no__t 0 値をエンコードする手段を提供していません。 その結果、MessagePack ハブプロトコルでは、日付を逆シリアル化するときに、受信日が UTC 形式であると見なされます。 現地時刻で @no__t 0 の値を使用している場合は、送信する前に UTC に変換することをお勧めします。 これらを受信時に UTC からローカル時刻に変換します。
+MessagePack プロトコルは、`DateTime` の `Kind` 値をエンコードする手段を提供していません。 その結果、MessagePack ハブプロトコルでは、日付を逆シリアル化するときに、受信日が UTC 形式であると見なされます。 現地時刻で `DateTime` の値を使用している場合は、送信する前に UTC に変換することをお勧めします。 これらを受信時に UTC からローカル時刻に変換します。
 
 この制限の詳細については、「GitHub issue [aspnet/SignalR # 2632](https://github.com/aspnet/SignalR/issues/2632)」を参照してください。
 
@@ -165,13 +165,13 @@ SignalR JavaScript クライアントによって使用される[msgpack5](https
 Uncaught Error: unable to find ext type 255 at decoder.js:427
 ```
 
-通常、`DateTime.MinValue` は、"missing" 値または `null` 値をエンコードするために使用されます。 MessagePack でその値をエンコードする必要がある場合は、null 許容の @no__t 0 の値 (`DateTime?`) を使用するか、日付が存在するかどうかを示す別個の `bool` の値をエンコードします。
+通常、`DateTime.MinValue` は、"missing" 値または `null` 値をエンコードするために使用されます。 MessagePack でその値をエンコードする必要がある場合は、null 許容の `DateTime` の値 (`DateTime?`) を使用するか、日付が存在するかどうかを示す別個の `bool` の値をエンコードします。
 
 この制限の詳細については、「GitHub issue [aspnet/SignalR # 2228](https://github.com/aspnet/SignalR/issues/2228)」を参照してください。
 
-### <a name="messagepack-support-in-ahead-of-time-compilation-environment"></a>"事前に" コンパイル環境での MessagePack のサポート
+### <a name="messagepack-support-in-ahead-of-time-compilation-environment"></a>"事前" コンパイル環境での MessagePack のサポート
 
-.NET クライアントとサーバーで使用される[Messagepack-CSharp](https://github.com/neuecc/MessagePack-CSharp)ライブラリは、コード生成を使用してシリアル化を最適化します。 その結果、"事前に" コンパイル (Xamarin iOS や Unity など) を使用する環境では、既定ではサポートされません。 これらの環境では、シリアライザー/デシリアライザーコードを "事前に生成する" ことで MessagePack を使用することができます。 詳細については、 [MessagePack-CSharp のドキュメント](https://github.com/neuecc/MessagePack-CSharp#pre-code-generationunityxamarin-supports)を参照してください。 シリアライザーを事前に生成したら、`AddMessagePackProtocol` に渡された構成デリゲートを使用してそれらを登録できます。
+.NET クライアントとサーバーで使用される[MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp) ライブラリは、コード生成を使用してシリアル化を最適化します。 その結果、"事前に" コンパイル (Xamarin iOS や Unity など) を使用する環境では、既定ではサポートされません。 これらの環境では、シリアライザー/デシリアライザー コードを "事前に生成する" ことで MessagePack を使用することができます。 詳細については、 [MessagePack-CSharp のドキュメント](https://github.com/neuecc/MessagePack-CSharp#pre-code-generationunityxamarin-supports)を参照してください。 シリアライザーを事前に生成したら、`AddMessagePackProtocol` に渡された構成デリゲートを使用してそれらを登録できます。
 
 ```csharp
 services.AddSignalR()
