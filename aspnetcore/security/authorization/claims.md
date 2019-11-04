@@ -1,34 +1,53 @@
 ---
-title: ASP.NET Core でのクレーム ベースの承認
+title: ASP.NET Core での要求ベースの承認
 author: rick-anderson
-description: ASP.NET Core アプリで要求承認チェックを追加する方法について説明します。
+description: ASP.NET Core アプリで承認の要求チェックを追加する方法について説明します。
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/authorization/claims
-ms.openlocfilehash: 6b60ae5515819b017ab577f655ed91ee4d8ed0dd
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: e289851aafcbc7e3b3f60ab9fbe4b182a78bdf8a
+ms.sourcegitcommit: de0fc77487a4d342bcc30965ec5c142d10d22c03
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65086150"
+ms.lasthandoff: 10/30/2019
+ms.locfileid: "73143431"
 ---
-# <a name="claims-based-authorization-in-aspnet-core"></a>ASP.NET Core でのクレーム ベースの承認
+# <a name="claims-based-authorization-in-aspnet-core"></a>ASP.NET Core での要求ベースの承認
 
 <a name="security-authorization-claims-based"></a>
 
-Id が作成されたときに、信頼されたパーティによって発行された 1 つまたは複数の要求が割り当てられます。 要求とは、どのような件名を表す名前値のペアが、どのようなサブジェクトではありませんが行うことができます。 たとえば、運転免許証、ローカルの運転ライセンス機関によって発行された場合もあります。 生年月日、運転免許証が。 この場合、要求の名前になります`DateOfBirth`、要求の値は、生年月日を例になります`8th June 1970`発行者を運転するライセンス権限となります。 クレーム ベースの承認、簡単に言うでは、クレームの値をチェックし、その値に基づいてリソースへのアクセスを許可します。 夜クラブ活動用に承認プロセスにアクセスする場合の例は次のようになります。
+Id が作成されると、信頼されたパーティによって発行された1つまたは複数の要求が割り当てられる場合があります。 クレームは、サブジェクトの内容を表す名前と値のペアであり、サブジェクトが実行できる内容ではありません。 たとえば、ローカル運転免許証機関によって発行された運転免許証があるとします。 運転免許証には、お客様のドライバーのライセンスがあります。 この場合、要求名は `DateOfBirth`になります。要求の値は生の日付になります。たとえば `8th June 1970` と発行者は運転ライセンス機関になります。 クレームベースの承認では、最も単純にクレームの値を確認し、その値に基づいてリソースへのアクセスを許可します。 たとえば、夜のクラブへのアクセスが必要な場合、承認プロセスは次のようになります。
 
-ドア セキュリティ責任者は、生年月日要求へのアクセスを許可する前に (運転ライセンス機関) の発行者を信頼するかどうかを日付の値に評価されます。
+ドアのセキュリティ担当者は、お客様がアクセス権を付与する前に、誕生日の請求日の値と、発行者 (運転免許機関) を信頼するかどうかを評価します。
 
-Id は、複数の値を持つ複数の信頼性情報を含めることができ、同じ型の複数の要求を含めることができます。
+Id には複数の値を持つ複数の要求を含めることができ、同じ種類の複数の要求を含めることができます。
 
-## <a name="adding-claims-checks"></a>チェックの要求を追加します。
+## <a name="adding-claims-checks"></a>要求チェックの追加
 
-要求ベースの承認チェックは、宣言型 - 開発者それらを埋め込みます、コント ローラーまたはコント ローラー内のアクションに対して、コード内で、現在のユーザーが所有する必要がありますとにアクセスするクレームの値を保持する必要があります必要に応じて信頼性情報を指定する、要求されたリソース。 要求要件は次のポリシー ベース、開発者する必要がありますを構築およびクレーム要件を表現するポリシーを登録します。
+クレームベースの承認チェックは宣言型です。開発者は、コントローラーまたはコントローラー内のアクションに対してコード内にそれらを埋め込み、現在のユーザーが所有している必要がある要求を指定します。また、必要に応じて、要求が要求されたリソース。 要求要件はポリシーベースです。開発者は、要求要件を表すポリシーを作成して登録する必要があります。
 
-単純な種類の要求のポリシーは、クレームが存在し、値をチェックしません。
+最も単純な種類の要求ポリシーでは、要求の存在を検索し、値を確認しません。
 
-最初にビルドし、ポリシーを登録する必要があります。 これは、処理が正常に含まれる承認サービスの構成の一部として行わ`ConfigureServices()`で、 *Startup.cs*ファイル。
+まず、ポリシーをビルドして登録する必要があります。 これは承認サービス構成の一部として行われ、通常は*Startup.cs*ファイルの `ConfigureServices()` に含まれます。
+
+::: moniker range=">= aspnetcore-3.0"
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddControllersWithViews();
+    services.AddRazorPages();
+
+    services.AddAuthorization(options =>
+    {
+        options.AddPolicy("EmployeeOnly", policy => policy.RequireClaim("EmployeeNumber"));
+    });
+}
+```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -42,9 +61,11 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-この場合、`EmployeeOnly`ポリシーの存在を確認します、`EmployeeNumber`の現在の id を要求します。
+::: moniker-end
 
-ポリシーを使用して、適用する、`Policy`プロパティを`AuthorizeAttribute`; ポリシー名を指定する属性
+この場合、`EmployeeOnly` ポリシーは、現在の id に `EmployeeNumber` 要求が存在するかどうかを確認します。
+
+次に、`AuthorizeAttribute` 属性の `Policy` プロパティを使用してポリシーを適用し、ポリシー名を指定します。
 
 ```csharp
 [Authorize(Policy = "EmployeeOnly")]
@@ -54,7 +75,7 @@ public IActionResult VacationBalance()
 }
 ```
 
-`AuthorizeAttribute`コント ローラーで、ポリシーに一致するユーザーが任意のアクションへのアクセスを許可するだけでは、このインスタンスで、コント ローラー全体に属性を適用できます。
+`AuthorizeAttribute` 属性はコントローラー全体に適用できます。このインスタンスでは、ポリシーに一致する id のみが、コントローラー上の任意のアクションへのアクセスを許可されます。
 
 ```csharp
 [Authorize(Policy = "EmployeeOnly")]
@@ -66,7 +87,7 @@ public class VacationController : Controller
 }
 ```
 
-によって保護されているコント ローラーがある場合、`AuthorizeAttribute`属性しますが、適用する特定のアクションへの匿名アクセスを許可する、`AllowAnonymousAttribute`属性。
+`AuthorizeAttribute` 属性によって保護されているコントローラーがあり、特定のアクションへの匿名アクセスを許可する場合は、`AllowAnonymousAttribute` 属性を適用します。
 
 ```csharp
 [Authorize(Policy = "EmployeeOnly")]
@@ -83,7 +104,27 @@ public class VacationController : Controller
 }
 ```
 
-ほとんどの要求値が付属します。 ポリシーを作成するときに使用できる値の一覧を指定できます。 次の例はのみ、ある従業員数が 1、2、3、4 または 5 従業員に対して成功します。
+ほとんどの要求には値が含まれます。 ポリシーを作成するときに、許可される値の一覧を指定できます。 次の例は、従業員番号が1、2、3、4、または5である従業員に対してのみ成功します。
+
+::: moniker range=">= aspnetcore-3.0"
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddControllersWithViews();
+    services.AddRazorPages();
+
+    services.AddAuthorization(options =>
+    {
+        options.AddPolicy("Founders", policy =>
+                          policy.RequireClaim("EmployeeNumber", "1", "2", "3", "4", "5"));
+    });
+}
+```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -98,13 +139,14 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-### <a name="add-a-generic-claim-check"></a>汎用の要求チェックを追加します。
+::: moniker-end
+### <a name="add-a-generic-claim-check"></a>汎用要求チェックの追加
 
-要求の値が 1 つの値はありません、変換が必要です。 または、を使用して、 [RequireAssertion](/dotnet/api/microsoft.aspnetcore.authorization.authorizationpolicybuilder.requireassertion)します。 詳細については、次を参照してください。 [func を使用してポリシーを満たすために](xref:security/authorization/policies#using-a-func-to-fulfill-a-policy)します。
+要求値が単一の値ではない場合、または変換が必要な場合は、 [Requireassertion](/dotnet/api/microsoft.aspnetcore.authorization.authorizationpolicybuilder.requireassertion)を使用します。 詳細については、「 [func を使用してポリシーを満たす](xref:security/authorization/policies#using-a-func-to-fulfill-a-policy)」を参照してください。
 
 ## <a name="multiple-policy-evaluation"></a>複数のポリシーの評価
 
-コント ローラーまたはアクションに複数のポリシーを適用する場合は、アクセスを許可する前に、すべてのポリシーは渡す必要があります。 例:
+複数のポリシーをコントローラーまたはアクションに適用する場合は、アクセスが許可される前にすべてのポリシーを渡す必要があります。 (例:
 
 ```csharp
 [Authorize(Policy = "EmployeeOnly")]
@@ -121,6 +163,6 @@ public class SalaryController : Controller
 }
 ```
 
-上記の例では満たされています、id、`EmployeeOnly`ポリシーがアクセスできる、`Payslip`コント ローラーにそのポリシーの処理が適用されて。 ただしを呼び出すために、 `UpdateSalary` id が満たす必要がありますアクション*両方*、`EmployeeOnly`ポリシーと`HumanResources`ポリシー。
+上の例では、`EmployeeOnly` ポリシーを満たす id は、コントローラーでポリシーが適用されているため、`Payslip` アクションにアクセスできます。 ただし、`UpdateSalary` アクションを呼び出すには、id が `EmployeeOnly` ポリシーと `HumanResources` ポリシーの*両方*を満たしている必要があります。
 
-複雑なポリシーを設定する場合などの生年月日要求の日付を取得するには、そこから年齢を計算し、年齢を確認 21 歳以上を記述する必要がある[カスタム ポリシー ハンドラー](xref:security/authorization/policies)します。
+誕生日の請求書を取得するなど、より複雑なポリシーが必要な場合は、年数を計算し、その年齢を確認してから、[カスタムポリシーハンドラー](xref:security/authorization/policies)を記述する必要があります。

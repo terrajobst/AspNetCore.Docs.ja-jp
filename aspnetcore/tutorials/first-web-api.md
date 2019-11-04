@@ -26,7 +26,7 @@ ms.locfileid: "72590016"
 > [!div class="checklist"]
 > * Web API プロジェクトを作成する。
 > * モデル クラスとデータベース コンテキストを追加する。
-> * CRUD メソッドを使用してコントローラーをスキャフォールディングする。
+> * CRUD メソッドを使用してコントローラーのスキャフォールディング。
 > * ルーティング、URL パス、戻り値を構成する。
 > * Postman で Web API を呼び出す。
 
@@ -64,7 +64,7 @@ ms.locfileid: "72590016"
 
 ---
 
-## <a name="create-a-web-project"></a>Web プロジェクトを作成する
+## <a name="create-a-web-project"></a>Web プロジェクトの作成
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -234,7 +234,7 @@ Ctrl キーを押しながら F5 キーを押して、アプリを実行しま�
 
 ![NuGet パッケージ マネージャー](first-web-api/_static/vs3NuGet.png)
 
-## <a name="add-the-todocontext-database-context"></a>TodoContext データベースコンテキストを追加する
+## <a name="add-the-todocontext-database-context"></a>TodoContext データベースコンテキストの追加
 
 * *Models* フォルダーを右クリックし、 **[追加]**  >  **[クラス]** の順にクリックします。 クラスに「*TodoContext*」という名前を付け、 **[追加]** をクリックします。
 
@@ -262,7 +262,7 @@ ASP.NET Core で、サービス (DB コンテキストなど) を[依存関係�
 * DI コンテナーにデータベース コンテキストを追加します。
 * データベース コンテキストがメモリ内データベースを使用することを指定します。
 
-## <a name="scaffold-a-controller"></a>コントローラーをスキャフォールディングする
+## <a name="scaffold-a-controller"></a>コントローラーのスキャフォールディング
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -314,7 +314,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 * 応答に [Location](https://developer.mozilla.org/docs/Web/HTTP/Headers/Location) ヘッダーが追加されます。 `Location` ヘッダーでは、新しく作成された To Do アイテムの [URI](https://developer.mozilla.org/docs/Glossary/URI) が指定されます。 詳細については、「[10.2.2 201 Created](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html)」を参照してください。
 * `GetTodoItem` アクションを参照して `Location` ヘッダーの URI を作成します。 C# の `nameof` キーワードを使って、`CreatedAtAction` 呼び出しでアクション名をハードコーディングすることを回避しています。
 
-### <a name="install-postman"></a>Postman をインストールする
+### <a name="install-postman"></a>Postman のインストール
 
 このチュートリアルでは、Postman を使用して Web API をテストします。
 
@@ -328,7 +328,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 <a name="post"></a>
 
-### <a name="test-posttodoitem-with-postman"></a>Postman を使用して PostTodoItem をテストする
+### <a name="test-posttodoitem-with-postman"></a>Postman を使用した PostTodoItem のテスト
 
 * 新しい要求を作成します。
 * HTTP メソッドを `POST` に設定します。
@@ -359,7 +359,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 * URI を貼り付けます (たとえば、`https://localhost:5001/api/TodoItems/1`)。
 * **[Send]** を選択します。
 
-## <a name="examine-the-get-methods"></a>GET メソッドを確認する
+## <a name="examine-the-get-methods"></a>GET メソッドの確認
 
 これらのメソッドは、次の 2 つの GET エンドポイントを実装します。
 
@@ -461,7 +461,7 @@ Postman を使用して、To Do アイテムを削除します。
 * 削除するオブジェクトの URI (たとえば、`https://localhost:5001/api/TodoItems/1`) を設定します。
 * **[Send]** を選択します。
 
-## <a name="call-the-web-api-with-javascript"></a>JavaScript で Web API を呼び出す
+## <a name="call-the-web-api-with-javascript"></a>JavaScript を使用した Web API の呼び出し
 
 手順については、「[チュートリアル: JavaScript を使用して ASP.NET Core Web API を呼び出す](xref:tutorials/web-api-javascript)」を参照してください。
 
@@ -479,7 +479,7 @@ Postman を使用して、To Do アイテムを削除します。
 > * ルーティングと URL パスを構成する。
 > * 戻り値を指定する。
 > * Postman で Web API を呼び出す。
-> * JavaScript で Web API を呼び出す。
+> * JavaScript を使用した Web API の呼び出し。
 
 最後に、リレーショナル データベースに格納されている "To Do" アイテムを管理できる Web API が作成されます。
 
@@ -515,7 +515,7 @@ Postman を使用して、To Do アイテムを削除します。
 
 ---
 
-## <a name="create-a-web-project"></a>Web プロジェクトを作成する
+## <a name="create-a-web-project"></a>Web プロジェクトの作成
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -862,7 +862,7 @@ Postman を使用して、To Do アイテムを削除します。
 
 サンプル アプリではすべてのアイテムを削除することができます。 ただし、最後のアイテムが削除されると、次回 API が呼び出されたときに、モデル クラス コンストラクターによって新しいアイテムが作成されます。
 
-## <a name="call-the-web-api-with-javascript"></a>JavaScript で Web API を呼び出す
+## <a name="call-the-web-api-with-javascript"></a>JavaScript を使用した Web API の呼び出し
 
 このセクションでは、JavaScript を使用して Web API を呼び出す HTML ページを追加します。 jQuery によって要求が開始されます。 JavaScript により、Web API の応答からの詳細を使ってページが更新されます。
 
@@ -915,7 +915,7 @@ To Do アイテムを削除するには、`DELETE` への AJAX 呼び出しで `
 
 <a name="auth"></a>
 
-## <a name="add-authentication-support-to-a-web-api"></a>Web API に認証サポートを追加する
+## <a name="add-authentication-support-to-a-web-api"></a>Web API に認証サポートを追加
 
 [IdentityServer4](https://identityserver4.readthedocs.io/en/latest/quickstarts/0_overview.html) のチュートリアルを参照してください。
 

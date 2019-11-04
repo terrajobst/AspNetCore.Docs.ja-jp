@@ -5,14 +5,14 @@ description: ASP.NET Core 用のクロスプラットフォーム Web サーバ�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/15/2019
+ms.date: 10/29/2019
 uid: fundamentals/servers/kestrel
-ms.openlocfilehash: 5565011f6531ef5e95eb02f310e7107f9ed547b2
-ms.sourcegitcommit: dd026eceee79e943bd6b4a37b144803b50617583
+ms.openlocfilehash: beaf6ac49359adfdc2dc24221eab04cc853646a9
+ms.sourcegitcommit: de0fc77487a4d342bcc30965ec5c142d10d22c03
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72378865"
+ms.lasthandoff: 10/30/2019
+ms.locfileid: "73143448"
 ---
 # <a name="kestrel-web-server-implementation-in-aspnet-core"></a>ASP.NET Core への Kestrel Web サーバーの実装
 
@@ -379,7 +379,7 @@ Kestrel のその他のオプションと制限については、以下をご覧
 * `urls` ホスト構成キー。
 * `UseUrls` 拡張メソッド。
 
-これらの方法を使うと、1 つまたは複数の HTTP エンドポイントおよび HTTPS エンドポイント (既定の証明書が使用可能な場合は HTTPS) を指定できます。 セミコロン区切りのリストとして値を構成します (例: `"Urls": "http://localhost:8000;http://localhost:8001"`)。
+これらの方法を使うと、1 つまたは複数の HTTP エンドポイントおよび HTTPS エンドポイント (既定の証明書が使用可能な場合は HTTPS) を指定できます。 セミコロン区切りのリストとして値を構成します (例: `"Urls": "http://localhost:8000; http://localhost:8001"`)。
 
 これらの方法について詳しくは、「[サーバーの URL](xref:fundamentals/host/web-host#server-urls)」および「[構成のオーバーライド](xref:fundamentals/host/web-host#override-configuration)」をご覧ください。
 
@@ -396,7 +396,7 @@ Kestrel のその他のオプションと制限については、以下をご覧
 
 `UseUrls`、`--urls` コマンドライン引数、`urls` ホスト構成キー、`ASPNETCORE_URLS` 環境変数も機能しますが、このセクションで後述する制限があります (既定の証明書が、HTTPS エンドポイントの構成に使用できる必要があります)。
 
-`KestrelServerOptions` 構成: 
+`KestrelServerOptions` 構成:
 
 ### <a name="configureendpointdefaultsactionlistenoptions"></a>ConfigureEndpointDefaults(Action\<ListenOptions>)
 
@@ -481,7 +481,7 @@ Kestrel は、`http://localhost:5000` と `https://localhost:5001` (既定の証
 以下の *appsettings.json* の例では、次のことが行われています。
 
 * **AllowInvalid** を `true` に設定し、の無効な証明書 (自己署名証明書など) の使用を許可します。
-* 証明書 (後の例では **HttpsDefaultCert**) が指定されていないすべての HTTPS エンドポイントは、**[証明書]** > **[既定]** または開発証明書で定義されている証明書にフォールバックします。
+* 証明書 (後の例では **HttpsDefaultCert**) が指定されていないすべての HTTPS エンドポイントは、 **[証明書]** > **[既定]** または開発証明書で定義されている証明書にフォールバックします。
 
 ```json
 {
@@ -531,7 +531,7 @@ Kestrel は、`http://localhost:5000` と `https://localhost:5001` (既定の証
 }
 ```
 
-証明書ノードの **Path** と **Password** を使用する代わりの方法は、証明書ストアのフィールドを使って証明書を指定することです。 たとえば、**[証明書]** > **[既定]** の証明書は次のように指定できます。
+証明書ノードの **Path** と **Password** を使用する代わりの方法は、証明書ストアのフィールドを使って証明書を指定することです。 たとえば、 **[証明書]**  >  **[既定]** の証明書は次のように指定できます。
 
 ```json
 "Default": {
@@ -631,6 +631,20 @@ webBuilder.ConfigureKestrel(serverOptions =>
                 return exampleCert;
             };
         });
+    });
+});
+```
+
+### <a name="connection-logging"></a>接続のログ記録
+
+接続でのバイト レベルの通信に対してデバッグ レベルのログを出力するには、<xref:Microsoft.AspNetCore.Hosting.ListenOptionsConnectionLoggingExtensions.UseConnectionLogging*> を呼び出します。 接続のログ記録は、TLS 暗号化の間やプロキシの内側など、低レベルの通信での問題のトラブルシューティングに役立ちます。 `UseConnectionLogging` が `UseHttps` の前に配置されている場合は、暗号化されたトラフィックがログに記録されます。 `UseConnectionLogging` が `UseHttps` の後に配置されている場合は、暗号化解除されたトラフィックがログに記録されます。
+
+```csharp
+webBuilder.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.Listen(IPAddress.Any, 8000, listenOptions =>
+    {
+        listenOptions.UseConnectionLogging();
     });
 });
 ```
@@ -1326,7 +1340,7 @@ Kestrel のその他のオプションと制限については、以下をご覧
 * `urls` ホスト構成キー。
 * `UseUrls` 拡張メソッド。
 
-これらの方法を使うと、1 つまたは複数の HTTP エンドポイントおよび HTTPS エンドポイント (既定の証明書が使用可能な場合は HTTPS) を指定できます。 セミコロン区切りのリストとして値を構成します (例: `"Urls": "http://localhost:8000;http://localhost:8001"`)。
+これらの方法を使うと、1 つまたは複数の HTTP エンドポイントおよび HTTPS エンドポイント (既定の証明書が使用可能な場合は HTTPS) を指定できます。 セミコロン区切りのリストとして値を構成します (例: `"Urls": "http://localhost:8000; http://localhost:8001"`)。
 
 これらの方法について詳しくは、「[サーバーの URL](xref:fundamentals/host/web-host#server-urls)」および「[構成のオーバーライド](xref:fundamentals/host/web-host#override-configuration)」をご覧ください。
 
@@ -1343,7 +1357,7 @@ Kestrel のその他のオプションと制限については、以下をご覧
 
 `UseUrls`、`--urls` コマンドライン引数、`urls` ホスト構成キー、`ASPNETCORE_URLS` 環境変数も機能しますが、このセクションで後述する制限があります (既定の証明書が、HTTPS エンドポイントの構成に使用できる必要があります)。
 
-`KestrelServerOptions` 構成: 
+`KestrelServerOptions` 構成:
 
 ### <a name="configureendpointdefaultsactionlistenoptions"></a>ConfigureEndpointDefaults(Action\<ListenOptions>)
 
@@ -1434,7 +1448,7 @@ Kestrel は、`http://localhost:5000` と `https://localhost:5001` (既定の証
 以下の *appsettings.json* の例では、次のことが行われています。
 
 * **AllowInvalid** を `true` に設定し、の無効な証明書 (自己署名証明書など) の使用を許可します。
-* 証明書 (後の例では **HttpsDefaultCert**) が指定されていないすべての HTTPS エンドポイントは、**[証明書]** > **[既定]** または開発証明書で定義されている証明書にフォールバックします。
+* 証明書 (後の例では **HttpsDefaultCert**) が指定されていないすべての HTTPS エンドポイントは、 **[証明書]** > **[既定]** または開発証明書で定義されている証明書にフォールバックします。
 
 ```json
 {
@@ -1484,7 +1498,7 @@ Kestrel は、`http://localhost:5000` と `https://localhost:5001` (既定の証
 }
 ```
 
-証明書ノードの **Path** と **Password** を使用する代わりの方法は、証明書ストアのフィールドを使って証明書を指定することです。 たとえば、**[証明書]** > **[既定]** の証明書は次のように指定できます。
+証明書ノードの **Path** と **Password** を使用する代わりの方法は、証明書ストアのフィールドを使って証明書を指定することです。 たとえば、 **[証明書]**  >  **[既定]** の証明書は次のように指定できます。
 
 ```json
 "Default": {
@@ -1595,6 +1609,20 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
                 });
             });
         });
+```
+
+### <a name="connection-logging"></a>接続のログ記録
+
+接続でのバイト レベルの通信に対してデバッグ レベルのログを出力するには、<xref:Microsoft.AspNetCore.Hosting.ListenOptionsConnectionLoggingExtensions.UseConnectionLogging*> を呼び出します。 接続のログ記録は、TLS 暗号化の間やプロキシの内側など、低レベルの通信での問題のトラブルシューティングに役立ちます。 `UseConnectionLogging` が `UseHttps` の前に配置されている場合は、暗号化されたトラフィックがログに記録されます。 `UseConnectionLogging` が `UseHttps` の後に配置されている場合は、暗号化解除されたトラフィックがログに記録されます。
+
+```csharp
+webBuilder.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.Listen(IPAddress.Any, 8000, listenOptions =>
+    {
+        listenOptions.UseConnectionLogging();
+    });
+});
 ```
 
 ### <a name="bind-to-a-tcp-socket"></a>TCP ソケットにバインドする
@@ -2152,7 +2180,7 @@ Kestrel のその他のオプションと制限については、以下をご覧
 * `urls` ホスト構成キー。
 * `UseUrls` 拡張メソッド。
 
-これらの方法を使うと、1 つまたは複数の HTTP エンドポイントおよび HTTPS エンドポイント (既定の証明書が使用可能な場合は HTTPS) を指定できます。 セミコロン区切りのリストとして値を構成します (例: `"Urls": "http://localhost:8000;http://localhost:8001"`)。
+これらの方法を使うと、1 つまたは複数の HTTP エンドポイントおよび HTTPS エンドポイント (既定の証明書が使用可能な場合は HTTPS) を指定できます。 セミコロン区切りのリストとして値を構成します (例: `"Urls": "http://localhost:8000; http://localhost:8001"`)。
 
 これらの方法について詳しくは、「[サーバーの URL](xref:fundamentals/host/web-host#server-urls)」および「[構成のオーバーライド](xref:fundamentals/host/web-host#override-configuration)」をご覧ください。
 
@@ -2169,7 +2197,7 @@ Kestrel のその他のオプションと制限については、以下をご覧
 
 `UseUrls`、`--urls` コマンドライン引数、`urls` ホスト構成キー、`ASPNETCORE_URLS` 環境変数も機能しますが、このセクションで後述する制限があります (既定の証明書が、HTTPS エンドポイントの構成に使用できる必要があります)。
 
-`KestrelServerOptions` 構成: 
+`KestrelServerOptions` 構成:
 
 ### <a name="configureendpointdefaultsactionlistenoptions"></a>ConfigureEndpointDefaults(Action\<ListenOptions>)
 
@@ -2260,7 +2288,7 @@ Kestrel は、`http://localhost:5000` と `https://localhost:5001` (既定の証
 以下の *appsettings.json* の例では、次のことが行われています。
 
 * **AllowInvalid** を `true` に設定し、の無効な証明書 (自己署名証明書など) の使用を許可します。
-* 証明書 (後の例では **HttpsDefaultCert**) が指定されていないすべての HTTPS エンドポイントは、**[証明書]** > **[既定]** または開発証明書で定義されている証明書にフォールバックします。
+* 証明書 (後の例では **HttpsDefaultCert**) が指定されていないすべての HTTPS エンドポイントは、 **[証明書]** > **[既定]** または開発証明書で定義されている証明書にフォールバックします。
 
 ```json
 {
@@ -2310,7 +2338,7 @@ Kestrel は、`http://localhost:5000` と `https://localhost:5001` (既定の証
 }
 ```
 
-証明書ノードの **Path** と **Password** を使用する代わりの方法は、証明書ストアのフィールドを使って証明書を指定することです。 たとえば、**[証明書]** > **[既定]** の証明書は次のように指定できます。
+証明書ノードの **Path** と **Password** を使用する代わりの方法は、証明書ストアのフィールドを使って証明書を指定することです。 たとえば、 **[証明書]**  >  **[既定]** の証明書は次のように指定できます。
 
 ```json
 "Default": {
@@ -2422,6 +2450,20 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             });
         })
         .Build();
+```
+
+### <a name="connection-logging"></a>接続のログ記録
+
+接続でのバイト レベルの通信に対してデバッグ レベルのログを出力するには、<xref:Microsoft.AspNetCore.Hosting.ListenOptionsConnectionLoggingExtensions.UseConnectionLogging*> を呼び出します。 接続のログ記録は、TLS 暗号化の間やプロキシの内側など、低レベルの通信での問題のトラブルシューティングに役立ちます。 `UseConnectionLogging` が `UseHttps` の前に配置されている場合は、暗号化されたトラフィックがログに記録されます。 `UseConnectionLogging` が `UseHttps` の後に配置されている場合は、暗号化解除されたトラフィックがログに記録されます。
+
+```csharp
+webBuilder.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.Listen(IPAddress.Any, 8000, listenOptions =>
+    {
+        listenOptions.UseConnectionLogging();
+    });
+});
 ```
 
 ### <a name="bind-to-a-tcp-socket"></a>TCP ソケットにバインドする

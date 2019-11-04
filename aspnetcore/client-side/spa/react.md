@@ -7,18 +7,20 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 03/07/2019
 uid: spa/react
-ms.openlocfilehash: 0e61c5b3e31a0b050d356b8f8e16306dc1e2a7f3
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: bbe5328bfa5b4187989a00c3c94e98dabc5d032a
+ms.sourcegitcommit: 032113208bb55ecfb2faeb6d3e9ea44eea827950
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080412"
+ms.lasthandoff: 10/31/2019
+ms.locfileid: "73190518"
 ---
 # <a name="use-the-react-project-template-with-aspnet-core"></a>ASP.NET Core で React プロジェクト テンプレートを使用する
 
 更新された React プロジェクト テンプレートは、React および [create-react-app](https://github.com/facebookincubator/create-react-app) (CRA) 規則を使用してリッチなクライアント側ユーザー インターフェイス (UI) を実装する ASP.NET Core アプリを開発する場合に、便利な開始点として利用できます。
 
 このテンプレートには、API バックエンドとして機能する ASP.NET Core プロジェクトと、UI として機能する標準の CRA React プロジェクトの両方を作成する場合と同等の機能がありますが、単一のユニットとしてビルドと発行が可能な単一のアプリ プロジェクトで両方をホストできるので便利です。
+
+応答プロジェクトテンプレートは、サーバー側のレンダリング (SSR) 用ではありません。 対応と node.js を使用した SSR の場合は、[次の .js](https://github.com/zeit/next.js/)または[Razzle](https://github.com/jaredpalmer/razzle)を検討してください。
 
 ## <a name="create-a-new-app"></a>新しいアプリを作成する
 
@@ -41,7 +43,7 @@ Visual Studio または .NET Core CLI からアプリを実行します。
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-値が `Development` である `ASPNETCORE_Environment` という名前の環境変数があることを確認します。 Windows では (PowerShell ではないプロンプトで) `SET ASPNETCORE_Environment=Development` を実行します。 Linux または macOS では、`export ASPNETCORE_Environment=Development` を実行します。
+値が `Development` である `ASPNETCORE_Environment` という名前の環境変数があることを確認します。 Windows では、PowerShell 以外のプロンプトで `SET ASPNETCORE_Environment=Development` を実行します。 Linux または macOS では、`export ASPNETCORE_Environment=Development` を実行します。
 
 [dotnet build](/dotnet/core/tools/dotnet-build) を実行して、アプリが正しくビルドされていることを確認します。 ビルド プロセスは、初回の実行で npm の依存関係を復元します。これには数分かかる可能性があります。 以降のビルドは非常に高速になります。
 
@@ -59,7 +61,7 @@ Visual Studio または .NET Core CLI からアプリを実行します。
 
 ## <a name="install-npm-packages"></a>npm パッケージをインストールする
 
-サードパーティ製の npm パッケージをインストールするには、*ClientApp* サブディレクトリでコマンド プロンプトを使用します。 例えば:
+サードパーティ製の npm パッケージをインストールするには、*ClientApp* サブディレクトリでコマンド プロンプトを使用します。 (例:
 
 ```console
 cd ClientApp
@@ -78,7 +80,7 @@ npm install --save <package_name>
 
 ASP.NET Core アプリが開発モードで起動された場合、プロジェクトは、CRA 開発サーバーの独自のインスタンスをバックグラウンドで開始するように構成されます。 これが便利なのは、別のサーバーを手動で実行する必要がないためです。
 
-この既定の設定には欠点があります。 C# コードを変更し、ASP.NET Core アプリを再起動する必要がある場合、CRA サーバーが毎回再起動します。 再起動には数秒かかります。 C# コードを何度も編集するが、CRA サーバーが再起動するまで待ちたくない場合は、ASP.NET Core プロセスから独立した CRA サーバーを外部で実行します。 そのためには次を行います。
+この既定の設定には欠点があります。 C# コードを変更し、ASP.NET Core アプリを再起動する必要がある場合、CRA サーバーが毎回再起動します。 再起動には数秒かかります。 C# コードを何度も編集するが、CRA サーバーが再起動するまで待ちたくない場合は、ASP.NET Core プロセスから独立した CRA サーバーを外部で実行します。 次の手順に従います。
 
 1. 次の設定を使用して、 *ClientApp*サブディレクトリに env ファイルを追加*し*ます。
 

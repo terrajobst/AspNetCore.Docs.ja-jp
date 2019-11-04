@@ -1,31 +1,30 @@
 ---
 title: Facebook、Google、ASP.NET Core での外部プロバイダーの認証
 author: rick-anderson
-description: このチュートリアルでは、OAuth 2.0 と外部の認証プロバイダーを使用して ASP.NET Core 2.x アプリを構築する方法について説明します。
+description: このチュートリアルでは、OAuth 2.0 と外部の認証プロバイダーを使用して ASP.NET Core アプリを構築する方法について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/10/2019
+ms.date: 10/21/2019
 uid: security/authentication/social/index
-ms.openlocfilehash: edaf9eeaf02879b2f7816bab0eb373a7de640c05
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 627ca483d60514d85e38c0e346ff5aef64ad9fee
+ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082502"
+ms.lasthandoff: 10/29/2019
+ms.locfileid: "73034307"
 ---
 # <a name="facebook-google-and-external-provider-authentication-in-aspnet-core"></a>Facebook、Google、ASP.NET Core での外部プロバイダーの認証
 
 作成者: [Valeriy Novytskyy](https://github.com/01binary)、[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-このチュートリアルでは、ユーザーが OAuth 2.0 と外部の認証プロバイダーの資格情報を使用してサインインできる、ASP.NET Core 2.2 アプリケーションを構築する方法について説明します。
+このチュートリアルでは、ユーザーが OAuth 2.0 と外部の認証プロバイダーの資格情報を使用してサインインできる、ASP.NET Core 3.0 アプリを構築する方法について説明します。
 
-ここでは、[Facebook](xref:security/authentication/facebook-logins)、[Twitter](xref:security/authentication/twitter-logins)、[Google](xref:security/authentication/google-logins)、および [Microsoft](xref:security/authentication/microsoft-logins) の各プロバイダーを対象に説明します。 他のプロバイダーは、[AspNet.Security.OAuth.Providers](https://github.com/aspnet-contrib/AspNet.Security.OAuth.Providers)、[AspNet.Security.OpenId.Providers](https://github.com/aspnet-contrib/AspNet.Security.OpenId.Providers) などのサードパーティ パッケージで利用できます。
-
-![Facebook、Twitter、Google+、Windows のソーシャル メディア アイコン](index/_static/social.png)
+以下のセクションでは、[Facebook](xref:security/authentication/facebook-logins)、[Twitter](xref:security/authentication/twitter-logins)、[Google](xref:security/authentication/google-logins)、および [Microsoft](xref:security/authentication/microsoft-logins) の各プロバイダーを対象とします。また、この記事で作成するスタート プロジェクトを使用します。 他のプロバイダーは、[AspNet.Security.OAuth.Providers](https://github.com/aspnet-contrib/AspNet.Security.OAuth.Providers)、[AspNet.Security.OpenId.Providers](https://github.com/aspnet-contrib/AspNet.Security.OpenId.Providers) などのサードパーティ パッケージで利用できます。
 
 既存の資格情報でユーザーがサインインできるようになると:
+
 * ユーザーにとって便利です。
-* サインイン プロセスの複雑な管理の多くが、サード パーティに移ります。 
+* サインイン プロセスの複雑な管理の多くが、サード パーティに移ります。
 
 ソーシャル ログインによってトラフィックとユーザーの変換を促進する方法の例については、[Facebook](https://www.facebook.com/unsupportedbrowser) と [Twitter](https://dev.twitter.com/resources/case-studies) によるケース スタディを参照してください。
 
@@ -36,36 +35,32 @@ ms.locfileid: "71082502"
 * 新しいプロジェクトを作成します。
 * **[ASP.NET Core Web アプリケーション]** 、 **[次へ]** の順に選択します。
 * **[プロジェクト名]** を指定して、 **[場所]** を確認または変更します。 **[作成]** を選択します。
-* ドロップダウンから **[ASP.NET Core 2.2]** を選択します。 テンプレートの一覧で **[Web アプリケーション]** を選択します。
+* ドロップダウン リストで **[ASP.NET Core 3.0]** を選択してから、 **[Web アプリケーション]** を選択します。
 * **[認証]** の下で、 **[変更]** を選択して認証を **[個人のユーザー アカウント]** に設定します。 **[OK]** を選択します。
 * **[新しい ASP.NET Core Web アプリケーションを作成する]** ウィンドウで、 **[作成]** を選択します。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
-* [統合ターミナル](https://code.visualstudio.com/docs/editor/integrated-terminal)を開きます。
+* ターミナルを開きます。  Visual Studio Code の場合は、[統合ターミナル](https://code.visualstudio.com/docs/editor/integrated-terminal)を開くことができます。
 
 * ディレクトリ (`cd`) を、プロジェクトを格納するフォルダーに変更します。
 
-* 次のコマンドを実行します。
+* Windows の場合は、次のコマンドを実行します。
 
   ```dotnetcli
   dotnet new webapp -o WebApp1 -au Individual -uld
-  code -r WebApp1
+  ```
+
+  macOS および Linux の場合は、次のコマンドを実行します。
+
+  ```dotnetcli
+  dotnet new webapp -o WebApp1 -au Individual
   ```
 
   * `dotnet new` コマンドでは、*WebApp1* フォルダーに新しい Razor Pages プロジェクトが作成されます。
-  * `-uld` では、SQLite ではなく LocalDB を使用します。 `-uld` を省略して SQLite を使用します。
   * `-au Individual` によって、個々の認証に対するコードを作成します。
+  * `-uld` では、Windows 用の SQL Server Express の軽量バージョンである、LocalDB を使用します。 `-uld` を省略して SQLite を使用します。
   * `code` コマンドでは、Visual Studio Code の新しいインスタンス内に *WebApp1* フォルダーが開かれます。
-
-* "**ビルドとデバッグに必要な資産が 'WebApp1' にありません。追加しますか?** " という内容のダイアログ ボックスが表示されたら、 **[はい]** を選択します。
-
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
-
-* **[ファイル]** 、 **[新しいソリューション]** の順に選択します。
-* サイドバーで **[.NET Core]**  >  **[アプリ]** の順に選択します。 **[Web アプリケーション]** テンプレートを選択します。 **[次へ]** を選択します。
-* **[ターゲット フレームワーク]** ドロップダウンを **[.NET Core 2.2]** に設定します。 **[次へ]** を選択します。
-* **[プロジェクト名]** を指定します。 **[場所]** を確認または変更します。 **[作成]** を選択します。
 
 ---
 

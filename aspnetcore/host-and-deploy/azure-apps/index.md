@@ -1,18 +1,18 @@
 ---
 title: Azure App Service に ASP.NET Core アプリを展開する
-author: guardrex
+author: bradygaster
 description: この記事には、Azure のホストと展開リソースへのリンクが含まれます。
 monikerRange: '>= aspnetcore-2.1'
-ms.author: riande
+ms.author: bradyg
 ms.custom: mvc
-ms.date: 10/02/2019
+ms.date: 10/11/2019
 uid: host-and-deploy/azure-apps/index
-ms.openlocfilehash: bda4923adb0f9769f883ef64f7902c8650308222
-ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
+ms.openlocfilehash: 392868b4fc9105279f8f3b10436a9915123e7070
+ms.sourcegitcommit: 032113208bb55ecfb2faeb6d3e9ea44eea827950
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/03/2019
-ms.locfileid: "71924887"
+ms.lasthandoff: 10/31/2019
+ms.locfileid: "73190631"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>Azure App Service に ASP.NET Core アプリを展開する
 
@@ -29,6 +29,8 @@ Visual Studio を使用して ASP.NET Core Web アプリを作成し、Windows �
 コマンド ラインを使用して ASP.NET Core Web アプリを作成し、Linux の Azure App Service に配置します。
 
 Azure App Service で利用可能な ASP.NET Core のバージョンについては、「[App Service ダッシュボードの ASP.NET Core](https://aspnetcoreon.azurewebsites.net/)」を参照してください。
+
+[Azure App Service のお知らせ](https://github.com/Azure/app-service-announcements/)リポジトリをサブスクライブして、イシューを監視します。 App Service チームは、App Service に届いたお知らせやシナリオを定期的に投稿しています。
 
 ASP.NET Core のドキュメントでは、次の記事を参照できます。
 
@@ -141,24 +143,48 @@ Azure App Service/IIS によってホストされるアプリの一般的な配�
 
 詳細については、<xref:security/data-protection/implementation/key-storage-providers> を参照してください。
 <a name="deploy-aspnet-core-preview-release-to-azure-app-service"></a>
-<!-- revert this after 3.0 supported
-## Deploy ASP.NET Core preview release to Azure App Service
 
-Use one of the following approaches if the app relies on a preview release of .NET Core:
-
-* [Install the preview site extension](#install-the-preview-site-extension).
-* [Deploy a self-contained preview app](#deploy-a-self-contained-preview-app).
-* [Use Docker with Web Apps for containers](#use-docker-with-web-apps-for-containers).
--->
 ## <a name="deploy-aspnet-core-30-to-azure-app-service"></a>Azure App Service に ASP.NET Core 3.0 を展開する
 
-間もなく Azure App Service 上で ASP.NET Core 3.0 をご利用いただけるようになる予定です。
+Azure App Service では、ASP.NET Core 3.0 がサポートされています。 .NET Core 3.0 より後の .NET Core バージョンのプレビュー リリースをデプロイするには、次の手法のいずれかを使います。 また、ランタイムは使用できるが SDK が Azure App Service にインストールされていない場合にも、これらの方法を使うことができます。
 
-アプリが .NET Core 3.0 に依存している場合は、次のいずれかの方法をお使いください。
-
-* [プレビュー サイト拡張機能をインストールする](#install-the-preview-site-extension)
+* [Azure Pipelines を使用して .NET Core SDK のバージョンを指定する](#specify-the-net-core-sdk-version-using-azure-pipelines)
 * [自己完結型のプレビュー アプリを展開する](#deploy-a-self-contained-preview-app)。
 * [コンテナー用の Web アプリで Docker を使用する](#use-docker-with-web-apps-for-containers)
+* [プレビュー サイト拡張機能をインストールする](#install-the-preview-site-extension)
+
+### <a name="specify-the-net-core-sdk-version-using-azure-pipelines"></a>Azure Pipelines を使用して .NET Core SDK のバージョンを指定する
+
+[Azure App Service の CI/CD シナリオ](/azure/app-service/deploy-continuous-deployment)を使用して、Azure DevOps を使用した継続的インテグレーション ビルドを設定します。 Azure DevOps ビルドが作成されたら、必要に応じて、特定の SDK バージョンを使うようにビルドを構成します。 
+
+#### <a name="specify-the-net-core-sdk-version"></a>.NET Core SDK のバージョンを指定する
+
+App Service デプロイ センターを使用して Azure DevOps ビルドを作成する場合、既定のビルド パイプラインには `Restore`、`Build`、`Test`、および `Publish` のためのステップが含まれています。 SDK のバージョンを指定するには、エージェント ジョブの一覧で **[追加] (+)** ボタンを選択して、新しいステップを追加します。 検索バーで「 **.NET Core SDK**」を検索します。 
+
+![.NET Core SDK のステップを追加する](index/add-sdk-step.png)
+
+このステップをビルドの先頭に移動し、これに続くステップで指定したバージョンの .NET Core SDK が使われるようにします。 .NET Core SDK のバージョンを指定します。 この例では、SDK は `3.0.100` に設定されています。
+
+![完了した SDK のステップ](index/sdk-step-first-place.png)
+
+[自己完結型のデプロイ (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) を発行するには、`Publish` ステップで SCD を構成し、[ランタイム識別子 (RID)](/dotnet/core/rid-catalog) を指定します。
+
+![自己完結型の発行](index/self-contained.png)
+
+### <a name="deploy-a-self-contained-preview-app"></a>自己完結型のプレビュー アプリを展開する
+
+プレビュー ランタイムを対象とする[自己完結型の展開 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) では、展開でプレビュー ランタイムを保持します。
+
+自己完結型アプリを展開する場合:
+
+* Azure App Service のサイトには、[プレビュー サイト拡張機能](#install-the-preview-site-extension)は必要ありません。
+* アプリは、[フレームワークに依存する展開 (FDD)](/dotnet/core/deploying#framework-dependent-deployments-fdd) に発行するときとは異なる方法に従って、発行される必要があります。
+
+「[自己完結型アプリを展開する](#deploy-the-app-self-contained)」セクションのガイダンスに従ってください。
+
+### <a name="use-docker-with-web-apps-for-containers"></a>コンテナー用の Web アプリで Docker を使用する
+
+[Docker Hub](https://hub.docker.com/r/microsoft/aspnetcore/) には最新のプレビュー Docker イメージが含まれています。 イメージを基本イメージとして使用できます。 通常は、イメージを使用して、Web App for Containers に展開します。
 
 ### <a name="install-the-preview-site-extension"></a>プレビュー サイト拡張機能をインストールする
 
@@ -205,21 +231,6 @@ Use one of the following approaches if the app relies on a preview release of .N
 ARM テンプレートを使用してアプリを作成し、展開する場合は、リソースの種類として `siteextensions` を使用してサイト拡張機能を Web アプリに追加することができます。 次に例を示します。
 
 [!code-json[](index/sample/arm.json?highlight=2)]
-
-### <a name="deploy-a-self-contained-preview-app"></a>自己完結型のプレビュー アプリを展開する
-
-プレビュー ランタイムを対象とする[自己完結型の展開 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) では、展開でプレビュー ランタイムを保持します。
-
-自己完結型アプリを展開する場合:
-
-* Azure App Service のサイトには、[プレビュー サイト拡張機能](#install-the-preview-site-extension)は必要ありません。
-* アプリは、[フレームワークに依存する展開 (FDD)](/dotnet/core/deploying#framework-dependent-deployments-fdd) に発行するときとは異なる方法に従って、発行される必要があります。
-
-「[自己完結型アプリを展開する](#deploy-the-app-self-contained)」セクションのガイダンスに従ってください。
-
-### <a name="use-docker-with-web-apps-for-containers"></a>コンテナー用の Web アプリで Docker を使用する
-
-[Docker Hub](https://hub.docker.com/r/microsoft/aspnetcore/) には最新のプレビュー Docker イメージが含まれています。 イメージを基本イメージとして使用できます。 通常は、イメージを使用して、Web App for Containers に展開します。
 
 ## <a name="publish-and-deploy-the-app"></a>アプリを発行および配置する
 

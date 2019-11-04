@@ -94,17 +94,21 @@ npm パッケージをインストールした後、モジュールは JavaScrip
 
 ::: moniker range=">= aspnetcore-3.0"
 
+
 *node_modules\@microsoft\signalr-protocol-msgpack\dist\browser\signalr-protocol-msgpack.js* 
+
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
+
 
 *node_modules\@aspnet\signalr-protocol-msgpack\dist\browser\signalr-protocol-msgpack.js* 
 
 ::: moniker-end
 
 ブラウザーでは、`msgpack5` ライブラリも参照する必要があります。 参照を作成するには、`<script>` タグを使用します。 ライブラリは*node_modules\msgpack5\dist\msgpack5.js*にあります。
+
 
 > [!NOTE]
 > `<script>` 要素を使用する場合、順序は重要です。 *msgpack5.js*の前に*signalr-protocol-msgpack.js*が参照されている場合、MessagePack に接続しようとするとエラーが発生します。 *signalr.js*は、 *signalr-protocol-msgpack.js*の前にも必要です。
@@ -143,7 +147,9 @@ public class ChatMessage
 }
 ```
 
+
 JavaScript クライアントから送信する場合は、大文字と小文字が正確に C# のクラスと一致する必要があるため、`PascalCased` のプロパティ名を使用する必要があります。以下に例を示します。
+
 
 ```javascript
 connection.invoke("SomeMethod", { Sender: "Sally", Message: "Hello!" });
@@ -159,7 +165,9 @@ MessagePack プロトコルは、`DateTime` の `Kind` 値をエンコードす�
 
 ### <a name="datetimeminvalue-is-not-supported-by-messagepack-in-javascript"></a>DateTime.MinValue は、JavaScript の MessagePack ではサポートされていません
 
+
 SignalR JavaScript クライアントによって使用される[msgpack5](https://github.com/mcollina/msgpack5)ライブラリは、MessagePack の `timestamp96` 型をサポートしていません。 この型は、非常に大きな日付値をエンコードするために使用されます (過去またはそれ以降の非常に早い段階)。 `DateTime.MinValue` の値は `January 1, 0001` で、`timestamp96` の値でエンコードする必要があります。 このため、JavaScript クライアントへの `DateTime.MinValue` の送信はサポートされていません。 `DateTime.MinValue` が JavaScript クライアントによって受信されると、次のエラーがスローされます。
+
 
 ```
 Uncaught Error: unable to find ext type 255 at decoder.js:427
@@ -172,6 +180,7 @@ Uncaught Error: unable to find ext type 255 at decoder.js:427
 ### <a name="messagepack-support-in-ahead-of-time-compilation-environment"></a>"事前" コンパイル環境での MessagePack のサポート
 
 .NET クライアントとサーバーで使用される [MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp) ライブラリは、コード生成を使用してシリアル化を最適化します。その結果、"事前" コンパイル (Xamarin iOS や Unity など) を使用する環境で、既定ではサポートされません。これらの環境では、シリアライザー/デシリアライザー コードを "事前に生成する" ことで MessagePack を使用することができます。詳細については、[MessagePack-CSharp のドキュメント](https://github.com/neuecc/MessagePack-CSharp#pre-code-generationunityxamarin-supports)を参照してください。シリアライザーを事前に生成したら、`AddMessagePackProtocol` に渡された構成デリゲートを使用してそれらを登録できます。
+
 
 ```csharp
 services.AddSignalR()
