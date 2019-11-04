@@ -1,51 +1,53 @@
 ---
-title: ASP.NET Core SignalR でサポートされているプラットフォーム
+title: SignalR でサポートされているプラットフォームの ASP.NET Core
 author: bradygaster
-description: ASP.NET Core SignalR サポートされているプラットフォームについて説明します。
+description: ASP.NET Core SignalR のサポートされているプラットフォームについて説明します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 04/06/2019
+ms.date: 11/01/2019
 uid: signalr/supported-platforms
-ms.openlocfilehash: fefaaf97de3f1fabf8f3154bf5b4ccb37195ccff
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 1be7a307710e6e522c0088fd1ca01da11a13eda1
+ms.sourcegitcommit: 77c8be22d5e88dd710f42c739748869f198865dd
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64892019"
+ms.lasthandoff: 11/01/2019
+ms.locfileid: "73426976"
 ---
-# <a name="aspnet-core-signalr-supported-platforms"></a><span data-ttu-id="be9c5-103">ASP.NET Core SignalR でサポートされているプラットフォーム</span><span class="sxs-lookup"><span data-stu-id="be9c5-103">ASP.NET Core SignalR supported platforms</span></span>
+# <a name="aspnet-core-signalr-supported-platforms"></a><span data-ttu-id="1c7c4-103">SignalR でサポートされているプラットフォームの ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="1c7c4-103">ASP.NET Core SignalR supported platforms</span></span>
 
-## <a name="server-system-requirements"></a><span data-ttu-id="be9c5-104">サーバーのシステム要件</span><span class="sxs-lookup"><span data-stu-id="be9c5-104">Server system requirements</span></span>
+## <a name="server-system-requirements"></a><span data-ttu-id="1c7c4-104">サーバーシステムの要件</span><span class="sxs-lookup"><span data-stu-id="1c7c4-104">Server system requirements</span></span>
 
-<span data-ttu-id="be9c5-105">ASP.NET core SignalR は ASP.NET Core をサポートする任意のサーバー プラットフォームをサポートします。</span><span class="sxs-lookup"><span data-stu-id="be9c5-105">SignalR for ASP.NET Core supports any server platform that ASP.NET Core supports.</span></span>
+<span data-ttu-id="1c7c4-105">ASP.NET Core の SignalR は、ASP.NET Core がサポートするすべてのサーバープラットフォームをサポートしています。</span><span class="sxs-lookup"><span data-stu-id="1c7c4-105">SignalR for ASP.NET Core supports any server platform that ASP.NET Core supports.</span></span>
 
-## <a name="javascript-client"></a><span data-ttu-id="be9c5-106">JavaScript クライアント</span><span class="sxs-lookup"><span data-stu-id="be9c5-106">JavaScript client</span></span>
+## <a name="javascript-client"></a><span data-ttu-id="1c7c4-106">JavaScript クライアント</span><span class="sxs-lookup"><span data-stu-id="1c7c4-106">JavaScript client</span></span>
 
-<span data-ttu-id="be9c5-107">[JavaScript クライアント](https://www.npmjs.com/package/@aspnet/signalr)NodeJS 8 以降のバージョンと、次のブラウザーで実行されます。</span><span class="sxs-lookup"><span data-stu-id="be9c5-107">The [JavaScript client](https://www.npmjs.com/package/@aspnet/signalr) runs on NodeJS 8 and later versions and the following browsers:</span></span>
+<span data-ttu-id="1c7c4-107">[JavaScript クライアント](https://www.npmjs.com/package/@aspnet/signalr)は、nodejs 8 以降のバージョンと次のブラウザーで実行されます。</span><span class="sxs-lookup"><span data-stu-id="1c7c4-107">The [JavaScript client](https://www.npmjs.com/package/@aspnet/signalr) runs on NodeJS 8 and later versions and the following browsers:</span></span>
 
-| <span data-ttu-id="be9c5-108">ブラウザー</span><span class="sxs-lookup"><span data-stu-id="be9c5-108">Browser</span></span>                         | <span data-ttu-id="be9c5-109">Version</span><span class="sxs-lookup"><span data-stu-id="be9c5-109">Version</span></span> |
-| ------------------------------- | ------- |
-| <span data-ttu-id="be9c5-110">Microsoft Edge</span><span class="sxs-lookup"><span data-stu-id="be9c5-110">Microsoft Edge</span></span>                  | <span data-ttu-id="be9c5-111">現在の</span><span class="sxs-lookup"><span data-stu-id="be9c5-111">current</span></span> |
-| <span data-ttu-id="be9c5-112">Mozilla Firefox</span><span class="sxs-lookup"><span data-stu-id="be9c5-112">Mozilla Firefox</span></span>                 | <span data-ttu-id="be9c5-113">現在の</span><span class="sxs-lookup"><span data-stu-id="be9c5-113">current</span></span> |
-| <span data-ttu-id="be9c5-114">Google Chrome;Android が含まれています</span><span class="sxs-lookup"><span data-stu-id="be9c5-114">Google Chrome; includes Android</span></span> | <span data-ttu-id="be9c5-115">現在の</span><span class="sxs-lookup"><span data-stu-id="be9c5-115">current</span></span> |
-| <span data-ttu-id="be9c5-116">Safari;iOS が含まれています</span><span class="sxs-lookup"><span data-stu-id="be9c5-116">Safari; includes iOS</span></span>            | <span data-ttu-id="be9c5-117">現在の</span><span class="sxs-lookup"><span data-stu-id="be9c5-117">current</span></span> |
-| <span data-ttu-id="be9c5-118">Microsoft Internet Explorer</span><span class="sxs-lookup"><span data-stu-id="be9c5-118">Microsoft Internet Explorer</span></span>     | <span data-ttu-id="be9c5-119">11</span><span class="sxs-lookup"><span data-stu-id="be9c5-119">11</span></span>      |
- 
-## <a name="net-client"></a><span data-ttu-id="be9c5-120">.NET クライアント</span><span class="sxs-lookup"><span data-stu-id="be9c5-120">.NET client</span></span>
+| <span data-ttu-id="1c7c4-108">ブラウザー</span><span class="sxs-lookup"><span data-stu-id="1c7c4-108">Browser</span></span>                         | <span data-ttu-id="1c7c4-109">Version</span><span class="sxs-lookup"><span data-stu-id="1c7c4-109">Version</span></span>         |
+| ------------------------------- | --------------- |
+| <span data-ttu-id="1c7c4-110">Microsoft Edge</span><span class="sxs-lookup"><span data-stu-id="1c7c4-110">Microsoft Edge</span></span>                  | <span data-ttu-id="1c7c4-111">現在の&dagger;</span><span class="sxs-lookup"><span data-stu-id="1c7c4-111">Current&dagger;</span></span> |
+| <span data-ttu-id="1c7c4-112">Mozilla Firefox</span><span class="sxs-lookup"><span data-stu-id="1c7c4-112">Mozilla Firefox</span></span>                 | <span data-ttu-id="1c7c4-113">現在の&dagger;</span><span class="sxs-lookup"><span data-stu-id="1c7c4-113">Current&dagger;</span></span> |
+| <span data-ttu-id="1c7c4-114">Google Chrome。Android を含む</span><span class="sxs-lookup"><span data-stu-id="1c7c4-114">Google Chrome; includes Android</span></span> | <span data-ttu-id="1c7c4-115">現在の&dagger;</span><span class="sxs-lookup"><span data-stu-id="1c7c4-115">Current&dagger;</span></span> |
+| <span data-ttu-id="1c7c4-116">SafariiOS を含む</span><span class="sxs-lookup"><span data-stu-id="1c7c4-116">Safari; includes iOS</span></span>            | <span data-ttu-id="1c7c4-117">現在の&dagger;</span><span class="sxs-lookup"><span data-stu-id="1c7c4-117">Current&dagger;</span></span> |
+| <span data-ttu-id="1c7c4-118">Microsoft Internet Explorer</span><span class="sxs-lookup"><span data-stu-id="1c7c4-118">Microsoft Internet Explorer</span></span>     | <span data-ttu-id="1c7c4-119">11</span><span class="sxs-lookup"><span data-stu-id="1c7c4-119">11</span></span>              |
 
-<span data-ttu-id="be9c5-121">[.NET クライアント](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR/)は ASP.NET Core でサポートされている任意のプラットフォームで実行されます。</span><span class="sxs-lookup"><span data-stu-id="be9c5-121">The [.NET client](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR/) runs on any platform supported by ASP.NET Core.</span></span> <span data-ttu-id="be9c5-122">たとえば、 [Xamarin 開発者は、SignalR を使用できます](https://github.com/aspnet/Announcements/issues/305)8.4.0.1 Xamarin.Android を使用して Android アプリを構築するためと後で、Xamarin.iOS 11.14.0.4 を使用して iOS アプリ以降。</span><span class="sxs-lookup"><span data-stu-id="be9c5-122">For example, [Xamarin developers can use SignalR](https://github.com/aspnet/Announcements/issues/305) for building Android apps using Xamarin.Android 8.4.0.1 and later and iOS apps using Xamarin.iOS 11.14.0.4 and later.</span></span>
+<span data-ttu-id="1c7c4-120">*現在*の &dagger;は、ブラウザーの最新バージョンを参照します。</span><span class="sxs-lookup"><span data-stu-id="1c7c4-120">&dagger;*Current* refers to the latest version of the browser.</span></span>
 
-<span data-ttu-id="be9c5-123">サーバーは、IIS を実行する場合、Websocket トランスポートには、IIS 8.0 または Windows Server 2012 以降、またはそれ以降が必要です。</span><span class="sxs-lookup"><span data-stu-id="be9c5-123">If the server runs IIS, the WebSockets transport requires IIS 8.0 or later on Windows Server 2012 or later.</span></span> <span data-ttu-id="be9c5-124">他のトランスポートは、すべてのプラットフォームでサポートされます。</span><span class="sxs-lookup"><span data-stu-id="be9c5-124">Other transports are supported on all platforms.</span></span>
+## <a name="net-client"></a><span data-ttu-id="1c7c4-121">.NET クライアント</span><span class="sxs-lookup"><span data-stu-id="1c7c4-121">.NET client</span></span>
 
-## <a name="java-client"></a><span data-ttu-id="be9c5-125">Java クライアント</span><span class="sxs-lookup"><span data-stu-id="be9c5-125">Java client</span></span>
+<span data-ttu-id="1c7c4-122">[.Net クライアント](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR/)は、ASP.NET Core によってサポートされる任意のプラットフォームで実行されます。</span><span class="sxs-lookup"><span data-stu-id="1c7c4-122">The [.NET client](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR/) runs on any platform supported by ASP.NET Core.</span></span> <span data-ttu-id="1c7c4-123">たとえば、xamarin[開発者は、SignalR](https://github.com/aspnet/Announcements/issues/305)を使用して android アプリをビルドするために、xamarin 8.4.0.1 以降と11.14.0.4 を使用した ios アプリを使用できます。</span><span class="sxs-lookup"><span data-stu-id="1c7c4-123">For example, [Xamarin developers can use SignalR](https://github.com/aspnet/Announcements/issues/305) for building Android apps using Xamarin.Android 8.4.0.1 and later and iOS apps using Xamarin.iOS 11.14.0.4 and later.</span></span>
 
-<span data-ttu-id="be9c5-126">[Java クライアント](https://search.maven.org/artifact/com.microsoft.aspnet/signalr)Java 8 と以降のバージョンをサポートしています。</span><span class="sxs-lookup"><span data-stu-id="be9c5-126">The [Java client](https://search.maven.org/artifact/com.microsoft.aspnet/signalr) supports Java 8 and later versions.</span></span>
+<span data-ttu-id="1c7c4-124">サーバーで IIS が実行されている場合、Websocket トランスポートでは Windows Server 2012 以降に IIS 8.0 以降が必要です。</span><span class="sxs-lookup"><span data-stu-id="1c7c4-124">If the server runs IIS, the WebSockets transport requires IIS 8.0 or later on Windows Server 2012 or later.</span></span> <span data-ttu-id="1c7c4-125">その他のトランスポートはすべてのプラットフォームでサポートされています。</span><span class="sxs-lookup"><span data-stu-id="1c7c4-125">Other transports are supported on all platforms.</span></span>
 
-## <a name="unsupported-clients"></a><span data-ttu-id="be9c5-127">サポートされていないクライアント</span><span class="sxs-lookup"><span data-stu-id="be9c5-127">Unsupported clients</span></span>
+## <a name="java-client"></a><span data-ttu-id="1c7c4-126">Java クライアント</span><span class="sxs-lookup"><span data-stu-id="1c7c4-126">Java client</span></span>
 
-<span data-ttu-id="be9c5-128">次のクライアントは使用できますが、試験段階または非公式には。</span><span class="sxs-lookup"><span data-stu-id="be9c5-128">The following clients are available but are experimental or unofficial.</span></span> <span data-ttu-id="be9c5-129">現在サポートされていない、ならない可能性があります。</span><span class="sxs-lookup"><span data-stu-id="be9c5-129">They aren't currently supported and may never be.</span></span>
+<span data-ttu-id="1c7c4-127">[Java クライアント](https://search.maven.org/artifact/com.microsoft.aspnet/signalr)は、java 8 以降のバージョンをサポートしています。</span><span class="sxs-lookup"><span data-stu-id="1c7c4-127">The [Java client](https://search.maven.org/artifact/com.microsoft.aspnet/signalr) supports Java 8 and later versions.</span></span>
 
-* [<span data-ttu-id="be9c5-130">C++ クライアント</span><span class="sxs-lookup"><span data-stu-id="be9c5-130">C++ client</span></span>](https://github.com/aspnet/SignalR/tree/master/clients/cpp)
+## <a name="unsupported-clients"></a><span data-ttu-id="1c7c4-128">サポートされていないクライアント</span><span class="sxs-lookup"><span data-stu-id="1c7c4-128">Unsupported clients</span></span>
 
-* [<span data-ttu-id="be9c5-131">Swift クライアント</span><span class="sxs-lookup"><span data-stu-id="be9c5-131">Swift client</span></span>](https://github.com/moozzyk/SignalR-Client-Swift)
+<span data-ttu-id="1c7c4-129">次のクライアントは使用できますが、試験的または非公式です。</span><span class="sxs-lookup"><span data-stu-id="1c7c4-129">The following clients are available but are experimental or unofficial.</span></span> <span data-ttu-id="1c7c4-130">現時点ではサポートされておらず、そうでない場合もあります。</span><span class="sxs-lookup"><span data-stu-id="1c7c4-130">They aren't currently supported and may never be.</span></span>
+
+* [<span data-ttu-id="1c7c4-131">C++client</span><span class="sxs-lookup"><span data-stu-id="1c7c4-131">C++ client</span></span>](https://github.com/aspnet/SignalR/tree/master/clients/cpp)
+
+* [<span data-ttu-id="1c7c4-132">Swift クライアント</span><span class="sxs-lookup"><span data-stu-id="1c7c4-132">Swift client</span></span>](https://github.com/moozzyk/SignalR-Client-Swift)
