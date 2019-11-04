@@ -1,5 +1,5 @@
 ---
-title: ASP.NET Core SignalR で MessagePack ハブプロトコルを使用する
+title: ASP.NET Core SignalR で MessagePack ハブ プロトコルを使用する
 author: bradygaster
 description: MessagePack ハブプロトコルを ASP.NET Core SignalR に追加します。
 monikerRange: '>= aspnetcore-2.1'
@@ -143,15 +143,15 @@ public class ChatMessage
 }
 ```
 
-JavaScript クライアントから送信する場合は、大文字と小文字が正確にC#のクラスと一致する必要があるため、`PascalCased` のプロパティ名を使用する必要があります。 以下に例を示します。
+JavaScript クライアントから送信する場合は、大文字と小文字が正確に C# のクラスと一致する必要があるため、`PascalCased` のプロパティ名を使用する必要があります。以下に例を示します。
 
 ```javascript
 connection.invoke("SomeMethod", { Sender: "Sally", Message: "Hello!" });
 ```
 
-`camelCased` の名前を使用しても、C#のクラスに正しくバインドされません。 この問題を回避するには、`Key` 属性を使用して、MessagePack プロパティに別の名前を指定します。 詳細については、 [MessagePack-CSharp のドキュメント](https://github.com/neuecc/MessagePack-CSharp#object-serialization)を参照してください。
+`camelCased` の名前を使用しても、C# のクラスに正しくバインドされません。この問題を回避するには、`Key` 属性を使用して、MessagePack プロパティに別の名前を指定します。詳細については、[MessagePack-CSharp のドキュメント](https://github.com/neuecc/MessagePack-CSharp#object-serialization)を参照してください。
 
-### <a name="datetimekind-is-not-preserved-when-serializingdeserializing"></a>シリアル化/逆シリアル化時には DateTime.Kind は保持されません
+### <a name="datetimekind-is-not-preserved-when-serializingdeserializing"></a>DateTime.Kind はシリアル化/逆シリアル化時に保持されません
 
 MessagePack プロトコルは、`DateTime` の `Kind` 値をエンコードする手段を提供していません。 その結果、MessagePack ハブプロトコルでは、日付を逆シリアル化するときに、受信日が UTC 形式であると見なされます。 現地時刻で `DateTime` の値を使用している場合は、送信する前に UTC に変換することをお勧めします。 これらを受信時に UTC からローカル時刻に変換します。
 
@@ -171,7 +171,7 @@ Uncaught Error: unable to find ext type 255 at decoder.js:427
 
 ### <a name="messagepack-support-in-ahead-of-time-compilation-environment"></a>"事前" コンパイル環境での MessagePack のサポート
 
-.NET クライアントとサーバーで使用される[MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp)ライブラリは、コード生成を使用してシリアル化を最適化します。 その結果、"事前" コンパイル (Xamarin iOS や Unity など) を使用する環境では、既定ではサポートされません。 これらの環境では、シリアライザー/デシリアライザーコードを "事前に生成する" ことで MessagePack を使用することができます。 詳細については、 [MessagePack-CSharp のドキュメント](https://github.com/neuecc/MessagePack-CSharp#pre-code-generationunityxamarin-supports)を参照してください。 シリアライザーを事前に生成したら、`AddMessagePackProtocol` に渡された構成デリゲートを使用してそれらを登録できます。
+.NET クライアントとサーバーで使用される [MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp) ライブラリは、コード生成を使用してシリアル化を最適化します。その結果、"事前" コンパイル (Xamarin iOS や Unity など) を使用する環境で、既定ではサポートされません。これらの環境では、シリアライザー/デシリアライザー コードを "事前に生成する" ことで MessagePack を使用することができます。詳細については、[MessagePack-CSharp のドキュメント](https://github.com/neuecc/MessagePack-CSharp#pre-code-generationunityxamarin-supports)を参照してください。シリアライザーを事前に生成したら、`AddMessagePackProtocol` に渡された構成デリゲートを使用してそれらを登録できます。
 
 ```csharp
 services.AddSignalR()
