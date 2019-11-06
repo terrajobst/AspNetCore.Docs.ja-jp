@@ -1,5 +1,0 @@
-# <a name="aspnet-core-windows-service-sample"></a><span data-ttu-id="a4da1-101">ASP.NET Core の Windows サービスのサンプル</span><span class="sxs-lookup"><span data-stu-id="a4da1-101">ASP.NET Core Windows Service Sample</span></span>
-
-<span data-ttu-id="a4da1-102">このサンプルは、IIS を使用せずに、Windows サービスとして ASP.NET Core アプリをホストする方法を示しています。</span><span class="sxs-lookup"><span data-stu-id="a4da1-102">This sample shows how to host an ASP.NET Core app as a Windows Service without using IIS.</span></span> <span data-ttu-id="a4da1-103">このサンプルでは、「[Windows サービスでの ASP.NET Core のホスト](https://docs.microsoft.com/aspnet/core/host-and-deploy/windows-service)」で説明されているシナリオを紹介します。</span><span class="sxs-lookup"><span data-stu-id="a4da1-103">This sample demonstrates the scenario described in [Host ASP.NET Core in a Windows Service](https://docs.microsoft.com/aspnet/core/host-and-deploy/windows-service).</span></span>
-
-<span data-ttu-id="a4da1-104">サービスが確立し、開始された後、ブラウザーで `http://localhost:5000/` のアプリにアクセスします。</span><span class="sxs-lookup"><span data-stu-id="a4da1-104">After establishing and starting the service, access the app in a browser at `http://localhost:5000/`.</span></span>
