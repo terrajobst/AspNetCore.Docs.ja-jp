@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/21/2019
 uid: blazor/get-started
-ms.openlocfilehash: 80ff7b42a44e722dd27bc4fde53a066863448e10
-ms.sourcegitcommit: 810d5831169770ee240d03207d6671dabea2486e
+ms.openlocfilehash: 48d7ff4bf23273daf43128831aa46cfab3d982fe
+ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/22/2019
-ms.locfileid: "72779123"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73634026"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>ASP.NET Core Blazor を使ってみる
 
@@ -29,7 +29,7 @@ Blazor を使ってみる:
 1. コマンドシェルで次のコマンドを実行して、 [Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly)テンプレートをインストールします。 [Blazor](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.Templates/)パッケージはプレビュー版ですが、Blazor WebAssembly はプレビュー段階です。
 
    ```dotnetcli
-   dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.1.0-preview1.19508.20
+   dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.1.0-preview2.19528.8
    ```
 
 1. ツールの選択に関するガイダンスに従ってください。
@@ -246,9 +246,9 @@ Counter ページ上で **[クリックしてください]** ボタンを選択�
 
 **[クリックし**てください] ボタンが選択されるたびに、次のようになります。
 
-* @No__t_0 イベントが発生します。
+* `onclick` イベントが発生します。
 * `IncrementCount` メソッドが呼び出された場合。
-* @No__t_0 がインクリメントされます。
+* `currentCount` がインクリメントされます。
 * コンポーネントが再び表示されます。
 
 ランタイムは、新しいコンテンツを前のコンテンツと比較し、変更されたコンテンツのみをドキュメントオブジェクトモデル (DOM) に適用します。
@@ -261,9 +261,9 @@ HTML 構文を使用してコンポーネントを別のコンポーネントに
 
 アプリを実行します。 ホームページには、`Counter` コンポーネントによって提供される独自のカウンターがあります。
 
-コンポーネントのパラメーターは、属性または[子コンテンツ](xref:blazor/components#child-content)を使用して指定されます。これにより、子コンポーネントのプロパティを設定できます。 @No__t_0 コンポーネントにパラメーターを追加するには、コンポーネントの `@code` ブロックを更新します。
+コンポーネントのパラメーターは、属性または[子コンテンツ](xref:blazor/components#child-content)を使用して指定されます。これにより、子コンポーネントのプロパティを設定できます。 `Counter` コンポーネントにパラメーターを追加するには、コンポーネントの `@code` ブロックを更新します。
 
-* @No__t_1 属性を持つ `IncrementAmount` のパブリックプロパティを追加します。
+* `[Parameter]` 属性を持つ `IncrementAmount` のパブリックプロパティを追加します。
 * `currentCount` の値を増やすときに `IncrementAmount` を使うように `IncrementCount` メソッドを変更します。
 
 *Pages/Counter.razor*:
@@ -276,7 +276,7 @@ HTML 構文を使用してコンポーネントを別のコンポーネントに
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Index2.razor?highlight=7)]
 
-アプリを実行します。 @No__t_0 コンポーネントには、 **[クリックし**てください] ボタンが選択されるたびに10ずつ増加する独自のカウンターがあります。 @No__t_2 の `Counter` コンポーネント (*Counter*) は、1つずつ増加し続けます。
+アプリを実行します。 `Index` コンポーネントには、 **[クリックし**てください] ボタンが選択されるたびに10ずつ増加する独自のカウンターがあります。 `/counter` の `Counter` コンポーネント (*Counter*) は、1つずつ増加し続けます。
 
 ## <a name="next-steps"></a>次のステップ
 
