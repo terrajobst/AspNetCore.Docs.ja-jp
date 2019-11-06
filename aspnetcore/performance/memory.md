@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/05/2019
 uid: performance/memory
-ms.openlocfilehash: 48397e9fe7da912c1930f17fb86b686f0a20c60e
-ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
+ms.openlocfilehash: 8f6b47ecde6f265bfb9437234b89f11f7d235869
+ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 11/06/2019
-ms.locfileid: "73638160"
+ms.locfileid: "73660014"
 ---
 # <a name="memory-management-and-garbage-collection-gc-in-aspnet-core"></a>ASP.NET Core のメモリ管理とガベージコレクション (GC)
 
@@ -70,7 +70,7 @@ ASP.NET Core アプリが開始されると、GC は次のようになります�
 
 [Memoryleak サンプルアプリ](https://github.com/sebastienros/memoryleak)は GitHub で入手できます。 MemoryLeak アプリ:
 
-* には、アプリの実際のメモリおよび GC データを収集する診断コントローラーが含まれています。
+* には、アプリのリアルタイムメモリおよび GC データを収集する診断コントローラーが含まれています。
 * には、メモリおよび GC データを表示するインデックスページがあります。 インデックスページは、1秒ごとに更新されます。
 * には、さまざまなメモリ読み込みパターンを提供する API コントローラーが含まれています。
 * はサポートされているツールではありませんが、ASP.NET Core アプリのメモリ使用量パターンを表示するために使用できます。
@@ -114,7 +114,7 @@ public ActionResult<string> GetBigString()
 
 前のグラフは次を示しています。
 
-* 22 RPS
+* 22K RPS
 * ジェネレーション0の GC コレクションは1秒間に数回発生します。
 * ジェネレーション1のコレクションがトリガーされるのは、アプリによって1秒あたりにかなり多くのメモリが割り当てられたためです。
 * ワーキングセットは約 500 MB に固定されています。

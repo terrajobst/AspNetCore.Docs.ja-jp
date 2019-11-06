@@ -5,14 +5,14 @@ description: Blazor でフォームとフィールドの検証シナリオを使
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 11/04/2019
 uid: blazor/forms-validation
-ms.openlocfilehash: 6f6ace3deb7ed4262b643d897273bc767334b5e6
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: 09281779e7f0b31e525e0e79c2d6d9ce9ca5b8ce
+ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71207179"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73659782"
 ---
 # <a name="aspnet-core-blazor-forms-and-validation"></a>Blazor フォームと検証の ASP.NET Core
 
@@ -20,7 +20,7 @@ ms.locfileid: "71207179"
 
 [データ注釈](xref:mvc/models/validation)を使用して、Blazor でフォームおよび検証をサポートしています。
 
-次`ExampleModel`の型は、データ注釈を使用して検証ロジックを定義します。
+次の `ExampleModel` 型は、データ注釈を使用して検証ロジックを定義します。
 
 ```csharp
 using System.ComponentModel.DataAnnotations;
@@ -33,7 +33,7 @@ public class ExampleModel
 }
 ```
 
-フォームは、 `EditForm`コンポーネントを使用して定義されます。 次のフォームは、一般的な要素、コンポーネント、および Razor コードを示しています。
+フォームは、`EditForm` コンポーネントを使用して定義されます。 次のフォームは、一般的な要素、コンポーネント、および Razor コードを示しています。
 
 ```csharp
 <EditForm Model="@exampleModel" OnValidSubmit="@HandleValidSubmit">
@@ -55,14 +55,14 @@ public class ExampleModel
 }
 ```
 
-* フォームは、 `ExampleModel`型で定義さ`name`れた検証を使用して、フィールドのユーザー入力を検証します。 モデルはコンポーネントの`@code`ブロック内に作成され、プライベートフィールド (`exampleModel`) に保持されます。 フィールドは、 `Model` `<EditForm>`要素の属性に割り当てられます。
-* コンポーネント`DataAnnotationsValidator`は、データ注釈を使用して検証サポートをアタッチします。
-* コンポーネント`ValidationSummary`は、検証メッセージの概要を示します。
-* `HandleValidSubmit`は、フォームが正常に送信された (検証に合格した) ときにトリガーされます。
+* フォームは、`ExampleModel` の種類で定義されている検証を使用して、`name` フィールドのユーザー入力を検証します。 モデルはコンポーネントの `@code` ブロック内に作成され、プライベートフィールド (`exampleModel`) に保持されます。 フィールドは、`<EditForm>` 要素の `Model` 属性に割り当てられます。
+* `DataAnnotationsValidator` コンポーネントは、データ注釈を使用して検証サポートをアタッチします。
+* `ValidationSummary` コンポーネントは、検証メッセージの概要を示します。
+* フォームが正常に送信されると (検証に合格)、`HandleValidSubmit` がトリガーされます。
 
 ユーザー入力の受信と検証には、一連の組み込みの入力コンポーネントを使用できます。 入力は、変更されたときとフォームが送信されたときに検証されます。 次の表に、使用できる入力コンポーネントを示します。
 
-| 入力コンポーネント | 表示形式&hellip;       |
+| 入力コンポーネント | &hellip; としてレンダリング       |
 | --------------- | ------------------------- |
 | `InputText`     | `<input>`                 |
 | `InputTextArea` | `<textarea>`              |
@@ -71,11 +71,11 @@ public class ExampleModel
 | `InputCheckbox` | `<input type="checkbox">` |
 | `InputDate`     | `<input type="date">`     |
 
-を含む`EditForm`すべての入力コンポーネントは、任意の属性をサポートします。 コンポーネントパラメーターに一致しない属性は、表示される HTML 要素に追加されます。
+すべての入力コンポーネント (`EditForm`を含む) では、任意の属性がサポートされます。 コンポーネントパラメーターに一致しない属性は、表示される HTML 要素に追加されます。
 
-入力コンポーネントは、編集時に検証を行い、フィールドの状態を反映するように CSS クラスを変更するための既定の動作を提供します。 一部のコンポーネントには、役に立つ解析ロジックが含まれています。 たとえば、と`InputDate` `InputNumber`は、検証エラーとして登録することによって、解析不能な値を適切に処理します。 Null 値を受け入れることができる型では、ターゲットフィールドの null 値の`int?`許容もサポートされます (たとえば、)。
+入力コンポーネントは、編集時に検証を行い、フィールドの状態を反映するように CSS クラスを変更するための既定の動作を提供します。 一部のコンポーネントには、役に立つ解析ロジックが含まれています。 たとえば、`InputDate` と `InputNumber` では、解析不能な値を検証エラーとして登録することによって適切に処理します。 Null 値を受け入れることができる型では、対象フィールドの null 値の許容もサポートされます (たとえば、`int?`)。
 
-次`Starship`の型では、以前`ExampleModel`よりも大きなプロパティとデータ注釈を使用して検証ロジックを定義しています。
+次の `Starship` 型では、以前の `ExampleModel`よりも大きなプロパティとデータ注釈を使用して検証ロジックを定義しています。
 
 ```csharp
 using System;
@@ -105,9 +105,9 @@ public class Starship
 }
 ```
 
-前の例では`Description` 、データ注釈が存在しないため、は省略可能です。
+前の例では、データ注釈が存在しないため、`Description` は省略可能です。
 
-次のフォームは、 `Starship`モデルで定義されている検証を使用してユーザー入力を検証します。
+次のフォームでは、`Starship` モデルで定義されている検証を使用してユーザー入力を検証します。
 
 ```cshtml
 @page "/FormsValidation"
@@ -170,13 +170,13 @@ public class Starship
 }
 ```
 
-は`EditForm` 、変更`EditContext`されたフィールドと現在の検証メッセージを含む、編集プロセスに関するメタデータを追跡する[カスケード値](xref:blazor/components#cascading-values-and-parameters)としてを作成します。 また`EditForm` 、は、有効かつ無効な送信 (`OnValidSubmit`, `OnInvalidSubmit`) の便利なイベントも提供します。 または、 `OnSubmit`を使用して、検証フィールドとチェックフィールドの値をカスタム検証コードでトリガーします。
+`EditForm` は、変更されたフィールドと現在の検証メッセージを含む、編集プロセスに関するメタデータを追跡する[カスケード値](xref:blazor/components#cascading-values-and-parameters)として `EditContext` を作成します。 `EditForm` は、有効かつ無効な送信 (`OnValidSubmit`、`OnInvalidSubmit`) にも便利なイベントを提供します。 または、`OnSubmit` を使用して、カスタム検証コードで検証フィールドとチェックフィールドの値をトリガーします。
 
 ## <a name="inputtext-based-on-the-input-event"></a>入力イベントに基づく InputText
 
-イベントで`InputText`はなく`input`イベントを使用するカスタムコンポーネントを作成するには、コンポーネントを使用します。 `change`
+`change` イベントではなく、`input` イベントを使用するカスタムコンポーネントを作成するには、`InputText` コンポーネントを使用します。
 
-次のマークアップを使用してコンポーネントを作成し、その`InputText`コンポーネントを使用した場合と同じように使用します。
+次のマークアップを使用してコンポーネントを作成し、`InputText` が使用される場合と同様に、コンポーネントを使用します。
 
 ```cshtml
 @inherits InputText
@@ -191,18 +191,34 @@ public class Starship
 
 ## <a name="validation-support"></a>検証のサポート
 
-コンポーネント`DataAnnotationsValidator`は、データ注釈をカスケード`EditContext`に使用して検証サポートをアタッチします。 データ注釈を使用した検証のサポートを有効にするには、この明示的なジェスチャが必要です。 データ注釈とは異なる検証システムを使用するには`DataAnnotationsValidator` 、をカスタム実装に置き換えます。 ASP.NET Core の実装は、参照ソースの検査に使用できます。[DataAnnotationsValidator](https://github.com/aspnet/AspNetCore/blob/master/src/Components/Forms/src/DataAnnotationsValidator.cs)/[AddDataAnnotationsValidation](https://github.com/aspnet/AspNetCore/blob/master/src/Components/Forms/src/EditContextDataAnnotationsExtensions.cs)。
+`DataAnnotationsValidator` コンポーネントは、データ注釈を使用した検証サポートをカスケード `EditContext`にアタッチします。 データ注釈を使用した検証のサポートを有効にするには、この明示的なジェスチャが必要です。 データ注釈とは異なる検証システムを使用するには、`DataAnnotationsValidator` をカスタム実装に置き換えます。 ASP.NET Core の実装は、参照ソース: [Data注釈](https://github.com/aspnet/AspNetCore/blob/master/src/Components/Forms/src/DataAnnotationsValidator.cs)を検証するために、 [adddata注釈](https://github.com/aspnet/AspNetCore/blob/master/src/Components/Forms/src/EditContextDataAnnotationsExtensions.cs)を使用して/ます。
 
-コンポーネント`ValidationSummary`は、検証の[概要タグヘルパー](xref:mvc/views/working-with-forms#the-validation-summary-tag-helper)に似たすべての検証メッセージを要約します。
+`ValidationSummary` コンポーネントは、検証の[概要タグヘルパー](xref:mvc/views/working-with-forms#the-validation-summary-tag-helper)に似たすべての検証メッセージを要約します。
 
-コンポーネント`ValidationMessage`には、[検証メッセージタグヘルパー](xref:mvc/views/working-with-forms#the-validation-message-tag-helper)に似た、特定のフィールドの検証メッセージが表示されます。 `For`属性を使用した検証用のフィールドと、モデルプロパティに名前を付けるラムダ式を指定します。
+`ValidationMessage` コンポーネントには、[検証メッセージタグヘルパー](xref:mvc/views/working-with-forms#the-validation-message-tag-helper)に似た、特定のフィールドの検証メッセージが表示されます。 `For` 属性と、モデルプロパティに名前を付けるラムダ式を使用して、検証用のフィールドを指定します。
 
 ```cshtml
 <ValidationMessage For="@(() => starship.MaximumAccommodation)" />
 ```
 
-コンポーネント`ValidationMessage` と`ValidationSummary`コンポーネントは、任意の属性をサポートします。 コンポーネントパラメーターに一致しない属性は、生成`<div>`される要素また`<ul>`は要素に追加されます。
+`ValidationMessage` コンポーネントと `ValidationSummary` コンポーネントでは、任意の属性がサポートされています。 コンポーネントパラメーターと一致しない属性は、生成された `<div>` 要素または `<ul>` 要素に追加されます。
+
+::: moniker range=">= aspnetcore-3.1"
+
+**Blazor パッケージ (AspNetCore の検証)**
+
+[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation)は、`DataAnnotationsValidator` コンポーネントを使用して、検証エクスペリエンスのギャップを埋めるパッケージです。 パッケージは現在*試験段階*です。今後のリリースでは、これらのシナリオを ASP.NET Core framework に追加する予定です。
+
+`DataAnnotationsValidator` コンポーネントでは、検証モデルの複合プロパティのサブプロパティは検証されません。 コレクション型プロパティの項目は検証されません。 これらの型を検証するために、`Microsoft.AspNetCore.Blazor.DataAnnotations.Validation` パッケージでは、`ObjectGraphDataAnnotationsValidator` コンポーネントと連動する `ValidateComplexType` 検証属性が導入されています。 これらの型の使用例については、 [aspnet/Samples GitHub リポジトリの Blazor 検証サンプル](https://github.com/aspnet/samples/tree/master/samples/aspnetcore/blazor/Validation)を参照してください。
+
+<xref:System.ComponentModel.DataAnnotations.CompareAttribute> は、`DataAnnotationsValidator` コンポーネントでは適切に機能しません。 `Microsoft.AspNetCore.Blazor.DataAnnotations.Validation` パッケージでは、これらの制限を回避する追加の検証属性 `ComparePropertyAttribute`が導入されています。 Blazor アプリでは、`ComparePropertyAttribute` は `CompareAttribute`の直接置換です。 詳細については、「 [OnValidSubmit EditForm では Compareattribute が無視されました (aspnet/AspNetCore \#10643)](https://github.com/aspnet/AspNetCore/issues/10643#issuecomment-543909748)」を参照してください。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.1"
 
 ### <a name="validation-of-complex-or-collection-type-properties"></a>複合型またはコレクション型のプロパティの検証
 
-モデルのプロパティに適用される検証属性は、フォームが送信されるときに検証されます。 ただし、モデルのコレクションや複合データ型のプロパティは、フォームの送信時に検証されません。 このシナリオで入れ子になった検証属性を使用するには、カスタム検証コンポーネントを使用します。 例については、 [aspnet/Samples GitHub リポジトリの Blazor 検証サンプル](https://github.com/aspnet/samples/tree/master/samples/aspnetcore/blazor/Validation)を参照してください。
+モデルのプロパティに適用される検証属性は、フォームが送信されるときに検証されます。 ただし、モデルのコレクションまたは複合データ型のプロパティは、`DataAnnotationsValidator` コンポーネントによるフォームの送信時に検証されません。 このシナリオで入れ子になった検証属性を使用するには、カスタム検証コンポーネントを使用します。 例については、 [aspnet/Samples GitHub リポジトリの Blazor 検証サンプル](https://github.com/aspnet/samples/tree/master/samples/aspnetcore/blazor/Validation)を参照してください。
+
+::: moniker-end
