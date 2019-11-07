@@ -16,9 +16,9 @@ ms.locfileid: "72531173"
 ---
 # <a name="authentication-and-authorization-in-aspnet-core-signalr"></a>ASP.NET Core SignalR での認証と承認
 
-By [Andrew Stanton-看護師](https://twitter.com/anurse)
+作成者: [Andrew Stanton-Nurse](https://twitter.com/anurse)
 
-[サンプルコードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/authn-and-authz/sample/)[する (ダウンロードする方法)](xref:index#how-to-download-a-sample)
+[サンプルコードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/authn-and-authz/sample/)[(ダウンロードする方法)](xref:index#how-to-download-a-sample)
 
 ## <a name="authenticate-users-connecting-to-a-signalr-hub"></a>SignalR hub に接続しているユーザーを認証する
 
@@ -80,13 +80,13 @@ public void Configure(IApplicationBuilder app)
 
 ### <a name="cookie-authentication"></a>Cookie 認証
 
-ブラウザーベースのアプリでは、cookie 認証を使用して、既存のユーザーの資格情報を SignalR 接続に自動的に渡すことができます。 ブラウザークライアントを使用する場合、追加の構成は必要ありません。 ユーザーがアプリにログインしている場合、SignalR 接続は自動的にこの認証を継承します。
+ブラウザーベースのアプリでは、Cookie 認証を使用して、既存のユーザーの資格情報を SignalR 接続に自動的に渡すことができます。 ブラウザー クライアントを使用する場合、追加の構成は必要ありません。 ユーザーがアプリにログインしている場合、SignalR 接続は自動的にこの認証を継承します。
 
-Cookie はアクセストークンを送信するためのブラウザー固有の方法ですが、ブラウザー以外のクライアントは送信できます。 [.Net クライアント](xref:signalr/dotnet-client)を使用する場合は、`.WithUrl` 呼び出しで `Cookies` プロパティを構成して、cookie を提供できます。 ただし、.NET クライアントから cookie 認証を使用するには、アプリが cookie の認証データを交換するための API を提供する必要があります。
+Cookie はアクセス トークンを送信するためのブラウザー固有の方法ですが、ブラウザー以外のクライアントは送信できます。 [.Net クライアント](xref:signalr/dotnet-client)を使用する場合は、`.WithUrl` 呼び出しで `Cookies` プロパティを構成して、cookie を提供できます。 ただし、.NET クライアントから Cookie 認証を使用するには、アプリが Cookie の認証データを交換するための API を提供する必要があります。
 
 ### <a name="bearer-token-authentication"></a>ベアラートークン認証
 
-クライアントは、cookie を使用する代わりにアクセストークンを提供できます。 サーバーはトークンを検証し、それを使用してユーザーを識別します。 この検証は、接続が確立された場合にのみ実行されます。 接続の有効期間中は、トークンの失効を確認するためにサーバーが自動的に再検証されることはありません。
+クライアントは、Cookie を使用する代わりにアクセス トークンを提供できます。 サーバーはトークンを検証し、それを使用してユーザーを識別します。 この検証は、接続が確立された場合にのみ実行されます。 接続の有効期間中は、トークンの失効を確認するためにサーバーが自動的に再検証されることはありません。
 
 サーバーでは、ベアラートークン認証は[JWT ベアラーミドルウェア](/dotnet/api/microsoft.extensions.dependencyinjection.jwtbearerextensions.addjwtbearer)を使用して構成されます。
 
@@ -94,7 +94,7 @@ JavaScript クライアントでは、 [accessTokenFactory](xref:signalr/configu
 
 [!code-typescript[Configure Access Token](authn-and-authz/sample/wwwroot/js/chat.ts?range=52-55)]
 
-.NET クライアントには、トークンの構成に使用できる同様の[れる場合](xref:signalr/configuration#configure-bearer-authentication)プロパティがあります。
+.NET クライアントには、トークンの構成に使用できる同様の [AccessTokenProvider](xref:signalr/configuration#configure-bearer-authentication) プロパティがあります。
 
 ```csharp
 var connection = new HubConnectionBuilder()
@@ -106,18 +106,18 @@ var connection = new HubConnectionBuilder()
 ```
 
 > [!NOTE]
-> 指定したアクセストークン関数は、SignalR によって行われる**すべて**の HTTP 要求の前に呼び出されます。 接続をアクティブな状態に保つために、トークンを更新する必要がある場合 (接続中に期限切れになる可能性があるため)、この関数内からトークンを取得し、更新されたトークンを返します。
+> 指定したアクセス トークン関数は、SignalR によって行われる**すべて**の HTTP 要求の前に呼び出されます。 接続をアクティブな状態に保つために、トークンを更新する必要がある場合 (接続中に期限切れになる可能性があるため)、この関数内でトークンを更新し、それを返します。
 
-標準の web Api では、ベアラートークンは HTTP ヘッダーで送信されます。 ただし、SignalR では、一部のトランスポートを使用するときに、これらのヘッダーをブラウザーで設定することはできません。 Websocket およびサーバー送信イベントを使用する場合、トークンはクエリ文字列パラメーターとして送信されます。 サーバーでこれをサポートするには、追加の構成が必要です。
+標準の Web API では、ベアラー トークンは HTTP ヘッダーで送信されます。 ただし、SignalR では、一部のトランスポートを使用するときに、これらのヘッダーをブラウザーで設定することはできません。 WebSocket および Server-Sent Events を使用する場合、トークンはクエリ文字列パラメーターとして送信されます。 サーバーでこれをサポートするには、追加の構成が必要です。
 
 [!code-csharp[Configure Server to accept access token from Query String](authn-and-authz/sample/Startup.cs?name=snippet)]
 
 > [!NOTE]
-> クエリ文字列は、ブラウザー API の制限により、Websocket およびサーバーから送信されたイベントと接続するときにブラウザーで使用されます。 HTTPS を使用する場合、クエリ文字列の値は TLS 接続によって保護されます。 ただし、多くのサーバーはクエリ文字列の値をログに記録します。 詳細については、「 [ASP.NET Core SignalR」の「セキュリティに関する考慮事項](xref:signalr/security)」を参照してください。 SignalR は、ヘッダーを使用して、トークンをサポートする環境 (.NET や Java クライアントなど) でトークンを送信します。
+> クエリ文字列は、ブラウザー API の制限により、WebSocket および Server-Sent Events と接続するときにブラウザーで使用されます。 HTTPS を使用する場合、クエリ文字列の値は TLS 接続によって保護されます。 ただし、多くのサーバーはクエリ文字列の値をログに記録します。 詳細については、「[ASP.NET Core SignalR のセキュリティに関する考慮事項](xref:signalr/security)」を参照してください。 SignalR は、トークンをサポートする環境 (.NET や Java クライアントなど) では、ヘッダーを使用してトークンを送信します。
 
 ### <a name="cookies-vs-bearer-tokens"></a>Cookie とベアラートークン 
 
-Cookie は、ブラウザーに固有のものです。 他の種類のクライアントから送信すると、ベアラートークンの送信と比較して複雑さが増します。 そのため、アプリがブラウザークライアントからのユーザーの認証のみを必要とする場合を除き、cookie 認証は推奨されません。 ベアラートークン認証は、ブラウザークライアント以外のクライアントを使用する場合に推奨される方法です。
+Cookie は、ブラウザーに固有のものです。 他の種類のクライアントから送信すると、ベアラー トークンの送信と比較して複雑さが増します。 そのため、アプリがブラウザー クライアントからのユーザーの認証のみを必要とする場合を除き、Cookie 認証は推奨されません。 ベアラー トークン認証は、ブラウザー クライアント以外のクライアントを使用する場合に推奨される方法です。
 
 ### <a name="windows-authentication"></a>Windows 認証
 
@@ -157,18 +157,18 @@ var connection = new HubConnectionBuilder()
 
 Windows 認証は、Microsoft Internet Explorer または Microsoft Edge を使用している場合にのみブラウザークライアントでサポートされます。
 
-### <a name="use-claims-to-customize-identity-handling"></a>要求を使用して id 処理をカスタマイズする
+### <a name="use-claims-to-customize-identity-handling"></a>クレームによる ID 処理のカスタマイズ
 
-ユーザーを認証するアプリは、ユーザー要求から SignalR ユーザー Id を派生させることができます。 SignalR がユーザー Id を作成する方法を指定するには、`IUserIdProvider` を実装し、実装を登録します。
+ユーザーを認証するアプリは、ユーザー クレームから SignalR ユーザー ID を派生させることができます。 SignalR がユーザー ID を作成する方法を指定するには、`IUserIdProvider` を実装し、実装を登録します。
 
-このサンプルコードでは、要求を使用して、識別プロパティとしてユーザーの電子メールアドレスを選択する方法を示します。 
+このサンプル コードでは、クレームを使用して、識別プロパティとしてユーザーのメール アドレスを選択する方法を示します。 
 
 > [!NOTE]
 > 選択する値は、システム内のすべてのユーザーの間で一意である必要があります。 そうしないと、1人のユーザーを対象としたメッセージが別のユーザーに送信される可能性があります。
 
 [!code-csharp[Email provider](authn-and-authz/sample/EmailBasedUserIdProvider.cs?name=EmailBasedUserIdProvider)]
 
-アカウント登録によって、種類が `ClaimsTypes.Email` の要求が ASP.NET identity データベースに追加されます。
+アカウント登録によって、種類が `ClaimsTypes.Email` のクレームが ASP.NET identity データベースに追加されます。
 
 [!code-csharp[Adding the email to the ASP.NET identity claims](authn-and-authz/sample/pages/account/Register.cshtml.cs?name=AddEmailClaim)]
 
@@ -180,7 +180,7 @@ services.AddSingleton<IUserIdProvider, EmailBasedUserIdProvider>();
 
 ## <a name="authorize-users-to-access-hubs-and-hub-methods"></a>ハブおよびハブのメソッドへのアクセスをユーザーに承認する
 
-既定では、ハブ内のすべてのメソッドを認証されていないユーザーが呼び出すことができます。 認証を要求するには、[承認](/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute)属性をハブに適用します。
+既定では、ハブ内のすべてのメソッドを認証されていないユーザーが呼び出すことができます。 認証を要求するには、[Authorize](/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute) 属性をハブに適用します。
 
 [!code-csharp[Restrict a hub to only authorized users](authn-and-authz/sample/Hubs/ChatHub.cs?range=8-10,32)]
 
@@ -216,9 +216,9 @@ public class ChatHub : Hub
 
 ### <a name="use-authorization-handlers-to-customize-hub-method-authorization"></a>承認ハンドラーを使用してハブメソッドの承認をカスタマイズする
 
-SignalR は、ハブメソッドが承認を必要とする場合に、承認ハンドラーにカスタムリソースを提供します。 リソースは `HubInvocationContext` のインスタンスです。 @No__t_0 には、`HubCallerContext`、呼び出されるハブメソッドの名前、およびハブメソッドへの引数が含まれます。
+SignalR は、ハブ メソッドが承認を必要とする場合に、承認ハンドラーにカスタム リソースを提供します。 リソースは `HubInvocationContext` のインスタンスです。 @No__t_0 には、`HubCallerContext`、呼び出されるハブメソッドの名前、およびハブメソッドへの引数が含まれます。
 
-Azure Active Directory による複数の組織でのサインインを可能にするチャットルームの例を考えてみましょう。 Microsoft アカウントを持つユーザーはだれでもチャットにサインインできますが、所有している組織のメンバーだけがユーザーの許可を禁止したり、ユーザーのチャット履歴を表示したりできるようにする必要があります。 さらに、特定のユーザーの特定の機能を制限することもできます。 ASP.NET Core 3.0 の更新された機能を使用すると、これは完全に可能です。 @No__t_0 がカスタム `IAuthorizationRequirement` としてどのように機能するかに注意してください。 @No__t_0 リソースパラメーターが渡されるようになったので、内部ロジックはハブが呼び出されているコンテキストを検査し、ユーザーが個々のハブメソッドを実行できるようにすることを決定します。
+Azure Active Directory による複数の組織でのサインインを可能にするチャット ルームの例を考えてみましょう。 Microsoft アカウントを持つユーザーはだれでもチャットにサインインできますが、所有している組織のメンバーだけがユーザーの許可を禁止したり、ユーザーのチャット履歴を表示したりできるようにする必要があります。 さらに、特定のユーザーに対し、特定の機能を制限したい場合があります。 ASP.NET Core 3.0 の更新された機能を使用すると、これはすべて可能です。 @No__t_0 がカスタム `IAuthorizationRequirement` としてどのように機能するかに注意してください。 @No__t_0 リソースパラメーターが渡されるようになったので、内部ロジックはハブが呼び出されているコンテキストを検査し、ユーザーが個々のハブメソッドを実行できるようにすることを決定します。
 
 ```csharp
 [Authorize]
@@ -282,7 +282,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-前の例では、`DomainRestrictedRequirement` クラスは、その要件の `IAuthorizationRequirement` と独自の `AuthorizationHandler` の両方です。 この2つのコンポーネントを別々のクラスに分割して、懸念事項を分けることができます。 この例のアプローチの利点は、要件とハンドラーが同じであるため、起動時に `AuthorizationHandler` を挿入する必要がないことです。
+前の例では、`DomainRestrictedRequirement` クラスは、その要件の `IAuthorizationRequirement` と独自の `AuthorizationHandler` の両方です。 関心の分離のために、この 2 つのコンポーネントを別々のクラスに分割することができます。 この例のアプローチの利点は、要件とハンドラーが同じであるため、起動時に `AuthorizationHandler` を挿入する必要がないことです。
 
 ::: moniker-end
 
