@@ -5,14 +5,14 @@ description: 好みのツールで Blazor アプリを構築して、Blazor の�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/21/2019
+ms.date: 11/07/2019
 uid: blazor/get-started
-ms.openlocfilehash: 48d7ff4bf23273daf43128831aa46cfab3d982fe
-ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
+ms.openlocfilehash: b5043c7e4549800c1ab49bc37dd8f3568975d4aa
+ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73634026"
+ms.lasthandoff: 11/07/2019
+ms.locfileid: "73799234"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>ASP.NET Core Blazor を使ってみる
 
@@ -132,7 +132,7 @@ Blazor を使ってみる:
 1. 必要に応じて、 [.Net Core 3.1 PREVIEW SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1)をインストールし、コマンドシェルで次のコマンドを実行して、 [Blazor webassembly](xref:blazor/hosting-models#blazor-webassembly)テンプレートをインストールします。
 
    ```dotnetcli
-   dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.1.0-preview1.19508.20
+   dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.1.0-preview2.19528.8
    ```
 
 1. ツールの選択に関するガイダンスに従ってください。
