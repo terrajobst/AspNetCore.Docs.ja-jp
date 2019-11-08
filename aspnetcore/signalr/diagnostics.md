@@ -170,27 +170,27 @@ tcpdump -i [interface] -w trace.pcap
 
 (手順は、Edge や Internet Explorer の両方で同じは)
 
-1. 開発ツールを開く F12 キーを押します
+1. F12 キーを押して Dev Tools を開きます。
 2. [ネットワーク] タブをクリックします。
-3. (必要な) 場合は、ページを更新し、問題の再現
+3. ページを更新し(必要な場合)、問題を再現させます。
 4. トレースを"HAR"ファイルとしてエクスポートするには、ツールバーの [保存] アイコンをクリックします。
 
 ![保存アイコンを Microsoft Edge 開発者ツールの [ネットワーク] タブ](diagnostics/ie-edge-har-export.png)
 
 ### <a name="google-chrome"></a>Google Chrome
 
-1. 開発ツールを開く F12 キーを押します
+1. F12 キーを押して Dev Tools を開きます。
 2. [ネットワーク] タブをクリックします。
-3. (必要な) 場合は、ページを更新し、問題の再現
+3. ページを更新し(必要な場合)、問題を再現させます。
 4. 任意の場所の要求の一覧でを右クリックし、選択「の内容を HAR として保存」します。
 
 ![Google Chrome デベロッパー ツール ネットワーク タブで、"コンテンツを含む HAR として保存 オプション](diagnostics/chrome-har-export.png)
 
 ### <a name="mozilla-firefox"></a>Mozilla Firefox
 
-1. 開発ツールを開く F12 キーを押します
+1. F12 キーを押して Dev Tools を開きます。
 2. [ネットワーク] タブをクリックします。
-3. (必要な) 場合は、ページを更新し、問題の再現
+3. ページを更新し(必要な場合)、問題を再現させます。
 4. 任意の場所の要求の一覧でを右クリックし、"保存すべてとして HAR"を選択
 
 ![Mozilla Firefox デベロッパー ツール ネットワーク タブで HAR としてすべて"保存オプション](diagnostics/firefox-har-export.png)
