@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/29/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 6f2d62600da828261ecfc3a1df688ce914eccf33
-ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
+ms.openlocfilehash: abb55ea12583374639f28945037cb6aa41a5a32d
+ms.sourcegitcommit: 77c8be22d5e88dd710f42c739748869f198865dd
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/18/2019
-ms.locfileid: "72590016"
+ms.lasthandoff: 11/01/2019
+ms.locfileid: "73427039"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>チュートリアル: ASP.NET Core で Web API を作成する
 
@@ -917,7 +917,7 @@ To Do アイテムを削除するには、`DELETE` への AJAX 呼び出しで `
 
 ## <a name="add-authentication-support-to-a-web-api"></a>Web API に認証サポートを追加
 
-[IdentityServer4](https://identityserver4.readthedocs.io/en/latest/quickstarts/0_overview.html) のチュートリアルを参照してください。
+[!INCLUDE[](~/includes/IdentityServer4.md)]
 
 ## <a name="additional-resources"></a>その他の技術情報
 

@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc, seodec18
 ms.date: 08/17/2019
 uid: tutorials/first-mongo-app
-ms.openlocfilehash: acf2ded8b92a8f77678af7b772ac2a69264a642c
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 42c0efcd914eaa54134827cdf3bd6bd599d512b2
+ms.sourcegitcommit: 77c8be22d5e88dd710f42c739748869f198865dd
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082368"
+ms.lasthandoff: 11/01/2019
+ms.locfileid: "73427018"
 ---
 # <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>ASP.NET Core と MongoDB で Web API を作成する
 
@@ -715,6 +715,10 @@ Windows を使用する場合、MongoDB は既定では *C:\\Program Files\\Mong
 1. 「[Web API をテストする](#test-the-web-api)」セクションで定義されている手順を繰り返します。 JSON プロパティ名の違いに注意してください。
 
 ::: moniker-end
+
+## <a name="add-authentication-support-to-a-web-api"></a>Web API に認証サポートを追加
+
+[!INCLUDE[](~/includes/IdentityServer4.md)]
 
 ## <a name="next-steps"></a>次の手順
 

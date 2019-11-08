@@ -1,5 +1,5 @@
 ---
-title: ログ記録と ASP.NET Core SignalR での診断
+title: ASP.NET Core SignalR でのログ記録と診断
 author: anurse
 description: ASP.NET Core SignalR アプリケーションから診断を収集する方法について説明します。
 monikerRange: '>= aspnetcore-2.1'
@@ -14,7 +14,7 @@ ms.contentlocale: ja-JP
 ms.lasthandoff: 06/21/2019
 ms.locfileid: "67313710"
 ---
-# <a name="logging-and-diagnostics-in-aspnet-core-signalr"></a>ログ記録と ASP.NET Core SignalR での診断
+# <a name="logging-and-diagnostics-in-aspnet-core-signalr"></a>ASP.NET Core SignalR でのログ記録と診断
 
 によって[Andrew Stanton-nurse](https://twitter.com/anurse)
 
@@ -23,7 +23,7 @@ ms.locfileid: "67313710"
 ## <a name="server-side-logging"></a>サーバー側のログ記録
 
 > [!WARNING]
-> サーバー側のログは、アプリからの機密情報を含めることができます。 **決して**未加工のログを実稼働アプリを GitHub のようなパブリック フォーラムに投稿します。
+> サーバー側のログは、アプリからの機密情報を含めることができます。 実稼働アプリの未加工のログを GitHub のようなパブリック フォーラムに **決して** 投稿しないでください。
 
 SignalR は ASP.NET Core の一部であるため、ASP.NET Core のログ記録システムを使用します。 既定の構成、構成された SignalR のログはほとんどの情報が、このことができます。 上のドキュメントを参照して[ASP.NET Core のログ記録](xref:fundamentals/logging/index#configuration)の ASP.NET Core のログ記録の構成の詳細について。
 
@@ -72,7 +72,7 @@ Visual Studio でのログ出力が表示されます、**出力**ウィンド�
 ## <a name="javascript-client-logging"></a>JavaScript クライアントのログ記録
 
 > [!WARNING]
-> クライアント側のログは、アプリからの機密情報を含めることができます。 **決して**未加工のログを実稼働アプリを GitHub のようなパブリック フォーラムに投稿します。
+> クライアント側のログは、アプリからの機密情報を含めることができます。 実稼働アプリの未加工のログを GitHub のようなパブリック フォーラムに **決して** 投稿しないでください。
 
 使用してログ記録オプションを構成するには、JavaScript クライアントを使用する場合、`configureLogging`メソッド`HubConnectionBuilder`:
 
@@ -101,7 +101,7 @@ Visual Studio でのログ出力が表示されます、**出力**ウィンド�
 ## <a name="net-client-logging"></a>.NET クライアントのログ記録
 
 > [!WARNING]
-> クライアント側のログは、アプリからの機密情報を含めることができます。 **決して**未加工のログを実稼働アプリを GitHub のようなパブリック フォーラムに投稿します。
+> クライアント側のログは、アプリからの機密情報を含めることができます。 実稼働アプリの未加工のログを GitHub のようなパブリック フォーラムに **決して** 投稿しないでください。
 
 .NET クライアントからログを取得、使用することができます、`ConfigureLogging`メソッド`HubConnectionBuilder`します。 これは、機能と同様、`ConfigureLogging`メソッド`WebHostBuilder`と`HostBuilder`します。 ASP.NET Core で使用する同じログ プロバイダーを構成できます。 ただし、手動でインストールし、個々 のログ プロバイダーの NuGet パッケージを有効にする必要があります。
 
@@ -138,7 +138,7 @@ SignalR など、Serilog、Seq、NLog、またはその他のログ記録シス�
 
 ## <a name="collect-a-network-trace-with-fiddler-preferred-option"></a>Fiddler (推奨されるオプション) でネットワーク トレースを収集します。
 
-このメソッドは、すべてのアプリに対して機能します。
+この方法は、すべてのアプリに対して機能します。
 
 Fiddler は、HTTP トレースを収集するための非常に強力なツールです。 インストール[telerik.com/fiddler](https://www.telerik.com/fiddler)それを起動し、アプリを実行し、問題を再現します。 Fiddler は、Windows と macOS および Linux 用のベータ バージョンがあります。
 
@@ -150,7 +150,7 @@ HTTPS を使用してを接続する場合は、Fiddler は HTTPS トラフィ�
 
 ## <a name="collect-a-network-trace-with-tcpdump-macos-and-linux-only"></a>Tcpdump (macOS および Linux のみ) とネットワーク トレースを収集します。
 
-このメソッドは、すべてのアプリに対して機能します。
+この方法は、すべてのアプリに対して機能します。
 
 コマンド シェルから次のコマンドを実行して tcpdump を使用して、生の TCP トレースを収集することができます。 必要がある`root`コマンドにプレフィックスとしてまたは`sudo`アクセス許可エラーが発生した場合。
 
