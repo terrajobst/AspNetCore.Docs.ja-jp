@@ -4,14 +4,14 @@ author: rick-anderson
 description: インターネットに接続された最新のクラウド ベース アプリケーションを構築するための、クロス プラットフォームで高パフォーマンスのオープン ソース フレームワークである ASP.NET Core について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/10/2019
+ms.date: 11/03/2019
 uid: index
-ms.openlocfilehash: 1ccc1f5d095833e89fc20127ee23b8fa3dc4c79f
-ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
+ms.openlocfilehash: edbdce19656af64d7c2c0ee554bc5213a0d0c50e
+ms.sourcegitcommit: 09f4a5ded39cc8204576fe801d760bd8b611f3aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/12/2019
-ms.locfileid: "72289049"
+ms.lasthandoff: 11/05/2019
+ms.locfileid: "73611406"
 ---
 # <a name="introduction-to-aspnet-core"></a>ASP.NET Core の概要
 
@@ -98,6 +98,10 @@ ASP.NET Core アプリを開発する場合の概要として、次の順序で�
 1. 興味のあるその他のトピックは、目次から参照してください。
 
 \* [すべてブラウザーでたどる新しい Web API のチュートリアル](https://docs.microsoft.com/learn/modules/build-web-api-net-core)があります。ローカルに IDE をインストールする必要はありません。  このコードは、[Azure Cloud Shell](https://azure.microsoft.com/features/cloud-shell/) で実行し、テストには [curl](https://curl.haxx.se/) を使用します。
+
+## <a name="migration-from-the-net-framework"></a>.NET Framework からの移行
+
+ASP.NET アプリを ASP.NET Core に移行するためのリファレンス ガイドについては、<migration/proper-to-2x/index> を参照してください。
 
 ## <a name="how-to-download-a-sample"></a>サンプルをダウンロードする方法
 
