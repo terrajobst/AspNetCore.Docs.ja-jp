@@ -1,24 +1,23 @@
 ---
-title: ASP.NET Core での特定のスキームで承認します。
+title: ASP.NET Core で特定のスキームを使用して承認する
 author: rick-anderson
-description: この記事では、複数の認証方法を使用する場合は、id を特定のスキームを制限する方法について説明します。
+description: この記事では、複数の認証方法を使用する場合に、特定のスキームに id を制限する方法について説明します。
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 10/22/2018
+ms.date: 11/08/2019
 uid: security/authorization/limitingidentitybyscheme
-ms.openlocfilehash: 778bb61f472ab2e76f85da5999d3c79238188f19
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 38da80519b9d5d097c24d38b5a37503174629fc4
+ms.sourcegitcommit: 4818385c3cfe0805e15138a2c1785b62deeaab90
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64897339"
+ms.lasthandoff: 11/09/2019
+ms.locfileid: "73896963"
 ---
-# <a name="authorize-with-a-specific-scheme-in-aspnet-core"></a><span data-ttu-id="990e2-103">ASP.NET Core での特定のスキームで承認します。</span><span class="sxs-lookup"><span data-stu-id="990e2-103">Authorize with a specific scheme in ASP.NET Core</span></span>
+# <a name="authorize-with-a-specific-scheme-in-aspnet-core"></a><span data-ttu-id="8a5d2-103">ASP.NET Core で特定のスキームを使用して承認する</span><span class="sxs-lookup"><span data-stu-id="8a5d2-103">Authorize with a specific scheme in ASP.NET Core</span></span>
 
-<span data-ttu-id="990e2-104">シングル ページ アプリケーション (Spa) など、いくつかのシナリオでは、複数の認証方法を使用する一般的なです。</span><span class="sxs-lookup"><span data-stu-id="990e2-104">In some scenarios, such as Single Page Applications (SPAs), it's common to use multiple authentication methods.</span></span> <span data-ttu-id="990e2-105">など、アプリのログインに cookie ベースの認証および使用 JWT ベアラー認証 JavaScript 要求。</span><span class="sxs-lookup"><span data-stu-id="990e2-105">For example, the app may use cookie-based authentication to log in and JWT bearer authentication for JavaScript requests.</span></span> <span data-ttu-id="990e2-106">場合によっては、アプリは、認証ハンドラーの複数のインスタンスがあります。</span><span class="sxs-lookup"><span data-stu-id="990e2-106">In some cases, the app may have multiple instances of an authentication handler.</span></span> <span data-ttu-id="990e2-107">たとえば、id 基本的なには 1 つが含まれている 2 つの cookie ハンドラーと 1 つは多要素認証 (MFA) がトリガーされたときに作成されます。</span><span class="sxs-lookup"><span data-stu-id="990e2-107">For example, two cookie handlers where one contains a basic identity and one is created when a multi-factor authentication (MFA) has been triggered.</span></span> <span data-ttu-id="990e2-108">MFA は、ユーザーは、追加のセキュリティを必要とする操作を要求したため、トリガーされる可能性があります。</span><span class="sxs-lookup"><span data-stu-id="990e2-108">MFA may be triggered because the user requested an operation that requires extra security.</span></span>
+<span data-ttu-id="8a5d2-104">シングルページアプリケーション (spa) などの一部のシナリオでは、複数の認証方法を使用するのが一般的です。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-104">In some scenarios, such as Single Page Applications (SPAs), it's common to use multiple authentication methods.</span></span> <span data-ttu-id="8a5d2-105">たとえば、アプリでは、cookie ベースの認証を使用して、JavaScript 要求のログインと JWT ベアラー認証を行うことができます。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-105">For example, the app may use cookie-based authentication to log in and JWT bearer authentication for JavaScript requests.</span></span> <span data-ttu-id="8a5d2-106">場合によっては、アプリに認証ハンドラーのインスタンスが複数存在することがあります。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-106">In some cases, the app may have multiple instances of an authentication handler.</span></span> <span data-ttu-id="8a5d2-107">たとえば、1つのに基本 id が格納されている2つの cookie ハンドラーと、multi-factor authentication (MFA) がトリガーされたときに作成されるクッキーハンドラーがあります。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-107">For example, two cookie handlers where one contains a basic identity and one is created when a multi-factor authentication (MFA) has been triggered.</span></span> <span data-ttu-id="8a5d2-108">ユーザーが追加のセキュリティを必要とする操作を要求したため、MFA がトリガーされる可能性があります。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-108">MFA may be triggered because the user requested an operation that requires extra security.</span></span>
 
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[<span data-ttu-id="990e2-109">ASP.NET Core 2.x</span><span class="sxs-lookup"><span data-stu-id="990e2-109">ASP.NET Core 2.x</span></span>](#tab/aspnetcore2x)
-
-<span data-ttu-id="990e2-110">認証サービスが認証時に構成されている場合は、認証方式がという名前です。</span><span class="sxs-lookup"><span data-stu-id="990e2-110">An authentication scheme is named when the authentication service is configured during authentication.</span></span> <span data-ttu-id="990e2-111">例:</span><span class="sxs-lookup"><span data-stu-id="990e2-111">For example:</span></span>
+<span data-ttu-id="8a5d2-109">認証時に認証サービスが構成されると、認証スキームに名前が付けられます。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-109">An authentication scheme is named when the authentication service is configured during authentication.</span></span> <span data-ttu-id="8a5d2-110">(例:</span><span class="sxs-lookup"><span data-stu-id="8a5d2-110">For example:</span></span>
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -36,50 +35,14 @@ public void ConfigureServices(IServiceCollection services)
         });
 ```
 
-<span data-ttu-id="990e2-112">上記のコードでは、2 つの認証ハンドラーが追加されています。 cookie とベアラーのいずれかのいずれか。</span><span class="sxs-lookup"><span data-stu-id="990e2-112">In the preceding code, two authentication handlers have been added: one for cookies and one for bearer.</span></span>
+<span data-ttu-id="8a5d2-111">上記のコードでは、2つの認証ハンドラーが追加されています。1つは cookie 用で、もう1つはベアラー用です。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-111">In the preceding code, two authentication handlers have been added: one for cookies and one for bearer.</span></span>
 
 >[!NOTE]
-><span data-ttu-id="990e2-113">既定のスキームを指定する、`HttpContext.User`プロパティがその id に設定されています。</span><span class="sxs-lookup"><span data-stu-id="990e2-113">Specifying the default scheme results in the `HttpContext.User` property being set to that identity.</span></span> <span data-ttu-id="990e2-114">その動作が必要ない場合は無効のパラメーターなしのフォームを呼び出すことによって`AddAuthentication`します。</span><span class="sxs-lookup"><span data-stu-id="990e2-114">If that behavior isn't desired, disable it by invoking the parameterless form of `AddAuthentication`.</span></span>
+><span data-ttu-id="8a5d2-112">既定のスキームを指定すると、`HttpContext.User` プロパティがその id に設定されます。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-112">Specifying the default scheme results in the `HttpContext.User` property being set to that identity.</span></span> <span data-ttu-id="8a5d2-113">この動作が望ましくない場合は、`AddAuthentication`のパラメーターなしの形式を呼び出して無効にします。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-113">If that behavior isn't desired, disable it by invoking the parameterless form of `AddAuthentication`.</span></span>
 
-# <a name="aspnet-core-1xtabaspnetcore1x"></a>[<span data-ttu-id="990e2-115">ASP.NET Core 1.x</span><span class="sxs-lookup"><span data-stu-id="990e2-115">ASP.NET Core 1.x</span></span>](#tab/aspnetcore1x)
+## <a name="selecting-the-scheme-with-the-authorize-attribute"></a><span data-ttu-id="8a5d2-114">認証属性を使用したスキームの選択</span><span class="sxs-lookup"><span data-stu-id="8a5d2-114">Selecting the scheme with the Authorize attribute</span></span>
 
-<span data-ttu-id="990e2-116">認証方式は、認証ミドルウェアが認証時に構成されている場合に名前です。</span><span class="sxs-lookup"><span data-stu-id="990e2-116">Authentication schemes are named when authentication middlewares are configured during authentication.</span></span> <span data-ttu-id="990e2-117">例えば:</span><span class="sxs-lookup"><span data-stu-id="990e2-117">For example:</span></span>
-
-```csharp
-public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-{
-    // Code omitted for brevity
-
-    app.UseCookieAuthentication(new CookieAuthenticationOptions()
-    {
-        AuthenticationScheme = "Cookie",
-        LoginPath = "/Account/Unauthorized/",
-        AccessDeniedPath = "/Account/Forbidden/",
-        AutomaticAuthenticate = false
-    });
-    
-    app.UseJwtBearerAuthentication(new JwtBearerOptions()
-    {
-        AuthenticationScheme = "Bearer",
-        AutomaticAuthenticate = false,
-        Audience = "http://localhost:5001/",
-        Authority = "http://localhost:5000/",
-        RequireHttpsMetadata = false
-    });
-```
-
-<span data-ttu-id="990e2-118">上記のコードでは、2 つの認証ミドルウェアが追加されています。 cookie とベアラーのいずれかのいずれか。</span><span class="sxs-lookup"><span data-stu-id="990e2-118">In the preceding code, two authentication middlewares have been added: one for cookies and one for bearer.</span></span>
-
->[!NOTE]
-><span data-ttu-id="990e2-119">既定のスキームを指定する、`HttpContext.User`プロパティがその id に設定されています。</span><span class="sxs-lookup"><span data-stu-id="990e2-119">Specifying the default scheme results in the `HttpContext.User` property being set to that identity.</span></span> <span data-ttu-id="990e2-120">その動作が必要ない場合は無効を設定して、`AuthenticationOptions.AutomaticAuthenticate`プロパティを`false`します。</span><span class="sxs-lookup"><span data-stu-id="990e2-120">If that behavior isn't desired, disable it by setting the `AuthenticationOptions.AutomaticAuthenticate` property to `false`.</span></span>
-
----
-
-## <a name="selecting-the-scheme-with-the-authorize-attribute"></a><span data-ttu-id="990e2-121">Authorize 属性を持つスキームを選択します。</span><span class="sxs-lookup"><span data-stu-id="990e2-121">Selecting the scheme with the Authorize attribute</span></span>
-
-<span data-ttu-id="990e2-122">承認、時点では、アプリは、使用するハンドラーを示します。</span><span class="sxs-lookup"><span data-stu-id="990e2-122">At the point of authorization, the app indicates the handler to be used.</span></span> <span data-ttu-id="990e2-123">使用する認証スキームのコンマ区切りの一覧を渡すことによって、アプリは承認ハンドラーを選択して`[Authorize]`します。</span><span class="sxs-lookup"><span data-stu-id="990e2-123">Select the handler with which the app will authorize by passing a comma-delimited list of authentication schemes to `[Authorize]`.</span></span> <span data-ttu-id="990e2-124">`[Authorize]`属性は、認証方式、または、既定値が構成されているかどうかに関係なく使用するスキームを指定します。</span><span class="sxs-lookup"><span data-stu-id="990e2-124">The `[Authorize]` attribute specifies the authentication scheme or schemes to use regardless of whether a default is configured.</span></span> <span data-ttu-id="990e2-125">例:</span><span class="sxs-lookup"><span data-stu-id="990e2-125">For example:</span></span>
-
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[<span data-ttu-id="990e2-126">ASP.NET Core 2.x</span><span class="sxs-lookup"><span data-stu-id="990e2-126">ASP.NET Core 2.x</span></span>](#tab/aspnetcore2x)
+<span data-ttu-id="8a5d2-115">承認の時点で、アプリは使用するハンドラーを示します。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-115">At the point of authorization, the app indicates the handler to be used.</span></span> <span data-ttu-id="8a5d2-116">認証スキームのコンマ区切りリストを `[Authorize]`に渡すことによって、アプリが承認するハンドラーを選択します。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-116">Select the handler with which the app will authorize by passing a comma-delimited list of authentication schemes to `[Authorize]`.</span></span> <span data-ttu-id="8a5d2-117">`[Authorize]` 属性は、既定値が構成されているかどうかに関係なく、使用する認証スキームを指定します。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-117">The `[Authorize]` attribute specifies the authentication scheme or schemes to use regardless of whether a default is configured.</span></span> <span data-ttu-id="8a5d2-118">(例:</span><span class="sxs-lookup"><span data-stu-id="8a5d2-118">For example:</span></span>
 
 ```csharp
 [Authorize(AuthenticationSchemes = AuthSchemes)]
@@ -92,24 +55,7 @@ public class MixedController : Controller
         JwtBearerDefaults.AuthenticationScheme;
 ```
 
-# <a name="aspnet-core-1xtabaspnetcore1x"></a>[<span data-ttu-id="990e2-127">ASP.NET Core 1.x</span><span class="sxs-lookup"><span data-stu-id="990e2-127">ASP.NET Core 1.x</span></span>](#tab/aspnetcore1x)
-
-```csharp
-[Authorize(ActiveAuthenticationSchemes = AuthSchemes)]
-public class MixedController : Controller
-    // Requires the following imports:
-    // using Microsoft.AspNetCore.Authentication.Cookies;
-    // using Microsoft.AspNetCore.Authentication.JwtBearer;
-    private const string AuthSchemes =
-        CookieAuthenticationDefaults.AuthenticationScheme + "," +
-        JwtBearerDefaults.AuthenticationScheme;
-```
-
----
-
-<span data-ttu-id="990e2-128">前の例では、ベアラーとクッキー ハンドラーは実行し、作成して、現在のユーザーの id を追加すること。</span><span class="sxs-lookup"><span data-stu-id="990e2-128">In the preceding example, both the cookie and bearer handlers run and have a chance to create and append an identity for the current user.</span></span> <span data-ttu-id="990e2-129">1 つのスキームのみを指定すると、対応するハンドラーが実行されます。</span><span class="sxs-lookup"><span data-stu-id="990e2-129">By specifying a single scheme only, the corresponding handler runs.</span></span>
-
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[<span data-ttu-id="990e2-130">ASP.NET Core 2.x</span><span class="sxs-lookup"><span data-stu-id="990e2-130">ASP.NET Core 2.x</span></span>](#tab/aspnetcore2x)
+<span data-ttu-id="8a5d2-119">前の例では、cookie ハンドラーとベアラーハンドラーの両方が実行され、現在のユーザーの id を作成して追加する機会があります。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-119">In the preceding example, both the cookie and bearer handlers run and have a chance to create and append an identity for the current user.</span></span> <span data-ttu-id="8a5d2-120">1つのスキームのみを指定すると、対応するハンドラーが実行されます。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-120">By specifying a single scheme only, the corresponding handler runs.</span></span>
 
 ```csharp
 [Authorize(AuthenticationSchemes = 
@@ -117,21 +63,11 @@ public class MixedController : Controller
 public class MixedController : Controller
 ```
 
-# <a name="aspnet-core-1xtabaspnetcore1x"></a>[<span data-ttu-id="990e2-131">ASP.NET Core 1.x</span><span class="sxs-lookup"><span data-stu-id="990e2-131">ASP.NET Core 1.x</span></span>](#tab/aspnetcore1x)
+<span data-ttu-id="8a5d2-121">前のコードでは、"ベアラー" スキームを持つハンドラーだけが実行されます。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-121">In the preceding code, only the handler with the "Bearer" scheme runs.</span></span> <span data-ttu-id="8a5d2-122">Cookie ベースの id は無視されます。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-122">Any cookie-based identities are ignored.</span></span>
 
-```csharp
-[Authorize(ActiveAuthenticationSchemes = 
-    JwtBearerDefaults.AuthenticationScheme)]
-public class MixedController : Controller
-```
+## <a name="selecting-the-scheme-with-policies"></a><span data-ttu-id="8a5d2-123">ポリシーを使用したスキームの選択</span><span class="sxs-lookup"><span data-stu-id="8a5d2-123">Selecting the scheme with policies</span></span>
 
----
-
-<span data-ttu-id="990e2-132">上記のコードでは、"Bearer"スキームでハンドラーのみが実行されます。</span><span class="sxs-lookup"><span data-stu-id="990e2-132">In the preceding code, only the handler with the "Bearer" scheme runs.</span></span> <span data-ttu-id="990e2-133">Cookie ベース id は無視されます。</span><span class="sxs-lookup"><span data-stu-id="990e2-133">Any cookie-based identities are ignored.</span></span>
-
-## <a name="selecting-the-scheme-with-policies"></a><span data-ttu-id="990e2-134">ポリシーの設定を選択します。</span><span class="sxs-lookup"><span data-stu-id="990e2-134">Selecting the scheme with policies</span></span>
-
-<span data-ttu-id="990e2-135">必要な方式を指定する場合[ポリシー](xref:security/authorization/policies)を設定することができます、`AuthenticationSchemes`ポリシーを追加するときに、コレクション。</span><span class="sxs-lookup"><span data-stu-id="990e2-135">If you prefer to specify the desired schemes in [policy](xref:security/authorization/policies), you can set the `AuthenticationSchemes` collection when adding your policy:</span></span>
+<span data-ttu-id="8a5d2-124">[ポリシー](xref:security/authorization/policies)で目的のスキームを指定する場合は、ポリシーを追加するときに `AuthenticationSchemes` コレクションを設定できます。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-124">If you prefer to specify the desired schemes in [policy](xref:security/authorization/policies), you can set the `AuthenticationSchemes` collection when adding your policy:</span></span>
 
 ```csharp
 services.AddAuthorization(options =>
@@ -145,7 +81,7 @@ services.AddAuthorization(options =>
 });
 ```
 
-<span data-ttu-id="990e2-136">前の例では、"over18 という"ポリシーは、"Bearer"ハンドラーによって作成された id に対してのみ実行されます。</span><span class="sxs-lookup"><span data-stu-id="990e2-136">In the preceding example, the "Over18" policy only runs against the identity created by the "Bearer" handler.</span></span> <span data-ttu-id="990e2-137">設定して、ポリシーを使用して、`[Authorize]`属性の`Policy`プロパティ。</span><span class="sxs-lookup"><span data-stu-id="990e2-137">Use the policy by setting the `[Authorize]` attribute's `Policy` property:</span></span>
+<span data-ttu-id="8a5d2-125">前の例では、"Over18" ポリシーは "ベアラー" ハンドラーによって作成された id に対してのみ実行されます。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-125">In the preceding example, the "Over18" policy only runs against the identity created by the "Bearer" handler.</span></span> <span data-ttu-id="8a5d2-126">ポリシーを使用するには、`[Authorize]` 属性の `Policy` プロパティを設定します。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-126">Use the policy by setting the `[Authorize]` attribute's `Policy` property:</span></span>
 
 ```csharp
 [Authorize(Policy = "Over18")]
@@ -154,11 +90,11 @@ public class RegistrationController : Controller
 
 ::: moniker range=">= aspnetcore-2.0"
 
-## <a name="use-multiple-authentication-schemes"></a><span data-ttu-id="990e2-138">複数の認証方式を使用して、</span><span class="sxs-lookup"><span data-stu-id="990e2-138">Use multiple authentication schemes</span></span>
+## <a name="use-multiple-authentication-schemes"></a><span data-ttu-id="8a5d2-127">複数の認証方式を使用する</span><span class="sxs-lookup"><span data-stu-id="8a5d2-127">Use multiple authentication schemes</span></span>
 
-<span data-ttu-id="990e2-139">一部のアプリは、複数の種類の認証をサポートする必要があります。</span><span class="sxs-lookup"><span data-stu-id="990e2-139">Some apps may need to support multiple types of authentication.</span></span> <span data-ttu-id="990e2-140">など、アプリがユーザー データベースと Azure Active Directory からユーザーを認証する可能性があります。</span><span class="sxs-lookup"><span data-stu-id="990e2-140">For example, your app might authenticate users from Azure Active Directory and from a users database.</span></span> <span data-ttu-id="990e2-141">別の例は、Active Directory フェデレーション サービスと Azure Active Directory B2C の両方からユーザーを認証するアプリです。</span><span class="sxs-lookup"><span data-stu-id="990e2-141">Another example is an app that authenticates users from both Active Directory Federation Services and Azure Active Directory B2C.</span></span> <span data-ttu-id="990e2-142">この場合、アプリでは、いくつかの発行者から JWT ベアラー トークンを受け入れる必要があります。</span><span class="sxs-lookup"><span data-stu-id="990e2-142">In this case, the app should accept a JWT bearer token from several issuers.</span></span>
+<span data-ttu-id="8a5d2-128">アプリによっては、複数の種類の認証をサポートする必要がある場合があります。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-128">Some apps may need to support multiple types of authentication.</span></span> <span data-ttu-id="8a5d2-129">たとえば、アプリは Azure Active Directory とユーザーデータベースからユーザーを認証する場合があります。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-129">For example, your app might authenticate users from Azure Active Directory and from a users database.</span></span> <span data-ttu-id="8a5d2-130">もう1つの例として、Active Directory フェデレーションサービス (AD FS) と Azure Active Directory B2C の両方からユーザーを認証するアプリがあります。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-130">Another example is an app that authenticates users from both Active Directory Federation Services and Azure Active Directory B2C.</span></span> <span data-ttu-id="8a5d2-131">この場合、アプリはいくつかの発行者から JWT ベアラートークンを受け入れる必要があります。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-131">In this case, the app should accept a JWT bearer token from several issuers.</span></span>
 
-<span data-ttu-id="990e2-143">そのまま使用したいすべての認証スキームを追加します。</span><span class="sxs-lookup"><span data-stu-id="990e2-143">Add all authentication schemes you'd like to accept.</span></span> <span data-ttu-id="990e2-144">次のコード例では、`Startup.ConfigureServices`さまざまな発行者で 2 つの JWT ベアラー認証スキームを追加します。</span><span class="sxs-lookup"><span data-stu-id="990e2-144">For example, the following code in `Startup.ConfigureServices` adds two JWT bearer authentication schemes with different issuers:</span></span>
+<span data-ttu-id="8a5d2-132">同意するすべての認証スキームを追加します。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-132">Add all authentication schemes you'd like to accept.</span></span> <span data-ttu-id="8a5d2-133">たとえば、`Startup.ConfigureServices` の次のコードは、異なる発行者を持つ2つの JWT ベアラー認証スキームを追加します。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-133">For example, the following code in `Startup.ConfigureServices` adds two JWT bearer authentication schemes with different issuers:</span></span>
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -180,9 +116,9 @@ public void ConfigureServices(IServiceCollection services)
 ```
 
 > [!NOTE]
-> <span data-ttu-id="990e2-145">既定の認証スキームは 1 つだけの JWT ベアラー認証に登録されて`JwtBearerDefaults.AuthenticationScheme`します。</span><span class="sxs-lookup"><span data-stu-id="990e2-145">Only one JWT bearer authentication is registered with the default authentication scheme `JwtBearerDefaults.AuthenticationScheme`.</span></span> <span data-ttu-id="990e2-146">追加の認証は、一意の認証スキームを登録することができます。</span><span class="sxs-lookup"><span data-stu-id="990e2-146">Additional authentication has to be registered with a unique authentication scheme.</span></span>
+> <span data-ttu-id="8a5d2-134">既定の認証スキーム `JwtBearerDefaults.AuthenticationScheme`に登録されている JWT ベアラー認証は1つだけです。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-134">Only one JWT bearer authentication is registered with the default authentication scheme `JwtBearerDefaults.AuthenticationScheme`.</span></span> <span data-ttu-id="8a5d2-135">追加の認証は、一意の認証スキームを使用して登録する必要があります。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-135">Additional authentication has to be registered with a unique authentication scheme.</span></span>
 
-<span data-ttu-id="990e2-147">次の手順では、両方の認証方式を受け入れるように既定の承認ポリシーを更新します。</span><span class="sxs-lookup"><span data-stu-id="990e2-147">The next step is to update the default authorization policy to accept both authentication schemes.</span></span> <span data-ttu-id="990e2-148">例えば:</span><span class="sxs-lookup"><span data-stu-id="990e2-148">For example:</span></span>
+<span data-ttu-id="8a5d2-136">次の手順では、両方の認証方式を受け入れるように既定の承認ポリシーを更新します。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-136">The next step is to update the default authorization policy to accept both authentication schemes.</span></span> <span data-ttu-id="8a5d2-137">(例:</span><span class="sxs-lookup"><span data-stu-id="8a5d2-137">For example:</span></span>
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -201,6 +137,6 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-<span data-ttu-id="990e2-149">使用することは、既定の承認ポリシーがオーバーライドされると、`[Authorize]`コント ローラー内の属性。</span><span class="sxs-lookup"><span data-stu-id="990e2-149">As the default authorization policy is overridden, it's possible to use the `[Authorize]` attribute in controllers.</span></span> <span data-ttu-id="990e2-150">コント ローラーは、最初または 2 番目の発行者によって発行された JWT に、要求を受け入れます。</span><span class="sxs-lookup"><span data-stu-id="990e2-150">The controller then accepts requests with JWT issued by the first or second issuer.</span></span>
+<span data-ttu-id="8a5d2-138">既定の承認ポリシーがオーバーライドされると、コントローラーで `[Authorize]` 属性を使用できるようになります。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-138">As the default authorization policy is overridden, it's possible to use the `[Authorize]` attribute in controllers.</span></span> <span data-ttu-id="8a5d2-139">コントローラーは、最初または2番目の発行者によって発行された JWT の要求を受け入れます。</span><span class="sxs-lookup"><span data-stu-id="8a5d2-139">The controller then accepts requests with JWT issued by the first or second issuer.</span></span>
 
 ::: moniker-end
