@@ -1,31 +1,30 @@
 ---
-title: ASP.NET Core MVC でビュー ベースの承認
+title: ASP.NET Core MVC でのビューベースの承認
 author: rick-anderson
-description: このドキュメントを挿入して、ASP.NET Core の Razor ビューの内部で承認サービスを使用する方法を示します。
+description: このドキュメントでは、ASP.NET Core Razor ビュー内で承認サービスを挿入および利用する方法について説明します。
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 10/30/2017
+ms.date: 11/08/2019
 uid: security/authorization/views
-ms.openlocfilehash: e497c41d4dca29fed8733f18cf727804e3f06d8c
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: fc03da9eb98d36ffdda932ee5b16f327c2be9f83
+ms.sourcegitcommit: 4818385c3cfe0805e15138a2c1785b62deeaab90
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64892059"
+ms.lasthandoff: 11/09/2019
+ms.locfileid: "73896976"
 ---
-# <a name="view-based-authorization-in-aspnet-core-mvc"></a>ASP.NET Core MVC でビュー ベースの承認
+# <a name="view-based-authorization-in-aspnet-core-mvc"></a>ASP.NET Core MVC でのビューベースの承認
 
-開発者は、表示、非表示にする、またはそれ以外の場合、現在のユーザー id に基づく UI を変更する多くの場合は。 使用して MVC ビューの中で承認サービスにアクセスできる[依存関係の注入](xref:fundamentals/dependency-injection)します。 承認サービスを Razor ビューに挿入を使用して、`@inject`ディレクティブ。
+多くの場合、開発者は、現在のユーザー id に基づいて UI を表示、非表示にする、または変更する必要があります。 MVC ビュー内の承認サービスには、[依存関係の挿入](xref:fundamentals/dependency-injection)によってアクセスできます。 Razor ビューに承認サービスを挿入するには、`@inject` ディレクティブを使用します。
 
 ```cshtml
 @using Microsoft.AspNetCore.Authorization
 @inject IAuthorizationService AuthorizationService
 ```
 
-すべてのビューで承認サービスを実行する場合に、配置、`@inject`にディレクティブ、 *_ViewImports.cshtml*のファイル、*ビュー*ディレクトリ。 詳しくは、「[ビューへの依存関係の挿入](xref:mvc/views/dependency-injection)」をご覧ください。
+すべてのビューで承認サービスを使用する場合は、`@inject` ディレクティブを*Views*ディレクトリの *_ViewImports*ファイルに置きます。 詳しくは、「[ビューへの依存関係の挿入](xref:mvc/views/dependency-injection)」をご覧ください。
 
-挿入された承認サービスを使用して呼び出す`AuthorizeAsync`ことを確認中にまったく同じ方法で[リソース ベースの承認](xref:security/authorization/resourcebased#security-authorization-resource-based-imperative):
-
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[ASP.NET Core 2.x](#tab/aspnetcore2x)
+挿入された承認サービスを使用して、[リソースベースの承認](xref:security/authorization/resourcebased#security-authorization-resource-based-imperative)時に確認するのとまったく同じ方法で `AuthorizeAsync` を呼び出します。
 
 ```cshtml
 @if ((await AuthorizationService.AuthorizeAsync(User, "PolicyName")).Succeeded)
@@ -34,20 +33,7 @@ ms.locfileid: "64892059"
 }
 ```
 
-# <a name="aspnet-core-1xtabaspnetcore1x"></a>[ASP.NET Core 1.x](#tab/aspnetcore1x)
-
-```cshtml
-@if (await AuthorizationService.AuthorizeAsync(User, "PolicyName"))
-{
-    <p>This paragraph is displayed because you fulfilled PolicyName.</p>
-}
-```
-
----
-
-場合によっては、リソースは、ビュー モデルになります。 呼び出す`AuthorizeAsync`ことを確認中にまったく同じ方法で[リソース ベースの承認](xref:security/authorization/resourcebased#security-authorization-resource-based-imperative):
-
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[ASP.NET Core 2.x](#tab/aspnetcore2x)
+場合によっては、リソースがビューモデルになります。 [リソースベースの承認](xref:security/authorization/resourcebased#security-authorization-resource-based-imperative)時に確認するのとまったく同じ方法で `AuthorizeAsync` を呼び出します。
 
 ```cshtml
 @if ((await AuthorizationService.AuthorizeAsync(User, Model, Operations.Edit)).Succeeded)
@@ -57,19 +43,7 @@ ms.locfileid: "64892059"
 }
 ```
 
-# <a name="aspnet-core-1xtabaspnetcore1x"></a>[ASP.NET Core 1.x](#tab/aspnetcore1x)
-
-```cshtml
-@if (await AuthorizationService.AuthorizeAsync(User, Model, Operations.Edit))
-{
-    <p><a class="btn btn-default" role="button"
-        href="@Url.Action("Edit", "Document", new { id = Model.Id })">Edit</a></p>
-}
-```
-
----
-
-上記のコードで考慮のポリシーの評価を実行する必要がありますをリソースとしてモデルに渡されます。
+前のコードでは、モデルはポリシーの評価で考慮する必要があるリソースとして渡されます。
 
 > [!WARNING]
-> 唯一の承認チェックとして、アプリの UI 要素の切り替えの可視性に依存しないようにします。 UI 要素を非表示できない可能性がありますいない完全にアクセス、関連付けられたコント ローラー アクションにします。 たとえば、上記のコード スニペットで、ボタンがあるとします。 ユーザーが呼び出すことができます、`Edit`相対リソースを知っている場合、アクション メソッドの URL が */Document/Edit/1*します。 このため、`Edit`アクション メソッドは、独自の承認チェックを実行する必要があります。
+> 唯一の承認チェックとして、アプリの UI 要素の表示の切り替えに依存しないでください。 UI 要素を非表示にしても、関連付けられているコントローラーアクションへのアクセスを完全に防ぐことはできません。 たとえば、前のコードスニペットのボタンについて考えてみます。 ユーザーは、相対リソース URL が */Document/Edit/1*であることを知っていれば、`Edit` アクションメソッドを呼び出すことができます。 このため、`Edit` アクションメソッドでは、独自の承認チェックを実行する必要があります。

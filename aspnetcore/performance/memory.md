@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/05/2019
 uid: performance/memory
-ms.openlocfilehash: 8f6b47ecde6f265bfb9437234b89f11f7d235869
-ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
+ms.openlocfilehash: 4c25c069aa2a6088c0549d786ecdd487ab7b9ea5
+ms.sourcegitcommit: 4818385c3cfe0805e15138a2c1785b62deeaab90
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73660014"
+ms.lasthandoff: 11/09/2019
+ms.locfileid: "73896943"
 ---
 # <a name="memory-management-and-garbage-collection-gc-in-aspnet-core"></a>ASP.NET Core のメモリ管理とガベージコレクション (GC)
 
@@ -82,7 +82,7 @@ MemoryLeak を実行します。 割り当てられたメモリは、GC が発�
 グラフには、メモリ使用量の2つの値が表示されます。
 
 - 割り当て済み: マネージオブジェクトによって占有されているメモリの量
-- Working set: プロセスによって使用される合計物理メモリ (RAM)。 表示される作業セットは、タスクマネージャーが表示できる値と同じです。
+- [Working set](/windows/win32/memory/working-set): 現在物理メモリに常駐しているプロセスの仮想アドレス空間にあるページのセット。 表示される作業セットは、タスクマネージャーに表示される値と同じです。
 
 ### <a name="transient-objects"></a>一時オブジェクト
 

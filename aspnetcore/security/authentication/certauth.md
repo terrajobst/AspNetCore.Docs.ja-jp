@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: bdorrans
 ms.date: 11/07/2019
 uid: security/authentication/certauth
-ms.openlocfilehash: 0db23c325f0b1f5a6500e3b2549db170e3df97c5
-ms.sourcegitcommit: 68d804d60e104c81fe77a87a9af70b5df2726f60
+ms.openlocfilehash: 0062bc0d7688ebcc67f8240da7166d89493f6639
+ms.sourcegitcommit: 4818385c3cfe0805e15138a2c1785b62deeaab90
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/08/2019
-ms.locfileid: "73830717"
+ms.lasthandoff: 11/09/2019
+ms.locfileid: "73897030"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>ASP.NET Core で証明書認証を構成する
 
@@ -229,21 +229,35 @@ IIS マネージャーで、次の手順を実行します。
 Azure Web Apps では、証明書は `X-ARR-ClientCert`という名前のカスタム要求ヘッダーとして渡されます。 これを使用するには `Startup.ConfigureServices`で証明書の転送を構成します。
 
 ```csharp
-services.AddCertificateForwarding(options =>
+public void ConfigureServices(IServiceCollection services)
 {
-    options.CertificateHeader = "X-ARR-ClientCert";
-    options.HeaderConverter = (headerValue) =>
+    // ...
+    
+    services.AddCertificateForwarding(options =>
     {
-        X509Certificate2 clientCertificate = null;
-        if(!string.IsNullOrWhiteSpace(headerValue))
+        options.CertificateHeader = "X-ARR-ClientCert";
+        options.HeaderConverter = (headerValue) =>
         {
-            byte[] bytes = StringToByteArray(headerValue);
-            clientCertificate = new X509Certificate2(bytes);
-        }
+            X509Certificate2 clientCertificate = null;
+            if(!string.IsNullOrWhiteSpace(headerValue))
+            {
+                byte[] bytes = StringToByteArray(headerValue);
+                clientCertificate = new X509Certificate2(bytes);
+            }
 
-        return clientCertificate;
-    };
-});
+            return clientCertificate;
+        };
+    });
+}
+
+private static byte[] StringToByteArray(string hex)
+{
+    int NumberChars = hex.Length;
+    byte[] bytes = new byte[NumberChars / 2];
+    for (int i = 0; i < NumberChars; i += 2)
+        bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
+    return bytes;
+}
 ```
 
 `Startup.Configure` メソッドは、ミドルウェアを追加します。 `UseCertificateForwarding` は、`UseAuthentication` と `UseAuthorization`を呼び出す前に呼び出されます。
@@ -434,7 +448,7 @@ Get-ChildItem -Path cert:\localMachine\my\141594A0AE38CBBECED7AF680F7945CD51D8F2
 Export-Certificate -Cert cert:\localMachine\my\141594A0AE38CBBECED7AF680F7945CD51D8F28A -FilePath child_b_from_a_dev_damienbod.crt
 ```
 
-ルート証明書、中間証明書、または子証明書を使用する場合は、必要に応じて、発行者またはサブジェクトを使用して証明書を検証できます。
+ルート証明書、中間証明書、または子証明書を使用する場合は、必要に応じて拇印または PublicKey を使用して証明書を検証できます。
 
 ```csharp
 using System.Collections.Generic;
