@@ -16,7 +16,7 @@ ms.locfileid: "67313710"
 ---
 # <a name="logging-and-diagnostics-in-aspnet-core-signalr"></a>ASP.NET Core SignalR でのログ記録と診断
 
-によって[Andrew Stanton-nurse](https://twitter.com/anurse)
+作成者: [Andrew Stanton-Nurse](https://twitter.com/anurse)
 
 この記事では、問題のトラブルシューティングに役立つ、ASP.NET Core SignalR アプリケーションから診断を収集するためのガイダンスを提供します。
 
@@ -25,18 +25,18 @@ ms.locfileid: "67313710"
 > [!WARNING]
 > サーバー側のログは、アプリからの機密情報を含めることができます。 実稼働アプリの未加工のログを GitHub のようなパブリック フォーラムに **決して** 投稿しないでください。
 
-SignalR は ASP.NET Core の一部であるため、ASP.NET Core のログ記録システムを使用します。 既定の構成、構成された SignalR のログはほとんどの情報が、このことができます。 上のドキュメントを参照して[ASP.NET Core のログ記録](xref:fundamentals/logging/index#configuration)の ASP.NET Core のログ記録の構成の詳細について。
+SignalR は ASP.NET Core の一部であるため、ASP.NET Core のログ記録システムを使用します。 既定の構成では、SignalR のログはほとんどの情報が記録されませんが、設定することができます。 ASP.NET Core のログ記録の構成の詳細については [ASP.NET Core のログ記録](xref:fundamentals/logging/index#configuration) に関するドキュメントを参照してください。
 
 SignalR では、2 つのカテゴリのロガーを使用します。
 
-* `Microsoft.AspNetCore.SignalR` &ndash; ハブのプロトコルに関連するログには、ハブ、メソッド、およびその他のハブに関連するアクティビティの呼び出しをアクティブにします。
-* `Microsoft.AspNetCore.Http.Connections` &ndash; ログ用には、Websocket、長いポーリング Server-Sent イベントおよび低レベルの SignalR インフラストラクチャなどのトランスポートに関連します。
+* `Microsoft.AspNetCore.SignalR` &ndash; ハブ プロトコル、 ハブのアクティブ化、 ハブ メソッドの呼び出し、その他のハブに関連するアクティビティに関連するログ。
+* `Microsoft.AspNetCore.Http.Connections` &ndash; WebSocket、ロングポーリング、Server-Sent Events および低レベルの SignalR インフラストラクチャなどのトランスポートに関連するログ。
 
-SignalR から詳細なログを有効にするには、前のプレフィックスの両方を構成、`Debug`レベル、 *appsettings.json*ファイルに次の項目を追加することで、`LogLevel`サブセクション内で`Logging`:
+SignalR から詳細なログを有効にするには、*appsettings.json*ファイルの `Logging`の `LogLevel`サブセクション内に次の項目を追加して、上記の両方のプレフィックスを `Debug`レベルに設定します :
 
 [!code-json[](diagnostics/logging-config.json?highlight=7-8)]
 
-コード内で構成することもできます、`CreateWebHostBuilder`メソッド。
+`CreateWebHostBuilder`メソッド内のコードで設定することもできます :
 
 [!code-csharp[](diagnostics/logging-config-code.cs?highlight=5-6)]
 
@@ -45,21 +45,21 @@ JSON ベースの構成を使用していない場合は、構成システムで
 * `Logging:LogLevel:Microsoft.AspNetCore.SignalR` = `Debug`
 * `Logging:LogLevel:Microsoft.AspNetCore.Http.Connections` = `Debug`
 
-入れ子になった構成値を指定する方法を決定する、構成システムのマニュアルを確認してください。 例では、環境変数を使用する場合、2 つ`_`の代わりに文字が使用されて、 `:` (たとえば、 `Logging__LogLevel__Microsoft.AspNetCore.SignalR`)。
+入れ子になった構成値を指定する方法については、構成システムのドキュメントを確認してください。 たとえば、環境変数を使用する場合は `:` の代わりに  2 つ `:`文字が使用されます :  (例: `Logging__LogLevel__Microsoft.AspNetCore.SignalR`)。
 
-使用をお勧め、`Debug`レベルのアプリの診断の詳細を収集するときにします。 `Trace`レベルが非常に低レベルの診断を生成し、アプリで問題を診断するために必要なことはほとんどありません。
+アプリの診断の詳細を収集するときには、`Debug`レベルを使用することを推奨します。 `Trace`レベルは非常に低レベルの診断を生成し、アプリで問題を診断するために必要になることはほとんどありません。
 
-## <a name="access-server-side-logs"></a>サーバー側ログにアクセスします。
+## <a name="access-server-side-logs"></a>サーバー側ログへのアクセス
 
 サーバー側のログにアクセスする方法を実行している環境によって異なります。
 
-### <a name="as-a-console-app-outside-iis"></a>IIS の外部のコンソール アプリとして
+### <a name="as-a-console-app-outside-iis"></a>IIS の外部のコンソール アプリ
 
-コンソール アプリケーションを実行する場合、[コンソール ロガー](xref:fundamentals/logging/index#console-provider)既定で有効にする必要があります。 SignalR のログは、コンソールに表示されます。
+コンソール アプリケーションを実行する場合、[コンソール ロガー](xref:fundamentals/logging/index#console-provider) を既定で有効にする必要があります。 SignalR のログは、コンソールに表示されます。
 
 ### <a name="within-iis-express-from-visual-studio"></a>Visual Studio から IIS Express 内
 
-Visual Studio でのログ出力が表示されます、**出力**ウィンドウ。 選択、 **ASP.NET Core Web サーバー**オプションをドロップダウンします。
+Visual Studio は **出力** ウィンドウにログ出力を表示します。 ドロップダウンから ***ASP.NET Core Web サーバー** *オプションを選択します。
 
 ### <a name="azure-app-service"></a>Azure App Service
 
@@ -67,20 +67,20 @@ Visual Studio でのログ出力が表示されます、**出力**ウィンド�
 
 ### <a name="other-environments"></a>その他の環境
 
-(たとえば、Docker、Kubernetes、または Windows サービス) の別の環境にアプリを展開する場合は、次を参照してください。 <xref:fundamentals/logging/index> 、環境に適したログ プロバイダーを構成する方法の詳細。
+別の環境にアプリを展開する場合 (たとえば、Docker、Kubernetes、または Windows サービス) は、<xref:fundamentals/logging/index> より、環境に適したログ プロバイダーを構成する方法の詳細を参照してください。
 
 ## <a name="javascript-client-logging"></a>JavaScript クライアントのログ記録
 
 > [!WARNING]
 > クライアント側のログは、アプリからの機密情報を含めることができます。 実稼働アプリの未加工のログを GitHub のようなパブリック フォーラムに **決して** 投稿しないでください。
 
-使用してログ記録オプションを構成するには、JavaScript クライアントを使用する場合、`configureLogging`メソッド`HubConnectionBuilder`:
+JavaScript クライアントを使用する場合、`HubConnectionBuilder` の `configureLogging`メソッド使用してログ記録オプションを設定できます :
 
 [!code-javascript[](diagnostics/logging-config-js.js?highlight=3)]
 
-完全ログ記録を無効にするには指定`signalR.LogLevel.None`で、`configureLogging`メソッド。
+ログ記録を完全に無効にするには、`configureLogging`メソッドで`signalR.LogLevel.None`を指定します。
 
-次の表では、JavaScript クライアントに利用可能なログ レベルを示します。 これらの値のいずれかに、ログ レベルを設定すると、そのレベルとテーブルの上にすべてのレベルでログ記録が有効になります。
+次の表では、JavaScript クライアントに利用可能なログ レベルを示します。 これらの値のいずれかにログ レベルを設定すると、そのレベルとテーブル内のそれより上のすべてのレベルでログ記録が有効になります。
 
 | レベル | 説明 |
 | ----- | ----------- |
@@ -89,12 +89,12 @@ Visual Studio でのログ出力が表示されます、**出力**ウィンド�
 | `Error` | 現在の操作の失敗を示すメッセージ。 |
 | `Warning` | 致命的でない問題を示すメッセージ。 |
 | `Information` | 情報メッセージ。 |
-| `Debug` | 診断メッセージのデバッグに役立ちます。 |
-| `Trace` | 非常に詳細な診断メッセージが特定の問題を診断するために設計されています。 |
+| `Debug` | デバッグに役立つ診断メッセージ。 |
+| `Trace` | 特定の問題を診断するために設計された非常に詳細な診断メッセージ。 |
 
-詳細度を構成したら、ブラウザーのコンソール (または NodeJS アプリの標準出力) にログが書き込まれます。
+詳細度を構成すると、ブラウザーのコンソール (または NodeJS アプリの標準出力) にログが書き込まれます。
 
-実装する JavaScript オブジェクトを指定するには、カスタムのログ記録システムにログを送信する場合、`ILogger`インターフェイス。 実装する必要がある唯一の方法が`log`イベントのレベルを取得して、イベントに関連付けられているメッセージ。 例:
+カスタムのログ記録システムにログを送信する場合、`ILogger`インターフェイスを実装する JavaScript オブジェクトを指定します。 実装する必要がある唯一のメソッドは`log`で、イベントのレベルとイベントに関連付けられているメッセージを受け取ります。 例:
 
 [!code-typescript[](diagnostics/custom-logger.ts?highlight=3-7,13)]
 
@@ -103,106 +103,106 @@ Visual Studio でのログ出力が表示されます、**出力**ウィンド�
 > [!WARNING]
 > クライアント側のログは、アプリからの機密情報を含めることができます。 実稼働アプリの未加工のログを GitHub のようなパブリック フォーラムに **決して** 投稿しないでください。
 
-.NET クライアントからログを取得、使用することができます、`ConfigureLogging`メソッド`HubConnectionBuilder`します。 これは、機能と同様、`ConfigureLogging`メソッド`WebHostBuilder`と`HostBuilder`します。 ASP.NET Core で使用する同じログ プロバイダーを構成できます。 ただし、手動でインストールし、個々 のログ プロバイダーの NuGet パッケージを有効にする必要があります。
+.NET クライアントからログを取得するために、`HubConnectionBuilder`の`ConfigureLogging`メソッドを使用できます。 これは、`WebHostBuilder`と`HostBuilder`の`ConfigureLogging`メソッドと同様に機能します。 ASP.NET Core で使用するものと同じログ プロバイダーを構成できます。 ただし、手動でそれぞれのログ プロバイダーの NuGet パッケージをインストールし有効にする必要があります。
 
 ### <a name="console-logging"></a>コンソールのログ記録
 
-コンソールのログ記録を有効にするには追加、 [Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console)パッケージ。 次に、使用、`AddConsole`コンソール ロガーを構成する方法。
+コンソールのログ記録を有効にするには [Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console) パッケージを追加します。 次に、`AddConsole`メソッドを使用し、コンソール ロガーを構成します。
 
 [!code-csharp[](diagnostics/net-client-console-log.cs?highlight=6)]
 
 ### <a name="debug-output-window-logging"></a>デバッグ出力ウィンドウのログ記録
 
-移動するログを構成することも、**出力**Visual Studio のウィンドウ。 インストール、 [Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug)パッケージ化し、使用、`AddDebug`メソッド。
+Visual Studio の **出力** ウィンドウに出力されるようにログを構成することもできます。 [Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug) パッケージをインストールし、`AddDebug`メソッドを使用します。
 
 [!code-csharp[](diagnostics/net-client-debug-log.cs?highlight=6)]
 
 ### <a name="other-logging-providers"></a>その他のログ プロバイダー
 
-SignalR など、Serilog、Seq、NLog、またはその他のログ記録システムと統合するには、その他のログ記録プロバイダーをサポートしている`Microsoft.Extensions.Logging`します。 ログ記録システムを提供する場合、`ILoggerProvider`に登録することができます`AddProvider`:
+SignalR は Serilog、Seq、NLog、または `Microsoft.Extensions.Logging`と統合されるその他のログ記録システムなど、他のログ記録プロバイダーをサポートしています。 `ILoggerProvider`を提供するログ記録システムであれば、`AddProvider` で登録することができます。
 
 [!code-csharp[](diagnostics/net-client-custom-log.cs?highlight=6)]
 
-### <a name="control-verbosity"></a>コントロールの詳細度
+### <a name="control-verbosity"></a>詳細度のコントロール
 
-アプリで他の場所からログインする場合に既定のレベルを変更する`Debug`すぎる冗長になる可能性があります。 SignalR のログのログ記録レベルを構成するのにフィルターを使用することができます。 これ行う多くのコードで、サーバー上と同じ方法。
+アプリの他の場所からログを記録する場合、既定のレベルを`Debug`に変更すると冗長になる可能性があります。 SignalR のログのログ記録レベルを構成するのにフィルターを使用することができます。 これは、サーバーとほぼ同じコードで行うことができます。
 
 [!code-csharp[Controlling verbosity in .NET client](diagnostics/logging-config-client-code.cs?highlight=9-10)]
 
 ## <a name="network-traces"></a>ネットワーク トレース
 
 > [!WARNING]
-> ネットワーク トレースには、アプリから送信されたすべてのメッセージの完全な内容が含まれています。 **決して**未加工のネットワーク トレースを実稼働アプリを GitHub のようなパブリック フォーラムに投稿します。
+> ネットワーク トレースには、アプリから送信されたすべてのメッセージの完全な内容が含まれています。 実稼働アプリの加工のネットワーク トレースを GitHub のようなパブリック フォーラムに **決して** 投稿しないでください。
 
-問題が発生した場合ネットワーク トレースが役に立つ情報の多くをする場合があります。 これは、問題の追跡ツールで問題を報告しようとしている場合に特に便利です。
+問題が発生した場合、ネットワーク トレースが多くの役に立つ情報を提供する場合があります。 これは、問題の追跡ツールで問題を報告しようとしている場合に特に便利です。
 
-## <a name="collect-a-network-trace-with-fiddler-preferred-option"></a>Fiddler (推奨されるオプション) でネットワーク トレースを収集します。
+## <a name="collect-a-network-trace-with-fiddler-preferred-option"></a>Fiddler によるネットワーク トレースの収集 (推奨されるオプション)
 
 この方法は、すべてのアプリに対して機能します。
 
-Fiddler は、HTTP トレースを収集するための非常に強力なツールです。 インストール[telerik.com/fiddler](https://www.telerik.com/fiddler)それを起動し、アプリを実行し、問題を再現します。 Fiddler は、Windows と macOS および Linux 用のベータ バージョンがあります。
+Fiddler は、HTTP トレースを収集するための非常に強力なツールです。 [telerik.com/fiddler](https://www.telerik.com/fiddler) からインストールしてそれを起動し、アプリを実行して問題を再現します。 Fiddler は Windows で使用でき、macOS および Linux 用のベータ バージョンがあります。
 
 HTTPS を使用してを接続する場合は、Fiddler は HTTPS トラフィックを復号化できることを確認する特別な手順です。 詳細については、次を参照してください。、 [Fiddler のドキュメント](https://docs.telerik.com/fiddler/Configure-Fiddler/Tasks/DecryptHTTPS)します。
 
-選択して、トレースをエクスポートするには、トレースを収集したら、**ファイル** > **保存** > **すべてのセッション**メニュー バーから。
+トレースを収集したら、メニュー バーから **File** > **Save** > **All Sessions** を選択して、トレースをエクスポートすることができます。
 
 ![Fiddler からすべてのセッションをエクスポートします。](diagnostics/fiddler-export.png)
 
-## <a name="collect-a-network-trace-with-tcpdump-macos-and-linux-only"></a>Tcpdump (macOS および Linux のみ) とネットワーク トレースを収集します。
+## <a name="collect-a-network-trace-with-tcpdump-macos-and-linux-only"></a>Tcpdump によるネットワーク トレースの収集 (macOS および Linux のみ)
 
 この方法は、すべてのアプリに対して機能します。
 
-コマンド シェルから次のコマンドを実行して tcpdump を使用して、生の TCP トレースを収集することができます。 必要がある`root`コマンドにプレフィックスとしてまたは`sudo`アクセス許可エラーが発生した場合。
+コマンド シェルから次のコマンドを実行して tcpdump を使用して、生の TCP トレースを収集することができます。 アクセス許可エラーが発生した場合は `root` になるか、またはコマンドにプレフィックスとして`sudo` を付ける必要があります。
 
 ```console
 tcpdump -i [interface] -w trace.pcap
 ```
 
-置換`[interface]`でキャプチャするネットワーク インターフェイスを使用します。 これは通常、ようになります`/dev/eth0`(用、標準のイーサネット インターフェイス) または`/dev/lo0`(localhost トラフィック用)。 詳細については、次を参照してください。、 `tcpdump` 、ホスト システム上の man ページ。
+`[interface]`をキャプチャするネットワーク インターフェイスに置き換えます。 通常、これは`/dev/eth0` (標準のイーサネット インターフェイス) や`/dev/lo0`(localhost トラフィック用) のようになります。 詳細については、ホスト システム上の `tcpdump` の man ページを参照してください。
 
-## <a name="collect-a-network-trace-in-the-browser"></a>ブラウザーでネットワーク トレースを収集します。
+## <a name="collect-a-network-trace-in-the-browser"></a>ブラウザーでのネットワーク トレースの収集
 
-このメソッドは、ブラウザー ベースのアプリにのみ機能します。
+この方法は、ブラウザー ベースのアプリにのみ機能します。
 
-ほとんどのブラウザー開発者ツールでは、ブラウザーとサーバー間のネットワーク アクティビティをキャプチャすることを許可する"Network"タブが存在します。 ただし、これらのトレースには、WebSocket と Server-Sent イベント メッセージが含まれていません。 これらのトランスポートを使用している場合より優れたアプローチでは Fiddler または TcpDump (後述) などのツールを使用してます。
+ほとんどのブラウザーの開発者ツールでは、ブラウザーとサーバー間のネットワーク アクティビティをキャプチャすることができる"Network"タブが存在します。 ただし、これらのトレースには、WebSocket と Server-Sent Events メッセージが含まれていません。 これらのトランスポートを使用している場合は、Fiddler または TcpDump (後述) などのツールを使用するほうがより優れたアプローチです。
 
 ### <a name="microsoft-edge-and-internet-explorer"></a>Microsoft Edge や Internet Explorer
 
 (手順は、Edge や Internet Explorer の両方で同じは)
 
-1. F12 キーを押して Dev Tools を開きます。
-2. [ネットワーク] タブをクリックします。
+1. F12 キーを押して開発ツールを開きます。
+2. [Network] タブをクリックします。
 3. ページを更新し(必要な場合)、問題を再現させます。
 4. トレースを"HAR"ファイルとしてエクスポートするには、ツールバーの [保存] アイコンをクリックします。
 
-![保存アイコンを Microsoft Edge 開発者ツールの [ネットワーク] タブ](diagnostics/ie-edge-har-export.png)
+![Microsoft Edge 開発者ツールの [ネットワーク] タブの保存アイコン](diagnostics/ie-edge-har-export.png)
 
 ### <a name="google-chrome"></a>Google Chrome
 
-1. F12 キーを押して Dev Tools を開きます。
-2. [ネットワーク] タブをクリックします。
+1. F12 キーを押して開発ツールを開きます。
+2. [Network] タブをクリックします。
 3. ページを更新し(必要な場合)、問題を再現させます。
-4. 任意の場所の要求の一覧でを右クリックし、選択「の内容を HAR として保存」します。
+4. 要求の一覧の任意の場所を右クリックし、"Save as HAR with content" を選択します。
 
-![Google Chrome デベロッパー ツール ネットワーク タブで、"コンテンツを含む HAR として保存 オプション](diagnostics/chrome-har-export.png)
+![Google Chrome Dev Tools のネットワーク タブの "Save as HAR with content" オプション](diagnostics/chrome-har-export.png)
 
 ### <a name="mozilla-firefox"></a>Mozilla Firefox
 
-1. F12 キーを押して Dev Tools を開きます。
-2. [ネットワーク] タブをクリックします。
+1. F12 キーを押して開発ツールを開きます。
+2. [Network] タブをクリックします。
 3. ページを更新し(必要な場合)、問題を再現させます。
-4. 任意の場所の要求の一覧でを右クリックし、"保存すべてとして HAR"を選択
+4. 要求の一覧の任意の場所を右クリックし、"Save All As HAR" を選択します。
 
-![Mozilla Firefox デベロッパー ツール ネットワーク タブで HAR としてすべて"保存オプション](diagnostics/firefox-har-export.png)
+![Mozilla Firefox 開発ツールのネットワーク タブの "Save All As HAR" オプション](diagnostics/firefox-har-export.png)
 
-## <a name="attach-diagnostics-files-to-github-issues"></a>GitHub の問題を診断ファイルを添付します。
+## <a name="attach-diagnostics-files-to-github-issues"></a>GitHub issue への診断ファイルの添付
 
-GitHub の問題を診断ファイルをアタッチするにはため、名前を変更して、`.txt`拡張機能と、ドラッグ アンド ドロップし、問題にします。
+GitHub issue に診断ファイルを添付するには、拡張子が`.txt`になるように名前を変更して、issue にドラッグ アンド ドロップします。
 
 > [!NOTE]
-> くださいしないと、GitHub の問題にネットワーク トレースまたはログ ファイルの内容を貼り付けます。 これらのログとトレースは非常に大きく、でき、通常は GitHub で切り捨てます。
+> GitHub issue にネットワーク トレースまたはログ ファイルの内容を貼り付ないでください。 これらのログとトレースは非常に大きくなる場合があり、GitHub は通常、これを切り捨てます。
 
-![GitHub の問題にログ ファイルをドラッグします。](diagnostics/attaching-diagnostics-files.png)
+![GitHub の issue にログ ファイルをドラッグします。](diagnostics/attaching-diagnostics-files.png)
 
 ## <a name="additional-resources"></a>その他の技術情報
 
