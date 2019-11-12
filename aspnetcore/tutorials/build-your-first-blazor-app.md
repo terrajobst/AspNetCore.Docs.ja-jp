@@ -5,14 +5,14 @@ description: Blazor アプリを段階的に構築します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/15/2019
+ms.date: 10/31/2019
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: c357b324905ee3a4c9f4bd167dbbcacaf7e1bc76
-ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
+ms.openlocfilehash: cc7caa1ee01e0282024895ab35c5b9933b1504d0
+ms.sourcegitcommit: eb2fe5ad2e82fab86ca952463af8d017ba659b25
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72391202"
+ms.lasthandoff: 11/01/2019
+ms.locfileid: "73416173"
 ---
 # <a name="build-your-first-blazor-app"></a>最初の Blazor アプリを構築する
 
@@ -28,7 +28,7 @@ ms.locfileid: "72391202"
 
 1. *Pages* フォルダー内にあるアプリの 3 つのページそれぞれを参照します。ホーム、カウンター、データのフェッチです。 これらのページは Razor コンポーネント ファイル *Index.razor*、*Counter.razor*、および *FetchData.razor* によって実装されています。
 
-1. Counter ページ上で **[クリックしてください]** ボタンを選択し、ページを更新することなくカウンターをインクリメントします。 Web ページでカウンターをインクリメントする場合、通常は JavaScript を記述することが必要ですが、Blazor には C# を使ったより優れた方法が用意されています。
+1. Counter ページ上で **[クリックしてください]** ボタンを選択し、ページを更新することなくカウンターをインクリメントします。 Web ページでカウンターをインクリメントする場合、通常は JavaScript を記述することが必要です。 Blazor を使用すると、代わりに C# を記述できます。
 
 1. *Counter.razor* ファイルで `Counter` コンポーネントの実装を調べます。
 

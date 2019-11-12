@@ -2,16 +2,17 @@
 title: ASP.NET Core でのアプリケーションのスタートアップ
 author: rick-anderson
 description: ASP.NET Core の Startup クラスがサービスとアプリケーションの要求パイプラインをどのように構成しているかを説明します。
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 8/7/2019
+ms.date: 11/02/2019
 uid: fundamentals/startup
-ms.openlocfilehash: 0ea3965f73f4b0334810bc9ec2910b0c9364a7ba
-ms.sourcegitcommit: d8b12cc1716ee329d7bd2300e201b61e15d506ac
+ms.openlocfilehash: 081eaa772d136477a37a3392877886327e0cda7c
+ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/04/2019
-ms.locfileid: "71942865"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73634038"
 ---
 # <a name="app-startup-in-aspnet-core"></a>ASP.NET Core でのアプリケーションのスタートアップ
 
@@ -23,7 +24,7 @@ ms.locfileid: "71942865"
 
 ASP.NET Core アプリケーションでは `Startup` クラスが使用されています。このクラスは規約に従って `Startup` と名前が付けられています。 `Startup` クラス:
 
-* 必要に応じて <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*> メソッドを含め、アプリの*サービス*を構成することができます。 サービスとは、アプリ機能を提供する再利用可能なコンポーネントです。 サービスは `ConfigureServices` で構成され (&mdash;*登録*と表現されることもあります&mdash;)、[依存関係の挿入 (DI)](xref:fundamentals/dependency-injection) または <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ApplicationServices*> を介してアプリ全体で利用されます。
+* 必要に応じて <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*> メソッドを含め、アプリの*サービス*を構成することができます。 サービスとは、アプリ機能を提供する再利用可能なコンポーネントです。 サービスは `ConfigureServices` に*登録され*、[依存関係の挿入 (DI)](xref:fundamentals/dependency-injection) または <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ApplicationServices*> を介してアプリ全体で利用されます。
 * アプリの要求処理パイプラインを作成するために <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*> メソッドを含めます。
 
 `ConfigureServices` と `Configure` はアプリの起動時に ASP.NET Core ランタイムによって呼び出されます。
@@ -56,9 +57,9 @@ ASP.NET Core アプリケーションでは `Startup` クラスが使用され�
 
 ホストには、`Startup` クラス コンストラクターで使用できるサービスが用意されています。 アプリケーションから `ConfigureServices` 経由でサービスが追加されます。 ホスト サービスとアプリ サービスの両方が `Configure` 内とアプリ全体で使用できます。
 
-<xref:Microsoft.Extensions.Hosting.IHostBuilder> を使用すると、次のサービスの種類のみを `Startup` コンストラクターに挿入できます。
+[汎用ホスト](xref:fundamentals/host/generic-host) (<xref:Microsoft.Extensions.Hosting.IHostBuilder>) を使用すると、次のサービスの種類のみを `Startup` コンストラクターに挿入できます。
 
-* `IWebHostEnvironment`
+* <xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment>
 * <xref:Microsoft.Extensions.Hosting.IHostEnvironment>
 * <xref:Microsoft.Extensions.Configuration.IConfiguration>
 
@@ -180,6 +181,7 @@ ASP.NET Core アプリケーションでは `Startup` クラスが使用され�
 `Startup` クラスを使用せず、サービスと要求処理パイプラインを構成するには、ホスト ビルダーで便利なメソッド、`ConfigureServices` と `Configure` を呼び出します。 `ConfigureServices` の複数回の呼び出しでは、互いに追加されます。 `Configure` メソッドが複数回呼び出された場合、最後の `Configure` 呼び出しが使用されます。
 
 ::: moniker range=">= aspnetcore-3.0"
+
 [!code-csharp[](startup/3.0_samples/StartupFilterSample/Program1.cs?name=snippet)]
 
 ::: moniker-end

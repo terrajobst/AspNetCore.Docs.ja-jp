@@ -5,22 +5,22 @@ description: Windows サービスで ASP.NET Core アプリケーションをホ
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/10/2019
+ms.date: 10/30/2019
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: b02e627af875f15a81d68b0d625a2eccf25c0657
-ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
+ms.openlocfilehash: 014585cd1e170fc94f7f577e11ec19824e54572f
+ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72333798"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73659842"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>Windows サービスでの ASP.NET Core のホスト
 
-著者: [Luke Latham](https://github.com/guardrex)、[Tom Dykstra](https://github.com/tdykstra)
+作成者: [Luke Latham](https://github.com/guardrex)
 
 ASP.NET Core アプリは、IIS を 使用せずに、[Windows サービス](/dotnet/framework/windows-services/introduction-to-windows-service-applications)として Windows にホストできます。 Windows サービスとしてホストされている場合、サーバーの再起動後にアプリが自動的に起動します。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/windows-service/)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/windows-service/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="prerequisites"></a>必須コンポーネント
 
@@ -38,15 +38,15 @@ ASP.NET Core ワーカー サービス テンプレートは、実行時間が�
 
 [!INCLUDE[](~/includes/worker-template-instructions.md)]
 
----
-
 ::: moniker-end
 
 ## <a name="app-configuration"></a>アプリの構成
 
 ::: moniker range=">= aspnetcore-3.0"
 
-[Microsoft.Extensions.Hosting.WindowsServices](https://www.nuget.org/packages/Microsoft.Extensions.Hosting.WindowsServices) パッケージによって提供される `IHostBuilder.UseWindowsService` は、ホストのビルド時に呼び出されます。 アプリが Windows サービスとして実行している場合、メソッドは
+アプリには、[Microsoft.Extensions.Hosting.WindowsServices](https://www.nuget.org/packages/Microsoft.Extensions.Hosting.WindowsServices)のパッケージ参照が必要です。
+
+ホストのビルド時に `IHostBuilder.UseWindowsService` が呼び出されます。 アプリが Windows サービスとして実行している場合、メソッドは
 
 * ホストの有効期間を `WindowsServiceLifetime` に設定します。
 * [コンテンツ ルート](xref:fundamentals/index#content-root)を設定します。
@@ -54,7 +54,20 @@ ASP.NET Core ワーカー サービス テンプレートは、実行時間が�
   * *appsettings.Production.json* ファイルで `Logging:LogLevel:Default` キーを使用してログ レベルを構成できます。
   * 管理者のみが新しいイベント ソースを作成できます。 アプリケーション名を使用して、イベント ソースを作成できない場合、警告が*アプリケーション* ソースに記録され、イベント ログが無効になります。
 
-[!code-csharp[](windows-service/samples/3.x/AspNetCoreService/Program.cs?name=snippet_Program)]
+*Program.cs* の `CreateHostBuilder` の場合:
+
+```csharp
+Host.CreateDefaultBuilder(args)
+    .UseWindowsService()
+    ...
+```
+
+このトピックには、次のサンプル アプリが付属しています。
+
+* バックグラウンド ワーカー サービスのサンプル &ndash; バックグラウンド タスク用に[ホステッド サービス](xref:fundamentals/host/hosted-services)を使用する[ワーカー サービステンプレート](#worker-service-template)に基づく、非 Web アプリのサンプルです。
+* Web アプリ サービスのサンプル &ndash; バックグラウンド タスク用の[ホステッド サービス](xref:fundamentals/host/hosted-services)を使用する Windows サービスとして実行される、Razor Pages Web アプリのサンプルです。
+
+MVC のガイダンスについては、「<xref:mvc/overview>」と「<xref:migration/22-to-30>」にある記事を参照してください。
 
 ::: moniker-end
 
@@ -81,24 +94,31 @@ Windows イベント ログに書き込むには、EventLog プロバイダー�
 
 展開のシナリオに関する情報および注意事項については、「[.NET Core アプリケーションの展開](/dotnet/core/deploying/)」をご覧ください。
 
+### <a name="sdk"></a>SDK
+
+Razor Pages または MVC フレームワークを使用する Web アプリベースのサービスでは、プロジェクト ファイルに Web SDK を指定します。
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk.Web">
+```
+
+サービスでバックグラウンド タスク ([ホステッド サービス](xref:fundamentals/host/hosted-services)など) のみを実行する場合は、プロジェクト ファイルにワーカー SDK を指定します。
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+```
+
 ### <a name="framework-dependent-deployment-fdd"></a>フレームワーク依存型展開 (FDD)
 
 フレームワーク依存型展開 (FDD) は、ターゲット システムに .NET Core のシステム全体の共有バージョンが存在することに依存します。 この記事のガイダンスに従って、FDD シナリオを採用すると、*フレームワーク依存型実行可能ファイル* と呼ばれる実行可能ファイル ( *.exe*) が SDK によって生成されます。
 
 ::: moniker range=">= aspnetcore-3.0"
 
-プロジェクト ファイルに次のプロパティ要素を追加します。
-
-* `<OutputType>` &ndash; アプリの出力の種類 (実行可能ファイルの場合 `Exe`)。
-* `<LangVersion>` &ndash; C# 言語バージョン (`latest` または `preview`)。
-
-*web.config* ファイル (通常 ASP.NET Core アプリを発行する際に生成されます) は、Windows サービス アプリに対しては必要ありません。 *web.config* ファイルの作成を無効にするには、`true` に設定した `<IsTransformWebConfigDisabled>` プロパティを追加します。
+[Web SDK](#sdk) を使用している場合、*web.config* ファイル (通常 ASP.NET Core アプリを発行する際に生成されます) は、Windows サービス アプリに対しては必要ありません。 *web.config* ファイルの作成を無効にするには、`true` に設定した `<IsTransformWebConfigDisabled>` プロパティを追加します。
 
 ```xml
 <PropertyGroup>
   <TargetFramework>netcoreapp3.0</TargetFramework>
-  <OutputType>Exe</OutputType>
-  <LangVersion>preview</LangVersion>
   <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
 </PropertyGroup>
 ```
@@ -132,7 +152,7 @@ Windows [ランタイム識別子 (RID)](/dotnet/core/rid-catalog) ([\<RuntimeId
 
 ```xml
 <PropertyGroup>
-  <TargetFramework>netcoreapp2.1</TargetFramework>
+  <TargetFramework>netcoreapp2.2</TargetFramework>
   <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
   <UseAppHost>true</UseAppHost>
   <SelfContained>false</SelfContained>
