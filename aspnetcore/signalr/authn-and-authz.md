@@ -20,7 +20,7 @@ ms.locfileid: "72531173"
 
 [サンプルコードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/authn-and-authz/sample/)[(ダウンロードする方法)](xref:index#how-to-download-a-sample)
 
-## <a name="authenticate-users-connecting-to-a-signalr-hub"></a>SignalR hub に接続しているユーザーを認証する
+## <a name="authenticate-users-connecting-to-a-signalr-hub">SignalR ハブに接続しているユーザーを認証する</a>
 
 SignalR を[ASP.NET Core 認証](xref:security/authentication/identity)と共に使用すると、ユーザーを各接続に関連付けることができます。 ハブでは、 [`HubConnectionContext.User`](/dotnet/api/microsoft.aspnetcore.signalr.hubconnectioncontext.user)プロパティから認証データにアクセスできます。 認証を使用すると、ユーザーに関連付けられているすべての接続で、ハブがメソッドを呼び出すことができます。 詳細については、「 [Manage users and groups In SignalR](xref:signalr/groups)」を参照してください。 複数の接続を1人のユーザーに関連付けることができます。
 
@@ -80,13 +80,14 @@ public void Configure(IApplicationBuilder app)
 
 ### <a name="cookie-authentication"></a>Cookie 認証
 
-ブラウザーベースのアプリでは、Cookie 認証を使用して、既存のユーザーの資格情報を SignalR 接続に自動的に渡すことができます。 ブラウザー クライアントを使用する場合、追加の構成は必要ありません。 ユーザーがアプリにログインしている場合、SignalR 接続は自動的にこの認証を継承します。
+ブラウザーベースのアプリでは、Cookie 認証を使用して、既存のユーザーの資格情報を SignalR 接続に自動的に渡すことができます。ブラウザー クライアントを使用する場合、追加の構成は必要ありません。ユーザーがアプリにログインしている場合、SignalR 接続は自動的にこの認証を継承します。
 
-Cookie はアクセス トークンを送信するためのブラウザー固有の方法ですが、ブラウザー以外のクライアントは送信できます。 [.Net クライアント](xref:signalr/dotnet-client)を使用する場合は、`.WithUrl` 呼び出しで `Cookies` プロパティを構成して、cookie を提供できます。 ただし、.NET クライアントから Cookie 認証を使用するには、アプリが Cookie の認証データを交換するための API を提供する必要があります。
+Cookie はアクセス トークンを送信するためのブラウザー固有の方法ですが、ブラウザー以外のクライアントは送信できます。[.NET クライアント](xref:signalr/dotnet-client)を使用する場合は、`.WithUrl` 呼び出しで `Cookies` プロパティを構成して、Cookie を提供できます。ただし、.NET クライアントから Cookie 認証を使用するには、アプリが Cookie の認証データを交換するための API を提供する必要があります。
 
 ### <a name="bearer-token-authentication"></a>ベアラートークン認証
 
-クライアントは、Cookie を使用する代わりにアクセス トークンを提供できます。 サーバーはトークンを検証し、それを使用してユーザーを識別します。 この検証は、接続が確立された場合にのみ実行されます。 接続の有効期間中は、トークンの失効を確認するためにサーバーが自動的に再検証されることはありません。
+クライアントは、Cookie を使用する代わりにアクセス トークンを提供できます。サーバーはトークンを検証し、それを使用してユーザーを識別します。この検証は、接続が確立された場合にのみ実行されます。接続の有効期間中は、トークンの失効を確認するためにサーバーが自動的に再検証されることはありません。
+
 
 サーバーでは、ベアラートークン認証は[JWT ベアラーミドルウェア](/dotnet/api/microsoft.extensions.dependencyinjection.jwtbearerextensions.addjwtbearer)を使用して構成されます。
 
@@ -106,24 +107,26 @@ var connection = new HubConnectionBuilder()
 ```
 
 > [!NOTE]
-> 指定したアクセス トークン関数は、SignalR によって行われる**すべて**の HTTP 要求の前に呼び出されます。 接続をアクティブな状態に保つために、トークンを更新する必要がある場合 (接続中に期限切れになる可能性があるため)、この関数内でトークンを更新し、それを返します。
+> 指定したアクセス トークン関数は、SignalR によって行われる**すべて**の HTTP 要求の前に呼び出されます。接続をアクティブな状態に保つために、トークンを更新する必要がある場合 (接続中に期限切れになる可能性があるため)、この関数内でトークンを更新し、それを返します。
 
-標準の Web API では、ベアラー トークンは HTTP ヘッダーで送信されます。 ただし、SignalR では、一部のトランスポートを使用するときに、これらのヘッダーをブラウザーで設定することはできません。 WebSocket および Server-Sent Events を使用する場合、トークンはクエリ文字列パラメーターとして送信されます。 サーバーでこれをサポートするには、追加の構成が必要です。
+標準の Web API では、ベアラー トークンは HTTP ヘッダーで送信されます。ただし、SignalR では、一部のトランスポートを使用するときに、これらのヘッダーをブラウザーで設定することはできません。WebSocket および Server-Sent Events を使用する場合、トークンはクエリ文字列パラメーターとして送信されます。サーバーでこれをサポートするには、追加の構成が必要です。
+
 
 [!code-csharp[Configure Server to accept access token from Query String](authn-and-authz/sample/Startup.cs?name=snippet)]
 
 > [!NOTE]
-> クエリ文字列は、ブラウザー API の制限により、WebSocket および Server-Sent Events と接続するときにブラウザーで使用されます。 HTTPS を使用する場合、クエリ文字列の値は TLS 接続によって保護されます。 ただし、多くのサーバーはクエリ文字列の値をログに記録します。 詳細については、「[ASP.NET Core SignalR のセキュリティに関する考慮事項](xref:signalr/security)」を参照してください。 SignalR は、トークンをサポートする環境 (.NET や Java クライアントなど) では、ヘッダーを使用してトークンを送信します。
+> クエリ文字列は、ブラウザー API の制限により、WebSocket および Server-Sent Events と接続するときにブラウザーで使用されます。HTTPS を使用する場合、クエリ文字列の値は TLS 接続によって保護されます。ただし、多くのサーバーはクエリ文字列の値をログに記録します。詳細については、「[ASP.NET Core SignalR のセキュリティに関する考慮事項](xref:signalr/security)」を参照してください。SignalR は、トークンをサポートする環境 (.NET や Java クライアントなど) では、ヘッダーを使用してトークンを送信します。
 
 ### <a name="cookies-vs-bearer-tokens"></a>Cookie とベアラートークン 
 
-Cookie は、ブラウザーに固有のものです。 他の種類のクライアントから送信すると、ベアラー トークンの送信と比較して複雑さが増します。 そのため、アプリがブラウザー クライアントからのユーザーの認証のみを必要とする場合を除き、Cookie 認証は推奨されません。 ベアラー トークン認証は、ブラウザー クライアント以外のクライアントを使用する場合に推奨される方法です。
+Cookie は、ブラウザーに固有のものです。他の種類のクライアントから送信すると、ベアラー トークンの送信と比較して複雑さが増します。そのため、アプリがブラウザー クライアントからのユーザーの認証のみを必要とする場合を除き、Cookie 認証は推奨されません。ベアラー トークン認証は、ブラウザー クライアント以外のクライアントを使用する場合に推奨される方法です。
 
 ### <a name="windows-authentication"></a>Windows 認証
 
-アプリで[Windows 認証](xref:security/authentication/windowsauth)が構成されている場合、SignalR はその ID を使用してハブをセキュリティで保護することができます。 ただし、個々のユーザーにメッセージを送信するには、カスタム ユーザー ID プロバイダーを追加する必要があります。 Windows 認証システムは、"Name Identifier" クレームを提供しません。 SignalR は、クレームを使用してユーザー名を決定します。
+アプリで [Windows 認証](xref:security/authentication/windowsauth)が構成されている場合、SignalR はその ID を使用してハブをセキュリティで保護することができます。ただし、個々のユーザーにメッセージを送信するには、カスタム ユーザー ID プロバイダーを追加する必要があります。Windows 認証システムは、"Name Identifier" クレームを提供しません。SignalR は、クレームを使用してユーザー名を決定します。
 
-`IUserIdProvider` を実装する新しいクラスを追加し、識別子として使用するクレームの 1 つをユーザーから取得します。 たとえば、"Name" クレーム (フォーム `[Domain]\[Username]` の Windows ユーザー名) を使用するには、次のクラスを作成します。
+`IUserIdProvider` を実装する新しいクラスを追加し、識別子として使用するクレームの 1 つをユーザーから取得します。たとえば、"Name" クレーム (フォーム `[Domain]\[Username]` の Windows ユーザー名) を使用するには、次のクラスを作成します。
+
 
 [!code-csharp[Name based provider](authn-and-authz/sample/nameuseridprovider.cs?name=NameUserIdProvider)]
 
@@ -159,7 +162,8 @@ Windows 認証は、Microsoft Internet Explorer または Microsoft Edge を使�
 
 ### <a name="use-claims-to-customize-identity-handling"></a>クレームによる ID 処理のカスタマイズ
 
-ユーザーを認証するアプリは、ユーザー クレームから SignalR ユーザー ID を派生させることができます。 SignalR がユーザー ID を作成する方法を指定するには、`IUserIdProvider` を実装し、実装を登録します。
+ユーザーを認証するアプリは、ユーザー クレームから SignalR ユーザー ID を派生させることができます。SignalR がユーザー ID を作成する方法を指定するには、`IUserIdProvider` を実装し、実装を登録します。
+
 
 このサンプル コードでは、クレームを使用して、識別プロパティとしてユーザーのメール アドレスを選択する方法を示します。 
 
@@ -180,11 +184,12 @@ services.AddSingleton<IUserIdProvider, EmailBasedUserIdProvider>();
 
 ## <a name="authorize-users-to-access-hubs-and-hub-methods"></a>ハブおよびハブのメソッドへのアクセスをユーザーに承認する
 
-既定では、ハブ内のすべてのメソッドを認証されていないユーザーが呼び出すことができます。 認証を要求するには、[Authorize](/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute) 属性をハブに適用します。
+既定では、ハブ内のすべてのメソッドを認証されていないユーザーが呼び出すことができます。認証を要求するには、[Authorize](/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute) 属性をハブに適用します。
+
 
 [!code-csharp[Restrict a hub to only authorized users](authn-and-authz/sample/Hubs/ChatHub.cs?range=8-10,32)]
 
-@No__t_0 属性のコンストラクター引数とプロパティを使用して、特定の[承認ポリシー](xref:security/authorization/policies)に一致するユーザーのみにアクセスを制限できます。 たとえば、`MyAuthorizationPolicy` というカスタム承認ポリシーがある場合、次のコードを使用して、そのポリシーに一致するユーザーだけがハブにアクセスできるようにすることができます。
+`[Authorize]` 属性のコンストラクター引数とプロパティを使用して、特定の[承認ポリシー](xref:security/authorization/policies)に一致するユーザーのみにアクセスを制限できます。たとえば、`MyAuthorizationPolicy` というカスタム承認ポリシーがある場合、次のコードを使用して、そのポリシーに一致するユーザーだけがハブにアクセスできるようにすることができます。
 
 ```csharp
 [Authorize("MyAuthorizationPolicy")]
@@ -214,11 +219,12 @@ public class ChatHub : Hub
 
 ::: moniker range=">= aspnetcore-3.0"
 
-### <a name="use-authorization-handlers-to-customize-hub-method-authorization"></a>承認ハンドラーを使用してハブメソッドの承認をカスタマイズする
+### <a name="use-authorization-handlers-to-customize-hub-method-authorization">承認ハンドラーによるハブ メソッドの承認のカスタマイズ</a>
 
-SignalR は、ハブ メソッドが承認を必要とする場合に、承認ハンドラーにカスタム リソースを提供します。 リソースは `HubInvocationContext` のインスタンスです。 @No__t_0 には、`HubCallerContext`、呼び出されるハブメソッドの名前、およびハブメソッドへの引数が含まれます。
+SignalR は、ハブ メソッドが承認を必要とする場合に、承認ハンドラーにカスタム リソースを提供します。リソースは `HubInvocationContext` のインスタンスです。`HubInvocationContext` には、`HubCallerContext`、呼び出されるハブ メソッドの名前、およびハブ メソッドへの引数が含まれます。
 
-Azure Active Directory による複数の組織でのサインインを可能にするチャット ルームの例を考えてみましょう。 Microsoft アカウントを持つユーザーはだれでもチャットにサインインできますが、所有している組織のメンバーだけがユーザーの許可を禁止したり、ユーザーのチャット履歴を表示したりできるようにする必要があります。 さらに、特定のユーザーに対し、特定の機能を制限したい場合があります。 ASP.NET Core 3.0 の更新された機能を使用すると、これはすべて可能です。 @No__t_0 がカスタム `IAuthorizationRequirement` としてどのように機能するかに注意してください。 @No__t_0 リソースパラメーターが渡されるようになったので、内部ロジックはハブが呼び出されているコンテキストを検査し、ユーザーが個々のハブメソッドを実行できるようにすることを決定します。
+Azure Active Directory による複数の組織でのサインインを可能にするチャット ルームの例を考えてみましょう。Microsoft アカウントを持つユーザーはだれでもチャットにサインインできますが、所有している組織のメンバーだけがユーザーの許可を禁止したり、ユーザーのチャット履歴を表示したりできるようにする必要があります。さらに、特定のユーザーに対し、特定の機能を制限したい場合があります。ASP.NET Core 3.0 の更新された機能を使用すると、これはすべて可能です。`DomainRestrictedRequirement` がカスタム `IAuthorizationRequirement` としてどのように機能するかに注意してください。`HubInvocationContext` リソース パラメーターが渡されるようになったので、内部ロジックはハブが呼び出されているコンテキストを検査し、ユーザーが個々のハブ メソッドを実行できるようにすることを決定します。
+
 
 ```csharp
 [Authorize]
@@ -264,7 +270,8 @@ public class DomainRestrictedRequirement :
 }
 ```
 
-`Startup.ConfigureServices` 内で、新しいポリシーを追加し、`DomainRestrictedRequirement` ポリシーを作成するためのパラメーターとしてカスタム `DomainRestricted` 要件を指定します。
+`Startup.ConfigureServices` 内で、新しいポリシーを追加し、`DomainRestricted` ポリシーを作成するためのパラメーターとしてカスタム `DomainRestrictedRequirement` 要件を指定します。
+
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -282,7 +289,8 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-前の例では、`DomainRestrictedRequirement` クラスは、その要件の `IAuthorizationRequirement` と独自の `AuthorizationHandler` の両方です。 関心の分離のために、この 2 つのコンポーネントを別々のクラスに分割することができます。 この例のアプローチの利点は、要件とハンドラーが同じであるため、起動時に `AuthorizationHandler` を挿入する必要がないことです。
+前の例では、`DomainRestrictedRequirement` クラスは、その要件の `IAuthorizationRequirement` と独自の `AuthorizationHandler` の両方です。関心の分離のために、この 2 つのコンポーネントを別々のクラスに分割することができます。この例のアプローチの利点は、要件とハンドラーが同じであるため、起動時に `AuthorizationHandler` を挿入する必要がないことです。
+
 
 ::: moniker-end
 
