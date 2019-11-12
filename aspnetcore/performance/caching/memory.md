@@ -4,14 +4,14 @@ author: rick-anderson
 description: ASP.NET Core でメモリにデータをキャッシュする方法について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 8/22/2019
+ms.date: 11/2/2019
 uid: performance/caching/memory
-ms.openlocfilehash: d6b2aa363c552fdbda7f6e9ec5d476768c17d8a5
-ms.sourcegitcommit: 810d5831169770ee240d03207d6671dabea2486e
+ms.openlocfilehash: 1114d154ed1af09958df63ae718712177bbf6db0
+ms.sourcegitcommit: 09f4a5ded39cc8204576fe801d760bd8b611f3aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/22/2019
-ms.locfileid: "72779190"
+ms.lasthandoff: 11/05/2019
+ms.locfileid: "73611444"
 ---
 # <a name="cache-in-memory-in-aspnet-core"></a>ASP.NET Core 内のメモリ内のキャッシュ
 
@@ -29,7 +29,7 @@ ASP.NET Core は、いくつかの異なるキャッシュをサポートして�
 
 Web ファームの固定されていないセッションでは、キャッシュ整合性の問題を回避するために[分散キャッシュ](distributed.md)が必要です。 アプリによっては、分散キャッシュがメモリ内キャッシュよりも高いスケールアウトをサポートする場合があります。 分散キャッシュを使用すると、キャッシュメモリが外部プロセスにオフロードされます。
 
-メモリ内キャッシュには、任意のオブジェクトを格納できます。 分散キャッシュインターフェイスは `byte[]` に制限されています。 メモリ内および分散キャッシュストアは、キーと値のペアとしてキャッシュ項目を格納します。
+メモリ内キャッシュには、任意のオブジェクトを格納できます。 分散キャッシュインターフェイスは `byte[]`に制限されています。 メモリ内および分散キャッシュストアは、キーと値のペアとしてキャッシュ項目を格納します。
 
 ## <a name="systemruntimecachingmemorycache"></a>System.string. キャッシュ/MemoryCache
 
@@ -55,14 +55,14 @@ ASP.NET 4.x から ASP.NET Core にコードを移植するときに、互換性
 
 > [!WARNING]
 > [依存関係の挿入](xref:fundamentals/dependency-injection)から*共有*メモリキャッシュを使用して `SetSize`、`Size`、または `SizeLimit` を呼び出してキャッシュサイズを制限すると、アプリでエラーが発生する可能性があります。 キャッシュにサイズ制限が設定されている場合、すべてのエントリは追加時にサイズを指定する必要があります。 これにより、開発者は共有キャッシュを使用する内容を完全に制御できない場合があるため、問題が発生する可能性があります。 たとえば、Entity Framework Core は共有キャッシュを使用し、サイズを指定しません。 アプリがキャッシュサイズの制限を設定し、EF Core を使用する場合、アプリは `InvalidOperationException` をスローします。
-> @No__t_0、`Size`、または `SizeLimit` を使用してキャッシュを制限する場合は、キャッシュ用のキャッシュシングルトンを作成します。 詳細と例については、「 [SetSize、サイズ、および SizeLimit を使用してキャッシュサイズを制限する](#use-setsize-size-and-sizelimit-to-limit-cache-size)」を参照してください。
+> `SetSize`、`Size`、または `SizeLimit` を使用してキャッシュを制限する場合は、キャッシュ用のキャッシュシングルトンを作成します。 詳細と例については、「 [SetSize、サイズ、および SizeLimit を使用してキャッシュサイズを制限する](#use-setsize-size-and-sizelimit-to-limit-cache-size)」を参照してください。
 > 共有キャッシュは、他のフレームワークまたはライブラリによって共有されます。 たとえば、EF Core は共有キャッシュを使用し、サイズを指定しません。 
 
 インメモリキャッシュは、[依存関係の挿入](xref:fundamentals/dependency-injection)を使用してアプリから参照される*サービス*です。 コンストラクターで `IMemoryCache` インスタンスを要求します。
 
 [!code-csharp[](memory/3.0sample/WebCacheSample/Controllers/HomeController.cs?name=snippet_ctor)]
 
-次のコードでは、 [TryGetValue](/dotnet/api/microsoft.extensions.caching.memory.imemorycache.trygetvalue?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_IMemoryCache_TryGetValue_System_Object_System_Object__)を使用して、時間がキャッシュ内にあるかどうかを確認します。 時間がキャッシュされていない場合は、新しいエントリが作成され、が[設定](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.set?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_CacheExtensions_Set__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object___0_Microsoft_Extensions_Caching_Memory_MemoryCacheEntryOptions_)されたキャッシュに追加されます。 @No__t_0 クラスは、ダウンロードサンプルに含まれています。
+次のコードでは、 [TryGetValue](/dotnet/api/microsoft.extensions.caching.memory.imemorycache.trygetvalue?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_IMemoryCache_TryGetValue_System_Object_System_Object__)を使用して、時間がキャッシュ内にあるかどうかを確認します。 時間がキャッシュされていない場合は、新しいエントリが作成され、が[設定](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.set?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_CacheExtensions_Set__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object___0_Microsoft_Extensions_Caching_Memory_MemoryCacheEntryOptions_)されたキャッシュに追加されます。 `CacheKeys` クラスは、ダウンロードサンプルに含まれています。
 
 [!code-csharp[](memory/3.0sample/WebCacheSample/CacheKeys.cs)]
 
@@ -108,14 +108,14 @@ ASP.NET 4.x から ASP.NET Core にコードを移植するときに、互換性
 
 ## <a name="use-setsize-size-and-sizelimit-to-limit-cache-size"></a>SetSize、サイズ、および SizeLimit を使用してキャッシュサイズを制限する
 
-@No__t_0 インスタンスでは、必要に応じてサイズ制限を指定して適用できます。 キャッシュには、エントリのサイズを測定する機構がないため、キャッシュサイズの制限には定義済みの測定単位がありません。 キャッシュサイズの制限が設定されている場合、すべてのエントリでサイズを指定する必要があります。 ASP.NET Core ランタイムでは、メモリ負荷に基づいてキャッシュサイズが制限されません。 キャッシュサイズを制限するのは開発者だけです。 指定されたサイズは、開発者が選択した単位で示されます。
+`MemoryCache` インスタンスでは、必要に応じてサイズ制限を指定して適用できます。 キャッシュには、エントリのサイズを測定する機構がないため、キャッシュサイズの制限には定義済みの測定単位がありません。 キャッシュサイズの制限が設定されている場合、すべてのエントリでサイズを指定する必要があります。 ASP.NET Core ランタイムでは、メモリ負荷に基づいてキャッシュサイズが制限されません。 キャッシュサイズを制限するのは開発者だけです。 指定されたサイズは、開発者が選択した単位で示されます。
 
 (例:
 
 * Web アプリが主に文字列をキャッシュしている場合は、各キャッシュエントリのサイズを文字列の長さにすることができます。
 * アプリでは、すべてのエントリのサイズを1と指定することができ、サイズ制限はエントリの数です。
 
-@No__t_0 が設定されていない場合、キャッシュはバインドされずに拡張されます。 ASP.NET Core ランタイムは、システムメモリが不足しているとキャッシュをトリミングしません。 アプリは次のように設計されています。
+<xref:Microsoft.Extensions.Caching.Memory.MemoryCacheOptions.SizeLimit> が設定されていない場合、キャッシュはバインドされずに拡張されます。 ASP.NET Core ランタイムは、システムメモリが不足しているとキャッシュをトリミングしません。 アプリは次のように設計されています。
 
 * キャッシュの拡張を制限します。
 * 使用可能なメモリが制限されている場合は、<xref:Microsoft.Extensions.Caching.Memory.MemoryCache.Compact*> または <xref:Microsoft.Extensions.Caching.Memory.MemoryCache.Remove*> を呼び出します。
@@ -158,15 +158,18 @@ ASP.NET 4.x から ASP.NET Core にコードを移植するときに、互換性
 
 ## <a name="cache-dependencies"></a>キャッシュの依存関係
 
-次のサンプルは、依存エントリの有効期限が切れた場合に、キャッシュエントリを期限切れにする方法を示しています。 キャッシュされた項目に `CancellationChangeToken` が追加されます。 @No__t_1 で `Cancel` が呼び出されると、両方のキャッシュエントリが削除されます。
+次のサンプルは、依存エントリの有効期限が切れた場合に、キャッシュエントリを期限切れにする方法を示しています。 キャッシュされた項目に <xref:Microsoft.Extensions.Primitives.CancellationChangeToken> が追加されます。 `CancellationTokenSource`で `Cancel` が呼び出されると、両方のキャッシュエントリが削除されます。
 
 [!code-csharp[](memory/3.0sample/WebCacheSample/Controllers/HomeController.cs?name=snippet_ed)]
 
-@No__t_0 を使用すると、複数のキャッシュエントリを1つのグループとして削除できます。 上記のコードの `using` パターンでは、`using` ブロック内に作成されたキャッシュエントリによって、トリガーと有効期限の設定が継承されます。
+<xref:System.Threading.CancellationTokenSource> を使用すると、複数のキャッシュエントリを1つのグループとして削除できます。 上記のコードの `using` パターンでは、`using` ブロック内に作成されたキャッシュエントリによって、トリガーと有効期限の設定が継承されます。
 
 ## <a name="additional-notes"></a>補足メモ
 
-* 有効期限はバックグラウンドでは発生しません。 期限切れの項目のキャッシュをアクティブにスキャンするタイマーはありません。 キャッシュのすべてのアクティビティ (`Get`、`Set`、`Remove`) は、期限切れの項目のバックグラウンドスキャンをトリガーできます。 @No__t_0 (`CancelAfter`) のタイマーによって、エントリも削除され、期限切れの項目のスキャンがトリガーされます。 たとえば、`SetAbsoluteExpiration(TimeSpan.FromHours(1))` を使用するのではなく、登録されているトークンに対して `CancellationTokenSource.CancelAfter(TimeSpan.FromHours(1))` を使用します。 このトークンが起動すると、エントリが直ちに削除され、削除コールバックが発生します。 詳細については、次を参照してください。[この GitHub の問題](https://github.com/aspnet/Caching/issues/248)します。
+* 有効期限はバックグラウンドでは発生しません。 期限切れの項目のキャッシュをアクティブにスキャンするタイマーはありません。 キャッシュのすべてのアクティビティ (`Get`、`Set`、`Remove`) は、期限切れの項目のバックグラウンドスキャンをトリガーできます。 `CancellationTokenSource` (<xref:System.Threading.CancellationTokenSource.CancelAfter*>) のタイマーによって、エントリも削除され、期限切れの項目のスキャンがトリガーされます。 次の例では、登録されたトークンに[CancellationTokenSource (TimeSpan)](/dotnet/api/system.threading.cancellationtokensource.-ctor)を使用します。 このトークンが起動すると、エントリが直ちに削除され、削除コールバックが発生します。
+
+[!code-csharp[](memory/3.0sample/WebCacheSample/Controllers/HomeController.cs?name=snippet_ae)]
+
 * コールバックを使用してキャッシュ項目を再作成する場合:
 
   * コールバックが完了していないため、複数の要求でキャッシュされたキー値を空にすることができます。
@@ -203,7 +206,7 @@ ASP.NET Core は、いくつかの異なるキャッシュをサポートして�
 
 Web ファームの固定されていないセッションでは、キャッシュ整合性の問題を回避するために[分散キャッシュ](distributed.md)が必要です。 アプリによっては、分散キャッシュがメモリ内キャッシュよりも高いスケールアウトをサポートする場合があります。 分散キャッシュを使用すると、キャッシュメモリが外部プロセスにオフロードされます。
 
-メモリ内キャッシュには、任意のオブジェクトを格納できます。 分散キャッシュインターフェイスは `byte[]` に制限されています。 メモリ内および分散キャッシュストアは、キーと値のペアとしてキャッシュ項目を格納します。
+メモリ内キャッシュには、任意のオブジェクトを格納できます。 分散キャッシュインターフェイスは `byte[]`に制限されています。 メモリ内および分散キャッシュストアは、キーと値のペアとしてキャッシュ項目を格納します。
 
 ## <a name="systemruntimecachingmemorycache"></a>System.string. キャッシュ/MemoryCache
 
@@ -229,9 +232,9 @@ ASP.NET 4.x から ASP.NET Core にコードを移植するときに、互換性
 
 > [!WARNING]
 > [依存関係の挿入](xref:fundamentals/dependency-injection)から*共有*メモリキャッシュを使用して `SetSize`、`Size`、または `SizeLimit` を呼び出してキャッシュサイズを制限すると、アプリでエラーが発生する可能性があります。 キャッシュにサイズ制限が設定されている場合、すべてのエントリは追加時にサイズを指定する必要があります。 これにより、開発者は共有キャッシュを使用する内容を完全に制御できない場合があるため、問題が発生する可能性があります。 たとえば、Entity Framework Core は共有キャッシュを使用し、サイズを指定しません。 アプリがキャッシュサイズの制限を設定し、EF Core を使用する場合、アプリは `InvalidOperationException` をスローします。
-> @No__t_0、`Size`、または `SizeLimit` を使用してキャッシュを制限する場合は、キャッシュ用のキャッシュシングルトンを作成します。 詳細と例については、「 [SetSize、サイズ、および SizeLimit を使用してキャッシュサイズを制限する](#use-setsize-size-and-sizelimit-to-limit-cache-size)」を参照してください。
+> `SetSize`、`Size`、または `SizeLimit` を使用してキャッシュを制限する場合は、キャッシュ用のキャッシュシングルトンを作成します。 詳細と例については、「 [SetSize、サイズ、および SizeLimit を使用してキャッシュサイズを制限する](#use-setsize-size-and-sizelimit-to-limit-cache-size)」を参照してください。
 
-インメモリキャッシュは、[依存関係の挿入](../../fundamentals/dependency-injection.md)を使用してアプリから参照される*サービス*です。 @No__t_1 で `AddMemoryCache` を呼び出します。
+インメモリキャッシュは、[依存関係の挿入](../../fundamentals/dependency-injection.md)を使用してアプリから参照される*サービス*です。 `ConfigureServices`で `AddMemoryCache` を呼び出します。
 
 [!code-csharp[](memory/sample/WebCache/Startup.cs?highlight=9)]
 
@@ -277,14 +280,14 @@ ASP.NET 4.x から ASP.NET Core にコードを移植するときに、互換性
 
 ## <a name="use-setsize-size-and-sizelimit-to-limit-cache-size"></a>SetSize、サイズ、および SizeLimit を使用してキャッシュサイズを制限する
 
-@No__t_0 インスタンスでは、必要に応じてサイズ制限を指定して適用できます。 キャッシュには、エントリのサイズを測定する機構がないため、キャッシュサイズの制限には定義済みの測定単位がありません。 キャッシュサイズの制限が設定されている場合、すべてのエントリでサイズを指定する必要があります。 ASP.NET Core ランタイムでは、メモリ負荷に基づいてキャッシュサイズが制限されません。 キャッシュサイズを制限するのは開発者だけです。 指定されたサイズは、開発者が選択した単位で示されます。
+`MemoryCache` インスタンスでは、必要に応じてサイズ制限を指定して適用できます。 キャッシュには、エントリのサイズを測定する機構がないため、キャッシュサイズの制限には定義済みの測定単位がありません。 キャッシュサイズの制限が設定されている場合、すべてのエントリでサイズを指定する必要があります。 ASP.NET Core ランタイムでは、メモリ負荷に基づいてキャッシュサイズが制限されません。 キャッシュサイズを制限するのは開発者だけです。 指定されたサイズは、開発者が選択した単位で示されます。
 
 (例:
 
 * Web アプリが主に文字列をキャッシュしている場合は、各キャッシュエントリのサイズを文字列の長さにすることができます。
 * アプリでは、すべてのエントリのサイズを1と指定することができ、サイズ制限はエントリの数です。
 
-@No__t_0 が設定されていない場合、キャッシュはバインドされずに拡張されます。 ASP.NET Core ランタイムは、システムメモリが不足しているとキャッシュをトリミングしません。 アプリは次のように設計されています。
+<xref:Microsoft.Extensions.Caching.Memory.MemoryCacheOptions.SizeLimit> が設定されていない場合、キャッシュはバインドされずに拡張されます。 ASP.NET Core ランタイムは、システムメモリが不足しているとキャッシュをトリミングしません。 アプリは次のように設計されています。
 
 * キャッシュの拡張を制限します。
 * 使用可能なメモリが制限されている場合は、<xref:Microsoft.Extensions.Caching.Memory.MemoryCache.Compact*> または <xref:Microsoft.Extensions.Caching.Memory.MemoryCache.Remove*> を呼び出します。
@@ -327,11 +330,11 @@ ASP.NET 4.x から ASP.NET Core にコードを移植するときに、互換性
 
 ## <a name="cache-dependencies"></a>キャッシュの依存関係
 
-次のサンプルは、依存エントリの有効期限が切れた場合に、キャッシュエントリを期限切れにする方法を示しています。 キャッシュされた項目に `CancellationChangeToken` が追加されます。 @No__t_1 で `Cancel` が呼び出されると、両方のキャッシュエントリが削除されます。
+次のサンプルは、依存エントリの有効期限が切れた場合に、キャッシュエントリを期限切れにする方法を示しています。 キャッシュされた項目に <xref:Microsoft.Extensions.Primitives.CancellationChangeToken> が追加されます。 `CancellationTokenSource`で `Cancel` が呼び出されると、両方のキャッシュエントリが削除されます。
 
 [!code-csharp[](memory/sample/WebCache/Controllers/HomeController.cs?name=snippet_ed)]
 
-@No__t_0 を使用すると、複数のキャッシュエントリを1つのグループとして削除できます。 上記のコードの `using` パターンでは、`using` ブロック内に作成されたキャッシュエントリによって、トリガーと有効期限の設定が継承されます。
+`CancellationTokenSource` を使用すると、複数のキャッシュエントリを1つのグループとして削除できます。 上記のコードの `using` パターンでは、`using` ブロック内に作成されたキャッシュエントリによって、トリガーと有効期限の設定が継承されます。
 
 ## <a name="additional-notes"></a>補足メモ
 

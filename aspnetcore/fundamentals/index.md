@@ -5,14 +5,14 @@ description: ASP.NET Core アプリの構築に関する基本概念について
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/07/2019
+ms.date: 11/07/2019
 uid: fundamentals/index
-ms.openlocfilehash: a70d6aa05a2c92d19076b8d6e4ea24d7554368b6
-ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
+ms.openlocfilehash: 7173a732a04bf3e598adef298fa9120c15dd52fb
+ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/07/2019
-ms.locfileid: "72007119"
+ms.lasthandoff: 11/07/2019
+ms.locfileid: "73799373"
 ---
 # <a name="aspnet-core-fundamentals"></a>ASP.NET Core の基礎
 
@@ -302,6 +302,14 @@ Web ルートのパスの既定値は、" *{コンテンツ ルート}/wwwroot*"
 Web ルートのパスの既定値は、" *{コンテンツ ルート}/wwwroot*" ですが、[ホストの構築](#host)時に別の Web ルートを指定することも可能です。 詳細については、「[Web ルート](xref:fundamentals/host/web-host#web-root)」を参照してください。
 
 ::: moniker-end
+
+プロジェクト ファイル内の [\<コンテンツ > プロジェクト項目](/visualstudio/msbuild/common-msbuild-project-items#content) を使用して *wwwroot* にファイルを発行できないようにします。 次の例では、*wwwroot/local* ディレクトリおよびサブディレクトリにコンテンツを公開しないようにします。
+
+```xml
+<ItemGroup>
+  <Content Update="wwwroot\local\**\*.*" CopyToPublishDirectory="Never" />
+</ItemGroup>
+```
 
 Razor ( *.cshtml*) ファイルの場合、チルダとスラッシュ (`~/`) が Web ルートを指します。 `~/` で始まるパスは、"*仮想パス*" と呼ばれます。
 

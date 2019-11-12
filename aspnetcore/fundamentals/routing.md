@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/24/2019
 uid: fundamentals/routing
-ms.openlocfilehash: 8b4da4e1e262ec82225413d0338b3492d0b5e152
-ms.sourcegitcommit: 032113208bb55ecfb2faeb6d3e9ea44eea827950
+ms.openlocfilehash: be4493cc927bd5437a2c9dab00b6a555756195bb
+ms.sourcegitcommit: eb2fe5ad2e82fab86ca952463af8d017ba659b25
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/31/2019
-ms.locfileid: "73190503"
+ms.lasthandoff: 11/01/2019
+ms.locfileid: "73416133"
 ---
 # <a name="routing-in-aspnet-core"></a>ASP.NET Core のルーティング
 
@@ -127,7 +127,7 @@ URL 生成は、ルーティングにおいて、一連のルート値に基づ�
 >
 > * ミドルウェアで `Map` または `MapWhen` と組み合わせて、<xref:Microsoft.AspNetCore.Routing.LinkGenerator> を使用する場合は注意してください。 `Map*` では、実行中の要求の基本パスが変更され、リンク生成の出力に影響します。 すべての <xref:Microsoft.AspNetCore.Routing.LinkGenerator> API で基本パスを指定することができます。 リンク生成への `Map*` の影響を元に戻すための空の基本パスを必ず指定してください。
 
-## <a name="differences-from-earlier-versions-of-routing"></a>以前のバージョンのルーティングとの相違点
+## <a name="endpoint-routing-differences-from-earlier-versions-of-routing"></a>エンドポイント ルーティングと以前のバージョンのルーティングとの相違点
 
 エンドポイント ルーティングと ASP.NET Core 2.2 よりも前のバージョンのルーティングにはいくつか違いがあります。
 

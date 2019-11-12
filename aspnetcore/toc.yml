@@ -1020,6 +1020,8 @@
   items:
     - name: 概要
       uid: performance/performance-best-practices
+    - name: メモリと GC
+      uid: performance/memory
     - name: 応答キャッシュ
       items:
         - name: 概要

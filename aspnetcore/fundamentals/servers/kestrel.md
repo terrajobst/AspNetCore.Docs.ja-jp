@@ -5,14 +5,14 @@ description: ASP.NET Core 用のクロスプラットフォーム Web サーバ�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/29/2019
+ms.date: 10/31/2019
 uid: fundamentals/servers/kestrel
-ms.openlocfilehash: beaf6ac49359adfdc2dc24221eab04cc853646a9
-ms.sourcegitcommit: de0fc77487a4d342bcc30965ec5c142d10d22c03
+ms.openlocfilehash: bab751bc1453481a11114a7a8c0787fa5576e500
+ms.sourcegitcommit: 77c8be22d5e88dd710f42c739748869f198865dd
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/30/2019
-ms.locfileid: "73143448"
+ms.lasthandoff: 11/01/2019
+ms.locfileid: "73427066"
 ---
 # <a name="kestrel-web-server-implementation-in-aspnet-core"></a>ASP.NET Core への Kestrel Web サーバーの実装
 
@@ -83,13 +83,13 @@ Kestrel を単独で使用することも、[インターネット インフォ�
 
 ## <a name="how-to-use-kestrel-in-aspnet-core-apps"></a>ASP.NET Core アプリで Kestrel を使用する方法
 
-ASP.NET Core プロジェクト テンプレートは既定では Kestrel を使用します。 *Program.cs* 内のテンプレート コードは <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> を呼び出し、これによってバックグラウンドで <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderKestrelExtensions.UseKestrel*> が呼び出されます。
+ASP.NET Core プロジェクト テンプレートは既定では Kestrel を使用します。 *Program.cs* 内のアプリは `ConfigureWebHostDefaults` を呼び出し、これによってバックグラウンドで <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderKestrelExtensions.UseKestrel*> が呼び出されます。
 
-[!code-csharp[](kestrel/samples/3.x/KestrelSample/Program.cs?name=snippet_DefaultBuilder&highlight=7)]
+[!code-csharp[](kestrel/samples/3.x/KestrelSample/Program.cs?name=snippet_DefaultBuilder&highlight=8)]
 
-`CreateDefaultBuilder` とホストのビルドについて詳しくは、<xref:fundamentals/host/generic-host#set-up-a-host> の "*ホストを設定する*" および "*既定の builder 設定*" セクションをご覧ください。
+ホストのビルトに関する詳細については、「<xref:fundamentals/host/generic-host#set-up-a-host>」の「*ホストを設定する*」と「*既定の builder 設定*」セクションを参照してください。
 
-`CreateDefaultBuilder` と `ConfigureWebHostDefaults` を呼び出した後に追加の構成を指定するには、`ConfigureKestrel` を使用します。
+`ConfigureWebHostDefaults` を呼び出した後に追加の構成を指定するには、`ConfigureKestrel` を使用します。
 
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -102,28 +102,6 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
             })
             .UseStartup<Startup>();
         });
-```
-
-アプリでホストを設定するための `CreateDefaultBuilder` を呼び出さない場合は、`ConfigureKestrel` を呼び出す**前に** <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderKestrelExtensions.UseKestrel*> を呼び出します。
-
-```csharp
-public static void Main(string[] args)
-{
-    var host = new HostBuilder()
-        .UseContentRoot(Directory.GetCurrentDirectory())
-        .ConfigureWebHostDefaults(webBuilder =>
-        {
-            webBuilder.UseKestrel(serverOptions =>
-            {
-                // Set properties and call methods on options
-            })
-            .UseIISIntegration()
-            .UseStartup<Startup>();
-        })
-        .Build();
-
-    host.Run();
-}
 ```
 
 ## <a name="kestrel-options"></a>Kestrel オプション

@@ -5,14 +5,14 @@ description: Ubuntu 16.04 でリバース プロキシとして Nginx をセッ�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/31/2019
+ms.date: 11/05/2019
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: b71bc0464892f15ef8db0324a8e66a28a6192577
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: c6ae86ec9ac54ddf2d487fd72156199fbdd029ef
+ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080875"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73659872"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>Nginx 搭載の Linux で ASP.NET Core をホストする
 
@@ -123,7 +123,7 @@ sudo service nginx start
 
 ### <a name="configure-nginx"></a>Nginx を構成する
 
-Nginx をリバース プロキシとして構成し、ASP.NET Core アプリに要求を転送するには、*/etc/nginx/sites-available/default* を変更します。 テキスト エディターで開き、中身を次のものに変更します。
+Nginx をリバース プロキシとして構成し、ASP.NET Core アプリに要求を転送するには、 */etc/nginx/sites-available/default* を変更します。 テキスト エディターで開き、中身を次のものに変更します。
 
 ```nginx
 server {
@@ -287,7 +287,7 @@ sudo journalctl -fu kestrel-helloapp.service --since "2016-10-18" --until "2016-
 
 ## <a name="long-request-header-fields"></a>要求ヘッダー フィールドが長すぎます
 
-アプリにプロキシ サーバーの既定の設定によって許可されている (通常、プラットフォームに応じて 4K または 8K) よりも長い要求ヘッダー フィールドが必要な場合、次のディレクティブには調整が必要です。 適用する値は、シナリオによって異なります。 詳細については、ご利用のサーバーのドキュメントを参照してください。
+プロキシ サーバーの既定の設定では、通常、プラットフォームに応じて、要求ヘッダー フィールドが 4 K または 8 K に制限されます。 アプリでは、既定値よりも長いフィールドが必要になる場合があります (たとえば、[Azure Active Directory](https://azure.microsoft.com/services/active-directory/) を使用するアプリ)。 長いフィールドが必要な場合は、プロキシ サーバーの既定の設定に対して調整が必要になります。 適用する値は、シナリオによって異なります。 詳細については、ご利用のサーバーのドキュメントを参照してください。
 
 * [proxy_buffer_size](https://nginx.org/docs/http/ngx_http_proxy_module.html#proxy_buffer_size)
 * [proxy_buffers](https://nginx.org/docs/http/ngx_http_proxy_module.html#proxy_buffers)
@@ -341,7 +341,7 @@ static char ngx_http_server_full_string[] = "Server: Web Server" CRLF;
 
 **セキュリティで保護された (HTTPS) ローカル接続用にアプリを構成する**
 
-[dotnet run](/dotnet/core/tools/dotnet-run) コマンドでは、アプリの *Properties/launchSettings.json* ファイルが使用されます。このファイルでは、`applicationUrl` プロパティによって提供される URL でリッスンするように、アプリが構成されます (例: `https://localhost:5001;http://localhost:5000`)。
+[dotnet run](/dotnet/core/tools/dotnet-run) コマンドでは、アプリの *Properties/launchSettings.json* ファイルが使用されます。このファイルでは、`applicationUrl` プロパティによって提供される URL でリッスンするように、アプリが構成されます (例: `https://localhost:5001; http://localhost:5000`)。
 
 次のいずれかの方法を使用して、`dotnet run` コマンド用の開発または開発環境 (Visual Studio Code の F5 または Ctrl + F5 キー) で証明書を使用するように、アプリを構成します。
 

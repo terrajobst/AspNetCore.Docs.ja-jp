@@ -25,7 +25,6 @@ Blazor Server アプリをプリレンダリングするときに、ブラウザ
 前のコード例では、 *wwwroot/index.html* (Blazor WebAssembly または*Pages/_Host* (Blazor Server) の `<head>` 要素内に JavaScript 関数 `setElementText` を指定します。 関数は `IJSRuntime.InvokeVoidAsync` と共に呼び出され、値を返しません。
 
 ```html
-<!--  -->
 <script>
   window.setElementText = (element, text) => element.innerText = text;
 </script>
@@ -36,7 +35,7 @@ Blazor Server アプリをプリレンダリングするときに、ブラウザ
 
 次のコンポーネントは、プリレンダリングと互換性のある方法で、コンポーネントの初期化ロジックの一部として JavaScript の相互運用機能を使用する方法を示しています。 コンポーネントには、`OnAfterRenderAsync` 内からレンダリングの更新をトリガーできることが示されています。 このシナリオでは、開発者が無限ループを作成しないようにする必要があります。
 
-@No__t_0 が呼び出される場合、`ElementRef` は、コンポーネントがレンダリングされるまで JavaScript 要素が存在しないため、`OnAfterRenderAsync` ではなく、以前のライフサイクルメソッドでのみ使用されます。
+`JSRuntime.InvokeAsync` が呼び出される場合、`ElementRef` は、コンポーネントがレンダリングされるまで JavaScript 要素が存在しないため、`OnAfterRenderAsync` ではなく、以前のライフサイクルメソッドでのみ使用されます。
 
 JavaScript の相互運用呼び出しから取得された新しい状態をコンポーネントにレンダリングするために、`StateHasChanged` が呼び出されます。 このコードでは、`infoFromJs` が `null` 場合にのみ `StateHasChanged` が呼び出されるため、無限ループは作成されません。
 

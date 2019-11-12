@@ -1,24 +1,23 @@
 ---
-title: ASP.NET Core での特定のスキームで承認します。
+title: ASP.NET Core で特定のスキームを使用して承認する
 author: rick-anderson
-description: この記事では、複数の認証方法を使用する場合は、id を特定のスキームを制限する方法について説明します。
+description: この記事では、複数の認証方法を使用する場合に、特定のスキームに id を制限する方法について説明します。
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 10/22/2018
+ms.date: 11/08/2019
 uid: security/authorization/limitingidentitybyscheme
-ms.openlocfilehash: 778bb61f472ab2e76f85da5999d3c79238188f19
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 38da80519b9d5d097c24d38b5a37503174629fc4
+ms.sourcegitcommit: 4818385c3cfe0805e15138a2c1785b62deeaab90
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64897339"
+ms.lasthandoff: 11/09/2019
+ms.locfileid: "73896963"
 ---
-# <a name="authorize-with-a-specific-scheme-in-aspnet-core"></a>ASP.NET Core での特定のスキームで承認します。
+# <a name="authorize-with-a-specific-scheme-in-aspnet-core"></a>ASP.NET Core で特定のスキームを使用して承認する
 
-シングル ページ アプリケーション (Spa) など、いくつかのシナリオでは、複数の認証方法を使用する一般的なです。 など、アプリのログインに cookie ベースの認証および使用 JWT ベアラー認証 JavaScript 要求。 場合によっては、アプリは、認証ハンドラーの複数のインスタンスがあります。 たとえば、id 基本的なには 1 つが含まれている 2 つの cookie ハンドラーと 1 つは多要素認証 (MFA) がトリガーされたときに作成されます。 MFA は、ユーザーは、追加のセキュリティを必要とする操作を要求したため、トリガーされる可能性があります。
+シングルページアプリケーション (spa) などの一部のシナリオでは、複数の認証方法を使用するのが一般的です。 たとえば、アプリでは、cookie ベースの認証を使用して、JavaScript 要求のログインと JWT ベアラー認証を行うことができます。 場合によっては、アプリに認証ハンドラーのインスタンスが複数存在することがあります。 たとえば、1つのに基本 id が格納されている2つの cookie ハンドラーと、multi-factor authentication (MFA) がトリガーされたときに作成されるクッキーハンドラーがあります。 ユーザーが追加のセキュリティを必要とする操作を要求したため、MFA がトリガーされる可能性があります。
 
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[ASP.NET Core 2.x](#tab/aspnetcore2x)
-
-認証サービスが認証時に構成されている場合は、認証方式がという名前です。 例:
+認証時に認証サービスが構成されると、認証スキームに名前が付けられます。 (例:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -36,50 +35,14 @@ public void ConfigureServices(IServiceCollection services)
         });
 ```
 
-上記のコードでは、2 つの認証ハンドラーが追加されています。 cookie とベアラーのいずれかのいずれか。
+上記のコードでは、2つの認証ハンドラーが追加されています。1つは cookie 用で、もう1つはベアラー用です。
 
 >[!NOTE]
->既定のスキームを指定する、`HttpContext.User`プロパティがその id に設定されています。 その動作が必要ない場合は無効のパラメーターなしのフォームを呼び出すことによって`AddAuthentication`します。
+>既定のスキームを指定すると、`HttpContext.User` プロパティがその id に設定されます。 この動作が望ましくない場合は、`AddAuthentication`のパラメーターなしの形式を呼び出して無効にします。
 
-# <a name="aspnet-core-1xtabaspnetcore1x"></a>[ASP.NET Core 1.x](#tab/aspnetcore1x)
+## <a name="selecting-the-scheme-with-the-authorize-attribute"></a>認証属性を使用したスキームの選択
 
-認証方式は、認証ミドルウェアが認証時に構成されている場合に名前です。 例えば:
-
-```csharp
-public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-{
-    // Code omitted for brevity
-
-    app.UseCookieAuthentication(new CookieAuthenticationOptions()
-    {
-        AuthenticationScheme = "Cookie",
-        LoginPath = "/Account/Unauthorized/",
-        AccessDeniedPath = "/Account/Forbidden/",
-        AutomaticAuthenticate = false
-    });
-    
-    app.UseJwtBearerAuthentication(new JwtBearerOptions()
-    {
-        AuthenticationScheme = "Bearer",
-        AutomaticAuthenticate = false,
-        Audience = "http://localhost:5001/",
-        Authority = "http://localhost:5000/",
-        RequireHttpsMetadata = false
-    });
-```
-
-上記のコードでは、2 つの認証ミドルウェアが追加されています。 cookie とベアラーのいずれかのいずれか。
-
->[!NOTE]
->既定のスキームを指定する、`HttpContext.User`プロパティがその id に設定されています。 その動作が必要ない場合は無効を設定して、`AuthenticationOptions.AutomaticAuthenticate`プロパティを`false`します。
-
----
-
-## <a name="selecting-the-scheme-with-the-authorize-attribute"></a>Authorize 属性を持つスキームを選択します。
-
-承認、時点では、アプリは、使用するハンドラーを示します。 使用する認証スキームのコンマ区切りの一覧を渡すことによって、アプリは承認ハンドラーを選択して`[Authorize]`します。 `[Authorize]`属性は、認証方式、または、既定値が構成されているかどうかに関係なく使用するスキームを指定します。 例:
-
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[ASP.NET Core 2.x](#tab/aspnetcore2x)
+承認の時点で、アプリは使用するハンドラーを示します。 認証スキームのコンマ区切りリストを `[Authorize]`に渡すことによって、アプリが承認するハンドラーを選択します。 `[Authorize]` 属性は、既定値が構成されているかどうかに関係なく、使用する認証スキームを指定します。 (例:
 
 ```csharp
 [Authorize(AuthenticationSchemes = AuthSchemes)]
@@ -92,24 +55,7 @@ public class MixedController : Controller
         JwtBearerDefaults.AuthenticationScheme;
 ```
 
-# <a name="aspnet-core-1xtabaspnetcore1x"></a>[ASP.NET Core 1.x](#tab/aspnetcore1x)
-
-```csharp
-[Authorize(ActiveAuthenticationSchemes = AuthSchemes)]
-public class MixedController : Controller
-    // Requires the following imports:
-    // using Microsoft.AspNetCore.Authentication.Cookies;
-    // using Microsoft.AspNetCore.Authentication.JwtBearer;
-    private const string AuthSchemes =
-        CookieAuthenticationDefaults.AuthenticationScheme + "," +
-        JwtBearerDefaults.AuthenticationScheme;
-```
-
----
-
-前の例では、ベアラーとクッキー ハンドラーは実行し、作成して、現在のユーザーの id を追加すること。 1 つのスキームのみを指定すると、対応するハンドラーが実行されます。
-
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[ASP.NET Core 2.x](#tab/aspnetcore2x)
+前の例では、cookie ハンドラーとベアラーハンドラーの両方が実行され、現在のユーザーの id を作成して追加する機会があります。 1つのスキームのみを指定すると、対応するハンドラーが実行されます。
 
 ```csharp
 [Authorize(AuthenticationSchemes = 
@@ -117,21 +63,11 @@ public class MixedController : Controller
 public class MixedController : Controller
 ```
 
-# <a name="aspnet-core-1xtabaspnetcore1x"></a>[ASP.NET Core 1.x](#tab/aspnetcore1x)
+前のコードでは、"ベアラー" スキームを持つハンドラーだけが実行されます。 Cookie ベースの id は無視されます。
 
-```csharp
-[Authorize(ActiveAuthenticationSchemes = 
-    JwtBearerDefaults.AuthenticationScheme)]
-public class MixedController : Controller
-```
+## <a name="selecting-the-scheme-with-policies"></a>ポリシーを使用したスキームの選択
 
----
-
-上記のコードでは、"Bearer"スキームでハンドラーのみが実行されます。 Cookie ベース id は無視されます。
-
-## <a name="selecting-the-scheme-with-policies"></a>ポリシーの設定を選択します。
-
-必要な方式を指定する場合[ポリシー](xref:security/authorization/policies)を設定することができます、`AuthenticationSchemes`ポリシーを追加するときに、コレクション。
+[ポリシー](xref:security/authorization/policies)で目的のスキームを指定する場合は、ポリシーを追加するときに `AuthenticationSchemes` コレクションを設定できます。
 
 ```csharp
 services.AddAuthorization(options =>
@@ -145,7 +81,7 @@ services.AddAuthorization(options =>
 });
 ```
 
-前の例では、"over18 という"ポリシーは、"Bearer"ハンドラーによって作成された id に対してのみ実行されます。 設定して、ポリシーを使用して、`[Authorize]`属性の`Policy`プロパティ。
+前の例では、"Over18" ポリシーは "ベアラー" ハンドラーによって作成された id に対してのみ実行されます。 ポリシーを使用するには、`[Authorize]` 属性の `Policy` プロパティを設定します。
 
 ```csharp
 [Authorize(Policy = "Over18")]
@@ -154,11 +90,11 @@ public class RegistrationController : Controller
 
 ::: moniker range=">= aspnetcore-2.0"
 
-## <a name="use-multiple-authentication-schemes"></a>複数の認証方式を使用して、
+## <a name="use-multiple-authentication-schemes"></a>複数の認証方式を使用する
 
-一部のアプリは、複数の種類の認証をサポートする必要があります。 など、アプリがユーザー データベースと Azure Active Directory からユーザーを認証する可能性があります。 別の例は、Active Directory フェデレーション サービスと Azure Active Directory B2C の両方からユーザーを認証するアプリです。 この場合、アプリでは、いくつかの発行者から JWT ベアラー トークンを受け入れる必要があります。
+アプリによっては、複数の種類の認証をサポートする必要がある場合があります。 たとえば、アプリは Azure Active Directory とユーザーデータベースからユーザーを認証する場合があります。 もう1つの例として、Active Directory フェデレーションサービス (AD FS) と Azure Active Directory B2C の両方からユーザーを認証するアプリがあります。 この場合、アプリはいくつかの発行者から JWT ベアラートークンを受け入れる必要があります。
 
-そのまま使用したいすべての認証スキームを追加します。 次のコード例では、`Startup.ConfigureServices`さまざまな発行者で 2 つの JWT ベアラー認証スキームを追加します。
+同意するすべての認証スキームを追加します。 たとえば、`Startup.ConfigureServices` の次のコードは、異なる発行者を持つ2つの JWT ベアラー認証スキームを追加します。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -180,9 +116,9 @@ public void ConfigureServices(IServiceCollection services)
 ```
 
 > [!NOTE]
-> 既定の認証スキームは 1 つだけの JWT ベアラー認証に登録されて`JwtBearerDefaults.AuthenticationScheme`します。 追加の認証は、一意の認証スキームを登録することができます。
+> 既定の認証スキーム `JwtBearerDefaults.AuthenticationScheme`に登録されている JWT ベアラー認証は1つだけです。 追加の認証は、一意の認証スキームを使用して登録する必要があります。
 
-次の手順では、両方の認証方式を受け入れるように既定の承認ポリシーを更新します。 例えば:
+次の手順では、両方の認証方式を受け入れるように既定の承認ポリシーを更新します。 (例:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -201,6 +137,6 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-使用することは、既定の承認ポリシーがオーバーライドされると、`[Authorize]`コント ローラー内の属性。 コント ローラーは、最初または 2 番目の発行者によって発行された JWT に、要求を受け入れます。
+既定の承認ポリシーがオーバーライドされると、コントローラーで `[Authorize]` 属性を使用できるようになります。 コントローラーは、最初または2番目の発行者によって発行された JWT の要求を受け入れます。
 
 ::: moniker-end

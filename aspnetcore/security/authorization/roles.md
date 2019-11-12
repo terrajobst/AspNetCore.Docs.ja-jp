@@ -1,28 +1,28 @@
 ---
 title: ASP.NET Core でのロールベースの承認
 author: rick-anderson
-description: Authorize 属性にロールを渡すことによって、ASP.NET Core のコント ローラーとアクションのアクセスを制限する方法について説明します。
+description: ロールを承認属性に渡すことによって、ASP.NET Core コントローラーとアクションアクセスを制限する方法について説明します。
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/authorization/roles
-ms.openlocfilehash: 0e01e1976e2721ca64720a67c6341661f646395c
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 28aa3df6aa661d0b762df78fe611cd827af43f75
+ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64894119"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73660046"
 ---
 # <a name="role-based-authorization-in-aspnet-core"></a>ASP.NET Core でのロールベースの承認
 
 <a name="security-authorization-role-based"></a>
 
-Id が作成されたときに、1 つまたは複数のロールに属する可能性があります。 たとえば、Tracy は、Scott は、ユーザー ロールにのみ属することがあります、管理者およびユーザー ロールに属して可能性があります。 これらのロールを作成および管理する方法は、承認プロセスのバッキング ストアに依存します。 ロールは、開発者に公開、 [IsInRole](/dotnet/api/system.security.principal.genericprincipal.isinrole)メソッドを[ClaimsPrincipal](/dotnet/api/system.security.claims.claimsprincipal)クラス。
+Id が作成されると、1つまたは複数のロールに属することができます。 たとえば、Tracy は管理者ロールとユーザーロールに属している場合がありますが、Scott はユーザーロールのみに属している可能性があります。 これらのロールを作成および管理する方法は、承認プロセスのバッキングストアによって異なります。 ロールは、 [ClaimsPrincipal](/dotnet/api/system.security.claims.claimsprincipal)クラスの[IsInRole](/dotnet/api/system.security.principal.genericprincipal.isinrole)メソッドを使用して開発者に公開されます。
 
-## <a name="adding-role-checks"></a>追加の役割の確認
+## <a name="adding-role-checks"></a>ロールチェックの追加
 
-ロール ベースの承認チェックは、宣言型&mdash;開発者それらを埋め込みます、コント ローラーまたはコント ローラー内のアクションに対して、コード内で要求されたリソースにアクセスするのメンバーである必要があります、現在のユーザー ロールを指定します。
+ロールベースの承認チェックは、開発者がコントローラーまたはコントローラー内のアクションに対してコード内に埋め込む&mdash;宣言型です。要求されたリソースにアクセスするには、現在のユーザーがメンバーである必要があるロールを指定します。
 
-次のコードがすべてのアクションへのアクセスを制限するなど、`AdministrationController`のメンバーであるユーザーに、`Administrator`ロール。
+たとえば、次のコードは、`Administrator` ロールのメンバーであるユーザーに、`AdministrationController` のアクションへのアクセスを制限します。
 
 ```csharp
 [Authorize(Roles = "Administrator")]
@@ -31,7 +31,7 @@ public class AdministrationController : Controller
 }
 ```
 
-複数のロールは、コンマ区切りリストとして指定できます。
+複数のロールは、コンマ区切りの一覧として指定できます。
 
 ```csharp
 [Authorize(Roles = "HRManager,Finance")]
@@ -40,9 +40,9 @@ public class SalaryController : Controller
 }
 ```
 
-このコント ローラーがメンバーであるユーザーがアクセスのみができるは`HRManager`ロールまたは`Finance`ロール。
+このコントローラーにアクセスできるのは、`HRManager` ロールまたは `Finance` ロールのメンバーであるユーザーだけです。
 
-アクセスのユーザーは、指定したすべてのロールのメンバーである必要がありますし、複数の属性を適用する場合次の例では、ユーザーが両方のメンバーでなければならないことが必要です、`PowerUser`と`ControlPanelUser`ロール。
+複数の属性を適用する場合、アクセスするユーザーは、指定されたすべてのロールのメンバーである必要があります。次の例では、ユーザーが `PowerUser` ロールと `ControlPanelUser` ロールの両方のメンバーである必要があります。
 
 ```csharp
 [Authorize(Roles = "PowerUser")]
@@ -52,7 +52,7 @@ public class ControlPanelController : Controller
 }
 ```
 
-さらに、アクション レベルで追加のロールの承認属性を適用することでアクセスを制限できます。
+アクションレベルで追加のロール承認属性を適用することで、さらにアクセスを制限できます。
 
 ```csharp
 [Authorize(Roles = "Administrator, PowerUser")]
@@ -69,9 +69,9 @@ public class ControlPanelController : Controller
 }
 ```
 
-前のコード スニペットのメンバーで、`Administrator`ロールまたは`PowerUser`コント ローラーにアクセスできるロールと`SetTime`アクションがのメンバーのみ、`Administrator`ロールがアクセスできる、`ShutDown`アクション。
+前のコードスニペットでは、`Administrator` ロールのメンバー、または `PowerUser` ロールはコントローラーと `SetTime` アクションにアクセスできますが、`ShutDown` アクションにアクセスできるのは `Administrator` ロールのメンバーだけです。
 
-コント ローラーのロックダウンも、個々 のアクションへの匿名、認証されていないアクセスを許可できます。
+コントローラーをロックダウンすることもできますが、個々のアクションへの認証されていない匿名アクセスが許可されます。
 
 ```csharp
 [Authorize]
@@ -90,10 +90,10 @@ public class ControlPanelController : Controller
 
 ::: moniker range=">= aspnetcore-2.0"
 
-Razor ページの場合、`AuthorizeAttribute`いずれかで適用できます。
+Razor Pages の場合、`AuthorizeAttribute` は次のいずれかの方法で適用できます。
 
-* 使用して、[規則](xref:razor-pages/razor-pages-conventions#page-model-action-conventions)、または
-* 適用、`AuthorizeAttribute`を`PageModel`インスタンス。
+* [規則](xref:razor-pages/razor-pages-conventions#page-model-action-conventions)の使用、または
+* `PageModel` インスタンスに `AuthorizeAttribute` を適用します。
 
 ```csharp
 [Authorize(Policy = "RequireAdministratorRole")]
@@ -106,15 +106,32 @@ public class UpdateModel : PageModel
 ```
 
 > [!IMPORTANT]
-> などの属性をフィルター処理`AuthorizeAttribute`PageModel にのみ適用できる、特定のページ ハンドラー メソッドには適用できません。
+> `AuthorizeAttribute`を含むフィルター属性は、PageModel にのみ適用でき、特定のページハンドラーメソッドに適用することはできません。
 ::: moniker-end
 
 <a name="security-authorization-role-policy"></a>
 
-## <a name="policy-based-role-checks"></a>ポリシー ベースの役割の確認
+## <a name="policy-based-role-checks"></a>ポリシーベースのロールチェック
 
-承認サービスの構成の一部として、開発者が起動時にポリシーを登録、新しいポリシーの構文を使用しても、役割の要件を表現できます。 これに通常発生`ConfigureServices()`で、 *Startup.cs*ファイル。
+ロール要件は、新しいポリシー構文を使用して表すこともできます。ここでは、開発者が承認サービス構成の一部としてスタートアップ時にポリシーを登録します。 これは通常、 *Startup.cs*ファイルの `ConfigureServices()` で発生します。
 
+::: moniker range=">= aspnetcore-3.0"
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddControllersWithViews();
+    services.AddRazorPages();
+
+    services.AddAuthorization(options =>
+    {
+        options.AddPolicy("RequireAdministratorRole",
+             policy => policy.RequireRole("Administrator"));
+    });
+}
+```
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
@@ -127,8 +144,9 @@ public void ConfigureServices(IServiceCollection services)
     });
 }
 ```
+::: moniker-end
 
-使用してポリシーが適用される、`Policy`プロパティを`AuthorizeAttribute`属性。
+ポリシーは、`AuthorizeAttribute` 属性の `Policy` プロパティを使用して適用されます。
 
 ```csharp
 [Authorize(Policy = "RequireAdministratorRole")]
@@ -138,17 +156,24 @@ public IActionResult Shutdown()
 }
 ```
 
-要件で許可されている複数のロールを指定するかどうかは、それらを指定するにはパラメーターとして、`RequireRole`メソッド。
+要件に複数の許可されたロールを指定する場合は、`RequireRole` メソッドのパラメーターとして指定できます。
 
 ```csharp
 options.AddPolicy("ElevatedRights", policy =>
                   policy.RequireRole("Administrator", "PowerUser", "BackupAdministrator"));
 ```
 
-この例に属しているユーザーの承認、 `Administrator`、`PowerUser`または`BackupAdministrator`ロール。
+この例では、`Administrator`、`PowerUser` または `BackupAdministrator` ロールに属しているユーザーを承認します。
 
-### <a name="add-role-services-to-identity"></a>役割サービスの Id を追加します。
+### <a name="add-role-services-to-identity"></a>Id への役割サービスの追加
 
-追加[AddRoles](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1)役割サービスを追加します。
+役割サービスを追加するには、 [Addroles](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1)を追加します。
 
-[!code-csharp[](roles/samples/Startup.cs?name=snippet&highlight=7)]
+::: moniker range=">= aspnetcore-3.0"
+[!code-csharp[](roles/samples/3_0/Startup.cs?name=snippet&highlight=7)]
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+[!code-csharp[](roles/samples/2_2/Startup.cs?name=snippet&highlight=7)]
+::: moniker-end
+

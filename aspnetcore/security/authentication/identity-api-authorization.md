@@ -5,14 +5,14 @@ description: ASP.NET Core アプリ内でホストされるシングルページ
 monikerRange: '>= aspnetcore-3.0'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 10/29/2019
+ms.date: 11/08/2019
 uid: security/authentication/identity/spa
-ms.openlocfilehash: 98df1aa1671c22384252676c56e8cb4a3a0a35eb
-ms.sourcegitcommit: 032113208bb55ecfb2faeb6d3e9ea44eea827950
+ms.openlocfilehash: f58d92634ce1ef6110533d56c40b7520dda90514
+ms.sourcegitcommit: 4818385c3cfe0805e15138a2c1785b62deeaab90
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/31/2019
-ms.locfileid: "73190493"
+ms.lasthandoff: 11/09/2019
+ms.locfileid: "73897050"
 ---
 # <a name="authentication-and-authorization-for-spas"></a>SPAs の認証と承認
 
@@ -175,13 +175,37 @@ API の JWT ハンドラーの構成をカスタマイズするには、その <
 services.AddAuthentication()
     .AddIdentityServerJwt();
 
-services.ConfigureOptions<JwtBearerOptions>(
+services.Configure<JwtBearerOptions>(
     IdentityServerJwtConstants.IdentityServerJwtBearerScheme,
     options =>
     {
         ...
     });
 ```
+
+API の JWT ハンドラーは、`JwtBearerEvents`を使用して認証プロセスを制御できるようにするイベントを発生させます。 API 認証のサポートを提供するために、`AddIdentityServerJwt` 独自のイベントハンドラーを登録します。
+
+イベントの処理をカスタマイズするには、必要に応じて追加のロジックを使用して既存のイベントハンドラーをラップします。 (例:
+
+```csharp
+services.Configure<JwtBearerOptions>(
+    IdentityServerJwtConstants.IdentityServerJwtBearerScheme,
+    options =>
+    {
+        var onTokenValidated = options.Events.OnTokenValidated;       
+        
+        options.Events.OnTokenValidated = async context =>
+        {
+            await onTokenValidated(context);
+            ...
+        }
+    });
+```
+
+前のコードでは、`OnTokenValidated` イベントハンドラーはカスタム実装に置き換えられています。 この実装は次のとおりです。
+
+1. API 承認サポートによって提供される元の実装を呼び出します。
+1. 独自のカスタムロジックを実行します。
 
 ## <a name="protect-a-client-side-route-angular"></a>クライアント側のルートを保護する (角度)
 

@@ -5,14 +5,14 @@ description: Microsoft.Extensions.Logging NuGet パッケージで提供され�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/08/2019
+ms.date: 11/05/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: 697e6cf0cd1b51ad6c2942e21bc084d1fe6bfa4e
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: 2cb19d251ad69ebd7d18480c14857e948c69b747
+ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259736"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73659968"
 ---
 # <a name="logging-in-net-core-and-aspnet-core"></a>.NET Core および ASP.NET Core でのログ記録
 
@@ -131,6 +131,69 @@ ASP.NET Core アプリの `Program` クラスでログを書き込むには、�
 
 [!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_LogFromMain&highlight=9,10)]
 
+ホストの構築時のログ記録は、直接サポートされていません。 ただし、別のロガーを使用することができます。 次の例では、`CreateHostBuilder` でログを記録するために、[Serilog](https://serilog.net/) ロガーが使用されています。 `AddSerilog` では、`Log.Logger` で指定された静的な構成が使用されます。
+
+```csharp
+using System;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        CreateHostBuilder(args).Build().Run();
+    }
+
+    public static IHostBuilder CreateHostBuilder(string[] args)
+    {
+        var builtConfig = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json")
+            .AddCommandLine(args)
+            .Build();
+
+        Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .WriteTo.File(builtConfig["Logging:FilePath"])
+            .CreateLogger();
+
+        try
+        {
+            return Host.CreateDefaultBuilder(args)
+                .ConfigureServices((context, services) =>
+                {
+                    services.AddRazorPages();
+                })
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    config.AddConfiguration(builtConfig);
+                })
+                .ConfigureLogging(logging =>
+                {   
+                    logging.AddSerilog();
+                })
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
+        }
+        catch (Exception ex)
+        {
+            Log.Fatal(ex, "Host builder error");
+
+            throw;
+        }
+        finally
+        {
+            Log.CloseAndFlush();
+        }
+    }
+}
+```
+
 ### <a name="create-logs-in-the-startup-class"></a>Startup クラスでログを作成する
 
 ASP.NET Core アプリの `Startup.Configure` メソッドでログを書き込むには、メソッド シグネチャに `ILogger` パラメーターを含めます。
@@ -167,6 +230,66 @@ ASP.NET Core の以前のバージョンでは Web ホスト用に別の DI コ�
 `Program` クラスでログを作成するには、DI から `ILogger` インスタンスを取得します。
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_LogFromMain&highlight=9,10)]
+
+ホストの構築時のログ記録は、直接サポートされていません。 ただし、別のロガーを使用することができます。 次の例では、`CreateWebHostBuilder` でログを記録するために、[Serilog](https://serilog.net/) ロガーが使用されています。 `AddSerilog` では、`Log.Logger` で指定された静的な構成が使用されます。
+
+```csharp
+using System;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        CreateWebHostBuilder(args).Build().Run();
+    }
+
+    public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+    {
+        var builtConfig = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json")
+            .AddCommandLine(args)
+            .Build();
+
+        Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .WriteTo.File(builtConfig["Logging:FilePath"])
+            .CreateLogger();
+
+        try
+        {
+            return WebHost.CreateDefaultBuilder(args)
+                .ConfigureServices((context, services) =>
+                {
+                    services.AddMvc();
+                })
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    config.AddConfiguration(builtConfig);
+                })
+                .ConfigureLogging(logging =>
+                {
+                    logging.AddSerilog();
+                })
+                .UseStartup<Startup>();
+        }
+        catch (Exception ex)
+        {
+            Log.Fatal(ex, "Host builder error");
+
+            throw;
+        }
+        finally
+        {
+            Log.CloseAndFlush();
+        }
+    }
+}
+```
 
 ::: moniker-end
 

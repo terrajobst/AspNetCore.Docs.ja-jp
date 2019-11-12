@@ -5,14 +5,14 @@ description: アプリやデータベースなど、ASP.NET Core インフラス
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/27/2019
+ms.date: 11/03/2019
 uid: host-and-deploy/health-checks
-ms.openlocfilehash: e4b2a577815335078f7e0c9128144a514e42a6c3
-ms.sourcegitcommit: 5d25a7f22c50ca6fdd0f8ecd8e525822e1b35b7a
+ms.openlocfilehash: c7cf1c432d2186f0e2f9f5082e8a2229d8a5ef8f
+ms.sourcegitcommit: 9e85c2562df5e108d7933635c830297f484bb775
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/28/2019
-ms.locfileid: "71482051"
+ms.lasthandoff: 11/04/2019
+ms.locfileid: "73463020"
 ---
 # <a name="health-checks-in-aspnet-core"></a>ASP.NET Core の正常性チェック
 
@@ -36,7 +36,7 @@ ASP.NET Core からは、アプリ インフラストラクチャ コンポー�
 
 正常性チェックは通常、アプリの状態を確認する目的で、外部の監視サービスまたはコンテナー オーケストレーターと共に使用されます。 正常性チェックをアプリに追加する前に、使用する監視システムを決定します。 監視システムからは、作成する正常性チェックの種類とそのエンドポイントの設定方法が指示されます。
 
-[Microsoft.AspNetCore.Diagnostics.HealthChecks](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics.HealthChecks) パッケージへのパッケージ参照を追加します。 Entity Framework Core を使用して正常性チェックを実行するには、[Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore) パッケージへのパッケージ参照を追加します。
+[Microsoft.AspNetCore.Diagnostics.HealthChecks](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics.HealthChecks) パッケージは、ASP.NET Core アプリに対して暗黙的に参照されます。 Entity Framework Core を使用して正常性チェックを実行するには、[Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore) パッケージへのパッケージ参照を追加します。
 
 サンプル アプリからは、いくつかのシナリオで正常性チェックを実演するスタートアップ コードが提供されます。 [データベース プローブ](#database-probe) シナリオでは、[AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) を使用して、データベース接続の正常性がチェックされます。 [DbContext プローブ](#entity-framework-core-dbcontext-probe) シナリオでは、EF Core `DbContext` を使用して、データベースがチェックされます。 データベース シナリオを探索するために、サンプル アプリでは次のことが行われます:
 

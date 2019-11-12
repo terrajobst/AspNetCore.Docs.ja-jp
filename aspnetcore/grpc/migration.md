@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 09/25/2019
 uid: grpc/migration
-ms.openlocfilehash: 596eca0f510387a18472eb353672980e0a8e0d24
-ms.sourcegitcommit: eb4fcdeb2f9e8413117624de42841a4997d1d82d
+ms.openlocfilehash: c4c07808540c9af370bfa253e8154a8a19f0f3de
+ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/21/2019
-ms.locfileid: "72697995"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73634063"
 ---
 # <a name="migrating-grpc-services-from-c-core-to-aspnet-core"></a>GRPC サービスの C-core から ASP.NET Core への移行
 
@@ -80,9 +80,27 @@ public class GreeterService : Greeter.GreeterBase
 
 C コアベースのアプリは、 [Server. Ports プロパティ](https://grpc.io/grpc/csharp/api/Grpc.Core.Server.html#Grpc_Core_Server_Ports)を使用して HTTPS を構成します。 同様の概念は、ASP.NET Core でサーバーを構成するために使用されます。 たとえば、Kestrel は、この機能に[エンドポイント構成](xref:fundamentals/servers/kestrel#endpoint-configuration)を使用します。
 
-## <a name="interceptors-and-middleware"></a>インターセプターとミドルウェア
+## <a name="grpc-interceptors-vs-middleware"></a>gRPC インターセプターとミドルウェア
 
-ASP.NET Core[ミドルウェア](xref:fundamentals/middleware/index)は、C コアベースの grpc アプリのインターセプターと比較して同様の機能を提供します。 ミドルウェアとインターセプターは、両方とも、gRPC 要求を処理するパイプラインを構築するために使用されるのと同じです。 どちらも、パイプライン内の次のコンポーネントの前または後に作業を実行できます。 ただし、ASP.NET Core ミドルウェアは基になる HTTP/2 メッセージに対して動作しますが、インターセプターは[ServerCallContext](https://grpc.io/grpc/csharp/api/Grpc.Core.ServerCallContext.html)を使用して、抽象の grpc レイヤーで動作します。
+ASP.NET Core[ミドルウェア](xref:fundamentals/middleware/index)は、C コアベースの grpc アプリのインターセプターと比較して同様の機能を提供します。 ASP.NET Core ミドルウェアとインターセプターは概念的に似ています。 両方とも：
+
+* は、gRPC 要求を処理するパイプラインを構築するために使用されます。
+* パイプライン内の次のコンポーネントの前または後に作業を実行することを許可します。
+* `HttpContext`へのアクセスを提供します。
+  * ミドルウェアでは、`HttpContext` はパラメーターです。
+  * インターセプターでは、`ServerCallContext.GetHttpContext` 拡張メソッドで `ServerCallContext` パラメーターを使用して `HttpContext` にアクセスできます。 この機能は、ASP.NET Core で実行されているインターセプターに固有の機能であることに注意してください。
+
+gRPC インターセプターと ASP.NET Core ミドルウェアの違い:
+
+* インターセプター
+  * [ServerCallContext](https://grpc.io/grpc/csharp/api/Grpc.Core.ServerCallContext.html)を使用して、抽象化の grpc レイヤーを操作します。
+  * 次へのアクセスを提供します。
+    * 呼び出しに送信された逆シリアル化されたメッセージ。
+    * シリアル化される前に、呼び出しから返されるメッセージ。
+* ミドルウェア
+  * GRPC インターセプターの前に実行されます。
+  * は、基になる HTTP/2 メッセージを操作します。
+  * は、要求ストリームと応答ストリームからのみバイトにアクセスできます。
 
 ## <a name="additional-resources"></a>その他の技術情報
 
