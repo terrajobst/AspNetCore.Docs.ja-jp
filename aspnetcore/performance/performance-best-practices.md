@@ -4,14 +4,16 @@ author: mjrousos
 description: ASP.NET Core アプリのパフォーマンスを向上させ、一般的なパフォーマンスの問題を回避するためのヒントです。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 09/26/2019
+ms.date: 11/12/2019
+no-loc:
+- SignalR
 uid: performance/performance-best-practices
-ms.openlocfilehash: 1cd4ca6fccfee674f46e87ba051e049f7daa5b66
-ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
+ms.openlocfilehash: 279bf352580e5e45fc005e800ee536871210409b
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/07/2019
-ms.locfileid: "73799522"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963242"
 ---
 # <a name="aspnet-core-performance-best-practices"></a>ASP.NET Core パフォーマンスのベストプラクティス
 
@@ -117,7 +119,7 @@ ASP.NET Core アプリに対するほとんどの要求は、必要なサービ�
 
 * 通常の HTTP 要求処理の一部として、長時間実行されるタスクが完了するまで待機しない**で**ください。
 * [バックグラウンドサービス](xref:fundamentals/host/hosted-services)で長時間実行される要求や、 [Azure 関数](/azure/azure-functions/)を使用したアウトプロセスを処理すること**を検討してください。** 特に、CPU を集中的に使用するタスクには、アウトプロセスの完了が役立ちます。
-* [SignalR](xref:signalr/introduction)などのリアルタイム通信オプション**を使用し**て、クライアントと非同期的に通信します。
+* [SignalR](xref:signalr/introduction)などのリアルタイム通信オプションを使用して、クライアントと非同期的に**通信します**。
 
 ## <a name="minify-client-assets"></a>クライアント資産の縮小
 
