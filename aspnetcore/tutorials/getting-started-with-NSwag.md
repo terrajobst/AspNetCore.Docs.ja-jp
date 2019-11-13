@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 06/21/2019
 uid: tutorials/get-started-with-nswag
-ms.openlocfilehash: 5e62a8cc50947969d42981350b65a24781929d62
-ms.sourcegitcommit: fe88748b762525cb490f7e39089a4760f6a73a24
+ms.openlocfilehash: 23927e6ce0a7b29ce3f32d4e7f7d3f234257ca9b
+ms.sourcegitcommit: eb2fe5ad2e82fab86ca952463af8d017ba659b25
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/30/2019
-ms.locfileid: "71691183"
+ms.lasthandoff: 11/01/2019
+ms.locfileid: "73416154"
 ---
 # <a name="get-started-with-nswag-and-aspnet-core"></a>NSwag と ASP.NET Core の概要
 
@@ -265,7 +265,7 @@ NSwag では [Reflection](/dotnet/csharp/programming-guide/concepts/reflection) 
 
 ::: moniker range=">= aspnetcore-2.1"
 
- NSwag では [Reflection](/dotnet/csharp/programming-guide/concepts/reflection) が使用されます。また、Web API アクションに推奨される戻り値の型は [ActionResult\<T>](xref:Microsoft.AspNetCore.Mvc.ActionResult%601) です。そのため、`T` によって定義される戻り値の型のみを推測できます。 考えられる他の戻り値の型を自動的に推測することはできません。
+NSwag では [Reflection](/dotnet/csharp/programming-guide/concepts/reflection) が使用されます。また、Web API アクションに推奨される戻り値の型は [ActionResult\<T>](xref:Microsoft.AspNetCore.Mvc.ActionResult%601) です。そのため、`T` によって定義される戻り値の型のみを推測できます。 考えられる他の戻り値の型を自動的に推測することはできません。
 
 次に例を示します。
 

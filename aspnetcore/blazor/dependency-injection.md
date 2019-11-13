@@ -1,31 +1,33 @@
 ---
-title: ASP.NET Core Blazor の依存関係の挿入
+title: ASP.NET Core Blazor 依存関係の挿入
 author: guardrex
-description: Blazor アプリがコンポーネントにサービスを挿入する方法を確認します。
+description: Blazor アプリがコンポーネントにサービスを挿入する方法について説明します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/15/2019
+no-loc:
+- Blazor
 uid: blazor/dependency-injection
-ms.openlocfilehash: b548f0e50e1a60b74969e5bbee43860be9ba5a7f
-ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
+ms.openlocfilehash: a39d913636afc55ac9d831de923ba7ae8db1216b
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72391137"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963079"
 ---
-# <a name="aspnet-core-blazor-dependency-injection"></a>ASP.NET Core Blazor の依存関係の挿入
+# <a name="aspnet-core-opno-locblazor-dependency-injection"></a>ASP.NET Core Blazor 依存関係の挿入
 
 [Rainer Stropek](https://www.timecockpit.com)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-Blazor では、[依存関係の挿入 (DI)](xref:fundamentals/dependency-injection)がサポートされています。 アプリは、組み込みのサービスをコンポーネントに挿入することによって使用できます。 アプリでは、カスタムサービスを定義して登録し、DI を使用してアプリ全体で使用できるようにすることもできます。
+Blazor は、[依存関係の挿入 (DI)](xref:fundamentals/dependency-injection)をサポートしています。 アプリは、組み込みのサービスをコンポーネントに挿入することによって使用できます。 アプリでは、カスタムサービスを定義して登録し、DI を使用してアプリ全体で使用できるようにすることもできます。
 
 DI は、中央の場所で構成されたサービスにアクセスするための手法です。 これは、Blazor アプリで次のような場合に役立ちます。
 
 * 1つのサービスクラスのインスタンスを、*シングルトン*サービスと呼ばれる多数のコンポーネントで共有します。
-* 参照の抽象化を使用して、具象サービスクラスからコンポーネントを分離します。 たとえば、アプリ内のデータにアクセスするためのインターフェイス `IDataAccess` を考えてみます。 インターフェイスは、具象 @no__t 0 クラスによって実装され、アプリのサービスコンテナーにサービスとして登録されます。 コンポーネントが DI を使用して @no__t 0 の実装を受け取ると、コンポーネントは具象型に結合されません。 の実装はスワップできます。たとえば、単体テストのモック実装では、
+* 参照の抽象化を使用して、具象サービスクラスからコンポーネントを分離します。 たとえば、アプリ内のデータにアクセスするためのインターフェイス `IDataAccess` を考えてみます。 インターフェイスは具象 `DataAccess` クラスによって実装され、アプリのサービスコンテナーにサービスとして登録されます。 コンポーネントが DI を使用して `IDataAccess` の実装を受け取ると、コンポーネントは具象型に結合されません。 の実装はスワップできます。たとえば、単体テストのモック実装では、
 
 ## <a name="default-services"></a>既定のサービス
 
@@ -33,7 +35,7 @@ DI は、中央の場所で構成されたサービスにアクセスするた�
 
 | [サービス] | 有効期間 | 説明 |
 | ------- | -------- | ----------- |
-| <xref:System.Net.Http.HttpClient> | シングルトン | URI によって識別されるリソースから HTTP 要求を送信し、HTTP 応答を受信するためのメソッドを提供します。 この @no__t のインスタンスは、ブラウザーを使用してバックグラウンドで HTTP トラフィックを処理することに注意してください。 [BaseAddress](xref:System.Net.Http.HttpClient.BaseAddress)は、アプリのベース URI プレフィックスに自動的に設定されます。 詳細については、「<xref:blazor/call-web-api>」を参照してください。 |
+| <xref:System.Net.Http.HttpClient> | シングルトン | URI によって識別されるリソースから HTTP 要求を送信し、HTTP 応答を受信するためのメソッドを提供します。 この `HttpClient` のインスタンスは、ブラウザーを使用してバックグラウンドで HTTP トラフィックを処理することに注意してください。 [BaseAddress](xref:System.Net.Http.HttpClient.BaseAddress)は、アプリのベース URI プレフィックスに自動的に設定されます。 詳細については、「<xref:blazor/call-web-api>」を参照してください。 |
 | `IJSRuntime` | シングルトン | JavaScript 呼び出しがディスパッチされる JavaScript ランタイムのインスタンスを表します。 詳細については、「<xref:blazor/javascript-interop>」を参照してください。 |
 | `NavigationManager` | シングルトン | Uri とナビゲーション状態を操作するためのヘルパーが含まれています。 詳細については、「 [URI およびナビゲーション状態ヘルパー](xref:blazor/routing#uri-and-navigation-state-helpers)」を参照してください。 |
 
@@ -41,7 +43,7 @@ DI は、中央の場所で構成されたサービスにアクセスするた�
 
 ## <a name="add-services-to-an-app"></a>アプリにサービスを追加する
 
-新しいアプリを作成した後、@no__t 0 の方法を調べます。
+新しいアプリを作成した後、`Startup.ConfigureServices` 方法を調べます。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -50,7 +52,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-@No__t-0 メソッドには、サービス記述子オブジェクト (<xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor>) のリストである <xref:Microsoft.Extensions.DependencyInjection.IServiceCollection> が渡されます。 サービスは、サービスコレクションにサービス記述子を提供することによって追加されます。 次の例は、`IDataAccess` インターフェイスとその具象実装 `DataAccess` の概念を示しています。
+`ConfigureServices` メソッドには、サービス記述子オブジェクト (<xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor>) の一覧である <xref:Microsoft.Extensions.DependencyInjection.IServiceCollection>が渡されます。 サービスは、サービスコレクションにサービス記述子を提供することによって追加されます。 次の例は、`IDataAccess` インターフェイスとその具象実装 `DataAccess` の概念を示しています。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -63,8 +65,8 @@ public void ConfigureServices(IServiceCollection services)
 
 | 有効期間 | 説明 |
 | -------- | ----------- |
-| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped*> | Blazor WebAssembly には、現在、DI スコープという概念はありません。 @no__t 横-0 サービスは、`Singleton` サービスのように動作します。 ただし、Blazor サーバーホスティングモデルでは、@no__t 0 の有効期間がサポートされています。 Blazor Server apps では、スコープ付きサービス登録は*接続*に対してスコープが設定されています。 このため、現在の目的がブラウザーでクライアント側を実行する場合でも、スコープ付きサービスを使用することは、現在のユーザーにスコープを設定する必要があるサービスに対して推奨されます。 |
-| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Singleton*> | DI は、サービスの*1 つのインスタンス*を作成します。 @No__t 0 サービスを必要とするすべてのコンポーネントは、同じサービスのインスタンスを受け取ります。 |
+| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped*> | Blazor WebAssembly には、現在、DI スコープという概念はありません。 `Scoped`登録されたサービスは `Singleton` サービスと同様に動作します。 ただし、Blazor サーバーホスティングモデルでは、`Scoped` の有効期間がサポートされています。 Blazor サーバーアプリでは、スコープが指定されたサービス登録のスコープは*接続*になります。 このため、現在の目的がブラウザーでクライアント側を実行する場合でも、スコープ付きサービスを使用することは、現在のユーザーにスコープを設定する必要があるサービスに対して推奨されます。 |
+| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Singleton*> | DI は、サービスの*1 つのインスタンス*を作成します。 `Singleton` サービスを必要とするすべてのコンポーネントは、同じサービスのインスタンスを受け取ります。 |
 | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Transient*> | コンポーネントは、サービスコンテナーから `Transient` サービスのインスタンスを取得するたびに、サービスの*新しいインスタンス*を受け取ります。 |
 
 DI システムは ASP.NET Core の DI システムに基づいています。 詳細については、「<xref:fundamentals/dependency-injection>」を参照してください。
@@ -73,14 +75,14 @@ DI システムは ASP.NET Core の DI システムに基づいています。 �
 
 サービスがサービスコレクションに追加された後、 [\@ の注入](xref:mvc/views/razor#inject)Razor ディレクティブを使用して、サービスをコンポーネントに挿入します。 `@inject` には、次の2つのパラメーターがあります。
 
-* 「@No__t-0」と入力します。
+* 挿入するサービスの型 &ndash; 入力します。
 * プロパティ &ndash; 挿入された app service を受け取るプロパティの名前。 プロパティは手動で作成する必要はありません。 コンパイラによってプロパティが作成されます。
 
 詳細については、「<xref:mvc/views/dependency-injection>」を参照してください。
 
 複数の `@inject` ステートメントを使用して、さまざまなサービスを挿入します。
 
-次の例は、`@inject` を使用する方法を示しています。 @No__t-0 を実装するサービスは、コンポーネントのプロパティ `DataRepository` に挿入されます。 コードが @no__t 0 の抽象化を使用するかどうかに注意してください。
+次の例は、`@inject` を使用する方法を示しています。 `Services.IDataAccess` を実装するサービスは、コンポーネントのプロパティ `DataRepository`に挿入されます。 コードが `IDataAccess` 抽象化を使用するかどうかに注意してください。
 
 [!code-cshtml[](dependency-injection/samples_snapshot/3.x/CustomerList.razor?highlight=2-3,23)]
 
@@ -107,7 +109,7 @@ public class ComponentBase : IComponent
 
 ## <a name="use-di-in-services"></a>サービスで DI を使用する
 
-複雑なサービスでは、追加のサービスが必要になる場合があります。 前の例では、`DataAccess` で @no__t 既定のサービスが必要になる場合があります。 `@inject` (または `InjectAttribute`) は、サービスで使用できません。 代わりに*コンストラクターの挿入*を使用する必要があります。 必要なサービスは、サービスのコンストラクターにパラメーターを追加することによって追加されます。 DI は、サービスを作成するときに、必要なサービスをコンストラクターで認識し、それに応じてそれを提供します。
+複雑なサービスでは、追加のサービスが必要になる場合があります。 前の例では、`DataAccess` に `HttpClient` 既定のサービスが必要になる場合があります。 `@inject` (または `InjectAttribute`) は、サービスで使用できません。 代わりに*コンストラクターの挿入*を使用する必要があります。 必要なサービスは、サービスのコンストラクターにパラメーターを追加することによって追加されます。 DI は、サービスを作成するときに、必要なサービスをコンストラクターで認識し、それに応じてそれを提供します。
 
 ```csharp
 public class DataAccess : IDataAccess
@@ -129,9 +131,9 @@ public class DataAccess : IDataAccess
 
 ## <a name="utility-base-component-classes-to-manage-a-di-scope"></a>DI スコープを管理するためのユーティリティの基本コンポーネントクラス
 
-ASP.NET Core アプリでは、スコープ付きサービスは通常、現在の要求にスコープが設定されます。 要求が完了すると、スコープまたは一時的なサービスが DI システムによって破棄されます。 Blazor Server apps では、要求スコープはクライアント接続の間継続されるため、一時的でスコープのあるサービスは予想よりもかなり長くなる可能性があります。
+ASP.NET Core アプリでは、スコープ付きサービスは通常、現在の要求にスコープが設定されます。 要求が完了すると、スコープまたは一時的なサービスが DI システムによって破棄されます。 Blazor サーバーアプリでは、要求スコープはクライアント接続の間継続されるため、一時的でスコープのあるサービスが予想よりもはるかに長くなる可能性があります。
 
-サービスのスコープをコンポーネントの有効期間に限定するために、は `OwningComponentBase` および `OwningComponentBase<TService>` 基底クラスを使用できます。 これらの基本クラスは、コンポーネントの有効期間にスコープが設定されているサービスを解決する @no__t 型の @no__t 0 のプロパティを公開します。 Razor の基底クラスから継承するコンポーネントを作成するには、`@inherits` ディレクティブを使用します。
+サービスのスコープをコンポーネントの有効期間に限定するために、は `OwningComponentBase` および `OwningComponentBase<TService>` 基底クラスを使用できます。 これらの基本クラスは、コンポーネントの有効期間にスコープが設定されているサービスを解決する `IServiceProvider` 型の `ScopedServices` プロパティを公開します。 Razor の基底クラスから継承するコンポーネントを作成するには、`@inherits` ディレクティブを使用します。
 
 ```cshtml
 @page "/users"
@@ -148,7 +150,7 @@ ASP.NET Core アプリでは、スコープ付きサービスは通常、現在�
 ```
 
 > [!NOTE]
-> @No__t-0 または `InjectAttribute` を使用してコンポーネントに挿入されたサービスは、コンポーネントのスコープ内に作成されず、要求スコープに関連付けられます。
+> `@inject` または `InjectAttribute` を使用してコンポーネントに挿入されたサービスは、コンポーネントのスコープ内に作成されず、要求スコープに関連付けられます。
 
 ## <a name="additional-resources"></a>その他の技術情報
 

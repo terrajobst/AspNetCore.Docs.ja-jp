@@ -3,14 +3,14 @@ title: ASP.NET Core での Razor ページ アプリへのモデルの追加
 author: rick-anderson
 description: Entity Framework Core (EF Core) を利用し、データベースでムービーを管理するためのクラスを追加する方法について説明します。
 ms.author: riande
-ms.date: 9/22/2019
+ms.date: 11/05/2019
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: 4f8b80cb51bd10eb3b136a780dc123c41d61c0a5
-ms.sourcegitcommit: e71b6a85b0e94a600af607107e298f932924c849
+ms.openlocfilehash: 312b3d4eb13eb04453bf0c3256fc362918157a45
+ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/17/2019
-ms.locfileid: "72519079"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73634181"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>ASP.NET Core での Razor ページ アプリへのモデルの追加
 
@@ -18,7 +18,7 @@ ms.locfileid: "72519079"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-このセクションでは、データベースで映画を管理するクラスが追加されます。 これらのクラスは、データベースを操作するために [Entity Framework Core](/ef/core) (EF Core) で使用されます。 EF Core は、データ アクセスを簡略化するオブジェクト リレーショナル マッピング (ORM) フレームワークです。
+このセクションでは、クロスプラットフォーム [SQLite データベース](https://www.sqlite.org/index.html)でムービーを管理するためのクラスを追加します。 ASP.NET Core テンプレートから作成されたアプリでは、SQLite データベースが使用されます。 このアプリのモデル クラスは、データベースを操作するために [Entity Framework Core (EF Core)](/ef/core) ([SQLite EF Core データベース プロバイダー](/ef/core/providers/sqlite)) で使用されます。 EF Core は、データ アクセスを簡略化するオブジェクト リレーショナル マッピング (ORM) フレームワークです。
 
 このモデル クラスは、EF Core に対する依存関係がないために、POCO クラス (plain-old CLR オブジェクト、つまり単純な従来の CLR) と呼ばれます。 これらは、データベースに格納されるデータのプロパティを定義します。
 
@@ -28,7 +28,7 @@ ms.locfileid: "72519079"
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-**RazorPagesMovie** プロジェクトを右クリックし、 **[追加]**  >  **[新しいフォルダー]** の順に選択します。 フォルダーに *Models* という名前を付けます。
+**RazorPagesMovie** プロジェクトを右クリックし、 **[追加]**  >  **[新しいフォルダー]** の順に選択します。 フォルダーに「*Models*」という名前を付けます。
 
 *Models* フォルダーを右クリックします。 **[追加]**  >  **[クラス]** の順に選択します。 クラスに **Movie** と名前を付けます。
 
@@ -45,7 +45,7 @@ ms.locfileid: "72519079"
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* ソリューション エクスプローラーで、**RazorPagesMovie** プロジェクトを右クリックし、 **[追加]**  >  **[新しいフォルダー]** の順に選択します。 フォルダーに *Models* という名前を付けます。
+* ソリューション エクスプローラーで、**RazorPagesMovie** プロジェクトを右クリックし、 **[追加]**  >  **[新しいフォルダー]** の順に選択します。 フォルダーに「*Models*」という名前を付けます。
 * *Models* フォルダーを右クリックし、 **[追加]** > **[新しいファイル]** の順に選択します。
 * **[新しいファイル]** ダイアログで次を実行します。
 
@@ -267,7 +267,7 @@ Login failed for user 'User-name'.
 <!--  ::: moniker previous version   -->
 ::: moniker range="< aspnetcore-3.0"
 
-このセクションでは、データベースで映画を管理するクラスが追加されます。 これらのクラスは、データベースを操作するために [Entity Framework Core](/ef/core) (EF Core) で使用されます。 EF Core は、データ アクセス コードを簡略化するオブジェクト リレーショナル マッピング (ORM) フレームワークです。
+このセクションでは、クロスプラットフォーム [SQLite データベース](https://www.sqlite.org/index.html)でムービーを管理するためのクラスを追加します。 ASP.NET Core テンプレートから作成されたアプリでは、SQLite データベースが使用されます。 このアプリのモデル クラスは、データベースを操作するために [Entity Framework Core (EF Core)](/ef/core) ([SQLite EF Core データベース プロバイダー](/ef/core/providers/sqlite)) で使用されます。 EF Core は、データ アクセスを簡略化するオブジェクト リレーショナル マッピング (ORM) フレームワークです。
 
 このモデル クラスは、EF Core に対する依存関係がないために、POCO クラス (plain-old CLR オブジェクト、つまり単純な従来の CLR) と呼ばれます。 これらは、データベースに格納されるデータのプロパティを定義します。
 
@@ -277,7 +277,7 @@ Login failed for user 'User-name'.
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-**RazorPagesMovie** プロジェクトを右クリックし、 **[追加]**  >  **[新しいフォルダー]** の順に選択します。 フォルダーに *Models* という名前を付けます。
+**RazorPagesMovie** プロジェクトを右クリックし、 **[追加]**  >  **[新しいフォルダー]** の順に選択します。 フォルダーに「*Models*」という名前を付けます。
 
 *Models* フォルダーを右クリックします。 **[追加]**  >  **[クラス]** の順に選択します。 クラスに **Movie** と名前を付けます。
 
@@ -294,7 +294,7 @@ Login failed for user 'User-name'.
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* ソリューション エクスプローラーで、**RazorPagesMovie** プロジェクトを右クリックし、 **[追加]**  >  **[新しいフォルダー]** の順に選択します。 フォルダーに *Models* という名前を付けます。
+* ソリューション エクスプローラーで、**RazorPagesMovie** プロジェクトを右クリックし、 **[追加]**  >  **[新しいフォルダー]** の順に選択します。 フォルダーに「*Models*」という名前を付けます。
 * *Models* フォルダーを右クリックし、 **[追加]** > **[新しいファイル]** の順に選択します。
 * **[新しいファイル]** ダイアログで次を実行します。
 

@@ -5,14 +5,14 @@ description: ホスティング環境を設定し、ASP.NET Core アプリを展
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/12/2019
+ms.date: 11/07/2019
 uid: host-and-deploy/index
-ms.openlocfilehash: 068c5f357b8010d78493a78a10c353e3317f3867
-ms.sourcegitcommit: b4ef2b00f3e1eb287138f8b43c811cb35a100d3e
+ms.openlocfilehash: aa6e3da5f40211535037c671de913ab3219f063a
+ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/21/2019
-ms.locfileid: "65969882"
+ms.lasthandoff: 11/07/2019
+ms.locfileid: "73799335"
 ---
 # <a name="host-and-deploy-aspnet-core"></a>ASP.NET Core のホストと展開
 
@@ -32,7 +32,7 @@ ms.locfileid: "65969882"
 
 .NET Core アプリは、*自己完結型展開*または*フレームワーク依存展開*として発行できます。 アプリが自己完結型の場合、.NET ランタイムを含むアセンブリ ファイルが *publish* フォルダーに含まれています。 アプリがフレームワークに依存する場合、.NET ランタイムのファイルは含まれていません。これは、サーバーにインストールされている .NET のバージョンへの参照がアプリに含まれていないためです。 既定の展開モデルはフレームワークに依存します。 詳細については、「[.NET Core アプリケーションの展開](/dotnet/core/deploying/)」を参照してください。
 
-*.exe* ファイルと *.dll* ファイルに加え、ASP.NET Core アプリの *publish* フォルダーには、通常、構成ファイル、静的資産、および MVC ビューが含まれています。 詳細については、「<xref:host-and-deploy/directory-structure>」を参照してください。
+*.exe* ファイルと *.dll* ファイルに加え、ASP.NET Core アプリの *publish* フォルダーには、通常、構成ファイル、静的資産、および MVC ビューが含まれています。 詳細については、<xref:host-and-deploy/directory-structure> を参照してください。
 
 ## <a name="set-up-a-process-manager"></a>プロセス マネージャーを設定する
 
@@ -69,6 +69,10 @@ Visual Studio を使って Azure にアプリを発行するための手順に�
 
 Visual Studio 発行プロファイルを使って (Windows コマンド プロンプトからの [dotnet msbuild](/dotnet/core/tools/dotnet-msbuild) コマンドの使用を含む) アプリを発行する方法については、「<xref:host-and-deploy/visual-studio-publish-profiles>」をご覧ください。
 
+## <a name="internet-information-services-iis"></a>インターネット インフォメーション サービス (IIS)
+
+*web.config* ファイルによって提供される構成を使用したインターネット インフォメーション サービス (IIS) への展開については、「<xref:host-and-deploy/iis/index>」の記事を参照してください。
+
 ## <a name="host-in-a-web-farm"></a>Web ファームでのホスト
 
 Web ファーム環境 (たとえば、スケーラビリティのためのアプリの複数のインスタンスの展開) で ASP.NET Core アプリをホストするための構成については、<xref:host-and-deploy/web-farm> を参照してください。
@@ -77,7 +81,7 @@ Web ファーム環境 (たとえば、スケーラビリティのためのア�
 
 ## <a name="perform-health-checks"></a>正常性チェックを実行する
 
-アプリとその依存関係に対して正常性チェックを実行するには、正常性チェックのミドルウェアを使用します。 詳細については、「<xref:host-and-deploy/health-checks>」を参照してください。
+アプリとその依存関係に対して正常性チェックを実行するには、正常性チェックのミドルウェアを使用します。 詳細については、<xref:host-and-deploy/health-checks> を参照してください。
 
 ::: moniker-end
 

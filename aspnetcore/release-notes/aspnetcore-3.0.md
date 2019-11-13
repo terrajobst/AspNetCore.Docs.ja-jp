@@ -4,14 +4,14 @@ author: rick-anderson
 description: ASP.NET Core 3.0 の新機能について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/08/2019
+ms.date: 10/31/2019
 uid: aspnetcore-3.0
-ms.openlocfilehash: 90433773bec2efc5a2bc39d71ce7ae324b922046
-ms.sourcegitcommit: fcdf9aaa6c45c1a926bd870ed8f893bdb4935152
+ms.openlocfilehash: 8c53d8a9fa222ca40f26dc713ec3b70ddde76539
+ms.sourcegitcommit: eb2fe5ad2e82fab86ca952463af8d017ba659b25
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72165364"
+ms.lasthandoff: 11/01/2019
+ms.locfileid: "73416119"
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>ASP.NET Core 3.0 の新機能
 
@@ -321,14 +321,16 @@ Json.NET を ASP.NET Core 3.0 に追加するには、「[Newtonsoft.Json ベー
 
 ## <a name="identityserver4-supports-authentication-and-authorization-for-web-apis-and-spas"></a>IdentityServer4 では、Web API と SPA の認証と承認がサポートされています
 
-[IdentityServer4](https://identityserver.io) は、ASP.NET Core 3.0 用の OpenID Connect および OAuth 2.0 フレームワークです。 IdentityServer4 により、次のセキュリティ機能が有効になります。
+ASP.NET Core 3.0 では、Web API 認証のサポートの使用により、シングルページ アプリ (SPA) での認証が提供されます。 ユーザーを認証および格納するための ASP.NET Core ID が [IdentityServer4](https://identityserver.io/) と組み合わされ、Open ID Connect が実装されます。
+
+IdentityServer4 は、ASP.NET Core 3.0 用の OpenID Connect および OAuth 2.0 フレームワークです。 これにより、次のセキュリティ機能が有効になります。
 
 * サービスとしての認証 (AaaS)
 * 複数のアプリケーションの種類でのシングル サインオン/オフ (SSO)
 * API のアクセス制御
 * Federation Gateway
 
-詳細については、「[ようこそ! IdentityServer4](http://docs.identityserver.io/en/latest/index.html)」を参照してください。
+詳細については、[IdentityServer4 のドキュメント](http://docs.identityserver.io/en/latest/index.html)または「[SPAs の認証と承認](xref:security/authentication/identity/spa)」を参照してください。
 
 ## <a name="certificate-and-kerberos-authentication"></a>証明書および Kerberos 認証
 
@@ -392,7 +394,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 Web UI テンプレート (Razor Pages、コントローラーとビューを含む MVC) では、以下が削除されています。
 
-* Cookie 同意 UI は含まれなくなりました。 ASP.NET Core 3.0 テンプレートで生成されるアプリで Cookie 同意機能を有効にするには、<xref:security/gdpr> を参照してください。
+* Cookie 同意 UI は含まれなくなりました。 ASP.NET Core 3.0 テンプレートで生成されるアプリで Cookie 同意機能を有効にするには、「<xref:security/gdpr>」を参照してください。
 * スクリプトと関連する静的アセットは、CDN を使用する代わりに、ローカル ファイルとして参照されるようになりました。 詳細については、「[現在、スクリプトと関連する静的アセットは、現在の環境に基づいた CDN を使用する代わりに、ローカル ファイルとして参照される (aspnet/AspNetCore.Docs #14350)](https://github.com/aspnet/AspNetCore.Docs/issues/14350)」を参照してください。
 
 Angular テンプレートは、Angular 8 を使用するように更新されました。
@@ -407,7 +409,7 @@ ASP.NET Core 3.0 テンプレートでは <xref:fundamentals/host/generic-host> 
 
 ASP.NET Core 3.0 リリースよりも前には、`ASPNETCORE_` というプレフィックスが付いた環境変数が Web ホストのホスト構成用に読み込まれました。 3\.0 では、`AddEnvironmentVariables` が使用され、`DOTNET_` というプレフィックスが付いた環境変数が `CreateDefaultBuilder` でのホスト構成用に読み込まれます。
 
-### <a name="changes-to-startup-contructor-injection"></a>Startup コンストラクター挿入の変更
+### <a name="changes-to-startup-constructor-injection"></a>Startup コンストラクター挿入の変更
 
 汎用ホストでは、`Startup` コンストラクター挿入で次の型しかサポートされません。
 

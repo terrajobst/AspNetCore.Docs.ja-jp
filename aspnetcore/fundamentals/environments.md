@@ -5,14 +5,14 @@ description: ASP.NET Core アプリで複数の環境にわたりアプリの動
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/10/2019
+ms.date: 11/05/2019
 uid: fundamentals/environments
-ms.openlocfilehash: a0e6d62f352a886a9bc051813a21d94c1605a1ce
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 91fa2a78e62dff65704a3dda826f45f27bad6064
+ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087042"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73634086"
 ---
 # <a name="use-multiple-environments-in-aspnet-core"></a>ASP.NET Core で複数の環境を使用する
 
@@ -24,11 +24,29 @@ ASP.NET Core は、環境変数を利用し、ランタイム環境に基づい�
 
 ## <a name="environments"></a>環境
 
-ASP.NET Core はアプリの起動時に環境変数 `ASPNETCORE_ENVIRONMENT` を読み込み、その値を [IHostingEnvironment.EnvironmentName](/dotnet/api/microsoft.aspnetcore.hosting.ihostingenvironment.environmentname) に格納します。 設定することができます`ASPNETCORE_ENVIRONMENT`任意の値が[3 つの値](/dotnet/api/microsoft.aspnetcore.hosting.environmentname)framework でサポートされます。[Development](/dotnet/api/microsoft.aspnetcore.hosting.environmentname.development)、[Staging](/dotnet/api/microsoft.aspnetcore.hosting.environmentname.staging)、[Production](/dotnet/api/microsoft.aspnetcore.hosting.environmentname.production) という 3 つの値を指定できます。 `ASPNETCORE_ENVIRONMENT` が設定されていない場合、既定で `Production` になります。
+::: moniker range=">= aspnetcore-3.0"
+
+ASP.NET Core はアプリの起動時に環境変数 `ASPNETCORE_ENVIRONMENT` を読み込み、その値を [IWebHostEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostEnvironment.EnvironmentName) に格納します。 `ASPNETCORE_ENVIRONMENT` は任意の値に設定できますが、次の 3 つの値がフレームワークによって提供されます。
+
+* <xref:Microsoft.Extensions.Hosting.Environments.Development>
+* <xref:Microsoft.Extensions.Hosting.Environments.Staging>
+* <xref:Microsoft.Extensions.Hosting.Environments.Production> (既定値)
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+ASP.NET Core はアプリの起動時に環境変数 `ASPNETCORE_ENVIRONMENT` を読み込み、その値を [IHostingEnvironment.EnvironmentName](xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName) に格納します。 `ASPNETCORE_ENVIRONMENT` は任意の値に設定できますが、次の 3 つの値がフレームワークによって提供されます。
+
+* <xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Development>
+* <xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Staging>
+* <xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Production> (既定値)
+
+::: moniker-end
 
 [!code-csharp[](environments/sample/EnvironmentsSample/Startup.cs?name=snippet)]
 
-上のコードでは以下の操作が行われます。
+上記のコードでは次の操作が行われます。
 
 * `ASPNETCORE_ENVIRONMENT` が `Development` に設定されているとき、[UseDeveloperExceptionPage](/dotnet/api/microsoft.aspnetcore.builder.developerexceptionpageextensions.usedeveloperexceptionpage) を呼び出します。
 * `ASPNETCORE_ENVIRONMENT` の値が次のいずれかに設定されているとき、[UseExceptionHandler](/dotnet/api/microsoft.aspnetcore.builder.exceptionhandlerextensions.useexceptionhandler) を呼び出します。
@@ -171,9 +189,13 @@ Visual Studio のプロジェクト プロパティの **[デバッグ]** タブ
 
 ## <a name="set-the-environment"></a>環境を設定する
 
-テスト用の環境を構築すると便利な場合があります。 環境を設定しない場合、既定で `Production` に設定されます。ほとんどのデバッグ機能が無効になります。 環境を設定する手法は、オペレーティング システムによって異なります。
+環境変数またはプラットフォームの設定を使用してテスト用の特定の環境を設定すると、便利な場合がよくあります。 環境を設定しない場合、既定で `Production` に設定されます。ほとんどのデバッグ機能が無効になります。 環境を設定する手法は、オペレーティング システムによって異なります。
 
-### <a name="azure-app-service"></a>Azure App Service
+ホストが構築されると、アプリによって読み取られた最後の環境設定によってアプリの環境が決まります。 アプリの実行中にアプリの環境を変更することはできません。
+
+### <a name="environment-variable-or-platform-setting"></a>環境変数またはプラットフォームの設定
+
+#### <a name="azure-app-service"></a>Azure App Service
 
 [Azure App Service](https://azure.microsoft.com/services/app-service/) で環境を設定するには、次の手順を実行します。
 
@@ -186,7 +208,7 @@ Visual Studio のプロジェクト プロパティの **[デバッグ]** タブ
 
 Azure App Service は、アプリ設定 (環境変数) が Azure Portal で追加、変更、削除された後、アプリを自動的に再起動します。
 
-### <a name="windows"></a>Windows
+#### <a name="windows"></a>Windows
 
 [dotnet run](/dotnet/core/tools/dotnet-run) を使用してアプリを起動するときに現在のセッションに `ASPNETCORE_ENVIRONMENT` を設定するには、次のコマンドを使用します。
 
@@ -260,7 +282,7 @@ Windows でグローバルな値を設定するには、次の方法のいずれ
 > * コマンド プロンプトで `net stop was /y` を実行した後、`net start w3svc` を実行します。
 > * サーバーを再起動します。
 
-### <a name="macos"></a>macOS
+#### <a name="macos"></a>macOS
 
 macOS の現在の環境は、アプリ実行時にインラインで設定できます。
 
@@ -280,23 +302,191 @@ export ASPNETCORE_ENVIRONMENT=Development
 export ASPNETCORE_ENVIRONMENT=Development
 ```
 
-### <a name="linux"></a>Linux
+#### <a name="linux"></a>Linux
 
 Linux ディストリビューションの場合、セッション ベースの変数設定にはコマンド プロンプトで `export` コマンドを使用し、コンピューター レベルの環境設定には *bash_profile* ファイルを使用します。
+
+### <a name="set-the-environment-in-code"></a>コードで環境を設定する
+
+::: moniker range=">= aspnetcore-3.0"
+
+ホストのビルド時に <xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.UseEnvironment*> を呼び出します。 以下を参照してください。<xref:fundamentals/host/generic-host#environmentname>
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+ホストのビルド時に <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseEnvironment*> を呼び出します。 以下を参照してください。<xref:fundamentals/host/web-host#environment>
+
+::: moniker-end
 
 ### <a name="configuration-by-environment"></a>環境別の構成
 
 環境ごとに構成を読み込む場合の推奨事項は次のとおりです。
 
-* *appsettings* ファイル (*appsettings.\<Environment>.json*)。 構成に関するページの「[構成: ファイル構成プロバイダー](xref:fundamentals/configuration/index#file-configuration-provider)」を参照してください。
-* 環境変数 (アプリがホストされている各システムで設定します)。 構成に関するページの「[構成: ファイル構成プロバイダー」](xref:fundamentals/configuration/index#file-configuration-provider)と[開発中のアプリ シークレットの安全な格納に関するページの「環境変数」](xref:security/app-secrets#environment-variables)を参照してください。
+::: moniker range=">= aspnetcore-3.0"
+
+* *appsettings* ファイル (*appsettings.{Environment}.json*)。 以下を参照してください。<xref:fundamentals/configuration/index#json-configuration-provider>
+* 環境変数 (アプリがホストされている各システムで設定します)。 「 <xref:fundamentals/host/generic-host#environmentname> 」および「 <xref:security/app-secrets#environment-variables>」を参照してください。
 * Secret Manager (開発環境の場合のみ) 以下を参照してください。<xref:security/app-secrets>
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+* *appsettings* ファイル (*appsettings.{Environment}.json*)。 以下を参照してください。<xref:fundamentals/configuration/index#json-configuration-provider>
+* 環境変数 (アプリがホストされている各システムで設定します)。 「 <xref:fundamentals/host/web-host#environment> 」および「 <xref:security/app-secrets#environment-variables>」を参照してください。
+* Secret Manager (開発環境の場合のみ) 以下を参照してください。<xref:security/app-secrets>
+
+::: moniker-end
 
 ## <a name="environment-based-startup-class-and-methods"></a>環境別の起動のクラスとメソッド
 
+::: moniker range=">= aspnetcore-3.0"
+
+### <a name="inject-iwebhostenvironment-into-startupconfigure"></a>IWebHostEnvironment を Startup.Configure に挿入する
+
+<xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment> を `Startup.Configure` に挿入します。 この方法は、環境ごとのコードの違いが最小限である少数の環境に対して、アプリが `Startup.Configure` の調整のみを必要とする場合に便利です。
+
+```csharp
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+    if (env.IsDevelopment())
+    {
+        // Development environment code
+    }
+    else
+    {
+        // Code for all other environments
+    }
+}
+```
+
+### <a name="inject-iwebhostenvironment-into-the-startup-class"></a>IWebHostEnvironment を Startup クラスに挿入する
+
+<xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment> を `Startup` コンストラクターに挿入します。 この方法は、環境ごとのコードの違いが最小限である少数の環境に対してのみ、アプリが `Startup` の構成を必要とする場合に便利です。
+
+次に例を示します。
+
+* 環境は `_env` フィールドに保持されます。
+* `_env` は、アプリの環境に基づいてスタートアップ構成を適用するために `ConfigureServices` および `Configure` で使用されます。
+
+```csharp
+public class Startup
+{
+    private readonly IWebHostEnvironment _env;
+
+    public Startup(IWebHostEnvironment env)
+    {
+        _env = env;
+    }
+
+    public void ConfigureServices(IServiceCollection services)
+    {
+        if (_env.IsDevelopment())
+        {
+            // Development environment code
+        }
+        else if (_env.IsStaging())
+        {
+            // Staging environment code
+        }
+        else
+        {
+            // Code for all other environments
+        }
+    }
+
+    public void Configure(IApplicationBuilder app)
+    {
+        if (_env.IsDevelopment())
+        {
+            // Development environment code
+        }
+        else
+        {
+            // Code for all other environments
+        }
+    }
+}
+```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+### <a name="inject-ihostingenvironment-into-startupconfigure"></a>IHostingEnvironment を Startup.Configure に挿入する
+
+<xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment> を `Startup.Configure` に挿入します。 この方法は、環境ごとのコードの違いが最小限である少数の環境に対してのみ、アプリが `Startup.Configure` の構成だけを必要とする場合に便利です。
+
+```csharp
+public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+{
+    if (env.IsDevelopment())
+    {
+        // Development environment code
+    }
+    else
+    {
+        // Code for all other environments
+    }
+}
+```
+
+### <a name="inject-ihostingenvironment-into-the-startup-class"></a>IHostingEnvironment を Startup クラスに挿入する
+
+`Startup` コンストラクターに <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment> を挿入し、`Startup` クラス全体で使用するフィールドにサービスを割り当てます。 この方法は、環境ごとのコードの違いが最小限である少数の環境に対してのみ、アプリがスタートアップの構成を必要とする場合に便利です。
+
+次に例を示します。
+
+* 環境は `_env` フィールドに保持されます。
+* `_env` は、アプリの環境に基づいてスタートアップ構成を適用するために `ConfigureServices` および `Configure` で使用されます。
+
+```csharp
+public class Startup
+{
+    private readonly IHostingEnvironment _env;
+
+    public Startup(IHostingEnvironment env)
+    {
+        _env = env;
+    }
+
+    public void ConfigureServices(IServiceCollection services)
+    {
+        if (_env.IsDevelopment())
+        {
+            // Development environment code
+        }
+        else if (_env.IsStaging())
+        {
+            // Staging environment code
+        }
+        else
+        {
+            // Code for all other environments
+        }
+    }
+
+    public void Configure(IApplicationBuilder app)
+    {
+        if (_env.IsDevelopment())
+        {
+            // Development environment code
+        }
+        else
+        {
+            // Code for all other environments
+        }
+    }
+}
+```
+
+::: moniker-end
+
 ### <a name="startup-class-conventions"></a>Startup クラスの規約
 
-ASP.NET Core アプリの起動時、[Startup クラス](xref:fundamentals/startup)がアプリをブートストラップします。 アプリケーションでは、環境 (たとえば `StartupDevelopment`) ごとに個別の `Startup` クラスを定義することができます。実行時に適切な `Startup` クラスが選択されます。 名前のサフィックスが現在の環境と一致するクラスが優先されます。 一致する `Startup{EnvironmentName}` クラスが見つからない場合、`Startup` クラスが使用されます。
+ASP.NET Core アプリの起動時、[Startup クラス](xref:fundamentals/startup)がアプリをブートストラップします。 アプリでは、環境 (たとえば `StartupDevelopment`) ごとに個別の `Startup` クラスを定義することができます。 実行時に適切な `Startup` クラスが選択されます。 名前のサフィックスが現在の環境と一致するクラスが優先されます。 一致する `Startup{EnvironmentName}` クラスが見つからない場合、`Startup` クラスが使用されます。 この方法は、環境ごとのコードの違いが多いいくつかの環境に対して、アプリがスタートアップの構成を必要とする場合に便利です。
 
 環境ベースの `Startup` クラスを実装するには、使用中の各環境に対して `Startup{EnvironmentName}` クラスと、フォールバックの `Startup` クラスを作成します。
 
@@ -306,12 +496,10 @@ public class StartupDevelopment
 {
     public void ConfigureServices(IServiceCollection services)
     {
-        ...
     }
 
     public void Configure(IApplicationBuilder app, IHostingEnvironment env)
     {
-        ...
     }
 }
 
@@ -320,12 +508,10 @@ public class StartupProduction
 {
     public void ConfigureServices(IServiceCollection services)
     {
-        ...
     }
 
     public void Configure(IApplicationBuilder app, IHostingEnvironment env)
     {
-        ...
     }
 }
 
@@ -335,12 +521,10 @@ public class Startup
 {
     public void ConfigureServices(IServiceCollection services)
     {
-        ...
     }
 
     public void Configure(IApplicationBuilder app, IHostingEnvironment env)
     {
-        ...
     }
 }
 ```
@@ -364,7 +548,7 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 
 ### <a name="startup-method-conventions"></a>Startup メソッドの規約
 
-[Configure](/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configure) と [ConfigureServices](/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configureservices) は、フォーム `Configure<EnvironmentName>` と `Configure<EnvironmentName>Services` の環境固有バージョンに対応しています。
+[Configure](/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configure) と [ConfigureServices](/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configureservices) は、フォーム `Configure<EnvironmentName>` と `Configure<EnvironmentName>Services` の環境固有バージョンに対応しています。 この方法は、環境ごとのコードの違いが多いいくつかの環境に対して、アプリがスタートアップの構成を必要とする場合に便利です。
 
 [!code-csharp[](environments/sample/EnvironmentsSample/Startup.cs?name=snippet_all&highlight=15,42)]
 
@@ -372,4 +556,3 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 
 * <xref:fundamentals/startup>
 * <xref:fundamentals/configuration/index>
-* [IHostingEnvironment.EnvironmentName](/dotnet/api/microsoft.aspnetcore.hosting.ihostingenvironment.environmentname)

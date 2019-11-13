@@ -5,12 +5,12 @@ description: 単純な ASP.NET Core アプリケーションにモデルを追�
 ms.author: riande
 ms.date: 8/15/2019
 uid: tutorials/first-mvc-app/adding-model
-ms.openlocfilehash: 5ad31a2536ad70590eaa767cf20068512241f36b
-ms.sourcegitcommit: 14b25156e34c82ed0495b4aff5776ac5b1950b5e
+ms.openlocfilehash: d6d75bcbab875c08bfff532d968013dca323beed
+ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/26/2019
-ms.locfileid: "71295474"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73634100"
 ---
 # <a name="add-a-model-to-an-aspnet-core-mvc-app"></a>ASP.NET Core MVC アプリへのモデルの追加
 
@@ -212,7 +212,7 @@ EF Core [移行](xref:data/ef-mvc/migrations)機能を使用し、データベ�
 
 PMC で、次のコマンドを入力します。
 
-```console
+```PMC
 Add-Migration InitialCreate
 Update-Database
 ```
@@ -517,7 +517,7 @@ Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(int rc, sqlite3 db)
 
 1. PMC で、次のコマンドを入力します。
 
-   ```console
+   ```PMC
    Add-Migration Initial
    Update-Database
    ```

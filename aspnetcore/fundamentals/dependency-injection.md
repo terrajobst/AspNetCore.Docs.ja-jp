@@ -5,14 +5,14 @@ description: ASP.NET Core で依存関係の挿入を実装する方法とそれ
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/12/2019
+ms.date: 11/05/2019
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: b07ed6d1c23454c95778a5942de615684b70bc36
-ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
+ms.openlocfilehash: c46e7322e86c2836a15bd0720995a8634bb185be
+ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/18/2019
-ms.locfileid: "72589901"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73634011"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>ASP.NET Core での依存関係の挿入
 
@@ -571,7 +571,7 @@ public class Program
 ベスト プラクティスは次のとおりです。
 
 * 各依存関係を取得するために依存関係の挿入を使用するようサービスを設計します。
-* ステートフルな静的メソッドの呼び出しを回避します。
+* ステートフル、静的クラス、およびメンバーは避けてください。 代わりにシングルトン サービスを使用するようにアプリを設計し、グローバルな状態を作成しないようにします。
 * サービス内部で依存関係のあるクラスを直接インスタンス化することを回避します。 直接のインスタンス化は、コードの固有の実装につながります。
 * アプリのクラスを、小さく、十分に要素に分割された、テストしやすいものにします。
 

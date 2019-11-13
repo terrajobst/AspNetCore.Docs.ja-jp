@@ -1,33 +1,39 @@
 ---
 title: ASP.NET Core SignalR でのログ記録と診断
 author: anurse
-description: ASP.NET Core SignalR アプリケーションから診断を収集する方法について説明します。
+description: ASP.NET Core SignalR アプリから診断情報を収集する方法について説明します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: anurse
 ms.custom: signalr
-ms.date: 06/19/2019
+ms.date: 11/12/2019
+no-loc:
+- SignalR
 uid: signalr/diagnostics
-ms.openlocfilehash: 69dbd057b3dcadeb3ca5d94ede1234530fb447db
-ms.sourcegitcommit: 9f11685382eb1f4dd0fb694dea797adacedf9e20
+ms.openlocfilehash: c5bd2ac27f8ca486b0d75aed8439747f72448625
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/21/2019
-ms.locfileid: "67313710"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963855"
 ---
 # <a name="logging-and-diagnostics-in-aspnet-core-signalr"></a>ASP.NET Core SignalR でのログ記録と診断
 
 作成者: [Andrew Stanton-Nurse](https://twitter.com/anurse)
 
-この記事では、問題のトラブルシューティングに役立つ、ASP.NET Core SignalR アプリケーションから診断を収集するためのガイダンスを提供します。
+
+この記事では、ASP.NET Core SignalR アプリから診断情報を収集して問題のトラブルシューティングを行うためのガイダンスを提供します。
 
 ## <a name="server-side-logging"></a>サーバー側のログ記録
 
 > [!WARNING]
+
 > サーバー側のログは、アプリからの機密情報を含めることができます。 実稼働アプリの未加工のログを GitHub のようなパブリック フォーラムに **決して** 投稿しないでください。
 
 SignalR は ASP.NET Core の一部であるため、ASP.NET Core のログ記録システムを使用します。 既定の構成では、SignalR のログはほとんどの情報が記録されませんが、設定することができます。 ASP.NET Core のログ記録の構成の詳細については [ASP.NET Core のログ記録](xref:fundamentals/logging/index#configuration) に関するドキュメントを参照してください。
 
-SignalR では、2 つのカテゴリのロガーを使用します。
+
+SignalR では、次の2つの logger カテゴリを使用します。
+
 
 * `Microsoft.AspNetCore.SignalR` &ndash; ハブ プロトコル、 ハブのアクティブ化、 ハブ メソッドの呼び出し、その他のハブに関連するアクティビティに関連するログ。
 * `Microsoft.AspNetCore.Http.Connections` &ndash; WebSocket、ロングポーリング、Server-Sent Events および低レベルの SignalR インフラストラクチャなどのトランスポートに関連するログ。
@@ -38,12 +44,14 @@ SignalR から詳細なログを有効にするには、*appsettings.json*ファ
 
 `CreateWebHostBuilder`メソッド内のコードで設定することもできます :
 
+
 [!code-csharp[](diagnostics/logging-config-code.cs?highlight=5-6)]
 
-JSON ベースの構成を使用していない場合は、構成システムで、次の構成値を設定します。
+JSON ベースの構成を使用していない場合は、構成システムで次の構成値を設定します。
 
 * `Logging:LogLevel:Microsoft.AspNetCore.SignalR` = `Debug`
 * `Logging:LogLevel:Microsoft.AspNetCore.Http.Connections` = `Debug`
+
 
 入れ子になった構成値を指定する方法については、構成システムのドキュメントを確認してください。 たとえば、環境変数を使用する場合は `:` の代わりに 2 つ `_ `文字が使用されます : (例: `Logging__LogLevel__Microsoft.AspNetCore.SignalR`)。
 
@@ -51,7 +59,9 @@ JSON ベースの構成を使用していない場合は、構成システムで
 
 ## <a name="access-server-side-logs"></a>サーバー側ログへのアクセス
 
-サーバー側のログにアクセスする方法を実行している環境によって異なります。
+
+サーバー側のログにアクセスする方法は、を実行している環境によって異なります。
+
 
 ### <a name="as-a-console-app-outside-iis"></a>IIS の外部のコンソール アプリ
 
@@ -69,9 +79,11 @@ Azure App Service ポータルの **診断ログ** セクションで **アプ�
 
  別の環境にアプリを展開する場合 (たとえば、Docker、Kubernetes、または Windows サービス) は、<xref:fundamentals/logging/index> より、環境に適したログ プロバイダーを構成する方法の詳細を参照してください。
 
+
 ## <a name="javascript-client-logging"></a>JavaScript クライアントのログ記録
 
 > [!WARNING]
+
 > クライアント側のログは、アプリからの機密情報を含めることができます。 実稼働アプリの未加工のログを GitHub のようなパブリック フォーラムに **決して** 投稿しないでください。
 
 JavaScript クライアントを使用する場合、`HubConnectionBuilder` の `configureLogging`メソッド使用してログ記録オプションを設定できます :
@@ -82,25 +94,29 @@ JavaScript クライアントを使用する場合、`HubConnectionBuilder` の 
 
 次の表では、JavaScript クライアントに利用可能なログ レベルを示します。 これらの値のいずれかにログ レベルを設定すると、そのレベルとテーブル内のそれより上のすべてのレベルでログ記録が有効になります。
 
+
 | レベル | 説明 |
 | ----- | ----------- |
-| `None` | メッセージは記録されません。 |
-| `Critical` | アプリ全体で障害を示すメッセージ。 |
-| `Error` | 現在の操作の失敗を示すメッセージ。 |
-| `Warning` | 致命的でない問題を示すメッセージ。 |
+| `None` | メッセージはログに記録されません。 |
+| `Critical` | アプリ全体でエラーが発生したことを示すメッセージ。 |
+| `Error` | 現在の操作でエラーが発生したことを示すメッセージ。 |
+| `Warning` | 致命的ではない問題を示すメッセージ。 |
 | `Information` | 情報メッセージ。 |
 | `Debug` | デバッグに役立つ診断メッセージ。 |
+
 | `Trace` | 特定の問題を診断するために設計された非常に詳細な診断メッセージ。 |
 
 詳細度を構成すると、ブラウザーのコンソール (または NodeJS アプリの標準出力) にログが書き込まれます。
 
 カスタムのログ記録システムにログを送信する場合、`ILogger`インターフェイスを実装する JavaScript オブジェクトを指定します。実装する必要がある唯一のメソッドは`log`で、イベントのレベルとイベントに関連付けられているメッセージを受け取ります。 例:
 
+
 [!code-typescript[](diagnostics/custom-logger.ts?highlight=3-7,13)]
 
 ## <a name="net-client-logging"></a>.NET クライアントのログ記録
 
 > [!WARNING]
+
 > クライアント側のログは、アプリからの機密情報を含めることができます。 実稼働アプリの未加工のログを GitHub のようなパブリック フォーラムに **決して** 投稿しないでください。
 
 .NET クライアントからログを取得するために、`HubConnectionBuilder`の`ConfigureLogging`メソッドを使用できます。 これは、`WebHostBuilder`と`HostBuilder`の`ConfigureLogging`メソッドと同様に機能します。 ASP.NET Core で使用するものと同じログ プロバイダーを構成できます。 ただし、手動でそれぞれのログ プロバイダーの NuGet パッケージをインストールし有効にする必要があります。
@@ -109,29 +125,36 @@ JavaScript クライアントを使用する場合、`HubConnectionBuilder` の 
 
 コンソールのログ記録を有効にするには [Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console) パッケージを追加します。 次に、`AddConsole`メソッドを使用し、コンソール ロガーを構成します。
 
+
 [!code-csharp[](diagnostics/net-client-console-log.cs?highlight=6)]
 
 ### <a name="debug-output-window-logging"></a>デバッグ出力ウィンドウのログ記録
 
+
 Visual Studio の **出力** ウィンドウに出力されるようにログを構成することもできます。 [Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug) パッケージをインストールし、`AddDebug`メソッドを使用します。
+
 
 [!code-csharp[](diagnostics/net-client-debug-log.cs?highlight=6)]
 
-### <a name="other-logging-providers"></a>その他のログ プロバイダー
+### <a name="other-logging-providers"></a>その他のログプロバイダー
+
 
 SignalR は Serilog、Seq、NLog、または `Microsoft.Extensions.Logging`と統合されるその他のログ記録システムなど、他のログ記録プロバイダーをサポートしています。 `ILoggerProvider`を提供するログ記録システムであれば、`AddProvider` で登録することができます。
+
 
 [!code-csharp[](diagnostics/net-client-custom-log.cs?highlight=6)]
 
 ### <a name="control-verbosity"></a>詳細度のコントロール
 
+
 アプリの他の場所からログを記録する場合、既定のレベルを`Debug`に変更すると冗長になる可能性があります。 SignalR のログのログ記録レベルを構成するのにフィルターを使用することができます。 これは、サーバーとほぼ同じコードで行うことができます。
 
 [!code-csharp[Controlling verbosity in .NET client](diagnostics/logging-config-client-code.cs?highlight=9-10)]
 
-## <a name="network-traces"></a>ネットワーク トレース
+## <a name="network-traces"></a>ネットワークトレース
 
 > [!WARNING]
+
 > ネットワーク トレースには、アプリから送信されたすべてのメッセージの完全な内容が含まれています。 実稼働アプリの加工のネットワーク トレースを GitHub のようなパブリック フォーラムに **決して** 投稿しないでください。
 
 問題が発生した場合、ネットワーク トレースが多くの役に立つ情報を提供する場合があります。 これは、問題の追跡ツールで問題を報告しようとしている場合に特に便利です。
@@ -146,7 +169,9 @@ HTTPS を使用して接続する場合は、Fiddler が HTTPS トラフィッ�
 
 トレースを収集したら、メニュー バーから **File** > **Save** > **All Sessions** を選択して、トレースをエクスポートすることができます。
 
-![Fiddler からすべてのセッションをエクスポートします。](diagnostics/fiddler-export.png)
+
+![Fiddler からすべてのセッションをエクスポートしています](diagnostics/fiddler-export.png)
+
 
 ## <a name="collect-a-network-trace-with-tcpdump-macos-and-linux-only"></a>Tcpdump によるネットワーク トレースの収集 (macOS および Linux のみ)
 
@@ -154,9 +179,11 @@ HTTPS を使用して接続する場合は、Fiddler が HTTPS トラフィッ�
 
 コマンド シェルから次のコマンドを実行して tcpdump を使用して、生の TCP トレースを収集することができます。 アクセス許可エラーが発生した場合は `root` になるか、またはコマンドにプレフィックスとして`sudo` を付ける必要があります。
 
+
 ```console
 tcpdump -i [interface] -w trace.pcap
 ```
+
 
 `[interface]`をキャプチャするネットワーク インターフェイスに置き換えます。 通常、これは`/dev/eth0` (標準のイーサネット インターフェイス) や`/dev/lo0`(localhost トラフィック用) のようになります。 詳細については、ホスト システム上の `tcpdump` の man ページを参照してください。
 
@@ -166,9 +193,11 @@ tcpdump -i [interface] -w trace.pcap
 
 ほとんどのブラウザーの開発者ツールでは、ブラウザーとサーバー間のネットワーク アクティビティをキャプチャすることができる"Network"タブが存在します。 ただし、これらのトレースには、WebSocket と Server-Sent Events メッセージが含まれていません。 これらのトランスポートを使用している場合は、Fiddler または TcpDump (後述) などのツールを使用するほうがより優れたアプローチです。
 
-### <a name="microsoft-edge-and-internet-explorer"></a>Microsoft Edge や Internet Explorer
 
-(手順は、Edge や Internet Explorer の両方で同じは)
+### <a name="microsoft-edge-and-internet-explorer"></a>Microsoft Edge および Internet Explorer
+
+(この手順は、Edge と Internet Explorer の両方で同じです)。
+
 
 1. F12 キーを押して、開発者ツールを開きます。
 2. [ネットワーク] タブをクリックします。
@@ -186,10 +215,12 @@ tcpdump -i [interface] -w trace.pcap
 
 ![Google Chrome Dev Tools のネットワーク タブの "Save as HAR with content" オプション](diagnostics/chrome-har-export.png)
 
+
 ### <a name="mozilla-firefox"></a>Mozilla Firefox
 
 1. F12 キーを押して開発ツールを開きます。
 2. [ネットワーク] タブをクリックします。
+
 3. ページを更新し(必要な場合)、問題を再現させます。
 4. 要求の一覧の任意の場所を右クリックし、"Save All As HAR" を選択します。
 
@@ -203,6 +234,7 @@ GitHub issue に診断ファイルを添付するには、拡張子が`.txt`に�
 > GitHub issue にネットワーク トレースまたはログ ファイルの内容を貼り付ないでください。 これらのログとトレースは非常に大きくなる場合があり、GitHub は通常、これを切り捨てます。
 
 ![GitHub の issue にログ ファイルをドラッグします。](diagnostics/attaching-diagnostics-files.png)
+
 
 ## <a name="additional-resources"></a>その他の技術情報
 

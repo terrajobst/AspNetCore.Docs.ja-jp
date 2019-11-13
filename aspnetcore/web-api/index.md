@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 09/12/2019
 uid: web-api/index
-ms.openlocfilehash: aab9b848eb6e69055b019c9253c716898e9847e2
-ms.sourcegitcommit: a11f09c10ef3d4eeab7ae9ce993e7f30427741c1
+ms.openlocfilehash: 122de0a225668a7523eec900e2ad8fdac56d7886
+ms.sourcegitcommit: 4818385c3cfe0805e15138a2c1785b62deeaab90
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71149345"
+ms.lasthandoff: 11/09/2019
+ms.locfileid: "73897023"
 ---
 # <a name="create-web-apis-with-aspnet-core"></a>ASP.NET Core を使って Web API を作成する
 
@@ -159,7 +159,7 @@ namespace WebApiSample
 
 ::: moniker-end
 
-### <a name="automatic-http-400-responses"></a>自動的な HTTP 400 応答
+## <a name="automatic-http-400-responses"></a>自動的な HTTP 400 応答
 
 `[ApiController]` 属性により、モデル検証エラーが発生すると HTTP 400 応答が自動的にトリガーされます。 その結果、アクション メソッド内の次のコードは不要になります。
 

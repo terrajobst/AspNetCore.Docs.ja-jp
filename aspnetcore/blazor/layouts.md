@@ -6,86 +6,88 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 09/23/2019
+no-loc:
+- Blazor
 uid: blazor/layouts
-ms.openlocfilehash: 064ffafb8e7f3e76e5bd7bde0e06ef271fe92542
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: 3546259fc6b622a6137a6baa8f446c5f43af1cab
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71211587"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73962806"
 ---
-# <a name="aspnet-core-blazor-layouts"></a>Blazor レイアウトの ASP.NET Core
+# <a name="aspnet-core-opno-locblazor-layouts"></a>Blazor レイアウトの ASP.NET Core
 
 By [Rainer Stropek](https://www.timecockpit.com)と[Luke latham](https://github.com/guardrex)
 
-メニュー、著作権メッセージ、会社のロゴなどの一部のアプリ要素は、通常、アプリの全体的なレイアウトの一部であり、アプリのすべてのコンポーネントで使用されます。 これらの要素のコードをアプリのすべてのコンポーネントにコピーすることは、要素&mdash;の1つが更新を必要とするたびに効率的な方法ではありません。すべてのコンポーネントを更新する必要があります。 このような重複を維持することは困難であり、時間の経過と共にコンテンツの一貫性が失われる可能性があります。 *レイアウト*はこの問題を解決します。
+メニュー、著作権メッセージ、会社のロゴなどの一部のアプリ要素は、通常、アプリの全体的なレイアウトの一部であり、アプリのすべてのコンポーネントで使用されます。 これらの要素のコードをアプリのすべてのコンポーネントにコピーするのは、いずれかの要素に更新が必要な場合に、すべてのコンポーネントを更新する必要があるので&mdash;効率的な方法ではありません。 このような重複を維持することは困難であり、時間の経過と共にコンテンツの一貫性が失われる可能性があります。 *レイアウト*はこの問題を解決します。
 
 技術的には、レイアウトは別のコンポーネントにすぎません。 レイアウトは Razor テンプレートまたはC#コードで定義され、[データバインディング](xref:blazor/components#data-binding)、[依存関係の挿入](xref:blazor/dependency-injection)、およびその他のコンポーネントのシナリオを使用できます。
 
 *コンポーネント*を*レイアウト*に変換するには、次のコンポーネントを実行します。
 
-* を`LayoutComponentBase`継承します。これ`Body`は、レイアウト内に表示されるコンテンツのプロパティを定義します。
-* Razor 構文`@Body`を使用して、コンテンツがレンダリングされるレイアウトマークアップ内の場所を指定します。
+* レイアウト内に表示されるコンテンツの `Body` プロパティを定義する `LayoutComponentBase`から継承します。
+* Razor 構文 `@Body` を使用して、コンテンツがレンダリングされるレイアウトマークアップ内の場所を指定します。
 
-次のコードサンプルは、レイアウトコンポーネントの Razor テンプレートである*Mainlayout*を示しています。 レイアウトは、 `LayoutComponentBase`ナビゲーションバーと`@Body`フッターの間のを継承して設定します。
+次のコードサンプルは、レイアウトコンポーネントの Razor テンプレートである*Mainlayout*を示しています。 レイアウトは `LayoutComponentBase` を継承し、ナビゲーションバーとフッターの間に `@Body` を設定します。
 
 [!code-cshtml[](layouts/sample_snapshot/3.x/MainLayout.razor?highlight=1,13)]
 
-Blazor アプリテンプレート`MainLayout`のいずれかに基づくアプリでは、コンポーネント (*mainlayout. razor*) はアプリの*共有*フォルダーにあります。
+Blazor アプリテンプレートのいずれかに基づくアプリでは、`MainLayout` コンポーネント (*Mainlayout*) はアプリの*共有*フォルダーにあります。
 
 ## <a name="default-layout"></a>既定のレイアウト
 
-アプリの*アプリケーションの razor*ファイルで`Router` 、コンポーネントの既定のアプリレイアウトを指定します。 既定の`Router` Blazor テンプレートによって提供される次のコンポーネントを使用`MainLayout`すると、既定のレイアウトがコンポーネントに設定されます。
+アプリの*アプリケーションの razor*ファイルの `Router` コンポーネントで、既定のアプリレイアウトを指定します。 既定の Blazor テンプレートによって提供される次の `Router` コンポーネントは、既定のレイアウトを `MainLayout` コンポーネントに設定します。
 
 [!code-cshtml[](layouts/sample_snapshot/3.x/App1.razor?highlight=3)]
 
-コンテンツの`NotFound`既定のレイアウトを指定するには、 `NotFound`コンテンツに対してを`LayoutView`指定します。
+`NotFound` コンテンツの既定のレイアウトを指定するには `NotFound` コンテンツの `LayoutView` を指定します。
 
 [!code-cshtml[](layouts/sample_snapshot/3.x/App2.razor?highlight=6-9)]
 
-`Router`コンポーネントの詳細については、 <xref:blazor/routing>「」を参照してください。
+`Router` コンポーネントの詳細については、「<xref:blazor/routing>」を参照してください。
 
 ルーターでレイアウトを既定のレイアウトとして指定することは、コンポーネントごとまたはフォルダーごとにオーバーライドできるため、便利な方法です。 最も一般的な方法であるため、ルーターを使用してアプリの既定のレイアウトを設定することをお勧めします。
 
 ## <a name="specify-a-layout-in-a-component"></a>コンポーネントでのレイアウトの指定
 
-コンポーネントにレイアウトを`@layout`適用するには、Razor ディレクティブを使用します。 コンパイラは、 `@layout`を`LayoutAttribute`に変換します。これは、コンポーネントクラスに適用されます。
+コンポーネントにレイアウトを適用するには、Razor ディレクティブ `@layout` を使用します。 コンパイラは `@layout` を `LayoutAttribute`に変換します。これはコンポーネントクラスに適用されます。
 
-次`MasterList`のコンポーネントの内容は、 `MasterLayout`の`@Body`位置でに挿入されます。
+次の `MasterList` コンポーネントの内容は、`@Body`の位置にある `MasterLayout` に挿入されます。
 
 [!code-cshtml[](layouts/sample_snapshot/3.x/MasterList.razor?highlight=1)]
 
-コンポーネントにレイアウトを直接指定すると、ルーターの*既定のレイアウト*セットや`@layout` 、*インポート*からインポートされたディレクティブはオーバーライドされます。
+コンポーネントにレイアウトを直接指定すると、ルーターの*既定のレイアウト*セットまたは *_Imports*からインポートされた `@layout` ディレクティブが上書きされます。
 
 ## <a name="centralized-layout-selection"></a>一元的なレイアウト選択
 
-アプリのすべてのフォルダーには、必要に応じて、*インポート*という名前のテンプレートファイルを含めることができます。 コンパイラには、インポートファイルで指定されたディレクティブが同じフォルダー内のすべての Razor テンプレートに含まれ、そのすべてのサブフォルダーに再帰的に含まれています。 したがって、を含む`@layout MyCoolLayout`インポートの razor ファイルを使用すると、フォルダー内のすべてのコンポーネントでが使用`MyCoolLayout`されるようになります。 フォルダーおよびサブフォルダー内のすべて`@layout MyCoolLayout`の*razor*ファイルに繰り返し追加する必要はありません。 `@using`ディレクティブは、同じ方法でコンポーネントにも適用されます。
+アプリのすべてのフォルダーには、必要に応じて *_Imports*という名前のテンプレートファイルを含めることができます。 コンパイラには、インポートファイルで指定されたディレクティブが同じフォルダー内のすべての Razor テンプレートに含まれ、そのすべてのサブフォルダーに再帰的に含まれています。 したがって、`@layout MyCoolLayout` を含む *_Imports razor*ファイルは、フォルダー内のすべてのコンポーネントが `MyCoolLayout`を使用することを保証します。 フォルダーおよびサブフォルダー内のすべての*razor*ファイルに `@layout MyCoolLayout` を繰り返し追加する必要はありません。 `@using` ディレクティブも、同じ方法でコンポーネントに適用されます。
 
-次のインポートを実行し*ます。 razor ファイルのインポート (_c)* :
+次の *_Imports の razor*ファイルのインポート:
 
-* `MyCoolLayout`。
+* `MyCoolLayout`.
 * 同じフォルダーおよびサブフォルダー内のすべての Razor コンポーネント。
 * `BlazorApp1.Data` 名前空間。
  
 [!code-cshtml[](layouts/sample_snapshot/3.x/_Imports.razor)]
 
-Razor*ファイルは*、razor の[ビューとページの _ViewImports ファイル](xref:mvc/views/layout#importing-shared-directives)に似ていますが、razor コンポーネントファイルに特に適用されます。
+*_Imports の razor*ファイルは、razor[のビューおよびページの _ViewImports ファイル](xref:mvc/views/layout#importing-shared-directives)に似ていますが、razor コンポーネントファイルに特に適用されます。
 
-インポートでレイアウトを指定すると、ルーターの*既定のレイアウト*として指定されたレイアウトが上書きされ*ます*。
+*_Imports*でレイアウトを指定すると、ルーターの*既定のレイアウト*として指定されたレイアウトが上書きされます。
 
 ## <a name="nested-layouts"></a>入れ子になったレイアウト
 
 アプリは、入れ子になったレイアウトで構成できます。 コンポーネントは、別のレイアウトを参照するレイアウトを参照できます。 たとえば、入れ子になったレイアウトは、複数レベルのメニュー構造を作成するために使用されます。
 
-次の例は、入れ子になったレイアウトの使用方法を示しています。 *EpisodesComponent*ファイルは、表示するコンポーネントです。 コンポーネントはを参照`MasterListLayout`します。
+次の例は、入れ子になったレイアウトの使用方法を示しています。 *EpisodesComponent*ファイルは、表示するコンポーネントです。 コンポーネントは `MasterListLayout`を参照します。
 
 [!code-cshtml[](layouts/sample_snapshot/3.x/EpisodesComponent.razor?highlight=1)]
 
-*Masterlistlayout. razor*ファイルには、 `MasterListLayout`が用意されています。 レイアウトは、表示され`MasterLayout`ている別のレイアウト () を参照します。 `EpisodesComponent``@Body`が表示されます。
+*Masterlistlayout. razor*ファイルには、`MasterListLayout`が用意されています。 レイアウトは、表示されている別のレイアウト (`MasterLayout`) を参照します。 `@Body` 表示される `EpisodesComponent` がレンダリングされます。
 
 [!code-cshtml[](layouts/sample_snapshot/3.x/MasterListLayout.razor?highlight=1,9)]
 
-最後に`MasterLayout` 、 *masterlayout*には、ヘッダー、メインメニュー、フッターなどの最上位レベルのレイアウト要素が含まれています。 `MasterListLayout`が表示`EpisodesComponent`される`@Body`と、が表示されます。
+最後に、Masterlayout に `MasterLayout`、ヘッダー、メインメニュー、フッターなどの最上位レベルのレイアウト要素が含まれてい*ます。* `EpisodesComponent` が表示される `MasterListLayout`、`@Body` が表示されます。
 
 [!code-cshtml[](layouts/sample_snapshot/3.x/MasterLayout.razor?highlight=6)]
 
