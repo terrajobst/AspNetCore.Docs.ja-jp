@@ -23,7 +23,7 @@ ms.locfileid: "67313710"
 ## <a name="server-side-logging"></a>サーバー側のログ記録
 
 > [!WARNING]
-> サーバー側のログは、アプリからの機密情報を含めることができます。 実稼働アプリの未加工のログを GitHub のようなパブリック フォーラムに**決して**投稿しないでください。
+> サーバー側のログは、アプリからの機密情報を含めることができます。 実稼働アプリの未加工のログを GitHub のようなパブリック フォーラムに **決して** 投稿しないでください。
 
 SignalR は ASP.NET Core の一部であるため、ASP.NET Core のログ記録システムを使用します。 既定の構成では、SignalR のログはほとんどの情報が記録されませんが、設定することができます。 ASP.NET Core のログ記録の構成の詳細については [ASP.NET Core のログ記録](xref:fundamentals/logging/index#configuration) に関するドキュメントを参照してください。
 
@@ -45,7 +45,7 @@ JSON ベースの構成を使用していない場合は、構成システムで
 * `Logging:LogLevel:Microsoft.AspNetCore.SignalR` = `Debug`
 * `Logging:LogLevel:Microsoft.AspNetCore.Http.Connections` = `Debug`
 
-入れ子になった構成値をどのように指定する方法については、構成システムのドキュメントを確認してください。 たとえば、環境変数を使用する場合は `:` の代わりに 2つ `_ `文字が使用されます :  (例: `Logging__LogLevel__Microsoft.AspNetCore.SignalR`)。
+入れ子になった構成値を指定する方法については、構成システムのドキュメントを確認してください。 たとえば、環境変数を使用する場合は `:` の代わりに 2 つ `_ `文字が使用されます : (例: `Logging__LogLevel__Microsoft.AspNetCore.SignalR`)。
 
 アプリの診断の詳細を収集するときには、`Debug`レベルを使用することを推奨します。 `Trace`レベルは非常に低レベルの診断を生成し、アプリで問題を診断するために必要になることはほとんどありません。
 
@@ -55,24 +55,24 @@ JSON ベースの構成を使用していない場合は、構成システムで
 
 ### <a name="as-a-console-app-outside-iis"></a>IIS の外部のコンソール アプリ
 
-コンソール アプリケーションを実行する場合、[コンソール ロガー](xref:fundamentals/logging/index#console-provider)を既定で有効にする必要があります。 SignalR のログは、コンソールに表示されます。
+コンソール アプリケーションを実行する場合、[コンソール ロガー](xref:fundamentals/logging/index#console-provider) を既定で有効にする必要があります。 SignalR のログは、コンソールに表示されます。
 
 ### <a name="within-iis-express-from-visual-studio"></a>Visual Studio から IIS Express 内
 
-Visual Studio は**出力**ウィンドウにログ出力を表示します。 ドロップダウンから**ASP.NET Core Web サーバー**オプションを選択します。
+Visual Studio は **出力** ウィンドウにログ出力を表示します。 ドロップダウンから **ASP.NET Core Web サーバー* *オプションを選択します。
 
 ### <a name="azure-app-service"></a>Azure App Service
 
-Azure App Service ポータルの**診断ログ**セクションで**アプリケーション ログ (ファイルシステム)** オプションを有効化し、**レベル**を`詳細`に設定します。**ログのストリーミング**サービスと、App Service のファイル システムのログに記録します。 詳細については、[Azure ログのストリーミング](xref:fundamentals/logging/index#azure-log-streaming)を参照してください。
+Azure App Service ポータルの **診断ログ** セクションで **アプリケーション ログ (ファイルシステム)** オプションを有効化し、**レベル** を `詳細` に設定します。**ログのストリーミング** サービスと、App Service のファイル システムのログに記録します。 詳細については、[Azure ログのストリーミング](xref:fundamentals/logging/index#azure-log-streaming) を参照してください。
 
 ### <a name="other-environments"></a>その他の環境
 
- 別の環境にアプリを展開する場合は(たとえば、Docker、Kubernetes、または Windows サービス)、<xref:fundamentals/logging/index> より、環境に適したログ プロバイダーを構成する方法の詳細を参照してください。
+ 別の環境にアプリを展開する場合 (たとえば、Docker、Kubernetes、または Windows サービス) は、<xref:fundamentals/logging/index> より、環境に適したログ プロバイダーを構成する方法の詳細を参照してください。
 
 ## <a name="javascript-client-logging"></a>JavaScript クライアントのログ記録
 
 > [!WARNING]
-> クライアント側のログは、アプリからの機密情報を含めることができます。 実稼働アプリの未加工のログを GitHub のようなパブリック フォーラムに**決して**投稿しないでください。
+> クライアント側のログは、アプリからの機密情報を含めることができます。 実稼働アプリの未加工のログを GitHub のようなパブリック フォーラムに **決して** 投稿しないでください。
 
 JavaScript クライアントを使用する場合、`HubConnectionBuilder` の `configureLogging`メソッド使用してログ記録オプションを設定できます :
 
@@ -101,38 +101,38 @@ JavaScript クライアントを使用する場合、`HubConnectionBuilder` の 
 ## <a name="net-client-logging"></a>.NET クライアントのログ記録
 
 > [!WARNING]
-> クライアント側のログは、アプリからの機密情報を含めることができます。 実稼働アプリの未加工のログを GitHub のようなパブリック フォーラムに**決して**投稿しないでください。
+> クライアント側のログは、アプリからの機密情報を含めることができます。 実稼働アプリの未加工のログを GitHub のようなパブリック フォーラムに **決して** 投稿しないでください。
 
 .NET クライアントからログを取得するために、`HubConnectionBuilder`の`ConfigureLogging`メソッドを使用できます。 これは、`WebHostBuilder`と`HostBuilder`の`ConfigureLogging`メソッドと同様に機能します。 ASP.NET Core で使用するものと同じログ プロバイダーを構成できます。 ただし、手動でそれぞれのログ プロバイダーの NuGet パッケージをインストールし有効にする必要があります。
 
 ### <a name="console-logging"></a>コンソールのログ記録
 
-コンソールのログ記録を有効にするには [Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console)パッケージ追加します。 次に、`AddConsole`メソッドを使用し、コンソール ロガーを構成します :
+コンソールのログ記録を有効にするには [Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console) パッケージを追加します。 次に、`AddConsole`メソッドを使用し、コンソール ロガーを構成します。
 
 [!code-csharp[](diagnostics/net-client-console-log.cs?highlight=6)]
 
 ### <a name="debug-output-window-logging"></a>デバッグ出力ウィンドウのログ記録
 
-Visual Studio の**出力**ウィンドウに出力されるようにログを構成することもできます。 [Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug)パッケージをインストールし、`AddDebug`メソッドを使用します :
+Visual Studio の **出力** ウィンドウに出力されるようにログを構成することもできます。 [Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug) パッケージをインストールし、`AddDebug`メソッドを使用します。
 
 [!code-csharp[](diagnostics/net-client-debug-log.cs?highlight=6)]
 
 ### <a name="other-logging-providers"></a>その他のログ プロバイダー
 
-SignalR は Serilog、Seq、NLog、または `Microsoft.Extensions.Logging`と統合されるその他のログ記録システムなどのような、他のログ記録プロバイダーをサポートしています。 `ILoggerProvider`を提供するログ記録システムであれば、`AddProvider` で登録することができます :
+SignalR は Serilog、Seq、NLog、または `Microsoft.Extensions.Logging`と統合されるその他のログ記録システムなど、他のログ記録プロバイダーをサポートしています。 `ILoggerProvider`を提供するログ記録システムであれば、`AddProvider` で登録することができます。
 
 [!code-csharp[](diagnostics/net-client-custom-log.cs?highlight=6)]
 
 ### <a name="control-verbosity"></a>詳細度のコントロール
 
-アプリの他の場所からログを記録する場合、既定のレベルを`Debug`に変更すると詳細すぎる可能性があります。 SignalR のログのログ記録レベルを構成するのにフィルターを使用することができます。 これは、サーバーとほぼ同じコードで行うことができます。
+アプリの他の場所からログを記録する場合、既定のレベルを`Debug`に変更すると冗長になる可能性があります。 SignalR のログのログ記録レベルを構成するのにフィルターを使用することができます。 これは、サーバーとほぼ同じコードで行うことができます。
 
 [!code-csharp[Controlling verbosity in .NET client](diagnostics/logging-config-client-code.cs?highlight=9-10)]
 
 ## <a name="network-traces"></a>ネットワーク トレース
 
 > [!WARNING]
-> ネットワーク トレースには、アプリから送信されたすべてのメッセージの完全な内容が含まれています。 実稼働アプリの加工のネットワーク トレースを GitHub のようなパブリック フォーラムに**決して**投稿しないでください。
+> ネットワーク トレースには、アプリから送信されたすべてのメッセージの完全な内容が含まれています。 実稼働アプリの加工のネットワーク トレースを GitHub のようなパブリック フォーラムに **決して** 投稿しないでください。
 
 問題が発生した場合、ネットワーク トレースが多くの役に立つ情報を提供する場合があります。 これは、問題の追跡ツールで問題を報告しようとしている場合に特に便利です。
 
@@ -140,9 +140,9 @@ SignalR は Serilog、Seq、NLog、または `Microsoft.Extensions.Logging`と�
 
 この方法は、すべてのアプリに対して機能します。
 
-Fiddler は、HTTP トレースを収集するための非常に強力なツールです。 [telerik.com/fiddler](https://www.telerik.com/fiddler)からインストールしてそれを起動し、アプリを実行して問題を再現します。 Fiddler は Windows 使用でき、macOS および Linux 用のベータ バージョンがあります。
+Fiddler は、HTTP トレースを収集するための非常に強力なツールです。 [telerik.com/fiddler](https://www.telerik.com/fiddler) からインストールしてそれを起動し、アプリを実行して問題を再現します。 Fiddler は Windows で使用でき、macOS および Linux 用のベータ バージョンがあります。
 
-HTTPS を使用して接続する場合は、Fiddler が HTTPS トラフィックを復号化するためにいくつかの追加の手順が必要です。 詳細については、 [Fiddler のドキュメント](https://docs.telerik.com/fiddler/Configure-Fiddler/Tasks/DecryptHTTPS)を参照してください。
+HTTPS を使用して接続する場合は、Fiddler が HTTPS トラフィックを復号化するためにいくつかの追加の手順が必要です。 詳細については、 [Fiddler のドキュメント](https://docs.telerik.com/fiddler/Configure-Fiddler/Tasks/DecryptHTTPS) を参照してください。
 
 トレースを収集したら、メニュー バーから **File** > **Save** > **All Sessions** を選択して、トレースをエクスポートすることができます。
 
@@ -158,7 +158,7 @@ HTTPS を使用して接続する場合は、Fiddler が HTTPS トラフィッ�
 tcpdump -i [interface] -w trace.pcap
 ```
 
-`[interface]`をキャプチャするネットワーク インターフェイスに置き換えます。 通常、これは`/dev/eth0` (標準のイーサネット インターフェイス) や`/dev/lo0`(localhost トラフィック用)のようになります。 詳細については、ホスト システム上の `tcpdump` の man ページを参照してください。
+`[interface]`をキャプチャするネットワーク インターフェイスに置き換えます。 通常、これは`/dev/eth0` (標準のイーサネット インターフェイス) や`/dev/lo0`(localhost トラフィック用) のようになります。 詳細については、ホスト システム上の `tcpdump` の man ページを参照してください。
 
 ## <a name="collect-a-network-trace-in-the-browser"></a>ブラウザーでのネットワーク トレースの収集
 
@@ -181,8 +181,8 @@ tcpdump -i [interface] -w trace.pcap
 
 1. F12 キーを押して Dev Tools を開きます。
 2. [Network] タブをクリックします。
-3. ページを更新し(必要な場合)、問題の再現させます。
-4. 要求の一覧の任意の場所ので右クリックし、"Save as HAR with content"を選択します。
+3. ページを更新し(必要な場合)、問題を再現させます。
+4. 要求の一覧の任意の場所を右クリックし、"Save as HAR with content" を選択します。
 
 ![Google Chrome Dev Tools のネットワーク タブの "Save as HAR with content" オプション](diagnostics/chrome-har-export.png)
 
@@ -190,10 +190,10 @@ tcpdump -i [interface] -w trace.pcap
 
 1. F12 キーを押して開発ツールを開きます。
 2. [ネットワーク] タブをクリックします。
-3. ページを更新し(必要な場合)、問題の再現させます。
-4. 要求の一覧の任意の場所ので右クリックし、"HAR 形式ですべて保存"を選択します。
+3. ページを更新し(必要な場合)、問題を再現させます。
+4. 要求の一覧の任意の場所を右クリックし、"Save All As HAR" を選択します。
 
-![Mozilla Firefox 開発ツールのネットワーク タブの "HAR 形式ですべて保存" オプション](diagnostics/firefox-har-export.png)
+![Mozilla Firefox 開発ツールのネットワーク タブの "Save All As HAR" オプション](diagnostics/firefox-har-export.png)
 
 ## <a name="attach-diagnostics-files-to-github-issues"></a>GitHub issue への診断ファイルの添付
 
