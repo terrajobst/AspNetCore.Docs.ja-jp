@@ -6,43 +6,45 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/15/2019
+no-loc:
+- Blazor
 uid: blazor/call-web-api
-ms.openlocfilehash: b08fdf5c2f9a523314b1744a33087eb64fa4c14a
-ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
+ms.openlocfilehash: b5c57317005d0072410542bad322458b1cb3f5ee
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72390830"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73962724"
 ---
-# <a name="call-a-web-api-from-aspnet-core-blazor"></a>ASP.NET Core Blazor から web API を呼び出す
+# <a name="call-a-web-api-from-aspnet-core-opno-locblazor"></a>ASP.NET Core Blazor から web API を呼び出す
 
 [Luke Latham](https://github.com/guardrex)、 [Daniel Roth](https://github.com/danroth27)、[フアン De la クルス](https://github.com/juandelacruz23)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-Blazor WebAssembly は、構成済みの @no__t 0 サービスを使用して web Api を呼び出します。 Blazor JSON ヘルパーまたは <xref:System.Net.Http.HttpRequestMessage> を使用して、JavaScript [FETCH API](https://developer.mozilla.org/docs/Web/API/Fetch_API)オプションを含めることができるように要求を作成します。
+Blazor WebAssembly は、構成済みの `HttpClient` サービスを使用して web Api を呼び出します。 要求を作成します。これには、Blazor JSON ヘルパーまたは <xref:System.Net.Http.HttpRequestMessage>を使用した JavaScript [FETCH API](https://developer.mozilla.org/docs/Web/API/Fetch_API)オプションを含めることができます。
 
-Blazor サーバーアプリは、通常 <xref:System.Net.Http.IHttpClientFactory> を使用して作成された @no__t 0 のインスタンスを使用して web Api を呼び出します。 詳細については、「<xref:fundamentals/http-requests>」を参照してください。
+Blazor サーバーアプリは、通常 <xref:System.Net.Http.IHttpClientFactory>を使用して作成された <xref:System.Net.Http.HttpClient> インスタンスを使用して web Api を呼び出します。 詳細については、「<xref:fundamentals/http-requests>」を参照してください。
 
 [サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
-Blazor WebAssembly 例については、サンプルアプリの次のコンポーネントを参照してください。
+Blazor Webasの例については、サンプルアプリの次のコンポーネントを参照してください。
 
 * Web API の呼び出し (*Pages/CallWebAPI*)
 * HTTP 要求テスター (*Components/HTTPRequestTester*)
 
 ## <a name="httpclient-and-json-helpers"></a>HttpClient と JSON のヘルパー
 
-Blazor WebAssembly では、 [Httpclient](xref:fundamentals/http-requests)は、要求を配信元サーバーに返すための事前に構成されたサービスとして利用できます。 @No__t-0 の JSON ヘルパーを使用するには、`Microsoft.AspNetCore.Blazor.HttpClient` にパッケージ参照を追加します。 `HttpClient` および JSON ヘルパーは、サードパーティの web API エンドポイントを呼び出すためにも使用されます。 `HttpClient` は、ブラウザーの[FETCH API](https://developer.mozilla.org/docs/Web/API/Fetch_API)を使用して実装され、同じオリジンポリシーの適用などの制限が適用されます。
+Blazor WebAssembly では、 [Httpclient](xref:fundamentals/http-requests)は、要求を配信元サーバーに返すための事前に構成されたサービスとして利用できます。 `HttpClient` JSON ヘルパーを使用するには、`Microsoft.AspNetCore.Blazor.HttpClient`へのパッケージ参照を追加します。 `HttpClient` および JSON ヘルパーは、サードパーティの web API エンドポイントを呼び出すためにも使用されます。 `HttpClient` は、ブラウザーの[FETCH API](https://developer.mozilla.org/docs/Web/API/Fetch_API)を使用して実装され、同じオリジンポリシーの適用などの制限が適用されます。
 
-クライアントのベースアドレスは、元のサーバーのアドレスに設定されます。 @No__t-1 ディレクティブを使用して @no__t 0 のインスタンスを挿入します。
+クライアントのベースアドレスは、元のサーバーのアドレスに設定されます。 `@inject` ディレクティブを使用して `HttpClient` インスタンスを挿入します。
 
 ```cshtml
 @using System.Net.Http
 @inject HttpClient Http
 ```
 
-次の例では、Todo web API が作成、読み取り、更新、および削除 (CRUD) の各操作を処理します。 これらの例は、を格納する @no__t 0 のクラスに基づいています。
+次の例では、Todo web API が作成、読み取り、更新、および削除 (CRUD) の各操作を処理します。 この例は、を格納する `TodoItem` クラスに基づいています。
 
 * ID (`Id`、`long`) &ndash; アイテムの一意の ID。
 * 名前 (`Name`、`string`) &ndash; 項目の名前。
@@ -61,7 +63,7 @@ JSON ヘルパーメソッドは、要求を URI (次の例では web API) に�
 
 * `GetJsonAsync` &ndash; は HTTP GET 要求を送信し、JSON 応答本文を解析してオブジェクトを作成します。
 
-  次のコードでは、`_todoItems` がコンポーネントによって表示されます。 @No__t-0 メソッドは、コンポーネントのレンダリングが終了したときにトリガーされます ([On初期化 Edasync](xref:blazor/components#lifecycle-methods))。 完全な例については、サンプルアプリを参照してください。
+  次のコードでは、`_todoItems` がコンポーネントによって表示されます。 `GetTodoItems` メソッドは、コンポーネントのレンダリングが終了したときにトリガーされます ([Oninitializer Edasync](xref:blazor/components#lifecycle-methods))。 完全な例については、サンプルアプリを参照してください。
 
   ```cshtml
   @using System.Net.Http
@@ -77,7 +79,7 @@ JSON ヘルパーメソッドは、要求を URI (次の例では web API) に�
 
 * `PostJsonAsync` &ndash; は、JSON でエンコードされたコンテンツを含む HTTP POST 要求を送信し、JSON 応答本文を解析してオブジェクトを作成します。
 
-  次のコードでは、コンポーネントのバインドされた要素によって `_newItemName` が提供されています。 @No__t-0 メソッドは、`<button>` 要素を選択することによってトリガーされます。 完全な例については、サンプルアプリを参照してください。
+  次のコードでは、コンポーネントのバインドされた要素によって `_newItemName` が提供されています。 `AddItem` メソッドは、`<button>` 要素を選択することによってトリガーされます。 完全な例については、サンプルアプリを参照してください。
 
   ```cshtml
   @using System.Net.Http
@@ -99,7 +101,7 @@ JSON ヘルパーメソッドは、要求を URI (次の例では web API) に�
 
 * `PutJsonAsync` &ndash; は、JSON でエンコードされたコンテンツを含む HTTP PUT 要求を送信します。
 
-  次のコードでは、`Name` と `IsCompleted` の `_editItem` の値が、コンポーネントのバインドされた要素によって提供されています。 項目の `Id` は、UI の別の部分で項目が選択され、`EditItem` が呼び出されたときに設定されます。 @No__t-0 メソッドは、Save `<button>` 要素を選択することによってトリガーされます。 完全な例については、サンプルアプリを参照してください。
+  次のコードでは、`Name` と `IsCompleted` の `_editItem` 値が、コンポーネントのバインドされた要素によって提供されています。 項目の `Id` は、UI の別の部分で項目が選択され、`EditItem` が呼び出されたときに設定されます。 `SaveItem` メソッドは、Save `<button>` 要素を選択することによってトリガーされます。 完全な例については、サンプルアプリを参照してください。
 
   ```cshtml
   @using System.Net.Http
@@ -153,12 +155,12 @@ JSON ヘルパーメソッドは、要求を URI (次の例では web API) に�
 
 ## <a name="httpclient-and-httprequestmessage-with-fetch-api-request-options"></a>HttpClient と HttpRequestMessage with Fetch API 要求オプション
 
-Blazor webassembly で WebAssembly 実行する場合は、 [Httpclient](xref:fundamentals/http-requests)と <xref:System.Net.Http.HttpRequestMessage> を使用して要求をカスタマイズします。 たとえば、要求 URI、HTTP メソッド、および必要な要求ヘッダーを指定できます。
+Blazor webassembly で Webasで実行する場合は、 [Httpclient](xref:fundamentals/http-requests)と <xref:System.Net.Http.HttpRequestMessage> を使用して要求をカスタマイズします。 たとえば、要求 URI、HTTP メソッド、および必要な要求ヘッダーを指定できます。
 
 要求の `WebAssemblyHttpMessageHandler.FetchArgs` プロパティを使用して、基になる JavaScript [FETCH API](https://developer.mozilla.org/docs/Web/API/Fetch_API)に要求オプションを指定します。 次の例に示すように、`credentials` プロパティは、次のいずれかの値に設定されます。
 
 * `FetchCredentialsOption.Include` ("include") &ndash; は、クロスオリジン要求の場合でも、ブラウザーが資格情報 (cookie や HTTP 認証ヘッダーなど) を送信するように通知します。 CORS ポリシーが資格情報を許可するように構成されている場合にのみ許可されます。
-* `FetchCredentialsOption.Omit` ("省略") @no__t、ブラウザーが資格情報を送信しないことを通知します (cookie や HTTP 認証ヘッダーなど)。
+* `FetchCredentialsOption.Omit` ("省略") &ndash; ブラウザーが資格情報を送信しないことを通知します (cookie や HTTP 認証ヘッダーなど)。
 * `FetchCredentialsOption.SameOrigin` ("同じオリジン") &ndash; は、ターゲット URL が呼び出し元アプリケーションと同じオリジンにある場合にのみ、ブラウザーが資格情報 (cookie や HTTP auth ヘッダーなど) を送信するように通知します。
 
 ```cshtml

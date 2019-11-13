@@ -1,24 +1,26 @@
 ---
-title: SignalR でサポートされているプラットフォームの ASP.NET Core
+title: ASP.NET Core SignalR サポートされているプラットフォーム
 author: bradygaster
-description: ASP.NET Core SignalR のサポートされているプラットフォームについて説明します。
+description: ASP.NET Core SignalRでサポートされているプラットフォームについて説明します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 11/01/2019
+ms.date: 11/12/2019
+no-loc:
+- SignalR
 uid: signalr/supported-platforms
-ms.openlocfilehash: 1be7a307710e6e522c0088fd1ca01da11a13eda1
-ms.sourcegitcommit: 77c8be22d5e88dd710f42c739748869f198865dd
+ms.openlocfilehash: 86ba5b1aec230d78c1a0e1709187e129df6cb4cc
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/01/2019
-ms.locfileid: "73426976"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963736"
 ---
-# <a name="aspnet-core-signalr-supported-platforms"></a>SignalR でサポートされているプラットフォームの ASP.NET Core
+# <a name="aspnet-core-opno-locsignalr-supported-platforms"></a>ASP.NET Core SignalR サポートされているプラットフォーム
 
 ## <a name="server-system-requirements"></a>サーバーシステムの要件
 
-ASP.NET Core の SignalR は、ASP.NET Core がサポートするすべてのサーバープラットフォームをサポートしています。
+ASP.NET Core の SignalR は、ASP.NET Core がサポートするすべてのサーバープラットフォームをサポートします。
 
 ## <a name="javascript-client"></a>JavaScript クライアント
 
@@ -36,7 +38,7 @@ ASP.NET Core の SignalR は、ASP.NET Core がサポートするすべてのサ
 
 ## <a name="net-client"></a>.NET クライアント
 
-[.Net クライアント](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR/)は、ASP.NET Core によってサポートされる任意のプラットフォームで実行されます。 たとえば、xamarin[開発者は、SignalR](https://github.com/aspnet/Announcements/issues/305)を使用して android アプリをビルドするために、xamarin 8.4.0.1 以降と11.14.0.4 を使用した ios アプリを使用できます。
+[.Net クライアント](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR/)は、ASP.NET Core によってサポートされる任意のプラットフォームで実行されます。 たとえば、xamarin[開発者は](https://github.com/aspnet/Announcements/issues/305)、xamarin 8.4.0.1 以降と11.14.0.4 以降を使用して、android アプリをビルドするために SignalRを使用できます。
 
 サーバーで IIS が実行されている場合、Websocket トランスポートでは Windows Server 2012 以降に IIS 8.0 以降が必要です。 その他のトランスポートはすべてのプラットフォームでサポートされています。
 
