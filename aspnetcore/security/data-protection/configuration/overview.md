@@ -141,7 +141,7 @@ public void ConfigureServices(IServiceCollection services)
 
 * 同じ値を使用して、各アプリで <xref:Microsoft.AspNetCore.DataProtection.DataProtectionBuilderExtensions.SetApplicationName*> を構成します。
 * アプリ全体で同じバージョンのデータ保護 API スタックを使用します。 アプリのプロジェクトファイルで、次の**いずれか**を実行します。
-  * [AspNetCore メタパッケージ](xref:fundamentals/metapackage-app)を介して、同じ共有フレームワークのバージョンを参照します。
+  * [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)を介して、同じ共有フレームワークのバージョンを参照します。
   * 同じ[データ保護パッケージ](xref:security/data-protection/introduction#package-layout)のバージョンを参照します。
 
 ```csharp

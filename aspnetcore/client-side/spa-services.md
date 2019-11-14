@@ -23,7 +23,7 @@ ms.locfileid: "71080508"
 ::: moniker range=">= aspnetcore-3.0"
 
 > [!WARNING]
-> この記事で説明されている機能は、ASP.NET Core 3.0 の場合は廃止されます。 [AspNetCore SpaServices](https://www.nuget.org/packages/Microsoft.AspNetCore.SpaServices.Extensions) NuGet パッケージでは、より単純な SPA フレームワーク統合メカニズムを使用できます。 詳細については、「 [[アナウンスメント] Obsoleting AspNetCore. SpaServices And AspNetCore. NodeServices](https://github.com/aspnet/AspNetCore/issues/12890)」を参照してください。
+> この記事で説明されている機能は、ASP.NET Core 3.0 の場合は廃止されます。 [Microsoft.AspNetCore.SpaServices.Extensions](https://www.nuget.org/packages/Microsoft.AspNetCore.SpaServices.Extensions) NuGet パッケージでは、より単純な SPA フレームワーク統合メカニズムを使用できます。 詳細については、「 [[アナウンスメント] Obsoleting AspNetCore. SpaServices And AspNetCore. NodeServices](https://github.com/aspnet/AspNetCore/issues/12890)」を参照してください。
 
 ::: moniker-end
 

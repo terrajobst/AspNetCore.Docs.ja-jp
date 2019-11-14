@@ -70,7 +70,7 @@ Blazor アプリはコンポーネントから構築されています。 コン
 
 ASP.NET Core 3.0 の gRPC 機能には次のものが含まれます。
 
-* [Grpc AspNetCore](https://www.nuget.org/packages/Grpc.AspNetCore) &ndash;grpc サービスをホストするための ASP.NET Core フレームワーク。 ASP.NET Core 上の gRPC は、ログ記録、依存関係の挿入 (DI)、認証、承認など、標準の ASP.NET Core 機能と完全に統合されています。
+* [Grpc.AspNetCore](https://www.nuget.org/packages/Grpc.AspNetCore) &ndash;grpc サービスをホストするための ASP.NET Core フレームワーク。 ASP.NET Core 上の gRPC は、ログ記録、依存関係の挿入 (DI)、認証、承認など、標準の ASP.NET Core 機能と完全に統合されています。
 * [Grpc.Net.Client](https://www.nuget.org/packages/Grpc.Net.Client) &ndash; 使い慣れた `HttpClient` に基づいて構築される .NET Core 用の gRPC クライアント。
 * [Grpc.Net.ClientFactory](https://www.nuget.org/packages/Grpc.Net.ClientFactory) &ndash; `HttpClientFactory` と gRPC クライアントの統合。
 

@@ -45,13 +45,13 @@ ms.locfileid: "68371876"
 
 ::: moniker range=">= aspnetcore-2.1"
 
-* .NET Core を対象とする場合、 [AspNetCore メタパッケージ](xref:fundamentals/metapackage-app)は既定で参照されます。 このパッケージには、MVC アプリで一般的に使用されるパッケージが含まれています。 .NET Framework を対象とする場合は、パッケージ参照をプロジェクトファイルに個別に一覧表示する必要があります。
+* .NET Core を対象とする場合、 [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)は既定で参照されます。 このパッケージには、MVC アプリで一般的に使用されるパッケージが含まれています。 .NET Framework を対象とする場合は、パッケージ参照をプロジェクトファイルに個別に一覧表示する必要があります。
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.0"
 
-* .NET Core を対象とする場合、 [AspNetCore メタパッケージ](xref:fundamentals/metapackage)は既定で参照されます。 このパッケージには、MVC アプリによって一般的に使用されるパッケージが含まれています。 .NET Framework を対象とする場合は、パッケージ参照をプロジェクトファイルに個別に一覧表示する必要があります。
+* .NET Core を対象とする場合、 [Microsoft.AspNetCore.All メタパッケージ](xref:fundamentals/metapackage)は既定で参照されます。 このパッケージには、MVC アプリによって一般的に使用されるパッケージが含まれています。 .NET Framework を対象とする場合は、パッケージ参照をプロジェクトファイルに個別に一覧表示する必要があります。
 
 ::: moniker-end
 

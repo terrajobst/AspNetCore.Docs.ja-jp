@@ -351,7 +351,7 @@ public async Task<int> GetHttpClient2(string url)
 
 プールは、スレッド間で予約および解放できる事前に初期化されたオブジェクトのコレクションです。 プールでは、制限、事前定義されたサイズ、増加率などの割り当てルールを定義できます。
 
-NuGet パッケージの[Microsoft extension. ObjectPool](https://www.nuget.org/packages/Microsoft.Extensions.ObjectPool/)には、このようなプールの管理に役立つクラスが含まれています。
+NuGet パッケージの[Microsoft.Extensions.ObjectPool](https://www.nuget.org/packages/Microsoft.Extensions.ObjectPool/)には、このようなプールの管理に役立つクラスが含まれています。
 
 次の API エンドポイントは、各要求に対してランダムな数値を格納する `byte` バッファーをインスタンス化します。
 

@@ -35,7 +35,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="azure-storage"></a>Azure ストレージ
 
-[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.AzureStorage/)パッケージを使用すると、Azure Blob Storage にデータ保護キーを格納できます。 キーは、web アプリの複数のインスタンス間で共有できます。 アプリは、認証 cookie または CSRF 保護を複数のサーバーで共有できます。
+[Microsoft.AspNetCore.DataProtection.AzureStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.AzureStorage/)パッケージを使用すると、Azure Blob Storage にデータ保護キーを格納できます。 キーは、web アプリの複数のインスタンス間で共有できます。 アプリは、認証 cookie または CSRF 保護を複数のサーバーで共有できます。
 
 Azure Blob Storage プロバイダーを構成するには、 [Persistkeystoazureblobstorage](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.persistkeystoazureblobstorage)オーバーロードのいずれかを呼び出します。
 
@@ -47,7 +47,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Web アプリが Azure サービスとして実行されている場合は、認証トークンを自動的に作成でき[ます。](https://www.nuget.org/packages/Microsoft.Azure.Services.AppAuthentication/)
+Web アプリが Azure サービスとして実行されている場合は、[Microsoft.Azure.Services.AppAuthentication](https://www.nuget.org/packages/Microsoft.Azure.Services.AppAuthentication/)を使用して認証トークンを自動的に作成できます。
 
 ```csharp
 var tokenProvider = new AzureServiceTokenProvider();
@@ -70,13 +70,13 @@ services.AddDataProtection()
 
 ::: moniker range=">= aspnetcore-2.2"
 
-[StackExchangeRedis](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.StackExchangeRedis/)パッケージは、Redis cache にデータ保護キーを格納することを許可します。 キーは、web アプリの複数のインスタンス間で共有できます。 アプリは、認証 cookie または CSRF 保護を複数のサーバーで共有できます。
+[Microsoft.AspNetCore.DataProtection.StackExchangeRedis](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.StackExchangeRedis/)パッケージは、Redis cache にデータ保護キーを格納することを許可します。 キーは、web アプリの複数のインスタンス間で共有できます。 アプリは、認証 cookie または CSRF 保護を複数のサーバーで共有できます。
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-2.2"
 
-[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Redis/)パッケージを使用すると、redis cache にデータ保護キーを格納できます。 キーは、web アプリの複数のインスタンス間で共有できます。 アプリは、認証 cookie または CSRF 保護を複数のサーバーで共有できます。
+[Microsoft.AspNetCore.DataProtection.Redis](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Redis/)パッケージを使用すると、redis cache にデータ保護キーを格納できます。 キーは、web アプリの複数のインスタンス間で共有できます。 アプリは、認証 cookie または CSRF 保護を複数のサーバーで共有できます。
 
 ::: moniker-end
 
@@ -137,7 +137,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="entity-framework-core"></a>Entity Framework Core
 
-[AspNetCore コア](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.EntityFrameworkCore/)パッケージは、Entity Framework Core を使用してデータベースにデータ保護キーを格納するためのメカニズムを提供します。 `Microsoft.AspNetCore.DataProtection.EntityFrameworkCore` NuGet パッケージは、 [AspNetCore メタパッケージ](xref:fundamentals/metapackage-app)の一部ではなく、プロジェクトファイルに追加する必要があります。
+[Microsoft.AspNetCore.DataProtection.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.EntityFrameworkCore/)パッケージは、Entity Framework Core を使用してデータベースにデータ保護キーを格納するためのメカニズムを提供します。 `Microsoft.AspNetCore.DataProtection.EntityFrameworkCore` NuGet パッケージは、 [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)の一部ではなく、プロジェクトファイルに追加する必要があります。
 
 このパッケージでは、web アプリの複数のインスタンス間でキーを共有できます。
 

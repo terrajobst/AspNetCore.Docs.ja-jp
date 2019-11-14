@@ -29,9 +29,9 @@ ms.locfileid: "73034326"
 
 ## <a name="packages"></a>パッケージ
 
-Azure Key Vault 構成プロバイダーを使用するには、パッケージへの参照を[Microsoft. extension. AzureKeyVault](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.AzureKeyVault/)パッケージに追加します。
+Azure Key Vault 構成プロバイダーを使用するには、[Microsoft.Extensions.Configuration.AzureKeyVault](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.AzureKeyVault/)パッケージへのパッケージ参照を追加します。
 
-[Azure リソースの管理対象 id](/azure/active-directory/managed-identities-azure-resources/overview)のシナリオを採用するには、パッケージ参照を追加し[ます。](https://www.nuget.org/packages/Microsoft.Azure.Services.AppAuthentication/)
+[Azure リソースの管理対象 id](/azure/active-directory/managed-identities-azure-resources/overview)のシナリオを採用するには、[Microsoft.Azure.Services.AppAuthentication](https://www.nuget.org/packages/Microsoft.Azure.Services.AppAuthentication/)パッケージへのパッケージ参照を追加します。
 
 > [!NOTE]
 > このドキュメントの執筆時点では、`Microsoft.Azure.Services.AppAuthentication`、version `1.0.3` の最新の安定したリリースで、[システムによって割り当てられたマネージド id](/azure/active-directory/managed-identities-azure-resources/overview#how-does-the-managed-identities-for-azure-resources-work)がサポートされています。 *ユーザー割り当てのマネージド id*のサポートは、`1.2.0-preview2` パッケージで利用できます。 このトピックでは、システム管理の id の使用方法を示します。提供されるサンプルアプリでは、`Microsoft.Azure.Services.AppAuthentication` パッケージのバージョン `1.0.3` を使用します。

@@ -25,19 +25,19 @@ Browser Link は、開発環境と1つ以上の web ブラウザーの間の通�
 
 ::: moniker range=">= aspnetcore-2.1"
 
-ASP.NET Core 2.0 プロジェクトを ASP.NET Core 2.1 に変換し、 [AspNetCore メタパッケージ](xref:fundamentals/metapackage-app)に移行する場合は、browserlink 機能用の[VisualStudio リンク](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/)パッケージをインストールします。 ASP.NET Core 2.1 プロジェクトテンプレートでは、既定で `Microsoft.AspNetCore.App` メタパッケージが使用されます。
+ASP.NET Core 2.0 プロジェクトを ASP.NET Core 2.1 に変換し、 [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)に移行する場合は、browserlink 機能用の[Microsoft.VisualStudio.Web.BrowserLink](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/)パッケージをインストールします。 ASP.NET Core 2.1 プロジェクトテンプレートでは、既定で `Microsoft.AspNetCore.App` メタパッケージが使用されます。
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.0"
 
-ASP.NET Core 2.0 **Web アプリケーション**、**空**、および**web API**プロジェクトテンプレートでは、メタパッケージのパッケージ参照を含む[AspNetCore](xref:fundamentals/metapackage)が使用されて[いますが](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/)、 そのため、`Microsoft.AspNetCore.All` メタパッケージを使用するには、ブラウザーリンクを使用できるようにするための追加の操作は必要ありません。
+ASP.NET Core 2.0 **Web アプリケーション**、**空**、および**web API**プロジェクトテンプレートでは、　　[Microsoft.VisualStudio.Web.BrowserLink](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/)へのパッケージ参照を含む[Microsoft.AspNetCore.All メタパッケージ](xref:fundamentals/metapackage)が使用されています。 そのため、`Microsoft.AspNetCore.All` メタパッケージを使用する場合は、ブラウザーリンクを使用できるようにするための追加の操作は必要ありません。
 
 ::: moniker-end
 
 ::: moniker range="<= aspnetcore-1.1"
 
-ASP.NET Core 1.x **Web アプリケーション**プロジェクトテンプレートには、 [VisualStudio](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/)パッケージのパッケージ参照が含まれています。 **空**のプロジェクトまたは**Web API**テンプレートプロジェクトでは、`Microsoft.VisualStudio.Web.BrowserLink`にパッケージ参照を追加する必要があります。
+ASP.NET Core 1.x **Web アプリケーション**プロジェクトテンプレートには、 [Microsoft.VisualStudio.Web.BrowserLink](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/)パッケージのパッケージ参照が含まれています。 **空**のプロジェクトまたは**Web API**テンプレートプロジェクトでは、`Microsoft.VisualStudio.Web.BrowserLink`にパッケージ参照を追加する必要があります。
 
 これは Visual Studio の機能であるため、**空**のまたは**Web API**テンプレートプロジェクトにパッケージを追加する最も簡単な方法は、**パッケージマネージャーコンソール**(**他の Windows** >**パッケージマネージャーコンソール**を**表示**>) を開き、次のコマンドを実行することです。
 

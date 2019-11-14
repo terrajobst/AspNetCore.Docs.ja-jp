@@ -25,7 +25,7 @@ ASP.NET Core scaffolder をまだインストールしていない場合は、�
 dotnet tool install -g dotnet-aspnet-codegenerator
 ```
 
-[VisualStudio](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.CodeGeneration.Design/)にパッケージ参照を追加し、プロジェクト (\*.csproj) ファイルに追加してください。 プロジェクトディレクトリで次のコマンドを実行します。
+[Microsoft.VisualStudio.Web.CodeGeneration.Design](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.CodeGeneration.Design/)にパッケージ参照を追加し、プロジェクト (\*.csproj) ファイルに追加してください。 プロジェクトディレクトリで次のコマンドを実行します。
 
 ```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design

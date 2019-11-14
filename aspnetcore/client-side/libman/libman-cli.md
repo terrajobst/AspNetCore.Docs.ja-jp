@@ -33,7 +33,7 @@ LibMan CLI をインストールするには:
 dotnet tool install -g Microsoft.Web.LibraryManager.Cli
 ```
 
-[.Net Core グローバルツール](/dotnet/core/tools/global-tools#install-a-global-tool)は、 [Microsoft の Web. librarymanager](https://www.nuget.org/packages/Microsoft.Web.LibraryManager.Cli/)の NuGet パッケージからインストールされます。
+[.Net Core グローバルツール](/dotnet/core/tools/global-tools#install-a-global-tool)は、 [Microsoft.Web.LibraryManager.Cli](https://www.nuget.org/packages/Microsoft.Web.LibraryManager.Cli/)の NuGet パッケージからインストールされます。
 
 特定の NuGet パッケージソースから LibMan CLI をインストールするには、次のようにします。
 

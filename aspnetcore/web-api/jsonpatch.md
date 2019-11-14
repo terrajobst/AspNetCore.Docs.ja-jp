@@ -90,7 +90,7 @@ JSON パッチ ドキュメントをリソースに適用することで行わ�
 
 ## <a name="jsonpatch-in-aspnet-core"></a>ASP.NET Core における JSON パッチ
 
-JSON パッチの ASP.NET Core 実装は、[Microsoft.AspNetCore.JsonPatch](https://www.nuget.org/packages/microsoft.aspnetcore.jsonpatch/) NuGet パッケージ内に提供されています。 パッケージは、[ Microsoft.AspNetCore.App](xref:fundamentals/metapackage-app) メタパッケージに含まれています。
+JSON パッチの ASP.NET Core 実装は、[microsoft.aspnetcore.jsonpatch](https://www.nuget.org/packages/microsoft.aspnetcore.jsonpatch/) NuGet パッケージ内に提供されています。 パッケージは、[Microsoft.AspNetCore.App](xref:fundamentals/metapackage-app) メタパッケージに含まれています。
 
 ## <a name="action-method-code"></a>アクション メソッド コード
 
