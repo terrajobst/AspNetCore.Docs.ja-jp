@@ -5,12 +5,12 @@ description: 単純な ASP.NET Core アプリケーションにモデルを追�
 ms.author: riande
 ms.date: 8/15/2019
 uid: tutorials/first-mvc-app/adding-model
-ms.openlocfilehash: d6d75bcbab875c08bfff532d968013dca323beed
-ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
+ms.openlocfilehash: 2fac37e7069fb2a464d4de1da8912197f7adf8a8
+ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73634100"
+ms.lasthandoff: 11/07/2019
+ms.locfileid: "73761095"
 ---
 # <a name="add-a-model-to-an-aspnet-core-mvc-app"></a>ASP.NET Core MVC アプリへのモデルの追加
 
@@ -286,6 +286,8 @@ dotnet ef database update
 
 ## <a name="dependency-injection-in-the-controller"></a>コントローラーの依存関係挿入
 
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
 *Controllers/MoviesController.cs* ファイルを開いて、コンストラクターを調べます。
 
 <!-- l.. Make copy of Movies controller (or use the old one as I did in the 3.0 upgrade) because we comment out the initial index method and update it later  -->
@@ -293,6 +295,17 @@ dotnet ef database update
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Controllers/MC1.cs?name=snippet_1)]
 
 コンストラクターでは、[依存性の注入](xref:fundamentals/dependency-injection)を使ってデータベース コンテキスト (`MvcMovieContext`) がコントローラーに挿入されています。 データベース コンテキストは、コントローラーの各 [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) メソッドで使用されます。
+
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+
+[!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Controllers/MC1.cs?name=snippet_1)]
+
+コンストラクターでは、[依存性の注入](xref:fundamentals/dependency-injection)を使ってデータベース コンテキスト (`MvcMovieContext`) がコントローラーに挿入されています。 データベース コンテキストは、コントローラーの各 [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) メソッドで使用されます。
+
+[!INCLUDE [use SQL Server in production](~/includes/RP/sqlitedev.md)]
+
+---
+<!-- end of tabs --->
 
 <a name="strongly-typed-models-keyword-label"></a>
 <a name="strongly-typed-models-and-the--keyword"></a>

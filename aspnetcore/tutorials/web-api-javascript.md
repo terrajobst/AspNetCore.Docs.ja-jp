@@ -4,13 +4,13 @@ author: rick-anderson
 description: JavaScript を使用して ASP.NET Core Web API を呼び出す方法について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/15/2019
+ms.date: 08/27/2019
 uid: tutorials/web-api-javascript
-ms.openlocfilehash: bbe261307f6f68af002cb98cc4895888ade7f61c
-ms.sourcegitcommit: dd026eceee79e943bd6b4a37b144803b50617583
+ms.openlocfilehash: 0070816149d64fc1d71d453eb0f135050c78597a
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/15/2019
+ms.lasthandoff: 11/13/2019
 ms.locfileid: "72378703"
 ---
 # <a name="tutorial-call-an-aspnet-core-web-api-with-javascript"></a>チュートリアル: JavaScript を使用して ASP.NET Core Web API を呼び出す
@@ -18,6 +18,14 @@ ms.locfileid: "72378703"
 作成者: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 このチュートリアルでは、[Fetch API](https://developer.mozilla.org/docs/Web/API/Fetch_API) を使用して JavaScript で ASP.NET Core Web API を呼び出す方法について説明します。
+
+::: moniker range="< aspnetcore-3.0"
+
+ASP.NET Core 2.2 の場合は、2.2 バージョンの「[JavaScript で Web API を呼び出す](xref:tutorials/first-web-api#call-the-web-api-with-javascript)」を参照してください。
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
 
 ## <a name="prerequisites"></a>必須コンポーネント
 
@@ -67,9 +75,9 @@ Web API から正常状態コードが返されると、`_displayItems` 関数�
 
 * `item` 変数は、To Do アイテムのオブジェクト リテラル表現を構築するために宣言されています。
 * フェッチ要求は、次のオプションで構成されます。
-  * `method` &mdash; POST HTTP アクション動詞が指定されています。
-  * `body` &mdash; 要求本文の JSON 表現が指定されています。 JSON は、`item` に格納されているオブジェクト リテラルを [JSON.stringify](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) 関数に渡すことによって生成されます。
-  * `headers` &mdash; `Accept` および `Content-Type` の HTTP 要求ヘッダーが指定されています。 どちらのヘッダーも `application/json` に設定され、それぞれ、受信および送信されるメディアの種類が指定されています。
+    * `method` &mdash; POST HTTP アクション動詞が指定されています。
+    * `body` &mdash; 要求本文の JSON 表現が指定されています。 JSON は、`item` に格納されているオブジェクト リテラルを [JSON.stringify](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) 関数に渡すことによって生成されます。
+    * `headers` &mdash; `Accept` および `Content-Type` の HTTP 要求ヘッダーが指定されています。 どちらのヘッダーも `application/json` に設定され、それぞれ、受信および送信されるメディアの種類が指定されています。
 * HTTP POST 要求が *api/TodoItems* ルートに送信されます。
 
 [!code-javascript[](first-web-api/samples/3.0/TodoApi/wwwroot/js/site.js?name=snippet_AddItem)]
@@ -95,3 +103,5 @@ Web API のヘルプ ページを生成する方法については、次のチ�
 
 > [!div class="nextstepaction"]
 > <xref:tutorials/get-started-with-swashbuckle>
+
+::: moniker-end
