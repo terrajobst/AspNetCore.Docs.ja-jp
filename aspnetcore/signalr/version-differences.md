@@ -56,7 +56,7 @@ services.AddSignalR()
 
 ::: moniker range=">= aspnetcore-3.0"
 
-ルーティングを構成するには、 `Startup.Configure`メソッドの[UseEndpoints](/dotnet/api/microsoft.aspnetcore.builder.endpointroutingapplicationbuilderextensions.useendpoints) メソッド呼び出し内でハブにルートをマップします。
+ルーティングを構成するには、 `Startup.Configure`メソッドの [UseEndpoints](/dotnet/api/microsoft.aspnetcore.builder.endpointroutingapplicationbuilderextensions.useendpoints) メソッド呼び出し内でハブにルートをマップします。
 
 
 ```csharp
@@ -72,7 +72,7 @@ app.UseEndpoints(endpoints =>
 
 ::: moniker range="<= aspnetcore-2.2"
 
-ルーティングを構成するには、 `Startup.Configure` メソッドの[UseSignalR](/dotnet/api/microsoft.aspnetcore.builder.signalrappbuilderextensions.usesignalr) メソッド呼び出し内でハブにルートをマップします。
+ルーティングを構成するには、 `Startup.Configure`メソッドの [UseSignalR](/dotnet/api/microsoft.aspnetcore.builder.signalrappbuilderextensions.usesignalr) メソッド呼び出し内でハブにルートをマップします。
 
 ```csharp
 app.UseSignalR(routes =>
@@ -119,7 +119,7 @@ ASP.NET Core SignalR クライアントは[TypeScript](https://www.typescriptlan
 
 ### <a name="the-javascript-client-is-hosted-at-npmhttpswwwnpmjscom"></a>JavaScript クライアントは[npm](https://www.npmjs.com/)でホストされます。
 
-以前のバージョンでは、JavaScript クライアントは Visual Studio の NuGet パッケージを通じて取得されました。 コアバージョン[@aspnet/signalr](https://www.npmjs.com/package/@aspnet/signalr) では、npm パッケージに JavaScript ライブラリが含まれています。 このパッケージは、 **ASP.NET Core Web アプリケーション**テンプレートには含まれていません。 `@aspnet/signalr` npm パッケージを取得してインストールするには、npm を使用します。
+以前のバージョンでは、JavaScript クライアントは Visual Studio の NuGet パッケージを通じて取得されました。 コアバージョン [@aspnet/signalr](https://www.npmjs.com/package/@aspnet/signalr) では、npm パッケージに JavaScript ライブラリが含まれています。 このパッケージは、 **ASP.NET Core Web アプリケーション** テンプレートには含まれていません。 `@aspnet/signalr` npm パッケージを取得してインストールするには、npm を使用します。
 
 ```console
 npm init -y
