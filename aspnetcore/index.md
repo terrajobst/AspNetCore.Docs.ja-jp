@@ -4,14 +4,17 @@ author: rick-anderson
 description: インターネットに接続された最新のクラウド ベース アプリケーションを構築するための、クロス プラットフォームで高パフォーマンスのオープン ソース フレームワークである ASP.NET Core について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/03/2019
+ms.date: 11/12/2019
+no-loc:
+- Blazor
+- SignalR
 uid: index
-ms.openlocfilehash: edbdce19656af64d7c2c0ee554bc5213a0d0c50e
-ms.sourcegitcommit: 09f4a5ded39cc8204576fe801d760bd8b611f3aa
+ms.openlocfilehash: dc1acd9e31fdc4f626c9dee2f378252c802491b6
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/05/2019
-ms.locfileid: "73611406"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963649"
 ---
 # <a name="introduction-to-aspnet-core"></a>ASP.NET Core の概要
 

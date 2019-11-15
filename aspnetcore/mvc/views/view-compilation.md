@@ -5,14 +5,14 @@ description: ASP.NET Core アプリで Razor ファイルのコンパイルが�
 monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/20/2019
+ms.date: 10/31/2019
 uid: mvc/views/view-compilation
-ms.openlocfilehash: 0aa632bce32ef44f65d92639284c64c1d00e952e
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 95fa0d72ed9c088945707ac6b79c3fbde35a5a30
+ms.sourcegitcommit: eb2fe5ad2e82fab86ca952463af8d017ba659b25
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080823"
+ms.lasthandoff: 11/01/2019
+ms.locfileid: "73416145"
 ---
 # <a name="razor-file-compilation-in-aspnet-core"></a>ASP.NET Core での Razor ファイルのコンパイル
 
@@ -38,13 +38,14 @@ ms.locfileid: "71080823"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Razor ファイルは、[Razor SDK](xref:razor-pages/sdk) を使用してビルド時と公開時にコンパイルされます。 実行時コンパイルは、アプリケーションを構成することで必要に応じて有効にできることがあります。
+*.cshtml* 拡張子の Razor ファイルは、[Razor SDK](xref:razor-pages/sdk) を使用してビルド時と公開時にコンパイルされます。 実行時コンパイルは、アプリケーションを構成することで必要に応じて有効にできることがあります。
 
 ::: moniker-end
 
 ## <a name="razor-compilation"></a>Razor コンパイル
 
 ::: moniker range=">= aspnetcore-3.0"
+
 Razor ファイルのビルドおよび発行時のコンパイルは、既定で Razor SDK によって有効になっています。 有効になっていると、実行時コンパイルはビルド時のコンパイルを補完し、編集された Razor ファイルを更新できます。
 
 ::: moniker-end

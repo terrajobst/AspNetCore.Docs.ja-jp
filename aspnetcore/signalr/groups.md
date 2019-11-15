@@ -1,50 +1,52 @@
 ---
-title: SignalR におけるユーザーとグループの管理
+title: SignalR でのユーザーとグループの管理
 author: bradygaster
-description: ASP.NET Core SignalR のユーザーとグループの管理の概要です。
+description: ASP.NET Core SignalR ユーザーとグループの管理の概要について説明します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 06/04/2018
+ms.date: 11/12/2019
+no-loc:
+- SignalR
 uid: signalr/groups
-ms.openlocfilehash: 180f8b4551eea39cc340bf1d250f4575cb5f71ed
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 59e90042ecbaf936602643bbdc3965e036426b26
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087427"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963807"
 ---
-# <a name="manage-users-and-groups-in-signalr"></a>SignalR におけるユーザーとグループの管理
+# <a name="manage-users-and-groups-in-opno-locsignalr"></a>SignalR でのユーザーとグループの管理
 
-作成者: [Brennan Conroy](https://github.com/BrennanConroy)
+[Brennan Conroy](https://github.com/BrennanConroy)
 
-SignalR では、特定のユーザーに関連付けられているすべての接続に送信するだけでなく接続の名前付きグループにメッセージを許可します。
+SignalR を使用すると、特定のユーザーに関連付けられているすべての接続、および名前付きの接続グループにメッセージを送信できます。
 
-[サンプル コードの表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/groups/sample/) [(ダウンロードする方法)](xref:index#how-to-download-a-sample)
+[サンプルコードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/groups/sample/)[する (ダウンロードする方法)](xref:index#how-to-download-a-sample)
 
-## <a name="users-in-signalr"></a>SignalR におけるユーザー
+## <a name="users-in-opno-locsignalr"></a>SignalR のユーザー
 
-SignalR では、特定のユーザーに関連付けられているすべての接続にメッセージを送信できます。 既定では、SignalR はユーザー識別子として接続に関連付けられた`ClaimsPrincipal`の`ClaimTypes.NameIdentifier`を使用します。 1 人のユーザーには、SignalR のアプリに複数の接続を持つことができます。 たとえば、ユーザーは自分のデスクトップと同様に携帯電話でも接続することができます。 各デバイスは別々の SignalR 接続を持ちますが、それらはすべて同じユーザーに関連付けられています。 メッセージがユーザーに送信されると、ユーザーに関連付けられているすべての接続でメッセージを受信します。 接続のユーザー識別子には、ハブの`Context.UserIdentifier`プロパティからアクセスすることができます。
+SignalR を使用すると、特定のユーザーに関連付けられているすべての接続にメッセージを送信できます。 既定では、SignalR は、接続に関連付けられている `ClaimsPrincipal` の `ClaimTypes.NameIdentifier` をユーザー識別子として使用します。 1人のユーザーが SignalR アプリへの複数の接続を持つことができます。 たとえば、ユーザーは自分のデスクトップや電話に接続することができます。 各デバイスには個別の SignalR 接続がありますが、これらはすべて同じユーザーに関連付けられています。 ユーザーにメッセージが送信されると、そのユーザーに関連付けられているすべての接続がメッセージを受信します。 接続のユーザー識別子には、ハブの `Context.UserIdentifier` プロパティを使用してアクセスできます。
 
-次の例で示すように、ハブメソッドで`User`関数にユーザー識別子を渡すことによって、特定のユーザーにメッセージを送信します。
+次の例に示すように、ハブメソッドの `User` 関数にユーザー識別子を渡すことによって、特定のユーザーにメッセージを送信します。
 
 > [!NOTE]
-> ユーザー識別子は、大文字小文字を区別します。
+> ユーザー識別子では、大文字と小文字が区別されます。
 
 [!code-csharp[Configure service](groups/sample/hubs/chathub.cs?range=29-32)]
 
-## <a name="groups-in-signalr"></a>SignalR におけるグループ
+## <a name="groups-in-opno-locsignalr"></a>SignalR 内のグループ
 
-グループは、名前に関連付けられている接続のコレクションです。 グループ内のすべての接続にメッセージを送信できます。 グループはアプリケーションによって管理されるため、単一または複数の接続に送信するお勧めの方法です。 接続は、複数のグループのメンバーであることができます。 これにより、グループは各部屋をグループとして表現できるチャットアプリケーションのようなものに最適です。 `AddToGroupAsync`および`RemoveFromGroupAsync`メソッドを使用してグループに接続を追加または削除することができます。
+グループとは、名前に関連付けられている接続のコレクションです。 メッセージは、グループ内のすべての接続に送信できます。 グループはアプリケーションによって管理されるため、接続または複数の接続に送信する方法としては、グループをお勧めします。 接続は、複数のグループのメンバーになることができます。 これにより、グループはチャットアプリケーションのように理想的であり、各部屋をグループとして表すことができます。 接続は、`AddToGroupAsync` および `RemoveFromGroupAsync` 方法を使用して、グループに追加したり、グループから削除したりできます。
 
 [!code-csharp[Hub methods](groups/sample/hubs/chathub.cs?range=15-27)]
 
-接続が再接続されると、グループメンバーシップは保持されません。 接続が再確立されたときに、グループに再度参加する必要があります。 アプリケーションが複数のサーバーにスケーリングされる場合にこの情報は使用ではないため、グループのメンバーをカウントすることはできません。
+接続を再接続しても、グループのメンバーシップは保持されません。 再確立された場合、接続はグループに再度参加する必要があります。 アプリケーションが複数のサーバーにスケーリングされている場合、この情報は利用できないため、グループのメンバーをカウントすることはできません。
 
-グループの使用中にリソースへのアクセスを保護するには、ASP.NET Core の [認証と承認](xref:signalr/authn-and-authz) 機能を使用します。 グループに対して資格情報が有効な場合にのみユーザーをグループに追加すると、そのグループに送信されたメッセージは承認されたユーザーにのみ届きます。 ただし、グループは、セキュリティ機能ではありません。 認証要求には、有効期限と取り消しなど、グループにはない機能があります。 グループにアクセスするユーザーのアクセス許可が取り消された場合は、手動で検出しグループから削除する必要があります。
+グループの使用中にリソースへのアクセスを保護するには、ASP.NET Core で[認証と承認](xref:signalr/authn-and-authz)の機能を使用します。 そのグループに対して資格情報が有効である場合にのみ、グループにユーザーを追加すると、そのグループに送信されたメッセージは、承認されたユーザーのみに送られます。 ただし、グループはセキュリティ機能ではありません。 認証要求には、有効期限や失効など、グループにはない機能があります。 グループにアクセスするためのユーザーのアクセス許可が取り消された場合は、手動で検出し、グループから削除する必要があります。
 
 > [!NOTE]
-> グループ名は大文字小文字を区別します。
+> グループ名は大文字と小文字が区別されます。
 
 ## <a name="related-resources"></a>関連資料
 

@@ -14,3 +14,5 @@ dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 * .NET Core CLI の Entity Framework Core ツール。
 * EF Core SQLite プロバイダー。これにより、EF Core パッケージが依存関係としてインストールされます。
 * スキャフォールディングに必要なパッケージ: `Microsoft.VisualStudio.Web.CodeGeneration.Design` と `Microsoft.EntityFrameworkCore.SqlServer`。
+
+アプリが環境ごとにデータベースコンテキストを構成できるようにする複数の環境構成に関するガイダンスについては、「<xref:fundamentals/environments#environment-based-startup-class-and-methods>」を参照してください。

@@ -1,55 +1,57 @@
 ---
-title: ASP.NET Core でのブラウザー リンク
+title: ASP.NET Core のブラウザーリンク
 author: ncarandini
-description: ブラウザー リンクの 1 つまたは複数の web ブラウザーでの開発環境をリンクしている Visual Studio の機能の方法について説明します。
+description: ブラウザーリンクが Visual Studio の機能であり、開発環境を1つ以上の web ブラウザーにリンクする方法について説明します。
 ms.author: riande
 ms.custom: H1Hack27Feb2017
-ms.date: 09/22/2017
+ms.date: 11/12/2019
+no-loc:
+- SignalR
 uid: client-side/using-browserlink
-ms.openlocfilehash: 452ba5149563c186750466f471c7b950f0017614
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: b21b698d49e72b559cd9cd3753c48a38c99db24d
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64894709"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73962781"
 ---
-# <a name="browser-link-in-aspnet-core"></a>ASP.NET Core でのブラウザー リンク
+# <a name="browser-link-in-aspnet-core"></a>ASP.NET Core のブラウザーリンク
 
-によって[Nicolò Carandini](https://github.com/ncarandini)、 [Mike Wasson](https://github.com/MikeWasson)、および[Tom Dykstra](https://github.com/tdykstra)
+[Nicolò Carandini](https://github.com/ncarandini)、 [Mike Wasson](https://github.com/MikeWasson)、 [Tom Dykstra](https://github.com/tdykstra)
 
-ブラウザー リンクは、Visual studio 開発環境と 1 つまたは複数の web ブラウザーの間の通信チャネルを作成する機能です。 クロス ブラウザー テスト用に便利です、いくつかのブラウザーで web のアプリケーションは、一度にを更新するブラウザー リンクを使用できます。
+Browser Link は、開発環境と1つ以上の web ブラウザーの間の通信チャネルを作成する Visual Studio の機能です。 ブラウザーリンクを使用すると、複数のブラウザーで一度に web アプリケーションを更新できます。これは、ブラウザー間のテストに役立ちます。
 
-## <a name="browser-link-setup"></a>ブラウザー リンクのセットアップ
+## <a name="browser-link-setup"></a>ブラウザーリンクの設定
 
 ::: moniker range=">= aspnetcore-2.1"
 
-ASP.NET Core 2.1 に移行して、ASP.NET Core 2.0 プロジェクトを変換するときに、 [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)、インストール、 [Microsoft.VisualStudio.Web.BrowserLink](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/)のパッケージ化します。BrowserLink 機能します。 ASP.NET Core 2.1 のプロジェクト テンプレートを使用して、`Microsoft.AspNetCore.App`既定メタパッケージ。
+ASP.NET Core 2.0 プロジェクトを ASP.NET Core 2.1 に変換し、 [AspNetCore メタパッケージ](xref:fundamentals/metapackage-app)に移行する場合は、browserlink 機能用の[VisualStudio リンク](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/)パッケージをインストールします。 ASP.NET Core 2.1 プロジェクトテンプレートでは、既定で `Microsoft.AspNetCore.App` メタパッケージが使用されます。
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.0"
 
-ASP.NET Core 2.0 **Web アプリケーション**、**空**、および**Web API**プロジェクト テンプレートの使用、 [Microsoft.AspNetCore.All メタパッケージ](xref:fundamentals/metapackage)、のパッケージ参照が含まれています[Microsoft.VisualStudio.Web.BrowserLink](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/)します。 したがってを使用して、`Microsoft.AspNetCore.All`メタパッケージにはブラウザー リンクを使用できるようにするさらに操作は必要ありません。
+ASP.NET Core 2.0 **Web アプリケーション**、**空**、および**web API**プロジェクトテンプレートでは、メタパッケージのパッケージ参照を含む[AspNetCore](xref:fundamentals/metapackage)が使用されて[いますが](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/)、 そのため、`Microsoft.AspNetCore.All` メタパッケージを使用するには、ブラウザーリンクを使用できるようにするための追加の操作は必要ありません。
 
 ::: moniker-end
 
 ::: moniker range="<= aspnetcore-1.1"
 
-ASP.NET Core 1.x **Web アプリケーション**プロジェクト テンプレートのパッケージ参照がある、 [Microsoft.VisualStudio.Web.BrowserLink](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/)パッケージ。 **空**または**Web API**プロジェクト テンプレートでは、パッケージ参照を追加する必要があります`Microsoft.VisualStudio.Web.BrowserLink`します。
+ASP.NET Core 1.x **Web アプリケーション**プロジェクトテンプレートには、 [VisualStudio](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/)パッケージのパッケージ参照が含まれています。 **空**のプロジェクトまたは**Web API**テンプレートプロジェクトでは、`Microsoft.VisualStudio.Web.BrowserLink`にパッケージ参照を追加する必要があります。
 
-これは、Visual Studio の機能では、最も簡単な方法にパッケージを追加するため、**空**または**Web API**テンプレート プロジェクトを開くことです、**パッケージ マネージャー コンソール**(**ビュー** > **その他の Windows** > **パッケージ マネージャー コンソール**) し、次のコマンドを実行します。
+これは Visual Studio の機能であるため、**空**のまたは**Web API**テンプレートプロジェクトにパッケージを追加する最も簡単な方法は、**パッケージマネージャーコンソール**(**他の Windows** >**パッケージマネージャーコンソール**を**表示**>) を開き、次のコマンドを実行することです。
 
 ```console
 install-package Microsoft.VisualStudio.Web.BrowserLink
 ```
 
-また、使用することができます**NuGet パッケージ マネージャー**します。 プロジェクト名を右クリックして**ソリューション エクスプ ローラー**選択**NuGet パッケージの管理**:
+または、 **NuGet パッケージマネージャー**を使用することもできます。 **ソリューションエクスプローラー**でプロジェクト名を右クリックし、 **[NuGet パッケージの管理]** を選択します。
 
-![開いている NuGet パッケージ マネージャー](using-browserlink/_static/open-nuget-package-manager.png)
+![NuGet パッケージマネージャーを開く](using-browserlink/_static/open-nuget-package-manager.png)
 
-検索して、パッケージをインストールします。
+パッケージを検索してインストールします。
 
-![パッケージで NuGet パッケージ マネージャーを追加します。](using-browserlink/_static/add-package-with-nuget-package-manager.png)
+![NuGet パッケージマネージャーを使用したパッケージの追加](using-browserlink/_static/add-package-with-nuget-package-manager.png)
 
 ::: moniker-end
 
@@ -61,7 +63,7 @@ install-package Microsoft.VisualStudio.Web.BrowserLink
 app.UseBrowserLink();
 ```
 
-内でコードは、通常、`if`ブロックしかここで示すように、開発環境で Browser Link を有効にします。
+通常、コードは、次に示すように、開発環境で Browser リンクを有効にする `if` ブロック内にあります。
 
 ```csharp
 if (env.IsDevelopment())
@@ -73,73 +75,73 @@ if (env.IsDevelopment())
 
 詳細については、「[Use multiple environments](xref:fundamentals/environments)」(複数の環境の使用) を参照してください。
 
-## <a name="how-to-use-browser-link"></a>ブラウザー リンクを使用する方法
+## <a name="how-to-use-browser-link"></a>ブラウザーリンクを使用する方法
 
-Visual Studio がブラウザー リンクのツール バー コントロールを横に表示されますがある場合、ASP.NET Core プロジェクトを開いて、**デバッグ ターゲット**ツール バー コントロール。
+ASP.NET Core のプロジェクトを開いている場合、Visual Studio では、**デバッグターゲット** ツールバーコントロールの横に ブラウザーリンク ツールバーコントロールが表示されます。
 
-![ブラウザー リンクのドロップダウン メニュー](using-browserlink/_static/browserLink-dropdown-menu.png)
+![ブラウザーリンクのドロップダウンメニュー](using-browserlink/_static/browserLink-dropdown-menu.png)
 
-ブラウザー リンク ツール バー コントロールでは、次の操作を実行できます。
+[ブラウザーリンク] ツールバーコントロールからは、次の操作を実行できます。
 
-* 複数のブラウザーで web アプリケーションを一度にを更新します。
-* 開く、**ブラウザー リンク ダッシュ ボード**します。
-* 有効または無効に**Browser Link**します。 メモ:Visual Studio 2017 (15.3) で既定では、ブラウザー リンクが無効です。
-* 有効または無効に[CSS 自動同期](#enable-or-disable-css-auto-sync)します。
+* 複数のブラウザーで web アプリケーションを一度に更新します。
+* **ブラウザーリンクダッシュボード**を開きます。
+* **ブラウザーリンク**を有効または無効にします。 注: Visual Studio 2017 (15.3) では、ブラウザーリンクは既定で無効になっています。
+* [CSS 自動同期](#enable-or-disable-css-auto-sync)を有効または無効にします。
 
 > [!NOTE]
-> Visual Studio プラグインによって、最も顕著な*Web 拡張機能パック 2015*と*Web 拡張機能パック 2017*、ブラウザー リンク拡張機能を提供して、ASP でいくつかの追加機能は動作しません。NET Core プロジェクト。
+> 一部の Visual Studio プラグイン (特に*Web Extension pack 2015*および*web extension pack 2017*) は、ブラウザーリンク用の拡張機能を提供しますが、ASP.NET Core プロジェクトでは機能しません。
 
-## <a name="refresh-the-web-app-in-several-browsers-at-once"></a>一度に複数のブラウザーで web アプリを更新します。
+## <a name="refresh-the-web-app-in-several-browsers-at-once"></a>複数のブラウザーで web アプリを一度に更新する
 
-プロジェクトを開始するときに起動する 1 つの web ブラウザーを選択するドロップダウン メニューを使用して、**デバッグ ターゲット**ツール バー コントロール。
+プロジェクトを開始するときに起動する1つの web ブラウザーを選択するには、 **[デバッグターゲット]** ツールバーコントロールのドロップダウンメニューを使用します。
 
-![F5 キーを押してドロップダウン メニュー](using-browserlink/_static/debug-target-dropdown-menu.png)
+![F5 ドロップダウンメニュー](using-browserlink/_static/debug-target-dropdown-menu.png)
 
-一度に複数のブラウザーを開く、次のように選択します**を参照しています...** 同じドロップダウン リストから。 ブラウザーを選択して CTRL キーを押しながらクリックして**参照**:
+複数のブラウザーを一度に開くには、同じドロップダウンから **[参照]** を選択します。 CTRL キーを押しながら目的のブラウザーを選択し、 **[参照]** をクリックします。
 
-![一度に多くのブラウザーを開く](using-browserlink/_static/open-many-browsers-at-once.png)
+![多数のブラウザーを一度に開く](using-browserlink/_static/open-many-browsers-at-once.png)
 
-Index ビューで開いている Visual Studio を示すスクリーン ショットと 2 つの開いているブラウザーを次に示します。
+インデックスビューが開いている Visual Studio と2つの開いているブラウザーを示すスクリーンショットを次に示します。
 
-![2 つのブラウザーの例との同期します。](using-browserlink/_static/sync-with-two-browsers-example.png)
+![2つのブラウザーを使用した同期の例](using-browserlink/_static/sync-with-two-browsers-example.png)
 
-ブラウザー リンクのツール バー コントロールをプロジェクトに接続されているブラウザーを表示するポインターを合わせます。
+プロジェクトに接続されているブラウザーを表示するには、[ブラウザーリンク] ツールバーコントロールの上にマウスポインターを移動します。
 
-![ポイントしたときのヒント](using-browserlink/_static/hoover-tip.png)
+![ホバーヒント](using-browserlink/_static/hoover-tip.png)
 
-インデックス ビューを変更し、ブラウザー リンクの更新 ボタンをクリックすると、接続されているすべてのブラウザーは更新されます。
+インデックスビューを変更すると、ブラウザーのリンクの [更新] ボタンをクリックすると、接続されているすべてのブラウザーが更新されます。
 
-![browsers-sync-to-changes](using-browserlink/_static/browsers-sync-to-changes.png)
+![ブラウザー-変更の同期](using-browserlink/_static/browsers-sync-to-changes.png)
 
-ブラウザー リンクは、アプリケーションの URL に移動して Visual Studio の外部からを起動しているブラウザーでも機能します。
+ブラウザーリンクは、Visual Studio の外部から起動するブラウザーでも動作し、アプリケーションの URL に移動します。
 
-### <a name="the-browser-link-dashboard"></a>ブラウザー リンク ダッシュ ボード
+### <a name="the-browser-link-dashboard"></a>ブラウザーリンクダッシュボード
 
-ブラウザー リンクのドロップダウン メニューを開いているブラウザーとの接続を管理するのには、ブラウザー リンク ダッシュ ボードを開きます。
+ブラウザーリンクのドロップダウンメニューからブラウザーリンクダッシュボードを開いて、開いているブラウザーとの接続を管理します。
 
-![オープン browserslink ダッシュ ボード](using-browserlink/_static/open-browserlink-dashboard.png)
+![browserslink-ダッシュボード](using-browserlink/_static/open-browserlink-dashboard.png)
 
-ブラウザーが接続されていない場合を選択して非デバッグ セッションを開始することができます、*ブラウザーで表示*リンク。
+ブラウザーが接続されていない場合は、[*ブラウザーで表示*] リンクを選択して、非デバッグセッションを開始できます。
 
-![browserlink-dashboard-no-connections](using-browserlink/_static/browserlink-dashboard-no-connections.png)
+![browserlink-ダッシュボード-接続なし](using-browserlink/_static/browserlink-dashboard-no-connections.png)
 
-それ以外の場合、接続されたブラウザーは、各ブラウザーで表示されているページへのパスと表示されます。
+それ以外の場合は、接続されているブラウザーが、各ブラウザーに表示されているページへのパスと共に表示されます。
 
-![browserlink-dashboard-two-connections](using-browserlink/_static/browserlink-dashboard-two-connections.png)
+![browserlink-dashboard-2-connections](using-browserlink/_static/browserlink-dashboard-two-connections.png)
 
-必要に応じて、その 1 つのブラウザーを更新する表示されているブラウザー名をクリックすることができます。
+必要に応じて、表示されているブラウザー名をクリックして、その1つのブラウザーを更新できます。
 
-### <a name="enable-or-disable-browser-link"></a>有効にするか、ブラウザー リンクを無効にします。
+### <a name="enable-or-disable-browser-link"></a>ブラウザーリンクを有効または無効にする
 
-無効にすると、ブラウザー リンクを再度有効には、それらを再接続するようにブラウザーを更新する必要があります。
+ブラウザーリンクを無効にした後で再度有効にする場合は、ブラウザーを更新して再接続する必要があります。
 
-### <a name="enable-or-disable-css-auto-sync"></a>有効にするか、CSS 自動同期を無効にします。
+### <a name="enable-or-disable-css-auto-sync"></a>CSS 自動同期を有効または無効にする
 
-CSS 自動同期を有効にすると、CSS ファイルを変更するときに接続されているブラウザーが自動的に更新します。
+CSS 自動同期が有効になっていると、CSS ファイルに変更を加えたときに、接続されているブラウザーが自動的に更新されます。
 
 ## <a name="how-it-works"></a>しくみ
 
-ブラウザー リンクでは、SignalR を使用して、Visual Studio とブラウザー間の通信チャネルを作成します。 Browser Link を有効にすると、Visual Studio は、複数のクライアント (ブラウザー) が接続できる SignalR サーバーとして機能します。 また、ブラウザー リンクは、ASP.NET Core の要求パイプラインでミドルウェア コンポーネントを登録します。 このコンポーネントは特殊な挿入`<script>`ページ要求ごとに、サーバーからの参照。 選択して、スクリプト参照を確認できます**ソースの表示**の末尾にスクロールし、ブラウザーで、`<body>`コンテンツをタグします。
+ブラウザーリンクは SignalR を使用して、Visual Studio とブラウザーの間の通信チャネルを作成します。 ブラウザーリンクが有効になっている場合、Visual Studio は複数のクライアント (ブラウザー) が接続できる SignalR サーバーとして機能します。 ブラウザーリンクは、ASP.NET Core 要求パイプラインにミドルウェアコンポーネントも登録します。 このコンポーネントは、サーバーからのすべてのページ要求に特別な `<script>` 参照を挿入します。 スクリプト参照を表示するには、ブラウザーで **[ソースの表示]** を選択し、`<body>` タグコンテンツの最後までスクロールします。
 
 ```html
     <!-- Visual Studio Browser Link -->
@@ -151,6 +153,6 @@ CSS 自動同期を有効にすると、CSS ファイルを変更するときに
 </body>
 ```
 
-ソース ファイルは変更されません。 ミドルウェア コンポーネントは、スクリプト参照を動的に挿入します。
+ソースファイルは変更されていません。 ミドルウェアコンポーネントは、スクリプト参照を動的に挿入します。
 
-ブラウザー側のコードは、すべての JavaScript であるために、ブラウザーのプラグインを必要とせず、SignalR がサポートされているすべてのブラウザーで動作します。
+ブラウザー側のコードはすべて JavaScript であるため、ブラウザープラグインを必要とせずにサポート SignalR すべてのブラウザーで動作します。

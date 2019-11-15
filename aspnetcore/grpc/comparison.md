@@ -4,14 +4,16 @@ author: jamesnk
 description: GRPC と HTTP Api との比較、および推奨されるシナリオについて説明します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
-ms.date: 09/25/2019
+ms.date: 11/12/2019
+no-loc:
+- SignalR
 uid: grpc/comparison
-ms.openlocfilehash: 52b057876481bd9be4f83d93b1f05081ed19660f
-ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
+ms.openlocfilehash: ceb24d656827548492a6fa326681922297fc481b
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/18/2019
-ms.locfileid: "72589976"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963654"
 ---
 # <a name="compare-grpc-services-with-http-apis"></a>HTTP API を使用した gRPC サービスの比較
 
@@ -78,7 +80,7 @@ gRPC を使用すると、クライアントが RPC の完了を待機する時�
 
 gRPC は、次のシナリオに適しています。
 
-* **@No__t_1** grpc は、低待機時間と高スループット通信を実現するように設計されています。 gRPC は、効率性が非常に重要な軽量マイクロサービスに適しています。
+* **&ndash;** grpc は、低待機時間と高スループット通信を実現するように設計されています。 gRPC は、効率性が非常に重要な軽量マイクロサービスに適しています。
 * **ポイントツーポイントのリアルタイム通信**&ndash; grpc では、双方向ストリーミングが優れてサポートされています。 gRPC サービスは、ポーリングせずにリアルタイムでメッセージをプッシュできます。
 * **多言語環境**&ndash; grpc ツールは、一般的なすべての開発言語をサポートしているため、grpc は多言語環境に適しています。
 * GRPC メッセージ &ndash;**ネットワークの制約**がある環境では、ライトウェイトメッセージ形式である Protobuf を使用してシリアル化されます。 GRPC メッセージは、常に同等の JSON メッセージよりも小さくなります。
@@ -106,7 +108,7 @@ gRPC メッセージは、既定で Protobuf を使用してエンコードさ�
 次のシナリオでは、gRPC よりも他のフレームワークをお勧めします。
 
 * ブラウザーで**アクセス可能な api** &ndash; grpc はブラウザーで完全にはサポートされていません。 gRPC-Web はブラウザーサポートを提供できますが、制限があり、サーバープロキシも導入されています。
-* **ブロードキャストリアルタイム通信**&ndash; grpc ではストリーミングによるリアルタイム通信がサポートされますが、登録済み接続へのメッセージのブロードキャストの概念は存在しません。 たとえば、チャットルーム内のすべてのクライアントに新しいチャットメッセージを送信するチャットルームの場合、新しいチャットメッセージをクライアントに個別にストリーミングするには、各 gRPC 呼び出しが必要です。 [SignalR](xref:signalr/introduction)は、このシナリオに便利なフレームワークです。 SignalR には、永続的な接続と、メッセージをブロードキャストするための組み込みサポートの概念があります。
+* **ブロードキャストリアルタイム通信**&ndash; grpc ではストリーミングによるリアルタイム通信がサポートされますが、登録済み接続へのメッセージのブロードキャストの概念は存在しません。 たとえば、チャットルーム内のすべてのクライアントに新しいチャットメッセージを送信するチャットルームの場合、新しいチャットメッセージをクライアントに個別にストリーミングするには、各 gRPC 呼び出しが必要です。 [SignalR](xref:signalr/introduction)は、このシナリオにとって便利なフレームワークです。 SignalR には、永続的な接続と、メッセージをブロードキャストするための組み込みサポートの概念があります。
 * プロセス**間通信**&ndash; は、着信 grpc 呼び出しを受け入れるために HTTP/2 サーバーをホストする必要があります。 Windows では、プロセス間通信[パイプ](/dotnet/standard/io/pipe-operations)は高速で軽量な通信方法です。
 
 ## <a name="additional-resources"></a>その他の技術情報

@@ -5,16 +5,19 @@ description: Blazor の認証と承認のシナリオについて説明します
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/15/2019
+ms.date: 11/12/2019
+no-loc:
+- Blazor
+- SignalR
 uid: security/blazor/index
-ms.openlocfilehash: 85a6a32ea068e6cd00ebb71bdf7fe0bd06b77618
-ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
+ms.openlocfilehash: 2ebc4d72191dff33a7fb6170650be67c3836cdaa
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72391315"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73964002"
 ---
-# <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor の認証と承認
+# <a name="aspnet-core-opno-locblazor-authentication-and-authorization"></a>ASP.NET Core Blazor の認証と承認
 
 作成者: [Steve Sanderson](https://github.com/SteveSandersonMS)
 
@@ -33,7 +36,7 @@ Blazor WebAssembly アプリはクライアント上で動作します。 承認
 
 Blazor は、既存の ASP.NET Core 認証メカニズムを使用してユーザーの ID を証明します。 詳細なメカニズムは、Blazor アプリのホスティング方法、Blazor サーバーか Blazor WebAssembly かによって異なります。
 
-### <a name="blazor-server-authentication"></a>Blazor サーバー認証
+### <a name="opno-locblazor-server-authentication"></a>Blazor サーバー認証
 
 Blazor サーバー アプリは、SignalR を使用して作成されたリアルタイム接続を介して動作します。 [SignalR ベースのアプリの認証](xref:signalr/authn-and-authz)は、接続が確立したときに処理されます。 認証は、Cookie または他のベアラー トークンに基づいています。
 
@@ -113,7 +116,7 @@ The command creates a folder named with the value provided for the `{APP NAME}` 
 
 ---
 
-### <a name="blazor-webassembly-authentication"></a>Blazor WebAssembly 認証
+### <a name="opno-locblazor-webassembly-authentication"></a>Blazor WebAssembly 認証
 
 Blazor WebAssembly アプリでは、すべてのクライアント側コードがユーザーによって変更される可能性があるため、認証チェックがバイパスされる可能性があります。 JavaScript SPA フレームワークや任意のオペレーティング システム用のネイティブ アプリを含め、すべてのクライアント側アプリのテクノロジにも同じことが当てはまります。
 
@@ -476,14 +479,14 @@ Not authorized.
 ```
 
 > [!NOTE]
-> Blazor WebAssembly アプリ コンポーネントで、`Microsoft.AspNetCore.Authorization` と `Microsoft.AspNetCore.Components.Authorization` 名前空間を追加します。
+> Blazor WebAssembly アプリ コンポーネントで、`Microsoft.AspNetCore.Authorization` と `Microsoft.AspNetCore.Components.Authorization` の名前空間を追加します。
 >
 > ```cshtml
 > @using Microsoft.AspNetCore.Authorization
 > @using Microsoft.AspNetCore.Components.Authorization
 > ```
 
-## <a name="authorization-in-blazor-webassembly-apps"></a>Blazor WebAssembly アプリでの承認
+## <a name="authorization-in-opno-locblazor-webassembly-apps"></a>Blazor WebAssembly アプリでの承認
 
 Blazor WebAssembly アプリでは、すべてのクライアント側コードがユーザーによって変更される可能性があるため、承認チェックがバイパスされる可能性があります。 JavaScript SPA フレームワークや任意のオペレーティング システム用のネイティブ アプリを含め、すべてのクライアント側アプリのテクノロジにも同じことが当てはまります。
 

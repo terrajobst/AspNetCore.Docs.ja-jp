@@ -5,20 +5,23 @@ description: ASP.NET Core アプリ内に .NET を使った対話型のクライ
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc, seoapril2019
-ms.date: 10/31/2019
+ms.date: 11/12/2019
+no-loc:
+- Blazor
+- SignalR
 uid: blazor/index
-ms.openlocfilehash: c2574c1250cf94e89dd5476b6174620d83546236
-ms.sourcegitcommit: 77c8be22d5e88dd710f42c739748869f198865dd
+ms.openlocfilehash: 8b656a7461c78475432722540ad628258cfe19c4
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/01/2019
-ms.locfileid: "73427024"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73962911"
 ---
-# <a name="introduction-to-aspnet-core-blazor"></a>ASP.NET Core Blazor の概要
+# <a name="introduction-to-aspnet-core-opno-locblazor"></a>ASP.NET Core Blazor の概要
 
 作成者: [Daniel Roth](https://github.com/danroth27)、[Luke Latham](https://github.com/guardrex)
 
-"*Blazor にようこそ!* "
+*Blazor へようこそ。*
 
 Blazor は、.NET を使って対話型のクライアント側 Web UI を構築するためのフレームワークです。
 
@@ -46,7 +49,7 @@ Blazor アプリは、"*コンポーネント*" に基づいています。 Blaz
 * 入れ子にしたり再利用したりできる。
 * [Razor クラス ライブラリ](xref:razor-pages/ui-class)または [NuGet パッケージ](/nuget/what-is-nuget)として共有および配布できる。
 
-コンポーネント クラスは通常、[Razor](xref:mvc/views/razor) マークアップ ページの形式で、 *.razor* ファイル拡張子で記述されます。 Blazor のコンポーネントは、正式には *Razor components* と呼ばれます。 Razor とは、開発者の生産性のために設計された、C# コードに HTML マークアップを結合するための構文です。 Razor を使用すると、[IntelliSense](/visualstudio/ide/using-intellisense) サポートを利用して、同一ファイル内で HTML マークアップと C# を切り替えることができます。 また、Razor Pages と MVC でも、Razor を使用します。 要求/応答モデルを中心に構築される Razor Pages や MVC とは異なり、コンポーネントは特にクライアント側の UI ロジックとコンポジションに対して使用されます。
+コンポーネント クラスは通常、[Razor](xref:mvc/views/razor) マークアップ ページの形式で、 *.razor* ファイル拡張子で記述されます。 Blazor のコンポーネントは、正式には *Razor コンポーネント*と呼ばれます。 Razor とは、開発者の生産性のために設計された、C# コードに HTML マークアップを結合するための構文です。 Razor を使用すると、[IntelliSense](/visualstudio/ide/using-intellisense) サポートを利用して、同一ファイル内で HTML マークアップと C# を切り替えることができます。 また、Razor Pages と MVC でも、Razor を使用します。 要求/応答モデルを中心に構築される Razor Pages や MVC とは異なり、コンポーネントは特にクライアント側の UI ロジックとコンポジションに対して使用されます。
 
 次の Razor マークアップは、別のコンポーネント内で入れ子にできるコンポーネント (*Dialog.razor*) を示しています。
 
@@ -101,7 +104,7 @@ Welcome to your new app.
 
 コンポーネントはレンダリングされると、"*レンダリング ツリー*" と呼ばれる、ブラウザーのドキュメント オブジェクト モデル (DOM) のメモリ内表現になります。これは、柔軟かつ効率的な方法で UI を更新するために使われます。
 
-## <a name="blazor-webassembly"></a>Blazor WebAssembly
+## <a name="opno-locblazor-webassembly"></a>Blazor WebAssembly
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
@@ -125,7 +128,7 @@ Blazor WebAssembly アプリをビルドしてブラウザーで実行する場�
 * HTTP 応答が圧縮されます。
 * .NET ランタイムとアセンブリがブラウザーにキャッシュされます。
 
-## <a name="blazor-server"></a>Blazor サーバー
+## <a name="opno-locblazor-server"></a>Blazor サーバー
 
 Blazor では、UI の更新プログラムを適用する方法からコンポーネントのレンダリング ロジックが分離されます。 Blazor サーバーでは、ASP.NET Core アプリでサーバー上の Razor コンポーネントをホストするためのサポートが提供されます。 UI の更新は [SignalR](xref:signalr/introduction) 接続を介して処理されます。
 
@@ -145,11 +148,11 @@ Blazor では [.NET Standard 2.0](/dotnet/standard/net-standard) が実装され
 
 Web ブラウザー内で使用できない API (たとえば、ファイル システムへのアクセス、ソケットを開く機能、スレッドなど) からは、<xref:System.PlatformNotSupportedException> がスローされます。
 
-## <a name="additional-resources"></a>その他のリソース
+## <a name="additional-resources"></a>その他の技術情報
 
 * [WebAssembly](https://webassembly.org/)
 * <xref:blazor/hosting-models>
 * [C# のガイド](/dotnet/csharp/)
 * <xref:mvc/views/razor>
 * [HTML](https://www.w3.org/html/)
-* [Awesome Blazor](https://github.com/AdrienTorris/awesome-blazor) コミュニティのリンク
+* [Awesome Blazor](https://github.com/AdrienTorris/awesome-blazor) コミュニティへのリンク

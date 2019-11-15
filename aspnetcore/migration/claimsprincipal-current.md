@@ -1,27 +1,27 @@
 ---
-title: ClaimsPrincipal.Current からの移行します。
+title: ClaimsPrincipal からの移行
 author: mjrousos
-description: 現在の認証済みユーザーの id と ASP.NET Core でのクレームを取得する ClaimsPrincipal.Current から移行する方法について説明します。
+description: ASP.NET Core で現在認証されているユーザーの id と要求を取得するために、ClaimsPrincipal から移行する方法について説明します。
 ms.author: scaddie
 ms.custom: mvc
 ms.date: 03/26/2019
 uid: migration/claimsprincipal-current
-ms.openlocfilehash: 526cc3cf3a58a656e2a1b162cfaccacc7694dc51
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: f7472f5b851d3869da3d26b881e276ce4ca004fb
+ms.sourcegitcommit: 231780c8d7848943e5e9fd55e93f437f7e5a371d
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64894789"
+ms.lasthandoff: 11/15/2019
+ms.locfileid: "74115975"
 ---
-# <a name="migrate-from-claimsprincipalcurrent"></a>ClaimsPrincipal.Current からの移行します。
+# <a name="migrate-from-claimsprincipalcurrent"></a>ClaimsPrincipal からの移行
 
-ASP.NET 4.x プロジェクトでは使用する一般的な[ClaimsPrincipal.Current](/dotnet/api/system.security.claims.claimsprincipal.current)現在を取得するユーザーの id と要求を認証します。 ASP.NET Core では、このプロパティは設定不要になった。 それに依存していたコードは、さまざまな手段を通じて現在の認証済みユーザーの id を取得するように更新する必要があります。
+ASP.NET 4.x プロジェクトでは、 [ClaimsPrincipal](/dotnet/api/system.security.claims.claimsprincipal.current)を使用して、現在認証されているユーザーの id と要求を取得するのが一般的でした。 ASP.NET Core では、このプロパティは現在設定されていません。 別の方法で現在認証されているユーザーの id を取得するには、それに依存していたコードを更新する必要があります。
 
-## <a name="context-specific-data-instead-of-static-data"></a>静的データではなく、コンテキスト固有のデータ
+## <a name="context-specific-data-instead-of-static-data"></a>静的なデータではなく、コンテキスト固有のデータ
 
-ASP.NET Core では、両方の値を使用する場合`ClaimsPrincipal.Current`と`Thread.CurrentPrincipal`が設定されていません。 これらのプロパティは両方を表す静的状態は、ASP.NET Core は一般的に回避できます。 ASP.NET Core のアーキテクチャは、コンテキスト固有のサービスのコレクションから (現在のユーザーの id) などの依存関係を取得する代わりに、(を使用してその[依存関係の注入](xref:fundamentals/dependency-injection)(DI) モデル)。 さらに、`Thread.CurrentPrincipal`はいくつかの非同期のシナリオでの変更を無効になること可能性がありますので、スレッドの静的な (と`ClaimsPrincipal.Current`呼び出すだけです`Thread.CurrentPrincipal`既定で)。
+ASP.NET Core を使用する場合、`ClaimsPrincipal.Current` と `Thread.CurrentPrincipal` の両方の値が設定されていません。 これらのプロパティはどちらも静的な状態を表しているので、通常は回避 ASP.NET Core ます。 代わりに、ASP.NET Core のアーキテクチャは、コンテキスト固有のサービスコレクション ([依存関係挿入](xref:fundamentals/dependency-injection)(DI) モデルを使用) から依存関係 (現在のユーザーの id など) を取得することです。 さらに、スレッドが静的である `Thread.CurrentPrincipal`、一部の非同期シナリオでは変更が保持されない可能性があります (と `ClaimsPrincipal.Current` 既定で `Thread.CurrentPrincipal` を呼び出すだけです)。
 
-問題のスレッドの種類を理解するには、静的メンバーを非同期では、次のコード スニペットを検討してください。 発生する可能性します。
+スレッドの静的メンバーが非同期のシナリオで発生する可能性のある問題の種類を理解するには、次のコードスニペットを考えてみます。
 
 ```csharp
 // Create a ClaimsPrincipal and set Thread.CurrentPrincipal
@@ -39,21 +39,21 @@ await Task.Yield();
 Console.WriteLine($"Current user: {Thread.CurrentPrincipal?.Identity.Name}");
 ```
 
-上記のサンプル コード セット`Thread.CurrentPrincipal`前に、と後の非同期呼び出しを待機しています。 その値を確認します。 `Thread.CurrentPrincipal` 固有では、*スレッド*を設定すると、およびメソッドが await の後に別のスレッドで実行を再開する可能性があります。 その結果、`Thread.CurrentPrincipal`が最初にチェックが null で呼び出しの後に、ある`await Task.Yield()`します。
+前のサンプルコードでは、非同期呼び出しを待機する前と後に、`Thread.CurrentPrincipal` を設定し、その値をチェックします。 `Thread.CurrentPrincipal` は、それが設定されている*スレッド*に固有であり、メソッドは await の後に別のスレッドで実行を再開する可能性があります。 したがって、最初にチェックされたときは `Thread.CurrentPrincipal` が存在しますが、`await Task.Yield()`の呼び出しの後は null になります。
 
-アプリの DI サービスのコレクションから現在のユーザーの id の取得がしやすい、すぎます、テスト ユーザーを簡単に挿入されるためです。
+テスト id は簡単に挿入できるため、アプリの DI サービスコレクションから現在のユーザーの id を取得することも、よりテストが容易になります。
 
-## <a name="retrieve-the-current-user-in-an-aspnet-core-app"></a>ASP.NET Core アプリの現在のユーザーを取得します。
+## <a name="retrieve-the-current-user-in-an-aspnet-core-app"></a>ASP.NET Core アプリで現在のユーザーを取得する
 
-現在の認証済みユーザーを取得するためのいくつかのオプションがある`ClaimsPrincipal`の代わりに ASP.NET Core で`ClaimsPrincipal.Current`:
+`ClaimsPrincipal.Current`の代わりに ASP.NET Core で現在認証されているユーザーの `ClaimsPrincipal` を取得するには、いくつかのオプションがあります。
 
-* **ControllerBase.User**します。 MVC コント ローラーを現在の認証済みユーザーにアクセスできる、[ユーザー](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.user)プロパティ。
-* **HttpContext.User**します。 現在のアクセス権を持つコンポーネント`HttpContext`(ミドルウェアの例) は、現在のユーザーを取得できます`ClaimsPrincipal`から[HttpContext.User](/dotnet/api/microsoft.aspnetcore.http.httpcontext.user)します。
-* **呼び出し元から渡された**します。 現在のアクセス権を持たないライブラリ`HttpContext`コント ローラーまたはミドルウェア コンポーネントから多くの場合、呼び出され、引数として渡された現在のユーザーの id を持つことができます。
-* **IHttpContextAccessor**します。 ASP.NET Core に移行しているプロジェクトは、簡単に、現在のユーザーの id を渡すために必要なすべての場所には大きすぎる可能性があります。 このような場合、 [IHttpContextAccessor](/dotnet/api/microsoft.aspnetcore.http.ihttpcontextaccessor)回避策として使用できます。 `IHttpContextAccessor` 現在アクセスできる`HttpContext`(存在する場合。 ASP.NET Core の DI 駆動アーキテクチャで作業をまだ更新されていないコードで、現在のユーザーの id を取得する短期的なソリューションは次のようになります。
+* **コントローラーの基本ユーザー**。 MVC コントローラーは、[ユーザー](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.user)プロパティを使用して、現在の認証済みユーザーにアクセスできます。
+* **HttpContext. ユーザー**。 現在の `HttpContext` (ミドルウェアなど) にアクセスできるコンポーネントは、現在のユーザーの `ClaimsPrincipal` を[HttpContext. user](/dotnet/api/microsoft.aspnetcore.http.httpcontext.user)から取得できます。
+* **呼び出し元から渡さ**れました。 現在の `HttpContext` にアクセスできないライブラリは、多くの場合コントローラーまたはミドルウェアコンポーネントから呼び出され、現在のユーザーの id を引数として渡すことができます。
+* **IHttpContextAccessor**。 ASP.NET Core に移行されるプロジェクトが大きすぎて、現在のユーザーの id を必要なすべての場所に簡単に渡すことができない場合があります。 このような場合は、回避策として[IHttpContextAccessor](/dotnet/api/microsoft.aspnetcore.http.ihttpcontextaccessor)を使用できます。 `IHttpContextAccessor` は現在の `HttpContext` にアクセスできます (存在する場合)。 DI が使用されている場合は、「<xref:fundamentals/httpcontext>」を参照してください。 ASP.NET Core の DI ドリブンアーキテクチャで動作するようにまだ更新されていないコードで現在のユーザーの id を取得するための短期的なソリューションは次のようになります。
 
-  * ように`IHttpContextAccessor`呼び出して DI コンテナーで使用できる[AddHttpContextAccessor](https://github.com/aspnet/Hosting/issues/793)で`Startup.ConfigureServices`します。
-  * インスタンスを取得`IHttpContextAccessor`スタートアップ中に静的変数に格納します。 インスタンスが行われたが、現在のユーザーが静的プロパティから取得することは以前のコードを使用できます。
-  * 現在のユーザーの取得`ClaimsPrincipal`を使用して`HttpContextAccessor.HttpContext?.User`します。 このコードは、HTTP 要求のコンテキスト外で使用されている場合、`HttpContext`が null です。
+  * `Startup.ConfigureServices`で[Addhttpcontextaccessor](https://github.com/aspnet/Hosting/issues/793)を呼び出して、`IHttpContextAccessor` DI コンテナーで使用できるようにします。
+  * 起動時に `IHttpContextAccessor` のインスタンスを取得し、静的変数に格納します。 インスタンスは、以前に静的プロパティから現在のユーザーを取得していたコードで使用できるようになります。
+  * `HttpContextAccessor.HttpContext?.User`を使用して、現在のユーザーの `ClaimsPrincipal` を取得します。 このコードが HTTP 要求のコンテキストの外部で使用されている場合、`HttpContext` は null になります。
 
-最終的なオプションを使用して、`IHttpContextAccessor`インスタンスの静的変数に格納されている、(静的な依存関係に挿入された依存関係を優先) ASP.NET Core の原則に反するです。 最終的に取得する`IHttpContextAccessor`インスタンス依存関係の挿入からの代わりにします。 静的ヘルパーできる便利なブリッジでは、ただし、以前使用していた既存の ASP.NET アプリが大きなを移行するときに`ClaimsPrincipal.Current`します。
+最後のオプションでは、静的変数に格納されている `IHttpContextAccessor` インスタンスを使用して、ASP.NET Core の原則 (静的な依存関係に挿入された依存関係を優先) とは逆になります。 代わりに、最終的に依存関係の挿入から `IHttpContextAccessor` インスタンスを取得することを計画します。 ただし、`ClaimsPrincipal.Current`を以前に使用していた大規模な既存の ASP.NET アプリを移行する場合、静的ヘルパーは便利なブリッジになることがあります。
