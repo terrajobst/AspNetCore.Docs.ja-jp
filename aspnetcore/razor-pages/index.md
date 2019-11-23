@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.date: 10/07/2019
 uid: razor-pages/index
-ms.openlocfilehash: 61e15b9b9b8f84de36621c301ecb9d33b21dff88
-ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
+ms.openlocfilehash: 67cc4f9b261372996d612f922c9f491f53948ece
+ms.sourcegitcommit: ddc813f0f1fb293861a01597532919945b0e7fe5
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/29/2019
-ms.locfileid: "73034274"
+ms.lasthandoff: 11/23/2019
+ms.locfileid: "74412077"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>ASP.NET Core での Razor ページの概要
 
@@ -65,7 +65,7 @@ Visual Studio for Mac から生成された *.csproj* ファイルを開きま�
 
 Razor ページは *Startup.cs* で有効になっています。
 
-[!code-cs[](index/3.0sample/RazorPagesIntro/Startup.cs?name=snippet_Startup&highlight=12)]
+[!code-cs[](index/3.0sample/RazorPagesIntro/Startup.cs?name=snippet_Startup&highlight=12,36)]
 
 基本ページを検討します。<a name="OnGet"></a>
 
@@ -273,7 +273,7 @@ HTML で削除ボタンがレンダリングされる場合、その [formaction
 
 [!code-cshtml[](index/3.0sample/RazorPagesContacts/Pages/Customers/Create3.cshtml?highlight=3,8-9,15-99)]
 
-上のコードでは以下の操作が行われます。
+上記のコードでは次の操作が行われます。
 
 * jQuery と jQuery 検証スクリプトが含まれます。
 * `<div />` と `<span />` [タグ ヘルパー](xref:mvc/views/tag-helpers/intro)を使用して次を有効にします。

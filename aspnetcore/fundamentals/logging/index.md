@@ -5,14 +5,14 @@ description: Microsoft.Extensions.Logging NuGet パッケージで提供され�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/05/2019
+ms.date: 11/19/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: 2cb19d251ad69ebd7d18480c14857e948c69b747
-ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
+ms.openlocfilehash: b23e64077290f0f613e904651e4bb640fcbba95d
+ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73659968"
+ms.lasthandoff: 11/21/2019
+ms.locfileid: "74289087"
 ---
 # <a name="logging-in-net-core-and-aspnet-core"></a>.NET Core および ASP.NET Core でのログ記録
 
@@ -311,8 +311,6 @@ public class Program
 
 たとえば、一般的に、ログの構成はアプリ設定ファイルの `Logging` セクションで指定されます。 次の例は、一般的な *appsettings.Development.json* ファイルの内容を示しています。
 
-::: moniker range=">= aspnetcore-2.1"
-
 ```json
 {
   "Logging": {
@@ -337,7 +335,7 @@ public class Program
 
 `Logging.{providername}.LogLevel` でレベルが指定される場合、それによって `Logging.LogLevel` で設定されたものはすべてオーバーライドされます。
 
-::: moniker-end
+ログ API には、アプリの実行中にログ レベルを変更するシナリオは含まれていません。 ただし、一部の構成プロバイダーは構成を再読み込みすることができ、ログ構成に直ちに影響します。 たとえば、設定ファイルを読み取るために `CreateDefaultBuilder` によって追加される [ファイル構成プロバイダー](xref:fundamentals/configuration/index#file-configuration-provider)は、既定でログ構成を再読み込みします。 アプリの実行中にコードの構成が変更された場合、アプリは [IConfigurationRoot.Reload](xref:Microsoft.Extensions.Configuration.IConfigurationRoot.Reload*) を呼び出して、アプリのログ構成を更新できます。
 
 構成プロバイダーの実装について詳しくは、<xref:fundamentals/configuration/index> をご覧ください。
 
@@ -706,7 +704,7 @@ System.Exception: Item not found exception.
 
 ### <a name="create-filter-rules-in-configuration"></a>構成にフィルター規則を作成する
 
-プロジェクト テンプレートのコードでは `CreateDefaultBuilder` が呼び出され、Console プロバイダーと Debug プロバイダーのログ記録が設定されます。 `Logging`この記事で既に説明[したように、`CreateDefaultBuilder` メソッドでは、](#configuration) セクションで構成を検索するようにログが設定されます。
+プロジェクト テンプレート コードは `CreateDefaultBuilder` を呼び出して、コンソール、デバッグ、EventSource (ASP.NET Core 2.2 以降) のプロバイダーのログ記録を設定します。 `Logging`この記事で既に説明[したように、`CreateDefaultBuilder` メソッドでは、](#configuration) セクションで構成を検索するようにログが設定されます。
 
 次の例のように、構成データでは、プロバイダーとカテゴリごとに最小ログ レベルを指定します。
 
@@ -892,7 +890,7 @@ ASP.NET Core には次のプロバイダーが付属しています。
 
 * [コンソール](#console-provider)
 * [デバッグ](#debug-provider)
-* [EventSource](#eventsource-provider)
+* [EventSource](#event-source-provider)
 * [EventLog](#windows-eventlog-provider)
 * [TraceSource](#tracesource-provider)
 * [AzureAppServicesFile](#azure-app-service-provider)
@@ -925,15 +923,121 @@ Linux では、このプロバイダーから */var/log/message* にログが書
 logging.AddDebug();
 ```
 
-### <a name="eventsource-provider"></a>EventSource プロバイダー
+### <a name="event-source-provider"></a>イベント ソース プロバイダー
 
-ASP.NET Core 1.1.0 以降をターゲットとするアプリの場合、[Microsoft.Extensions.Logging.EventSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource) プロバイダー パッケージは、イベントのトレースを実装できます。 Windows では、[ETW](https://msdn.microsoft.com/library/windows/desktop/bb968803) を使用します。 プロバイダーはクロスプラットフォームですが、Linux または macOS 用のイベント コレクションはまだ存在せず、ツールは表示されません。
+[Microsoft.Extensions.Logging.EventSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource) プロバイダー パッケージでは、`Microsoft-Extensions-Logging` という名前でイベント ソース クロスプラットフォームに書き込みます。 Windows では、プロバイダーによって [ETW](https://msdn.microsoft.com/library/windows/desktop/bb968803) が使用されます。
 
 ```csharp
 logging.AddEventSourceLogger();
 ```
 
-ログの収集と表示には、[PerfView utility](https://github.com/Microsoft/perfview) を使用することをお勧めします。 ETW ログを表示できる他のツールはありますが、ASP.NET Core から出力される ETW イベントを操作する場合、PerfView は最適なエクスペリエンスを提供します。
+イベント ソース プロバイダーは、ホストをビルドするために `CreateDefaultBuilder` が呼び出されたときに、自動的に追加されます。
+
+::: moniker range=">= aspnetcore-3.0"
+
+#### <a name="dotnet-trace-tooling"></a>dotnet trace ツール
+
+[dotnet-trace](/dotnet/core/diagnostics/dotnet-trace) ツールは、実行中のプロセスの .NET Core のトレースのコレクションを有効にする、クロスプラットフォームの CLI グローバル ツールです。 このツールでは、<xref:Microsoft.Extensions.Logging.EventSource.LoggingEventSource> を使用して <xref:Microsoft.Extensions.Logging.EventSource> プロバイダー データを収集します。
+
+次のコマンドを使用して、dotnet trace ツールをインストールします。
+
+```dotnetcli
+dotnet tool install --global dotnet-trace
+```
+
+dotnet trace ツールを使用して、アプリからトレースを収集します。
+
+1. アプリで `CreateDefaultBuilder` を使ってホストがビルドされない場合は、[イベント ソース プロバイダー](#event-source-provider)をアプリのログ構成に追加します。
+
+1. `dotnet run` コマンドを使用してアプリを実行します。
+
+1. .NET Core アプリのプロセス識別子 (PID) を決定します。
+
+   * Windows では、次の方法のいずれかを使用します。
+     * タスク マネージャー (Ctrl + Alt + Del)
+     * [tasklist コマンド](/windows-server/administration/windows-commands/tasklist)
+     * [Get-Process PowerShell コマンド](/powershell/module/microsoft.powershell.management/get-process)
+   * Linux では、[pidof コマンド](https://refspecs.linuxfoundation.org/LSB_5.0.0/LSB-Core-generic/LSB-Core-generic/pidof.html)を使用します。
+
+   アプリのアセンブリと同じ名前を持つプロセスの PID を検索します。
+
+1. `dotnet trace` コマンドを実行します。
+
+   一般的なコマンド構文
+
+   ```dotnetcli
+   dotnet trace collect -p {PID} 
+       --providers Microsoft-Extensions-Logging:{Keyword}:{Event Level}
+           :FilterSpecs=\"
+               {Logger Category 1}:{Event Level 1};
+               {Logger Category 2}:{Event Level 2};
+               ...
+               {Logger Category N}:{Event Level N}\"
+   ```
+
+   PowerShell コマンド シェルを使用する場合は、`--providers` 値を単一引用符 (`'`) で囲みます。
+
+   ```dotnetcli
+   dotnet trace collect -p {PID} 
+       --providers 'Microsoft-Extensions-Logging:{Keyword}:{Event Level}
+           :FilterSpecs=\"
+               {Logger Category 1}:{Event Level 1};
+               {Logger Category 2}:{Event Level 2};
+               ...
+               {Logger Category N}:{Event Level N}\"'
+   ```
+
+   Windows 以外のプラットフォームでは、`-f speedscope` オプションを追加して、出力トレース ファイルの形式を `speedscope` に変更します。
+
+   | キーワード | 説明 |
+   | :-----: | ----------- |
+   | 1       | `LoggingEventSource` に関するメタ イベントをログに記録します。 `ILogger` からのイベントは記録されません。 |
+   | 2       | `ILogger.Log()` が呼び出されたときに、`Message` イベントをオンにします。 プログラムで (書式設定されずに) 情報が提供されます。 |
+   | 4       | `ILogger.Log()` が呼び出されたときに、`FormatMessage` イベントをオンにします。 書式設定された文字列バージョンの情報が提供されます。 |
+   | 8       | `ILogger.Log()` が呼び出されたときに、`MessageJson` イベントをオンにします。 引数の JSON 表現が提供されます。 |
+
+   | イベント レベル | 説明     |
+   | :---------: | --------------- |
+   | 0           | `LogAlways`     |
+   | 1           | `Critical`      |
+   | 2           | `Error`         |
+   | 3           | `Warning`       |
+   | 4           | `Informational` |
+   | 5           | `Verbose`       |
+
+   `{Logger Category}` と `{Event Level}` の `FilterSpecs` エントリは、追加のログ フィルター条件を表します。 セミコロン (`;`) で `FilterSpecs` エントリを区切ります。
+
+   Windows コマンド シェルを使用した例 (`--providers` 値を囲む単一引用符**なし**):
+
+   ```dotnetcli
+   dotnet trace collect -p {PID} --providers Microsoft-Extensions-Logging:4:2:FilterSpecs=\"Microsoft.AspNetCore.Hosting*:4\"
+   ```
+
+   上記のコマンドにより次のことがアクティブになります。
+
+   * エラー (`2`) に対して書式設定された文字列 (`4`) を生成するイベント ソース ロガー。
+   * `Informational` ログ レベル (`4`) での `Microsoft.AspNetCore.Hosting` のログ記録。
+
+1. Enter キーまたは Ctrl + C キーを押すことで、dotnet trace ツールを停止します。
+
+   トレースは、`dotnet trace` コマンドが実行されたフォルダーに *trace.nettrace* という名前で保存されます。
+
+1. [Perfview](#perfview) を使用してトレースを開きます。 *trace.nettrace* ファイルを開き、トレース イベントを調べます。
+
+詳細については次を参照してください:
+
+* [パフォーマンス分析ユーティリティのトレース (dotnet-trace)](/dotnet/core/diagnostics/dotnet-trace) (.NET Core ドキュメント)
+* [パフォーマンス分析ユーティリティのトレース (dotnet-trace)](https://github.com/dotnet/diagnostics/blob/master/documentation/dotnet-trace-instructions.md) (dotnet/diagnostics GitHub リポジトリ ドキュメント)
+* [LoggingEventSource クラス](xref:Microsoft.Extensions.Logging.EventSource.LoggingEventSource) (.NET API ブラウザー)
+* <xref:System.Diagnostics.Tracing.EventLevel>
+* [LoggingEventSource 参照ソース (3.0)](https://github.com/aspnet/Extensions/blob/release/3.0/src/Logging/Logging.EventSource/src/LoggingEventSource.cs) &ndash; 別のバージョンの参照ソースを取得するには、分岐を `release/{Version}` に変更します。ここでは、`{Version}` は目的の ASP.NET Core のバージョンです。
+* [Perfview](#perfview) &ndash; イベント ソース トレースの表示に役立ちます。
+
+#### <a name="perfview"></a>Perfview
+
+::: moniker-end
+
+ログの収集と表示には、[PerfView ユーティリティ](https://github.com/Microsoft/perfview)を使用します。 ETW ログを表示できる他のツールはありますが、ASP.NET Core から出力される ETW イベントを操作する場合、PerfView は最適なエクスペリエンスを提供します。
 
 このプロバイダーでログに記録されるイベントを収集するように PerfView を構成するには、 **[追加プロバイダー]** の一覧に文字列 `*Microsoft-Extensions-Logging` を追加します (文字列の先頭に忘れずにアスタリスクを付けてください)。
 
@@ -975,7 +1079,7 @@ logging.AddAzureWebAppDiagnostics();
 
 ::: moniker-end
 
-::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
+::: moniker range="< aspnetcore-3.0"
 
 プロバイダー パッケージは、[Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)には含まれません。 .NET Framework をターゲットとする場合、または `Microsoft.AspNetCore.App` を参照している場合は、プロバイダー パッケージをプロジェクトに追加します。 
 
@@ -1024,7 +1128,7 @@ Azure ログのストリーミングを構成するには
 
 * アプリのポータル ページから **[App Service ログ]** ページに移動します。
 * **[アプリケーション ログ (ファイル システム)]** を **[オン]** に設定します。
-* ログ **[レベル]** を選択します。
+* ログ **[レベル]** を選択します。 この設定は、Azure ログのストリーミングにのみ適用され、アプリ内の他のログ プロバイダーには適用されません。
 
 **[ログ ストリーム]** ページに移動して、アプリのメッセージを確認します。 これらはアプリによって、`ILogger` インターフェイスを介してログに記録されます。
 
