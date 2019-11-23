@@ -24,9 +24,9 @@ ASP.NET Core アプリは、Facebook、Google、Microsoft、Twitter などの外
 
 [サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/social/additional-claims/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
-## <a name="prerequisites"></a>必要条件
+## <a name="prerequisites"></a>前提条件
 
-アプリでサポートする外部認証プロバイダーを決定します。 各プロバイダーについて、アプリを登録し、クライアント ID とクライアントシークレットを取得します。 詳細については、「<xref:security/authentication/social/index>」を参照してください。 このサンプルアプリでは、 [Google 認証プロバイダー](xref:security/authentication/google-logins)を使用します。
+アプリでサポートする外部認証プロバイダーを決定します。 各プロバイダーについて、アプリを登録し、クライアント ID とクライアントシークレットを取得します。 詳細については、「 <xref:security/authentication/social/index>」を参照してください。 このサンプルアプリでは、 [Google 認証プロバイダー](xref:security/authentication/google-logins)を使用します。
 
 ## <a name="set-the-client-id-and-client-secret"></a>クライアント ID とクライアントシークレットを設定する
 
@@ -45,16 +45,16 @@ OAuth 認証プロバイダーは、クライアント ID とクライアント�
 
 ## <a name="establish-the-authentication-scope"></a>認証スコープを確立する
 
-@No__t-0 を指定して、プロバイダーから取得するアクセス許可の一覧を指定します。 共通外部プロバイダーの認証スコープは、次の表に表示されます。
+<xref:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.Scope*>を指定して、プロバイダーから取得するアクセス許可の一覧を指定します。 共通外部プロバイダーの認証スコープは、次の表に表示されます。
 
-| プロバイダー  | [スコープ]                                                            |
+| プロバイダー  | スコープ                                                            |
 | --------- | ---------------------------------------------------------------- |
 | Facebook  | `https://www.facebook.com/dialog/oauth`                          |
 | Google    | `https://www.googleapis.com/auth/userinfo.profile`               |
 | Microsoft | `https://login.microsoftonline.com/common/oauth2/v2.0/authorize` |
 | Twitter   | `https://api.twitter.com/oauth/authenticate`                     |
 
-サンプルアプリでは、<xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilder> で <xref:Microsoft.Extensions.DependencyInjection.GoogleExtensions.AddGoogle*> が呼び出されると、Google の `userinfo.profile` スコープがフレームワークによって自動的に追加されます。 アプリに追加のスコープが必要な場合は、それらをオプションに追加します。 次の例では、ユーザーの誕生日を取得するために、Google `https://www.googleapis.com/auth/user.birthday.read` スコープが追加されています。
+サンプルアプリでは、<xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilder>で <xref:Microsoft.Extensions.DependencyInjection.GoogleExtensions.AddGoogle*> が呼び出されると、Google の `userinfo.profile` スコープがフレームワークによって自動的に追加されます。 アプリに追加のスコープが必要な場合は、それらをオプションに追加します。 次の例では、ユーザーの誕生日を取得するために Google `https://www.googleapis.com/auth/user.birthday.read` スコープが追加されています。
 
 ```csharp
 options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
@@ -62,15 +62,15 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 
 ## <a name="map-user-data-keys-and-create-claims"></a>ユーザーデータキーをマップして要求を作成する
 
-プロバイダーのオプションで、サインイン時に読み取るアプリ id の外部プロバイダーの JSON ユーザーデータ内のキー/サブキーごとに、<xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonKey*> または <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonSubKey*> を指定します。 要求の種類の詳細については、「<xref:System.Security.Claims.ClaimTypes>」を参照してください。
+プロバイダーのオプションで、サインイン時に読み取るアプリ id の外部プロバイダーの JSON ユーザーデータの各キー/サブキーに対して、<xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonKey*> または <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonSubKey*> を指定します。 要求の種類の詳細については、「<xref:System.Security.Claims.ClaimTypes>」を参照してください。
 
-サンプルアプリでは、Google ユーザーデータの `locale` および @no__t キーから、locale (`urn:google:locale`) 要求と画像 (@no__t) 要求を作成します。
+このサンプルアプリでは、Google ユーザーデータの `locale` および `picture` キーから、ロケール (`urn:google:locale`) と画像 (`urn:google:picture`) の要求を作成します。
 
 [!code-csharp[](additional-claims/samples/3.x/ClaimsSample/Startup.cs?name=snippet_AddGoogle&highlight=13-14)]
 
-@No__t-0 の場合、<xref:Microsoft.AspNetCore.Identity.IdentityUser> (`ApplicationUser`) は、<xref:Microsoft.AspNetCore.Identity.SignInManager%601.SignInAsync*> でアプリにサインインします。 サインインプロセスの間、<xref:Microsoft.AspNetCore.Identity.UserManager%601> は @no__t から利用可能なユーザーデータの @no__t 1 要求を格納できます。
+`Microsoft.AspNetCore.Identity.UI.Pages.Account.Internal.ExternalLoginModel.OnPostConfirmationAsync`では、<xref:Microsoft.AspNetCore.Identity.IdentityUser> (`ApplicationUser`) が <xref:Microsoft.AspNetCore.Identity.SignInManager%601.SignInAsync*>を使用してアプリにサインインします。 サインインプロセス中に、<xref:Microsoft.AspNetCore.Identity.UserManager%601> は <xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.Principal*>から利用可能なユーザーデータの `ApplicationUser` 要求を格納できます。
 
-サンプルアプリでは、`OnPostConfirmationAsync` (*Account/ExternalLogin. cshtml*) によって、<xref:System.Security.Claims.ClaimTypes.GivenName> の要求を含む、署名された `ApplicationUser` のロケール (@no__t 2) と画像 (@no__t 3) の要求が確立されます。
+サンプルアプリでは、`OnPostConfirmationAsync` (*Account/ExternalLogin. cshtml*) を使用して、署名された `ApplicationUser`のロケール (`urn:google:locale`) 要求と画像 (`urn:google:picture`) 要求を確立します。これには <xref:System.Security.Claims.ClaimTypes.GivenName>の要求も含まれます。
 
 [!code-csharp[](additional-claims/samples/3.x/ClaimsSample/Areas/Identity/Pages/Account/ExternalLogin.cshtml.cs?name=snippet_OnPostConfirmationAsync&highlight=35-51)]
 
@@ -86,21 +86,21 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 
 ## <a name="save-the-access-token"></a>アクセストークンを保存する
 
-<xref:Microsoft.AspNetCore.Authentication.RemoteAuthenticationOptions.SaveTokens*> は、承認が正常に完了した後、アクセストークンと更新トークンを <xref:Microsoft.AspNetCore.Http.Authentication.AuthenticationProperties> に格納するかどうかを定義します。 `SaveTokens` は、最終的な認証クッキーのサイズを小さくするために、既定で `false` に設定されています。
+認証が正常に完了した後に、アクセストークンと更新トークンを <xref:Microsoft.AspNetCore.Http.Authentication.AuthenticationProperties> に格納するかどうかを <xref:Microsoft.AspNetCore.Authentication.RemoteAuthenticationOptions.SaveTokens*> が定義します。 `SaveTokens` は、最終的な認証クッキーのサイズを小さくするために、既定で `false` に設定されています。
 
-サンプルアプリでは、`SaveTokens` の値が <xref:Microsoft.AspNetCore.Authentication.Google.GoogleOptions> の `true` に設定されます。
+このサンプルアプリでは、`SaveTokens` の値を <xref:Microsoft.AspNetCore.Authentication.Google.GoogleOptions>の `true` に設定します。
 
 [!code-csharp[](additional-claims/samples/3.x/ClaimsSample/Startup.cs?name=snippet_AddGoogle&highlight=15)]
 
-@No__t-0 を実行する場合は、外部プロバイダーのアクセストークン ([Externallogininfo. authenticationtokens](xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.AuthenticationTokens*)) を @no__t の `AuthenticationProperties` に格納します。
+`OnPostConfirmationAsync` 実行するときに、外部プロバイダーのアクセストークン ([Externallogininfo. authenticationtokens](xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.AuthenticationTokens*)) を `ApplicationUser`の `AuthenticationProperties`に格納します。
 
-このサンプルアプリでは、アクセストークンを `OnPostConfirmationAsync` (新しいユーザー登録) に保存し、*アカウント/ExternalLogin. cshtml. cs*で `OnGetCallbackAsync` (以前に登録されたユーザー) に保存します。
+このサンプルアプリでは、アクセストークンを `OnPostConfirmationAsync` (新しいユーザー登録) と `OnGetCallbackAsync` (以前に登録したユーザー) の*アカウント/ExternalLogin. cshtml*に保存します。
 
 [!code-csharp[](additional-claims/samples/3.x/ClaimsSample/Areas/Identity/Pages/Account/ExternalLogin.cshtml.cs?name=snippet_OnPostConfirmationAsync&highlight=54-56)]
 
 ## <a name="how-to-add-additional-custom-tokens"></a>カスタムトークンを追加する方法
 
-@No__t-0 の一部として格納されているカスタムトークンを追加する方法を示すために、サンプルアプリでは、`TicketCreated` の[AuthenticationToken.Name](xref:Microsoft.AspNetCore.Authentication.AuthenticationToken.Name*)のために、現在の <xref:System.DateTime> を含む <xref:Microsoft.AspNetCore.Authentication.AuthenticationToken> を追加します。
+`SaveTokens`の一部として格納されているカスタムトークンを追加する方法を示すために、サンプルアプリでは、`TicketCreated`の[AuthenticationToken.Name](xref:Microsoft.AspNetCore.Authentication.AuthenticationToken.Name*)の現在の <xref:System.DateTime> に <xref:Microsoft.AspNetCore.Authentication.AuthenticationToken> を追加します。
 
 [!code-csharp[](additional-claims/samples/3.x/ClaimsSample/Startup.cs?name=snippet_AddGoogle&highlight=17-30)]
 
@@ -110,11 +110,11 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 
 ユーザーは、<xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction> から派生させ、抽象 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.Run*> メソッドを実装することによって、カスタムアクションを定義できます。
 
-詳細については、「<xref:Microsoft.AspNetCore.Authentication.OAuth.Claims>」を参照してください。
+詳細については、「 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims>」を参照してください。
 
 ## <a name="removal-of-claim-actions-and-claims"></a>要求アクションと要求の削除
 
-[Claimactioncollection。 Remove (String)](xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection.Remove*)は、指定された <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.ClaimType> のすべての要求アクションをコレクションから削除します。 [DeleteClaim (ClaimActionCollection, String)](xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.DeleteClaim*)は、id から指定された <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.ClaimType> の要求を削除します。 <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.DeleteClaim*> は主に[OpenID connect (OIDC)](/azure/active-directory/develop/v2-protocols-oidc)と共に使用して、プロトコルによって生成された要求を削除します。
+[Claimactioncollection。 Remove (String)](xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection.Remove*)は、指定された <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.ClaimType> のすべての要求アクションをコレクションから削除します。 [DeleteClaim (ClaimActionCollection, String)](xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.DeleteClaim*)は、指定された <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.ClaimType> の要求を id から削除します。 <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.DeleteClaim*> は、主に[OpenID connect (OIDC)](/azure/active-directory/develop/v2-protocols-oidc)と共に使用して、プロトコルによって生成された要求を削除します。
 
 ## <a name="sample-app-output"></a>サンプルアプリの出力
 
@@ -164,9 +164,9 @@ ASP.NET Core アプリは、Facebook、Google、Microsoft、Twitter などの外
 
 [サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/social/additional-claims/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
-## <a name="prerequisites"></a>必要条件
+## <a name="prerequisites"></a>前提条件
 
-アプリでサポートする外部認証プロバイダーを決定します。 各プロバイダーについて、アプリを登録し、クライアント ID とクライアントシークレットを取得します。 詳細については、「<xref:security/authentication/social/index>」を参照してください。 このサンプルアプリでは、 [Google 認証プロバイダー](xref:security/authentication/google-logins)を使用します。
+アプリでサポートする外部認証プロバイダーを決定します。 各プロバイダーについて、アプリを登録し、クライアント ID とクライアントシークレットを取得します。 詳細については、「 <xref:security/authentication/social/index>」を参照してください。 このサンプルアプリでは、 [Google 認証プロバイダー](xref:security/authentication/google-logins)を使用します。
 
 ## <a name="set-the-client-id-and-client-secret"></a>クライアント ID とクライアントシークレットを設定する
 
@@ -185,16 +185,16 @@ OAuth 認証プロバイダーは、クライアント ID とクライアント�
 
 ## <a name="establish-the-authentication-scope"></a>認証スコープを確立する
 
-@No__t-0 を指定して、プロバイダーから取得するアクセス許可の一覧を指定します。 共通外部プロバイダーの認証スコープは、次の表に表示されます。
+<xref:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.Scope*>を指定して、プロバイダーから取得するアクセス許可の一覧を指定します。 共通外部プロバイダーの認証スコープは、次の表に表示されます。
 
-| プロバイダー  | [スコープ]                                                            |
+| プロバイダー  | スコープ                                                            |
 | --------- | ---------------------------------------------------------------- |
 | Facebook  | `https://www.facebook.com/dialog/oauth`                          |
 | Google    | `https://www.googleapis.com/auth/userinfo.profile`               |
 | Microsoft | `https://login.microsoftonline.com/common/oauth2/v2.0/authorize` |
 | Twitter   | `https://api.twitter.com/oauth/authenticate`                     |
 
-サンプルアプリでは、<xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilder> で <xref:Microsoft.Extensions.DependencyInjection.GoogleExtensions.AddGoogle*> が呼び出されると、Google の `userinfo.profile` スコープがフレームワークによって自動的に追加されます。 アプリに追加のスコープが必要な場合は、それらをオプションに追加します。 次の例では、ユーザーの誕生日を取得するために、Google `https://www.googleapis.com/auth/user.birthday.read` スコープが追加されています。
+サンプルアプリでは、<xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilder>で <xref:Microsoft.Extensions.DependencyInjection.GoogleExtensions.AddGoogle*> が呼び出されると、Google の `userinfo.profile` スコープがフレームワークによって自動的に追加されます。 アプリに追加のスコープが必要な場合は、それらをオプションに追加します。 次の例では、ユーザーの誕生日を取得するために Google `https://www.googleapis.com/auth/user.birthday.read` スコープが追加されています。
 
 ```csharp
 options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
@@ -202,15 +202,15 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 
 ## <a name="map-user-data-keys-and-create-claims"></a>ユーザーデータキーをマップして要求を作成する
 
-プロバイダーのオプションで、サインイン時に読み取るアプリ id の外部プロバイダーの JSON ユーザーデータ内のキー/サブキーごとに、<xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonKey*> または <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonSubKey*> を指定します。 要求の種類の詳細については、「<xref:System.Security.Claims.ClaimTypes>」を参照してください。
+プロバイダーのオプションで、サインイン時に読み取るアプリ id の外部プロバイダーの JSON ユーザーデータの各キー/サブキーに対して、<xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonKey*> または <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonSubKey*> を指定します。 要求の種類の詳細については、「<xref:System.Security.Claims.ClaimTypes>」を参照してください。
 
-サンプルアプリでは、Google ユーザーデータの `locale` および @no__t キーから、locale (`urn:google:locale`) 要求と画像 (@no__t) 要求を作成します。
+このサンプルアプリでは、Google ユーザーデータの `locale` および `picture` キーから、ロケール (`urn:google:locale`) と画像 (`urn:google:picture`) の要求を作成します。
 
 [!code-csharp[](additional-claims/samples/2.x/ClaimsSample/Startup.cs?name=snippet_AddGoogle&highlight=13-14)]
 
-@No__t-0 の場合、<xref:Microsoft.AspNetCore.Identity.IdentityUser> (`ApplicationUser`) は、<xref:Microsoft.AspNetCore.Identity.SignInManager%601.SignInAsync*> でアプリにサインインします。 サインインプロセスの間、<xref:Microsoft.AspNetCore.Identity.UserManager%601> は @no__t から利用可能なユーザーデータの @no__t 1 要求を格納できます。
+`Microsoft.AspNetCore.Identity.UI.Pages.Account.Internal.ExternalLoginModel.OnPostConfirmationAsync`では、<xref:Microsoft.AspNetCore.Identity.IdentityUser> (`ApplicationUser`) が <xref:Microsoft.AspNetCore.Identity.SignInManager%601.SignInAsync*>を使用してアプリにサインインします。 サインインプロセス中に、<xref:Microsoft.AspNetCore.Identity.UserManager%601> は <xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.Principal*>から利用可能なユーザーデータの `ApplicationUser` 要求を格納できます。
 
-サンプルアプリでは、`OnPostConfirmationAsync` (*Account/ExternalLogin. cshtml*) によって、<xref:System.Security.Claims.ClaimTypes.GivenName> の要求を含む、署名された `ApplicationUser` のロケール (@no__t 2) と画像 (@no__t 3) の要求が確立されます。
+サンプルアプリでは、`OnPostConfirmationAsync` (*Account/ExternalLogin. cshtml*) を使用して、署名された `ApplicationUser`のロケール (`urn:google:locale`) 要求と画像 (`urn:google:picture`) 要求を確立します。これには <xref:System.Security.Claims.ClaimTypes.GivenName>の要求も含まれます。
 
 [!code-csharp[](additional-claims/samples/2.x/ClaimsSample/Areas/Identity/Pages/Account/ExternalLogin.cshtml.cs?name=snippet_OnPostConfirmationAsync&highlight=35-51)]
 
@@ -226,21 +226,21 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 
 ## <a name="save-the-access-token"></a>アクセストークンを保存する
 
-<xref:Microsoft.AspNetCore.Authentication.RemoteAuthenticationOptions.SaveTokens*> は、承認が正常に完了した後、アクセストークンと更新トークンを <xref:Microsoft.AspNetCore.Http.Authentication.AuthenticationProperties> に格納するかどうかを定義します。 `SaveTokens` は、最終的な認証クッキーのサイズを小さくするために、既定で `false` に設定されています。
+認証が正常に完了した後に、アクセストークンと更新トークンを <xref:Microsoft.AspNetCore.Http.Authentication.AuthenticationProperties> に格納するかどうかを <xref:Microsoft.AspNetCore.Authentication.RemoteAuthenticationOptions.SaveTokens*> が定義します。 `SaveTokens` は、最終的な認証クッキーのサイズを小さくするために、既定で `false` に設定されています。
 
-サンプルアプリでは、`SaveTokens` の値が <xref:Microsoft.AspNetCore.Authentication.Google.GoogleOptions> の `true` に設定されます。
+このサンプルアプリでは、`SaveTokens` の値を <xref:Microsoft.AspNetCore.Authentication.Google.GoogleOptions>の `true` に設定します。
 
 [!code-csharp[](additional-claims/samples/2.x/ClaimsSample/Startup.cs?name=snippet_AddGoogle&highlight=15)]
 
-@No__t-0 を実行する場合は、外部プロバイダーのアクセストークン ([Externallogininfo. authenticationtokens](xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.AuthenticationTokens*)) を @no__t の `AuthenticationProperties` に格納します。
+`OnPostConfirmationAsync` 実行するときに、外部プロバイダーのアクセストークン ([Externallogininfo. authenticationtokens](xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.AuthenticationTokens*)) を `ApplicationUser`の `AuthenticationProperties`に格納します。
 
-このサンプルアプリでは、アクセストークンを `OnPostConfirmationAsync` (新しいユーザー登録) に保存し、*アカウント/ExternalLogin. cshtml. cs*で `OnGetCallbackAsync` (以前に登録されたユーザー) に保存します。
+このサンプルアプリでは、アクセストークンを `OnPostConfirmationAsync` (新しいユーザー登録) と `OnGetCallbackAsync` (以前に登録したユーザー) の*アカウント/ExternalLogin. cshtml*に保存します。
 
 [!code-csharp[](additional-claims/samples/2.x/ClaimsSample/Areas/Identity/Pages/Account/ExternalLogin.cshtml.cs?name=snippet_OnPostConfirmationAsync&highlight=54-56)]
 
 ## <a name="how-to-add-additional-custom-tokens"></a>カスタムトークンを追加する方法
 
-@No__t-0 の一部として格納されているカスタムトークンを追加する方法を示すために、サンプルアプリでは、`TicketCreated` の[AuthenticationToken.Name](xref:Microsoft.AspNetCore.Authentication.AuthenticationToken.Name*)のために、現在の <xref:System.DateTime> を含む <xref:Microsoft.AspNetCore.Authentication.AuthenticationToken> を追加します。
+`SaveTokens`の一部として格納されているカスタムトークンを追加する方法を示すために、サンプルアプリでは、`TicketCreated`の[AuthenticationToken.Name](xref:Microsoft.AspNetCore.Authentication.AuthenticationToken.Name*)の現在の <xref:System.DateTime> に <xref:Microsoft.AspNetCore.Authentication.AuthenticationToken> を追加します。
 
 [!code-csharp[](additional-claims/samples/2.x/ClaimsSample/Startup.cs?name=snippet_AddGoogle&highlight=17-30)]
 
@@ -250,11 +250,11 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 
 ユーザーは、<xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction> から派生させ、抽象 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.Run*> メソッドを実装することによって、カスタムアクションを定義できます。
 
-詳細については、「<xref:Microsoft.AspNetCore.Authentication.OAuth.Claims>」を参照してください。
+詳細については、「 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims>」を参照してください。
 
 ## <a name="removal-of-claim-actions-and-claims"></a>要求アクションと要求の削除
 
-[Claimactioncollection。 Remove (String)](xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection.Remove*)は、指定された <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.ClaimType> のすべての要求アクションをコレクションから削除します。 [DeleteClaim (ClaimActionCollection, String)](xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.DeleteClaim*)は、id から指定された <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.ClaimType> の要求を削除します。 <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.DeleteClaim*> は主に[OpenID connect (OIDC)](/azure/active-directory/develop/v2-protocols-oidc)と共に使用して、プロトコルによって生成された要求を削除します。
+[Claimactioncollection。 Remove (String)](xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection.Remove*)は、指定された <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.ClaimType> のすべての要求アクションをコレクションから削除します。 [DeleteClaim (ClaimActionCollection, String)](xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.DeleteClaim*)は、指定された <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.ClaimType> の要求を id から削除します。 <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.DeleteClaim*> は、主に[OpenID connect (OIDC)](/azure/active-directory/develop/v2-protocols-oidc)と共に使用して、プロトコルによって生成された要求を削除します。
 
 ## <a name="sample-app-output"></a>サンプルアプリの出力
 
@@ -298,6 +298,6 @@ Authentication Properties
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
-* [aspnet/AspNetCore engineering のサンプルアプリ](https://github.com/aspnet/AspNetCore/tree/master/src/Security/Authentication/samples/SocialSample)&ndash; リンクされたサンプルアプリは、 [Aspnet/AspNetCore GitHub リポジトリの](https://github.com/aspnet/AspNetCore)`master` エンジニアリングブランチにあります。 @No__t-0 分岐には、ASP.NET Core の次のリリースのアクティブな開発のコードが含まれています。 リリースされたバージョンの ASP.NET Core のサンプルアプリのバージョンを表示するには、 **[ブランチ]** ドロップダウンリストを使用してリリースブランチを選択します (例: `release/{X.Y}`)。
+* [aspnet/AspNetCore engineering のサンプルアプリ](https://github.com/aspnet/AspNetCore/tree/master/src/Security/Authentication/samples/SocialSample)&ndash;、リンクされたサンプルアプリは、 [Aspnet/AspNetCore GitHub リポジトリの](https://github.com/aspnet/AspNetCore)`master` エンジニアリング分岐にあります。 `master` 分岐には、ASP.NET Core の次のリリースでアクティブな開発のコードが含まれています。 リリースされたバージョンの ASP.NET Core 用のサンプルアプリのバージョンを表示するには、 **[ブランチ]** ドロップダウンリストを使用してリリースブランチを選択します (`release/{X.Y}`など)。
