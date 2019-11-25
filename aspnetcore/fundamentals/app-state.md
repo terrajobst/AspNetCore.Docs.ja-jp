@@ -5,14 +5,16 @@ description: 異なる要求の間でセッションとアプリの状態を維�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/12/2019
+ms.date: 11/12/2019
+no-loc:
+- SignalR
 uid: fundamentals/app-state
-ms.openlocfilehash: ccb37a422d972ab9113bb4115473d054282dac87
-ms.sourcegitcommit: 994da92edb0abf856b1655c18880028b15a28897
+ms.openlocfilehash: b80b1e72eb2f25e9c9fe07a0c33c14ecf5ae05aa
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/25/2019
-ms.locfileid: "71278689"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963478"
 ---
 # <a name="session-and-app-state-in-aspnet-core"></a>ASP.NET Core でのセッションとアプリの状態
 
@@ -52,7 +54,7 @@ Cookie を発行し、プライバシーの問題を扱うときは、[欧州連
 セッション状態は、ユーザーが Web アプリを参照している期間中ユーザー データを格納するための ASP.NET Core のシナリオです。 セッション状態では、アプリで管理されているストアを使用して、クライアントからの要求間でデータを保持します。 セッション データはキャッシュによってバックアップされ、一時的なデータと見なされます。セッション データがなくても、サイトは機能し続けられる必要があります。 重要なアプリケーションのデータはユーザー データベースに格納し、パフォーマンスの最適化としてのみセッションでキャッシュする必要があります。
 
 > [!NOTE]
-> [SignalR Hub](xref:signalr/hubs) は HTTP コンテキストとは独立して実行する可能性があるため、[SignalR](xref:signalr/index) アプリではセッションはサポートされていません。 このようなことは、たとえば、長いポーリング要求が HTTP コンテキストの有効期間を超えてハブによって開かれている場合に発生する可能性があります。
+> [SignalR ハブ](xref:signalr/hubs)は HTTP コンテキストとは独立して実行する可能性があるため、[SignalR](xref:signalr/index) アプリではセッションはサポートされていません。 このようなことは、たとえば、長いポーリング要求が HTTP コンテキストの有効期間を超えてハブによって開かれている場合に発生する可能性があります。
 
 ASP.NET Core は、セッション ID を含む Cookie をクライアントに提供することで、セッションの状態を維持します。Cookie は要求ごとにサーバーに送信されます。 アプリは、セッション ID を使用してセッション データをフェッチします。
 
@@ -316,9 +318,9 @@ app.Run(async (context) =>
 
   エラーを確認するための推奨される方法は、アプリがセッションへの書き込みを終了したら、アプリ コードから `await feature.Session.CommitAsync();` を呼び出すことです。 バッキング ストアが利用できない場合、`CommitAsync` は例外をスローします。 `CommitAsync` が失敗した場合、アプリは例外を処理できます。 `LoadAsync` は、データ ストアが利用できない場合に同じ条件で例外をスローします。
   
-## <a name="signalr-and-session-state"></a>SignalR とセッション状態
+## <a name="opno-locsignalr-and-session-state"></a>SignalR とセッション状態
 
-SignalR アプリでは、セッション状態を使用して情報を格納することはできません。 SignalR アプリは、ハブの `Context.Items` に接続ごとの状態を格納できます。 <!-- https://github.com/aspnet/SignalR/issues/2139 -->
+SignalR アプリでは、セッション状態を使用して情報を格納することはできません。 SignalR アプリは、ハブ内の `Context.Items` に接続ごとの状態を格納できます。 <!-- https://github.com/aspnet/SignalR/issues/2139 -->
 
 ## <a name="additional-resources"></a>その他の技術情報
 

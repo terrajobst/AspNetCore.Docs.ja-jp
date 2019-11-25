@@ -2,16 +2,15 @@
 title: ASP.NET Core で .NET Core gRPC のクライアントとサーバーを作成する
 author: juntaoluo
 description: このチュートリアルでは、ASP.NET Core で gRPC サービスと gRPC クライアントを作成する方法を示します。 gRPC サービス プロジェクトの作成方法、proto ファイルの編集方法、二重ストリーミング呼び出しの追加方法について学習します。
-monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
-ms.date: 10/10/2019
+ms.date: 11/12/2019
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: 0da5a4cf0d9cc15fee6417d143cfc9e9f1e4509c
-ms.sourcegitcommit: 9e85c2562df5e108d7933635c830297f484bb775
+ms.openlocfilehash: e5373d9abb9a770132e756843dbd15534dbe3356
+ms.sourcegitcommit: 231780c8d7848943e5e9fd55e93f437f7e5a371d
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/04/2019
-ms.locfileid: "73463056"
+ms.lasthandoff: 11/15/2019
+ms.locfileid: "74116104"
 ---
 # <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a>チュートリアル: ASP.NET Core で gRPC のクライアントとサーバーを作成する
 
@@ -97,21 +96,7 @@ Visual Studio から、 **[ファイル]**  >  **[開く]** の順に選択し�
 
 ### <a name="run-the-service"></a>サービスを実行する
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
-
-* デバッガーなしで gRPC サービスを実行するには、`Ctrl+F5` キーを押します。
-
-  Visual Studio では、コマンド プロンプトでサービスが実行されます。
-
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
-
-* `dotnet run` を使用し、コマンド ラインから gRPC あいさつプロジェクト *GrpcGreeter* を実行します。
-
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
-
-* `dotnet run` を使用し、コマンド ラインから gRPC あいさつプロジェクト *GrpcGreeter* を実行します。
-
----
+  [!INCLUDE[](~/includes/run-the-app.md)]
 
 サービスが `https://localhost:5001` でリッスンしていることがログに示されます。
 

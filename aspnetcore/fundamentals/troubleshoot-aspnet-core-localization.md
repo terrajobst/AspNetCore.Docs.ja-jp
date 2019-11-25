@@ -5,12 +5,12 @@ description: ASP.NET Core アプリのローカライズに関する問題を診
 ms.author: riande
 ms.date: 01/24/2019
 uid: fundamentals/troubleshoot-aspnet-core-localization
-ms.openlocfilehash: 98e06a92af0b6c045095ac803196bf4b1f25e5c5
-ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
+ms.openlocfilehash: 229e274a22e170d984a16d3b1ee64ebc38c4ef77
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/12/2019
-ms.locfileid: "72289013"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963335"
 ---
 # <a name="troubleshoot-aspnet-core-localization"></a>ASP.NET Core のローカライズに関するトラブルシューティング
 
@@ -100,6 +100,9 @@ options.AddInitialRequestCultureProvider(new CustomRequestCultureProvider(async 
 ## <a name="root-namespace-issues"></a>ルート名前空間に関する問題
 
 アセンブリのルート名前空間がアセンブリ名と異なる場合、既定ではローカライズは動作しません。 [RootNamespace](/dotnet/api/microsoft.extensions.localization.rootnamespaceattribute?view=aspnetcore-2.1) を使用するこの問題を回避する方法は、[ここ](xref:fundamentals/localization?view=aspnetcore-2.2#resource-file-naming)で説明されています。
+
+> [!WARNING]
+> これは、プロジェクト名が有効な .NET 識別子でない場合に発生する可能性があります。 たとえば、`my-project-name.csproj` ではルート名前空間 `my_project_name` が使用されるので、アセンブリ名 `my-project-name` はこのエラーにつながります。 
 
 ## <a name="resources--build-action"></a>リソースとビルド アクション
 

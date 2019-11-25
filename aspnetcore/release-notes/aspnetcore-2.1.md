@@ -4,20 +4,22 @@ author: isaac2004
 description: ASP.NET Core 2.1 の新機能について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/30/2019
+ms.date: 11/12/2019
+no-loc:
+- SignalR
 uid: aspnetcore-2.1
-ms.openlocfilehash: 359f961db768b9048427c8ab296ee3e035879408
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: a45ba44fb7911a21927a4a996c0d6fa9eb776357
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65086405"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963176"
 ---
 # <a name="whats-new-in-aspnet-core-21"></a>ASP.NET Core 2.1 の新機能
 
 この記事では、ASP.NET Core 2.1 の最も大きな変更点について説明します。また、その変更点のドキュメントへのリンクも示します。
 
-## <a name="signalr"></a>SignalR
+## SignalR
 
 ASP.NET Core 2.1 用に SignalR を書き直しました。 ASP.NET Core SignalR には、多くの改善点が含まれています。
 
@@ -28,7 +30,7 @@ ASP.NET Core 2.1 用に SignalR を書き直しました。 ASP.NET Core SignalR
 * 新しいストリーミング応答モデル。
 * ベア WebSocket に基づいたクライアントのサポート。
 
-詳細については、「[ASP.NET Core SignalR](xref:signalr/introduction)」を参照してください。
+詳細については、[ASP.NET Core SignalR](xref:signalr/introduction) に関する記事を参照してください。
 
 ## <a name="razor-class-libraries"></a>Razor クラス ライブラリ
 
@@ -53,7 +55,7 @@ ASP.NET Core 2.1 では、[ASP.NET Core Identity](xref:security/authentication/i
 
 ### <a name="on-by-default"></a>既定でオン
 
-セキュリティで保護された Web サイトの開発を円滑にするため、HTTPS は既定でオンになっています。 2.1 以降では、Kestrel は `https://localhost:5001` でリッスンします (ローカル開発証明書が存在する場合)。 開発証明書が作成されます。
+セキュリティで保護された Web サイトの開発を円滑にするため、HTTPS は既定でオンになっています。 2\.1 以降では、Kestrel は `https://localhost:5001` でリッスンします (ローカル開発証明書が存在する場合)。 開発証明書が作成されます。
 
 * SDK を初めて使用するときに、.NET Core SDK の最初の実行エクスペリエンスの一部として。
 * 新しい `dev-certs` ツールを使用して手動で。
@@ -62,13 +64,13 @@ ASP.NET Core 2.1 では、[ASP.NET Core Identity](xref:security/authentication/i
 
 ### <a name="https-redirection-and-enforcement"></a>HTTPS のリダイレクトと強制
 
-通常、Web アプリは、HTTP と HTTPS の両方でリッスンする必要がありますが、その一方で、すべての HTTP トラフィックを HTTPS にリダイレクトする必要があります。 2.1 では、構成またはバインドされたサーバー ポートの有無に基づいて、インテリジェントにリダイレクトする特殊な HTTPS リダイレクト ミドルウェアが導入されました。
+通常、Web アプリは、HTTP と HTTPS の両方でリッスンする必要がありますが、その一方で、すべての HTTP トラフィックを HTTPS にリダイレクトする必要があります。 2\.1 では、構成またはバインドされたサーバー ポートの有無に基づいて、インテリジェントにリダイレクトする特殊な HTTPS リダイレクト ミドルウェアが導入されました。
 
 [HTTP Strict Transport Security Protocol (HSTS)](xref:security/enforcing-ssl#http-strict-transport-security-protocol-hsts) を使用すると、HTTPS の使用をさらに強制することができます。 HSTS は、常に HTTPS 経由でサイトにアクセスするようにブラウザーに指示します。 ASP.NET Core 2.1 では、最長有効期間、サブドメイン、HSTS プリロード リストのオプションをサポートする HSTS ミドルウェアが追加されます。
 
 ### <a name="configuration-for-production"></a>運用環境の構成
 
-運用環境では、HTTPS を明示的に構成する必要があります。 2.1 では、Kestrel に HTTPS を構成するための既定の構成スキーマが追加されています。 以下を使用するようにアプリを構成できます。
+運用環境では、HTTPS を明示的に構成する必要があります。 2\.1 では、Kestrel に HTTPS を構成するための既定の構成スキーマが追加されています。 以下を使用するようにアプリを構成できます。
 
 * URL を含む複数のエンドポイント。 詳細については、[Kestrel Web サーバーの実装:エンドポイントの構成](xref:fundamentals/servers/kestrel#endpoint-configuration)に関するセクションを参照してください。
 * ディスク上のファイルまたは証明書ストアから HTTPS に使用する証明書。
@@ -81,7 +83,7 @@ ASP.NET Core では、[EU の一般データ保護規制 (GDPR) ](https://www.eu
 
 テストの作成と実行を効率化する新しいパッケージが導入されました。 [Microsoft.AspNetCore.Mvc.Testing](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing/) パッケージは、次のタスクを処理します。
 
-* テスト対象のアプリから依存関係ファイル (*\*.deps*) をプロジェクトの *bin* フォルダーにコピーします。
+* テスト対象のアプリから依存関係ファイル ( *\*.deps*) をプロジェクトの *bin* フォルダーにコピーします。
 * テストを実行したときに、静的なファイルとページ/ビューが検出されるように、コンテンツ ルートをテスト対象のアプリのプロジェクト ルートに設定します。
 * [WebApplicationFactory](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1) クラスを提供して、[TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver) を使用してテスト対象のアプリのブートストラップを効率化します。
 
@@ -153,7 +155,7 @@ Angular テンプレートは Angular CLI に基づいており、React テン�
 
 ## <a name="razor-pages-search-for-razor-assets"></a>Razor アセットの Razor Pages 検索
 
-2.1 では、Razor Pages は、次のディレクトリ内の Razor アセット (レイアウトや部分など) を次の順序で検索します。
+2\.1 では、Razor Pages は、次のディレクトリ内の Razor アセット (レイアウトや部分など) を次の順序で検索します。
 
 1. 現在の Pages フォルダー
 1. */Pages/Shared/*
@@ -161,15 +163,15 @@ Angular テンプレートは Angular CLI に基づいており、React テン�
 
 ## <a name="razor-pages-in-an-area"></a>区分での Razor Pages
 
-Razor Pages が、[区分](xref:mvc/controllers/areas)をサポートするようになりました。 区分の例を表示するには、個々のユーザー アカウントで新しい Razor Pages Web アプリを作成します。 個々のユーザー アカウントを使用した Razor Pages Web アプリには、*/Areas/Identity/Pages* が含まれます。
+Razor Pages が、[区分](xref:mvc/controllers/areas)をサポートするようになりました。 区分の例を表示するには、個々のユーザー アカウントで新しい Razor Pages Web アプリを作成します。 個々のユーザー アカウントを使用した Razor Pages Web アプリには、 */Areas/Identity/Pages* が含まれます。
 
 ## <a name="mvc-compatibility-version"></a>MVC 互換バージョン
 
 <xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*> メソッドを使用すると、ASP.NET Core MVC 2.1 以降に導入されている、互換性に影響する重大な変更をオプトインまたはオプトアウトすることができます。
 
-詳細については、「<xref:mvc/compatibility-version>」を参照してください。
+詳細については、<xref:mvc/compatibility-version> を参照してください。
 
-## <a name="migrate-from-20-to-21"></a>2.0 から 2.1 への移行
+## <a name="migrate-from-20-to-21"></a>2\.0 から 2.1 への移行
 
 「[ASP.NET Core 2.0 から 2.1 への移行](xref:migration/20_21)」を参照してください。
 

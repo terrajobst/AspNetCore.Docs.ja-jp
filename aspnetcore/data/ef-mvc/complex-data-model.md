@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/complex-data-model
-ms.openlocfilehash: 313d951ccdd45ae1209ffd9612d24738822fbed8
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: b8b1ade4c8c29d34200bf8c0944cff6adec0bb95
+ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259609"
+ms.lasthandoff: 11/21/2019
+ms.locfileid: "74288963"
 ---
 # <a name="tutorial-create-a-complex-data-model---aspnet-mvc-with-ef-core"></a>チュートリアル: 複合データ モデルを作成する - ASP.NET MVC と EF Core
 
@@ -155,11 +155,12 @@ dotnet ef database update
 
 `Required` 属性では、名前プロパティの必須フィールドを作成します。 値の型 (DateTime、int、double、float など) などの null 非許容型では `Required` 属性は必要ありません。 null にできない型は自動的に必須フィールドとして扱われます。
 
-`Required` 属性を削除して、`StringLength` 属性の最小長パラメーターに置き換えることができます。
+`MinimumLength` を適用するには、`Required` 属性を `MinimumLength` と共に使用する必要があります。
 
 ```csharp
 [Display(Name = "Last Name")]
-[StringLength(50, MinimumLength=1)]
+[Required]
+[StringLength(50, MinimumLength=2)]
 public string LastName { get; set; }
 ```
 

@@ -1,349 +1,350 @@
 ---
-title: ASP.NET Core パフォーマンスのベストプラクティス
+title: ASP.NET Core Performance Best Practices
 author: mjrousos
-description: ASP.NET Core アプリのパフォーマンスを向上させ、一般的なパフォーマンスの問題を回避するためのヒントです。
+description: Tips for increasing performance in ASP.NET Core apps and avoiding common performance problems.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 11/12/2019
 no-loc:
 - SignalR
 uid: performance/performance-best-practices
-ms.openlocfilehash: 279bf352580e5e45fc005e800ee536871210409b
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 64d231ca435ccbfe9bfcd839a2b67fcee68c0cc6
+ms.sourcegitcommit: 8157e5a351f49aeef3769f7d38b787b4386aad5f
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963242"
+ms.lasthandoff: 11/20/2019
+ms.locfileid: "74239890"
 ---
-# <a name="aspnet-core-performance-best-practices"></a>ASP.NET Core パフォーマンスのベストプラクティス
+# <a name="aspnet-core-performance-best-practices"></a>ASP.NET Core Performance Best Practices
 
-[Mike/sos](https://github.com/mjrousos)
+By [Mike Rousos](https://github.com/mjrousos)
 
-この記事では、ASP.NET Core のパフォーマンスのベストプラクティスに関するガイドラインを示します。
+This article provides guidelines for performance best practices with ASP.NET Core.
 
-## <a name="cache-aggressively"></a>積極的にキャッシュ
+## <a name="cache-aggressively"></a>Cache aggressively
 
-キャッシュについては、このドキュメントのいくつかの部分で説明します。 詳細については、「<xref:performance/caching/response>」を参照してください。
+Caching is discussed in several parts of this document. 詳細については、「<xref:performance/caching/response>」を参照してください。
 
-## <a name="understand-hot-code-paths"></a>ホットコードパスについて
+## <a name="understand-hot-code-paths"></a>Understand hot code paths
 
-このドキュメントでは、*ホットコードパス*は、頻繁に呼び出される、実行時間の大半が発生するコードパスとして定義されています。 ホットコードパスは、通常、アプリのスケールアウトとパフォーマンスを制限し、このドキュメントのいくつかの部分で説明されています。
+In this document, a *hot code path* is defined as a code path that is frequently called and where much of the execution time occurs. Hot code paths typically limit app scale-out and performance and are discussed in several parts of this document.
 
-## <a name="avoid-blocking-calls"></a>ブロック呼び出しを回避する
+## <a name="avoid-blocking-calls"></a>Avoid blocking calls
 
-ASP.NET Core アプリは、多数の要求を同時に処理するように設計する必要があります。 非同期 Api を使用すると、スレッドの小さなプールで、ブロックしている呼び出しを待機せずに、数千の同時要求を処理することができます。 実行時間の長い同期タスクが完了するのを待機するのではなく、スレッドが別の要求で作業できます。
+ASP.NET Core apps should be designed to process many requests simultaneously. Asynchronous APIs allow a small pool of threads to handle thousands of concurrent requests by not waiting on blocking calls. Rather than waiting on a long-running synchronous task to complete, the thread can work on another request.
 
-ASP.NET Core アプリのパフォーマンスに関する一般的な問題は、非同期の呼び出しをブロックしていることです。 多くの同期ブロッキング呼び出しは、[スレッドプールの枯渇](https://blogs.msdn.microsoft.com/vancem/2018/10/16/diagnosing-net-core-threadpool-starvation-with-perfview-why-my-service-is-not-saturating-all-cores-or-seems-to-stall/)と応答時間の低下につながります。
+A common performance problem in ASP.NET Core apps is blocking calls that could be asynchronous. Many synchronous blocking calls lead to [Thread Pool starvation](https://blogs.msdn.microsoft.com/vancem/2018/10/16/diagnosing-net-core-threadpool-starvation-with-perfview-why-my-service-is-not-saturating-all-cores-or-seems-to-stall/) and degraded response times.
 
-**実行**しない:
+**Do not**:
 
-* [Task. Wait](/dotnet/api/system.threading.tasks.task.wait)または[task. Result](/dotnet/api/system.threading.tasks.task-1.result)を呼び出して、非同期実行をブロックします。
-* 共通コードパスのロックを取得します。 ASP.NET Core アプリは、コードを並列実行するように設計されている場合に最もパフォーマンスが高くなります。
+* Block asynchronous execution by calling [Task.Wait](/dotnet/api/system.threading.tasks.task.wait) or [Task.Result](/dotnet/api/system.threading.tasks.task-1.result).
+* Acquire locks in common code paths. ASP.NET Core apps are most performant when architected to run code in parallel.
+* Call [Task.Run](/dotnet/api/system.threading.tasks.task.run) and immediately await it. ASP.NET Core already runs app code on normal Thread Pool threads, so calling Task.Run only results in extra unnecessary Thread Pool scheduling. Even if the scheduled code would block a thread, Task.Run does not prevent that.
 
-**操作**:
+**Do**:
 
-* [ホットコードパス](#understand-hot-code-paths)を非同期にします。
-* データアクセスと長時間実行される操作 Api を非同期に呼び出します。
-* コントローラー/Razor ページのアクションを非同期にします。 非同期[/await](/dotnet/csharp/programming-guide/concepts/async/)パターンを活用するために、呼び出し履歴全体が非同期になります。
+* Make [hot code paths](#understand-hot-code-paths) asynchronous.
+* Call data access and long-running operations APIs asynchronously if an asynchronous API is available. Once again, do not use [Task.Run](/dotnet/api/system.threading.tasks.task.run) to make a synchronus API asynchronous.
+* Make controller/Razor Page actions asynchronous. The entire call stack is asynchronous in order to benefit from [async/await](/dotnet/csharp/programming-guide/concepts/async/) patterns.
 
-[Perfview](https://github.com/Microsoft/perfview)などのプロファイラーを使用して、[スレッドプール](/windows/desktop/procthread/thread-pools)に頻繁に追加されるスレッドを見つけることができます。 `Microsoft-Windows-DotNETRuntime/ThreadPoolWorkerThread/Start` イベントは、スレッドプールに追加されたスレッドを示します。 <!--  For more information, see [async guidance docs](TBD-Link_To_Davifowl_Doc)  -->
+A profiler, such as [PerfView](https://github.com/Microsoft/perfview), can be used to find threads frequently added to the [Thread Pool](/windows/desktop/procthread/thread-pools). The `Microsoft-Windows-DotNETRuntime/ThreadPoolWorkerThread/Start` event indicates a thread added to the thread pool. <!--  For more information, see [async guidance docs](TBD-Link_To_Davifowl_Doc)  -->
 
-## <a name="minimize-large-object-allocations"></a>大きなオブジェクトの割り当てを最小限にする
+## <a name="minimize-large-object-allocations"></a>Minimize large object allocations
 
-[.Net Core ガベージコレクター](/dotnet/standard/garbage-collection/)は、ASP.NET Core アプリで自動的にメモリの割り当てと解放を管理します。 自動ガベージコレクションは、一般に、メモリが解放される方法とタイミングについて開発者が心配する必要がないことを意味します。 ただし、参照されていないオブジェクトをクリーンアップすると CPU 時間がかかるため、開発者は[ホットコードパス](#understand-hot-code-paths)内のオブジェクトの割り当てを最小限に抑える必要があります。 ガベージコレクションは、大きなオブジェクト (> 85 K バイト) で特にコストが高くなります。 ラージオブジェクトは[大きなオブジェクトヒープ](/dotnet/standard/garbage-collection/large-object-heap)に格納され、クリーンアップするには、完全な (ジェネレーション 2) ガベージコレクションが必要です。 ジェネレーション0およびジェネレーション1のコレクションとは異なり、ジェネレーション2のコレクションでは、アプリの実行を一時的に中断する必要があります。 大きなオブジェクトを頻繁に割り当てたり割り当て解除したりすると、パフォーマンスが低下する可能性があります。
+The [.NET Core garbage collector](/dotnet/standard/garbage-collection/) manages allocation and release of memory automatically in ASP.NET Core apps. Automatic garbage collection generally means that developers don't need to worry about how or when memory is freed. However, cleaning up unreferenced objects takes CPU time, so developers should minimize allocating objects in [hot code paths](#understand-hot-code-paths). Garbage collection is especially expensive on large objects (> 85 K bytes). Large objects are stored on the [large object heap](/dotnet/standard/garbage-collection/large-object-heap) and require a full (generation 2) garbage collection to clean up. Unlike generation 0 and generation 1 collections, a generation 2 collection requires a temporary suspension of app execution. Frequent allocation and de-allocation of large objects can cause inconsistent performance.
 
-推奨事項
+Recommendations:
 
-* 頻繁に使用されるラージオブジェクトをキャッシュすること**を検討してください。** 大きなオブジェクトをキャッシュすると、コストのかかる割り当てを防ぐことができます。
-* 大きな配列を格納するには、 [`ArrayPool<T>`](/dotnet/api/system.buffers.arraypool-1)を使用してバッファー**をプールし**ます。
-* [ホットコードパス](#understand-hot-code-paths)には、有効期間が短い大きなオブジェクトを多数割り当て**ない**でください。
+* **Do** consider caching large objects that are frequently used. Caching large objects prevents expensive allocations.
+* **Do** pool buffers by using an [`ArrayPool<T>`](/dotnet/api/system.buffers.arraypool-1) to store large arrays.
+* **Do not** allocate many, short-lived large objects on [hot code paths](#understand-hot-code-paths).
 
-前述のようなメモリの問題は、 [Perfview](https://github.com/Microsoft/perfview)でガベージコレクション (GC) の統計を確認して調べることによって診断できます。
+Memory issues, such as the preceding, can be diagnosed by reviewing garbage collection (GC) stats in [PerfView](https://github.com/Microsoft/perfview) and examining:
 
-* ガベージコレクションの一時停止時刻。
-* ガベージコレクションで消費されるプロセッサ時間の割合。
-* ジェネレーション0、1、および2のガベージコレクションの数。
+* Garbage collection pause time.
+* What percentage of the processor time is spent in garbage collection.
+* How many garbage collections are generation 0, 1, and 2.
 
-詳細については、「[ガベージコレクションとパフォーマンス](/dotnet/standard/garbage-collection/performance)」を参照してください。
+For more information, see [Garbage Collection and Performance](/dotnet/standard/garbage-collection/performance).
 
-## <a name="optimize-data-access"></a>データアクセスの最適化
+## <a name="optimize-data-access"></a>Optimize Data Access
 
-多くの場合、データストアやその他のリモートサービスとのやり取りは、ASP.NET Core アプリの最も低速な部分です。 効率的なパフォーマンスを利用するには、データの読み取りと書き込みを効率的に行うことが重要です。
+Interactions with a data store and other remote services are often the slowest parts of an ASP.NET Core app. Reading and writing data efficiently is critical for good performance.
 
-推奨事項
+Recommendations:
 
-* すべてのデータアクセス Api を非同期**に呼び出します**。
-* 必要以上に多くのデータを取得**しないで**ください。 現在の HTTP 要求に必要なデータだけを返すクエリを記述します。
-* 少し古いデータが許容される場合は、データベースまたはリモートサービスから取得した頻繁にアクセスされるデータをキャッシュすること**を検討してください。** シナリオに応じて、 [Memorycache](xref:performance/caching/memory)または[microsoft.web.distributedcache](xref:performance/caching/distributed)を使用します。 詳細については、「<xref:performance/caching/response>」を参照してください。
-* ネットワークラウンドトリップ**を最小限に**抑えます。 目的は、複数の呼び出しではなく、1回の呼び出しで必要なデータを取得することです。
-* 読み取り専用の目的でデータにアクセスする場合**は**、Entity Framework Core で[追跡なしのクエリ](/ef/core/querying/tracking#no-tracking-queries)を使用します。 EF Core は、追跡しないクエリの結果をより効率的に返すことができます。
-* (たとえば、`.Where`、`.Select`、または `.Sum` ステートメントを使用して) LINQ クエリのフィルター処理と集計を**実行**し、データベースによってフィルター処理が実行されるようにします。
-* EF Core に**よってクライアント**上の一部のクエリ演算子が解決されるため、クエリの実行効率が悪くなることがあります。 詳細については、「[クライアント評価のパフォーマンスの問題](/ef/core/querying/client-eval#client-evaluation-performance-issues)」を参照してください。
-* コレクションに対してプロジェクションクエリを使用しないでください。これにより、"N + 1" 個の SQL クエリが実行される可能性が**あり**ます。 詳細については、「[相関サブクエリの最適化](/ef/core/what-is-new/ef-core-2.1#optimization-of-correlated-subqueries)」を参照してください。
+* **Do** call all data access APIs asynchronously.
+* **Do not** retrieve more data than is necessary. Write queries to return just the data that's necessary for the current HTTP request.
+* **Do** consider caching frequently accessed data retrieved from a database or remote service if slightly out-of-date data is acceptable. Depending on the scenario, use a [MemoryCache](xref:performance/caching/memory) or a [DistributedCache](xref:performance/caching/distributed). 詳細については、「<xref:performance/caching/response>」を参照してください。
+* **Do** minimize network round trips. The goal is to retrieve the required data in a single call rather than several calls.
+* **Do** use [no-tracking queries](/ef/core/querying/tracking#no-tracking-queries) in Entity Framework Core when accessing data for read-only purposes. EF Core can return the results of no-tracking queries more efficiently.
+* **Do** filter and aggregate LINQ queries (with `.Where`, `.Select`, or `.Sum` statements, for example) so that the filtering is performed by the database.
+* **Do** consider that EF Core resolves some query operators on the client, which may lead to inefficient query execution. For more information, see [Client evaluation performance issues](/ef/core/querying/client-eval#client-evaluation-performance-issues).
+* **Do not** use projection queries on collections, which can result in executing "N + 1" SQL queries. For more information, see [Optimization of correlated subqueries](/ef/core/what-is-new/ef-core-2.1#optimization-of-correlated-subqueries).
 
-高スケールアプリのパフォーマンスを向上させる方法については、「 [EF High performance](/ef/core/what-is-new/ef-core-2.0#explicitly-compiled-queries) 」を参照してください。
+See [EF High Performance](/ef/core/what-is-new/ef-core-2.0#explicitly-compiled-queries) for approaches that may improve performance in high-scale apps:
 
-* [DbContext プーリング](/ef/core/what-is-new/ef-core-2.0#dbcontext-pooling)
-* [明示的にコンパイルされたクエリ](/ef/core/what-is-new/ef-core-2.0#explicitly-compiled-queries)
+* [DbContext pooling](/ef/core/what-is-new/ef-core-2.0#dbcontext-pooling)
+* [Explicitly compiled queries](/ef/core/what-is-new/ef-core-2.0#explicitly-compiled-queries)
 
-コードベースをコミットする前に、上記の高パフォーマンスアプローチの影響を測定することをお勧めします。 コンパイル済みクエリの複雑さが増えると、パフォーマンスの向上には合わない可能性があります。
+We recommend measuring the impact of the preceding high-performance approaches before committing the code base. The additional complexity of compiled queries may not justify the performance improvement.
 
-[Application Insights](/azure/application-insights/app-insights-overview)またはプロファイリングツールでデータにアクセスするために費やされた時間を確認することで、クエリの問題を検出できます。 ほとんどのデータベースでは、頻繁に実行されるクエリに関する統計も利用できます。
+Query issues can be detected by reviewing the time spent accessing data with [Application Insights](/azure/application-insights/app-insights-overview) or with profiling tools. Most databases also make statistics available concerning frequently executed queries.
 
-## <a name="pool-http-connections-with-httpclientfactory"></a>HttpClientFactory を使用して HTTP 接続をプールする
+## <a name="pool-http-connections-with-httpclientfactory"></a>Pool HTTP connections with HttpClientFactory
 
-[Httpclient](/dotnet/api/system.net.http.httpclient)は `IDisposable` インターフェイスを実装していますが、再利用できるように設計されています。 閉じられた `HttpClient` インスタンスは、短時間、`TIME_WAIT` の状態でソケットを開いたままにします。 `HttpClient` オブジェクトを作成および破棄するコードパスが頻繁に使用される場合、アプリは使用可能なソケットを消費する可能性があります。 [HttpClientFactory](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)は、この問題の解決策として ASP.NET Core 2.1 で導入されました。 これは、パフォーマンスと信頼性を最適化するために、プール HTTP 接続を処理します。
+Although [HttpClient](/dotnet/api/system.net.http.httpclient) implements the `IDisposable` interface, it's designed for reuse. Closed `HttpClient` instances leave sockets open in the `TIME_WAIT` state for a short period of time. If a code path that creates and disposes of `HttpClient` objects is frequently used, the app may exhaust available sockets. [HttpClientFactory](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests) was introduced in ASP.NET Core 2.1 as a solution to this problem. It handles pooling HTTP connections to optimize performance and reliability.
 
-推奨事項
+Recommendations:
 
-* `HttpClient` インスタンスを直接作成して破棄しない**で**ください。
-* `HttpClient` インスタンスを取得するに**は**、 [HttpClientFactory](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)を使用します。 詳細については、「 [HttpClientFactory を使用して弾力性のある HTTP 要求を実装する](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)」を参照してください。
+* **Do not** create and dispose of `HttpClient` instances directly.
+* **Do** use [HttpClientFactory](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests) to retrieve `HttpClient` instances. For more information, see [Use HttpClientFactory to implement resilient HTTP requests](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests).
 
-## <a name="keep-common-code-paths-fast"></a>共通コードパスを高速に保つ
+## <a name="keep-common-code-paths-fast"></a>Keep common code paths fast
 
-すべてのコードが高速になるようにするには、コードパスと呼ばれることがよくあります。
+You want all of your code to be fast, frequently called code paths are the most critical to optimize:
 
-* アプリケーションの要求処理パイプラインのミドルウェアコンポーネント (特に、ミドルウェアはパイプラインの早い段階で実行されます)。 これらのコンポーネントは、パフォーマンスに大きな影響を与えます。
-* 要求ごとに、または要求ごとに複数回実行されるコード。 たとえば、カスタムログ、承認ハンドラー、または一時的なサービスの初期化などです。
+* Middleware components in the app's request processing pipeline, especially middleware run early in the pipeline. These components have a large impact on performance.
+* Code that's executed for every request or multiple times per request. For example, custom logging, authorization handlers, or initialization of transient services.
 
-推奨事項
+Recommendations:
 
-* 実行時間の長いタスクでカスタムミドルウェアコンポーネントを使用**しない**でください。
-* [ホットコードパス](#understand-hot-code-paths)を特定するには、 [Visual Studio 診断ツール](/visualstudio/profiling/profiling-feature-tour)や[perfview](https://github.com/Microsoft/perfview)などのパフォーマンスプロファイリングツール**を使用し**ます。
+* **Do not** use custom middleware components with long-running tasks.
+* **Do** use performance profiling tools, such as [Visual Studio Diagnostic Tools](/visualstudio/profiling/profiling-feature-tour) or [PerfView](https://github.com/Microsoft/perfview)), to identify [hot code paths](#understand-hot-code-paths).
 
-## <a name="complete-long-running-tasks-outside-of-http-requests"></a>HTTP 要求の外部で実行時間の長いタスクを完了する
+## <a name="complete-long-running-tasks-outside-of-http-requests"></a>Complete long-running Tasks outside of HTTP requests
 
-ASP.NET Core アプリに対するほとんどの要求は、必要なサービスを呼び出すコントローラーまたはページモデルによって処理され、HTTP 応答を返すことができます。 長時間実行されるタスクが含まれている一部の要求では、要求-応答プロセス全体を非同期にすることをお勧めします。
+Most requests to an ASP.NET Core app can be handled by a controller or page model calling necessary services and returning an HTTP response. For some requests that involve long-running tasks, it's better to make the entire request-response process asynchronous.
 
-推奨事項
+Recommendations:
 
-* 通常の HTTP 要求処理の一部として、長時間実行されるタスクが完了するまで待機しない**で**ください。
-* [バックグラウンドサービス](xref:fundamentals/host/hosted-services)で長時間実行される要求や、 [Azure 関数](/azure/azure-functions/)を使用したアウトプロセスを処理すること**を検討してください。** 特に、CPU を集中的に使用するタスクには、アウトプロセスの完了が役立ちます。
-* [SignalR](xref:signalr/introduction)などのリアルタイム通信オプションを使用して、クライアントと非同期的に**通信します**。
+* **Do not** wait for long-running tasks to complete as part of ordinary HTTP request processing.
+* **Do** consider handling long-running requests with [background services](xref:fundamentals/host/hosted-services) or out of process with an [Azure Function](/azure/azure-functions/). Completing work out-of-process is especially beneficial for CPU-intensive tasks.
+* **Do** use real-time communication options, such as [SignalR](xref:signalr/introduction), to communicate with clients asynchronously.
 
-## <a name="minify-client-assets"></a>クライアント資産の縮小
+## <a name="minify-client-assets"></a>Minify client assets
 
-複雑なフロントエンドを使用する ASP.NET Core アプリは、多くの JavaScript、CSS、またはイメージファイルに頻繁に対応します。 初期読み込み要求のパフォーマンスは、次の方法で改善できます。
+ASP.NET Core apps with complex front-ends frequently serve many JavaScript, CSS, or image files. Performance of initial load requests can be improved by:
 
-* バンドル。複数のファイルを1つに結合します。
-* 縮小。空白とコメントを削除することによってファイルのサイズを縮小します。
+* Bundling, which combines multiple files into one.
+* Minifying, which reduces the size of files by removing whitespace and comments.
 
-推奨事項
+Recommendations:
 
-* クライアント資産のバンドルと縮小には ASP.NET Core の[組み込みサポート](xref:client-side/bundling-and-minification)**を使用し**ます。
-* 複雑なクライアント資産管理には、 [Webpack](https://webpack.js.org/)などの他のサードパーティ製ツールを使用すること**を検討してください。**
+* **Do** use ASP.NET Core's [built-in support](xref:client-side/bundling-and-minification) for bundling and minifying client assets.
+* **Do** consider other third-party tools, such as [Webpack](https://webpack.js.org/), for complex client asset management.
 
-## <a name="compress-responses"></a>応答を圧縮する
+## <a name="compress-responses"></a>Compress responses
 
- 通常、応答のサイズを小さくすると、アプリの応答性が大幅に向上します。 ペイロードサイズを減らす方法の1つは、アプリの応答を圧縮することです。 詳細については、「[応答の圧縮](xref:performance/response-compression)」を参照してください。
+ Reducing the size of the response usually increases the responsiveness of an app, often dramatically. One way to reduce payload sizes is to compress an app's responses. For more information, see [Response compression](xref:performance/response-compression).
 
-## <a name="use-the-latest-aspnet-core-release"></a>最新の ASP.NET Core リリースを使用する
+## <a name="use-the-latest-aspnet-core-release"></a>Use the latest ASP.NET Core release
 
-ASP.NET Core の新しいリリースにはそれぞれ、パフォーマンスが向上しています。 .NET Core と ASP.NET Core での最適化により、新しいバージョンの方が以前のバージョンより高い値になります。 たとえば、.NET Core 2.1 では、コンパイルされた正規表現と享受のサポートが[`Span<T>`](https://msdn.microsoft.com/magazine/mt814808.aspx)から追加されました。 ASP.NET Core 2.2 では、HTTP/2 のサポートが追加されました。 [ASP.NET Core 3.0](xref:aspnetcore-3.0)では、メモリ使用量を減らし、スループットを向上させる多くの機能強化が加えられています。 パフォーマンスが優先される場合は、現在のバージョンの ASP.NET Core にアップグレードすることを検討してください。
+Each new release of ASP.NET Core includes performance improvements. Optimizations in .NET Core and ASP.NET Core mean that newer versions generally outperform older versions. For example, .NET Core 2.1 added support for compiled regular expressions and benefitted from [`Span<T>`](https://msdn.microsoft.com/magazine/mt814808.aspx). ASP.NET Core 2.2 added support for HTTP/2. [ASP.NET Core 3.0 adds many improvements](xref:aspnetcore-3.0) that reduce memory usage and improve throughput. If performance is a priority, consider upgrading to the current version of ASP.NET Core.
 
-## <a name="minimize-exceptions"></a>例外を最小化する
+## <a name="minimize-exceptions"></a>Minimize exceptions
 
-例外はめったに発生しません。 例外のスローとキャッチは、他のコードフローパターンと比べて低速です。 このため、通常のプログラムフローを制御するために例外を使用することはできません。
+Exceptions should be rare. Throwing and catching exceptions is slow relative to other code flow patterns. Because of this, exceptions shouldn't be used to control normal program flow.
 
-推奨事項
+Recommendations:
 
-* 特に[ホットコードパス](#understand-hot-code-paths)では、通常のプログラムフローの手段として例外をスローまたはキャッチし**ない**ようにします。
-* 例外を発生させる条件を検出して処理するには、アプリにロジック**を含めます**。
-* 例外的または予期しない条件の例外**をスローまた**はキャッチします。
+* **Do not** use throwing or catching exceptions as a means of normal program flow, especially in [hot code paths](#understand-hot-code-paths).
+* **Do** include logic in the app to detect and handle conditions that would cause an exception.
+* **Do** throw or catch exceptions for unusual or unexpected conditions.
 
-Application Insights などのアプリ診断ツールを使用すると、アプリケーションでのパフォーマンスに影響する可能性のある一般的な例外を識別できます。
+App diagnostic tools, such as Application Insights, can help to identify common exceptions in an app that may affect performance.
 
-## <a name="performance-and-reliability"></a>パフォーマンスと信頼性
+## <a name="performance-and-reliability"></a>Performance and reliability
 
-次のセクションでは、パフォーマンスのヒントと既知の信頼性の問題と解決策について説明します。
+The following sections provide performance tips and known reliability problems and solutions.
 
-## <a name="avoid-synchronous-read-or-write-on-httprequesthttpresponse-body"></a>HttpRequest/Httpresponse.cache 本体で同期読み取りまたは書き込みを回避する
+## <a name="avoid-synchronous-read-or-write-on-httprequesthttpresponse-body"></a>Avoid synchronous read or write on HttpRequest/HttpResponse body
 
-ASP.NET Core の IO はすべて非同期です。 サーバーは、同期と非同期の両方のオーバーロードを持つ `Stream` インターフェイスを実装します。 スレッドプールのスレッドがブロックされないようにするために、非同期のものを使用することをお勧めします。 ブロックしているスレッドは、スレッドプールの枯渇につながる可能性があります。
+All IO in ASP.NET Core is asynchronous. Servers implement the `Stream` interface, which has both synchronous and asynchronous overloads. The asynchronous ones should be preferred to avoid blocking thread pool threads. Blocking threads can lead to thread pool starvation.
 
-**この**操作は避けてください。次の例では、<xref:System.IO.StreamReader.ReadToEnd*>を使用します。 このメソッドは、現在のスレッドが結果を待機するのをブロックします。 非同期的な[同期](https://github.com/davidfowl/AspNetCoreDiagnosticScenarios/blob/master/AsyncGuidance.md#warning-sync-over-async
-)の例を次に示します。
+**Do not do this:** The following example uses the <xref:System.IO.StreamReader.ReadToEnd*>. It blocks the current thread to wait for the result. This is an example of [sync over async](https://github.com/davidfowl/AspNetCoreDiagnosticScenarios/blob/master/AsyncGuidance.md#warning-sync-over-async
+).
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/MyFirstController.cs?name=snippet1)]
 
-上記のコードでは、`Get` は、HTTP 要求の本体全体をメモリに同期的に読み取ります。 クライアントが低速でアップロードしている場合、アプリは非同期で同期を実行しています。 Kestrel では同期読み取りがサポート**されてい**ないため、アプリは非同期経由で同期します。
+In the preceding code, `Get` synchronously reads the entire HTTP request body into memory. If the client is slowly uploading, the app is doing sync over async. The app does sync over async because Kestrel does **NOT** support synchronous reads.
 
-次の**手順を実行します。** 次の例では <xref:System.IO.StreamReader.ReadToEndAsync*> を使用し、読み取り中にスレッドをブロックしません。
+**Do this:** The following example uses <xref:System.IO.StreamReader.ReadToEndAsync*> and does not block the thread while reading.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/MyFirstController.cs?name=snippet2)]
 
-上記のコードは、HTTP 要求本文全体を非同期的にメモリに読み込みます。
+The preceding code asynchronously reads the entire HTTP request body into memory.
 
 > [!WARNING]
-> 要求が大きい場合、HTTP 要求本文全体をメモリに読み込むと、メモリ不足 (OOM) 状態になる可能性があります。 OOM を使用すると、サービス拒否が発生する可能性があります。  詳細については、このドキュメントの「[大きな要求本文または応答本文をメモリに読み込む](#arlb)ことを避ける」を参照してください。
+> If the request is large, reading the entire HTTP request body into memory could lead to an out of memory (OOM) condition. OOM can result in a Denial Of Service.  For more information, see [Avoid reading large request bodies or response bodies into memory](#arlb) in this document.
 
-次の**手順を実行します。** 次の例は、バッファーされていない要求本文を使用する完全な非同期です。
+**Do this:** The following example is fully asynchronous using a non buffered request body:
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/MyFirstController.cs?name=snippet3)]
 
-上のコードは、要求本文を非同期的にC#オブジェクトにシリアル化解除します。
+The preceding code asynchronously de-serializes the request body into a C# object.
 
-## <a name="prefer-readformasync-over-requestform"></a>要求で ReadFormAsync を優先します。フォーム
+## <a name="prefer-readformasync-over-requestform"></a>Prefer ReadFormAsync over Request.Form
 
 `HttpContext.Request.ReadFormAsync` の代わりに `HttpContext.Request.Form` を使用します。
-`HttpContext.Request.Form` は、次の条件で安全に読み取ることができます。
+`HttpContext.Request.Form` can be safely read only with the following conditions:
 
-* フォームは `ReadFormAsync`への呼び出しによって読み取られました。
-* キャッシュされたフォーム値は `HttpContext.Request.Form` を使用して読み取られています
+* The form has been read by a call to `ReadFormAsync`, and
+* The cached form value is being read using `HttpContext.Request.Form`
 
-**この**操作は避けてください。次の例では、`HttpContext.Request.Form`を使用します。  `HttpContext.Request.Form` では[async over async](https://github.com/davidfowl/AspNetCoreDiagnosticScenarios/blob/master/AsyncGuidance.md#warning-sync-over-async
-)が使用されるため、スレッドプールが枯渇する可能性があります。
+**Do not do this:** The following example uses `HttpContext.Request.Form`.  `HttpContext.Request.Form` uses [sync over async](https://github.com/davidfowl/AspNetCoreDiagnosticScenarios/blob/master/AsyncGuidance.md#warning-sync-over-async
+) and can lead to thread pool starvation.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/MySecondController.cs?name=snippet1)]
 
-次の**手順を実行します。** 次の例では、`HttpContext.Request.ReadFormAsync` を使用してフォーム本文を非同期に読み取ります。
+**Do this:** The following example uses `HttpContext.Request.ReadFormAsync` to read the form body asynchronously.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/MySecondController.cs?name=snippet2)]
 
 <a name="arlb"></a>
 
-## <a name="avoid-reading-large-request-bodies-or-response-bodies-into-memory"></a>大きな要求本文または応答本文をメモリに読み込むことは避けてください
+## <a name="avoid-reading-large-request-bodies-or-response-bodies-into-memory"></a>Avoid reading large request bodies or response bodies into memory
 
-.NET では、85 KB を超えるすべてのオブジェクト割り当ては、大きなオブジェクトヒープ ([LOH](https://blogs.msdn.microsoft.com/maoni/2006/04/19/large-object-heap/)) で終了します。 ラージオブジェクトは、次の2つの方法でコストが高くなります。
+In .NET, every object allocation greater than 85 KB ends up in the large object heap ([LOH](https://blogs.msdn.microsoft.com/maoni/2006/04/19/large-object-heap/)). Large objects are expensive in two ways:
 
-* 新しく割り当てられたラージオブジェクトのメモリをクリアする必要があるため、割り当てコストが高くなります。 CLR は、新しく割り当てられたすべてのオブジェクトのメモリがクリアされることを保証します。
-* LOH は、ヒープの残りの部分で収集されます。 LOH には、フル[ガベージコレクション](/dotnet/standard/garbage-collection/fundamentals)または[Gen2 collection](/dotnet/standard/garbage-collection/fundamentals#generations)が必要です。
+* The allocation cost is high because the memory for a newly allocated large object has to be cleared. The CLR guarantees that memory for all newly allocated objects is cleared.
+* LOH is collected with the rest of the heap. LOH requires a full [garbage collection](/dotnet/standard/garbage-collection/fundamentals) or [Gen2 collection](/dotnet/standard/garbage-collection/fundamentals#generations).
 
-この[ブログ投稿](https://adamsitnik.com/Array-Pool/#the-problem)では、問題について簡潔に説明しています。
+This [blog post](https://adamsitnik.com/Array-Pool/#the-problem) describes the problem succinctly:
 
-> ラージオブジェクトが割り当てられると、ジェネレーション2のオブジェクトとしてマークされます。 小さいオブジェクトの場合は Gen 0 として生成されません。 結果として、LOH でメモリが不足していると、LOH だけでなく、マネージヒープ全体が GC によってクリーンアップされます。 そのため、LOH を含む Gen 0、Gen 1、Gen 2 をクリーンアップします。 これはフルガベージコレクションと呼ばれ、最も時間のかかるガベージコレクションです。 多くのアプリケーションでは、許容される可能性があります。 しかし、高パフォーマンスの web サーバーでは、平均的な web 要求を処理するために大量のメモリバッファーが必要になることはありません (ソケットからの読み取り、圧縮解除、JSON & のデコードなど)。
+> When a large object is allocated, it’s marked as Gen 2 object. Not Gen 0 as for small objects. The consequences are that if you run out of memory in LOH, GC cleans up the whole managed heap, not only LOH. So it cleans up Gen 0, Gen 1 and Gen 2 including LOH. This is called full garbage collection and is the most time-consuming garbage collection. For many applications, it can be acceptable. But definitely not for high-performance web servers, where few big memory buffers are needed to handle an average web request (read from a socket, decompress, decode JSON & more).
 
-ネイティブは、大規模な要求または応答の本文を1つの `byte[]` または `string`に格納します。
+Naively storing a large request or response body into a single `byte[]` or `string`:
 
-* LOH の領域がすぐに不足する可能性があります。
-* 完全な Gc が実行されているため、アプリのパフォーマンスの問題が発生する可能性があります。
+* May result in quickly running out of space in the LOH.
+* May cause performance issues for the app because of full GCs running.
 
-## <a name="working-with-a-synchronous-data-processing-api"></a>同期データ処理 API を使用した作業
+## <a name="working-with-a-synchronous-data-processing-api"></a>Working with a synchronous data processing API
 
-同期読み取りと書き込みのみをサポートするシリアライザー/デシリアライザーを使用する場合 (たとえば、 [JSON.NET](https://www.newtonsoft.com/json/help/html/Introduction.htm)):
+When using a serializer/de-serializer that only supports synchronous reads and writes (for example,  [JSON.NET](https://www.newtonsoft.com/json/help/html/Introduction.htm)):
 
-* シリアライザー/デシリアライザーに渡す前に、データをメモリに非同期的にバッファーします。
+* Buffer the data into memory asynchronously before passing it into the serializer/de-serializer.
 
 > [!WARNING]
-> 要求が大きい場合、メモリ不足 (OOM) 状態になる可能性があります。 OOM を使用すると、サービス拒否が発生する可能性があります。  詳細については、このドキュメントの「[大きな要求本文または応答本文をメモリに読み込む](#arlb)ことを避ける」を参照してください。
+> If the request is large, it could lead to an out of memory (OOM) condition. OOM can result in a Denial Of Service.  For more information, see [Avoid reading large request bodies or response bodies into memory](#arlb) in this document.
 
-ASP.NET Core 3.0 では、JSON シリアル化のために既定で <xref:System.Text.Json> が使用されます。 <xref:System.Text.Json>:
+ASP.NET Core 3.0 uses <xref:System.Text.Json> by default for JSON serialization. <xref:System.Text.Json>:
 
 * 非同期で JSON の読み取りと書き込みを行います。
 * UTF-8 テキスト用に最適化されています。
 * 通常、`Newtonsoft.Json` よりパフォーマンスが向上します。
 
-## <a name="do-not-store-ihttpcontextaccessorhttpcontext-in-a-field"></a>フィールドに IHttpContextAccessor を格納しない
+## <a name="do-not-store-ihttpcontextaccessorhttpcontext-in-a-field"></a>Do not store IHttpContextAccessor.HttpContext in a field
 
-[IHttpContextAccessor](xref:Microsoft.AspNetCore.Http.IHttpContextAccessor.HttpContext)は、要求スレッドからアクセスされるときに、アクティブな要求の `HttpContext` を返します。 `IHttpContextAccessor.HttpContext` をフィールドまたは変数に格納することはでき**ません**。
+The [IHttpContextAccessor.HttpContext](xref:Microsoft.AspNetCore.Http.IHttpContextAccessor.HttpContext) returns the `HttpContext` of the active request when accessed from the request thread. The `IHttpContextAccessor.HttpContext` should **not** be stored in a field or variable.
 
-**この**操作は避けてください。次の例では、フィールドに `HttpContext` を格納し、後でそれを使用しようとします。
+**Do not do this:** The following example stores the `HttpContext` in a field, and then attempts to use it later.
 
 [!code-csharp[](performance-best-practices/samples/3.0/MyType.cs?name=snippet1)]
 
-上記のコードでは、コンストラクター内の null または正しくない `HttpContext` が頻繁にキャプチャされます。
+The preceding code frequently captures a null or incorrect `HttpContext` in the constructor.
 
-次の**手順を実行します。** 次に例を示します。
+**Do this:** The following example:
 
-* フィールドに <xref:Microsoft.AspNetCore.Http.IHttpContextAccessor> を格納します。
-* は、正しい時刻に `HttpContext` フィールドを使用し、`null`を確認します。
+* Stores the <xref:Microsoft.AspNetCore.Http.IHttpContextAccessor> in a field.
+* Uses the `HttpContext` field at the correct time and checks for `null`.
 
 [!code-csharp[](performance-best-practices/samples/3.0/MyType.cs?name=snippet2)]
 
-## <a name="do-not-access-httpcontext-from-multiple-threads"></a>複数のスレッドから HttpContext にアクセスしない
+## <a name="do-not-access-httpcontext-from-multiple-threads"></a>Do not access HttpContext from multiple threads
 
-`HttpContext` はスレッドセーフでは*ありません*。 複数のスレッドから並行して `HttpContext` にアクセスすると、ハング、クラッシュ、データ破損などの未定義の動作が発生する可能性があります。
+`HttpContext` is *NOT* thread-safe. Accessing `HttpContext` from multiple threads in parallel can result in undefined behavior such as hangs, crashes, and data corruption.
 
-**この**操作は避けてください。次の例では、3つの並列要求を行い、発信 HTTP 要求の前後に受信要求パスをログに記録します。 要求パスは、複数のスレッドから同時にアクセスされる可能性があります。
+**Do not do this:** The following example makes three parallel requests and logs the incoming request path before and after the outgoing HTTP request. The request path is accessed from multiple threads, potentially in parallel.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/AsyncFirstController.cs?name=snippet1&highlight=25,28)]
 
-次の**手順を実行します。** 次の例では、3つの並列要求を行う前に、受信要求からすべてのデータをコピーします。
+**Do this:** The following example copies all data from the incoming request before making the three parallel requests.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/AsyncFirstController.cs?name=snippet2&highlight=6,8,22,28)]
 
-## <a name="do-not-use-the-httpcontext-after-the-request-is-complete"></a>要求の完了後に HttpContext を使用しない
+## <a name="do-not-use-the-httpcontext-after-the-request-is-complete"></a>Do not use the HttpContext after the request is complete
 
-`HttpContext` は、ASP.NET Core パイプラインにアクティブな HTTP 要求がある限り有効です。 ASP.NET Core パイプライン全体は、すべての要求を実行するデリゲートの非同期チェーンです。 このチェーンから返された `Task` が完了すると、`HttpContext` がリサイクルされます。
+`HttpContext` is only valid as long as there is an active HTTP request in the ASP.NET Core pipeline. The entire ASP.NET Core pipeline is an asynchronous chain of delegates that executes every request. When the `Task` returned from this chain completes, the `HttpContext` is recycled.
 
-**この**操作は避けてください。次の例では、最初の `await` に達したときに HTTP 要求が完了するように `async void` を使用します。
+**Do not do this:** The following example uses `async void` which makes the HTTP request complete when the first `await` is reached:
 
-* これは、ASP.NET Core アプリでは**常**に不適切な方法です。
-* HTTP 要求が完了した後、`HttpResponse` にアクセスします。
-* プロセスをクラッシュさせる。
+* Which is **ALWAYS** a bad practice in ASP.NET Core apps.
+* Accesses the `HttpResponse` after the HTTP request is complete.
+* Crashes the process.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/AsyncBadVoidController.cs?name=snippet1)]
 
-次の**手順を実行します。** 次の例では、アクションが完了するまで HTTP 要求が完了しないように、フレームワークに `Task` を返します。
+**Do this:** The following example returns a `Task` to the framework so the HTTP request doesn't complete until the action completes.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/AsyncSecondController.cs?name=snippet1)]
 
-## <a name="do-not-capture-the-httpcontext-in-background-threads"></a>バックグラウンドスレッドで HttpContext をキャプチャしない
+## <a name="do-not-capture-the-httpcontext-in-background-threads"></a>Do not capture the HttpContext in background threads
 
-**この**操作は避けてください。次の例は、`Controller` プロパティから `HttpContext` をキャプチャすることを示しています。 作業項目は次のようになる可能性があるため、この方法は不適切です。
+**Do not do this:** The following example shows a closure is capturing the `HttpContext` from the `Controller` property. This is a bad practice because the work item could:
 
-* 要求スコープの外部で実行します。
-* 間違った `HttpContext`を読み取ろうとしました。
+* Run outside of the request scope.
+* Attempt to read the wrong `HttpContext`.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/FireAndForgetFirstController.cs?name=snippet1)]
 
-次の**手順を実行します。** 次に例を示します。
+**Do this:** The following example:
 
-* 要求中にバックグラウンドタスクで必要なデータをコピーします。
-* コントローラーから何も参照していません。
+* Copies the data required in the background task during the request.
+* Doesn't reference anything from the controller.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/FireAndForgetFirstController.cs?name=snippet2)]
 
-バックグラウンドタスクはホステッドサービスとして実装する必要があります。 詳細については、「[Background tasks with hosted services](xref:fundamentals/host/hosted-services)」(ホストされるタスクを使用するバックグラウンド タスク) を参照してください。
+Background tasks should be implemented as hosted services. 詳細については、「[Background tasks with hosted services](xref:fundamentals/host/hosted-services)」(ホストされるタスクを使用するバックグラウンド タスク) を参照してください。
 
-## <a name="do-not-capture-services-injected-into-the-controllers-on-background-threads"></a>バックグラウンドスレッドでコントローラーに挿入されたサービスをキャプチャしない
+## <a name="do-not-capture-services-injected-into-the-controllers-on-background-threads"></a>Do not capture services injected into the controllers on background threads
 
-**この**操作は避けてください。次の例は、`Controller` アクションパラメーターから `DbContext` をキャプチャすることを示しています。 これは不適切な方法です。  この作業項目は、要求スコープの外部で実行される可能性があります。 `ContosoDbContext` は要求に対してスコープが設定され、`ObjectDisposedException`になります。
+**Do not do this:** The following example shows a closure is capturing the `DbContext` from the `Controller` action parameter. This is a bad practice.  The work item could run outside of the request scope. The `ContosoDbContext` is scoped to the request, resulting in an `ObjectDisposedException`.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/FireAndForgetSecondController.cs?name=snippet1)]
 
-次の**手順を実行します。** 次に例を示します。
+**Do this:** The following example:
 
-* バックグラウンド作業項目のスコープを作成するために <xref:Microsoft.Extensions.DependencyInjection.IServiceScopeFactory> を挿入します。 `IServiceScopeFactory` はシングルトンです。
-* バックグラウンドスレッドで新しい依存関係挿入スコープを作成します。
-* コントローラーから何も参照していません。
-* は、受信要求から `ContosoDbContext` をキャプチャしません。
+* Injects an <xref:Microsoft.Extensions.DependencyInjection.IServiceScopeFactory> in order to create a scope in the background work item. `IServiceScopeFactory` is a singleton.
+* Creates a new dependency injection scope in the background thread.
+* Doesn't reference anything from the controller.
+* Doesn't capture the `ContosoDbContext` from the incoming request.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/FireAndForgetSecondController.cs?name=snippet2)]
 
-次の強調表示されたコード。
+The following highlighted code:
 
-* バックグラウンド操作の有効期間のスコープを作成し、そこからサービスを解決します。
-* は、正しいスコープの `ContosoDbContext` を使用します。
+* Creates a scope for the lifetime of the background operation and resolves services from it.
+* Uses `ContosoDbContext` from the correct scope.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/FireAndForgetSecondController.cs?name=snippet2&highlight=9-16)]
 
-## <a name="do-not-modify-the-status-code-or-headers-after-the-response-body-has-started"></a>応答本文が開始された後に状態コードまたはヘッダーを変更しない
+## <a name="do-not-modify-the-status-code-or-headers-after-the-response-body-has-started"></a>Do not modify the status code or headers after the response body has started
 
-ASP.NET Core は、HTTP 応答の本文をバッファーしません。 最初に応答が書き込まれたとき:
+ASP.NET Core does not buffer the HTTP response body. The first time the response is written:
 
-* ヘッダーは、本文のそのチャンクと共にクライアントに送信されます。
-* 応答ヘッダーを変更することはできなくなりました。
+* The headers are sent along with that chunk of the body to the client.
+* It's no longer possible to change response headers.
 
-**この**操作は避けてください。次のコードでは、応答が既に開始された後に応答ヘッダーを追加しようとしています。
+**Do not do this:** The following code tries to add response headers after the response has already started:
 
 [!code-csharp[](performance-best-practices/samples/3.0/Startup22.cs?name=snippet1)]
 
-前のコードでは、`next()` が応答に書き込まれた場合、`context.Response.Headers["test"] = "test value";` は例外をスローします。
+In the preceding code, `context.Response.Headers["test"] = "test value";` will throw an exception if `next()` has written to the response.
 
-次の**手順を実行します。** 次の例では、ヘッダーを変更する前に、HTTP 応答が開始されたかどうかを確認します。
+**Do this:** The following example checks if the HTTP response has started before modifying the headers.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Startup22.cs?name=snippet2)]
 
-次の**手順を実行します。** 次の例では、`HttpResponse.OnStarting` を使用して、応答ヘッダーをクライアントにフラッシュする前にヘッダーを設定します。
+**Do this:** The following example uses `HttpResponse.OnStarting` to set the headers before the response headers are flushed to the client.
 
-応答が開始されていないかどうかを確認すると、応答ヘッダーが書き込まれる直前に呼び出されるコールバックを登録できます。 応答が開始されていないかどうかを確認しています:
+Checking if the response has not started allows registering a callback that will be invoked just before response headers are written. Checking if the response has not started:
 
-* ヘッダーをジャストインタイムで追加またはオーバーライドする機能を提供します。
-* では、パイプライン内の次のミドルウェアに関する知識は必要ありません。
+* Provides the ability to append or override headers just in time.
+* Doesn't require knowledge of the next middleware in the pipeline.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Startup22.cs?name=snippet3)]
 
-## <a name="do-not-call-next-if-you-have-already-started-writing-to-the-response-body"></a>応答本文への書き込みを既に開始している場合は、next () を呼び出さないでください。
+## <a name="do-not-call-next-if-you-have-already-started-writing-to-the-response-body"></a>Do not call next() if you have already started writing to the response body
 
-コンポーネントは、応答を処理および操作できる場合にのみ呼び出されることを想定しています。
+Components only expect to be called if it's possible for them to handle and manipulate the response.

@@ -4,14 +4,16 @@ author: rick-anderson
 description: ASP.NET Core とASP.NET 4.x の違いと、どちらかを選択する方法について説明します。
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 07/15/2019
+ms.date: 11/12/2019
+no-loc:
+- SignalR
 uid: fundamentals/choose-between-aspnet-and-aspnetcore
-ms.openlocfilehash: 9e093e83a1f6367cbb244076a8351644244f9874
-ms.sourcegitcommit: 7e00e8236ca4eabf058f07020a5a3882daf7564f
+ms.openlocfilehash: 8b1681476f96e8613f9461c507fbb7696f888cbc
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/16/2019
-ms.locfileid: "68239219"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963624"
 ---
 # <a name="choose-between-aspnet-4x-and-aspnet-core"></a>ASP.NET 4.x と ASP.NET Core の選択
 
@@ -34,7 +36,7 @@ ASP.NET 4.x は成熟したフレームワークであり、Windows 上でエン
 | ASP.NET Core | ASP.NET 4.x |
 |---|---|
 |Windows、macOS、Linux が対象|Windows が対象|
-|[Razor ページ](xref:razor-pages/index)は、ASP.NET Core 2.x の時点で Web UI を作成する場合に推奨される方法です。 [MVC](xref:mvc/overview)、[Web API](xref:tutorials/first-web-api)、[SignalR](xref:signalr/introduction) についても参照してください。|[Web フォーム](/aspnet/web-forms)、[SignalR](/aspnet/signalr)、[MVC](/aspnet/mvc)、[Web API](/aspnet/web-api/)、[WebHooks](/aspnet/webhooks/)、または [Web ページ](/aspnet/web-pages)を使います。|
+|[Razor ページ](xref:razor-pages/index)は、ASP.NET Core 2.x の時点で Web UI を作成する場合に推奨される方法です。 [MVC](xref:mvc/overview)、[Web API](xref:tutorials/first-web-api)、[SignalR](xref:signalr/introduction) についても参照してください。|[Web Forms](/aspnet/web-forms)、[SignalR](/aspnet/signalr)、[MVC](/aspnet/mvc)、[Web API](/aspnet/web-api/)、[WebHooks](/aspnet/webhooks/)、または [Web ページ](/aspnet/web-pages)を使います|
 |コンピューターごとに複数のバージョン|コンピューターごとに 1 つのバージョン|
 |C# または F# を使い、[Visual Studio](https://visualstudio.microsoft.com/vs/)、[Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/)、または [Visual Studio Code](https://code.visualstudio.com/) で 開発|C#、VB、または F# を使い、[Visual Studio](https://visualstudio.microsoft.com/vs/) で開発|
 |ASP.NET 4.x より高いパフォーマンス|よいパフォーマンス|

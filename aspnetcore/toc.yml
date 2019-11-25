@@ -381,14 +381,20 @@
               uid: mvc/views/tag-helpers/builtin-th/environment-tag-helper
             - name: フォーム
               href: 'mvc/views/working-with-forms.md#the-form-tag-helper'
+            - name: フォーム アクション
+              href: 'mvc/views/working-with-forms.md#the-form-action-tag-helper'
             - name: Image
               uid: mvc/views/tag-helpers/builtin-th/image-tag-helper
             - name: 入力
               href: 'mvc/views/working-with-forms.md#the-input-tag-helper'
             - name: group1
               href: 'mvc/views/working-with-forms.md#the-label-tag-helper'
+            - name: Link
+              uid: mvc/views/tag-helpers/builtin-th/link-tag-helper
             - name: 部分的
               uid: mvc/views/tag-helpers/builtin-th/partial-tag-helper
+            - name: スクリプト
+              uid: mvc/views/tag-helpers/builtin-th/script-tag-helper
             - name: 選択
               href: 'mvc/views/working-with-forms.md#the-select-tag-helper'
             - name: テキスト領域

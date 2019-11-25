@@ -4,20 +4,23 @@ author: rick-anderson
 description: ASP.NET Core 3.0 の新機能について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/31/2019
+ms.date: 11/12/2019
+no-loc:
+- Blazor
+- SignalR
 uid: aspnetcore-3.0
-ms.openlocfilehash: 8c53d8a9fa222ca40f26dc713ec3b70ddde76539
-ms.sourcegitcommit: eb2fe5ad2e82fab86ca952463af8d017ba659b25
+ms.openlocfilehash: c3dde383507ec919f82b5268ddbf23911c3d24f8
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/01/2019
-ms.locfileid: "73416119"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963121"
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>ASP.NET Core 3.0 の新機能
 
 この記事では、ASP.NET Core 3.0 の最も大きな変更点について説明します。また、その変更点のドキュメントへのリンクも示します。
 
-## <a name="blazor"></a>Blazor
+## Blazor
 
 Blazor は、.NET を使って対話型のクライアント側 Web UI を構築するための ASP.NET Core の新しいフレームワークです。
 
@@ -37,11 +40,11 @@ Blazor フレームワークでサポートされるシナリオ:
 
 詳細については、<xref:blazor/index> を参照してください。
 
-### <a name="blazor-server"></a>Blazor サーバー
+### <a name="opno-locblazor-server"></a>Blazor サーバー
 
 Blazor では、UI の更新プログラムを適用する方法からコンポーネントのレンダリング ロジックが分離されます。 Blazor サーバーでは、ASP.NET Core アプリでサーバー上の Razor コンポーネントをホストするためのサポートが提供されます。 UI の更新は SignalR 接続を介して処理されます。 Blazor サーバーは ASP.NET Core 3.0 でサポートされています。
 
-### <a name="blazor-webassembly-preview"></a>Blazor WebAssembly (プレビュー)
+### <a name="opno-locblazor-webassembly-preview"></a>Blazor WebAssembly (プレビュー)
 
 Blazor アプリは、WebAssembly ベースの .NET ランタイムを使用してブラウザーで直接実行することもできます。 Blazor WebAssembly はプレビュー段階であり、ASP.NET Core 3.0 ではサポートされて "*いません*"。 Blazor WebAssembly は、ASP.NET Core の今後のリリースでサポートされる予定です。
 
@@ -76,11 +79,11 @@ ASP.NET Core 3.0 の gRPC 機能には次のものが含まれます。
 
 詳細については、<xref:grpc/index> を参照してください。
 
-## <a name="signalr"></a>SignalR
+## SignalR
 
-移行の手順については、「[SignalR コードの更新](xref:migration/22-to-30#signalr)」を参照してください。 現在、SignalR は `System.Text.Json` を使用して JSON メッセージのシリアル化および逆シリアル化を行います。 `Newtonsoft.Json` ベースのシリアライザーを復元する手順については、「[Newtonsoft.Json に切り替える](xref:migration/22-to-30#switch-to-newtonsoftjson)」を参照してください。
+移行の手順については、[SignalR コードの更新](xref:migration/22-to-30#signalr)に関するページを参照してください。 現在、SignalR は `System.Text.Json` を使用して JSON メッセージのシリアル化および逆シリアル化を行います。 `Newtonsoft.Json` ベースのシリアライザーを復元する手順については、「[Newtonsoft.Json に切り替える](xref:migration/22-to-30#switch-to-newtonsoftjson)」を参照してください。
 
-SignalR 対応の JavaScript および .NET クライアント には、自動再接続のサポートが追加されました。 既定では、クライアントはすぐに再接続を試行し、必要に応じて 2 秒後、10 秒後、30 秒後に再試行します。 クライアントが正常に再接続すると、新しい接続 ID を受け取ります。 自動再接続はオプトインです。
+SignalR 対応の JavaScript および .NET クライアントには、自動再接続のサポートが追加されました。 既定では、クライアントはすぐに再接続を試行し、必要に応じて 2 秒後、10 秒後、30 秒後に再試行します。 クライアントが正常に再接続すると、新しい接続 ID を受け取ります。 自動再接続はオプトインです。
 
 ```javascript
 const connection = new signalR.HubConnectionBuilder()
@@ -222,7 +225,7 @@ services
     });
 ```
 
-SignalR ハブは[エンドポイント ルーティング](xref:fundamentals/routing)を使用します。 SignalR ハブ接続は以前は明示的に実行されました。
+SignalR ハブでは[エンドポイント ルーティング](xref:fundamentals/routing)が使用されます。 SignalR ハブ接続は以前は明示的に実行されました。
 
 ```csharp
 app.UseSignalR(routes =>
@@ -255,7 +258,7 @@ app.UseRouting(routes =>
 });
 ```
 
-ASP.NET Core 3.0 SignalR によって以下が追加されました。
+ASP.NET Core 3.0 SignalR で追加されたもの:
 
 クライアントとサーバー間のストリーミング。 クライアントとサーバー間のストリーミングでは、サーバー側メソッドが `IAsyncEnumerable<T>` または `ChannelReader<T>` のインスタンスを受け取ることができます。 次 C# の例では、ハブの `UploadStream` メソッドがクライアントから文字列のストリームを受け取ります。
 
@@ -286,7 +289,7 @@ async IAsyncEnumerable<string> clientStreamData()
 await connection.SendAsync("UploadStream", clientStreamData());
 ```
 
-JavaScript クライアント アプリは、上記の `UploadStream` ハブの `stream`引数のために SignalR `Subject` (または [RxJS Subject](https://rxjs.dev/api/index/class/Subject)) を使用します。
+JavaScript クライアント アプリは、上記の `UploadStream` ハブ メソッドの `stream` 引数のために SignalR `Subject` (または [RxJS Subject](https://rxjs.dev/api/index/class/Subject)) を使用します。
 
 ```javascript
 let subject = new signalR.Subject();

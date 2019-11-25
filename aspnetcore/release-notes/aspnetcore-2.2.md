@@ -4,14 +4,16 @@ author: rick-anderson
 description: ASP.NET Core 2.2 の新機能について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2018
+ms.date: 11/12/2019
+no-loc:
+- SignalR
 uid: aspnetcore-2.2
-ms.openlocfilehash: 88a202d85c4d4ed7a395dba78feea29ef4637732
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: fca653158c95e7c1a11f25f4076830fe3e7e93ae
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975712"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963136"
 ---
 # <a name="whats-new-in-aspnet-core-22"></a>ASP.NET Core 2.2 の新機能
 
@@ -74,11 +76,11 @@ HTTP/2 は HTTP プロトコルのメジャー リビジョンです。 HTTP/2 �
 
 詳細については、[IIS のインプロセス ホスティング](xref:host-and-deploy/aspnet-core-module?view=aspnetcore-2.2#in-process-hosting-model)に関する記事を参照してください。
 
-## <a name="signalr-java-client"></a>SignalR Java クライアント
+## <a name="opno-locsignalr-java-client"></a>SignalR Java クライアント
 
 ASP.NET Core 2.2 には SignalR 用の Java クライアントが導入されました。 このクライアントは、Android アプリを含め、Java コードから ASP.NET Core SignalR サーバーへの接続をサポートしています。
 
-詳細については、「[ASP.NET Core SignalR Java client](https://docs.microsoft.com/aspnet/core/signalr/java-client?view=aspnetcore-2.2)」(ASP.NET Core SignalR Java クライアント) を参照してください。
+詳細については、「[ASP.NET Core SignalR Java クライアント](https://docs.microsoft.com/aspnet/core/signalr/java-client?view=aspnetcore-2.2)」を参照してください。
 
 ## <a name="cors-improvements"></a>CORS の機能強化
 

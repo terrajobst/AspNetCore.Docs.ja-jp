@@ -5,12 +5,12 @@ description: 共通レイアウトの使用方法、ディレクティブの共�
 ms.author: riande
 ms.date: 07/30/2019
 uid: mvc/views/layout
-ms.openlocfilehash: 9a7b8003b24329f6e9cbd349ee47f6844b7c5f6d
-ms.sourcegitcommit: e6bd2bbe5683e9a7dbbc2f2eab644986e6dc8a87
+ms.openlocfilehash: 3ba2f459ca2b04a3001e261acab26880b6582500
+ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/03/2019
-ms.locfileid: "70238032"
+ms.lasthandoff: 11/21/2019
+ms.locfileid: "74288996"
 ---
 # <a name="layout-in-aspnet-core"></a>ASP.NET Core でのレイアウト
 
@@ -68,9 +68,9 @@ Razor ビューには `Layout` プロパティがあります。 個々のビュ
 レイアウトは、必要に応じて `RenderSection` を呼び出すことで、1 つ以上の*セクション*を参照することができます。 セクションは、特定のページ要素の配置場所を整理する方法を提供します。 `RenderSection` の呼び出しごとに、そのセクションを必須またはオプションにするかどうかを指定できます。
 
 ```html
-@section Scripts {
-    @RenderSection("Scripts", required: false)
-}
+<script type="text/javascript" src="~/scripts/global.js"></script>
+
+@RenderSection("Scripts", required: false)
 ```
 
 必須のセクションが見つからない場合、例外がスローされます。 個々のビューは、`@section` Razor 構文を使用して、セクション内にレンダリングされるコンテンツを指定します。 ページまたはビューでセクションを定義する場合は、レンダリングされる必要があります (そうしないと、エラーが発生します)。
@@ -79,7 +79,7 @@ Razor Pages ビューでの `@section` 定義の例:
 
 ```html
 @section Scripts {
-     <script type="text/javascript" src="/scripts/main.js"></script>
+     <script type="text/javascript" src="~/scripts/main.js"></script>
 }
 ```
 

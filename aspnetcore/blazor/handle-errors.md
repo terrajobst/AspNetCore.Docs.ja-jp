@@ -1,28 +1,69 @@
 ---
 title: ASP.NET Core Blazor アプリでのエラーの処理
 author: guardrex
-description: Blazor が未処理の例外をどのように管理するか、およびエラーを検出して処理するアプリを開発する方法について、ASP.NET Core Blazor 方法を説明します。
+description: Blazor でハンドルされない例外を管理する方法、およびエラーを検出して処理するアプリを開発する方法を ASP.NET Core Blazor 方法を説明します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/31/2019
+ms.date: 11/21/2019
+no-loc:
+- Blazor
+- SignalR
 uid: blazor/handle-errors
-ms.openlocfilehash: afcaa4d926c3e5f0a018897ce4b67b54574dae77
-ms.sourcegitcommit: 77c8be22d5e88dd710f42c739748869f198865dd
+ms.openlocfilehash: f2fa59259f1dd36f50e81256bddea265e347554b
+ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/01/2019
-ms.locfileid: "73426990"
+ms.lasthandoff: 11/22/2019
+ms.locfileid: "74317151"
 ---
-# <a name="handle-errors-in-aspnet-core-blazor-apps"></a>ASP.NET Core Blazor アプリでのエラーの処理
+# <a name="handle-errors-in-aspnet-core-opno-locblazor-apps"></a>ASP.NET Core Blazor アプリでのエラーの処理
 
 作成者: [Steve Sanderson](https://github.com/SteveSandersonMS)
 
-この記事では、Blazor が未処理の例外を管理する方法と、エラーを検出して処理するアプリを開発する方法について説明します。
+この記事では、Blazor がハンドルされない例外を管理する方法と、エラーを検出して処理するアプリを開発する方法について説明します。
 
-## <a name="how-the-blazor-framework-reacts-to-unhandled-exceptions"></a>Blazor フレームワークがハンドルされない例外にどのように反応するか
+::: moniker range=">= aspnetcore-3.1"
 
-Blazor Server は、ステートフルフレームワークです。 ユーザーは、アプリを操作している間、*回線*と呼ばれるサーバーへの接続を維持します。 回線は、アクティブなコンポーネントインスタンスに加えて、次のような状態の他の多くの側面を保持します。
+## <a name="detailed-errors-during-development"></a>開発中の詳細なエラー
+
+開発中に Blazor アプリが正常に機能していない場合、アプリからの詳細なエラー情報を受け取ると、問題のトラブルシューティングと修正に役立ちます。 エラーが発生すると Blazor アプリには画面の下部に金色のバーが表示されます。
+
+* 開発中は、gold bar によってブラウザーコンソールが表示され、例外が表示されます。
+* 実稼働環境では、金色のバーは、エラーが発生したことをユーザーに通知し、ブラウザーの更新を推奨します。
+
+このエラー処理エクスペリエンスの UI は、Blazor プロジェクトテンプレートの一部です。 Blazor WebAssembly で、 *wwwroot/index.html*ファイルのエクスペリエンスをカスタマイズします。
+
+```html
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
+```
+
+Blazor Server アプリで、 *Pages/_Host cshtml*ファイルのエクスペリエンスをカスタマイズします。
+
+```cshtml
+<div id="blazor-error-ui">
+    <environment include="Staging,Production">
+        An error has occurred. This application may no longer respond until reloaded.
+    </environment>
+    <environment include="Development">
+        An unhandled exception has occurred. See browser dev tools for details.
+    </environment>
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
+```
+
+`blazor-error-ui` 要素は、Blazor テンプレートに含まれるスタイルによって非表示になり、エラーが発生したときに表示されます。
+
+::: moniker-end
+
+## <a name="how-the-opno-locblazor-framework-reacts-to-unhandled-exceptions"></a>Blazor フレームワークがハンドルされない例外にどのように反応するか
+
+Blazor Server は、ステートフルなフレームワークです。 ユーザーは、アプリを操作している間、*回線*と呼ばれるサーバーへの接続を維持します。 回線は、アクティブなコンポーネントインスタンスに加えて、次のような状態の他の多くの側面を保持します。
 
 * コンポーネントの最新のレンダリング出力。
 * クライアント側のイベントによってトリガーされる可能性がある、現在のイベント処理デリゲートのセット。
@@ -48,9 +89,9 @@ Blazor は、ほとんどのハンドルされない例外を、発生した回�
 
 ## <a name="log-errors-with-a-persistent-provider"></a>永続的なプロバイダーでエラーをログに記録する
 
-未処理の例外が発生した場合、例外は、サービスコンテナーに構成されている <xref:Microsoft.Extensions.Logging.ILogger> インスタンスに記録されます。 既定では、Blazor apps はコンソールログプロバイダーを使用してコンソール出力にログを記録します。 ログサイズとログローテーションを管理するプロバイダーを使用して、より永続的な場所にログを記録することを検討してください。 詳細については、「<xref:fundamentals/logging/index>」を参照してください。
+未処理の例外が発生した場合、例外は、サービスコンテナーに構成されている <xref:Microsoft.Extensions.Logging.ILogger> インスタンスに記録されます。 既定では、Blazor アプリはコンソールログプロバイダーを使用してコンソール出力に記録されます。 ログサイズとログローテーションを管理するプロバイダーを使用して、より永続的な場所にログを記録することを検討してください。 詳細については、「 <xref:fundamentals/logging/index>」を参照してください。
 
-開発中、Blazor は通常、デバッグを支援するために、例外の完全な詳細をブラウザーのコンソールに送信します。 運用環境では、ブラウザーのコンソールでの詳細なエラーは既定で無効になっています。つまり、エラーはクライアントに送信されませんが、例外の完全な詳細は引き続きサーバー側でログに記録されます。 詳細については、「<xref:fundamentals/error-handling>」を参照してください。
+開発中、Blazor は通常、デバッグを支援するために、ブラウザーのコンソールに例外の完全な詳細情報を送信します。 運用環境では、ブラウザーのコンソールでの詳細なエラーは既定で無効になっています。つまり、エラーはクライアントに送信されませんが、例外の完全な詳細は引き続きサーバー側でログに記録されます。 詳細については、「 <xref:fundamentals/error-handling>」を参照してください。
 
 ログに記録するインシデントと、ログに記録されるインシデントの重大度レベルを決定する必要があります。 悪意のあるユーザーは、意図的にエラーをトリガーできる可能性があります。 たとえば、製品の詳細を表示するコンポーネントの URL に不明な `ProductId` が指定されている場合は、エラーからインシデントをログに記録しないようにします。 すべてのエラーを、ログ記録の重要度の高いインシデントとして処理することはできません。
 
@@ -77,7 +118,7 @@ Blazor がコンポーネントのインスタンスを作成する場合:
 * コンポーネントのコンストラクターが呼び出されます。
 * [@inject](xref:blazor/dependency-injection#request-a-service-in-a-component)ディレクティブまたは[[挿入]](xref:blazor/dependency-injection#request-a-service-in-a-component)属性を使用して、コンポーネントのコンストラクターに渡される非シングルトン DI サービスのコンストラクターが呼び出されます。 
 
-任意の `[Inject]` プロパティに対して実行されるコンストラクターまたは setter がハンドルされない例外をスローすると、回線が失敗します。 フレームワークはコンポーネントをインスタンス化できないため、例外は fatal です。 コンストラクターのロジックによって例外がスローされる可能性がある場合、アプリでは、エラー処理とログ記録を含む[try-catch ステートメントを](/dotnet/csharp/language-reference/keywords/try-catch)使用して例外をトラップする必要があります。
+任意の `[Inject]` プロパティに対して実行されるコンストラクターまたは setter がハンドルされない例外をスローすると、回線が失敗します。 フレームワークはコンポーネントをインスタンス化できないため、例外は fatal です。 コンストラクターのロジックによって例外がスローされる可能性がある場合、アプリでは、エラー処理とログ記録を含む [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) ステートメントを使用して例外をトラップする必要があります。
 
 ### <a name="lifecycle-methods"></a>ライフサイクル メソッド
 
@@ -122,7 +163,7 @@ Blazor がコンポーネントのインスタンスを作成する場合:
 
 これらのシナリオでは、イベントハンドラーコードによってハンドルされない例外がスローされることがあります。
 
-イベントハンドラーがハンドルされない例外をスローした場合 (たとえば、データベースクエリが失敗した場合)、その例外は回線にとって致命的です。 アプリが外部の理由で失敗する可能性のあるコードを呼び出した場合は、エラー処理とログ記録を含む[try-catch ステートメントを使用して例外](/dotnet/csharp/language-reference/keywords/try-catch)をトラップします。
+イベントハンドラーがハンドルされない例外をスローした場合 (たとえば、データベースクエリが失敗した場合)、その例外は回線にとって致命的です。 アプリが外部の理由で失敗する可能性のあるコードを呼び出した場合は、エラー処理とログ記録を含む [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) ステートメントを使用して例外をトラップします。
 
 ユーザーコードによって例外がトラップされて処理されない場合は、フレームワークによって例外がログに記録され、回線が終了します。
 
@@ -130,7 +171,7 @@ Blazor がコンポーネントのインスタンスを作成する場合:
 
 たとえば、ユーザーが別のページに移動したため、コンポーネントが UI から削除されることがあります。 <xref:System.IDisposable?displayProperty=fullName> を実装するコンポーネントが UI から削除されると、フレームワークはコンポーネントの <xref:System.IDisposable.Dispose*> メソッドを呼び出します。 
 
-コンポーネントの `Dispose` メソッドがハンドルされない例外をスローした場合、この例外は回線にとって致命的です。 破棄ロジックによって例外がスローされる可能性がある場合、アプリでは、エラー処理とログ記録を含む[try-catch ステートメントを](/dotnet/csharp/language-reference/keywords/try-catch)使用して例外をトラップする必要があります。
+コンポーネントの `Dispose` メソッドがハンドルされない例外をスローした場合、この例外は回線にとって致命的です。 破棄ロジックによって例外がスローされる可能性がある場合、アプリでは、エラー処理とログ記録を含む [try-catch ](/dotnet/csharp/language-reference/keywords/try-catch)ステートメントを使用して例外をトラップする必要があります。
 
 コンポーネントの破棄の詳細については、「<xref:blazor/components#component-disposal-with-idisposable>」を参照してください。
 
@@ -151,7 +192,7 @@ Blazor がコンポーネントのインスタンスを作成する場合:
 
 .NET 側またはメソッド呼び出しの JavaScript 側でエラー処理コードを使用するオプションがあります。
 
-詳細については、「<xref:blazor/javascript-interop>」を参照してください。
+詳細については、「 <xref:blazor/javascript-interop>」を参照してください。
 
 ### <a name="circuit-handlers"></a>サーキットハンドラー
 
@@ -172,11 +213,32 @@ Blazor を使用すると、コードで*サーキットハンドラー*を定�
 
 ### <a name="prerendering"></a>プリ
 
-Blazor コンポーネントは、レンダリングされた HTML マークアップがユーザーの初期 HTTP 要求の一部として返されるように `Html.RenderComponentAsync` を使用して prerendered できます。 これは次のように機能します。
+::: moniker range=">= aspnetcore-3.1"
+
+Blazor コンポーネントは、レンダリングされた HTML マークアップがユーザーの初期 HTTP 要求の一部として返されるように、`Component` タグヘルパーを使用して prerendered できます。 これは次のように機能します。
 
 * 同じページに含まれるすべての prerendered コンポーネントに対して新しい回線を作成します。
 * 初期 HTML を生成しています。
-* ユーザーのブラウザーが同じサーバーに SignalR 接続を確立するまで、回線を `disconnected` として扱います。 接続が確立されると、回線の対話機能が再開され、コンポーネントの HTML マークアップが更新されます。
+* ユーザーのブラウザーが同じサーバーへの SignalR 接続を確立するまで、回線を `disconnected` として扱います。 接続が確立されると、回線の対話機能が再開され、コンポーネントの HTML マークアップが更新されます。
+
+たとえば、ライフサイクルメソッドやレンダリングロジックで、コンポーネントによって処理されない例外がスローされた場合は、次のようになります。
+
+* この例外は、回線にとって致命的です。
+* 例外は、`Component` タグヘルパーからの呼び出し履歴によってスローされます。 したがって、例外が開発者コードによって明示的にキャッチされない限り、HTTP 要求全体が失敗します。
+
+通常の状況では、事前設定に失敗した場合に、コンポーネントのビルドとレンダリングを続行しても意味がありません。これは、作業コンポーネントをレンダリングできないためです。
+
+プリレンダリング中に発生する可能性のあるエラーを許容するには、例外をスローする可能性のあるコンポーネント内にエラー処理ロジックを配置する必要があります。 エラー処理とログ記録では、 [try-catch](/dotnet/csharp/language-reference/keywords/try-catch)ステートメントを使用します。 `try-catch` ステートメントで `Component` タグヘルパーをラップするのではなく、`Component` タグヘルパーによって表示されるコンポーネントにエラー処理ロジックを配置します。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.1"
+
+Blazor コンポーネントは、レンダリングされた HTML マークアップがユーザーの初期 HTTP 要求の一部として返されるように、`Html.RenderComponentAsync` を使用して prerendered できます。 これは次のように機能します。
+
+* 同じページに含まれるすべての prerendered コンポーネントに対して新しい回線を作成します。
+* 初期 HTML を生成しています。
+* ユーザーのブラウザーが同じサーバーへの SignalR 接続を確立するまで、回線を `disconnected` として扱います。 接続が確立されると、回線の対話機能が再開され、コンポーネントの HTML マークアップが更新されます。
 
 たとえば、ライフサイクルメソッドやレンダリングロジックで、コンポーネントによって処理されない例外がスローされた場合は、次のようになります。
 
@@ -186,6 +248,8 @@ Blazor コンポーネントは、レンダリングされた HTML マークア�
 通常の状況では、事前設定に失敗した場合に、コンポーネントのビルドとレンダリングを続行しても意味がありません。これは、作業コンポーネントをレンダリングできないためです。
 
 プリレンダリング中に発生する可能性のあるエラーを許容するには、例外をスローする可能性のあるコンポーネント内にエラー処理ロジックを配置する必要があります。 エラー処理とログ記録では、 [try-catch](/dotnet/csharp/language-reference/keywords/try-catch)ステートメントを使用します。 `try-catch` ステートメントで `RenderComponentAsync` の呼び出しをラップするのではなく、`RenderComponentAsync`によって表示されるコンポーネントにエラー処理ロジックを配置します。
+
+::: moniker-end
 
 ## <a name="advanced-scenarios"></a>高度なシナリオ
 
@@ -213,7 +277,7 @@ Blazor コンポーネントは、レンダリングされた HTML マークア�
 
 ### <a name="custom-render-tree-logic"></a>カスタムレンダリングツリーのロジック
 
-ほとんどの Blazor コンポーネントは、razor ファイルとして実装され、出力を表示するために `RenderTreeBuilder` で動作するロジックを生成するためにコンパイルされ*ます。* 開発者は、手続きC#型コードを使用して `RenderTreeBuilder` ロジックを手動で実装できます。 詳細については、「<xref:blazor/components#manual-rendertreebuilder-logic>」を参照してください。
+ほとんどの Blazor コンポーネントは、razor ファイルとして実装され、`RenderTreeBuilder` を操作して出力を表示するロジックを生成するためにコンパイルされ*ます。* 開発者は、手続きC#型コードを使用して `RenderTreeBuilder` ロジックを手動で実装できます。 詳細については、「 <xref:blazor/components#manual-rendertreebuilder-logic>」を参照してください。
 
 > [!WARNING]
 > 手動のレンダーツリービルダーロジックの使用は、高度で安全ではないシナリオと見なされます。一般的なコンポーネントの開発にはお勧めしません。

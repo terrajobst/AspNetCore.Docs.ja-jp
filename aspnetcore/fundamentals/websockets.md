@@ -5,14 +5,16 @@ description: ASP.NET Core で Websocket の使用を開始する方法を説明�
 monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/10/2019
+ms.date: 11/12/2019
+no-loc:
+- SignalR
 uid: fundamentals/websockets
-ms.openlocfilehash: 098e6826d6f7114baceb9578dc6d9883eb83f0aa
-ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
+ms.openlocfilehash: fc07d572116f8eea2b30ea6cf80324e5c66f994c
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/18/2019
-ms.locfileid: "72589703"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963170"
 ---
 # <a name="websockets-support-in-aspnet-core"></a>ASP.NET Core での Websocket のサポート
 
@@ -22,7 +24,7 @@ ms.locfileid: "72589703"
 
 [サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/websockets/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。 [実行方法](#sample-app)。
 
-## <a name="signalr"></a>SignalR
+## SignalR
 
 [ASP.NET Core SignalR](xref:signalr/introduction) は、アプリへのリアルタイム Web 機能の追加を簡単にするライブラリです。 可能なかぎり、WebSocket が使用されます。
 

@@ -3,14 +3,14 @@ title: 'チュートリアル: ASP.NET Core の Razor ページの概要'
 author: rick-anderson
 description: このチュートリアル シリーズでは、ASP.NET Core で Razor ページを使用する方法を示します。 モデルの作成、Razor ページのコードの生成、Entity Framework Core と SQL Server を使用したデータ アクセス、検索機能の追加、入力検証の追加、および移行を使用したモデルの更新の方法について説明します。
 ms.author: riande
-ms.date: 07/25/2019
+ms.date: 11/12/2019
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: 0cc00cb85b6054752417b82c783cfd4c306aeda5
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: a8381dee05f267077a29999f3d8bbe6327c2b863
+ms.sourcegitcommit: 231780c8d7848943e5e9fd55e93f437f7e5a371d
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082578"
+ms.lasthandoff: 11/15/2019
+ms.locfileid: "74116154"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>チュートリアル: ASP.NET Core の Razor ページの概要
 
@@ -119,34 +119,7 @@ Visual Studio から、 **[ファイル]、[開く]** の順に選択し、*Razo
 
 ## <a name="run-the-app"></a>アプリを実行する
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
-
-* Ctrl + F5 キーを押して、デバッガーなしで実行します。
-
-  [!INCLUDE[](~/includes/trustCertVS.md)]
-
-  Visual Studio で [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) が開始され、アプリが実行されます。 アドレス バーには、`example.com` などではなく、`localhost:port#` が表示されます。 これは、`localhost` がローカル コンピューターの標準のホスト名であるためです。 localhost では、ローカル コンピューターからの Web 要求のみが処理されます。 Visual Studio が Web プロジェクトを作成する場合は、Web サーバーにランダム ポートが使用されます。
- 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
-
-  [!INCLUDE[](~/includes/trustCertVSC.md)]
-
-* **Ctrl + F5** キーを押して、デバッガーなしで実行します。
-
-  Visual Studio Code で [Kestrel](xref:fundamentals/servers/kestrel) が開始され、ブラウザーが起動して、`http://localhost:5001` に移動します。 アドレス バーには、`example.com` などではなく、`localhost:port#` が表示されます。 これは、`localhost` がローカル コンピューターの標準のホスト名であるためです。 localhost では、ローカル コンピューターからの Web 要求のみが処理されます。
-
-  
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
-
-  [!INCLUDE[](~/includes/trustCertMac.md)]
-
-* **Alt-Cmd-Enter** キーを押して、デバッガーなしで実行します。 または、メニュー バーに移動して [実行] > [デバッグなしで開始] を選択します。
-
-  Visual Studio は [Kestrel](xref:fundamentals/servers/kestrel) を開始し、ブラウザーを起動して、`http://localhost:5001` に移動します。
-
-<!-- End of VS tabs -->
-
----
+  [!INCLUDE[](~/includes/run-the-app.md)]
 
 ## <a name="examine-the-project-files"></a>プロジェクト ファイルを確認する
 

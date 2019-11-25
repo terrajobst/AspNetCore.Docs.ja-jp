@@ -5,14 +5,14 @@ description: モデル バインドとストリーミングを使用して、ASP
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/31/2019
+ms.date: 11/04/2019
 uid: mvc/models/file-uploads
-ms.openlocfilehash: 04e7533aa190a4875d3f66e8665fec16abec48b3
-ms.sourcegitcommit: 9e85c2562df5e108d7933635c830297f484bb775
+ms.openlocfilehash: b57ad4fe62de38085c11d7026d278cc6e0c565ce
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/04/2019
-ms.locfileid: "73462939"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963157"
 ---
 # <a name="upload-files-in-aspnet-core"></a>ASP.NET Core でファイルをアップロードする
 
@@ -214,7 +214,7 @@ ASP.NET Core では、小さいファイルの場合はバッファー モデル
 <a name="filename"></a>
 
 > [!WARNING]
-> <xref:Microsoft.AspNetCore.Http.IFormFile>の `FileName` プロパティは、表示とログ記録の目的以外に使用**しないでください**。 表示またはログ記録を行うときに、ファイル名を HTML エンコードします。 攻撃者は、完全パスまたは相対パスを含む悪意のあるファイル名を提供することがあります。 アプリケーションで次の処理を行う必要があります。
+> <xref:Microsoft.AspNetCore.Http.IFormFile> の `FileName` プロパティは、表示とログ記録の目的以外に使用**しないでください**。 表示またはログ記録を行うときに、ファイル名を HTML エンコードします。 攻撃者は、完全パスまたは相対パスを含む悪意のあるファイル名を提供することがあります。 アプリケーションで次の処理を行う必要があります。
 >
 > * ユーザーが指定したファイル名からパスを削除します。
 > * UI またはログ記録のために、HTML エンコードされ、パスが削除されたファイル名を保存します。
@@ -740,6 +740,10 @@ The request filtering module is configured to deny a request that exceeds the re
 ### <a name="null-reference-exception-with-iformfile"></a>IFormFile での null 参照例外
 
 コントローラーが <xref:Microsoft.AspNetCore.Http.IFormFile> を使用してアップロードされたファイルを受け取っても、値が `null` の場合は、HTML フォームで `multipart/form-data` に値 `enctype` が指定されていることを確認します。 この属性が `<form>` 要素で設定されていない場合、ファイルはアップロードされず、バインドされた <xref:Microsoft.AspNetCore.Http.IFormFile> 引数は `null` になります。 また、[フォーム データでのアップロードの名前がアプリの名前と一致する](#match-name-attribute-value-to-parameter-name-of-post-method)ことを確認します。
+
+### <a name="stream-was-too-long"></a>ストリームが長すぎる
+
+このトピックの例は、アップロードされたファイル コンテンツを保持するために <xref:System.IO.MemoryStream> に依存しています。 `int.MaxValue` のサイズ制限は `MemoryStream` です。 アプリのファイル アップロード シナリオで 50 MB を超えるファイル コンテンツを保持する必要がある場合は、アップロードされたファイルのコンテンツを 1 つの `MemoryStream` に依存することなく保持する別のアプローチを使用します。
 
 ::: moniker-end
 
@@ -1458,6 +1462,10 @@ The request filtering module is configured to deny a request that exceeds the re
 ### <a name="null-reference-exception-with-iformfile"></a>IFormFile での null 参照例外
 
 コントローラーが <xref:Microsoft.AspNetCore.Http.IFormFile> を使用してアップロードされたファイルを受け取っても、値が `null` の場合は、HTML フォームで `multipart/form-data` に値 `enctype` が指定されていることを確認します。 この属性が `<form>` 要素で設定されていない場合、ファイルはアップロードされず、バインドされた <xref:Microsoft.AspNetCore.Http.IFormFile> 引数は `null` になります。 また、[フォーム データでのアップロードの名前がアプリの名前と一致する](#match-name-attribute-value-to-parameter-name-of-post-method)ことを確認します。
+
+### <a name="stream-was-too-long"></a>ストリームが長すぎる
+
+このトピックの例は、アップロードされたファイル コンテンツを保持するために <xref:System.IO.MemoryStream> に依存しています。 `int.MaxValue` のサイズ制限は `MemoryStream` です。 アプリのファイル アップロード シナリオで 50 MB を超えるファイル コンテンツを保持する必要がある場合は、アップロードされたファイルのコンテンツを 1 つの `MemoryStream` に依存することなく保持する別のアプローチを使用します。
 
 ::: moniker-end
 

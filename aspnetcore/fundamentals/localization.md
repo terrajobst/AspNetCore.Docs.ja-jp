@@ -5,12 +5,12 @@ description: ASP.NET Core がコンテンツをさまざまな言語と文化に
 ms.author: riande
 ms.date: 01/14/2017
 uid: fundamentals/localization
-ms.openlocfilehash: 9ed133c93a9ec95c63869b710d120eca9fda1b6e
-ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
+ms.openlocfilehash: 36235e305037c0bbf20093327e2a0ff21b3de809
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72333701"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963667"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>ASP.NET Core のグローバリゼーションおよびローカリゼーション
 
@@ -166,6 +166,9 @@ Razor ビューの `@inject IViewLocalizer` を使用するリソース ファ�
 
 アセンブリのルート名前空間がアセンブリ名と異なると、[RootNamespace](/dotnet/api/microsoft.extensions.localization.rootnamespaceattribute?view=aspnetcore-2.1) 属性によってアセンブリのルート名前空間が提供されます。 
 
+> [!WARNING]
+> これは、プロジェクト名が有効な .NET 識別子でない場合に発生する可能性があります。 たとえば、`my-project-name.csproj` ではルート名前空間 `my_project_name` が使用されるので、アセンブリ名 `my-project-name` はこのエラーにつながります。 
+
 アセンブリのルート名前空間がアセンブリ名と異なる場合:
 
 * 既定では、ローカライズが機能しません。
@@ -197,7 +200,7 @@ using Microsoft.Extensions.Localization;
 
 ### <a name="generate-resource-files-with-visual-studio"></a>Visual Studio でリソース ファイルを生成する
 
-Visual Studio で、ファイル名にカルチャを指定せずにリソース ファイルを作成する場合 (たとえば、*Welcome.resx*)、Visual Studio は各文字列のプロパティを使用して、C# クラスを作成します。 通常、ASP.NET Core ではこれを行いません。 一般的に既定の *.resx* リソース ファイル (カルチャ名のない *.resx* ファイル) は使用しません。 カルチャ名を含む *.resx* ファイル (たとえば *Welcome.fr.resx*) を作成することをお勧めします。 カルチャ名を含む *.resx* ファイルを作成すると、Visual Studio はクラス ファイルを生成しません。 多くの開発者は既定の言語リソース ファイルを作成しないと予想されます。
+Visual Studio で、ファイル名にカルチャを指定せずにリソース ファイルを作成する場合 (たとえば、*Welcome.resx*)、Visual Studio は各文字列のプロパティを使用して、C# クラスを作成します。 通常、ASP.NET Core ではこれを行いません。 一般的に既定の *.resx* リソース ファイル (カルチャ名のない *.resx* ファイル) は使用しません。 カルチャ名を含む *.resx* ファイル (たとえば *Welcome.fr.resx*) を作成することをお勧めします。 カルチャ名を含む *.resx* ファイルを作成すると、Visual Studio はクラス ファイルを生成しません。
 
 ### <a name="add-other-cultures"></a>その他のカルチャを追加する
 
