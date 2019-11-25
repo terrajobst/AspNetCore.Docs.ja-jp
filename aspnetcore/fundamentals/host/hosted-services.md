@@ -5,14 +5,14 @@ description: ASP.NET Core でホステッド サービスを使用するバッ�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/26/2019
+ms.date: 11/19/2019
 uid: fundamentals/host/hosted-services
-ms.openlocfilehash: c1fbb5ae8ffc4ee506f42df6a4cbbe845b2b903d
-ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
+ms.openlocfilehash: da3c2679005714a3d82de94cf3bc3c809aa3500d
+ms.sourcegitcommit: 8157e5a351f49aeef3769f7d38b787b4386aad5f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72333655"
+ms.lasthandoff: 11/20/2019
+ms.locfileid: "74239734"
 ---
 # <a name="background-tasks-with-hosted-services-in-aspnet-core"></a>ASP.NET Core でホステッド サービスを使用するバックグラウンド タスク
 
@@ -28,22 +28,23 @@ ASP.NET Core では、バックグラウンド タスクを*ホステッド サ�
 
 [サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/hosted-services/samples/)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
-サンプル アプリには、2 つのバージョンが用意されています。
-
-* Web ホスト &ndash; Web ホストは、Web アプリをホストするのに役立ちます。 このトピックで示すコード例は、サンプルの Web ホスト バージョンからのものです。 詳細については、[Web ホスト](xref:fundamentals/host/web-host)のトピックをご覧ください。
-* 汎用ホスト &ndash; 汎用ホストは ASP.NET Core 2.1 の新機能です。 詳細については、[汎用ホスト](xref:fundamentals/host/generic-host)のトピックをご覧ください。
-
 ## <a name="worker-service-template"></a>ワーカー サービス テンプレート
 
-ASP.NET Core ワーカー サービス テンプレートは、実行時間が長いサービス アプリを作成する場合の出発点として利用できます。 ホステッド サービス アプリの基礎としてテンプレートを使用するには:
+ASP.NET Core ワーカー サービス テンプレートは、実行時間が長いサービス アプリを作成する場合の出発点として利用できます。 ワーカー サービス テンプレートから作成されたアプリで、そのプロジェクト ファイル内のワーカー SDK が指定されます。
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+```
+
+ホステッド サービス アプリの基礎としてテンプレートを使用するには:
 
 [!INCLUDE[](~/includes/worker-template-instructions.md)]
 
----
-
 ## <a name="package"></a>Package
 
-[Microsoft.Extensions.Hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting) パッケージへのパッケージ参照が、ASP.NET Core アプリに対して暗黙に追加されます。
+ワーカー サービス テンプレートに基づくアプリは `Microsoft.NET.Sdk.Worker` SDK を使用し、[Microsoft.Extensions.Hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting) パッケージへの明示的なパッケージ参照を含んでいます。 たとえば、サンプル アプリのプロジェクト ファイル (*BackgroundTasksSample.csproj*) を参照してください。
+
+`Microsoft.NET.Sdk.Web` SDK を使用する Web アプリの場合、[Microsoft.Extensions.Hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting) パッケージは共有フレームワークから暗黙的に参照されます。 アプリのプロジェクト ファイル内の明示的なパッケージ参照は必要ありません。
 
 ## <a name="ihostedservice-interface"></a>IHostedService インターフェイス
 
@@ -99,14 +100,13 @@ ASP.NET Core ワーカー サービス テンプレートは、実行時間が�
 
 ホステッド サービスは、アプリの起動時に一度アクティブ化され、アプリのシャットダウン時に正常にシャットダウンされます。 バックグラウンド タスクの実行中にエラーがスローされた場合、`StopAsync` が呼び出されていなくても `Dispose` を呼び出す必要があります。
 
-## <a name="backgroundservice"></a>BackgroundService
+## <a name="backgroundservice-base-class"></a>BackgroundService 基底クラス
 
-`BackgroundService` は、長期 <xref:Microsoft.Extensions.Hosting.IHostedService> を実装するための基底クラスです。 `BackgroundService` により、サービスのロジックを格納するための `ExecuteAsync(CancellationToken stoppingToken)` 抽象メソッドが提供されます。 [IHostedService.StopAsync](xref:Microsoft.Extensions.Hosting.IHostedService.StopAsync*) が呼び出されると、`stoppingToken` がトリガーされます。 このメソッドの実装では、バックグラウンド サービスの有効期間全体を表す `Task` が返されます。
+<xref:Microsoft.Extensions.Hosting.BackgroundService> は、長期 <xref:Microsoft.Extensions.Hosting.IHostedService> を実装するための基底クラスです。
 
-また、*必要に応じて*、サービスのスタートアップ コードとシャットダウン コードを実行するために、`IHostedService` で定義されているメソッドをオーバーライドします。
+[ExecuteAsync(CancellationToken)](xref:Microsoft.Extensions.Hosting.BackgroundService.ExecuteAsync*) は、バックグラウンド サービスを実行するために呼び出されます。 この実装では、バックグラウンド サービスの有効期間全体を表す <xref:System.Threading.Tasks.Task> が返されます。 `await` を呼び出すなどして [ExecuteAsync が非同期になる](https://github.com/aspnet/Extensions/issues/2149)まで、以降のサービスは開始されません。 `ExecuteAsync` では、長時間の初期化作業を実行しないようにしてください。 ホストは [StopAsync(CancellationToken)](xref:Microsoft.Extensions.Hosting.BackgroundService.StopAsync*) でブロックされ、`ExecuteAsync` の完了を待機します。
 
-* `StopAsync(CancellationToken cancellationToken)` &ndash; `StopAsync` は、アプリケーション ホストが正常なシャットダウンを実行しているときに呼び出されます。 `cancellationToken` は、ホストによって強制的にサービスを強制終了することが決定されたときに通知されます。 このメソッドがオーバーライドされた場合、サービスが正常にシャットダウンされるように、基本クラス メソッドを呼び出す (および `await` する) **必要があります**。
-* `StartAsync(CancellationToken cancellationToken)` &ndash; `StartAsync` は、バックグラウンド サービスを開始するために呼び出されます。 `cancellationToken` は、スタートアップ プロセスが中断された場合に通知されます。 この実装では、サービスのスタートアップ プロセスを表す `Task` が返されます。 この `Task` が完了するまで、これ以上のサービスは開始されません。 このメソッドがオーバーライドされた場合、サービスが正常に開始されるように、基本クラス メソッドを呼び出す (および `await` する) **必要があります**。
+[IHostedService.StopAsync](xref:Microsoft.Extensions.Hosting.IHostedService.StopAsync*) が呼び出されると、キャンセル トークンがトリガーされます。 サービスを正常にシャットダウンするためのキャンセル トークンが起動すると、`ExecuteAsync` の実装はすぐに終了します。 それ以外の場合は、シャットダウンのタイムアウト時にサービスが強制的にシャットダウンします。 詳細については、「[IHostedService インターフェイス](#ihostedservice-interface)」のセクションを参照してください。
 
 ## <a name="timed-background-tasks"></a>時間が指定されたバックグラウンド タスク
 
@@ -120,7 +120,7 @@ ASP.NET Core ワーカー サービス テンプレートは、実行時間が�
 
 ## <a name="consuming-a-scoped-service-in-a-background-task"></a>バックグラウンド タスクでスコープ サービスを使用する
 
-`BackgroundService` 内で[スコープ サービス](xref:fundamentals/dependency-injection#service-lifetimes)を使用するには、スコープを作成します。 既定では、ホステッド サービスのスコープは作成されません。
+[BackgroundService](#backgroundservice-base-class) 内で[スコープ サービス](xref:fundamentals/dependency-injection#service-lifetimes)を使用するには、スコープを作成します。 既定では、ホステッド サービスのスコープは作成されません。
 
 バックグラウンド タスクのスコープ サービスには、バックグラウンド タスクのロジックが含まれています。 次に例を示します。
 
@@ -176,11 +176,6 @@ ASP.NET Core では、バックグラウンド タスクを*ホステッド サ�
 * 連続して実行される、キューに格納されたバックグラウンド タスク。
 
 [サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/hosted-services/samples/)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
-
-サンプル アプリには、2 つのバージョンが用意されています。
-
-* Web ホスト &ndash; Web ホストは、Web アプリをホストするのに役立ちます。 このトピックで示すコード例は、サンプルの Web ホスト バージョンからのものです。 詳細については、[Web ホスト](xref:fundamentals/host/web-host)のトピックをご覧ください。
-* 汎用ホスト &ndash; 汎用ホストは ASP.NET Core 2.1 の新機能です。 詳細については、[汎用ホスト](xref:fundamentals/host/generic-host)のトピックをご覧ください。
 
 ## <a name="package"></a>Package
 
@@ -242,7 +237,7 @@ ASP.NET Core では、バックグラウンド タスクを*ホステッド サ�
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample/Services/BackgroundTaskQueue.cs?name=snippet1)]
 
-`QueueHostedService` では、キュー内のバックグラウンド タスクは、<xref:Microsoft.Extensions.Hosting.BackgroundService> としてデキューされ、実行されます。これは、長時間実行する `IHostedService` を構成するための基本クラスです。
+`QueueHostedService` では、キュー内のバックグラウンド タスクは [BackgroundService](#backgroundservice-base-class) としてデキューされ、実行されます。これは、長時間実行する `IHostedService` を構成するための基本クラスです。
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample/Services/QueuedHostedService.cs?name=snippet1&highlight=21,25)]
 
