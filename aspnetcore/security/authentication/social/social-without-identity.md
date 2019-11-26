@@ -63,7 +63,7 @@ ms.locfileid: "74289114"
 
 `SignOutAsync` の呼び出しで認証スキームが指定されていないことに注意してください。 アプリの `CookieAuthenticationDefaults.AuthenticationScheme` の `DefaultScheme` はフォールバックとして使用されます。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * <xref:security/authorization/simple>
 * <xref:security/authentication/social/additional-claims>
@@ -118,7 +118,7 @@ ms.locfileid: "74289114"
 
 `SignOutAsync` の呼び出しで認証スキームが指定されていないことに注意してください。 アプリの `CookieAuthenticationDefaults.AuthenticationScheme` の `DefaultScheme` はフォールバックとして使用されます。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * <xref:security/authorization/simple>
 * <xref:security/authentication/social/additional-claims>

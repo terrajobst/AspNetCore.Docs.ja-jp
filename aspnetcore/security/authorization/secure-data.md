@@ -1,7 +1,7 @@
 ---
-title: Create an ASP.NET Core app with user data protected by authorization
+title: 承認によって保護されたユーザー データと ASP.NET Core アプリを作成します。
 author: rick-anderson
-description: Learn how to create a Razor Pages app with user data protected by authorization. Includes HTTPS, authentication, security, ASP.NET Core Identity.
+description: 承認によって保護されたユーザー データと Razor ページ アプリを作成する方法について説明します。 HTTPS、認証、セキュリティ、ASP.NET Core Identity が含まれています。
 ms.author: riande
 ms.date: 12/18/2018
 ms.custom: mvc, seodec18
@@ -13,65 +13,65 @@ ms.contentlocale: ja-JP
 ms.lasthandoff: 11/20/2019
 ms.locfileid: "74239834"
 ---
-# <a name="create-an-aspnet-core-app-with-user-data-protected-by-authorization"></a>Create an ASP.NET Core app with user data protected by authorization
+# <a name="create-an-aspnet-core-app-with-user-data-protected-by-authorization"></a>承認によって保護されたユーザー データと ASP.NET Core アプリを作成します。
 
 作成者: [Rick Anderson](https://twitter.com/RickAndMSFT) および [Joe Audette](https://twitter.com/joeaudette)
 
 ::: moniker range="<= aspnetcore-1.1"
 
-See [this PDF](https://webpifeed.blob.core.windows.net/webpifeed/Partners/asp.net_repo_pdf_1-16-18.pdf) for the ASP.NET Core MVC version. The ASP.NET Core 1.1 version of this tutorial is in [this](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data) folder. The 1.1 ASP.NET Core sample is in the [samples](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/final2).
+ASP.NET Core MVC バージョンについては、[この PDF](https://webpifeed.blob.core.windows.net/webpifeed/Partners/asp.net_repo_pdf_1-16-18.pdf)を参照してください。 このチュートリアルの ASP.NET Core 1.1 バージョンは、[この](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data)フォルダーにあります。 1\.1 ASP.NET Core サンプルは、「」[のサンプルに](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/final2)含まれています。
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.0"
 
-See [this pdf](https://webpifeed.blob.core.windows.net/webpifeed/Partners/asp.net_repo_pdf_July16_18.pdf)
+[次の pdf](https://webpifeed.blob.core.windows.net/webpifeed/Partners/asp.net_repo_pdf_July16_18.pdf)を参照
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-3.0"
 
-This tutorial shows how to create an ASP.NET Core web app with user data protected by authorization. It displays a list of contacts that authenticated (registered) users have created. There are three security groups:
+このチュートリアルでは、承認によって保護されたユーザー データと ASP.NET Core web アプリを作成する方法を示します。 認証済み (登録済み) のユーザーの連絡先の一覧を表示を作成します。 これには 3 つのセキュリティ グループがあります。
 
-* **Registered users** can view all the approved data and can edit/delete their own data.
-* **Managers** can approve or reject contact data. Only approved contacts are visible to users.
-* **Administrators** can approve/reject and edit/delete any data.
+* **登録されているユーザー**は、すべての承認済みデータを表示したり、自分のデータを編集または削除したりできます。
+* **管理者**は、連絡先データを承認または拒否できます。 承認されたメンバーのみがユーザーに表示されます。
+* **管理者**は、任意のデータを承認/拒否したり、編集/削除したりできます。
 
-The images in this document don't exactly match the latest templates.
+このドキュメントの画像は、最新のテンプレートと完全には一致しません。
 
-In the following image, user Rick (`rick@example.com`) is signed in. Rick can only view approved contacts and **Edit**/**Delete**/**Create New** links for his contacts. Only the last record, created by Rick, displays **Edit** and **Delete** links. Other users won't see the last record until a manager or administrator changes the status to "Approved".
+次の図では、user Rick (`rick@example.com`) がサインインしています。 Rick は、承認された連絡先を表示して**編集**/**削除**/、連絡先の新しいリンクを**作成**することのみができます。 Rick によって作成された最後のレコードにのみ、**編集**および**削除**のリンクが表示されます。 他のユーザーは、管理者は、状態を"Approved"に変わるまで、最後のレコードを表示されません。
 
-![Screenshot showing Rick signed in](secure-data/_static/rick.png)
+![サインインして Rick を示すスクリーン ショット](secure-data/_static/rick.png)
 
-In the following image, `manager@contoso.com` is signed in and in the manager's role:
+次の図では、`manager@contoso.com` がサインインし、マネージャーのロールに含まれています。
 
-![Screenshot showing manager@contoso.com signed in](secure-data/_static/manager1.png)
+![サインイン manager@contoso.com を示すスクリーンショット](secure-data/_static/manager1.png)
 
-The following image shows the managers details view of a contact:
+次の図は、連絡先の詳細ビューをマネージャーには。
 
-![Manager's view of a contact](secure-data/_static/manager.png)
+![連絡先のマネージャーの表示](secure-data/_static/manager.png)
 
-The **Approve** and **Reject** buttons are only displayed for managers and administrators.
+**[承認]** ボタンと **[却下]** ボタンは、マネージャーと管理者に対してのみ表示されます。
 
-In the following image, `admin@contoso.com` is signed in and in the administrator's role:
+次の図では、`admin@contoso.com` がサインインし、管理者のロールに含まれています。
 
-![Screenshot showing admin@contoso.com signed in](secure-data/_static/admin.png)
+![サインイン admin@contoso.com を示すスクリーンショット](secure-data/_static/admin.png)
 
-The administrator has all privileges. She can read/edit/delete any contact and change the status of contacts.
+管理者は、すべての特権を持ちます。 彼女は、読み取り/編集/削除のいずれかの連絡先をことができ、連絡先の状態を変更します。
 
-The app was created by [scaffolding](xref:tutorials/first-mvc-app/adding-model#scaffold-the-movie-model) the following `Contact` model:
+アプリは、次の `Contact` モデルを[スキャフォールディング](xref:tutorials/first-mvc-app/adding-model#scaffold-the-movie-model)することによって作成されました。
 
 [!code-csharp[](secure-data/samples/starter2.1/Models/Contact.cs?name=snippet1)]
 
-The sample contains the following authorization handlers:
+サンプルには、次の承認ハンドラーが含まれています。
 
-* `ContactIsOwnerAuthorizationHandler`: Ensures that a user can only edit their data.
-* `ContactManagerAuthorizationHandler`: Allows managers to approve or reject contacts.
-* `ContactAdministratorsAuthorizationHandler`: Allows administrators to approve or reject contacts and to edit/delete contacts.
+* `ContactIsOwnerAuthorizationHandler`: ユーザーがデータを編集できるようになります。
+* `ContactManagerAuthorizationHandler`: 管理者が連絡先を承認または拒否できるようにします。
+* `ContactAdministratorsAuthorizationHandler`: 管理者は、連絡先を承認または拒否したり、連絡先を編集または削除したりできます。
 
-## <a name="prerequisites"></a>必要条件
+## <a name="prerequisites"></a>前提条件
 
-This tutorial is advanced. You should be familiar with:
+このチュートリアルは、高度なです。 理解しておく必要があります。
 
 * [ASP.NET Core](xref:tutorials/first-mvc-app/start-mvc)
 * [認証](xref:security/authentication/identity)
@@ -79,260 +79,260 @@ This tutorial is advanced. You should be familiar with:
 * [承認](xref:security/authorization/introduction)
 * [Entity Framework Core](xref:data/ef-mvc/intro)
 
-## <a name="the-starter-and-completed-app"></a>The starter and completed app
+## <a name="the-starter-and-completed-app"></a>Starter および完成したアプリ
 
-[Download](xref:index#how-to-download-a-sample) the [completed](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples) app. [Test](#test-the-completed-app) the completed app so you become familiar with its security features.
+完成し[た](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples)アプリを[ダウンロード](xref:index#how-to-download-a-sample)します。 完成したアプリを[テスト](#test-the-completed-app)して、セキュリティ機能に慣れるようにします。
 
-### <a name="the-starter-app"></a>The starter app
+### <a name="the-starter-app"></a>スターター アプリ
 
-[Download](xref:index#how-to-download-a-sample) the [starter](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/) app.
+[スターター](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/)アプリを[ダウンロード](xref:index#how-to-download-a-sample)します。
 
-Run the app, tap the **ContactManager** link, and verify you can create, edit, and delete a contact.
+アプリを実行し、 **[Contactmanager]** リンクをタップして、連絡先を作成、編集、および削除できることを確認します。
 
-## <a name="secure-user-data"></a>Secure user data
+## <a name="secure-user-data"></a>セキュリティで保護されたユーザー データ
 
-The following sections have all the major steps to create the secure user data app. You may find it helpful to refer to the completed project.
+次のセクションでは、セキュリティで保護されたユーザー データ アプリを作成するすべての主要な手順があります。 完成したプロジェクトを参照すると便利です。
 
-### <a name="tie-the-contact-data-to-the-user"></a>Tie the contact data to the user
+### <a name="tie-the-contact-data-to-the-user"></a>ユーザーに連絡先データを関連付ける
 
-Use the ASP.NET [Identity](xref:security/authentication/identity) user ID to ensure users can edit their data, but not other users data. Add `OwnerID` and `ContactStatus` to the `Contact` model:
+ASP.NET [id](xref:security/authentication/identity)ユーザー id を使用すると、ユーザーがデータを編集できるようになりますが、他のユーザーデータは編集できません。 `OwnerID` と `ContactStatus` を `Contact` モデルに追加します。
 
 [!code-csharp[](secure-data/samples/final3/Models/Contact.cs?name=snippet1&highlight=5-6,16-999)]
 
-`OwnerID` is the user's ID from the `AspNetUser` table in the [Identity](xref:security/authentication/identity) database. The `Status` field determines if a contact is viewable by general users.
+`OwnerID` は、 [id](xref:security/authentication/identity)データベースの `AspNetUser` テーブルのユーザー ID です。 [`Status`] フィールドによって、連絡先が一般ユーザーに表示されるかどうかが決まります。
 
-Create a new migration and update the database:
+新しい移行を作成し、データベースを更新します。
 
 ```dotnetcli
 dotnet ef migrations add userID_Status
 dotnet ef database update
 ```
 
-### <a name="add-role-services-to-identity"></a>Add Role services to Identity
+### <a name="add-role-services-to-identity"></a>役割サービスの Id を追加します。
 
-Append [AddRoles](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1) to add Role services:
+役割サービスを追加するには、 [Addroles](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1)を追加します。
 
 [!code-csharp[](secure-data/samples/final3/Startup.cs?name=snippet2&highlight=9)]
 
-### <a name="require-authenticated-users"></a>Require authenticated users
+### <a name="require-authenticated-users"></a>認証されたユーザーが必要です。
 
-Set the default authentication policy to require users to be authenticated:
+ユーザー認証を必要とする既定の認証ポリシーを設定します。
 
 [!code-csharp[](secure-data/samples/final3/Startup.cs?name=snippet&highlight=15-99)] 
 
- You can opt out of authentication at the Razor Page, controller, or action method level with the `[AllowAnonymous]` attribute. Setting the default authentication policy to require users to be authenticated protects newly added Razor Pages and controllers. Having authentication required by default is more secure than relying on new controllers and Razor Pages to include the `[Authorize]` attribute.
+ Razor ページ、コントローラー、またはアクションメソッドレベルで、`[AllowAnonymous]` 属性を使用して認証をオプトアウトできます。 ユーザー認証を必要とする既定の認証ポリシーの設定は、新しく追加された Razor ページとコント ローラーを保護します。 既定で認証が必要になるのは、新しいコントローラーに依存していて、Razor Pages `[Authorize]` 属性を含めるよりも安全です。
 
-Add [AllowAnonymous](/dotnet/api/microsoft.aspnetcore.authorization.allowanonymousattribute) to the Index and Privacy pages so anonymous users can get information about the site before they register.
+匿名ユーザーが登録前にサイトに関する情報を取得できるように、 [Allowanonymous](/dotnet/api/microsoft.aspnetcore.authorization.allowanonymousattribute)をインデックスおよびプライバシーページに追加します。
 
 [!code-csharp[](secure-data/samples/final3/Pages/Index.cshtml.cs?highlight=1,7)]
 
-### <a name="configure-the-test-account"></a>Configure the test account
+### <a name="configure-the-test-account"></a>テスト アカウントを構成します。
 
-The `SeedData` class creates two accounts: administrator and manager. Use the [Secret Manager tool](xref:security/app-secrets) to set a password for these accounts. Set the password from the project directory (the directory containing *Program.cs*):
+`SeedData` クラスは、管理者とマネージャーの2つのアカウントを作成します。 これらのアカウントのパスワードを設定するには、[シークレットマネージャーツール](xref:security/app-secrets)を使用します。 プロジェクトディレクトリ ( *Program.cs*を含むディレクトリ) のパスワードを設定します。
 
 ```dotnetcli
 dotnet user-secrets set SeedUserPW <PW>
 ```
 
-If a strong password is not specified, an exception is thrown when `SeedData.Initialize` is called.
+強力なパスワードが指定されていない場合、`SeedData.Initialize` が呼び出されると例外がスローされます。
 
-Update `Main` to use the test password:
+テストパスワードを使用するように `Main` を更新します。
 
 [!code-csharp[](secure-data/samples/final3/Program.cs?name=snippet)]
 
-### <a name="create-the-test-accounts-and-update-the-contacts"></a>Create the test accounts and update the contacts
+### <a name="create-the-test-accounts-and-update-the-contacts"></a>テスト アカウントを作成し、連絡先の更新
 
-Update the `Initialize` method in the `SeedData` class to create the test accounts:
+`SeedData` クラスの `Initialize` メソッドを更新して、テストアカウントを作成します。
 
 [!code-csharp[](secure-data/samples/final3/Data/SeedData.cs?name=snippet_Initialize)]
 
-Add the administrator user ID and `ContactStatus` to the contacts. Make one of the contacts "Submitted" and one "Rejected". Add the user ID and status to all the contacts. Only one contact is shown:
+管理者のユーザー ID と `ContactStatus` を連絡先に追加します。 「送信済み」と「拒否」の 1 つの連絡先を作成します。 すべての連絡先に、ユーザー ID と状態を追加します。 1 人だけが表示されます。
 
 [!code-csharp[](secure-data/samples/final3/Data/SeedData.cs?name=snippet1&highlight=17,18)]
 
-## <a name="create-owner-manager-and-administrator-authorization-handlers"></a>Create owner, manager, and administrator authorization handlers
+## <a name="create-owner-manager-and-administrator-authorization-handlers"></a>所有者、マネージャー、および管理者の承認ハンドラーを作成します。
 
-Create a `ContactIsOwnerAuthorizationHandler` class in the *Authorization* folder. The `ContactIsOwnerAuthorizationHandler` verifies that the user acting on a resource owns the resource.
+*承認*フォルダーに `ContactIsOwnerAuthorizationHandler` クラスを作成します。 `ContactIsOwnerAuthorizationHandler` は、リソースに対して動作しているユーザーがリソースを所有していることを確認します。
 
 [!code-csharp[](secure-data/samples/final3/Authorization/ContactIsOwnerAuthorizationHandler.cs)]
 
-The `ContactIsOwnerAuthorizationHandler` calls [context.Succeed](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.succeed#Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_Succeed_Microsoft_AspNetCore_Authorization_IAuthorizationRequirement_) if the current authenticated user is the contact owner. Authorization handlers generally:
+`ContactIsOwnerAuthorizationHandler` は[コンテキストを呼び出します。](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.succeed#Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_Succeed_Microsoft_AspNetCore_Authorization_IAuthorizationRequirement_)現在の認証済みユーザーが連絡先の所有者である場合は成功します。 承認ハンドラー通常。
 
-* Return `context.Succeed` when the requirements are met.
-* Return `Task.CompletedTask` when requirements aren't met. `Task.CompletedTask` is not success or failure&mdash;it allows other authorization handlers to run.
+* 要件が満たされた場合に `context.Succeed` を返します。
+* 要件を満たしていない場合は `Task.CompletedTask` を返します。 `Task.CompletedTask` は成功でも失敗でも&mdash;他の承認ハンドラーの実行を許可します。
 
-If you need to explicitly fail, return [context.Fail](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.fail).
+明示的に失敗する必要がある場合は、コンテキストを返し[ます。失敗](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.fail)。
 
-The app allows contact owners to edit/delete/create their own data. `ContactIsOwnerAuthorizationHandler` doesn't need to check the operation passed in the requirement parameter.
+アプリは、独自のデータを編集/削除/作成所有者が連絡先にできます。 `ContactIsOwnerAuthorizationHandler` は、要件パラメーターで渡された操作を確認する必要はありません。
 
-### <a name="create-a-manager-authorization-handler"></a>Create a manager authorization handler
+### <a name="create-a-manager-authorization-handler"></a>マネージャーの承認ハンドラーを作成します。
 
-Create a `ContactManagerAuthorizationHandler` class in the *Authorization* folder. The `ContactManagerAuthorizationHandler` verifies the user acting on the resource is a manager. Only managers can approve or reject content changes (new or changed).
+*承認*フォルダーに `ContactManagerAuthorizationHandler` クラスを作成します。 `ContactManagerAuthorizationHandler` は、リソースに対して動作しているユーザーがマネージャーであることを確認します。 管理者だけでは、承認したり、(新規または変更された) コンテンツの変更を拒否することができます。
 
 [!code-csharp[](secure-data/samples/final3/Authorization/ContactManagerAuthorizationHandler.cs)]
 
-### <a name="create-an-administrator-authorization-handler"></a>Create an administrator authorization handler
+### <a name="create-an-administrator-authorization-handler"></a>管理者の承認ハンドラーを作成します。
 
-Create a `ContactAdministratorsAuthorizationHandler` class in the *Authorization* folder. The `ContactAdministratorsAuthorizationHandler` verifies the user acting on the resource is an administrator. Administrator can do all operations.
+*承認*フォルダーに `ContactAdministratorsAuthorizationHandler` クラスを作成します。 `ContactAdministratorsAuthorizationHandler` は、リソースに対して動作しているユーザーが管理者であることを確認します。 管理者は、すべての操作を実行できます。
 
 [!code-csharp[](secure-data/samples/final3/Authorization/ContactAdministratorsAuthorizationHandler.cs)]
 
-## <a name="register-the-authorization-handlers"></a>Register the authorization handlers
+## <a name="register-the-authorization-handlers"></a>承認ハンドラーを登録します。
 
-Services using Entity Framework Core must be registered for [dependency injection](xref:fundamentals/dependency-injection) using [AddScoped](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions). The `ContactIsOwnerAuthorizationHandler` uses ASP.NET Core [Identity](xref:security/authentication/identity), which is built on Entity Framework Core. Register the handlers with the service collection so they're available to the `ContactsController` through [dependency injection](xref:fundamentals/dependency-injection). Add the following code to the end of `ConfigureServices`:
+Entity Framework Core を使用するサービスは、 [Addscoped](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions)を使用して[依存関係の挿入](xref:fundamentals/dependency-injection)に登録する必要があります。 `ContactIsOwnerAuthorizationHandler` は Entity Framework Core 上に構築された ASP.NET Core [id](xref:security/authentication/identity)を使用します。 サービスコレクションにハンドラーを登録して、[依存関係の挿入](xref:fundamentals/dependency-injection)によって `ContactsController` で使用できるようにします。 `ConfigureServices`の末尾に次のコードを追加します。
 
 [!code-csharp[](secure-data/samples/final3/Startup.cs?name=snippet_defaultPolicy&highlight=23-99)]
 
-`ContactAdministratorsAuthorizationHandler` and `ContactManagerAuthorizationHandler` are added as singletons. They're singletons because they don't use EF and all the information needed is in the `Context` parameter of the `HandleRequirementAsync` method.
+`ContactAdministratorsAuthorizationHandler` と `ContactManagerAuthorizationHandler` はシングルトンとして追加されます。 EF を使用せず、必要なすべての情報が `HandleRequirementAsync` メソッドの `Context` パラメーターに含まれているため、これらはシングルトンです。
 
-## <a name="support-authorization"></a>Support authorization
+## <a name="support-authorization"></a>承認をサポートします。
 
-In this section, you update the Razor Pages and add an operations requirements class.
+このセクションでは、Razor ページを更新し、操作の要件クラスを追加します。
 
-### <a name="review-the-contact-operations-requirements-class"></a>Review the contact operations requirements class
+### <a name="review-the-contact-operations-requirements-class"></a>連絡先の操作の要件のクラスを確認してください。
 
-Review the `ContactOperations` class. This class contains the requirements the app supports:
+`ContactOperations` クラスを確認します。 このクラスには、要件が含まれています。 アプリがサポートされます。
 
 [!code-csharp[](secure-data/samples/final3/Authorization/ContactOperations.cs)]
 
-### <a name="create-a-base-class-for-the-contacts-razor-pages"></a>Create a base class for the Contacts Razor Pages
+### <a name="create-a-base-class-for-the-contacts-razor-pages"></a>連絡先の Razor ページの基本クラスを作成します。
 
-Create a base class that contains the services used in the contacts Razor Pages. The base class puts the initialization code in one location:
+連絡先の Razor ページで使用されるサービスを含む基本クラスを作成します。 基底クラスでは、1 つの場所に、初期化コードが配置します。
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/DI_BasePageModel.cs)]
 
-上記のコードでは次の操作が行われます。
+上のコードでは以下の操作が行われます。
 
-* Adds the `IAuthorizationService` service to access to the authorization handlers.
-* Adds the Identity `UserManager` service.
+* 承認ハンドラーにアクセスするための `IAuthorizationService` サービスを追加します。
+* Id `UserManager` サービスを追加します。
 * `ApplicationDbContext` を追加します。
 
-### <a name="update-the-createmodel"></a>Update the CreateModel
+### <a name="update-the-createmodel"></a>CreateModel の更新します。
 
-Update the create page model constructor to use the `DI_BasePageModel` base class:
+Create page model コンストラクターを更新して、`DI_BasePageModel` 基底クラスを使用するようにします。
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/Create.cshtml.cs?name=snippetCtor)]
 
-Update the `CreateModel.OnPostAsync` method to:
+`CreateModel.OnPostAsync` メソッドを次のように更新します。
 
-* Add the user ID to the `Contact` model.
-* Call the authorization handler to verify the user has permission to create contacts.
+* `Contact` モデルにユーザー ID を追加します。
+* ユーザーが連絡先を作成するためのアクセス許可を確認する認証ハンドラーを呼び出します。
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/Create.cshtml.cs?name=snippet_Create)]
 
-### <a name="update-the-indexmodel"></a>Update the IndexModel
+### <a name="update-the-indexmodel"></a>更新プログラム、IndexModel
 
-Update the `OnGetAsync` method so only approved contacts are shown to general users:
+`OnGetAsync` メソッドを更新して、承認された連絡先だけが一般ユーザーに表示されるようにします。
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/Index.cshtml.cs?name=snippet)]
 
-### <a name="update-the-editmodel"></a>Update the EditModel
+### <a name="update-the-editmodel"></a>更新プログラム、EditModel
 
-Add an authorization handler to verify the user owns the contact. Because resource authorization is being validated, the `[Authorize]` attribute is not enough. The app doesn't have access to the resource when attributes are evaluated. Resource-based authorization must be imperative. Checks must be performed once the app has access to the resource, either by loading it in the page model or by loading it within the handler itself. You frequently access the resource by passing in the resource key.
+ユーザーが連絡先を所有していることを確認するための承認ハンドラーを追加します。 リソース承認が検証されているため、`[Authorize]` 属性では不十分です。 アプリは、属性が評価されたときに、リソースへのアクセスにすることがありません。 リソース ベースの承認は、命令型である必要があります。 ページ モデルに読み込んで、または読み込みハンドラー自体内で、アプリが、リソースへのアクセスを持つ、チェックを実行する必要があります。 リソース キーを渡すことで、リソースを頻繁にアクセスするとします。
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/Edit.cshtml.cs?name=snippet)]
 
-### <a name="update-the-deletemodel"></a>Update the DeleteModel
+### <a name="update-the-deletemodel"></a>更新プログラム、DeleteModel
 
-Update the delete page model to use the authorization handler to verify the user has delete permission on the contact.
+承認ハンドラーを使用して、ユーザーが連絡先に削除するアクセス許可を持ってことを確認する delete ページ モデルを更新します。
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/Delete.cshtml.cs?name=snippet)]
 
-## <a name="inject-the-authorization-service-into-the-views"></a>Inject the authorization service into the views
+## <a name="inject-the-authorization-service-into-the-views"></a>承認サービスをビューに挿入します。
 
-Currently, the UI shows edit and delete links for contacts the user can't modify.
+現時点では、UI の表示では、編集し、ユーザーが変更できない連絡先へのリンクを削除します。
 
-Inject the authorization service in the *Pages/_ViewImports.cshtml* file so it's available to all views:
+*ページ/_ViewImports*ファイルに承認サービスを挿入して、すべてのビューで使用できるようにします。
 
 [!code-cshtml[](secure-data/samples/final3/Pages/_ViewImports.cshtml?highlight=6-99)]
 
-The preceding markup adds several `using` statements.
+上記のマークアップでは、いくつかの `using` ステートメントが追加されます。
 
-Update the **Edit** and **Delete** links in *Pages/Contacts/Index.cshtml* so they're only rendered for users with the appropriate permissions:
+*Pages/Contacts/Index. cshtml*の**編集**と**削除**のリンクを更新して、適切なアクセス許可を持つユーザーにのみ表示されるようにします。
 
 [!code-cshtml[](secure-data/samples/final3/Pages/Contacts/Index.cshtml?highlight=34-36,62-999)]
 
 > [!WARNING]
-> Hiding links from users that don't have permission to change data doesn't secure the app. Hiding links makes the app more user-friendly by displaying only valid links. Users can hack the generated URLs to invoke edit and delete operations on data they don't own. The Razor Page or controller must enforce access checks to secure the data.
+> 変更データへのアクセス許可がないユーザーからのリンクを非表示と、アプリをセキュリティで保護しません。 リンクを非表示アプリよりユーザー フレンドリな唯一の有効なリンクを表示することで。 ユーザーは、編集を呼び出すし、所有していないデータの操作を削除するには、生成された Url を切断できます。 Razor ページまたはコント ローラーは、データを保護するアクセス チェックを適用する必要があります。
 
-### <a name="update-details"></a>Update Details
+### <a name="update-details"></a>更新プログラムの詳細
 
-Update the details view so managers can approve or reject contacts:
+マネージャーが承認または連絡先を拒否するために、詳細ビューを更新します。
 
 [!code-cshtml[](secure-data/samples/final3/Pages/Contacts/Details.cshtml?name=snippet)]
 
-Update the details page model:
+詳細のページ モデルを更新します。
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/Details.cshtml.cs?name=snippet)]
 
-## <a name="add-or-remove-a-user-to-a-role"></a>Add or remove a user to a role
+## <a name="add-or-remove-a-user-to-a-role"></a>追加またはロールにユーザーを削除します。
 
-See [this issue](https://github.com/aspnet/AspNetCore.Docs/issues/8502) for information on:
+次の情報については、[この問題](https://github.com/aspnet/AspNetCore.Docs/issues/8502)を参照してください。
 
-* Removing privileges from a user. For example, muting a user in a chat app.
-* Adding privileges to a user.
+* ユーザーから権限を削除しています。 たとえば、チャットアプリでユーザーのミュートを行います。
+* ユーザーに特権を追加します。
 
 <a name="challenge"></a>
 
-## <a name="differences-between-challenge-and-forbid"></a>Differences between Challenge and Forbid
+## <a name="differences-between-challenge-and-forbid"></a>チャレンジと禁止の違い
 
-This app sets the default policy to [require authenticated users](#require-authenticated-users). The following code allows anonymous users. Anonymous users are allowed to show the differences between Challenge vs Forbid.
+このアプリでは、認証された[ユーザーを要求](#require-authenticated-users)する既定のポリシーを設定します。 次のコードでは、匿名ユーザーを許可します。 匿名ユーザーは、チャレンジと禁止の違いを示すことができます。
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/Details2.cshtml.cs?name=snippet)]
 
 上のコードでは以下の操作が行われます。
 
-* When the user is **not** authenticated, a `ChallengeResult` is returned. When a `ChallengeResult` is returned, the user is redirected to the sign-in page.
-* When the user is authenticated, but not authorized, a `ForbidResult` is returned. When a `ForbidResult` is returned, the user is redirected to the access denied page.
+* ユーザーが認証**されていない**場合は、`ChallengeResult` が返されます。 `ChallengeResult` が返されると、ユーザーはサインインページにリダイレクトされます。
+* ユーザーが認証されているが承認されていない場合、`ForbidResult` が返されます。 `ForbidResult` が返されると、ユーザーは [アクセス拒否] ページにリダイレクトされます。
 
-## <a name="test-the-completed-app"></a>Test the completed app
+## <a name="test-the-completed-app"></a>完成したアプリをテストします。
 
-If you haven't already set a password for seeded user accounts, use the [Secret Manager tool](xref:security/app-secrets#secret-manager) to set a password:
+シードされたユーザーアカウントのパスワードをまだ設定していない場合は、[シークレットマネージャーツール](xref:security/app-secrets#secret-manager)を使用してパスワードを設定します。
 
-* Choose a strong password: Use eight or more characters and at least one upper-case character, number, and symbol. For example, `Passw0rd!` meets the strong password requirements.
-* Execute the following command from the project's folder, where `<PW>` is the password:
+* 強力なパスワードを選択します。 8 を使用して、または詳細文字と少なくとも 1 つの大文字の文字、番号、およびシンボル。 たとえば、`Passw0rd!` は強力なパスワードの要件を満たしています。
+* プロジェクトのフォルダーから次のコマンドを実行します。 `<PW>` はパスワードです。
 
   ```dotnetcli
   dotnet user-secrets set SeedUserPW <PW>
   ```
 
-If the app has contacts:
+場合は、アプリでは、連絡先があります。
 
-* Delete all of the records in the `Contact` table.
-* Restart the app to seed the database.
+* `Contact` テーブル内のすべてのレコードを削除します。
+* データベースをシードするアプリを再起動します。
 
-An easy way to test the completed app is to launch three different browsers (or incognito/InPrivate sessions). In one browser, register a new user (for example, `test@example.com`). Sign in to each browser with a different user. Verify the following operations:
+完成したアプリをテストする簡単な方法では、次の 3 つの異なるブラウザー (または incognito/inprivate ブラウズ セッション) を起動します。 1つのブラウザーで、新しいユーザーを登録します (たとえば、`test@example.com`)。 ブラウザーごとに別のユーザーでサインインします。 次の操作を確認します。
 
-* Registered users can view all of the approved contact data.
-* Registered users can edit/delete their own data.
-* Managers can approve/reject contact data. The `Details` view shows **Approve** and **Reject** buttons.
-* Administrators can approve/reject and edit/delete all data.
+* 登録済みユーザーには、すべての承認済みの連絡先データを表示できます。
+* 登録済みユーザーは編集/削除が自分のデータ。
+* 管理者では、連絡先データの承認または却下をします。 `Details` ビューには、 **[承認]** ボタンと **[却下]** ボタンが表示されます。
+* 管理者承認または却下して編集/削除のすべてのデータ。
 
-| ユーザー                | Seeded by the app | オプション                                  |
+| ユーザー                | アプリによってシード処理 | オプション                                  |
 | ------------------- | :---------------: | ---------------------------------------- |
-| test@example.com    | Ｘ                | Edit/delete the own data.                |
-| manager@contoso.com | [はい]               | Approve/reject and edit/delete own data. |
-| admin@contoso.com   | [はい]               | Approve/reject and edit/delete all data. |
+| test@example.com    | いいえ                | 独自のデータを編集/削除します。                |
+| manager@contoso.com | はい               | 承認または却下と編集/削除は、データを所有します。 |
+| admin@contoso.com   | はい               | 承認または却下し、すべてのデータの編集/削除します。 |
 
-Create a contact in the administrator's browser. Copy the URL for delete and edit from the administrator contact. Paste these links into the test user's browser to verify the test user can't perform these operations.
+管理者のブラウザーで連絡先を作成します。 削除の URL をコピーし、管理者の連絡先から管理者を編集します。 テスト ユーザーのブラウザー テスト ユーザーがこれらの操作を実行できないことを確認するには、これらのリンクを貼り付けます。
 
-## <a name="create-the-starter-app"></a>Create the starter app
+## <a name="create-the-starter-app"></a>スターター アプリを作成します。
 
-* Create a Razor Pages app named "ContactManager"
-  * Create the app with **Individual User Accounts**.
-  * Name it "ContactManager" so the namespace matches the namespace used in the sample.
-  * `-uld` specifies LocalDB instead of SQLite
+* 「ContactManager」という名前の Razor ページ アプリの作成
+  * **個々のユーザーアカウント**を使用してアプリを作成します。
+  * ファイル名「ContactManager」名前空間サンプルで使用する名前空間が一致するようにします。
+  * `-uld` は SQLite ではなく LocalDB を指定します。
 
   ```dotnetcli
   dotnet new webapp -o ContactManager -au Individual -uld
   ```
 
-* Add *Models/Contact.cs*:
+* *モデル/Contact を追加します。*
 
   [!code-csharp[](secure-data/samples/starter2.1/Models/Contact.cs?name=snippet1)]
 
-* Scaffold the `Contact` model.
-* Create initial migration and update the database:
+* `Contact` モデルをスキャフォールディングします。
+* 最初の移行を作成し、データベースを更新します。
 
 ```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
@@ -343,71 +343,71 @@ dotnet ef migrations add initial
 dotnet ef database update
 ```
 
-If you experience a bug with the `dotnet aspnet-codegenerator razorpage` command, see [this GitHub issue](https://github.com/aspnet/Scaffolding/issues/984).
+`dotnet aspnet-codegenerator razorpage` コマンドでバグが発生した場合は、 [GitHub の問題](https://github.com/aspnet/Scaffolding/issues/984)を参照してください。
 
-* Update the **ContactManager** anchor in the *Pages/Shared/_Layout.cshtml* file:
+* *Pages/Shared/_Layout cshtml*ファイルで**contactmanager**アンカーを更新します。
 
  ```cshtml
 <a class="navbar-brand" asp-area="" asp-page="/Contacts/Index">ContactManager</a>
   ```
 
-* Test the app by creating, editing, and deleting a contact
+* 作成、編集、および連絡先を削除して、アプリをテストします。
 
 ### <a name="seed-the-database"></a>データベースのシード
 
-Add the [SeedData](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter3/Data/SeedData.cs) class to the *Data* folder:
+[SeedData](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter3/Data/SeedData.cs)クラスを*Data*フォルダーに追加します。
 
 [!code-csharp[](secure-data/samples/starter3/Data/SeedData.cs)]
 
-Call `SeedData.Initialize` from `Main`:
+`Main`から `SeedData.Initialize` を呼び出します。
 
 [!code-csharp[](secure-data/samples/starter3/Program.cs)]
 
-Test that the app seeded the database. If there are any rows in the contact DB, the seed method doesn't run.
+アプリが、データベースをシード処理をテストします。 DB の連絡先に行がある場合は、seed メソッドは実行されません。
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1 < aspnetcore-3.0"
 
-This tutorial shows how to create an ASP.NET Core web app with user data protected by authorization. It displays a list of contacts that authenticated (registered) users have created. There are three security groups:
+このチュートリアルでは、承認によって保護されたユーザー データと ASP.NET Core web アプリを作成する方法を示します。 認証済み (登録済み) のユーザーの連絡先の一覧を表示を作成します。 これには 3 つのセキュリティ グループがあります。
 
-* **Registered users** can view all the approved data and can edit/delete their own data.
-* **Managers** can approve or reject contact data. Only approved contacts are visible to users.
-* **Administrators** can approve/reject and edit/delete any data.
+* **登録されているユーザー**は、すべての承認済みデータを表示したり、自分のデータを編集または削除したりできます。
+* **管理者**は、連絡先データを承認または拒否できます。 承認されたメンバーのみがユーザーに表示されます。
+* **管理者**は、任意のデータを承認/拒否したり、編集/削除したりできます。
 
-In the following image, user Rick (`rick@example.com`) is signed in. Rick can only view approved contacts and **Edit**/**Delete**/**Create New** links for his contacts. Only the last record, created by Rick, displays **Edit** and **Delete** links. Other users won't see the last record until a manager or administrator changes the status to "Approved".
+次の図では、user Rick (`rick@example.com`) がサインインしています。 Rick は、承認された連絡先を表示して**編集**/**削除**/、連絡先の新しいリンクを**作成**することのみができます。 Rick によって作成された最後のレコードにのみ、**編集**および**削除**のリンクが表示されます。 他のユーザーは、管理者は、状態を"Approved"に変わるまで、最後のレコードを表示されません。
 
-![Screenshot showing Rick signed in](secure-data/_static/rick.png)
+![サインインして Rick を示すスクリーン ショット](secure-data/_static/rick.png)
 
-In the following image, `manager@contoso.com` is signed in and in the manager's role:
+次の図では、`manager@contoso.com` がサインインし、マネージャーのロールに含まれています。
 
-![Screenshot showing manager@contoso.com signed in](secure-data/_static/manager1.png)
+![サインイン manager@contoso.com を示すスクリーンショット](secure-data/_static/manager1.png)
 
-The following image shows the managers details view of a contact:
+次の図は、連絡先の詳細ビューをマネージャーには。
 
-![Manager's view of a contact](secure-data/_static/manager.png)
+![連絡先のマネージャーの表示](secure-data/_static/manager.png)
 
-The **Approve** and **Reject** buttons are only displayed for managers and administrators.
+**[承認]** ボタンと **[却下]** ボタンは、マネージャーと管理者に対してのみ表示されます。
 
-In the following image, `admin@contoso.com` is signed in and in the administrator's role:
+次の図では、`admin@contoso.com` がサインインし、管理者のロールに含まれています。
 
-![Screenshot showing admin@contoso.com signed in](secure-data/_static/admin.png)
+![サインイン admin@contoso.com を示すスクリーンショット](secure-data/_static/admin.png)
 
-The administrator has all privileges. She can read/edit/delete any contact and change the status of contacts.
+管理者は、すべての特権を持ちます。 彼女は、読み取り/編集/削除のいずれかの連絡先をことができ、連絡先の状態を変更します。
 
-The app was created by [scaffolding](xref:tutorials/first-mvc-app/adding-model#scaffold-the-movie-model) the following `Contact` model:
+アプリは、次の `Contact` モデルを[スキャフォールディング](xref:tutorials/first-mvc-app/adding-model#scaffold-the-movie-model)することによって作成されました。
 
 [!code-csharp[](secure-data/samples/starter2.1/Models/Contact.cs?name=snippet1)]
 
-The sample contains the following authorization handlers:
+サンプルには、次の承認ハンドラーが含まれています。
 
-* `ContactIsOwnerAuthorizationHandler`: Ensures that a user can only edit their data.
-* `ContactManagerAuthorizationHandler`: Allows managers to approve or reject contacts.
-* `ContactAdministratorsAuthorizationHandler`: Allows administrators to approve or reject contacts and to edit/delete contacts.
+* `ContactIsOwnerAuthorizationHandler`: ユーザーがデータを編集できるようになります。
+* `ContactManagerAuthorizationHandler`: 管理者が連絡先を承認または拒否できるようにします。
+* `ContactAdministratorsAuthorizationHandler`: 管理者は、連絡先を承認または拒否したり、連絡先を編集または削除したりできます。
 
-## <a name="prerequisites"></a>必要条件
+## <a name="prerequisites"></a>前提条件
 
-This tutorial is advanced. You should be familiar with:
+このチュートリアルは、高度なです。 理解しておく必要があります。
 
 * [ASP.NET Core](xref:tutorials/first-mvc-app/start-mvc)
 * [認証](xref:security/authentication/identity)
@@ -415,251 +415,251 @@ This tutorial is advanced. You should be familiar with:
 * [承認](xref:security/authorization/introduction)
 * [Entity Framework Core](xref:data/ef-mvc/intro)
 
-## <a name="the-starter-and-completed-app"></a>The starter and completed app
+## <a name="the-starter-and-completed-app"></a>Starter および完成したアプリ
 
-[Download](xref:index#how-to-download-a-sample) the [completed](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples) app. [Test](#test-the-completed-app) the completed app so you become familiar with its security features.
+完成し[た](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples)アプリを[ダウンロード](xref:index#how-to-download-a-sample)します。 完成したアプリを[テスト](#test-the-completed-app)して、セキュリティ機能に慣れるようにします。
 
-### <a name="the-starter-app"></a>The starter app
+### <a name="the-starter-app"></a>スターター アプリ
 
-[Download](xref:index#how-to-download-a-sample) the [starter](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/) app.
+[スターター](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/)アプリを[ダウンロード](xref:index#how-to-download-a-sample)します。
 
-Run the app, tap the **ContactManager** link, and verify you can create, edit, and delete a contact.
+アプリを実行し、 **[Contactmanager]** リンクをタップして、連絡先を作成、編集、および削除できることを確認します。
 
-## <a name="secure-user-data"></a>Secure user data
+## <a name="secure-user-data"></a>セキュリティで保護されたユーザー データ
 
-The following sections have all the major steps to create the secure user data app. You may find it helpful to refer to the completed project.
+次のセクションでは、セキュリティで保護されたユーザー データ アプリを作成するすべての主要な手順があります。 完成したプロジェクトを参照すると便利です。
 
-### <a name="tie-the-contact-data-to-the-user"></a>Tie the contact data to the user
+### <a name="tie-the-contact-data-to-the-user"></a>ユーザーに連絡先データを関連付ける
 
-Use the ASP.NET [Identity](xref:security/authentication/identity) user ID to ensure users can edit their data, but not other users data. Add `OwnerID` and `ContactStatus` to the `Contact` model:
+ASP.NET [id](xref:security/authentication/identity)ユーザー id を使用すると、ユーザーがデータを編集できるようになりますが、他のユーザーデータは編集できません。 `OwnerID` と `ContactStatus` を `Contact` モデルに追加します。
 
 [!code-csharp[](secure-data/samples/final2.1/Models/Contact.cs?name=snippet1&highlight=5-6,16-999)]
 
-`OwnerID` is the user's ID from the `AspNetUser` table in the [Identity](xref:security/authentication/identity) database. The `Status` field determines if a contact is viewable by general users.
+`OwnerID` は、 [id](xref:security/authentication/identity)データベースの `AspNetUser` テーブルのユーザー ID です。 [`Status`] フィールドによって、連絡先が一般ユーザーに表示されるかどうかが決まります。
 
-Create a new migration and update the database:
+新しい移行を作成し、データベースを更新します。
 
 ```dotnetcli
 dotnet ef migrations add userID_Status
 dotnet ef database update
 ```
 
-### <a name="add-role-services-to-identity"></a>Add Role services to Identity
+### <a name="add-role-services-to-identity"></a>役割サービスの Id を追加します。
 
-Append [AddRoles](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1) to add Role services:
+役割サービスを追加するには、 [Addroles](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1)を追加します。
 
 [!code-csharp[](secure-data/samples/final2.1/Startup.cs?name=snippet2&highlight=12)]
 
-### <a name="require-authenticated-users"></a>Require authenticated users
+### <a name="require-authenticated-users"></a>認証されたユーザーが必要です。
 
-Set the default authentication policy to require users to be authenticated:
+ユーザー認証を必要とする既定の認証ポリシーを設定します。
 
 [!code-csharp[](secure-data/samples/final2.1/Startup.cs?name=snippet&highlight=17-99)] 
 
- You can opt out of authentication at the Razor Page, controller, or action method level with the `[AllowAnonymous]` attribute. Setting the default authentication policy to require users to be authenticated protects newly added Razor Pages and controllers. Having authentication required by default is more secure than relying on new controllers and Razor Pages to include the `[Authorize]` attribute.
+ Razor ページ、コントローラー、またはアクションメソッドレベルで、`[AllowAnonymous]` 属性を使用して認証をオプトアウトできます。 ユーザー認証を必要とする既定の認証ポリシーの設定は、新しく追加された Razor ページとコント ローラーを保護します。 既定で認証が必要になるのは、新しいコントローラーに依存していて、Razor Pages `[Authorize]` 属性を含めるよりも安全です。
 
-Add [AllowAnonymous](/dotnet/api/microsoft.aspnetcore.authorization.allowanonymousattribute) to the Index, About, and Contact pages so anonymous users can get information about the site before they register.
+匿名ユーザーが登録前にサイトに関する情報を取得できるように、 [Allowanonymous](/dotnet/api/microsoft.aspnetcore.authorization.allowanonymousattribute)を Index、About、および Contact の各ページに追加します。
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Index.cshtml.cs?highlight=1,6)]
 
-### <a name="configure-the-test-account"></a>Configure the test account
+### <a name="configure-the-test-account"></a>テスト アカウントを構成します。
 
-The `SeedData` class creates two accounts: administrator and manager. Use the [Secret Manager tool](xref:security/app-secrets) to set a password for these accounts. Set the password from the project directory (the directory containing *Program.cs*):
+`SeedData` クラスは、管理者とマネージャーの2つのアカウントを作成します。 これらのアカウントのパスワードを設定するには、[シークレットマネージャーツール](xref:security/app-secrets)を使用します。 プロジェクトディレクトリ ( *Program.cs*を含むディレクトリ) のパスワードを設定します。
 
 ```dotnetcli
 dotnet user-secrets set SeedUserPW <PW>
 ```
 
-If a strong password is not specified, an exception is thrown when `SeedData.Initialize` is called.
+強力なパスワードが指定されていない場合、`SeedData.Initialize` が呼び出されると例外がスローされます。
 
-Update `Main` to use the test password:
+テストパスワードを使用するように `Main` を更新します。
 
 [!code-csharp[](secure-data/samples/final2.1/Program.cs?name=snippet)]
 
-### <a name="create-the-test-accounts-and-update-the-contacts"></a>Create the test accounts and update the contacts
+### <a name="create-the-test-accounts-and-update-the-contacts"></a>テスト アカウントを作成し、連絡先の更新
 
-Update the `Initialize` method in the `SeedData` class to create the test accounts:
+`SeedData` クラスの `Initialize` メソッドを更新して、テストアカウントを作成します。
 
 [!code-csharp[](secure-data/samples/final2.1/Data/SeedData.cs?name=snippet_Initialize)]
 
-Add the administrator user ID and `ContactStatus` to the contacts. Make one of the contacts "Submitted" and one "Rejected". Add the user ID and status to all the contacts. Only one contact is shown:
+管理者のユーザー ID と `ContactStatus` を連絡先に追加します。 「送信済み」と「拒否」の 1 つの連絡先を作成します。 すべての連絡先に、ユーザー ID と状態を追加します。 1 人だけが表示されます。
 
 [!code-csharp[](secure-data/samples/final2.1/Data/SeedData.cs?name=snippet1&highlight=17,18)]
 
-## <a name="create-owner-manager-and-administrator-authorization-handlers"></a>Create owner, manager, and administrator authorization handlers
+## <a name="create-owner-manager-and-administrator-authorization-handlers"></a>所有者、マネージャー、および管理者の承認ハンドラーを作成します。
 
-Create an *Authorization* folder and create a `ContactIsOwnerAuthorizationHandler` class in it. The `ContactIsOwnerAuthorizationHandler` verifies that the user acting on a resource owns the resource.
+*承認*フォルダーを作成し、その中に `ContactIsOwnerAuthorizationHandler` クラスを作成します。 `ContactIsOwnerAuthorizationHandler` は、リソースに対して動作しているユーザーがリソースを所有していることを確認します。
 
 [!code-csharp[](secure-data/samples/final2.1/Authorization/ContactIsOwnerAuthorizationHandler.cs)]
 
-The `ContactIsOwnerAuthorizationHandler` calls [context.Succeed](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.succeed#Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_Succeed_Microsoft_AspNetCore_Authorization_IAuthorizationRequirement_) if the current authenticated user is the contact owner. Authorization handlers generally:
+`ContactIsOwnerAuthorizationHandler` は[コンテキストを呼び出します。](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.succeed#Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_Succeed_Microsoft_AspNetCore_Authorization_IAuthorizationRequirement_)現在の認証済みユーザーが連絡先の所有者である場合は成功します。 承認ハンドラー通常。
 
-* Return `context.Succeed` when the requirements are met.
-* Return `Task.CompletedTask` when requirements aren't met. `Task.CompletedTask` is not success or failure&mdash;it allows other authorization handlers to run.
+* 要件が満たされた場合に `context.Succeed` を返します。
+* 要件を満たしていない場合は `Task.CompletedTask` を返します。 `Task.CompletedTask` は成功でも失敗でも&mdash;他の承認ハンドラーの実行を許可します。
 
-If you need to explicitly fail, return [context.Fail](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.fail).
+明示的に失敗する必要がある場合は、コンテキストを返し[ます。失敗](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.fail)。
 
-The app allows contact owners to edit/delete/create their own data. `ContactIsOwnerAuthorizationHandler` doesn't need to check the operation passed in the requirement parameter.
+アプリは、独自のデータを編集/削除/作成所有者が連絡先にできます。 `ContactIsOwnerAuthorizationHandler` は、要件パラメーターで渡された操作を確認する必要はありません。
 
-### <a name="create-a-manager-authorization-handler"></a>Create a manager authorization handler
+### <a name="create-a-manager-authorization-handler"></a>マネージャーの承認ハンドラーを作成します。
 
-Create a `ContactManagerAuthorizationHandler` class in the *Authorization* folder. The `ContactManagerAuthorizationHandler` verifies the user acting on the resource is a manager. Only managers can approve or reject content changes (new or changed).
+*承認*フォルダーに `ContactManagerAuthorizationHandler` クラスを作成します。 `ContactManagerAuthorizationHandler` は、リソースに対して動作しているユーザーがマネージャーであることを確認します。 管理者だけでは、承認したり、(新規または変更された) コンテンツの変更を拒否することができます。
 
 [!code-csharp[](secure-data/samples/final2.1/Authorization/ContactManagerAuthorizationHandler.cs)]
 
-### <a name="create-an-administrator-authorization-handler"></a>Create an administrator authorization handler
+### <a name="create-an-administrator-authorization-handler"></a>管理者の承認ハンドラーを作成します。
 
-Create a `ContactAdministratorsAuthorizationHandler` class in the *Authorization* folder. The `ContactAdministratorsAuthorizationHandler` verifies the user acting on the resource is an administrator. Administrator can do all operations.
+*承認*フォルダーに `ContactAdministratorsAuthorizationHandler` クラスを作成します。 `ContactAdministratorsAuthorizationHandler` は、リソースに対して動作しているユーザーが管理者であることを確認します。 管理者は、すべての操作を実行できます。
 
 [!code-csharp[](secure-data/samples/final2.1/Authorization/ContactAdministratorsAuthorizationHandler.cs)]
 
-## <a name="register-the-authorization-handlers"></a>Register the authorization handlers
+## <a name="register-the-authorization-handlers"></a>承認ハンドラーを登録します。
 
-Services using Entity Framework Core must be registered for [dependency injection](xref:fundamentals/dependency-injection) using [AddScoped](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions). The `ContactIsOwnerAuthorizationHandler` uses ASP.NET Core [Identity](xref:security/authentication/identity), which is built on Entity Framework Core. Register the handlers with the service collection so they're available to the `ContactsController` through [dependency injection](xref:fundamentals/dependency-injection). Add the following code to the end of `ConfigureServices`:
+Entity Framework Core を使用するサービスは、 [Addscoped](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions)を使用して[依存関係の挿入](xref:fundamentals/dependency-injection)に登録する必要があります。 `ContactIsOwnerAuthorizationHandler` は Entity Framework Core 上に構築された ASP.NET Core [id](xref:security/authentication/identity)を使用します。 サービスコレクションにハンドラーを登録して、[依存関係の挿入](xref:fundamentals/dependency-injection)によって `ContactsController` で使用できるようにします。 `ConfigureServices`の末尾に次のコードを追加します。
 
 [!code-csharp[](secure-data/samples/final2.1/Startup.cs?name=snippet_defaultPolicy&highlight=27-99)]
 
-`ContactAdministratorsAuthorizationHandler` and `ContactManagerAuthorizationHandler` are added as singletons. They're singletons because they don't use EF and all the information needed is in the `Context` parameter of the `HandleRequirementAsync` method.
+`ContactAdministratorsAuthorizationHandler` と `ContactManagerAuthorizationHandler` はシングルトンとして追加されます。 EF を使用せず、必要なすべての情報が `HandleRequirementAsync` メソッドの `Context` パラメーターに含まれているため、これらはシングルトンです。
 
-## <a name="support-authorization"></a>Support authorization
+## <a name="support-authorization"></a>承認をサポートします。
 
-In this section, you update the Razor Pages and add an operations requirements class.
+このセクションでは、Razor ページを更新し、操作の要件クラスを追加します。
 
-### <a name="review-the-contact-operations-requirements-class"></a>Review the contact operations requirements class
+### <a name="review-the-contact-operations-requirements-class"></a>連絡先の操作の要件のクラスを確認してください。
 
-Review the `ContactOperations` class. This class contains the requirements the app supports:
+`ContactOperations` クラスを確認します。 このクラスには、要件が含まれています。 アプリがサポートされます。
 
 [!code-csharp[](secure-data/samples/final2.1/Authorization/ContactOperations.cs)]
 
-### <a name="create-a-base-class-for-the-contacts-razor-pages"></a>Create a base class for the Contacts Razor Pages
+### <a name="create-a-base-class-for-the-contacts-razor-pages"></a>連絡先の Razor ページの基本クラスを作成します。
 
-Create a base class that contains the services used in the contacts Razor Pages. The base class puts the initialization code in one location:
+連絡先の Razor ページで使用されるサービスを含む基本クラスを作成します。 基底クラスでは、1 つの場所に、初期化コードが配置します。
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Contacts/DI_BasePageModel.cs)]
 
-上記のコードでは次の操作が行われます。
+上のコードでは以下の操作が行われます。
 
-* Adds the `IAuthorizationService` service to access to the authorization handlers.
-* Adds the Identity `UserManager` service.
+* 承認ハンドラーにアクセスするための `IAuthorizationService` サービスを追加します。
+* Id `UserManager` サービスを追加します。
 * `ApplicationDbContext` を追加します。
 
-### <a name="update-the-createmodel"></a>Update the CreateModel
+### <a name="update-the-createmodel"></a>CreateModel の更新します。
 
-Update the create page model constructor to use the `DI_BasePageModel` base class:
+Create page model コンストラクターを更新して、`DI_BasePageModel` 基底クラスを使用するようにします。
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Contacts/Create.cshtml.cs?name=snippetCtor)]
 
-Update the `CreateModel.OnPostAsync` method to:
+`CreateModel.OnPostAsync` メソッドを次のように更新します。
 
-* Add the user ID to the `Contact` model.
-* Call the authorization handler to verify the user has permission to create contacts.
+* `Contact` モデルにユーザー ID を追加します。
+* ユーザーが連絡先を作成するためのアクセス許可を確認する認証ハンドラーを呼び出します。
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Contacts/Create.cshtml.cs?name=snippet_Create)]
 
-### <a name="update-the-indexmodel"></a>Update the IndexModel
+### <a name="update-the-indexmodel"></a>更新プログラム、IndexModel
 
-Update the `OnGetAsync` method so only approved contacts are shown to general users:
+`OnGetAsync` メソッドを更新して、承認された連絡先だけが一般ユーザーに表示されるようにします。
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Contacts/Index.cshtml.cs?name=snippet)]
 
-### <a name="update-the-editmodel"></a>Update the EditModel
+### <a name="update-the-editmodel"></a>更新プログラム、EditModel
 
-Add an authorization handler to verify the user owns the contact. Because resource authorization is being validated, the `[Authorize]` attribute is not enough. The app doesn't have access to the resource when attributes are evaluated. Resource-based authorization must be imperative. Checks must be performed once the app has access to the resource, either by loading it in the page model or by loading it within the handler itself. You frequently access the resource by passing in the resource key.
+ユーザーが連絡先を所有していることを確認するための承認ハンドラーを追加します。 リソース承認が検証されているため、`[Authorize]` 属性では不十分です。 アプリは、属性が評価されたときに、リソースへのアクセスにすることがありません。 リソース ベースの承認は、命令型である必要があります。 ページ モデルに読み込んで、または読み込みハンドラー自体内で、アプリが、リソースへのアクセスを持つ、チェックを実行する必要があります。 リソース キーを渡すことで、リソースを頻繁にアクセスするとします。
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Contacts/Edit.cshtml.cs?name=snippet)]
 
-### <a name="update-the-deletemodel"></a>Update the DeleteModel
+### <a name="update-the-deletemodel"></a>更新プログラム、DeleteModel
 
-Update the delete page model to use the authorization handler to verify the user has delete permission on the contact.
+承認ハンドラーを使用して、ユーザーが連絡先に削除するアクセス許可を持ってことを確認する delete ページ モデルを更新します。
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Contacts/Delete.cshtml.cs?name=snippet)]
 
-## <a name="inject-the-authorization-service-into-the-views"></a>Inject the authorization service into the views
+## <a name="inject-the-authorization-service-into-the-views"></a>承認サービスをビューに挿入します。
 
-Currently, the UI shows edit and delete links for contacts the user can't modify.
+現時点では、UI の表示では、編集し、ユーザーが変更できない連絡先へのリンクを削除します。
 
-Inject the authorization service in the *Views/_ViewImports.cshtml* file so it's available to all views:
+すべてのビューで使用できるように、 *views/_ViewImports cshtml*ファイルに承認サービスを挿入します。
 
 [!code-cshtml[](secure-data/samples/final2.1/Pages/_ViewImports.cshtml?highlight=6-99)]
 
-The preceding markup adds several `using` statements.
+上記のマークアップでは、いくつかの `using` ステートメントが追加されます。
 
-Update the **Edit** and **Delete** links in *Pages/Contacts/Index.cshtml* so they're only rendered for users with the appropriate permissions:
+*Pages/Contacts/Index. cshtml*の**編集**と**削除**のリンクを更新して、適切なアクセス許可を持つユーザーにのみ表示されるようにします。
 
 [!code-cshtml[](secure-data/samples/final2.1/Pages/Contacts/Index.cshtml?highlight=34-36,62-999)]
 
 > [!WARNING]
-> Hiding links from users that don't have permission to change data doesn't secure the app. Hiding links makes the app more user-friendly by displaying only valid links. Users can hack the generated URLs to invoke edit and delete operations on data they don't own. The Razor Page or controller must enforce access checks to secure the data.
+> 変更データへのアクセス許可がないユーザーからのリンクを非表示と、アプリをセキュリティで保護しません。 リンクを非表示アプリよりユーザー フレンドリな唯一の有効なリンクを表示することで。 ユーザーは、編集を呼び出すし、所有していないデータの操作を削除するには、生成された Url を切断できます。 Razor ページまたはコント ローラーは、データを保護するアクセス チェックを適用する必要があります。
 
-### <a name="update-details"></a>Update Details
+### <a name="update-details"></a>更新プログラムの詳細
 
-Update the details view so managers can approve or reject contacts:
+マネージャーが承認または連絡先を拒否するために、詳細ビューを更新します。
 
 [!code-cshtml[](secure-data/samples/final2.1/Pages/Contacts/Details.cshtml?name=snippet)]
 
-Update the details page model:
+詳細のページ モデルを更新します。
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Contacts/Details.cshtml.cs?name=snippet)]
 
-## <a name="add-or-remove-a-user-to-a-role"></a>Add or remove a user to a role
+## <a name="add-or-remove-a-user-to-a-role"></a>追加またはロールにユーザーを削除します。
 
-See [this issue](https://github.com/aspnet/AspNetCore.Docs/issues/8502) for information on:
+次の情報については、[この問題](https://github.com/aspnet/AspNetCore.Docs/issues/8502)を参照してください。
 
-* Removing privileges from a user. For example, muting a user in a chat app.
-* Adding privileges to a user.
+* ユーザーから権限を削除しています。 たとえば、チャットアプリでユーザーのミュートを行います。
+* ユーザーに特権を追加します。
 
-## <a name="test-the-completed-app"></a>Test the completed app
+## <a name="test-the-completed-app"></a>完成したアプリをテストします。
 
-If you haven't already set a password for seeded user accounts, use the [Secret Manager tool](xref:security/app-secrets#secret-manager) to set a password:
+シードされたユーザーアカウントのパスワードをまだ設定していない場合は、[シークレットマネージャーツール](xref:security/app-secrets#secret-manager)を使用してパスワードを設定します。
 
-* Choose a strong password: Use eight or more characters and at least one upper-case character, number, and symbol. For example, `Passw0rd!` meets the strong password requirements.
-* Execute the following command from the project's folder, where `<PW>` is the password:
+* 強力なパスワードを選択します。 8 を使用して、または詳細文字と少なくとも 1 つの大文字の文字、番号、およびシンボル。 たとえば、`Passw0rd!` は強力なパスワードの要件を満たしています。
+* プロジェクトのフォルダーから次のコマンドを実行します。 `<PW>` はパスワードです。
 
   ```dotnetcli
   dotnet user-secrets set SeedUserPW <PW>
   ```
 
-* Drop and update the Database
+* データベースを削除して更新する
 
   ```dotnetcli
   dotnet ef database drop -f
   dotnet ef database update  
   ```
 
-* Restart the app to seed the database.
+* データベースをシードするアプリを再起動します。
 
-An easy way to test the completed app is to launch three different browsers (or incognito/InPrivate sessions). In one browser, register a new user (for example, `test@example.com`). Sign in to each browser with a different user. Verify the following operations:
+完成したアプリをテストする簡単な方法では、次の 3 つの異なるブラウザー (または incognito/inprivate ブラウズ セッション) を起動します。 1つのブラウザーで、新しいユーザーを登録します (たとえば、`test@example.com`)。 ブラウザーごとに別のユーザーでサインインします。 次の操作を確認します。
 
-* Registered users can view all of the approved contact data.
-* Registered users can edit/delete their own data.
-* Managers can approve/reject contact data. The `Details` view shows **Approve** and **Reject** buttons.
-* Administrators can approve/reject and edit/delete all data.
+* 登録済みユーザーには、すべての承認済みの連絡先データを表示できます。
+* 登録済みユーザーは編集/削除が自分のデータ。
+* 管理者では、連絡先データの承認または却下をします。 `Details` ビューには、 **[承認]** ボタンと **[却下]** ボタンが表示されます。
+* 管理者承認または却下して編集/削除のすべてのデータ。
 
-| ユーザー                | Seeded by the app | オプション                                  |
+| ユーザー                | アプリによってシード処理 | オプション                                  |
 | ------------------- | :---------------: | ---------------------------------------- |
-| test@example.com    | Ｘ                | Edit/delete the own data.                |
-| manager@contoso.com | [はい]               | Approve/reject and edit/delete own data. |
-| admin@contoso.com   | [はい]               | Approve/reject and edit/delete all data. |
+| test@example.com    | いいえ                | 独自のデータを編集/削除します。                |
+| manager@contoso.com | はい               | 承認または却下と編集/削除は、データを所有します。 |
+| admin@contoso.com   | はい               | 承認または却下し、すべてのデータの編集/削除します。 |
 
-Create a contact in the administrator's browser. Copy the URL for delete and edit from the administrator contact. Paste these links into the test user's browser to verify the test user can't perform these operations.
+管理者のブラウザーで連絡先を作成します。 削除の URL をコピーし、管理者の連絡先から管理者を編集します。 テスト ユーザーのブラウザー テスト ユーザーがこれらの操作を実行できないことを確認するには、これらのリンクを貼り付けます。
 
-## <a name="create-the-starter-app"></a>Create the starter app
+## <a name="create-the-starter-app"></a>スターター アプリを作成します。
 
-* Create a Razor Pages app named "ContactManager"
-  * Create the app with **Individual User Accounts**.
-  * Name it "ContactManager" so the namespace matches the namespace used in the sample.
-  * `-uld` specifies LocalDB instead of SQLite
+* 「ContactManager」という名前の Razor ページ アプリの作成
+  * **個々のユーザーアカウント**を使用してアプリを作成します。
+  * ファイル名「ContactManager」名前空間サンプルで使用する名前空間が一致するようにします。
+  * `-uld` は SQLite ではなく LocalDB を指定します。
 
   ```dotnetcli
   dotnet new webapp -o ContactManager -au Individual -uld
   ```
 
-* Add *Models/Contact.cs*:
+* *モデル/Contact を追加します。*
 
   [!code-csharp[](secure-data/samples/starter2.1/Models/Contact.cs?name=snippet1)]
 
-* Scaffold the `Contact` model.
-* Create initial migration and update the database:
+* `Contact` モデルをスキャフォールディングします。
+* 最初の移行を作成し、データベースを更新します。
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Contact -udl -dc ApplicationDbContext -outDir Pages\Contacts --referenceScriptLibraries
@@ -668,31 +668,31 @@ Create a contact in the administrator's browser. Copy the URL for delete and edi
   dotnet ef database update
   ```
 
-* Update the **ContactManager** anchor in the *Pages/_Layout.cshtml* file:
+* *Pages/_Layout cshtml*ファイルで**contactmanager**アンカーを更新します。
 
   ```cshtml
   <a asp-page="/Contacts/Index" class="navbar-brand">ContactManager</a>
   ```
 
-* Test the app by creating, editing, and deleting a contact
+* 作成、編集、および連絡先を削除して、アプリをテストします。
 
 ### <a name="seed-the-database"></a>データベースのシード
 
-Add the [SeedData](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter2.1/Data/SeedData.cs) class to the *Data* folder.
+[SeedData](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter2.1/Data/SeedData.cs)クラスを*Data*フォルダーに追加します。
 
-Call `SeedData.Initialize` from `Main`:
+`Main`から `SeedData.Initialize` を呼び出します。
 
 [!code-csharp[](secure-data/samples/starter2.1/Program.cs?name=snippet)]
 
-Test that the app seeded the database. If there are any rows in the contact DB, the seed method doesn't run.
+アプリが、データベースをシード処理をテストします。 DB の連絡先に行がある場合は、seed メソッドは実行されません。
 
 ::: moniker-end
 
 <a name="secure-data-add-resources-label"></a>
 
-### <a name="additional-resources"></a>その他の技術情報
+### <a name="additional-resources"></a>その他のリソース
 
-* [Build a .NET Core and SQL Database web app in Azure App Service](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb)
-* [ASP.NET Core Authorization Lab](https://github.com/blowdart/AspNetAuthorizationWorkshop). This lab goes into more detail on the security features introduced in this tutorial.
+* [Azure App Service で .NET Core と SQL Database web アプリを構築する](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb)
+* [ASP.NET Core の承認ラボ](https://github.com/blowdart/AspNetAuthorizationWorkshop)。 このラボでは、このチュートリアルで導入されたセキュリティ機能の詳細に移動します。
 * <xref:security/authorization/introduction>
 * [カスタム ポリシー ベースの承認](xref:security/authorization/policies)

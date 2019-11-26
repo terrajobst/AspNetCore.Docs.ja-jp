@@ -29,7 +29,7 @@ Blazor は、ブラウザーでブラウザーでクライアント側を実行�
 
 ## <a name="opno-locblazor-webassembly"></a>Blazor WebAssembly
 
-Blazor のプリンシパルホスティングモデルは、ブラウザーでクライアント側で実行されます。 Blazor アプリ、その依存関係、および .NET ランタイムがブラウザーにダウンロードされます。 アプリがブラウザー UI スレッド上で直接実行されます。 UI の更新とイベントの処理は、同じプロセス内で行われます。 アプリの資産は静的ファイルとして、静的コンテンツをクライアントに提供できる web サーバーまたはサービスに展開されます。
+Blazor のプリンシパルホスティングモデルは、ブラウザーでクライアント側で実行されます。 Blazor アプリ、その依存関係、.NET ランタイムがブラウザーにダウンロードされます。 アプリがブラウザー UI スレッド上で直接実行されます。 UI の更新とイベントの処理は、同じプロセス内で行われます。 アプリの資産は静的ファイルとして、静的コンテンツをクライアントに提供できる web サーバーまたはサービスに展開されます。
 
 ![[!ファンド.NO LOC (Blazor)] WebAssembly [!ファンド.NO LOC (Blazor)] アプリは、ブラウザー内の UI スレッドで実行されます。](hosting-models/_static/blazor-webassembly.png)
 
@@ -58,7 +58,7 @@ Blazor Webasホストには欠点があります。
 
 ## <a name="opno-locblazor-server"></a>Blazor サーバー
 
-Blazor サーバーホスティングモデルでは、アプリは ASP.NET Core アプリ内からサーバー上で実行されます。 UI の更新、イベント処理、および JavaScript の呼び出しは、 [SignalR](xref:signalr/introduction)接続を介して処理されます。
+Blazor サーバーホスティングモデルでは、アプリは ASP.NET Core アプリ内からサーバー上で実行されます。 UI の更新、イベント処理、JavaScript の呼び出しは、[SignalR](xref:signalr/introduction) 接続経由で処理されます。
 
 ![ブラウザーは、サーバー上の (ASP.NET Core アプリ内でホストされている) アプリと対話します。ファンド.NO LOC (SignalR)] 接続。](hosting-models/_static/blazor-server.png)
 
@@ -140,7 +140,7 @@ Blazor サーバーアプリには、サーバーへのアクティブな Signal
 
 最初のクライアント要求への応答としての Blazor Server アプリ prerenders。これにより、サーバー上で UI の状態が設定されます。 クライアントが SignalR 接続を作成しようとすると、クライアントは同じサーバーに再接続する必要があります。 複数のバックエンドサーバーを使用する Blazor サーバーアプリは、SignalR 接続用の*固定セッション*を実装する必要があります。
 
-Blazor サーバーアプリには[Azure SignalR サービス](/azure/azure-signalr)を使用することをお勧めします。 サービスを使用すると、多数の同時 SignalR 接続に Blazor サーバーアプリをスケールアップできます。 Azure SignalR サービスでは、サービスの `ServerStickyMode` オプションまたは構成値を `Required`に設定することにより、固定セッションが有効になります。 詳細については、「 <xref:host-and-deploy/blazor/server#signalr-configuration>」を参照してください。
+[ サーバー アプリには SignalRAzure ](/azure/azure-signalr) ServiceBlazor を使用することをお勧めします。 このサービスでは、多数の同時 Blazor 接続に対して SignalR Server アプリをスケールアップできます。 Azure SignalR サービスでは、サービスの `ServerStickyMode` オプションまたは構成値を `Required`に設定することにより、固定セッションが有効になります。 詳細については、「 <xref:host-and-deploy/blazor/server#signalr-configuration>」を参照してください。
 
 IIS を使用すると、アプリケーション要求ルーティングによって固定セッションが有効になります。 詳細については、「[アプリケーション要求ルーティングを使用した HTTP 負荷分散](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing)」を参照してください。
 
@@ -202,7 +202,7 @@ UI をカスタマイズするには、 *_Host*の `<body>` の `components-reco
 
 ::: moniker range=">= aspnetcore-3.1"
 
-| `RenderMode`        | [説明] |
+| `RenderMode`        | 説明 |
 | ------------------- | ----------- |
 | `ServerPrerendered` | コンポーネントを静的 HTML にレンダリングし、Blazor サーバーアプリのマーカーを含めます。 ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。 |
 | `Server`            | Blazor サーバーアプリのマーカーをレンダリングします。 コンポーネントからの出力は含まれていません。 ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。 |
@@ -212,7 +212,7 @@ UI をカスタマイズするには、 *_Host*の `<body>` の `components-reco
 
 ::: moniker range="< aspnetcore-3.1"
 
-| `RenderMode`        | [説明] |
+| `RenderMode`        | 説明 |
 | ------------------- | ----------- |
 | `ServerPrerendered` | コンポーネントを静的 HTML にレンダリングし、Blazor サーバーアプリのマーカーを含めます。 ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。 パラメーターはサポートされていません。 |
 | `Server`            | Blazor サーバーアプリのマーカーをレンダリングします。 コンポーネントからの出力は含まれていません。 ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。 パラメーターはサポートされていません。 |
@@ -393,7 +393,7 @@ public class WeatherForecastService
 </script>
 ```
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * <xref:blazor/get-started>
 * <xref:signalr/introduction>

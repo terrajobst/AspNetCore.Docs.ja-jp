@@ -1,7 +1,7 @@
 ---
-title: Troubleshoot ASP.NET Core on Azure App Service and IIS
+title: Azure App Service および IIS での ASP.NET Core のトラブルシューティング
 author: guardrex
-description: Learn how to diagnose problems with Azure App Service and Internet Information Services (IIS) deployments of ASP.NET Core apps.
+description: ASP.NET Core アプリの Azure App Service およびインターネットインフォメーションサービス (IIS) の展開に関する問題を診断する方法について説明します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
@@ -14,71 +14,71 @@ ms.contentlocale: ja-JP
 ms.lasthandoff: 11/20/2019
 ms.locfileid: "74251965"
 ---
-# <a name="troubleshoot-aspnet-core-on-azure-app-service-and-iis"></a>Troubleshoot ASP.NET Core on Azure App Service and IIS
+# <a name="troubleshoot-aspnet-core-on-azure-app-service-and-iis"></a>Azure App Service および IIS での ASP.NET Core のトラブルシューティング
 
-By [Luke Latham](https://github.com/guardrex) and [Justin Kotalik](https://github.com/jkotalik)
+[Luke Latham](https://github.com/guardrex)と[Justin Kotk k](https://github.com/jkotalik)
 
-This article provides information on common app startup errors and instructions on how to diagnose errors when an app is deployed to Azure App Service or IIS:
+この記事では、アプリの起動時に発生する一般的なエラーと、アプリが Azure App Service または IIS に展開されたときのエラーを診断する手順について説明します。
 
-[App startup errors](#app-startup-errors)  
-Explains common startup HTTP status code scenarios.
+[アプリのスタートアップエラー](#app-startup-errors)  
+一般的なスタートアップ HTTP 状態コードのシナリオについて説明します。
 
-[Troubleshoot on Azure App Service](#troubleshoot-on-azure-app-service)  
-Provides troubleshooting advice for apps deployed to Azure App Service.
+[Azure App Service でのトラブルシューティング](#troubleshoot-on-azure-app-service)  
+Azure App Service に展開されたアプリに関するトラブルシューティングのアドバイスを提供します。
 
 [IIS でのトラブルシューティング](#troubleshoot-on-iis)  
-Provides troubleshooting advice for apps deployed to IIS or running on IIS Express locally. The guidance applies to both Windows Server and Windows desktop deployments.
+IIS に展開されているか IIS Express ローカルで実行されているアプリに関するトラブルシューティングのアドバイスを提供します。 このガイダンスは、Windows Server と Windows デスクトップの両方の展開に適用されます。
 
-[Clear package caches](#clear-package-caches)  
-Explains what to do when incoherent packages break an app when performing major upgrades or changing package versions.
+[パッケージキャッシュのクリア](#clear-package-caches)  
+メジャーアップグレードの実行時またはパッケージバージョンの変更時に統一性パッケージがアプリを中断した場合の対処方法について説明します。
 
 [その他のリソース](#additional-resources)  
-Lists additional troubleshooting topics.
+トラブルシューティングに関するその他のトピックを示します。
 
 ## <a name="app-startup-errors"></a>アプリ起動時のエラー
 
 ::: moniker range=">= aspnetcore-2.2"
 
-Visual Studio では、ASP.NET Core プロジェクトのデバッグ時に [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) のホスティングが既定の設定です。 A *502.5 - Process Failure* or a *500.30 - Start Failure* that occurs when debugging locally can be diagnosed using the advice in this topic.
+Visual Studio では、ASP.NET Core プロジェクトのデバッグ時に [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) のホスティングが既定の設定です。 このトピックのアドバイスを使用してローカルでデバッグすると、 *502.5 プロセスエラー*または*500.30 開始エラー*が発生します。
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-2.2"
 
-Visual Studio では、ASP.NET Core プロジェクトのデバッグ時に [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) のホスティングが既定の設定です。 A *502.5 Process Failure* that occurs when debugging locally can be diagnosed using the advice in this topic.
+Visual Studio では、ASP.NET Core プロジェクトのデバッグ時に [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) のホスティングが既定の設定です。 ローカルでデバッグするときに*502.5 プロセスエラー*が発生した場合は、このトピックのアドバイスを使用して診断できます。
 
 ::: moniker-end
 
-### <a name="40314-forbidden"></a>403.14 Forbidden
+### <a name="40314-forbidden"></a>403.14 許可されていません
 
-The app fails to start. The following error is logged:
+アプリを起動できません。 次のエラーがログに記録されます。
 
 ```
 The Web server is configured to not list the contents of this directory.
 ```
 
-The error is usually caused by a broken deployment on the hosting system, which includes any of the following scenarios:
+このエラーが発生するのは、通常、ホストシステム上の展開が壊れている場合です。これには、次のようなシナリオが含まれます。
 
-* The app is deployed to the wrong folder on the hosting system.
-* The deployment process failed to move all of the app's files and folders to the deployment folder on the hosting system.
-* The *web.config* file is missing from the deployment, or the *web.config* file contents are malformed.
+* アプリがホストシステムの間違ったフォルダーに配置されています。
+* 展開プロセスで、アプリのすべてのファイルとフォルダーを、ホスティングシステムの展開フォルダーに移動できませんでした。
+* 配置に web.config ファイルがないか、web.config*ファイルの内容*の*形式*が正しくありません。
 
-Perform the following steps:
+次の手順を実行します。
 
-1. Delete all of the files and folders from the deployment folder on the hosting system.
-1. Redeploy the contents of the app's *publish* folder to the hosting system using your normal method of deployment, such as Visual Studio, PowerShell, or manual deployment:
-   * Confirm that the *web.config* file is present in the deployment and that its contents are correct.
-   * When hosting on Azure App Service, confirm that the app is deployed to the `D:\home\site\wwwroot` folder.
-   * When the app is hosted by IIS, confirm that the app is deployed to the IIS **Physical path** shown in **IIS Manager**'s **Basic Settings**.
-1. Confirm that all of the app's files and folders are deployed by comparing the deployment on the hosting system to the contents of the project's *publish* folder.
+1. ホストシステム上の展開フォルダーからすべてのファイルとフォルダーを削除します。
+1. Visual Studio、PowerShell、手動デプロイなどの通常のデプロイ方法を使用して、アプリの*publish*フォルダーの内容をホスティングシステムに再デプロイします。
+   * 配置に web.config*ファイルが*存在し、その内容が正しいことを確認します。
+   * Azure App Service でホストする場合は、アプリが `D:\home\site\wwwroot` フォルダーに展開されていることを確認します。
+   * アプリが IIS によってホストされている場合は、iis**マネージャー**の **[基本設定]** に表示されている iis の**物理パス**にアプリが展開されていることを確認します。
+1. ホスティングシステムの配置をプロジェクトの*publish*フォルダーの内容と比較することによって、アプリのすべてのファイルとフォルダーが展開されていることを確認します。
 
-For more information on the layout of a published ASP.NET Core app, see <xref:host-and-deploy/directory-structure>. For more information on the *web.config* file, see <xref:host-and-deploy/aspnet-core-module#configuration-with-webconfig>.
+発行された ASP.NET Core アプリのレイアウトの詳細については、「<xref:host-and-deploy/directory-structure>」を参照してください。 *Web.config ファイルの*詳細については、「<xref:host-and-deploy/aspnet-core-module#configuration-with-webconfig>」を参照してください。
 
 ### <a name="500-internal-server-error"></a>500 内部サーバー エラー
 
 アプリは起動しますが、エラーのためにサーバーは要求を実行できません。
 
-このエラーは、起動時または応答の作成中に、アプリのコード内で発生します。 応答にコンテンツが含まれていないか、またはブラウザーに "*500 内部サーバー エラー*" という応答が表示される可能性があります。 通常、アプリケーション イベント ログではアプリが正常に起動したことが示されます。 サーバーから見るとそれは正しいことです。 アプリは起動しましたが、有効な応答を生成できません。 Run the app at a command prompt on the server or enable the ASP.NET Core Module stdout log to troubleshoot the problem.
+このエラーは、起動時または応答の作成中に、アプリのコード内で発生します。 応答にコンテンツが含まれていないか、またはブラウザーに "*500 内部サーバー エラー*" という応答が表示される可能性があります。 通常、アプリケーション イベント ログではアプリが正常に起動したことが示されます。 サーバーから見るとそれは正しいことです。 アプリは起動しましたが、有効な応答を生成できません。 サーバーのコマンドプロンプトでアプリを実行するか、ASP.NET Core モジュールの stdout ログを有効にして問題のトラブルシューティングを行います。
 
 ::: moniker range="= aspnetcore-2.2"
 
@@ -86,7 +86,7 @@ For more information on the layout of a published ASP.NET Core app, see <xref:ho
 
 ワーカー プロセスが失敗します。 アプリは起動しません。
 
-The [ASP.NET Core Module](xref:host-and-deploy/aspnet-core-module) fails to find the .NET Core CLR and find the in-process request handler (*aspnetcorev2_inprocess.dll*). 次の点をご確認ください。
+[ASP.NET Core モジュール](xref:host-and-deploy/aspnet-core-module)が .NET Core CLR を見つけられず、インプロセス要求ハンドラー (*aspnetcorev2_inprocess*) を検索できません。 次のことを確認します。
 
 * アプリが [Microsoft.AspNetCore.Server.IIS](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.IIS) NuGet パッケージまたは [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)を対象としている。
 * アプリが対象としているバージョンの ASP.NET Core 共有フレームワークが対象のコンピューターにインストールされている。
@@ -95,7 +95,7 @@ The [ASP.NET Core Module](xref:host-and-deploy/aspnet-core-module) fails to find
 
 ワーカー プロセスが失敗します。 アプリは起動しません。
 
-The [ASP.NET Core Module](xref:host-and-deploy/aspnet-core-module) fails to find the out-of-process hosting request handler. *aspnetcorev2_outofprocess.dll* が *aspnetcorev2.dll* の隣のサブフォルダーにあることを確認してください。
+[ASP.NET Core モジュール](xref:host-and-deploy/aspnet-core-module)は、アウトプロセスホスティング要求ハンドラーを見つけることができません。 *aspnetcorev2_outofprocess.dll* が *aspnetcorev2.dll* の隣のサブフォルダーにあることを確認してください。
 
 ::: moniker-end
 
@@ -105,7 +105,7 @@ The [ASP.NET Core Module](xref:host-and-deploy/aspnet-core-module) fails to find
 
 ワーカー プロセスが失敗します。 アプリは起動しません。
 
-An unknown error occurred loading [ASP.NET Core Module](xref:host-and-deploy/aspnet-core-module) components. 次のいずれかのアクションを実行します。
+[ASP.NET Core モジュール](xref:host-and-deploy/aspnet-core-module)コンポーネントの読み込み中に不明なエラーが発生しました。 次のいずれかのアクションを実行します。
 
 * [Microsoft サポート](https://support.microsoft.com/oas/default.aspx?prid=15832)に問い合わせます ( **[開発者ツール]** 、 **[ASP.NET Core]** の順に選択します)。
 * Stack Overflow について質問します。
@@ -115,7 +115,7 @@ An unknown error occurred loading [ASP.NET Core Module](xref:host-and-deploy/asp
 
 ワーカー プロセスが失敗します。 アプリは起動しません。
 
-The [ASP.NET Core Module](xref:host-and-deploy/aspnet-core-module) attempts to start the .NET Core CLR in-process, but it fails to start. The cause of a process startup failure can usually be determined from entries in the Application Event Log and the ASP.NET Core Module stdout log.
+[ASP.NET Core モジュール](xref:host-and-deploy/aspnet-core-module)は .NET Core CLR をインプロセスで開始しようとしますが、起動に失敗します。 プロセス起動エラーの原因は、通常、アプリケーションイベントログのエントリと、ASP.NET Core モジュールの stdout ログによって決まります。
 
 一般的なエラー条件は、存在しないバージョンの ASP.NET Core 共有フレームワークが対象にされていて、アプリが正しく構成されていないことです。 対象のコンピューターにどのバージョンの ASP.NET Core 共有フレームワークがインストールされているかを確認します。
 
@@ -123,7 +123,7 @@ The [ASP.NET Core Module](xref:host-and-deploy/aspnet-core-module) attempts to s
 
 ワーカー プロセスが失敗します。 アプリは起動しません。
 
-The [ASP.NET Core Module](xref:host-and-deploy/aspnet-core-module) attempts to start the .NET Core runtime in-process, but it fails to start. このスタートアップ エラーの最も一般的な原因は、`Microsoft.NETCore.App` または `Microsoft.AspNetCore.App` ランタイムがインストールされていない場合です。 アプリが ASP.NET Core 3.0 をターゲットとして展開されていて、そのバージョンがコンピューターに存在しない場合、このエラーが発生します。 エラー メッセージの例は次のとおりです。
+[ASP.NET Core モジュール](xref:host-and-deploy/aspnet-core-module)は .net Core ランタイムをインプロセスで開始しようとしますが、起動に失敗します。 このスタートアップ エラーの最も一般的な原因は、`Microsoft.NETCore.App` または `Microsoft.AspNetCore.App` ランタイムがインストールされていない場合です。 アプリが ASP.NET Core 3.0 をターゲットとして展開されていて、そのバージョンがコンピューターに存在しない場合、このエラーが発生します。 エラー メッセージの例は次のとおりです。
 
 ```
 The specified framework 'Microsoft.NETCore.App', version '3.0.0' was not found.
@@ -141,7 +141,7 @@ The specified framework 'Microsoft.NETCore.App', version '3.0.0' was not found.
 * マシンに存在する .NET Core のバージョンをターゲットにするようにアプリを変更します。
 * アプリを[自己完結型の展開](/dotnet/core/deploying/#self-contained-deployments-scd)として発行します。
 
-開発環境で実行している場合 (`ASPNETCORE_ENVIRONMENT` 環境変数が `Development` に設定されている場合)、特定のエラーが HTTP 応答に書き込まれます。 The cause of a process startup failure is also found in the Application Event Log.
+開発環境で実行している場合 (`ASPNETCORE_ENVIRONMENT` 環境変数が `Development` に設定されている場合)、特定のエラーが HTTP 応答に書き込まれます。 プロセス起動エラーの原因は、アプリケーションイベントログにもあります。
 
 ### <a name="50032-ancm-failed-to-load-dll"></a>500.32 ANCM Failed to Load dll (500.32 ANCM DLL を読み込めませんでした)
 
@@ -158,7 +158,7 @@ The specified framework 'Microsoft.NETCore.App', version '3.0.0' was not found.
 
 ワーカー プロセスが失敗します。 アプリは起動しません。
 
-アプリは `Microsoft.AspNetCore.App` フレームワークを参照していませんでした。 Only apps targeting the `Microsoft.AspNetCore.App` framework can be hosted by the [ASP.NET Core Module](xref:host-and-deploy/aspnet-core-module).
+アプリは `Microsoft.AspNetCore.App` フレームワークを参照していませんでした。 [ASP.NET Core モジュール](xref:host-and-deploy/aspnet-core-module)でホストできるのは、`Microsoft.AspNetCore.App` framework を対象とするアプリだけです。
 
 このエラーを修正するには、アプリが `Microsoft.AspNetCore.App` フレームワークをターゲットにしていることを確認します。 アプリがターゲットとしているフレームワークを確認するには、`.runtimeconfig.json` を確認します。
 
@@ -170,13 +170,13 @@ The specified framework 'Microsoft.NETCore.App', version '3.0.0' was not found.
 
 ### <a name="50035-ancm-multiple-in-process-applications-in-same-process"></a>500.35 ANCM Multiple In-Process Applications in same Process (500.35 ANCM 同一プロセス内の複数のインプロセス アプリケーション)
 
-The worker process can't run multiple in-process apps in the same process.
+ワーカープロセスでは、同じプロセスで複数のインプロセスアプリを実行することはできません。
 
 このエラーを修正するには、別の IIS アプリケーション プールでアプリを実行します。
 
 ### <a name="50036-ancm-out-of-process-handler-load-failure"></a>500.36 ANCM Out-Of-Process Handler Load Failure (500.36 ANCM アウト プロセス ハンドラーの読み込みエラー)
 
-アウト プロセス要求ハンドラーの *aspnetcorev2_outofprocess.dll* が *aspnetcorev2.dll* ファイルの次にありません。 This indicates a corrupted installation of the [ASP.NET Core Module](xref:host-and-deploy/aspnet-core-module).
+アウト プロセス要求ハンドラーの *aspnetcorev2_outofprocess.dll* が *aspnetcorev2.dll* ファイルの次にありません。 これは、 [ASP.NET Core モジュール](xref:host-and-deploy/aspnet-core-module)のインストールが破損していることを示します。
 
 このエラーを修正するには、[.NET Core Hosting Bundle](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle) (IIS 用) または Visual Studio (IIS Express 用) のインストールを修復します。
 
@@ -192,7 +192,7 @@ The worker process can't run multiple in-process apps in the same process.
 
 ワーカー プロセスが失敗します。 アプリは起動しません。
 
-[ASP.NET Core モジュール](xref:host-and-deploy/aspnet-core-module)はワーカー プロセスの開始を試みますが、開始に失敗します。 The cause of a process startup failure can usually be determined from entries in the Application Event Log and the ASP.NET Core Module stdout log.
+[ASP.NET Core モジュール](xref:host-and-deploy/aspnet-core-module)はワーカー プロセスの開始を試みますが、開始に失敗します。 プロセス起動エラーの原因は、通常、アプリケーションイベントログのエントリと、ASP.NET Core モジュールの stdout ログによって決まります。
 
 一般的なエラー条件は、存在しないバージョンの ASP.NET Core 共有フレームワークが対象にされていて、アプリが正しく構成されていないことです。 対象のコンピューターにどのバージョンの ASP.NET Core 共有フレームワークがインストールされているかを確認します。 *共有フレームワーク*は、コンピューター上にインストールされたアセンブリ ( *.dll* ファイル) のセットであり、`Microsoft.AspNetCore.App` などのメタパッケージによって参照されます。 メタパッケージの参照には、必要な最低限のバージョンを指定できます。 詳しくは、[共有フレームワーク](https://natemcmaster.com/blog/2018/08/29/netcore-primitives-2/)に関するページをご覧ください。
 
@@ -218,7 +218,7 @@ Failed to start application '/LM/W3SVC/6/ROOT/', ErrorCode '0x800700c1'.
    * 32 ビット (x86) アプリを展開する場合は、この値を `True` に設定します。
    * 64 ビット (x64) アプリを展開する場合は、この値を `False` に設定します。
 
-Confirm that there isn't a conflict between a `<Platform>` MSBuild property in the project file and the published bitness of the app.
+プロジェクトファイルの `<Platform>` MSBuild プロパティとアプリの発行済みビットとの間で競合が発生していないことを確認します。
 
 ### <a name="connection-reset"></a>接続のリセット
 
@@ -226,13 +226,13 @@ Confirm that there isn't a conflict between a `<Platform>` MSBuild property in t
 
 ### <a name="default-startup-limits"></a>既定の起動制限
 
-The [ASP.NET Core Module](xref:host-and-deploy/aspnet-core-module) is configured with a default *startupTimeLimit* of 120 seconds. 既定値のままにした場合、モジュールで処理エラーが記録されるまでに、アプリは最大で 2 分を起動にかけることができます。 モジュールの構成の詳細については、「[AspNetCore 要素の属性](xref:host-and-deploy/aspnet-core-module#attributes-of-the-aspnetcore-element)」を参照してください。
+[ASP.NET Core モジュール](xref:host-and-deploy/aspnet-core-module)は、120秒の既定の*startupTimeLimit*を使用して構成されています。 既定値のままにした場合、モジュールで処理エラーが記録されるまでに、アプリは最大で 2 分を起動にかけることができます。 モジュールの構成の詳細については、「[AspNetCore 要素の属性](xref:host-and-deploy/aspnet-core-module#attributes-of-the-aspnetcore-element)」を参照してください。
 
-## <a name="troubleshoot-on-azure-app-service"></a>Troubleshoot on Azure App Service
+## <a name="troubleshoot-on-azure-app-service"></a>Azure App Service でのトラブルシューティング
 
 [!INCLUDE [Azure App Service Preview Notice](~/includes/azure-apps-preview-notice.md)]
 
-### <a name="application-event-log-azure-app-service"></a>Application Event Log (Azure App Service)
+### <a name="application-event-log-azure-app-service"></a>アプリケーションイベントログ (Azure App Service)
 
 アプリケーション イベント ログにアクセスするには、Azure portal の **[問題の診断と解決]** ブレードを使います。
 
@@ -240,7 +240,7 @@ The [ASP.NET Core Module](xref:host-and-deploy/aspnet-core-module) is configured
 1. **[問題の診断と解決]** を選択します。
 1. **[診断ツール]** という見出しを選択します。
 1. **[サポート ツール]** で **[アプリケーション イベント]** ボタンを選択します。
-1. **[Source]\(ソース\)** 列で、*IIS AspNetCoreModule* または *IIS AspNetCoreModule V2* によって提供された最新のエラーを調べます。
+1. *[Source]\(ソース\)* 列で、*IIS AspNetCoreModule* または **IIS AspNetCoreModule V2** によって提供された最新のエラーを調べます。
 
 **[問題の診断と解決]** ブレードを使う代わりに、[Kudu](https://github.com/projectkudu/kudu/wiki) を使ってアプリケーション イベント ログ ファイルを直接調べることもできます。
 
@@ -259,7 +259,7 @@ The [ASP.NET Core Module](xref:host-and-deploy/aspnet-core-module) is configured
 
 #### <a name="test-a-32-bit-x86-app"></a>32 ビット (x86) アプリをテストする
 
-**Current release**
+**現在のリリース**
 
 1. `cd d:\home\site\wwwroot`
 1. 次のようにアプリを実行します。
@@ -277,7 +277,7 @@ The [ASP.NET Core Module](xref:host-and-deploy/aspnet-core-module) is configured
 
 エラーを示すアプリからのコンソール出力はすべて、Kudu コンソールにパイプされます。
 
-**Framework-dependent deployment running on a preview release**
+**プレビューリリースで実行されているフレームワークに依存する配置**
 
 "*ASP.NET Core {バージョン} (x86) ランタイムのサイト拡張機能をインストールする必要があります。* "
 
@@ -288,7 +288,7 @@ The [ASP.NET Core Module](xref:host-and-deploy/aspnet-core-module) is configured
 
 #### <a name="test-a-64-bit-x64-app"></a>64 ビット (x64) アプリをテストする
 
-**Current release**
+**現在のリリース**
 
 * アプリが 64 ビット (x64) の[フレームワークに依存する展開](/dotnet/core/deploying/#framework-dependent-deployments-fdd)の場合:
   1. `cd D:\Program Files\dotnet`
@@ -299,7 +299,7 @@ The [ASP.NET Core Module](xref:host-and-deploy/aspnet-core-module) is configured
 
 エラーを示すアプリからのコンソール出力はすべて、Kudu コンソールにパイプされます。
 
-**Framework-dependent deployment running on a preview release**
+**プレビューリリースで実行されているフレームワークに依存する配置**
 
 "*ASP.NET Core {バージョン} (x64) ランタイムのサイト拡張機能をインストールする必要があります。* "
 
@@ -308,7 +308,7 @@ The [ASP.NET Core Module](xref:host-and-deploy/aspnet-core-module) is configured
 
 エラーを示すアプリからのコンソール出力はすべて、Kudu コンソールにパイプされます。
 
-### <a name="aspnet-core-module-stdout-log-azure-app-service"></a>ASP.NET Core Module stdout log (Azure App Service)
+### <a name="aspnet-core-module-stdout-log-azure-app-service"></a>ASP.NET Core モジュールの stdout ログ (Azure App Service)
 
 ASP.NET Core モジュールの stdout には、アプリケーション イベント ログでは見つからない有用なエラー メッセージが記録されることがよくあります。 stdout ログを有効にして表示するには:
 
@@ -332,7 +332,7 @@ ASP.NET Core モジュールの stdout には、アプリケーション イベ�
 1. **stdoutLogEnabled** を `false` に設定します。
 1. **[保存]** を選んでファイルを保存します。
 
-詳細については、「<xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>」を参照してください。
+詳細については、「 <xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>」を参照してください。
 
 > [!WARNING]
 > stdout ログを無効にしないと、アプリまたはサーバーで障害が発生する可能性があります。 ログ ファイルのサイズまたは作成されるログ ファイルの数に制限はありません。 stdout ログは、アプリ起動時の問題のトラブルシューティングにのみ使ってください。
@@ -341,7 +341,7 @@ ASP.NET Core モジュールの stdout には、アプリケーション イベ�
 
 ::: moniker range=">= aspnetcore-2.2"
 
-### <a name="aspnet-core-module-debug-log-azure-app-service"></a>ASP.NET Core Module debug log (Azure App Service)
+### <a name="aspnet-core-module-debug-log-azure-app-service"></a>ASP.NET Core モジュールデバッグログ (Azure App Service)
 
 ASP.NET Core モジュール デバッグ ログでは、ASP.NET Core モジュールのさらに詳しいログが提供されます。 stdout ログを有効にして表示するには:
 
@@ -350,7 +350,7 @@ ASP.NET Core モジュール デバッグ ログでは、ASP.NET Core モジュ�
    * Kudu コンソールを利用し、「`<handlerSettings>`強化された診断ログ[」にある ](xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs) をライブ アプリの *web.config* ファイルに追加します。
      1. **[開発ツール]** 領域で **[高度なツール]** を開きます。 **[Go&rarr;]** ボタンを選びます。 新しいブラウザー タブまたはウィンドウで Kudu コンソールが開きます。
      1. ページの上部にあるナビゲーション バーを使って **[デバッグ コンソール]** を開き、 **[CMD]** を選びます。
-     1. パス **site** > **wwwroot** へのフォルダーを開きます。 鉛筆アイコンを選択し、*web.config* ファイルを編集します。 「[強化された診断ログ](xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs)」にある `<handlerSettings>` セクションを追加します。 **[保存]** ボタンを選択します。
+     1. パス **site** > **wwwroot** へのフォルダーを開きます。 鉛筆アイコンを選択し、*web.config* ファイルを編集します。 「`<handlerSettings>`強化された診断ログ[」にある ](xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs) セクションを追加します。 **[保存]** ボタンを選択します。
 1. **[開発ツール]** 領域で **[高度なツール]** を開きます。 **[Go&rarr;]** ボタンを選びます。 新しいブラウザー タブまたはウィンドウで Kudu コンソールが開きます。
 1. ページの上部にあるナビゲーション バーを使って **[デバッグ コンソール]** を開き、 **[CMD]** を選びます。
 1. パス **site** > **wwwroot** へのフォルダーを開きます。 *aspnetcore-debug.log* ファイルにパスを指定しなかった場合、ファイルが一覧に表示されます。 パスを指定した場合、ログ ファイルの場所に移動します。
@@ -360,10 +360,10 @@ ASP.NET Core モジュール デバッグ ログでは、ASP.NET Core モジュ�
 
 強化されたデバッグ ログを無効にするには、次のいずれかを実行します。
 
-* ローカルの *web.config* ファイルから `<handlerSettings>` を削除し、アプリを再デプロイします。
+* ローカルの `<handlerSettings>`web.config*ファイルから* を削除し、アプリを再デプロイします。
 * Kudu コンソールを使用して *web.config* ファイルを編集し、`<handlerSettings>` セクションを削除します。 ファイルを保存します。
 
-詳細については、「<xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs>」を参照してください。
+詳細については、「 <xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs>」を参照してください。
 
 > [!WARNING]
 > debug ログを無効にしないと、アプリまたはサーバーで障害が発生する可能性があります。 ログ ファイルのサイズに制限はありません。 debug ログは、アプリ起動時の問題のトラブルシューティングにのみ使ってください。
@@ -372,7 +372,7 @@ ASP.NET Core モジュール デバッグ ログでは、ASP.NET Core モジュ�
 
 ::: moniker-end
 
-### <a name="slow-or-hanging-app-azure-app-service"></a>Slow or hanging app (Azure App Service)
+### <a name="slow-or-hanging-app-azure-app-service"></a>低速またはハングしているアプリ (Azure App Service)
 
 要求に対してアプリの反応が遅い場合、またはハングする場合は、次の記事を参照してください。
 
@@ -427,9 +427,9 @@ stdout ログが有効になっていない場合は、次の手順のように�
 >
 > ASP.NET Core アプリでのルーチン ログの場合は、ログ ファイルのサイズを制限し、ログをローテーションするログ ライブラリを使います。 詳しくは、「[サードパーティ製のログ プロバイダー](xref:fundamentals/logging/index#third-party-logging-providers)」をご覧ください。
 
-## <a name="troubleshoot-on-iis"></a>Troubleshoot on IIS
+## <a name="troubleshoot-on-iis"></a>IIS でのトラブルシューティング
 
-### <a name="application-event-log-iis"></a>Application Event Log (IIS)
+### <a name="application-event-log-iis"></a>アプリケーションイベントログ (IIS)
 
 アプリケーション イベント ログにアクセスします。
 
@@ -446,7 +446,7 @@ stdout ログが有効になっていない場合は、次の手順のように�
 
 アプリが[フレームワークに依存する展開](/dotnet/core/deploying/#framework-dependent-deployments-fdd)の場合:
 
-1. コマンド プロンプトで展開フォルダーに移動し、*dotnet.exe* 使用してアプリのアセンブリを実行して、アプリを実行します。 コマンド `dotnet .\<assembly_name>.dll` の \<assembly_name> にアプリのアセンブリの名前を指定して実行します。
+1. コマンド プロンプトで展開フォルダーに移動し、*dotnet.exe* 使用してアプリのアセンブリを実行して、アプリを実行します。 コマンド \< の `dotnet .\<assembly_name>.dll`assembly_name> にアプリのアセンブリの名前を指定して実行します。
 1. エラーを示すアプリからのコンソール出力は、すべてコンソール ウィンドウに書き込まれます。
 1. アプリへの要求時にエラーが発生した場合は、Kestrel がリッスンしているホストとポートに要求が送信されます。 既定のホストと post を使用して `http://localhost:5000/` に要求を行います。 アプリが Kestrel のエンドポイント アドレスで正常に応答する場合、問題はホスティングの構成に関連している可能性が高く、アプリ内が原因の可能性は低くなります。
 
@@ -454,11 +454,11 @@ stdout ログが有効になっていない場合は、次の手順のように�
 
 アプリが[自己完結型の展開](/dotnet/core/deploying/#self-contained-deployments-scd)の場合:
 
-1. コマンド プロンプトで、展開フォルダーに移動し、アプリの実行可能ファイルを実行します。 コマンド `<assembly_name>.exe` の \<assembly_name> にアプリのアセンブリの名前を指定して実行します。
+1. コマンド プロンプトで、展開フォルダーに移動し、アプリの実行可能ファイルを実行します。 コマンド \< の `<assembly_name>.exe`assembly_name> にアプリのアセンブリの名前を指定して実行します。
 1. エラーを示すアプリからのコンソール出力は、すべてコンソール ウィンドウに書き込まれます。
 1. アプリへの要求時にエラーが発生した場合は、Kestrel がリッスンしているホストとポートに要求が送信されます。 既定のホストと post を使用して `http://localhost:5000/` に要求を行います。 アプリが Kestrel のエンドポイント アドレスで正常に応答する場合、問題はホスティングの構成に関連している可能性が高く、アプリ内が原因の可能性は低くなります。
 
-### <a name="aspnet-core-module-stdout-log-iis"></a>ASP.NET Core Module stdout log (IIS)
+### <a name="aspnet-core-module-stdout-log-iis"></a>ASP.NET Core モジュールの stdout ログ (IIS)
 
 stdout ログを有効にして表示するには:
 
@@ -477,7 +477,7 @@ stdout ログを有効にして表示するには:
 1. **stdoutLogEnabled** を `false` に設定します。
 1. ファイルを保存します。
 
-詳細については、「<xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>」を参照してください。
+詳細については、「 <xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>」を参照してください。
 
 > [!WARNING]
 > stdout ログを無効にしないと、アプリまたはサーバーで障害が発生する可能性があります。 ログ ファイルのサイズまたは作成されるログ ファイルの数に制限はありません。
@@ -486,9 +486,9 @@ stdout ログを有効にして表示するには:
 
 ::: moniker range=">= aspnetcore-2.2"
 
-### <a name="aspnet-core-module-debug-log-iis"></a>ASP.NET Core Module debug log (IIS)
+### <a name="aspnet-core-module-debug-log-iis"></a>ASP.NET Core モジュールデバッグログ (IIS)
 
-Add the following handler settings to the app's *web.config* file to enable ASP.NET Core Module debug log:
+次のハンドラー設定をアプリの*web.config*ファイルに追加して、ASP.NET Core モジュールのデバッグログを有効にします。
 
 ```xml
 <aspNetCore ...>
@@ -501,7 +501,7 @@ Add the following handler settings to the app's *web.config* file to enable ASP.
 
 ログに指定されたパスが存在することと、アプリ プールの ID にその場所への書き込みアクセス許可があることを確認します。
 
-詳細については、「<xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs>」を参照してください。
+詳細については、「 <xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs>」を参照してください。
 
 ::: moniker-end
 
@@ -546,9 +546,9 @@ Add the following handler settings to the app's *web.config* file to enable ASP.
 
 アプリが要求に応答できる場合は、ターミナル インライン ミドルウェアを使用して、要求、接続、その他のデータをアプリから取得します。 詳細およびサンプル コードについては、「<xref:test/troubleshoot#obtain-data-from-an-app>」を参照してください。
 
-### <a name="slow-or-hanging-app-iis"></a>Slow or hanging app (IIS)
+### <a name="slow-or-hanging-app-iis"></a>低速またはハング中のアプリ (IIS)
 
-A *crash dump* is a snapshot of the system's memory and can help determine the cause of an app crash, startup failure, or slow app.
+*クラッシュダンプ*は、システムのメモリのスナップショットであり、アプリのクラッシュ、スタートアップエラー、または低速アプリの原因を特定するのに役立ちます。
 
 #### <a name="app-crashes-or-encounters-an-exception"></a>アプリのクラッシュまたは例外の発生
 
@@ -589,35 +589,35 @@ A *crash dump* is a snapshot of the system's memory and can help determine the c
 
 #### <a name="app-hangs-fails-during-startup-or-runs-normally"></a>アプリが起動時または正常な実行中にハングまたは失敗する
 
-When an app *hangs* (stops responding but doesn't crash), fails during startup, or runs normally, see [User-Mode Dump Files: Choosing the Best Tool](/windows-hardware/drivers/debugger/user-mode-dump-files#choosing-the-best-tool) to select an appropriate tool to produce the dump.
+アプリが*ハング*した (応答が停止してもクラッシュしない) 場合、起動時に失敗した場合、または正常に実行された場合は、「[ユーザーモードのダンプファイル:](/windows-hardware/drivers/debugger/user-mode-dump-files#choosing-the-best-tool)ダンプを生成する適切なツールを選択する最適なツールを選択する」を参照してください。
 
 #### <a name="analyze-the-dump"></a>ダンプを分析する
 
 ダンプはいくつかの方法で分析できます。 詳細については、「[Analyzing a User-Mode Dump File](/windows-hardware/drivers/debugger/analyzing-a-user-mode-dump-file)」(ユーザー モード ダンプ ファイルの分析) を参照してください。
 
-## <a name="clear-package-caches"></a>Clear package caches
+## <a name="clear-package-caches"></a>パッケージキャッシュのクリア
 
-Sometimes a functioning app fails immediately after upgrading either the .NET Core SDK on the development machine or changing package versions within the app. 場合によっては、パッケージに統一性がないと、メジャー アップグレード実行時にアプリが破壊されることがあります。 これらの問題のほとんどは、次の手順で解決できます。
+開発用コンピューターの .NET Core SDK をアップグレードした後、またはアプリ内のパッケージバージョンを変更した直後に、機能しているアプリが失敗することがあります。 場合によっては、パッケージに統一性がないと、メジャー アップグレード実行時にアプリが破壊されることがあります。 これらの問題のほとんどは、次の手順で解決できます。
 
 1. *bin* フォルダーと *obj* フォルダーを削除します。
-1. Clear the package caches by executing `dotnet nuget locals all --clear` from a command shell.
+1. コマンドシェルから `dotnet nuget locals all --clear` を実行して、パッケージキャッシュをクリアします。
 
-   Clearing package caches can also be accomplished with the [nuget.exe](https://www.nuget.org/downloads) tool and executing the command `nuget locals all -clear`. *nuget.exe* は、Windows デスクトップ オペレーティング システムにバンドルされているインストールではなく、[NuGet Web サイト](https://www.nuget.org/downloads)から別に入手する必要があります。
+   パッケージキャッシュのクリアは、 [nuget.exe](https://www.nuget.org/downloads)ツールを使用して実行し、コマンド `nuget locals all -clear`を実行することもできます。 *nuget.exe* は、Windows デスクトップ オペレーティング システムにバンドルされているインストールではなく、[NuGet Web サイト](https://www.nuget.org/downloads)から別に入手する必要があります。
 
 1. プロジェクトを復元してリビルドします。
-1. Delete all of the files in the deployment folder on the server prior to redeploying the app.
+1. アプリケーションを再展開する前に、サーバー上の展開フォルダーにあるすべてのファイルを削除します。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * <xref:test/troubleshoot>
 * <xref:host-and-deploy/azure-iis-errors-reference>
 * <xref:fundamentals/error-handling>
 * <xref:host-and-deploy/aspnet-core-module>
 
-### <a name="azure-documentation"></a>Azure documentation
+### <a name="azure-documentation"></a>Azure のドキュメント
 
 * [ASP.NET Core 用 Application Insights](/azure/application-insights/app-insights-asp-net-core)
-* [Remote debugging web apps section of Troubleshoot a web app in Azure App Service using Visual Studio](/azure/app-service/web-sites-dotnet-troubleshoot-visual-studio#remotedebug)
+* [「Visual Studio を使用した Azure App Service での web アプリのトラブルシューティング」の「web アプリのリモートデバッグ」セクション](/azure/app-service/web-sites-dotnet-troubleshoot-visual-studio#remotedebug)
 * [Azure App Service の診断の概要](/azure/app-service/app-service-diagnostics)
 * [Azure App Service でアプリを監視する方法](/azure/app-service/web-sites-monitor)
 * [Visual Studio を使用した Azure App Service での Web アプリのトラブルシューティング](/azure/app-service/web-sites-dotnet-troubleshoot-visual-studio)
@@ -629,10 +629,10 @@ Sometimes a functioning app fails immediately after upgrading either the .NET Co
 
 ### <a name="visual-studio-documentation"></a>Visual Studio ドキュメント
 
-* [Remote Debug ASP.NET Core on IIS in Azure in Visual Studio 2017](/visualstudio/debugger/remote-debugging-azure)
-* [Remote Debug ASP.NET Core on a Remote IIS Computer in Visual Studio 2017](/visualstudio/debugger/remote-debugging-aspnet-on-a-remote-iis-computer)
+* [Visual Studio 2017 での Azure での IIS のリモートデバッグ ASP.NET Core](/visualstudio/debugger/remote-debugging-azure)
+* [Visual Studio 2017 のリモート IIS コンピューター上のリモートデバッグ ASP.NET Core](/visualstudio/debugger/remote-debugging-aspnet-on-a-remote-iis-computer)
 * [Visual Studio を使用したデバッグについて理解する](/visualstudio/debugger/getting-started-with-the-debugger)
 
-### <a name="visual-studio-code-documentation"></a>Visual Studio Code documentation
+### <a name="visual-studio-code-documentation"></a>Visual Studio Code のドキュメント
 
 * [Visual Studio Code でのデバッグ](https://code.visualstudio.com/docs/editor/debugging)

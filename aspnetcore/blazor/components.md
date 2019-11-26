@@ -77,7 +77,7 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 * ページに prerendered ます。
 * は、ページに静的な HTML として表示されるか、またはユーザーエージェントから Blazor アプリをブートストラップするために必要な情報が含まれている場合に表示されます。
 
-| `RenderMode`        | [説明] |
+| `RenderMode`        | 説明 |
 | ------------------- | ----------- |
 | `ServerPrerendered` | コンポーネントを静的 HTML にレンダリングし、Blazor サーバーアプリのマーカーを含めます。 ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。 |
 | `Server`            | Blazor サーバーアプリのマーカーをレンダリングします。 コンポーネントからの出力は含まれていません。 ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。 |
@@ -104,7 +104,7 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 * ページに prerendered ます。
 * は、ページに静的な HTML として表示されるか、またはユーザーエージェントから Blazor アプリをブートストラップするために必要な情報が含まれている場合に表示されます。
 
-| `RenderMode`        | [説明] |
+| `RenderMode`        | 説明 |
 | ------------------- | ----------- |
 | `ServerPrerendered` | コンポーネントを静的 HTML にレンダリングし、Blazor サーバーアプリのマーカーを含めます。 ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。 パラメーターはサポートされていません。 |
 | `Server`            | Blazor サーバーアプリのマーカーをレンダリングします。 コンポーネントからの出力は含まれていません。 ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。 パラメーターはサポートされていません。 |
@@ -329,7 +329,7 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 
 データバインド要素に解析できない値を指定すると、バインドイベントがトリガーされたときに、解析されていない値が自動的に前の値に戻されます。
 
-次のシナリオについて検討してください。
+このような場合は、まず、次のことを確認してください。
 
 * `<input>` 要素は、初期値 `123`を持つ `int` 型にバインドされます。
 
@@ -396,9 +396,9 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 前のコードでは、`<input>` 要素のフィールドの種類 (`type`) は既定で `text`に設定されています。 `@bind:format` は、次の .NET 型のバインドに対してサポートされています。
 
 * <xref:System.DateTime?displayProperty=fullName>
-* <xref:System.DateTime?displayProperty=fullName> ですか。
+* <xref:System.DateTime?displayProperty=fullName>?
 * <xref:System.DateTimeOffset?displayProperty=fullName>
-* <xref:System.DateTimeOffset?displayProperty=fullName> ですか。
+* <xref:System.DateTimeOffset?displayProperty=fullName>?
 
 `@bind:format` 属性は、`<input>` 要素の `value` に適用する日付形式を指定します。 この形式は、`onchange` イベントが発生したときに値を解析するためにも使用されます。
 
@@ -545,12 +545,12 @@ Razor コンポーネントは、イベント処理機能を提供します。 `
 
 次の表に、サポートされている `EventArgs` を示します。
 
-| Event            | インスタンス                | DOM のイベントとメモ |
+| イベント            | インスタンス                | DOM のイベントとメモ |
 | ---------------- | -------------------- | -------------------- |
-| クリップボードのトピック        | `ClipboardEventArgs` | `oncut`、`oncopy`、`onpaste` |
+| クリップボード        | `ClipboardEventArgs` | `oncut`、`oncopy`、`onpaste` |
 | 抗力             | `DragEventArgs`      | `ondrag`, `ondragstart`, `ondragenter`, `ondragleave`, `ondragover`, `ondrop`, `ondragend`<br><br>`DataTransfer` および `DataTransferItem` ドラッグした項目データを保持します。 |
-| [エラー]            | `ErrorEventArgs`     | `onerror` |
-| Event            | `EventArgs`          | *General*<br>`onactivate`、`onbeforeactivate`、`onbeforedeactivate`、`ondeactivate`、`onended`、`onfullscreenchange`、`onfullscreenerror`、`onloadeddata`、`onloadedmetadata`、`onpointerlockchange`、`onpointerlockerror`、`onreadystatechange`、`onscroll`<br><br>*クリップボード*<br>`onbeforecut`、`onbeforecopy`、`onbeforepaste`<br><br>*入力*<br>`oninvalid`, `onreset`, `onselect`, `onselectionchange`, `onselectstart`, `onsubmit`<br><br>*メディア*<br>`oncanplay`、`oncanplaythrough`、`oncuechange`、`ondurationchange`、`onemptied`、`onpause`、`onplay`、`onplaying`の `onratechange`、`onseeked`、`onseeking`、`onstalled`、`onstop`、および `onsuspend``ontimeupdate``onvolumechange``onwaiting` |
+| エラー            | `ErrorEventArgs`     | `onerror` |
+| イベント            | `EventArgs`          | *全般*<br>`onactivate`、`onbeforeactivate`、`onbeforedeactivate`、`ondeactivate`、`onended`、`onfullscreenchange`、`onfullscreenerror`、`onloadeddata`、`onloadedmetadata`、`onpointerlockchange`、`onpointerlockerror`、`onreadystatechange`、`onscroll`<br><br>*クリップボード*<br>`onbeforecut`、`onbeforecopy`、`onbeforepaste`<br><br>*入力*<br>`oninvalid`, `onreset`, `onselect`, `onselectionchange`, `onselectstart`, `onsubmit`<br><br>*用紙*<br>`oncanplay`、`oncanplaythrough`、`oncuechange`、`ondurationchange`、`onemptied`、`onpause`、`onplay`、`onplaying`の `onratechange`、`onseeked`、`onseeking`、`onstalled`、`onstop`、および `onsuspend``ontimeupdate``onvolumechange``onwaiting` |
 | フォーカス            | `FocusEventArgs`     | `onfocus`, `onblur`, `onfocusin`, `onfocusout`<br><br>には `relatedTarget`のサポートは含まれていません。 |
 | 入力            | `ChangeEventArgs`    | `onchange`, `oninput` |
 | キーボード         | `KeyboardEventArgs`  | `onkeydown`、`onkeypress`、`onkeyup` |
@@ -1688,14 +1688,14 @@ builder.AddContent(1, "Second");
 
 コードを初めて実行するときに、`someFlag` が `true`場合、ビルダーは次のメッセージを受け取ります。
 
-| シーケンス | [種類]      | data   |
+| シーケンス | 種類      | Data   |
 | :------: | --------- | :----: |
 | 0        | テキスト ノード | First  |
 | 1        | テキスト ノード | Second |
 
 `someFlag` が `false`になり、マークアップが再び表示されるとします。 この時点で、ビルダーは次のものを受け取ります。
 
-| シーケンス | [種類]       | data   |
+| シーケンス | 種類       | Data   |
 | :------: | ---------- | :----: |
 | 1        | テキスト ノード  | Second |
 
@@ -1720,14 +1720,14 @@ builder.AddContent(seq++, "Second");
 
 これで、最初の出力は次のようになります。
 
-| シーケンス | [種類]      | data   |
+| シーケンス | 種類      | Data   |
 | :------: | --------- | :----: |
 | 0        | テキスト ノード | First  |
 | 1        | テキスト ノード | Second |
 
 この結果は前のケースと同じであるため、負の問題は存在しません。 2番目のレンダリングでは `someFlag` が `false`、出力は次のようになります。
 
-| シーケンス | [種類]      | data   |
+| シーケンス | 種類      | Data   |
 | :------: | --------- | ------ |
 | 0        | テキスト ノード | Second |
 
@@ -1763,7 +1763,7 @@ Blazor サーバーアプリはローカライズ[ミドルウェア](xref:funda
 
 既定では、BlazorBlazor WebAssembly のリンカー構成は、明示的に要求されたロケールを除き、国際化情報を除去します。 リンカーの動作を制御する方法の詳細とガイダンスについては、「<xref:host-and-deploy/blazor/configure-linker#configure-the-linker-for-internationalization>」を参照してください。
 
-### <a name="cookies"></a>クッキー
+### <a name="cookies"></a>Cookies
 
 ローカリゼーションカルチャクッキーは、ユーザーのカルチャを保持できます。 Cookie は、アプリのホストページ (*Pages/host. cshtml. .cs*) の `OnGet` メソッドによって作成されます。 ローカリゼーションミドルウェアは、後続の要求で cookie を読み取り、ユーザーのカルチャを設定します。 
 
@@ -1890,6 +1890,6 @@ Blazor は HTML をレンダリングするため、スケーラブルベクタ�
 
 ただし、インライン SVG マークアップは、すべてのシナリオでサポートされているわけではありません。 コンポーネントファイル (*razor*) に `<svg>` タグを直接配置した場合、基本的な画像レンダリングはサポートされますが、多くの高度なシナリオはサポートされていません。 たとえば、`<use>` タグは現在尊重されていないため、`@bind` をいくつかの SVG タグと共に使用することはできません。 今後のリリースでは、これらの制限に対処する予定です。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * <xref:security/blazor/server> &ndash; には、リソース枯渇に対処する必要がある Blazor サーバーアプリを構築するためのガイダンスが含まれています。

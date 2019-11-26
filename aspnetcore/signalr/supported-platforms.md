@@ -18,7 +18,7 @@ ms.locfileid: "74317464"
 ---
 # <a name="aspnet-core-opno-locsignalr-supported-platforms"></a>ASP.NET Core SignalR サポートされているプラットフォーム
 
-## <a name="server-system-requirements"></a>サーバーシステムの要件
+## <a name="server-system-requirements"></a>サーバー システムの要件
 
 ASP.NET Core の SignalR は、ASP.NET Core がサポートするすべてのサーバープラットフォームをサポートします。
 
@@ -26,7 +26,7 @@ ASP.NET Core の SignalR は、ASP.NET Core がサポートするすべてのサ
 
 [JavaScript クライアント](xref:signalr/javascript-client)は、nodejs 8 以降のバージョンと次のブラウザーで実行されます。
 
-| ブラウザー                         | Version         |
+| ブラウザー                         | バージョン         |
 | ------------------------------- | --------------- |
 | Microsoft Edge                  | 現在の&dagger; |
 | Mozilla Firefox                 | 現在の&dagger; |
