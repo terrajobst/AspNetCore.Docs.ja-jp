@@ -587,8 +587,6 @@
       uid: grpc/troubleshoot
 - name: テスト、デバッグ、およびトラブルシューティング
   items:
-    - name: 単体テスト
-      href: /dotnet/core/testing/unit-testing-with-dotnet-test?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
     - name: Razor Pages の単体テスト
       uid: test/razor-pages-tests
     - name: テスト コントローラー
