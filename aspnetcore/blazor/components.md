@@ -5,16 +5,16 @@ description: データにバインドする方法、イベントを処理する�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/21/2019
+ms.date: 11/23/2019
 no-loc:
 - Blazor
 uid: blazor/components
-ms.openlocfilehash: 267a6f5aa96feeecc280238abbef86949750b07e
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: 89c92fbd5a3939cd2b4a34c39163767bcdf73bb8
+ms.sourcegitcommit: 918d7000b48a2892750264b852bad9e96a1165a7
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317215"
+ms.lasthandoff: 11/27/2019
+ms.locfileid: "74550305"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>ASP.NET Core Razor コンポーネントを作成して使用する
 
@@ -396,9 +396,9 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 前のコードでは、`<input>` 要素のフィールドの種類 (`type`) は既定で `text`に設定されています。 `@bind:format` は、次の .NET 型のバインドに対してサポートされています。
 
 * <xref:System.DateTime?displayProperty=fullName>
-* <xref:System.DateTime?displayProperty=fullName>?
+* <xref:System.DateTime?displayProperty=fullName> ですか。
 * <xref:System.DateTimeOffset?displayProperty=fullName>
-* <xref:System.DateTimeOffset?displayProperty=fullName>?
+* <xref:System.DateTimeOffset?displayProperty=fullName> ですか。
 
 `@bind:format` 属性は、`<input>` 要素の `value` に適用する日付形式を指定します。 この形式は、`onchange` イベントが発生したときに値を解析するためにも使用されます。
 
@@ -545,20 +545,20 @@ Razor コンポーネントは、イベント処理機能を提供します。 `
 
 次の表に、サポートされている `EventArgs` を示します。
 
-| イベント            | インスタンス                | DOM のイベントとメモ |
+| Event            | &lt;クラス&gt; のすべてのオブジェクト                | DOM のイベントとメモ |
 | ---------------- | -------------------- | -------------------- |
-| クリップボード        | `ClipboardEventArgs` | `oncut`、`oncopy`、`onpaste` |
+| クリップボード        | `ClipboardEventArgs` | `oncut`では、 `oncopy`では、 `onpaste` |
 | 抗力             | `DragEventArgs`      | `ondrag`, `ondragstart`, `ondragenter`, `ondragleave`, `ondragover`, `ondrop`, `ondragend`<br><br>`DataTransfer` および `DataTransferItem` ドラッグした項目データを保持します。 |
 | エラー            | `ErrorEventArgs`     | `onerror` |
-| イベント            | `EventArgs`          | *全般*<br>`onactivate`、`onbeforeactivate`、`onbeforedeactivate`、`ondeactivate`、`onended`、`onfullscreenchange`、`onfullscreenerror`、`onloadeddata`、`onloadedmetadata`、`onpointerlockchange`、`onpointerlockerror`、`onreadystatechange`、`onscroll`<br><br>*クリップボード*<br>`onbeforecut`、`onbeforecopy`、`onbeforepaste`<br><br>*入力*<br>`oninvalid`, `onreset`, `onselect`, `onselectionchange`, `onselectstart`, `onsubmit`<br><br>*用紙*<br>`oncanplay`、`oncanplaythrough`、`oncuechange`、`ondurationchange`、`onemptied`、`onpause`、`onplay`、`onplaying`の `onratechange`、`onseeked`、`onseeking`、`onstalled`、`onstop`、および `onsuspend``ontimeupdate``onvolumechange``onwaiting` |
+| Event            | `EventArgs`          | *全般*<br>`onactivate`、`onbeforeactivate`、`onbeforedeactivate`、`ondeactivate`、`onended`、`onfullscreenchange`、`onfullscreenerror`、`onloadeddata`、`onloadedmetadata`、`onpointerlockchange`、`onpointerlockerror`、`onreadystatechange`、`onscroll`<br><br>*クリップボード*<br>`onbeforecut`では、 `onbeforecopy`では、 `onbeforepaste`<br><br>*入力*<br>`oninvalid`、 `onreset`、 `onselect`、 `onselectionchange`、 `onselectstart`、 `onsubmit`<br><br>*用紙*<br>`oncanplay`、`oncanplaythrough`、`oncuechange`、`ondurationchange`、`onemptied`、`onpause`、`onplay`、`onplaying`の `onratechange`、`onseeked`、`onseeking`、`onstalled`、`onstop`、および `onsuspend` |
 | フォーカス            | `FocusEventArgs`     | `onfocus`, `onblur`, `onfocusin`, `onfocusout`<br><br>には `relatedTarget`のサポートは含まれていません。 |
-| 入力            | `ChangeEventArgs`    | `onchange`, `oninput` |
-| キーボード         | `KeyboardEventArgs`  | `onkeydown`、`onkeypress`、`onkeyup` |
+| [入力]            | `ChangeEventArgs`    | `onchange`、 `oninput` |
+| キーボード         | `KeyboardEventArgs`  | `onkeydown`では、 `onkeypress`では、 `onkeyup` |
 | マウス            | `MouseEventArgs`     | `onclick`, `oncontextmenu`, `ondblclick`, `onmousedown`, `onmouseup`, `onmouseover`, `onmousemove`, `onmouseout` |
 | マウスポインター    | `PointerEventArgs`   | `onpointerdown`、`onpointerup`、`onpointercancel`、`onpointermove`、`onpointerover`、`onpointerout`、`onpointerenter`、`onpointerleave`、`ongotpointercapture`、`onlostpointercapture` |
-| マウスホイール      | `WheelEventArgs`     | `onwheel`, `onmousewheel` |
-| 進行状況         | `ProgressEventArgs`  | `onabort`, `onload`, `onloadend`, `onloadstart`, `onprogress`, `ontimeout` |
-| タッチ            | `TouchEventArgs`     | `ontouchstart`, `ontouchend`, `ontouchmove`, `ontouchenter`, `ontouchleave`, `ontouchcancel`<br><br>`TouchPoint` は、タッチを区別するデバイス上の1つの連絡先ポイントを表します。 |
+| マウスホイール      | `WheelEventArgs`     | `onwheel`、 `onmousewheel` |
+| 中         | `ProgressEventArgs`  | `onabort`、 `onload`、 `onloadend`、 `onloadstart`、 `onprogress`、 `ontimeout` |
+| タッチ            | `TouchEventArgs`     | `ontouchstart`、 `ontouchend`、 `ontouchmove`、 `ontouchenter`、 `ontouchleave`、 `ontouchcancel`<br><br>`TouchPoint` は、タッチを区別するデバイス上の1つの連絡先ポイントを表します。 |
 
 前の表に示したイベントのプロパティとイベント処理動作の詳細については、「[参照ソースの EventArgs クラス (aspnet/AspNetCore release/3.0 分岐)](https://github.com/aspnet/AspNetCore/tree/release/3.0/src/Components/Web/src/Web)」を参照してください。
 
@@ -1145,6 +1145,8 @@ Blazor でのルーティングは、アプリ内のアクセス可能な各コ�
 
 省略可能なパラメーターはサポートされていないため、上記の例では2つの `@page` ディレクティブが適用されます。 最初のは、パラメーターを指定せずにコンポーネントへの移動を許可します。 2番目の `@page` ディレクティブは、`{text}` route パラメーターを受け取り、その値を `Text` プロパティに割り当てます。
 
+複数のフォルダー境界をまたいでパスをキャプチャする*キャッチオール*パラメーター構文 (`*`/`**`) は、razor コンポーネント (*razor*) ではサポートされて**いません**。
+
 ::: moniker range=">= aspnetcore-3.1"
 
 ## <a name="partial-class-support"></a>部分クラスのサポート
@@ -1310,7 +1312,7 @@ HTML 要素の属性は、.NET の値に基づいて条件付きで表示され�
 <input type="checkbox" />
 ```
 
-詳細については、「 <xref:mvc/views/razor>」を参照してください。
+詳細については、「<xref:mvc/views/razor>」を参照してください。
 
 > [!WARNING]
 > [Aria](https://developer.mozilla.org/docs/Web/Accessibility/ARIA/Roles/button_role#Toggle_buttons)などの一部の HTML 属性は、.net 型が `bool`の場合、正しく機能しません。 そのような場合は、`bool`ではなく `string` の型を使用します。
@@ -1688,14 +1690,14 @@ builder.AddContent(1, "Second");
 
 コードを初めて実行するときに、`someFlag` が `true`場合、ビルダーは次のメッセージを受け取ります。
 
-| シーケンス | 種類      | Data   |
+| シーケンス | の型      | Data   |
 | :------: | --------- | :----: |
 | 0        | テキスト ノード | First  |
 | 1        | テキスト ノード | Second |
 
 `someFlag` が `false`になり、マークアップが再び表示されるとします。 この時点で、ビルダーは次のものを受け取ります。
 
-| シーケンス | 種類       | Data   |
+| シーケンス | の型       | Data   |
 | :------: | ---------- | :----: |
 | 1        | テキスト ノード  | Second |
 
@@ -1720,14 +1722,14 @@ builder.AddContent(seq++, "Second");
 
 これで、最初の出力は次のようになります。
 
-| シーケンス | 種類      | Data   |
+| シーケンス | の型      | Data   |
 | :------: | --------- | :----: |
 | 0        | テキスト ノード | First  |
 | 1        | テキスト ノード | Second |
 
 この結果は前のケースと同じであるため、負の問題は存在しません。 2番目のレンダリングでは `someFlag` が `false`、出力は次のようになります。
 
-| シーケンス | 種類      | Data   |
+| シーケンス | の型      | Data   |
 | :------: | --------- | ------ |
 | 0        | テキスト ノード | Second |
 
@@ -1754,7 +1756,7 @@ Blazor サーバーアプリはローカライズ[ミドルウェア](xref:funda
 
 カルチャは、次のいずれかの方法を使用して設定できます。
 
-* [Cookie](#cookies)
+* [クッキー](#cookies)
 * [カルチャを選択するための UI を提供する](#provide-ui-to-choose-the-culture)
 
 使用例を含む詳細については、「<xref:fundamentals/localization>」を参照してください。
@@ -1825,7 +1827,7 @@ public class CultureController : Controller
 ```
 
 > [!WARNING]
-> `LocalRedirect` アクションの結果を使用して、開いているリダイレクト攻撃を防止します。 詳細については、「 <xref:security/preventing-open-redirects>」を参照してください。
+> `LocalRedirect` アクションの結果を使用して、開いているリダイレクト攻撃を防止します。 詳細については、「<xref:security/preventing-open-redirects>」を参照してください。
 
 次のコンポーネントは、ユーザーがカルチャを選択したときに最初のリダイレクトを実行する方法の例を示しています。
 
@@ -1870,7 +1872,7 @@ Blazorの `@bind` 機能は、ユーザーの現在のカルチャに基づい�
 * `IStringLocalizer<>` は Blazor アプリで*サポートされて*います。
 * `IHtmlLocalizer<>`、`IViewLocalizer<>`、データ注釈のローカライズは MVC シナリオ ASP.NET Core、Blazor アプリではサポートされて**いません**。
 
-詳細については、「 <xref:fundamentals/localization>」を参照してください。
+詳細については、「<xref:fundamentals/localization>」を参照してください。
 
 ## <a name="scalable-vector-graphics-svg-images"></a>スケーラブルベクターグラフィックス (SVG) イメージ
 
@@ -1890,6 +1892,6 @@ Blazor は HTML をレンダリングするため、スケーラブルベクタ�
 
 ただし、インライン SVG マークアップは、すべてのシナリオでサポートされているわけではありません。 コンポーネントファイル (*razor*) に `<svg>` タグを直接配置した場合、基本的な画像レンダリングはサポートされますが、多くの高度なシナリオはサポートされていません。 たとえば、`<use>` タグは現在尊重されていないため、`@bind` をいくつかの SVG タグと共に使用することはできません。 今後のリリースでは、これらの制限に対処する予定です。
 
-## <a name="additional-resources"></a>その他のリソース
+## <a name="additional-resources"></a>その他の技術情報
 
 * <xref:security/blazor/server> &ndash; には、リソース枯渇に対処する必要がある Blazor サーバーアプリを構築するためのガイダンスが含まれています。

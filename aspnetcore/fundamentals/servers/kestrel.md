@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/14/2019
 uid: fundamentals/servers/kestrel
-ms.openlocfilehash: 04512504cc5a7c4b9cb30ce2280e86956f8cc25c
-ms.sourcegitcommit: f91d322f790123d41ec3271fa084ae20ed9f89a6
+ms.openlocfilehash: 6fba6689f72f7a565e28d80f6770765ab097cf11
+ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/18/2019
-ms.locfileid: "74155052"
+ms.lasthandoff: 11/21/2019
+ms.locfileid: "74289101"
 ---
 # <a name="kestrel-web-server-implementation-in-aspnet-core"></a>ASP.NET Core への Kestrel Web サーバーの実装
 
@@ -81,9 +81,9 @@ Kestrel を単独で使用することも、[インターネット インフォ�
 > [!WARNING]
 > リバース プロキシ構成でのホストには[ホストのフィルター処理](#host-filtering)が必要です。
 
-## <a name="how-to-use-kestrel-in-aspnet-core-apps"></a>ASP.NET Core アプリで Kestrel を使用する方法
+## <a name="kestrel-in-aspnet-core-apps"></a>ASP.NET Core アプリでの Kestrel
 
-ASP.NET Core プロジェクト テンプレートは既定では Kestrel を使用します。 *Program.cs* 内のアプリは `ConfigureWebHostDefaults` を呼び出し、これによってバックグラウンドで <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderKestrelExtensions.UseKestrel*> が呼び出されます。
+ASP.NET Core プロジェクト テンプレートは既定では Kestrel を使用します。 *Program.cs* では、<xref:Microsoft.Extensions.Hosting.GenericHostBuilderExtensions.ConfigureWebHostDefaults*> メソッドにより <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderKestrelExtensions.UseKestrel*> が呼び出されます。
 
 [!code-csharp[](kestrel/samples/3.x/KestrelSample/Program.cs?name=snippet_DefaultBuilder&highlight=8)]
 
@@ -357,7 +357,7 @@ Kestrel のその他のオプションと制限については、以下をご覧
 * `urls` ホスト構成キー。
 * `UseUrls` 拡張メソッド。
 
-これらの方法を使うと、1 つまたは複数の HTTP エンドポイントおよび HTTPS エンドポイント (既定の証明書が使用可能な場合は HTTPS) を指定できます。 セミコロン区切りのリストとして値を構成します (例: `"Urls": "http://localhost:8000;http://localhost:8001"`)。
+これらの方法を使うと、1 つまたは複数の HTTP エンドポイントおよび HTTPS エンドポイント (既定の証明書が使用可能な場合は HTTPS) を指定できます。 セミコロン区切りのリストとして値を構成します (例: `"Urls": "http://localhost:8000; http://localhost:8001"`)。
 
 これらの方法について詳しくは、「[サーバーの URL](xref:fundamentals/host/web-host#server-urls)」および「[構成のオーバーライド](xref:fundamentals/host/web-host#override-configuration)」をご覧ください。
 
@@ -374,7 +374,7 @@ Kestrel のその他のオプションと制限については、以下をご覧
 
 `UseUrls`、`--urls` コマンドライン引数、`urls` ホスト構成キー、`ASPNETCORE_URLS` 環境変数も機能しますが、このセクションで後述する制限があります (既定の証明書が、HTTPS エンドポイントの構成に使用できる必要があります)。
 
-`KestrelServerOptions` 構成: 
+`KestrelServerOptions` 構成:
 
 ### <a name="configureendpointdefaultsactionlistenoptions"></a>ConfigureEndpointDefaults(Action\<ListenOptions>)
 
@@ -465,7 +465,7 @@ Kestrel は、`http://localhost:5000` と `https://localhost:5001` (既定の証
 以下の *appsettings.json* の例では、次のことが行われています。
 
 * **AllowInvalid** を `true` に設定し、の無効な証明書 (自己署名証明書など) の使用を許可します。
-* 証明書 (後の例では **HttpsDefaultCert**) が指定されていないすべての HTTPS エンドポイントは、**[証明書]** > **[既定]** または開発証明書で定義されている証明書にフォールバックします。
+* 証明書 (後の例では **HttpsDefaultCert**) が指定されていないすべての HTTPS エンドポイントは、 **[証明書]** > **[既定]** または開発証明書で定義されている証明書にフォールバックします。
 
 ```json
 {
@@ -515,7 +515,7 @@ Kestrel は、`http://localhost:5000` と `https://localhost:5001` (既定の証
 }
 ```
 
-証明書ノードの **Path** と **Password** を使用する代わりの方法は、証明書ストアのフィールドを使って証明書を指定することです。 たとえば、**[証明書]** > **[既定]** の証明書は次のように指定できます。
+証明書ノードの **Path** と **Password** を使用する代わりの方法は、証明書ストアのフィールドを使って証明書を指定することです。 たとえば、 **[証明書]**  >  **[既定]** の証明書は次のように指定できます。
 
 ```json
 "Default": {
@@ -1324,7 +1324,7 @@ Kestrel のその他のオプションと制限については、以下をご覧
 * `urls` ホスト構成キー。
 * `UseUrls` 拡張メソッド。
 
-これらの方法を使うと、1 つまたは複数の HTTP エンドポイントおよび HTTPS エンドポイント (既定の証明書が使用可能な場合は HTTPS) を指定できます。 セミコロン区切りのリストとして値を構成します (例: `"Urls": "http://localhost:8000;http://localhost:8001"`)。
+これらの方法を使うと、1 つまたは複数の HTTP エンドポイントおよび HTTPS エンドポイント (既定の証明書が使用可能な場合は HTTPS) を指定できます。 セミコロン区切りのリストとして値を構成します (例: `"Urls": "http://localhost:8000; http://localhost:8001"`)。
 
 これらの方法について詳しくは、「[サーバーの URL](xref:fundamentals/host/web-host#server-urls)」および「[構成のオーバーライド](xref:fundamentals/host/web-host#override-configuration)」をご覧ください。
 
@@ -1341,7 +1341,7 @@ Kestrel のその他のオプションと制限については、以下をご覧
 
 `UseUrls`、`--urls` コマンドライン引数、`urls` ホスト構成キー、`ASPNETCORE_URLS` 環境変数も機能しますが、このセクションで後述する制限があります (既定の証明書が、HTTPS エンドポイントの構成に使用できる必要があります)。
 
-`KestrelServerOptions` 構成: 
+`KestrelServerOptions` 構成:
 
 ### <a name="configureendpointdefaultsactionlistenoptions"></a>ConfigureEndpointDefaults(Action\<ListenOptions>)
 
@@ -1439,7 +1439,7 @@ Kestrel は、`http://localhost:5000` と `https://localhost:5001` (既定の証
 以下の *appsettings.json* の例では、次のことが行われています。
 
 * **AllowInvalid** を `true` に設定し、の無効な証明書 (自己署名証明書など) の使用を許可します。
-* 証明書 (後の例では **HttpsDefaultCert**) が指定されていないすべての HTTPS エンドポイントは、**[証明書]** > **[既定]** または開発証明書で定義されている証明書にフォールバックします。
+* 証明書 (後の例では **HttpsDefaultCert**) が指定されていないすべての HTTPS エンドポイントは、 **[証明書]** > **[既定]** または開発証明書で定義されている証明書にフォールバックします。
 
 ```json
 {
@@ -1489,7 +1489,7 @@ Kestrel は、`http://localhost:5000` と `https://localhost:5001` (既定の証
 }
 ```
 
-証明書ノードの **Path** と **Password** を使用する代わりの方法は、証明書ストアのフィールドを使って証明書を指定することです。 たとえば、**[証明書]** > **[既定]** の証明書は次のように指定できます。
+証明書ノードの **Path** と **Password** を使用する代わりの方法は、証明書ストアのフィールドを使って証明書を指定することです。 たとえば、 **[証明書]**  >  **[既定]** の証明書は次のように指定できます。
 
 ```json
 "Default": {
@@ -2171,7 +2171,7 @@ Kestrel のその他のオプションと制限については、以下をご覧
 * `urls` ホスト構成キー。
 * `UseUrls` 拡張メソッド。
 
-これらの方法を使うと、1 つまたは複数の HTTP エンドポイントおよび HTTPS エンドポイント (既定の証明書が使用可能な場合は HTTPS) を指定できます。 セミコロン区切りのリストとして値を構成します (例: `"Urls": "http://localhost:8000;http://localhost:8001"`)。
+これらの方法を使うと、1 つまたは複数の HTTP エンドポイントおよび HTTPS エンドポイント (既定の証明書が使用可能な場合は HTTPS) を指定できます。 セミコロン区切りのリストとして値を構成します (例: `"Urls": "http://localhost:8000; http://localhost:8001"`)。
 
 これらの方法について詳しくは、「[サーバーの URL](xref:fundamentals/host/web-host#server-urls)」および「[構成のオーバーライド](xref:fundamentals/host/web-host#override-configuration)」をご覧ください。
 
@@ -2188,7 +2188,7 @@ Kestrel のその他のオプションと制限については、以下をご覧
 
 `UseUrls`、`--urls` コマンドライン引数、`urls` ホスト構成キー、`ASPNETCORE_URLS` 環境変数も機能しますが、このセクションで後述する制限があります (既定の証明書が、HTTPS エンドポイントの構成に使用できる必要があります)。
 
-`KestrelServerOptions` 構成: 
+`KestrelServerOptions` 構成:
 
 ### <a name="configureendpointdefaultsactionlistenoptions"></a>ConfigureEndpointDefaults(Action\<ListenOptions>)
 
@@ -2285,7 +2285,7 @@ Kestrel は、`http://localhost:5000` と `https://localhost:5001` (既定の証
 以下の *appsettings.json* の例では、次のことが行われています。
 
 * **AllowInvalid** を `true` に設定し、の無効な証明書 (自己署名証明書など) の使用を許可します。
-* 証明書 (後の例では **HttpsDefaultCert**) が指定されていないすべての HTTPS エンドポイントは、**[証明書]** > **[既定]** または開発証明書で定義されている証明書にフォールバックします。
+* 証明書 (後の例では **HttpsDefaultCert**) が指定されていないすべての HTTPS エンドポイントは、 **[証明書]** > **[既定]** または開発証明書で定義されている証明書にフォールバックします。
 
 ```json
 {
@@ -2335,7 +2335,7 @@ Kestrel は、`http://localhost:5000` と `https://localhost:5001` (既定の証
 }
 ```
 
-証明書ノードの **Path** と **Password** を使用する代わりの方法は、証明書ストアのフィールドを使って証明書を指定することです。 たとえば、**[証明書]** > **[既定]** の証明書は次のように指定できます。
+証明書ノードの **Path** と **Password** を使用する代わりの方法は、証明書ストアのフィールドを使って証明書を指定することです。 たとえば、 **[証明書]**  >  **[既定]** の証明書は次のように指定できます。
 
 ```json
 "Default": {
