@@ -85,7 +85,7 @@ Razor SDK を使用して Razor ビューまたは Razor ページを含むク�
 ::: moniker range="= aspnetcore-2.1"
 
 > [!WARNING]
-> `Microsoft.AspNetCore.Razor.Design` パッケージと `Microsoft.AspNetCore.Mvc.Razor.Extensions` パッケージは、 [AspNetCore メタパッケージ](xref:fundamentals/metapackage-app)に含まれています。 ただし、バージョンが少ない `Microsoft.AspNetCore.App` のパッケージ参照では、`Microsoft.AspNetCore.Razor.Design` の最新バージョンを含まないアプリにメタパッケージが提供されます。 プロジェクトは、Razor の最新のビルド時修正プログラムが含まれるように、`Microsoft.AspNetCore.Razor.Design` (または `Microsoft.AspNetCore.Mvc`) の一貫したバージョンを参照する必要があります。 詳細については、次を参照してください。[この GitHub の問題](https://github.com/aspnet/Razor/issues/2553)します。
+> `Microsoft.AspNetCore.Razor.Design` パッケージと `Microsoft.AspNetCore.Mvc.Razor.Extensions` パッケージは、 [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)に含まれています。 ただし、バージョンが少ない `Microsoft.AspNetCore.App` のパッケージ参照では、`Microsoft.AspNetCore.Razor.Design` の最新バージョンを含まないアプリにメタパッケージが提供されます。 プロジェクトは、Razor の最新のビルド時修正プログラムが含まれるように、`Microsoft.AspNetCore.Razor.Design` (または `Microsoft.AspNetCore.Mvc`) の一貫したバージョンを参照する必要があります。 詳細については、次を参照してください。[この GitHub の問題](https://github.com/aspnet/Razor/issues/2553)します。
 
 ::: moniker-end
 
@@ -101,7 +101,7 @@ Razor の SDK の動作は、プロジェクトをビルドする際に次のプ
 ::: moniker range=">= aspnetcore-3.0"
 
 > [!WARNING]
-> ASP.NET Core 3.0 以降では、プロジェクトファイル内の `RazorCompileOnBuild` または `RazorCompileOnPublish` の MSBuild プロパティが無効になっている場合、MVC ビューまたは Razor Pages は既定では提供されません。 アプリケーションがランタイムコンパイルに依存して[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation)ファイルを処理する場合は、RuntimeCompilation パッケージへの明示的な参照を追加する必要があります。
+> ASP.NET Core 3.0 以降では、プロジェクトファイル内の `RazorCompileOnBuild` または `RazorCompileOnPublish` の MSBuild プロパティが無効になっている場合、MVC ビューまたは Razor Pages は既定では提供されません。 アプリケーションがランタイムコンパイルに依存して[Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation)ファイルを処理する場合は、RuntimeCompilation パッケージへの明示的な参照を追加する必要があります。
 
 ::: moniker-end
 

@@ -17,7 +17,7 @@ ms.locfileid: "73963679"
 ---
 # <a name="grpc-client-factory-integration-in-net-core"></a>.NET Core での gRPC クライアントファクトリの統合
 
-gRPC と `HttpClientFactory` の統合には、gRPC クライアントを一元的に作成する方法が用意されています。 [スタンドアロンの gRPC クライアントインスタンスを構成](xref:grpc/client)する代わりに使用することもできます。 ファクトリ統合は、 [Grpc .net. ClientFactory](https://www.nuget.org/packages/Grpc.Net.ClientFactory) NuGet パッケージで使用できます。
+gRPC と `HttpClientFactory` の統合には、gRPC クライアントを一元的に作成する方法が用意されています。 [スタンドアロンの gRPC クライアントインスタンスを構成](xref:grpc/client)する代わりに使用することもできます。 ファクトリ統合は、 [Grpc.Net.ClientFactory](https://www.nuget.org/packages/Grpc.Net.ClientFactory) NuGet パッケージで使用できます。
 
 ファクトリには、次のような利点があります。
 
@@ -105,7 +105,7 @@ services
 
 ## <a name="deadline-and-cancellation-propagation"></a>期限と取り消しの反映
 
-gRPC サービスでファクトリによって作成された gRPC クライアントは、期限とキャンセルトークンを子呼び出しに自動的に反映するように `EnableCallContextPropagation()` を使用して構成できます。 `EnableCallContextPropagation()` の拡張メソッドは、 [AspNetCore](https://www.nuget.org/packages/Grpc.AspNetCore.Server.ClientFactory) NuGet パッケージで使用できますが、
+gRPC サービスでファクトリによって作成された gRPC クライアントは、期限とキャンセルトークンを子呼び出しに自動的に反映するように `EnableCallContextPropagation()` を使用して構成できます。 `EnableCallContextPropagation()` の拡張メソッドは、 [Grpc.AspNetCore.Server.ClientFactory](https://www.nuget.org/packages/Grpc.AspNetCore.Server.ClientFactory) NuGet パッケージで使用できますが、
 
 呼び出しコンテキストの伝達は、現在の gRPC 要求コンテキストから期限とキャンセルトークンを読み取り、gRPC クライアントによって行われた発信呼び出しに自動的に伝達することによって機能します。 呼び出しコンテキストの伝達は、複雑で入れ子になった gRPC のシナリオが常に期限とキャンセルを伝達することを保証する優れた方法です。
 

@@ -84,7 +84,7 @@ Secret Manager ツールは、.NET Core SDK 2.1.300 以降の .NET Core CLI に�
 The tool 'Microsoft.Extensions.SecretManager.Tools' is now included in the .NET Core SDK. Information on resolving this warning is available at (https://aka.ms/dotnetclitools-in-box).
 ```
 
-ASP.NET Core プロジェクトに[SecretManager](https://www.nuget.org/packages/Microsoft.Extensions.SecretManager.Tools/) NuGet パッケージをインストールします。 例:
+ASP.NET Core プロジェクトに[Microsoft.Extensions.SecretManager.Tools](https://www.nuget.org/packages/Microsoft.Extensions.SecretManager.Tools/) NuGet パッケージをインストールします。 例:
 
 [!code-xml[](app-secrets/samples/1.x/UserSecrets/UserSecrets.csproj?name=snippet_CsprojFile&highlight=15-16)]
 
@@ -223,7 +223,7 @@ JSON 構造体は、または`dotnet user-secrets remove` `dotnet user-secrets s
 
 ::: moniker range=">= aspnetcore-2.0 <= aspnetcore-2.2"
 
-プロジェクトが .NET Framework 対象である場合は、 [Microsoft. Extensions. UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) NuGet パッケージをインストールします。
+プロジェクトが .NET Framework 対象である場合は、 [Microsoft.Extensions.Configuration.UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) NuGet パッケージをインストールします。
 
 ::: moniker-end
 
@@ -241,7 +241,7 @@ ASP.NET Core 2.0 以降では、プロジェクトがを呼び出し<xref:Micros
 
 ::: moniker range="<= aspnetcore-1.1"
 
-[Microsoft. extension. Configuration. UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) NuGet パッケージをインストールします。
+[Microsoft.Extensions.Configuration.UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) NuGet パッケージをインストールします。
 
 <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*>コンストラクターで、の呼び出しを使用してユーザーシークレットの構成ソースを追加します。 `Startup`
 

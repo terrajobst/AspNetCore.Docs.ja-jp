@@ -15,7 +15,7 @@ ms.locfileid: "71011144"
 ---
 # <a name="call-grpc-services-with-the-net-client"></a>.NET クライアントを使用して gRPC サービスを呼び出す
 
-.NET gRPC クライアントライブラリは、 [grpc .net. クライアント](https://www.nuget.org/packages/Grpc.Net.Client)NuGet パッケージで入手できます。 このドキュメントでは、次の方法について説明します。
+.NET gRPC クライアントライブラリは、 [Grpc.Net.Client](https://www.nuget.org/packages/Grpc.Net.Client)NuGet パッケージで入手できます。 このドキュメントでは、次の方法について説明します。
 
 * Grpc サービスを呼び出すように gRPC クライアントを構成します。
 * GRPC に対して、単項、サーバーストリーミング、クライアントストリーミング、および双方向のストリーミングメソッドを呼び出します。
