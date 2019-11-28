@@ -282,6 +282,8 @@
           uid: blazor/hosting-models
         - name: 最初のアプリをビルドする
           uid: tutorials/first-blazor-app
+        - name: テンプレート
+          uid: blazor/templates
         - name: コンポーネント
           uid: blazor/components
         - name: フォームと検証
@@ -1100,6 +1102,9 @@
       uid: fundamentals/middleware/extensibility-third-party-container
 - name: 移行
   items:
+    - name: 3.0 から 3.1 へ
+      displayName: 'migrate, migration'
+      uid: migration/30-to-31
     - name: 2.2 から 3.0
       displayName: 'migrate, migration'
       uid: migration/22-to-30
