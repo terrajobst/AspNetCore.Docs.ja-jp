@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/19/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: b23e64077290f0f613e904651e4bb640fcbba95d
-ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
+ms.openlocfilehash: 23ce2d09d2ce9f415ce71bcd7c21c29cb2a040fc
+ms.sourcegitcommit: 918d7000b48a2892750264b852bad9e96a1165a7
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/21/2019
-ms.locfileid: "74289087"
+ms.lasthandoff: 11/27/2019
+ms.locfileid: "74550363"
 ---
 # <a name="logging-in-net-core-and-aspnet-core"></a>.NET Core および ASP.NET Core でのログ記録
 
@@ -295,7 +295,7 @@ public class Program
 
 ### <a name="no-asynchronous-logger-methods"></a>非同期でないロガー メソッド
 
-ログ記録は高速に実行され、非同期コードのパフォーマンス コストを下回る必要があります。 ログ記録のデータ ストアが低速の場合は、そこへ直接書き込むべきではありません。 まずログ メッセージを高速なストアに書き込んでから、後で低速なストアに移動する方法を検討してください。 たとえば、SQL Server にログインしている場合、それを `Log` メソッドで直接実行したくはないでしょう。`Log` が同期メソッドであるためです。 代わりに、ログ メッセージをインメモリ キューに同期的に追加し、バックグラウンド ワーカーにキューからメッセージをプルさせて、SQL Server にデータをプッシュする非同期処理を実行させます。
+ログ記録は高速に実行され、非同期コードのパフォーマンス コストを下回る必要があります。 ログ記録のデータ ストアが低速の場合は、そこへ直接書き込むべきではありません。 まずログ メッセージを高速なストアに書き込んでから、後で低速なストアに移動する方法を検討してください。 たとえば、SQL Server にログインしている場合、それを `Log` メソッドで直接実行したくはないでしょう。`Log` が同期メソッドであるためです。 代わりに、ログ メッセージをインメモリ キューに同期的に追加し、バックグラウンド ワーカーにキューからメッセージをプルさせて、SQL Server にデータをプッシュする非同期処理を実行させます。 詳細については、[この](https://github.com/aspnet/AspNetCore.Docs/issues/11801) GitHub の問題を参照してください。
 
 ## <a name="configuration"></a>構成
 

@@ -98,7 +98,7 @@ IIS、Apache、または Nginx のサーバーベースの応答圧縮テクノ�
 
 ::: moniker range=">= aspnetcore-3.0"
 
-応答圧縮ミドルウェアは、AspNetCore アプリ ASP.NET Core に暗黙的に含まれる[ResponseCompression](https://www.nuget.org/packages/Microsoft.AspNetCore.ResponseCompression/)パッケージによって提供されます。
+応答圧縮ミドルウェアは、ASP.NET Core アプリに暗黙的に含まれる [Microsoft.AspNetCore.ResponseCompression](https://www.nuget.org/packages/Microsoft.AspNetCore.ResponseCompression/) パッケージによって提供されます。
 
 ::: moniker-end
 
