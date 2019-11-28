@@ -282,6 +282,8 @@
           uid: blazor/hosting-models
         - name: 最初のアプリをビルドする
           uid: tutorials/first-blazor-app
+        - name: テンプレート
+          uid: blazor/templates
         - name: コンポーネント
           uid: blazor/components
         - name: フォームと検証
@@ -381,14 +383,20 @@
               uid: mvc/views/tag-helpers/builtin-th/environment-tag-helper
             - name: フォーム
               href: 'mvc/views/working-with-forms.md#the-form-tag-helper'
+            - name: フォーム アクション
+              href: 'mvc/views/working-with-forms.md#the-form-action-tag-helper'
             - name: Image
               uid: mvc/views/tag-helpers/builtin-th/image-tag-helper
             - name: 入力
               href: 'mvc/views/working-with-forms.md#the-input-tag-helper'
             - name: group1
               href: 'mvc/views/working-with-forms.md#the-label-tag-helper'
+            - name: Link
+              uid: mvc/views/tag-helpers/builtin-th/link-tag-helper
             - name: 部分的
               uid: mvc/views/tag-helpers/builtin-th/partial-tag-helper
+            - name: スクリプト
+              uid: mvc/views/tag-helpers/builtin-th/script-tag-helper
             - name: 選択
               href: 'mvc/views/working-with-forms.md#the-select-tag-helper'
             - name: テキスト領域
@@ -581,8 +589,6 @@
       uid: grpc/troubleshoot
 - name: テスト、デバッグ、およびトラブルシューティング
   items:
-    - name: 単体テスト
-      href: /dotnet/core/testing/unit-testing-with-dotnet-test?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
     - name: Razor Pages の単体テスト
       uid: test/razor-pages-tests
     - name: テスト コントローラー
@@ -1096,6 +1102,9 @@
       uid: fundamentals/middleware/extensibility-third-party-container
 - name: 移行
   items:
+    - name: 3.0 から 3.1 へ
+      displayName: 'migrate, migration'
+      uid: migration/30-to-31
     - name: 2.2 から 3.0
       displayName: 'migrate, migration'
       uid: migration/22-to-30

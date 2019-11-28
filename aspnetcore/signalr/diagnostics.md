@@ -109,13 +109,17 @@ JavaScript クライアントを使用する場合、`HubConnectionBuilder`の `
 
 ### <a name="console-logging"></a>コンソールのログ記録
 
+
 コンソールのログ記録を有効にするには[Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console)パッケージを追加します。 次に、`AddConsole` メソッドを使用して、コンソールロガーを構成します。
+
 
 [!code-csharp[](diagnostics/net-client-console-log.cs?highlight=6)]
 
 ### <a name="debug-output-window-logging"></a>デバッグ出力ウィンドウのログ記録
 
+
 また、ログを構成して、Visual Studio の **[出力]** ウィンドウにアクセスすることもできます。[Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug)パッケージをインストールし、`AddDebug` メソッドを使用します。
+
 
 [!code-csharp[](diagnostics/net-client-debug-log.cs?highlight=6)]
 

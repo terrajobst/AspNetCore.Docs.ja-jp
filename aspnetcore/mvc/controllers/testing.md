@@ -5,14 +5,14 @@ description: Moq と xUnit を使って ASP.NET Core のコントローラーの
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/22/2019
+ms.date: 11/07/2019
 uid: mvc/controllers/testing
-ms.openlocfilehash: 3b5e60bbc76030b6d08bcb2f3aa1f6eca3c9bb05
-ms.sourcegitcommit: 0365af91518004c4a44a30dc3a8ac324558a399b
+ms.openlocfilehash: 7f4fcb1a5d6e9959c751ebe24e41b39ee05a5819
+ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71199092"
+ms.lasthandoff: 11/07/2019
+ms.locfileid: "73799502"
 ---
 # <a name="test-controller-logic-in-aspnet-core"></a>ASP.NET Core のコントローラーのロジックをテストする
 
@@ -347,4 +347,6 @@ ASP.NET Core 2.1 以降、[ActionResult\<T>](xref:web-api/action-return-types#ac
 ## <a name="additional-resources"></a>その他の技術情報
 
 * <xref:test/integration-tests>
-* [Visual Studio で単体テストを作成して実行します](/visualstudio/test/unit-test-your-code)。
+* [Visual Studio で単体テストを作成して実行する](/visualstudio/test/unit-test-your-code)
+* [MyTested.AspNetCore.Mvc - ASP.NET Core MVC 用の Fluent テスト ライブラリ](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) &ndash; MVC と Web API アプリをテストするための fluent インターフェイスを提供する厳密に型指定された単体テスト ライブラリ。 ("*Microsoft では保守管理もサポートも行っていません。* ")
+

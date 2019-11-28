@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 03/18/2019
 uid: mvc/views/tag-helpers/intro
-ms.openlocfilehash: 870ce2eb28f384b380cc1178842325dc28199f09
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 15f94fd1c619e9f69c5783f664eafc9ca28f86f9
+ms.sourcegitcommit: 8157e5a351f49aeef3769f7d38b787b4386aad5f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67814987"
+ms.lasthandoff: 11/20/2019
+ms.locfileid: "74239856"
 ---
 # <a name="tag-helpers-in-aspnet-core"></a>ASP.NET Core のタグ ヘルパー
 
@@ -97,7 +97,7 @@ FQN を使用してビューにタグ ヘルパーを追加するには、最初
 
 `@removeTagHelper` には `@addTagHelper` と同じ 2 つのパラメーターがあり、以前に追加されたタグ ヘルパーを削除します。 たとえば、特定のビューに適用された `@removeTagHelper` では、指定されたタグ ヘルパーをビューから削除します。 *Views/Folder/_ViewImports.cshtml* ファイルで `@removeTagHelper` を使用すると、*Folder* 内のすべてのビューから指定されたタグ ヘルパーが削除されます。
 
-### <a name="controlling-tag-helper-scope-with-the-viewimportscshtml-file"></a>*_ViewImports.cshtml* ファイルによるタグ ヘルパー スコープの制御
+### <a name="controlling-tag-helper-scope-with-the-_viewimportscshtml-file"></a>*_ViewImports.cshtml* ファイルによるタグ ヘルパー スコープの制御
 
 *_ViewImports.cshtml* を任意のビュー フォルダーに追加することができ、ビュー エンジンではそのファイルと *Views/_ViewImports.cshtml* ファイルの両方のディレクティブが適用されます。 *Home* ビューに対して空の *Views/Home/_ViewImports.cshtml* ファイルを追加した場合、 *_ViewImports.cshtml* ファイルは付加的なものであるため、何も変わりません。 *Views/Home/_ViewImports.cshtml* ファイルに追加する `@addTagHelper` ディレクティブ (既定の *Views/_ViewImports.cshtml* ファイルにはない) では、これらのタグ ヘルパーが *Home* フォルダー内のビューにのみ公開されます。
 
@@ -132,6 +132,22 @@ FQN を使用してビューにタグ ヘルパーを追加するには、最初
 ## <a name="self-closing-tag-helpers"></a>自己終了タグ ヘルパー
 
 多くのタグ ヘルパーは、自己終了タグとして使用できません。 一部のタグ ヘルパーは、自己終了タグとして設計されています。 自己終了するようになっていないタグ ヘルパーを使用すると、表示される出力が抑制されます。 タグ ヘルパーを自己終了すると、表示される出力の中に自己終了タグが配置されます。 詳細については、[タグ ヘルパーの作成](xref:mvc/views/tag-helpers/authoring)に関するページの[こちらの注意](xref:mvc/views/tag-helpers/authoring#self-closing)をご覧ください。
+
+## <a name="c-in-tag-helpers-attributedeclaration"></a>タグ ヘルパーの属性/宣言内の C# 
+
+タグ ヘルパーでは要素の属性またはタグ宣言区分の C# は許可されません。 たとえば、次のようなコードは有効ではありません。
+
+```cshtml
+<input asp-for="LastName"  
+       @(Model?.LicenseId == null ? "disabled" : string.Empty) />
+```
+
+上記のコードは、次のように記述できます。
+
+```cshtml
+<input asp-for="LastName" 
+       disabled="@(Model?.LicenseId == null)" />
+```
 
 ## <a name="intellisense-support-for-tag-helpers"></a>Intellisense でのタグ ヘルパーのサポート
 

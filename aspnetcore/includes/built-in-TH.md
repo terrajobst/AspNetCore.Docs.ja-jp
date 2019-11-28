@@ -8,8 +8,6 @@
 
 **[環境タグ ヘルパー](xref:mvc/views/tag-helpers/builtin-th/environment-tag-helper)**
 
-**[FormActionTagHelper](xref:mvc/views/working-with-forms#the-form-action-tag-helper)**
-
 **[フォーム タグ ヘルパー](xref:mvc/views/working-with-forms#the-form-tag-helper)**
 
 **[フォーム アクション タグ ヘルパー](xref:mvc/views/working-with-forms#the-form-action-tag-helper)**
@@ -20,13 +18,11 @@
 
 **[ラベル タグ ヘルパー](xref:mvc/views/working-with-forms#the-label-tag-helper)**
 
-**[LinkTagHelper](xref:mvc/views/tag-helpers/builtin-th/link-tag-helper)**
-
-[comment]: **[OptionTagHelper](xref:mvc/views/tag-helpers/builtin-th/option-tag-helper)**
-
-**[ScriptTagHelper](xref:mvc/views/tag-helpers/builtin-th/script-tag-helper)**
+**[リンク タグ ヘルパー](xref:mvc/views/tag-helpers/builtin-th/link-tag-helper)**
 
 **[部分タグ ヘルパー](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper)**
+
+**[スクリプト タグ ヘルパー](xref:mvc/views/tag-helpers/builtin-th/script-tag-helper)**
 
 **[選択タグ ヘルパー](xref:mvc/views/working-with-forms#the-select-tag-helper)**
 

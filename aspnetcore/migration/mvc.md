@@ -51,7 +51,9 @@ ms.locfileid: "68371876"
 
 ::: moniker range="= aspnetcore-2.0"
 
+
 * .NET Core を対象とする場合、 [Microsoft.AspNetCore.All メタパッケージ](xref:fundamentals/metapackage)は既定で参照されます。 このパッケージには、MVC アプリによって一般的に使用されるパッケージが含まれています。 .NET Framework を対象とする場合は、パッケージ参照をプロジェクトファイルに個別に一覧表示する必要があります。
+
 
 ::: moniker-end
 
@@ -145,7 +147,7 @@ Old ASP.NET MVC プロジェクトでは、そのスタイルに[ブートスト
 
 ## <a name="migrate-the-layout-file"></a>レイアウトファイルを移行する
 
-* Old ASP.NET MVC プロジェクトの*views*フォルダーにある*viewfile*を ASP.NET Core プロジェクトの*views*フォルダーにコピーします。 ASP.NET Core  MVC では、viewfile が変更されていません。
+* Old ASP.NET MVC プロジェクトの*views*フォルダーにある*viewfile*を ASP.NET Core プロジェクトの*views*フォルダーにコピーします。 ASP.NET Core MVC では、viewfile が変更されていません。
 
 * *ビュー/共有*フォルダーを作成します。
 

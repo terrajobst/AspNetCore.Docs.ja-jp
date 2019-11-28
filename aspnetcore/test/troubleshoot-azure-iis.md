@@ -5,14 +5,14 @@ description: ASP.NET Core アプリの Azure App Service およびインター�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/18/2019
+ms.date: 11/20/2019
 uid: test/troubleshoot-azure-iis
-ms.openlocfilehash: 384ae6645ce083fba76a430dfc3bec3a59d3870e
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 49a0f59fb6930235de10c726f3695f2a5352efb2
+ms.sourcegitcommit: 8157e5a351f49aeef3769f7d38b787b4386aad5f
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081531"
+ms.lasthandoff: 11/20/2019
+ms.locfileid: "74251965"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service-and-iis"></a>Azure App Service および IIS での ASP.NET Core のトラブルシューティング
 
@@ -68,11 +68,11 @@ The Web server is configured to not list the contents of this directory.
 1. ホストシステム上の展開フォルダーからすべてのファイルとフォルダーを削除します。
 1. Visual Studio、PowerShell、手動デプロイなどの通常のデプロイ方法を使用して、アプリの*publish*フォルダーの内容をホスティングシステムに再デプロイします。
    * 配置に web.config*ファイルが*存在し、その内容が正しいことを確認します。
-   * Azure App Service でホストする場合は、アプリが`D:\home\site\wwwroot`フォルダーに展開されていることを確認します。
+   * Azure App Service でホストする場合は、アプリが `D:\home\site\wwwroot` フォルダーに展開されていることを確認します。
    * アプリが IIS によってホストされている場合は、iis**マネージャー**の **[基本設定]** に表示されている iis の**物理パス**にアプリが展開されていることを確認します。
 1. ホスティングシステムの配置をプロジェクトの*publish*フォルダーの内容と比較することによって、アプリのすべてのファイルとフォルダーが展開されていることを確認します。
 
-発行された ASP.NET Core アプリのレイアウトの詳細について<xref:host-and-deploy/directory-structure>は、「」を参照してください。 *Web.config ファイルの*詳細については、「」 <xref:host-and-deploy/aspnet-core-module#configuration-with-webconfig>を参照してください。
+発行された ASP.NET Core アプリのレイアウトの詳細については、「<xref:host-and-deploy/directory-structure>」を参照してください。 *Web.config ファイルの*詳細については、「<xref:host-and-deploy/aspnet-core-module#configuration-with-webconfig>」を参照してください。
 
 ### <a name="500-internal-server-error"></a>500 内部サーバー エラー
 
@@ -86,7 +86,7 @@ The Web server is configured to not list the contents of this directory.
 
 ワーカー プロセスが失敗します。 アプリは起動しません。
 
-[ASP.NET Core モジュール](xref:host-and-deploy/aspnet-core-module)が .NET Core CLR の検出に失敗し、インプロセス要求ハンドラー (*aspnetcorev2_inprocess*) を検索できません。 次の点をご確認ください。
+[ASP.NET Core モジュール](xref:host-and-deploy/aspnet-core-module)が .NET Core CLR を見つけられず、インプロセス要求ハンドラー (*aspnetcorev2_inprocess*) を検索できません。 次のことを確認します。
 
 * アプリが [Microsoft.AspNetCore.Server.IIS](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.IIS) NuGet パッケージまたは [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)を対象としている。
 * アプリが対象としているバージョンの ASP.NET Core 共有フレームワークが対象のコンピューターにインストールされている。
@@ -158,7 +158,7 @@ The specified framework 'Microsoft.NETCore.App', version '3.0.0' was not found.
 
 ワーカー プロセスが失敗します。 アプリは起動しません。
 
-アプリは `Microsoft.AspNetCore.App` フレームワークを参照していませんでした。 [ASP.NET Core モジュール](xref:host-and-deploy/aspnet-core-module)でホスト`Microsoft.AspNetCore.App`できるのは、フレームワークを対象とするアプリだけです。
+アプリは `Microsoft.AspNetCore.App` フレームワークを参照していませんでした。 [ASP.NET Core モジュール](xref:host-and-deploy/aspnet-core-module)でホストできるのは、`Microsoft.AspNetCore.App` framework を対象とするアプリだけです。
 
 このエラーを修正するには、アプリが `Microsoft.AspNetCore.App` フレームワークをターゲットにしていることを確認します。 アプリがターゲットとしているフレームワークを確認するには、`.runtimeconfig.json` を確認します。
 
@@ -170,7 +170,7 @@ The specified framework 'Microsoft.NETCore.App', version '3.0.0' was not found.
 
 ### <a name="50035-ancm-multiple-in-process-applications-in-same-process"></a>500.35 ANCM Multiple In-Process Applications in same Process (500.35 ANCM 同一プロセス内の複数のインプロセス アプリケーション)
 
-ワーカー プロセスでは、インプロセス アプリとアウト プロセス アプリの両方を同じプロセスで実行できません。
+ワーカープロセスでは、同じプロセスで複数のインプロセスアプリを実行することはできません。
 
 このエラーを修正するには、別の IIS アプリケーション プールでアプリを実行します。
 
@@ -218,7 +218,7 @@ Failed to start application '/LM/W3SVC/6/ROOT/', ErrorCode '0x800700c1'.
    * 32 ビット (x86) アプリを展開する場合は、この値を `True` に設定します。
    * 64 ビット (x64) アプリを展開する場合は、この値を `False` に設定します。
 
-プロジェクトファイルの`<Platform>` MSBuild プロパティとアプリの公開ビットが競合していないことを確認します。
+プロジェクトファイルの `<Platform>` MSBuild プロパティとアプリの発行済みビットとの間で競合が発生していないことを確認します。
 
 ### <a name="connection-reset"></a>接続のリセット
 
@@ -240,7 +240,7 @@ Failed to start application '/LM/W3SVC/6/ROOT/', ErrorCode '0x800700c1'.
 1. **[問題の診断と解決]** を選択します。
 1. **[診断ツール]** という見出しを選択します。
 1. **[サポート ツール]** で **[アプリケーション イベント]** ボタンを選択します。
-1. **[Source]\(ソース\)** 列で、*IIS AspNetCoreModule* または *IIS AspNetCoreModule V2* によって提供された最新のエラーを調べます。
+1. *[Source]\(ソース\)* 列で、*IIS AspNetCoreModule* または **IIS AspNetCoreModule V2** によって提供された最新のエラーを調べます。
 
 **[問題の診断と解決]** ブレードを使う代わりに、[Kudu](https://github.com/projectkudu/kudu/wiki) を使ってアプリケーション イベント ログ ファイルを直接調べることもできます。
 
@@ -332,12 +332,12 @@ ASP.NET Core モジュールの stdout には、アプリケーション イベ�
 1. **stdoutLogEnabled** を `false` に設定します。
 1. **[保存]** を選んでファイルを保存します。
 
-詳細については、「 <xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection> 」を参照してください。
+詳細については、「 <xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>」を参照してください。
 
 > [!WARNING]
 > stdout ログを無効にしないと、アプリまたはサーバーで障害が発生する可能性があります。 ログ ファイルのサイズまたは作成されるログ ファイルの数に制限はありません。 stdout ログは、アプリ起動時の問題のトラブルシューティングにのみ使ってください。
 >
-> 起動後の ASP.NET Core アプリでの一般的なログの場合は、ログ ファイルのサイズを制限し、ログをローテーションするログ ライブラリを使います。 詳細については、「[サードパーティ製のログ プロバイダー](xref:fundamentals/logging/index#third-party-logging-providers)」を参照してください。
+> 起動後の ASP.NET Core アプリでの一般的なログの場合は、ログ ファイルのサイズを制限し、ログをローテーションするログ ライブラリを使います。 詳しくは、「[サードパーティ製のログ プロバイダー](xref:fundamentals/logging/index#third-party-logging-providers)」をご覧ください。
 
 ::: moniker range=">= aspnetcore-2.2"
 
@@ -350,7 +350,7 @@ ASP.NET Core モジュール デバッグ ログでは、ASP.NET Core モジュ�
    * Kudu コンソールを利用し、「`<handlerSettings>`強化された診断ログ[」にある ](xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs) をライブ アプリの *web.config* ファイルに追加します。
      1. **[開発ツール]** 領域で **[高度なツール]** を開きます。 **[Go&rarr;]** ボタンを選びます。 新しいブラウザー タブまたはウィンドウで Kudu コンソールが開きます。
      1. ページの上部にあるナビゲーション バーを使って **[デバッグ コンソール]** を開き、 **[CMD]** を選びます。
-     1. パス **site** > **wwwroot** へのフォルダーを開きます。 鉛筆アイコンを選択し、*web.config* ファイルを編集します。 「[強化された診断ログ](xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs)」にある `<handlerSettings>` セクションを追加します。 **[保存]** ボタンを選択します。
+     1. パス **site** > **wwwroot** へのフォルダーを開きます。 鉛筆アイコンを選択し、*web.config* ファイルを編集します。 「`<handlerSettings>`強化された診断ログ[」にある ](xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs) セクションを追加します。 **[保存]** ボタンを選択します。
 1. **[開発ツール]** 領域で **[高度なツール]** を開きます。 **[Go&rarr;]** ボタンを選びます。 新しいブラウザー タブまたはウィンドウで Kudu コンソールが開きます。
 1. ページの上部にあるナビゲーション バーを使って **[デバッグ コンソール]** を開き、 **[CMD]** を選びます。
 1. パス **site** > **wwwroot** へのフォルダーを開きます。 *aspnetcore-debug.log* ファイルにパスを指定しなかった場合、ファイルが一覧に表示されます。 パスを指定した場合、ログ ファイルの場所に移動します。
@@ -360,15 +360,15 @@ ASP.NET Core モジュール デバッグ ログでは、ASP.NET Core モジュ�
 
 強化されたデバッグ ログを無効にするには、次のいずれかを実行します。
 
-* ローカルの *web.config* ファイルから `<handlerSettings>` を削除し、アプリを再デプロイします。
+* ローカルの `<handlerSettings>`web.config*ファイルから* を削除し、アプリを再デプロイします。
 * Kudu コンソールを使用して *web.config* ファイルを編集し、`<handlerSettings>` セクションを削除します。 ファイルを保存します。
 
-詳細については、「 <xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs> 」を参照してください。
+詳細については、「 <xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs>」を参照してください。
 
 > [!WARNING]
 > debug ログを無効にしないと、アプリまたはサーバーで障害が発生する可能性があります。 ログ ファイルのサイズに制限はありません。 debug ログは、アプリ起動時の問題のトラブルシューティングにのみ使ってください。
 >
-> 起動後の ASP.NET Core アプリでの一般的なログの場合は、ログ ファイルのサイズを制限し、ログをローテーションするログ ライブラリを使います。 詳細については、「[サードパーティ製のログ プロバイダー](xref:fundamentals/logging/index#third-party-logging-providers)」を参照してください。
+> 起動後の ASP.NET Core アプリでの一般的なログの場合は、ログ ファイルのサイズを制限し、ログをローテーションするログ ライブラリを使います。 詳しくは、「[サードパーティ製のログ プロバイダー](xref:fundamentals/logging/index#third-party-logging-providers)」をご覧ください。
 
 ::: moniker-end
 
@@ -418,14 +418,14 @@ stdout ログが有効になっていない場合は、次の手順のように�
 1. Azure portal で **[問題の診断と解決]** ブレードに移動します。
 1. サイド バーの **[SUPPORT TOOLS]\(サポート ツール\)** 領域で、 **[Failed Request Tracing Logs]\(失敗した要求のトレース ログ\)** を選びます。
 
-詳しくは、[「Azure App Service の Web アプリの診断ログの有効化」トピックの「失敗した要求トレース」セクション](/azure/app-service/web-sites-enable-diagnostic-log#failed-request-traces)および[「Azure での Web アプリのアプリケーション パフォーマンスに関するよくあるご質問」の「失敗した要求トレースをオンにするにはどうすればよいですか?」](/azure/app-service/app-service-web-availability-performance-application-issues-faq#how-do-i-turn-on-failed-request-tracing)をご覧ください。
+詳しくは、[「Azure App Service の Web アプリの診断ログの有効化」トピックの「失敗した要求トレース」セクション](/azure/app-service/web-sites-enable-diagnostic-log#failed-request-traces)および[「Azure での Web アプリのアプリケーションパフォーマンスに関するよくあるご質問」の「失敗した要求トレースをオンにするにはどうすればよいですか?」](/azure/app-service/app-service-web-availability-performance-application-issues-faq#how-do-i-turn-on-failed-request-tracing)をご覧ください。
 
 詳しくは、「[Azure App Service の Web アプリの診断ログの有効化](/azure/app-service/web-sites-enable-diagnostic-log)」をご覧ください。
 
 > [!WARNING]
 > stdout ログを無効にしないと、アプリまたはサーバーで障害が発生する可能性があります。 ログ ファイルのサイズまたは作成されるログ ファイルの数に制限はありません。
 >
-> ASP.NET Core アプリでのルーチン ログの場合は、ログ ファイルのサイズを制限し、ログをローテーションするログ ライブラリを使います。 詳細については、「[サードパーティ製のログ プロバイダー](xref:fundamentals/logging/index#third-party-logging-providers)」を参照してください。
+> ASP.NET Core アプリでのルーチン ログの場合は、ログ ファイルのサイズを制限し、ログをローテーションするログ ライブラリを使います。 詳しくは、「[サードパーティ製のログ プロバイダー](xref:fundamentals/logging/index#third-party-logging-providers)」をご覧ください。
 
 ## <a name="troubleshoot-on-iis"></a>IIS でのトラブルシューティング
 
@@ -446,7 +446,7 @@ stdout ログが有効になっていない場合は、次の手順のように�
 
 アプリが[フレームワークに依存する展開](/dotnet/core/deploying/#framework-dependent-deployments-fdd)の場合:
 
-1. コマンド プロンプトで展開フォルダーに移動し、*dotnet.exe* 使用してアプリのアセンブリを実行して、アプリを実行します。 コマンド `dotnet .\<assembly_name>.dll` の \<assembly_name> にアプリのアセンブリの名前を指定して実行します。
+1. コマンド プロンプトで展開フォルダーに移動し、*dotnet.exe* 使用してアプリのアセンブリを実行して、アプリを実行します。 コマンド \< の `dotnet .\<assembly_name>.dll`assembly_name> にアプリのアセンブリの名前を指定して実行します。
 1. エラーを示すアプリからのコンソール出力は、すべてコンソール ウィンドウに書き込まれます。
 1. アプリへの要求時にエラーが発生した場合は、Kestrel がリッスンしているホストとポートに要求が送信されます。 既定のホストと post を使用して `http://localhost:5000/` に要求を行います。 アプリが Kestrel のエンドポイント アドレスで正常に応答する場合、問題はホスティングの構成に関連している可能性が高く、アプリ内が原因の可能性は低くなります。
 
@@ -454,7 +454,7 @@ stdout ログが有効になっていない場合は、次の手順のように�
 
 アプリが[自己完結型の展開](/dotnet/core/deploying/#self-contained-deployments-scd)の場合:
 
-1. コマンド プロンプトで、展開フォルダーに移動し、アプリの実行可能ファイルを実行します。 コマンド `<assembly_name>.exe` の \<assembly_name> にアプリのアセンブリの名前を指定して実行します。
+1. コマンド プロンプトで、展開フォルダーに移動し、アプリの実行可能ファイルを実行します。 コマンド \< の `<assembly_name>.exe`assembly_name> にアプリのアセンブリの名前を指定して実行します。
 1. エラーを示すアプリからのコンソール出力は、すべてコンソール ウィンドウに書き込まれます。
 1. アプリへの要求時にエラーが発生した場合は、Kestrel がリッスンしているホストとポートに要求が送信されます。 既定のホストと post を使用して `http://localhost:5000/` に要求を行います。 アプリが Kestrel のエンドポイント アドレスで正常に応答する場合、問題はホスティングの構成に関連している可能性が高く、アプリ内が原因の可能性は低くなります。
 
@@ -477,12 +477,12 @@ stdout ログを有効にして表示するには:
 1. **stdoutLogEnabled** を `false` に設定します。
 1. ファイルを保存します。
 
-詳細については、「 <xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection> 」を参照してください。
+詳細については、「 <xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>」を参照してください。
 
 > [!WARNING]
 > stdout ログを無効にしないと、アプリまたはサーバーで障害が発生する可能性があります。 ログ ファイルのサイズまたは作成されるログ ファイルの数に制限はありません。
 >
-> ASP.NET Core アプリでのルーチン ログの場合は、ログ ファイルのサイズを制限し、ログをローテーションするログ ライブラリを使います。 詳細については、「[サードパーティ製のログ プロバイダー](xref:fundamentals/logging/index#third-party-logging-providers)」を参照してください。
+> ASP.NET Core アプリでのルーチン ログの場合は、ログ ファイルのサイズを制限し、ログをローテーションするログ ライブラリを使います。 詳しくは、「[サードパーティ製のログ プロバイダー](xref:fundamentals/logging/index#third-party-logging-providers)」をご覧ください。
 
 ::: moniker range=">= aspnetcore-2.2"
 
@@ -501,7 +501,7 @@ stdout ログを有効にして表示するには:
 
 ログに指定されたパスが存在することと、アプリ プールの ID にその場所への書き込みアクセス許可があることを確認します。
 
-詳細については、「 <xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs> 」を参照してください。
+詳細については、「 <xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs>」を参照してください。
 
 ::: moniker-end
 
@@ -589,7 +589,7 @@ stdout ログを有効にして表示するには:
 
 #### <a name="app-hangs-fails-during-startup-or-runs-normally"></a>アプリが起動時または正常な実行中にハングまたは失敗する
 
-アプリが起動時または正常な実行中に "*ハング*" (応答を停止するがクラッシュしない) または失敗するときは、「[User-Mode Dump Files:Choosing the Best Tool](/windows-hardware/drivers/debugger/user-mode-dump-files#choosing-the-best-tool)」(ユーザー モード ダンプ ファイル: 最適なツールの選択) を参照し、適切なツールを選択してダンプを生成します。
+アプリが*ハング*した (応答が停止してもクラッシュしない) 場合、起動時に失敗した場合、または正常に実行された場合は、「[ユーザーモードのダンプファイル:](/windows-hardware/drivers/debugger/user-mode-dump-files#choosing-the-best-tool)ダンプを生成する適切なツールを選択する最適なツールを選択する」を参照してください。
 
 #### <a name="analyze-the-dump"></a>ダンプを分析する
 
@@ -600,14 +600,14 @@ stdout ログを有効にして表示するには:
 開発用コンピューターの .NET Core SDK をアップグレードした後、またはアプリ内のパッケージバージョンを変更した直後に、機能しているアプリが失敗することがあります。 場合によっては、パッケージに統一性がないと、メジャー アップグレード実行時にアプリが破壊されることがあります。 これらの問題のほとんどは、次の手順で解決できます。
 
 1. *bin* フォルダーと *obj* フォルダーを削除します。
-1. コマンドシェルからを実行`dotnet nuget locals all --clear`して、パッケージキャッシュをクリアします。
+1. コマンドシェルから `dotnet nuget locals all --clear` を実行して、パッケージキャッシュをクリアします。
 
-   パッケージキャッシュを消去するには、 [nuget.exe](https://www.nuget.org/downloads)ツールを使用してコマンド`nuget locals all -clear`を実行する方法もあります。 *nuget.exe* は、Windows デスクトップ オペレーティング システムにバンドルされているインストールではなく、[NuGet Web サイト](https://www.nuget.org/downloads)から別に入手する必要があります。
+   パッケージキャッシュのクリアは、 [nuget.exe](https://www.nuget.org/downloads)ツールを使用して実行し、コマンド `nuget locals all -clear`を実行することもできます。 *nuget.exe* は、Windows デスクトップ オペレーティング システムにバンドルされているインストールではなく、[NuGet Web サイト](https://www.nuget.org/downloads)から別に入手する必要があります。
 
 1. プロジェクトを復元してリビルドします。
 1. アプリケーションを再展開する前に、サーバー上の展開フォルダーにあるすべてのファイルを削除します。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * <xref:test/troubleshoot>
 * <xref:host-and-deploy/azure-iis-errors-reference>
@@ -619,7 +619,7 @@ stdout ログを有効にして表示するには:
 * [ASP.NET Core 用 Application Insights](/azure/application-insights/app-insights-asp-net-core)
 * [「Visual Studio を使用した Azure App Service での web アプリのトラブルシューティング」の「web アプリのリモートデバッグ」セクション](/azure/app-service/web-sites-dotnet-troubleshoot-visual-studio#remotedebug)
 * [Azure App Service の診断の概要](/azure/app-service/app-service-diagnostics)
-* [方法: Azure App Service でアプリを監視する](/azure/app-service/web-sites-monitor)
+* [Azure App Service でアプリを監視する方法](/azure/app-service/web-sites-monitor)
 * [Visual Studio を使用した Azure App Service での Web アプリのトラブルシューティング](/azure/app-service/web-sites-dotnet-troubleshoot-visual-studio)
 * [Azure Web Apps での "502 bad gateway" および "503 service unavailable" の HTTP エラーのトラブルシューティング](/azure/app-service/app-service-web-troubleshoot-http-502-http-503)
 * [Azure App Service での Web アプリのパフォーマンス低下に関する問題のトラブルシューティング](/azure/app-service/app-service-web-troubleshoot-performance-degradation)

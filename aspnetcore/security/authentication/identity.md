@@ -1,5 +1,5 @@
 ---
-title: ASP.NET Core での Id の概要
+title: ASP.NET Core Identity の概要
 author: rick-anderson
 description: ASP.NET Core アプリで Id を使用します。 パスワードの要件 (RequireDigit、RequiredLength、RequiredUniqueChars など) を設定する方法について説明します。
 ms.author: riande
@@ -12,7 +12,7 @@ ms.contentlocale: ja-JP
 ms.lasthandoff: 10/15/2019
 ms.locfileid: "72333551"
 ---
-# <a name="introduction-to-identity-on-aspnet-core"></a>ASP.NET Core での Id の概要
+# <a name="introduction-to-identity-on-aspnet-core"></a>ASP.NET Core Identity の概要
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -32,14 +32,14 @@ Id は、SQL Server データベースを使用して、ユーザー名、パス
 
 ## <a name="create-a-web-app-with-authentication"></a>認証を使用して Web アプリを作成する
 
-個々のユーザーアカウントを使用して ASP.NET Core Web アプリケーションプロジェクトを作成します。
+個別のユーザー アカウントを使って、ASP.NET Core Web アプリケーション プロジェクトを作成します。
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* [ **File** > **New** > **Project**] を選択します。
+* [**ファイル**>**新しい**>**プロジェクト**] を選択します。
 * **[ASP.NET Core Web アプリケーション]** を選択します。 プロジェクトに**WebApp1**という名前を付け、プロジェクトのダウンロードと同じ名前空間にします。 **[OK]** をクリックします。
 * ASP.NET Core **Web アプリケーション**を選択し、 **[認証の変更]** を選択します。
-* **個々のユーザーアカウント**を選択し、[ **OK]** をクリックします。
+* 個別のユーザー アカウントを **選択** して **OK** をクリックします。
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
@@ -55,11 +55,11 @@ dotnet new webapp --auth Individual -uld -o WebApp1
 
 ---
 
-生成されたプロジェクトは、 [ASP.NET Core id](xref:security/authentication/identity)を[Razor クラスライブラリ](xref:razor-pages/ui-class)として提供します。 Identity Razor クラスライブラリは、`Identity` 領域を持つエンドポイントを公開します。 (例:
+生成されたプロジェクトは、 [ASP.NET Core Identity](xref:security/authentication/identity)を [Razor クラス ライブラリ](xref:razor-pages/ui-class)として提供します。 Identity の Razor クラス ライブラリは`Identity`エリアでエンドポイントを公開します。 例 :
 
-* /アカウント/ログイン
-* /アカウント/ログアウト
-* /アカウント/管理
+* /Identity/Account/Login
+* /Identity/Account/Logout
+* /Identity/Account/Manage
 
 ### <a name="apply-migrations"></a>移行を適用する
 
@@ -83,37 +83,37 @@ dotnet ef database update
 
 ### <a name="test-register-and-login"></a>テストレジスタとログイン
 
-アプリを実行し、ユーザーを登録します。 画面のサイズによっては、[ナビゲーション] トグルボタンを選択して、**登録**リンクと**ログイン**リンクを表示する必要がある場合があります。
+アプリを実行し、ユーザーを登録します。 画面サイズによっては、**登録**と**ログイン**のリンクを表示するためにナビゲーションのトグル ボタンを選択する必要があります。
 
 [!INCLUDE[](~/includes/view-identity-db.md)]
 
 <a name="pw"></a>
 
-### <a name="configure-identity-services"></a>Id サービスを構成する
+### <a name="configure-identity-services"></a>Identity サービスを構成します。
 
-サービスは @no__t 0 で追加されます。 一般的なパターンは、すべての `Add{Service}` メソッドを呼び出した後、すべての `services.Configure{Service}` メソッドを呼び出すことです。
+サービスは`ConfigureServices`で追加されます。 一般的なパターンは、すべての `Add{Service}` メソッドを呼び出した後、すべての `services.Configure{Service}` メソッドを呼び出すことです。
 
 [!code-csharp[](identity/sample/WebApp3/Startup.cs?name=snippet_configureservices&highlight=10-99)]
 
-上の強調表示されたコードは、既定のオプション値を使用して Id を構成します。 サービスは、[依存関係の挿入](xref:fundamentals/dependency-injection)によってアプリで使用できるようになります。
+上の強調表示されたコードは、既定のオプション値を使用して Id を構成します。 サービスは[依存関係の注入](xref:fundamentals/dependency-injection)を通してアプリで利用できるようになります。
 
-Id は <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> を呼び出すことによって有効になります。 `UseAuthentication` は、認証[ミドルウェア](xref:fundamentals/middleware/index)を要求パイプラインに追加します。
+Id は <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*>を呼び出すことによって有効になります。 `UseAuthentication` は認証[ミドルウェア](xref:fundamentals/middleware/index)を要求パイプラインに追加します。
 
 [!code-csharp[](identity/sample/WebApp3/Startup.cs?name=snippet_configure&highlight=19)]
 
-テンプレートで生成されたアプリは、[承認](xref:security/authorization/secure-data)を使用しません。 アプリが承認を追加するのと同じ順序で追加されるように、`app.UseAuthorization` が含まれています。 `UseRouting`、`UseAuthentication`、`UseAuthorization`、`UseEndpoints` は、前のコードに示されている順序で呼び出す必要があります。
+テンプレートで生成されたアプリは、[承認](xref:security/authorization/secure-data)を使用しません。 アプリが承認を追加する正しい順序で追加されるように `app.UseAuthorization` が含まれています。 `UseRouting`、`UseAuthentication`、`UseAuthorization`、および `UseEndpoints` は、前のコードに示されている順序で呼び出す必要があります。
 
-@No__t-0 および `Startup` の詳細については、「<xref:Microsoft.AspNetCore.Identity.IdentityOptions>」と「[アプリケーションの起動](xref:fundamentals/startup)」を参照してください。
+`IdentityOptions` と `Startup`の詳細については、「<xref:Microsoft.AspNetCore.Identity.IdentityOptions> と[アプリケーションの起動](xref:fundamentals/startup)」を参照してください。
 
 ## <a name="scaffold-register-login-and-logout"></a>スキャフォールディング Register、Login、および LogOut
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Register、Login、および LogOut の各ファイルを追加します。 スキャフォールディング id に従って、このセクションに示されているコードを生成するための[承認命令を含む Razor プロジェクトに](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-razor-project-with-authorization)従います。
+Register、Login、LogOut のファイルを追加します。 [id の権限を持つ Razor プロジェクトにスキャフォールディング](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-razor-project-with-authorization)の手順に従って、このセクションで示すコードを生成してください。
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-**WebApp1**という名前のプロジェクトを作成した場合は、次のコマンドを実行します。 それ以外の場合は、`ApplicationDbContext` に正しい名前空間を使用します。
+**WebApp1**という名前のプロジェクトを作成した場合、次のコマンドを実行します。 それ以外の場合は、`ApplicationDbContext`に正しい名前空間を適用してください :
 
 ```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
@@ -128,81 +128,83 @@ PowerShell では、コマンドの区切り記号としてセミコロンを使
 
 ### <a name="examine-register"></a>レジスタの確認
 
-ユーザーが **[登録]** リンクをクリックすると、`RegisterModel.OnPostAsync` アクションが呼び出されます。 ユーザーは、`_userManager` オブジェクトの[Createasync](/dotnet/api/microsoft.aspnetcore.identity.usermanager-1.createasync#Microsoft_AspNetCore_Identity_UserManager_1_CreateAsync__0_System_String_)によって作成されます。 `_userManager` は依存関係の挿入によって提供されます):
+ユーザーが**登録**リンクをクリックすると、`RegisterModel.OnPostAsync`アクションが呼び出されます。 ユーザーは[オブジェクトの](/dotnet/api/microsoft.aspnetcore.identity.usermanager-1.createasync#Microsoft_AspNetCore_Identity_UserManager_1_CreateAsync__0_System_String_)CreateAsync`_userManager`によって作成されます。 `_userManager` は依存関係の挿入によってよって提供されます :
 
 [!code-csharp[](identity/sample/WebApp3/Areas/Identity/Pages/Account/Register.cshtml.cs?name=snippet&highlight=9)]
 
-ユーザーが正常に作成された場合、ユーザーは `_signInManager.SignInAsync` への呼び出しによってログインされます。
+ユーザーが正常に作成された場合、ユーザーは`_signInManager.SignInAsync`の呼び出しによってログインされます。
 
-登録時にすぐにログインできないようにする手順については、「[アカウントの確認](xref:security/authentication/accconfirm#prevent-login-at-registration)」をご覧ください。
+登録時の即時のログインを防止する手順については[アカウントの確認](xref:security/authentication/accconfirm#prevent-login-at-registration)を参照してください。
 
 ### <a name="log-in"></a>ログイン
 
-ログインフォームは次の場合に表示されます。
+ログイン フォームは次の時に表示されます :
 
-* **ログイン**リンクが選択されています。
-* ユーザーがアクセスを承認されていない、**または**システムによって認証されていない制限付きページにアクセスしようとしています。
+* **ログイン** リンクが選択されたとき。
+* ユーザーがまだシステムに認証されていない**または**アクセスする権限がない状態で、制限されているページにアクセスしようとしたとき。
 
-ログインページのフォームが送信されると、`OnPostAsync` アクションが呼び出されます。 `PasswordSignInAsync` は、(依存関係の挿入によって提供される) `_signInManager` オブジェクトで呼び出されます。
+ログイン ページのフォームが送信されたとき、`OnPostAsync`アクションが呼び出されます。 `PasswordSignInAsync`オブジェクト(依存関係の挿入によって提供されます)の`_signInManager`が呼び出されます。
 
 [!code-csharp[](identity/sample/WebApp3/Areas/Identity/Pages/Account/Login.cshtml.cs?name=snippet&highlight=10-11)]
 
-Base `Controller` クラスは、コントローラーメソッドからアクセスできる @no__t 1 プロパティを公開します。 たとえば、@no__t 0 を列挙し、承認の決定を行うことができます。 詳細については、「<xref:security/authorization/introduction>」を参照してください。
+基本 `Controller` クラスは、コントローラーメソッドからアクセスできる `User` プロパティを公開します。 たとえば`User.Claims`を列挙して承認の決定を行うことができます。 詳細については、「 <xref:security/authorization/introduction>」を参照してください。
 
 ### <a name="log-out"></a>ログアウト
 
-**Log out**リンクは、`LogoutModel.OnPost` アクションを呼び出します。 
+**ログアウト**リンクから`LogoutModel.OnPost`アクションが呼び出されます。 
 
 [!code-csharp[](identity/sample/WebApp3/Areas/Identity/Pages/Account/Logout.cshtml.cs?highlight=36)]
 
-前のコードでは、ブラウザーが新しい要求を実行し、ユーザーの id が更新されるように、コード `return RedirectToPage();` はリダイレクトである必要があります。
+前のコードでは、ブラウザーが新しい要求を実行し、ユーザーの id が更新されるように、コード `return RedirectToPage();` がリダイレクトである必要があります。
 
-[Signoutasync](/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.signoutasync#Microsoft_AspNetCore_Identity_SignInManager_1_SignOutAsync)者は、cookie に格納されているユーザーの要求をクリアします。
+[SignOutAsync](/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.signoutasync#Microsoft_AspNetCore_Identity_SignInManager_1_SignOutAsync) はcookie に格納されているユーザー要求をクリアします。
 
-Post は、 *Pages/Shared/Loginpartial*に指定されています。
+Postは *Pages/Shared/_LoginPartial.cshtml* で指定されています :
 
 [!code-csharp[](identity/sample/WebApp3/Pages/Shared/_LoginPartial.cshtml?highlight=15)]
 
-## <a name="test-identity"></a>テスト Id
+## <a name="test-identity"></a>Identity のテスト
 
-既定の web プロジェクトテンプレートでは、ホームページへの匿名アクセスが許可されます。 Id をテストするには[`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute)を追加します。
+既定の web プロジェクト テンプレートは、ホーム ページへの匿名アクセスを許可しています。 Id をテストするには、 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute)を追加します。
 
 [!code-csharp[](identity/sample/WebApp3/Pages/Privacy.cshtml.cs?highlight=7)]
 
 サインインしている場合は、サインアウトします。アプリを実行し、 **[プライバシー]** リンクを選択します。 ログインページにリダイレクトされます。
 
-### <a name="explore-identity"></a>Id の探索
+### <a name="explore-identity"></a>Identity を調べる
 
-Id の詳細については、以下を参照してください。
+Identity についてさらに詳しく調べるには :
 
-* [完全な id UI ソースの作成](xref:security/authentication/scaffold-identity#create-full-identity-ui-source)
-* 各ページのソースを確認し、デバッガーをステップ実行します。
+* [完全な Identity の UI のソースを作成します。](xref:security/authentication/scaffold-identity#create-full-identity-ui-source)
+* 各ページのソースを確認し、デバッガーでステップ実行します。
 
-## <a name="identity-components"></a>Id コンポーネント
+## <a name="identity-components"></a>Identity コンポーネント
 
 すべての Id に依存する NuGet パッケージは、 [ASP.NET Core 共有フレームワーク](xref:aspnetcore-3.0#use-the-aspnet-core-shared-framework)に含まれています。
 
+
 Id のプライマリパッケージは[Microsoft.AspNetCore.Identity](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity/)です。 このパッケージには ASP.NET Core Id のインターフェイスのコアセットが含まれており、`Microsoft.AspNetCore.Identity.EntityFrameworkCore` によって含まれています。
+
 
 ## <a name="migrating-to-aspnet-core-identity"></a>ASP.NET Core Id への移行
 
-既存の Id ストアを移行する方法の詳細とガイダンスについては、「[認証と id の移行](xref:migration/identity)」を参照してください。
+既存の Identity ストアの移行についての詳細とガイダンスについては、次を参照してください : [移行の認証と Id](xref:migration/identity)。
 
 ## <a name="setting-password-strength"></a>パスワードの強度を設定する
 
-パスワードの最小要件を設定するサンプルについては、「[構成](#pw)」を参照してください。
+パスワードの最小要件を設定するサンプルについては[構成](#pw)を参照してください。
 
 ## <a name="adddefaultidentity-and-addidentity"></a>AddDefaultIdentity と AddIdentity
 
-<xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionUIExtensions.AddDefaultIdentity*> は ASP.NET Core 2.1 で導入されました。 @No__t-0 の呼び出しは、次の呼び出しに似ています。
+<xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionUIExtensions.AddDefaultIdentity*> は ASP.NET Core 2.1 で導入されました。 `AddDefaultIdentity`の呼び出しは、次の呼び出しに似ています。
 
 * <xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions.AddIdentity*>
 * <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>
 * <xref:Microsoft.AspNetCore.Identity.IdentityBuilderExtensions.AddDefaultTokenProviders*>
 
-詳細については、「 [AddDefaultIdentity source](https://github.com/aspnet/AspNetCore/blob/release/3.0/src/Identity/UI/src/IdentityServiceCollectionUIExtensions.cs#L47-L63) 」を参照してください。
+詳細については[AddDefaultIdentity のソース](https://github.com/aspnet/AspNetCore/blob/release/3.0/src/Identity/UI/src/IdentityServiceCollectionUIExtensions.cs#L47-L63)を参照してください。
 
-## <a name="next-steps"></a>次のステップ
+## <a name="next-steps"></a>次の手順
 
 * [Identity の構成](xref:security/authentication/identity-configuration)
 * <xref:security/authorization/secure-data>
@@ -231,24 +233,24 @@ Id は、SQL Server データベースを使用して、ユーザー名、パス
 
 ## <a name="adddefaultidentity-and-addidentity"></a>AddDefaultIdentity と AddIdentity
 
-<xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionUIExtensions.AddDefaultIdentity*> は ASP.NET Core 2.1 で導入されました。 @No__t-0 の呼び出しは、次の呼び出しに似ています。
+<xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionUIExtensions.AddDefaultIdentity*> は ASP.NET Core 2.1 で導入されました。 `AddDefaultIdentity`の呼び出しは、次の呼び出しに似ています。
 
 * <xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions.AddIdentity*>
 * <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>
 * <xref:Microsoft.AspNetCore.Identity.IdentityBuilderExtensions.AddDefaultTokenProviders*>
 
-詳細については、「 [AddDefaultIdentity source](https://github.com/aspnet/AspNetCore/blob/release/3.0/src/Identity/UI/src/IdentityServiceCollectionUIExtensions.cs#L47-L63) 」を参照してください。
+詳細については[AddDefaultIdentity のソース](https://github.com/aspnet/AspNetCore/blob/release/3.0/src/Identity/UI/src/IdentityServiceCollectionUIExtensions.cs#L47-L63)を参照してください。
 
 ## <a name="create-a-web-app-with-authentication"></a>認証を使用して Web アプリを作成する
 
-個々のユーザーアカウントを使用して ASP.NET Core Web アプリケーションプロジェクトを作成します。
+個別のユーザー アカウントを使って、ASP.NET Core Web アプリケーション プロジェクトを作成します。
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* [ **File** > **New** > **Project**] を選択します。
+* [**ファイル**>**新しい**>**プロジェクト**] を選択します。
 * **[ASP.NET Core Web アプリケーション]** を選択します。 プロジェクトに**WebApp1**という名前を付け、プロジェクトのダウンロードと同じ名前空間にします。 **[OK]** をクリックします。
 * ASP.NET Core **Web アプリケーション**を選択し、 **[認証の変更]** を選択します。
-* **個々のユーザーアカウント**を選択し、[ **OK]** をクリックします。
+* 個別のユーザー アカウントを **選択** して **OK** をクリックします。
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
@@ -258,11 +260,11 @@ dotnet new webapp --auth Individual -o WebApp1
 
 ---
 
-生成されたプロジェクトは、 [ASP.NET Core id](xref:security/authentication/identity)を[Razor クラスライブラリ](xref:razor-pages/ui-class)として提供します。 Identity Razor クラスライブラリは、`Identity` 領域を持つエンドポイントを公開します。 (例:
+生成されたプロジェクトは、 [ASP.NET Core Identity](xref:security/authentication/identity)を [Razor クラス ライブラリ](xref:razor-pages/ui-class)として提供します。 Identity の Razor クラス ライブラリは`Identity`エリアでエンドポイントを公開します。 例 :
 
-* /アカウント/ログイン
-* /アカウント/ログアウト
-* /アカウント/管理
+* /Identity/Account/Login
+* /Identity/Account/Logout
+* /Identity/Account/Manage
 
 ### <a name="apply-migrations"></a>移行を適用する
 
@@ -284,37 +286,37 @@ dotnet ef database update
 
 ### <a name="test-register-and-login"></a>テストレジスタとログイン
 
-アプリを実行し、ユーザーを登録します。 画面のサイズによっては、[ナビゲーション] トグルボタンを選択して、**登録**リンクと**ログイン**リンクを表示する必要がある場合があります。
+アプリを実行し、ユーザーを登録します。 画面サイズによっては、**登録**と**ログイン**のリンクを表示するためにナビゲーションのトグル ボタンを選択する必要があります。
 
 [!INCLUDE[](~/includes/view-identity-db.md)]
 
 <a name="pw"></a>
 
-### <a name="configure-identity-services"></a>Id サービスを構成する
+### <a name="configure-identity-services"></a>Identity サービスを構成します。
 
-サービスは @no__t 0 で追加されます。 一般的なパターンは、すべての `Add{Service}` メソッドを呼び出した後、すべての `services.Configure{Service}` メソッドを呼び出すことです。
+サービスは`ConfigureServices`で追加されます。 一般的なパターンは、すべての `Add{Service}` メソッドを呼び出した後、すべての `services.Configure{Service}` メソッドを呼び出すことです。
 
 [!code-csharp[](identity/sample/WebApp1/Startup.cs?name=snippet_configureservices)]
 
-前のコードでは、既定のオプション値を使用して Id を構成しています。 サービスは、[依存関係の挿入](xref:fundamentals/dependency-injection)によってアプリで使用できるようになります。
+上記のコードでは、既定のオプション値で Identity を構成します。 サービスは[依存関係の注入](xref:fundamentals/dependency-injection)を通してアプリで利用できるようになります。
 
-Id は、 [Useauthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_)を呼び出すことによって有効になります。 `UseAuthentication` は、認証[ミドルウェア](xref:fundamentals/middleware/index)を要求パイプラインに追加します。
+Identity は[UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_)を呼び出すことによって有効になります。 `UseAuthentication` は認証[ミドルウェア](xref:fundamentals/middleware/index)を要求パイプラインに追加します。
 
 [!code-csharp[](identity/sample/WebApp1/Startup.cs?name=snippet_configure&highlight=18)]
 
-詳細については、「[クラス](/dotnet/api/microsoft.aspnetcore.identity.identityoptions)と[アプリケーションの起動](xref:fundamentals/startup)」を参照してください。
+詳細については、次の [IdentityOptions クラス](/dotnet/api/microsoft.aspnetcore.identity.identityoptions)と[アプリケーションの起動](xref:fundamentals/startup) を参照してください。
 
 ## <a name="scaffold-register-login-and-logout"></a>スキャフォールディング Register、Login、および LogOut
 
-スキャフォールディング id に従って、このセクションに示されているコードを生成するための[承認命令を含む Razor プロジェクトに](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-razor-project-with-authorization)従います。
+[id の権限を持つ Razor プロジェクトにスキャフォールディング](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-razor-project-with-authorization)の手順に従って、このセクションで示すコードを生成してください。
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Register、Login、および LogOut の各ファイルを追加します。
+Register、Login、LogOut のファイルを追加します。
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-**WebApp1**という名前のプロジェクトを作成した場合は、次のコマンドを実行します。 それ以外の場合は、`ApplicationDbContext` に正しい名前空間を使用します。
+**WebApp1**という名前のプロジェクトを作成した場合、次のコマンドを実行します。 それ以外の場合は、`ApplicationDbContext`に正しい名前空間を適用してください :
 
 ```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
@@ -327,69 +329,71 @@ PowerShell では、コマンドの区切り記号としてセミコロンを使
 
 ### <a name="examine-register"></a>レジスタの確認
 
-ユーザーが **[登録]** リンクをクリックすると、`RegisterModel.OnPostAsync` アクションが呼び出されます。 ユーザーは、`_userManager` オブジェクトの[Createasync](/dotnet/api/microsoft.aspnetcore.identity.usermanager-1.createasync#Microsoft_AspNetCore_Identity_UserManager_1_CreateAsync__0_System_String_)によって作成されます。 `_userManager` は依存関係の挿入によって提供されます):
+ユーザーが**登録**リンクをクリックすると、`RegisterModel.OnPostAsync`アクションが呼び出されます。 ユーザーは[オブジェクトの](/dotnet/api/microsoft.aspnetcore.identity.usermanager-1.createasync#Microsoft_AspNetCore_Identity_UserManager_1_CreateAsync__0_System_String_)CreateAsync`_userManager`によって作成されます。 `_userManager` は依存関係の挿入によってよって提供されます :
 
 [!code-csharp[](identity/sample/WebApp1/Areas/Identity/Pages/Account/Register.cshtml.cs?name=snippet&highlight=7)]
 
-ユーザーが正常に作成された場合、ユーザーは `_signInManager.SignInAsync` への呼び出しによってログインされます。
+ユーザーが正常に作成された場合、ユーザーは`_signInManager.SignInAsync`の呼び出しによってログインされます。
 
 **注:** 登録時にすぐにログインできないようにする手順については、「[アカウントの確認](xref:security/authentication/accconfirm#prevent-login-at-registration)」をご覧ください。
 
 ### <a name="log-in"></a>ログイン
 
-ログインフォームは次の場合に表示されます。
+ログイン フォームは次の時に表示されます :
 
-* **ログイン**リンクが選択されています。
-* ユーザーがアクセスを承認されていない、**または**システムによって認証されていない制限付きページにアクセスしようとしています。
+* **ログイン** リンクが選択されたとき。
+* ユーザーがまだシステムに認証されていない**または**アクセスする権限がない状態で、制限されているページにアクセスしようとしたとき。
 
-ログインページのフォームが送信されると、`OnPostAsync` アクションが呼び出されます。 `PasswordSignInAsync` は、(依存関係の挿入によって提供される) `_signInManager` オブジェクトで呼び出されます。
+ログイン ページのフォームが送信されたとき、`OnPostAsync`アクションが呼び出されます。 `PasswordSignInAsync`オブジェクト(依存関係の挿入によって提供されます)の`_signInManager`が呼び出されます。
 
 [!code-csharp[](identity/sample/WebApp1/Areas/Identity/Pages/Account/Login.cshtml.cs?name=snippet&highlight=10-11)]
 
-Base `Controller` クラスは、コントローラーメソッドからアクセスできる `User` プロパティを公開します。 たとえば、@no__t 0 を列挙し、承認の決定を行うことができます。 詳細については、「<xref:security/authorization/introduction>」を参照してください。
+ベース`Controller`クラスでは、コントローラー メソッドからアクセスできる`User`プロパティを公開します。 たとえば`User.Claims`を列挙して承認の決定を行うことができます。 詳細については、「 <xref:security/authorization/introduction>」を参照してください。
 
 ### <a name="log-out"></a>ログアウト
 
-**Log out**リンクは、`LogoutModel.OnPost` アクションを呼び出します。 
+**ログアウト**リンクから`LogoutModel.OnPost`アクションが呼び出されます。 
 
 [!code-csharp[](identity/sample/WebApp1/Areas/Identity/Pages/Account/Logout.cshtml.cs)]
 
-[Signoutasync](/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.signoutasync#Microsoft_AspNetCore_Identity_SignInManager_1_SignOutAsync)者は、cookie に格納されているユーザーの要求をクリアします。
+[SignOutAsync](/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.signoutasync#Microsoft_AspNetCore_Identity_SignInManager_1_SignOutAsync) はcookie に格納されているユーザー要求をクリアします。
 
-Post は、 *Pages/Shared/Loginpartial*に指定されています。
+Postは *Pages/Shared/_LoginPartial.cshtml* で指定されています :
 
 [!code-csharp[](identity/sample/WebApp1/Pages/Shared/_LoginPartial.cshtml?highlight=16)]
 
-## <a name="test-identity"></a>テスト Id
+## <a name="test-identity"></a>Identity のテスト
 
-既定の web プロジェクトテンプレートでは、ホームページへの匿名アクセスが許可されます。 Id をテストするには、プライバシーページに[`[Authorize]`](/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute)を追加します。
+既定の web プロジェクト テンプレートは、ホーム ページへの匿名アクセスを許可しています。 Identity をテストするために、[ `[Authorize]` ](/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute)をPrivacy ページに追加します。
 
 [!code-csharp[](identity/sample/WebApp1/Pages/Privacy.cshtml.cs?highlight=7)]
 
 サインインしている場合は、サインアウトします。アプリを実行し、 **[プライバシー]** リンクを選択します。 ログインページにリダイレクトされます。
 
-### <a name="explore-identity"></a>Id の探索
+### <a name="explore-identity"></a>Identity を調べる
 
-Id の詳細については、以下を参照してください。
+Identity についてさらに詳しく調べるには :
 
-* [完全な id UI ソースの作成](xref:security/authentication/scaffold-identity#create-full-identity-ui-source)
-* 各ページのソースを確認し、デバッガーをステップ実行します。
+* [完全な Identity の UI のソースを作成します。](xref:security/authentication/scaffold-identity#create-full-identity-ui-source)
+* 各ページのソースを確認し、デバッガーでステップ実行します。
 
-## <a name="identity-components"></a>Id コンポーネント
+## <a name="identity-components"></a>Identity コンポーネント
+
 
 すべての Id 依存 NuGet パッケージは、 [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)に含まれています。
 
 Id のプライマリパッケージは[Microsoft.AspNetCore.Identity](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity/)です。 このパッケージには ASP.NET Core Id のインターフェイスのコアセットが含まれており、`Microsoft.AspNetCore.Identity.EntityFrameworkCore` によって含まれています。
 
+
 ## <a name="migrating-to-aspnet-core-identity"></a>ASP.NET Core Id への移行
 
-既存の Id ストアを移行する方法の詳細とガイダンスについては、「[認証と id の移行](xref:migration/identity)」を参照してください。
+既存の Identity ストアの移行についての詳細とガイダンスについては、次を参照してください : [移行の認証と Id](xref:migration/identity)。
 
 ## <a name="setting-password-strength"></a>パスワードの強度を設定する
 
-パスワードの最小要件を設定するサンプルについては、「[構成](#pw)」を参照してください。
+パスワードの最小要件を設定するサンプルについては[構成](#pw)を参照してください。
 
-## <a name="next-steps"></a>次のステップ
+## <a name="next-steps"></a>次の手順
 
 * [Identity の構成](xref:security/authentication/identity-configuration)
 * <xref:security/authorization/secure-data>

@@ -9,12 +9,12 @@ ms.date: 11/12/2019
 no-loc:
 - SignalR
 uid: signalr/redis-backplane
-ms.openlocfilehash: 379d46fcaabb8eb0d04e521a5ad698229f947b7c
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 0461fc6a212ba78111bc2054cca74951721c5820
+ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963916"
+ms.lasthandoff: 11/21/2019
+ms.locfileid: "74289038"
 ---
 # <a name="set-up-a-redis-backplane-for-aspnet-core-opno-locsignalr-scale-out"></a>ASP.NET Core SignalR スケールアウトのための Redis バックプレーンの設定
 
@@ -37,8 +37,7 @@ ms.locfileid: "73963916"
 
 ::: moniker range="= aspnetcore-2.1"
 
-* SignalR アプリで `Microsoft.AspNetCore.SignalR.Redis` NuGet パッケージをインストールします。 (`Microsoft.AspNetCore.SignalR.StackExchangeRedis` パッケージもありますが、ASP.NET Core 2.2 以降を対象としています)。
-
+* SignalR アプリで `Microsoft.AspNetCore.SignalR.Redis` NuGet パッケージをインストールします。
 * `Startup.ConfigureServices` メソッドで、`AddSignalR`の後に `AddRedis` を呼び出します。
 
   ```csharp
@@ -62,19 +61,54 @@ ms.locfileid: "73963916"
 
 ::: moniker-end
 
-::: moniker range="> aspnetcore-2.1"
+::: moniker range="= aspnetcore-2.2"
 
 * SignalR アプリで、次のいずれかの NuGet パッケージをインストールします。
 
   * `Microsoft.AspNetCore.SignalR.StackExchangeRedis`-StackExchange に依存します。 Redis 2. X.X. これは ASP.NET Core 2.2 以降で推奨されるパッケージです。
-  * `Microsoft.AspNetCore.SignalR.Redis`-StackExchange に依存します。 Redis 1. X.X. このパッケージは ASP.NET Core 3.0 では出荷されません。
+  * `Microsoft.AspNetCore.SignalR.Redis`-StackExchange に依存します。 Redis 1. X.X. このパッケージは ASP.NET Core 3.0 以降には含まれていません。
 
-* `Startup.ConfigureServices` メソッドで、`AddSignalR`の後に `AddStackExchangeRedis` を呼び出します。
+* `Startup.ConfigureServices` メソッドで、<xref:Microsoft.Extensions.DependencyInjection.StackExchangeRedisDependencyInjectionExtensions.AddStackExchangeRedis*>を呼び出します。
 
   ```csharp
   services.AddSignalR().AddStackExchangeRedis("<your_Redis_connection_string>");
   ```
 
+ `Microsoft.AspNetCore.SignalR.Redis`を使用する場合は、<xref:Microsoft.Extensions.DependencyInjection.RedisDependencyInjectionExtensions.AddRedis*>を呼び出します。
+
+* 必要に応じてオプションを構成します。
+ 
+  ほとんどのオプションは、接続文字列または[configurationoptions](https://stackexchange.github.io/StackExchange.Redis/Configuration#configuration-options)オブジェクトで設定できます。 `ConfigurationOptions` で指定されたオプションは、接続文字列で設定されているオプションをオーバーライドします。
+
+  次の例は、`ConfigurationOptions` オブジェクトのオプションを設定する方法を示しています。 この例では、次の手順で説明するように、複数のアプリが同じ Redis インスタンスを共有できるように、チャネルプレフィックスを追加します。
+
+  ```csharp
+  services.AddSignalR()
+    .AddStackExchangeRedis(connectionString, options => {
+        options.Configuration.ChannelPrefix = "MyApp";
+    });
+  ```
+
+ `Microsoft.AspNetCore.SignalR.Redis`を使用する場合は、<xref:Microsoft.Extensions.DependencyInjection.RedisDependencyInjectionExtensions.AddRedis*>を呼び出します。
+
+  前のコードでは、`options.Configuration` は接続文字列で指定された値で初期化されます。
+
+  Redis オプションの詳細については、 [Stackexchange Redis のドキュメント](https://stackexchange.github.io/StackExchange.Redis/Configuration.html)を参照してください。
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+
+* SignalR アプリで、次の NuGet パッケージをインストールします。
+
+  * `Microsoft.AspNetCore.SignalR.StackExchangeRedis`
+  
+* `Startup.ConfigureServices` メソッドで、<xref:Microsoft.Extensions.DependencyInjection.StackExchangeRedisDependencyInjectionExtensions.AddStackExchangeRedis*>を呼び出します。
+
+  ```csharp
+  services.AddSignalR().AddStackExchangeRedis("<your_Redis_connection_string>");
+  ```
+  
 * 必要に応じてオプションを構成します。
  
   ほとんどのオプションは、接続文字列または[configurationoptions](https://stackexchange.github.io/StackExchange.Redis/Configuration#configuration-options)オブジェクトで設定できます。 `ConfigurationOptions` で指定されたオプションは、接続文字列で設定されているオプションをオーバーライドします。
@@ -190,7 +224,7 @@ services.AddSignalR()
 
 [Redis クラスタリング](https://redis.io/topics/cluster-spec)は、複数の redis サーバーを使用して高可用性を実現するための方法です。 クラスタリングは正式にはサポートされていませんが、動作する可能性があります。
 
-## <a name="next-steps"></a>次のステップ
+## <a name="next-steps"></a>次のステップ:
 
 詳細については、次のリソースを参照してください。
 

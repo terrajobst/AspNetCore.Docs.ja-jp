@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 09/09/2019
 uid: web-api/action-return-types
-ms.openlocfilehash: 991265810324d6339ebf346ff9aa14c479112af9
-ms.sourcegitcommit: fa61d882be9d0c48bd681f2efcb97e05522051d0
+ms.openlocfilehash: c409170a24225e160c1c53e7294590589e114f7f
+ms.sourcegitcommit: 231780c8d7848943e5e9fd55e93f437f7e5a371d
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71205756"
+ms.lasthandoff: 11/15/2019
+ms.locfileid: "74116087"
 ---
 # <a name="controller-action-return-types-in-aspnet-core-web-api"></a>ASP.NET Core Web API のコントローラー アクションの戻り値の型
 
@@ -50,7 +50,7 @@ ASP.NET Core では、Web API コントローラー アクションの戻り値�
 
 ### <a name="return-ienumerablet-or-iasyncenumerablet"></a>IEnumerable\<T> または IAsyncEnumerable\<T> を返す
 
-ASP.NET Core 2.2 以前では、アクションから <xref:System.Collections.Generic.IAsyncEnumerable%601> が返されると、シリアライザーによって同期コレクションのイテレーションが行われます。 その結果、呼び出しがブロックされ、スレッド プールが枯渇する可能性があります。 例として、Web API のデータ アクセスのニーズに Entity Framework (EF) コアが使用されているとします。 次のアクションの戻り値の型は、シリアル化中に同期的に列挙されます。
+ASP.NET Core 2.2 以前では、アクションから <xref:System.Collections.Generic.IEnumerable%601> が返されると、シリアライザーによって同期コレクションのイテレーションが行われます。 その結果、呼び出しがブロックされ、スレッド プールが枯渇する可能性があります。 例として、Web API のデータ アクセスのニーズに Entity Framework (EF) コアが使用されているとします。 次のアクションの戻り値の型は、シリアル化中に同期的に列挙されます。
 
 ```csharp
 public IEnumerable<Product> GetOnSaleProducts() =>

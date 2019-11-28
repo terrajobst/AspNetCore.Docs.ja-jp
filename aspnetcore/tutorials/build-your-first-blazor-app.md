@@ -1,20 +1,22 @@
 ---
-title: 最初の Blazor アプリを構築する
+title: 最初の Blazor アプリをビルドする
 author: guardrex
 description: Blazor アプリを段階的に構築します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/31/2019
+no-loc:
+- Blazor
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: cc7caa1ee01e0282024895ab35c5b9933b1504d0
-ms.sourcegitcommit: eb2fe5ad2e82fab86ca952463af8d017ba659b25
+ms.openlocfilehash: 646e14060b88fc2a0fefc2f7a5ebb1c15ac39b79
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/01/2019
-ms.locfileid: "73416173"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963713"
 ---
-# <a name="build-your-first-blazor-app"></a>最初の Blazor アプリを構築する
+# <a name="build-your-first-opno-locblazor-app"></a>最初の Blazor アプリをビルドする
 
 作成者: [Daniel Roth](https://github.com/danroth27)、[Luke Latham](https://github.com/guardrex)
 
@@ -59,7 +61,7 @@ HTML 構文を使用して、別のコンポーネント内にコンポーネン
 
 1. `Index` コンポーネント (*Index.razor*) に `<Counter />` 要素を追加することで、アプリの `Index` コンポーネントに `Counter` コンポーネントを追加します。
 
-   このエクスペリエンスのために Blazor WebAssembly を使用している場合、`Index` コンポーネントによって `SurveyPrompt` コンポーネントが使用されます。 `<SurveyPrompt>` 要素を `<Counter />` 要素に置き換えます。 このエクスペリエンスに Blazor サーバー アプリを使用している場合は、`<Counter />` 要素を `Index` コンポーネントに追加します。
+   このエクスペリエンスのために Blazor WebAssembly を使用している場合、`SurveyPrompt` コンポーネントによって `Index` コンポーネントが使用されます。 `<SurveyPrompt>` 要素を `<Counter />` 要素に置き換えます。 このエクスペリエンスに Blazor サーバー アプリを使用している場合は、`<Counter />` 要素を `Index` コンポーネントに追加します。
 
    *Pages/Index.razor*:
 
@@ -99,7 +101,7 @@ HTML 構文を使用して、別のコンポーネント内にコンポーネン
 
 ## <a name="dependency-injection"></a>依存関係の挿入
 
-### <a name="blazor-server-experience"></a>Blazor サーバーのエクスペリエンス
+### <a name="opno-locblazor-server-experience"></a>Blazor サーバーのエクスペリエンス
 
 Blazor サーバー アプリを使用している場合、`WeatherForecastService` サービスは `Startup.ConfigureServices` の[シングルトン](xref:fundamentals/dependency-injection#service-lifetimes)として登録されます。 サービスのインスタンスは、[依存関係の挿入 (DI)](xref:fundamentals/dependency-injection) を介してアプリ全体で利用できます。
 
@@ -115,7 +117,7 @@ Blazor サーバー アプリを使用している場合、`WeatherForecastServi
 
 [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData2.razor?highlight=6)]
 
-### <a name="blazor-webassembly-experience"></a>Blazor WebAssembly のエクスペリエンス
+### <a name="opno-locblazor-webassembly-experience"></a>Blazor WebAssembly のエクスペリエンス
 
 Blazor WebAssembly アプリを使用する場合、*wwwroot/sample-data* フォルダー内の *weather.json* ファイルから天気予報データを取得するために、`HttpClient` が挿入されます。
 

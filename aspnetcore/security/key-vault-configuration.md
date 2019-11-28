@@ -5,14 +5,14 @@ description: Azure Key Vault 構成プロバイダーを使用して、実行時
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/27/2019
+ms.date: 11/14/2019
 uid: security/key-vault-configuration
-ms.openlocfilehash: acc3a77cdeb3ba73d8467d465128106e461efa7c
-ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
+ms.openlocfilehash: e0e55d40734e0cb6e3e1afe1c708ec47c6f43054
+ms.sourcegitcommit: f91d322f790123d41ec3271fa084ae20ed9f89a6
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/29/2019
-ms.locfileid: "73034326"
+ms.lasthandoff: 11/18/2019
+ms.locfileid: "74155160"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>ASP.NET Core の構成プロバイダーの Azure Key Vault
 
@@ -23,11 +23,10 @@ ms.locfileid: "73034326"
 * 機密性の高い構成データへのアクセスを制御する。
 * 構成データを格納するときに、FIPS 140-2 Level 2 で検証されたハードウェアセキュリティモジュール (HSM) の要件を満たしている。
 
-このシナリオは ASP.NET Core 2.1 以降を対象とするアプリで使用できます。
-
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/key-vault-configuration/sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/key-vault-configuration/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="packages"></a>パッケージ
+
 
 Azure Key Vault 構成プロバイダーを使用するには、[Microsoft.Extensions.Configuration.AzureKeyVault](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.AzureKeyVault/) パッケージへのパッケージ参照を追加します。
 
@@ -36,12 +35,13 @@ Azure Key Vault 構成プロバイダーを使用するには、[Microsoft.Exten
 > [!NOTE]
 > このドキュメントの執筆時点では、`Microsoft.Azure.Services.AppAuthentication`、version `1.0.3` の最新の安定したリリースで、[システムによって割り当てられたマネージド id](/azure/active-directory/managed-identities-azure-resources/overview#how-does-the-managed-identities-for-azure-resources-work)がサポートされています。 *ユーザー割り当てのマネージド id*のサポートは、`1.2.0-preview2` パッケージで利用できます。 このトピックでは、システム管理の id の使用方法を示します。提供されるサンプルアプリでは、`Microsoft.Azure.Services.AppAuthentication` パッケージのバージョン `1.0.3` を使用します。
 
+
 ## <a name="sample-app"></a>サンプル アプリ
 
 サンプルアプリは、 *Program.cs*ファイルの先頭にある `#define` ステートメントによって決定される2つのモードのいずれかで実行されます。
 
 * `Certificate` &ndash; は、Azure Key Vault クライアント ID と x.509 証明書を使用して Azure Key Vault に格納されているシークレットにアクセスする方法を示しています。 このバージョンのサンプルは、Azure App Service、または ASP.NET Core アプリを提供できる任意のホストにデプロイされている任意の場所から実行できます。
-* `Managed` &ndash; は、 [Azure リソースの管理対象 id](/azure/active-directory/managed-identities-azure-resources/overview)を使用してアプリを認証し、アプリのコードまたは構成に格納されている資格情報を使用せずに Azure AD 認証で Azure Key Vault する方法を示しています。 マネージ id を使用して認証を行う場合、Azure AD アプリケーション ID とパスワード (クライアントシークレット) は必要ありません。 このサンプルの `Managed` バージョンは、Azure にデプロイする必要があります。 「 [Azure リソースの管理対象 id の使用](#use-managed-identities-for-azure-resources)」セクションのガイダンスに従ってください。
+* `Managed` &ndash; では、アプリのコードまたは構成に格納されている資格情報を使用せずに Azure AD 認証で Azure Key Vault するために、 [Azure リソースの管理対象 id](/azure/active-directory/managed-identities-azure-resources/overview)を使用してアプリを認証する方法について説明します。 マネージ id を使用して認証を行う場合、Azure AD アプリケーション ID とパスワード (クライアントシークレット) は必要ありません。 このサンプルの `Managed` バージョンは、Azure にデプロイする必要があります。 「 [Azure リソースの管理対象 id の使用](#use-managed-identities-for-azure-resources)」セクションのガイダンスに従ってください。
 
 プリプロセッサディレクティブ (`#define`) を使用してサンプルアプリケーションを構成する方法の詳細については、「<xref:index#preprocessor-directives-in-sample-code>」を参照してください。
 
@@ -88,7 +88,7 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 
 1. まだ認証されていない場合は、`az login` コマンドを使用してサインインします。
 
-1. 次のコマンドを使用してリソースグループを作成します。ここで `{RESOURCE GROUP NAME}` は新しいリソースグループのリソースグループ名、`{LOCATION}` は Azure リージョン (datacenter) です。
+1. 次のコマンドを使用してリソースグループを作成します。ここで `{RESOURCE GROUP NAME}` は、新しいリソースグループのリソースグループ名で、`{LOCATION}` は Azure リージョン (datacenter) です。
 
    ```azure-cli
    az group create --name "{RESOURCE GROUP NAME}" --location {LOCATION}
@@ -132,9 +132,9 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 1. Azure portal の**キーコンテナー**に移動します。
 1. Azure Key Vault セクションで、[運用環境のシークレットストレージ](#secret-storage-in-the-production-environment-with-azure-key-vault)に作成したキーコンテナーを選択します。
 1. **[アクセスポリシー]** を選択します。
-1. **[新規追加]** を選択します。
-1. **[プリンシパルの選択]** を選択し、名前で登録済みのアプリを選択します。 **[選択]** ボタンを選択します。
+1. **[アクセスポリシーの追加]** を選択します。
 1. **[シークレットのアクセス許可]** を開き、アプリに**Get**および**List**アクセス許可を提供します。
+1. **[プリンシパルの選択]** を選択し、名前で登録済みのアプリを選択します。 **[選択]** ボタンを選択します。
 1. **[OK]** を選択します。
 1. **[保存]** を選択します。
 1. アプリをデプロイします。
@@ -146,9 +146,19 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
   * `config["Section:SecretName"]`
   * `config.GetSection("Section")["SecretName"]`
 
-X.509 証明書は OS によって管理されます。 アプリは、 *appsettings*ファイルによって指定された値を使用して `AddAzureKeyVault` を呼び出します。
+X.509 証明書は OS によって管理されます。 アプリは、appsettings ファイルによって指定さ*れ*た値を使用して <xref:Microsoft.Extensions.Configuration.AzureKeyVaultConfigurationExtensions.AddAzureKeyVault*> を呼び出します。
 
-[!code-csharp[](key-vault-configuration/sample/Program.cs?name=snippet1&highlight=20-23)]
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](key-vault-configuration/samples/3.x/SampleApp/Program.cs?name=snippet1&highlight=20-23)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+[!code-csharp[](key-vault-configuration/samples/2.x/SampleApp/Program.cs?name=snippet1&highlight=20-23)]
+
+::: moniker-end
 
 値の例:
 
@@ -158,15 +168,25 @@ X.509 証明書は OS によって管理されます。 アプリは、 *appsett
 
 *appsettings.json*:
 
-[!code-json[](key-vault-configuration/sample/appsettings.json)]
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-json[](key-vault-configuration/samples/3.x/SampleApp/appsettings.json?highlight=10-12)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+[!code-json[](key-vault-configuration/samples/2.x/SampleApp/appsettings.json?highlight=10-12)]
+
+::: moniker-end
 
 アプリを実行すると、web ページに読み込まれたシークレット値が表示されます。 開発環境では、シークレット値は `_dev` サフィックスで読み込まれます。 運用環境では、値は `_prod` サフィックスで読み込まれます。
 
 ## <a name="use-managed-identities-for-azure-resources"></a>Azure リソースの管理対象 id を使用する
 
-**Azure にデプロイされたアプリ**は、 [Azure リソースの管理対象 id](/azure/active-directory/managed-identities-azure-resources/overview)を利用できます。これにより、資格情報のない AZURE AD 認証 (アプリケーション ID とパスワード/クライアントシークレット) を使用して、アプリが Azure Key Vault で認証できるようになります。アプリに保存されます。
+**Azure にデプロイされたアプリ**は、 [Azure リソースの管理対象 id](/azure/active-directory/managed-identities-azure-resources/overview)を利用できます。これにより、アプリは、アプリに格納されている資格情報 (アプリケーション ID とパスワード/クライアントシークレット) を使用せずに Azure AD 認証を使用して Azure Key Vault で認証することができます。
 
-このサンプルアプリでは、 *Program.cs*ファイルの先頭にある `#define` ステートメントが `Managed` に設定されている場合に、Azure リソースの管理対象 id を使用します。
+このサンプルアプリでは、 *Program.cs*ファイルの先頭にある `#define` ステートメントが `Managed`に設定されている場合に、Azure リソースの管理対象 id を使用します。
 
 アプリの*appsettings*ファイルにコンテナー名を入力します。 このサンプルアプリでは、`Managed` バージョンに設定するときにアプリケーション ID とパスワード (クライアントシークレット) は必要ありません。そのため、これらの構成エントリは無視してかまいません。 アプリが Azure にデプロイされ、Azure は、 *appsettings*ファイルに格納されているコンテナー名を使用してのみ Azure Key Vault にアクセスするようにアプリを認証します。
 
@@ -174,7 +194,7 @@ X.509 証明書は OS によって管理されます。 アプリは、 *appsett
 
 Azure App Service にデプロイされたアプリは、サービスの作成時に Azure AD に自動的に登録されます。 次のコマンドで使用するために、デプロイからオブジェクト ID を取得します。 オブジェクト ID は、App Service の **[id]** パネルの Azure portal に表示されます。
 
-Azure CLI とアプリのオブジェクト ID を使用して、キーコンテナーにアクセスするための `list` および `get` のアクセス許可をアプリに提供します。
+Azure CLI とアプリのオブジェクト ID を使用して、キーコンテナーにアクセスするための `list` と `get` アクセス許可をアプリに提供します。
 
 ```azure-cli
 az keyvault set-policy --name '{KEY VAULT NAME}' --object-id {OBJECT ID} --secret-permissions get list
@@ -185,12 +205,22 @@ Azure CLI、PowerShell、または Azure portal を使用して**アプリを再
 サンプルアプリ:
 
 * 接続文字列を指定せずに `AzureServiceTokenProvider` クラスのインスタンスを作成します。 接続文字列が指定されていない場合、プロバイダーは Azure リソースの管理対象 id からアクセストークンを取得しようとします。
-* `AzureServiceTokenProvider` インスタンストークンのコールバックを使用して、新しい `KeyVaultClient` が作成されます。
-* `KeyVaultClient` インスタンスは、`IKeyVaultSecretManager` の既定の実装で使用されます。この実装では、すべてのシークレット値が読み込まれ、二重ダッシュ (`--`) がキー名のコロン (`:`) で置き換えられます。
+* `AzureServiceTokenProvider` インスタンストークンのコールバックを使用して、新しい <xref:Microsoft.Azure.KeyVault.KeyVaultClient> が作成されます。
+* <xref:Microsoft.Azure.KeyVault.KeyVaultClient> インスタンスは、<xref:Microsoft.Extensions.Configuration.AzureKeyVault.IKeyVaultSecretManager> の既定の実装で使用されます。この実装では、すべてのシークレット値が読み込まれ、二重ダッシュ (`--`) がキー名のコロン (`:`) で置き換えられます。
 
-[!code-csharp[](key-vault-configuration/sample/Program.cs?name=snippet2&highlight=13-21)]
+::: moniker range=">= aspnetcore-3.0"
 
-Key vault 名の例値: `contosovault`
+[!code-csharp[](key-vault-configuration/samples/3.x/SampleApp/Program.cs?name=snippet2&highlight=13-21)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+[!code-csharp[](key-vault-configuration/samples/2.x/SampleApp/Program.cs?name=snippet2&highlight=13-21)]
+
+::: moniker-end
+
+Key vault 名の例の値: `contosovault`
     
 *appsettings.json*:
 
@@ -206,28 +236,56 @@ Key vault 名の例値: `contosovault`
 
 マネージ id と Azure DevOps パイプラインでプロバイダーを使用する方法の詳細については、「[管理対象サービス id を使用して VM への Azure Resource Manager サービス接続を作成](/azure/devops/pipelines/library/connect-to-azure#create-an-azure-resource-manager-service-connection-to-a-vm-with-a-managed-service-identity)する」を参照してください。
 
+::: moniker range=">= aspnetcore-3.0"
+
+## <a name="configuration-options"></a>構成オプション
+
+<xref:Microsoft.Extensions.Configuration.AzureKeyVaultConfigurationExtensions.AddAzureKeyVault*> は <xref:Microsoft.Extensions.Configuration.AzureKeyVault.AzureKeyVaultConfigurationOptions>を受け入れることができます。
+
+```csharp
+config.AddAzureKeyVault(
+    new AzureKeyVaultConfigurationOptions()
+    {
+        ...
+    });
+```
+
+| property         | 説明 |
+| ---------------- | ----------- |
+| `Client`         | 値を取得するために使用する <xref:Microsoft.Azure.KeyVault.KeyVaultClient>。 |
+| `Manager`        | シークレットの読み込みを制御するために使用される <xref:Microsoft.Extensions.Configuration.AzureKeyVault.IKeyVaultSecretManager> インスタンス。 |
+| `ReloadInterval` | キーコンテナーのポーリングによって変更が試行されるまでの待機時間を `Timespan` します。 既定値は `null` です (構成は再読み込みされません)。 |
+| `Vault`          | Key vault URI。 |
+
+::: moniker-end
+
 ## <a name="use-a-key-name-prefix"></a>キー名のプレフィックスを使用する
 
-`AddAzureKeyVault` は、`IKeyVaultSecretManager` の実装を受け入れるオーバーロードを提供します。これにより、キーコンテナーのシークレットを構成キーに変換する方法を制御できます。 たとえば、アプリの起動時に指定されたプレフィックス値に基づいてシークレット値を読み込むようにインターフェイスを実装できます。 これにより、たとえば、アプリのバージョンに基づいてシークレットを読み込むことができます。
+<xref:Microsoft.Extensions.Configuration.AzureKeyVaultConfigurationExtensions.AddAzureKeyVault*> には、<xref:Microsoft.Extensions.Configuration.AzureKeyVault.IKeyVaultSecretManager>の実装を受け入れるオーバーロードが用意されています。これを使用すると、キーコンテナーのシークレットを構成キーに変換する方法を制御できます。 たとえば、アプリの起動時に指定されたプレフィックス値に基づいてシークレット値を読み込むようにインターフェイスを実装できます。 これにより、たとえば、アプリのバージョンに基づいてシークレットを読み込むことができます。
 
 > [!WARNING]
 > Key vault シークレットのプレフィックスを使用して、複数のアプリのシークレットを同じ key vault に配置したり、環境の機密情報 (*開発*、*運用*シークレットなど) を同じコンテナーに配置したりしないでください。 さまざまなアプリと開発/運用環境では、セキュリティレベルが最も高いアプリケーション環境を分離するために個別のキーコンテナーを使用することをお勧めします。
 
-次の例では、キーコンテナー (および開発環境のシークレットマネージャーツールを使用) で `5000-AppSecret` (期間は key vault シークレット名では許可されていません) にシークレットが設定されています。 このシークレットは、アプリのバージョン5.0.0.0 のアプリシークレットを表します。 5\.1.0.0 の別のバージョンでは、キーコンテナー (およびシークレットマネージャーツールを使用) にシークレットが追加され、`5100-AppSecret` になります。 各アプリバージョンは、バージョン管理されたシークレット値を `AppSecret` として構成に読み込みます。これにより、シークレットが読み込まれるときにバージョンが除去されます。
+次の例では、キーコンテナー (および開発環境のシークレットマネージャーツールを使用) で `5000-AppSecret` (キーコンテナーのシークレット名にはピリオドは使用できません) にシークレットが設定されています。 このシークレットは、アプリのバージョン5.0.0.0 のアプリシークレットを表します。 5\.1.0.0 の別のバージョンのアプリでは、キーコンテナーにシークレット (およびシークレットマネージャーツールを使用) が `5100-AppSecret`に追加されます。 各アプリバージョンでは、バージョン管理されているシークレット値が `AppSecret`として構成に読み込まれ、シークレットが読み込まれるときにバージョンが除去されます。
 
-`AddAzureKeyVault` はカスタム `IKeyVaultSecretManager` で呼び出されます。
+<xref:Microsoft.Extensions.Configuration.AzureKeyVaultConfigurationExtensions.AddAzureKeyVault*> は、カスタム <xref:Microsoft.Extensions.Configuration.AzureKeyVault.IKeyVaultSecretManager>を使用して呼び出されます。
 
-[!code-csharp[](key-vault-configuration/sample_snapshot/Program.cs?highlight=30-34)]
+[!code-csharp[](key-vault-configuration/samples_snapshot/Program.cs)]
 
-`IKeyVaultSecretManager` の実装は、構成に適切なシークレットを読み込むために、シークレットのバージョンプレフィックスに反応します。
+<xref:Microsoft.Extensions.Configuration.AzureKeyVault.IKeyVaultSecretManager> の実装は、構成に適切なシークレットを読み込むために、シークレットのバージョンプレフィックスに反応します。
 
-[!code-csharp[](key-vault-configuration/sample_snapshot/Startup.cs?name=snippet1)]
+* `Load` は、名前がプレフィックスで始まるときにシークレットを読み込みます。 他のシークレットは読み込まれていません。
+* `GetKey`:
+  * シークレット名からプレフィックスを削除します。
+  * 任意の名前の2つのダッシュを `KeyDelimiter`に置き換えます。これは、構成で使用される区切り記号 (通常はコロン) です。 Azure Key Vault では、シークレット名にコロンを使用することはできません。
+
+[!code-csharp[](key-vault-configuration/samples_snapshot/Startup.cs)]
 
 `Load` メソッドは、コンテナーシークレットを反復処理してバージョンプレフィックスを持つものを見つけるプロバイダーアルゴリズムによって呼び出されます。 `Load`でバージョンプレフィックスが見つかった場合、アルゴリズムは、`GetKey` メソッドを使用してシークレット名の構成名を返します。 シークレットの名前からバージョンプレフィックスを取り除き、アプリの構成名と値のペアに読み込むための残りのシークレット名を返します。
 
 このアプローチが実装されている場合:
 
-1. アプリのプロジェクトファイルで指定されているアプリのバージョン。 次の例では、アプリのバージョンが `5.0.0.0` に設定されています。
+1. アプリのプロジェクトファイルで指定されているアプリのバージョン。 次の例では、アプリのバージョンが `5.0.0.0`に設定されています。
 
    ```xml
    <PropertyGroup>
@@ -259,12 +317,12 @@ Key vault 名の例値: `contosovault`
 
 1. アプリを実行すると、key vault シークレットが読み込まれます。 `5000-AppSecret` の文字列シークレットは、アプリのプロジェクトファイル (`5.0.0.0`) で指定されているアプリのバージョンと一致します。
 
-1. `5000` バージョン (ダッシュ付き) がキー名から削除されます。 アプリ全体で、キーを使用して構成を読み取る `AppSecret` は、シークレット値を読み込みます。
+1. `5000` バージョン (ダッシュ付き) がキー名から削除されます。 アプリ全体で、キー `AppSecret` 使用して構成を読み取り、シークレット値を読み込みます。
 
 1. アプリのバージョンがプロジェクトファイルで `5.1.0.0` に変更され、アプリが再度実行された場合、返されたシークレット値は開発環境で `5.1.0.0_secret_value_dev` され、運用環境で `5.1.0.0_secret_value_prod` ます。
 
 > [!NOTE]
-> 独自の `KeyVaultClient` の実装を指定して、`AddAzureKeyVault` にすることもできます。 カスタムクライアントは、アプリ全体でクライアントの1つのインスタンスを共有することを許可します。
+> 独自の <xref:Microsoft.Azure.KeyVault.KeyVaultClient> の実装を提供して <xref:Microsoft.Extensions.Configuration.AzureKeyVaultConfigurationExtensions.AddAzureKeyVault*>することもできます。 カスタムクライアントは、アプリ全体でクライアントの1つのインスタンスを共有することを許可します。
 
 ## <a name="bind-an-array-to-a-class"></a>配列をクラスにバインドする
 
@@ -272,7 +330,7 @@ Key vault 名の例値: `contosovault`
 
 キーがコロン (`:`) 区切り記号を含むように構成ソースから読み取る場合、配列を構成するキー (`:0:`、`:1:`、... を区別するために、数値キーセグメントが使用されます。 `:{n}:`) 詳細については、「[構成: 配列をクラスにバインドする](xref:fundamentals/configuration/index#bind-an-array-to-a-class)」を参照してください。
 
-Azure Key Vault キーでは、区切り記号としてコロンを使用することはできません。 このトピックで説明する方法では、階層値 (セクション) の区切り記号として二重ダッシュ (`--`) を使用します。 配列キーは、2つのダッシュと数値のキーセグメント (`--0--`、`--1--`、&hellip; `--{n}--`) を使用して Azure Key Vault に格納されます。
+Azure Key Vault キーでは、区切り記号としてコロンを使用することはできません。 このトピックで説明する方法では、階層値 (セクション) の区切り記号として二重ダッシュ (`--`) を使用します。 配列キーは、二重ダッシュと数値キーセグメント (`--0--`、`--1--`、&hellip; `--{n}--`) を使用して Azure Key Vault に格納されます。
 
 JSON ファイルによって提供される次の[Serilog](https://serilog.net/) logging プロバイダーの構成を確認します。 `WriteTo` 配列に定義されている2つのオブジェクトリテラルは、ログ出力の宛先を示す2つの Serilog*シンク*を反映しています。
 
@@ -310,7 +368,7 @@ JSON ファイルによって提供される次の[Serilog](https://serilog.net/
 
 ## <a name="reload-secrets"></a>シークレットの再読み込み
 
-シークレットは、`IConfigurationRoot.Reload()` が呼び出されるまでキャッシュされます。 `Reload` が実行されるまで、key vault 内の有効期限切れ、無効、および更新されたシークレットはアプリによって尊重されません。
+シークレットは `IConfigurationRoot.Reload()` が呼び出されるまでキャッシュされます。 `Reload` が実行されるまで、key vault 内の有効期限切れ、無効、および更新されたシークレットはアプリによって尊重されません。
 
 ```csharp
 Configuration.Reload();
@@ -318,7 +376,7 @@ Configuration.Reload();
 
 ## <a name="disabled-and-expired-secrets"></a>無効なシークレットと期限切れのシークレット
 
-無効で有効期限が切れたシークレットは、実行時に `KeyVaultClientException` をスローします。 アプリがスローされないようにするには、別の構成プロバイダーを使用して構成を提供するか、無効または期限切れのシークレットを更新してください。
+無効で期限切れのシークレットは、<xref:Microsoft.Azure.KeyVault.Models.KeyVaultErrorException>をスローします。 アプリがスローされないようにするには、別の構成プロバイダーを使用して構成を提供するか、無効または期限切れのシークレットを更新してください。
 
 ## <a name="troubleshoot"></a>トラブルシューティング
 
@@ -327,10 +385,11 @@ Configuration.Reload();
 * Azure Active Directory で、アプリまたは証明書が正しく構成されていません。
 * キーコンテナーは Azure Key Vault に存在しません。
 * アプリは、key vault にアクセスする権限がありません。
-* アクセスポリシーに `Get` および `List` のアクセス許可が含まれていません。
+* アクセスポリシーには、`Get` および `List` のアクセス許可は含まれません。
 * Key vault で、構成データ (名前と値のペア) の名前が正しくないか、存在しないか、無効であるか、または期限が切れています。
-* アプリのキーコンテナー名 (`KeyVaultName`)、Azure AD アプリケーション Id (`AzureADApplicationId`)、または Azure AD 証明書の拇印 (`AzureADCertThumbprint`) が正しくありません。
+* アプリの key vault 名 (`KeyVaultName`)、Azure AD アプリケーション Id (`AzureADApplicationId`)、Azure AD 証明書の拇印 (`AzureADCertThumbprint`) が正しくありません。
 * 読み込みようとしている値の構成キー (名前) が正しくありません。
+* アプリのアクセスポリシーを key vault に追加すると、ポリシーが作成されましたが、**アクセスポリシー** UI で **[保存]** ボタンが選択されていませんでした。
 
 ## <a name="additional-resources"></a>その他の技術情報
 

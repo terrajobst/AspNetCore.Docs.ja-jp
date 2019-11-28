@@ -5,14 +5,14 @@ description: ASP.NET Core アプリをホストするための ASP.NET Core モ�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/24/2019
+ms.date: 11/07/2019
 uid: host-and-deploy/aspnet-core-module
-ms.openlocfilehash: 42ff4438738931fde70e123031412bcfc8a83efb
-ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
+ms.openlocfilehash: c9bbd36b8a55b837f6d78abf99215c5496895a39
+ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/29/2019
-ms.locfileid: "73034209"
+ms.lasthandoff: 11/07/2019
+ms.locfileid: "73799408"
 ---
 # <a name="aspnet-core-module"></a>ASP.NET Core モジュール
 
@@ -208,7 +208,7 @@ IIS サブアプリケーション構成について詳しくは、「<xref:host
 ```
 
 > [!NOTE]
-> *web.config* 内で環境を直接設定する代わりに、発行プロファイル ( *.pubxml*) またはプロジェクト ファイルに `<EnvironmentName>` プロパティを含めることができます。 この方法では、プロジェクトが発行されるときに *web.config* に環境が設定されます。
+> *web.config* 内で環境を直接設定する代わりに、[発行プロファイル (.pubxml](xref:host-and-deploy/visual-studio-publish-profiles)) またはプロジェクト ファイルに `<EnvironmentName>` プロパティを含めることができます。 この方法では、プロジェクトが発行されるときに *web.config* に環境が設定されます。
 >
 > ```xml
 > <PropertyGroup>
@@ -623,7 +623,7 @@ IIS サブアプリケーション構成について詳しくは、「<xref:host
 ```
 
 > [!NOTE]
-> *web.config* 内で環境を直接設定する代わりに、発行プロファイル ( *.pubxml*) またはプロジェクト ファイルに `<EnvironmentName>` プロパティを含めることができます。 この方法では、プロジェクトが発行されるときに *web.config* に環境が設定されます。
+> *web.config* 内で環境を直接設定する代わりに、[発行プロファイル (.pubxml](xref:host-and-deploy/visual-studio-publish-profiles)) またはプロジェクト ファイルに `<EnvironmentName>` プロパティを含めることができます。 この方法では、プロジェクトが発行されるときに *web.config* に環境が設定されます。
 >
 > ```xml
 > <PropertyGroup>

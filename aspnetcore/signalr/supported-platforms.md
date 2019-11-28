@@ -5,28 +5,28 @@ description: ASP.NET Core SignalRでサポートされているプラットフ�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 11/21/2019
 no-loc:
 - SignalR
 uid: signalr/supported-platforms
-ms.openlocfilehash: 86ba5b1aec230d78c1a0e1709187e129df6cb4cc
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 9b9cf1d57d61c333c485f23b7ab952c66814d2aa
+ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963736"
+ms.lasthandoff: 11/22/2019
+ms.locfileid: "74317464"
 ---
 # <a name="aspnet-core-opno-locsignalr-supported-platforms"></a>ASP.NET Core SignalR サポートされているプラットフォーム
 
-## <a name="server-system-requirements"></a>サーバーシステムの要件
+## <a name="server-system-requirements"></a>サーバー システムの要件
 
 ASP.NET Core の SignalR は、ASP.NET Core がサポートするすべてのサーバープラットフォームをサポートします。
 
 ## <a name="javascript-client"></a>JavaScript クライアント
 
-[JavaScript クライアント](https://www.npmjs.com/package/@aspnet/signalr)は、nodejs 8 以降のバージョンと次のブラウザーで実行されます。
+[JavaScript クライアント](xref:signalr/javascript-client)は、nodejs 8 以降のバージョンと次のブラウザーで実行されます。
 
-| ブラウザー                         | Version         |
+| ブラウザー                         | バージョン         |
 | ------------------------------- | --------------- |
 | Microsoft Edge                  | 現在の&dagger; |
 | Mozilla Firefox                 | 現在の&dagger; |
@@ -38,13 +38,13 @@ ASP.NET Core の SignalR は、ASP.NET Core がサポートするすべてのサ
 
 ## <a name="net-client"></a>.NET クライアント
 
-[.Net クライアント](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR/)は、ASP.NET Core によってサポートされる任意のプラットフォームで実行されます。 たとえば、xamarin[開発者は](https://github.com/aspnet/Announcements/issues/305)、xamarin 8.4.0.1 以降と11.14.0.4 以降を使用して、android アプリをビルドするために SignalRを使用できます。
+[.Net クライアント](xref:signalr/dotnet-client)は、ASP.NET Core によってサポートされる任意のプラットフォームで実行されます。 たとえば、xamarin[開発者は](https://github.com/aspnet/Announcements/issues/305)、xamarin 8.4.0.1 以降と11.14.0.4 以降を使用して、android アプリをビルドするために SignalRを使用できます。
 
 サーバーで IIS が実行されている場合、Websocket トランスポートでは Windows Server 2012 以降に IIS 8.0 以降が必要です。 その他のトランスポートはすべてのプラットフォームでサポートされています。
 
 ## <a name="java-client"></a>Java クライアント
 
-[Java クライアント](https://search.maven.org/artifact/com.microsoft.aspnet/signalr)は、java 8 以降のバージョンをサポートしています。
+[Java クライアント](xref:signalr/java-client)は、java 8 以降のバージョンをサポートしています。
 
 ## <a name="unsupported-clients"></a>サポートされていないクライアント
 

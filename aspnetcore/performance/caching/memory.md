@@ -39,7 +39,9 @@ Web ファームの固定されていないセッションでは、キャッシ�
 * .NET Standard 2.0 以降を対象とするすべての[.net 実装](/dotnet/standard/net-standard#net-implementation-support)。 たとえば、2.0 以降の ASP.NET Core ます。
 * .NET Framework 4.5 以降。
 
+
 [Microsoft.Extensions.Caching.Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)/`IMemoryCache` (この記事で説明しています) は、ASP.NET Core により良く統合されているため `System.Runtime.Caching`/`MemoryCache` よりも推奨されます。 たとえば、`IMemoryCache` は ASP.NET Core [依存関係の挿入](xref:fundamentals/dependency-injection) とネイティブで動作します。
+
 
 ASP.NET 4.x から ASP.NET Core にコードを移植するときに、互換性ブリッジとして `MemoryCache` / `System.Runtime.Caching` を使用します。
 
@@ -216,7 +218,9 @@ Web ファームの固定されていないセッションでは、キャッシ�
 * .NET Standard 2.0 以降を対象とするすべての[.net 実装](/dotnet/standard/net-standard#net-implementation-support)。 たとえば、2.0 以降の ASP.NET Core ます。
 * .NET Framework 4.5 以降。
 
+
 [Microsoft.Extensions.Caching.Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)/`IMemoryCache` (この記事で説明しています) は、ASP.NET Core により良く統合されているため `System.Runtime.Caching`/`MemoryCache` よりも推奨されます。 たとえば、`IMemoryCache` は ASP.NET Core [依存関係の挿入](xref:fundamentals/dependency-injection) とネイティブで動作します。
+
 
 ASP.NET 4.x から ASP.NET Core にコードを移植するときに、互換性ブリッジとして `MemoryCache` / `System.Runtime.Caching` を使用します。
 

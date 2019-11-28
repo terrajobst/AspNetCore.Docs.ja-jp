@@ -35,7 +35,7 @@ info: Microsoft.Hosting.Lifetime[0]
       Hosting environment: Development
 ```
 
-.NET Core クライアントは、サーバーアドレスに `https` を使用して、セキュリティで保護された接続で呼び出しを行う必要があります。
+.NET Core クライアントは、サーバーアドレスの `https` を使用して、セキュリティで保護された接続で呼び出しを行う必要があります。
 
 ```csharp
 static async Task Main(string[] args)
@@ -46,7 +46,7 @@ static async Task Main(string[] args)
 }
 ```
 
-すべての gRPC クライアント実装は TLS をサポートしています。 他の言語の gRPC クライアントでは、通常、`SslCredentials` で構成されたチャネルが必要です。 `SslCredentials` は、クライアントが使用する証明書を指定します。この証明書は、セキュリティで保護されていない資格情報の代わりに使用する必要があります。 異なる gRPC クライアント実装で TLS を使用するように構成する例については、「 [Grpc 認証](https://www.grpc.io/docs/guides/auth/)」を参照してください。
+すべての gRPC クライアント実装は TLS をサポートしています。 他の言語の gRPC クライアントでは、通常、`SslCredentials`で構成されたチャネルが必要です。 `SslCredentials` は、クライアントが使用する証明書を指定し、セキュリティで保護されていない資格情報の代わりに使用する必要があります。 異なる gRPC クライアント実装で TLS を使用するように構成する例については、「 [Grpc 認証](https://www.grpc.io/docs/guides/auth/)」を参照してください。
 
 ## <a name="call-a-grpc-service-with-an-untrustedinvalid-certificate"></a>信頼されていない/無効な証明書を使用して gRPC サービスを呼び出す
 
@@ -92,7 +92,7 @@ var client = new Greet.GreeterClient(channel);
 
 Kestrel では、macOS での TLS と Windows 7 などの古いバージョンの HTTP/2 はサポートされていません。 ASP.NET Core gRPC テンプレートとサンプルでは、既定で TLS が使用されます。 GRPC サーバーを起動しようとすると、次のエラーメッセージが表示されます。
 
-> IPv4 ループバックインターフェイスの https://localhost:5001 にバインドできません。 ALPN のサポートがないため、macOS で ' HTTP/2 over TLS はサポートされていません。 '。
+> IPv4 ループバックインターフェイスの https://localhost:5001 にバインドできませんでした。 ALPN サポートがないため、macOS で ' HTTP/2 over TLS はサポートされていません。 '。
 
 この問題を回避するには、TLS を使用*せず*に HTTP/2 を使用するように Kestrel と grpc クライアントを構成します。 これは開発時にのみ実行してください。 TLS を使用しないと、gRPC メッセージが暗号化なしで送信されます。
 
@@ -113,7 +113,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
         });
 ```
 
-HTTP/2 エンドポイントが TLS を使用せずに構成されている場合は、エンドポイントの[Listenoptions](xref:fundamentals/servers/kestrel#listenoptionsprotocols)が `HttpProtocols.Http2` に設定されている必要があります。 HTTP/2 のネゴシエートに TLS が必要であるため、`HttpProtocols.Http1AndHttp2` は使用できません。 TLS を使用しない場合、エンドポイントへのすべての接続は既定の HTTP/1.1 に設定され、gRPC の呼び出しは失敗します。
+HTTP/2 エンドポイントが TLS を使用せずに構成されている場合、エンドポイントの[Listenoptions](xref:fundamentals/servers/kestrel#listenoptionsprotocols)が `HttpProtocols.Http2`に設定されている必要があります。 HTTP/2 のネゴシエートに TLS が必要であるため、`HttpProtocols.Http1AndHttp2` を使用することはできません。 TLS を使用しない場合、エンドポイントへのすべての接続は既定の HTTP/1.1 に設定され、gRPC の呼び出しは失敗します。
 
 GRPC クライアントは、TLS を使用しないように構成する必要もあります。 詳細については、「 [.Net Core クライアントを使用した安全でない gRPC サービスの呼び出し](#call-insecure-grpc-services-with-net-core-client)」を参照してください。
 
@@ -124,12 +124,14 @@ GRPC クライアントは、TLS を使用しないように構成する必要�
 
 具象クライアントとサービス基底クラスの gRPC コード生成には、protobuf ファイルとツールをプロジェクトから参照する必要があります。 次のものを含める必要があります。
 
+
 * `<Protobuf>` 項目グループで使用する*プロトコルファイル。* [インポートさ*れたプロトコル*ファイル](https://developers.google.com/protocol-buffers/docs/proto3#importing-definitions)は、プロジェクトによって参照される必要があります。
+
 * GRPC ツールパッケージ[Grpc.Tools](https://www.nuget.org/packages/Grpc.Tools/)に対するパッケージリファレンス。
 
-GRPC C#アセットの生成の詳細については、<xref:grpc/basics> を参照してください。
+GRPC C#アセットの生成の詳細については、「<xref:grpc/basics>」を参照してください。
 
-既定では、@no__t 0 の参照によって、具象クライアントとサービス基本クラスが生成されます。 参照要素の @no__t 0 属性を使用して、資産のC#生成を制限できます。 有効な `GrpcServices` オプションは次のとおりです。
+既定では、`<Protobuf>` 参照によって、具象クライアントとサービス基本クラスが生成されます。 参照要素の `GrpcServices` 属性は、資産の生成をC#制限するために使用できます。 有効な `GrpcServices` オプションは次のとおりです。
 
 * `Both` (存在しない場合は既定)
 * `Server`
@@ -154,16 +156,16 @@ GRPC 呼び出しを行う gRPC クライアントアプリでは、具象クラ
 
 ## <a name="wpf-projects-unable-to-generate-grpc-c-assets-from-proto-files"></a>WPF プロジェクトは、proto ファイルからC# grpc アセットを生成できません
 
-WPF プロジェクトには、gRPC コード生成が正常に動作しないという[既知の問題](https://github.com/dotnet/wpf/issues/810)があります。 @No__t-0 と*プロトコル*ファイルを参照することによって WPF プロジェクトで生成された grpc の種類では、次のようなコンパイルエラーが発生します。
+WPF プロジェクトには、gRPC コード生成が正常に動作しないという[既知の問題](https://github.com/dotnet/wpf/issues/810)があります。 `Grpc.Tools` ファイルと*プロトコル*ファイルを参照することによって WPF プロジェクトで生成された grpc の種類では、次のようなコンパイルエラーが発生します。
 
 > エラー CS0246: 型または名前空間の名前 ' MyGrpcServices ' が見つかりませんでした。 using ディレクティブまたはアセンブリ参照が指定されていることを確認してください。
 
 この問題を回避するには、次の方法があります。
 
 1. 新しい .NET Core クラスライブラリプロジェクトを作成します。
-2. 新しいプロジェクトで、 [ C# *\** ファイルからのコード生成](xref:grpc/basics#generated-c-assets)を有効にするための参照を追加します。
+2. 新しいプロジェクトで、 [ C# *\** のファイルからコード生成](xref:grpc/basics#generated-c-assets)を有効にするための参照を追加します。
     * [Grpc.Tools](https://www.nuget.org/packages/Grpc.Tools/) パッケージにパッケージ参照を追加します。
-    * `<Protobuf>` 項目グループに *\*.proto* ファイルを追加します。
+    * *項目グループに \** .proto`<Protobuf>` ファイルを追加します。
 3. WPF アプリケーションで、新しいプロジェクトへの参照を追加します。
 
 WPF アプリケーションでは、新しいクラスライブラリプロジェクトから、gRPC によって生成された型を使用できます。

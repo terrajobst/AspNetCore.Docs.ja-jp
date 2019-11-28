@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/07/2019
 uid: fundamentals/servers/index
-ms.openlocfilehash: e542dd4506eb77f949c0c87bea3044397bbb1b8f
-ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
+ms.openlocfilehash: d46793ef54c99fe609b5983c5a658fb7b20032fa
+ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/07/2019
-ms.locfileid: "73799402"
+ms.lasthandoff: 11/21/2019
+ms.locfileid: "74289063"
 ---
 # <a name="web-server-implementations-in-aspnet-core"></a>ASP.NET Core での Web サーバーの実装
 
@@ -22,7 +22,7 @@ ASP.NET Core アプリは、インプロセス HTTP サーバー実装を使用�
 
 ## <a name="kestrel"></a>Kestrel
 
-Kestrel は、ASP.NET Core のプロジェクト テンプレートに含まれる既定の Web サーバーです。
+Kestrel は、ASP.NET Core のプロジェクト テンプレートにより指定された既定の Web サーバーです。
 
 Kestrel を使用する:
 
