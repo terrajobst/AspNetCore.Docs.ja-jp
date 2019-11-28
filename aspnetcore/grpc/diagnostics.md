@@ -86,7 +86,7 @@ info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
 
 クライアントのログ記録を有効にする別の方法として、 [Grpc クライアントファクトリ](xref:grpc/clientfactory)を使用してクライアントを作成する方法があります。 クライアントファクトリに登録され、DI から解決される gRPC クライアントは、アプリの構成済みログを自動的に使用します。
 
-アプリが DI を使用していない場合は、 [LoggerFactory.Create](xref:Microsoft.Extensions.Logging.LoggerFactory.Create*)を使用して新しい`ILoggerFactory`インスタンスを作成できます。 このメソッドにアクセスするには、アプリに[Microsoft.Extensions.Logging](https://www.nuget.org/packages/microsoft.extensions.logging/)パッケージを追加します。
+アプリが DI を使用していない場合は、 [LoggerFactory.Create](xref:Microsoft.Extensions.Logging.LoggerFactory.Create*) を使用して新しい`ILoggerFactory`インスタンスを作成できます。 このメソッドにアクセスするには、アプリに[Microsoft.Extensions.Logging](https://www.nuget.org/packages/microsoft.extensions.logging/) パッケージを追加します。
 
 [!code-csharp[](diagnostics/sample/net-client-loggerfactory-create.cs?highlight=1,8)]
 
