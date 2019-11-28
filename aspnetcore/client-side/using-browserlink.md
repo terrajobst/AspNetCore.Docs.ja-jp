@@ -31,7 +31,7 @@ ASP.NET Core 2.0 プロジェクトを ASP.NET Core 2.1 に変換し、 [Microso
 
 ::: moniker range="= aspnetcore-2.0"
 
-ASP.NET Core 2.0 **Web アプリケーション**、**空**、および**web API**プロジェクトテンプレートでは、メタパッケージのパッケージ参照を含む[AspNetCore](xref:fundamentals/metapackage)が使用されて[いますが](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/)、 そのため、`Microsoft.AspNetCore.All` メタパッケージを使用するには、ブラウザーリンクを使用できるようにするための追加の操作は必要ありません。
+ASP.NET Core 2.0 **Web アプリケーション**、**空**、および **web API** プロジェクトテンプレートでは、[Microsoft.VisualStudio.Web.BrowserLink](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/) へのパッケージ参照を含む [Microsoft.AspNetCore.All メタパッケージ](xref:fundamentals/metapackage) が使用されています。 そのため、`Microsoft.AspNetCore.All` メタパッケージを使用する場合は、ブラウザーリンクを使用できるようにするための追加の操作は必要ありません。
 
 ::: moniker-end
 

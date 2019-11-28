@@ -39,7 +39,9 @@ Web ファームの固定されていないセッションでは、キャッシ�
 * .NET Standard 2.0 以降を対象とするすべての[.net 実装](/dotnet/standard/net-standard#net-implementation-support)。 たとえば、2.0 以降の ASP.NET Core ます。
 * .NET Framework 4.5 以降。
 
-この記事で説明されている / `IMemoryCache` (この記事で説明しています) は、`MemoryCache` に統合[し](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)た方がよいため `System.Runtime.Caching` / の ASP.NET Core よりも推奨されます。 たとえば、`IMemoryCache` は ASP.NET Core [依存関係の挿入](xref:fundamentals/dependency-injection) とネイティブで動作します。
+
+[Microsoft.Extensions.Caching.Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)/`IMemoryCache` (この記事で説明しています) は、ASP.NET Core により良く統合されているため `System.Runtime.Caching`/`MemoryCache` よりも推奨されます。 たとえば、`IMemoryCache` は ASP.NET Core [依存関係の挿入](xref:fundamentals/dependency-injection) とネイティブで動作します。
+
 
 ASP.NET 4.x から ASP.NET Core にコードを移植するときに、互換性ブリッジとして `MemoryCache` / `System.Runtime.Caching` を使用します。
 
@@ -216,7 +218,9 @@ Web ファームの固定されていないセッションでは、キャッシ�
 * .NET Standard 2.0 以降を対象とするすべての[.net 実装](/dotnet/standard/net-standard#net-implementation-support)。 たとえば、2.0 以降の ASP.NET Core ます。
 * .NET Framework 4.5 以降。
 
-この記事で説明されている / `IMemoryCache` (この記事で説明しています) は、`MemoryCache` に統合[し](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)た方がよいため `System.Runtime.Caching` / の ASP.NET Core よりも推奨されます。 たとえば、`IMemoryCache` は ASP.NET Core [依存関係の挿入](xref:fundamentals/dependency-injection) とネイティブで動作します。
+
+[Microsoft.Extensions.Caching.Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)/`IMemoryCache` (この記事で説明しています) は、ASP.NET Core により良く統合されているため `System.Runtime.Caching`/`MemoryCache` よりも推奨されます。 たとえば、`IMemoryCache` は ASP.NET Core [依存関係の挿入](xref:fundamentals/dependency-injection) とネイティブで動作します。
+
 
 ASP.NET 4.x から ASP.NET Core にコードを移植するときに、互換性ブリッジとして `MemoryCache` / `System.Runtime.Caching` を使用します。
 
@@ -242,7 +246,7 @@ ASP.NET 4.x から ASP.NET Core にコードを移植するときに、互換性
 
 [!code-csharp[](memory/sample/WebCache/Controllers/HomeController.cs?name=snippet_ctor)]
 
-`IMemoryCache` には NuGet[パッケージ](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)AspNetCore が必要です。これは、[メタパッケージ](xref:fundamentals/metapackage-app)で入手できます。
+`IMemoryCache` には NuGet パッケージ [Microsoft.Extensions.Caching.Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/) が必要です。これは、[Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)で利用可能です。
 
 次のコードでは、 [TryGetValue](/dotnet/api/microsoft.extensions.caching.memory.imemorycache.trygetvalue?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_IMemoryCache_TryGetValue_System_Object_System_Object__)を使用して、時間がキャッシュ内にあるかどうかを確認します。 時間がキャッシュされていない場合は、新しいエントリが作成され、が[設定](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.set?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_CacheExtensions_Set__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object___0_Microsoft_Extensions_Caching_Memory_MemoryCacheEntryOptions_)されたキャッシュに追加されます。
 

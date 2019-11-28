@@ -52,7 +52,7 @@ Razor SDK には、`Include` 属性が `**\*.cshtml` グロビングパターン
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Razor SDK を使用して Razor ビューまたは Razor Pages を含むクラスライブラリをビルドするには、Razor クラスライブラリ (RCL) プロジェクトテンプレートから始めることをお勧めします。 Blazor (*razor*) ファイルのビルドに使用される rcl では、 [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Components)パッケージへの参照が最低限必要です。 Razor ビューまたはページ (*cshtml*ファイル) をビルドするために使用される rcl では、`netcoreapp3.0` 以降をターゲットにする必要があります。また、プロジェクトファイルの[AspNetCore メタパッケージ](xref:fundamentals/metapackage-app)に `FrameworkReference` があります。
+Razor SDK を使用して Razor ビューまたは Razor Pages を含むクラスライブラリをビルドするには、Razor クラスライブラリ (RCL) プロジェクトテンプレートから始めることをお勧めします。 Blazor (*razor*) ファイルのビルドに使用される rcl では、 [Microsoft.AspNetCore.Components](https://www.nuget.org/packages/Microsoft.AspNetCore.Components)パッケージへの参照が最低限必要です。 Razor ビューまたはページ (*cshtml*ファイル) をビルドするために使用される rcl では、`netcoreapp3.0` 以降をターゲットにする必要があります。また、プロジェクトファイルの[Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)に `FrameworkReference` があります。
 
 ::: moniker-end
 

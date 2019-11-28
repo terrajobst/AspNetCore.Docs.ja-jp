@@ -247,7 +247,9 @@ private class MyCustomValidator : ValidationAttribute
 
 ### <a name="opno-locblazor-data-annotations-validation-package"></a>データ注釈検証パッケージの Blazor
 
-[BlazorAspNetCore です。DataAnnotations。検証](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation)は、`DataAnnotationsValidator` コンポーネントを使用して検証エクスペリエンスのギャップを埋めるパッケージです。 パッケージは現在*試験段階*です。
+
+[Microsoft.AspNetCore.Blazor.DataAnnotations.Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation)は、`DataAnnotationsValidator` コンポーネントを使用して、検証エクスペリエンスのギャップを埋めるパッケージです。 パッケージは現在*試験段階*です。今後のリリースでは、これらのシナリオを ASP.NET Core framework に追加する予定です。
+
 
 ### <a name="compareproperty-attribute"></a>[CompareProperty] 属性
 

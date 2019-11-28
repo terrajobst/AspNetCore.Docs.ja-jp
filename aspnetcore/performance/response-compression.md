@@ -104,7 +104,7 @@ IIS、Apache、または Nginx のサーバーベースの応答圧縮テクノ�
 
 ::: moniker range="< aspnetcore-3.0"
 
-ミドルウェアをプロジェクトに含めるには、 [AspNetCore メタパッケージ](xref:fundamentals/metapackage-app)への参照を追加します。これには、 [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.ResponseCompression/)パッケージが含まれています。
+ミドルウェアをプロジェクトに含めるには、 [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)への参照を追加します。これには、 [Microsoft.AspNetCore.ResponseCompression](https://www.nuget.org/packages/Microsoft.AspNetCore.ResponseCompression/)パッケージが含まれています。
 
 ::: moniker-end
 
