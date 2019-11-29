@@ -182,9 +182,7 @@ Identity についてさらに詳しく調べるには :
 
 すべての Id に依存する NuGet パッケージは、 [ASP.NET Core 共有フレームワーク](xref:aspnetcore-3.0#use-the-aspnet-core-shared-framework)に含まれています。
 
-
-Id のプライマリパッケージは[Microsoft.AspNetCore.Identity](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity/)です。 このパッケージには ASP.NET Core Id のインターフェイスのコアセットが含まれており、`Microsoft.AspNetCore.Identity.EntityFrameworkCore` によって含まれています。
-
+Id のプライマリパッケージは[Microsoft.AspNetCore.Identity](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity/)です。 このパッケージは ASP.NET Core Identity のインターフェイスのコアセットを含んでいて、また`Microsoft.AspNetCore.Identity.EntityFrameworkCore`に含まれています。
 
 ## <a name="migrating-to-aspnet-core-identity"></a>ASP.NET Core Id への移行
 
@@ -379,11 +377,9 @@ Identity についてさらに詳しく調べるには :
 
 ## <a name="identity-components"></a>Identity コンポーネント
 
+すべての Id 依存の NuGet パッケージは[Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)に含まれます。
 
-すべての Id 依存 NuGet パッケージは、 [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)に含まれています。
-
-Id のプライマリパッケージは[Microsoft.AspNetCore.Identity](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity/)です。 このパッケージには ASP.NET Core Id のインターフェイスのコアセットが含まれており、`Microsoft.AspNetCore.Identity.EntityFrameworkCore` によって含まれています。
-
+Id のプライマリパッケージは[Microsoft.AspNetCore.Identity](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity/)です。 このパッケージは ASP.NET Core Identity のインターフェイスのコアセットを含んでいて、また`Microsoft.AspNetCore.Identity.EntityFrameworkCore`に含まれています。
 
 ## <a name="migrating-to-aspnet-core-identity"></a>ASP.NET Core Id への移行
 
