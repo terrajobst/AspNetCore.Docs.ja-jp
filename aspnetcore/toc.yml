@@ -286,6 +286,8 @@
           uid: blazor/templates
         - name: コンポーネント
           uid: blazor/components
+        - name: ライフサイクル
+          uid: blazor/lifecycle
         - name: フォームと検証
           uid: blazor/forms-validation
         - name: コンポーネント ライブラリ
@@ -819,6 +821,8 @@
       uid: security/index
     - name: 認証
       items:
+        - name: 概要
+          uid: security/authentication/index
         - name: Identity の概要
           uid: security/authentication/identity
         - name: SPA での ID
