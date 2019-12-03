@@ -5,16 +5,16 @@ description: Blazor アプリで JavaScript から .NET および .NET メソッ
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/21/2019
+ms.date: 11/23/2019
 no-loc:
 - Blazor
 uid: blazor/javascript-interop
-ms.openlocfilehash: f55eda512f8dcf0695c2e7f4655db83b26ea4159
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: 79555ca6c987e2ca57e0cfab9779024498fdd58b
+ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317191"
+ms.lasthandoff: 12/02/2019
+ms.locfileid: "74681027"
 ---
 # <a name="aspnet-core-opno-locblazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 相互運用機能
 
@@ -199,7 +199,7 @@ public static Task Focus(this ElementReference elementRef, IJSRuntime jsRuntime)
 [!code-cshtml[](javascript-interop/samples_snapshot/component2.razor?highlight=1,4,12)]
 
 > [!IMPORTANT]
-> `username` 変数は、コンポーネントがレンダリングされた後にのみ設定されます。 JavaScript コードにいない `ElementReference` が渡されると、JavaScript コードは `null`の値を受け取ります。 コンポーネントのレンダリングが完了した後に要素参照を操作するには (要素に初期フォーカスを設定するには)、`OnAfterRenderAsync` または `OnAfterRender`[コンポーネントライフサイクルメソッド](xref:blazor/components#lifecycle-methods)を使用します。
+> `username` 変数は、コンポーネントがレンダリングされた後にのみ設定されます。 JavaScript コードにいない `ElementReference` が渡されると、JavaScript コードは `null`の値を受け取ります。 コンポーネントのレンダリングが完了した後に要素参照を操作するには (要素に初期フォーカスを設定するには)、 [OnAfterRenderAsync または OnAfterRender コンポーネントライフサイクルメソッド](xref:blazor/lifecycle#after-component-render)を使用します。
 
 ## <a name="invoke-net-methods-from-javascript-functions"></a>JavaScript 関数からの .NET メソッドの呼び出し
 
@@ -275,7 +275,7 @@ JS 相互運用コードは、NuGet パッケージ内のコードを共有で�
 
 ビルド済みの NuGet パッケージは、NuGet パッケージを参照するのと同じ方法で、アプリのプロジェクトファイルで参照されます。 パッケージが復元された後、アプリコードはと同じように JavaScript C#を呼び出すことができます。
 
-詳細については、「 <xref:blazor/class-libraries>」を参照してください。
+詳細については、「<xref:blazor/class-libraries>」を参照してください。
 
 ## <a name="harden-js-interop-calls"></a>JS 相互運用呼び出しの強化
 

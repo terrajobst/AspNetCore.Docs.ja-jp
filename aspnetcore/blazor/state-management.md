@@ -5,16 +5,16 @@ description: Blazor サーバーアプリで状態を永続化する方法につ
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/15/2019
+ms.date: 11/23/2019
 no-loc:
 - Blazor
 uid: blazor/state-management
-ms.openlocfilehash: 38ee5fccdf476f08c9f39d01b53c81b48eea04bf
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: facd6c2747bb0b31404c3c4fce25b76cd141932e
+ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317181"
+ms.lasthandoff: 12/02/2019
+ms.locfileid: "74680981"
 ---
 # <a name="aspnet-core-opno-locblazor-state-management"></a>Blazor 状態管理の ASP.NET Core
 
@@ -133,16 +133,16 @@ ASP.NET Core の[データ保護](xref:security/data-protection/introduction)を
 
 ## <a name="protected-browser-storage-experimental-package"></a>保護されたブラウザーストレージの試験的パッケージ
 
-`localStorage` と `sessionStorage` の[データ保護](xref:security/data-protection/introduction)を提供する NuGet パッケージの例としては、 [Microsoft.AspNetCore.ProtectedBrowserStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage)があります。
+`localStorage` と `sessionStorage` の[データ保護](xref:security/data-protection/introduction)を提供する NuGet パッケージの例としては、 [AspNetCore. ProtectedBrowserStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage)があります。
 
 > [!WARNING]
 > 現時点では、運用環境での使用に適していない、サポートされていない実験的パッケージは `Microsoft.AspNetCore.ProtectedBrowserStorage`。
 
-### <a name="installation"></a>インストール
+### <a name="installation"></a>のインストール
 
 `Microsoft.AspNetCore.ProtectedBrowserStorage` パッケージをインストールするには:
 
-1. Blazor Server アプリプロジェクトで、 [Microsoft.AspNetCore.ProtectedBrowserStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage)へのパッケージ参照を追加します。
+1. Blazor Server アプリプロジェクトで、 [ProtectedBrowserStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage)へのパッケージ参照を追加します。
 1. 最上位レベルの HTML (たとえば、既定のプロジェクトテンプレートの*Pages/_Host*ファイル) で、次の `<script>` タグを追加します。
 
    ```html
@@ -194,7 +194,7 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
-コンポーネントのパラメーターにナビゲーション状態が含まれている場合は、`ProtectedSessionStore.GetAsync` を呼び出し、`OnInitializedAsync`ではなく `OnParametersSetAsync`に結果を割り当てます。 `OnInitializedAsync` は、コンポーネントが最初にインスタンス化されるときに1回だけ呼び出されます。 ユーザーが同じページで別の URL に移動しても、後で `OnInitializedAsync` が呼び出されることはありません。
+コンポーネントのパラメーターにナビゲーション状態が含まれている場合は、`ProtectedSessionStore.GetAsync` を呼び出し、`OnInitializedAsync`ではなく `OnParametersSetAsync`に結果を割り当てます。 `OnInitializedAsync` は、コンポーネントが最初にインスタンス化されるときに1回だけ呼び出されます。 ユーザーが同じページで別の URL に移動しても、後で `OnInitializedAsync` が呼び出されることはありません。 詳細については、「<xref:blazor/lifecycle>」を参照してください。
 
 > [!WARNING]
 > このセクションの例は、サーバーのプリレンダリングが有効になっていない場合にのみ機能します。 プリレンダリングが有効になっていると、次のようなエラーが生成されます。

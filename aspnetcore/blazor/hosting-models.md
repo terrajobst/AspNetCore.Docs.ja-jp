@@ -5,17 +5,17 @@ description: Blazor Webasと Blazor サーバーホスティングモデルに�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/21/2019
+ms.date: 11/23/2019
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/hosting-models
-ms.openlocfilehash: a017737eacd93ac776afe7ee8024eed602d7edcc
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: 38db9804c9cdd1aa31ca48af2dd9ec2e85175156
+ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317227"
+ms.lasthandoff: 12/02/2019
+ms.locfileid: "74681046"
 ---
 # <a name="aspnet-core-opno-locblazor-hosting-models"></a>Blazor ホスティングモデルの ASP.NET Core
 
@@ -125,7 +125,7 @@ UI 待機時間とは、開始されたアクションから UI が更新され�
 
 企業のプライベートネットワークに限定された基幹業務アプリの場合、ネットワーク待機時間による待ち時間のユーザーへの影響は、通常はなるべくです。 インターネット経由で展開されたアプリの場合、ユーザーにとって待機時間が顕著になる可能性があります。ユーザーが地理的に広く分散している場合は特にそうです。
 
-メモリ使用量は、アプリの待機時間に寄与する場合もあります。 メモリ使用量が増加すると、ガベージコレクションまたはメモリのページングが頻繁に発生します。どちらの場合も、アプリのパフォーマンスが低下し、その結果、UI の遅延が増加します。 詳細については、「 <xref:security/blazor/server>」を参照してください。
+メモリ使用量は、アプリの待機時間に寄与する場合もあります。 メモリ使用量が増加すると、ガベージコレクションまたはメモリのページングが頻繁に発生します。どちらの場合も、アプリのパフォーマンスが低下し、その結果、UI の遅延が増加します。 詳細については、「<xref:security/blazor/server>」を参照してください。
 
 Blazor サーバーアプリは、ネットワーク待機時間とメモリ使用量を削減することで、UI の待機時間を最小限に抑えるように最適化する必要があります。 ネットワーク待機時間を測定する方法については、「<xref:host-and-deploy/blazor/server#measure-network-latency>」を参照してください。 SignalR と Blazorの詳細については、以下を参照してください。
 
@@ -140,7 +140,7 @@ Blazor サーバーアプリには、サーバーへのアクティブな Signal
 
 最初のクライアント要求への応答としての Blazor Server アプリ prerenders。これにより、サーバー上で UI の状態が設定されます。 クライアントが SignalR 接続を作成しようとすると、クライアントは同じサーバーに再接続する必要があります。 複数のバックエンドサーバーを使用する Blazor サーバーアプリは、SignalR 接続用の*固定セッション*を実装する必要があります。
 
-[ サーバー アプリには SignalRAzure ](/azure/azure-signalr) ServiceBlazor を使用することをお勧めします。 このサービスでは、多数の同時 Blazor 接続に対して SignalR Server アプリをスケールアップできます。 Azure SignalR サービスでは、サービスの `ServerStickyMode` オプションまたは構成値を `Required`に設定することにより、固定セッションが有効になります。 詳細については、「 <xref:host-and-deploy/blazor/server#signalr-configuration>」を参照してください。
+Blazor サーバー アプリには [Azure SignalR Service](/azure/azure-signalr) を使用することをお勧めします。 このサービスでは、多数の同時 SignalR 接続に対して Blazor Server アプリをスケールアップできます。 Azure SignalR サービスでは、サービスの `ServerStickyMode` オプションまたは構成値を `Required`に設定することにより、固定セッションが有効になります。 詳細については、「<xref:host-and-deploy/blazor/server#signalr-configuration>」を参照してください。
 
 IIS を使用すると、アプリケーション要求ルーティングによって固定セッションが有効になります。 詳細については、「[アプリケーション要求ルーティングを使用した HTTP 負荷分散](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing)」を参照してください。
 
@@ -222,7 +222,7 @@ UI をカスタマイズするには、 *_Host*の `<body>` の `components-reco
 
 静的な HTML ページからのサーバーコンポーネントのレンダリングはサポートされていません。
 
-`RenderMode` が `ServerPrerendered`場合、コンポーネントは最初にページの一部として静的にレンダリングされます。 ブラウザーがサーバーへの接続を確立すると、コンポーネントが*再び*表示され、コンポーネントが対話型になります。 コンポーネント (`OnInitialized{Async}`) を初期化するための[ライフサイクルメソッド](xref:blazor/components#lifecycle-methods)が存在する場合、メソッドは*2 回*実行されます。
+`RenderMode` が `ServerPrerendered`場合、コンポーネントは最初にページの一部として静的にレンダリングされます。 ブラウザーがサーバーへの接続を確立すると、コンポーネントが*再び*表示され、コンポーネントが対話型になります。 コンポーネントを初期化するための[Oninitialized 化された {Async}](xref:blazor/lifecycle#component-initialization-methods)ライフサイクルメソッドが存在する場合、メソッドは*2 回*実行されます。
 
 * コンポーネントが静的に prerendered された場合。
 * サーバー接続が確立された後。
@@ -393,7 +393,7 @@ public class WeatherForecastService
 </script>
 ```
 
-## <a name="additional-resources"></a>その他のリソース
+## <a name="additional-resources"></a>その他の技術情報
 
 * <xref:blazor/get-started>
 * <xref:signalr/introduction>

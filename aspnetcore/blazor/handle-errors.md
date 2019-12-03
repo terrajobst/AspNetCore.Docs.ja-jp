@@ -5,17 +5,17 @@ description: Blazor でハンドルされない例外を管理する方法、お
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/21/2019
+ms.date: 11/23/2019
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/handle-errors
-ms.openlocfilehash: f2fa59259f1dd36f50e81256bddea265e347554b
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: 9784b357c2cdeb7422bbe40a39f881c97f6d716a
+ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317151"
+ms.lasthandoff: 12/02/2019
+ms.locfileid: "74680994"
 ---
 # <a name="handle-errors-in-aspnet-core-opno-locblazor-apps"></a>ASP.NET Core Blazor アプリでのエラーの処理
 
@@ -89,9 +89,9 @@ Blazor は、ほとんどのハンドルされない例外を、発生した回�
 
 ## <a name="log-errors-with-a-persistent-provider"></a>永続的なプロバイダーでエラーをログに記録する
 
-未処理の例外が発生した場合、例外は、サービスコンテナーに構成されている <xref:Microsoft.Extensions.Logging.ILogger> インスタンスに記録されます。 既定では、Blazor アプリはコンソールログプロバイダーを使用してコンソール出力に記録されます。 ログサイズとログローテーションを管理するプロバイダーを使用して、より永続的な場所にログを記録することを検討してください。 詳細については、「 <xref:fundamentals/logging/index>」を参照してください。
+未処理の例外が発生した場合、例外は、サービスコンテナーに構成されている <xref:Microsoft.Extensions.Logging.ILogger> インスタンスに記録されます。 既定では、Blazor アプリはコンソールログプロバイダーを使用してコンソール出力に記録されます。 ログサイズとログローテーションを管理するプロバイダーを使用して、より永続的な場所にログを記録することを検討してください。 詳細については、「<xref:fundamentals/logging/index>」を参照してください。
 
-開発中、Blazor は通常、デバッグを支援するために、ブラウザーのコンソールに例外の完全な詳細情報を送信します。 運用環境では、ブラウザーのコンソールでの詳細なエラーは既定で無効になっています。つまり、エラーはクライアントに送信されませんが、例外の完全な詳細は引き続きサーバー側でログに記録されます。 詳細については、「 <xref:fundamentals/error-handling>」を参照してください。
+開発中、Blazor は通常、デバッグを支援するために、ブラウザーのコンソールに例外の完全な詳細情報を送信します。 運用環境では、ブラウザーのコンソールでの詳細なエラーは既定で無効になっています。つまり、エラーはクライアントに送信されませんが、例外の完全な詳細は引き続きサーバー側でログに記録されます。 詳細については、「<xref:fundamentals/error-handling>」を参照してください。
 
 ログに記録するインシデントと、ログに記録されるインシデントの重大度レベルを決定する必要があります。 悪意のあるユーザーは、意図的にエラーをトリガーできる可能性があります。 たとえば、製品の詳細を表示するコンポーネントの URL に不明な `ProductId` が指定されている場合は、エラーからインシデントをログに記録しないようにします。 すべてのエラーを、ログ記録の重要度の高いインシデントとして処理することはできません。
 
@@ -122,7 +122,7 @@ Blazor がコンポーネントのインスタンスを作成する場合:
 
 ### <a name="lifecycle-methods"></a>ライフサイクル メソッド
 
-コンポーネントの有効期間中、Blazor はライフサイクルメソッドを呼び出します。
+コンポーネントの有効期間中、Blazor は[ライフサイクルメソッド](xref:blazor/lifecycle)を呼び出します。
 
 * `OnInitialized` / `OnInitializedAsync`
 * `OnParametersSet` / `OnParametersSetAsync`
@@ -173,7 +173,7 @@ Blazor がコンポーネントのインスタンスを作成する場合:
 
 コンポーネントの `Dispose` メソッドがハンドルされない例外をスローした場合、この例外は回線にとって致命的です。 破棄ロジックによって例外がスローされる可能性がある場合、アプリでは、エラー処理とログ記録を含む[try-catch ステートメントを](/dotnet/csharp/language-reference/keywords/try-catch)使用して例外をトラップする必要があります。
 
-コンポーネントの破棄の詳細については、「<xref:blazor/components#component-disposal-with-idisposable>」を参照してください。
+コンポーネントの破棄の詳細については、「<xref:blazor/lifecycle#component-disposal-with-idisposable>」を参照してください。
 
 ### <a name="javascript-interop"></a>JavaScript 相互運用
 
@@ -192,7 +192,7 @@ Blazor がコンポーネントのインスタンスを作成する場合:
 
 .NET 側またはメソッド呼び出しの JavaScript 側でエラー処理コードを使用するオプションがあります。
 
-詳細については、「 <xref:blazor/javascript-interop>」を参照してください。
+詳細については、「<xref:blazor/javascript-interop>」を参照してください。
 
 ### <a name="circuit-handlers"></a>サーキットハンドラー
 
@@ -277,7 +277,7 @@ Blazor コンポーネントは、レンダリングされた HTML マークア�
 
 ### <a name="custom-render-tree-logic"></a>カスタムレンダリングツリーのロジック
 
-ほとんどの Blazor コンポーネントは、razor ファイルとして実装され、`RenderTreeBuilder` を操作して出力を表示するロジックを生成するためにコンパイルされ*ます。* 開発者は、手続きC#型コードを使用して `RenderTreeBuilder` ロジックを手動で実装できます。 詳細については、「 <xref:blazor/components#manual-rendertreebuilder-logic>」を参照してください。
+ほとんどの Blazor コンポーネントは、razor ファイルとして実装され、`RenderTreeBuilder` を操作して出力を表示するロジックを生成するためにコンパイルされ*ます。* 開発者は、手続きC#型コードを使用して `RenderTreeBuilder` ロジックを手動で実装できます。 詳細については、「<xref:blazor/components#manual-rendertreebuilder-logic>」を参照してください。
 
 > [!WARNING]
 > 手動のレンダーツリービルダーロジックの使用は、高度で安全ではないシナリオと見なされます。一般的なコンポーネントの開発にはお勧めしません。

@@ -5,16 +5,16 @@ description: クロスオリジンリソース共有 (CORS) 要求の作成な�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/15/2019
+ms.date: 11/23/2019
 no-loc:
 - Blazor
 uid: blazor/call-web-api
-ms.openlocfilehash: b5c57317005d0072410542bad322458b1cb3f5ee
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: ffc9904c5746fbf0fafa10cf054666608942650c
+ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73962724"
+ms.lasthandoff: 12/02/2019
+ms.locfileid: "74680903"
 ---
 # <a name="call-a-web-api-from-aspnet-core-opno-locblazor"></a>ASP.NET Core Blazor から web API を呼び出す
 
@@ -35,7 +35,7 @@ Blazor Webasの例については、サンプルアプリの次のコンポー�
 
 ## <a name="httpclient-and-json-helpers"></a>HttpClient と JSON のヘルパー
 
-Blazor WebAssembly では、 [Httpclient](xref:fundamentals/http-requests)は、要求を配信元サーバーに返すための事前に構成されたサービスとして利用できます。 `HttpClient` JSON ヘルパーを使用するには、`Microsoft.AspNetCore.Blazor.HttpClient`へのパッケージ参照を追加します。 `HttpClient` および JSON ヘルパーは、サードパーティの web API エンドポイントを呼び出すためにも使用されます。 `HttpClient` は、ブラウザーの[FETCH API](https://developer.mozilla.org/docs/Web/API/Fetch_API)を使用して実装され、同じオリジンポリシーの適用などの制限が適用されます。
+Blazor WebAssembly では、 [Httpclient](xref:fundamentals/http-requests)は、要求を配信元サーバーに返すための事前に構成されたサービスとして利用できます。 `HttpClient` JSON ヘルパーを使用するには、`Microsoft.AspNetCore.Blazor.HttpClient`へのパッケージ参照を追加します。 `HttpClient` と JSON ヘルパーは、サードパーティの web API エンドポイントを呼び出すためにも使用されます。 `HttpClient` は、ブラウザーの[FETCH API](https://developer.mozilla.org/docs/Web/API/Fetch_API)を使用して実装され、同じオリジンポリシーの適用などの制限が適用されます。
 
 クライアントのベースアドレスは、元のサーバーのアドレスに設定されます。 `@inject` ディレクティブを使用して `HttpClient` インスタンスを挿入します。
 
@@ -47,8 +47,8 @@ Blazor WebAssembly では、 [Httpclient](xref:fundamentals/http-requests)は、
 次の例では、Todo web API が作成、読み取り、更新、および削除 (CRUD) の各操作を処理します。 この例は、を格納する `TodoItem` クラスに基づいています。
 
 * ID (`Id`、`long`) &ndash; アイテムの一意の ID。
-* 名前 (`Name`、`string`) &ndash; 項目の名前。
-* 状態 (`IsComplete`、`bool`) &ndash; Todo 項目が終了したかどうかを示します。
+* 項目の名前 (`Name`、`string`) &ndash; 名前。
+* [状態] (`IsComplete`、`bool`) &ndash; Todo 項目が終了したかどうかを示します。
 
 ```csharp
 private class TodoItem
@@ -63,7 +63,7 @@ JSON ヘルパーメソッドは、要求を URI (次の例では web API) に�
 
 * `GetJsonAsync` &ndash; は HTTP GET 要求を送信し、JSON 応答本文を解析してオブジェクトを作成します。
 
-  次のコードでは、`_todoItems` がコンポーネントによって表示されます。 `GetTodoItems` メソッドは、コンポーネントのレンダリングが終了したときにトリガーされます ([Oninitializer Edasync](xref:blazor/components#lifecycle-methods))。 完全な例については、サンプルアプリを参照してください。
+  次のコードでは、`_todoItems` がコンポーネントによって表示されます。 `GetTodoItems` メソッドは、コンポーネントのレンダリングが終了したときにトリガーされます ([Oninitializer Edasync](xref:blazor/lifecycle#component-initialization-methods))。 完全な例については、サンプルアプリを参照してください。
 
   ```cshtml
   @using System.Net.Http
@@ -157,11 +157,11 @@ JSON ヘルパーメソッドは、要求を URI (次の例では web API) に�
 
 Blazor webassembly で Webasで実行する場合は、 [Httpclient](xref:fundamentals/http-requests)と <xref:System.Net.Http.HttpRequestMessage> を使用して要求をカスタマイズします。 たとえば、要求 URI、HTTP メソッド、および必要な要求ヘッダーを指定できます。
 
-要求の `WebAssemblyHttpMessageHandler.FetchArgs` プロパティを使用して、基になる JavaScript [FETCH API](https://developer.mozilla.org/docs/Web/API/Fetch_API)に要求オプションを指定します。 次の例に示すように、`credentials` プロパティは、次のいずれかの値に設定されます。
+要求の `WebAssemblyHttpMessageHandler.FetchArgs` プロパティを使用して、基になる JavaScript [FETCH API](https://developer.mozilla.org/docs/Web/API/Fetch_API)に要求オプションを指定します。 次の例に示すように、`credentials` プロパティは次のいずれかの値に設定されます。
 
-* `FetchCredentialsOption.Include` ("include") &ndash; は、クロスオリジン要求の場合でも、ブラウザーが資格情報 (cookie や HTTP 認証ヘッダーなど) を送信するように通知します。 CORS ポリシーが資格情報を許可するように構成されている場合にのみ許可されます。
+* `FetchCredentialsOption.Include` ("include") &ndash; は、クロスオリジン要求でも、資格情報 (cookie や HTTP 認証ヘッダーなど) を送信するようブラウザーに通知します。 CORS ポリシーが資格情報を許可するように構成されている場合にのみ許可されます。
 * `FetchCredentialsOption.Omit` ("省略") &ndash; ブラウザーが資格情報を送信しないことを通知します (cookie や HTTP 認証ヘッダーなど)。
-* `FetchCredentialsOption.SameOrigin` ("同じオリジン") &ndash; は、ターゲット URL が呼び出し元アプリケーションと同じオリジンにある場合にのみ、ブラウザーが資格情報 (cookie や HTTP auth ヘッダーなど) を送信するように通知します。
+* `FetchCredentialsOption.SameOrigin` ("同じオリジン") &ndash; は、ターゲット URL が呼び出し元アプリケーションと同じオリジンにある場合にのみ、資格情報 (cookie や HTTP auth ヘッダーなど) を送信するようにブラウザーに通知します。
 
 ```cshtml
 @using System.Net.Http
@@ -204,14 +204,14 @@ Blazor webassembly で Webasで実行する場合は、 [Httpclient](xref:fundam
 
 Fetch API オプションの詳細については、 [MDN の web ドキュメント: WindowOrWorkerGlobalScope ():P arameters](https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)を参照してください。
 
-CORS 要求で資格情報 (承認 cookie/ヘッダー) を送信する場合、CORS ポリシーによって `Authorization` ヘッダーが許可されている必要があります。
+CORS 要求で資格情報 (承認 cookie/ヘッダー) を送信する場合、CORS ポリシーで `Authorization` ヘッダーが許可されている必要があります。
 
 次のポリシーには、の構成が含まれています。
 
 * 要求オリジン (`http://localhost:5000`、`https://localhost:5001`)。
 * 任意のメソッド (動詞)。
-* `Content-Type` および `Authorization` ヘッダーです。 カスタムヘッダー (たとえば `x-custom-header`) を許可するには <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithHeaders*> を呼び出すときにヘッダーを一覧表示します。
-* クライアント側の JavaScript コードによって設定された資格情報 (`credentials` プロパティが `include` に設定されている)。
+* ヘッダーを `Content-Type` して `Authorization` します。 カスタムヘッダー (`x-custom-header`など) を許可するには、<xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithHeaders*>を呼び出すときにヘッダーの一覧を表示します。
+* クライアント側の JavaScript コードによって設定される資格情報 (`credentials` プロパティが `include`に設定されます)。
 
 ```csharp
 app.UseCors(policy => 
@@ -221,7 +221,7 @@ app.UseCors(policy =>
     .AllowCredentials());
 ```
 
-詳細については、「<xref:security/cors>」とサンプルアプリの HTTP 要求テスターコンポーネント (*Components/HTTPRequestTester*) を参照してください。
+詳細については、「<xref:security/cors>」およびサンプルアプリの HTTP 要求テスターコンポーネント (*Components/HTTPRequestTester*) を参照してください。
 
 ## <a name="additional-resources"></a>その他の技術情報
 

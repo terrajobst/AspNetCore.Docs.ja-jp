@@ -9,12 +9,12 @@ ms.date: 11/23/2019
 no-loc:
 - Blazor
 uid: blazor/components
-ms.openlocfilehash: 89c92fbd5a3939cd2b4a34c39163767bcdf73bb8
-ms.sourcegitcommit: 918d7000b48a2892750264b852bad9e96a1165a7
+ms.openlocfilehash: 764e5e7db995b2dcadccf6d93c826ccf32c9ba04
+ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/27/2019
-ms.locfileid: "74550305"
+ms.lasthandoff: 12/02/2019
+ms.locfileid: "74681007"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>ASP.NET Core Razor コンポーネントを作成して使用する
 
@@ -522,7 +522,7 @@ Razor コンポーネントは、イベント処理機能を提供します。 `
 }
 ```
 
-イベントハンドラーを非同期にして、<xref:System.Threading.Tasks.Task>を返すこともできます。 `StateHasChanged()`を手動で呼び出す必要はありません。 例外は、発生するとログに記録されます。
+イベントハンドラーを非同期にして、<xref:System.Threading.Tasks.Task>を返すこともできます。 [Statehaschanged](xref:blazor/lifecycle#state-changes)を手動で呼び出す必要はありません。 例外は、発生するとログに記録されます。
 
 次の例では、ボタンが選択されると `UpdateHeading` が非同期に呼び出されます。
 
@@ -614,7 +614,7 @@ Razor コンポーネントは、イベント処理機能を提供します。 `
 `ChildComponent`でボタンが選択されている場合:
 
 * `ParentComponent`の `ShowMessage` メソッドが呼び出されます。 `messageText` が更新され、`ParentComponent`に表示されます。
-* `StateHasChanged` の呼び出しは、コールバックのメソッド (`ShowMessage`) には必要ありません。 `StateHasChanged` は、子イベントと同様に、子の内部で実行されるイベントハンドラーでコンポーネントの実行がトリガーされるのと同様に、`ParentComponent`をレンダリングするために自動的に呼び出されます。
+* このコールバックのメソッド (`ShowMessage`) では、 [Statehaschanged](xref:blazor/lifecycle#state-changes)の呼び出しは必要ありません。 `StateHasChanged` は、子イベントと同様に、子の内部で実行されるイベントハンドラーでコンポーネントの実行がトリガーされるのと同様に、`ParentComponent`をレンダリングするために自動的に呼び出されます。
 
 `EventCallback` および `EventCallback<T>` 非同期デリゲートを許可します。 `EventCallback<T>` は厳密に型指定され、特定の引数型を必要とします。 `EventCallback` は弱く型指定され、任意の引数型を使用できます。
 
@@ -854,7 +854,7 @@ Password:
 コンポーネントがレンダリングされると、[`loginDialog`] フィールドに `MyLoginDialog` 子コンポーネントインスタンスが設定されます。 その後、コンポーネントインスタンスで .NET メソッドを呼び出すことができます。
 
 > [!IMPORTANT]
-> `loginDialog` 変数は、コンポーネントがレンダリングされた後にのみ設定され、その出力には `MyLoginDialog` 要素が含まれます。 この時点までは、参照するものはありません。 コンポーネント参照のレンダリングが完了した後にコンポーネント参照を操作するに[は、OnAfterRenderAsync メソッドまたは OnAfterRender メソッド](#lifecycle-methods)を使用します。
+> `loginDialog` 変数は、コンポーネントがレンダリングされた後にのみ設定され、その出力には `MyLoginDialog` 要素が含まれます。 この時点までは、参照するものはありません。 コンポーネント参照のレンダリングが完了した後にコンポーネント参照を操作するに[は、OnAfterRenderAsync メソッドまたは OnAfterRender メソッド](xref:blazor/lifecycle#after-component-render)を使用します。
 
 コンポーネント参照のキャプチャは、[要素参照のキャプチャ](xref:blazor/javascript-interop#capture-references-to-elements)に似た構文を使用しますが、 [JavaScript 相互運用](xref:blazor/javascript-interop)機能ではありません。 コンポーネント参照は、.NET コードでのみ使用される&mdash;JavaScript コードに渡されません。
 
@@ -863,7 +863,7 @@ Password:
 
 ## <a name="invoke-component-methods-externally-to-update-state"></a>状態を更新するためにコンポーネントメソッドを外部に呼び出す
 
-Blazor は、`SynchronizationContext` を使用して、1つの論理スレッドの実行を強制します。 Blazor によって発生するコンポーネントのライフサイクルメソッドとイベントコールバックは、この `SynchronizationContext`で実行されます。 タイマーやその他の通知など、外部のイベントに基づいてコンポーネントを更新する必要がある場合は、`InvokeAsync` メソッドを使用します。これにより、Blazorの `SynchronizationContext`にディスパッチされます。
+Blazor は、`SynchronizationContext` を使用して、1つの論理スレッドの実行を強制します。 Blazor によって発生するコンポーネントの[ライフサイクルメソッド](xref:blazor/lifecycle)とイベントコールバックは、この `SynchronizationContext`で実行されます。 タイマーやその他の通知など、外部のイベントに基づいてコンポーネントを更新する必要がある場合は、`InvokeAsync` メソッドを使用します。これにより、Blazorの `SynchronizationContext`にディスパッチされます。
 
 たとえば、更新された状態のすべてのリッスンコンポーネントに通知できる通知*サービス*を考えてみます。
 
@@ -991,139 +991,6 @@ public class NotifierService
 * 一意の識別子 (たとえば、`int`型、`string`型、`Guid`型の主キー値)。
 
 `@key` に使用される値が競合しないようにしてください。 競合するの値が同じ親要素内で検出された場合、Blazor は、古い要素またはコンポーネントを新しい要素またはコンポーネントに確定的にマップできないため、例外をスローします。 個別の値 (オブジェクトインスタンスや主キー値など) のみを使用してください。
-
-## <a name="lifecycle-methods"></a>ライフサイクル メソッド
-
-`OnInitializedAsync` し、`OnInitialized` 実行して、コンポーネントを初期化します。 非同期操作を実行するには、操作で `OnInitializedAsync` と `await` キーワードを使用します。
-
-```csharp
-protected override async Task OnInitializedAsync()
-{
-    await ...
-}
-```
-
-> [!NOTE]
-> `OnInitializedAsync` のライフサイクルイベント中に、コンポーネントの初期化時に非同期作業を行う必要があります。
-
-同期操作の場合は、`OnInitialized`を使用します。
-
-```csharp
-protected override void OnInitialized()
-{
-    ...
-}
-```
-
-コンポーネントが親からパラメーターを受け取り、値がプロパティに割り当てられると、`OnParametersSetAsync` と `OnParametersSet` が呼び出されます。 これらのメソッドは、コンポーネントの初期化の後、および親コンポーネントがレンダリングされるたびに実行されます。
-
-```csharp
-protected override async Task OnParametersSetAsync()
-{
-    await ...
-}
-```
-
-> [!NOTE]
-> パラメーターとプロパティ値を適用するときの非同期処理は、`OnParametersSetAsync` ライフサイクルイベント中に発生する必要があります。
-
-```csharp
-protected override void OnParametersSet()
-{
-    ...
-}
-```
-
-`OnAfterRenderAsync` と `OnAfterRender` は、コンポーネントのレンダリングが完了した後に呼び出されます。 この時点で、要素参照とコンポーネント参照が設定されます。 レンダリングされた DOM 要素を操作するサードパーティ製の JavaScript ライブラリをアクティブ化するなど、レンダリングされたコンテンツを使用して追加の初期化手順を実行するには、この段階を使用します。
-
-*サーバーでのプリレンダリング時に `OnAfterRender` は呼び出されません。*
-
-`OnAfterRenderAsync` と `OnAfterRender` の `firstRender` パラメーターは次のとおりです。
-
-* コンポーネントインスタンスを初めて呼び出すときに `true` に設定します。
-* 初期化作業が1回だけ実行されるようにします。
-
-```csharp
-protected override async Task OnAfterRenderAsync(bool firstRender)
-{
-    if (firstRender)
-    {
-        await ...
-    }
-}
-```
-
-> [!NOTE]
-> `OnAfterRenderAsync` のライフサイクルイベント中に、レンダリング直後の非同期作業が発生する必要があります。
-
-```csharp
-protected override void OnAfterRender(bool firstRender)
-{
-    if (firstRender)
-    {
-        ...
-    }
-}
-```
-
-### <a name="handle-incomplete-async-actions-at-render"></a>レンダー時の不完全な非同期アクションを処理する
-
-ライフサイクルイベントで実行される非同期アクションは、コンポーネントがレンダリングされる前に完了していない可能性があります。 ライフサイクルメソッドの実行中に、オブジェクトが `null` されているか、データが不完全に設定されている可能性があります。 オブジェクトが初期化されていることを確認するためのレンダリングロジックを提供します。 オブジェクトの `null`中に、プレースホルダー UI 要素 (読み込みメッセージなど) をレンダリングします。
-
-Blazor テンプレートの `FetchData` コンポーネントでは、`OnInitializedAsync` がユーザー receive 予測データ (`forecasts`) に上書きされます。 `forecasts` が `null`と、読み込みメッセージがユーザーに表示されます。 `OnInitializedAsync` によって返された `Task` が完了すると、コンポーネントは更新された状態とピアリングされます。
-
-*Pages/FetchData.razor*:
-
-[!code-cshtml[](components/samples_snapshot/3.x/FetchData.razor?highlight=9)]
-
-### <a name="execute-code-before-parameters-are-set"></a>パラメーターが設定される前にコードを実行する
-
-`SetParameters` は、パラメーターを設定する前にコードを実行するようにオーバーライドできます。
-
-```csharp
-public override void SetParameters(ParameterView parameters)
-{
-    ...
-
-    base.SetParameters(parameters);
-}
-```
-
-`base.SetParameters` が呼び出されない場合、カスタムコードでは、必要に応じて受信パラメーター値を解釈できます。 たとえば、受信したパラメーターをクラスのプロパティに割り当てる必要はありません。
-
-### <a name="suppress-refreshing-of-the-ui"></a>UI の更新を抑制する
-
-`ShouldRender` は、UI の更新を抑制するためにオーバーライドできます。 実装によって `true`が返された場合は、UI が更新されます。 `ShouldRender` がオーバーライドされた場合でも、コンポーネントは常に最初に表示されます。
-
-```csharp
-protected override bool ShouldRender()
-{
-    var renderUI = true;
-
-    return renderUI;
-}
-```
-
-## <a name="component-disposal-with-idisposable"></a>IDisposable によるコンポーネントの破棄
-
-コンポーネントが <xref:System.IDisposable>を実装している場合は、コンポーネントが UI から削除されるときに[Dispose メソッド](/dotnet/standard/garbage-collection/implementing-dispose)が呼び出されます。 次のコンポーネントでは、`@implements IDisposable` と `Dispose` メソッドが使用されます。
-
-```csharp
-@using System
-@implements IDisposable
-
-...
-
-@code {
-    public void Dispose()
-    {
-        ...
-    }
-}
-```
-
-> [!NOTE]
-> `Dispose` での `StateHasChanged` の呼び出しはサポートされていません。 `StateHasChanged` は、破棄されているレンダラーの一部として呼び出されることがあります。 その時点での UI 更新の要求はサポートされていません。
 
 ## <a name="routing"></a>ルーティング
 
