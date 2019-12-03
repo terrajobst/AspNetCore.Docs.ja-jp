@@ -5,16 +5,16 @@ description: ASP.NET Core SignalR ライブラリを通じて、リアルタイ�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 11/27/2019
 no-loc:
 - SignalR
 uid: signalr/introduction
-ms.openlocfilehash: 7108d9f223db78937dd1203a1cb4b890006b20ec
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: e84dd0d086cbfc80a80bc10baa33979da9b5d137
+ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963937"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74717235"
 ---
 # <a name="introduction-to-aspnet-core-opno-locsignalr"></a>ASP.NET Core SignalR の概要
 
@@ -42,7 +42,7 @@ ASP.NET Core の SignalR の機能をいくつか次に示します。
 
 ## <a name="transports"></a>トランスポート
 
-SignalR は、リアルタイム通信を処理するためのいくつかの手法をサポートしています。
+SignalR は、リアルタイム通信 (正常なフォールバックの順序) を処理するための次の手法をサポートしています。
 
 * [WebSocket](https://tools.ietf.org/html/rfc7118)
 * サーバーから送信されたイベント
