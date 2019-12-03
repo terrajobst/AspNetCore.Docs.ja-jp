@@ -5,16 +5,16 @@ description: Blazor アプリで JavaScript から .NET および .NET メソッ
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/23/2019
+ms.date: 12/02/2019
 no-loc:
 - Blazor
 uid: blazor/javascript-interop
-ms.openlocfilehash: 79555ca6c987e2ca57e0cfab9779024498fdd58b
-ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
+ms.openlocfilehash: 108fdac8667f407adba3470de4eb8e35883cefbf
+ms.sourcegitcommit: 169ea5116de729c803685725d96450a270bc55b7
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/02/2019
-ms.locfileid: "74681027"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74733831"
 ---
 # <a name="aspnet-core-opno-locblazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 相互運用機能
 
@@ -30,7 +30,7 @@ Blazor アプリは、JavaScript コードから .NET および .NET メソッ�
 
 JavaScript 関数を呼び出すために .NET コードが必要になる場合があります。 たとえば、JavaScript 呼び出しは、ブラウザーの機能や機能を JavaScript ライブラリからアプリに公開できます。 このシナリオは、 *JavaScript 相互運用性*(*JS 相互運用*) と呼ばれます。
 
-.NET から JavaScript を呼び出すには、`IJSRuntime` 抽象化を使用します。 `InvokeAsync<T>` メソッドは、任意の数の JSON シリアル化可能な引数と共に呼び出す JavaScript 関数の識別子を受け取ります。 関数識別子は、グローバルスコープ (`window`) に対して相対的です。 `window.someScope.someFunction`を呼び出す場合は、識別子が `someScope.someFunction`ます。 呼び出される前に、関数を登録する必要はありません。 戻り値の型 `T` も JSON シリアル化可能である必要があります。
+.NET から JavaScript を呼び出すには、`IJSRuntime` 抽象化を使用します。 `InvokeAsync<T>` メソッドは、任意の数の JSON シリアル化可能な引数と共に呼び出す JavaScript 関数の識別子を受け取ります。 関数識別子は、グローバルスコープ (`window`) に対して相対的です。 `window.someScope.someFunction`を呼び出す場合は、識別子が `someScope.someFunction`ます。 呼び出される前に、関数を登録する必要はありません。 戻り値の型 `T` も JSON シリアル化可能である必要があります。 `T` は、返される JSON 型に最適にマップされる .NET 型と一致している必要があります。
 
 Blazor サーバーアプリの場合:
 
@@ -180,26 +180,41 @@ window.exampleJsFunctions = {
 }
 ```
 
-`IJSRuntime.InvokeAsync<T>` を使用し、`ElementReference` で `exampleJsFunctions.focusElement` を呼び出して、要素にフォーカスを移動します。
+値を返さない JavaScript 関数を呼び出すには、`IJSRuntime.InvokeVoidAsync`を使用します。 次のコードは、キャプチャされた `ElementReference`で前の JavaScript 関数を呼び出すことによって、ユーザー名入力にフォーカスを設定します。
 
 [!code-cshtml[](javascript-interop/samples_snapshot/component1.razor?highlight=1,3,11-12)]
 
-拡張メソッドを使用して要素にフォーカスを移動するには、`IJSRuntime` インスタンスを受け取る静的拡張メソッドを作成します。
+拡張メソッドを使用するには、`IJSRuntime` インスタンスを受け取る静的拡張メソッドを作成します。
 
 ```csharp
-public static Task Focus(this ElementReference elementRef, IJSRuntime jsRuntime)
+public static async Task Focus(this ElementReference elementRef, IJSRuntime jsRuntime)
 {
-    return jsRuntime.InvokeAsync<object>(
+    await jsRuntime.InvokeVoidAsync(
         "exampleJsFunctions.focusElement", elementRef);
 }
 ```
 
-メソッドは、オブジェクトで直接呼び出されます。 次の例では、`JsInteropClasses` 名前空間から静的 `Focus` メソッドを使用できることを前提としています。
+`Focus` メソッドは、オブジェクトに対して直接呼び出されます。 次の例では、`Focus` メソッドが `JsInteropClasses` 名前空間から使用できることを前提としています。
 
-[!code-cshtml[](javascript-interop/samples_snapshot/component2.razor?highlight=1,4,12)]
+[!code-cshtml[](javascript-interop/samples_snapshot/component2.razor?highlight=1-4,12)]
 
 > [!IMPORTANT]
 > `username` 変数は、コンポーネントがレンダリングされた後にのみ設定されます。 JavaScript コードにいない `ElementReference` が渡されると、JavaScript コードは `null`の値を受け取ります。 コンポーネントのレンダリングが完了した後に要素参照を操作するには (要素に初期フォーカスを設定するには)、 [OnAfterRenderAsync または OnAfterRender コンポーネントライフサイクルメソッド](xref:blazor/lifecycle#after-component-render)を使用します。
+
+ジェネリック型を操作して値を返す場合は、 [Valuetask\<t >](xref:System.Threading.Tasks.ValueTask`1)を使用します。
+
+```csharp
+public static ValueTask<T> GenericMethod<T>(this ElementReference elementRef, 
+    IJSRuntime jsRuntime)
+{
+    return jsRuntime.InvokeAsync<T>(
+        "exampleJsFunctions.doSomethingGeneric", elementRef);
+}
+```
+
+`GenericMethod` は、型を使用してオブジェクトに対して直接呼び出されます。 次の例では、`GenericMethod` が `JsInteropClasses` 名前空間から使用できることを前提としています。
+
+[!code-cshtml[](javascript-interop/samples_snapshot/component3.razor?highlight=17)]
 
 ## <a name="invoke-net-methods-from-javascript-functions"></a>JavaScript 関数からの .NET メソッドの呼び出し
 
@@ -296,3 +311,7 @@ JS 相互運用機能は、ネットワークエラーのために失敗する�
   ```
 
 リソース枯渇の詳細については、「<xref:security/blazor/server>」を参照してください。
+
+## <a name="additional-resources"></a>その他の技術情報
+
+* [InteropComponent の例 (aspnet/AspNetCore GitHub リポジトリ、3.0 リリースブランチ)](https://github.com/aspnet/AspNetCore/blob/release/3.0/src/Components/test/testassets/BasicTestApp/InteropComponent.razor)

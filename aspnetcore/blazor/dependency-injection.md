@@ -5,16 +5,16 @@ description: Blazor アプリがコンポーネントにサービスを挿入す
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/15/2019
+ms.date: 11/27/2019
 no-loc:
 - Blazor
 uid: blazor/dependency-injection
-ms.openlocfilehash: a39d913636afc55ac9d831de923ba7ae8db1216b
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 165cfa7a98cdd523c25d5c4bfc8e2c9d0ef1ad22
+ms.sourcegitcommit: 169ea5116de729c803685725d96450a270bc55b7
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963079"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74733818"
 ---
 # <a name="aspnet-core-opno-locblazor-dependency-injection"></a>ASP.NET Core Blazor 依存関係の挿入
 
@@ -27,15 +27,15 @@ Blazor は、[依存関係の挿入 (DI)](xref:fundamentals/dependency-injection
 DI は、中央の場所で構成されたサービスにアクセスするための手法です。 これは、Blazor アプリで次のような場合に役立ちます。
 
 * 1つのサービスクラスのインスタンスを、*シングルトン*サービスと呼ばれる多数のコンポーネントで共有します。
-* 参照の抽象化を使用して、具象サービスクラスからコンポーネントを分離します。 たとえば、アプリ内のデータにアクセスするためのインターフェイス `IDataAccess` を考えてみます。 インターフェイスは具象 `DataAccess` クラスによって実装され、アプリのサービスコンテナーにサービスとして登録されます。 コンポーネントが DI を使用して `IDataAccess` の実装を受け取ると、コンポーネントは具象型に結合されません。 の実装はスワップできます。たとえば、単体テストのモック実装では、
+* 参照の抽象化を使用して、具象サービスクラスからコンポーネントを分離します。 たとえば、アプリケーションのデータにアクセスするためのインターフェイス `IDataAccess` を考えてみます。 インターフェイスは具象 `DataAccess` クラスによって実装され、アプリのサービスコンテナーにサービスとして登録されます。 コンポーネントが DI を使用して `IDataAccess` の実装を受け取ると、コンポーネントは具象型に結合されません。 の実装はスワップできます。たとえば、単体テストのモック実装では、
 
 ## <a name="default-services"></a>既定のサービス
 
 既定のサービスは、アプリのサービスコレクションに自動的に追加されます。
 
-| [サービス] | 有効期間 | 説明 |
+| サービス | 有効期間 | 説明 |
 | ------- | -------- | ----------- |
-| <xref:System.Net.Http.HttpClient> | シングルトン | URI によって識別されるリソースから HTTP 要求を送信し、HTTP 応答を受信するためのメソッドを提供します。 この `HttpClient` のインスタンスは、ブラウザーを使用してバックグラウンドで HTTP トラフィックを処理することに注意してください。 [BaseAddress](xref:System.Net.Http.HttpClient.BaseAddress)は、アプリのベース URI プレフィックスに自動的に設定されます。 詳細については、「<xref:blazor/call-web-api>」を参照してください。 |
+| <xref:System.Net.Http.HttpClient> | シングルトン | URI によって識別されるリソースから HTTP 要求を送信し、HTTP 応答を受信するためのメソッドを提供します。<br><br>`HttpClient` のインスタンス Blazor WebAssembly では、バックグラウンドで HTTP トラフィックを処理するためにブラウザーを使用します。<br><br>Blazor サーバーアプリには、既定でサービスとして構成されている `HttpClient` は含まれません。 Blazor サーバーアプリに `HttpClient` を提供します。<br><br>詳細については、「<xref:blazor/call-web-api>」を参照してください。 |
 | `IJSRuntime` | シングルトン | JavaScript 呼び出しがディスパッチされる JavaScript ランタイムのインスタンスを表します。 詳細については、「<xref:blazor/javascript-interop>」を参照してください。 |
 | `NavigationManager` | シングルトン | Uri とナビゲーション状態を操作するためのヘルパーが含まれています。 詳細については、「 [URI およびナビゲーション状態ヘルパー](xref:blazor/routing#uri-and-navigation-state-helpers)」を参照してください。 |
 
@@ -52,7 +52,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-`ConfigureServices` メソッドには、サービス記述子オブジェクト (<xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor>) の一覧である <xref:Microsoft.Extensions.DependencyInjection.IServiceCollection>が渡されます。 サービスは、サービスコレクションにサービス記述子を提供することによって追加されます。 次の例は、`IDataAccess` インターフェイスとその具象実装 `DataAccess` の概念を示しています。
+`ConfigureServices` メソッドには、サービス記述子オブジェクト (<xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor>) の一覧である <xref:Microsoft.Extensions.DependencyInjection.IServiceCollection>が渡されます。 サービスは、サービスコレクションにサービス記述子を提供することによって追加されます。 次の例は、`IDataAccess` インターフェイスと具象実装 `DataAccess`の概念を示しています。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -73,10 +73,10 @@ DI システムは ASP.NET Core の DI システムに基づいています。 �
 
 ## <a name="request-a-service-in-a-component"></a>コンポーネントでサービスを要求する
 
-サービスがサービスコレクションに追加された後、 [\@ の注入](xref:mvc/views/razor#inject)Razor ディレクティブを使用して、サービスをコンポーネントに挿入します。 `@inject` には、次の2つのパラメーターがあります。
+サービスがサービスコレクションに追加された後、 [\@を挿入](xref:mvc/views/razor#inject)する Razor ディレクティブを使用して、サービスをコンポーネントに挿入します。 `@inject` には、次の2つのパラメーターがあります。
 
 * 挿入するサービスの型 &ndash; 入力します。
-* プロパティ &ndash; 挿入された app service を受け取るプロパティの名前。 プロパティは手動で作成する必要はありません。 コンパイラによってプロパティが作成されます。
+* プロパティ &ndash;、挿入された app service を受け取るプロパティの名前です。 プロパティは手動で作成する必要はありません。 コンパイラによってプロパティが作成されます。
 
 詳細については、「<xref:mvc/views/dependency-injection>」を参照してください。
 
@@ -86,7 +86,7 @@ DI システムは ASP.NET Core の DI システムに基づいています。 �
 
 [!code-cshtml[](dependency-injection/samples_snapshot/3.x/CustomerList.razor?highlight=2-3,23)]
 
-内部的には、生成されたプロパティ (`DataRepository`) は、`InjectAttribute` 属性で修飾されます。 通常、この属性は直接使用されません。 コンポーネントに基底クラスが必要であり、その基底クラスにも挿入されたプロパティが必要な場合は、`InjectAttribute` を手動で追加します。
+内部的には、生成されたプロパティ (`DataRepository`) は `InjectAttribute` 属性で修飾されます。 通常、この属性は直接使用されません。 コンポーネントに基底クラスが必要であり、基底クラスにも挿入されたプロパティが必要な場合は、`InjectAttribute`を手動で追加します。
 
 ```csharp
 public class ComponentBase : IComponent
@@ -133,7 +133,7 @@ public class DataAccess : IDataAccess
 
 ASP.NET Core アプリでは、スコープ付きサービスは通常、現在の要求にスコープが設定されます。 要求が完了すると、スコープまたは一時的なサービスが DI システムによって破棄されます。 Blazor サーバーアプリでは、要求スコープはクライアント接続の間継続されるため、一時的でスコープのあるサービスが予想よりもはるかに長くなる可能性があります。
 
-サービスのスコープをコンポーネントの有効期間に限定するために、は `OwningComponentBase` および `OwningComponentBase<TService>` 基底クラスを使用できます。 これらの基本クラスは、コンポーネントの有効期間にスコープが設定されているサービスを解決する `IServiceProvider` 型の `ScopedServices` プロパティを公開します。 Razor の基底クラスから継承するコンポーネントを作成するには、`@inherits` ディレクティブを使用します。
+サービスのスコープをコンポーネントの有効期間に限定するために、では `OwningComponentBase` と `OwningComponentBase<TService>` 基底クラスを使用できます。 これらの基本クラスは、コンポーネントの有効期間にスコープが設定されているサービスを解決する `IServiceProvider` 型の `ScopedServices` プロパティを公開します。 Razor の基底クラスから継承するコンポーネントを作成するには、`@inherits` ディレクティブを使用します。
 
 ```cshtml
 @page "/users"
