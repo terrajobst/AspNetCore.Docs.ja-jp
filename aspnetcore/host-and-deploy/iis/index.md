@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/26/2019
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 179ab4c97426c9d3cb8ed069d2059d767d755533
-ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
+ms.openlocfilehash: de1b3e270ccd90bde741975de38a224e557f1a08
+ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/29/2019
-ms.locfileid: "73034263"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74717417"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>IIS を使用した Windows での ASP.NET Core のホスト
 
@@ -325,15 +325,36 @@ Web SDK ファイルの変換を無効にすると、 *processPath*と*引数*�
 1. サーバーでインストーラーを実行します。 管理者のコマンド シェルからインストーラーを実行する場合、次のパラメーターを使用できます。
 
    * `OPT_NO_ANCM=1` &ndash; ASP.NET Core モジュールのインストールをスキップします。
-   * `OPT_NO_RUNTIME=1` &ndash; .NET Core ランタイムのインストールをスキップします。
-   * `OPT_NO_SHAREDFX=1` &ndash; ASP.NET Shared Framework (ASP.NET ランタイム) のインストールをスキップします。
+   * `OPT_NO_RUNTIME=1` &ndash; .NET Core ランタイムのインストールをスキップします。 サーバーが[自己完結型の展開 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) のみをホストする場合に使用します。
+   * `OPT_NO_SHAREDFX=1` &ndash; ASP.NET Shared Framework (ASP.NET ランタイム) のインストールをスキップします。 サーバーが[自己完結型の展開 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) のみをホストする場合に使用します。
    * `OPT_NO_X86=1` &ndash; x86 ランタイムのインストールをスキップします。 32 ビット アプリをホストしない場合は、このパラメーターを使用します。 今後、32 ビットと 64 ビットのアプリ両方をホストする可能性がある場合は、このパラメーターを使用せずに、両方のランタイムをインストールします。
    * `OPT_NO_SHARED_CONFIG_CHECK=1` &ndash; 共有構成 (*applicationHost.config*) が IIS のインストールと同じマシン上にある場合、IIS 共有構成を使うためのチェックを無効にします。 "*ASP.NET Core 2.2 以降の Hosting Bundler インストーラーに対してのみ使用できます。* " 詳細については、<xref:host-and-deploy/aspnet-core-module#aspnet-core-module-with-an-iis-shared-configuration> を参照してください。
-1. システムを再起動するか、コマンド シェルから **net stop was /y** に続けて **net start w3svc** を実行します。 IIS を再起動すると、インストーラーによって行われたシステム パスへの変更 (環境変数) が取得されます。
+1. システムを再起動するか、コマンドシェルで次のコマンドを実行します。
+
+   ```console
+   net stop was /y
+   net start w3svc
+   ```
+   IIS を再起動すると、インストーラーによって行われたシステム パスへの変更 (環境変数) が取得されます。
+
+::: moniker range=">= aspnetcore-3.0"
+
+ASP.NET Core の共有フレームワーク パッケージの修正プログラムのリリースでは、ロールフォワード動作は採用されていません。 新しいホスティング バンドルをインストールして共有フレームワークをアップグレードした後、システムを再起動するか、コマンドシェルで次のコマンドを実行します。
+
+```console
+net stop was /y
+net start w3svc
+```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 ホスティング バンドルをインストールするときに、IIS 内の個々のサイトを手動で停止する必要はありません。 ホストされているアプリ (IIS サイト) は、IIS の再起動時に再起動します。 アプリは、最初の要求 ([Application Initialization モジュール](#application-initialization-module-and-idle-timeout)からの要求など) を受信すると再起動します。
 
 ASP.NET Core では、共有フレームワーク パッケージの修正プログラムのリリースに対してロールフォワード動作が採用されています。 IIS によってホストされているアプリが IIS で再起動された場合、そのアプリで最初の要求を受け取ったときに、各自の参照されているパッケージに対する最新の修正プログラムのリリースが読み込まれます。 IIS が再起動されない場合は、アプリのワーカー プロセスがリサイクルされてアプリで最初の要求を受信したときに、アプリが再起動され、ロールフォワード動作が実行されます。
+
+::: moniker-end
 
 > [!NOTE]
 > IIS 共有構成の詳細については、「[ASP.NET Core Module with IIS Shared Configuration](xref:host-and-deploy/aspnet-core-module#aspnet-core-module-with-an-iis-shared-configuration)」 (IIS 共有構成の ASP.NET Core モジュール) を参照してください。

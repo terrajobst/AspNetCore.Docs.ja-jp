@@ -4,14 +4,14 @@ author: mjrousos
 description: ASP.NET Core での認証について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/22/2019
+ms.date: 12/04/2019
 uid: security/authentication/index
-ms.openlocfilehash: 5e6c875188831c468bc6ca52ce71c5961b43573c
-ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
+ms.openlocfilehash: 324b2669d3b69e4757a284e4ae7e1de5f4e87e5a
+ms.sourcegitcommit: 05ca05a5c8f6ae556aaad66ad9e4ec1e6b643c77
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/02/2019
-ms.locfileid: "74681363"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74810254"
 ---
 # <a name="overview-of-aspnet-core-authentication"></a>ASP.NET Core の認証の概要
 
@@ -57,7 +57,7 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 * 認証ハンドラー。
 * ハンドラーの特定のインスタンスを構成するためのオプション。
 
-スキームは、関連付けられたハンドラーの認証、チャレンジ、禁止動作を参照するためのメカニズムとして役立ちます。 たとえば、認可ポリシーでは、ユーザーの認証に使用する認可スキーム (複数可) を名前で指定できます。 認証を構成する場合は、既定の認証スキームを指定するのが一般的です。 リソースが特定のスキームを要求しない限り、既定のスキームが使用されます。 また、次のことも可能です。
+スキームは、関連付けられたハンドラーの認証、チャレンジ、禁止動作を参照するためのメカニズムとして役立ちます。 たとえば、認証ポリシーでは、スキーム名を使用して、ユーザーの認証に使用する認証スキーム (またはスキーム) を指定できます。 認証を構成する場合は、既定の認証スキームを指定するのが一般的です。 リソースが特定のスキームを要求しない限り、既定のスキームが使用されます。 また、次のことも可能です。
 
 * 認証、チャレンジ、禁止アクションに使用する別の既定のスキームを指定する。
 * [ポリシー スキーム](xref:security/authentication/policyschemes)を使用して、複数のスキームを 1 つに結合する。

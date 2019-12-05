@@ -5,14 +5,14 @@ description: Microsoft.Extensions.Logging NuGet パッケージで提供され�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/19/2019
+ms.date: 12/04/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: 23ce2d09d2ce9f415ce71bcd7c21c29cb2a040fc
-ms.sourcegitcommit: 918d7000b48a2892750264b852bad9e96a1165a7
+ms.openlocfilehash: 49d598330948c5f4a137c534094e14ed5e01e27c
+ms.sourcegitcommit: f4cd3828e26e6d549ba8d0c36a17be35ad9e5a51
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/27/2019
-ms.locfileid: "74550363"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74825487"
 ---
 # <a name="logging-in-net-core-and-aspnet-core"></a>.NET Core および ASP.NET Core でのログ記録
 
@@ -48,10 +48,10 @@ ms.locfileid: "74550363"
 
 既定の ASP.NET Core プロジェクト テンプレートからは <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder%2A> が呼び出されます。これにより、次のログ プロバイダーが追加されます。
 
-* コンソール
-* デバッグ
-* EventSource
-* イベント ログ (Windows で実行されている場合のみ)
+* [コンソール](#console-provider)
+* [デバッグ](#debug-provider)
+* [EventSource](#event-source-provider)
+* [EventLog](#windows-eventlog-provider) (Windows 上で実行されている場合のみ)
 
 既定のプロバイダーを自分で選択したものと置き換えることができます。 <xref:Microsoft.Extensions.Logging.LoggingBuilderExtensions.ClearProviders%2A> を呼び出し、目的のプロバイダーを追加します。
 
@@ -129,7 +129,7 @@ ms.locfileid: "74550363"
 
 ASP.NET Core アプリの `Program` クラスでログを書き込むには、ホストをビルドした後に DI から `ILogger` インスタンスを取得します。
 
-[!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_LogFromMain&highlight=9,10)]
+[!code-csharp[](index/samples_snapshot/3.x/TodoApiSample/Program.cs?highlight=9,10)]
 
 ホストの構築時のログ記録は、直接サポートされていません。 ただし、別のロガーを使用することができます。 次の例では、`CreateHostBuilder` でログを記録するために、[Serilog](https://serilog.net/) ロガーが使用されています。 `AddSerilog` では、`Log.Logger` で指定された静的な構成が使用されます。
 
@@ -1051,7 +1051,11 @@ dotnet trace ツールを使用して、アプリからトレースを収集し�
 logging.AddEventLog();
 ```
 
-[AddEventLog のオーバーロード](xref:Microsoft.Extensions.Logging.EventLoggerFactoryExtensions)を使用すると、<xref:Microsoft.Extensions.Logging.EventLog.EventLogSettings> を渡すことができます。
+[AddEventLog のオーバーロード](xref:Microsoft.Extensions.Logging.EventLoggerFactoryExtensions)を使用すると、<xref:Microsoft.Extensions.Logging.EventLog.EventLogSettings> を渡すことができます。 `null` または指定しない場合は、次の既定の設定が使用されます。
+
+* `LogName` &ndash; "アプリケーション"
+* `SourceName` &ndash; ".NET ランタイム"
+* `MachineName` &ndash; ローカル コンピューター
 
 ### <a name="tracesource-provider"></a>TraceSource プロバイダー
 

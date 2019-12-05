@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/07/2019
 uid: host-and-deploy/index
-ms.openlocfilehash: aa6e3da5f40211535037c671de913ab3219f063a
-ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
+ms.openlocfilehash: 8c7c131ca328f3118c45e822d6d5c86f0d44001f
+ms.sourcegitcommit: b3e1e31e5d8bdd94096cf27444594d4a7b065525
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/07/2019
-ms.locfileid: "73799335"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74803267"
 ---
 # <a name="host-and-deploy-aspnet-core"></a>ASP.NET Core のホストと展開
 
@@ -89,3 +89,5 @@ Web ファーム環境 (たとえば、スケーラビリティのためのア�
 
 * <xref:host-and-deploy/docker/index>
 * <xref:test/troubleshoot>
+* [ASP.NET ホスティング](https://dotnet.microsoft.com/apps/aspnet/hosting)
+

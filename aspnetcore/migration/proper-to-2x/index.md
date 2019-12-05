@@ -3,14 +3,14 @@ title: ASP.NET から ASP.NET Core への移行
 author: isaac2004
 description: 既存の ASP.NET MVC または Web API アプリを ASP.NET Core.web に移行するときのガイダンスをご覧ください
 ms.author: scaddie
-ms.date: 12/11/2018
+ms.date: 10/18/2019
 uid: migration/proper-to-2x/index
-ms.openlocfilehash: 9c97b9c0f13a265ab5c90225dcd5a581a1272701
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 1564b644b774939c3c242a41812851917e96d2b2
+ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815462"
+ms.lasthandoff: 10/18/2019
+ms.locfileid: "74803345"
 ---
 # <a name="migrate-from-aspnet-to-aspnet-core"></a>ASP.NET から ASP.NET Core への移行
 
@@ -154,6 +154,10 @@ ASP.NET Core では、構成が変更されていない限り、静的ファイ�
 
 > [!NOTE]
 > ASP.NET Core での静的ファイルの提供について詳しくは、[静的ファイル](xref:fundamentals/static-files)に関するページをご覧ください。
+
+## <a name="multi-value-cookies"></a>複数値の Cookie
+
+[複数値の Cookie](xref:System.Web.HttpCookie.Values) は ASP.NET Core ではサポートされていません。 値ごとに Cookie を 1 つ作成します。
 
 ## <a name="additional-resources"></a>その他の技術情報
 
