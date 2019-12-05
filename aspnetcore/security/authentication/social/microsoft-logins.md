@@ -4,64 +4,66 @@ author: rick-anderson
 description: このサンプルでは、Microsoft アカウントユーザー認証を既存の ASP.NET Core アプリに統合する方法を示します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/11/2019
+ms.date: 12/4/2019
+monikerRange: '>= aspnetcore-3.0'
 uid: security/authentication/microsoft-logins
-ms.openlocfilehash: 91ace293fd16cd180b3d5c183c637af6db1d08c3
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: ddaae1a25a1dcf167ffae0f24b480e2cde6aca5b
+ms.sourcegitcommit: f4cd3828e26e6d549ba8d0c36a17be35ad9e5a51
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082338"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74825460"
 ---
 # <a name="microsoft-account-external-login-setup-with-aspnet-core"></a>ASP.NET Core を使用した Microsoft アカウントの外部ログインセットアップ
 
 作成者: [Valeriy Novytskyy](https://github.com/01binary)、[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-このサンプルでは、[前のページ](xref:security/authentication/social/index)で作成した ASP.NET Core 2.2 プロジェクトを使用して、ユーザーが Microsoft アカウントでサインインできるようにする方法を示します。
+このサンプルでは、[前のページ](xref:security/authentication/social/index)で作成した ASP.NET Core 3.0 プロジェクトを使用して、ユーザーが Microsoft アカウントでサインインできるようにする方法を示します。
 
 ## <a name="create-the-app-in-microsoft-developer-portal"></a>Microsoft 開発者ポータルでアプリを作成する
 
+* プロジェクトに、 [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.MicrosoftAccount/) NuGet パッケージを追加します。
 * [Azure portal アプリの登録](https://go.microsoft.com/fwlink/?linkid=2083908)ページに移動し、Microsoft アカウントを作成またはサインインします。
 
 Microsoft アカウントがない場合は、 **[作成]** を選択します。 サインインすると、 **[アプリの登録]** ページにリダイレクトされます。
 
-* **新しい登録**の選択
-* **名前**を入力してください。
+* **[新規登録]** を選択します
+* **[名前]** を入力します。
 * **サポートされているアカウントの種類**のオプションを選択します。  <!-- Accounts for any org work with MS domain accounts. Most folks probably want the last option, personal MS accounts -->
-* **[リダイレクト URI]** に、追加した`/signin-microsoft`開発 URL を入力します。 たとえば、`https://localhost:44389/signin-microsoft` のようにします。 このサンプルの後半で構成されている Microsoft 認証スキームは`/signin-microsoft` 、OAuth フローを実装するために、ルートで要求を自動的に処理します。
-* **登録**の選択
+* **[リダイレクト URI]** に、`/signin-microsoft` 追加された開発 URL を入力します。 たとえば、`https://localhost:5001/signin-microsoft` のようにします。 このサンプルの後半で構成されている Microsoft 認証スキームは、OAuth フローを実装するために `/signin-microsoft` ルートで要求を自動的に処理します。
+* **[登録]** を選択します
 
-### <a name="create-client-secret"></a>クライアントシークレットの作成
+### <a name="create-client-secret"></a>クライアント シークレットを作成する
 
-* 左側のウィンドウで、 **[証明書 & シークレット]** を選択します。
+* 左側のウィンドウで、 **[証明書とシークレット]** を選択します。
 * **[クライアントシークレット]** で、 **[新しいクライアントシークレット]** を選択します。
 
   * クライアントシークレットの説明を追加します。
-  * **[追加]** ボタンを選択します。
+  * **[追加]** ボタンを選びます。
 
 * **[クライアントシークレット]** で、クライアントシークレットの値をコピーします。
 
 > [!NOTE]
-> URI セグメント`/signin-microsoft`は、Microsoft 認証プロバイダーの既定のコールバックとして設定されます。 [MicrosoftAccountOptions](/dotnet/api/microsoft.aspnetcore.authentication.microsoftaccount.microsoftaccountoptions)クラスの [継承された[remoteauthenticationoptions]](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath)プロパティを使用して Microsoft 認証ミドルウェアを構成するときに、既定のコールバック URI を変更できます。
+> URI セグメント `/signin-microsoft` は、Microsoft 認証プロバイダーの既定のコールバックとして設定されます。 [MicrosoftAccountOptions](/dotnet/api/microsoft.aspnetcore.authentication.microsoftaccount.microsoftaccountoptions)クラスの [継承された[remoteauthenticationoptions]](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath)プロパティを使用して Microsoft 認証ミドルウェアを構成するときに、既定のコールバック URI を変更できます。
 
 ## <a name="store-the-microsoft-client-id-and-client-secret"></a>Microsoft クライアント ID とクライアントシークレットを保存する
 
-次のコマンドを実行して`ClientId` 、 `ClientSecret` [シークレットマネージャー](xref:security/app-secrets)を安全に格納して使用します。
+次のコマンドを実行して、[シークレットマネージャー](xref:security/app-secrets)を使用して `ClientId` と `ClientSecret` を安全に格納します。
 
 ```dotnetcli
 dotnet user-secrets set Authentication:Microsoft:ClientId <Client-Id>
 dotnet user-secrets set Authentication:Microsoft:ClientSecret <Client-Secret>
 ```
 
-[シークレットマネージャー](xref:security/app-secrets)を使用し`ClientId`て`ClientSecret` 、Microsoft やなどの機密性の高い設定をアプリケーション構成にリンクします。 このサンプルでは、トークン`Authentication:Microsoft:ClientId`にとと`Authentication:Microsoft:ClientSecret`いう名前を指定します。
+[シークレットマネージャー](xref:security/app-secrets)を使用して、Microsoft `ClientId` や `ClientSecret` などの機密性の高い設定をアプリケーション構成にリンクします。 このサンプルでは、トークンに `Authentication:Microsoft:ClientId` と `Authentication:Microsoft:ClientSecret`という名前を指定します。
 
 [!INCLUDE[](~/includes/environmentVarableColon.md)]
 
 ## <a name="configure-microsoft-account-authentication"></a>Microsoft アカウント認証を構成する
 
-Microsoft アカウントサービスをに`Startup.ConfigureServices`追加します。
+Microsoft アカウントサービスを `Startup.ConfigureServices`に追加します。
 
-[!code-csharp[](~/security/authentication/social/social-code/StartupMS.cs?name=snippet&highlight=10-14)]
+[!code-csharp[](~/security/authentication/social/social-code/3.x/StartupMS3x.cs?name=snippet&highlight=10-14)]
 
 [!INCLUDE [default settings configuration](includes/default-settings.md)]
 
@@ -71,7 +73,7 @@ Microsoft アカウント認証でサポートされる構成オプションの�
 
 ## <a name="sign-in-with-microsoft-account"></a>Microsoft アカウントでサインインアカウント
 
-を実行し、 **[ログイン]** をクリックします。 Microsoft でサインインするためのオプションが表示されます。 [Microsoft] をクリックすると、認証のために Microsoft にリダイレクトされます。 Microsoft アカウントでサインインした後 (まだサインインしていない場合)、アプリに情報へのアクセスを許可するように求められます。
+アプリを実行し、 **[ログイン]** をクリックします。 Microsoft でサインインするためのオプションが表示されます。 [Microsoft] をクリックすると、認証のために Microsoft にリダイレクトされます。 Microsoft アカウントでサインインすると、アプリが情報にアクセスできるようにするように求めるメッセージが表示されます。
 
 **[はい]** をタップすると、電子メールを設定できる web サイトにリダイレクトされます。
 
@@ -81,13 +83,13 @@ Microsoft アカウント認証でサポートされる構成オプションの�
 
 ## <a name="troubleshooting"></a>トラブルシューティング
 
-* Microsoft アカウントプロバイダーによってサインインエラーページが表示された場合は、Uri の (ハッシュタグ) の`#`すぐ後にあるエラータイトルと説明のクエリ文字列パラメーターを確認してください。
+* Microsoft アカウントプロバイダーからサインインエラーページにリダイレクトされた場合は、Uri 内の `#` (ハッシュタグ) のすぐ後に、エラーのタイトルと説明のクエリ文字列パラメーターを確認してください。
 
   エラーメッセージは Microsoft 認証に問題があることを示していますが、最も一般的な原因は、アプリケーション Uri が**Web**プラットフォームに指定されている**リダイレクト uri**と一致していないことです。
-* で`services.AddIdentity` *を呼び出すことによって id が構成されていない場合、認証を試みると ArgumentException が発生します。 `ConfigureServices`' SignInScheme ' オプションを指定*する必要があります。 このサンプルで使用するプロジェクトテンプレートにより、この処理が確実に行われます。
+* `ConfigureServices`で `services.AddIdentity` を呼び出すことによって Id が構成されていない場合、認証を試みると ArgumentException が返され*ます。 ' SignInScheme ' オプションを指定する必要があり*ます。 このサンプルで使用するプロジェクトテンプレートにより、この処理が確実に行われます。
 * 最初の移行を適用することで、サイト データベースが作成されていない場合になります*要求の処理中にデータベース操作が失敗しました*エラー。 タップ**適用移行**データベースを作成し、エラーを引き続き更新します。
 
-## <a name="next-steps"></a>次の手順
+## <a name="next-steps"></a>次のステップ:
 
 * この記事では、Microsoft で認証する方法について説明しました。 記載されているその他のプロバイダーで認証する同様のアプローチを利用できる、[前のページ](xref:security/authentication/social/index)します。
 
