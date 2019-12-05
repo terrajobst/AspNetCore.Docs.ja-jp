@@ -4,14 +4,14 @@ author: rick-anderson
 description: ASP.NET Core アプリの開発中に、機密情報をアプリシークレットとして格納および取得する方法について説明します。
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 03/13/2019
+ms.date: 12/05/2019
 uid: security/app-secrets
-ms.openlocfilehash: 0203a5737caf1af809b739d9e266a6971cd1523b
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 3323b7b614b7e8bc711b2c5acfb501b65b3d783b
+ms.sourcegitcommit: 76d7fff62014c3db02564191ab768acea00f1b26
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080710"
+ms.lasthandoff: 12/05/2019
+ms.locfileid: "74852689"
 ---
 # <a name="safe-storage-of-app-secrets-in-development-in-aspnet-core"></a>ASP.NET Core での開発におけるアプリシークレットの安全な保存
 
@@ -19,7 +19,7 @@ ms.locfileid: "71080710"
 
 [サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/app-secrets/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
-このドキュメントでは、ASP.NET Core アプリの開発時に機密データを格納および取得する方法について説明します。 パスワードやその他の機密データをソースコードに格納しないでください。 運用環境のシークレットは、開発またはテストには使用しないでください。 [Azure Key Vault 構成プロバイダー](xref:security/key-vault-configuration)により、Azure テストと運用のシークレットを格納し、保護することが可能です。
+このドキュメントでは、ASP.NET Core アプリの開発時に機密データを格納および取得する方法について説明します。 パスワードやその他の機密データをソースコードに格納しないでください。 運用環境のシークレットは、開発またはテストには使用しないでください。 シークレットはアプリと一緒にデプロイしないでください。 代わりに、環境変数、Azure Key Vault などの制御された方法を使用して、運用環境でシークレットを使用できるようにする必要があります。[Azure Key Vault 構成プロバイダー](xref:security/key-vault-configuration)を使用して、Azure テストおよび運用シークレットを格納し、保護することができます。
 
 ## <a name="environment-variables"></a>環境変数
 
@@ -27,13 +27,13 @@ ms.locfileid: "71080710"
 
 ::: moniker range="<= aspnetcore-1.1"
 
-コンストラクターでを呼び出し<xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*>て、環境変数の値の読み取りを構成します。 `Startup`
+`Startup` コンストラクターで <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> を呼び出して、環境変数の値の読み取りを構成します。
 
 [!code-csharp[](app-secrets/samples/1.x/UserSecrets/Startup.cs?name=snippet_StartupConstructor&highlight=8)]
 
 ::: moniker-end
 
-**個々のユーザーアカウント**のセキュリティが有効になっている ASP.NET Core web アプリを考えてみましょう。 既定のデータベース接続文字列は、というキー `DefaultConnection`を持つプロジェクトの*appsettings*ファイルに含まれています。 既定の接続文字列は LocalDB 用であり、ユーザーモードで実行され、パスワードは必要ありません。 アプリの展開時に`DefaultConnection` 、キー値は環境変数の値でオーバーライドできます。 環境変数には、機密性の高い資格情報を持つ完全な接続文字列が格納される場合があります。
+**個々のユーザーアカウント**のセキュリティが有効になっている ASP.NET Core web アプリを考えてみましょう。 既定のデータベース接続文字列は、`DefaultConnection`キーを持つプロジェクトの*appsettings*ファイルに含まれています。 既定の接続文字列は LocalDB 用であり、ユーザーモードで実行され、パスワードは必要ありません。 アプリの展開中に、`DefaultConnection` キー値を環境変数の値でオーバーライドできます。 環境変数には、機密性の高い資格情報を持つ完全な接続文字列が格納される場合があります。
 
 > [!WARNING]
 > 環境変数は通常、暗号化されていないプレーンテキストで格納されます。 コンピューターまたはプロセスが侵害された場合、信頼されていない相手から環境変数にアクセスできます。 ユーザーシークレットが漏えいしないようにするための追加の手段が必要な場合があります。
@@ -65,7 +65,7 @@ Secret Manager ツールは、値の格納場所や方法などの実装の詳�
 
 ---
 
-上記のファイルパスで、を`<user_secrets_id>` *.csproj*ファイル`UserSecretsId`で指定された値に置き換えます。
+上記のファイルパスで、`<user_secrets_id>` を *.csproj*ファイルで指定された `UserSecretsId` の値に置き換えます。
 
 シークレットマネージャーツールで保存したデータの場所または形式に依存するコードは記述しないでください。 これらの実装の詳細は変更される可能性があります。 たとえば、シークレット値は暗号化されませんが、将来の可能性があります。
 
@@ -76,7 +76,7 @@ Secret Manager ツールは、値の格納場所や方法などの実装の詳�
 Secret Manager ツールは、.NET Core SDK 2.1.300 以降の .NET Core CLI にバンドルされています。 2\.1.300 の前にバージョンを .NET Core SDK には、ツールのインストールが必要です。
 
 > [!TIP]
-> コマンド`dotnet --version`シェルからを実行して、インストールされている .NET Core SDK のバージョン番号を確認します。
+> コマンドシェルから `dotnet --version` を実行して、インストールされている .NET Core SDK バージョン番号を確認します。
 
 使用されている .NET Core SDK にツールが含まれている場合は、次のような警告が表示されます。
 
@@ -117,7 +117,7 @@ Use "dotnet user-secrets [command] --help" for more information about a command.
 ```
 
 > [!NOTE]
-> *.Csproj*ファイルの`DotNetCliToolReference`要素で定義されているツールを実行するには、 *.csproj*ファイルと同じディレクトリに存在する必要があります。
+> *.Csproj*ファイルの `DotNetCliToolReference` 要素で定義されているツールを実行するには、 *.csproj*ファイルと同じディレクトリに存在する必要があります。
 
 ::: moniker-end
 
@@ -127,19 +127,19 @@ Secret Manager ツールは、ユーザープロファイルに格納されて�
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Secret Manager ツールには .NET Core SDK `init` 3.0.100 以降のコマンドが含まれています。 ユーザーシークレットを使用するには、プロジェクトディレクトリで次のコマンドを実行します。
+Secret Manager ツールには、.NET Core SDK 3.0.100 以降の `init` コマンドが含まれています。 ユーザーシークレットを使用するには、プロジェクトディレクトリで次のコマンドを実行します。
 
 ```dotnetcli
 dotnet user-secrets init
 ```
 
-上のコマンドは、 `UserSecretsId` *.csproj*ファイルの`PropertyGroup`内に要素を追加します。 既定では、の`UserSecretsId`内部テキストは GUID です。 内部テキストは任意ですが、プロジェクトに固有です。
+上記のコマンドは、 *.csproj*ファイルの `PropertyGroup` 内に `UserSecretsId` 要素を追加します。 既定では `UserSecretsId` の内部テキストは GUID です。 内部テキストは任意ですが、プロジェクトに固有です。
 
 ::: moniker-end
 
 ::: moniker range="<= aspnetcore-2.2"
 
-ユーザーシークレットを使用するには`UserSecretsId` 、 *.csproj*ファイル`PropertyGroup`の内に要素を定義します。 の`UserSecretsId`内部テキストは任意ですが、プロジェクトに固有です。 通常、 `UserSecretsId`開発者はの GUID を生成します。
+ユーザーシークレットを使用するには、 *.csproj*ファイルの `PropertyGroup` 内に `UserSecretsId` 要素を定義します。 `UserSecretsId` の内部テキストは任意ですが、プロジェクトに固有です。 開発者は通常、`UserSecretsId`の GUID を生成します。
 
 ::: moniker-end
 
@@ -156,19 +156,19 @@ dotnet user-secrets init
 ::: moniker-end
 
 > [!TIP]
-> Visual Studio で、ソリューションエクスプローラーでプロジェクトを右クリックし、コンテキストメニューから **[ユーザーシークレットの管理]** を選択します。 このジェスチャは、 `UserSecretsId` GUID が設定された要素を .csproj ファイルに追加し*ます*。
+> Visual Studio で、ソリューションエクスプローラーでプロジェクトを右クリックし、コンテキストメニューから **[ユーザーシークレットの管理]** を選択します。 このジェスチャは、GUID で設定された `UserSecretsId` 要素を .csproj ファイルに追加し*ます*。
 
 ## <a name="set-a-secret"></a>シークレットを設定する
 
-キーとその値で構成されるアプリシークレットを定義します。 シークレットは、プロジェクトの`UserSecretsId`値に関連付けられます。 たとえば、 *.csproj*ファイルが存在するディレクトリから次のコマンドを実行します。
+キーとその値で構成されるアプリシークレットを定義します。 シークレットは、プロジェクトの `UserSecretsId` 値に関連付けられます。 たとえば、 *.csproj*ファイルが存在するディレクトリから次のコマンドを実行します。
 
 ```dotnetcli
 dotnet user-secrets set "Movies:ServiceApiKey" "12345"
 ```
 
-前の例では、コロンは、 `Movies`が`ServiceApiKey`プロパティを持つオブジェクトリテラルであることを示しています。
+前の例では、コロンは、`Movies` が `ServiceApiKey` プロパティを持つオブジェクトリテラルであることを示しています。
 
-シークレットマネージャーツールは、他のディレクトリからも使用できます。 .Csproj ファイル`--project`が存在するファイルシステムパスを指定するには、オプションを使用します。 例:
+シークレットマネージャーツールは、他のディレクトリからも使用できます。 `--project` オプションを使用して、 *.csproj*ファイルが存在するファイルシステムパスを指定します。 例:
 
 ```dotnetcli
 dotnet user-secrets set "Movies:ServiceApiKey" "12345" --project "C:\apps\WebApp1\src\WebApp1"
@@ -187,7 +187,7 @@ Visual Studio の **[ユーザーシークレットの管理]** ジェスチャ�
 }
 ```
 
-JSON 構造体は、または`dotnet user-secrets remove` `dotnet user-secrets set`を使用した変更後にフラット化されます。 たとえば、を実行`dotnet user-secrets remove "Movies:ConnectionString"`すると`Movies` 、オブジェクトリテラルが折りたたまれます。 変更後のファイルは次のようになります。
+JSON 構造体は、`dotnet user-secrets remove` または `dotnet user-secrets set`を使用した変更後にフラット化されます。 たとえば、`dotnet user-secrets remove "Movies:ConnectionString"` を実行すると、`Movies` オブジェクトリテラルが折りたたまれます。 変更後のファイルは次のようになります。
 
 ```json
 {
@@ -197,7 +197,7 @@ JSON 構造体は、または`dotnet user-secrets remove` `dotnet user-secrets s
 
 ## <a name="set-multiple-secrets"></a>複数のシークレットを設定する
 
-シークレットのバッチは、JSON を`set`コマンドにパイプすることによって設定できます。 次の例では、*入力した json*ファイルの内容を`set`コマンドにパイプ処理します。
+シークレットのバッチは、JSON を `set` コマンドにパイプすることによって設定できます。 次の例では、*入力の json*ファイルの内容をパイプ処理して `set` コマンドを実行します。
 
 # <a name="windowstabwindows"></a>[Windows](#tab/windows)
 
@@ -229,11 +229,11 @@ JSON 構造体は、または`dotnet user-secrets remove` `dotnet user-secrets s
 
 ::: moniker range=">= aspnetcore-2.0"
 
-ASP.NET Core 2.0 以降では、プロジェクトがを呼び出し<xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>て、事前に構成された既定値でホストの新しいインスタンスを初期化すると、開発モードでユーザーシークレットの構成ソースが自動的に追加されます。 `CreateDefaultBuilder`が<xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*>の場合<xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName> 、 <xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Development>を呼び出します。
+ASP.NET Core 2.0 以降では、プロジェクトが <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> を呼び出して、構成済みの既定値でホストの新しいインスタンスを初期化すると、開発モードでユーザーシークレットの構成ソースが自動的に追加されます。 <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName> が <xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Development>されている場合、<xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*> 呼び出し `CreateDefaultBuilder` ます。
 
 [!code-csharp[](app-secrets/samples/2.x/UserSecrets/Program.cs?name=snippet_CreateWebHostBuilder&highlight=2)]
 
-が`CreateDefaultBuilder`呼び出されない場合は、 `Startup`コンストラクターでを呼び出す<xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*>ことによって、ユーザーシークレット構成ソースを明示的に追加します。 次`AddUserSecrets`の例に示すように、アプリが開発環境で実行されている場合にのみ、を呼び出します。
+`CreateDefaultBuilder` が呼び出されない場合は、`Startup` コンストラクターで <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*> を呼び出すことによって、ユーザーシークレット構成ソースを明示的に追加します。 次の例に示すように、アプリが開発環境で実行されている場合にのみ `AddUserSecrets` を呼び出します。
 
 [!code-csharp[](app-secrets/samples/1.x/UserSecrets/Startup.cs?name=snippet_StartupConstructor&highlight=12)]
 
@@ -243,13 +243,13 @@ ASP.NET Core 2.0 以降では、プロジェクトがを呼び出し<xref:Micros
 
 [Microsoft.Extensions.Configuration.UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) NuGet パッケージをインストールします。
 
-<xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*>コンストラクターで、の呼び出しを使用してユーザーシークレットの構成ソースを追加します。 `Startup`
+`Startup` コンストラクターで <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*> の呼び出しを使用して、ユーザーシークレット構成ソースを追加します。
 
 [!code-csharp[](app-secrets/samples/1.x/UserSecrets/Startup.cs?name=snippet_StartupConstructor&highlight=12)]
 
 ::: moniker-end
 
-ユーザーシークレットは API を使用し`Configuration`て取得できます。
+ユーザーシークレットは、`Configuration` API を使用して取得できます。
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -269,7 +269,7 @@ ASP.NET Core 2.0 以降では、プロジェクトがを呼び出し<xref:Micros
 
 [!INCLUDE[secrets.json file](~/includes/app-secrets/secrets-json-file-and-text.md)]
 
-前のシークレットを POCO にマップするには、 `Configuration` API の[オブジェクトグラフバインド](xref:fundamentals/configuration/index#bind-to-an-object-graph)機能を使用します。 次のコードは、カスタム`MovieSettings` POCO にバインドし、 `ServiceApiKey`プロパティ値にアクセスします。
+上記のシークレットを POCO にマップするには、`Configuration` API の[オブジェクトグラフバインド](xref:fundamentals/configuration/index#bind-to-an-object-graph)機能を使用します。 次のコードは、カスタム `MovieSettings` POCO にバインドし、`ServiceApiKey` プロパティ値にアクセスします。
 
 ::: moniker range=">= aspnetcore-1.1"
 
@@ -283,7 +283,7 @@ ASP.NET Core 2.0 以降では、プロジェクトがを呼び出し<xref:Micros
 
 ::: moniker-end
 
-`MovieSettings`と`Movies:ConnectionString` シークレットは、のそれぞれのプロパティにマップされます。`Movies:ServiceApiKey`
+`Movies:ConnectionString` と `Movies:ServiceApiKey` シークレットは `MovieSettings`の各プロパティにマップされます。
 
 [!code-csharp[](app-secrets/samples/2.x/UserSecrets/Models/MovieSettings.cs?name=snippet_MovieSettingsClass)]
 
@@ -293,17 +293,17 @@ ASP.NET Core 2.0 以降では、プロジェクトがを呼び出し<xref:Micros
 
 [!code-json[](app-secrets/samples/2.x/UserSecrets/appsettings-unsecure.json?highlight=3)]
 
-より安全な方法は、パスワードをシークレットとして保存することです。 例えば:
+より安全な方法は、パスワードをシークレットとして保存することです。 例:
 
 ```dotnetcli
 dotnet user-secrets set "DbPassword" "pass123"
 ```
 
-Appsettings の`Password`接続文字列からキーと値のペアを削除します。 例:
+`Password` キーと値のペアを、 *appsettings*の接続文字列から削除します。 例:
 
 [!code-json[](app-secrets/samples/2.x/UserSecrets/appsettings.json?highlight=3)]
 
-シークレットの値は、 <xref:System.Data.SqlClient.SqlConnectionStringBuilder>オブジェクトの<xref:System.Data.SqlClient.SqlConnectionStringBuilder.Password*>プロパティに設定して、接続文字列を完成させることができます。
+シークレットの値を <xref:System.Data.SqlClient.SqlConnectionStringBuilder> オブジェクトの <xref:System.Data.SqlClient.SqlConnectionStringBuilder.Password*> プロパティに設定して、接続文字列を完成させることができます。
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -346,7 +346,7 @@ Movies:ServiceApiKey = 12345
 dotnet user-secrets remove "Movies:ConnectionString"
 ```
 
-アプリの*シークレットの json*ファイルは、 `MoviesConnectionString`キーに関連付けられているキーと値のペアを削除するように変更されました。
+アプリの*シークレットの json*ファイルが変更され、`MoviesConnectionString` キーに関連付けられているキーと値のペアが削除されました。
 
 ```json
 {
@@ -356,7 +356,7 @@ dotnet user-secrets remove "Movies:ConnectionString"
 }
 ```
 
-を`dotnet user-secrets list`実行すると、次のメッセージが表示されます。
+`dotnet user-secrets list` を実行すると、次のメッセージが表示されます。
 
 ```console
 Movies:ServiceApiKey = 12345
@@ -378,7 +378,7 @@ dotnet user-secrets clear
 {}
 ```
 
-を`dotnet user-secrets list`実行すると、次のメッセージが表示されます。
+`dotnet user-secrets list` を実行すると、次のメッセージが表示されます。
 
 ```console
 No secrets configured for this application.

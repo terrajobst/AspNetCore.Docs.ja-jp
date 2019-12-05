@@ -4,16 +4,18 @@ author: ssougnez
 description: このチュートリアルでは、クライアントが TypeScript で記述された ASP.NET Core SignalR Web アプリをバンドルおよびビルドするために Webpack を構成します。
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 10/04/2019
+ms.date: 11/21/2019
+no-loc:
+- SignalR
 uid: tutorials/signalr-typescript-webpack
-ms.openlocfilehash: 630e8cb5efe9c313479960626d3d864c4923cbd1
-ms.sourcegitcommit: 3ffcd8cbff8b49128733842f72270bc58279de70
+ms.openlocfilehash: a7c99c9e79647995886aec5b3a91584fd2f24451
+ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/04/2019
-ms.locfileid: "71955927"
+ms.lasthandoff: 11/22/2019
+ms.locfileid: "74317488"
 ---
-# <a name="use-aspnet-core-signalr-with-typescript-and-webpack"></a>TypeScript と Webpack で ASP.NET Core SignalR を使用する
+# <a name="use-aspnet-core-opno-locsignalr-with-typescript-and-webpack"></a>TypeScript と Webpack で ASP.NET Core SignalR を使用する
 
 作成者: [Sébastien Sougnez](https://twitter.com/ssougnez)、[Scott Addie](https://twitter.com/Scott_Addie)
 
@@ -196,10 +198,10 @@ dotnet new web -o SignalRWebPack
 1. プロジェクト ルートで、次のコマンドを実行します。
 
     ```console
-    npm install @aspnet/signalr
+    npm install @microsoft/signalr
     ```
 
-    上記のコマンドにより [SignalR TypeScript クライアント](https://www.npmjs.com/package/@aspnet/signalr) がインストールされ、クライアントがサーバーにメッセージを送信できるようになります。
+    上記のコマンドにより [SignalR TypeScript クライアント](https://www.npmjs.com/package/@microsoft/signalr) がインストールされ、クライアントがサーバーにメッセージを送信できるようになります。
 
 1. 強調表示されたコードを *src/index.ts* ファイルに追加します。
 
@@ -431,10 +433,10 @@ dotnet new web -o SignalRWebPack
 1. プロジェクト ルートで、次のコマンドを実行します。
 
     ```console
-    npm install @aspnet/signalr
+    npm install @microsoft/signalr
     ```
 
-    上記のコマンドにより [SignalR TypeScript クライアント](https://www.npmjs.com/package/@aspnet/signalr) がインストールされ、クライアントがサーバーにメッセージを送信できるようになります。
+    上記のコマンドにより [SignalR TypeScript クライアント](https://www.npmjs.com/package/@microsoft/signalr) がインストールされ、クライアントがサーバーにメッセージを送信できるようになります。
 
 1. 強調表示されたコードを *src/index.ts* ファイルに追加します。
 

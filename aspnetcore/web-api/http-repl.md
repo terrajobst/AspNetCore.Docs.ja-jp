@@ -5,14 +5,14 @@ description: HTTP REPL .NET Core グローバル ツールを使用して、ASP.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 10/07/2019
+ms.date: 12/02/2019
 uid: web-api/http-repl
-ms.openlocfilehash: bb3757f51487a307ebfb97452b80995f84e95e4b
-ms.sourcegitcommit: 73a451e9a58ac7102f90b608d661d8c23dd9bbaf
+ms.openlocfilehash: c6e3ab5685b5bd0b154d20585fb0d187f81da641
+ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/08/2019
-ms.locfileid: "72037713"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74717166"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>HTTP REPL を使用して Web API をテストする
 
@@ -50,7 +50,7 @@ dotnet tool install -g Microsoft.dotnet-httprepl
 
 [.Net Core グローバル ツール](/dotnet/core/tools/global-tools#install-a-global-tool)は、[Microsoft.dotnet-httprepl](https://www.nuget.org/packages/Microsoft.dotnet-httprepl) NuGet パッケージからインストールされます。
 
-## <a name="usage"></a>使用法
+## <a name="usage"></a>使用方法
 
 ツールのインストールが正常に完了したら、次のコマンドを実行して HTTP REPL を開始します。
 
@@ -270,7 +270,7 @@ colors.status=BoldYellow
 https://localhost:5001/people~ pref set colors.json White
 ```
 
-使用できるのは、[許可されている色](https://github.com/aspnet/HttpRepl/blob/01d5c3c3373e98fe566ff5ef8a17c571de880293/src/Microsoft.Repl/ConsoleHandling/AllowedColors.cs)だけです。 後続の HTTP 要求では、出力が新しい色で表示されます。
+使用できるのは、[許可されている色](https://github.com/dotnet/HttpRepl/blob/01d5c3c3373e98fe566ff5ef8a17c571de880293/src/Microsoft.Repl/ConsoleHandling/AllowedColors.cs)だけです。 後続の HTTP 要求では、出力が新しい色で表示されます。
 
 特定の色キーが設定されていない場合、より汎用的なキーが考慮されます。 このフォールバック動作を示すために、次の例を考えてみます。
 
@@ -1037,4 +1037,4 @@ https://localhost:5001/~
 ## <a name="additional-resources"></a>その他の技術情報
 
 * [REST API 要求](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#74-supported-methods)
-* [HTTP REPL GitHub リポジトリ](https://github.com/aspnet/HttpRepl)
+* [HTTP REPL GitHub リポジトリ](https://github.com/dotnet/HttpRepl)

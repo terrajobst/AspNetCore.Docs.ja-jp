@@ -5,16 +5,16 @@ description: Blazor アプリを段階的に構築します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/31/2019
+ms.date: 11/27/2019
 no-loc:
 - Blazor
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: 646e14060b88fc2a0fefc2f7a5ebb1c15ac39b79
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 2a83761b598a339aeaf8bec6f8fd50d09e608f0c
+ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963713"
+ms.lasthandoff: 12/02/2019
+ms.locfileid: "74681215"
 ---
 # <a name="build-your-first-opno-locblazor-app"></a>最初の Blazor アプリをビルドする
 
@@ -36,7 +36,7 @@ ms.locfileid: "73963713"
 
    *Pages/Counter.razor*:
 
-   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/Counter1.razor)]
+   [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/Counter1.razor)]
 
    `Counter` コンポーネントの UI は、HTML を使って定義されています。 動的なレンダリング ロジック (たとえばループ、条件、式) が、[Razor](xref:mvc/views/razor) と呼ばれる埋め込みの C# 構文を使って追加されています。 HTML マークアップと C# のレンダリング ロジックは、ビルド時にコンポーネント クラスに変換されます。 生成される .NET クラスの名前はファイル名と同じです。
 
@@ -51,7 +51,7 @@ ms.locfileid: "73963713"
 
 1. `Counter` コンポーネントの C# のロジックを変更して、カウントが 1 ではなく 2 ずつインクリメントされるようにします。
 
-   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/Counter2.razor?highlight=14)]
+   [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/Counter2.razor?highlight=14)]
 
 1. アプリをリビルドして実行し、変更を確認します。 **[クリックしてください]** ボタンを選択します。 カウンターは、2 ずつインクリメントされます。
 
@@ -65,7 +65,7 @@ HTML 構文を使用して、別のコンポーネント内にコンポーネン
 
    *Pages/Index.razor*:
 
-   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/Index1.razor?highlight=7)]
+   [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/Index1.razor?highlight=7)]
 
 1. アプリケーションをリビルドして実行します。 `Index` コンポーネントには、固有のカウンターがあります。
 
@@ -80,7 +80,7 @@ HTML 構文を使用して、別のコンポーネント内にコンポーネン
 
    *Pages/Counter.razor*:
 
-   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/Counter.razor?highlight=13,17)]
+   [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/Counter.razor?highlight=13,17)]
 
 <!-- Add back when supported.
    > [!NOTE]
@@ -91,7 +91,7 @@ HTML 構文を使用して、別のコンポーネント内にコンポーネン
 
    *Pages/Index.razor*:
 
-   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/Index2.razor?highlight=7)]
+   [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/Index2.razor?highlight=7)]
 
 1. `Index` コンポーネントを再度読み込みます。 カウンターは、 **[クリックしてください]** ボタンを選択するたびに 10 ずつインクリメントされます。 `Counter` コンポーネントにあるカウンターは、継続して 1 ずつインクリメントされます。
 
@@ -111,11 +111,11 @@ Blazor サーバー アプリを使用している場合、`WeatherForecastServi
 
 *Pages/FetchData.razor*:
 
-[!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData1.razor?highlight=3)]
+[!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData1.razor?highlight=3)]
 
 `FetchData` コンポーネントでは、`ForecastService` のような挿入されたサービスを使って、`WeatherForecast` オブジェクトの配列を取得します。
 
-[!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData2.razor?highlight=6)]
+[!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData2.razor?highlight=6)]
 
 ### <a name="opno-locblazor-webassembly-experience"></a>Blazor WebAssembly のエクスペリエンス
 
@@ -123,11 +123,11 @@ Blazor WebAssembly アプリを使用する場合、*wwwroot/sample-data* フォ
 
 *Pages/FetchData.razor*:
 
-[!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData1_client.razor?highlight=7-8)]
+[!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData1_client.razor?highlight=7-8)]
 
 各 forecast 変数を気象データのテーブルの行としてレンダリングするために、[@foreach](/dotnet/csharp/language-reference/keywords/foreach-in) ループが使われています。
 
-[!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData3.razor?highlight=11-19)]
+[!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData3.razor?highlight=11-19)]
 
 ## <a name="build-a-todo-list"></a>Todo リストを構築する
 
@@ -137,7 +137,7 @@ Blazor WebAssembly アプリを使用する場合、*wwwroot/sample-data* フォ
 
 1. コンポーネントに最初のマークアップを指定します。
 
-   ```cshtml
+   ```razor
    @page "/todo"
 
    <h1>Todo</h1>
@@ -149,7 +149,7 @@ Blazor WebAssembly アプリを使用する場合、*wwwroot/sample-data* フォ
 
    *Shared/NavMenu.csthml* ファイル内で、既存のリスト アイテムの下に以下のリスト アイテムのマークアップを追加して、`Todo` コンポーネント用の `<NavLink>` 要素を追加します。
 
-   ```cshtml
+   ```razor
    <li class="nav-item px-3">
        <NavLink class="nav-link" href="todo">
            <span class="oi oi-list-rich" aria-hidden="true"></span> Todo
@@ -161,28 +161,28 @@ Blazor WebAssembly アプリを使用する場合、*wwwroot/sample-data* フォ
 
 1. Todo アイテムを表すクラスを保持するために、プロジェクトのルートに *TodoItem.cs* ファイルを追加します。 `TodoItem` クラス用に次の C# コードを使います。
 
-   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/TodoItem.cs)]
+   [!code-csharp[](build-your-first-blazor-app/samples_snapshot/3.x/TodoItem.cs)]
 
 1. `Todo` コンポーネントに戻ります (*Pages/Todo.razor*)。
 
    * Todo 項目用のフィールドを `@code` ブロックに追加します。 `Todo` コンポーネントでは、このフィールドを使って ToDo リストの状態を維持します。
    * 各 Todo アイテムをリスト アイテム (`<li>`) としてレンダリングするために、順序のないリストのマークアップと `foreach` ループを追加します。
 
-   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo4.razor?highlight=5-10,12-14)]
+   [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo4.razor?highlight=5-10,12-14)]
 
 1. アプリには、リストに Todo 項目を追加するための UI 要素が必要です。 順序のないリスト (`<ul>...</ul>`) の下に、テキスト入力 (`<input>`) とボタン (`<button>`) を追加します。
 
-   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo5.razor?highlight=12-13)]
+   [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo5.razor?highlight=12-13)]
 
 1. アプリケーションをリビルドして実行します。 **[Add todo]\(ToDo の追加\)** ボタンを選択しても何も起こりません。ボタンにイベント ハンドラーが関連付けられていないためです。
 
 1. `Todo` コンポーネントに `AddTodo` メソッドを追加し、`@onclick` 属性を使ってこれをボタンの選択用に登録します。 ボタンを選択すると C# のメソッド `AddTodo` が呼び出されます。
 
-   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo6.razor?highlight=2,7-10)]
+   [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo6.razor?highlight=2,7-10)]
 
 1. 新しい Todo アイテムのタイトルを取得するために、`@code` ブロックの上部に文字列フィールド `newTodo` を追加し、`<input>` 要素の `bind` 属性を使ってこれをテキスト入力の値とバインドします。
 
-   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo7.razor?highlight=2)]
+   [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo7.razor?highlight=2)]
 
    ```cshtml
    <input placeholder="Something todo" @bind="newTodo" />
@@ -190,23 +190,23 @@ Blazor WebAssembly アプリを使用する場合、*wwwroot/sample-data* フォ
 
 1. 指定したタイトルを備えた `TodoItem` をリストに追加するように、`AddTodo` メソッドを更新します。 `newTodo` を空の文字列に設定して、テキスト入力の値をクリアします。
 
-   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo8.razor?highlight=19-26)]
+   [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo8.razor?highlight=19-26)]
 
 1. アプリケーションをリビルドして実行します。 Todo リストに Todo 項目をいくつか追加して、新しいコードをテストします。
 
 1. 各 Todo アイテムのタイトルのテキストは編集可能にすることができます。また、チェック ボックスはユーザーが完了したアイテムを追跡するのに役立ちます。 各 Todo アイテムにチェック ボックス入力を追加し、その値を `IsDone` プロパティにバインドします。 `@todo.Title` を、`@todo.Title` にバインドされた `<input>` 要素に変更します。
 
-   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo9.razor?highlight=5-6)]
+   [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo9.razor?highlight=5-6)]
 
 1. それらの値がバインドされていることを確認するために、`<h1>` ヘッダーを更新して、完了していない (`IsDone` が `false` の) Todo アイテムの数のカウントを表示するようにします。
 
-   ```cshtml
+   ```razor
    <h1>Todo (@todos.Count(todo => !todo.IsDone))</h1>
    ```
 
 1. 完成した `Todo` コンポーネント (*Pages/Todo.razor*):
 
-   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/Todo.razor)]
+   [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/Todo.razor)]
 
 1. アプリケーションをリビルドして実行します。 Todo アイテムを追加して新しいコードをテストします。
 
