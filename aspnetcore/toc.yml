@@ -26,7 +26,7 @@
       uid: aspnetcore-1.1
 - name: チュートリアル
   items:
-    - name: Web Apps
+    - name: Web アプリ
       items:
         - name: Razor ページ
           displayName: tutorial
@@ -56,7 +56,7 @@
               uid: tutorials/first-mvc-app/index
             - name: 作業開始
               uid: tutorials/first-mvc-app/start-mvc
-            - name: コントローラーを追加する
+            - name: コントローラーの追加
               uid: tutorials/first-mvc-app/adding-controller
             - name: ビューを追加する
               uid: tutorials/first-mvc-app/adding-view
@@ -152,7 +152,7 @@
 - name: チュートリアル (Microsoft Learn)
   displayName: tutorial
   items:
-    - name: Web Apps
+    - name: Web アプリ
       displayName: 'tutorial, razor, razor pages, ui'
       href: /learn/modules/create-razor-pages-aspnet-core/
     - name: Web API アプリ
@@ -191,14 +191,14 @@
       uid: fundamentals/logging/index
     - name: ルーティング
       uid: fundamentals/routing
-    - name: エラーを処理する
+    - name: エラーの処理
       uid: fundamentals/error-handling
     - name: HTTP 要求を行う
       displayName: 'httpclient, httpclientfactory'
       uid: fundamentals/http-requests
     - name: 静的ファイル
       uid: fundamentals/static-files
-- name: Web Apps
+- name: Web アプリ
   items:
     - name: Razor ページ
       items:
@@ -240,7 +240,7 @@
               uid: tutorials/first-mvc-app/index
             - name: 作業開始
               uid: tutorials/first-mvc-app/start-mvc
-            - name: コントローラーを追加する
+            - name: コントローラーの追加
               uid: tutorials/first-mvc-app/adding-controller
             - name: ビューを追加する
               uid: tutorials/first-mvc-app/adding-view
@@ -258,11 +258,11 @@
               uid: tutorials/first-mvc-app/validation
             - name: Details メソッドと Delete メソッドの確認
               uid: tutorials/first-mvc-app/details
-        - name: ビュー
+        - name: Views
           uid: mvc/views/overview
         - name: 部分ビュー
           uid: mvc/views/partial
-        - name: コントローラー
+        - name: Controllers
           uid: mvc/controllers/actions
         - name: ルーティング
           uid: mvc/controllers/routing
@@ -276,7 +276,7 @@
       items:
         - name: 概要
           uid: blazor/index
-        - name: サポートされるプラットフォーム
+        - name: サポートされているプラットフォーム
           uid: blazor/supported-platforms
         - name: 作業開始
           uid: blazor/get-started
@@ -310,7 +310,7 @@
               uid: security/blazor/server
         - name: 状態管理
           uid: blazor/state-management
-        - name: エラーを処理する
+        - name: エラーの処理
           uid: blazor/handle-errors
         - name: デバッグ
           uid: blazor/debug
@@ -330,7 +330,7 @@
           href: 'https://github.com/aspnet/samples/tree/master/samples/aspnetcore/blazor'
     - name: クライアント側の開発
       items:
-        - name: シングル ページ アプリ
+        - name: 単一ページのアプリ
           items:
             - name: Angular
               uid: spa/angular
@@ -350,8 +350,6 @@
               uid: client-side/libman/libman-vs
         - name: Grunt
           uid: client-side/using-grunt
-        - name: Bower
-          uid: client-side/bower
         - name: バンドルと縮小
           uid: client-side/bundling-and-minification
         - name: ブラウザー リンク
@@ -393,7 +391,7 @@
               uid: mvc/views/tag-helpers/builtin-th/image-tag-helper
             - name: 入力
               href: 'mvc/views/working-with-forms.md#the-input-tag-helper'
-            - name: Label
+            - name: group1
               href: 'mvc/views/working-with-forms.md#the-label-tag-helper'
             - name: Link
               uid: mvc/views/tag-helpers/builtin-th/link-tag-helper
@@ -409,7 +407,7 @@
               href: 'mvc/views/working-with-forms.md#the-validation-message-tag-helper'
             - name: 検証の概要
               href: 'mvc/views/working-with-forms.md#the-validation-summary-tag-helper'
-    - name: 詳細
+    - name: 詳細設定
       items:
         - name: ビュー コンポーネント
           uid: mvc/views/view-components
@@ -421,7 +419,7 @@
           uid: mvc/controllers/filters
         - name: Areas
           uid: mvc/controllers/areas
-        - name: ファイルをアップロードする
+        - name: ファイルのアップロード
           uid: mvc/models/file-uploads
         - name: アプリのパーツ
           uid: mvc/extensibility/app-parts
@@ -457,18 +455,18 @@
       uid: web-api/advanced/custom-formatters
     - name: アナライザー
       uid: web-api/advanced/analyzers
-    - name: 規則
+    - name: 規約
       uid: web-api/advanced/conventions
-    - name: エラーを処理する
+    - name: エラーの処理
       uid: web-api/handle-errors
     - name: HTTP REPL を使った API のテスト
       uid: web-api/http-repl
-- name: リアルタイム アプリ
+- name: リアルタイムのアプリ
   displayName: signalr
   items:
     - name: SignalR の概要
       uid: signalr/introduction
-    - name: サポートされるプラットフォーム
+    - name: サポートされているプラットフォーム
       uid: signalr/supported-platforms
       displayName: signalr
     - name: チュートリアル
@@ -489,7 +487,7 @@
         - name: ハブの外部から送信する
           uid: signalr/hubcontext
           displayName: signalr
-        - name: ユーザーとグループ
+        - name: ユーザーおよびグループ
           uid: signalr/groups
           displayName: signalr
         - name: API の設計に関する考慮事項
@@ -536,16 +534,16 @@
     - name: 構成
       uid: signalr/configuration
       displayName: signalr
-    - name: 認証と権限承認
+    - name: 認証と承認
       uid: signalr/authn-and-authz
       displayName: signalr
-    - name: セキュリティに関する考慮事項
+    - name: セキュリティの考慮事項
       uid: signalr/security
       displayName: signalr
     - name: MessagePack ハブ プロトコル
       uid: signalr/messagepackhubprotocol
       displayName: signalr
-    - name: ストリーミング
+    - name: ストリーム
       uid: signalr/streaming
       displayName: signalr
     - name: SignalR と SignalR Core の比較
@@ -554,9 +552,16 @@
     - name: SignalR を使用しない WebSocket
       displayName: signalr
       uid: fundamentals/websockets
-    - name: ログ記録と診断
+    - name: ログの記録と診断
       displayName: signalr
       uid: signalr/diagnostics
+    - name: 仕様
+      displayName: 'signalr, specs'
+      items:
+        - name: ハブ プロトコル
+          href: 'https://github.com/aspnet/AspNetCore/blob/master/src/SignalR/docs/specs/HubProtocol.md'
+        - name: トランスポート プロトコル
+          href: 'https://github.com/aspnet/AspNetCore/blob/master/src/SignalR/docs/specs/TransportProtocols.md'
 - name: リモート プロシージャ コール アプリ
   items:
     - name: gRPC サービスの概要
@@ -575,11 +580,11 @@
       uid: grpc/clientfactory
     - name: 構成
       uid: grpc/configuration
-    - name: 認証と権限承認
+    - name: 認証と承認
       uid: grpc/authn-and-authz
-    - name: ログ記録と診断
+    - name: ログの記録と診断
       uid: grpc/diagnostics
-    - name: セキュリティに関する考慮事項
+    - name: セキュリティの考慮事項
       uid: grpc/security
     - name: dotnet-grpc を使用して Protobuf 参照を管理する
       uid: grpc/dotnet-grpc
@@ -671,7 +676,7 @@
           href: /azure/visual-studio/vs-storage-aspnet5-getting-started-blobs?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
         - name: Queue ストレージ
           href: /azure/visual-studio/vs-storage-aspnet5-getting-started-queues?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-        - name: テーブル ストレージ
+        - name: Table ストレージ
           href: /azure/visual-studio/vs-storage-aspnet5-getting-started-tables?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
 - name: ホストと配置
   displayName: publish
@@ -803,7 +808,7 @@
     - name: ディレクトリの構造
       displayName: 'deploy, publish'
       uid: host-and-deploy/directory-structure
-    - name: 正常性のチェック
+    - name: 正常性チェック
       uid: host-and-deploy/health-checks
       displayName: 'deploy, publish'
     - name: Blazor
@@ -897,7 +902,7 @@
           uid: security/authentication/individual
         - name: 証明書認証の構成
           uid: security/authentication/certauth
-    - name: Authorization
+    - name: 承認
       items:
         - name: 概要
           uid: security/authorization/introduction
@@ -923,7 +928,7 @@
           uid: security/authorization/views
         - name: スキームによる ID の制限
           uid: security/authorization/limitingidentitybyscheme
-    - name: データ保護
+    - name: データの保護
       displayName: encryption
       items:
         - name: 概要
@@ -1036,7 +1041,7 @@
       uid: performance/performance-best-practices
     - name: メモリと GC
       uid: performance/memory
-    - name: 応答のキャッシュ
+    - name: 応答キャッシュ
       items:
         - name: 概要
           uid: performance/caching/response
@@ -1065,7 +1070,7 @@
       uid: fundamentals/localization-extensibility
     - name: トラブルシューティング
       uid: fundamentals/troubleshoot-aspnet-core-localization
-- name: 詳細
+- name: 詳細設定
   items:
     - name: モデル バインド
       uid: mvc/models/model-binding
@@ -1080,7 +1085,7 @@
     - name: 要求と応答の操作
       displayName: middleware
       uid: fundamentals/middleware/request-response
-    - name: URL の書き換え
+    - name: URL リライト
       uid: fundamentals/url-rewriting
     - name: ファイル プロバイダー
       uid: fundamentals/file-providers
