@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: security/app-secrets
-ms.openlocfilehash: 3323b7b614b7e8bc711b2c5acfb501b65b3d783b
-ms.sourcegitcommit: 76d7fff62014c3db02564191ab768acea00f1b26
+ms.openlocfilehash: 0bbd6af01ce3a29d3931faa2853a50dc895490cc
+ms.sourcegitcommit: fd2483f0a384b1c479c5b4af025ee46917db1919
 ms.translationtype: MT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 12/05/2019
-ms.locfileid: "74852689"
+ms.locfileid: "74868031"
 ---
 # <a name="safe-storage-of-app-secrets-in-development-in-aspnet-core"></a>ASP.NET Core での開発におけるアプリシークレットの安全な保存
 
@@ -27,7 +27,7 @@ ms.locfileid: "74852689"
 
 ::: moniker range="<= aspnetcore-1.1"
 
-`Startup` コンストラクターで <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> を呼び出して、環境変数の値の読み取りを構成します。
+`Startup` コンストラクターで <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables%2A> を呼び出して、環境変数の値の読み取りを構成します。
 
 [!code-csharp[](app-secrets/samples/1.x/UserSecrets/Startup.cs?name=snippet_StartupConstructor&highlight=8)]
 
@@ -229,11 +229,11 @@ JSON 構造体は、`dotnet user-secrets remove` または `dotnet user-secrets 
 
 ::: moniker range=">= aspnetcore-2.0"
 
-ASP.NET Core 2.0 以降では、プロジェクトが <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> を呼び出して、構成済みの既定値でホストの新しいインスタンスを初期化すると、開発モードでユーザーシークレットの構成ソースが自動的に追加されます。 <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName> が <xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Development>されている場合、<xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*> 呼び出し `CreateDefaultBuilder` ます。
+ASP.NET Core 2.0 以降では、プロジェクトが <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A> を呼び出して、構成済みの既定値でホストの新しいインスタンスを初期化すると、開発モードでユーザーシークレットの構成ソースが自動的に追加されます。 <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName> が <xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Development>されている場合、<xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A> 呼び出し `CreateDefaultBuilder` ます。
 
 [!code-csharp[](app-secrets/samples/2.x/UserSecrets/Program.cs?name=snippet_CreateWebHostBuilder&highlight=2)]
 
-`CreateDefaultBuilder` が呼び出されない場合は、`Startup` コンストラクターで <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*> を呼び出すことによって、ユーザーシークレット構成ソースを明示的に追加します。 次の例に示すように、アプリが開発環境で実行されている場合にのみ `AddUserSecrets` を呼び出します。
+`CreateDefaultBuilder` が呼び出されない場合は、`Startup` コンストラクターで <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A> を呼び出すことによって、ユーザーシークレット構成ソースを明示的に追加します。 次の例に示すように、アプリが開発環境で実行されている場合にのみ `AddUserSecrets` を呼び出します。
 
 [!code-csharp[](app-secrets/samples/1.x/UserSecrets/Startup.cs?name=snippet_StartupConstructor&highlight=12)]
 
@@ -243,7 +243,7 @@ ASP.NET Core 2.0 以降では、プロジェクトが <xref:Microsoft.AspNetCore
 
 [Microsoft.Extensions.Configuration.UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) NuGet パッケージをインストールします。
 
-`Startup` コンストラクターで <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*> の呼び出しを使用して、ユーザーシークレット構成ソースを追加します。
+`Startup` コンストラクターで <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A> の呼び出しを使用して、ユーザーシークレット構成ソースを追加します。
 
 [!code-csharp[](app-secrets/samples/1.x/UserSecrets/Startup.cs?name=snippet_StartupConstructor&highlight=12)]
 
@@ -303,7 +303,7 @@ dotnet user-secrets set "DbPassword" "pass123"
 
 [!code-json[](app-secrets/samples/2.x/UserSecrets/appsettings.json?highlight=3)]
 
-シークレットの値を <xref:System.Data.SqlClient.SqlConnectionStringBuilder> オブジェクトの <xref:System.Data.SqlClient.SqlConnectionStringBuilder.Password*> プロパティに設定して、接続文字列を完成させることができます。
+シークレットの値を <xref:System.Data.SqlClient.SqlConnectionStringBuilder> オブジェクトの <xref:System.Data.SqlClient.SqlConnectionStringBuilder.Password%2A> プロパティに設定して、接続文字列を完成させることができます。
 
 ::: moniker range=">= aspnetcore-2.0"
 
