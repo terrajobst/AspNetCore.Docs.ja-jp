@@ -5,16 +5,16 @@ description: Blazor アプリがコンポーネントにサービスを挿入す
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/27/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 uid: blazor/dependency-injection
-ms.openlocfilehash: 165cfa7a98cdd523c25d5c4bfc8e2c9d0ef1ad22
-ms.sourcegitcommit: 169ea5116de729c803685725d96450a270bc55b7
+ms.openlocfilehash: 17dd0f927064ae7c2b1e3e439fd93e2cb220a5a4
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74733818"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74879774"
 ---
 # <a name="aspnet-core-opno-locblazor-dependency-injection"></a>ASP.NET Core Blazor 依存関係の挿入
 
@@ -86,7 +86,7 @@ DI システムは ASP.NET Core の DI システムに基づいています。 �
 
 [!code-cshtml[](dependency-injection/samples_snapshot/3.x/CustomerList.razor?highlight=2-3,23)]
 
-内部的には、生成されたプロパティ (`DataRepository`) は `InjectAttribute` 属性で修飾されます。 通常、この属性は直接使用されません。 コンポーネントに基底クラスが必要であり、基底クラスにも挿入されたプロパティが必要な場合は、`InjectAttribute`を手動で追加します。
+内部的には、生成されたプロパティ (`DataRepository`) は、`InjectAttribute` 属性を使用します。 通常、この属性は直接使用されません。 コンポーネントに基底クラスが必要であり、基底クラスにも挿入されたプロパティが必要な場合は、`InjectAttribute`を手動で追加します。
 
 ```csharp
 public class ComponentBase : IComponent

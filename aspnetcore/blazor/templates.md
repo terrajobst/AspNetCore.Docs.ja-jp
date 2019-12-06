@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/templates
-ms.openlocfilehash: e82f28afdac8517f72538094d97f28bdcfe46102
-ms.sourcegitcommit: 918d7000b48a2892750264b852bad9e96a1165a7
+ms.openlocfilehash: bc0ea4a777e8684a7b0925377b8a19a45c2b531c
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/27/2019
-ms.locfileid: "74551535"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74879667"
 ---
 # <a name="aspnet-core-opno-locblazor-templates"></a>ASP.NET Core Blazor テンプレート
 
@@ -61,7 +61,7 @@ Blazorのホスティングモデルの詳細については、「<xref:blazor/h
 
 * <xref:Microsoft.AspNetCore.Components.Routing.Router> コンポーネントを使用してクライアント側のルーティングを設定するアプリのルートコンポーネント &ndash; ます *。* `Router` コンポーネントは、ブラウザーナビゲーションをインターセプトし、要求されたアドレスと一致するページをレンダリングします。
 
-* [*ページ*] フォルダー &ndash; Blazor アプリを構成するルーティング可能なコンポーネント/ページ (*Razor*) が含まれています。 各ページのルートは、 [@page](xref:mvc/views/razor#page)ディレクティブを使用して指定します。 このテンプレートには、次のコンポーネントが含まれています。
+* [*ページ*] フォルダー &ndash; Blazor アプリを構成するルーティング可能なコンポーネント/ページ (*Razor*) が含まれています。 各ページのルートは、 [`@page`](xref:mvc/views/razor#page)ディレクティブを使用して指定します。 このテンプレートには、次のコンポーネントが含まれています。
   * `Index` (*Index*) &ndash; はホームページを実装します。
   * `Counter` (*counter*) &ndash; カウンターページを実装します。
   * `Error` (*エラー razor*、Blazor サーバーアプリのみ) &ndash; アプリでハンドルされない例外が発生したときに表示されます。
@@ -71,7 +71,7 @@ Blazorのホスティングモデルの詳細については、「<xref:blazor/h
   * アプリのレイアウトコンポーネント &ndash; `MainLayout` (*mainlayout*)。
   * `NavMenu` (*ナビゲーションメニューの razor*) &ndash; サイドバーナビゲーションを実装します。 には、ナビゲーションリンクを他の Razor コンポーネントにレンダリングするナビゲーションリンク[コンポーネント](xref:blazor/routing#navlink-component)(<xref:Microsoft.AspNetCore.Components.Routing.NavLink>) が含まれています。 コンポーネントが読み込まれると、`NavLink` コンポーネントによって選択された状態が自動的に示されます。これは、現在表示されているコンポーネントをユーザーが理解するのに役立ちます。
 
-* *_Imports razor* &ndash; には、名前空間の[@using](xref:mvc/views/razor#using)ディレクティブなど、アプリのコンポーネント (*razor*) に含める一般的な razor ディレクティブが含まれています。
+* *_Imports razor* &ndash; には、名前空間の[`@using`](xref:mvc/views/razor#using)ディレクティブなど、アプリのコンポーネント (*razor*) に含める一般的な razor ディレクティブが含まれています。
 
 * *データ*フォルダー (Blazor サーバー) &ndash; には、`WeatherForecast` クラスと、アプリの `FetchData` コンポーネントに気象データの例を提供する `WeatherForecastService` の実装が含まれています。
 

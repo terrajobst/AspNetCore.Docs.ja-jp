@@ -4,14 +4,14 @@ author: steve-smith
 description: 悪意のある web サイトがクライアントブラウザーとアプリの間の対話に影響を与える可能性がある web アプリに対する攻撃を防ぐ方法について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/11/2019
+ms.date: 12/05/2019
 uid: security/anti-request-forgery
-ms.openlocfilehash: c3d32a93bcbf9f3897c10e68ba4e43d269a3ea80
-ms.sourcegitcommit: b3e1e31e5d8bdd94096cf27444594d4a7b065525
+ms.openlocfilehash: 54e153af55f28d9a89bbf16bce1c17f876567b59
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74803371"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880806"
 ---
 # <a name="prevent-cross-site-request-forgery-xsrfcsrf-attacks-in-aspnet-core"></a>ASP.NET Core でのクロスサイト要求偽造 (XSRF/CSRF) 攻撃を防ぐ
 
@@ -172,7 +172,7 @@ CSRF 攻撃に対する防御の最も一般的なアプローチは、*Synchron
 }
 ```
 
-タグヘルパーを使わず、HTML ヘルパーの[@Html.AntiForgeryToken](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.htmlhelper.antiforgerytoken)を使って明示的に偽造防止トークンを追加します:
+タグヘルパーを使わず、HTML ヘルパーの[`@Html.AntiForgeryToken`](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.htmlhelper.antiforgerytoken)を使って明示的に偽造防止トークンを追加します:
 
 ```cshtml
 <form action="/" method="post">
@@ -305,7 +305,7 @@ public async Task<IActionResult> RemoveLogin(RemoveLoginViewModel account)
 }
 ```
 
-`ValidateAntiForgeryToken` 属性は、HTTP GET の要求も含め、属性の付いたアクションメソッドへの要求にはトークンが必要になります。 `ValidateAntiForgeryToken` 属性がアプリのコントローラーで適用されている場合は、`IgnoreAntiforgeryToken` 属性で上書きできます。
+`ValidateAntiForgeryToken` 属性には、HTTP GET 要求を含む、マークするアクションメソッドへの要求にトークンが必要です。 `ValidateAntiForgeryToken` 属性がアプリのコントローラーで適用されている場合は、`IgnoreAntiforgeryToken` 属性で上書きできます。
 
 > [!NOTE]
 > ASP.NET Core では、GET 要求に対して偽造防止トークンの自動的な追加はサポートしていません。

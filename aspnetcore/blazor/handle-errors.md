@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/handle-errors
-ms.openlocfilehash: 9f249fac331d31249f9325892e8365e3d0b4cc5a
-ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
+ms.openlocfilehash: e737a8a85e7eb83d95618d71e85b0307c54b0766
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74717062"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74879684"
 ---
 # <a name="handle-errors-in-aspnet-core-opno-locblazor-apps"></a>ASP.NET Core Blazor アプリでのエラーの処理
 
@@ -116,9 +116,9 @@ Blazor は、ほとんどのハンドルされない例外を、発生した回�
 Blazor がコンポーネントのインスタンスを作成する場合:
 
 * コンポーネントのコンストラクターが呼び出されます。
-* [@inject](xref:blazor/dependency-injection#request-a-service-in-a-component)ディレクティブまたは[[挿入]](xref:blazor/dependency-injection#request-a-service-in-a-component)属性を使用して、コンポーネントのコンストラクターに渡される非シングルトン DI サービスのコンストラクターが呼び出されます。 
+* [`@inject`](xref:blazor/dependency-injection#request-a-service-in-a-component)ディレクティブまたは[`[Inject]`](xref:blazor/dependency-injection#request-a-service-in-a-component)属性を使用して、コンポーネントのコンストラクターに渡される非シングルトン DI サービスのコンストラクターが呼び出されます。 
 
-任意の `[Inject]` プロパティに対して実行されるコンストラクターまたは setter がハンドルされない例外をスローすると、回線が失敗します。 フレームワークはコンポーネントをインスタンス化できないため、例外は fatal です。 コンストラクターのロジックによって例外がスローされる可能性がある場合、アプリでは、エラー処理とログ記録を含む[try-catch ステートメントを](/dotnet/csharp/language-reference/keywords/try-catch)使用して例外をトラップする必要があります。
+任意の `[Inject]` プロパティに対して実行されるコンストラクターまたは setter がハンドルされない例外をスローすると、回線が失敗します。 フレームワークはコンポーネントをインスタンス化できないため、例外は fatal です。 コンストラクターのロジックによって例外がスローされる可能性がある場合、アプリでは、エラー処理とログ記録を含む [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) ステートメントを使用して例外をトラップする必要があります。
 
 ### <a name="lifecycle-methods"></a>ライフサイクル メソッド
 
@@ -163,7 +163,7 @@ Blazor がコンポーネントのインスタンスを作成する場合:
 
 これらのシナリオでは、イベントハンドラーコードによってハンドルされない例外がスローされることがあります。
 
-イベントハンドラーがハンドルされない例外をスローした場合 (たとえば、データベースクエリが失敗した場合)、その例外は回線にとって致命的です。 アプリが外部の理由で失敗する可能性のあるコードを呼び出した場合は、エラー処理とログ記録を含む[try-catch ステートメントを使用して例外](/dotnet/csharp/language-reference/keywords/try-catch)をトラップします。
+イベントハンドラーがハンドルされない例外をスローした場合 (たとえば、データベースクエリが失敗した場合)、その例外は回線にとって致命的です。 アプリが外部の理由で失敗する可能性のあるコードを呼び出した場合は、エラー処理とログ記録を含む [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) ステートメントを使用して例外をトラップします。
 
 ユーザーコードによって例外がトラップされて処理されない場合は、フレームワークによって例外がログに記録され、回線が終了します。
 
@@ -171,7 +171,7 @@ Blazor がコンポーネントのインスタンスを作成する場合:
 
 たとえば、ユーザーが別のページに移動したため、コンポーネントが UI から削除されることがあります。 <xref:System.IDisposable?displayProperty=fullName> を実装するコンポーネントが UI から削除されると、フレームワークはコンポーネントの <xref:System.IDisposable.Dispose*> メソッドを呼び出します。 
 
-コンポーネントの `Dispose` メソッドがハンドルされない例外をスローした場合、この例外は回線にとって致命的です。 破棄ロジックによって例外がスローされる可能性がある場合、アプリでは、エラー処理とログ記録を含む[try-catch ステートメントを](/dotnet/csharp/language-reference/keywords/try-catch)使用して例外をトラップする必要があります。
+コンポーネントの `Dispose` メソッドがハンドルされない例外をスローした場合、この例外は回線にとって致命的です。 破棄ロジックによって例外がスローされる可能性がある場合、アプリでは、エラー処理とログ記録を含む [try-catch ](/dotnet/csharp/language-reference/keywords/try-catch)ステートメントを使用して例外をトラップする必要があります。
 
 コンポーネントの破棄の詳細については、「<xref:blazor/lifecycle#component-disposal-with-idisposable>」を参照してください。
 
@@ -185,7 +185,7 @@ Blazor がコンポーネントのインスタンスを作成する場合:
 * `InvokeAsync<T>` の呼び出しが非同期に失敗した場合、.NET <xref:System.Threading.Tasks.Task> は失敗します。 たとえば、JavaScript 側のコードが例外をスローしたり、`rejected`として完了した `Promise` を返したりするために、`InvokeAsync<T>` の呼び出しが失敗することがあります。 開発者コードは例外をキャッチする必要があります。 [Await](/dotnet/csharp/language-reference/keywords/await)演算子を使用する場合は、エラー処理とログ記録を使用し[て、try-catch](/dotnet/csharp/language-reference/keywords/try-catch)ステートメントでメソッド呼び出しをラップすることを検討してください。 それ以外の場合、失敗したコードは、回路にとって致命的な未処理の例外を発生させることになります。
 * 既定では、`InvokeAsync<T>` の呼び出しは特定の期間内に完了する必要があります。そうでない場合は、呼び出しがタイムアウトします。既定のタイムアウト期間は1分です。 タイムアウトは、完了メッセージを返信しないネットワーク接続または JavaScript コードの損失からコードを保護します。 呼び出しがタイムアウトした場合、結果として得られる `Task` は <xref:System.OperationCanceledException>で失敗します。 ログ記録で例外をトラップして処理します。
 
-同様に、JavaScript コードでは、 [[JSInvokable] 属性](xref:blazor/javascript-interop#invoke-net-methods-from-javascript-functions)によって示される .net メソッドの呼び出しを開始できます。 これらの .NET メソッドでハンドルされない例外がスローされた場合:
+同様に、JavaScript コードでは、 [`[JSInvokable]`](xref:blazor/javascript-interop#invoke-net-methods-from-javascript-functions)属性によって示される .net メソッドの呼び出しを開始できます。 これらの .NET メソッドでハンドルされない例外がスローされた場合:
 
 * この例外は、回線にとって致命的な例外として扱われません。
 * JavaScript 側の `Promise` は拒否されます。

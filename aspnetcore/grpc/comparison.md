@@ -4,16 +4,16 @@ author: jamesnk
 description: GRPC と HTTP Api との比較、および推奨されるシナリオについて説明します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
-ms.date: 11/12/2019
+ms.date: 12/05/2019
 no-loc:
 - SignalR
 uid: grpc/comparison
-ms.openlocfilehash: ceb24d656827548492a6fa326681922297fc481b
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 8935e665dfd5d8f9afa002f475c202ec0f0ee657
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963654"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880679"
 ---
 # <a name="compare-grpc-services-with-http-apis"></a>HTTP API を使用した gRPC サービスの比較
 
@@ -28,11 +28,11 @@ ms.locfileid: "73963654"
 | 特性          | gRPC                                               | HTTP Api と JSON           |
 | ---------------- | -------------------------------------------------- | ----------------------------- |
 | コントラクト         | 必須 (*プロトコル*)                                | 省略可能 (OpenAPI)            |
-| プロトコル         | HTTP/2                                             | HTTP                          |
+| [プロトコル]         | HTTP/2                                             | HTTP                          |
 | Payload          | [Protobuf (小、バイナリ)](#performance)           | JSON (大規模で人間が読みやすい)  |
 | Prescriptiveness | [厳密な指定](#strict-specification)      | ペイント. HTTP はすべて有効です。     |
 | ストリーム        | [クライアント、サーバー、双方向](#streaming)       | クライアント、サーバー                |
-| ブラウザーサポート  | [いいえ (grpc-web が必要)](#limited-browser-support) | [はい]                           |
+| ブラウザー サポート  | [いいえ (grpc-web が必要)](#limited-browser-support) | ○                           |
 | セキュリティ         | トランスポート (TLS)                                    | トランスポート (TLS)               |
 | クライアントコード生成 | [はい](#code-generation)                      | OpenAPI + サードパーティ製ツール |
 
@@ -49,7 +49,7 @@ gRPC は http/2 向けに設計されており、http 1.x に比べてパフォ�
 
 ### <a name="code-generation"></a>コード生成
 
-すべての gRPC フレームワークは、コード生成のためのファーストクラスのサポートを提供します。 GRPC 開発の中核となるファイルは、gRPC サービスとメッセージのコントラクトを定義する[*プロトコル*ファイル](https://developers.google.com/protocol-buffers/docs/proto3)です。 このファイルから、gRPC フレームワークによって、サービスの基本クラス、メッセージ、および完全なクライアントがコードによって生成されます。
+すべての gRPC フレームワークは、コード生成のためのファーストクラスのサポートを提供します。 GRPC 開発の中核となるファイルは、gRPC サービスとメッセージのコントラクトを定義する[プロトコルファイル](https://developers.google.com/protocol-buffers/docs/proto3)です。 このファイルから、gRPC フレームワークによって、サービスの基本クラス、メッセージ、および完全なクライアントがコードによって生成されます。
 
 サーバーとクライアントの間で*プロトコル*ファイルを共有することにより、メッセージとクライアントコードをエンドツーエンドから生成できます。 クライアントのコード生成によって、クライアントとサーバー上のメッセージの重複が排除され、厳密に型指定されたクライアントが作成されます。 クライアントを作成する必要がない場合は、多くのサービスを持つアプリケーションで大幅な開発時間を節約できます。
 

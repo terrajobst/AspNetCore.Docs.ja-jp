@@ -4,26 +4,26 @@ author: mjrousos
 description: ASP.NET Core アプリでのパフォーマンスが向上し、一般的なパフォーマンスの問題を回避するためのヒント。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 11/12/2019
+ms.date: 12/05/2019
 no-loc:
 - SignalR
 uid: performance/performance-best-practices
-ms.openlocfilehash: 64d231ca435ccbfe9bfcd839a2b67fcee68c0cc6
-ms.sourcegitcommit: 8157e5a351f49aeef3769f7d38b787b4386aad5f
+ms.openlocfilehash: bd30776d527b4ac9f44005e9f5d03fec7cfda2e6
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/20/2019
-ms.locfileid: "74239890"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880918"
 ---
 # <a name="aspnet-core-performance-best-practices"></a>ASP.NET Core のパフォーマンスに関するベスト プラクティス
 
-[Mike/sos](https://github.com/mjrousos)
+作成者: [Mike Rousos](https://github.com/mjrousos)
 
 この記事では、ASP.NET Core のパフォーマンスのベストプラクティスに関するガイドラインを示します。
 
 ## <a name="cache-aggressively"></a>積極的にキャッシュします。
 
-キャッシュは、このドキュメントの複数の部分で説明します。 詳細については、「 <xref:performance/caching/response>」を参照してください。
+キャッシュは、このドキュメントの複数の部分で説明します。 詳細については、「<xref:performance/caching/response>」を参照してください。
 
 ## <a name="understand-hot-code-paths"></a>ホットコードパスについて
 
@@ -35,15 +35,15 @@ ASP.NET Core アプリを設計すると、同時に多数の要求を処理す�
 
 ASP.NET Core アプリで一般的なパフォーマンスの問題は、非同期可能性がある呼び出しをブロックしています。 多くの同期ブロッキング呼び出しは、[スレッドプールの枯渇](https://blogs.msdn.microsoft.com/vancem/2018/10/16/diagnosing-net-core-threadpool-starvation-with-perfview-why-my-service-is-not-saturating-all-cores-or-seems-to-stall/)と応答時間の低下につながります。
 
-**実行**しない:
+**しない**:
 
-* [Task. Wait](/dotnet/api/system.threading.tasks.task.wait)または[task. Result](/dotnet/api/system.threading.tasks.task-1.result)を呼び出して、非同期実行をブロックします。
+* 呼び出すことによって、非同期実行をブロック[Task.Wait](/dotnet/api/system.threading.tasks.task.wait)または[Task.Result](/dotnet/api/system.threading.tasks.task-1.result)します。
 * 一般的なコード パスでロックを取得します。 ASP.NET Core アプリでは、最も効率的なコードを並列で実行するように構築する場合です。
 * タスクを呼び出し[ます。実行](/dotnet/api/system.threading.tasks.task.run)してすぐに待機します。 ASP.NET Core は、通常のスレッドプールのスレッドで既にアプリコードを実行しているため、タスクを呼び出すと、余分な不要なスレッドプールスケジュールが生成されます。 スケジュールされたコードがスレッドをブロックする場合でも、タスクを実行しても、そのようなことはできません。
 
-**操作**:
+**行う**
 
-* [ホットコードパス](#understand-hot-code-paths)を非同期にします。
+* ように[ホット コード パス](#understand-hot-code-paths)非同期です。
 * 非同期 API が使用可能な場合は、データアクセスと長時間実行される操作 Api を非同期に呼び出します。 ここでも、synchronus API を非同期にするために、Run を使用しないようにしてください[。](/dotnet/api/system.threading.tasks.task.run)
 * コント ローラー/Razor ページのアクションを非同期にします。 非同期[/await](/dotnet/csharp/programming-guide/concepts/async/)パターンを活用するために、呼び出し履歴全体が非同期になります。
 
@@ -51,13 +51,13 @@ ASP.NET Core アプリで一般的なパフォーマンスの問題は、非同�
 
 ## <a name="minimize-large-object-allocations"></a>ラージ オブジェクトの割り当てを最小限に抑える
 
-[.Net Core ガベージコレクター](/dotnet/standard/garbage-collection/)は、ASP.NET Core アプリで自動的にメモリの割り当てと解放を管理します。 一般に、自動ガベージ コレクションは、開発者がメモリを解放する方法やタイミングについて心配する必要があることを意味します。 ただし、参照されていないオブジェクトをクリーンアップすると CPU 時間がかかるため、開発者は[ホットコードパス](#understand-hot-code-paths)内のオブジェクトの割り当てを最小限に抑える必要があります。 ガベージ コレクションは、ラージ オブジェクト (> 85 K バイト) では特に高価です。 ラージオブジェクトは[大きなオブジェクトヒープ](/dotnet/standard/garbage-collection/large-object-heap)に格納され、クリーンアップするには、完全な (ジェネレーション 2) ガベージコレクションが必要です。 ジェネレーション0およびジェネレーション1のコレクションとは異なり、ジェネレーション2のコレクションでは、アプリの実行を一時的に中断する必要があります。 頻繁に割り当てと大きなオブジェクトの割り当てを解除することによってパフォーマンスの一貫性のない可能性があります。
+[.Net Core ガベージコレクター](/dotnet/standard/garbage-collection/)は、ASP.NET Core アプリで自動的にメモリの割り当てと解放を管理します。 一般に、自動ガベージ コレクションは、開発者がメモリを解放する方法やタイミングについて心配する必要があることを意味します。 ただし、未参照のオブジェクトのクリーンアップ時間がかかる CPU のため開発者は内のオブジェクトの割り当てを最小限に抑えて[ホット コード パス](#understand-hot-code-paths)します。 ガベージ コレクションは、ラージ オブジェクト (> 85 K バイト) では特に高価です。 大きなオブジェクトが格納されている、[大きなオブジェクト ヒープ](/dotnet/standard/garbage-collection/large-object-heap)完全 (第 2 世代) を必要とガベージ コレクションをクリーンアップします。 ジェネレーション0およびジェネレーション1のコレクションとは異なり、ジェネレーション2のコレクションでは、アプリの実行を一時的に中断する必要があります。 頻繁に割り当てと大きなオブジェクトの割り当てを解除することによってパフォーマンスの一貫性のない可能性があります。
 
 推奨事項 :
 
-* 頻繁に使用されるラージオブジェクトをキャッシュすること**を検討してください。** ラージ オブジェクトをキャッシュには、高価な割り当てができないようにします。
-* 大きな配列を格納するには、 [`ArrayPool<T>`](/dotnet/api/system.buffers.arraypool-1)を使用してバッファー**をプールし**ます。
-* [ホットコードパス](#understand-hot-code-paths)には、有効期間が短い大きなオブジェクトを多数割り当て**ない**でください。
+* **行う** よく使われる大規模なオブジェクトのキャッシュを検討してください。 ラージ オブジェクトをキャッシュには、高価な割り当てができないようにします。
+* 大きな配列を格納するには、 [arraypool\<t >](/dotnet/api/system.buffers.arraypool-1)を使用して、バッファー**をプールし**ます。
+* **しない**に割り当てる大きなオブジェクトの有効期間が短い、[ホット コード パス](#understand-hot-code-paths)します。
 
 前述のようなメモリの問題は、 [Perfview](https://github.com/Microsoft/perfview)でガベージコレクション (GC) の統計を確認して調べることによって診断できます。
 
@@ -65,7 +65,7 @@ ASP.NET Core アプリで一般的なパフォーマンスの問題は、非同�
 * プロセッサ時間の割合は、ガベージ コレクションに費やされました。
 * ガベージ コレクションの数とは、世代 0、1、および 2 です。
 
-詳細については、「[ガベージコレクションとパフォーマンス](/dotnet/standard/garbage-collection/performance)」を参照してください。
+詳細については、次を参照してください。[ガベージ コレクションとパフォーマンス](/dotnet/standard/garbage-collection/performance)します。
 
 ## <a name="optimize-data-access"></a>データ アクセスを最適化します。
 
@@ -73,18 +73,18 @@ ASP.NET Core アプリで一般的なパフォーマンスの問題は、非同�
 
 推奨事項 :
 
-* すべてのデータアクセス Api を非同期**に呼び出します**。
-* 必要以上に多くのデータを取得**しないで**ください。 現在の HTTP 要求に必要なデータだけを返すクエリを記述します。
-* 少し古いデータが許容される場合は、データベースまたはリモートサービスから取得した頻繁にアクセスされるデータをキャッシュすること**を検討してください。** シナリオに応じて、 [Memorycache](xref:performance/caching/memory)または[microsoft.web.distributedcache](xref:performance/caching/distributed)を使用します。 詳細については、「 <xref:performance/caching/response>」を参照してください。
-* ネットワークラウンドトリップ**を最小限に**抑えます。 目的は、複数の呼び出しではなく、1回の呼び出しで必要なデータを取得することです。
-* 読み取り専用の目的でデータにアクセスする場合**は**、Entity Framework Core で[追跡なしのクエリ](/ef/core/querying/tracking#no-tracking-queries)を使用します。 EF Core より効率的に追跡なしのクエリの結果を返すことができます。
-* (たとえば、`.Where`、`.Select`、または `.Sum` ステートメントを使用して) LINQ クエリのフィルター処理と集計を**実行**し、データベースによってフィルター処理が実行されるようにします。
-* EF Core に**よってクライアント**上の一部のクエリ演算子が解決されるため、クエリの実行効率が悪くなることがあります。 詳細については、「[クライアント評価のパフォーマンスの問題](/ef/core/querying/client-eval#client-evaluation-performance-issues)」を参照してください。
-* コレクションに対してプロジェクションクエリを使用しないでください。これにより、"N + 1" 個の SQL クエリが実行される可能性が**あり**ます。 詳細については、「[相関サブクエリの最適化](/ef/core/what-is-new/ef-core-2.1#optimization-of-correlated-subqueries)」を参照してください。
+* **行う** すべてのデータ アクセス Api を非同期的に呼び出します。
+* **しない**は必要以上のデータを取得します。 現在の HTTP 要求に必要なデータだけを返すクエリを記述します。
+* **行う**若干古いデータが許容される場合は、データベースやリモート サービスから取得されたデータをアクセス頻繁にキャッシュを検討してください。 シナリオに応じて、 [Memorycache](xref:performance/caching/memory)または[microsoft.web.distributedcache](xref:performance/caching/distributed)を使用します。 詳細については、「<xref:performance/caching/response>」を参照してください。
+* **行う**を最小限に抑えるネットワーク ラウンド トリップします。 目的は、複数の呼び出しではなく、1回の呼び出しで必要なデータを取得することです。
+* **行う** 使用[追跡なしのクエリ](/ef/core/querying/tracking#no-tracking-queries)読み取り専用の目的でデータにアクセスするときに、Entity Framework Core でします。 EF Core より効率的に追跡なしのクエリの結果を返すことができます。
+* **行う**フィルターと集計の LINQ クエリ (で`.Where`、 `.Select`、または`.Sum`ステートメントなどの)、フィルター処理がデータベースで実行できるようにします。
+* **行う** EF Core に、クライアントは、非効率的なクエリの実行につながる可能性のいくつかのクエリ演算子が解決されることを検討してください。 詳細については、「[クライアント評価のパフォーマンスの問題](/ef/core/querying/client-eval#client-evaluation-performance-issues)」を参照してください。
+* **しない**プロジェクション クエリを使用して、"n+1"を実行するがこのコレクションは、上の SQL クエリ。 詳細については、次を参照してください。[相関サブクエリの最適化](/ef/core/what-is-new/ef-core-2.1#optimization-of-correlated-subqueries)します。
 
-高スケールアプリのパフォーマンスを向上させる方法については、「 [EF High performance](/ef/core/what-is-new/ef-core-2.0#explicitly-compiled-queries) 」を参照してください。
+参照してください[EF 高性能](/ef/core/what-is-new/ef-core-2.0#explicitly-compiled-queries)のための手法を高スケールのアプリでのパフォーマンスを向上させる可能性があります。
 
-* [DbContext プーリング](/ef/core/what-is-new/ef-core-2.0#dbcontext-pooling)
+* [DbContext プール](/ef/core/what-is-new/ef-core-2.0#dbcontext-pooling)
 * [明示的にコンパイルされたクエリ](/ef/core/what-is-new/ef-core-2.0#explicitly-compiled-queries)
 
 コードベースをコミットする前に、上記の高パフォーマンスアプローチの影響を測定することをお勧めします。 コンパイル済みクエリの複雑さを増加は、パフォーマンスの向上を見合わない場合があります。
@@ -93,12 +93,12 @@ ASP.NET Core アプリで一般的なパフォーマンスの問題は、非同�
 
 ## <a name="pool-http-connections-with-httpclientfactory"></a>HttpClientFactory との接続をプール HTTP
 
-[Httpclient](/dotnet/api/system.net.http.httpclient)は `IDisposable` インターフェイスを実装していますが、再利用できるように設計されています。 閉じられた `HttpClient` インスタンスは、短時間、`TIME_WAIT` の状態でソケットを開いたままにします。 `HttpClient` オブジェクトを作成および破棄するコードパスが頻繁に使用される場合、アプリは使用可能なソケットを消費する可能性があります。 [HttpClientFactory](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)は、この問題の解決策として ASP.NET Core 2.1 で導入されました。 パフォーマンスと信頼性を最適化するためにプールの HTTP 接続を処理します。
+[Httpclient](/dotnet/api/system.net.http.httpclient)は `IDisposable` インターフェイスを実装していますが、再利用できるように設計されています。 閉じられた`HttpClient`ソケットのままで開いているインスタンス、`TIME_WAIT`短時間の状態。 `HttpClient` オブジェクトを作成および破棄するコードパスが頻繁に使用される場合、アプリは使用可能なソケットを消費する可能性があります。 [HttpClientFactory](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)この問題をソリューションとしての ASP.NET Core 2.1 で導入されました。 パフォーマンスと信頼性を最適化するためにプールの HTTP 接続を処理します。
 
 推奨事項 :
 
-* `HttpClient` インスタンスを直接作成して破棄しない**で**ください。
-* `HttpClient` インスタンスを取得するに**は**、 [HttpClientFactory](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)を使用します。 詳細については、「 [HttpClientFactory を使用して弾力性のある HTTP 要求を実装する](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)」を参照してください。
+* **行う**の作成し、破棄の`HttpClient`直接インスタンス化します。
+* **行う** 使用[HttpClientFactory](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)を取得する`HttpClient`インスタンス。 詳細については、次を参照してください。[回復力のある HTTP 要求を実装するために使用 HttpClientFactory](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)します。
 
 ## <a name="keep-common-code-paths-fast"></a>高速の一般的なコード パスを維持します。
 
@@ -109,8 +109,8 @@ ASP.NET Core アプリで一般的なパフォーマンスの問題は、非同�
 
 推奨事項 :
 
-* 実行時間の長いタスクでカスタムミドルウェアコンポーネントを使用**しない**でください。
-* [ホットコードパス](#understand-hot-code-paths)を特定するには、 [Visual Studio 診断ツール](/visualstudio/profiling/profiling-feature-tour)や[perfview](https://github.com/Microsoft/perfview)などのパフォーマンスプロファイリングツール**を使用し**ます。
+* **しない**実行時間の長いタスクでカスタムのミドルウェア コンポーネントを使用します。
+* **行う**パフォーマンス プロファイリング ツールなどを使用して、 [Visual Studio 診断ツール](/visualstudio/profiling/profiling-feature-tour)または[PerfView](https://github.com/Microsoft/perfview)) を識別[ホット コード パス](#understand-hot-code-paths)します。
 
 ## <a name="complete-long-running-tasks-outside-of-http-requests"></a>HTTP 要求の外部で長時間タスクを完了します。
 
@@ -118,8 +118,8 @@ ASP.NET Core アプリで一般的なパフォーマンスの問題は、非同�
 
 推奨事項 :
 
-* 通常の HTTP 要求処理の一部として、長時間実行されるタスクが完了するまで待機しない**で**ください。
-* [バックグラウンドサービス](xref:fundamentals/host/hosted-services)で長時間実行される要求や、 [Azure 関数](/azure/azure-functions/)を使用したアウトプロセスを処理すること**を検討してください。** 作業のアウト プロセスの完了は、CPU を消費するタスクに特に有益です。
+* **しない**実行時間の長いタスクが通常の HTTP 要求の処理の一部として完了するまで待ちます。
+* **行う** での実行時間の長い要求の処理を検討してください[バック グラウンド サービス](xref:fundamentals/host/hosted-services)またはアウト プロセスで、 [Azure 関数](/azure/azure-functions/)します。 作業のアウト プロセスの完了は、CPU を消費するタスクに特に有益です。
 * [SignalR](xref:signalr/introduction)などのリアルタイム通信オプションを使用して、クライアントと非同期的に**通信します**。
 
 ## <a name="minify-client-assets"></a>クライアントの資産を縮小します。
@@ -131,8 +131,8 @@ ASP.NET Core アプリで一般的なパフォーマンスの問題は、非同�
 
 推奨事項 :
 
-* クライアント資産のバンドルと縮小には ASP.NET Core の[組み込みサポート](xref:client-side/bundling-and-minification)**を使用し**ます。
-* 複雑なクライアント資産管理には、 [Webpack](https://webpack.js.org/)などの他のサードパーティ製ツールを使用すること**を検討してください。**
+* **行う** で ASP.NET Core の使用[組み込みサポート](xref:client-side/bundling-and-minification)バンドルと縮小クライアント資産。
+* **行う**などその他のサード パーティ製ツールを検討してください[Webpack](https://webpack.js.org/)、複雑なクライアント資産管理のためです。
 
 ## <a name="compress-responses"></a>応答を圧縮する
 
@@ -140,7 +140,7 @@ ASP.NET Core アプリで一般的なパフォーマンスの問題は、非同�
 
 ## <a name="use-the-latest-aspnet-core-release"></a>ASP.NET Core の最新のリリースを使用します。
 
-ASP.NET Core の新しいリリースにはそれぞれ、パフォーマンスが向上しています。 .NET Core と ASP.NET Core での最適化により、新しいバージョンの方が以前のバージョンより高い値になります。 たとえば、.NET Core 2.1 では、コンパイルされた正規表現と享受のサポートが[`Span<T>`](https://msdn.microsoft.com/magazine/mt814808.aspx)から追加されました。 Http/2 のサポートを ASP.NET Core 2.2 を追加します。 [ASP.NET Core 3.0](xref:aspnetcore-3.0)では、メモリ使用量を減らし、スループットを向上させる多くの機能強化が加えられています。 パフォーマンスが優先される場合は、現在のバージョンの ASP.NET Core にアップグレードすることを検討してください。
+ASP.NET Core の新しいリリースにはそれぞれ、パフォーマンスが向上しています。 .NET Core と ASP.NET Core での最適化により、新しいバージョンの方が以前のバージョンより高い値になります。 たとえば、.NET Core 2.1 では、コンパイルされた正規表現と享受から[スパン\<t >](https://msdn.microsoft.com/magazine/mt814808.aspx)のサポートが追加されています。 Http/2 のサポートを ASP.NET Core 2.2 を追加します。 [ASP.NET Core 3.0](xref:aspnetcore-3.0)では、メモリ使用量を減らし、スループットを向上させる多くの機能強化が加えられています。 パフォーマンスが優先される場合は、現在のバージョンの ASP.NET Core にアップグレードすることを検討してください。
 
 ## <a name="minimize-exceptions"></a>例外を最小限に抑える
 
@@ -149,8 +149,8 @@ ASP.NET Core の新しいリリースにはそれぞれ、パフォーマンス�
 推奨事項 :
 
 * 特に[ホットコードパス](#understand-hot-code-paths)では、通常のプログラムフローの手段として例外をスローまたはキャッチし**ない**ようにします。
-* 例外を発生させる条件を検出して処理するには、アプリにロジック**を含めます**。
-* 例外的または予期しない条件の例外**をスローまた**はキャッチします。
+* **行う** ロジックを検出して例外の原因となる条件を処理するアプリケーションに含めることができます。
+* **行う** スローまたは異常なまたは予期しない条件の例外をキャッチします。
 
 Application Insights などのアプリ診断ツールを使用すると、アプリケーションでのパフォーマンスに影響する可能性のある一般的な例外を識別できます。
 

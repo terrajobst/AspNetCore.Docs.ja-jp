@@ -4,14 +4,14 @@ author: jamesnk
 description: GRPC で認証と承認を使用して ASP.NET Core する方法について説明します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
-ms.date: 08/13/2019
+ms.date: 12/05/2019
 uid: grpc/authn-and-authz
-ms.openlocfilehash: 84903ee781588ff525d1dfce6a313e3867794762
-ms.sourcegitcommit: 76d7fff62014c3db02564191ab768acea00f1b26
+ms.openlocfilehash: 258b34113f3c3d9ef2031a43295ea5806b1e22ff
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/05/2019
-ms.locfileid: "74852702"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880691"
 ---
 # <a name="authentication-and-authorization-in-grpc-for-aspnet-core"></a>GRPC での認証と承認 (ASP.NET Core)
 
@@ -150,7 +150,7 @@ GRPC では、ASP.NET Core サポートされている多くの認証メカニ�
 
 認証を使用するように gRPC クライアントを構成することは、使用している認証メカニズムによって異なります。 前のベアラートークンとクライアント証明書の例では、grpc 呼び出しを使用して認証メタデータを送信するように gRPC クライアントを構成するいくつかの方法を示しています。
 
-* 厳密に型指定された gRPC クライアントは、内部的に `HttpClient` を使用します。 認証は[`HttpClientHandler`](/dotnet/api/system.net.http.httpclienthandler)で構成することも、`HttpClient`にカスタム[`HttpMessageHandler`](/dotnet/api/system.net.http.httpmessagehandler)インスタンスを追加することによって構成することもできます。
+* 厳密に型指定された gRPC クライアントは、内部的に `HttpClient` を使用します。 [Httpclienthandler](/dotnet/api/system.net.http.httpclienthandler)で認証を構成することも、`HttpClient`にカスタム[httpmessagehandler](/dotnet/api/system.net.http.httpmessagehandler)インスタンスを追加することもできます。
 * 各 gRPC 呼び出しには、省略可能な `CallOptions` 引数があります。 カスタムヘッダーは、オプションの headers コレクションを使用して送信できます。
 
 > [!NOTE]
@@ -158,7 +158,7 @@ GRPC では、ASP.NET Core サポートされている多くの認証メカニ�
 
 ## <a name="authorize-users-to-access-services-and-service-methods"></a>サービスとサービスメソッドへのアクセスをユーザーに承認する
 
-既定では、サービス内のすべてのメソッドは、認証されていないユーザーが呼び出すことができます。 認証を要求するには、 [[承認]](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute)属性をサービスに適用します。
+既定では、サービス内のすべてのメソッドは、認証されていないユーザーが呼び出すことができます。 認証を要求するには、 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute)属性をサービスに適用します。
 
 ```csharp
 [Authorize]

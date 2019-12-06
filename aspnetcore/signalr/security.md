@@ -5,26 +5,26 @@ description: ASP.NET Core SignalRで認証と承認を使用する方法につ�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: anurse
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 12/05/2019
 no-loc:
 - SignalR
 uid: signalr/security
-ms.openlocfilehash: c5a34ae67bdfb8f7fd92c00f18973b66b685a99c
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: f443fe0fbaaa1facd09edc0878c048772895ecff
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963902"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881184"
 ---
 # <a name="security-considerations-in-aspnet-core-opno-locsignalr"></a>ASP.NET Core SignalR でのセキュリティに関する考慮事項
 
-By [Andrew Stanton-看護師](https://twitter.com/anurse)
+作成者: [Andrew Stanton-Nurse](https://twitter.com/anurse)
 
 この記事では、SignalRのセキュリティ保護について説明します。
 
-## <a name="cross-origin-resource-sharing"></a>クロスオリジンリソース共有
+## <a name="cross-origin-resource-sharing"></a>クロス オリジン リソース共有
 
-[クロスオリジンリソース共有 (CORS)](https://www.w3.org/TR/cors/)を使用して、ブラウザーでのクロスオリジン SignalR 接続を許可することができます。 JavaScript コードが SignalR アプリとは別のドメインでホストされている場合、JavaScript が SignalR アプリに接続できるようにするには、 [CORS ミドルウェア](xref:security/cors)を有効にする必要があります。 信頼または制御するドメインからのクロスオリジン要求を許可します。 (例:
+[クロスオリジンリソース共有 (CORS)](https://www.w3.org/TR/cors/)を使用して、ブラウザーでのクロスオリジン SignalR 接続を許可することができます。 JavaScript コードが SignalR アプリとは別のドメインでホストされている場合、JavaScript が SignalR アプリに接続できるようにするには、 [CORS ミドルウェア](xref:security/cors)を有効にする必要があります。 信頼または制御するドメインからのクロスオリジン要求を許可します。 例:
 
 * サイトは `http://www.example.com` でホストされています
 * SignalR アプリは `http://signalr.example.com` でホストされています
@@ -106,7 +106,7 @@ ASP.NET Core 2.1 以降では、 **`UseSignalR`前に**配置されたカスタ�
 
 ## <a name="access-token-logging"></a>アクセストークンのログ記録
 
-Websocket またはサーバー送信イベントを使用する場合、ブラウザークライアントはクエリ文字列にアクセストークンを送信します。 一般に、クエリ文字列を使用してアクセストークンを受け取ることは、標準の `Authorization` ヘッダーを使用する場合と同様に安全です。 クライアントとサーバー間のセキュリティで保護されたエンドツーエンド接続を確保するには、常に HTTPS を使用する必要があります。 多くの web サーバーでは、クエリ文字列を含め、各要求の URL がログに記録されます。 Url をログに記録すると、アクセストークンがログに記録される場合があります。 では、各要求の URL が既定でログに記録されます。これには、クエリ文字列が含まれます。 ASP.NET Core (例:
+Websocket またはサーバー送信イベントを使用する場合、ブラウザークライアントはクエリ文字列にアクセストークンを送信します。 一般に、クエリ文字列を使用してアクセストークンを受け取ることは、標準の `Authorization` ヘッダーを使用する場合と同様に安全です。 クライアントとサーバー間のセキュリティで保護されたエンドツーエンド接続を確保するには、常に HTTPS を使用する必要があります。 多くの web サーバーでは、クエリ文字列を含め、各要求の URL がログに記録されます。 Url をログに記録すると、アクセストークンがログに記録される場合があります。 では、各要求の URL が既定でログに記録されます。これには、クエリ文字列が含まれます。 ASP.NET Core 例:
 
 ```
 info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
@@ -117,7 +117,7 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
 
 ## <a name="exceptions"></a>例外
 
-例外メッセージは、通常、クライアントに公開されない機密データと見なされます。 既定では、SignalR は、ハブメソッドによってスローされた例外の詳細をクライアントに送信しません。 代わりに、エラーが発生したことを示す一般的なメッセージをクライアントが受信します。 クライアントへの例外メッセージの配信は、 [`EnableDetailedErrors`](xref:signalr/configuration#configure-server-options)を使用して (開発やテストなどで) オーバーライドできます。 例外メッセージは、実稼働アプリでクライアントに公開しないでください。
+例外メッセージは、通常、クライアントに公開されない機密データと見なされます。 既定では、SignalR は、ハブメソッドによってスローされた例外の詳細をクライアントに送信しません。 代わりに、エラーが発生したことを示す一般的なメッセージをクライアントが受信します。 クライアントへの例外メッセージの配信は、 [EnableDetailedErrors](xref:signalr/configuration#configure-server-options)を使用して (開発やテストなどで) オーバーライドできます。 例外メッセージは、実稼働アプリでクライアントに公開しないでください。
 
 ## <a name="buffer-management"></a>バッファー管理
 
@@ -131,7 +131,7 @@ SignalR は、接続ごとのバッファーを使用して、受信メッセー
 * クライアントは、サーバーが大きなメモリバッファーを割り当てる可能性があります。
 * 大きなバッファーをサーバーに割り当てると、同時接続の数が減少する可能性があります。
 
-受信メッセージと送信メッセージには制限があり、`MapHub`で構成された[`HttpConnectionDispatcherOptions`](xref:signalr/configuration#configure-server-options)オブジェクトで両方を構成できます。
+受信メッセージと送信メッセージには制限があり、どちらも `MapHub`で構成された[HttpConnectionDispatcherOptions](xref:signalr/configuration#configure-server-options)オブジェクトで構成できます。
 
 * `ApplicationMaxBufferSize` は、サーバーがバッファーするクライアントからの最大バイト数を表します。 クライアントがこの制限を超えるメッセージを送信しようとすると、接続が閉じられる場合があります。
 * `TransportMaxBufferSize` は、サーバーが送信できる最大バイト数を表します。 サーバーがこの制限を超えるメッセージ (ハブメソッドからの戻り値を含む) を送信しようとすると、例外がスローされます。

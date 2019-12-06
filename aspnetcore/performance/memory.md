@@ -4,20 +4,20 @@ author: rick-anderson
 description: ASP.NET Core でのメモリの管理方法とガベージコレクター (GC) の動作について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/05/2019
+ms.date: 12/05/2019
 uid: performance/memory
-ms.openlocfilehash: 4c25c069aa2a6088c0549d786ecdd487ab7b9ea5
-ms.sourcegitcommit: 4818385c3cfe0805e15138a2c1785b62deeaab90
+ms.openlocfilehash: 85e34c9faa31a1020a4200eb99003455ca435ec3
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/09/2019
-ms.locfileid: "73896943"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880947"
 ---
 # <a name="memory-management-and-garbage-collection-gc-in-aspnet-core"></a>ASP.NET Core のメモリ管理とガベージコレクション (GC)
 
 [Sébastien Ros](https://github.com/sebastienros)と[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-メモリ管理は、.NET などのマネージフレームワークでも複雑です。 メモリの問題を分析して理解することは困難な場合があります。 この記事は次のとおりです。
+メモリ管理は、.NET などのマネージフレームワークでも複雑です。 メモリの問題を分析して理解することは困難な場合があります。 この記事の内容:
 
 * 多くの*メモリリークが発生*し、GC が動作して*いない*問題が発生しました。 これらの問題のほとんどは、.NET Core でのメモリ消費のしくみを理解していないか、測定方法を理解していないことによって発生しました。
 * 問題のあるメモリ使用方法を示し、別のアプローチを提案します。
@@ -274,7 +274,7 @@ public int GetLOH1(int size)
 - [ResponseCaching/Streams/StreamUtilities .cs](https://github.com/aspnet/AspNetCore/blob/v3.0.0/src/Middleware/ResponseCaching/src/Streams/StreamUtilities.cs#L16)
 - [ResponseCaching/MemoryResponseCache](https://github.com/aspnet/ResponseCaching/blob/c1cb7576a0b86e32aec990c22df29c780af29ca5/src/Microsoft.AspNetCore.ResponseCaching/Internal/MemoryResponseCache.cs#L55)
 
-詳細については次を参照してください:
+詳細については、次のトピックを参照してください。
 
 * [大きなオブジェクトヒープが漏れています](https://devblogs.microsoft.com/dotnet/large-object-heap-uncovered-from-an-old-msdn-article/)
 * [大きなオブジェクトヒープ](/dotnet/standard/garbage-collection/large-object-heap)
@@ -351,7 +351,7 @@ public async Task<int> GetHttpClient2(string url)
 
 プールは、スレッド間で予約および解放できる事前に初期化されたオブジェクトのコレクションです。 プールでは、制限、事前定義されたサイズ、増加率などの割り当てルールを定義できます。
 
-NuGet パッケージの[Microsoft.Extensions.ObjectPool](https://www.nuget.org/packages/Microsoft.Extensions.ObjectPool/)には、このようなプールの管理に役立つクラスが含まれています。
+NuGet パッケージの[Microsoft extension. ObjectPool](https://www.nuget.org/packages/Microsoft.Extensions.ObjectPool/)には、このようなプールの管理に役立つクラスが含まれています。
 
 次の API エンドポイントは、各要求に対してランダムな数値を格納する `byte` バッファーをインスタンス化します。
 
@@ -373,7 +373,7 @@ NuGet パッケージの[Microsoft.Extensions.ObjectPool](https://www.nuget.org/
 
 前のグラフでは、ジェネレーション0のコレクションは1秒間に約1回発生します。
 
-前のコードは、 [`ArrayPool<T>`](xref:System.Buffers.ArrayPool`1)を使用して `byte` バッファーをプールすることによって最適化できます。 静的インスタンスは、要求間で再利用されます。
+上記のコードは、 [Arraypool\<t >](xref:System.Buffers.ArrayPool`1)を使用して `byte` バッファーをプールすることによって最適化できます。 静的インスタンスは、要求間で再利用されます。
 
 この方法の違いは、プールされたオブジェクトが API から返されることです。 ということは：
 

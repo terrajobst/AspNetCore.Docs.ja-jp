@@ -3,15 +3,15 @@ title: Web Api ASP.NET Core での Azure Active Directory B2C での認証
 author: camsoper
 description: ASP.NET Core Web API を使用した Azure Active Directory B2C の認証を設定する方法を説明します。 認証された web API と Postman をテストします。
 ms.author: casoper
-ms.date: 09/21/2018
+ms.date: 12/05/2019
 ms.custom: mvc, seodec18
 uid: security/authentication/azure-ad-b2c-webapi
-ms.openlocfilehash: c917a5130857165716bd801ac19dad0f53a7d214
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 0c7e8a1db924bdedf29468bf6b8cc17f03962c6d
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815378"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880741"
 ---
 # <a name="authentication-in-web-apis-with-azure-active-directory-b2c-in-aspnet-core"></a>Web Api ASP.NET Core での Azure Active Directory B2C での認証
 
@@ -19,7 +19,7 @@ ms.locfileid: "67815378"
 
 [Azure Active Directory B2C](/azure/active-directory-b2c/active-directory-b2c-overview) (Azure AD B2C) は、web およびモバイル アプリのクラウド id 管理ソリューションです。 サービスは、クラウドとオンプレミスでホストされているアプリの認証を提供します。 認証の種類は、個々 のアカウントに、ソーシャル ネットワーク アカウントを含めるし、エンタープライズ アカウントをフェデレーションします。 Azure AD B2C では、最小構成での多要素認証も提供します。
 
-Azure Active Directory (Azure AD) と Azure AD B2C は個別の製品を提供します。 Azure AD テナントは、組織を表し、Azure AD B2C テナントは証明書利用者アプリケーションで使用される id のコレクションを表します。 詳細についてを参照してください[Azure AD B2C:。よく寄せられる質問 (FAQ)](/azure/active-directory-b2c/active-directory-b2c-faqs)します。
+Azure Active Directory (Azure AD) と Azure AD B2C は個別の製品を提供します。 Azure AD テナントは、組織を表し、Azure AD B2C テナントは証明書利用者アプリケーションで使用される id のコレクションを表します。 詳細についてを参照してください。 [Azure AD B2C: よく寄せられる質問 (FAQ)](/azure/active-directory-b2c/active-directory-b2c-faqs)します。
 
 Web Api にユーザー インターフェイスがあるないため、中、Azure AD B2C のような場合は、セキュリティ トークン サービスにユーザーをリダイレクトすること。 代わりに、API では、呼び出し元のアプリは、Azure AD B2C でユーザーが既に認証されてからベアラー トークンを渡されます。 API は、直接ユーザーの介入なしトークンを検証します。
 
@@ -32,7 +32,7 @@ Web Api にユーザー インターフェイスがあるないため、中、Az
 > * Azure AD B2C テナントの動作を制御するポリシーを構成します。
 > * 、ログイン ダイアログを表示する web アプリをシミュレートするために Postman を使用しては、トークンを取得し、使用して、web API に対する要求をします。
 
-## <a name="prerequisites"></a>必須コンポーネント
+## <a name="prerequisites"></a>必要条件
 
 次に、このチュートリアルでは必須です。
 
@@ -54,18 +54,18 @@ Azure AD B2C テナントを作成[ドキュメント」の説明に従って](/
 
 次の値を使用します。
 
-| 設定                       | [値]               | メモ                                                                                  |
+| 設定                       | Value               | メモ                                                                                  |
 |-------------------------------|---------------------|----------------------------------------------------------------------------------------|
 | **Name**                      | *API {name}*        | 入力、**名前**コンシューマーに、アプリについて説明しているアプリ。                     |
-| **Web アプリを含める/web API** | [はい]                 |                                                                                        |
-| **暗黙的なフローを許可します。**       | [はい]                 |                                                                                        |
+| **Web アプリを含める/web API** | ○                 |                                                                                        |
+| **暗黙的なフローを許可します。**       | ○                 |                                                                                        |
 | **応答 URL**                 | `https://localhost` | 応答 Url とは、Azure AD B2C が、アプリが要求したトークンを返すエンドポイントです。 |
 | **アプリ ID URI**                | *api*               | URI は、物理アドレスに解決する必要があります。 それだけ、一意である必要があります。     |
 | **ネイティブ クライアントを含める**     | いいえ                  |                                                                                        |
 
 API は、登録後、テナント内のアプリと Api の一覧が表示されます。 既に登録済みの API を選択します。 選択、**コピー**アイコンの右側に、**アプリケーション ID**フィールドをクリップボードにコピーします。 選択**公開済みスコープ**の既定の確認と*user_impersonation*スコープが存在します。
 
-## <a name="create-an-aspnet-core-app-in-visual-studio"></a>Visual Studio で ASP.NET Core アプリを作成します。
+## <a name="create-an-aspnet-core-app-in-visual-studio"></a>Visual Studio での ASP.NET Core アプリの作成
 
 認証に Azure AD B2C テナントを使用する Visual Studio Web アプリケーション テンプレートを構成できます。
 
@@ -83,7 +83,7 @@ Visual Studio:
 
 5. 次の値をフォームに入力します。
 
-    | 設定                       | [値]                                                 |
+    | 設定                       | Value                                                 |
     |-------------------------------|-------------------------------------------------------|
     | **ドメイン名**               | *{B2C テナントのドメイン名}*                |
     | **アプリケーション ID**            | *{アプリケーション ID をクリップボードから貼り付ける}*       |
@@ -91,7 +91,7 @@ Visual Studio:
 
     選択**OK**を閉じる、**認証の変更**ダイアログ。 選択**OK** web アプリを作成します。
 
-Visual Studio では、web API をによりという名前のコント ローラーと*ValuesController.cs*を返す GET 要求の値をハードコーディングします。 クラスがで修飾された、 [Authorize 属性](xref:security/authorization/simple)ので、すべての要求が認証を必要とします。
+Visual Studio では、web API をによりという名前のコント ローラーと*ValuesController.cs*を返す GET 要求の値をハードコーディングします。 クラスは、[承認](xref:security/authorization/simple)属性でマークされるため、すべての要求に認証が必要です。
 
 ## <a name="run-the-web-api"></a>Web API を実行します。
 
@@ -110,11 +110,11 @@ Postman は、Azure AD B2C テナントからトークンを取得する web ア
 
 次の値を使用します。
 
-| 設定                       | [値]                            | メモ                           |
+| 設定                       | Value                            | メモ                           |
 |-------------------------------|----------------------------------|---------------------------------|
 | **Name**                      | Postman                          |                                 |
-| **Web アプリを含める/web API** | [はい]                              |                                 |
-| **暗黙的なフローを許可します。**       | [はい]                              |                                 |
+| **Web アプリを含める/web API** | ○                              |                                 |
+| **暗黙的なフローを許可します。**       | ○                              |                                 |
 | **応答 URL**                 | `https://getpostman.com/postman` |                                 |
 | **アプリ ID URI**                | *{空白のままにしました*                  | このチュートリアルでは必要ありません。 |
 | **ネイティブ クライアントを含める**     | いいえ                               |                                 |
@@ -157,7 +157,7 @@ Web API に認証が必要であることを確認するには、まず認証を
     ![401 応答](./azure-ad-b2c-webapi/postman-401-status.png)
 
 > [!IMPORTANT]
-> 「ことが、すべての応答を取得できません」エラーが発生した場合で SSL 証明書の検証を無効にする必要があります、 [Postman 設定](https://learning.getpostman.com/docs/postman/launching_postman/settings)します。
+> "応答を取得できませんでした" というエラーが表示される場合は、 [Postman 設定](https://learning.getpostman.com/docs/postman/launching_postman/settings)で SSL 証明書の検証を無効にする必要がある場合があります。
 
 ### <a name="obtain-a-bearer-token"></a>ベアラー トークンを取得します。
 
@@ -169,19 +169,19 @@ Web API に認証された要求を作成するには、ベアラー トーク�
 
 2. 完了、**新しいアクセス トークンの取得**ダイアログ ボックスの次のとおりです。
 
-   |                設定                 |                                             [値]                                             |                                                                                                                                    メモ                                                                                                                                     |
+   |                設定                 |                                             Value                                             |                                                                                                                                    メモ                                                                                                                                     |
    |----------------------------------------|-----------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
    |      **トークン名**       |                                          *トークン {name}*                                       |                                                                                                                   トークンのわかりやすい名前を入力します。                                                                                                                    |
    |      **付与タイプ**       |                                           暗黙的                                            |                                                                                                                                                                                                                                                                              |
    |     **コールバック URL**      |                                 `https://getpostman.com/postman`                              |                                                                                                                                                                                                                                                                              |
-   |       **認証 URL**        | `https://login.microsoftonline.com/{tenant domain name}/oauth2/v2.0/authorize?p=B2C_1_SiUpIn` |  置換 *{テナント ドメイン名}* テナントのドメイン名を使用します。 **重要な**:この URL は、としてはあるものと同じドメイン名をいる必要があります`AzureAdB2C.Instance`で web API の*appsettings.json*ファイル。 注記&dagger;します。                                                  |
+   |       **認証 URL**        | `https://login.microsoftonline.com/{tenant domain name}/oauth2/v2.0/authorize?p=B2C_1_SiUpIn` |  置換 *{テナント ドメイン名}* テナントのドメイン名を使用します。 **重要な**: この URL は、としてはあるものと同じドメイン名をいる必要があります`AzureAdB2C.Instance`で web API の*appsettings.json*ファイル。 注記&dagger;します。                                                  |
    |       **クライアント ID**       |                *{Postman アプリの入力**アプリケーション ID**}*                              |                                                                                                                                                                                                                                                                              |
    |         **スコープ**         |         `https://{tenant domain name}/{api}/user_impersonation openid offline_access`       | 置換 *{テナント ドメイン名}* テナントのドメイン名を使用します。 置換 *{api}* アプリ ID URI を持つ指定した web API 最初に登録したときに (この場合、 `api`)。 URL のパターン:`https://{tenant}.onmicrosoft.com/{api-id-uri}/{scope name}`します。         |
    |         **状態**         |                                      *{空白のままにしました*                                          |                                                                                                                                                                                                                                                                              |
    | **クライアントの認証** |                                クライアントの資格情報の本文で送信します。                                |                                                                                                                                                                                                                                                                              |
 
     > [!NOTE]
-    > &dagger; Azure Active Directory B2C ポータルで、ポリシーの設定 ダイアログでは、2 つの可能な Url が表示されます。1 つの形式で`https://login.microsoftonline.com/`{テナント ドメイン名}/{追加パス情報}、およびその他の形式で`https://{tenant name}.b2clogin.com/`{テナント ドメイン名}/{追加パス情報}。 **重要な**内にあるドメインで`AzureAdB2C.Instance`で web API の*appsettings.json*ファイル構造で、web アプリの使用と一致する*appsettings.json*ファイル。 これは、Postman の [認証 URL] フィールドに使用する同じドメインです。 Visual Studio が、ポータルに表示される内容よりもわずかに異なる URL 形式を使用することに注意してください。 ドメインが一致する限り、URL は機能します。
+    > &dagger; Azure Active Directory B2C ポータルで、ポリシーの設定 ダイアログには、2 つの可能な Url が表示されます: 1 つの形式で`https://login.microsoftonline.com/`{テナント ドメイン名}/{追加パス情報} およびその他の形式で`https://{tenant name}.b2clogin.com/`{テナント ドメイン名}/{追加パス情報}。 **重要な**内にあるドメインで`AzureAdB2C.Instance`で web API の*appsettings.json*ファイル構造で、web アプリの使用と一致する*appsettings.json*ファイル。 これは、Postman の [認証 URL] フィールドに使用する同じドメインです。 Visual Studio が、ポータルに表示される内容よりもわずかに異なる URL 形式を使用することに注意してください。 ドメインが一致する限り、URL は機能します。
 
 3. 選択、**トークン要求**ボタンをクリックします。
 
@@ -197,7 +197,7 @@ Web API に認証された要求を作成するには、ベアラー トーク�
 
 ![ペイロードと成功状態](./azure-ad-b2c-webapi/postman-success.png)
 
-## <a name="next-steps"></a>次の手順
+## <a name="next-steps"></a>次のステップ:
 
 このチュートリアルでは、次の作業を行う方法を学びました。
 

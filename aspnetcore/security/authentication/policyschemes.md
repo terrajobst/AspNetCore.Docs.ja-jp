@@ -1,38 +1,38 @@
 ---
-title: ASP.NET Core でのポリシー設定
+title: ASP.NET Core のポリシースキーム
 author: rick-anderson
-description: ポリシーの認証スキーム容易に 1 つの論理認証方式を使用して
+description: 認証ポリシースキームを使用すると、単一の論理認証スキームを簡単に使用できるようになります。
 ms.author: riande
-ms.date: 02/28/2019
+ms.date: 12/05/2019
 uid: security/authentication/policyschemes
-ms.openlocfilehash: be03f349455c673b0739935ad20e596325c8cb74
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: f02d8e5cac20a9b60c5eddbd28253efacf682ea1
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815283"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880718"
 ---
-# <a name="policy-schemes-in-aspnet-core"></a>ASP.NET Core でのポリシー設定
+# <a name="policy-schemes-in-aspnet-core"></a>ASP.NET Core のポリシースキーム
 
-ポリシーの認証スキームでは、複数のアプローチを使用して、可能性のある 1 つの論理認証方式を使用してやすいようにします。 たとえば、ポリシー スキーム可能性がありますの課題、Google の認証と認証を使用 cookie 以外のすべての。 ポリシーの認証スキームを使用すると、そのように。
+認証ポリシースキームを使用すると、単一の論理認証スキームを使用して、複数の方法を使用することが容易になります。 たとえば、ポリシースキームは、問題には Google 認証を使用し、それ以外の場合は cookie 認証を使用します。 認証ポリシーのスキームによって次のようになります。
 
-* 簡単に認証操作を別の構成を転送します。
+* 任意の認証アクションを別のスキームに簡単に転送できます。
 * 要求に基づいて動的に転送します。
 
-使用して派生したすべての認証スキーム<xref:Microsoft.AspNetCore.Authentication.AuthenticationSchemeOptions>および関連付けられた[ `AuthenticationHandler<TOptions>` ](/dotnet/api/microsoft.aspnetcore.authentication.authenticationhandler-1):
+派生 <xref:Microsoft.AspNetCore.Authentication.AuthenticationSchemeOptions> を使用するすべての認証方式と、関連付けられている[Authenticationhandler\<TOptions >](/dotnet/api/microsoft.aspnetcore.authentication.authenticationhandler-1):
 
-* ASP.NET Core 2.1 以降のポリシー設定は自動的に。
-* スキームのオプションの構成を使用して有効にすることができます。
+* は、2.1 以降の ASP.NET Core で自動的にポリシースキームになります。
+* は、スキームのオプションを構成することによって有効にすることができます。
 
 [!code-csharp[sample](policyschemes/samples/AuthenticationSchemeOptions.cs?name=snippet)]
 
 ## <a name="examples"></a>使用例
 
-次の例では、下位レベルのスキームを組み合わせてより高いレベルの体系を示します。 課題、Google 認証を使用して、他のすべての cookie 認証を使用します。
+次の例は、下位レベルのスキームを結合する上位のスキームを示しています。 Google 認証はチャレンジに使用され、その他のすべてに cookie 認証が使用されます。
 
 [!code-csharp[sample](policyschemes/samples/Startup.cs?name=snippet1)]
 
-次の例で、要求ごとにパターンを動的に選択します。 つまり、cookie、および API の認証を混在させる方法。
+次の例では、要求ごとにスキームを動的に選択できます。 つまり、cookie と API 認証を混在させる方法は次のようになります。
 
  <!-- REVIEW, missing If set in public Func<HttpContext, string> ForwardDefaultSelector -->
 

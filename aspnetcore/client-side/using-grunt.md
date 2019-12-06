@@ -1,62 +1,62 @@
 ---
-title: ASP.NET Core で Grunt を使用します。
+title: ASP.NET Core での Grunt の使用
 author: rick-anderson
-description: ASP.NET Core で Grunt を使用します。
+description: ASP.NET Core での Grunt の使用
 ms.author: riande
-ms.date: 06/18/2019
+ms.date: 12/05/2019
 uid: client-side/using-grunt
-ms.openlocfilehash: f3832bd1fe5721fbda114103ac11a8d55312bcb2
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: e516b85da7e94d0c93be642086fede0a11fea3c2
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67813557"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74879790"
 ---
-# <a name="use-grunt-in-aspnet-core"></a>ASP.NET Core で Grunt を使用します。
+# <a name="use-grunt-in-aspnet-core"></a>ASP.NET Core での Grunt の使用
 
-Grunt は、スクリプトの縮小、TypeScript コンパイル、コード品質"lint"ツール、CSS プリプロセッサ クライアント開発をサポートするために行う必要がある繰り返し、作業だけを自動化する JavaScript タスク ランナーです。 Grunt は、Visual Studio で完全にサポートします。
+Grunt は、スクリプトの縮小、TypeScript のコンパイル、コード品質の "糸くず" ツール、CSS プリプロセッサ、およびクライアント開発をサポートするために必要な反復的な作業を自動化する JavaScript タスクランナーです。 Grunt は、Visual Studio で完全にサポートされています。
 
-この例では、開始位置として空の ASP.NET Core プロジェクトを使用して、最初からクライアントのビルド プロセスを自動化する方法について説明します。
+この例では、空の ASP.NET Core プロジェクトを開始点として使用して、クライアントのビルドプロセスをゼロから自動化する方法を示します。
 
-完成した例では、ターゲットの配置ディレクトリを消去します、JavaScript ファイルを組み合わせて、コードの品質を確認します、JavaScript ファイルの内容でまとめますおよび web アプリケーションのルートにデプロイします。 次のパッケージを使用します。
+完成した例では、ターゲットの配置ディレクトリを消去し、JavaScript ファイルを結合し、コードの品質を確認し、JavaScript ファイルの内容をでは、して、web アプリケーションのルートにデプロイします。 次のパッケージを使用します。
 
-* **grunt**:Grunt タスク ランナー パッケージです。
+* **grunt**: grunt task ランナーパッケージ。
 
-* **grunt-contrib-clean**:ファイルまたはディレクトリを削除するプラグイン。
+* **grunt-contrib**: ファイルまたはディレクトリを削除するプラグインです。
 
-* **grunt-contrib-jshint**:JavaScript コードの品質をレビューするプラグイン。
+* **grunt-contrib-jshint**: JavaScript コードの品質をレビューするプラグイン。
 
-* **grunt-contrib-concat**:ファイルを 1 つのファイルに結合するプラグイン。
+* **grunt-contrib**: 1 つのファイルにファイルを結合するプラグインです。
 
-* **grunt contrib uglify**:サイズを小さく JavaScript の縮小をプラグインします。
+* **grunt-contrib-uglify**: サイズを小さくするために JavaScript を縮小するプラグイン。
 
-* **grunt の contrib-ウォッチ**:ファイルのアクティビティを監視するプラグイン。
+* **grunt-contrib**: ファイルアクティビティを監視するプラグイン。
 
-## <a name="preparing-the-application"></a>アプリケーションを準備します。
+## <a name="preparing-the-application"></a>アプリケーションの準備
 
-まず、新しい空の web アプリケーションをセットアップし、TypeScript ファイルの例を追加します。 TypeScript ファイルが自動的に既定の Visual Studio の設定を使用して JavaScript にコンパイルし、Grunt を使用して処理する材料になります。
+最初に、空の新しい web アプリケーションをセットアップし、TypeScript サンプルファイルを追加します。 TypeScript ファイルは、既定の Visual Studio 設定を使用して JavaScript に自動的にコンパイルされ、Grunt を使用して処理する未加工の素材になります。
 
-1. Visual Studio で、作成、新しい`ASP.NET Web Application`します。
+1. Visual Studio で、新しい `ASP.NET Web Application`を作成します。
 
-2. **新しい ASP.NET プロジェクト**ダイアログ ボックスで、ASP.NET Core を選択します。**空**テンプレート、[ok] ボタンをクリックします。
+2. **[New ASP.NET Project]** ダイアログで、 **[Empty]** テンプレートを ASP.NET Core 選択し、[OK] をクリックします。
 
-3. ソリューション エクスプ ローラーで、プロジェクトの構造を確認します。 `\src`フォルダーには、空`wwwroot`と`Dependencies`ノード。
+3. ソリューションエクスプローラーで、プロジェクトの構造を確認します。 `\src` フォルダーには、空の `wwwroot` と `Dependencies` ノードが含まれています。
 
     ![空の web ソリューション](using-grunt/_static/grunt-solution-explorer.png)
 
-4. という名前の新しいフォルダーを追加`TypeScript`プロジェクト ディレクトリにします。
+4. `TypeScript` という名前の新しいフォルダーをプロジェクトディレクトリに追加します。
 
-5. すべてのファイルを追加する前に Visual Studio オプションになっていることを確認します 'コンパイル保存時に' の TypeScript ファイルをチェックします。 移動します**ツール** > **オプション** > **テキスト エディター** > **Typescript**  > **プロジェクト**:
+5. ファイルを追加する前に、Visual Studio で [TypeScript ファイル用にコンパイルする] オプションがオンになっていることを確認してください。 **ツール** > **オプション** > **テキストエディター** > **Typescript** > **プロジェクト** に移動します。
 
-    ![TypeScript ファイルの自動コンパイルの設定のオプション](using-grunt/_static/typescript-options.png)
+    ![TypeScript ファイルの自動コンパイルを設定するオプション](using-grunt/_static/typescript-options.png)
 
-6. 右クリックし、`TypeScript`ディレクトリを選択します**追加 > 新しい項目の**コンテキスト メニュー。 選択、 **JavaScript ファイル**項目し、ファイルの名前*Tastes.ts* (注、 \*.ts 拡張機能)。 TypeScript コードの下の行をファイルにコピー (を保存すると、新しい*Tastes.js* JavaScript ソース ファイルが表示されます)。
+6. `TypeScript` ディレクトリを右クリックし、コンテキストメニューの **[新しい項目の追加 >]** をクリックします。 **[JavaScript ファイル]** 項目を選択し、ファイルに「 *ts* 」という名前を指定します (\*に注意してください)。 次の TypeScript コード行をファイルにコピーします (保存すると、新しいユーザーの *.js*ファイルが JavaScript ソースと共に表示されます)。
 
     ```typescript
     enum Tastes { Sweet, Sour, Salty, Bitter }
     ```
 
-7. 2 番目のファイルを追加、 **TypeScript**ディレクトリと名前を付けます`Food.ts`します。 ファイルに次のコードをコピーします。
+7. **TypeScript**ディレクトリに2番目のファイルを追加し、`Food.ts`という名前を指定します。 次のコードをファイルにコピーします。
 
     ```typescript
     class Food {
@@ -85,18 +85,18 @@ Grunt は、スクリプトの縮小、TypeScript コンパイル、コード品
 
 ## <a name="configuring-npm"></a>NPM の構成
 
-次に、grunt、および grunt タスクをダウンロードする NPM を構成します。
+次に、NPM を構成して grunt と grunt をダウンロードします。
 
-1. ソリューション エクスプ ローラーでプロジェクトを右クリックし、選択**追加 > 新しい項目の**コンテキスト メニュー。 選択、 **NPM 構成ファイル**項目で、既定の名前をそのまま使用*package.json*、 をクリックし、**追加**ボタンをクリックします。
+1. ソリューションエクスプローラーで、プロジェクトを右クリックし、コンテキストメニューの **[新しい項目の追加 >]** をクリックします。 **[Npm 構成ファイル]** 項目を選択し、既定の名前の [ *package. json*] をそのまま使用して、 **[追加]** ボタンをクリックします。
 
-2. *Package.json*ファイル内、`devDependencies`中かっこをオブジェクトに、"grunt"を入力します。 選択`grunt`Intellisense を一覧から、Enter キーを押します。 Visual Studio は grunt パッケージ名を引用符で囲むし、コロンを追加します。 コロンの右側に、Intellisense リストの先頭から、パッケージの最新の安定バージョンを選択します。 (キーを押して`Ctrl-Space`Intellisense が表示されない場合)。
+2. パッケージの*json*ファイルの `devDependencies` 中かっこの中に「grunt」と入力します。 Intellisense の一覧から [`grunt`] を選択し、Enter キーを押します。 Visual Studio は、grunt パッケージ名を引用し、コロンを追加します。 コロンの右側で、Intellisense の一覧の一番上にある最新の安定したバージョンのパッケージを選択します (Intellisense が表示されない場合は `Ctrl-Space` キーを押します)。
 
-    ![grunt の Intellisense](using-grunt/_static/devdependencies-grunt.png)
+    ![grunt Intellisense](using-grunt/_static/devdependencies-grunt.png)
 
     > [!NOTE]
-    > NPM を使用して[セマンティック バージョニング](https://semver.org/)依存関係を整理します。 セマンティック バージョニング、SemVer とも呼ばれる、パッケージを識別する番号付けスキームで\<メジャー >.\<マイナー >。\<パッチ >。 Intellisense は、いくつかの一般的な選択肢のみを表示することによって、セマンティック バージョン管理を簡略化します。 Intellisense の一覧 (上記の例では 0.4.5) の一番上の項目は、パッケージの最新の安定バージョンと見なされます。 キャレット (^) 記号が最新のメジャー バージョンと一致して、一致する最新のマイナー バージョンをティルダ (~)。 参照してください、 [NPM semver バージョン パーサー参照](https://www.npmjs.com/package/semver)SemVer を提供する完全な表現へのガイドとして。
+    > NPM は、[セマンティックバージョン管理](https://semver.org/)を使用して依存関係を整理します。 セマンティックバージョン管理は、SemVer とも呼ばれ、\<メジャー > の番号付けスキームを持つパッケージを識別します。マイナー > を\<します。修正プログラムの > を\<します。 Intellisense は、いくつかの一般的な選択肢だけを表示することで、セマンティックバージョン管理を簡略化します。 Intellisense リストの一番上の項目 (上の例では 0.4.5) は、パッケージの最新の安定したバージョンと見なされます。 キャレット (^) 記号は最新のメジャーバージョンと一致し、チルダ (~) は最新のマイナーバージョンと一致します。 SemVer が提供する完全な表現性のガイドとして、 [Npm の semver バージョンパーサーのリファレンス](https://www.npmjs.com/package/semver)を参照してください。
 
-3. 依存関係の詳細を読み込む grunt の追加-contrib -\*のパッケージ*クリーン*、 *jshint*、 *concat*、 *uglify*、および*ウォッチ*次の例で示すようにします。 バージョンは、例では、一致する必要はありません。
+3. 次の例に示すように、 *clean*、 *jshint*、 *concat*、 *uglify*、 *watch*の場合は、load grunt-contrib-\* パッケージに依存関係を追加します。 これらのバージョンは、例と一致している必要はありません。
 
     ```json
     "devDependencies": {
@@ -109,24 +109,24 @@ Grunt は、スクリプトの縮小、TypeScript コンパイル、コード品
     }
     ```
 
-4. 保存、 *package.json*ファイル。
+4. パッケージの*json*ファイルを保存します。
 
-各パッケージ`devDependencies`項目は、各パッケージに必要なすべてのファイルと共にダウンロードされます。 内のパッケージ ファイルを見つけることができます、 *node_modules*を有効にするディレクトリ、 **すべてのファイル**ボタン**ソリューション エクスプ ローラー**します。
+各 `devDependencies` 項目のパッケージは、各パッケージに必要なすべてのファイルと共にダウンロードされます。 **ソリューションエクスプローラー**の **[すべてのファイルを表示]** ボタンを有効にすることで、 *node_modules*ディレクトリにパッケージファイルを見つけることができます。
 
 ![grunt node_modules](using-grunt/_static/node-modules.png)
 
 > [!NOTE]
-> 内の依存関係を手動で復元する場合は、**ソリューション エクスプ ローラー**を右クリックして`Dependencies\NPM`を選択して、**パッケージの復元**メニュー オプション。
+> 必要に応じて、`Dependencies\NPM` を右クリックして **[パッケージの復元]** メニューオプションを選択することにより、**ソリューションエクスプローラー**の依存関係を手動で復元できます。
 
-![パッケージを復元します。](using-grunt/_static/restore-packages.png)
+![パッケージの復元](using-grunt/_static/restore-packages.png)
 
 ## <a name="configuring-grunt"></a>Grunt の構成
 
-Grunt がという名前のマニフェストで構成されている*Gruntfile.js*定義の読み込みし、登録を手動で実行または Visual Studio でのイベントに基づいて自動的に実行するように構成できるタスクです。
+Grunt は、 *Gruntfile*という名前のマニフェストを使用して構成されます。このマニフェストでは、手動で実行するか、Visual Studio のイベントに基づいて自動的に実行するように構成されたタスクを、読み込んで登録することができます。
 
-1. プロジェクトを右クリックして**追加** > **新しい項目の**します。 選択、 **JavaScript ファイル**項目テンプレート、名を変更して*Gruntfile.js*、 をクリックし、**追加**ボタンをクリックします。
+1. プロジェクトを右クリックし、[**新しい項目**の**追加** > ] を選択します。 **JavaScript ファイル**項目テンプレートを選択し、名前を*Gruntfile*に変更して、 **[追加]** ボタンをクリックします。
 
-1. 次のコードを追加*Gruntfile.js*します。 `initConfig`関数は、各パッケージのオプションを設定し、残りの部分が読み込みをタスクを登録します。
+1. *Gruntfile*に次のコードを追加します。 `initConfig` 関数は、各パッケージのオプションを設定し、モジュールの残りの部分でタスクを読み込んで登録します。
 
    ```javascript
    module.exports = function (grunt) {
@@ -135,7 +135,7 @@ Grunt がという名前のマニフェストで構成されている*Gruntfile.
    };
    ```
 
-1. 内で、`initConfig`関数を追加するためのオプション、`clean`タスクの例で示すように*Gruntfile.js*以下。 `clean`タスクは、ディレクトリの文字列の配列を受け取ります。 このタスクからファイルを削除します。 *wwwroot/lib*全体を削除します。 *temp/* ディレクトリ。
+1. `initConfig` 関数内で、次の例の*Gruntfile*に示すように、`clean` タスクのオプションを追加します。 `clean` タスクは、ディレクトリ文字列の配列を受け入れます。 このタスクは、 *wwwroot/lib*からファイルを削除し、 */temp*ディレクトリ全体を削除します。
 
     ```javascript
     module.exports = function (grunt) {
@@ -145,34 +145,34 @@ Grunt がという名前のマニフェストで構成されている*Gruntfile.
     };
     ```
 
-1. 以下、`initConfig`関数を呼び出しを追加して`grunt.loadNpmTasks`します。 これにより、タスク実行可能な Visual Studio から。
+1. `initConfig` 関数の下に、`grunt.loadNpmTasks`への呼び出しを追加します。 これにより、タスクが Visual Studio から実行できるようになります。
 
     ```javascript
     grunt.loadNpmTasks("grunt-contrib-clean");
     ```
 
-1. 保存*Gruntfile.js*します。 ファイルの内容は次のスクリーン ショットのようになります。
+1. *Gruntfile*を保存します。 ファイルは次のスクリーンショットのようになります。
 
-    ![初期の gruntfile](using-grunt/_static/gruntfile-js-initial.png)
+    ![最初の gruntfile](using-grunt/_static/gruntfile-js-initial.png)
 
-1. 右クリック*Gruntfile.js*選択**Task Runner Explorer**コンテキスト メニュー。 **Task Runner Explorer**ウィンドウが開きます。
+1. *Gruntfile*を右クリックし、コンテキストメニューから **[タスクランナーエクスプローラー]** を選択します。 **[タスクランナーエクスプローラー]** ウィンドウが開きます。
 
-    ![タスク ランナー エクスプ ローラーのメニュー](using-grunt/_static/task-runner-explorer-menu.png)
+    ![タスクランナーエクスプローラーメニュー](using-grunt/_static/task-runner-explorer-menu.png)
 
-1. いることを確認`clean`下に表示される**タスク**で、 **Task Runner Explorer**します。
+1. **タスクランナーエクスプローラー**の **[タスク]** の下に `clean` が表示されていることを確認します。
 
-    ![タスク ランナー エクスプ ローラーのタスク一覧](using-grunt/_static/task-runner-explorer-tasks.png)
+    ![タスクランナーエクスプローラーのタスク一覧](using-grunt/_static/task-runner-explorer-tasks.png)
 
-1. Clean タスクを右クリックして**実行**コンテキスト メニュー。 コマンド ウィンドウには、タスクの進行状況が表示されます。
+1. クリーンタスクを右クリックし、コンテキストメニューから **[実行]** を選択します。 コマンドウィンドウには、タスクの進行状況が表示されます。
 
-    ![タスク ランナー エクスプ ローラーの実行クリーン タスク](using-grunt/_static/task-runner-explorer-run-clean.png)
+    ![タスクランナーエクスプローラーのクリーンタスクの実行](using-grunt/_static/task-runner-explorer-run-clean.png)
 
     > [!NOTE]
-    > まだをクリーンアップするファイルまたはディレクトリはありません。 必要に応じて、ソリューション エクスプ ローラーでそれらを手動で作成し、テストとして clean タスクを実行できます。
+    > クリーンアップするファイルまたはディレクトリがありません。 必要に応じて、ソリューションエクスプローラーで手動で作成してから、クリーンタスクをテストとして実行できます。
 
-1. `initConfig`のエントリを追加、関数`concat`次のコードを使用します。
+1. `initConfig` 関数で、次のコードを使用して `concat` のエントリを追加します。
 
-    `src`プロパティ配列を組み合わせる必要がありますの順序で結合します。 ファイルを一覧表示します。 `dest`プロパティが生成される結合されたファイルにパスを割り当てます。
+    `src` プロパティの配列は、結合するファイルを、結合する順序で一覧表示します。 `dest` プロパティは、生成された結合ファイルへのパスを割り当てます。
 
     ```javascript
     concat: {
@@ -184,11 +184,11 @@ Grunt がという名前のマニフェストで構成されている*Gruntfile.
     ```
 
     > [!NOTE]
-    > `all`上記のコードでプロパティは、ターゲットの名前。 ターゲットは、複数のビルド環境を許可するいくつかの Grunt タスクで使用されます。 IntelliSense を使用して組み込みのターゲットを表示または独自に割り当てることができます。
+    > 上記のコードの `all` プロパティは、ターゲットの名前です。 いくつかの Grunt タスクでターゲットを使用して、複数のビルド環境を許可します。 IntelliSense を使用して組み込みのターゲットを表示するか、独自のターゲットを割り当てることができます。
 
-1. 追加、`jshint`タスクの次のコードを使用します。
+1. 次のコードを使用して、`jshint` タスクを追加します。
 
-    Jshint`code-quality`で見つかったすべての JavaScript ファイルに対してユーティリティを実行、 *temp*ディレクトリ。
+    Jshint `code-quality` ユーティリティは、 *temp*ディレクトリにあるすべての JavaScript ファイルに対して実行されます。
 
     ```javascript
     jshint: {
@@ -200,9 +200,9 @@ Grunt がという名前のマニフェストで構成されている*Gruntfile.
     ```
 
     > [!NOTE]
-    > オプション"-W069"がエラー時に生成される jshint JavaScript はつまり、ドット表記ではなくプロパティを割り当てるの構文を角かっこ`Tastes["Sweet"]`の代わりに`Tastes.Sweet`します。 オプションは、他のプロセスの続行を許可する警告をオフにします。
+    > オプション "-W069" は、JavaScript が角かっこ構文を使用して `Tastes["Sweet"]`、`Tastes.Sweet`ではなく、ドット表記ではなくプロパティを割り当てるときに、jshint によって生成されるエラーです。 オプションは警告をオフにして、残りのプロセスを続行できるようにします。
 
-1. 追加、`uglify`タスクの次のコードを使用します。
+1. 次のコードを使用して、`uglify` タスクを追加します。
 
     タスクの縮小、 *combined.js* ファイルが、一時ディレクトリにあるし、標準の命名規則に従った wwwroot/lib で結果ファイルを作成 *\<ファイル名\>min.js* 。
 
@@ -215,7 +215,7 @@ Grunt がという名前のマニフェストで構成されている*Gruntfile.
     },
     ```
 
-1. 呼び出しの下`grunt.loadNpmTasks`を読み込む`grunt-contrib-clean`uglify の次のコードを使用して、jshint、concat の同じ呼び出しが含まれています。
+1. `grunt-contrib-clean`を読み込む `grunt.loadNpmTasks` の呼び出しの下で、次のコードを使用して、jshint、concat、および uglify に対して同じ呼び出しを含めます。
 
     ```javascript
     grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -223,36 +223,36 @@ Grunt がという名前のマニフェストで構成されている*Gruntfile.
     grunt.loadNpmTasks('grunt-contrib-uglify');
     ```
 
-1. 保存*Gruntfile.js*します。 ファイルの内容は次の例のようになります。
+1. *Gruntfile*を保存します。 ファイルは次の例のようになります。
 
-    ![grunt の完全なファイルの例](using-grunt/_static/gruntfile-js-complete.png)
+    ![完全な grunt ファイルの例](using-grunt/_static/gruntfile-js-complete.png)
 
-1. 注意、 **Task Runner Explorer**タスクの一覧が含まれます`clean`、 `concat`、`jshint`と`uglify`タスク。 順序で各タスクを実行してで結果を観察**ソリューション エクスプ ローラー**します。 各タスクは、エラーなく実行する必要があります。
+1. **タスクランナーエクスプローラー**のタスク一覧に、`clean`、`concat`、`jshint`、および `uglify` のタスクが含まれていることに注意してください。 各タスクを順番に実行し、**ソリューションエクスプローラー**の結果を確認します。 各タスクは、エラーなしで実行する必要があります。
 
-    ![タスク ランナー エクスプ ローラーの各タスクの実行](using-grunt/_static/task-runner-explorer-run-each-task.png)
+    ![タスクランナーエクスプローラーで各タスクを実行する](using-grunt/_static/task-runner-explorer-run-each-task.png)
 
-    Concat タスクを作成、新しい*combined.js*ファイルし、temp ディレクトリに配置します。 `jshint`単純にタスクを実行して出力を生成しません。 `uglify`タスクを作成する新しい*combined.min.js*ファイルおよび配置に*wwwroot/lib*します。 完了時に次のスクリーン ショットのようなもの、ソリューションはなります。
+    Concat タスクは、新しい*組み合わせの .js*ファイルを作成して temp ディレクトリに配置します。 `jshint` タスクは単に実行するだけで、出力は生成されません。 `uglify` タスクでは、新しい*組み合わせの .js*ファイルを作成し、 *wwwroot/lib*に配置します。 完了すると、ソリューションは次のスクリーンショットのようになります。
 
-    ![ソリューション エクスプ ローラーのすべてのタスクします。](using-grunt/_static/solution-explorer-after-all-tasks.png)
+    ![すべてのタスクの後のソリューションエクスプローラー](using-grunt/_static/solution-explorer-after-all-tasks.png)
 
     > [!NOTE]
-    > 各パッケージのオプションの詳細については、次を参照してください。 [ https://www.npmjs.com/ ](https://www.npmjs.com/)と参照の検索ボックスに、メイン ページで、パッケージ名。 たとえば、すべてのパラメーターを説明するドキュメント リンクを取得する grunt contrib クリーン パッケージを検索できます。
+    > 各パッケージのオプションの詳細については、 [https://www.npmjs.com/](https://www.npmjs.com/)にアクセスし、メインページの [検索] ボックスでパッケージ名を参照してください。 たとえば、grunt-contrib パッケージを参照して、すべてのパラメーターを説明するドキュメントリンクを取得することができます。
 
-### <a name="all-together-now"></a>まとめ
+### <a name="all-together-now"></a>すべてをまとめる
 
-Grunt を使用して、`registerTask()`メソッドを特定のシーケンスで一連のタスクを実行します。 たとえば、クリーンの順序で上記の手順 -> の例を実行する concat]-> [jshint]-> [uglify、モジュールに次のコードを追加します。 InitConfig 以外、loadNpmTasks() 呼び出しと同じレベルには、コードを追加する必要があります。
+Grunt `registerTask()` メソッドを使用して、一連のタスクを特定のシーケンスで実行します。 たとえば、上記の手順の例を > concat-> jshint-> uglify の順序で実行するには、モジュールに以下のコードを追加します。 このコードは、initConfig 以外の loadNpmTasks () 呼び出しと同じレベルに追加する必要があります。
 
 ```javascript
 grunt.registerTask("all", ['clean', 'concat', 'jshint', 'uglify']);
 ```
 
-エイリアス タスク Task Runner Explorer に新しいタスクが表示されます。 右クリックし、その他のタスクと同様に実行できます。 `all`タスクが実行`clean`、 `concat`、`jshint`と`uglify`の順序で。
+新しいタスクは、タスクランナーエクスプローラーの [エイリアスタスク] の下に表示されます。 他のタスクと同様に、右クリックして実行できます。 `all` タスクは、`clean`、`concat`、`jshint` および `uglify`を順番に実行します。
 
-![エイリアスの grunt タスク](using-grunt/_static/alias-tasks.png)
+![エイリアス grunt タスク](using-grunt/_static/alias-tasks.png)
 
 ## <a name="watching-for-changes"></a>変更の監視
 
-A`watch`タスク保持ファイルとディレクトリを監視します。 ウォッチは変更を検出した場合、タスクを自動的にトリガーされます。 InitConfig への変更を監視するに次のコードを追加\*TypeScript ディレクトリ内の .js ファイル。 JavaScript ファイルが変更された場合`watch`実行は、`all`タスク。
+`watch` タスクは、ファイルとディレクトリを監視します。 ウォッチは、変更が検出された場合に自動的にタスクをトリガーします。 次のコードを initConfig に追加して、TypeScript ディレクトリ内の \*.js ファイルに対する変更を監視します。 JavaScript ファイルが変更された場合、`watch` は `all` タスクを実行します。
 
 ```javascript
 watch: {
@@ -261,26 +261,26 @@ watch: {
 }
 ```
 
-呼び出しを追加して`loadNpmTasks()`を表示する、`watch`タスク ランナー エクスプ ローラーで作業します。
+タスクランナーエクスプローラーで `watch` タスクを表示するには `loadNpmTasks()` の呼び出しを追加します。
 
 ```javascript
 grunt.loadNpmTasks('grunt-contrib-watch');
 ```
 
-Task Runner Explorer で監視タスクを右クリックし、コンテキスト メニューから実行を選択します。 「待機しています...」が実行中の監視タスクを表示するコマンド ウィンドウに表示されます。メッセージ。 TypeScript ファイルのいずれかを開き、スペースを追加し、ファイルを保存します。 監視タスクのトリガーを順番に実行するその他のタスクをトリガーします。 次のスクリーン ショットは、サンプルの実行を示しています。
+タスクランナーエクスプローラーで [ウォッチ] タスクを右クリックし、コンテキストメニューから [実行] を選択します。 実行中のウォッチタスクを表示するコマンドウィンドウには、"待機中..." と表示されます。メッセージ。 TypeScript ファイルの1つを開き、スペースを追加して、ファイルを保存します。 これにより、ウォッチタスクがトリガーされ、他のタスクが順番に実行されます。 次のスクリーンショットは、サンプルの実行を示しています。
 
-![タスク出力を実行しています。](using-grunt/_static/watch-running.png)
+![実行中のタスクの出力](using-grunt/_static/watch-running.png)
 
 ## <a name="binding-to-visual-studio-events"></a>Visual Studio イベントへのバインド
 
-タスクをバインドするには Visual Studio で作業するたびに、タスクを手動で開始する場合を除き、 **Before Build**、**後にビルド**、**クリーン**、および**プロジェクトのオープン**イベント。
+Visual Studio で作業するたびに手動でタスクを開始する場合を除き、**ビルド**、ビルド、**クリーン**、および**プロジェクトオープン**イベントの**後**にタスクをバインドします。
 
-バインドしてみます`watch`が Visual Studio を開くたびに実行されるようにします。 タスク ランナー エクスプ ローラーでは、監視タスクを右クリックして**バインド > プロジェクトを開く**コンテキスト メニュー。
+`watch` バインドして、Visual Studio が開くたびに実行されるようにします。 タスクランナーエクスプローラーで、ウォッチタスクを右クリックし、コンテキストメニューから [**バインド** > **プロジェクトを開く**] を選択します。
 
-![プロジェクトを開くタスクにバインドします。](using-grunt/_static/bindings-project-open.png)
+![開いているプロジェクトにタスクをバインドする](using-grunt/_static/bindings-project-open.png)
 
-アンロードし、プロジェクトの再読み込みします。 プロジェクトが再度読み込まれると、自動的に実行する監視タスクが開始されます。
+プロジェクトをアンロードして再読み込みします。 プロジェクトが再度読み込まれると、ウォッチタスクが自動的に実行を開始します。
 
-## <a name="summary"></a>まとめ
+## <a name="summary"></a>要約
 
-Grunt は、ほとんどのクライアント ビルド タスクの自動化に使用できる強力なタスク ランナーです。 Grunt は、そのパッケージ、およびツールの Visual Studio との統合機能を提供する NPM を活用します。 Visual Studio のタスク ランナー エクスプ ローラーでは、構成ファイルへの変更を検出し、タスクの実行、実行中のタスクを表示、および Visual Studio のイベントにタスクを関連付けるに便利なインターフェイスを提供します。
+Grunt は、ほとんどのクライアントビルドタスクを自動化するために使用できる強力なタスクランナーです。 Grunt は、NPM を利用してパッケージを配信し、ツールを Visual Studio と統合します。 Visual Studio のタスクランナーエクスプローラーは、構成ファイルへの変更を検出し、タスクの実行、実行中のタスクの表示、および Visual Studio イベントへのタスクのバインドを行うための便利なインターフェイスを提供します。
