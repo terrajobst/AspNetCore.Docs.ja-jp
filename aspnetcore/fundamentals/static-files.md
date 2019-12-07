@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/07/2019
 uid: fundamentals/static-files
-ms.openlocfilehash: b989b90100318ac874dc399daf65ef7d21c5549f
-ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
+ms.openlocfilehash: 00bab51cb411552c884f85fa63d42d0691b401b1
+ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/07/2019
-ms.locfileid: "73799474"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74717274"
 ---
 # <a name="static-files-in-aspnet-core"></a>ASP.NET Core の静的ファイル
 
@@ -238,6 +238,10 @@ app.UseFileServer(enableDirectoryBrowsing: true);
 
 > [!WARNING]
 > [ServeUnknownFileTypes](/dotnet/api/microsoft.aspnetcore.builder.staticfileoptions.serveunknownfiletypes#Microsoft_AspNetCore_Builder_StaticFileOptions_ServeUnknownFileTypes) を有効にすると、セキュリティ上リスクとなります。 これは既定では無効で、使用は推奨されていません。 非標準の拡張子のファイルを提供する場合、より安全な代替となるのは、[FileExtensionContentTypeProvider](#fileextensioncontenttypeprovider) です。
+
+## <a name="serve-files-from-multiple-locations"></a>複数の場所からファイルを提供する
+
+`UseStaticFiles` と `UseFileServer` の既定では、*wwwroot* をポイントするファイル プロバイダーが作成されます。 他のファイル プロバイダーを使用する `UseStaticFiles` および `UseFileServer` の追加インスタンスを作成して、他の場所からファイルを提供することができます。 詳細については、次を参照してください。[この GitHub の問題](https://github.com/aspnet/AspNetCore.Docs/issues/15578)します。
 
 ### <a name="considerations"></a>注意事項
 

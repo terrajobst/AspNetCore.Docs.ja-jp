@@ -5,14 +5,14 @@ description: アプリの起動と有効期間の管理を行う .NET Core 汎�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/15/2019
+ms.date: 12/02/2019
 uid: fundamentals/host/generic-host
-ms.openlocfilehash: f14917ad924e2c762a14c2cb5f51391d4be06e7b
-ms.sourcegitcommit: dd026eceee79e943bd6b4a37b144803b50617583
+ms.openlocfilehash: 2ed4af109b5ccd303a03a0d9167649dda7793126
+ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72378750"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74717023"
 ---
 # <a name="net-generic-host"></a>.NET での汎用ホスト
 
@@ -129,7 +129,7 @@ Entity Framework Core がアプリで使用されている場合は、`CreateHos
 
 `Microsoft.Extensions.Hosting.Internal.ConsoleLifetime` は、既定の `IHostLifetime` 実装です。 `ConsoleLifetime`:
 
-* Ctrl + C/SIGINT または SIGTERM をリッスンし、<xref:Microsoft.Extensions.Hosting.IApplicationLifetime.StopApplication*> を呼び出してシャットダウン プロセスを開始します。
+* Ctrl + C/SIGINT または SIGTERM をリッスンし、<xref:Microsoft.Extensions.Hosting.IHostApplicationLifetime.StopApplication*> を呼び出して、シャットダウン プロセスを開始します。
 * [RunAsync](#runasync) や [WaitForShutdownAsync](#waitforshutdownasync) などの拡張機能のブロックを解除します。
 
 ## <a name="ihostenvironment"></a>IHostEnvironment
@@ -140,9 +140,7 @@ Entity Framework Core がアプリで使用されている場合は、`CreateHos
 * [EnvironmentName](#environmentname)
 * [ContentRootPath](#contentrootpath)
 
-Web アプリでは `IWebHostEnvironment` インターフェイスが追加されます。こによって、`IHostEnvironment` が継承され、次が追加されます。
-
-* [WebRootPath](#webroot)
+Web アプリで `IWebHostEnvironment` インターフェイスを実装します。これにより、`IHostEnvironment` が継承され、[WebRootPath](#webroot) が追加されます。
 
 ## <a name="host-configuration"></a>ホストの構成
 
@@ -226,7 +224,7 @@ Host.CreateDefaultBuilder(args)
 
 [HostOptions.ShutdownTimeout](xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*) では、<xref:Microsoft.Extensions.Hosting.IHost.StopAsync*> のタイムアウトが設定されます。 既定値は 5 秒です。  タイムアウト期間中、ホストでは次のことが行われます。
 
-* [IHostApplicationLifetime.ApplicationStopping](/dotnet/api/microsoft.aspnetcore.hosting.iapplicationlifetime.applicationstopping) をトリガーします。
+* [IHostApplicationLifetime.ApplicationStopping](/dotnet/api/microsoft.aspnetcore.hosting.ihostapplicationlifetime.applicationstopping) をトリガーします。
 * ホステッド サービスの停止を試み、停止に失敗したサービスのエラーをログに記録します。
 
 すべてのホステッド サービスが停止する前にタイムアウト時間が切れた場合、残っているアクティブなサービスはアプリのシャットダウン時に停止します。 処理が完了していない場合でも、サービスは停止します。 サービスが停止するまでにさらに時間が必要な場合は、タイムアウト値を増やします。

@@ -3,14 +3,14 @@ title: ASP.NET Core の Razor 構文リファレンス
 author: rick-anderson
 description: Web ページにサーバー ベースのコードを埋め込むための Razor マークアップの構文について説明します。
 ms.author: riande
-ms.date: 09/28/2019
+ms.date: 11/09/2019
 uid: mvc/views/razor
-ms.openlocfilehash: 6f8835419dbf4c271617f57484c3408e0af30617
-ms.sourcegitcommit: f62014bb558ff6f8fdaef2e96cb05986e216aacd
+ms.openlocfilehash: dea1cd8986757b0bafab9ba9e8aa358a57a6b5eb
+ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/28/2019
-ms.locfileid: "71592323"
+ms.lasthandoff: 11/22/2019
+ms.locfileid: "74317404"
 ---
 # <a name="razor-syntax-reference-for-aspnet-core"></a>ASP.NET Core の Razor 構文リファレンス
 
@@ -676,7 +676,7 @@ Razor では、ビューに渡されるモデルにアクセスするための `
 
 `@page` ディレクティブには、それが表示されるファイルの型によって、さまざまな効果があります。 ディレクティブ:
 
-* *.cshtml* ファイルでは、ファイルが Razor Page であることを示します。 詳細については、<xref:razor-pages/index> を参照してください。
+* *.cshtml* ファイルでは、ファイルが Razor Page であることを示します。 詳細については、「[カスタム ルート](xref:razor-pages/index#custom-routes)」と「<xref:razor-pages/index>」を参照してください。
 * Razor コンポーネントで要求を直接処理することを指定します。 詳細については、<xref:blazor/routing> を参照してください。
 
 ::: moniker-end
@@ -721,11 +721,31 @@ Razor では、ビューに渡されるモデルにアクセスするための `
 
 コンポーネントのデータ バインドは、`@bind` 属性によって実現されます。 詳細については、<xref:blazor/components#data-binding> を参照してください。
 
-### <a name="onevent"></a>\@on{event}
+### <a name="onevent"></a>\@on{EVENT}
 
 "*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "
 
 Razor からは、コンポーネントのイベント処理機能が提供されます。 詳細については、<xref:blazor/components#event-handling> を参照してください。
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.1"
+
+### <a name="oneventpreventdefault"></a>\@on{EVENT}:preventDefault
+
+"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "
+
+イベントの既定のアクションを禁止します。
+
+### <a name="oneventstoppropagation"></a>\@on{EVENT}:stopPropagation
+
+"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "
+
+イベントのイベント伝達を停止します。
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
 
 ### <a name="key"></a>\@key
 

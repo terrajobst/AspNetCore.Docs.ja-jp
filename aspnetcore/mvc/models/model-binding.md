@@ -4,14 +4,14 @@ author: rick-anderson
 description: ASP.NET Core でのモデル バインドのしくみと、その動作のカスタマイズ方法について説明します。
 ms.assetid: 0be164aa-1d72-4192-bd6b-192c9c301164
 ms.author: riande
-ms.date: 11/15/2019
+ms.date: 11/21/2019
 uid: mvc/models/model-binding
-ms.openlocfilehash: a025419a5b4d2c2e3e5c5a7850df281ddd3164ea
-ms.sourcegitcommit: f91d322f790123d41ec3271fa084ae20ed9f89a6
+ms.openlocfilehash: a49fec38a6d38bbd33e9461cbcceb39bfe810f5c
+ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/18/2019
-ms.locfileid: "74155043"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74717287"
 ---
 # <a name="model-binding-in-aspnet-core"></a>ASP.NET Core でのモデル バインド
 
@@ -83,18 +83,18 @@ ASP.NET Core 2.1 以降で使用できます。  コントローラーまたは 
 
 既定では、モデル バインドでは HTTP 要求内の次のソースからキーと値のペアの形式でデータが取得されます。
 
-1. フォーム フィールド 
+1. フォーム フィールド
 1. 要求本文 ([[ApiController] 属性を持つコントローラー](xref:web-api/index#binding-source-parameter-inference) の場合)。
 1. ルート データ
 1. クエリ文字列のパラメーター
-1. アップロード済みのファイル 
+1. アップロード済みのファイル
 
-ターゲット パラメーターまたはプロパティごとに、この一覧に示されている順序でソースがスキャンされます。 次のようにいくつかの例外があります。
+ターゲット パラメーターまたはプロパティごとに、前述の一覧に示されている順序でソースがスキャンされます。 次のようにいくつかの例外があります。
 
 * ルート データとクエリ文字列の値は単純型にのみ使用されます。
 * アップロード済みのファイルは、`IFormFile` または `IEnumerable<IFormFile>` を実装するターゲットの種類にのみバインドされます。
 
-既定の動作によって正しい結果が得られない場合は、次のいずれかの属性を使用して、特定のターゲットに使用するソースを指定できます。 
+既定のソースが正しくない場合は、次のいずれかの属性を使用してソースを指定します。
 
 * [[FromQuery]](xref:Microsoft.AspNetCore.Mvc.FromQueryAttribute) - クエリ文字列から値を取得します。 
 * [[FromRoute]](xref:Microsoft.AspNetCore.Mvc.FromRouteAttribute) - ルート データから値を取得します。
@@ -114,9 +114,34 @@ ASP.NET Core 2.1 以降で使用できます。  コントローラーまたは 
 
 ### <a name="frombody-attribute"></a>[FromBody] 属性
 
-要求本文のデータは、要求のコンテンツの種類に固有の入力フォーマッタを使用して解析されます。 入力フォーマッタについては、[この記事で後ほど](#input-formatters)説明します。
+`[FromBody]` 属性をパラメーターに適用すると、HTTP 要求の本文からそのプロパティが設定されます。 ASP.NET Core ランタイムでは、本文を読み取る責任が入力フォーマッタに委任されます。 入力フォーマッタについては、[この記事で後ほど](#input-formatters)説明します。
 
-アクション メソッドごとに `[FromBody]` を複数のパラメーターに適用しないでください。 ASP.NET Core ランタイムでは、要求ストリームを読み取る責任が入力フォーマッタに委任されます。 要求ストリームがいったん読み取られると、他の `[FromBody]` パラメーターをバインドするためにそれを再度読み取ることはできません。
+`[FromBody]` を複合型パラメーターに適用すると、そのプロパティに適用されているバインディング ソース属性はいずれも無視されます。 たとえば、次の `Create` アクションでは、その `pet` パラメーターを本文から設定するように指定されています。
+
+```csharp
+public ActionResult<Pet> Create([FromBody] Pet pet)
+```
+
+`Pet` クラスでは、`Breed` プロパティをクエリ文字列パラメーターから設定するように指定されています。
+
+```csharp
+public class Pet
+{
+    public string Name { get; set; }
+
+    [FromQuery] // Attribute is ignored.
+    public string Breed { get; set; }
+}
+```
+
+前の例の場合:
+
+* `[FromQuery]` 属性は無視されます。
+* `Breed` プロパティは、クエリ文字列パラメーターから設定されません。 
+
+入力フォーマッタでは本文のみが読み取られ、バインディング ソース属性は認識されません。 本文内で適切な値が見つかった場合は、その値を使用して `Breed` プロパティが設定されます。
+
+アクション メソッドごとに `[FromBody]` を複数のパラメーターに適用しないでください。 入力フォーマッタによって要求ストリームが読み取られると、他の `[FromBody]` パラメーターをバインドするためにそれを再度読み取ることはできません。
 
 ### <a name="additional-sources"></a>その他のソース
 
@@ -355,6 +380,27 @@ public IActionResult OnPost([Bind("LastName,FirstMidName,HireDate")] Instructor 
 
   * selectedCourses["1050"]="Chemistry"
   * selectedCourses["2000"]="Economics"
+
+<a name="glob"></a>
+
+## <a name="globalization-behavior-of-model-binding-route-data-and-query-strings"></a>モデル バインド ルート データとクエリ文字列のグローバリゼーション動作
+
+ASP.NET Core ルート値プロバイダーとクエリ文字列値プロバイダーでは、次のことが行われます。
+
+* 値をインバリアント カルチャとして扱います。
+* URL はカルチャに依存しないものと想定します。
+
+これに対し、フォーム データからの値は、カルチャに依存した変換にかけられます。 URL がロケール間で共有可能なように、設計上そのようになっています。
+
+ASP.NET Core ルート値プロバイダーとクエリ文字列値プロバイダーでカルチャ依存の変換が行われるようにするには、次のようにします。
+
+* <xref:Microsoft.AspNetCore.Mvc.ModelBinding.IValueProviderFactory> から継承します
+* [QueryStringValueProviderFactory](https://github.com/aspnet/AspNetCore/blob/master/src/Mvc/Mvc.Core/src/ModelBinding/QueryStringValueProviderFactory.cs) または [RouteValueValueProviderFactory](https://github.com/aspnet/AspNetCore/blob/master/src/Mvc/Mvc.Core/src/ModelBinding/RouteValueProviderFactory.cs) からコードをコピーします。
+* 値プロバイダー コンストラクターに渡された[カルチャ値](https://github.com/aspnet/AspNetCore/blob/e625fe29b049c60242e8048b4ea743cca65aa7b5/src/Mvc/Mvc.Core/src/ModelBinding/QueryStringValueProviderFactory.cs#L30)を [CultureInfo.CurrentCulture](xref:System.Globalization.CultureInfo.CurrentCulture) に置き換えます。
+* MVC オプション内の既定値プロバイダー ファクトリを、新しいものに置き換えます。
+
+[!code-csharp[](model-binding/samples/StartupMB.cs?name=snippet)]
+[!code-csharp[](model-binding/samples/StartupMB.cs?name=snippet1)]
 
 ## <a name="special-data-types"></a>特別なデータ型
 

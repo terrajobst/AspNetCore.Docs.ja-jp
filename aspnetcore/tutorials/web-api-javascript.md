@@ -4,14 +4,14 @@ author: rick-anderson
 description: JavaScript を使用して ASP.NET Core Web API を呼び出す方法について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/27/2019
+ms.date: 11/26/2019
 uid: tutorials/web-api-javascript
-ms.openlocfilehash: 0070816149d64fc1d71d453eb0f135050c78597a
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 5a31aa2974eb41938db89f97c070c352a26290fd
+ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/13/2019
-ms.locfileid: "72378703"
+ms.lasthandoff: 12/02/2019
+ms.locfileid: "74681176"
 ---
 # <a name="tutorial-call-an-aspnet-core-web-api-with-javascript"></a>チュートリアル: JavaScript を使用して ASP.NET Core Web API を呼び出す
 
@@ -44,13 +44,15 @@ ASP.NET Core 2.2 の場合は、2.2 バージョンの「[JavaScript で Web API
 
     [!code-csharp[](first-web-api/samples/3.0/TodoApi/StartupJavaScript.cs?highlight=8-9&name=snippet_configure)]
 
-1. プロジェクト ルートに *wwwroot* ディレクトリを作成します。
+1. プロジェクト ルートに *wwwroot* フォルダーを作成します。
 
-1. *index.html* という名前の HTML ファイルを *wwwroot* ディレクトリに追加します。 その内容を次のマークアップに置き換えます。
+1. *wwwroot* フォルダー内に *js* フォルダーを作成します。
+
+1. *index.html* という名前の HTML ファイルを、*wwwroot* フォルダーに追加します。 *index.html* の内容を、次のマークアップに置き換えます。
 
     [!code-html[](first-web-api/samples/3.0/TodoApi/wwwroot/index.html)]
 
-1. *site.js* という名前の JavaScript ファイルを *wwwroot* ディレクトリに追加します。 その内容を次のコードに置き換えます。
+1. *site.js* という名前の JavaScript ファイルを、*wwwroot/js* フォルダーに追加します。 *site.js* の内容を、次のコードに置き換えます。
 
     [!code-javascript[](first-web-api/samples/3.0/TodoApi/wwwroot/js/site.js?name=snippet_SiteJs)]
 
@@ -75,9 +77,9 @@ Web API から正常状態コードが返されると、`_displayItems` 関数�
 
 * `item` 変数は、To Do アイテムのオブジェクト リテラル表現を構築するために宣言されています。
 * フェッチ要求は、次のオプションで構成されます。
-    * `method` &mdash; POST HTTP アクション動詞が指定されています。
-    * `body` &mdash; 要求本文の JSON 表現が指定されています。 JSON は、`item` に格納されているオブジェクト リテラルを [JSON.stringify](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) 関数に渡すことによって生成されます。
-    * `headers` &mdash; `Accept` および `Content-Type` の HTTP 要求ヘッダーが指定されています。 どちらのヘッダーも `application/json` に設定され、それぞれ、受信および送信されるメディアの種類が指定されています。
+  * `method` &mdash; POST HTTP アクション動詞が指定されています。
+  * `body` &mdash; 要求本文の JSON 表現が指定されています。 JSON は、`item` に格納されているオブジェクト リテラルを [JSON.stringify](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) 関数に渡すことによって生成されます。
+  * `headers` &mdash; `Accept` および `Content-Type` の HTTP 要求ヘッダーが指定されています。 どちらのヘッダーも `application/json` に設定され、それぞれ、受信および送信されるメディアの種類が指定されています。
 * HTTP POST 要求が *api/TodoItems* ルートに送信されます。
 
 [!code-javascript[](first-web-api/samples/3.0/TodoApi/wwwroot/js/site.js?name=snippet_AddItem)]

@@ -5,12 +5,12 @@ description: アプリケーションを読み、操作し、ASP.NET Core での
 ms.author: riande
 ms.date: 10/14/2016
 uid: mvc/controllers/application-model
-ms.openlocfilehash: f7f64c8b3a63ec66936772e724edb57037654059
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 4e264dc7cc63955df42df0b9eeeb7b82ae286241
+ms.sourcegitcommit: 169ea5116de729c803685725d96450a270bc55b7
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815506"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74733961"
 ---
 # <a name="work-with-the-application-model-in-aspnet-core"></a>ASP.NET Core のアプリケーション モデルの使用
 
@@ -71,7 +71,7 @@ ASP.NET Core MVC は、[IApplicationModelProvider](/dotnet/api/microsoft.aspnetc
 
 ## <a name="conventions"></a>規約
 
-このアプリケーション モデルでは、モデルまたはプロバイダー全体をオーバーライドするよりも簡単に、モデルの動作をカスタマイズできる、規則の抽象化を定義できます。 これらの抽象化は、アプリの動作の変更に推奨されます。 規則では、動的にカスタマイズすることが可能なコードを記述することができます。 [フィルター](xref:mvc/controllers/filters)では、フレームワークの動作を変更できるのに対して、カスタマイズではアプリ全体がどのように結合されるかを制御できます。
+このアプリケーション モデルでは、モデルまたはプロバイダー全体をオーバーライドするよりも簡単に、モデルの動作をカスタマイズできる、規則の抽象化を定義できます。 これらの抽象化は、アプリの動作の変更に推奨されます。 規則では、動的にカスタマイズすることが可能なコードを記述することができます。 [フィルター](xref:mvc/controllers/filters)では、フレームワークの動作を変更できるのに対して、カスタマイズではアプリ全体がどのように連携するかを制御できます。
 
 次の規則があります。
 

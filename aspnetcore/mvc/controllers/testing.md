@@ -7,32 +7,32 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/07/2019
 uid: mvc/controllers/testing
-ms.openlocfilehash: 7f4fcb1a5d6e9959c751ebe24e41b39ee05a5819
-ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
+ms.openlocfilehash: 449d8791962e4233d599f364b2e8c922f0975d2f
+ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/07/2019
-ms.locfileid: "73799502"
+ms.lasthandoff: 12/02/2019
+ms.locfileid: "74681098"
 ---
-# <a name="test-controller-logic-in-aspnet-core"></a>ASP.NET Core のコントローラーのロジックをテストする
+# <a name="unit-test-controller-logic-in-aspnet-core"></a>ASP.NET Core でコントローラーのロジックの単体テストを行う
 
 作成者: [Steve Smith](https://ardalis.com/)
 
 ::: moniker range=">= aspnetcore-3.0"
 
-[コントローラー](xref:mvc/controllers/actions)は、すべての ASP.NET Core MVC アプリで中心的な役割を担います。 そのため、コントローラーが意図するとおりに動作するという信頼が必要です。 自動テストによって、アプリが運用環境にデプロイされる前にエラーを検出できます。
-
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/testing/samples/)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
-
-## <a name="unit-tests-of-controller-logic"></a>コントローラー ロジックの単体テスト
-
 [単体テスト](/dotnet/articles/core/testing/unit-testing-with-dotnet-test)では、アプリの一部をインフラストラクチャや依存関係から切り離してテストすることが必要とされます。 コントローラー ロジックの単体テストを行うと、単一のアクションの内容のみがテストされ、その依存関係やフレームワーク自体の動作はテストされません。
+
+## <a name="unit-testing-controllers"></a>コントローラーの単体テスト
 
 コントローラーのアクションの単体テストは、コントローラーの動作に注目するように設定します。 コントローラーの単体テストでは、[フィルター](xref:mvc/controllers/filters)、[ルーティング](xref:fundamentals/routing)、[モデル バインド](xref:mvc/models/model-binding)などのシナリオは除外します。 まとまって要求に応答するコンポーネント間のインタラクションをカバーするテストは、*統合テスト*によって処理されます。 統合テストの詳細については、「<xref:test/integration-tests>」を参照してください。
 
 カスタム フィルターやルートを作成している場合は、コントローラーの特定のアクションに対するテストの一部としてではなく、単体テストを切り離して実行します。
 
-コントローラーの単体テストを理解するために、次のサンプル アプリ内のコントローラーを確認してください。 Home コントローラーは、ブレーンストーミング セッションの一覧を表示し、POST 要求で新しいブレーンストーミング セッションを作成できるようにします。
+コントローラーの単体テストを理解するために、次のサンプル アプリ内のコントローラーを確認してください。 
+
+[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/testing/samples/)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+
+Home コントローラーは、ブレーンストーミング セッションの一覧を表示し、POST 要求で新しいブレーンストーミング セッションを作成できるようにします。
 
 [!code-csharp[](testing/samples/3.x/TestingControllersSample/src/TestingControllersSample/Controllers/HomeController.cs?name=snippet_HomeController&highlight=1,5,10,31-32)]
 

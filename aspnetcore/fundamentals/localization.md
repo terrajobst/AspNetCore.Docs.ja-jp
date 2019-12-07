@@ -3,14 +3,14 @@ title: ASP.NET Core のグローバリゼーションおよびローカリゼー
 author: rick-anderson
 description: ASP.NET Core がコンテンツをさまざまな言語と文化にローカライズするために提供するサービスとミドルウェアについて説明します。
 ms.author: riande
-ms.date: 01/14/2017
+ms.date: 11/30/2019
 uid: fundamentals/localization
-ms.openlocfilehash: 36235e305037c0bbf20093327e2a0ff21b3de809
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 645f680436336acbe1d5c2854a242527c9b4b9cb
+ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963667"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74717404"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>ASP.NET Core のグローバリゼーションおよびローカリゼーション
 
@@ -276,7 +276,7 @@ Cookie の形式は `c=%LANGCODE%|uic=%LANGCODE%` です。ここで、`c` は `
 
 6. 言語をタップして、 **[上へ移動]** をタップします。
 
-::: moniker range=">= aspnetcore-3.0"
+::: moniker range=">= aspnetcore-3.1"
 ### <a name="the-content-language-http-header"></a>Content-Language HTTP ヘッダー
 
 [Content-Language](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Language) エンティティ ヘッダーは、
@@ -286,7 +286,7 @@ Cookie の形式は `c=%LANGCODE%|uic=%LANGCODE%` です。ここで、`c` は `
 
 エンティティ ヘッダーは、HTTP 要求と応答の両方で使用されます。
 
-ASP.NET Core 3.0 では、プロパティ `ApplyCurrentCultureToResponseHeaders` を設定することによって `Content-Language` ヘッダーを追加できます。
+プロパティ `ApplyCurrentCultureToResponseHeaders` を設定することによって `Content-Language` ヘッダーを追加できます。
 
 `Content-Language` ヘッダーを追加すると、
 
@@ -373,6 +373,10 @@ services.Configure<RequestLocalizationOptions>(options =>
 
 *_SelectLanguagePartial.cshtml* をこのプロジェクトのサンプル コードに接続することはできません。 [GitHub](https://github.com/aspnet/entropy) の **Localization.StarterWeb** プロジェクトには、[依存関係の挿入](dependency-injection.md)コンテナーを介して Razor 部分に `RequestLocalizationOptions` を挿入するコードがあります。
 
+## <a name="model-binding-route-data-and-query-strings"></a>モデル バインド ルート データとクエリ文字列
+
+「[モデル バインド ルート データとクエリ文字列のグローバリゼーション動作](xref:mvc/models/model-binding#glob)」を参照してください。
+
 ## <a name="globalization-and-localization-terms"></a>グローバリゼーションとローカリゼーションの用語
 
 アプリをローカライズするプロセスでは、最新のソフトウェア開発でよく使用される関連する文字セットの基本的な理解と、それらに関連した問題の理解も必要です。 すべてのコンピューターは、テキストを数値 (コード) として格納しますが、さまざまなシステムが異なる数値を使用して同じテキストを格納します。 ローカリゼーション プロセスとは、特定のカルチャ/ロケール用にアプリのユーザー インターフェイス (UI) を変換することを指します。
@@ -407,5 +411,4 @@ services.Configure<RequestLocalizationOptions>(options =>
 * [.NET アプリケーションのグローバライズとローカライズ](/dotnet/standard/globalization-localization/index)
 * [.resx ファイル内のリソース](/dotnet/framework/resources/working-with-resx-files-programmatically)
 * [Microsoft 多言語アプリ ツールキット](https://marketplace.visualstudio.com/items?itemName=MultilingualAppToolkit.MultilingualAppToolkit-18308)
-* [ローカリゼーションとジェネリック](https://github.com/hishamco/hishambinateya.com/blob/master/Posts/localization-and-generics.md)
-* [ASP.NET Core 3.0 のローカライズに関する新機能](http://hishambinateya.com/what-is-new-in-localization-in-asp.net-core-3.0)
+* [ローカリゼーションとジェネリック](http://hishambinateya.com/localization-and-generics)

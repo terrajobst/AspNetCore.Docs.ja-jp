@@ -1,20 +1,23 @@
 ---
-title: ASP.NET Core Blazor サーバーをホストして展開する
+title: ASP.NET Core Blazor サーバーのホストとデプロイ
 author: guardrex
-description: ASP.NET Core を使用して Blazor サーバー アプリをホストおよび展開する方法について学習します。
+description: ASP.NET Core を使用して Blazor サーバー アプリをホストおよびデプロイする方法について学習します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/05/2019
+ms.date: 11/21/2019
+no-loc:
+- Blazor
+- SignalR
 uid: host-and-deploy/blazor/server
-ms.openlocfilehash: 693d7ff67bad3a0c5bd050b795833763056ed511
-ms.sourcegitcommit: dd026eceee79e943bd6b4a37b144803b50617583
+ms.openlocfilehash: b688d000f26c9b230d9fdee8423b3194145fe1aa
+ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72378821"
+ms.lasthandoff: 11/22/2019
+ms.locfileid: "74317297"
 ---
-# <a name="host-and-deploy-blazor-server"></a>Blazor サーバーをホストして展開する
+# <a name="host-and-deploy-opno-locblazor-server"></a>Blazor サーバーをホストおよびデプロイする
 
 作成者: [Luke Latham](https://github.com/guardrex)、[Rainer Stropek](https://www.timecockpit.com)、[Daniel Roth](https://github.com/danroth27)
 
@@ -30,7 +33,7 @@ ASP.NET Core アプリをホストできる Web サーバーが必要です。 V
 
 ## <a name="scalability"></a>スケーラビリティ
 
-Blazor サーバー アプリで使用できるインフラストラクチャを最大限に活用できるように展開を計画します。 Blazor サーバー アプリのスケーラビリティに対処するには、次のリソースを参照してください。
+Blazor サーバー アプリで使用できるインフラストラクチャを最大限に活用できるようにデプロイを計画します。 Blazor サーバー アプリのスケーラビリティに対処するには、次のリソースを参照してください。
 
 * [Blazor サーバー アプリの基礎](xref:blazor/hosting-models#blazor-server)
 * <xref:security/blazor/server>
@@ -46,17 +49,61 @@ Blazor サーバー アプリで使用できるインフラストラクチャを
 
 各回線では、最小限の *Hello World* スタイルのアプリに約 250 KB のメモリが使用されます。 回線のサイズは、アプリのコードと各コンポーネントに関連付けられている状態の保守要件によって変わります。 アプリとインフラストラクチャの開発時にはリソースのニーズを測定することをお勧めしますが、展開ターゲットを計画する際に、次のベースラインを出発点にすることができます。アプリで 5,000 人の同時ユーザーをサポートすることを想定している場合は、アプリに対して少なくとも 1.3 GB のサーバー メモリ (またはユーザーあたり最大 273 KB) の予算を割り当てること検討してください。
 
-### <a name="signalr-configuration"></a>SignalR の構成
+### <a name="opno-locsignalr-configuration"></a>SignalR 構成
 
-Blazor サーバー アプリでは、ブラウザーとの通信に ASP.NET Core SignalR が使用されます。 [SignalR のホストとスケールの条件](xref:signalr/publish-to-azure-web-app)は、Blazor サーバー アプリに適用されます。
+Blazor サーバー アプリでは、ブラウザーとの通信に ASP.NET Core SignalR が使用されます。 [SignalR のホストとスケーリングの条件](xref:signalr/publish-to-azure-web-app)は、Blazor サーバー アプリに適用されます。
 
 Blazor は、待ち時間、信頼性、および[セキュリティ](xref:signalr/security)が低いために WebSocket を SignalR トランスポートとして使用する場合に最適です。 WebSocket が使用できない場合や、ロング ポーリングを使用するようにアプリが明示的に構成されている場合は、SignalR によってロング ポーリングが使用されます。 Azure App Service にデプロイする場合は、サービスの Azure portal 設定で WebSocket を使用するようにアプリを構成します。 Azure App Service 用にアプリを構成する方法の詳細については、[SignalR の発行ガイドライン](xref:signalr/publish-to-azure-web-app)を参照してください。
 
-Blazor サーバー アプリには [Azure SignalR Service](/azure/azure-signalr) を使用することをお勧めします。 このサービスでは、多数の同時 SignalR 接続に対して Blazor Server アプリをスケールアップできます。 さらに、SignalR サービスのグローバル リーチと高パフォーマンスのデータ センターは、地理的条件による待機時間の短縮に役立ちます。 アプリの構成 (および必要に応じてプロビジョニング) を行うために、Azure SignalR Service によって次が実行されます。
+#### <a name="azure-opno-locsignalr-service"></a>Azure SignalR Service
 
-* Blazor サーバー アプリ用に、Visual Studio に Azure アプリ発行プロファイルを作成する。
-* プロファイルに **Azure SignalR Service** の依存関係を追加する。 Azure サブスクリプションに、アプリに割り当てる既存の Azure SignalR Service のインスタンスがない場合は、 **[新しい Azure SignalR Service のインスタンスを作成する]** を選択して新しいサービス インスタンスをプロビジョニングします。
-* アプリを Azure に発行する
+Blazor サーバー アプリには [Azure SignalR Service](/azure/azure-signalr) を使用することをお勧めします。 このサービスでは、多数の同時 SignalR 接続に対して Blazor Server アプリをスケールアップできます。 さらに、SignalR サービスのグローバル リーチとハイパフォーマンスのデータ センターは、地理的条件による待機時間の短縮に役立ちます。 アプリの構成 (および必要に応じてプロビジョニング) を行うために、Azure SignalR Service によって次が実行されます。
+
+1. サービスで "*スティッキー セッション*" をサポートできるようにします。それにより、クライアントは[事前レンダリングのときに同じサーバーにリダイレクトされます](xref:blazor/hosting-models#reconnection-to-the-same-server)。 `ServerStickyMode` オプションまたは構成値を `Required` に設定します。 通常、アプリでは次の方法の**いずれか 1 つ**を使用して構成を作成します。
+
+   * `Startup.ConfigureServices`:
+  
+     ```csharp
+     services.AddSignalR().AddAzureSignalR(options =>
+     {
+         options.ServerStickyMode = 
+             Microsoft.Azure.SignalR.ServerStickyMode.Required;
+     });
+     ```
+
+   * 構成 (次の方法の**いずれか**を使用):
+  
+     * *appsettings.json*:
+
+       ```json
+       "Azure:SignalR:ServerStickyMode": "Required"
+       ```
+
+     * Azure portal で App Service の **[構成]**  >  **[アプリケーションの設定]** (**名前**: `Azure:SignalR:ServerStickyMode`、**値**: `Required`)。
+
+1. Blazor サーバー アプリ用に、Visual Studio に Azure アプリ発行プロファイルを作成する。
+1. プロファイルに **Azure SignalR Service** の依存関係を追加する。 Azure サブスクリプションに、アプリに割り当てる既存の Azure SignalR Service のインスタンスがない場合は、 **[新しい Azure SignalR Service のインスタンスを作成する]** を選択して新しいサービス インスタンスをプロビジョニングします。
+1. アプリを Azure に発行する
+
+#### <a name="iis"></a>IIS
+
+IIS を使用すると、スティッキー セッションはアプリケーション要求ルーティングによって有効になります。 詳しくは、「[アプリケーション要求ルーティングを使用した HTTP 負荷分散](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing)」をご覧ください。
+
+#### <a name="kubernetes"></a>Kubernetes
+
+次の[スティッキー セッションに対する Kubernetes 注釈](https://kubernetes.github.io/ingress-nginx/examples/affinity/cookie/)を使用して、イングレス定義を作成します。
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: <ingress-name>
+  annotations:
+    nginx.ingress.kubernetes.io/affinity: "cookie"
+    nginx.ingress.kubernetes.io/session-cookie-name: "affinity"
+    nginx.ingress.kubernetes.io/session-cookie-expires: "14400"
+    nginx.ingress.kubernetes.io/session-cookie-max-age: "14400"
+```
 
 ### <a name="measure-network-latency"></a>ネットワーク待機時間の測定
 

@@ -4,14 +4,14 @@ author: stevejgordon
 description: IHttpClientFactory インターフェイスを使用して、ASP.NET Core の論理 HttpClient インスタンスを管理する方法について説明します。
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 10/27/2019
+ms.date: 11/27/2019
 uid: fundamentals/http-requests
-ms.openlocfilehash: a963833acfa12889c8ae3dac443962682e1cb931
-ms.sourcegitcommit: 032113208bb55ecfb2faeb6d3e9ea44eea827950
+ms.openlocfilehash: f33444b8fc08dc022da7700af53a218600290162
+ms.sourcegitcommit: 169ea5116de729c803685725d96450a270bc55b7
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/31/2019
-ms.locfileid: "73190582"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74733922"
 ---
 # <a name="make-http-requests-using-ihttpclientfactory-in-aspnet-core"></a>ASP.NET Core で IHttpClientFactory を使用して HTTP 要求を行う
 
@@ -93,7 +93,7 @@ ms.locfileid: "73190582"
   * エンドポイントを処理するすべてのロジックをカプセル化するため。
 * DI に対応しており、アプリ内の必要な場所に挿入できます。
 
-型指定されたクライアントは、コンストラクターで `HttpClient` パラメーターを受け取ります。
+型指定されたクライアントは、そのコンストラクターで `HttpClient` パラメーターを受け取ります。
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/GitHub/GitHubService.cs?name=snippet1&highlight=5)]
 
@@ -288,6 +288,35 @@ Polly のポリシーは入れ子にするのが一般的です。
 
 `IHttpClientFactory` の登場以前は、1 つの `HttpClient` インスタンスを長い期間使い続けるパターンが一般的に使用されていました。 `IHttpClientFactory` に移行した後は、このパターンは不要になります。
 
+### <a name="alternatives-to-ihttpclientfactory"></a>IHttpClientFactory の代替手段
+
+DI 対応のアプリ内で `IHttpClientFactory` を使用すれば、次のことを回避できます。
+
+* `HttpMessageHandler` インスタンスをプールすることによるリソース枯渇の問題。
+* 一定の間隔で `HttpMessageHandler` インスタンスを循環させることによって発生する古くなった DNS の問題。
+
+有効期間の長い <xref:System.Net.Http.SocketsHttpHandler> インスタンスを使用して、上記の問題を解決する別の方法があります。
+
+- アプリの起動時に `SocketsHttpHandler` インスタンスを作成し、アプリの有効期間中、それを使用します。
+- DNS の更新時間に基づいて、<xref:System.Net.Http.SocketsHttpHandler.PooledConnectionLifetime> を適切な値に構成します。
+- 必要に応じて `new HttpClient(handler, dispostHandler: false)` を使用して `HttpClient` インスタンスを作成します。
+
+上記の方法を使用すると、`IHttpClientFactory` が同様の方法で解決するリソース管理の問題を解決できます。
+
+- `SocketsHttpHandler` を使用すると、`HttpClient` インスタンス間で接続を共有できます。 この共有によってソケットの枯渇が防止されます。
+- `SocketsHttpHandler` では、古くなった DNS の問題を回避するために `PooledConnectionLifetime` に従って接続を循環されます。
+
+### <a name="cookies"></a>クッキー
+
+`HttpMessageHandler` インスタンスをプールすると、`CookieContainer` オブジェクトが共有されます。 予期せぬ `CookieContainer` オブジェクト共有があると、多くの場合、コードは不適切なものとなります。 Cookie を必要とするアプリの場合は、次のいずれかを検討してください。
+
+ - 自動的な Cookie 処理の無効化
+ - `IHttpClientFactory` の回避
+
+<xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> を呼び出して、自動的な Cookie 処理を無効にします。
+
+[!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
+
 ## <a name="logging"></a>ログの記録
 
 `IHttpClientFactory` によって作成されたクライアントは、すべての要求のログ メッセージを記録します。 既定のログ メッセージを見るには、ログの構成で適切な情報レベルを有効にします。 要求ヘッダーのログなどの追加ログは、トレース レベルでのみ含まれます。
@@ -392,7 +421,7 @@ Polly のポリシーは入れ子にするのが一般的です。
 * 特定の `HttpClient` を構成してそれと対話する 1 つの場所を提供します。 たとえば、単一の型指定されたクライアントを単一のバックエンド エンドポイントに対して使用し、そのエンドポイントを操作するすべてのロジックをカプセル化できます。
 * DI に対応しており、アプリ内の必要な場所に挿入できます。
 
-型指定されたクライアントは、コンストラクターで `HttpClient` パラメーターを受け取ります。
+型指定されたクライアントは、そのコンストラクターで `HttpClient` パラメーターを受け取ります。
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/GitHub/GitHubService.cs?name=snippet1&highlight=5)]
 
@@ -481,7 +510,7 @@ public class ValuesController : ControllerBase
 
 上記のコードでは、基本的なハンドラーが定義されています。 このコードは、`X-API-KEY` ヘッダーが要求に含まれていたかどうかを確認します。 ヘッダーがない場合、HTTP 呼び出しを行わずに適切な応答を返すことができます。
 
-登録の間に、1 つ以上のハンドラーを `HttpClient` の構成に追加することができます。 このタスクは、<xref:Microsoft.Extensions.DependencyInjection.IHttpClientBuilder> の拡張メソッドを使用して実行されます。
+登録時には、1 つまたは複数のハンドラーを `HttpClient` の構成に追加することができます。 このタスクは、<xref:Microsoft.Extensions.DependencyInjection.IHttpClientBuilder> の拡張メソッドを使用して実行されます。
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet5)]
 
@@ -559,6 +588,35 @@ Polly ポリシーを入れ子にして拡張機能を提供するのが一般�
 クライアントを破棄する必要はありません。 破棄すると送信要求がキャンセルされ、<xref:System.IDisposable.Dispose*> の呼び出し後には指定された `HttpClient` インスタンスを使用できなくなります。 `IHttpClientFactory` は、`HttpClient` インスタンスによって使用されたリソースの追跡と破棄を行います。 通常、`HttpClient` インスタンスは、破棄を必要としない .NET オブジェクトとして扱うことができます。
 
 `IHttpClientFactory` の登場以前は、1 つの `HttpClient` インスタンスを長い期間使い続けるパターンが一般的に使用されていました。 `IHttpClientFactory` に移行した後は、このパターンは不要になります。
+
+### <a name="alternatives-to-ihttpclientfactory"></a>IHttpClientFactory の代替手段
+
+DI 対応のアプリ内で `IHttpClientFactory` を使用すれば、次のことを回避できます。
+
+* `HttpMessageHandler` インスタンスをプールすることによるリソース枯渇の問題。
+* 一定の間隔で `HttpMessageHandler` インスタンスを循環させることによって発生する古くなった DNS の問題。
+
+有効期間の長い <xref:System.Net.Http.SocketsHttpHandler> インスタンスを使用して、上記の問題を解決する別の方法があります。
+
+- アプリの起動時に `SocketsHttpHandler` インスタンスを作成し、アプリの有効期間中、それを使用します。
+- DNS の更新時間に基づいて、<xref:System.Net.Http.SocketsHttpHandler.PooledConnectionLifetime> を適切な値に構成します。
+- 必要に応じて `new HttpClient(handler, dispostHandler: false)` を使用して `HttpClient` インスタンスを作成します。
+
+上記の方法を使用すると、`IHttpClientFactory` が同様の方法で解決するリソース管理の問題を解決できます。
+
+- `SocketsHttpHandler` を使用すると、`HttpClient` インスタンス間で接続を共有できます。 この共有によってソケットの枯渇が防止されます。
+- `SocketsHttpHandler` では、古くなった DNS の問題を回避するために `PooledConnectionLifetime` に従って接続を循環されます。
+
+### <a name="cookies"></a>クッキー
+
+`HttpMessageHandler` インスタンスをプールすると、`CookieContainer` オブジェクトが共有されます。 予期せぬ `CookieContainer` オブジェクト共有があると、多くの場合、コードは不適切なものとなります。 Cookie を必要とするアプリの場合は、次のいずれかを検討してください。
+
+ - 自動的な Cookie 処理の無効化
+ - `IHttpClientFactory` の回避
+
+<xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> を呼び出して、自動的な Cookie 処理を無効にします。
+
+[!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
 
 ## <a name="logging"></a>ログの記録
 
@@ -668,7 +726,7 @@ Polly ポリシーを入れ子にして拡張機能を提供するのが一般�
 * 特定の `HttpClient` を構成してそれと対話する 1 つの場所を提供します。 たとえば、単一の型指定されたクライアントを単一のバックエンド エンドポイントに対して使用し、そのエンドポイントを操作するすべてのロジックをカプセル化できます。
 * DI に対応しており、アプリ内の必要な場所に挿入できます。
 
-型指定されたクライアントは、コンストラクターで `HttpClient` パラメーターを受け取ります。
+型指定されたクライアントは、そのコンストラクターで `HttpClient` パラメーターを受け取ります。
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/GitHub/GitHubService.cs?name=snippet1&highlight=5)]
 
@@ -757,7 +815,7 @@ public class ValuesController : ControllerBase
 
 上記のコードでは、基本的なハンドラーが定義されています。 このコードは、`X-API-KEY` ヘッダーが要求に含まれていたかどうかを確認します。 ヘッダーがない場合、HTTP 呼び出しを行わずに適切な応答を返すことができます。
 
-登録の間に、1 つ以上のハンドラーを `HttpClient` の構成に追加することができます。 このタスクは、<xref:Microsoft.Extensions.DependencyInjection.IHttpClientBuilder> の拡張メソッドを使用して実行されます。
+登録時には、1 つまたは複数のハンドラーを `HttpClient` の構成に追加することができます。 このタスクは、<xref:Microsoft.Extensions.DependencyInjection.IHttpClientBuilder> の拡張メソッドを使用して実行されます。
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet5)]
 
@@ -838,6 +896,35 @@ Polly ポリシーを入れ子にして拡張機能を提供するのが一般�
 クライアントを破棄する必要はありません。 破棄すると送信要求がキャンセルされ、<xref:System.IDisposable.Dispose*> の呼び出し後には指定された `HttpClient` インスタンスを使用できなくなります。 `IHttpClientFactory` は、`HttpClient` インスタンスによって使用されたリソースの追跡と破棄を行います。 通常、`HttpClient` インスタンスは、破棄を必要としない .NET オブジェクトとして扱うことができます。
 
 `IHttpClientFactory` の登場以前は、1 つの `HttpClient` インスタンスを長い期間使い続けるパターンが一般的に使用されていました。 `IHttpClientFactory` に移行した後は、このパターンは不要になります。
+
+### <a name="alternatives-to-ihttpclientfactory"></a>IHttpClientFactory の代替手段
+
+DI 対応のアプリ内で `IHttpClientFactory` を使用すれば、次のことを回避できます。
+
+* `HttpMessageHandler` インスタンスをプールすることによるリソース枯渇の問題。
+* 一定の間隔で `HttpMessageHandler` インスタンスを循環させることによって発生する古くなった DNS の問題。
+
+有効期間の長い <xref:System.Net.Http.SocketsHttpHandler> インスタンスを使用して、上記の問題を解決する別の方法があります。
+
+- アプリの起動時に `SocketsHttpHandler` インスタンスを作成し、アプリの有効期間中、それを使用します。
+- DNS の更新時間に基づいて、<xref:System.Net.Http.SocketsHttpHandler.PooledConnectionLifetime> を適切な値に構成します。
+- 必要に応じて `new HttpClient(handler, dispostHandler: false)` を使用して `HttpClient` インスタンスを作成します。
+
+上記の方法を使用すると、`IHttpClientFactory` が同様の方法で解決するリソース管理の問題を解決できます。
+
+- `SocketsHttpHandler` を使用すると、`HttpClient` インスタンス間で接続を共有できます。 この共有によってソケットの枯渇が防止されます。
+- `SocketsHttpHandler` では、古くなった DNS の問題を回避するために `PooledConnectionLifetime` に従って接続を循環されます。
+
+### <a name="cookies"></a>クッキー
+
+`HttpMessageHandler` インスタンスをプールすると、`CookieContainer` オブジェクトが共有されます。 予期せぬ `CookieContainer` オブジェクト共有があると、多くの場合、コードは不適切なものとなります。 Cookie を必要とするアプリの場合は、次のいずれかを検討してください。
+
+ - 自動的な Cookie 処理の無効化
+ - `IHttpClientFactory` の回避
+
+<xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> を呼び出して、自動的な Cookie 処理を無効にします。
+
+[!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
 
 ## <a name="logging"></a>ログの記録
 

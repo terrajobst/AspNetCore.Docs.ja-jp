@@ -2,26 +2,25 @@
 title: ASP.NET Core で HttpContext にアクセスする
 author: coderandhiker
 description: ASP.NET Core で HttpContext にアクセスする方法について説明します。
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/11/2018
+ms.date: 12/03/2019
 uid: fundamentals/httpcontext
-ms.openlocfilehash: 0bf40f9cd2554f5ba01ccc06001fa4f1940d51a5
-ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
+ms.openlocfilehash: 8a7ee180380c42ea745c91b8e6a18c1baa820220
+ms.sourcegitcommit: 5974e3e66dab3398ecf2324fbb82a9c5636f70de
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/21/2019
-ms.locfileid: "74289043"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74778740"
 ---
 # <a name="access-httpcontext-in-aspnet-core"></a>ASP.NET Core で HttpContext にアクセスする
 
-ASP.NET Core アプリでは、[IHttpContextAccessor](/dotnet/api/microsoft.aspnetcore.http.ihttpcontextaccessor) インターフェイスとその既定の実装である [HttpContextAccessor](/dotnet/api/microsoft.aspnetcore.http.httpcontextaccessor) を使用して、`HttpContext` にアクセスします。 `IHttpContextAccessor` を使用する必要があるのは、サービス内の `HttpContext` にアクセスする必要がある場合のみです。
-
-::: moniker range=">= aspnetcore-2.0"
+ASP.NET Core アプリでは、<xref:Microsoft.AspNetCore.Http.IHttpContextAccessor> インターフェイスと、その既定の実装 <xref:Microsoft.AspNetCore.Http.HttpContextAccessor> を介して `HttpContext` にアクセスします。 `IHttpContextAccessor` を使用する必要があるのは、サービス内の `HttpContext` にアクセスする必要がある場合のみです。
 
 ## <a name="use-httpcontext-from-razor-pages"></a>Razor Pages から HttpContext を使用する
 
-Razor Pages の [PageModel](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel) では、[HttpContext](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel.httpcontext) プロパティが公開されます。
+Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> では、<xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel.HttpContext> プロパティが公開されます。
 
 ```csharp
 public class AboutModel : PageModel
@@ -35,21 +34,21 @@ public class AboutModel : PageModel
 }
 ```
 
-::: moniker-end
-
 ## <a name="use-httpcontext-from-a-razor-view"></a>Razor ビューから HttpContext を使用する
 
-Razor ビューでは、[RazorPage.Context](/dotnet/api/microsoft.aspnetcore.mvc.razor.razorpage.context#Microsoft_AspNetCore_Mvc_Razor_RazorPage_Context) プロパティを使用して、ビューに直接 `HttpContext` が公開されます。 次の例では、Windows 認証を使用して、イントラネット アプリで現在のユーザー名を取得します。
+Razor ビューでは、[RazorPage.Context](xref:Microsoft.AspNetCore.Mvc.Razor.RazorPage.Context) プロパティを使用して、ビューに直接 `HttpContext` が公開されます。 次の例では、Windows 認証を使用して、イントラネット アプリで現在のユーザー名を取得します。
 
 ```cshtml
 @{
     var username = Context.User.Identity.Name;
+    
+    ...
 }
 ```
 
 ## <a name="use-httpcontext-from-a-controller"></a>コントローラーから HttpContext を使用する
 
-コントローラーでは [ControllerBase.HttpContext](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.httpcontext) プロパティが公開されます。
+コントローラーでは [ControllerBase.HttpContext](xref:Microsoft.AspNetCore.Mvc.ControllerBase.HttpContext) プロパティが公開されます。
 
 ```csharp
 public class HomeController : Controller
@@ -57,7 +56,8 @@ public class HomeController : Controller
     public IActionResult About()
     {
         var pathBase = HttpContext.Request.PathBase;
-        // Do something with the PathBase.
+
+        ...
 
         return View();
     }
@@ -73,7 +73,7 @@ public class MyCustomMiddleware
 {
     public Task InvokeAsync(HttpContext context)
     {
-        // Middleware initialization optionally using HttpContext
+        ...
     }
 }
 ```
@@ -82,13 +82,12 @@ public class MyCustomMiddleware
 
 `HttpContext` へのアクセスを必要とするその他のフレームワークおよびカスタム コンポーネントに対して推奨される方法は、組み込みの[依存関係の挿入](xref:fundamentals/dependency-injection)コンテナーを使用して依存関係を登録することです。 依存関係の挿入コンテナーは、それぞれのコンストラクター内で `IHttpContextAccessor` を依存関係として宣言するすべてのクラスに、これを提供します。
 
-::: moniker range=">= aspnetcore-2.1"
+::: moniker range=">= aspnetcore-3.0"
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
-     services.AddMvc()
-         .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+     services.AddControllersWithViews();
      services.AddHttpContextAccessor();
      services.AddTransient<IUserRepository, UserRepository>();
 }
@@ -96,13 +95,14 @@ public void ConfigureServices(IServiceCollection services)
 
 ::: moniker-end
 
-::: moniker range="<= aspnetcore-2.0"
+::: moniker range="< aspnetcore-3.0"
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
-     services.AddMvc();
-     services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+     services.AddMvc()
+         .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+     services.AddHttpContextAccessor();
      services.AddTransient<IUserRepository, UserRepository>();
 }
 ```
@@ -134,17 +134,17 @@ public class UserRepository : IUserRepository
 
 ## <a name="httpcontext-access-from-a-background-thread"></a>バックグラウンド スレッドから HttpContext にアクセスする
 
-`HttpContext` はスレッド セーフではありません。 要求の処理以外で `HttpContext` のプロパティを読み書きすると、結果的に `NullReferenceException` になることがあります。
+`HttpContext` はスレッド セーフではありません。 要求の処理以外で `HttpContext` のプロパティを読み書きすると、結果的に <xref:System.NullReferenceException> になることがあります。
 
 > [!NOTE]
-> 要求の処理以外で `HttpContext` を使用すると、結果的に `NullReferenceException` になることがしばしばあります。 アプリで `NullReferenceException` が散発的に生成される場合、コードの中で、バックグラウンド処理を開始する部分や要求完了後に処理を続行する部分を見直してください。 コントローラー メソッドを `async void` として定義するなどの間違いを探します。
+> アプリで `NullReferenceException` エラーが散発的に生成される場合、コードの中で、バックグラウンド処理を開始する部分や要求完了後に処理を続行する部分を見直してください。 コントローラー メソッドを `async void` として定義するなどの間違いを探します。
 
 `HttpContext` データでバックグラウンド作業を安全に実行するには:
 
 * 要求処理中に必要なデータをコピーします。
 * コピーしたデータをバックグラウンド タスクに渡します。
 
-安全でないコードを避けるために、バックグラウンド作業を行わないメソッドには `HttpContext` を決して渡さないでください。代わりに必要なデータを渡してください。
+アンセーフ コードを避けるために、バックグラウンド処理を実行しないメソッドには `HttpContext` を決して渡さないでください。 代わりに必要なデータを渡してください。 次の例では、電子メールの送信を開始するために `SendEmailCore` が呼び出されます。 `correlationId` は、`HttpContext` ではなく `SendEmailCore` に渡されます。 コードの実行では、`SendEmailCore` が完了するのを待機しません。
 
 ```csharp
 public class EmailController : Controller
@@ -153,13 +153,13 @@ public class EmailController : Controller
     {
         var correlationId = HttpContext.Request.Headers["x-correlation-id"].ToString();
 
-        // Starts sending an email, but doesn't wait for it to complete
         _ = SendEmailCore(correlationId);
+
         return View();
     }
 
     private async Task SendEmailCore(string correlationId)
     {
-        // send the email
+        ...
     }
 }

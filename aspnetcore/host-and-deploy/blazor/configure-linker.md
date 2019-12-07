@@ -5,22 +5,24 @@ description: Blazor アプリを構築するときに、中間言語 (IL) リン
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/15/2019
+ms.date: 11/21/2019
+no-loc:
+- Blazor
 uid: host-and-deploy/blazor/configure-linker
-ms.openlocfilehash: a7e59e63c163986c40155e230dc644028e78e5fd
-ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
+ms.openlocfilehash: 0bc987d72d2f684b1ecbd4a883e9a09fac7c801e
+ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72391446"
+ms.lasthandoff: 11/22/2019
+ms.locfileid: "74317287"
 ---
-# <a name="configure-the-linker-for-aspnet-core-blazor"></a>ASP.NET Core Blazor 用のリンカーを構成する
+# <a name="configure-the-linker-for-aspnet-core-opno-locblazor"></a>ASP.NET Core Blazor 用のリンカーを構成する
 
 作成者: [Luke Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-Blazor では、リリースのビルド中に[中間言語 (IL)](/dotnet/standard/managed-code#intermediate-language--execution) のリンク設定を実行して、アプリの出力アセンブリから不要な IL を削除します。
+Blazor では、ビルド中に[中間言語 (IL)](/dotnet/standard/managed-code#intermediate-language--execution) のリンクが実行されて、アプリの出力アセンブリから不要な IL が削除されます。
 
 次の方法のいずれかを使って、アセンブリのリンクを制御します。
 
@@ -29,7 +31,7 @@ Blazor では、リリースのビルド中に[中間言語 (IL)](/dotnet/standa
 
 ## <a name="disable-linking-with-a-msbuild-property"></a>MSBuild プロパティを使ってリンクを無効にする
 
-リリース モードでは、アプリをビルドするときに既定でリンクが有効になります。これには公開が含まれます。 すべてのアセンブリに対してリンクを無効にするには、プロジェクト ファイルで MSBuild プロパティ `BlazorLinkOnBuild` を `false` に設定します。
+アプリをビルドするときは既定でリンクが有効になり、これには発行が含まれます。 すべてのアセンブリに対してリンクを無効にするには、プロジェクト ファイルで MSBuild プロパティ `BlazorLinkOnBuild` を `false` に設定します。
 
 ```xml
 <PropertyGroup>
@@ -80,3 +82,29 @@ XML の構成ファイルを用意してそのファイルをプロジェクト 
 ```
 
 詳細については、[IL リンカー:xml 記述子の構文](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor)に関するページをご覧ください。
+
+### <a name="configure-the-linker-for-internationalization"></a>国際化用にリンカーを構成する
+
+既定では、Blazor WebAssembly に対する Blazor のリンカー構成により、明示的に要求されたロケールを除き、国際化情報は除去されます。 これらのアセンブリを削除すると、アプリのサイズが最小限に抑えられます。
+
+保持される I18N アセンブリを制御するには、プロジェクト ファイルで MSBuild のプロパティ `<MonoLinkerI18NAssemblies>` を設定します。
+
+```xml
+<PropertyGroup>
+  <MonoLinkerI18NAssemblies>{all|none|REGION1,REGION2,...}</MonoLinkerI18NAssemblies>
+</PropertyGroup>
+```
+
+| リージョンの値     | Mono のリージョン アセンブリ    |
+| ---------------- | ----------------------- |
+| `all`            | すべてのアセンブリが含まれます |
+| `cjk`            | *I18N.CJK.dll*          |
+| `mideast`        | *I18N.MidEast.dll*      |
+| `none` (既定値) | なし                    |
+| `other`          | *I18N.Other.dll*        |
+| `rare`           | *I18N.Rare.dll*         |
+| `west`           | *I18N.West.dll*         |
+
+複数の値を区切るにはコンマを使用します (例: `mideast,west`)。
+
+詳しくは、「[I18N: Pnetlib 国際化フレームワーク ライブラリ (mono/mono GitHub リポジトリ)](https://github.com/mono/mono/tree/master/mcs/class/I18N)」をご覧ください。
