@@ -18,19 +18,19 @@ ms.locfileid: "73897050"
 
 ASP.NET Core 3.0 以降では、API 承認のサポートを使用して、シングルページアプリ (spa) で認証を提供します。 ユーザーを認証および格納するための ASP.NET Core Id は、Open ID Connect を実装する[ために、ユーザーと組み合わせ](https://identityserver.io/)て使用されます。
 
-認証パラメーターが、 **Web アプリケーション (モデルビューコントローラー)** (MVC) と**web アプリケーション**(Razor Pages) の認証パラメーターに似た**角度**で、**応答**するプロジェクトテンプレートに追加されました。プロジェクトテンプレート。 許可されるパラメーター値は、 **None**および**個人**です。 この時点では、対応する **.js および Redux**プロジェクトテンプレートで認証パラメーターがサポートされていません。
+**Angular**プロジェクトテンプレートと**React**プロジェクトテンプレートに、Webアプリケーション(モデル・ビュー・コントローラー)(MVC)とWebアプリケーション(レーザーページ)プロジェクトテンプレートの認証パラメータに似た認証パラメータが追加されました。使用できるパラメータ値は、**None**および**Individual**です。リアクション。現時点では、 **.js および Redux**プロジェクトテンプレートは認証パラメータをサポートしていません。
 
 ## <a name="create-an-app-with-api-authorization-support"></a>API authorization サポートを使用してアプリを作成する
 
-ユーザーの認証と承認は、両方の角度で使用でき、SPAs として対応します。 コマンドシェルを開き、次のコマンドを実行します。
+ユーザーの認証と承認は、Angular React で使用でき、SPAs として対応します。 コマンドシェルを開き、次のコマンドを実行します。
 
-**角度**:
+**Angular**:
 
 ```dotnetcli
 dotnet new angular -o <output_directory_name> -au Individual
 ```
 
-**反応**:
+**React**:
 
 ```dotnetcli
 dotnet new react -o <output_directory_name> -au Individual
@@ -109,7 +109,7 @@ dotnet new react -o <output_directory_name> -au Individual
 
 ### <a name="appsettingsjson"></a>appsettings.json
 
-プロジェクトルートの*appsettings*ファイルには、構成されたクライアントの一覧を説明する新しい `IdentityServer` セクションがあります。 次の例には、1つのクライアントがあります。 クライアント名はアプリケーション名に対応し、OAuth `ClientId` パラメーターに規約によってマップされます。 プロファイルは、構成されているアプリの種類を示します。 サーバーの構成プロセスを簡略化する規則を実現するために、内部的に使用されます。 「[アプリケーションプロファイル](#application-profiles)」セクションで説明されているように、使用可能なプロファイルがいくつかあります。
+プロジェクトルートの*appsettings.json*ファイルには、構成されたクライアントの一覧を説明する新しい `IdentityServer` セクションがあります。 次の例には、1つのクライアントがあります。 クライアント名はアプリケーション名に対応し、OAuth `ClientId` パラメーターに規約によってマップされます。 プロファイルは、構成されているアプリの種類を示します。 サーバーの構成プロセスを簡略化する規則を実現するために、内部的に使用されます。 「[アプリケーションプロファイル](#application-profiles)」セクションで説明されているように、使用可能なプロファイルがいくつかあります。
 
 ```json
 "IdentityServer": {
@@ -121,9 +121,9 @@ dotnet new react -o <output_directory_name> -au Individual
 }
 ```
 
-### <a name="appsettingsdevelopmentjson"></a>appsettings.開発. json
+### <a name="appsettingsdevelopmentjson"></a>appsettings.Development.json
 
-Appsettings で *。プロジェクトルートの開発用 json*ファイルには、トークンの署名に使用されるキーについて説明する `IdentityServer` セクションがあります。 運用環境にデプロイする場合は、「[運用環境にデプロイする](#deploy-to-production)」セクションで説明されているように、アプリと共にキーをプロビジョニングしてデプロイする必要があります。
+プロジェクトルートの*appsettings.Development.json*ファイルには、トークンの署名に使用されるキーについて説明する `IdentityServer` セクションがあります。 運用環境にデプロイする場合は、「[運用環境にデプロイする](#deploy-to-production)」セクションで説明されているように、アプリと共にキーをプロビジョニングしてデプロイする必要があります。
 
 ```json
 "IdentityServer": {
@@ -133,9 +133,9 @@ Appsettings で *。プロジェクトルートの開発用 json*ファイルに
 }
 ```
 
-## <a name="general-description-of-the-angular-app"></a>角度アプリの一般的な説明
+## <a name="general-description-of-the-angular-app"></a>Angularアプリの一般的な説明
 
-角度テンプレートでの認証と API 承認のサポートは、独自の角度モジュールの*Clientapp-authorization*ディレクトリに存在します。 モジュールは、次の要素で構成されています。
+Angularテンプレートでの認証と API 承認のサポートは、独自のAngularモジュールの*Clientapp-authorization*ディレクトリに存在します。 モジュールは、次の要素で構成されています。
 
 * 3個のコンポーネント:
   * *login. component. ts*: アプリのログインフローを処理します。
@@ -146,9 +146,9 @@ Appsettings で *。プロジェクトルートの開発用 json*ファイルに
 * ルートに追加することができ、ルートにアクセスする前にユーザーを認証する必要があるルートガード `AuthorizeGuard`。
 * ユーザーが認証されるときに、API を対象とする発信 HTTP 要求にアクセストークンを結び付ける HTTP インターセプター `AuthorizeInterceptor`。
 * 認証プロセスの下位レベルの詳細を処理し、認証されたユーザーに関する情報をアプリの残りの部分に公開するサービス `AuthorizeService`。
-* アプリの認証部分に関連付けられているルートを定義する角度モジュール。 ログインメニューコンポーネント、インターセプター、ガード、およびアプリの残りの部分から使用するためのサービスを公開します。
+* アプリの認証部分に関連付けられているルートを定義するAngularモジュール。 ログインメニューコンポーネント、インターセプター、ガード、およびアプリの残りの部分から使用するためのサービスを公開します。
 
-## <a name="general-description-of-the-react-app"></a>反応アプリの一般的な説明
+## <a name="general-description-of-the-react-app"></a>Reactアプリの一般的な説明
 
 応答テンプレートでの認証と API 承認のサポートは、 *ClientApp\src\components\api-authorization*ディレクトリにあります。 これは、次の要素で構成されています。
 
@@ -207,9 +207,9 @@ services.Configure<JwtBearerOptions>(
 1. API 承認サポートによって提供される元の実装を呼び出します。
 1. 独自のカスタムロジックを実行します。
 
-## <a name="protect-a-client-side-route-angular"></a>クライアント側のルートを保護する (角度)
+## <a name="protect-a-client-side-route-angular"></a>クライアント側のルートを保護する (Angular)
 
-クライアント側ルートの保護は、ルートを構成するときに実行するガードのリストに承認ガードを追加することによって行われます。 例として、`fetch-data` ルートがメインアプリの角度モジュール内でどのように構成されているかを確認できます。
+クライアント側ルートの保護は、ルートを構成するときに実行するガードのリストに承認ガードを追加することによって行われます。 例として、`fetch-data` ルートがメインアプリのAngularモジュール内でどのように構成されているかを確認できます。
 
 ```typescript
 RouterModule.forRoot([
@@ -220,11 +220,11 @@ RouterModule.forRoot([
 
 ルートを保護しても実際のエンドポイントが保護されないことに注意してください (これには `[Authorize]` 属性が適用されている必要があります) が、ユーザーが認証されていないときに、特定のクライアント側ルートに移動できないようにすることをお勧めします。
 
-## <a name="authenticate-api-requests-angular"></a>API 要求の認証 (角度)
+## <a name="authenticate-api-requests-angular"></a>API 要求の認証 (Angular)
 
 アプリと共にホストされる Api に対する要求の認証は、アプリによって定義された HTTP クライアントインターセプターを使用することによって自動的に行われます。
 
-## <a name="protect-a-client-side-route-react"></a>クライアント側のルートを保護する (応答)
+## <a name="protect-a-client-side-route-react"></a>クライアント側のルートを保護する (React)
 
 プレーン `Route` コンポーネントの代わりに `AuthorizeRoute` コンポーネントを使用して、クライアント側のルートを保護します。 たとえば、`App` コンポーネント内で `fetch-data` ルートがどのように構成されているかに注目してください。
 
@@ -237,9 +237,9 @@ RouterModule.forRoot([
 * では、実際のエンドポイントは保護されません (`[Authorize]` 属性も適用する必要があります)。
 * は、ユーザーが認証されていないときに、特定のクライアント側ルートに移動できないようにします。
 
-## <a name="authenticate-api-requests-react"></a>API 要求の認証 (応答)
+## <a name="authenticate-api-requests-react"></a>API 要求の認証 (React)
 
-応答を含む要求の認証は、最初に `AuthorizeService`から `authService` インスタンスをインポートすることによって行われます。 次に示すように、アクセストークンは `authService` から取得され、要求にアタッチされます。 コンポーネントの処理では、通常、この作業は `componentDidMount` ライフサイクルメソッドで実行されるか、一部のユーザー操作の結果として行われます。
+Reactを含む要求の認証は、最初に `AuthorizeService`から `authService` インスタンスをインポートすることによって行われます。 次に示すように、アクセストークンは `authService` から取得され、要求にアタッチされます。 コンポーネントの処理では、通常、この作業は `componentDidMount` ライフサイクルメソッドで実行されるか、一部のユーザー操作の結果として行われます。
 
 ### <a name="import-the-authservice-into-your-component"></a>コンポーネントに authService をインポートする
 
@@ -247,7 +247,7 @@ RouterModule.forRoot([
 import authService from './api-authorization/AuthorizeService'
 ```
 
-### <a name="retrieve-and-attach-the-access-token-to-the-response"></a>アクセストークンを取得して応答にアタッチする
+### <a name="retrieve-and-attach-the-access-token-to-the-response"></a>アクセストークンを取得してReactにアタッチする
 
 ```javascript
 async populateWeatherData() {
