@@ -24,13 +24,13 @@ ASP.NET Core 3.0 以降では、API 承認のサポートを使用して、シ�
 
 ユーザーの認証と承認は、両方の角度で使用でき、SPAs として対応します。 コマンドシェルを開き、次のコマンドを実行します。
 
-**角度**:
+**Angular**:
 
 ```dotnetcli
 dotnet new angular -o <output_directory_name> -au Individual
 ```
 
-**反応**:
+**React**:
 
 ```dotnetcli
 dotnet new react -o <output_directory_name> -au Individual
@@ -109,7 +109,7 @@ dotnet new react -o <output_directory_name> -au Individual
 
 ### <a name="appsettingsjson"></a>appsettings.json
 
-プロジェクトルートの*appsettings*ファイルには、構成されたクライアントの一覧を説明する新しい `IdentityServer` セクションがあります。 次の例には、1つのクライアントがあります。 クライアント名はアプリケーション名に対応し、OAuth `ClientId` パラメーターに規約によってマップされます。 プロファイルは、構成されているアプリの種類を示します。 サーバーの構成プロセスを簡略化する規則を実現するために、内部的に使用されます。 「[アプリケーションプロファイル](#application-profiles)」セクションで説明されているように、使用可能なプロファイルがいくつかあります。
+プロジェクトルートの*appsettings.json*ファイルには、構成されたクライアントの一覧を説明する新しい `IdentityServer` セクションがあります。 次の例には、1つのクライアントがあります。 クライアント名はアプリケーション名に対応し、OAuth `ClientId` パラメーターに規約によってマップされます。 プロファイルは、構成されているアプリの種類を示します。 サーバーの構成プロセスを簡略化する規則を実現するために、内部的に使用されます。 「[アプリケーションプロファイル](#application-profiles)」セクションで説明されているように、使用可能なプロファイルがいくつかあります。
 
 ```json
 "IdentityServer": {
@@ -207,7 +207,7 @@ services.Configure<JwtBearerOptions>(
 1. API 承認サポートによって提供される元の実装を呼び出します。
 1. 独自のカスタムロジックを実行します。
 
-## <a name="protect-a-client-side-route-angular"></a>クライアント側のルートを保護する (角度)
+## <a name="protect-a-client-side-route-angular"></a>クライアント側のルートを保護する (Angular)
 
 クライアント側ルートの保護は、ルートを構成するときに実行するガードのリストに承認ガードを追加することによって行われます。 例として、`fetch-data` ルートがメインアプリの角度モジュール内でどのように構成されているかを確認できます。
 
@@ -220,11 +220,11 @@ RouterModule.forRoot([
 
 ルートを保護しても実際のエンドポイントが保護されないことに注意してください (これには `[Authorize]` 属性が適用されている必要があります) が、ユーザーが認証されていないときに、特定のクライアント側ルートに移動できないようにすることをお勧めします。
 
-## <a name="authenticate-api-requests-angular"></a>API 要求の認証 (角度)
+## <a name="authenticate-api-requests-angular"></a>API 要求の認証 (Angular)
 
 アプリと共にホストされる Api に対する要求の認証は、アプリによって定義された HTTP クライアントインターセプターを使用することによって自動的に行われます。
 
-## <a name="protect-a-client-side-route-react"></a>クライアント側のルートを保護する (応答)
+## <a name="protect-a-client-side-route-react"></a>クライアント側のルートを保護する (React)
 
 プレーン `Route` コンポーネントの代わりに `AuthorizeRoute` コンポーネントを使用して、クライアント側のルートを保護します。 たとえば、`App` コンポーネント内で `fetch-data` ルートがどのように構成されているかに注目してください。
 
@@ -237,7 +237,7 @@ RouterModule.forRoot([
 * では、実際のエンドポイントは保護されません (`[Authorize]` 属性も適用する必要があります)。
 * は、ユーザーが認証されていないときに、特定のクライアント側ルートに移動できないようにします。
 
-## <a name="authenticate-api-requests-react"></a>API 要求の認証 (応答)
+## <a name="authenticate-api-requests-react"></a>API 要求の認証 (React)
 
 応答を含む要求の認証は、最初に `AuthorizeService`から `authService` インスタンスをインポートすることによって行われます。 次に示すように、アクセストークンは `authService` から取得され、要求にアタッチされます。 コンポーネントの処理では、通常、この作業は `componentDidMount` ライフサイクルメソッドで実行されるか、一部のユーザー操作の結果として行われます。
 
