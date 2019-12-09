@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/04/2019
 uid: security/authentication/index
-ms.openlocfilehash: 324b2669d3b69e4757a284e4ae7e1de5f4e87e5a
-ms.sourcegitcommit: 05ca05a5c8f6ae556aaad66ad9e4ec1e6b643c77
+ms.openlocfilehash: 40b2fb59b96486435a2ec0a7d69bee5ab4a814d2
+ms.sourcegitcommit: 76d7fff62014c3db02564191ab768acea00f1b26
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74810254"
+ms.lasthandoff: 12/05/2019
+ms.locfileid: "74852715"
 ---
 # <a name="overview-of-aspnet-core-authentication"></a>ASP.NET Core の認証の概要
 
@@ -80,14 +80,14 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 ### <a name="authenticate"></a>認証
 
-認証スキームの認証アクションは、要求コンテキストに基づいてユーザーの ID を構築する役割を担います。 認証が成功したかどうかを示す <xref:Microsoft.AspNetCore.Authentication.AuthenticateResult> を返します。成功した場合は、認証チケットに含まれるユーザーの ID です。 「HttpContext.AuthenticateAsync」を参照してください。 認証の例を以下に示します。
+認証スキームの認証アクションは、要求コンテキストに基づいてユーザーの ID を構築する役割を担います。 認証が成功したかどうかを示す <xref:Microsoft.AspNetCore.Authentication.AuthenticateResult> を返します。成功した場合は、認証チケットに含まれるユーザーの ID です。 以下を参照してください。`HttpContext.AuthenticateAsync` 認証の例を以下に示します。
 
 * Cookie からユーザーの ID を構築する Cookie 認証スキーム。
 * ユーザーの ID を構築するための JWT ベアラー トークンを逆シリアル化し、検証する JWT ベアラー スキーム。
 
 ### <a name="challenge"></a>課題
 
-認証チャレンジは、認証されていないユーザーが認証を必要とするエンドポイントを要求したときに、認可によって呼び出されます。 認証チャレンジが発行されるのは、匿名ユーザーが制限されたリソースを要求した場合や、ログイン リンクをクリックした場合などです。 認可では、指定された認証スキームを使用してチャレンジが呼び出されます。何も指定されていない場合は、既定値が使用されます。 「HttpContext.ChallengeAsync」を参照してください。 認証チャレンジの例を次に示します。
+認証チャレンジは、認証されていないユーザーが認証を必要とするエンドポイントを要求したときに、認可によって呼び出されます。 認証チャレンジが発行されるのは、匿名ユーザーが制限されたリソースを要求した場合や、ログイン リンクをクリックした場合などです。 認可では、指定された認証スキームを使用してチャレンジが呼び出されます。何も指定されていない場合は、既定値が使用されます。 以下を参照してください。`HttpContext.ChallengeAsync` 認証チャレンジの例を次に示します。
 
 * ログイン ページにユーザーをリダイレクトする Cookie 認証スキーム。
 * `www-authenticate: bearer` ヘッダーを持つ 401 結果を返す JWT ベアラースキーム。
@@ -96,7 +96,7 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 ### <a name="forbid"></a>禁止
 
-認証されたユーザーがアクセスを許可されていないリソースにアクセスしようとすると、認可によって認証スキームの禁止アクションが呼び出されます。 「HttpContext.ForbidAsync」を参照してください。 認証の禁止の例を次に示します。
+認証されたユーザーがアクセスを許可されていないリソースにアクセスしようとすると、認可によって認証スキームの禁止アクションが呼び出されます。 以下を参照してください。`HttpContext.ForbidAsync` 認証の禁止の例を次に示します。
 * アクセスが禁止されていることを示すページにユーザーをリダイレクトする Cookie 認証スキーム。
 * 403 結果を返す JWT ベアラースキーム。
 * ユーザーがリソースへのアクセスを要求できるページにリダイレクトするカスタム認証スキーム。
