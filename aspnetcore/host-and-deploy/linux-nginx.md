@@ -5,14 +5,14 @@ description: Ubuntu 16.04 でリバース プロキシとして Nginx をセッ�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/05/2019
+ms.date: 12/02/2019
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: c6ae86ec9ac54ddf2d487fd72156199fbdd029ef
-ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
+ms.openlocfilehash: f307a1c3e0dc62c5dc03e50d710696fadd9fd487
+ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73659872"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74717391"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>Nginx 搭載の Linux で ASP.NET Core をホストする
 
@@ -36,10 +36,13 @@ ASP.NET Core でサポートされている他の Linux ディストリビュー
 
 1. Ubuntu 16.04 サーバーへのアクセスと sudo 特権が与えられた標準ユーザー アカウント。
 1. サーバーへの .NET Core ランタイムのインストール。
-   1. [.NET の「All Downloads」 (すべてのダウンロード) ページ](https://www.microsoft.com/net/download/all)に移動します。
-   1. プレビューではない最新のランタイムを、**Runtime** (ランタイム) の一覧から選択します。
-   1. サーバーの Ubuntu のバージョンに一致する Ubuntu の説明を選択し、これに従います。
+   1. 「[.NET Core のダウンロード](https://dotnet.microsoft.com/download/dotnet-core)」ページにアクセスします。
+   1. プレビューでない最新の .NET Core バージョンを選択します。
+   1. **[Run apps - Runtime]\(アプリの実行 - ランタイム\)** の下の表でプレビューでない最新のランタイムをダウンロードします。
+   1. Linux の 「**パッケージ マネージャーの手順**」 リンクを選択し、ご利用の Ubuntu バージョン用の Ubuntu 手順に従います。
 1. 既存の ASP.NET Core アプリ。
+
+共有フレームワークをアップグレードした後の任意の時点で、サーバーによってホストされている ASP.NET Core アプリを再起動します。
 
 ## <a name="publish-and-copy-over-the-app"></a>アプリを介して発行およびコピーする
 
@@ -393,6 +396,10 @@ sudo nano /etc/nginx/nginx.conf
 ```
 
 行 `add_header X-Content-Type-Options "nosniff";` を追加し、ファイルを保存し、Nginx を再起動します。
+
+## <a name="additional-nginx-suggestions"></a>Nginx に関するその他の推奨事項
+
+サーバー上で共有フレームワークをアップグレードしたら、サーバーによってホストされている ASP.NET Core アプリを再起動します。
 
 ## <a name="additional-resources"></a>その他の技術情報
 
