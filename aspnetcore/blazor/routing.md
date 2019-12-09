@@ -5,16 +5,16 @@ description: アプリで要求をルーティングする方法と、[ナビゲ
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/23/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 uid: blazor/routing
-ms.openlocfilehash: 2c139db4e44679fbd9f3455a2d2543be0e128765
-ms.sourcegitcommit: 918d7000b48a2892750264b852bad9e96a1165a7
+ms.openlocfilehash: 1690434f48141bc83e7bc02e22cb763430eaa10d
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/27/2019
-ms.locfileid: "74550334"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74944019"
 ---
 # <a name="aspnet-core-opno-locblazor-routing"></a>ASP.NET Core Blazor ルーティング
 
@@ -36,7 +36,7 @@ Blazor サーバーは[ASP.NET Core エンドポイントルーティング](xre
 
 `Router` コンポーネントでは、指定されたルートを使用して各コンポーネントにルーティングできます。 `Router` コンポーネントが、アプリケーションの*razor*ファイルに表示されます。
 
-```cshtml
+```razor
 <Router AppAssembly="typeof(Startup).Assembly">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
@@ -58,7 +58,12 @@ Blazor サーバーは[ASP.NET Core エンドポイントルーティング](xre
 
 コンポーネントには、複数のルートテンプレートを適用できます。 次のコンポーネントは、`/BlazorRoute` と `/DifferentBlazorRoute`に対する要求に応答します。
 
-[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/BlazorRoute.razor?name=snippet_BlazorRoute)]
+```razor
+@page "/BlazorRoute"
+@page "/DifferentBlazorRoute"
+
+<h1>Blazor routing</h1>
+```
 
 > [!IMPORTANT]
 > Url が正しく解決されるようにするには、アプリで、`href` 属性 (`<base href="/">`) で指定されたアプリの基本パスを使用して、 *wwwroot/index.html*ファイル (Blazor WebAssembly または*Pages/_Host*ファイル (Blazor サーバー) に `<base>` タグを含める必要があります。 詳細については、「<xref:host-and-deploy/blazor/index#app-base-path>」を参照してください。
@@ -69,7 +74,7 @@ Blazor サーバーは[ASP.NET Core エンドポイントルーティング](xre
 
 アプリケーションの*razor*ファイルで、`Router` コンポーネントの `NotFound` テンプレートパラメーターにカスタムコンテンツを設定します。
 
-```cshtml
+```razor
 <Router AppAssembly="typeof(Startup).Assembly">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
@@ -87,7 +92,7 @@ Blazor サーバーは[ASP.NET Core エンドポイントルーティング](xre
 
 `AdditionalAssemblies` パラメーターを使用して、ルーティング可能なコンポーネントを検索するときに考慮する `Router` コンポーネントの追加のアセンブリを指定します。 指定されたアセンブリは、`AppAssembly`指定されたアセンブリに加えて考慮されます。 次の例では、`Component1` は、参照先クラスライブラリで定義されているルーティング可能なコンポーネントです。 次の `AdditionalAssemblies` 例では、`Component1`のルーティングサポートについての結果を示します。
 
-```cshtml
+```razor
 <Router
     AppAssembly="typeof(Program).Assembly"
     AdditionalAssemblies="new[] { typeof(Component1).Assembly }">
@@ -99,7 +104,22 @@ Blazor サーバーは[ASP.NET Core エンドポイントルーティング](xre
 
 ルーターはルートパラメーターを使用して、同じ名前の対応するコンポーネントパラメーターを設定します (大文字と小文字は区別されません)。
 
-[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/RouteParameter.razor?name=snippet_RouteParameter&highlight=2,7-8)]
+```razor
+@page "/RouteParameter"
+@page "/RouteParameter/{text}"
+
+<h1>Blazor is @Text!</h1>
+
+@code {
+    [Parameter]
+    public string Text { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Text = Text ?? "fantastic";
+    }
+}
+```
 
 ASP.NET Core 3.0 の Blazor アプリでは、省略可能なパラメーターはサポートされていません。 前の例では、2つの `@page` ディレクティブが適用されています。 最初のは、パラメーターを指定せずにコンポーネントへの移動を許可します。 2番目の `@page` ディレクティブは、`{text}` route パラメーターを受け取り、その値を `Text` プロパティに割り当てます。
 
@@ -112,7 +132,7 @@ ASP.NET Core 3.0 の Blazor アプリでは、省略可能なパラメーター�
 * 要求 URL に `Id` ルートセグメントが存在します。
 * `Id` セグメントは整数 (`int`) です。
 
-[!code-cshtml[](routing/samples_snapshot/3.x/Constraint.razor?highlight=1)]
+[!code-razor[](routing/samples_snapshot/3.x/Constraint.razor?highlight=1)]
 
 次の表に示されているルート制約を使用できます。 インバリアントカルチャと一致するルート制約の詳細については、表の下の警告を参照してください。
 
@@ -154,7 +174,7 @@ Blazor サーバーアプリでは、 *_Host*の既定のルートは `/` (`@pag
 
 次の `NavMenu` コンポーネントでは、`NavLink` コンポーネントの使用方法を示す[ブートストラップ](https://getbootstrap.com/docs/)ナビゲーションバーが作成されます。
 
-[!code-cshtml[](routing/samples_snapshot/3.x/NavMenu.razor?highlight=4,9)]
+[!code-razor[](routing/samples_snapshot/3.x/NavMenu.razor?highlight=4,9)]
 
 `<NavLink>` 要素の `Match` 属性には、次の2つの `NavLinkMatch` オプションを割り当てることができます。
 
@@ -165,7 +185,7 @@ Blazor サーバーアプリでは、 *_Host*の既定のルートは `/` (`@pag
 
 追加の `NavLink` コンポーネント属性は、表示されるアンカータグに渡されます。 次の例では、`NavLink` コンポーネントに `target` 属性が含まれています。
 
-```cshtml
+```razor
 <NavLink href="my-page" target="_blank">My page</NavLink>
 ```
 
@@ -190,7 +210,7 @@ Blazor サーバーアプリでは、 *_Host*の既定のルートは `/` (`@pag
 
 次のコンポーネントは、ボタンが選択されたときにアプリの `Counter` コンポーネントに移動します。
 
-```cshtml
+```razor
 @page "/navigate"
 @inject NavigationManager NavigationManager
 

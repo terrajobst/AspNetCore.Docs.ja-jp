@@ -5,16 +5,16 @@ description: Blazor アプリで JavaScript から .NET および .NET メソッ
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/02/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 uid: blazor/javascript-interop
-ms.openlocfilehash: 108fdac8667f407adba3470de4eb8e35883cefbf
-ms.sourcegitcommit: 169ea5116de729c803685725d96450a270bc55b7
+ms.openlocfilehash: 05225b86701b7a5d5c84dd43afbef70dd1ece228
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74733831"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74944071"
 ---
 # <a name="aspnet-core-opno-locblazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 相互運用機能
 
@@ -55,7 +55,7 @@ Blazor サーバーアプリの場合:
 * コンポーネントボタン (**配列の変換**) が選択されている場合に `JSRuntime` を使用して `convertArray` JavaScript 関数を呼び出します。
 * JavaScript 関数が呼び出されると、渡された配列が文字列に変換されます。 文字列は、表示のためにコンポーネントに返されます。
 
-[!code-cshtml[](javascript-interop/samples_snapshot/call-js-example.razor?highlight=2,34-35)]
+[!code-razor[](javascript-interop/samples_snapshot/call-js-example.razor?highlight=2,34-35)]
 
 ## <a name="use-of-ijsruntime"></a>IJSRuntime の使用
 
@@ -63,7 +63,7 @@ Blazor サーバーアプリの場合:
 
 * Razor コンポーネント (*razor*) に `IJSRuntime` の抽象化を挿入します。
 
-  [!code-cshtml[](javascript-interop/samples_snapshot/inject-abstraction.razor?highlight=1)]
+  [!code-razor[](javascript-interop/samples_snapshot/inject-abstraction.razor?highlight=1)]
 
   *Wwwroot/index.html* (Blazor WebAssembly または*Pages/_Host* (Blazor Server) の `<head>` 要素内で、`handleTickerChanged` JavaScript 関数を提供します。 関数は `IJSRuntime.InvokeVoidAsync` と共に呼び出され、値を返しません。
 
@@ -79,7 +79,7 @@ Blazor サーバーアプリの場合:
 
 * [BuildRenderTree](xref:blazor/components#manual-rendertreebuilder-logic)を使用した動的なコンテンツ生成の場合は、`[Inject]` 属性を使用します。
 
-  ```csharp
+  ```razor
   [Inject]
   IJSRuntime JSRuntime { get; set; }
   ```
@@ -117,7 +117,35 @@ JavaScript ファイルを参照する `<script>` タグを、 *wwwroot/index.ht
 
 *Pages/JSInterop*:
 
-[!code-cshtml[](./common/samples/3.x/BlazorWebAssemblySample/Pages/JsInterop.razor?name=snippet_JSInterop1&highlight=3,19-21,23-25)]
+```razor
+@page "/JSInterop"
+@using BlazorSample.JsInteropClasses
+@inject IJSRuntime JSRuntime
+
+<h1>JavaScript Interop</h1>
+
+<h2>Invoke JavaScript functions from .NET methods</h2>
+
+<button type="button" class="btn btn-primary" @onclick="TriggerJsPrompt">
+    Trigger JavaScript Prompt
+</button>
+
+<h3 id="welcome" style="color:green;font-style:italic"></h3>
+
+@code {
+    public async Task TriggerJsPrompt()
+    {
+        // showPrompt is implemented in wwwroot/exampleJsInterop.js
+        var name = await JSRuntime.InvokeAsync<string>(
+                "exampleJsFunctions.showPrompt",
+                "What's your name?");
+        // displayWelcome is implemented in wwwroot/exampleJsInterop.js
+        await JSRuntime.InvokeVoidAsync(
+                "exampleJsFunctions.displayWelcome",
+                $"Hello {name}! Welcome to Blazor!");
+    }
+}
+```
 
 1. コンポーネントの **[トリガー JavaScript プロンプト]** ボタンを選択して `TriggerJsPrompt` を実行すると、 *wwwroot/exampleJsInterop*ファイルで提供されている javascript `showPrompt` 関数が呼び出されます。
 1. `showPrompt` 関数は、HTML エンコードされ、コンポーネントに返されるユーザー入力 (ユーザーの名前) を受け取ります。 コンポーネントは、ユーザーの名前をローカル変数 `name`に格納します。
@@ -142,7 +170,7 @@ JavaScript ファイルを参照する `<script>` タグを、 *wwwroot/index.ht
 
 次の例は、`username` `<input>` 要素への参照をキャプチャする方法を示しています。
 
-```cshtml
+```razor
 <input @ref="username" ... />
 
 @code {
@@ -155,7 +183,7 @@ JavaScript ファイルを参照する `<script>` タグを、 *wwwroot/index.ht
 >
 > 次の例では、Blazor が DOM とやり取りしてこの要素のリスト項目 (`<li>`) を設定するため、順序なしのリスト (`ul`) の内容を変化させるのは*危険*です。
 >
-> ```cshtml
+> ```razor
 > <ul ref="MyList">
 >     @foreach (var item in Todos)
 >     {
@@ -182,7 +210,7 @@ window.exampleJsFunctions = {
 
 値を返さない JavaScript 関数を呼び出すには、`IJSRuntime.InvokeVoidAsync`を使用します。 次のコードは、キャプチャされた `ElementReference`で前の JavaScript 関数を呼び出すことによって、ユーザー名入力にフォーカスを設定します。
 
-[!code-cshtml[](javascript-interop/samples_snapshot/component1.razor?highlight=1,3,11-12)]
+[!code-razor[](javascript-interop/samples_snapshot/component1.razor?highlight=1,3,11-12)]
 
 拡張メソッドを使用するには、`IJSRuntime` インスタンスを受け取る静的拡張メソッドを作成します。
 
@@ -196,7 +224,7 @@ public static async Task Focus(this ElementReference elementRef, IJSRuntime jsRu
 
 `Focus` メソッドは、オブジェクトに対して直接呼び出されます。 次の例では、`Focus` メソッドが `JsInteropClasses` 名前空間から使用できることを前提としています。
 
-[!code-cshtml[](javascript-interop/samples_snapshot/component2.razor?highlight=1-4,12)]
+[!code-razor[](javascript-interop/samples_snapshot/component2.razor?highlight=1-4,12)]
 
 > [!IMPORTANT]
 > `username` 変数は、コンポーネントがレンダリングされた後にのみ設定されます。 JavaScript コードにいない `ElementReference` が渡されると、JavaScript コードは `null`の値を受け取ります。 コンポーネントのレンダリングが完了した後に要素参照を操作するには (要素に初期フォーカスを設定するには)、 [OnAfterRenderAsync または OnAfterRender コンポーネントライフサイクルメソッド](xref:blazor/lifecycle#after-component-render)を使用します。
@@ -214,7 +242,7 @@ public static ValueTask<T> GenericMethod<T>(this ElementReference elementRef,
 
 `GenericMethod` は、型を使用してオブジェクトに対して直接呼び出されます。 次の例では、`GenericMethod` が `JsInteropClasses` 名前空間から使用できることを前提としています。
 
-[!code-cshtml[](javascript-interop/samples_snapshot/component3.razor?highlight=17)]
+[!code-razor[](javascript-interop/samples_snapshot/component3.razor?highlight=17)]
 
 ## <a name="invoke-net-methods-from-javascript-functions"></a>JavaScript 関数からの .NET メソッドの呼び出し
 
@@ -226,7 +254,20 @@ JavaScript から静的 .NET メソッドを呼び出すには、`DotNet.invokeM
 
 *Pages/JsInterop*:
 
-[!code-cshtml[](./common/samples/3.x/BlazorWebAssemblySample/Pages/JsInterop.razor?name=snippet_JSInterop2&highlight=7-11)]
+```razor
+<button type="button" class="btn btn-primary"
+        onclick="exampleJsFunctions.returnArrayAsyncJs()">
+    Trigger .NET static method ReturnArrayAsync
+</button>
+
+@code {
+    [JSInvokable]
+    public static Task<int[]> ReturnArrayAsync()
+    {
+        return Task.FromResult(new int[] { 1, 2, 3 });
+    }
+}
+```
 
 クライアントに提供される JavaScript はC# 、.net メソッドを呼び出します。
 
@@ -258,7 +299,19 @@ JavaScript から .NET インスタンスメソッドを呼び出すこともで
 
 *Pages/JsInterop*:
 
-[!code-cshtml[](./common/samples/3.x/BlazorWebAssemblySample/Pages/JsInterop.razor?name=snippet_JSInterop3&highlight=8-9)]
+```razor
+<button type="button" class="btn btn-primary" @onclick="TriggerNetInstanceMethod">
+    Trigger .NET instance method HelloHelper.SayHello
+</button>
+
+@code {
+    public async Task TriggerNetInstanceMethod()
+    {
+        var exampleJsInterop = new ExampleJsInterop(JSRuntime);
+        await exampleJsInterop.CallHelloHelperSayHello("Blazor");
+    }
+}
+```
 
 `CallHelloHelperSayHello` は、`HelloHelper`の新しいインスタンスを使用して JavaScript 関数 `sayHello` を呼び出します。
 

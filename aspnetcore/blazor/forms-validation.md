@@ -5,16 +5,16 @@ description: Blazorでフォームとフィールドの検証シナリオを使�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/21/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 uid: blazor/forms-validation
-ms.openlocfilehash: f1df213b16bb7ecd6a771700291d834776dee475
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: f4c1845ee4b6ff9274b7117167367ccdd9f36c12
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317167"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74943694"
 ---
 # <a name="aspnet-core-opno-locblazor-forms-and-validation"></a>フォームと検証の Blazor の ASP.NET Core
 
@@ -111,7 +111,7 @@ public class Starship
 
 次のフォームでは、`Starship` モデルで定義されている検証を使用してユーザー入力を検証します。
 
-```cshtml
+```razor
 @page "/FormsValidation"
 
 <h1>Starfleet Starship Database</h1>
@@ -180,7 +180,7 @@ public class Starship
 
 次のマークアップを使用してコンポーネントを作成し、`InputText` が使用される場合と同様に、コンポーネントを使用します。
 
-```cshtml
+```razor
 @inherits InputText
 
 <input 
@@ -204,19 +204,19 @@ Blazor は、次の2種類の検証を実行します。
 
 `ValidationSummary` コンポーネントは、検証[概要タグヘルパー](xref:mvc/views/working-with-forms#the-validation-summary-tag-helper)に似たすべての検証メッセージを要約します。
 
-```csthml
+```razor
 <ValidationSummary />
 ```
 
 `Model` パラメーターを使用して、特定のモデルの検証メッセージを出力します。
   
-```csthml
+```razor
 <ValidationSummary Model="@starship" />
 ```
 
 `ValidationMessage` コンポーネントには、[検証メッセージタグヘルパー](xref:mvc/views/working-with-forms#the-validation-message-tag-helper)に似た、特定のフィールドの検証メッセージが表示されます。 `For` 属性と、モデルプロパティに名前を付けるラムダ式を使用して、検証用のフィールドを指定します。
 
-```cshtml
+```razor
 <ValidationMessage For="@(() => starship.MaximumAccommodation)" />
 ```
 
@@ -247,9 +247,7 @@ private class MyCustomValidator : ValidationAttribute
 
 ### <a name="opno-locblazor-data-annotations-validation-package"></a>データ注釈検証パッケージの Blazor
 
-
-[Microsoft.AspNetCore.Blazor.DataAnnotations.Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation)は、`DataAnnotationsValidator` コンポーネントを使用して、検証エクスペリエンスのギャップを埋めるパッケージです。 パッケージは現在*試験段階*です。今後のリリースでは、これらのシナリオを ASP.NET Core framework に追加する予定です。
-
+[BlazorAspNetCore です。DataAnnotations。検証](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation)は、`DataAnnotationsValidator` コンポーネントを使用して検証エクスペリエンスのギャップを埋めるパッケージです。 パッケージは現在*試験段階*です。
 
 ### <a name="compareproperty-attribute"></a>[CompareProperty] 属性
 
@@ -261,7 +259,7 @@ Blazor は、組み込みの `DataAnnotationsValidator`でデータ注釈を使�
 
 コレクションと複合型のプロパティを含む、バインドされたモデルのオブジェクトグラフ全体を検証するには、*実験的*な[BlazorAspNetCore によって提供される `ObjectGraphDataAnnotationsValidator` を使用します。DataAnnotations。検証](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation)パッケージ:
 
-```cshtml
+```razor
 <EditForm Model="@model" OnValidSubmit="@HandleValidSubmit">
     <ObjectGraphDataAnnotationsValidator />
     ...

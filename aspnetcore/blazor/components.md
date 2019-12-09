@@ -5,16 +5,16 @@ description: データにバインドする方法、イベントを処理する�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/27/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 uid: blazor/components
-ms.openlocfilehash: 9cdbae0bde8f6c44dc8b680dccbf9c8f96043c7f
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: a79202565f45b4d26e280427892ea16b33f3f853
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74879703"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74943863"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>ASP.NET Core Razor コンポーネントを作成して使用する
 
@@ -42,7 +42,7 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 * `font-style`の CSS プロパティ値に `_headingFontStyle` します。
 * `<h1>` 要素の内容に `_headingText` します。
 
-```cshtml
+```razor
 <h1 style="font-style:@_headingFontStyle">@_headingText</h1>
 
 @code {
@@ -55,7 +55,7 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 コンポーネントは通常C#のクラスであり、プロジェクト内の任意の場所に配置できます。 Web ページを生成するコンポーネントは、通常、[*ページ*] フォルダーにあります。 ページ以外のコンポーネントは、多くの場合、プロジェクトに追加された*共有*フォルダーまたはカスタムフォルダーに配置されます。 カスタムフォルダーを使用するには、カスタムフォルダーの名前空間を親コンポーネントまたはアプリの *_Imports razor*ファイルに追加します。 たとえば、次の名前空間は、アプリのルート名前空間が `WebApplication`場合*に、コンポーネントフォルダー内*のコンポーネントを使用可能にします。
 
-```cshtml
+```razor
 @using WebApplication.Components
 ```
 
@@ -128,11 +128,13 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 *Index. razor*の次のマークアップは、`HeadingComponent` インスタンスをレンダリングします。
 
-[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/Index.razor?name=snippet_HeadingComponent)]
+```razor
+<HeadingComponent />
+```
 
 *Components/HeadingComponent*:
 
-[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/HeadingComponent.razor)]
+[!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/HeadingComponent.razor)]
 
 コンポーネント名と一致しない大文字の最初の文字を含む HTML 要素がコンポーネントに含まれている場合は、要素に予期しない名前が付いていることを示す警告が出力されます。 コンポーネントの名前空間に `@using` ステートメントを追加すると、コンポーネントが使用可能になり、警告が削除されます。
 
@@ -142,13 +144,25 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 *Components/ChildComponent。 razor*:
 
-[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=11-12)]
+[!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=11-12)]
 
-次の例では、`ParentComponent` によって `ChildComponent`の `Title` プロパティの値が設定されます。
+サンプルアプリの次の例では、`ParentComponent` によって `ChildComponent`の `Title` プロパティの値が設定されます。
 
 *Pages/ParentComponent。 razor*:
 
-[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/ParentComponent.razor?name=snippet_ParentComponent&highlight=5-6)]
+```razor
+@page "/ParentComponent"
+
+<h1>Parent-child example</h1>
+
+<ChildComponent Title="Panel Title from Parent"
+                OnClick="@ShowMessage">
+    Content of the child component is supplied
+    by the parent component.
+</ChildComponent>
+
+...
+```
 
 ## <a name="child-content"></a>子コンテンツ
 
@@ -158,16 +172,28 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 *Components/ChildComponent。 razor*:
 
-[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=3,14-15)]
+[!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=3,14-15)]
 
 > [!NOTE]
 > `RenderFragment` コンテンツを受け取るプロパティには、規約によって `ChildContent` 名前を付ける必要があります。
 
-次の `ParentComponent` では、コンテンツを `<ChildComponent>` タグ内に配置することによって、`ChildComponent` を表示するためのコンテンツを提供できます。
+サンプルアプリの `ParentComponent` では、コンテンツを `<ChildComponent>` タグ内に配置することによって、`ChildComponent` を表示するためのコンテンツを提供できます。
 
 *Pages/ParentComponent。 razor*:
 
-[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/ParentComponent.razor?name=snippet_ParentComponent&highlight=7-8)]
+```razor
+@page "/ParentComponent"
+
+<h1>Parent-child example</h1>
+
+<ChildComponent Title="Panel Title from Parent"
+                OnClick="@ShowMessage">
+    Content of the child component is supplied
+    by the parent component.
+</ChildComponent>
+
+...
+```
 
 ## <a name="attribute-splatting-and-arbitrary-parameters"></a>属性スプラッティングと任意のパラメーター
 
@@ -175,7 +201,7 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 次の例では、最初の `<input>` 要素 (`id="useIndividualParams"`) は個々のコンポーネントパラメーターを使用し、2番目の `<input>` 要素 (`id="useAttributesDict"`) は属性スプラッティングを使用します。
 
-```cshtml
+```razor
 <input id="useIndividualParams"
        maxlength="@Maxlength"
        placeholder="@Placeholder"
@@ -230,7 +256,7 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 任意の属性を受け入れるには、`CaptureUnmatchedValues` プロパティを `true`に設定して、`[Parameter]` 属性を使用してコンポーネントパラメーターを定義します。
 
-```cshtml
+```razor
 @code {
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object> InputAttributes { get; set; }
@@ -243,13 +269,13 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 *Parentcomponent。 razor*:
 
-```cshtml
+```razor
 <ChildComponent extra="10" />
 ```
 
 *Childcomponent。 razor*:
 
-```cshtml
+```razor
 <div @attributes="AdditionalAttributes" extra="5" />
 
 [Parameter(CaptureUnmatchedValues = true)]
@@ -266,13 +292,13 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 
 *Parentcomponent。 razor*:
 
-```cshtml
+```razor
 <ChildComponent extra="10" />
 ```
 
 *Childcomponent。 razor*:
 
-```cshtml
+```razor
 <div extra="5" @attributes="AdditionalAttributes" />
 
 [Parameter(CaptureUnmatchedValues = true)]
@@ -289,7 +315,7 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 
 コンポーネントと DOM 要素の両方に対するデータバインディングは、 [`@bind`](xref:mvc/views/razor#bind)属性を使用して行われます。 次の例では、`CurrentValue` プロパティをテキストボックスの値にバインドします。
 
-```cshtml
+```razor
 <input @bind="CurrentValue" />
 
 @code {
@@ -303,7 +329,7 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 
 `CurrentValue` プロパティ (`<input @bind="CurrentValue" />`) で `@bind` を使用することは、基本的に次のようなものです。
 
-```cshtml
+```razor
 <input value="@CurrentValue"
     @onchange="@((ChangeEventArgs __e) => CurrentValue = 
         __e.Value.ToString())" />
@@ -317,7 +343,7 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 
 `@bind` 構文を使用した `onchange` イベントの処理に加えて、`event` パラメーター ([`@bind-value:event`](xref:mvc/views/razor#bind)) を使用して[`@bind-value`](xref:mvc/views/razor#bind)属性を指定することで、プロパティまたはフィールドを他のイベントを使用してバインドできます。 次の例では、`oninput` イベントの `CurrentValue` プロパティをバインドします。
 
-```cshtml
+```razor
 <input @bind-value="CurrentValue" @bind-value:event="oninput" />
 
 @code {
@@ -335,7 +361,7 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 
 * `<input>` 要素は、初期値 `123`を持つ `int` 型にバインドされます。
 
-  ```cshtml
+  ```razor
   <input @bind="MyProperty" />
 
   @code {
@@ -386,7 +412,7 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 
 データバインディングは、 [`@bind:format`](xref:mvc/views/razor#bind)を使用して <xref:System.DateTime> 書式指定文字列で動作します。 通貨形式や数値形式など、その他の書式指定式は現時点では使用できません。
 
-```cshtml
+```razor
 <input @bind="StartDate" @bind:format="yyyy-MM-dd" />
 
 @code {
@@ -416,7 +442,7 @@ Blazor に日付の書式を設定するためのサポートが組み込まれ�
 
 次の子コンポーネント (`ChildComponent`) には、`Year` コンポーネントパラメーターと `YearChanged` コールバックがあります。
 
-```cshtml
+```razor
 <h2>Child Component</h2>
 
 <p>Year: @Year</p>
@@ -434,7 +460,7 @@ Blazor に日付の書式を設定するためのサポートが組み込まれ�
 
 次の親コンポーネントは `ChildComponent` を使用し、親の `ParentYear` パラメーターを子コンポーネントの `Year` パラメーターにバインドします。
 
-```cshtml
+```razor
 @page "/ParentComponent"
 
 <h1>Parent Component</h1>
@@ -486,13 +512,13 @@ Blazor に日付の書式を設定するためのサポートが組み込まれ�
 
 慣例により、`<ChildComponent @bind-Year="ParentYear" />` は基本的には書き込みと同じです。
 
-```cshtml
+```razor
 <ChildComponent @bind-Year="ParentYear" @bind-Year:event="YearChanged" />
 ```
 
 一般に、プロパティは、`@bind-property:event` 属性を使用して、対応するイベントハンドラーにバインドできます。 たとえば、プロパティ `MyProp` は、次の2つの属性を使用して `MyEventHandler` にバインドできます。
 
-```cshtml
+```razor
 <MyComponent @bind-MyProp="MyValue" @bind-MyProp:event="MyEventHandler" />
 ```
 
@@ -502,7 +528,7 @@ Razor コンポーネントは、イベント処理機能を提供します。 `
 
 次のコードは、UI でボタンが選択されたときに `UpdateHeading` メソッドを呼び出します。
 
-```cshtml
+```razor
 <button class="btn btn-primary" @onclick="UpdateHeading">
     Update heading
 </button>
@@ -517,7 +543,7 @@ Razor コンポーネントは、イベント処理機能を提供します。 `
 
 次のコードは、UI でチェックボックスが変更されたときに `CheckChanged` メソッドを呼び出します。
 
-```cshtml
+```razor
 <input type="checkbox" class="form-check-input" @onchange="CheckChanged" />
 
 @code {
@@ -532,7 +558,7 @@ Razor コンポーネントは、イベント処理機能を提供します。 `
 
 次の例では、ボタンが選択されると `UpdateHeading` が非同期に呼び出されます。
 
-```cshtml
+```razor
 <button class="btn btn-primary" @onclick="UpdateHeading">
     Update heading
 </button>
@@ -572,13 +598,13 @@ Razor コンポーネントは、イベント処理機能を提供します。 `
 
 ラムダ式を使用することもできます。
 
-```cshtml
+```razor
 <button @onclick="@(e => Console.WriteLine("Hello, world!"))">Say hello</button>
 ```
 
 多くの場合、要素のセットを反復処理するときなど、追加の値を終了すると便利です。 次の例では、3つのボタンを作成します。各ボタンは、UI で選択されたときに、イベント引数 (`MouseEventArgs`) とそのボタン番号 (`buttonNumber`) を渡す `UpdateHeading` を呼び出します。
 
-```cshtml
+```razor
 <h2>@message</h2>
 
 @for (var i = 1; i < 4; i++)
@@ -609,13 +635,36 @@ Razor コンポーネントは、イベント処理機能を提供します。 `
 
 入れ子になったコンポーネントの一般的なシナリオとして、子コンポーネントのイベント&mdash;が発生したときに親コンポーネントのメソッドを実行することが望まれます。たとえば、子で `onclick` イベントが発生した場合などです。 コンポーネント間でイベントを公開するには、`EventCallback`を使用します。 親コンポーネントは、コールバックメソッドを子コンポーネントの `EventCallback`に割り当てることができます。
 
-サンプルアプリの `ChildComponent` は、ボタンの `onclick` ハンドラーが、サンプルの `ParentComponent`から `EventCallback` デリゲートを受け取るように設定されている方法を示しています。 `EventCallback` は `MouseEventArgs`で入力されます。これは、周辺機器の `onclick` イベントに適しています。
+サンプルアプリ (*Components/ChildComponent. razor*) の `ChildComponent` は、ボタンの `onclick` ハンドラーが、サンプルの `ParentComponent`から `EventCallback` デリゲートを受け取るように設定されている方法を示しています。 `EventCallback` は `MouseEventArgs`で入力されます。これは、周辺機器の `onclick` イベントに適しています。
 
-[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=5-7,17-18)]
+[!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=5-7,17-18)]
 
 `ParentComponent` は、子の `EventCallback<T>` を `ShowMessage` メソッドに設定します。
 
-[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/ParentComponent.razor?name=snippet_ParentComponent&highlight=6,16-19)]
+*Pages/ParentComponent。 razor*:
+
+```razor
+@page "/ParentComponent"
+
+<h1>Parent-child example</h1>
+
+<ChildComponent Title="Panel Title from Parent"
+                OnClick="@ShowMessage">
+    Content of the child component is supplied
+    by the parent component.
+</ChildComponent>
+
+<p><b>@messageText</b></p>
+
+@code {
+    private string messageText;
+
+    private void ShowMessage(MouseEventArgs e)
+    {
+        messageText = $"Blaze a new trail with Blazor! ({e.ScreenX}, {e.ScreenY})";
+    }
+}
+```
 
 `ChildComponent`でボタンが選択されている場合:
 
@@ -624,7 +673,7 @@ Razor コンポーネントは、イベント処理機能を提供します。 `
 
 `EventCallback` および `EventCallback<T>` 非同期デリゲートを許可します。 `EventCallback<T>` は厳密に型指定され、特定の引数型を必要とします。 `EventCallback` は弱く型指定され、任意の引数型を使用できます。
 
-```cshtml
+```razor
 <p><b>@messageText</b></p>
 
 @{ var message = "Default Text"; }
@@ -655,7 +704,7 @@ await callback.InvokeAsync(arg);
 
 入力デバイスでキーが選択され、要素のフォーカスがテキストボックスに表示されている場合は、通常、ブラウザーによってテキストボックスにキーの文字が表示されます。 次の例では、`@onkeypress:preventDefault` ディレクティブ属性を指定することで、既定の動作を回避できます。 カウンターがインクリメントされ、 **+** キーが `<input>` 要素の値にキャプチャされません。
 
-```cshtml
+```razor
 <input value="@_count" @onkeypress="KeyHandler" @onkeypress:preventDefault />
 
 @code {
@@ -675,7 +724,7 @@ await callback.InvokeAsync(arg);
 
 属性の値は、式にすることもできます。 次の例では、`_shouldPreventDefault` は `true` または `false`のいずれかに設定された `bool` フィールドです。
 
-```cshtml
+```razor
 <input @onkeypress:preventDefault="_shouldPreventDefault" />
 ```
 
@@ -687,7 +736,7 @@ await callback.InvokeAsync(arg);
 
 次の例では、チェックボックスをオンにすると、2番目の子 `<div>` からのクリックイベントが親 `<div>`に反映されなくなります。
 
-```cshtml
+```razor
 <label>
     <input @bind="_stopPropagation" type="checkbox" />
     Stop Propagation
@@ -728,7 +777,7 @@ await callback.InvokeAsync(arg);
 * `Password` プロパティに `<input>` 要素の値を設定します。
 * [Eventcallback](#eventcallback)を使用して、`Password` プロパティの変更を親コンポーネントに公開します。
 
-```cshtml
+```razor
 Password: 
 
 <input @oninput="OnPasswordChanged" 
@@ -765,7 +814,7 @@ Password:
 
 `PasswordField` コンポーネントが別のコンポーネントで使用されています。
 
-```cshtml
+```razor
 <PasswordField @bind-Password="password" />
 
 @code {
@@ -780,7 +829,7 @@ Password:
 
 次の例では、パスワードの値にスペースが使用されている場合に、ユーザーにすぐにフィードバックを提供します。
 
-```cshtml
+```razor
 Password: 
 
 <input @oninput="OnPasswordChanged" 
@@ -844,7 +893,7 @@ Password:
 * 子コンポーネントに[`@ref`](xref:mvc/views/razor#ref)属性を追加します。
 * 子コンポーネントと同じ型のフィールドを定義します。
 
-```cshtml
+```razor
 <MyLoginDialog @ref="loginDialog" ... />
 
 @code {
@@ -891,7 +940,7 @@ public class NotifierService
 
 コンポーネントを更新するための `NotifierService` の使用法:
 
-```cshtml
+```razor
 @page "/"
 @inject NotifierService Notifier
 @implements IDisposable
@@ -975,7 +1024,7 @@ public class NotifierService
 
 また、`@key` を使用すると、オブジェクトが変更されたときに Blazor によって要素またはコンポーネントのサブツリーが保持されないようにすることもできます。
 
-```cshtml
+```razor
 <div @key="currentPerson">
     ... content that depends on currentPerson ...
 </div>
@@ -1006,15 +1055,37 @@ Blazor でのルーティングは、アプリ内のアクセス可能な各コ�
 
 コンポーネントには、複数のルートテンプレートを適用できます。 次のコンポーネントは、`/BlazorRoute` と `/DifferentBlazorRoute`に対する要求に応答します。
 
-[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/BlazorRoute.razor?name=snippet_BlazorRoute)]
+*Pages/BlazorRoute*:
+
+```razor
+@page "/BlazorRoute"
+@page "/DifferentBlazorRoute"
+
+<h1>Blazor routing</h1>
+```
 
 ## <a name="route-parameters"></a>ルートパラメーター
 
 コンポーネントは、`@page` ディレクティブで指定されたルートテンプレートからルートパラメーターを受け取ることができます。 ルーターは、ルートパラメーターを使用して、対応するコンポーネントパラメーターを設定します。
 
-*ルートパラメーターコンポーネント*:
+*Pages/RouteParameter。 razor*:
 
-[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/RouteParameter.razor?name=snippet_RouteParameter)]
+```razor
+@page "/RouteParameter"
+@page "/RouteParameter/{text}"
+
+<h1>Blazor is @Text!</h1>
+
+@code {
+    [Parameter]
+    public string Text { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Text = Text ?? "fantastic";
+    }
+}
+```
 
 省略可能なパラメーターはサポートされていないため、上記の例では2つの `@page` ディレクティブが適用されます。 最初のは、パラメーターを指定せずにコンポーネントへの移動を許可します。 2番目の `@page` ディレクティブは、`{text}` route パラメーターを受け取り、その値を `Text` プロパティに割り当てます。
 
@@ -1033,7 +1104,7 @@ Razor コンポーネントは部分クラスとして生成されます。 Razo
 
 *Counter。 razor*:
 
-```cshtml
+```razor
 @page "/counter"
 
 <h1>Counter</h1>
@@ -1056,7 +1127,7 @@ Razor コンポーネントは部分クラスとして生成されます。 Razo
 
 *Counter。 razor*:
 
-```cshtml
+```razor
 @page "/counter"
 
 <h1>Counter</h1>
@@ -1095,7 +1166,7 @@ namespace BlazorApp.Pages
 
 *Pages/BlazorRocks*:
 
-```cshtml
+```razor
 @page "/BlazorRocks"
 @inherits BlazorRocksBase
 
@@ -1135,7 +1206,7 @@ Razor で作成されるコンポーネントの名前空間は、(優先順位�
 
 *BlazorSample/Shared/* フォルダーに別のコンポーネント (`NavMenu.razor`) が存在する場合は、次の `@using` ステートメントを使用して `Index.razor` でコンポーネントを使用できます。
 
-```cshtml
+```razor
 @using BlazorSample.Shared
 
 This is the Index page.
@@ -1145,7 +1216,7 @@ This is the Index page.
 
 コンポーネントは、完全修飾名を使用して参照することもできます。この場合、 [`@using`](xref:mvc/views/razor#using)ディレクティブは必要ありません。
 
-```cshtml
+```razor
 This is the Index page.
 
 <BlazorSample.Shared.NavMenu></BlazorSample.Shared.NavMenu>
@@ -1164,7 +1235,7 @@ HTML 要素の属性は、.NET の値に基づいて条件付きで表示され�
 
 次の例では、`IsCompleted` によって `checked` が要素のマークアップに表示されるかどうかが決まります。
 
-```cshtml
+```razor
 <input type="checkbox" checked="@IsCompleted" />
 
 @code {
@@ -1221,11 +1292,11 @@ HTML 要素の属性は、.NET の値に基づいて条件付きで表示され�
 
 `TableTemplate` コンポーネント:
 
-[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/TableTemplate.razor)]
+[!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/TableTemplate.razor)]
 
 テンプレート化されたコンポーネントを使用する場合、テンプレートパラメーターは、パラメーターの名前と一致する子要素を使用して指定できます (`TableHeader` と、次の例の `RowTemplate`)。
 
-```cshtml
+```razor
 <TableTemplate Items="pets">
     <TableHeader>
         <th>ID</th>
@@ -1242,7 +1313,7 @@ HTML 要素の属性は、.NET の値に基づいて条件付きで表示され�
 
 要素として渡される型 `RenderFragment<T>` のコンポーネント引数には、`context` という名前の暗黙的なパラメーターがあります (たとえば、上記のコードサンプルでは `@context.PetId`)。ただし、子要素の `Context` 属性を使用してパラメーター名を変更することもできます。 次の例では、`RowTemplate` 要素の `Context` 属性で `pet` パラメーターを指定しています。
 
-```cshtml
+```razor
 <TableTemplate Items="pets">
     <TableHeader>
         <th>ID</th>
@@ -1257,7 +1328,7 @@ HTML 要素の属性は、.NET の値に基づいて条件付きで表示され�
 
 または、コンポーネント要素の `Context` 属性を指定することもできます。 指定された `Context` 属性は、指定されたすべてのテンプレートパラメーターに適用されます。 これは、暗黙的な子コンテンツ (ラップする子要素を持たない) のコンテンツパラメーター名を指定する場合に便利です。 次の例では、`Context` 属性が `TableTemplate` 要素に表示され、すべてのテンプレートパラメーターに適用されます。
 
-```cshtml
+```razor
 <TableTemplate Items="pets" Context="pet">
     <TableHeader>
         <th>ID</th>
@@ -1274,11 +1345,11 @@ HTML 要素の属性は、.NET の値に基づいて条件付きで表示され�
 
 多くの場合、テンプレート化されたコンポーネントは一般的に型指定されます たとえば、汎用 `ListViewTemplate` コンポーネントを使用して `IEnumerable<T>` 値を表示できます。 ジェネリックコンポーネントを定義するには、 [`@typeparam`](xref:mvc/views/razor#typeparam)ディレクティブを使用して型パラメーターを指定します。
 
-[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/ListViewTemplate.razor)]
+[!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/ListViewTemplate.razor)]
 
 ジェネリック型のコンポーネントを使用する場合、可能であれば型パラメーターは推論されます。
 
-```cshtml
+```razor
 <ListViewTemplate Items="pets">
     <ItemTemplate Context="pet">
         <li>@pet.Name</li>
@@ -1288,7 +1359,7 @@ HTML 要素の属性は、.NET の値に基づいて条件付きで表示され�
 
 それ以外の場合は、型パラメーターの名前と一致する属性を使用して、型パラメーターを明示的に指定する必要があります。 次の例では、`TItem="Pet"` 型を指定しています。
 
-```cshtml
+```razor
 <ListViewTemplate Items="pets" TItem="Pet">
     <ItemTemplate Context="pet">
         <li>@pet.Name</li>
@@ -1319,7 +1390,7 @@ public class ThemeInfo
 
 `CascadingValuesParametersLayout` コンポーネント:
 
-```cshtml
+```razor
 @inherits LayoutComponentBase
 @using BlazorSample.UIThemeClasses
 
@@ -1349,7 +1420,7 @@ public class ThemeInfo
 
 `CascadingValuesParametersTheme` コンポーネント:
 
-```cshtml
+```razor
 @page "/cascadingvaluesparameterstheme"
 @layout CascadingValuesParametersLayout
 @using BlazorSample.UIThemeClasses
@@ -1385,7 +1456,7 @@ public class ThemeInfo
 
 同じサブツリー内で同じ型の複数の値を連鎖させるには、各 `CascadingValue` コンポーネントとそれに対応する `CascadingParameter`に一意の `Name` 文字列を指定します。 次の例では、2つの `CascadingValue` コンポーネントが名前で `MyCascadingType` の異なるインスタンスをカスケードしています。
 
-```cshtml
+```razor
 <CascadingValue Value=@ParentCascadeParameter1 Name="CascadeParam1">
     <CascadingValue Value=@ParentCascadeParameter2 Name="CascadeParam2">
         ...
@@ -1404,7 +1475,7 @@ public class ThemeInfo
 
 子孫コンポーネントでは、カスケードされたパラメーターは、先祖コンポーネントの対応するカスケード値から名前で値を受け取ります。
 
-```cshtml
+```razor
 ...
 
 @code {
@@ -1426,31 +1497,53 @@ public class ThemeInfo
 
 `CascadingValuesParametersTabSet` コンポーネントは、いくつかの `Tab` コンポーネントを含む `TabSet` コンポーネントを使用します。
 
-[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/CascadingValuesParametersTabSet.razor?name=snippet_TabSet)]
+```razor
+<TabSet>
+    <Tab Title="First tab">
+        <h4>Greetings from the first tab!</h4>
+
+        <label>
+            <input type="checkbox" @bind="showThirdTab" />
+            Toggle third tab
+        </label>
+    </Tab>
+    <Tab Title="Second tab">
+        <h4>The second tab says Hello World!</h4>
+    </Tab>
+
+    @if (showThirdTab)
+    {
+        <Tab Title="Third tab">
+            <h4>Welcome to the disappearing third tab!</h4>
+            <p>Toggle this tab from the first tab.</p>
+        </Tab>
+    }
+</TabSet>
+```
 
 子 `Tab` コンポーネントは、パラメーターとして `TabSet`に明示的に渡されません。 代わりに、子 `Tab` コンポーネントは、`TabSet`の子コンテンツの一部になります。 ただし、`TabSet` は、ヘッダーとアクティブなタブをレンダリングできるように、各 `Tab` コンポーネントについて認識している必要があります。追加のコードを必要とせずにこの調整を可能にするために、`TabSet` コンポーネントは、*それ自体をカスケード値として提供*し、その後、子孫 `Tab` コンポーネントによって取得されます。
 
 `TabSet` コンポーネント:
 
-[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/TabSet.razor)]
+[!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/TabSet.razor)]
 
 子孫の `Tab` コンポーネントは、含まれている `TabSet` をカスケード型パラメーターとしてキャプチャするので、`Tab` のコンポーネントは、どのタブがアクティブであるかを `TabSet` および座標に追加します。
 
 `Tab` コンポーネント:
 
-[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/Tab.razor)]
+[!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/Tab.razor)]
 
 ## <a name="razor-templates"></a>Razor テンプレート
 
 レンダリングフラグメントは、Razor テンプレート構文を使用して定義できます。 Razor テンプレートは、UI スニペットを定義する方法であり、次の形式を想定しています。
 
-```cshtml
+```razor
 @<{HTML tag}>...</{HTML tag}>
 ```
 
 次の例は、`RenderFragment` と `RenderFragment<T>` の値を指定し、テンプレートをコンポーネント内で直接表示する方法を示しています。 レンダーフラグメントは、[テンプレートコンポーネント](#templated-components)に引数として渡すこともできます。
 
-```cshtml
+```razor
 @timeTemplate
 
 @petTemplate(new Pet { Name = "Rex" })
@@ -1484,7 +1577,7 @@ public class ThemeInfo
 
 次の `PetDetails` コンポーネントを検討してください。これは手動で別のコンポーネントに組み込むことができます。
 
-```cshtml
+```razor
 <h2>Pet Details Component</h2>
 
 <p>@PetDetailsQuote</p>
@@ -1500,7 +1593,7 @@ public class ThemeInfo
 
 `BuiltContent` コンポーネント:
 
-```cshtml
+```razor
 @page "/BuiltContent"
 
 <h1>Build a component</h1>
@@ -1539,9 +1632,9 @@ Blazor `.razor` ファイルは常にコンパイルされます。 コンパイ
 
 これらの機能強化の主要な例には、*シーケンス番号*が含まれます。 シーケンス番号は、コードの特定の行と順序付けられた行の出力元をランタイムに示します。 ランタイムは、この情報を使用して、効率的なツリーの相違を線形時間で生成します。これは、一般的なツリーの相違アルゴリズムでは通常可能です。
 
-次の単純な `.razor` ファイルについて考えてみましょう。
+次の Razor コンポーネント (*razor*) ファイルについて考えてみます。
 
-```cshtml
+```razor
 @if (someFlag)
 {
     <text>First</text>
@@ -1636,7 +1729,7 @@ Blazor サーバーアプリはローカライズ[ミドルウェア](xref:funda
 
 ### <a name="configure-the-linker-for-internationalization-opno-locblazor-webassembly"></a>国際化のためのリンカーの構成 (Blazor WebAssembly
 
-既定では、BlazorBlazor WebAssembly のリンカー構成は、明示的に要求されたロケールを除き、国際化情報を除去します。 リンカーの動作を制御する方法の詳細とガイダンスについては、「<xref:host-and-deploy/blazor/configure-linker#configure-the-linker-for-internationalization>」を参照してください。
+既定では、Blazor WebAssembly に対する Blazor のリンカー構成により、明示的に要求されたロケールを除き、国際化情報は除去されます。 リンカーの動作を制御する方法の詳細とガイダンスについては、「<xref:host-and-deploy/blazor/configure-linker#configure-the-linker-for-internationalization>」を参照してください。
 
 ### <a name="cookies"></a>Cookies
 
@@ -1704,7 +1797,7 @@ public class CultureController : Controller
 
 次のコンポーネントは、ユーザーがカルチャを選択したときに最初のリダイレクトを実行する方法の例を示しています。
 
-```cshtml
+```razor
 @inject NavigationManager NavigationManager
 
 <h3>Select your language</h3>

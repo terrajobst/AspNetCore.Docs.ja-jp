@@ -9,12 +9,12 @@ ms.date: 12/05/2019
 no-loc:
 - Blazor
 uid: blazor/dependency-injection
-ms.openlocfilehash: 17dd0f927064ae7c2b1e3e439fd93e2cb220a5a4
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: aad6cfee500b5cb502470f6a4a7cb5756df09dc4
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74879774"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74943785"
 ---
 # <a name="aspnet-core-opno-locblazor-dependency-injection"></a>ASP.NET Core Blazor 依存関係の挿入
 
@@ -84,7 +84,7 @@ DI システムは ASP.NET Core の DI システムに基づいています。 �
 
 次の例は、`@inject` を使用する方法を示しています。 `Services.IDataAccess` を実装するサービスは、コンポーネントのプロパティ `DataRepository`に挿入されます。 コードが `IDataAccess` 抽象化を使用するかどうかに注意してください。
 
-[!code-cshtml[](dependency-injection/samples_snapshot/3.x/CustomerList.razor?highlight=2-3,23)]
+[!code-razor[](dependency-injection/samples_snapshot/3.x/CustomerList.razor?highlight=2-3,23)]
 
 内部的には、生成されたプロパティ (`DataRepository`) は、`InjectAttribute` 属性を使用します。 通常、この属性は直接使用されません。 コンポーネントに基底クラスが必要であり、基底クラスにも挿入されたプロパティが必要な場合は、`InjectAttribute`を手動で追加します。
 
@@ -100,7 +100,7 @@ public class ComponentBase : IComponent
 
 基底クラスから派生したコンポーネントでは、`@inject` ディレクティブは必要ありません。 基底クラスの `InjectAttribute` で十分です。
 
-```cshtml
+```razor
 @page "/demo"
 @inherits ComponentBase
 
@@ -135,7 +135,7 @@ ASP.NET Core アプリでは、スコープ付きサービスは通常、現在�
 
 サービスのスコープをコンポーネントの有効期間に限定するために、では `OwningComponentBase` と `OwningComponentBase<TService>` 基底クラスを使用できます。 これらの基本クラスは、コンポーネントの有効期間にスコープが設定されているサービスを解決する `IServiceProvider` 型の `ScopedServices` プロパティを公開します。 Razor の基底クラスから継承するコンポーネントを作成するには、`@inherits` ディレクティブを使用します。
 
-```cshtml
+```razor
 @page "/users"
 @attribute [Authorize]
 @inherits OwningComponentBase<Data.ApplicationDbContext>
