@@ -368,7 +368,7 @@ SUT は、次の特性を持つ Razor Pages メッセージシステムです。
 
 &#8224;EF トピック「InMemory を使用した[テスト](/ef/core/miscellaneous/testing/in-memory)」では、MSTest を使用したテストにメモリ内データベースを使用する方法について説明しています。 このトピックでは、 [xUnit](https://xunit.github.io/)テストフレームワークを使用します。 テストの概念とテストの実装は、テストフレームワークごとに似ていますが、同一ではありません。
 
-アプリはリポジトリパターンを使用せず、[作業単位 (UoW) パターン](https://martinfowler.com/eaaCatalog/unitOfWork.html)の有効な例ではありませんが、Razor Pages はこれらの開発パターンをサポートしています。 詳細については、「[インフラストラクチャの永続化層](/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design)と[テストコントローラーのロジック](/aspnet/core/mvc/controllers/testing)の設計 (例では、リポジトリパターンを実装します)」を参照してください。
+アプリはリポジトリパターンを使用せず、[作業単位 (UoW) パターン](https://martinfowler.com/eaaCatalog/unitOfWork.html)の有効な例ではありませんが、Razor Pages はこれらの開発パターンをサポートしています。 詳細については、「[インフラストラクチャの永続レイヤーの設計](/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design)」と「[コントローラーロジックのテスト](/aspnet/core/mvc/controllers/testing)」を参照してください(例では、リポジトリパターンを実装します)」。
 
 ### <a name="test-app-organization"></a>テストアプリの組織
 
@@ -732,7 +732,7 @@ SUT は、次の特性を持つ Razor Pages メッセージシステムです。
 
 &#8224;EF トピック「InMemory を使用した[テスト](/ef/core/miscellaneous/testing/in-memory)」では、MSTest を使用したテストにメモリ内データベースを使用する方法について説明しています。 このトピックでは、 [xUnit](https://xunit.github.io/)テストフレームワークを使用します。 テストの概念とテストの実装は、テストフレームワークごとに似ていますが、同一ではありません。
 
-アプリはリポジトリパターンを使用せず、[作業単位 (UoW) パターン](https://martinfowler.com/eaaCatalog/unitOfWork.html)の有効な例ではありませんが、Razor Pages はこれらの開発パターンをサポートしています。 詳細については、「[インフラストラクチャの永続化層](/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design)と[テストコントローラーのロジック](/aspnet/core/mvc/controllers/testing)の設計 (例では、リポジトリパターンを実装します)」を参照してください。
+アプリはリポジトリパターンを使用せず、[作業単位 (UoW) パターン](https://martinfowler.com/eaaCatalog/unitOfWork.html)の有効な例ではありませんが、Razor Pages はこれらの開発パターンをサポートしています。 詳細については、「[インフラストラクチャの永続レイヤーの設計](/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design)」と「[コントローラーロジックのテスト](/aspnet/core/mvc/controllers/testing)」を参照してください(例では、リポジトリパターンを実装します)」。
 
 ### <a name="test-app-organization"></a>テストアプリの組織
 
