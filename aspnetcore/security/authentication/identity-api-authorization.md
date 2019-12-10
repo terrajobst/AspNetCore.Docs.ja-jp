@@ -22,7 +22,7 @@ ASP.NET Core 3.0 以降では、API 承認のサポートを使用して、シ�
 
 ## <a name="create-an-app-with-api-authorization-support"></a>API authorization サポートを使用してアプリを作成する
 
-ユーザーの認証と承認は、両方の角度で使用でき、SPAs として対応します。 コマンドシェルを開き、次のコマンドを実行します。
+ユーザーの認証と承認は、Angular SPA と React SPA の両方で使用できます。 コマンドシェルを開き、次のコマンドを実行します。
 
 **Angular**:
 
@@ -133,7 +133,7 @@ Appsettings で *。プロジェクトルートの開発用 json*ファイルに
 }
 ```
 
-## <a name="general-description-of-the-angular-app"></a>角度アプリの一般的な説明
+## <a name="general-description-of-the-angular-app"></a>Angular アプリの概要
 
 角度テンプレートでの認証と API 承認のサポートは、独自の角度モジュールの*Clientapp-authorization*ディレクトリに存在します。 モジュールは、次の要素で構成されています。
 
@@ -146,9 +146,9 @@ Appsettings で *。プロジェクトルートの開発用 json*ファイルに
 * ルートに追加することができ、ルートにアクセスする前にユーザーを認証する必要があるルートガード `AuthorizeGuard`。
 * ユーザーが認証されるときに、API を対象とする発信 HTTP 要求にアクセストークンを結び付ける HTTP インターセプター `AuthorizeInterceptor`。
 * 認証プロセスの下位レベルの詳細を処理し、認証されたユーザーに関する情報をアプリの残りの部分に公開するサービス `AuthorizeService`。
-* アプリの認証部分に関連付けられているルートを定義する角度モジュール。 ログインメニューコンポーネント、インターセプター、ガード、およびアプリの残りの部分から使用するためのサービスを公開します。
+* アプリの認証部分に関連付けられているルートを定義する Angular モジュール。 ログインメニューコンポーネント、インターセプター、ガード、およびアプリの残りの部分から使用するためのサービスを公開します。
 
-## <a name="general-description-of-the-react-app"></a>反応アプリの一般的な説明
+## <a name="general-description-of-the-react-app"></a>React アプリの概要
 
 応答テンプレートでの認証と API 承認のサポートは、 *ClientApp\src\components\api-authorization*ディレクトリにあります。 これは、次の要素で構成されています。
 
@@ -209,7 +209,7 @@ services.Configure<JwtBearerOptions>(
 
 ## <a name="protect-a-client-side-route-angular"></a>クライアント側のルートを保護する (Angular)
 
-クライアント側ルートの保護は、ルートを構成するときに実行するガードのリストに承認ガードを追加することによって行われます。 例として、`fetch-data` ルートがメインアプリの角度モジュール内でどのように構成されているかを確認できます。
+クライアント側ルートの保護は、ルートを構成するときに実行するガードのリストに承認ガードを追加することによって行われます。 例として、`fetch-data` ルートがメインアプリの Angular モジュール内でどのように構成されているかを確認できます。
 
 ```typescript
 RouterModule.forRoot([
@@ -247,7 +247,7 @@ RouterModule.forRoot([
 import authService from './api-authorization/AuthorizeService'
 ```
 
-### <a name="retrieve-and-attach-the-access-token-to-the-response"></a>アクセストークンを取得して応答にアタッチする
+### <a name="retrieve-and-attach-the-access-token-to-the-response"></a>アクセストークンを取得して React にアタッチする
 
 ```javascript
 async populateWeatherData() {
