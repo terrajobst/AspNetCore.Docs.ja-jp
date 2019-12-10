@@ -5,17 +5,17 @@ description: Blazor Webasと Blazor サーバーホスティングモデルに�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/23/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/hosting-models
-ms.openlocfilehash: 38db9804c9cdd1aa31ca48af2dd9ec2e85175156
-ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
+ms.openlocfilehash: 7676d16bddf146ea38619ed35c5e32c5bce731de
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/02/2019
-ms.locfileid: "74681046"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74943767"
 ---
 # <a name="aspnet-core-opno-locblazor-hosting-models"></a>Blazor ホスティングモデルの ASP.NET Core
 
@@ -142,7 +142,7 @@ Blazor サーバーアプリには、サーバーへのアクティブな Signal
 
 Blazor サーバー アプリには [Azure SignalR Service](/azure/azure-signalr) を使用することをお勧めします。 このサービスでは、多数の同時 SignalR 接続に対して Blazor Server アプリをスケールアップできます。 Azure SignalR サービスでは、サービスの `ServerStickyMode` オプションまたは構成値を `Required`に設定することにより、固定セッションが有効になります。 詳細については、「<xref:host-and-deploy/blazor/server#signalr-configuration>」を参照してください。
 
-IIS を使用すると、アプリケーション要求ルーティングによって固定セッションが有効になります。 詳細については、「[アプリケーション要求ルーティングを使用した HTTP 負荷分散](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing)」を参照してください。
+IIS を使用すると、スティッキー セッションはアプリケーション要求ルーティングによって有効になります。 詳しくは、「[アプリケーション要求ルーティングを使用した HTTP 負荷分散](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing)」をご覧ください。
 
 #### <a name="reflect-the-connection-state-in-the-ui"></a>UI の接続状態を反映します。
 
@@ -150,7 +150,7 @@ IIS を使用すると、アプリケーション要求ルーティングによ�
 
 UI をカスタマイズするには、 *_Host*の `<body>` の `components-reconnect-modal` の `id` を持つ要素を定義します。
 
-```html
+```cshtml
 <div id="components-reconnect-modal">
     ...
 </div>
@@ -323,7 +323,7 @@ public class WeatherForecastService
 
 ### <a name="render-noninteractive-components-from-razor-pages-and-views"></a>Razor ページとビューからの非対話型コンポーネントのレンダリング
 
-次の Razor ページでは、フォームを使用して指定された初期値を使用して、`MyComponent` コンポーネントが静的にレンダリングされます。
+次の Razor ページでは、フォームを使用して指定された初期値を使用して、`Counter` コンポーネントが静的にレンダリングされます。
 
 ::: moniker range=">= aspnetcore-3.1"
 
@@ -356,7 +356,7 @@ public class WeatherForecastService
     <button type="submit">Set initial value</button>
 </form>
 
-@(await Html.RenderComponentAsync<MyComponent>(RenderMode.Static, 
+@(await Html.RenderComponentAsync<Counter>(RenderMode.Static, 
     new { InitialValue = InitialValue }))
 
 @code {

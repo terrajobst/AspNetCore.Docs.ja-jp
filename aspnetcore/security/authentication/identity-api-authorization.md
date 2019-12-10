@@ -24,6 +24,7 @@ ASP.NET Core 3.0 以降では、API 承認のサポートを使用して、シ�
 
 ユーザーの認証と承認は、Angular SPA と React SPA の両方で使用できます。コマンドシェルを開き、次のコマンドを実行します。
 
+
 **Angular**:
 
 ```dotnetcli

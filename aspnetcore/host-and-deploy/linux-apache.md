@@ -5,14 +5,14 @@ description: CentOS 上にリバース プロキシ サーバーとして Apache
 monikerRange: '>= aspnetcore-2.1'
 ms.author: shboyer
 ms.custom: mvc
-ms.date: 11/05/2019
+ms.date: 12/02/2019
 uid: host-and-deploy/linux-apache
-ms.openlocfilehash: fce91db736908e433ba6803319aa8984bb68a554
-ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
+ms.openlocfilehash: 730ed1847ec5728657d56db3ccf0f1f5fab6b5dd
+ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73659887"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74717365"
 ---
 # <a name="host-aspnet-core-on-linux-with-apache"></a>Apache 搭載の Linux で ASP.NET Core をホストする
 
@@ -24,10 +24,13 @@ ms.locfileid: "73659887"
 
 * CentOS 7 を実行しているサーバーと、sudo 特権を持つ標準ユーザー アカウント。
 * サーバーへの .NET Core ランタイムのインストール。
-   1. [.NET の「All Downloads」 (すべてのダウンロード) ページ](https://www.microsoft.com/net/download/all)に移動します。
-   1. プレビューではない最新のランタイムを、**Runtime** (ランタイム) の一覧から選択します。
-   1. CentOS/Oracle の手順を選択し、それに従います。
+   1. 「[.NET Core のダウンロード](https://dotnet.microsoft.com/download/dotnet-core)」ページにアクセスします。
+   1. プレビューでない最新の .NET Core バージョンを選択します。
+   1. **[Run apps - Runtime]\(アプリの実行 - ランタイム\)** の下の表でプレビューでない最新のランタイムをダウンロードします。
+   1. Linux の 「**パッケージ マネージャーの手順**」 リンクを選択し、CentOS の手順に従います。
 * 既存の ASP.NET Core アプリ。
+
+共有フレームワークをアップグレードした後の任意の時点で、サーバーによってホストされている ASP.NET Core アプリを再起動します。
 
 ## <a name="publish-and-copy-over-the-app"></a>アプリを介して発行およびコピーする
 
@@ -380,6 +383,10 @@ sudo systemctl restart httpd
 ```
 
 ## <a name="additional-apache-suggestions"></a>Apache に関するその他の推奨事項
+
+### <a name="restart-apps-with-shared-framework-updates"></a>共有されたフレームワークの更新プログラムを使用してアプリを再起動する
+
+サーバー上で共有フレームワークをアップグレードしたら、サーバーによってホストされている ASP.NET Core アプリを再起動します。
 
 ### <a name="additional-headers"></a>その他のヘッダー
 

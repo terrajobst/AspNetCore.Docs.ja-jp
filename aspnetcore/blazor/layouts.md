@@ -5,16 +5,16 @@ description: Blazor アプリ用の再利用可能なレイアウトコンポー
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 uid: blazor/layouts
-ms.openlocfilehash: 3546259fc6b622a6137a6baa8f446c5f43af1cab
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 90acfb0d4e9daadb12be79de6bd0c99fc545697a
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73962806"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74944058"
 ---
 # <a name="aspnet-core-opno-locblazor-layouts"></a>Blazor レイアウトの ASP.NET Core
 
@@ -31,7 +31,7 @@ By [Rainer Stropek](https://www.timecockpit.com)と[Luke latham](https://github.
 
 次のコードサンプルは、レイアウトコンポーネントの Razor テンプレートである*Mainlayout*を示しています。 レイアウトは `LayoutComponentBase` を継承し、ナビゲーションバーとフッターの間に `@Body` を設定します。
 
-[!code-cshtml[](layouts/sample_snapshot/3.x/MainLayout.razor?highlight=1,13)]
+[!code-razor[](layouts/sample_snapshot/3.x/MainLayout.razor?highlight=1,13)]
 
 Blazor アプリテンプレートのいずれかに基づくアプリでは、`MainLayout` コンポーネント (*Mainlayout*) はアプリの*共有*フォルダーにあります。
 
@@ -39,11 +39,11 @@ Blazor アプリテンプレートのいずれかに基づくアプリでは、`
 
 アプリの*アプリケーションの razor*ファイルの `Router` コンポーネントで、既定のアプリレイアウトを指定します。 既定の Blazor テンプレートによって提供される次の `Router` コンポーネントは、既定のレイアウトを `MainLayout` コンポーネントに設定します。
 
-[!code-cshtml[](layouts/sample_snapshot/3.x/App1.razor?highlight=3)]
+[!code-razor[](layouts/sample_snapshot/3.x/App1.razor?highlight=3)]
 
 `NotFound` コンテンツの既定のレイアウトを指定するには `NotFound` コンテンツの `LayoutView` を指定します。
 
-[!code-cshtml[](layouts/sample_snapshot/3.x/App2.razor?highlight=6-9)]
+[!code-razor[](layouts/sample_snapshot/3.x/App2.razor?highlight=6-9)]
 
 `Router` コンポーネントの詳細については、「<xref:blazor/routing>」を参照してください。
 
@@ -55,7 +55,7 @@ Blazor アプリテンプレートのいずれかに基づくアプリでは、`
 
 次の `MasterList` コンポーネントの内容は、`@Body`の位置にある `MasterLayout` に挿入されます。
 
-[!code-cshtml[](layouts/sample_snapshot/3.x/MasterList.razor?highlight=1)]
+[!code-razor[](layouts/sample_snapshot/3.x/MasterList.razor?highlight=1)]
 
 コンポーネントにレイアウトを直接指定すると、ルーターの*既定のレイアウト*セットまたは *_Imports*からインポートされた `@layout` ディレクティブが上書きされます。
 
@@ -69,7 +69,7 @@ Blazor アプリテンプレートのいずれかに基づくアプリでは、`
 * 同じフォルダーおよびサブフォルダー内のすべての Razor コンポーネント。
 * `BlazorApp1.Data` 名前空間。
  
-[!code-cshtml[](layouts/sample_snapshot/3.x/_Imports.razor)]
+[!code-razor[](layouts/sample_snapshot/3.x/_Imports.razor)]
 
 *_Imports の razor*ファイルは、razor[のビューおよびページの _ViewImports ファイル](xref:mvc/views/layout#importing-shared-directives)に似ていますが、razor コンポーネントファイルに特に適用されます。
 
@@ -81,15 +81,15 @@ Blazor アプリテンプレートのいずれかに基づくアプリでは、`
 
 次の例は、入れ子になったレイアウトの使用方法を示しています。 *EpisodesComponent*ファイルは、表示するコンポーネントです。 コンポーネントは `MasterListLayout`を参照します。
 
-[!code-cshtml[](layouts/sample_snapshot/3.x/EpisodesComponent.razor?highlight=1)]
+[!code-razor[](layouts/sample_snapshot/3.x/EpisodesComponent.razor?highlight=1)]
 
 *Masterlistlayout. razor*ファイルには、`MasterListLayout`が用意されています。 レイアウトは、表示されている別のレイアウト (`MasterLayout`) を参照します。 `@Body` 表示される `EpisodesComponent` がレンダリングされます。
 
-[!code-cshtml[](layouts/sample_snapshot/3.x/MasterListLayout.razor?highlight=1,9)]
+[!code-razor[](layouts/sample_snapshot/3.x/MasterListLayout.razor?highlight=1,9)]
 
 最後に、Masterlayout に `MasterLayout`、ヘッダー、メインメニュー、フッターなどの最上位レベルのレイアウト要素が含まれてい*ます。* `EpisodesComponent` が表示される `MasterListLayout`、`@Body` が表示されます。
 
-[!code-cshtml[](layouts/sample_snapshot/3.x/MasterLayout.razor?highlight=6)]
+[!code-razor[](layouts/sample_snapshot/3.x/MasterLayout.razor?highlight=6)]
 
 ## <a name="additional-resources"></a>その他の技術情報
 

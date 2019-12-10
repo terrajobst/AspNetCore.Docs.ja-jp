@@ -4,14 +4,14 @@ author: rick-anderson
 description: ASP.NET Core web アプリで HTTPS/TLS を要求する方法について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/14/2019
+ms.date: 12/06/2019
 uid: security/enforcing-ssl
-ms.openlocfilehash: 82cd2e52f3bd929682b9eae24611ad04fd9f8682
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: 032105c67e15ab94635ae6fadea103450c7eb0fb
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317369"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74944240"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>ASP.NET Core に HTTPS を適用する
 
@@ -52,7 +52,7 @@ API がないと、クライアントが最初の要求で機微なデータを�
 
 ::: moniker-end
 
-## <a name="require-https"></a>HTTPS を要求する
+## <a name="require-https"></a>HTTPS が必須
 
 Web アプリの運用 ASP.NET Core では次のものを使用することをお勧めします。
 
@@ -81,11 +81,11 @@ Web アプリの運用 ASP.NET Core では次のものを使用することを�
 前の強調表示されているコード:
 
 * 既定の[HttpsRedirectionOptions statuscode](/dotnet/api/microsoft.aspnetcore.httpspolicy.httpsredirectionoptions.redirectstatuscode) ([Status307TemporaryRedirect](/dotnet/api/microsoft.aspnetcore.http.statuscodes.status307temporaryredirect)) を使用します。
-* [ 環境変数または ](/dotnet/api/microsoft.aspnetcore.httpspolicy.httpsredirectionoptions.httpsport)IServerAddressesFeature`ASPNETCORE_HTTPS_PORT` でオーバーライドされない限り、既定の [HttpsRedirectionOptions.HttpsPort](/dotnet/api/microsoft.aspnetcore.hosting.server.features.iserveraddressesfeature) (null) を使用します。
+* `ASPNETCORE_HTTPS_PORT` 環境変数または [IServerAddressesFeature](/dotnet/api/microsoft.aspnetcore.hosting.server.features.iserveraddressesfeature) でオーバーライドされない限り、既定の [HttpsRedirectionOptions.HttpsPort](/dotnet/api/microsoft.aspnetcore.httpspolicy.httpsredirectionoptions.httpsport) (null) を使用します。
 
 永続的なリダイレクトではなく、一時的なリダイレクトを使用することをお勧めします。 リンクキャッシュを使用すると、開発環境で不安定な動作が発生する可能性があります。 アプリが非開発環境にあるときに永続的なリダイレクト状態コードを送信する場合は、「[運用環境での永続的なリダイレクトの構成](#configure-permanent-redirects-in-production)」セクションを参照してください。 [Hsts](#http-strict-transport-security-protocol-hsts)を使用して、セキュリティで保護されたリソース要求のみをアプリケーションに送信する (運用環境のみ) ことをクライアントに通知することをお勧めします。
 
-### <a name="port-configuration"></a>ポートの構成
+### <a name="port-configuration"></a>ポート構成
 
 ミドルウェアがセキュリティで保護されていない要求を HTTPS にリダイレクトするには、ポートが使用可能である必要があります。 使用可能なポートがない場合:
 
@@ -131,7 +131,7 @@ Web アプリの運用 ASP.NET Core では次のものを使用することを�
 > [!NOTE]
 > リバースプロキシ構成でアプリを実行する場合、<xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature> は使用できません。 このセクションで説明する他の方法のいずれかを使用して、ポートを設定します。
 
-### <a name="edge-deployments"></a>エッジデプロイ 
+### <a name="edge-deployments"></a>Edge の展開 
 
 Kestrel または http.sys が公開エッジサーバーとして使用されている場合、Kestrel または http.sys が両方でリッスンするように構成されている必要があります。
 
@@ -150,7 +150,7 @@ Kestrel または http.sys が公開エッジサーバーとして使用され�
 
 Azure App Service にデプロイする場合は、 [「チュートリアル: 既存のカスタム SSL 証明書を Azure Web Apps にバインドする](/azure/app-service/app-service-web-tutorial-custom-ssl)」のガイダンスに従ってください。
 
-### <a name="options"></a>オプション
+### <a name="options"></a>[オプション]
 
 次の強調表示されたコードは、 [AddHttpsRedirection](/dotnet/api/microsoft.aspnetcore.builder.httpsredirectionservicesextensions.addhttpsredirection)を呼び出してミドルウェアオプションを構成します。
 
@@ -173,7 +173,7 @@ Azure App Service にデプロイする場合は、 [「チュートリアル: �
 前の強調表示されているコード:
 
 * [HttpsRedirectionOptions](xref:Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionOptions.RedirectStatusCode*)を <xref:Microsoft.AspNetCore.Http.StatusCodes.Status307TemporaryRedirect>に設定します。これは既定値です。 `RedirectStatusCode`に割り当てるには、<xref:Microsoft.AspNetCore.Http.StatusCodes> クラスのフィールドを使用します。
-* HTTPS ポートを5001に設定します。 既定値は443です。
+* HTTPS ポートを5001に設定します。
 
 #### <a name="configure-permanent-redirects-in-production"></a>運用環境での永続的なリダイレクトの構成
 

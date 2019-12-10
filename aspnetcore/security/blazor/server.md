@@ -5,17 +5,17 @@ description: Blazor サーバーアプリに対するセキュリティ上の脅
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/server
-ms.openlocfilehash: 5cf83a4dd255959e8840fca3a8194b5b4e2ad0a8
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 2d644b84b304a31ad0debc16164ad155c7f7da65
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963877"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74944283"
 ---
 # <a name="secure-aspnet-core-opno-locblazor-server-apps"></a>ASP.NET Core Blazor サーバーアプリをセキュリティで保護する
 
@@ -94,15 +94,15 @@ Blazor クライアントは、セッションごとに1つの接続を確立し
 
 サービス拒否 (DoS) 攻撃では、クライアントによってサーバーが1つ以上のリソースを消費し、アプリを使用できなくなります。 Blazor サーバーアプリにはいくつかの既定の制限があり、DoS 攻撃から保護するために他の ASP.NET Core や SignalR の制限に依存しています。
 
-| Blazor サーバーアプリの制限                            | 説明 | 既定 |
+| Blazor サーバーアプリの制限                            | 説明 | [既定値] |
 | ------------------------------------------------------- | ----------- | ------- |
 | `CircuitOptions.DisconnectedCircuitMaxRetained`         | 特定のサーバーが一度にメモリに保持している切断された回線の最大数。 | 100 |
-| `CircuitOptions.DisconnectedCircuitRetentionPeriod`     | 切断された回線がメモリに保持されてから破棄されるまでの最大時間。 | 3分 |
+| `CircuitOptions.DisconnectedCircuitRetentionPeriod`     | 切断された回線がメモリに保持されてから破棄されるまでの最大時間。 | 3 分 |
 | `CircuitOptions.JSInteropDefaultCallTimeout`            | 非同期の JavaScript 関数呼び出しがタイムアウトするまでにサーバーが待機する最大時間。 | 1 分 |
 | `CircuitOptions.MaxBufferedUnacknowledgedRenderBatches` | 信頼性の高い再接続をサポートするために、サーバーが1回線あたりのメモリに保持する未確認のレンダーバッチの最大数。 制限に達すると、クライアントによって1つ以上のバッチが確認されるまで、サーバーは新しいレンダーバッチの生成を停止します。 | 10 |
 
 
-| SignalR と ASP.NET Core の制限             | 説明 | 既定 |
+| SignalR と ASP.NET Core の制限             | 説明 | [既定値] |
 | ------------------------------------------ | ----------- | ------- |
 | `CircuitOptions.MaximumReceiveMessageSize` | 個々のメッセージのメッセージサイズ。 | 32 KB |
 
@@ -144,11 +144,11 @@ JavaScript から .NET メソッドへの呼び出しを信頼しません。 .N
   * ユーザーが指定したデータをパラメーターで JavaScript 呼び出しに渡すことは避けてください。 パラメーターにデータを渡す必要がある場合は、JavaScript コードが[クロスサイトスクリプティング (XSS)](#cross-site-scripting-xss)の脆弱性を導入せずにデータを渡すことを確認してください。 たとえば、要素の `innerHTML` プロパティを設定することによって、ユーザー指定のデータをドキュメントオブジェクトモデル (DOM) に書き込まないでください。 [コンテンツセキュリティポリシー (CSP)](https://developer.mozilla.org/docs/Web/HTTP/CSP)を使用して、`eval` およびその他の安全でない JavaScript プリミティブを無効にすることを検討してください。
 * フレームワークのディスパッチ実装の上に .NET 呼び出しのカスタムディスパッチを実装しないようにします。 ブラウザーに .NET メソッドを公開することは高度なシナリオであり、一般的な Blazor 開発にはお勧めしません。
 
-### <a name="events"></a>イベント
+### <a name="events"></a>Events
 
 イベントは、Blazor サーバーアプリへのエントリポイントを提供します。 Web アプリでエンドポイントを保護する場合と同じ規則が、Blazor サーバーアプリのイベント処理に適用されます。 悪意のあるクライアントは、イベントのペイロードとして送信するデータを送信できます。
 
-(例:
+例:
 
 * `<select>` の変更イベントによって、アプリがクライアントに提示したオプションに含まれていない値が送信されることがあります。
 * `<input>` は、クライアント側の検証をバイパスして、テキストデータをサーバーに送信することができます。
@@ -159,7 +159,7 @@ Blazor サーバーイベントは非同期であるため、複数のイベン�
 
 ユーザーがカウンターを最大3回インクリメントできるようにするカウンターコンポーネントを考えてみます。 カウンターをインクリメントするボタンは、条件に応じて `count`の値に基づいています。
 
-```cshtml
+```razor
 <p>Count: @count<p>
 
 @if (count < 3)
@@ -180,7 +180,7 @@ Blazor サーバーイベントは非同期であるため、複数のイベン�
 
 クライアントは、フレームワークがこのコンポーネントの新しいレンダリングを生成する前に、1つまたは複数のインクリメントイベントをディスパッチできます。 結果として、UI では十分な速度でボタンが削除されないため、`count` はユーザーが*3 回以上*インクリメントできることになります。 次の例では、3つの `count` インクリメントの制限を達成するための正しい方法を示しています。
 
-```cshtml
+```razor
 <p>Count: @count<p>
 
 @if (count < 3)
@@ -208,7 +208,7 @@ Blazor サーバーイベントは非同期であるため、複数のイベン�
 
 イベントコールバックが、外部サービスまたはデータベースからのデータのフェッチなど、長時間実行される操作を呼び出す場合は、ガードの使用を検討してください。 ガードを使用すると、操作の進行中に視覚的なフィードバックが発生している間に、ユーザーが複数の操作をキューに入れることを防ぐことができます。 次のコンポーネントコードは `isLoading` を `true` に設定し、`GetForecastAsync` はサーバーからデータを取得します。 `isLoading` が `true`場合、このボタンは UI では無効になっています。
 
-```cshtml
+```razor
 @page "/fetchdata"
 @using BlazorServerSample.Data
 @inject WeatherForecastService ForecastService
@@ -235,7 +235,7 @@ Blazor サーバーイベントは非同期であるため、複数のイベン�
 
 「[複数のディスパッチに対するガード](#guard-against-multiple-dispatches)」で説明されているように、ガードを使用するだけでなく、コンポーネントが破棄されたときに実行時間の長い操作を取り消すには、<xref:System.Threading.CancellationToken> を使用することを検討してください。 このアプローチには、コンポーネントでの*dispose の使用*を回避するという追加の利点があります。
 
-```cshtml
+```razor
 @implements IDisposable
 
 ...
@@ -292,7 +292,7 @@ ASP.NET Core アプリをセキュリティで保護するためのガイダン�
 詳細なエラーを有効にする:
 
 * `CircuitOptions.DetailedErrors`.
-* 構成キーを `DetailedErrors` します。 たとえば、`ASPNETCORE_DETAILEDERRORS` 環境変数を `true`の値に設定します。
+* `DetailedErrors` 構成キー。 たとえば、`ASPNETCORE_DETAILEDERRORS` 環境変数を `true`の値に設定します。
 
 > [!WARNING]
 > インターネット上のクライアントにエラー情報を公開することは、常に避ける必要があるセキュリティ上のリスクです。
@@ -389,7 +389,7 @@ Blazor Server アプリセッションが開始されると、サーバーは、
 
 認証と承認のガイダンスについては、「<xref:security/blazor/index>」を参照してください。
 
-## <a name="security-checklist"></a>セキュリティチェックリスト
+## <a name="security-checklist"></a>セキュリティ チェックリスト
 
 次のセキュリティの考慮事項の一覧は、包括的なものではありません。
 
