@@ -18,11 +18,11 @@ ms.locfileid: "73897050"
 
 ASP.NET Core 3.0 以降では、API 承認のサポートを使用して、シングルページアプリ (spa) で認証を提供します。 ユーザーを認証および格納するための ASP.NET Core Id は、Open ID Connect を実装する[ために、ユーザーと組み合わせ](https://identityserver.io/)て使用されます。
 
-**Angular**プロジェクトテンプレートと**React**プロジェクトテンプレートに、Webアプリケーション(モデル・ビュー・コントローラー)(MVC)とWebアプリケーション(レーザーページ)プロジェクトテンプレートの認証パラメータに似た認証パラメータが追加されました。使用できるパラメータ値は、**None**および**Individual**です。リアクション。現時点では、 **.js および Redux**プロジェクトテンプレートは認証パラメータをサポートしていません。
+**Angular** プロジェクトテンプレートと **React** プロジェクトテンプレートに、**Webアプリケーション(Model-View-Controller)**(MVC)と **Web アプリケーション**(Razor Pages)プロジェクトテンプレートの認証パラメータに似た認証パラメータが追加されました。使用できるパラメータ値は、**None** および **Individual** です。現時点では、 **React.js および Redux** プロジェクトテンプレートは認証パラメータをサポートしていません。
 
 ## <a name="create-an-app-with-api-authorization-support"></a>API authorization サポートを使用してアプリを作成する
 
-ユーザーの認証と承認は、Angular React で使用でき、SPAs として対応します。 コマンドシェルを開き、次のコマンドを実行します。
+ユーザーの認証と承認は、Angular SPA と React SPA の両方で使用できます。コマンドシェルを開き、次のコマンドを実行します。
 
 **Angular**:
 
@@ -133,9 +133,9 @@ dotnet new react -o <output_directory_name> -au Individual
 }
 ```
 
-## <a name="general-description-of-the-angular-app"></a>Angularアプリの一般的な説明
+## <a name="general-description-of-the-angular-app"></a>Angular アプリの概要
 
-Angularテンプレートでの認証と API 承認のサポートは、独自のAngularモジュールの*Clientapp-authorization*ディレクトリに存在します。 モジュールは、次の要素で構成されています。
+Angular テンプレートでの認証と API 承認のサポートは、*ClientApp\src\api-authorization* ディレクトリの、独自の Angular モジュールに存在します。 モジュールは、次の要素で構成されています。
 
 * 3個のコンポーネント:
   * *login. component. ts*: アプリのログインフローを処理します。
@@ -146,9 +146,9 @@ Angularテンプレートでの認証と API 承認のサポートは、独自�
 * ルートに追加することができ、ルートにアクセスする前にユーザーを認証する必要があるルートガード `AuthorizeGuard`。
 * ユーザーが認証されるときに、API を対象とする発信 HTTP 要求にアクセストークンを結び付ける HTTP インターセプター `AuthorizeInterceptor`。
 * 認証プロセスの下位レベルの詳細を処理し、認証されたユーザーに関する情報をアプリの残りの部分に公開するサービス `AuthorizeService`。
-* アプリの認証部分に関連付けられているルートを定義するAngularモジュール。 ログインメニューコンポーネント、インターセプター、ガード、およびアプリの残りの部分から使用するためのサービスを公開します。
+* アプリの認証部分に関連付けられているルートを定義する Angular モジュール。 ログインメニューコンポーネント、インターセプター、ガード、およびアプリの残りの部分から使用するためのサービスを公開します。
 
-## <a name="general-description-of-the-react-app"></a>Reactアプリの一般的な説明
+## <a name="general-description-of-the-react-app"></a>React アプリの概要
 
 応答テンプレートでの認証と API 承認のサポートは、 *ClientApp\src\components\api-authorization*ディレクトリにあります。 これは、次の要素で構成されています。
 
@@ -209,7 +209,7 @@ services.Configure<JwtBearerOptions>(
 
 ## <a name="protect-a-client-side-route-angular"></a>クライアント側のルートを保護する (Angular)
 
-クライアント側ルートの保護は、ルートを構成するときに実行するガードのリストに承認ガードを追加することによって行われます。 例として、`fetch-data` ルートがメインアプリのAngularモジュール内でどのように構成されているかを確認できます。
+クライアント側ルートの保護は、ルートを構成するときに実行するガードのリストに承認ガードを追加することによって行われます。 例として、`fetch-data` ルートがメインアプリの Angular モジュール内でどのように構成されているかを確認できます。
 
 ```typescript
 RouterModule.forRoot([
@@ -239,7 +239,7 @@ RouterModule.forRoot([
 
 ## <a name="authenticate-api-requests-react"></a>API 要求の認証 (React)
 
-Reactを含む要求の認証は、最初に `AuthorizeService`から `authService` インスタンスをインポートすることによって行われます。 次に示すように、アクセストークンは `authService` から取得され、要求にアタッチされます。 コンポーネントの処理では、通常、この作業は `componentDidMount` ライフサイクルメソッドで実行されるか、一部のユーザー操作の結果として行われます。
+React を含む要求の認証は、最初に `AuthorizeService`から `authService` インスタンスをインポートすることによって行われます。 次に示すように、アクセストークンは `authService` から取得され、要求にアタッチされます。 コンポーネントの処理では、通常、この作業は `componentDidMount` ライフサイクルメソッドで実行されるか、一部のユーザー操作の結果として行われます。
 
 ### <a name="import-the-authservice-into-your-component"></a>コンポーネントに authService をインポートする
 
@@ -247,7 +247,7 @@ Reactを含む要求の認証は、最初に `AuthorizeService`から `authServi
 import authService from './api-authorization/AuthorizeService'
 ```
 
-### <a name="retrieve-and-attach-the-access-token-to-the-response"></a>アクセストークンを取得してReactにアタッチする
+### <a name="retrieve-and-attach-the-access-token-to-the-response"></a>アクセストークンを取得して React にアタッチする
 
 ```javascript
 async populateWeatherData() {
