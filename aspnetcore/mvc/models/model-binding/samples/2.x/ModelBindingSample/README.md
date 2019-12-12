@@ -1,0 +1,1 @@
+<span data-ttu-id="63f96-101">これは、[ASP.NET Core のモデル バインド](https://docs.microsoft.com/aspnet/core/mvc/models/model-binding)に対応したサンプル プロジェクトです。</span><span class="sxs-lookup"><span data-stu-id="63f96-101">This is a sample project that goes with [Model binding in ASP.NET Core](https://docs.microsoft.com/aspnet/core/mvc/models/model-binding).</span></span>
