@@ -5,17 +5,17 @@ description: ASP.NET Core を使用して Blazor サーバー アプリをホス
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/21/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/server
-ms.openlocfilehash: b688d000f26c9b230d9fdee8423b3194145fe1aa
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: d45d355eabc53fc90bcda4cb7be22fb6a9f04541
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317297"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74944335"
 ---
 # <a name="host-and-deploy-opno-locblazor-server"></a>Blazor サーバーをホストおよびデプロイする
 
@@ -79,10 +79,10 @@ Blazor サーバー アプリには [Azure SignalR Service](/azure/azure-signalr
        "Azure:SignalR:ServerStickyMode": "Required"
        ```
 
-     * Azure portal で App Service の **[構成]**  >  **[アプリケーションの設定]** (**名前**: `Azure:SignalR:ServerStickyMode`、**値**: `Required`)。
+     * Azure portal で App Service の **[構成]** > **[アプリケーションの設定]** (**名前**: `Azure:SignalR:ServerStickyMode`、**値**: `Required`)。
 
 1. Blazor サーバー アプリ用に、Visual Studio に Azure アプリ発行プロファイルを作成する。
-1. プロファイルに **Azure SignalR Service** の依存関係を追加する。 Azure サブスクリプションに、アプリに割り当てる既存の Azure SignalR Service のインスタンスがない場合は、 **[新しい Azure SignalR Service のインスタンスを作成する]** を選択して新しいサービス インスタンスをプロビジョニングします。
+1. プロファイルに **Azure SignalR Service** の依存関係を追加する。 Azure サブスクリプションに、アプリに割り当てる既存の Azure SignalR Service のインスタンスがない場合は、**[新しい Azure SignalR Service のインスタンスを作成する]** を選択して新しいサービス インスタンスをプロビジョニングします。
 1. アプリを Azure に発行する
 
 #### <a name="iis"></a>IIS
@@ -109,7 +109,7 @@ metadata:
 
 次の例に示すように、[JS 相互運用機能](xref:blazor/javascript-interop)を使用してネットワーク待機時間を測定できます。
 
-```cshtml
+```razor
 @inject IJSRuntime JS
 
 @if (latency is null)

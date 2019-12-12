@@ -1,17 +1,17 @@
 ---
 title: Swagger / OpenAPI を使用する ASP.NET Core Web API のヘルプ ページ
-author: rsuter
+author: RicoSuter
 description: このチュートリアルでは、Swagger を追加して、Web API アプリのドキュメントとヘルプ ページを生成する手順を説明します。
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 09/20/2018
+ms.date: 12/07/2019
 uid: tutorials/web-api-help-pages-using-swagger
-ms.openlocfilehash: 06a942ca213c7c0a58932494be0ed23cb6896d48
-ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
+ms.openlocfilehash: 4408e02996b958bf009903aa1e4eeda9ad4f457c
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/12/2019
-ms.locfileid: "67856087"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74944084"
 ---
 # <a name="aspnet-core-web-api-help-pages-with-swagger--openapi"></a>Swagger/OpenAPI を使用する ASP.NET Core Web API のヘルプ ページ
 
@@ -108,7 +108,7 @@ Swagger フローの基本は、Swagger 仕様です&mdash;既定では、ドキ
 
 ![Swagger UI](web-api-help-pages-using-swagger/_static/swagger-ui.png)
 
-コントローラー内の各パブリック アクション メソッドを UI からテストすることができます。 メソッドの名前をクリックし、セクションを展開します。 任意の必要なパラメーターを追加し、 **[Try it out!]** をクリックします。
+コントローラー内の各パブリック アクション メソッドを UI からテストすることができます。 メソッドの名前をクリックし、セクションを展開します。 任意の必要なパラメーターを追加し、**[Try it out!]** をクリックします。
 
 ![Swagger GET テストの例](web-api-help-pages-using-swagger/_static/get-try-it-out.png)
 

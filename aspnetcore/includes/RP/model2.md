@@ -4,7 +4,7 @@
 
 RazorPagesMovie プロジェクトで、*Data* という名前の新しいフォルダーを作成します。 次の `RazorPagesMovieContext` クラスを *Data* フォルダーに追加します。
 
-[!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Data/RazorPagesMovieContext.cs)]
+[!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Data/RazorPagesMovieContext.cs)]
 
 上記のコードによって、エンティティ セットの `DbSet` プロパティが作成されます。 Entity Framework の用語では、エンティティ セットは通常はデータベース テーブルに対応し、エンティティはテーブルの行に対応します。
 
@@ -29,7 +29,7 @@ RazorPagesMovie プロジェクトで、*Data* という名前の新しいフォ
 *Startup.cs* の先頭に次の `using` ステートメントを追加します。
 
 ```csharp
-using RazorPagesMovie.Models;
+using RazorPagesMovie.Data;
 using Microsoft.EntityFrameworkCore;
 ```
 

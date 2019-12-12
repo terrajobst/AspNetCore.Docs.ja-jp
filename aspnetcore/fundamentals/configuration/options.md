@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/18/2019
 uid: fundamentals/configuration/options
-ms.openlocfilehash: 4192bab8acef7c4f7bdf1ac481c468cd0a835420
-ms.sourcegitcommit: 8157e5a351f49aeef3769f7d38b787b4386aad5f
+ms.openlocfilehash: 46cfff905636dc0d50fcde5e781ce47fb6d85cc0
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/20/2019
-ms.locfileid: "74239791"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880392"
 ---
 # <a name="options-pattern-in-aspnet-core"></a>ASP.NET Core のオプション パターン
 
@@ -168,7 +168,7 @@ subOption1 = subvalue1_from_json, subOption2 = 200
 
 <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> を次に挿入します。
 
-* [@inject](xref:mvc/views/razor#inject) Razor ディレクティブを持つ Razor Pages または MVC ビュー。
+* [`@inject`](xref:mvc/views/razor#inject) Razor ディレクティブを持つ Razor Pages または MVC ビュー。
 * ページまたはビュー モデル。
 
 サンプル アプリの次の例では、<xref:Microsoft.Extensions.Options.IOptionsMonitor%601> をページ モデル (*Pages/Index.cshtml.cs*) に挿入しています。
@@ -592,7 +592,7 @@ subOption1 = subvalue1_from_json, subOption2 = 200
 
 <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> を次に挿入します。
 
-* [@inject](xref:mvc/views/razor#inject) Razor ディレクティブを持つ Razor Pages または MVC ビュー。
+* [`@inject`](xref:mvc/views/razor#inject) Razor ディレクティブを持つ Razor Pages または MVC ビュー。
 * ページまたはビュー モデル。
 
 サンプル アプリの次の例では、<xref:Microsoft.Extensions.Options.IOptionsMonitor%601> をページ モデル (*Pages/Index.cshtml.cs*) に挿入しています。
