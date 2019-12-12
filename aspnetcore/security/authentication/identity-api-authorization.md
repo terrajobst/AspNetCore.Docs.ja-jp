@@ -18,7 +18,7 @@ ms.locfileid: "73897050"
 
 ASP.NET Core 3.0 以降では、API 承認のサポートを使用して、シングルページアプリ (spa) で認証を提供します。 ユーザーを認証および格納するための ASP.NET Core Id は、Open ID Connect を実装する[ために、ユーザーと組み合わせ](https://identityserver.io/)て使用されます。
 
-認証パラメーターが、 **Web アプリケーション (モデルビューコントローラー)** (MVC) と**web アプリケーション**(Razor Pages) の認証パラメーターに似た**角度**で、**応答**するプロジェクトテンプレートに追加されました。プロジェクトテンプレート。 許可されるパラメーター値は、 **None**および**個人**です。 この時点では、対応する **.js および Redux**プロジェクトテンプレートで認証パラメーターがサポートされていません。
+**Angular** プロジェクトテンプレートと **React** プロジェクトテンプレートに、**Webアプリケーション(Model-View-Controller)** (MVC)と **Web アプリケーション**(Razor Pages)プロジェクトテンプレートの認証パラメータに似た認証パラメータが追加されました。 使用できるパラメータ値は、**None** および **Individual** です。 現時点では、 **React.js および Redux** プロジェクトテンプレートは認証パラメータをサポートしていません。
 
 ## <a name="create-an-app-with-api-authorization-support"></a>API authorization サポートを使用してアプリを作成する
 
@@ -121,9 +121,9 @@ dotnet new react -o <output_directory_name> -au Individual
 }
 ```
 
-### <a name="appsettingsdevelopmentjson"></a>appsettings.開発. json
+### <a name="appsettingsdevelopmentjson"></a>appsettings.Development.json
 
-Appsettings で *。プロジェクトルートの開発用 json*ファイルには、トークンの署名に使用されるキーについて説明する `IdentityServer` セクションがあります。 運用環境にデプロイする場合は、「[運用環境にデプロイする](#deploy-to-production)」セクションで説明されているように、アプリと共にキーをプロビジョニングしてデプロイする必要があります。
+プロジェクトルートの*appsettings.Development.json*ファイルには、トークンの署名に使用されるキーについて説明する `IdentityServer` セクションがあります。 運用環境にデプロイする場合は、「[運用環境にデプロイする](#deploy-to-production)」セクションで説明されているように、アプリと共にキーをプロビジョニングしてデプロイする必要があります。
 
 ```json
 "IdentityServer": {
@@ -135,7 +135,7 @@ Appsettings で *。プロジェクトルートの開発用 json*ファイルに
 
 ## <a name="general-description-of-the-angular-app"></a>Angular アプリの概要
 
-角度テンプレートでの認証と API 承認のサポートは、独自の角度モジュールの*Clientapp-authorization*ディレクトリに存在します。 モジュールは、次の要素で構成されています。
+Angular テンプレートでの認証と API 承認のサポートは、*ClientApp\src\api-authorization* ディレクトリの、独自の Angular モジュールに存在します。 モジュールは、次の要素で構成されています。
 
 * 3個のコンポーネント:
   * *login. component. ts*: アプリのログインフローを処理します。
@@ -239,7 +239,7 @@ RouterModule.forRoot([
 
 ## <a name="authenticate-api-requests-react"></a>API 要求の認証 (React)
 
-応答を含む要求の認証は、最初に `AuthorizeService`から `authService` インスタンスをインポートすることによって行われます。 次に示すように、アクセストークンは `authService` から取得され、要求にアタッチされます。 コンポーネントの処理では、通常、この作業は `componentDidMount` ライフサイクルメソッドで実行されるか、一部のユーザー操作の結果として行われます。
+React を含む要求の認証は、最初に `AuthorizeService`から `authService` インスタンスをインポートすることによって行われます。 次に示すように、アクセストークンは `authService` から取得され、要求にアタッチされます。 コンポーネントの処理では、通常、この作業は `componentDidMount` ライフサイクルメソッドで実行されるか、一部のユーザー操作の結果として行われます。
 
 ### <a name="import-the-authservice-into-your-component"></a>コンポーネントに authService をインポートする
 
