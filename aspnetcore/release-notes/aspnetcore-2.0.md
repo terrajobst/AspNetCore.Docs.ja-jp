@@ -4,14 +4,14 @@ author: rick-anderson
 description: ASP.NET Core 2.0 の新機能について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/28/2019
+ms.date: 12/05/2019
 uid: aspnetcore-2.0
-ms.openlocfilehash: dac5a48042a71774cb884e30a166be68bee69691
-ms.sourcegitcommit: f5762967df3be8b8c868229e679301f2f7954679
+ms.openlocfilehash: 452ccd76eece55cb5cf38fe39781f2f64dd5d466
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/13/2019
-ms.locfileid: "67048112"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880875"
 ---
 # <a name="whats-new-in-aspnet-core-20"></a>ASP.NET Core 2.0 の新機能
 
@@ -104,7 +104,7 @@ var entityTag = new EntityTagHeaderValue("\"MyCalculatedEtagValue\"");
 return File(data, "text/plain", "downloadName.txt", lastModified: DateTime.UtcNow.AddSeconds(-5), entityTag: entityTag);
 ```
 
-ユーザーに返されるファイルでは、`ETag` と `LastModified` 値に適切な HTTP ヘッダーが装飾されます。
+ユーザーに返されるファイルには、`ETag` と `LastModified` 値に適切な HTTP ヘッダーが含まれます。
 
 アプリケーションのユーザーが範囲要求ヘッダーを使用してコンテンツを要求する場合、ASP.NET Core は要求を認識して、そのヘッダーを処理します。 要求されたコンテンツを部分的に配信できる場合、ASP.NET Core は要求されたバイトのセットだけを適切に省略して返します。 この機能を適用または処理するために、メソッドに特別なハンドラーを記述する必要はありません。自動的に処理されます。
 

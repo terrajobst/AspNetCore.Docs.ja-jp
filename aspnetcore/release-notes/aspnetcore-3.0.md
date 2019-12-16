@@ -4,17 +4,17 @@ author: rick-anderson
 description: ASP.NET Core 3.0 の新機能について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 - SignalR
 uid: aspnetcore-3.0
-ms.openlocfilehash: c3dde383507ec919f82b5268ddbf23911c3d24f8
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 4ade13c38880c9915ec590297f2a43548ca400a8
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963121"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880828"
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>ASP.NET Core 3.0 の新機能
 
@@ -182,7 +182,7 @@ public class DomainRestrictedRequirement :
 * ハブが呼び出されているコンテキストを調べます。
 * 個々のハブ メソッドの実行をユーザーに許可するかどうかを決定します。
 
-個々のハブ メソッドは、コードが実行時にチェックするポリシーの名前で修飾できます。 クライアントが個々のハブ メソッドを呼び出そうとすると、`DomainRestrictedRequirement` ハンドラーが実行され、メソッドへのアクセスを制御します。 この方法に基づいて、`DomainRestrictedRequirement` が次のようにアクセスを制御します。
+個々のハブ メソッドは、コードが実行時にチェックするポリシーの名前でマークできます。 クライアントが個々のハブ メソッドを呼び出そうとすると、`DomainRestrictedRequirement` ハンドラーが実行され、メソッドへのアクセスを制御します。 この方法に基づいて、`DomainRestrictedRequirement` が次のようにアクセスを制御します。
 
 * ログインしているすべてのユーザーが `SendMessage` メソッドを呼び出すことができます。
 * `@jabbr.net` 電子メール アドレスを使用してログインしたユーザーのみが、ユーザーの履歴を表示できます。
@@ -319,8 +319,8 @@ Json.NET を ASP.NET Core 3.0 に追加するには、「[Newtonsoft.Json ベー
 
 次の一覧には、新しい Razor ディレクティブが含まれます。
 
-* [@attribute](xref:mvc/views/razor#attribute) &ndash; `@attribute` ディレクティブでは、指定された属性が生成されたページまたはビューのクラスに適用されます。 たとえば、`@attribute [Authorize]` のようにします。
-* [@implements](xref:mvc/views/razor#implements) &ndash; `@implements` ディレクティブでは、生成されたクラスのインターフェイスが実装されます。 たとえば、`@implements IDisposable` のようにします。
+* [`@attribute`](xref:mvc/views/razor#attribute) &ndash; `@attribute` ディレクティブでは、指定された属性が生成されたページまたはビューのクラスに適用されます。 たとえば、`@attribute [Authorize]` のようにします。
+* [`@implements`](xref:mvc/views/razor#implements) &ndash; `@implements` ディレクティブでは、生成されたクラスのインターフェイスが実装されます。 たとえば、`@implements IDisposable` のようにします。
 
 ## <a name="identityserver4-supports-authentication-and-authorization-for-web-apis-and-spas"></a>IdentityServer4 では、Web API と SPA の認証と承認がサポートされています
 

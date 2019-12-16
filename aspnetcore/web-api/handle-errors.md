@@ -5,14 +5,14 @@ description: ASP.NET Core Web API を使用したエラー処理について説�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: prkrishn
 ms.custom: mvc
-ms.date: 09/27/2019
+ms.date: 12/10/2019
 uid: web-api/handle-errors
-ms.openlocfilehash: 457ad7449c608c3b1b0acd729626e07808f55897
-ms.sourcegitcommit: ddc813f0f1fb293861a01597532919945b0e7fe5
+ms.openlocfilehash: c2dbc47b4495b7187aefbc62eb6d2f0c9683c2da
+ms.sourcegitcommit: 29ace642ca0e1f0b48a18d66de266d8811df2b83
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/23/2019
-ms.locfileid: "74412093"
+ms.lasthandoff: 12/10/2019
+ms.locfileid: "74987833"
 ---
 # <a name="handle-errors-in-aspnet-core-web-apis"></a>ASP.NET Core Web API のエラーを処理する
 
@@ -149,7 +149,7 @@ HTML 形式の応答は、Postman などのツールを使用してテストす�
 
     ::: moniker-end
 
-前の `Error` アクションは、[RFC7807](https://tools.ietf.org/html/rfc7807) 準拠のペイロードをクライアントに送信します。
+前の `Error` アクションは、[RFC 7807](https://tools.ietf.org/html/rfc7807) 準拠のペイロードをクライアントに送信します。
 
 ローカル開発環境では、例外処理ミドルウェアによって、さらに詳しいコンテンツ ネゴシエーション結果も提供されます。 次の手順に従い、開発環境と運用環境で一貫性のあるペイロード形式を生成します。
 
@@ -267,6 +267,13 @@ Web API コントローラーでは、モデルの検証が失敗すると、MVC
 ## <a name="client-error-response"></a>クライアントのエラー応答
 
 "*エラー結果*" は、HTTP 状態コードが 400 以上の結果として定義されます。 Web API コントローラーの場合、MVC によってエラー結果が <xref:Microsoft.AspNetCore.Mvc.ProblemDetails> を含む結果に変換されます。
+
+::: moniker range="= aspnetcore-2.1"
+
+> [!IMPORTANT]
+> ASP.NET Core 2.1 では、RFC 7807 にほぼ準拠した、問題の詳しい応答が生成されます。 100% のコンプライアンスが重要な場合は、プロジェクトを ASP.NET Core 2.2 以降にアップグレードしてください。
+
+::: moniker-end
 
 ::: moniker range=">= aspnetcore-3.0"
 

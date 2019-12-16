@@ -3,14 +3,14 @@ title: ASP.NET Core でのカスタム モデル バインド
 author: ardalis
 description: モデル バインドにより ASP.NET Core のモデルの型を使用して、コントローラー アクションが直接動作する方法について説明します。
 ms.author: riande
-ms.date: 11/13/2018
+ms.date: 12/05/2019
 uid: mvc/advanced/custom-model-binding
-ms.openlocfilehash: b2fbe6a9f11315d1fb8863fbf62e8929c7ff3fc2
-ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
+ms.openlocfilehash: 625cc6c9ca5a2c22d028ea25f8fc0d942b71f12d
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71186886"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881129"
 ---
 # <a name="custom-model-binding-in-aspnet-core"></a>ASP.NET Core でのカスタム モデル バインド
 
@@ -147,4 +147,4 @@ public IModelBinder GetBinder(ModelBinderProviderContext context)
 
 - 状態コードの設定または結果 (たとえば 404 Not Found) のリターンを試行しないでください。 モデル バインドが失敗した場合、アクション メソッド自体の[アクション フィルター](xref:mvc/controllers/filters)またはロジックでエラーが処理される必要があります。
 - アクション メソッドから繰り返しのコードや横断的な問題を排除する場合に最も役立ちます。
-- 通常、文字列をカスタムの型に変換する場合に使用すべきではありません。通常は、[`TypeConverter`](/dotnet/api/system.componentmodel.typeconverter) の方がオプションとして優れています。
+- 通常、文字列をカスタムの型に変換する場合に使用すべきではありません。通常は、[TypeConverter](/dotnet/api/system.componentmodel.typeconverter) の方がオプションとして優れています。

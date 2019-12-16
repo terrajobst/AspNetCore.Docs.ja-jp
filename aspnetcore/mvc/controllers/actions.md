@@ -3,14 +3,14 @@ title: ASP.NET Core MVC でコントローラーで要求を処理する
 author: ardalis
 description: ''
 ms.author: riande
-ms.date: 07/03/2017
+ms.date: 12/05/2019
 uid: mvc/controllers/actions
-ms.openlocfilehash: 952e4dbb2c4343ca87ace1535e4a5968faf088cf
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 715a73863513870d1cbd522e75013d41830da1e7
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64890257"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881105"
 ---
 # <a name="handle-requests-with-controllers-in-aspnet-core-mvc"></a>ASP.NET Core MVC でコントローラーで要求を処理する
 
@@ -23,13 +23,15 @@ ms.locfileid: "64890257"
 コントローラーは一連のアクションを定義し、グループ化するために使用されます。 アクション (または*アクション メソッド*) は、要求を処理するコントローラーのメソッドです。 コントローラーは、同様のアクションを論理的にグループ化します。 アクションをこのように集めることで、ルーティング、キャッシュ、承認など、一連の共通ルールをまとめて適用できます。 要求は[ルーティング](xref:mvc/controllers/routing)を介してアクションにマッピングされます。
 
 コントローラー クラスは慣例で
-* プロジェクトのルートレベル *[コントローラー]* フォルダーに置かれます
-* `Microsoft.AspNetCore.Mvc.Controller` から継承します
+
+* プロジェクトのルートレベル *[コントローラー]* フォルダーに置かれます。
+* `Microsoft.AspNetCore.Mvc.Controller` から継承します。
 
 コントローラーはインスタンス化が可能なクラスであり、次の条件の少なくとも 1 つが当てはまります。
-* クラス名に "Controller" というサフィックスが付く
-* クラスが名前に "Controller" というサフィックスが付くクラスから継承する
-* クラスが `[Controller]` 属性で修飾される
+
+* クラス名に `Controller` というサフィックスが付く。
+* クラスが名前に `Controller` というサフィックスが付くクラスから継承する。
+* `[Controller]` 属性がクラスに適用される。
 
 コントローラー クラスには、`[NonController]` 属性を関連付けないでください。
 
@@ -43,7 +45,7 @@ ms.locfileid: "64890257"
 
 ## <a name="defining-actions"></a>アクションを定義する
 
-`[NonAction]` 属性で修飾されるものを除き、コントローラーのパブリック メソッドはアクションです。 アクションのパラメーターは要求データにバインドされ、[モデル バインド](xref:mvc/models/model-binding)により検証されます。 モデル検証は、モデル バインドされているすべてに実行されます。 プロパティ値 `ModelState.IsValid` は、モデルのバインドと検証に成功したかどうかを示します。
+`[NonAction]` 属性が設定されているものを除き、コントローラーのパブリック メソッドはアクションです。 アクションのパラメーターは要求データにバインドされ、[モデル バインド](xref:mvc/models/model-binding)により検証されます。 モデル検証は、モデル バインドされているすべてに実行されます。 プロパティ値 `ModelState.IsValid` は、モデルのバインドと検証に成功したかどうかを示します。
 
 アクション メソッドには、要求をビジネスにマッピングするためのロジックを含めてください。 ビジネスは通常、コントローラーが[依存関係挿入](xref:mvc/controllers/dependency-injection)を経由してアクセスするサービスとして表されます。 アクションはビジネス アクションの結果をアプリケーションの状態にマッピングします。
 

@@ -3,14 +3,14 @@ title: ASP.NET Core のアプリケーション モデルの使用
 author: ardalis
 description: アプリケーションを読み、操作し、ASP.NET Core での MVC 要素の動作を変更する方法について説明します。
 ms.author: riande
-ms.date: 10/14/2016
+ms.date: 12/05/2019
 uid: mvc/controllers/application-model
-ms.openlocfilehash: 4e264dc7cc63955df42df0b9eeeb7b82ae286241
-ms.sourcegitcommit: 169ea5116de729c803685725d96450a270bc55b7
+ms.openlocfilehash: 4b6c978e5752eb320412a1c204df8e3d288fe4a1
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74733961"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881091"
 ---
 # <a name="work-with-the-application-model-in-aspnet-core"></a>ASP.NET Core のアプリケーション モデルの使用
 
@@ -196,7 +196,7 @@ Shim が提供するこの規則は、それに特定の属性が適用された
 
 `UseWebApiRoutesAttribute` は、`WebApiApplicationModelConvention` コントローラー規則が適用されるかどうかを制御します。 これが有効な場合、この規則はルートに[領域](xref:mvc/controllers/areas)のサポートを追加するために使用されます。
 
-互換パッケージには、規則のセットに加え、Web API によって提供されるものの代わりとなる `System.Web.Http.ApiController` 基底クラスが含まれます。 これにより、Web API 用に記述され、その `ApiController` から継承されたコントローラーが、ASP.NET Core MVC での実行中に、設計どおりに動作するようにすることを可能にします。 この基本コントローラー クラスは、前述のすべての `UseWebApi*` 属性で修飾されています。 `ApiController` では、Web API にあるものと互換性のあるプロパティ、メソッド、および結果の型が公開されます。
+互換パッケージには、規則のセットに加え、Web API によって提供されるものの代わりとなる `System.Web.Http.ApiController` 基底クラスが含まれます。 これにより、Web API 用に記述され、その `ApiController` から継承されたコントローラーが、ASP.NET Core MVC での実行中に、設計どおりに動作するようにすることを可能にします。 前述のすべての `UseWebApi*` 属性は、基本コントローラー クラスに適用されます。 `ApiController` では、Web API にあるものと互換性のあるプロパティ、メソッド、および結果の型が公開されます。
 
 ## <a name="using-apiexplorer-to-document-your-app"></a>アプリをドキュメント化するための ApiExplorer の使用
 

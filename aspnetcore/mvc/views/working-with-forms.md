@@ -4,14 +4,14 @@ author: rick-anderson
 description: フォームで使用される組み込みのタグ ヘルパーについて説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/06/2019
+ms.date: 12/05/2019
 uid: mvc/views/working-with-forms
-ms.openlocfilehash: 43a1c408ff1a03468989e5bb0839ca2cd245082b
-ms.sourcegitcommit: b5e63714afc26e94be49a92619586df5189ed93a
+ms.openlocfilehash: 61b50a63bd026f917035f64785d8d3b1956958a6
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/02/2019
-ms.locfileid: "68739495"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880960"
 ---
 # <a name="tag-helpers-in-forms-in-aspnet-core"></a>ASP.NET Core のフォームのタグ ヘルパー
 
@@ -457,7 +457,7 @@ public IActionResult Edit(int id, int colorIndex)
 
 ### <a name="sample"></a>サンプル
 
-次の例では、データ モデルは `DataAnnotation` 属性で修飾され、`<input>` 要素に関する検証エラー メッセージが生成されます。  検証エラーが発生すると、検証タグ ヘルパーはエラー メッセージを表示します。
+次の例のデータ モデルは、`DataAnnotation` 属性が設定されており、`<input>` 要素に関する検証エラー メッセージを生成します。  検証エラーが発生すると、検証タグ ヘルパーはエラー メッセージを表示します。
 
 [!code-csharp[](working-with-forms/sample/final/ViewModels/RegisterViewModel.cs)]
 
@@ -545,7 +545,7 @@ HTTP POST `Index` メソッドによって選択内容が表示されます。
 
 [!code-HTML[](../../mvc/views/working-with-forms/sample/final/Views/Home/IndexEnum.cshtml?highlight=5)]
 
-より高機能な UI にするために、列挙子リストを `Display` 属性で修飾することができます。
+より高機能な UI にするために、列挙子リストを `Display` 属性でマークできます。
 
 [!code-csharp[](working-with-forms/sample/final/ViewModels/CountryEnum.cs?highlight=5,7)]
 

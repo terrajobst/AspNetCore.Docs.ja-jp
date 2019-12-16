@@ -3,14 +3,14 @@ title: ASP.NET Core Razor ページへの検索の追加
 author: rick-anderson
 description: ASP.NET Core Razor ページに検索を追加する方法を紹介します
 ms.author: riande
-ms.date: 7/23/2019
+ms.date: 12/05/2019
 uid: tutorials/razor-pages/search
-ms.openlocfilehash: 1eeb3aa86f2a6928b6d0b368c90e4760a66a6c6e
-ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
+ms.openlocfilehash: 8228207b0f37a6923b29891ac3115dd0be115501
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72334060"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881326"
 ---
 # <a name="add-search-to-aspnet-core-razor-pages"></a>ASP.NET Core Razor ページへの検索の追加
 
@@ -26,7 +26,7 @@ ms.locfileid: "72334060"
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Index.cshtml.cs?name=snippet_newProps&highlight=11-999)]
 
-* `SearchString`: ユーザーが検索テキスト ボックスに入力したテキストが含まれる。 `SearchString` は [`[BindProperty]`](/dotnet/api/microsoft.aspnetcore.mvc.bindpropertyattribute) 属性で修飾されています。 `[BindProperty]` により、プロパティと同じ名前に基づきフォーム値とクエリ文字列がバインドされます。 GET 要求でのバインドには `(SupportsGet = true)` が必要です。
+* `SearchString`: ユーザーが検索テキスト ボックスに入力したテキストが含まれる。 `SearchString` には、[`[BindProperty]`](/dotnet/api/microsoft.aspnetcore.mvc.bindpropertyattribute) 属性があります。 `[BindProperty]` により、プロパティと同じ名前に基づきフォーム値とクエリ文字列がバインドされます。 GET 要求でのバインドには `(SupportsGet = true)` が必要です。
 * `Genres`: ジャンル一覧が含まれる。 `Genres` により、ユーザーは一覧からジャンルを選択できます。 `SelectList` には `using Microsoft.AspNetCore.Mvc.Rendering;` が必要です。
 * `MovieGenre`: "Western (西部劇)" など、ユーザーが選択する特定のジャンルが含まれる。
 * `Genres` と `MovieGenre` は、このチュートリアルで後述します。
@@ -129,7 +129,7 @@ HTML `<form>` タグでは、次の[タグ ヘルパー](xref:mvc/views/tag-help
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Index.cshtml.cs?name=snippet_newProps&highlight=11-999)]
 
-* `SearchString`: ユーザーが検索テキスト ボックスに入力したテキストが含まれる。 `SearchString` は [`[BindProperty]`](/dotnet/api/microsoft.aspnetcore.mvc.bindpropertyattribute) 属性で修飾されています。 `[BindProperty]` により、プロパティと同じ名前に基づきフォーム値とクエリ文字列がバインドされます。 GET 要求でのバインドには `(SupportsGet = true)` が必要です。
+* `SearchString`: ユーザーが検索テキスト ボックスに入力したテキストが含まれる。 `SearchString` には、[`[BindProperty]`](/dotnet/api/microsoft.aspnetcore.mvc.bindpropertyattribute) 属性があります。 `[BindProperty]` により、プロパティと同じ名前に基づきフォーム値とクエリ文字列がバインドされます。 GET 要求でのバインドには `(SupportsGet = true)` が必要です。
 * `Genres`: ジャンル一覧が含まれる。 `Genres` により、ユーザーは一覧からジャンルを選択できます。 `SelectList` には `using Microsoft.AspNetCore.Mvc.Rendering;` が必要です。
 * `MovieGenre`: "Western (西部劇)" など、ユーザーが選択する特定のジャンルが含まれる。
 * `Genres` と `MovieGenre` は、このチュートリアルで後述します。

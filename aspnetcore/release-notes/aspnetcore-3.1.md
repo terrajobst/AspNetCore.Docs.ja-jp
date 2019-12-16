@@ -4,17 +4,17 @@ author: rick-anderson
 description: ASP.NET Core 3.1 の新機能について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 - SignalR
 uid: aspnetcore-3.1
-ms.openlocfilehash: 634c6937089a0a0fe1f862a83771aff65a1f8418
-ms.sourcegitcommit: 5974e3e66dab3398ecf2324fbb82a9c5636f70de
+ms.openlocfilehash: 89c676b96ef66f648544a8a884593bdafa3876de
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74778844"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74944227"
 ---
 # <a name="whats-new-in-aspnet-core-31"></a>ASP.NET Core 3.1 の新機能
 
@@ -28,7 +28,7 @@ Razor コンポーネントが部分クラスとして生成されるように�
 
 ASP.NET Core 3.0 がインストールされた Blazor では、コンポーネントは HTML ヘルパー (`Html.RenderComponentAsync`) を使用してページとビューにレンダリングされていました。 ASP.NET Core 3.1 では、新しいコンポーネント タグ ヘルパーを使用して、ページまたはビューからコンポーネントがレンダリングされます。
 
-```razor
+```cshtml
 <component type="typeof(Counter)" render-mode="ServerPrerendered" />
 ```
 
@@ -47,7 +47,7 @@ Blazor 初回のレンダリング時に、サーバーアプリで最上位レ�
 
 ## <a name="support-for-shared-queues-in-httpsys"></a>Http.sys での共有キューのサポート
 
-[Http.sys](xref:fundamentals/servers/httpsys) では、匿名の要求キューの作成がサポートされています。 ASP.NET Core 3.1 では、既存の名前付き HTTP.sys 要求キューに作成またはアタッチする機能が追加されています。 既存の名前付き HTTP.sys 要求キューに作成またはアタッチすると、キューを所有する HTTP.Sys コントローラー プロセスがリスナー プロセスから独立しているシナリオが可能になります。 このような独立によって、リスナー プロセスの再起動の間に既存の接続とエンキューされた要求を保持することができます。
+[Http.sys](xref:fundamentals/servers/httpsys) では、匿名の要求キューの作成がサポートされています。 ASP.NET Core 3.1 では、既存の名前付き HTTP.sys 要求キューに作成またはアタッチする機能が追加されています。 既存の名前付き HTTP.sys 要求キューに作成またはアタッチすると、キューを所有する HTTP.sys コントローラー プロセスがリスナー プロセスから独立しているシナリオが可能になります。 このような独立によって、リスナー プロセスの再起動の間に既存の接続とエンキューされた要求を保持することができます。
 
 [!code-csharp[](sample/Program.cs?name=snippet)]
 

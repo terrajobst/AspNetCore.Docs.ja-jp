@@ -3,14 +3,14 @@ title: ASP.NET Core MVC のビュー
 author: ardalis
 description: ビューがアプリのデータ表示と、ASP.NET Core MVC でのユーザー操作を処理する方法について説明します。
 ms.author: riande
-ms.date: 04/03/2019
+ms.date: 12/05/2019
 uid: mvc/views/overview
-ms.openlocfilehash: 5e56c6bb18cb5d2389c11eb3e4aa9869228da47d
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: f636908ee36d0af6e92875876240cb8712dd2ccc
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64891347"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881030"
 ---
 # <a name="views-in-aspnet-core-mvc"></a>ASP.NET Core MVC のビュー
 
@@ -94,7 +94,7 @@ ASP.NET Core MVC では、ビューは、Razor マークアップで [C# プロ�
    1. *Views/\[ControllerName]/\[ViewName].cshtml*
    1. *Views/Shared/\[ViewName].cshtml*
 
-ビュー名の代わりに、ビュー ファイル パスを指定できます。 アプリのルートから始まる (必要に応じて"/" または "~/" で始まる) 絶対パスを使用する場合は、*.cshtml* 拡張子を指定する必要があります。
+ビュー名の代わりに、ビュー ファイル パスを指定できます。 アプリのルートから始まる (必要に応じて"/" または "~/" で始まる) 絶対パスを使用する場合は、 *.cshtml* 拡張子を指定する必要があります。
 
 ```csharp
 return View("Views/Home/About.cshtml");
@@ -252,9 +252,9 @@ public IActionResult SomeAction()
 
 **ViewData 属性**
 
-[ViewDataDictionary](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.viewdatadictionary) を使用するもう 1 つの方法は [ViewDataAttribute](/dotnet/api/microsoft.aspnetcore.mvc.viewdataattribute) です。 コントローラーまたは `[ViewData]` で装飾された Razor ページのモデルのプロパティは、値をディクショナリに格納し、読み込むことができます。
+[ViewDataDictionary](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.viewdatadictionary) を使用するもう 1 つの方法は [ViewDataAttribute](/dotnet/api/microsoft.aspnetcore.mvc.viewdataattribute) です。 コントローラーや Razor ページのモデルのプロパティが `[ViewData]` 属性でマークされている場合、その値をディクショナリに格納してそこから読み込むことができます。
 
-次の例では、Home コントローラーには `[ViewData]` で装飾された `Title` プロパティが含まれています。 `About` メソッドは、About ビューのタイトルを設定します。
+次の例では、Home コントローラーには `[ViewData]` でマークされた `Title` プロパティが含まれています。 `About` メソッドは、About ビューのタイトルを設定します。
 
 ```csharp
 public class HomeController : Controller

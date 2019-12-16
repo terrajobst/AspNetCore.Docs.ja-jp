@@ -4,14 +4,14 @@ author: rick-anderson
 description: ASP.NET Core MVC および Razor Pages でのモデルの検証について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/21/2019
+ms.date: 12/05/2019
 uid: mvc/models/validation
-ms.openlocfilehash: 19f71799e958e2761832c91cec6762a6d391d2b5
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: 7a6017141eb1016128c4a135c187479717580bb5
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317426"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881036"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>ASP.NET Core MVC および Razor Pages でのモデルの検証
 
@@ -55,10 +55,10 @@ Web API コントローラーでは、`[ApiController]` 属性が設定されて
 * `[Phone]`:プロパティが電話番号の形式であることを検証します。
 * `[Range]`:プロパティの値が指定した範囲内であることを検証します。
 * `[RegularExpression]`:プロパティの値が指定した正規表現と一致することを検証します。
-* `[Required]`:フィールドが null ではないことを検証します。 この属性の動作について詳しくは、「[[Required] 属性](#required-attribute)」をご覧ください。
+* `[Required]`:フィールドが null ではないことを検証します。 この属性の動作について詳しくは、「[`[Required]` 属性](#required-attribute)」をご覧ください。
 * `[StringLength]`:文字列プロパティの値が指定した長さ制限を超えていないことを検証します。
 * `[Url]`:プロパティが URL 形式であることを検証します。
-* `[Remote]`:サーバーでアクション メソッドを呼び出すことによって、クライアントでの入力を検証します。 この属性の動作について詳しくは、「[[Remote] 属性](#remote-attribute)」をご覧ください。
+* `[Remote]`:サーバーでアクション メソッドを呼び出すことによって、クライアントでの入力を検証します。 この属性の動作について詳しくは、「`[`[Remote] 属性]」をご覧ください。
 
 検証属性の完全な一覧については、[System.ComponentModel.DataAnnotations](xref:System.ComponentModel.DataAnnotations) 名前空間で確認できます。
 
@@ -134,7 +134,7 @@ Web API コントローラーでは、`[ApiController]` 属性が設定されて
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Models/User.cs?name=snippet_Name&highlight=1,5)]
 
-`AdditionalFields` を文字列 `"FirstName"` および `"LastName"` に明示的に設定することもできますが、[`nameof`](/dotnet/csharp/language-reference/keywords/nameof) 演算子を使用すると、後のリファクタリングが容易になります。 この検証のアクション メソッドは、`firstName` と `lastName` の両方の引数を受け入れる必要があります。
+`AdditionalFields` を文字列 FirstName および LastName に明示的に設定することもできますが、[nameof](/dotnet/csharp/language-reference/keywords/nameof) 演算子を使用すると、後のリファクタリングが容易になります。 この検証のアクション メソッドは、`firstName` と `lastName` の両方の引数を受け入れる必要があります。
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Controllers/UsersController.cs?name=snippet_VerifyName)]
 
@@ -255,9 +255,13 @@ public string MiddleName { get; set; }
 </div>
 ```
 
-HTML 出力の `data-` 属性が、`Movie.ReleaseDate` プロパティの検証属性に対応していることに注意してください。 `data-val-required` 属性には、ユーザーが公開日フィールドを入力していない場合に表示されるエラー メッセージが含まれています。 jQuery Unobtrusive Validation はこの値を jQuery Validate の [`required()`](https://jqueryvalidation.org/required-method/) メソッドに渡し、このメソッドは付随する **\<span>** 要素にそのメッセージを表示します。
+HTML 出力の `data-` 属性が、`Movie.ReleaseDate` プロパティの検証属性に対応していることに注意してください。 `data-val-required` 属性には、ユーザーが公開日フィールドを入力していない場合に表示されるエラー メッセージが含まれています。 jQuery Unobtrusive Validation はこの値を jQuery Validate の [required()](https://jqueryvalidation.org/required-method/) メソッドに渡し、このメソッドは付随する **\<span>** 要素にそのメッセージを表示します。
 
 `[DataType]` 属性によってオーバーライドされていない限り、データ型の検証はプロパティの .NET 型に基づいて行われます。 ブラウザーには独自の既定のエラー メッセージがありますが、jQuery Validation Unobtrusive Validation パッケージでそれらのメッセージをオーバーライドできます。 `[DataType]` 属性と `[EmailAddress]` などのサブクラスを使用して、エラー メッセージを指定できます。
+
+## <a name="unobtrusive-validation"></a>控えめな検証
+
+控えめな検証については、[こちらの GitHub のイシュー](https://github.com/aspnet/AspNetCore.Docs/issues/1111)をご覧ください。
 
 ### <a name="add-validation-to-dynamic-forms"></a>動的なフォームに検証を追加する
 
@@ -415,10 +419,10 @@ Web API コントローラーでは、`[ApiController]` 属性が設定されて
 * `[Phone]`:プロパティが電話番号の形式であることを検証します。
 * `[Range]`:プロパティの値が指定した範囲内であることを検証します。
 * `[RegularExpression]`:プロパティの値が指定した正規表現と一致することを検証します。
-* `[Required]`:フィールドが null ではないことを検証します。 この属性の動作について詳しくは、「[[Required] 属性](#required-attribute)」をご覧ください。
+* `[Required]`:フィールドが null ではないことを検証します。 この属性の動作について詳しくは、「[`[Required]` 属性](#required-attribute)」をご覧ください。
 * `[StringLength]`:文字列プロパティの値が指定した長さ制限を超えていないことを検証します。
 * `[Url]`:プロパティが URL 形式であることを検証します。
-* `[Remote]`:サーバーでアクション メソッドを呼び出すことによって、クライアントでの入力を検証します。 この属性の動作について詳しくは、「[[Remote] 属性](#remote-attribute)」をご覧ください。
+* `[Remote]`:サーバーでアクション メソッドを呼び出すことによって、クライアントでの入力を検証します。 この属性の動作について詳しくは、「[`[Remote]` 属性](#remote-attribute)」をご覧ください。
 
 検証属性の完全な一覧については、[System.ComponentModel.DataAnnotations](xref:System.ComponentModel.DataAnnotations) 名前空間で確認できます。
 
@@ -494,7 +498,7 @@ Web API コントローラーでは、`[ApiController]` 属性が設定されて
 
 [!code-csharp[](validation/samples/2.x/ValidationSample/Models/User.cs?name=snippet_UserNameProperties)]
 
-`AdditionalFields` を文字列 `"FirstName"` および `"LastName"` に明示的に設定することもできますが、[`nameof`](/dotnet/csharp/language-reference/keywords/nameof) 演算子を使用すると、後のリファクタリングが容易になります。 この検証のアクション メソッドは、名と姓の両方を引数として受け取る必要があります。
+`AdditionalFields` を文字列 `"FirstName"` および `"LastName"` に明示的に設定することもできますが、[nameof](/dotnet/csharp/language-reference/keywords/nameof) 演算子を使用すると、後のリファクタリングが容易になります。 この検証のアクション メソッドは、名と姓の両方を引数として受け取る必要があります。
 
 [!code-csharp[](validation/samples/2.x/ValidationSample/Controllers/UsersController.cs?name=snippet_VerifyName)]
 
@@ -624,7 +628,7 @@ public string MiddleName { get; set; }
 </form>
 ```
 
-HTML 出力の `data-` 属性が、`ReleaseDate` プロパティの検証属性に対応していることに注意してください。 `data-val-required` 属性には、ユーザーが公開日フィールドを入力していない場合に表示されるエラー メッセージが含まれています。 jQuery Unobtrusive Validation はこの値を jQuery Validate の [`required()`](https://jqueryvalidation.org/required-method/) メソッドに渡し、このメソッドは付随する **\<span>** 要素にそのメッセージを表示します。
+HTML 出力の `data-` 属性が、`ReleaseDate` プロパティの検証属性に対応していることに注意してください。 `data-val-required` 属性には、ユーザーが公開日フィールドを入力していない場合に表示されるエラー メッセージが含まれています。 jQuery Unobtrusive Validation はこの値を jQuery Validate の [required()](https://jqueryvalidation.org/required-method/) メソッドに渡し、このメソッドは付随する **\<span>** 要素にそのメッセージを表示します。
 
 `[DataType]` 属性によってオーバーライドされていない限り、データ型の検証はプロパティの .NET 型に基づいて行われます。 ブラウザーには独自の既定のエラー メッセージがありますが、jQuery Validation Unobtrusive Validation パッケージでそれらのメッセージをオーバーライドできます。 `[DataType]` 属性と `[EmailAddress]` などのサブクラスを使用して、エラー メッセージを指定できます。
 

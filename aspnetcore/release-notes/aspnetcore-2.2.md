@@ -4,16 +4,16 @@ author: rick-anderson
 description: ASP.NET Core 2.2 の新機能について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 12/05/2019
 no-loc:
 - SignalR
 uid: aspnetcore-2.2
-ms.openlocfilehash: fca653158c95e7c1a11f25f4076830fe3e7e93ae
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 8995a514ea2e5016da85952d0f0beaf396a5d639
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963136"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880843"
 ---
 # <a name="whats-new-in-aspnet-core-22"></a>ASP.NET Core 2.2 の新機能
 
@@ -57,7 +57,12 @@ ASP.NET Core 2.2 では、要求のディスパッチを改善するために新
 
 ASP.NET Core 2.2 では HTTP/2 のサポートが追加されました。
 
-HTTP/2 は HTTP プロトコルのメジャー リビジョンです。 HTTP/2 の注目すべき機能として、ヘッダーの圧縮や、単一の接続での完全に多重化されたストリームのサポートなどがあります。 HTTP/2 は HTTP のセマンティクス (HTTP ヘッダー、メソッドなど) を維持していますが、このデータがフレーム化され、ネットワーク経由で送信される方法については、HTTP/1.x からの破壊的変更があります。
+HTTP/2 は HTTP プロトコルのメジャー リビジョンです。 HTTP/2 には次のような注目すべき機能があります。
+
+* ヘッダーの圧縮をサポート。
+* 単一の接続での完全に多重化されたストリーム。
+
+HTTP/2 は HTTP のセマンティクス (HTTP ヘッダー、メソッドなど) を維持していますが、データのフレーム化方法やクライアントとサーバー間での送信方法に関して、HTTP/1.x からの破壊的変更があります。
 
 フレーム化に関するこの変更の結果、サーバーとクライアントは、使用されているプロトコル バージョンのネゴシエートが必要になりました。 アプリケーション層プロトコル ネゴシエーション (ALPN) は、TLS の拡張機能です。これにより、サーバーとクライアントは、その TLS のハンドシェイクの一部として使用されているプロトコルのバージョンをネゴシエートすることができます。 プロトコルに関してサーバーとクライアント間に事前の情報を持たせることはできますが、すべての主要なブラウザーは、HTTP/2 接続を確立する唯一の方法として ALPN をサポートしています。
 

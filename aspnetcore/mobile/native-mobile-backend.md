@@ -3,14 +3,14 @@ title: ASP.NET Core を使用してネイティブ モバイル アプリのバ�
 author: ardalis
 description: ASP.NET Core MVC を使用してネイティブ モバイル アプリをサポートするバックエンド サービスを作成する方法について説明します。
 ms.author: riande
-ms.date: 10/14/2016
+ms.date: 12/05/2019
 uid: mobile/native-mobile-backend
-ms.openlocfilehash: b50d2593d7dc4b89472033898373e3a22fc9a7a3
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 38ac69bfe9d99d6d61f96fde92d86fd752ebbb6b
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64883957"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881161"
 ---
 # <a name="create-backend-services-for-native-mobile-apps-with-aspnet-core"></a>ASP.NET Core を使用してネイティブ モバイル アプリのバックエンド サービスを作成する
 
@@ -63,7 +63,7 @@ Visual Studio で新しい ASP.NET Core Web アプリケーションを作成し
 > [!NOTE]
 > 既定でローカル以外の要求を無視する IIS Express の背後ではなく、アプリケーションを直接実行するようにします。 コマンド プロンプトから [dotnet run](/dotnet/core/tools/dotnet-run) を実行するか、Visual Studio ツールバーの [デバッグ ターゲット] ドロップダウンからアプリケーション名のプロファイルを選択します。
 
-To-Do 項目を表すモデル クラスを追加します。 `[Required]` 属性を使用して必須フィールドにマークを付けます。
+To-Do 項目を表すモデル クラスを追加します。 必須フィールドを `[Required]` 属性でマークします。
 
 [!code-csharp[](native-mobile-backend/sample/ToDoApi/src/ToDoApi/Models/ToDoItem.cs)]
 
@@ -108,7 +108,7 @@ API メソッドには、データを操作する何らかの方法が必要で�
 
 ### <a name="creating-items"></a>項目の作成
 
-慣例により、新しいデータ項目の作成は HTTP POST 動詞にマッピングされます。 `Create` メソッドには `[HttpPost]` 属性が適用され、このメソッドは `ToDoItem` インスタンスを受け入れます。 `item` 引数は POST の本文で渡されるため、このパラメーターは `[FromBody]` 属性で修飾されています。
+慣例により、新しいデータ項目の作成は HTTP POST 動詞にマッピングされます。 `Create` メソッドには `[HttpPost]` 属性が適用され、このメソッドは `ToDoItem` インスタンスを受け入れます。 `item` 引数は POST の本文で渡されるため、このパラメーターは `[FromBody]` 属性を指定します。
 
 メソッド内では、データ ストア内で項目が有効であることと事前に存在することが確認され、問題がなければ、リポジトリを使用して追加されます。 `ModelState.IsValid` の確認で[モデルの検証](../mvc/models/validation.md)が実行されます。この確認は、ユーザー入力を受け入れるすべての API メソッドで実行する必要があります。
 
