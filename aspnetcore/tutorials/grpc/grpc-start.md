@@ -3,14 +3,14 @@ title: ASP.NET Core で .NET Core gRPC のクライアントとサーバーを�
 author: juntaoluo
 description: このチュートリアルでは、ASP.NET Core で gRPC サービスと gRPC クライアントを作成する方法を示します。 gRPC サービス プロジェクトの作成方法、proto ファイルの編集方法、二重ストリーミング呼び出しの追加方法について学習します。
 ms.author: johluo
-ms.date: 11/12/2019
+ms.date: 12/05/2019
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: e5373d9abb9a770132e756843dbd15534dbe3356
-ms.sourcegitcommit: 231780c8d7848943e5e9fd55e93f437f7e5a371d
+ms.openlocfilehash: c179dd31e6484246498c857aad797eb752f00bf5
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/15/2019
-ms.locfileid: "74116104"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74879651"
 ---
 # <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a>チュートリアル: ASP.NET Core で gRPC のクライアントとサーバーを作成する
 
@@ -52,7 +52,7 @@ ms.locfileid: "74116104"
 * Visual Studio を開始し、 **[新しいプロジェクトの作成]** を選択します。 または、Visual Studio の **[ファイル]** メニューから、 **[新規作成]**  >  **[プロジェクト]** の順に選択します。
 * **[新しいプロジェクトの作成]** ダイアログで、 **[gRPC サービス]** を選択して、 **[次へ]** を選択します。
 
-  ![**[新しいプロジェクトの作成]** ダイアログ](~/tutorials/grpc/grpc-start/static/cnp.png)
+  ![[新しいプロジェクトの作成] ダイアログ](~/tutorials/grpc/grpc-start/static/cnp.png)
 
 * プロジェクトに **GrpcGreeter** という名前を付けます。 コードのコピーおよび貼り付けを行う際に名前空間が一致するように、プロジェクトに *GrpcGreeter* という名前を付けることが重要です。
 * **[作成]** を選択します。
