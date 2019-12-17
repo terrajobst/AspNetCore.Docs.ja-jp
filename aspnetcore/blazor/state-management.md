@@ -142,7 +142,7 @@ ASP.NET Core の[データ保護](xref:security/data-protection/introduction)を
 
 `Microsoft.AspNetCore.ProtectedBrowserStorage` パッケージをインストールするには:
 
-1. Blazor Server アプリプロジェクトで、 [ProtectedBrowserStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage)へのパッケージ参照を追加します。
+1. Blazor Server アプリプロジェクトで、 [Microsoft.AspNetCore.ProtectedBrowserStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage)へのパッケージ参照を追加します。
 1. 最上位レベルの HTML (たとえば、既定のプロジェクトテンプレートの*Pages/_Host*ファイル) で、次の `<script>` タグを追加します。
 
    ```html
