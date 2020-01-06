@@ -5,7 +5,7 @@ Id scaffolder を実行します。
 * **ソリューション エクスプ ローラー**、プロジェクトを右クリックして >**追加** > **スキャフォールディングされた新しい項目**します。
 * 左側のウィンドウから、**スキャフォールディングの追加**ダイアログ ボックスで、 **Identity** > **追加**します。
 * **[Id の追加]** ダイアログボックスで、必要なオプションを選択します。
-  * 既存のレイアウトページを選択するか、レイアウトファイルが正しくないマークアップで上書きされます。 たとえば、MVC プロジェクト`~/Views/Shared/_Layout.cshtml`の Razor Pages の場合`~/Pages/Shared/_Layout.cshtml`
+  * 既存のレイアウトページを選択するか、レイアウトファイルが正しくないマークアップで上書きされます。 たとえば、MVC プロジェクトの Razor Pages `~/Views/Shared/_Layout.cshtml` の `~/Pages/Shared/_Layout.cshtml`
   * 選択、 **+** 新たに作成するボタン**データ コンテキスト クラス**します。
 * 選択**追加**します。
 
@@ -17,11 +17,15 @@ ASP.NET Core scaffolder を以前インストールしていない場合は、�
 dotnet tool install -g dotnet-aspnet-codegenerator
 ```
 
-[Microsoft.VisualStudio.Web.CodeGeneration.Design](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.CodeGeneration.Design/)にパッケージ参照を追加し、プロジェクト (\*.csproj) ファイルに追加してください。 プロジェクト ディレクトリに、次のコマンドを実行します。
+必須の NuGet パッケージ参照をプロジェクト (\*.csproj) ファイルに追加します。 プロジェクト ディレクトリに、次のコマンドを実行します。
 
 ```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
-dotnet restore
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore
+dotnet add package Microsoft.AspNetCore.Identity.UI
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.EntityFrameworkCore.Tools
 ```
 
 Identity scaffolder オプションを一覧表示するには、次のコマンドを実行します。
@@ -29,6 +33,8 @@ Identity scaffolder オプションを一覧表示するには、次のコマン
 ```dotnetcli
 dotnet aspnet-codegenerator identity -h
 ```
+
+[!INCLUDE[](~/includes/scaffoldTFM.md)]
 
 プロジェクトフォルダーで、必要なオプションを指定して Id scaffolder を実行します。 たとえば、既定の UI とファイルの最小数で id を設定するには、次のコマンドを実行します。
 

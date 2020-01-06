@@ -5,12 +5,12 @@ description: ASP.NET Core アプリで Id を使用します。 パスワード�
 ms.author: riande
 ms.date: 12/05/2019
 uid: security/authentication/identity
-ms.openlocfilehash: c867b73a96fd081f6e2ca17fef561ac539c0a129
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 787d39dd7824f912128e6af849fa268c3e8eb908
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880727"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75359200"
 ---
 # <a name="introduction-to-identity-on-aspnet-core"></a>ASP.NET Core Identity の概要
 
@@ -48,7 +48,7 @@ Id は、通常、ユーザー名、パスワード、およびプロファイ�
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* **[File]** > **[New]** > **[Project]** の順に選択します。
+* [**ファイル**>**新しい**>**プロジェクト**] を選択します。
 * **[ASP.NET Core Web アプリケーション]** を選択します。 プロジェクトに**WebApp1**という名前を付け、プロジェクトのダウンロードと同じ名前空間にします。 **[OK]** をクリックします。
 * ASP.NET Core **Web アプリケーション**を選択し、 **[認証の変更]** を選択します。
 * 個別のユーザー アカウントを **選択** して **OK** をクリックします。
@@ -159,7 +159,7 @@ PowerShell では、コマンドの区切り記号としてセミコロンを使
 
 [!code-csharp[](identity/sample/WebApp3/Areas/Identity/Pages/Account/Login.cshtml.cs?name=snippet&highlight=10-11)]
 
-基本 `Controller` クラスは、コントローラーメソッドからアクセスできる `User` プロパティを公開します。 たとえば`User.Claims`を列挙して承認の決定を行うことができます。 詳細については、「<xref:security/authorization/introduction>」を参照してください。
+基本 `Controller` クラスは、コントローラーメソッドからアクセスできる `User` プロパティを公開します。 たとえば`User.Claims`を列挙して承認の決定を行うことができます。 詳細については、「 <xref:security/authorization/introduction>」を参照してください。
 
 ### <a name="log-out"></a>ログアウト
 
@@ -216,6 +216,7 @@ Id のプライマリパッケージは[Microsoft.AspNetCore.Identity](https://w
 
 ## <a name="next-steps"></a>次のステップ
 
+* SQLite を使用して Id を構成する方法については、 [GitHub の問題](https://github.com/aspnet/AspNetCore.Docs/issues/5131)を参照してください。
 * [Identity の構成](xref:security/authentication/identity-configuration)
 * <xref:security/authorization/secure-data>
 * <xref:security/authentication/add-user-data>
@@ -257,7 +258,7 @@ Id は、SQL Server データベースを使用して、ユーザー名、パス
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* **[File]** > **[New]** > **[Project]** の順に選択します。
+* [**ファイル**>**新しい**>**プロジェクト**] を選択します。
 * **[ASP.NET Core Web アプリケーション]** を選択します。 プロジェクトに**WebApp1**という名前を付け、プロジェクトのダウンロードと同じ名前空間にします。 **[OK]** をクリックします。
 * ASP.NET Core **Web アプリケーション**を選択し、 **[認証の変更]** を選択します。
 * 個別のユーザー アカウントを **選択** して **OK** をクリックします。
@@ -358,7 +359,7 @@ PowerShell では、コマンドの区切り記号としてセミコロンを使
 
 [!code-csharp[](identity/sample/WebApp1/Areas/Identity/Pages/Account/Login.cshtml.cs?name=snippet&highlight=10-11)]
 
-ベース`Controller`クラスでは、コントローラー メソッドからアクセスできる`User`プロパティを公開します。 たとえば`User.Claims`を列挙して承認の決定を行うことができます。 詳細については、「<xref:security/authorization/introduction>」を参照してください。
+ベース`Controller`クラスでは、コントローラー メソッドからアクセスできる`User`プロパティを公開します。 たとえば`User.Claims`を列挙して承認の決定を行うことができます。 詳細については、「 <xref:security/authorization/introduction>」を参照してください。
 
 ### <a name="log-out"></a>ログアウト
 
@@ -403,6 +404,7 @@ Id のプライマリパッケージは[Microsoft.AspNetCore.Identity](https://w
 
 ## <a name="next-steps"></a>次のステップ
 
+* SQLite を使用して Id を構成する方法については、 [GitHub の問題](https://github.com/aspnet/AspNetCore.Docs/issues/5131)を参照してください。
 * [Identity の構成](xref:security/authentication/identity-configuration)
 * <xref:security/authorization/secure-data>
 * <xref:security/authentication/add-user-data>

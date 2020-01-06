@@ -5,16 +5,16 @@ description: データにバインドする方法、イベントを処理する�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/28/2019
 no-loc:
 - Blazor
 uid: blazor/components
-ms.openlocfilehash: a79202565f45b4d26e280427892ea16b33f3f853
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: 87f21d84c17e5bbd1247bb955acee81384b890e7
+ms.sourcegitcommit: 47d453f34b6fd0179119c572cb8be64c5365cbb6
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74943863"
+ms.lasthandoff: 01/02/2020
+ms.locfileid: "75597903"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>ASP.NET Core Razor コンポーネントを作成して使用する
 
@@ -579,16 +579,16 @@ Razor コンポーネントは、イベント処理機能を提供します。 `
 
 | Event            | &lt;クラス&gt; のすべてのオブジェクト                | DOM のイベントとメモ |
 | ---------------- | -------------------- | -------------------- |
-| クリップボード        | `ClipboardEventArgs` | `oncut`では、 `oncopy`では、 `onpaste` |
+| クリップボードのトピック        | `ClipboardEventArgs` | `oncut`では、 `oncopy`では、 `onpaste` |
 | ドラッグ             | `DragEventArgs`      | `ondrag`, `ondragstart`, `ondragenter`, `ondragleave`, `ondragover`, `ondrop`, `ondragend`<br><br>`DataTransfer` および `DataTransferItem` ドラッグした項目データを保持します。 |
 | エラー            | `ErrorEventArgs`     | `onerror` |
 | Event            | `EventArgs`          | *全般*<br>`onactivate`、`onbeforeactivate`、`onbeforedeactivate`、`ondeactivate`、`onended`、`onfullscreenchange`、`onfullscreenerror`、`onloadeddata`、`onloadedmetadata`、`onpointerlockchange`、`onpointerlockerror`、`onreadystatechange`、`onscroll`<br><br>*クリップボード*<br>`onbeforecut`では、 `onbeforecopy`では、 `onbeforepaste`<br><br>*入力*<br>`oninvalid`、 `onreset`、 `onselect`、 `onselectionchange`、 `onselectstart`、 `onsubmit`<br><br>*メディア*<br>`oncanplay`、`oncanplaythrough`、`oncuechange`、`ondurationchange`、`onemptied`、`onpause`、`onplay`、`onplaying`の `onratechange`、`onseeked`、`onseeking`、`onstalled`、`onstop`、および `onsuspend` |
 | フォーカス            | `FocusEventArgs`     | `onfocus`, `onblur`, `onfocusin`, `onfocusout`<br><br>には `relatedTarget`のサポートは含まれていません。 |
-| [入力]            | `ChangeEventArgs`    | `onchange`、 `oninput` |
+| [入力]            | `ChangeEventArgs`    | `onchange`、`oninput` |
 | キーボード         | `KeyboardEventArgs`  | `onkeydown`では、 `onkeypress`では、 `onkeyup` |
 | マウス            | `MouseEventArgs`     | `onclick`, `oncontextmenu`, `ondblclick`, `onmousedown`, `onmouseup`, `onmouseover`, `onmousemove`, `onmouseout` |
 | マウス ポインター    | `PointerEventArgs`   | `onpointerdown`、`onpointerup`、`onpointercancel`、`onpointermove`、`onpointerover`、`onpointerout`、`onpointerenter`、`onpointerleave`、`ongotpointercapture`、`onlostpointercapture` |
-| マウス ホイール      | `WheelEventArgs`     | `onwheel`、 `onmousewheel` |
+| マウス ホイール      | `WheelEventArgs`     | `onwheel`、`onmousewheel` |
 | 中         | `ProgressEventArgs`  | `onabort`、 `onload`、 `onloadend`、 `onloadstart`、 `onprogress`、 `ontimeout` |
 | タッチ            | `TouchEventArgs`     | `ontouchstart`、 `ontouchend`、 `ontouchmove`、 `ontouchenter`、 `ontouchleave`、 `ontouchcancel`<br><br>`TouchPoint` は、タッチを区別するデバイス上の1つの連絡先ポイントを表します。 |
 
@@ -1256,7 +1256,7 @@ HTML 要素の属性は、.NET の値に基づいて条件付きで表示され�
 <input type="checkbox" />
 ```
 
-詳細については、「<xref:mvc/views/razor>」を参照してください。
+詳細については、「 <xref:mvc/views/razor>」を参照してください。
 
 > [!WARNING]
 > [Aria](https://developer.mozilla.org/docs/Web/Accessibility/ARIA/Roles/button_role#Toggle_buttons)などの一部の HTML 属性は、.net 型が `bool`の場合、正しく機能しません。 そのような場合は、`bool`ではなく `string` の型を使用します。
@@ -1624,7 +1624,8 @@ public class ThemeInfo
 }
 ```
 
-> !要する`Microsoft.AspNetCore.Components.RenderTree` の型により、レンダリング操作の*結果*を処理できます。 これらは、Blazor framework 実装の内部的な詳細です。 これらの型は*不安定*であると見なされ、今後のリリースで変更される可能性があります。
+> [!WARNING]
+> `Microsoft.AspNetCore.Components.RenderTree` の型により、レンダリング操作の*結果*を処理できます。 これらは、Blazor framework 実装の内部的な詳細です。 これらの型は*不安定*であると見なされ、今後のリリースで変更される可能性があります。
 
 ### <a name="sequence-numbers-relate-to-code-line-numbers-and-not-execution-order"></a>シーケンス番号は、実行順序ではなくコード行番号に関連します
 
@@ -1656,14 +1657,14 @@ builder.AddContent(1, "Second");
 
 コードを初めて実行するときに、`someFlag` が `true`場合、ビルダーは次のメッセージを受け取ります。
 
-| シーケンス | の型      | Data   |
+| シーケンス | の型      | データ   |
 | :------: | --------- | :----: |
 | 0        | テキスト ノード | First  |
 | 1        | テキスト ノード | Second |
 
 `someFlag` が `false`になり、マークアップが再び表示されるとします。 この時点で、ビルダーは次のものを受け取ります。
 
-| シーケンス | の型       | Data   |
+| シーケンス | の型       | データ   |
 | :------: | ---------- | :----: |
 | 1        | テキスト ノード  | Second |
 
@@ -1688,14 +1689,14 @@ builder.AddContent(seq++, "Second");
 
 これで、最初の出力は次のようになります。
 
-| シーケンス | の型      | Data   |
+| シーケンス | の型      | データ   |
 | :------: | --------- | :----: |
 | 0        | テキスト ノード | First  |
 | 1        | テキスト ノード | Second |
 
 この結果は前のケースと同じであるため、負の問題は存在しません。 2番目のレンダリングでは `someFlag` が `false`、出力は次のようになります。
 
-| シーケンス | の型      | Data   |
+| シーケンス | の型      | データ   |
 | :------: | --------- | ------ |
 | 0        | テキスト ノード | Second |
 
@@ -1793,7 +1794,7 @@ public class CultureController : Controller
 ```
 
 > [!WARNING]
-> `LocalRedirect` アクションの結果を使用して、開いているリダイレクト攻撃を防止します。 詳細については、「<xref:security/preventing-open-redirects>」を参照してください。
+> `LocalRedirect` アクションの結果を使用して、開いているリダイレクト攻撃を防止します。 詳細については、「 <xref:security/preventing-open-redirects>」を参照してください。
 
 次のコンポーネントは、ユーザーがカルチャを選択したときに最初のリダイレクトを実行する方法の例を示しています。
 
@@ -1838,7 +1839,7 @@ Blazorの `@bind` 機能は、ユーザーの現在のカルチャに基づい�
 * `IStringLocalizer<>` は Blazor アプリで*サポートされて*います。
 * `IHtmlLocalizer<>`、`IViewLocalizer<>`、データ注釈のローカライズは MVC シナリオ ASP.NET Core、Blazor アプリではサポートされて**いません**。
 
-詳細については、「<xref:fundamentals/localization>」を参照してください。
+詳細については、「 <xref:fundamentals/localization>」を参照してください。
 
 ## <a name="scalable-vector-graphics-svg-images"></a>スケーラブルベクターグラフィックス (SVG) イメージ
 

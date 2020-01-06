@@ -9,25 +9,25 @@ ms.date: 11/12/2019
 no-loc:
 - SignalR
 uid: signalr/background-services
-ms.openlocfilehash: 000732115153eeafed3948c2a07acf77ffc34218
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 324592759af79d1229eb147fb4551e97c678ef64
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73964044"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75358679"
 ---
 # <a name="host-aspnet-core-opno-locsignalr-in-background-services"></a>バックグラウンドサービスでのホスト ASP.NET Core SignalR
 
-[Brady](https://twitter.com/bradygaster)による
+作成者: [Brady Gaster](https://twitter.com/bradygaster)
 
 この記事では、次のガイダンスを提供します。
 
 * ASP.NET Core でホストされているバックグラウンドワーカープロセスを使用して SignalR ハブをホストする。
 * .NET Core [Backgroundservice](xref:Microsoft.Extensions.Hosting.BackgroundService)内から接続されたクライアントにメッセージを送信する。
 
-[サンプルコードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/background-service/sample/)[する (ダウンロードする方法)](xref:index#how-to-download-a-sample)
+[サンプル コードの表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/background-service/sample/) [(ダウンロードする方法)](xref:index#how-to-download-a-sample)
 
-## <a name="wire-up-opno-locsignalr-during-startup"></a>起動時の SignalR の接続
+## <a name="enable-opno-locsignalr-in-startup"></a>起動時に SignalR を有効にする
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -62,7 +62,7 @@ public class Startup
 
 ::: moniker range="<= aspnetcore-2.2"
 
-バックグラウンドワーカープロセスのコンテキストで ASP.NET Core SignalR ハブをホストすることは、ASP.NET Core web アプリでハブをホストすることと同じです。 `Startup.ConfigureServices` メソッドで `services.AddSignalR` を呼び出すと、SignalRをサポートするために必要なサービスが ASP.NET Core 依存関係の挿入 (DI) 層に追加されます。 `Startup.Configure`では、`UseSignalR` メソッドを呼び出して、ASP.NET Core 要求パイプラインでハブエンドポイントを接続します。
+バックグラウンドワーカープロセスのコンテキストで ASP.NET Core SignalR ハブをホストすることは、ASP.NET Core web アプリでハブをホストすることと同じです。 `Startup.ConfigureServices` メソッドで `services.AddSignalR` を呼び出すと、SignalRをサポートするために必要なサービスが ASP.NET Core 依存関係の挿入 (DI) 層に追加されます。 `Startup.Configure`では、`UseSignalR` メソッドを呼び出して、ASP.NET Core 要求パイプラインのハブエンドポイントを接続します。
 
 [!code-csharp[Startup](background-service/sample/Server/Startup.cs?name=Startup)]
 
@@ -83,13 +83,13 @@ public class Startup
 
 ## <a name="call-a-opno-locsignalr-hub-from-a-background-service"></a>バックグラウンドサービスから SignalR ハブを呼び出す
 
-起動時に、`Worker` クラス (`BackgroundService`) は `AddHostedService`を使用して接続されます。
+起動時には、`AddHostedService`を使用して、`BackgroundService``Worker` クラスが有効になります。
 
 ```csharp
 services.AddHostedService<Worker>();
 ```
 
-SignalR は `Startup` フェーズ中にも接続されるため、各ハブは ASP.NET Core の HTTP 要求パイプライン内の個々のエンドポイントに接続されます。各ハブは、サーバー上の `IHubContext<T>` によって表されます。 ASP.NET Core の DI 機能を使用して、`BackgroundService` クラス、MVC コントローラークラス、Razor ページモデルなどのホスト層によってインスタンス化された他のクラスは、構築中に `IHubContext<ClockHub, IClock>` のインスタンスを受け入れることによって、サーバー側ハブへの参照を取得できます。
+SignalR は `Startup` フェーズ中にも有効になるため、各ハブは ASP.NET Core の HTTP 要求パイプライン内の個々のエンドポイントにアタッチされます。各ハブは、サーバー上の `IHubContext<T>` によって表されます。 ASP.NET Core の DI 機能を使用して、`BackgroundService` クラス、MVC コントローラークラス、Razor ページモデルなどのホスト層によってインスタンス化された他のクラスは、構築中に `IHubContext<ClockHub, IClock>` のインスタンスを受け入れることによって、サーバー側ハブへの参照を取得できます。
 
 [!code-csharp[Startup](background-service/sample/Server/Worker.cs?name=Worker)]
 
@@ -99,7 +99,7 @@ SignalR は `Startup` フェーズ中にも接続されるため、各ハブは 
 
 SignalR 用の JavaScript クライアントを使用するシングルページアプリの場合と同様に、.NET デスクトップアプリでは <xref:signalr/dotnet-client>を使用してを使用できますが、`BackgroundService` または `IHostedService` の実装を使用して SignalR ハブに接続し、イベントに応答することもできます。
 
-`ClockHubClient` クラスは、`IClock` インターフェイスと `IHostedService` インターフェイスの両方を実装します。 このようにすることで、`Startup` 中に接続して、サーバーからハブイベントに応答できるようになります。
+`ClockHubClient` クラスは、`IClock` インターフェイスと `IHostedService` インターフェイスの両方を実装します。 このようにして、`Startup` 中に有効にし、サーバーからハブイベントに応答して実行することができます。
 
 ```csharp
 public partial class ClockHubClient : IClock, IHostedService
@@ -107,7 +107,7 @@ public partial class ClockHubClient : IClock, IHostedService
 }
 ```
 
-初期化中に、`ClockHubClient` によって `HubConnection` のインスタンスが作成され、`IClock.ShowTime` メソッドがハブの `ShowTime` イベントのハンドラーとして使用されます。
+初期化中に、`ClockHubClient` によって `HubConnection` のインスタンスが作成され、ハブの `ShowTime` イベントのハンドラーとして `IClock.ShowTime` メソッドが有効になります。
 
 [!code-csharp[The ClockHubClient constructor](background-service/sample/Clients.ConsoleTwo/ClockHubClient.cs?name=ClockHubClientCtor)]
 

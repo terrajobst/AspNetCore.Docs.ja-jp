@@ -9,12 +9,12 @@ ms.date: 12/05/2019
 no-loc:
 - Blazor
 uid: blazor/javascript-interop
-ms.openlocfilehash: 05225b86701b7a5d5c84dd43afbef70dd1ece228
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: 2350870f8548a9c8df324182883a105706c12c20
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944071"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75355745"
 ---
 # <a name="aspnet-core-opno-locblazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 相互運用機能
 
@@ -30,13 +30,9 @@ Blazor アプリは、JavaScript コードから .NET および .NET メソッ�
 
 JavaScript 関数を呼び出すために .NET コードが必要になる場合があります。 たとえば、JavaScript 呼び出しは、ブラウザーの機能や機能を JavaScript ライブラリからアプリに公開できます。 このシナリオは、 *JavaScript 相互運用性*(*JS 相互運用*) と呼ばれます。
 
-.NET から JavaScript を呼び出すには、`IJSRuntime` 抽象化を使用します。 `InvokeAsync<T>` メソッドは、任意の数の JSON シリアル化可能な引数と共に呼び出す JavaScript 関数の識別子を受け取ります。 関数識別子は、グローバルスコープ (`window`) に対して相対的です。 `window.someScope.someFunction`を呼び出す場合は、識別子が `someScope.someFunction`ます。 呼び出される前に、関数を登録する必要はありません。 戻り値の型 `T` も JSON シリアル化可能である必要があります。 `T` は、返される JSON 型に最適にマップされる .NET 型と一致している必要があります。
+.NET から JavaScript を呼び出すには、`IJSRuntime` 抽象化を使用します。 JS 相互運用呼び出しを発行するには、コンポーネントに `IJSRuntime` の抽象化を挿入します。 `InvokeAsync<T>` メソッドは、任意の数の JSON シリアル化可能な引数と共に呼び出す JavaScript 関数の識別子を受け取ります。 関数識別子は、グローバルスコープ (`window`) に対して相対的です。 `window.someScope.someFunction`を呼び出す場合は、識別子が `someScope.someFunction`ます。 呼び出される前に、関数を登録する必要はありません。 戻り値の型 `T` も JSON シリアル化可能である必要があります。 `T` は、返される JSON 型に最適にマップされる .NET 型と一致している必要があります。
 
-Blazor サーバーアプリの場合:
-
-* 複数のユーザー要求が Blazor サーバーアプリによって処理されます。 JavaScript 関数を呼び出すために、コンポーネント内で `JSRuntime.Current` を呼び出さないでください。
-* `IJSRuntime` の抽象化を挿入し、挿入されたオブジェクトを使用して、JS 相互運用機能の呼び出しを発行します。
-* Blazor アプリのプリレンダリング中に、ブラウザーとの接続が確立されていないため、JavaScript を呼び出すことはできません。 詳細については、「 [Blazor アプリのプリレンダリングを検出する](#detect-when-a-blazor-app-is-prerendering)」セクションを参照してください。
+プリレンダリングが有効になっている Blazor サーバーアプリの場合、初期のプリレンダリング中に JavaScript を呼び出すことはできません。 JavaScript の相互運用呼び出しは、ブラウザーとの接続が確立されるまで遅延させる必要があります。 詳細については、「 [Blazor アプリのプリレンダリングを検出する](#detect-when-a-blazor-app-is-prerendering)」セクションを参照してください。
 
 次の例は、JavaScript ベースの試験的なデコーダーである[Textdecoder](https://developer.mozilla.org/docs/Web/API/TextDecoder)に基づいています。 この例では、 C#メソッドから JavaScript 関数を呼び出す方法を示します。 JavaScript 関数は、 C#メソッドからバイト配列を受け取り、配列をデコードし、テキストをコンポーネントに返して表示できるようにします。
 
@@ -343,7 +339,7 @@ JS 相互運用コードは、NuGet パッケージ内のコードを共有で�
 
 ビルド済みの NuGet パッケージは、NuGet パッケージを参照するのと同じ方法で、アプリのプロジェクトファイルで参照されます。 パッケージが復元された後、アプリコードはと同じように JavaScript C#を呼び出すことができます。
 
-詳細については、「<xref:blazor/class-libraries>」を参照してください。
+詳細については、「 <xref:blazor/class-libraries>」を参照してください。
 
 ## <a name="harden-js-interop-calls"></a>JS 相互運用呼び出しの強化
 

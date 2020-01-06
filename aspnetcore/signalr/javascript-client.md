@@ -9,12 +9,12 @@ ms.date: 11/12/2019
 no-loc:
 - SignalR
 uid: signalr/javascript-client
-ms.openlocfilehash: 926160a41c82853d83890f0d52b14d7d5561a990
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: eaf737642cdbd7ab2b1b5c16538b47a70cddd332
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963767"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75354698"
 ---
 # <a name="aspnet-core-opno-locsignalr-javascript-client"></a>ASP.NET Core SignalR JavaScript クライアント
 
@@ -26,7 +26,7 @@ ASP.NET Core SignalR JavaScript クライアントライブラリを使用する
 
 ## <a name="install-the-opno-locsignalr-client-package"></a>SignalR クライアントパッケージをインストールする
 
-SignalR JavaScript クライアントライブラリは[npm](https://www.npmjs.com/)パッケージとして配信されます。 Visual Studio を使用している場合は、ルートフォルダー内の**パッケージマネージャーコンソール**から `npm install` を実行します。 Visual Studio Code には、**統合ターミナル**からコマンドを実行します。
+SignalR JavaScript クライアントライブラリは[npm](https://www.npmjs.com/)パッケージとして配信されます。 Visual Studio を使用している場合は、実行`npm install`から、**パッケージ マネージャー コンソール**ルート フォルダー内で。 Visual Studio Code でからのコマンドを実行、**統合ターミナル**します。
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -35,7 +35,7 @@ SignalR JavaScript クライアントライブラリは[npm](https://www.npmjs.c
   npm install @microsoft/signalr
   ```
 
-npm は、 *node_modules\\@microsoft\signalr\dist\browser* フォルダーにパッケージの内容をインストールします。 *Wwwroot\\lib*フォルダーの下に、 *signalr*という名前の新しいフォルダーを作成します。 *Signalr*ファイルを*wwwroot\lib\signalr*フォルダーにコピーします。
+npm のインストール パッケージの内容を *node_modules\\@microsoft\signalr\dist\browser* フォルダー。 という名前の新しいフォルダーを作成する*signalr*下、 *wwwroot\\lib*フォルダー。 コピー、 *signalr.js*ファイルを*wwwroot\lib\signalr*フォルダー。
 
 ::: moniker-end
 
@@ -46,7 +46,7 @@ npm は、 *node_modules\\@microsoft\signalr\dist\browser* フォルダーにパ
   npm install @aspnet/signalr
   ```
 
-npm は、 *node_modules\\@aspnet\signalr\dist\browser* フォルダーにパッケージの内容をインストールします。 *Wwwroot\\lib*フォルダーの下に、 *signalr*という名前の新しいフォルダーを作成します。 *Signalr*ファイルを*wwwroot\lib\signalr*フォルダーにコピーします。
+npm のインストール パッケージの内容を *node_modules\\@aspnet\signalr\dist\browser* フォルダー。 という名前の新しいフォルダーを作成する*signalr*下、 *wwwroot\\lib*フォルダー。 コピー、 *signalr.js*ファイルを*wwwroot\lib\signalr*フォルダー。
 
 ::: moniker-end
 
@@ -58,26 +58,26 @@ npm は、 *node_modules\\@aspnet\signalr\dist\browser* フォルダーにパッ
 <script src="~/lib/signalr/signalr.js"></script>
 ```
 
-## <a name="connect-to-a-hub"></a>ハブへの接続
+## <a name="connect-to-a-hub"></a>ハブへの接続します。
 
-次のコードでは、接続を作成して開始します。 ハブの名前は大文字と小文字が区別されません。
+次のコードでは、作成し、接続を開始します。 ハブの名前は大文字小文字を区別します。
 
 [!code-javascript[Call hub methods](javascript-client/sample/wwwroot/js/chat.js?range=9-13,43-45)]
 
-### <a name="cross-origin-connections"></a>クロスオリジン接続
+### <a name="cross-origin-connections"></a>クロス オリジンの接続
 
-通常、ブラウザーは、要求されたページと同じドメインからの接続を読み込みます。 ただし、別のドメインへの接続が必要になる場合もあります。
+通常、ブラウザーでは、要求されたページと同じドメインから接続を読み込みます。 ただし、状況が別のドメインへの接続が必要な場合があります。
 
-悪意のあるサイトが別のサイトから機密データを読み取れないようにするため、既定では、[クロスオリジン接続](xref:security/cors)は無効になっています。 クロスオリジン要求を許可するには、`Startup` クラスで有効にします。
+悪意のあるサイトが別のサイトから機密データを読み取ることを防ぐために[クロス オリジン接続](xref:security/cors)は既定で無効になります。 クロス オリジン要求を許可することで有効にする、`Startup`クラス。
 
 [!code-csharp[Cross-origin connections](javascript-client/sample/Startup.cs?highlight=29-35,56)]
 
-## <a name="call-hub-methods-from-client"></a>クライアントからのハブメソッドの呼び出し
+## <a name="call-hub-methods-from-client"></a>クライアントからのハブ メソッドの呼び出し
 
-JavaScript クライアントは、 [HubConnection](/javascript/api/%40aspnet/signalr/hubconnection)の[invoke](/javascript/api/%40aspnet/signalr/hubconnection#invoke)メソッドを使用して、ハブでパブリックメソッドを呼び出します。 `invoke` メソッドは、次の2つの引数を受け取ります。
+JavaScript クライアントは、ハブ経由でのパブリック メソッドを呼び出して、[呼び出す](/javascript/api/%40aspnet/signalr/hubconnection#invoke)のメソッド、 [HubConnection](/javascript/api/%40aspnet/signalr/hubconnection)します。 `invoke`メソッドは 2 つの引数を受け取ります。
 
-* ハブメソッドの名前。 次の例では、ハブのメソッド名が `SendMessage`ます。
-* ハブメソッドで定義されているすべての引数。 次の例では、引数名は `message`です。 このコード例では、Internet Explorer を除くすべての主要なブラウザーの現在のバージョンでサポートされている、矢印関数の構文を使用します。
+* ハブ メソッドの名前。 次の例では、ハブのメソッド名は`SendMessage`します。
+* ハブ メソッドで定義されている引数。 次の例では引数名は`message`します。 このコード例では、Internet Explorer を除くすべての主要なブラウザーの現在のバージョンでサポートされている、矢印関数の構文を使用します。
 
   [!code-javascript[Call hub methods](javascript-client/sample/wwwroot/js/chat.js?range=24)]
 
@@ -91,42 +91,42 @@ JavaScript クライアントは、 [HubConnection](/javascript/api/%40aspnet/si
 > [!NOTE]
 > `send` を使用すると、サーバーがメッセージを受信するまで待機しません。 このため、サーバーからデータまたはエラーを返すことはできません。
 
-## <a name="call-client-methods-from-hub"></a>ハブからクライアントメソッドを呼び出す
+## <a name="call-client-methods-from-hub"></a>ハブからのクライアント メソッドを呼び出す
 
-ハブからメッセージを受信するには、`HubConnection`の[on](/javascript/api/%40aspnet/signalr/hubconnection#on)メソッドを使用してメソッドを定義します。
+ハブからメッセージを受信する定義を使用して、メソッド、[で](/javascript/api/%40aspnet/signalr/hubconnection#on)のメソッド、`HubConnection`します。
 
-* JavaScript クライアントメソッドの名前。 次の例では、メソッド名は `ReceiveMessage`です。
-* ハブがメソッドに渡す引数。 次の例では、引数の値は `message`です。
+* JavaScript クライアント メソッドの名前。 次の例では、メソッド名は`ReceiveMessage`します。
+* 引数は、hub は、メソッドに渡します。 引数の値は、次の例では、`message`します。
 
 [!code-javascript[Receive calls from hub](javascript-client/sample/wwwroot/js/chat.js?range=14-19)]
 
-`connection.on` の前のコードは、サーバー側のコードが[Sendasync](/dotnet/api/microsoft.aspnetcore.signalr.clientproxyextensions.sendasync)メソッドを使用して呼び出したときに実行されます。
+上記のコードで`connection.on`を使用してサーバー側コードから呼び出すときに実行される、 [SendAsync](/dotnet/api/microsoft.aspnetcore.signalr.clientproxyextensions.sendasync)メソッド。
 
 [!code-csharp[Call client-side](javascript-client/sample/hubs/chathub.cs?range=8-11)]
 
 SignalR は、`SendAsync` と `connection.on`で定義されたメソッド名と引数を照合することによって、どのクライアントメソッドを呼び出すかを決定します。
 
 > [!NOTE]
-> ベストプラクティスとして、`on`後に `HubConnection` で[start](/javascript/api/%40aspnet/signalr/hubconnection#start)メソッドを呼び出すことをお勧めします。 これにより、メッセージを受信する前にハンドラーが確実に登録されます。
+> ベスト プラクティスを呼び出して、[開始](/javascript/api/%40aspnet/signalr/hubconnection#start)メソッドを`HubConnection`後`on`します。 これにより、すべてのメッセージを受信する前に、ハンドラーが登録されます。
 
 ## <a name="error-handling-and-logging"></a>エラー処理とログ記録
 
-`catch` メソッドを `start` メソッドの最後にチェーンして、クライアント側のエラーを処理します。 `console.error` を使用して、ブラウザーのコンソールにエラーを出力します。
+チェーンを`catch`メソッドの末尾に、`start`クライアント側のエラーを処理するメソッド。 使用`console.error`ブラウザーのコンソールにエラーを出力します。
 
 [!code-javascript[Error handling](javascript-client/sample/wwwroot/js/chat.js?range=49-51)]
 
-接続が確立されたときにログに記録する logger と種類のイベントを渡すことによって、クライアント側のログトレースを設定します。 メッセージは、指定されたログレベル以上でログに記録されます。 使用可能なログレベルは次のとおりです。
+接続が行われたときにログに記録するには、logger とイベントの種類を渡すことによって、クライアント側のログ トレースをセットアップします。 指定されたログ レベル以降、メッセージが記録されます。 使用可能なログ レベルは次のとおりです。
 
-* &ndash; エラーメッセージを `signalR.LogLevel.Error` します。 `Error` メッセージのみをログに記録します。
-* 潜在的なエラーに関する警告メッセージを `signalR.LogLevel.Warning` &ndash; ます。 `Warning`メッセージと `Error` メッセージをログに記録します。
-* エラーのない &ndash; ステータスメッセージを `signalR.LogLevel.Information` します。 `Information`、`Warning`、および `Error` メッセージをログに記録します。
-* トレースメッセージを `signalR.LogLevel.Trace` &ndash; ます。 ハブとクライアント間で転送されたデータを含む、すべてをログに記録します。
+* `signalR.LogLevel.Error` &ndash; エラー メッセージ。 ログ`Error`メッセージのみです。
+* `signalR.LogLevel.Warning` &ndash; 可能性のあるエラーについての警告メッセージ。 ログ`Warning`、および`Error`メッセージ。
+* `signalR.LogLevel.Information` &ndash; ステータス メッセージがエラーなし。 ログ`Information`、 `Warning`、および`Error`メッセージ。
+* `signalR.LogLevel.Trace` &ndash; メッセージをトレースします。 ハブとクライアント間で転送されるデータを含め、すべてログに記録します。
 
-ログレベルを構成するには、 [HubConnectionBuilder](/javascript/api/%40aspnet/signalr/hubconnectionbuilder)で[configureLogging](/javascript/api/%40aspnet/signalr/hubconnectionbuilder#configurelogging)メソッドを使用します。 メッセージは、ブラウザーコンソールに記録されます。
+使用して、 [configureLogging](/javascript/api/%40aspnet/signalr/hubconnectionbuilder#configurelogging)メソッド[HubConnectionBuilder](/javascript/api/%40aspnet/signalr/hubconnectionbuilder)ログ レベルを構成します。 メッセージは、ブラウザーのコンソールに記録されます。
 
 [!code-javascript[Logging levels](javascript-client/sample/wwwroot/js/chat.js?range=9-12)]
 
-## <a name="reconnect-clients"></a>クライアントの再接続
+## <a name="reconnect-clients"></a>クライアントを再接続します。
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -236,15 +236,16 @@ const connection = new signalR.HubConnectionBuilder()
     .withUrl("/chatHub")
     .withAutomaticReconnect({
         nextRetryDelayInMilliseconds: retryContext => {
-          if (retryContext.elapsedMilliseconds < 60000) {
-            // If we've been reconnecting for less than 60 seconds so far,
-            // wait between 0 and 10 seconds before the next reconnect attempt.
-            return Math.random() * 10000;
-          } else {
-            // If we've been reconnecting for more than 60 seconds so far, stop reconnecting.
-            return null;
-          }
-        })
+            if (retryContext.elapsedMilliseconds < 60000) {
+                // If we've been reconnecting for less than 60 seconds so far,
+                // wait between 0 and 10 seconds before the next reconnect attempt.
+                return Math.random() * 10000;
+            } else {
+                // If we've been reconnecting for more than 60 seconds so far, stop reconnecting.
+                return null;
+            }
+        }
+    })
     .build();
 ```
 
@@ -263,12 +264,12 @@ const connection = new signalR.HubConnectionBuilder()
 
 次のコードは、標準的な手動再接続アプローチを示しています。
 
-1. 接続を開始する関数 (この場合は `start` 関数) が作成されます。
-1. 接続の `onclose` イベントハンドラーで `start` 関数を呼び出します。
+1. 関数 (ここで、`start`関数)、接続を開始するが作成されます。
+1. 呼び出す、`start`関数で、接続の`onclose`イベント ハンドラー。
 
 [!code-javascript[Reconnect the JavaScript client](javascript-client/sample/wwwroot/js/chat.js?range=28-40)]
 
-実際の実装では、指数バックオフを使用するか、指定された回数の再試行を行います。
+実際の実装は、指数バックオフを使用して、または断念する前に指定された回数を再試行してください。
 
 ## <a name="additional-resources"></a>その他の技術情報
 
@@ -278,5 +279,5 @@ const connection = new signalR.HubConnectionBuilder()
 * [ハブ](xref:signalr/hubs)
 * [.NET クライアント](xref:signalr/dotnet-client)
 * [Azure に発行する](xref:signalr/publish-to-azure-web-app)
-* [クロスオリジン要求 (CORS)](xref:security/cors)
+* [クロス オリジン要求 (CORS)](xref:security/cors)
 * [Azure SignalR サービスのサーバーレスドキュメント](/azure/azure-signalr/signalr-concept-serverless-development-config)

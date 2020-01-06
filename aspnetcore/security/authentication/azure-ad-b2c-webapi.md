@@ -6,16 +6,18 @@ ms.author: casoper
 ms.date: 12/05/2019
 ms.custom: mvc, seodec18
 uid: security/authentication/azure-ad-b2c-webapi
-ms.openlocfilehash: 0c7e8a1db924bdedf29468bf6b8cc17f03962c6d
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 9b18b19838a2d25944a2498b6eec1677e56b12cc
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880741"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75358262"
 ---
 # <a name="authentication-in-web-apis-with-azure-active-directory-b2c-in-aspnet-core"></a>Web Api ASP.NET Core での Azure Active Directory B2C での認証
 
 作成者: [Cam Soper](https://twitter.com/camsoper)
+
+<!-- Next update remove screenshots. They become obsolete too soon and are more work to update -->
 
 [Azure Active Directory B2C](/azure/active-directory-b2c/active-directory-b2c-overview) (Azure AD B2C) は、web およびモバイル アプリのクラウド id 管理ソリューションです。 サービスは、クラウドとオンプレミスでホストされているアプリの認証を提供します。 認証の種類は、個々 のアカウントに、ソーシャル ネットワーク アカウントを含めるし、エンタープライズ アカウントをフェデレーションします。 Azure AD B2C では、最小構成での多要素認証も提供します。
 
@@ -32,7 +34,7 @@ Web Api にユーザー インターフェイスがあるないため、中、Az
 > * Azure AD B2C テナントの動作を制御するポリシーを構成します。
 > * 、ログイン ダイアログを表示する web アプリをシミュレートするために Postman を使用しては、トークンを取得し、使用して、web API に対する要求をします。
 
-## <a name="prerequisites"></a>必要条件
+## <a name="prerequisites"></a>Prerequisites
 
 次に、このチュートリアルでは必須です。
 
@@ -56,7 +58,7 @@ Azure AD B2C テナントを作成[ドキュメント」の説明に従って](/
 
 | 設定                       | Value               | メモ                                                                                  |
 |-------------------------------|---------------------|----------------------------------------------------------------------------------------|
-| **Name**                      | *API {name}*        | 入力、**名前**コンシューマーに、アプリについて説明しているアプリ。                     |
+| **名前**                      | *API {name}*        | 入力、**名前**コンシューマーに、アプリについて説明しているアプリ。                     |
 | **Web アプリを含める/web API** | ○                 |                                                                                        |
 | **暗黙的なフローを許可します。**       | ○                 |                                                                                        |
 | **応答 URL**                 | `https://localhost` | 応答 Url とは、Azure AD B2C が、アプリが要求したトークンを返すエンドポイントです。 |
@@ -112,7 +114,7 @@ Postman は、Azure AD B2C テナントからトークンを取得する web ア
 
 | 設定                       | Value                            | メモ                           |
 |-------------------------------|----------------------------------|---------------------------------|
-| **Name**                      | Postman                          |                                 |
+| **名前**                      | Postman                          |                                 |
 | **Web アプリを含める/web API** | ○                              |                                 |
 | **暗黙的なフローを許可します。**       | ○                              |                                 |
 | **応答 URL**                 | `https://getpostman.com/postman` |                                 |
@@ -150,7 +152,7 @@ Postman を起動します。 既定では、Postman が表示されます、**�
 
 Web API に認証が必要であることを確認するには、まず認証を使用せず、要求を確認します。
 
-1. **要求 URL を入力します。** の URL を入力ボックスに、`ValuesController`します。 URL がブラウザーで表示されるものと同じ**api/値**追加されます。 たとえば、`https://localhost:44375/api/values` のようにします。
+1. **要求 URL を入力します。** の URL を入力ボックスに、`ValuesController`します。 URL がブラウザーで表示されるものと同じ**api/値**追加されます。 たとえば、 `https://localhost:44375/api/values`のようにします。
 2. 選択、**送信**ボタンをクリックします。
 3. 応答のステータスは*401 Unauthorized*します。
 

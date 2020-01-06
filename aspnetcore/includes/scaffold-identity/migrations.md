@@ -5,6 +5,7 @@
 Visual Studio で**パッケージ マネージャー コンソール**:
 
 ```powershell
+Install-Package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore
 Add-Migration CreateIdentitySchema
 Update-Database
 ```
@@ -18,4 +19,4 @@ dotnet ef database update
 
 ---
 
-`Add-Migration`コマンドの "CreateIdentitySchema" name パラメーターは任意です。 `"CreateIdentitySchema"`移行について説明します。
+`Add-Migration` コマンドの "CreateIdentitySchema" name パラメーターは任意です。 移行について `"CreateIdentitySchema"` 説明します。

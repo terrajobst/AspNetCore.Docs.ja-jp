@@ -4,14 +4,14 @@ author: blowdart
 description: IIS と http.sys の ASP.NET Core で証明書認証を構成する方法について説明します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: bdorrans
-ms.date: 12/09/2019
+ms.date: 01/02/2020
 uid: security/authentication/certauth
-ms.openlocfilehash: 38ee8a6767191bb3eee4286e49b96162b14d9889
-ms.sourcegitcommit: 4e3edff24ba6e43a103fee1b126c9826241bb37b
+ms.openlocfilehash: 9c175439c0313d62c75898f1af097774b06f353a
+ms.sourcegitcommit: e7d4fe6727d423f905faaeaa312f6c25ef844047
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/10/2019
-ms.locfileid: "74959061"
+ms.lasthandoff: 01/02/2020
+ms.locfileid: "75608146"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>ASP.NET Core で証明書認証を構成する
 
@@ -63,23 +63,33 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 ### <a name="allowedcertificatetypes--chained-selfsigned-or-all-chained--selfsigned"></a>AllowedCertificateTypes = チェーン、自己署名、またはすべて (チェーン |自己署名済み)
 
-このチェックでは、適切な証明書の種類のみが許可されていることが検証されます。
+既定値: `CertificateTypes.Chained`
+
+このチェックでは、適切な証明書の種類のみが許可されていることが検証されます。 アプリが自己署名証明書を使用している場合は、このオプションを `CertificateTypes.All` または `CertificateTypes.SelfSigned`に設定する必要があります。
 
 ### <a name="validatecertificateuse"></a>ValidateCertificateUse
+
+既定値: `true`
 
 このチェックでは、クライアントが提示した証明書にクライアント認証の拡張キー使用法 (EKU) があること、またはまったく Eku がないことを検証します。 仕様として、EKU が指定されていない場合は、すべての Eku が有効と見なされます。
 
 ### <a name="validatevalidityperiod"></a>ValidateValidityPeriod
 
+既定値: `true`
+
 このチェックでは、証明書が有効期間内であることを検証します。 要求が発生するたびに、ハンドラーは、提示されたときに有効だった証明書が現在のセッション中に期限切れにならないようにします。
 
 ### <a name="revocationflag"></a>RevocationFlag
+
+既定値: `X509RevocationFlag.ExcludeRoot`
 
 チェーン内のどの証明書の失効を確認するかを指定するフラグ。
 
 失効確認は、証明書がルート証明書にチェーンされている場合にのみ実行されます。
 
 ### <a name="revocationmode"></a>RevocationMode
+
+既定値: `X509RevocationMode.Online`
 
 失効確認の実行方法を指定するフラグ。
 
@@ -208,7 +218,7 @@ public static IHostBuilder CreateHostBuilder(string[] args)
 ```
 
 > [!NOTE]
-> <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ConfigureHttpsDefaults*> を呼び出す**前に** <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> を呼び出すことで作成されるエンドポイントには既定値が適用されません。
+> <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ConfigureHttpsDefaults*> を呼び出す**前に**<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> を呼び出して作成されたエンドポイントには、既定値は適用されません。
 
 ### <a name="iis"></a>IIS
 
@@ -376,6 +386,9 @@ Get-ChildItem -Path cert:\localMachine\my\"The thumbprint..." | Export-PfxCertif
 
 Export-Certificate -Cert cert:\localMachine\my\"The thumbprint..." -FilePath root_ca_dev_damienbod.crt
 ```
+
+> [!NOTE]
+> `-DnsName` パラメーター値は、アプリの配置ターゲットと一致している必要があります。 たとえば、開発用の "localhost" などです。
 
 #### <a name="install-in-the-trusted-root"></a>信頼されたルートにインストールする
 

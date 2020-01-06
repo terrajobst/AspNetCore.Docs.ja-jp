@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 09/25/2019
 uid: grpc/migration
-ms.openlocfilehash: c4c07808540c9af370bfa253e8154a8a19f0f3de
-ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
+ms.openlocfilehash: 451171a041f7bbb3711babd73d2fa2e245aadd28
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73634063"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75355139"
 ---
 # <a name="migrating-grpc-services-from-c-core-to-aspnet-core"></a>GRPC サービスの C-core から ASP.NET Core への移行
 
@@ -49,7 +49,7 @@ public void ConfigureServices(IServiceCollection services)
 
 C コアベースのアプリでは、`grpc.max_receive_message_length` や `grpc.max_send_message_length` などの設定は、[サーバーインスタンスの構築](https://grpc.io/grpc/csharp/api/Grpc.Core.Server.html#Grpc_Core_Server__ctor_System_Collections_Generic_IEnumerable_Grpc_Core_ChannelOption__)時に `ChannelOption` で構成されます。
 
-ASP.NET Core では、gRPC は `GrpcServiceOptions` の種類を使用して構成を提供します。 たとえば、gRPC サービスの最大受信メッセージサイズは、`AddGrpc` を使用して構成できます。 次の例では、既定の `MaxReceiveMessageSize` を 4 MB から 16 MB に変更します。
+ASP.NET Core では、gRPC は `GrpcServiceOptions` の種類を使用して構成を提供します。 たとえば、gRPC サービスの最大受信メッセージサイズは、`AddGrpc`を使用して構成できます。 次の例では、既定の `MaxReceiveMessageSize` を 4 MB から 16 MB に変更します。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -82,7 +82,7 @@ C コアベースのアプリは、 [Server. Ports プロパティ](https://grpc
 
 ## <a name="grpc-interceptors-vs-middleware"></a>gRPC インターセプターとミドルウェア
 
-ASP.NET Core[ミドルウェア](xref:fundamentals/middleware/index)は、C コアベースの grpc アプリのインターセプターと比較して同様の機能を提供します。 ASP.NET Core ミドルウェアとインターセプターは概念的に似ています。 両方とも：
+ASP.NET Core[ミドルウェア](xref:fundamentals/middleware/index)は、C コアベースの grpc アプリのインターセプターと比較して同様の機能を提供します。 ASP.NET Core ミドルウェアとインターセプターは概念的に似ています。 [両方] :
 
 * は、gRPC 要求を処理するパイプラインを構築するために使用されます。
 * パイプライン内の次のコンポーネントの前または後に作業を実行することを許可します。
@@ -97,6 +97,7 @@ gRPC インターセプターと ASP.NET Core ミドルウェアの違い:
   * 次へのアクセスを提供します。
     * 呼び出しに送信された逆シリアル化されたメッセージ。
     * シリアル化される前に、呼び出しから返されるメッセージ。
+  * GRPC サービスからスローされた例外をキャッチして処理できます。
 * ミドルウェア
   * GRPC インターセプターの前に実行されます。
   * は、基になる HTTP/2 メッセージを操作します。

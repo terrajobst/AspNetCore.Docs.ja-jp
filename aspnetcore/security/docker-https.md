@@ -6,13 +6,15 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 07/05/2019
+no-loc:
+- Let's Encrypt
 uid: security/docker-https
-ms.openlocfilehash: c13ba02845eef5c53a939feec2be8a01bc4ca128
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 47027033c0b7130f2d38d22c02a54945b2cc31b3
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082530"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75358914"
 ---
 # <a name="hosting-aspnet-core-images-with-docker-over-https"></a>HTTPS 経由で Docker を使用して ASP.NET Core イメージをホストする
 
@@ -26,22 +28,22 @@ ms.locfileid: "71082530"
 
 このサンプルでは、docker [17.06](https://docs.docker.com/release-notes/docker-ce)以降の[docker クライアント](https://www.docker.com/products/docker)が必要です。
 
-## <a name="prerequisites"></a>必須コンポーネント
+## <a name="prerequisites"></a>Prerequisites
 
 このドキュメントの一部の手順では、 [.Net Core 2.2 SDK](https://www.microsoft.com/net/download)以降が必要です。
 
 ## <a name="certificates"></a>証明書
 
-ドメインの[運用ホスト](https://blogs.msdn.microsoft.com/webdev/2017/11/29/configuring-https-in-asp-net-core-across-different-platforms/)には、[証明機関](https://en.wikipedia.org/wiki/Certificate_authority)からの証明書が必要です。  [暗号化](https://letsencrypt.org/)は、無料の証明書を提供する証明機関です。
+ドメインの[運用ホスト](https://blogs.msdn.microsoft.com/webdev/2017/11/29/configuring-https-in-asp-net-core-across-different-platforms/)には、[証明機関](https://wikipedia.org/wiki/Certificate_authority)からの証明書が必要です。 [Let's Encrypt](https://letsencrypt.org/)は、無料の証明書を提供する証明機関です。
 
-このドキュメントでは、事前に構築さ`localhost`れたイメージをホストするために[自己署名の開発証明書](https://en.wikipedia.org/wiki/Self-signed_certificate)を使用します。 手順は、実稼働証明書の使用に似ています。
+このドキュメントでは、`localhost`で事前構築されたイメージをホストするために[自己署名の開発証明書](https://en.wikipedia.org/wiki/Self-signed_certificate)を使用します。 手順は、実稼働証明書の使用に似ています。
 
 実稼働証明書の場合:
 
-* `dotnet dev-certs`ツールは必要ありません。
+* `dotnet dev-certs` ツールは必要ありません。
 * 手順で使用した場所に証明書を保存する必要はありません。 任意の場所を使用できますが、証明書をサイトディレクトリ内に格納することはお勧めしません。
 
-指示ボリュームは、コンテナーに証明書をマウントします。 Dockerfile 内のコマンドを使用し`COPY`て、コンテナーイメージに証明書を追加できます。 証明書をイメージにコピーすることはお勧めしません。
+指示ボリュームは、コンテナーに証明書をマウントします。 *Dockerfile*で `COPY` コマンドを使用して、コンテナーイメージに証明書を追加できます。 証明書をイメージにコピーすることは、次の理由から推奨されません。
 
 * 開発者の証明書を使用したテストで同じイメージを使用するのは困難です。
 * 実稼働証明書を使用してホストする場合、同じイメージを使用するのは困難です。
@@ -60,7 +62,7 @@ dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p { passwo
 dotnet dev-certs https --trust
 ```
 
-上記のコマンドで、を`{ password here }`パスワードに置き換えます。
+上記のコマンドの `{ password here }` をパスワードに置き換えます。
 
 HTTPS 用に構成された ASP.NET Core でコンテナーイメージを実行します。
 
@@ -80,9 +82,9 @@ dotnet dev-certs https -ep ${HOME}/.aspnet/https/aspnetapp.pfx -p { password her
 dotnet dev-certs https --trust
 ```
 
-`dotnet dev-certs https --trust`は、macOS と Windows でのみサポートされています。 ディストリビューションでサポートされている方法で、Linux 上の証明書を信頼する必要があります。 ブラウザーで証明書を信頼する必要があると考えられます。
+`dotnet dev-certs https --trust` は、macOS と Windows でのみサポートされています。 ディストリビューションでサポートされている方法で、Linux 上の証明書を信頼する必要があります。 ブラウザーで証明書を信頼する必要があると考えられます。
 
-上記のコマンドで、を`{ password here }`パスワードに置き換えます。
+上記のコマンドの `{ password here }` をパスワードに置き換えます。
 
 HTTPS 用に構成された ASP.NET Core でコンテナーイメージを実行します。
 
@@ -102,7 +104,7 @@ dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p { passwo
 dotnet dev-certs https --trust
 ```
 
-上記のコマンドで、を`{ password here }`パスワードに置き換えます。
+上記のコマンドの `{ password here }` をパスワードに置き換えます。
 
 HTTPS 用に構成された ASP.NET Core でコンテナーイメージを実行します。
 

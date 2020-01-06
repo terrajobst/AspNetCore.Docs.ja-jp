@@ -9,12 +9,12 @@ ms.date: 11/28/2018
 no-loc:
 - SignalR
 uid: signalr/scale
-ms.openlocfilehash: 7fc767939996a489174be949742637030924616d
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 6506430202870ba9de2f8eb6f33d79c7c1fbbbd4
+ms.sourcegitcommit: e7d4fe6727d423f905faaeaa312f6c25ef844047
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963748"
+ms.lasthandoff: 01/02/2020
+ms.locfileid: "75608068"
 ---
 # <a name="aspnet-core-opno-locsignalr-hosting-and-scaling"></a>ASP.NET Core SignalR のホストとスケーリング
 
@@ -42,7 +42,7 @@ Web サーバーがサポートできる同時 TCP 接続の数は制限され�
 
 SignalR によって接続関連のリソースが大量に使用されていると、同じサーバー上でホストされている他の web アプリに影響を与える可能性があります。 SignalR が開いており、使用可能な最後の TCP 接続が保持されている場合、同じサーバー上の他の web アプリにも使用できる接続がありません。
 
-サーバーの接続が不足している場合は、ランダムソケットエラーと接続リセットエラーが表示されます。 (例:
+サーバーの接続が不足している場合は、ランダムソケットエラーと接続リセットエラーが表示されます。 例:
 
 ```
 An attempt was made to access a socket in a way forbidden by its access permissions...
@@ -52,7 +52,7 @@ An attempt was made to access a socket in a way forbidden by its access permissi
 
 SignalR リソースの使用量が SignalR アプリでエラーを発生させないようにするには、スケールアウトして、サーバーが処理する接続の数を制限します。
 
-## <a name="scale-out"></a>スケール アウト
+## <a name="scale-out"></a>のスケールアウト
 
 SignalR を使用するアプリは、そのすべての接続を追跡する必要があります。これにより、サーバーファームに関する問題が発生します。 サーバーを追加すると、他のサーバーが認識していない新しい接続が取得されます。 たとえば、次の図に示す各サーバーの SignalR は、他のサーバー上の接続を認識していません。 いずれかのサーバーで SignalR がすべてのクライアントにメッセージを送信しようとすると、メッセージはそのサーバーに接続されているクライアントのみに送られます。
 
@@ -60,7 +60,7 @@ SignalR を使用するアプリは、そのすべての接続を追跡する必
 
 この問題を解決するためのオプションは、 [Azure SignalR サービス](#azure-signalr-service)と[Redis バックプレーン](#redis-backplane)です。
 
-## <a name="azure-opno-locsignalr-service"></a>Azure SignalR サービス
+## <a name="azure-opno-locsignalr-service"></a>Azure SignalR Service
 
 Azure SignalR サービスは、バックプレーンではなくプロキシです。 クライアントがサーバーへの接続を開始するたびに、クライアントはサービスに接続するためにリダイレクトされます。 このプロセスを次の図に示します。
 
@@ -90,11 +90,26 @@ Redis バックプレーンは、お客様のインフラストラクチャで�
 
 前述した Azure SignalR サービスの利点は、Redis バックプレーンの欠点です。
 
-* 固定セッション ([クライアントアフィニティ](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing#step-3---configure-client-affinity)とも呼ばれます) が必要です。 サーバーで接続が開始されると、接続はそのサーバー上にとどまります。
+* 次の**両方**が当てはまる場合を除き、固定セッション ([クライアントアフィニティ](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing#step-3---configure-client-affinity)とも呼ばれます) が必要です。
+  * すべてのクライアントは、Websocket**のみ**を使用するように構成されています。
+  * クライアント構成で[Skipnegotiation 設定](xref:signalr/configuration#configure-additional-options)が有効になっています。 
+   サーバーで接続が開始されると、接続はそのサーバー上にとどまります。
 * SignalR のアプリは、送信されるメッセージが少ない場合でも、クライアントの数に基づいてスケールアウトする必要があります。
 * SignalR アプリでは、SignalRのない web アプリよりもはるかに多くの接続リソースを使用します。
 
-## <a name="next-steps"></a>次のステップ
+## <a name="iis-limitations-on-windows-client-os"></a>Windows クライアント OS での IIS の制限事項
+
+Windows 10 と Windows 8.x はクライアントオペレーティングシステムです。 クライアントオペレーティングシステムの IIS では、同時接続数が10個に制限されています。 SignalRの接続は次のとおりです。
+
+* 一時的で、頻繁に再確立されます。
+* 使用されなくなった場合、すぐに**は破棄されません**。
+
+上記の条件を満たすと、クライアント OS で10個の接続制限に達する可能性が高くなります。 クライアント OS を開発に使用する場合は、次のことをお勧めします。
+
+* IIS を避けます。
+* 配置ターゲットとして Kestrel または IIS Express を使用します。
+
+## <a name="next-steps"></a>次のステップ:
 
 詳細については、次のリソースを参照してください。
 

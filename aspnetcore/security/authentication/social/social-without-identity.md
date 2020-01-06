@@ -3,14 +3,14 @@ title: ASP.NET Core Id を使用しない Facebook、Google、および外部プ
 author: rick-anderson
 description: ASP.NET Core Id を使用しない Facebook、Google、Twitter などのアカウントユーザー認証の使用について説明します。
 ms.author: riande
-ms.date: 11/19/2019
+ms.date: 12/10/2019
 uid: security/authentication/social/social-without-identity
-ms.openlocfilehash: 680ea091dcc5ed7f94879b5d277e8be7e5abeb7b
-ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
+ms.openlocfilehash: 612964ec9ed4975cdc81780dda3bac6cce96037f
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/21/2019
-ms.locfileid: "74289114"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75359059"
 ---
 # <a name="use-social-sign-in-provider-authentication-without-aspnet-core-identity"></a>ASP.NET Core Id なしでソーシャルサインインプロバイダー認証を使用する
 
@@ -27,7 +27,7 @@ ms.locfileid: "74289114"
 * [Twitter での認証](xref:security/authentication/twitter-logins)
 * [その他のプロバイダー](xref:security/authentication/otherlogins)
 
-## <a name="configuration"></a>構成
+## <a name="configuration"></a>の構成
 
 `ConfigureServices` メソッドで、<xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*>、<xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*>、および <xref:Microsoft.Extensions.DependencyInjection.GoogleExtensions.AddGoogle*> の各メソッドを使用して、アプリの認証スキームを構成します。
 
@@ -47,7 +47,7 @@ ms.locfileid: "74289114"
 
 [!code-csharp[](social-without-identity/samples_snapshot/3.x/Startup.cs?name=snippet2&highlight=3-4)]
 
-認証スキームと cookie 認証の詳細については、「<xref:security/authentication/cookie>」を参照してください。
+認証方式の詳細については、「[認証の概念](xref:security/authentication/index#authentication-concepts)」を参照してください。 Cookie 認証の詳細については、「<xref:security/authentication/cookie>」を参照してください。
 
 ## <a name="apply-authorization"></a>承認の適用
 
@@ -63,7 +63,7 @@ ms.locfileid: "74289114"
 
 `SignOutAsync` の呼び出しで認証スキームが指定されていないことに注意してください。 アプリの `CookieAuthenticationDefaults.AuthenticationScheme` の `DefaultScheme` はフォールバックとして使用されます。
 
-## <a name="additional-resources"></a>その他のリソース
+## <a name="additional-resources"></a>その他の技術情報
 
 * <xref:security/authorization/simple>
 * <xref:security/authentication/social/additional-claims>
@@ -82,7 +82,7 @@ ms.locfileid: "74289114"
 * [Twitter での認証](xref:security/authentication/twitter-logins)
 * [その他のプロバイダー](xref:security/authentication/otherlogins)
 
-## <a name="configuration"></a>構成
+## <a name="configuration"></a>の構成
 
 `ConfigureServices` メソッドで、`AddAuthentication`、`AddCookie`、および `AddGoogle` の各メソッドを使用して、アプリの認証スキームを構成します。
 
@@ -102,7 +102,7 @@ ms.locfileid: "74289114"
 
 [!code-csharp[](social-without-identity/samples_snapshot/2.x/Startup.cs?name=snippet2)]
 
-認証スキームと cookie 認証の詳細については、「<xref:security/authentication/cookie>」を参照してください。
+認証方式の詳細については、「[認証の概念](xref:security/authentication/index#authentication-concepts)」を参照してください。 Cookie 認証の詳細については、「<xref:security/authentication/cookie>」を参照してください。
 
 ## <a name="apply-authorization"></a>承認の適用
 
@@ -118,7 +118,7 @@ ms.locfileid: "74289114"
 
 `SignOutAsync` の呼び出しで認証スキームが指定されていないことに注意してください。 アプリの `CookieAuthenticationDefaults.AuthenticationScheme` の `DefaultScheme` はフォールバックとして使用されます。
 
-## <a name="additional-resources"></a>その他のリソース
+## <a name="additional-resources"></a>その他の技術情報
 
 * <xref:security/authorization/simple>
 * <xref:security/authentication/social/additional-claims>

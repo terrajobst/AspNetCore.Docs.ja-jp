@@ -5,18 +5,18 @@ description: Azure Key Vault 構成プロバイダーを使用して、実行時
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/14/2019
+ms.date: 12/16/2019
 uid: security/key-vault-configuration
-ms.openlocfilehash: e0e55d40734e0cb6e3e1afe1c708ec47c6f43054
-ms.sourcegitcommit: f91d322f790123d41ec3271fa084ae20ed9f89a6
+ms.openlocfilehash: 37ba756cc4170c145d2ab1f9f0a465057cc826c1
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/18/2019
-ms.locfileid: "74155160"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75358709"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>ASP.NET Core の構成プロバイダーの Azure Key Vault
 
-[Luke Latham](https://github.com/guardrex)および[Andrew Stanton-看護師](https://github.com/anurse)
+作成者 [Luke Latham](https://github.com/guardrex)および [Andrew Stanton-Nurse](https://github.com/anurse)
 
 このドキュメントでは、 [Microsoft Azure Key Vault](https://azure.microsoft.com/services/key-vault/)構成プロバイダーを使用して Azure Key Vault シークレットからアプリ構成値を読み込む方法について説明します。 Azure Key Vault は、アプリとサービスで使用される暗号化キーとシークレットを保護するのに役立つクラウドベースのサービスです。 ASP.NET Core アプリで Azure Key Vault を使用する一般的なシナリオは次のとおりです。
 
@@ -73,7 +73,7 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 
 1. [Azure portal](https://portal.azure.com/)の次のいずれかの方法を使用して、Azure Cloud shell を開きます。
 
-   * コードブロックの右上隅にある **[試してみる]** を選択します。 テキストボックス内の検索文字列 "Azure CLI" を使用します。
+   * コード ブロックの右上隅にある **[使ってみる]** を選択します。 テキストボックス内の検索文字列 "Azure CLI" を使用します。
    * **[Cloud Shell の起動]** ボタンを使用して、ブラウザーで Cloud Shell を開きます。
    * Azure portal の右上隅にあるメニューの **[Cloud Shell]** ボタンを選択します。
 
@@ -90,7 +90,7 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 1. 次のコマンドを使用して、リソースグループにキーコンテナーを作成します。ここで `{KEY VAULT NAME}` は新しいキーコンテナーの名前、`{LOCATION}` は Azure リージョン (datacenter) です。
 
    ```azure-cli
-   az keyvault create --name "{KEY VAULT NAME}" --resource-group "{RESOURCE GROUP NAME}" --location {LOCATION}
+   az keyvault create --name {KEY VAULT NAME} --resource-group "{RESOURCE GROUP NAME}" --location {LOCATION}
    ```
 
 1. 名前と値のペアとして、キーコンテナーにシークレットを作成します。
@@ -100,13 +100,13 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
    サンプルアプリで使用するシークレットは次のとおりです。 値には、開発環境で読み込まれた `_dev` サフィックス値とユーザーシークレットから区別するための `_prod` サフィックスが含まれます。 `{KEY VAULT NAME}` は、前の手順で作成したキーコンテナーの名前に置き換えます。
 
    ```azure-cli
-   az keyvault secret set --vault-name "{KEY VAULT NAME}" --name "SecretName" --value "secret_value_1_prod"
-   az keyvault secret set --vault-name "{KEY VAULT NAME}" --name "Section--SecretName" --value "secret_value_2_prod"
+   az keyvault secret set --vault-name {KEY VAULT NAME} --name "SecretName" --value "secret_value_1_prod"
+   az keyvault secret set --vault-name {KEY VAULT NAME} --name "Section--SecretName" --value "secret_value_2_prod"
    ```
 
 ## <a name="use-application-id-and-x509-certificate-for-non-azure-hosted-apps"></a>Azure でホストされていないアプリにアプリケーション ID と x.509 証明書を使用する
 
-**アプリが Azure の外部でホストされている場合**に、AZURE ACTIVE DIRECTORY アプリケーション ID と x.509 証明書を使用して Key Vault に対する認証を行うように Azure AD、Azure Key Vault、アプリを構成します。 詳細については、「[キー、シークレット、および証明書について](/azure/key-vault/about-keys-secrets-and-certificates)」を参照してください。
+**アプリが Azure の外部でホストされている場合**に、AZURE ACTIVE DIRECTORY アプリケーション ID と x.509 証明書を使用して Key Vault に対する認証を行うように Azure AD、Azure Key Vault、アプリを構成します。 詳細については、「[About keys, secrets, and certificates (キー、シークレット、証明書について)](/azure/key-vault/about-keys-secrets-and-certificates)」を参照してください。
 
 > [!NOTE]
 > Azure でホストされているアプリでは、アプリケーション ID と x.509 証明書を使用することができますが、azure でアプリをホストする場合は、 [azure リソースの管理対象 id](#use-managed-identities-for-azure-resources)を使用することをお勧めします。 マネージド id では、アプリまたは開発環境に証明書を保存する必要はありません。
@@ -124,13 +124,13 @@ dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 1. Key vault 名、アプリケーション ID、および証明書の拇印をアプリの*appsettings*ファイルに格納します。
 1. Azure portal の**キーコンテナー**に移動します。
 1. Azure Key Vault セクションで、[運用環境のシークレットストレージ](#secret-storage-in-the-production-environment-with-azure-key-vault)に作成したキーコンテナーを選択します。
-1. **[アクセスポリシー]** を選択します。
+1. **[アクセス ポリシー]** を選択します。
 1. **[アクセスポリシーの追加]** を選択します。
 1. **[シークレットのアクセス許可]** を開き、アプリに**Get**および**List**アクセス許可を提供します。
 1. **[プリンシパルの選択]** を選択し、名前で登録済みのアプリを選択します。 **[選択]** ボタンを選択します。
 1. **[OK]** を選択します。
 1. **[保存]** を選択します。
-1. アプリをデプロイします。
+1. アプリケーションをデプロイします。
 
 `Certificate` サンプルアプリは、シークレット名と同じ名前の `IConfigurationRoot` から構成値を取得します。
 
@@ -190,7 +190,7 @@ Azure App Service にデプロイされたアプリは、サービスの作成�
 Azure CLI とアプリのオブジェクト ID を使用して、キーコンテナーにアクセスするための `list` と `get` アクセス許可をアプリに提供します。
 
 ```azure-cli
-az keyvault set-policy --name '{KEY VAULT NAME}' --object-id {OBJECT ID} --secret-permissions get list
+az keyvault set-policy --name {KEY VAULT NAME} --object-id {OBJECT ID} --secret-permissions get list
 ```
 
 Azure CLI、PowerShell、または Azure portal を使用して**アプリを再起動**します。
@@ -304,8 +304,8 @@ config.AddAzureKeyVault(
 1. シークレットは、次の Azure CLI コマンドを使用して Azure Key Vault に保存されます。
 
    ```azure-cli
-   az keyvault secret set --vault-name "{KEY VAULT NAME}" --name "5000-AppSecret" --value "5.0.0.0_secret_value_prod"
-   az keyvault secret set --vault-name "{KEY VAULT NAME}" --name "5100-AppSecret" --value "5.1.0.0_secret_value_prod"
+   az keyvault secret set --vault-name {KEY VAULT NAME} --name "5000-AppSecret" --value "5.0.0.0_secret_value_prod"
+   az keyvault secret set --vault-name {KEY VAULT NAME} --name "5100-AppSecret" --value "5.1.0.0_secret_value_prod"
    ```
 
 1. アプリを実行すると、key vault シークレットが読み込まれます。 `5000-AppSecret` の文字列シークレットは、アプリのプロジェクトファイル (`5.0.0.0`) で指定されているアプリのバージョンと一致します。
@@ -350,7 +350,7 @@ JSON ファイルによって提供される次の[Serilog](https://serilog.net/
 
 前の JSON ファイルに示されている構成は、二重ダッシュ (`--`) 表記と数値セグメントを使用して Azure Key Vault に格納されます。
 
-| キー | [値] |
+| [キー] | Value |
 | --- | ----- |
 | `Serilog--WriteTo--0--Name` | `AzureTableStorage` |
 | `Serilog--WriteTo--0--Args--storageTableName` | `logs` |

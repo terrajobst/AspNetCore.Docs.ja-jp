@@ -1,19 +1,19 @@
 ---
-title: ASP.NET Core プロジェクトのトラブルシューティング
+title: ASP.NET Core プロジェクトのトラブルシューティングとデバッグ
 author: Rick-Anderson
 description: ASP.NET Core プロジェクトでの警告とエラーについて説明し、トラブルシューティングを行います。
 ms.author: riande
 ms.custom: mvc
 ms.date: 07/10/2019
 uid: test/troubleshoot
-ms.openlocfilehash: b434af2dd046045836d2f6f7f7b7b2d57699bedc
-ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
+ms.openlocfilehash: 73a73fb51571e5f7b706ff4b958217854750c1fb
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68308282"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75354708"
 ---
-# <a name="troubleshoot-aspnet-core-projects"></a>ASP.NET Core プロジェクトのトラブルシューティング
+# <a name="troubleshoot-and-debug-aspnet-core-projects"></a>ASP.NET Core プロジェクトのトラブルシューティングとデバッグ
 
 作成者: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -21,8 +21,8 @@ ms.locfileid: "68308282"
 
 * <xref:test/troubleshoot-azure-iis>
 * <xref:host-and-deploy/azure-iis-errors-reference>
-* [NDC カンファレンス (ロンドン、2018):ASP.NET Core アプリケーションの問題の診断](https://www.youtube.com/watch?v=RYI0DHoIVaA)
-* [ASP.NET ブログ:パフォーマンスに関する問題のトラブルシューティング ASP.NET Core](https://blogs.msdn.microsoft.com/webdev/2018/05/23/asp-net-core-performance-improvements/)
+* [NDC カンファレンス (ロンドン, 2018): ASP.NET Core アプリケーションの問題の診断](https://www.youtube.com/watch?v=RYI0DHoIVaA)
+* [ASP.NET ブログ: パフォーマンスに関する問題のトラブルシューティング ASP.NET Core](https://blogs.msdn.microsoft.com/webdev/2018/05/23/asp-net-core-performance-improvements/)
 
 ## <a name="net-core-sdk-warnings"></a>.NET Core SDK 警告
 
@@ -44,7 +44,7 @@ ASP.NET Core の **[新しいプロジェクト]** ダイアログで、次の�
 
 ASP.NET Core の **[新しいプロジェクト]** ダイアログで、次の警告が表示される場合があります。
 
-> .NET Core SDK が複数の場所にインストールされています。 ' C:\\Program Files\\dotnet\\sdk\\' にインストールされている sdk のテンプレートのみが表示されます。
+> .NET Core SDK が複数の場所にインストールされています。 ' C:\\Program Files\\dotnet\\sdk\\' にインストールされている Sdk のテンプレートのみが表示されます。
 
 .NET Core SDK の少なくとも 1 つのインストール ディレクトリの外部にある場合、このメッセージが表示 *c:\\Program Files\\dotnet\\sdk\\* します。 通常、このエラーは、MSI インストーラーではなくコピー/貼り付けを使用してコンピューターに .NET Core SDK が展開されている場合に発生します。
 
@@ -54,38 +54,38 @@ ASP.NET Core の **[新しいプロジェクト]** ダイアログで、次の�
 
 * ASP.NET Core の Visual Studio の **[新しいプロジェクト]** ダイアログで、次の警告が表示される場合があります。
 
-  > .NET Core Sdk が検出されませんでした。環境変数`PATH`に含まれていることを確認してください。
+  > .NET Core Sdk が検出されませんでした。環境変数 `PATH`に含まれていることを確認してください。
 
-* `dotnet`コマンドを実行すると、次のような警告が表示されます。
+* `dotnet` コマンドを実行すると、次のような警告が表示されます。
 
   > インストールされている dotnet Sdk を見つけることができませんでした。
 
-これらの警告は、環境変数`PATH`がコンピューター上の .net Core sdk を指していない場合に表示されます。 この問題を解決するには:
+これらの警告は、環境変数 `PATH` が、コンピューター上の .NET Core Sdk を指していない場合に表示されます。 この問題を解決するには、次の手順を実行します。
 
 * .NET Core SDK をインストールします。 [.Net ダウンロード](https://dotnet.microsoft.com/download)から最新のインストーラーを入手します。
-* 環境変数が、SDK がインストールされている場所を指して`C:\Program Files\dotnet\`いることを確認します ( `C:\Program Files (x86)\dotnet\` 64 ビット/x64 の場合は、32ビット/x86 の場合)。 `PATH` SDK インストーラーは、通常、 `PATH`を設定します。 同じコンピューターには、常に同じビット Sdk とランタイムをインストールします。
+* `PATH` 環境変数が、SDK がインストールされている場所を指していることを確認します (64 ビット/x64 の場合は`C:\Program Files\dotnet\`、32ビット/x86 の場合は `C:\Program Files (x86)\dotnet\`)。 SDK インストーラーでは、通常、`PATH`が設定されます。 同じコンピューターには、常に同じビット Sdk とランタイムをインストールします。
 
 ### <a name="missing-sdk-after-installing-the-net-core-hosting-bundle"></a>.NET Core ホスティングバンドルのインストール後に SDK が見つからない
 
-.Net core[ホスティングバンドル](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle)をインストールすると`PATH` 、.net core ランタイムをインストールするときに、.net core の32ビット (x86) バージョン (`C:\Program Files (x86)\dotnet\`) を指すように変更されます。 これにより、32ビット (x86) .net core `dotnet`コマンドが使用されている場合 ([.net core sdk が検出されなかっ](#no-net-core-sdks-were-detected)た場合)、sdk が不足する可能性があります。 この問題を解決するに`C:\Program Files\dotnet\`は、の`PATH`前`C:\Program Files (x86)\dotnet\`の位置に移動します。
+.Net core[ホスティングバンドル](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle)をインストールすると、.net core ランタイムをインストールするときに、.net core の32ビット (x86) バージョン (`C:\Program Files (x86)\dotnet\`) を指すように `PATH` が変更されます。 これにより、32ビット (x86) .NET Core `dotnet` コマンドが使用されている場合 ([.Net Core sdk が検出されなかっ](#no-net-core-sdks-were-detected)た場合)、sdk が不足する可能性があります。 この問題を解決するには、`PATH`に `C:\Program Files (x86)\dotnet\` する前に `C:\Program Files\dotnet\` を位置に移動します。
 
 ## <a name="obtain-data-from-an-app"></a>アプリからデータを取得する
 
 アプリが要求に応答できる場合は、ミドルウェアを使用してアプリから次のデータを取得できます。
 
-* Request &ndash;メソッド、scheme、host、pathbase、path、query string、headers
-* 接続&ndash;リモート ip アドレス、リモートポート、ローカル IP アドレス、ローカルポート、クライアント証明書
-* Id &ndash;名、表示名
+* 要求 &ndash; メソッド、スキーム、ホスト、pathbase、path、クエリ文字列、ヘッダー
+* 接続 &ndash; リモート IP アドレス、リモートポート、ローカル IP アドレス、ローカルポート、クライアント証明書
+* Id &ndash; 名、表示名
 * 構成設定
 * 環境変数
 
-`Startup.Configure`メソッドの要求処理パイプラインの先頭に、次の[ミドルウェア](xref:fundamentals/middleware/index#create-a-middleware-pipeline-with-iapplicationbuilder)コードを配置します。 開発環境でのみコードが実行されるように、ミドルウェアが実行される前に環境がチェックされます。
+`Startup.Configure` メソッドの要求処理パイプラインの先頭に、次の[ミドルウェア](xref:fundamentals/middleware/index#create-a-middleware-pipeline-with-iapplicationbuilder)コードを配置します。 開発環境でのみコードが実行されるように、ミドルウェアが実行される前に環境がチェックされます。
 
 環境を取得するには、次のいずれかの方法を使用します。
 
-* `IHostingEnvironment`をメソッド`Startup.Configure`に挿入し、ローカル変数を使用して環境を確認します。 次のサンプルコードは、この方法を示しています。
+* `Startup.Configure` メソッドに `IHostingEnvironment` を挿入し、ローカル変数を使用して環境を確認します。 次のサンプルコードは、この方法を示しています。
 
-* `Startup`クラスのプロパティに環境を割り当てます。 プロパティを使用して環境を確認します`if (Environment.IsDevelopment())`(たとえば、)。
+* 環境を `Startup` クラスのプロパティに割り当てます。 プロパティを使用して環境を確認します (たとえば、`if (Environment.IsDevelopment())`)。
 
 ```csharp
 public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
@@ -162,3 +162,12 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env,
     }
 }
 ```
+
+## <a name="debug-aspnet-core-apps"></a>ASP.NET Core アプリのデバッグ
+
+次のリンクは、ASP.NET Core アプリのデバッグに関する情報を提供します。
+
+* [Linux での ASP Core のデバッグ](https://devblogs.microsoft.com/premier-developer/debugging-asp-core-on-linux-with-visual-studio-2017/)
+* [SSH 経由での Unix での .NET Core のデバッグ](https://devblogs.microsoft.com/devops/debugging-net-core-on-unix-over-ssh/)
+* [クイックスタート: Visual Studio デバッガーを使用して ASP.NET をデバッグする](/visualstudio/debugger/quickstart-debug-aspnet)
+* デバッグ情報の詳細については、[この GitHub の問題](https://github.com/aspnet/AspNetCore.Docs/issues/2960)を参照してください。

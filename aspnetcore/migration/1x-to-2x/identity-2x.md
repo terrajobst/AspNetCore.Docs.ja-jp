@@ -1,36 +1,36 @@
 ---
-title: ASP.NET Core 2.0 への認証と Id を移行します。
+title: 認証と Id を ASP.NET Core 2.0 に移行する
 author: scottaddie
-description: この記事では、ASP.NET Core 2.0 に移行する ASP.NET Core 1.x の認証と Id の最も一般的な手順について説明します。
+description: この記事では ASP.NET Core 1.x 認証と Id を ASP.NET Core 2.0 に移行するための最も一般的な手順について説明します。
 ms.author: scaddie
 ms.date: 06/21/2019
 uid: migration/1x-to-2x/identity-2x
-ms.openlocfilehash: c83356e12fa5ae581b369265b9d857b08445ed51
-ms.sourcegitcommit: 9f11685382eb1f4dd0fb694dea797adacedf9e20
+ms.openlocfilehash: f3817fa1808c331f7e167618e3bb00d68ad08571
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/21/2019
-ms.locfileid: "67313744"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75355176"
 ---
-# <a name="migrate-authentication-and-identity-to-aspnet-core-20"></a>ASP.NET Core 2.0 への認証と Id を移行します。
+# <a name="migrate-authentication-and-identity-to-aspnet-core-20"></a>認証と Id を ASP.NET Core 2.0 に移行する
 
-によって[Scott Addie](https://github.com/scottaddie)と[Hao 力](https://github.com/HaoK)
+[Scott Addie](https://github.com/scottaddie)および[hao Kung](https://github.com/HaoK)
 
-ASP.NET Core 2.0 が認証用の新しいモデルおよび[Identity](xref:security/authentication/identity)サービスを使用して構成を簡略化します。 認証または Id を使用する ASP.NET Core 1.x アプリケーションは、以下に示すとおり、新しいモデルを使用して更新できます。
+ASP.NET Core 2.0 には、サービスを使用した構成を簡素化する認証と[id](xref:security/authentication/identity)の新しいモデルが用意されています。 認証または Id を使用する ASP.NET Core 1.x アプリケーションは、次に示すように、新しいモデルを使用するように更新できます。
 
-## <a name="update-namespaces"></a>名前空間を更新します。
+## <a name="update-namespaces"></a>名前空間の更新
 
-1\.x では、クラスなど`IdentityRole`と`IdentityUser`内で見つかった、`Microsoft.AspNetCore.Identity.EntityFrameworkCore`名前空間。
+1\.x では、`Microsoft.AspNetCore.Identity.EntityFrameworkCore` 名前空間に `IdentityRole` や `IdentityUser` などのクラスが見つかりました。
 
-2\.0 では、<xref:Microsoft.AspNetCore.Identity>名前空間では、いくつかのようなクラスの新しいホームがようになりました。 既定の Identity コードの影響を受けるクラスが含まれます`ApplicationUser`と`Startup`します。 調整、`using`ステートメントに影響を受ける参照を解決します。
+2\.0 では、<xref:Microsoft.AspNetCore.Identity> 名前空間が、このようなクラスのいくつかの新しいホームになりました。 既定の Id コードでは、影響を受けるクラスには `ApplicationUser` と `Startup`が含まれます。 `using` ステートメントを調整して、影響を受ける参照を解決します。
 
 <a name="auth-middleware"></a>
 
 ## <a name="authentication-middleware-and-services"></a>認証ミドルウェアとサービス
 
-1\.x プロジェクトでは、認証はミドルウェアを介して構成されます。 サポートする各認証スキーム ミドルウェア メソッドは呼び出されます。
+1\.x プロジェクトでは、認証はミドルウェアを介して構成されます。 ミドルウェアメソッドは、サポートする各認証スキームに対して呼び出されます。
 
-次の 1.x の例では、Facebook 認証を構成で Id を持つ*Startup.cs*:
+次の 1. x の例では、 *Startup.cs*で id を使用して Facebook 認証を構成します。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -49,9 +49,9 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory)
 }
 ```
 
-2\.0 プロジェクトでサービスを使用して認証が構成されています。 各認証スキームが登録されている、`ConfigureServices`メソッドの*Startup.cs*します。 `UseIdentity`メソッドが置き換え`UseAuthentication`します。
+2\.0 プロジェクトでは、認証はサービスを介して構成されます。 各認証方式は、 *Startup.cs*の `ConfigureServices` メソッドに登録されています。 `UseIdentity` メソッドは `UseAuthentication`に置き換えられます。
 
-次の 2.0 の例では、Facebook 認証を構成で Id を持つ*Startup.cs*:
+次の2.0 例では、 *Startup.cs*で id を使用して Facebook 認証を構成します。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -74,23 +74,23 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
 }
 ```
 
-`UseAuthentication`メソッドは、自動認証と、リモート認証要求の処理を担当する 1 つの認証ミドルウェア コンポーネントを追加します。 1 つの一般的なミドルウェア コンポーネントをすべての個々 のミドルウェア コンポーネントを置き換えます。
+`UseAuthentication` メソッドは、認証ミドルウェアコンポーネントを1つ追加します。このコンポーネントは、自動認証とリモート認証要求の処理を担当します。 個々のミドルウェアコンポーネントはすべて、単一の共通ミドルウェアコンポーネントに置き換えられます。
 
-各主要な認証スキーム用の 2.0 の移行手順を次に示します。
+次に、各主要な認証スキームの2.0 移行手順を示します。
 
 ### <a name="cookie-based-authentication"></a>Cookie ベースの認証
 
-次の 2 つのオプションのいずれかを選択しに必要な変更を加えます*Startup.cs*:
+次の2つのオプションのいずれかを選択し、 *Startup.cs*で必要な変更を行います。
 
-1. Id で cookie を使用します。
-    - 置換`UseIdentity`で`UseAuthentication`で、`Configure`メソッド。
+1. Id でクッキーを使用する
+    - `UseIdentity` を `Configure` メソッドの `UseAuthentication` に置き換えます。
 
         ```csharp
         app.UseAuthentication();
         ```
 
-    - 呼び出す、`AddIdentity`メソッド、 `ConfigureServices` cookie 認証サービスを追加します。
-    - 必要に応じて、呼び出し、`ConfigureApplicationCookie`または`ConfigureExternalCookie`メソッドで、 `ConfigureServices` Id cookie の設定を調整する方法。
+    - `ConfigureServices` メソッドで `AddIdentity` メソッドを呼び出して、cookie 認証サービスを追加します。
+    - 必要に応じて、`ConfigureServices` メソッドで `ConfigureApplicationCookie` または `ConfigureExternalCookie` メソッドを呼び出して、Id cookie の設定を調整します。
 
         ```csharp
         services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -100,14 +100,14 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
         services.ConfigureApplicationCookie(options => options.LoginPath = "/Account/LogIn");
         ```
 
-2. Identity なしの cookie を使用します。
-    - 置換、`UseCookieAuthentication`でメソッドを呼び出す、`Configure`メソッド`UseAuthentication`:
+2. Id なしで cookie を使用する
+    - `Configure` メソッドの `UseCookieAuthentication` メソッドの呼び出しを `UseAuthentication`に置き換えます。
 
         ```csharp
         app.UseAuthentication();
         ```
 
-    - 呼び出す、`AddAuthentication`と`AddCookie`メソッド、`ConfigureServices`メソッド。
+    - `ConfigureServices` メソッドで `AddAuthentication` および `AddCookie` メソッドを呼び出します。
 
         ```csharp
         // If you don't want the cookie to be automatically authenticated and assigned to HttpContext.User,
@@ -122,14 +122,14 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
 
 ### <a name="jwt-bearer-authentication"></a>JWT ベアラー認証
 
-次に変更を加えます*Startup.cs*:
-- 置換、`UseJwtBearerAuthentication`でメソッドを呼び出す、`Configure`メソッド`UseAuthentication`:
+*Startup.cs*で次の変更を行います。
+- `Configure` メソッドの `UseJwtBearerAuthentication` メソッドの呼び出しを `UseAuthentication`に置き換えます。
 
     ```csharp
     app.UseAuthentication();
     ```
 
-- 呼び出す、`AddJwtBearer`メソッドで、`ConfigureServices`メソッド。
+- `ConfigureServices` メソッドで `AddJwtBearer` メソッドを呼び出します。
 
     ```csharp
     services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -140,19 +140,19 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
             });
     ```
 
-    このコード スニペットが Id を使用しないのは、渡すことによって、既定のスキームを設定する必要があるため`JwtBearerDefaults.AuthenticationScheme`を`AddAuthentication`メソッド。
+    このコードスニペットは Id を使用しないため、`JwtBearerDefaults.AuthenticationScheme` を `AddAuthentication` メソッドに渡すことによって既定のスキームを設定する必要があります。
 
 ### <a name="openid-connect-oidc-authentication"></a>OpenID Connect (OIDC) 認証
 
-次に変更を加えます*Startup.cs*:
+*Startup.cs*で次の変更を行います。
 
-- 置換、`UseOpenIdConnectAuthentication`でメソッドを呼び出す、`Configure`メソッド`UseAuthentication`:
+- `Configure` メソッドの `UseOpenIdConnectAuthentication` メソッドの呼び出しを `UseAuthentication`に置き換えます。
 
     ```csharp
     app.UseAuthentication();
     ```
 
-- 呼び出す、`AddOpenIdConnect`メソッドで、`ConfigureServices`メソッド。
+- `ConfigureServices` メソッドで `AddOpenIdConnect` メソッドを呼び出します。
 
     ```csharp
     services.AddAuthentication(options =>
@@ -168,7 +168,7 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
     });
     ```
 
-- 置換、`PostLogoutRedirectUri`プロパティ、`OpenIdConnectOptions`ェマル`SignedOutRedirectUri`:
+- `OpenIdConnectOptions` アクションの `PostLogoutRedirectUri` プロパティを `SignedOutRedirectUri`に置き換えます。
 
     ```csharp
     .AddOpenIdConnect(options =>
@@ -179,14 +179,14 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
     
 ### <a name="facebook-authentication"></a>Facebook での認証
 
-次に変更を加えます*Startup.cs*:
-- 置換、`UseFacebookAuthentication`でメソッドを呼び出す、`Configure`メソッド`UseAuthentication`:
+*Startup.cs*で次の変更を行います。
+- `Configure` メソッドの `UseFacebookAuthentication` メソッドの呼び出しを `UseAuthentication`に置き換えます。
 
     ```csharp
     app.UseAuthentication();
     ```
 
-- 呼び出す、`AddFacebook`メソッドで、`ConfigureServices`メソッド。
+- `ConfigureServices` メソッドで `AddFacebook` メソッドを呼び出します。
 
     ```csharp
     services.AddAuthentication()
@@ -199,14 +199,14 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
 
 ### <a name="google-authentication"></a>Google での認証
 
-次に変更を加えます*Startup.cs*:
-- 置換、`UseGoogleAuthentication`でメソッドを呼び出す、`Configure`メソッド`UseAuthentication`:
+*Startup.cs*で次の変更を行います。
+- `Configure` メソッドの `UseGoogleAuthentication` メソッドの呼び出しを `UseAuthentication`に置き換えます。
 
     ```csharp
     app.UseAuthentication();
     ```
 
-- 呼び出す、`AddGoogle`メソッドで、`ConfigureServices`メソッド。
+- `ConfigureServices` メソッドで `AddGoogle` メソッドを呼び出します。
 
     ```csharp
     services.AddAuthentication()
@@ -219,14 +219,16 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
 
 ### <a name="microsoft-account-authentication"></a>Microsoft アカウント認証
 
-次に変更を加えます*Startup.cs*:
-- 置換、`UseMicrosoftAccountAuthentication`でメソッドを呼び出す、`Configure`メソッド`UseAuthentication`:
+Microsoft アカウント認証の詳細については、 [GitHub の問題](https://github.com/aspnet/AspNetCore.Docs/issues/14455)を参照してください。
+
+*Startup.cs*で次の変更を行います。
+- `Configure` メソッドの `UseMicrosoftAccountAuthentication` メソッドの呼び出しを `UseAuthentication`に置き換えます。
 
     ```csharp
     app.UseAuthentication();
     ```
 
-- 呼び出す、`AddMicrosoftAccount`メソッドで、`ConfigureServices`メソッド。
+- `ConfigureServices` メソッドで `AddMicrosoftAccount` メソッドを呼び出します。
 
     ```csharp
     services.AddAuthentication()
@@ -239,14 +241,14 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
 
 ### <a name="twitter-authentication"></a>Twitter での認証
 
-次に変更を加えます*Startup.cs*:
-- 置換、`UseTwitterAuthentication`でメソッドを呼び出す、`Configure`メソッド`UseAuthentication`:
+*Startup.cs*で次の変更を行います。
+- `Configure` メソッドの `UseTwitterAuthentication` メソッドの呼び出しを `UseAuthentication`に置き換えます。
 
     ```csharp
     app.UseAuthentication();
     ```
 
-- 呼び出す、`AddTwitter`メソッドで、`ConfigureServices`メソッド。
+- `ConfigureServices` メソッドで `AddTwitter` メソッドを呼び出します。
 
     ```csharp
     services.AddAuthentication()
@@ -257,19 +259,19 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
             });
     ```
 
-### <a name="setting-default-authentication-schemes"></a>認証スキームの既定の設定
+### <a name="setting-default-authentication-schemes"></a>既定の認証方式を設定する
 
-1\.x で、`AutomaticAuthenticate`と`AutomaticChallenge`のプロパティ、 [AuthenticationOptions](/dotnet/api/Microsoft.AspNetCore.Builder.AuthenticationOptions?view=aspnetcore-1.1)基底クラスが 1 つの認証スキームに設定する対象としています。 これを強制する良い方法はありませんでした。
+1\.x では、 [Authenticationoptions](/dotnet/api/Microsoft.AspNetCore.Builder.AuthenticationOptions?view=aspnetcore-1.1)基本クラスの `AutomaticAuthenticate` プロパティと `AutomaticChallenge` プロパティは、1つの認証スキームで設定することを意図していました。 これを実施するための適切な方法はありませんでした。
 
-個々 のプロパティとして 2.0 では、これら 2 つのプロパティが削除されました`AuthenticationOptions`インスタンス。 構成することができますが、`AddAuthentication`内でメソッドの呼び出し、`ConfigureServices`メソッドの*Startup.cs*:
+2\.0 では、これら2つのプロパティは個々の `AuthenticationOptions` インスタンスのプロパティとして削除されています。 これらは、 *Startup.cs*の `ConfigureServices` メソッド内の `AddAuthentication` メソッドの呼び出しで構成できます。
 
 ```csharp
 services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
 ```
 
-上記のコード スニペットでは、既定のスキームに設定されて`CookieAuthenticationDefaults.AuthenticationScheme`(「クッキー」)。
+前のコードスニペットでは、既定のスキームは `CookieAuthenticationDefaults.AuthenticationScheme` ("Cookie") に設定されています。
 
-またはのオーバー ロード バージョンを使用して、`AddAuthentication`メソッドは、複数のプロパティを設定します。 次のオーバー ロードされたメソッドの例では、既定のスキームに設定されて`CookieAuthenticationDefaults.AuthenticationScheme`します。 認証スキームは、個別にまたは指定できます`[Authorize]`属性または承認ポリシー。
+または、オーバーロードされたバージョンの `AddAuthentication` メソッドを使用して、複数のプロパティを設定します。 次のオーバーロードされたメソッドの例では、既定のスキームが `CookieAuthenticationDefaults.AuthenticationScheme`に設定されています。 認証方式は、個々の `[Authorize]` 属性または承認ポリシー内で指定することもできます。
 
 ```csharp
 services.AddAuthentication(options =>
@@ -279,36 +281,36 @@ services.AddAuthentication(options =>
 });
 ```
 
-次の条件のいずれかが true の場合は、2.0 で既定のスキームを定義します。
-- ユーザーが自動的にサインインします。
-- 使用する、`[Authorize]`スキームを指定せずに属性または承認のポリシー
+次のいずれかの条件に該当する場合は、2.0 で既定のスキームを定義します。
+- ユーザーが自動的にサインインするようにするには
+- スキームを指定せずに `[Authorize]` 属性または承認ポリシーを使用する
 
-このルールの例外は、`AddIdentity`メソッド。 このメソッドでは、cookie を追加して、既定の認証し、アプリケーション cookie にスキームの課題のセットの`IdentityConstants.ApplicationScheme`します。 さらに、外部の cookie を既定のサインイン方式を設定`IdentityConstants.ExternalScheme`します。
+この規則の例外は、`AddIdentity` メソッドです。 このメソッドは、cookie を追加し、既定の認証およびチャレンジスキームをアプリケーションクッキー `IdentityConstants.ApplicationScheme`に設定します。 また、既定のサインインスキームを外部 cookie `IdentityConstants.ExternalScheme`に設定します。
 
 <a name="obsolete-interface"></a>
 
-## <a name="use-httpcontext-authentication-extensions"></a>HttpContext の認証拡張機能を使用します。
+## <a name="use-httpcontext-authentication-extensions"></a>HttpContext 認証拡張機能の使用
 
-`IAuthenticationManager`インターフェイスは 1.x の認証システムにメイン エントリ ポイントです。 新しいセットで置き換え`HttpContext`の拡張メソッド、`Microsoft.AspNetCore.Authentication`名前空間。
+`IAuthenticationManager` インターフェイスは、1. x 認証システムへのメインエントリポイントです。 これは、`Microsoft.AspNetCore.Authentication` 名前空間の新しい `HttpContext` 拡張メソッドのセットに置き換えられました。
 
-たとえば、1.x プロジェクトを参照する`Authentication`プロパティ。
+たとえば、1.x プロジェクトは、`Authentication` プロパティを参照します。
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Controllers/AccountController.cs?name=snippet_AuthenticationProperty)]
 
-2\.0 プロジェクトでは、インポート、`Microsoft.AspNetCore.Authentication`名前空間、および削除、`Authentication`プロパティの参照。
+2\.0 プロジェクトで、`Microsoft.AspNetCore.Authentication` 名前空間をインポートし、`Authentication` プロパティの参照を削除します。
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Controllers/AccountController.cs?name=snippet_AuthenticationProperty)]
 
 <a name="windows-auth-changes"></a>
 
-## <a name="windows-authentication-httpsys--iisintegration"></a>Windows 認証 (HTTP.sys/IISIntegration)
+## <a name="windows-authentication-httpsys--iisintegration"></a>Windows 認証 (http.sys/IISIntegration)
 
-Windows 認証の 2 つのバリエーションがあります。
+Windows 認証には、次の2つのバリエーションがあります。
 
-* ホストは、認証されたユーザーのみを許可します。 このバリエーションは、2.0 の変更による影響はありません。
-* により、ホストし、ユーザーを認証します。 このバリエーションは 2.0 の変更の影響を受けます。 アプリでの匿名ユーザーを許可するなど、 [IIS](xref:host-and-deploy/iis/index)または[HTTP.sys](xref:fundamentals/servers/httpsys)レイヤーが、コント ローラー レベルでユーザーを承認します。 このシナリオで既定のスキームを設定、`Startup.ConfigureServices`メソッド。
+* ホストは、認証されたユーザーのみを許可します。 このバリエーションは、2.0 の変更の影響を受けません。
+* ホストは、匿名ユーザーと認証済みユーザーの両方を許可します。 このバリエーションは、2.0 の変更の影響を受けます。 たとえば、アプリでは[IIS](xref:host-and-deploy/iis/index) [または http.sys レイヤー](xref:fundamentals/servers/httpsys)の匿名ユーザーを許可しますが、コントローラーレベルでユーザーを承認する必要があります。 このシナリオでは、`Startup.ConfigureServices` メソッドで既定のスキームを設定します。
 
-  [Microsoft.AspNetCore.Server.IISIntegration](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.IISIntegration/)、既定のスキームを設定`IISDefaults.AuthenticationScheme`:
+  [AspNetCore 統合](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.IISIntegration/)の場合は、既定のスキームを `IISDefaults.AuthenticationScheme`に設定します。
 
   ```csharp
   using Microsoft.AspNetCore.Server.IISIntegration;
@@ -316,7 +318,7 @@ Windows 認証の 2 つのバリエーションがあります。
   services.AddAuthentication(IISDefaults.AuthenticationScheme);
   ```
 
-  [Microsoft.AspNetCore.Server.HttpSys](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.HttpSys/)、既定のスキームを設定`HttpSysDefaults.AuthenticationScheme`:
+  [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.HttpSys/)の場合は、既定のスキームを `HttpSysDefaults.AuthenticationScheme`に設定します。
 
   ```csharp
   using Microsoft.AspNetCore.Server.HttpSys;
@@ -324,43 +326,43 @@ Windows 認証の 2 つのバリエーションがあります。
   services.AddAuthentication(HttpSysDefaults.AuthenticationScheme);
   ```
 
-  既定のスキームの設定に失敗したは、次の例外の操作から authorize (チャレンジ) 要求を回避します。
+  既定のスキームを設定しなかった場合は、次の例外で承認 (チャレンジ) 要求を処理できなくなります。
 
-  > `System.InvalidOperationException`:AuthenticationScheme が指定されていませんし、見つかった DefaultChallengeScheme がありませんでした。
+  > `System.InvalidOperationException`: authenticationScheme が指定されておらず、DefaultChallengeScheme が見つかりませんでした。
 
-詳細については、「 <xref:security/authentication/windowsauth> 」を参照してください。
+詳細については、「 <xref:security/authentication/windowsauth>」を参照してください。
 
 <a name="identity-cookie-options"></a>
 
-## <a name="identitycookieoptions-instances"></a>IdentityCookieOptions インスタンス
+## <a name="identitycookieoptions-instances"></a>Identity Cookieoptions インスタンス
 
-2\.0 の変更の副作用は、という名前の cookie のオプションのインスタンスではなくオプションを使用するスイッチです。 Id cookie のスキーム名をカスタマイズする機能が削除されます。
+2\.0 の変更の副作用は、cookie オプションのインスタンスの代わりに名前付きオプションを使用するように切り替えることです。 Id cookie スキーム名をカスタマイズする機能は削除されます。
 
-たとえば、1.x プロジェクトを使用[コンス トラクターの挿入](xref:mvc/controllers/dependency-injection#constructor-injection)を渡す、`IdentityCookieOptions`パラメーターに*AccountController.cs*と*ManageController.cs*します。 外部の cookie 認証スキームは、指定されたインスタンスからアクセスされます。
+たとえば、1.x プロジェクトでは、[コンストラクターの挿入](xref:mvc/controllers/dependency-injection#constructor-injection)を使用して `IdentityCookieOptions` パラメーターを*AccountController.cs*および*ManageController.cs*に渡します。 外部クッキー認証スキームは、指定されたインスタンスからアクセスされます。
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Controllers/AccountController.cs?name=snippet_AccountControllerConstructor&highlight=4,11)]
 
-前述のコンス トラクターの挿入が 2.0 プロジェクトで不要になると、`_externalCookieScheme`フィールドを削除できます。
+上記のコンストラクターインジェクションは、2.0 プロジェクトでは不要になり、`_externalCookieScheme` フィールドは削除できます。
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Controllers/AccountController.cs?name=snippet_AccountControllerConstructor)]
 
-1.x プロジェクトが使用される、`_externalCookieScheme`ようフィールドします。
+1.x プロジェクトでは、次のように `_externalCookieScheme` フィールドが使用されていました。
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Controllers/AccountController.cs?name=snippet_AuthenticationProperty)]
 
-2\.0 プロジェクトでは、次のように上記のコードを置き換えます。 `IdentityConstants.ExternalScheme`定数を直接使用することができます。
+2\.0 プロジェクトで、上記のコードを次のコードに置き換えます。 `IdentityConstants.ExternalScheme` 定数は、直接使用できます。
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Controllers/AccountController.cs?name=snippet_AuthenticationProperty)]
 
-解決するには、新しく追加した`SignOutAsync`次の名前空間をインポートすることによって呼び出します。
+次の名前空間をインポートして、新しく追加された `SignOutAsync` の呼び出しを解決します。
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Controllers/AccountController.cs?name=snippet_AuthenticationImport)]
 
 <a name="navigation-properties"></a>
 
-## <a name="add-identityuser-poco-navigation-properties"></a>IdentityUser POCO ナビゲーション プロパティを追加します。
+## <a name="add-identityuser-poco-navigation-properties"></a>ユーザーの POCO ナビゲーションプロパティの追加
 
-Entity Framework (EF) Core ナビゲーションのプロパティ ベースの`IdentityUser`POCO (Plain Old CLR Object) が削除されました。 1\.x プロジェクトでは、これらのプロパティを使用する場合は、この 2.0 プロジェクトに追加手動でします。
+Base `IdentityUser` POCO (Plain Old CLR Object) の Entity Framework (EF) コアナビゲーションプロパティが削除されました。 1\.x プロジェクトでこれらのプロパティを使用していた場合は、手動で2.0 プロジェクトに追加します。
 
 ```csharp
 /// <summary>
@@ -379,7 +381,7 @@ public virtual ICollection<IdentityUserClaim<int>> Claims { get; } = new List<Id
 public virtual ICollection<IdentityUserLogin<int>> Logins { get; } = new List<IdentityUserLogin<int>>();
 ```
 
-外部キーの重複を防ぐためには、EF Core の移行を実行するときに、追加するには、次の`IdentityDbContext`クラス`OnModelCreating`メソッド (後に、`base.OnModelCreating();`呼び出す)。
+EF Core 移行の実行時に外部キーが重複しないようにするには、`IdentityDbContext` クラス ' `OnModelCreating` メソッド (`base.OnModelCreating();` 呼び出しの後) に次のを追加します。
 
 ```csharp
 protected override void OnModelCreating(ModelBuilder builder)
@@ -414,21 +416,21 @@ protected override void OnModelCreating(ModelBuilder builder)
 
 <a name="synchronous-method-removal"></a>
 
-## <a name="replace-getexternalauthenticationschemes"></a>GetExternalAuthenticationSchemes を置き換えます
+## <a name="replace-getexternalauthenticationschemes"></a>GetExternalAuthenticationSchemes の置換
 
-同期メソッド`GetExternalAuthenticationSchemes`非同期バージョンを優先して削除されました。 1.x プロジェクトに次のコードがある*Controllers/ManageController.cs*:
+同期メソッド `GetExternalAuthenticationSchemes` は、非同期バージョンを優先して削除されました。 1.x プロジェクトでは、 *Controllers/ManageController*に次のコードが含まれています。
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Controllers/ManageController.cs?name=snippet_GetExternalAuthenticationSchemes)]
 
-このメソッドでは、 *Views/Account/Login.cshtml*すぎます。
+このメソッドは*Views/Account/Login. cshtml*にも表示されます。
 
 [!code-cshtml[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Views/Account/Login.cshtml?name=snippet_GetExtAuthNSchemes&highlight=2)]
 
-2\.0 プロジェクトで使用して、<xref:Microsoft.AspNetCore.Identity.SignInManager`1.GetExternalAuthenticationSchemesAsync*>メソッド。 変更*ManageController.cs*次のコードに似ています。
+2\.0 プロジェクトでは、<xref:Microsoft.AspNetCore.Identity.SignInManager`1.GetExternalAuthenticationSchemesAsync*> メソッドを使用します。 *ManageController.cs*の変更は、次のコードのようになります。
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Controllers/ManageController.cs?name=snippet_GetExternalAuthenticationSchemesAsync)]
 
-*Login.cshtml*、`AuthenticationScheme`でアクセスされるプロパティ、`foreach`ループに変更`Name`:
+*Login. cshtml*で、`foreach` ループでアクセスされた `AuthenticationScheme` プロパティを `Name`に変更します。
 
 [!code-cshtml[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Views/Account/Login.cshtml?name=snippet_GetExtAuthNSchemesAsync&highlight=2,19)]
 
@@ -436,11 +438,11 @@ protected override void OnModelCreating(ModelBuilder builder)
 
 ## <a name="manageloginsviewmodel-property-change"></a>ManageLoginsViewModel プロパティの変更
 
-A`ManageLoginsViewModel`でオブジェクトを使用して、`ManageLogins`のアクション*ManageController.cs*します。 1\.x プロジェクトで、オブジェクトの`OtherLogins`プロパティの戻り型が`IList<AuthenticationDescription>`します。 この戻り値の型がインポートする必要があります`Microsoft.AspNetCore.Http.Authentication`:
+`ManageLoginsViewModel` オブジェクトは、 *ManageController.cs*の `ManageLogins` アクションで使用されます。 1\.x プロジェクトでは、オブジェクトの `OtherLogins` プロパティの戻り値の型は `IList<AuthenticationDescription>`です。 この戻り値の型には `Microsoft.AspNetCore.Http.Authentication`のインポートが必要です。
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Models/ManageViewModels/ManageLoginsViewModel.cs?name=snippet_ManageLoginsViewModel&highlight=2,11)]
 
-2\.0 プロジェクトでは、戻り値の型の変更`IList<AuthenticationScheme>`します。 この新しい戻り値の型は、置き換える必要があります、`Microsoft.AspNetCore.Http.Authentication`とインポートを`Microsoft.AspNetCore.Authentication`をインポートします。
+2\.0 プロジェクトでは、戻り値の型が `IList<AuthenticationScheme>`に変更されます。 この新しい戻り値の型を使用するには、`Microsoft.AspNetCore.Http.Authentication` インポートを `Microsoft.AspNetCore.Authentication` インポートに置き換える必要があります。
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Models/ManageViewModels/ManageLoginsViewModel.cs?name=snippet_ManageLoginsViewModel&highlight=2,11)]
 
@@ -448,4 +450,4 @@ A`ManageLoginsViewModel`でオブジェクトを使用して、`ManageLogins`の
 
 ## <a name="additional-resources"></a>その他の技術情報
 
-詳細については、次を参照してください。、 [Auth 2.0 のディスカッション](https://github.com/aspnet/Security/issues/1338)GitHub 上の問題。
+詳細については、GitHub で[の Auth 2.0 の問題の説明](https://github.com/aspnet/Security/issues/1338)を参照してください。

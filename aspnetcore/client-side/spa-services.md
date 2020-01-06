@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: H1Hack27Feb2017
 ms.date: 09/06/2019
 uid: client-side/spa-services
-ms.openlocfilehash: 7aff46f739239246191763e0590046b2d9995922
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 52285999d7710cc3198836b9246596980cfc1666
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080508"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75355785"
 ---
 # <a name="use-javascript-services-to-create-single-page-applications-in-aspnet-core"></a>JavaScript サービスを使用して ASP.NET Core にシングルページアプリケーションを作成する
 
@@ -69,7 +69,7 @@ SpaServices を使用するには、次のようにインストールします�
     node -v && npm -v
     ```
 
-  * Azure の web サイトにデプロイする場合、必要な&mdash;操作はありません node.js がインストールされ、サーバー環境で使用できます。
+  * Azure の web サイトにデプロイする場合、操作は必要ありません&mdash;node.js がインストールされ、サーバー環境で使用できます。
 
 * [!INCLUDE [](~/includes/net-core-sdk-download-link.md)]
 
@@ -195,7 +195,7 @@ app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions {
 
 ほとんどの ASP.NET Core ベースの SPAs では、サーバー側のルーティングに加えて、クライアント側のルーティングが必要になることがよくあります。 SPA と MVC ルーティング システムは、競合することがなく個別に作業できます。 ただし、課題を 1 つエッジ ケース読んだり: 404 の HTTP 応答を識別します。
 
-シナリオの場合を検討してください、拡張子のないルートの`/some/page`使用されます。 要求がパターン一致、サーバー側ルートがそのパターンのクライアント側ルートが一致するものとします。 ここでの受信要求を考えてみます`/images/user-512.png`、一般に、サーバー上の画像ファイルを検索する要求。 要求されたリソースパスがどのサーバー側のルートまたは静的ファイルとも一致しない場合、クライアント側アプリケーションが&mdash;通常は 404 HTTP 状態コードを返すように処理することはほとんどありません。
+シナリオの場合を検討してください、拡張子のないルートの`/some/page`使用されます。 要求がパターン一致、サーバー側ルートがそのパターンのクライアント側ルートが一致するものとします。 ここでの受信要求を考えてみます`/images/user-512.png`、一般に、サーバー上の画像ファイルを検索する要求。 要求されたリソースパスがどのサーバー側ルートまたは静的ファイルとも一致しない場合、通常は 404 HTTP 状態コードを返す&mdash;クライアント側アプリケーションがそれを処理することはほとんどありません。
 
 ### <a name="routing-helpers-prerequisites"></a>ルーティングヘルパーの前提条件
 
@@ -213,7 +213,7 @@ npm i -S @angular/router
 
 ルートは、構成されている順序で評価されます。 その結果、`default`パターン一致の前のコード例ではルートが最初に使用します。
 
-## <a name="create-a-new-project"></a>新しいプロジェクトを作成する
+## <a name="create-a-new-project"></a>新しいプロジェクトの作成
 
 JavaScript サービスには、構成済みのアプリケーションテンプレートが用意されています。 SpaServices は、これらのテンプレートで、角度、反応、Redux などのさまざまなフレームワークやライブラリと共に使用されます。
 
@@ -278,7 +278,7 @@ Angular アプリケーションを使用して、例として、2 つの Jasmin
 
 [!code-typescript[](../client-side/spa-services/sample/SpaServicesSampleApp/ClientApp/app/components/counter/counter.component.spec.ts?range=15-28)]
 
-コマンド プロンプトを開き、 *ClientApp*ディレクトリ。 次のコマンドを実行します。
+コマンド プロンプトを開き、 *ClientApp*ディレクトリ。 コマンドを実行します。
 
 ```console
 npm test
@@ -289,6 +289,8 @@ npm test
 [!code-javascript[](../client-side/spa-services/sample/SpaServicesSampleApp/ClientApp/test/karma.conf.js?range=4-5,8-11)]
 
 ## <a name="publish-the-app"></a>アプリの発行
+
+Azure への発行の詳細については、こちらの[GitHub の問題](https://github.com/aspnet/AspNetCore.Docs/issues/12474)を参照してください。
 
 デプロイの準備完了パッケージに生成されたクライアント側アセットと発行された ASP.NET Core の成果物を組み合わせることは面倒なことができます。 さいわいにも、SpaServices がという名前のカスタム MSBuild ターゲットとそのパブリケーション全体のプロセスを調整`RunWebpack`:
 

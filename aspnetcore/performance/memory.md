@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: performance/memory
-ms.openlocfilehash: 85e34c9faa31a1020a4200eb99003455ca435ec3
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: dfc789d080beec09a4f0eb34c3809b9f2df0d4b5
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880947"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75357279"
 ---
 # <a name="memory-management-and-garbage-collection-gc-in-aspnet-core"></a>ASP.NET Core のメモリ管理とガベージコレクション (GC)
 
@@ -139,7 +139,7 @@ GC モードは、プロジェクトファイルまたは発行されたアプ�
 
 プロジェクトファイルの `ServerGarbageCollection` を変更するには、アプリを再構築する必要があります。
 
-**注:** サーバーのガベージコレクションは、コアが1つのマシンでは使用でき**ません**。 詳細については、「<xref:System.Runtime.GCSettings.IsServerGC>」を参照してください。
+**注:** サーバーのガベージコレクションは、コアが1つのマシンでは使用でき**ません**。 詳細については、「 <xref:System.Runtime.GCSettings.IsServerGC>」を参照してください。
 
 次の図は、ワークステーション GC を使用した 5K RPS のメモリプロファイルを示しています。
 
@@ -171,7 +171,7 @@ public ActionResult<string> GetStaticString()
 }
 ```
 
-上記のコードでは次の操作が行われます。
+上のコードでは以下の操作が行われます。
 
 * は、一般的なメモリリークの例です。
 * 頻繁な呼び出しでは、プロセスがクラッシュして `OutOfMemory` 例外が発生するまで、アプリのメモリが増加します。
@@ -203,7 +203,7 @@ public void GetFileProvider()
 }
 ```
 
-[PhysicaFileProvider](/dotnet/api/microsoft.extensions.fileproviders.physicalfileprovider?view=dotnet-plat-ext-3.0)はマネージクラスであるため、すべてのインスタンスが要求の最後に収集されます。
+[Physicalfileprovider](/dotnet/api/microsoft.extensions.fileproviders.physicalfileprovider?view=dotnet-plat-ext-3.0)はマネージクラスであるため、すべてのインスタンスが要求の最後に収集されます。
 
 次の図は、`fileprovider` API を継続的に呼び出すときのメモリプロファイルを示しています。
 
