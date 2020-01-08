@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/21/2019
 uid: security/authentication/social/index
-ms.openlocfilehash: 627ca483d60514d85e38c0e346ff5aef64ad9fee
-ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
+ms.openlocfilehash: 06ce9c72f43955345efb61afed2538158810005f
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/29/2019
-ms.locfileid: "73034307"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75358070"
 ---
 # <a name="facebook-google-and-external-provider-authentication-in-aspnet-core"></a>Facebook、Google、ASP.NET Core での外部プロバイダーの認証
 
@@ -45,7 +45,7 @@ ms.locfileid: "73034307"
 
 * ディレクトリ (`cd`) を、プロジェクトを格納するフォルダーに変更します。
 
-* Windows の場合は、次のコマンドを実行します。
+* Windows の場合、次のコマンドを実行します。
 
   ```dotnetcli
   dotnet new webapp -o WebApp1 -au Individual -uld
@@ -111,8 +111,7 @@ ms.locfileid: "73034307"
 
 ## <a name="next-steps"></a>次の手順
 
+* ログイン ボタンをカスタマイズする方法については、[こちらの GitHub イシュー](https://github.com/aspnet/AspNetCore.Docs/issues/10563)を参照してください。
 * このキーの順に押します。では、外部認証プロバイダーを紹介し、外部ログインを ASP.NET Core アプリケーションに追加するために必要な前提条件について説明しました。
-
 * アプリケーションに必要なプロバイダーのログインを構成するには、各プロバイダーのページを参照してください。
-
-* ユーザーとそのアクセス トークン許可および更新トークンに関する追加のデータを保持することをお勧めします。 詳細については、<xref:security/authentication/social/additional-claims> を参照してください。
+* ユーザーとそのアクセス トークン許可および更新トークンに関する追加のデータを保持することをお勧めします。 詳細については、「<xref:security/authentication/social/additional-claims>」を参照してください。

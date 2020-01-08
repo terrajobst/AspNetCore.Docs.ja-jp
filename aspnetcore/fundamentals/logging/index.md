@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/04/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: 49d598330948c5f4a137c534094e14ed5e01e27c
-ms.sourcegitcommit: f4cd3828e26e6d549ba8d0c36a17be35ad9e5a51
+ms.openlocfilehash: e1c50c4592b21d56ed813dac43204d63f1bfe46c
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74825487"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75359349"
 ---
 # <a name="logging-in-net-core-and-aspnet-core"></a>.NET Core および ASP.NET Core でのログ記録
 
@@ -495,7 +495,7 @@ ASP.NET Core には、次のログ レベルが定義されています (重大�
 
 * Debug = 1
 
-  開発とデバッグで役立つ可能性がある情報の場合。 例:`Entering method Configure with flag set to true.` `Debug` レベルのログは、ログのサイズが大きくなるため、トラブルシューティングの場合を除き運用環境では有効にしません。
+  開発とデバッグで役立つ可能性がある情報の場合。 例:`Entering method Configure with flag set to true.``Debug` レベルのログは、ログのサイズが大きくなるため、トラブルシューティングの場合を除き運用環境では有効にしません。
 
 * Information = 2
 
@@ -1056,6 +1056,16 @@ logging.AddEventLog();
 * `LogName` &ndash; "アプリケーション"
 * `SourceName` &ndash; ".NET ランタイム"
 * `MachineName` &ndash; ローカル コンピューター
+
+[警告レベル以上](#log-level)のイベントがログに記録されます。 `Warning` より下のイベントをログに記録するには、ログ レベルを明示的に設定してください。 たとえば、*appsettings.json* ファイルに次を追加します。
+
+```json
+"EventLog": {
+  "LogLevel": {
+    "Default": "Information"
+  }
+}
+```
 
 ### <a name="tracesource-provider"></a>TraceSource プロバイダー
 

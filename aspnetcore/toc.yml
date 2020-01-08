@@ -326,8 +326,6 @@
               uid: host-and-deploy/blazor/server
             - name: リンカーを構成する
               uid: host-and-deploy/blazor/configure-linker
-        - name: サンプル
-          href: 'https://github.com/aspnet/samples/tree/master/samples/aspnetcore/blazor'
     - name: クライアント側の開発
       items:
         - name: 単一ページのアプリ
@@ -612,7 +610,7 @@
       uid: test/integration-tests
     - name: ロード テストおよびストレス テスト
       uid: test/loadtests
-    - name: トラブルシューティング
+    - name: トラブルシューティングとデバッグ
       uid: test/troubleshoot
     - name: ログの記録
       uid: fundamentals/logging/index
@@ -885,15 +883,15 @@
             - name: 概要
               uid: security/authentication/azure-active-directory/index
             - name: Web アプリへの Azure AD の統合
-              href: 'https://azure.microsoft.com/documentation/samples/active-directory-dotnet-webapp-openidconnect-aspnetcore/'
+              href: 'https://github.com/Azure-Samples/ms-identity-aspnetcore-webapp-tutorial'
             - name: Web アプリへの Azure AD B2C の統合
               uid: security/authentication/azure-ad-b2c
             - name: Web API への Azure AD B2C の統合
               uid: security/authentication/azure-ad-b2c-webapi
             - name: WPF からの Web API の呼び出し
-              href: 'https://azure.microsoft.com/documentation/samples/active-directory-dotnet-native-aspnetcore/'
+              href: 'https://github.com/Azure-Samples/active-directory-dotnet-native-aspnetcore'
             - name: Azure AD を使用した Web アプリでの Web API の呼び出し
-              href: 'https://azure.microsoft.com/documentation/samples/active-directory-dotnet-webapp-webapi-openidconnect-aspnetcore/'
+              href: 'https://github.com/Azure-Samples/active-directory-dotnet-webapp-webapi-openidconnect-aspnetcore'
         - name: IdentityServer4 での ASP.NET Core アプリのセキュリティ保護
           href: 'https://identityserver4.readthedocs.io/'
         - name: Azure App Service 認証 (Easy Auth) での ASP.NET Core アプリのセキュリティ保護
@@ -1101,6 +1099,9 @@
       uid: fundamentals/host/hosted-services
     - name: ホスティング スタートアップ アセンブリ
       uid: fundamentals/configuration/platform-specific-configuration
+    - name: クラス ライブラリの ASP.NET Core
+      displayName: shared framework
+      uid: fundamentals/target-aspnetcore
     - name: Microsoft.AspNetCore.App メタパッケージ
       uid: fundamentals/metapackage-app
     - name: Microsoft.AspNetCore.All メタパッケージ

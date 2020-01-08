@@ -5,12 +5,12 @@ description: 既存の ASP.NET MVC または Web API アプリを ASP.NET Core.w
 ms.author: scaddie
 ms.date: 10/18/2019
 uid: migration/proper-to-2x/index
-ms.openlocfilehash: 1564b644b774939c3c242a41812851917e96d2b2
-ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
+ms.openlocfilehash: 19be7191792c44fb5414eb0a7b24772c45391253
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/18/2019
-ms.locfileid: "74803345"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75359413"
 ---
 # <a name="migrate-from-aspnet-to-aspnet-core"></a>ASP.NET から ASP.NET Core への移行
 
@@ -158,6 +158,40 @@ ASP.NET Core では、構成が変更されていない限り、静的ファイ�
 ## <a name="multi-value-cookies"></a>複数値の Cookie
 
 [複数値の Cookie](xref:System.Web.HttpCookie.Values) は ASP.NET Core ではサポートされていません。 値ごとに Cookie を 1 つ作成します。
+
+## <a name="partial-app-migration"></a>部分的なアプリの移行
+
+部分的にアプリを移行する方法の 1 つは、IIS サブアプリケーションを作成し、アプリの URL 構造を維持しながら ASP.NET 4.x から ASP.NET Core に特定のルートのみを移動することです。 たとえば、*applicationHost.config* ファイルからのアプリの URL 構造について考えてみます。
+
+```xml
+<sites>
+    <site name="Default Web Site" id="1" serverAutoStart="true">
+        <application path="/">
+            <virtualDirectory path="/" physicalPath="D:\sites\MainSite\" />
+        </application>
+        <application path="/api" applicationPool="DefaultAppPool">
+            <virtualDirectory path="/" physicalPath="D:\sites\netcoreapi" />
+        </application>
+        <bindings>
+            <binding protocol="http" bindingInformation="*:80:" />
+            <binding protocol="https" bindingInformation="*:443:" sslFlags="0" />
+        </bindings>
+    </site>
+    ...
+</sites>
+```
+
+ディレクトリの構造:
+
+```
+.
+├── MainSite
+│   ├── ...
+│   └── Web.config
+└── NetCoreApi
+    ├── ...
+    └── web.config
+```
 
 ## <a name="additional-resources"></a>その他の技術情報
 
