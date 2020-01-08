@@ -8,12 +8,12 @@ ms.date: 12/05/2019
 no-loc:
 - SignalR
 uid: performance/performance-best-practices
-ms.openlocfilehash: bd30776d527b4ac9f44005e9f5d03fec7cfda2e6
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: c74adf7479d176c41dc26c7e77acfc3dc9cdcb88
+ms.sourcegitcommit: 79850db9e79b1705b89f466c6f2c961ff15485de
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880918"
+ms.lasthandoff: 01/07/2020
+ms.locfileid: "75693961"
 ---
 # <a name="aspnet-core-performance-best-practices"></a>ASP.NET Core のパフォーマンスに関するベスト プラクティス
 
@@ -23,7 +23,7 @@ ms.locfileid: "74880918"
 
 ## <a name="cache-aggressively"></a>積極的にキャッシュします。
 
-キャッシュは、このドキュメントの複数の部分で説明します。 詳細については、「<xref:performance/caching/response>」を参照してください。
+キャッシュは、このドキュメントの複数の部分で説明します。 詳細については、「 <xref:performance/caching/response>」を参照してください。
 
 ## <a name="understand-hot-code-paths"></a>ホットコードパスについて
 
@@ -44,7 +44,7 @@ ASP.NET Core アプリで一般的なパフォーマンスの問題は、非同�
 **行う**
 
 * ように[ホット コード パス](#understand-hot-code-paths)非同期です。
-* 非同期 API が使用可能な場合は、データアクセスと長時間実行される操作 Api を非同期に呼び出します。 ここでも、synchronus API を非同期にするために、Run を使用しないようにしてください[。](/dotnet/api/system.threading.tasks.task.run)
+* 非同期 API が使用可能な場合は、データアクセス、i/o、長時間実行される操作 Api を非同期に呼び出します。 Synchronus API を非同期にするために、 [Run](/dotnet/api/system.threading.tasks.task.run) **を使用しないでください。**
 * コント ローラー/Razor ページのアクションを非同期にします。 非同期[/await](/dotnet/csharp/programming-guide/concepts/async/)パターンを活用するために、呼び出し履歴全体が非同期になります。
 
 [Perfview](https://github.com/Microsoft/perfview)などのプロファイラーを使用して、[スレッドプール](/windows/desktop/procthread/thread-pools)に頻繁に追加されるスレッドを見つけることができます。 `Microsoft-Windows-DotNETRuntime/ThreadPoolWorkerThread/Start` イベントは、スレッドプールに追加されたスレッドを示します。 <!--  For more information, see [async guidance docs](TBD-Link_To_Davifowl_Doc)  -->
@@ -67,7 +67,7 @@ ASP.NET Core アプリで一般的なパフォーマンスの問題は、非同�
 
 詳細については、次を参照してください。[ガベージ コレクションとパフォーマンス](/dotnet/standard/garbage-collection/performance)します。
 
-## <a name="optimize-data-access"></a>データ アクセスを最適化します。
+## <a name="optimize-data-access-and-io"></a>データアクセスと i/o を最適化する
 
 多くの場合、データストアやその他のリモートサービスとのやり取りは、ASP.NET Core アプリの最も低速な部分です。 データの読み書きを効率的には、良好なパフォーマンスにとって重要です。
 
@@ -75,7 +75,7 @@ ASP.NET Core アプリで一般的なパフォーマンスの問題は、非同�
 
 * **行う** すべてのデータ アクセス Api を非同期的に呼び出します。
 * **しない**は必要以上のデータを取得します。 現在の HTTP 要求に必要なデータだけを返すクエリを記述します。
-* **行う**若干古いデータが許容される場合は、データベースやリモート サービスから取得されたデータをアクセス頻繁にキャッシュを検討してください。 シナリオに応じて、 [Memorycache](xref:performance/caching/memory)または[microsoft.web.distributedcache](xref:performance/caching/distributed)を使用します。 詳細については、「<xref:performance/caching/response>」を参照してください。
+* **行う**若干古いデータが許容される場合は、データベースやリモート サービスから取得されたデータをアクセス頻繁にキャッシュを検討してください。 シナリオに応じて、 [Memorycache](xref:performance/caching/memory)または[microsoft.web.distributedcache](xref:performance/caching/distributed)を使用します。 詳細については、「 <xref:performance/caching/response>」を参照してください。
 * **行う**を最小限に抑えるネットワーク ラウンド トリップします。 目的は、複数の呼び出しではなく、1回の呼び出しで必要なデータを取得することです。
 * **行う** 使用[追跡なしのクエリ](/ef/core/querying/tracking#no-tracking-queries)読み取り専用の目的でデータにアクセスするときに、Entity Framework Core でします。 EF Core より効率的に追跡なしのクエリの結果を返すことができます。
 * **行う**フィルターと集計の LINQ クエリ (で`.Where`、 `.Select`、または`.Sum`ステートメントなどの)、フィルター処理がデータベースで実行できるようにします。

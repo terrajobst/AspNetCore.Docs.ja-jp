@@ -5,14 +5,14 @@ description: Windows Server インターネット インフォメーション �
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/26/2019
+ms.date: 01/06/2020
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: de1b3e270ccd90bde741975de38a224e557f1a08
-ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
+ms.openlocfilehash: c2b524472b276dee215ff5eca7fd4e48e98957ef
+ms.sourcegitcommit: 79850db9e79b1705b89f466c6f2c961ff15485de
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74717417"
+ms.lasthandoff: 01/07/2020
+ms.locfileid: "75693857"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>IIS を使用した Windows での ASP.NET Core のホスト
 
@@ -139,13 +139,33 @@ ASP.NET Core モジュール構成のガイダンスについては、「<xref:h
 
 ### <a name="enable-the-iisintegration-components"></a>IISIntegration コンポーネントを有効にする
 
-一般的な *Program.cs* では、<xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> を呼び出して、IIS との統合を有効にするホストの設定を開始します。
+::: moniker range=">= aspnetcore-3.0"
+
+`CreateHostBuilder` (*Program.cs*) でホストを構築する場合は、<xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> を呼び出して IIS 統合を有効にします。
+
+```csharp
+public static IHostBuilder CreateHostBuilder(string[] args) =>
+    Host.CreateDefaultBuilder(args)
+        ...
+```
+
+`CreateDefaultBuilder` の詳細については、「<xref:fundamentals/host/generic-host#default-builder-settings>」を参照してください。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+`CreateWebHostBuilder` (*Program.cs*) でホストを構築する場合は、<xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> を呼び出して IIS 統合を有効にします。
 
 ```csharp
 public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
     WebHost.CreateDefaultBuilder(args)
         ...
 ```
+
+`CreateDefaultBuilder` の詳細については、「<xref:fundamentals/host/web-host#set-up-a-host>」を参照してください。
+
+::: moniker-end
 
 ### <a name="iis-options"></a>IIS のオプション
 
@@ -233,7 +253,7 @@ Web SDK によって *web.config* ファイルが変換されないようにす�
 </PropertyGroup>
 ```
 
-Web SDK ファイルの変換を無効にすると、 *processPath*と*引数*開発者によって手動で設定する必要があります。 詳細については、<xref:host-and-deploy/aspnet-core-module> を参照してください。
+Web SDK ファイルの変換を無効にすると、 *processPath*と*引数*開発者によって手動で設定する必要があります。 詳細については、「<xref:host-and-deploy/aspnet-core-module>」を参照してください。
 
 ### <a name="webconfig-file-location"></a>web.config ファイルの場所
 
@@ -328,7 +348,7 @@ Web SDK ファイルの変換を無効にすると、 *processPath*と*引数*�
    * `OPT_NO_RUNTIME=1` &ndash; .NET Core ランタイムのインストールをスキップします。 サーバーが[自己完結型の展開 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) のみをホストする場合に使用します。
    * `OPT_NO_SHAREDFX=1` &ndash; ASP.NET Shared Framework (ASP.NET ランタイム) のインストールをスキップします。 サーバーが[自己完結型の展開 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) のみをホストする場合に使用します。
    * `OPT_NO_X86=1` &ndash; x86 ランタイムのインストールをスキップします。 32 ビット アプリをホストしない場合は、このパラメーターを使用します。 今後、32 ビットと 64 ビットのアプリ両方をホストする可能性がある場合は、このパラメーターを使用せずに、両方のランタイムをインストールします。
-   * `OPT_NO_SHARED_CONFIG_CHECK=1` &ndash; 共有構成 (*applicationHost.config*) が IIS のインストールと同じマシン上にある場合、IIS 共有構成を使うためのチェックを無効にします。 "*ASP.NET Core 2.2 以降の Hosting Bundler インストーラーに対してのみ使用できます。* " 詳細については、<xref:host-and-deploy/aspnet-core-module#aspnet-core-module-with-an-iis-shared-configuration> を参照してください。
+   * `OPT_NO_SHARED_CONFIG_CHECK=1` &ndash; 共有構成 (*applicationHost.config*) が IIS のインストールと同じマシン上にある場合、IIS 共有構成を使うためのチェックを無効にします。 "*ASP.NET Core 2.2 以降の Hosting Bundler インストーラーに対してのみ使用できます。* " 詳細については、「<xref:host-and-deploy/aspnet-core-module#aspnet-core-module-with-an-iis-shared-configuration>」を参照してください。
 1. システムを再起動するか、コマンドシェルで次のコマンドを実行します。
 
    ```console
@@ -421,7 +441,7 @@ IIS への ASP.NET Core の展開の詳細については、「[IIS 管理者用
 
 ホスティング システムにアプリを配置したら、アプリのパブリック エンドポイントの 1 つに要求を行います。
 
-次の例では、サイトは IIS の**ホスト名** `www.mysite.com` に**ポート** `80` でバインドされています。 `http://www.mysite.com` に対して要求が行われます。
+次の例では、サイトは IIS の**ホスト名**`www.mysite.com` に**ポート** `80` でバインドされています。 `http://www.mysite.com` に対して要求が行われます。
 
 ![Microsoft Edge ブラウザーに IIS のスタートアップ ページが読み込まれています。](index/_static/browsewebsite.png)
 
@@ -691,7 +711,7 @@ IIS Application Initialization 役割の機能が有効になっていること�
 
 Windows 7 以降のデスクトップ システム上で、IIS をローカルで使う場合:
 
-1. **[コントロール パネル]** > **[プログラム]** > **[プログラムと機能]** > **[Windows の機能の有効化または無効化]** (画面の左側) に移動します。
+1. **[コントロール パネル]**  > **[プログラム]** > **[プログラムと機能]** >  **[Windows の機能の有効化または無効化]** (画面の左側) に移動します。
 1. **[インターネット インフォメーション サービス]** > **[World Wide Web サービス]** > **[アプリケーション開発機能]** を開きます。
 1. **[Application Initialization]** のチェック ボックスをオンにします。
 

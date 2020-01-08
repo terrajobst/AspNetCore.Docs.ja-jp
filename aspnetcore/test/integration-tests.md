@@ -5,14 +5,14 @@ description: 統合テストによってデータベース、ファイル シス
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/28/2019
+ms.date: 01/06/2019
 uid: test/integration-tests
-ms.openlocfilehash: 33f3e29bc649fa65efdff0c47e54a83662005577
-ms.sourcegitcommit: de0fc77487a4d342bcc30965ec5c142d10d22c03
+ms.openlocfilehash: ccee8957a72da0eb5d870b1bd184ee1ea146a0e6
+ms.sourcegitcommit: 79850db9e79b1705b89f466c6f2c961ff15485de
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/30/2019
-ms.locfileid: "73143363"
+ms.lasthandoff: 01/07/2020
+ms.locfileid: "75693792"
 ---
 # <a name="integration-tests-in-aspnet-core"></a>ASP.NET Core での統合テスト
 
@@ -22,11 +22,11 @@ ms.locfileid: "73143363"
 
 統合テストでは、アプリケーションのコンポーネントが、データベース、ファイルシステム、ネットワークなど、アプリのサポートインフラストラクチャを含むレベルで正しく機能していることを確認します。 ASP.NET Core では、単体テストフレームワークとテスト Web ホストおよびメモリ内テストサーバーを使用した統合テストがサポートされています。
 
-このトピックでは、単体テストの基本を理解していることを前提としています。 テストの概念を理解していない場合は、 [.NET Core の単体テストと .NET Standard](/dotnet/core/testing/) に関するトピックとそのリンク先を参照してください。
+このトピックでは、単体テストの基本的な知識を前提とします。 テストの概念を理解していない場合は、 [.NET Core の単体テストと .NET Standard](/dotnet/core/testing/) に関するトピックとそのリンク先を参照してください。
 
 [サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
-このサンプルアプリは Razor Pages アプリであり、Razor Pages の基本を理解していることを前提としています。 Razor Pages に慣れていない場合は、次のトピックを参照してください。
+サンプル アプリは、Razor ページ アプリで Razor ページの基本的な知識を前提としています。 Razor ページに不慣れな場合は、次のトピックを参照してください。
 
 * [Razor ページを始める](xref:razor-pages/index)
 * [Razor ページの概要](xref:tutorials/razor-pages/razor-pages-start)
@@ -84,7 +84,7 @@ ASP.NET Core の統合テストには、次のものが必要です。
 
 通常、テスト Web ホストは、テストの実行のためにアプリの通常の Web ホストとは異なる方法で構成されます。 たとえば、テストには別のデータベースまたは異なるアプリ設定が使用される場合があります。
 
-テスト Web ホストやメモリ内テストサーバー ([TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver)) などのインフラストラクチャコンポーネントは、 [Microsoft.AspNetCore.Mvc.Testing](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing)パッケージによって提供または管理されます。 このパッケージを使用すると、テストの作成と実行を効率化できます。
+テスト web ホストやメモリ内テストサーバー ([testserver](/dotnet/api/microsoft.aspnetcore.testhost.testserver)) などのインフラストラクチャコンポーネントは、 [Microsoft.AspNetCore.Mvc.Testing](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing)パッケージによって提供または管理されます。 このパッケージを使用すると、テストの作成と実行を効率化できます。
 
 `Microsoft.AspNetCore.Mvc.Testing` パッケージは、次のタスクを処理します。
 
@@ -97,14 +97,14 @@ ASP.NET Core の統合テストには、次のものが必要です。
 > [!NOTE]
 > アプリのテストプロジェクトを作成する場合は、単体テストを統合テストから別のプロジェクトに分離します。 これにより、インフラストラクチャテストコンポーネントが誤って単体テストに含まれないようにすることができます。 単体テストと統合テストを分離すると、実行されるテストのセットを制御することもできます。
 
-Razor Pages アプリと MVC アプリのテストの構成には、ほぼ違いはありません。 唯一の違いは、テストの名前付け方法です。 Razor Pages アプリでは、通常、ページエンドポイントのテストはページモデルクラスの後に名前が付けられます (たとえば、インデックスページのコンポーネントの統合をテストするには、`IndexPageTests` になります)。 MVC アプリでは、テストは通常、コントローラークラス別に編成され、テスト対象のコントローラーの後に名前が付けられます (たとえば、Home コントローラーのコンポーネントの統合をテストするには、`HomeControllerTests`)。
+Razor Pages アプリと MVC アプリのテストの構成には、ほぼ違いはありません。 唯一の違いは、テストの名前付け方法です。 Razor Pages アプリでは、ページエンドポイントのテストは通常、ページモデルクラスの後に名前が付けられます (たとえば、[インデックス] ページのコンポーネントの統合をテストする `IndexPageTests` ます)。 MVC アプリでは、テストは通常、コントローラークラス別に編成され、テストするコントローラーの後に名前が付けられます (たとえば、Home コントローラーのコンポーネント統合をテストする `HomeControllerTests`)。
 
 ## <a name="test-app-prerequisites"></a>テストアプリの前提条件
 
 テストプロジェクトは次の条件を持つ必要があります。
 
-* [Microsoft.AspNetCore.Mvc.Testing](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing)パッケージを参照します。
-* プロジェクトファイルで Web SDK を指定します (`<Project Sdk="Microsoft.NET.Sdk.Web">`)。
+* [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing)パッケージを参照します。
+* プロジェクトファイル (`<Project Sdk="Microsoft.NET.Sdk.Web">`) で Web SDK を指定します。
 
 これらの前提条件は、[サンプルアプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/)で見ることができます。 *tests/RazorPagesProject.Tests/RazorPagesProject.Tests.csproj*ファイルを調べます。 サンプルアプリでは、 [xUnit](https://xunit.github.io/)テストフレームワークと[AngleSharp](https://anglesharp.github.io/) parser ライブラリを使用しています。このため、サンプルアプリでも参照できます。
 
@@ -114,11 +114,11 @@ Razor Pages アプリと MVC アプリのテストの構成には、ほぼ違い
 
 テストでも Entity Framework Core が使用されます。 アプリの参照:
 
-* [Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore)
-* [Microsoft.AspNetCore.Identity.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity.EntityFrameworkCore)
-* [Microsoft.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore)
+* [AspNetCore コア (Microsoft. 診断)](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore)
+* [AspNetCore コア (Microsoft. Identity)](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity.EntityFrameworkCore)
+* [Microsoft EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore)
 * [Microsoft.EntityFrameworkCore.InMemory](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.InMemory)
-* [Microsoft.EntityFrameworkCore.Tools](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Tools)
+* [Microsoft EntityFrameworkCore. ツール](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Tools)
 
 ## <a name="sut-environment"></a>SUT 環境
 
@@ -126,7 +126,7 @@ SUT の[環境](xref:fundamentals/environments)が設定されていない場合
 
 ## <a name="basic-tests-with-the-default-webapplicationfactory"></a>既定の WebApplicationFactory を使用した基本テスト
 
-[WebApplicationFactory \<TEntryPoint >](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1)は、統合テスト用の[TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver)を作成するために使用されます。 `TEntryPoint` は、SUT のエントリポイントクラス (通常は `Startup` クラス) です。
+[WebApplicationFactory \<TEntryPoint >](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1)は、統合テスト用の[TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver)を作成するために使用されます。 `TEntryPoint` は、SUT のエントリポイントクラスです。通常は、`Startup` クラスです。
 
 テストクラスは、クラスにテストが含まれていることを示す*クラスフィクスチャ*インターフェイス ([IClassFixture](https://xunit.github.io/docs/shared-context#class-fixture)) を実装し、クラス内のテスト間で共有オブジェクトインスタンスを提供します。
 
@@ -148,13 +148,13 @@ Web ホストの構成は、`WebApplicationFactory` から継承して1つ以上
 
    [サンプルアプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples)でのデータベースのシード処理は、`InitializeDbForTests` メソッドによって実行されます。 この方法については、「[統合テストのサンプル: テストアプリの組織](#test-app-organization)」セクションを参照してください。
 
-   SUT のデータベースコンテキストは `Startup.ConfigureServices` メソッドに登録されます。 テストアプリの `builder.ConfigureServices` コールバックは、アプリの `Startup.ConfigureServices` コードが実行され*た後*に実行されます。 アプリケーションのデータベースとは異なるデータベースをテストに使用するには、アプリのデータベースコンテキストを `builder.ConfigureServices` で置き換える必要があります。
+   SUT のデータベースコンテキストは `Startup.ConfigureServices` メソッドに登録されます。 テストアプリの `builder.ConfigureServices` コールバックは、アプリの `Startup.ConfigureServices` コードが実行され*た後*に実行されます。 実行順序は、ASP.NET Core 3.0 のリリースでの[汎用ホスト](xref:fundamentals/host/generic-host)の互換性に影響する変更点です。 アプリケーションのデータベースとは異なるデータベースをテストに使用するには、アプリケーションのデータベースコンテキストを `builder.ConfigureServices`で置き換える必要があります。
 
    サンプルアプリでは、データベースコンテキストのサービス記述子を検索し、記述子を使用してサービス登録を削除します。 次に、ファクトリは、テストにメモリ内データベースを使用する新しい `ApplicationDbContext` を追加します。
 
    インメモリデータベースとは別のデータベースに接続するには、`UseInMemoryDatabase` 呼び出しを変更して、コンテキストを別のデータベースに接続します。 SQL Server テストデータベースを使用するには:
 
-   * プロジェクトファイルで、 [Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/) NuGet パッケージを参照します。
+   * プロジェクトファイルで、 [Microsoft EntityFrameworkCore. SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/) NuGet パッケージを参照します。
    * データベースへの接続文字列を使用して `UseSqlServer` を呼び出します。
 
    ```csharp
@@ -165,11 +165,11 @@ Web ホストの構成は、`WebApplicationFactory` から継承して1つ以上
    });
    ```
 
-2. テストクラスでは、カスタム `CustomWebApplicationFactory` を使用します。 次の例では、`IndexPageTests` クラスのファクトリを使用します。
+2. テストクラスでカスタム `CustomWebApplicationFactory` を使用します。 次の例では、`IndexPageTests` クラスのファクトリを使用します。
 
    [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/IndexPageTests.cs?name=snippet1)]
 
-   サンプルアプリのクライアントは、`HttpClient` がリダイレクトされるのを防ぐように構成されています。 「[モック認証](#mock-authentication)」セクションで後ほど説明するように、これにより、アプリの最初の応答の結果を確認するテストが許可されます。 最初の応答は、これらのテストの多くで `Location` ヘッダーを持つリダイレクトです。
+   サンプルアプリのクライアントは、`HttpClient` がリダイレクトされないように構成されています。 「[モック認証](#mock-authentication)」セクションで後ほど説明するように、これにより、アプリの最初の応答の結果を確認するテストが許可されます。 最初の応答は、これらのテストの多くで `Location` ヘッダーを持つリダイレクトです。
 
 3. 一般的なテストでは、`HttpClient` およびヘルパーメソッドを使用して、要求と応答を処理します。
 
@@ -183,7 +183,7 @@ SUT に対する POST 要求は、アプリの[データ保護のアンチ偽造
 
 [サンプルアプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/)の `SendAsync` ヘルパー拡張メソッド (*Helpers/HttpClientExtensions.cs*) と `GetDocumentAsync` ヘルパーメソッド (*Helpers/HtmlHelpers.cs*) では、 [AngleSharp](https://anglesharp.github.io/)パーサーを使用して、による偽造防止チェックを処理します。次のメソッド:
 
-* `GetDocumentAsync` &ndash; は[HttpResponseMessage](/dotnet/api/system.net.http.httpresponsemessage)を受け取り、`IHtmlDocument` を返します。 `GetDocumentAsync` は、元の `HttpResponseMessage` に基づいて*仮想応答*を準備するファクトリを使用します。 詳細については、 [AngleSharp のドキュメント](https://github.com/AngleSharp/AngleSharp#documentation)を参照してください。
+* `GetDocumentAsync` &ndash; [HttpResponseMessage](/dotnet/api/system.net.http.httpresponsemessage) を受け取り、`IHtmlDocument` を返します。 `GetDocumentAsync` は、元の `HttpResponseMessage`に基づいて*仮想応答*を準備するファクトリを使用します。 詳細については、 [AngleSharp のドキュメント](https://github.com/AngleSharp/AngleSharp#documentation)を参照してください。
 * `HttpClient` の `SendAsync` 拡張メソッドは、 [HttpRequestMessage](/dotnet/api/system.net.http.httprequestmessage)を作成し、 [SendAsync(HttpRequestMessage)](/dotnet/api/system.net.http.httpclient.sendasync#System_Net_Http_HttpClient_SendAsync_System_Net_Http_HttpRequestMessage_)を呼び出して、SUT に要求を送信します。 `SendAsync` のオーバーロードは、HTML フォーム (`IHtmlFormElement`) と次のものを受け入れます。
   * フォームの [送信] ボタン (`IHtmlElement`)
   * フォーム値コレクション (`IEnumerable<KeyValuePair<string, string>>`)
@@ -204,9 +204,9 @@ SUT に対する POST 要求は、アプリの[データ保護のアンチ偽造
 
 ## <a name="client-options"></a>クライアントオプション
 
-次の表に、`HttpClient` インスタンスを作成するときに使用できる既定の[WebApplicationFactoryClientOptions](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions)を示します。
+次の表は、`HttpClient` インスタンスの作成時に使用できる既定の [WebApplicationFactoryClientOptions](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions) を示しています。
 
-| オプション | 説明 | 既定 |
+| オプション | 説明 | [既定値] |
 | ------ | ----------- | ------- |
 | [AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect) | `HttpClient` インスタンスがリダイレクト応答に自動的に従うかどうかを取得または設定します。 | `true` |
 | [BaseAddress](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.baseaddress) | `HttpClient` インスタンスのベースアドレスを取得または設定します。 | `http://localhost` |
@@ -259,7 +259,7 @@ _client = _factory.CreateClient(clientOptions);
     London, and we&#x27;re already 30,000 years late.">
 ```
 
-統合テストでサービスと引用の挿入をテストするために、テストでは、モックサービスが SUT に挿入されます。 モックサービスは、アプリの `QuoteService` を、`TestQuoteService` というテストアプリによって提供されるサービスに置き換えます。
+統合テストでサービスと引用の挿入をテストするために、テストでは、モックサービスが SUT に挿入されます。 モックサービスは、アプリの `QuoteService` を、`TestQuoteService`と呼ばれるテストアプリによって提供されるサービスに置き換えます。
 
 *IntegrationTests.IndexPageTests.cs*:
 
@@ -269,7 +269,7 @@ _client = _factory.CreateClient(clientOptions);
 
 [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/IndexPageTests.cs?name=snippet5&highlight=7-10,17,20-21)]
 
-テストの実行中に生成されたマークアップには `TestQuoteService` によって指定された見積もりテキストが反映されるため、アサーションは次のように渡されます。
+テストの実行中に生成されたマークアップには `TestQuoteService`によって指定された引用符が反映されるため、アサーションは次のように渡されます。
 
 ```html
 <input id="quote" type="hidden" value="Something&#x27;s interfering with time, 
@@ -294,7 +294,7 @@ SUT では、`/SecurePage` ページは、 [AuthorizePage](/dotnet/api/microsoft
 クライアントがリダイレクトに従うことを禁止することで、次のチェックを行うことができます。
 
 * SUT によって返される状態コードは、予期された[HttpStatusCode.Redirect](/dotnet/api/system.net.httpstatuscode)結果と比較して確認できます。これは、ログインページにリダイレクトした後の最終的な状態コードではなく、 [HttpStatusCode.OK](/dotnet/api/system.net.httpstatuscode)です。
-* 応答ヘッダーの `Location` ヘッダー値は、最後のログインページ応答ではなく `http://localhost/Identity/Account/Login` で開始されていることを確認し、`Location` ヘッダーが存在しないことを確認します。
+* 応答ヘッダーの `Location` ヘッダー値は、最後のログインページ応答ではなく `http://localhost/Identity/Account/Login`で開始され、`Location` ヘッダーが存在しないことを確認するためにチェックされます。
 
 テストアプリでは、認証と承認の側面をテストするために [ConfigureTestServices](/dotnet/api/microsoft.aspnetcore.testhost.webhostbuilderextensions.configuretestservices) の <xref:Microsoft.AspNetCore.Authentication.AuthenticationHandler`1> をモックすることができます。 最小のシナリオでは、[AuthenticateResult.Success](xref:Microsoft.AspNetCore.Authentication.AuthenticateResult.Success*) が返されます。
 
@@ -344,10 +344,10 @@ protected override IHostBuilder CreateHostBuilder() =>
 
 [サンプルアプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples)は、次の2つのアプリで構成されています。
 
-| アプリ | プロジェクトディレクトリ | 説明 |
+| アプリ | プロジェクト ディレクトリ | 説明 |
 | --- | ----------------- | ----------- |
 | メッセージアプリ (SUT) | *src/RazorPagesProject* | ユーザーがメッセージを追加、削除、削除、および分析することを許可します。 |
-| アプリのテスト | *テスト/RazorPagesProject* | SUT の統合テストに使用されます。 |
+| アプリをテストする | *tests/RazorPagesProject.Tests* | SUT の統合テストに使用されます。 |
 
 テストは、 [Visual Studio](https://visualstudio.microsoft.com)などの IDE の組み込みのテスト機能を使用して実行できます。 [Visual Studio Code](https://code.visualstudio.com/)またはコマンドラインを使用している場合は、*テスト/RazorPagesProject*ディレクトリのコマンドプロンプトで次のコマンドを実行します。
 
@@ -379,7 +379,7 @@ SUT は、次の特性を持つ Razor Pages メッセージシステムです。
 | *AuthTests* | 次のテストメソッドが含まれます。<ul><li>認証されていないユーザーによるセキュリティで保護されたページへのアクセス。</li><li>認証されたユーザーがモック <xref:Microsoft.AspNetCore.Authentication.AuthenticationHandler`1>を使用してセキュリティで保護されたページにアクセスする。</li><li>GitHub ユーザープロファイルを取得し、プロファイルのユーザーログインを確認する。</li></ul> |
 | *BasicTests* | ルーティングおよびコンテンツタイプのテストメソッドが含まれています。 |
 | *IntegrationTests* | カスタム `WebApplicationFactory` クラスを使用したインデックスページの統合テストが含まれています。 |
-| *Helpers/Utilities* | <ul><li>*Utilities.cs*には、テストデータを使用してデータベースをシード処理するために使用される `InitializeDbForTests` メソッドが含まれています。</li><li>*HtmlHelpers.cs*は、テストメソッドで使用するために AngleSharp `IHtmlDocument` を返すメソッドを提供します。</li><li>*HttpClientExtensions.cs*は、`SendAsync` のオーバーロードを使用して、SUT に要求を送信します。</li></ul> |
+| *Helpers/Utilities* | <ul><li>*Utilities.cs*には、テストデータを使用してデータベースをシード処理するために使用する `InitializeDbForTests` メソッドが含まれています。</li><li>*HtmlHelpers.cs*は、テストメソッドで使用するために AngleSharp `IHtmlDocument` を返すメソッドを提供します。</li><li>*HttpClientExtensions.cs*は、`SendAsync` のオーバーロードを使用して、SUT に要求を送信します。</li></ul> |
 
 テストフレームワークは[xUnit](https://xunit.github.io/)です。 統合テストは、 [TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver)を含む[Microsoft.AspNetCore.TestHost](/dotnet/api/microsoft.aspnetcore.testhost)を使用して実行されます。 [Microsoft.AspNetCore.Mvc.Testing](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing)パッケージはテストホストとテストサーバーを構成するために使用されるため、`TestHost` および `TestServer` パッケージはテストアプリのプロジェクトファイルまたはテストの開発者構成で直接パッケージ参照を必要としません。アプリケーション.
 
@@ -391,7 +391,7 @@ SUT は、次の特性を持つ Razor Pages メッセージシステムです。
 
 [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/Helpers/Utilities.cs?name=snippet1)]
 
-SUT のデータベースコンテキストは `Startup.ConfigureServices` メソッドに登録されます。 テストアプリの `builder.ConfigureServices` コールバックは、アプリの `Startup.ConfigureServices` コードが実行され*た後*に実行されます。 テストに別のデータベースを使用するには、アプリのデータベースコンテキストを `builder.ConfigureServices` で置き換える必要があります。 詳細については、「[WebApplicationFactory のカスタマイズ](#customize-webapplicationfactory)」セクションを参照してください。
+SUT のデータベースコンテキストは `Startup.ConfigureServices` メソッドに登録されます。 テストアプリの `builder.ConfigureServices` コールバックは、アプリの `Startup.ConfigureServices` コードが実行され*た後*に実行されます。 テストに別のデータベースを使用するには、アプリケーションのデータベースコンテキストを `builder.ConfigureServices`で置き換える必要があります。 詳細については、「[WebApplicationFactory のカスタマイズ](#customize-webapplicationfactory)」セクションを参照してください。
 
 ::: moniker-end
 
@@ -399,11 +399,11 @@ SUT のデータベースコンテキストは `Startup.ConfigureServices` メ�
 
 統合テストでは、アプリケーションのコンポーネントが、データベース、ファイルシステム、ネットワークなど、アプリのサポートインフラストラクチャを含むレベルで正しく機能していることを確認します。 ASP.NET Core では、単体テストフレームワークとテスト Web ホストおよびメモリ内テストサーバーを使用した統合テストがサポートされています。
 
-このトピックでは、単体テストの基本を理解していることを前提としています。 テストの概念を理解していない場合は、 [.NET Core の単体テストと .NET Standard](/dotnet/core/testing/) に関するトピックとそのリンク先を参照してください。
+このトピックでは、単体テストの基本的な知識を前提とします。 テストの概念を理解していない場合は、 [.NET Core の単体テストと .NET Standard](/dotnet/core/testing/) に関するトピックとそのリンク先を参照してください。
 
 [サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
-このサンプルアプリは Razor Pages アプリであり、Razor Pages の基本を理解していることを前提としています。 Razor Pages に慣れていない場合は、次のトピックを参照してください。
+サンプル アプリは、Razor ページ アプリで Razor ページの基本的な知識を前提としています。 Razor ページに不慣れな場合は、次のトピックを参照してください。
 
 * [Razor ページを始める](xref:razor-pages/index)
 * [Razor ページの概要](xref:tutorials/razor-pages/razor-pages-start)
@@ -461,7 +461,7 @@ ASP.NET Core の統合テストには、次のものが必要です。
 
 通常、テスト Web ホストは、テストの実行のためにアプリの通常の Web ホストとは異なる方法で構成されます。 たとえば、テストには別のデータベースまたは異なるアプリ設定が使用される場合があります。
 
-テスト Web ホストやメモリ内テストサーバー ([TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver)) などのインフラストラクチャコンポーネントは、 [Microsoft.AspNetCore.Mvc.Testing](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing)パッケージによって提供または管理されます。 このパッケージを使用すると、テストの作成と実行を効率化できます。
+テスト web ホストやメモリ内テストサーバー ([testserver](/dotnet/api/microsoft.aspnetcore.testhost.testserver)) などのインフラストラクチャコンポーネントは、 [Microsoft.AspNetCore.Mvc.Testing](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing)パッケージによって提供または管理されます。 このパッケージを使用すると、テストの作成と実行を効率化できます。
 
 `Microsoft.AspNetCore.Mvc.Testing` パッケージは、次のタスクを処理します。
 
@@ -474,7 +474,7 @@ ASP.NET Core の統合テストには、次のものが必要です。
 > [!NOTE]
 > アプリのテストプロジェクトを作成する場合は、単体テストを統合テストから別のプロジェクトに分離します。 これにより、インフラストラクチャテストコンポーネントが誤って単体テストに含まれないようにすることができます。 単体テストと統合テストを分離すると、実行されるテストのセットを制御することもできます。
 
-Razor Pages アプリと MVC アプリのテストの構成には、ほぼ違いはありません。 唯一の違いは、テストの名前付け方法です。 Razor Pages アプリでは、通常、ページエンドポイントのテストはページモデルクラスの後に名前が付けられます (たとえば、インデックスページのコンポーネントの統合をテストするには、`IndexPageTests` になります)。 MVC アプリでは、テストは通常、コントローラークラス別に編成され、テスト対象のコントローラーの後に名前が付けられます (たとえば、Home コントローラーのコンポーネントの統合をテストするには、`HomeControllerTests`)。
+Razor Pages アプリと MVC アプリのテストの構成には、ほぼ違いはありません。 唯一の違いは、テストの名前付け方法です。 Razor Pages アプリでは、ページエンドポイントのテストは通常、ページモデルクラスの後に名前が付けられます (たとえば、[インデックス] ページのコンポーネントの統合をテストする `IndexPageTests` ます)。 MVC アプリでは、テストは通常、コントローラークラス別に編成され、テストするコントローラーの後に名前が付けられます (たとえば、Home コントローラーのコンポーネント統合をテストする `HomeControllerTests`)。
 
 ## <a name="test-app-prerequisites"></a>テストアプリの前提条件
 
@@ -482,8 +482,8 @@ Razor Pages アプリと MVC アプリのテストの構成には、ほぼ違い
 
 * 次のパッケージを参照します。
   * [Microsoft.AspNetCore.App](https://www.nuget.org/packages/Microsoft.AspNetCore.App/)
-  * [Microsoft.AspNetCore.Mvc.Testing](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing/)
-* プロジェクトファイルで Web SDK を指定します (`<Project Sdk="Microsoft.NET.Sdk.Web">`)。 [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)を参照するときは、Web SDK が必要です。
+  * [Microsoft. AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing/)
+* プロジェクトファイル (`<Project Sdk="Microsoft.NET.Sdk.Web">`) で Web SDK を指定します。 [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)を参照するときは、Web SDK が必要です。
 
 これらの前提条件は、[サンプルアプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/)で見ることができます。 *tests/RazorPagesProject.Tests/RazorPagesProject.Tests.csproj*ファイルを調べます。 サンプルアプリでは、 [xUnit](https://xunit.github.io/)テストフレームワークと[AngleSharp](https://anglesharp.github.io/) parser ライブラリを使用しています。このため、サンプルアプリでも参照できます。
 
@@ -497,7 +497,7 @@ SUT の[環境](xref:fundamentals/environments)が設定されていない場合
 
 ## <a name="basic-tests-with-the-default-webapplicationfactory"></a>既定の WebApplicationFactory を使用した基本テスト
 
-[WebApplicationFactory \<TEntryPoint >](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1)は、統合テスト用の[TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver)を作成するために使用されます。 `TEntryPoint` は、SUT のエントリポイントクラス (通常は `Startup` クラス) です。
+[WebApplicationFactory \<TEntryPoint >](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1)は、統合テスト用の[TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver)を作成するために使用されます。 `TEntryPoint` は、SUT のエントリポイントクラスです。通常は、`Startup` クラスです。
 
 テストクラスは、クラスにテストが含まれていることを示す*クラスフィクスチャ*インターフェイス ([IClassFixture](https://xunit.github.io/docs/shared-context#class-fixture)) を実装し、クラス内のテスト間で共有オブジェクトインスタンスを提供します。
 
@@ -519,11 +519,11 @@ Web ホストの構成は、`WebApplicationFactory` から継承して1つ以上
 
    [サンプルアプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples)でのデータベースのシード処理は、`InitializeDbForTests` メソッドによって実行されます。 この方法については、「[統合テストのサンプル: テストアプリの組織](#test-app-organization)」セクションを参照してください。
 
-2. テストクラスでは、カスタム `CustomWebApplicationFactory` を使用します。 次の例では、`IndexPageTests` クラスのファクトリを使用します。
+2. テストクラスでカスタム `CustomWebApplicationFactory` を使用します。 次の例では、`IndexPageTests` クラスのファクトリを使用します。
 
    [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/IndexPageTests.cs?name=snippet1)]
 
-   サンプルアプリのクライアントは、`HttpClient` がリダイレクトされるのを防ぐように構成されています。 「[モック認証](#mock-authentication)」セクションで後ほど説明するように、これにより、アプリの最初の応答の結果を確認するテストが許可されます。 最初の応答は、これらのテストの多くで `Location` ヘッダーを持つリダイレクトです。
+   サンプルアプリのクライアントは、`HttpClient` がリダイレクトされないように構成されています。 「[モック認証](#mock-authentication)」セクションで後ほど説明するように、これにより、アプリの最初の応答の結果を確認するテストが許可されます。 最初の応答は、これらのテストの多くで `Location` ヘッダーを持つリダイレクトです。
 
 3. 一般的なテストでは、`HttpClient` およびヘルパーメソッドを使用して、要求と応答を処理します。
 
@@ -537,7 +537,7 @@ SUT に対する POST 要求は、アプリの[データ保護のアンチ偽造
 
 [サンプルアプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/)の `SendAsync` ヘルパー拡張メソッド (*Helpers/HttpClientExtensions.cs*) と `GetDocumentAsync` ヘルパーメソッド (*Helpers/HtmlHelpers.cs*) では、 [AngleSharp](https://anglesharp.github.io/)パーサーを使用して、による偽造防止チェックを処理します。次のメソッド:
 
-* `GetDocumentAsync` &ndash; は[HttpResponseMessage](/dotnet/api/system.net.http.httpresponsemessage)を受け取り、`IHtmlDocument` を返します。 `GetDocumentAsync` は、元の `HttpResponseMessage` に基づいて*仮想応答*を準備するファクトリを使用します。 詳細については、 [AngleSharp のドキュメント](https://github.com/AngleSharp/AngleSharp#documentation)を参照してください。
+* `GetDocumentAsync` &ndash; [HttpResponseMessage](/dotnet/api/system.net.http.httpresponsemessage) を受け取り、`IHtmlDocument` を返します。 `GetDocumentAsync` は、元の `HttpResponseMessage`に基づいて*仮想応答*を準備するファクトリを使用します。 詳細については、 [AngleSharp のドキュメント](https://github.com/AngleSharp/AngleSharp#documentation)を参照してください。
 * `HttpClient` の `SendAsync` 拡張メソッドは、 [HttpRequestMessage](/dotnet/api/system.net.http.httprequestmessage)を作成し、 [SendAsync(HttpRequestMessage)](/dotnet/api/system.net.http.httpclient.sendasync#System_Net_Http_HttpClient_SendAsync_System_Net_Http_HttpRequestMessage_)を呼び出して、SUT に要求を送信します。 `SendAsync` のオーバーロードは、HTML フォーム (`IHtmlFormElement`) と次のものを受け入れます。
   * フォームの [送信] ボタン (`IHtmlElement`)
   * フォーム値コレクション (`IEnumerable<KeyValuePair<string, string>>`)
@@ -558,9 +558,9 @@ SUT に対する POST 要求は、アプリの[データ保護のアンチ偽造
 
 ## <a name="client-options"></a>クライアントオプション
 
-次の表に、`HttpClient` インスタンスを作成するときに使用できる既定の[WebApplicationFactoryClientOptions](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions)を示します。
+次の表は、`HttpClient` インスタンスの作成時に使用できる既定の [WebApplicationFactoryClientOptions](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions) を示しています。
 
-| オプション | 説明 | 既定 |
+| オプション | 説明 | [既定値] |
 | ------ | ----------- | ------- |
 | [AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect) | `HttpClient` インスタンスがリダイレクト応答に自動的に従うかどうかを取得または設定します。 | `true` |
 | [BaseAddress](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.baseaddress) | `HttpClient` インスタンスのベースアドレスを取得または設定します。 | `http://localhost` |
@@ -613,7 +613,7 @@ _client = _factory.CreateClient(clientOptions);
     London, and we&#x27;re already 30,000 years late.">
 ```
 
-統合テストでサービスと引用の挿入をテストするために、テストでは、モックサービスが SUT に挿入されます。 モックサービスは、アプリの `QuoteService` を、`TestQuoteService` というテストアプリによって提供されるサービスに置き換えます。
+統合テストでサービスと引用の挿入をテストするために、テストでは、モックサービスが SUT に挿入されます。 モックサービスは、アプリの `QuoteService` を、`TestQuoteService`と呼ばれるテストアプリによって提供されるサービスに置き換えます。
 
 *IntegrationTests.IndexPageTests.cs*:
 
@@ -623,7 +623,7 @@ _client = _factory.CreateClient(clientOptions);
 
 [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/IndexPageTests.cs?name=snippet5&highlight=7-10,17,20-21)]
 
-テストの実行中に生成されたマークアップには `TestQuoteService` によって指定された見積もりテキストが反映されるため、アサーションは次のように渡されます。
+テストの実行中に生成されたマークアップには `TestQuoteService`によって指定された引用符が反映されるため、アサーションは次のように渡されます。
 
 ```html
 <input id="quote" type="hidden" value="Something&#x27;s interfering with time, 
@@ -648,7 +648,7 @@ SUT では、`/SecurePage` ページは、 [AuthorizePage](/dotnet/api/microsoft
 クライアントがリダイレクトに従うことを禁止することで、次のチェックを行うことができます。
 
 * SUT によって返される状態コードは、予期された[HttpStatusCode.Redirect](/dotnet/api/system.net.httpstatuscode)結果と比較して確認できます。これは、ログインページにリダイレクトした後の最終的な状態コードではなく、 [HttpStatusCode.OK](/dotnet/api/system.net.httpstatuscode)です。
-* 応答ヘッダーの `Location` ヘッダー値は、最後のログインページ応答ではなく `http://localhost/Identity/Account/Login` で開始されていることを確認し、`Location` ヘッダーが存在しないことを確認します。
+* 応答ヘッダーの `Location` ヘッダー値は、最後のログインページ応答ではなく `http://localhost/Identity/Account/Login`で開始され、`Location` ヘッダーが存在しないことを確認するためにチェックされます。
 
 テストアプリでは、認証と承認の側面をテストするために [ConfigureTestServices](/dotnet/api/microsoft.aspnetcore.testhost.webhostbuilderextensions.configuretestservices) の <xref:Microsoft.AspNetCore.Authentication.AuthenticationHandler`1> をモックすることができます。 最小のシナリオでは、[AuthenticateResult.Success](xref:Microsoft.AspNetCore.Authentication.AuthenticateResult.Success*) が返されます。
 
@@ -708,10 +708,10 @@ Visual Studio を使用している場合は、ファイルの **[出力ディ�
 
 [サンプルアプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples)は、次の2つのアプリで構成されています。
 
-| アプリ | プロジェクトディレクトリ | 説明 |
+| アプリ | プロジェクト ディレクトリ | 説明 |
 | --- | ----------------- | ----------- |
 | メッセージアプリ (SUT) | *src/RazorPagesProject* | ユーザーがメッセージを追加、削除、削除、および分析することを許可します。 |
-| アプリのテスト | *tests/RazorPagesProject.Tests* | SUT の統合テストに使用されます。 |
+| アプリをテストする | *tests/RazorPagesProject.Tests* | SUT の統合テストに使用されます。 |
 
 テストは、 [Visual Studio](https://visualstudio.microsoft.com)などの IDE の組み込みのテスト機能を使用して実行できます。 [Visual Studio Code](https://code.visualstudio.com/)またはコマンドラインを使用している場合は、*テスト/RazorPagesProject*ディレクトリのコマンドプロンプトで次のコマンドを実行します。
 
@@ -743,7 +743,7 @@ SUT は、次の特性を持つ Razor Pages メッセージシステムです。
 | *AuthTests* | 次のテストメソッドが含まれます。<ul><li>認証されていないユーザーによるセキュリティで保護されたページへのアクセス。</li><li>認証されたユーザーがモック <xref:Microsoft.AspNetCore.Authentication.AuthenticationHandler`1>を使用してセキュリティで保護されたページにアクセスする。</li><li>GitHub ユーザープロファイルを取得し、プロファイルのユーザーログインを確認する。</li></ul> |
 | *BasicTests* | ルーティングおよびコンテンツタイプのテストメソッドが含まれています。 |
 | *IntegrationTests* | カスタム `WebApplicationFactory` クラスを使用したインデックスページの統合テストが含まれています。 |
-| *Helpers/Utilities* | <ul><li>*Utilities.cs*には、テストデータを使用してデータベースをシード処理するために使用される `InitializeDbForTests` メソッドが含まれています。</li><li>*HtmlHelpers.cs*は、テストメソッドで使用するために AngleSharp `IHtmlDocument` を返すメソッドを提供します。</li><li>*HttpClientExtensions.cs*は、`SendAsync` のオーバーロードを使用して、SUT に要求を送信します。</li></ul> |
+| *Helpers/Utilities* | <ul><li>*Utilities.cs*には、テストデータを使用してデータベースをシード処理するために使用する `InitializeDbForTests` メソッドが含まれています。</li><li>*HtmlHelpers.cs*は、テストメソッドで使用するために AngleSharp `IHtmlDocument` を返すメソッドを提供します。</li><li>*HttpClientExtensions.cs*は、`SendAsync` のオーバーロードを使用して、SUT に要求を送信します。</li></ul> |
 
 テストフレームワークは[xUnit](https://xunit.github.io/)です。 統合テストは、 [TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver)を含む[Microsoft.AspNetCore.TestHost](/dotnet/api/microsoft.aspnetcore.testhost)を使用して実行されます。 [Microsoft.AspNetCore.Mvc.Testing](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing)パッケージはテストホストとテストサーバーを構成するために使用されるため、`TestHost` および `TestServer` パッケージはテストアプリのプロジェクトファイルまたはテストの開発者構成で直接パッケージ参照を必要としません。アプリケーション.
 

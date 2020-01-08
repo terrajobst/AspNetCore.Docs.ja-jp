@@ -5,14 +5,14 @@ description: この記事には、Azure のホストと展開リソースへの�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 11/07/2019
+ms.date: 12/16/2019
 uid: host-and-deploy/azure-apps/index
-ms.openlocfilehash: f9fc6e706046165c142e19ca38d97ac21914dc9b
-ms.sourcegitcommit: a104ba258ae7c0b3ee7c6fa7eaea1ddeb8b6eb73
+ms.openlocfilehash: 51d82d1deadb3d2adbdccd39c8d949e3f9f812fd
+ms.sourcegitcommit: 79850db9e79b1705b89f466c6f2c961ff15485de
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/25/2019
-ms.locfileid: "74478761"
+ms.lasthandoff: 01/07/2020
+ms.locfileid: "75693844"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>Azure App Service に ASP.NET Core アプリを展開する
 
@@ -87,13 +87,13 @@ Azure Portal でアプリの設定が作成または変更され、 **[保存]**
 
 ::: moniker range=">= aspnetcore-3.0"
 
-アプリが[汎用ホスト](xref:fundamentals/host/generic-host)を使用する場合、環境変数は既定ではアプリの構成に読み込まれません。開発者が構成プロバイダーを追加する必要があります。 開発者は、構成プロバーダーを追加する際に環境変数のプレフィックスを決定します。 詳細については、<xref:fundamentals/host/generic-host> および「[Environment Variables Configuration Provider](xref:fundamentals/configuration/index#environment-variables-configuration-provider)」(環境変数構成プロバイダー) をご覧ください。
+アプリで[汎用ホスト](xref:fundamentals/host/generic-host)を使用する場合、ホストをビルドするために <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> が呼び出されると、環境変数がアプリの構成に読み込まれます。 詳細については、<xref:fundamentals/host/generic-host> および「[Environment Variables Configuration Provider](xref:fundamentals/configuration/index#environment-variables-configuration-provider)」(環境変数構成プロバイダー) をご覧ください。
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-アプリが [WebHost.CreateDefaultBuilder](/dotnet/api/microsoft.aspnetcore.webhost.createdefaultbuilder) を使用してホストをビルドする場合、ホストを構成する環境変数では `ASPNETCORE_` プレフィックスが使用されます。 詳細については、<xref:fundamentals/host/web-host> および「[Environment Variables Configuration Provider](xref:fundamentals/configuration/index#environment-variables-configuration-provider)」(環境変数構成プロバイダー) をご覧ください。
+アプリで [Web ホスト](xref:fundamentals/host/web-host)を使用する場合、ホストをビルドするために <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> が呼び出されると、環境変数がアプリの構成に読み込まれます。 詳細については、<xref:fundamentals/host/web-host> および「[Environment Variables Configuration Provider](xref:fundamentals/configuration/index#environment-variables-configuration-provider)」(環境変数構成プロバイダー) をご覧ください。
 
 ::: moniker-end
 
@@ -143,17 +143,19 @@ Azure App Service/IIS によってホストされるアプリの一般的な配�
 * SQL ストア
 * Redis Cache
 
-詳細については、<xref:security/data-protection/implementation/key-storage-providers> を参照してください。
+詳細については、「<xref:security/data-protection/implementation/key-storage-providers>」を参照してください。
 <a name="deploy-aspnet-core-preview-release-to-azure-app-service"></a>
 
-## <a name="deploy-aspnet-core-30-to-azure-app-service"></a>Azure App Service に ASP.NET Core 3.0 を展開する
+## <a name="deploy-an-aspnet-core-app-that-uses-a-net-core-preview"></a>.NET Core プレビューを使用する ASP.NET Core アプリをデプロイする
 
-Azure App Service では、ASP.NET Core 3.0 がサポートされています。 .NET Core 3.0 より後の .NET Core バージョンのプレビュー リリースをデプロイするには、次の手法のいずれかを使います。 また、ランタイムは使用できるが SDK が Azure App Service にインストールされていない場合にも、これらの方法を使うことができます。
+.NET Core のプレビュー リリースを使用するアプリをデプロイするには、次のリソースを参照してください。 また、ランタイムは使用できるが SDK が Azure App Service にインストールされていない場合にも、これらの方法を使うことができます。
 
 * [Azure Pipelines を使用して .NET Core SDK のバージョンを指定する](#specify-the-net-core-sdk-version-using-azure-pipelines)
-* [自己完結型のプレビュー アプリを展開する](#deploy-a-self-contained-preview-app)。
+* [自己完結型のプレビュー アプリをデプロイする](#deploy-a-self-contained-preview-app)
 * [コンテナー用の Web アプリで Docker を使用する](#use-docker-with-web-apps-for-containers)
 * [プレビュー サイト拡張機能をインストールする](#install-the-preview-site-extension)
+
+Azure App Service で利用可能な ASP.NET Core のバージョンについては、「[App Service ダッシュボードの ASP.NET Core](https://aspnetcoreon.azurewebsites.net/)」を参照してください。
 
 ### <a name="specify-the-net-core-sdk-version-using-azure-pipelines"></a>Azure Pipelines を使用して .NET Core SDK のバージョンを指定する
 
