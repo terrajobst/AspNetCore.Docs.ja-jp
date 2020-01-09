@@ -7,18 +7,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 9/25/2019
 uid: mvc/compatibility-version
-ms.openlocfilehash: 35e3b6acba2bc9a0b863bd6d1e96365328b5f169
-ms.sourcegitcommit: fae6f0e253f9d62d8f39de5884d2ba2b4b2a6050
+ms.openlocfilehash: b29e2ee49aaf0f557f1acd0cf03e9e82d5ea0105
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/25/2019
-ms.locfileid: "71256161"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75357732"
 ---
 # <a name="compatibility-version-for-aspnet-core-mvc"></a>ASP.NET Core MVC の互換バージョン
 
 作成者: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-::: moniker range="= aspnetcore-3.0"
+::: moniker range=">= aspnetcore-3.0"
 
 <xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*> メソッドは ASP.NET Core 3.0 アプリでは何も行いません。 つまり、<xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion> のどの値で `SetCompatibilityVersion` を呼び出してもアプリケーションに影響しません。
 
