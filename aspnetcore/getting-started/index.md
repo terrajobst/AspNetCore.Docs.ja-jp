@@ -4,14 +4,14 @@ author: rick-anderson
 description: ASP.NET Core を使用して基本的な Hello World アプリを作成し、実行する簡単なチュートリアルです。
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/22/2019
+ms.date: 01/07/2020
 uid: getting-started
-ms.openlocfilehash: 116a22bce80257948bfcc02c03a74a4b5568b8b5
-ms.sourcegitcommit: 4649814d1ae32248419da4e8f8242850fd8679a5
+ms.openlocfilehash: c806bd1e79dea9119f1c9e99d0a2b9742a10987a
+ms.sourcegitcommit: ef1720cb733908f36a54825d84c3461c5280bdbe
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/05/2019
-ms.locfileid: "71975689"
+ms.lasthandoff: 01/08/2020
+ms.locfileid: "75737478"
 ---
 # <a name="tutorial-get-started-with-aspnet-core"></a>チュートリアル: ASP.NET Core の概要
 
@@ -31,7 +31,7 @@ ms.locfileid: "71975689"
 
 ## <a name="prerequisites"></a>必須コンポーネント
 
-[!INCLUDE[](~/includes/3.0-SDK.md)]
+[!INCLUDE[](~/includes/3.1-SDK.md)]
 
 ## <a name="create-a-web-app-project"></a>Web アプリ プロジェクトを作成する
 

@@ -5,14 +5,14 @@ description: Microsoft.Extensions.Logging NuGet パッケージで提供され�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/04/2019
+ms.date: 01/08/2020
 uid: fundamentals/logging/index
-ms.openlocfilehash: e1c50c4592b21d56ed813dac43204d63f1bfe46c
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: d9ef6694b6c0b0a88b13d60915be6e04ebdffb28
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75359349"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829050"
 ---
 # <a name="logging-in-net-core-and-aspnet-core"></a>.NET Core および ASP.NET Core でのログ記録
 
@@ -22,7 +22,7 @@ ms.locfileid: "75359349"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-この記事に記載されているほとんどのコード例は、ASP.NET Core アプリのものです。 これらのコード スニペットのログ記録固有の部分は、[汎用ホスト](xref:fundamentals/host/generic-host)を使用するすべての .NET Core アプリに適用されます。 Web コンソール以外のアプリで汎用ホストを使用する方法については、[ホステッド サービス](xref:fundamentals/host/hosted-services)に関する記事を参照してください。
+この記事に記載されているほとんどのコード例は、ASP.NET Core アプリのものです。 これらのコード スニペットのログ記録固有の部分は、[汎用ホスト](xref:fundamentals/host/generic-host)を使用するすべての .NET Core アプリに適用されます。 非 Web コンソール アプリで汎用ホストを使用する方法の例については、[バックグラウンド タスクのサンプル アプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/hosted-services/samples) (<xref:fundamentals/host/hosted-services>) の *Program.cs* ファイルを参照してください。
 
 汎用ホストを使用しないアプリのログ記録コードは、[プロバイダーの追加](#add-providers)方法と[ロガーの作成](#create-logs)方法によって異なります。 ホスト以外のコードの例については、記事のこれらのセクションを参照してください。
 

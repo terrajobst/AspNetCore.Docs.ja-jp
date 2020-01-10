@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: migration/1x-to-2x/index
-ms.openlocfilehash: 1242ec9f71f4a26b07f9a56a2a960bf315b56ccf
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: c46f50a418cf630980ac2ba94407e4370d36e7d5
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880015"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75828933"
 ---
 # <a name="migrate-from-aspnet-core-1x-to-20"></a>ASP.NET Core 1.x から 2.0 への移行
 
@@ -42,7 +42,7 @@ ms.locfileid: "74880015"
 > [!NOTE]
 > .NET Core 1.x よりセキュリティ上外部からアクセスできるところの多い .NET core 2.0 NET Core 1.x に API がないためだけに .NET Framework をターゲットにする場合、.NET Core 2.0 をターゲットにすると機能します。
 
-プロジェクト ファイルに `<RuntimeFrameworkVersion>1.{sub-version}</RuntimeFrameworkVersion>` が含まれている場合は、[こちらの GitHub の問題](https://github.com/aspnet/AspNetCore/issues/3221#issuecomment-413094268)を参照してください。
+プロジェクト ファイルに `<RuntimeFrameworkVersion>1.{sub-version}</RuntimeFrameworkVersion>` が含まれている場合は、[こちらの GitHub の問題](https://github.com/dotnet/AspNetCore/issues/3221#issuecomment-413094268)を参照してください。
 
 <a name="global-json"></a>
 
@@ -152,7 +152,7 @@ EF Core 2.0 を使用する 2.0 プロジェクトでは、`Program.BuildWebHost
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Program2.cs?name=snippet_Main2Code&highlight=10)]
 
-2\.0 以降、`BuildWebHost` で Web ホストのビルドと構成以外を行うことは正しくない使用例となります。 アプリケーションの実行に関するあらゆることは `BuildWebHost` の外側で、一般的には *Program.cs* の `Main` メソッドで処理する必要があります。
+2\.0 以降、`BuildWebHost` で Web ホストのビルドと構成以外を行うことは正しくない使用例となります。 アプリケーションの実行に関するあらゆることは `BuildWebHost` &mdash; の外側で、一般的には *Program.cs* の `Main` メソッドで処理する必要があります。
 
 <a name="view-compilation"></a>
 
