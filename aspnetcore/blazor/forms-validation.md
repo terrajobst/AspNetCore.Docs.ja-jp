@@ -9,12 +9,12 @@ ms.date: 12/05/2019
 no-loc:
 - Blazor
 uid: blazor/forms-validation
-ms.openlocfilehash: f4c1845ee4b6ff9274b7117167367ccdd9f36c12
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: a94a433f26e451bbadc73615e502e46d273f05c2
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74943694"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75828140"
 ---
 # <a name="aspnet-core-opno-locblazor-forms-and-validation"></a>フォームと検証の Blazor の ASP.NET Core
 
@@ -193,7 +193,7 @@ public class Starship
 
 ## <a name="validation-support"></a>検証のサポート
 
-`DataAnnotationsValidator` コンポーネントは、データ注釈を使用した検証サポートをカスケード `EditContext`にアタッチします。 データ注釈を使用した検証のサポートを有効にするには、この明示的なジェスチャが必要です。 データ注釈とは異なる検証システムを使用するには、`DataAnnotationsValidator` をカスタム実装に置き換えます。 ASP.NET Core の実装は、参照ソース: [Data注釈](https://github.com/aspnet/AspNetCore/blob/master/src/Components/Forms/src/DataAnnotationsValidator.cs)を検証するために、 [adddata注釈](https://github.com/aspnet/AspNetCore/blob/master/src/Components/Forms/src/EditContextDataAnnotationsExtensions.cs)を使用して/ます。
+`DataAnnotationsValidator` コンポーネントは、データ注釈を使用した検証サポートをカスケード `EditContext`にアタッチします。 データ注釈を使用した検証のサポートを有効にするには、この明示的なジェスチャが必要です。 データ注釈とは異なる検証システムを使用するには、`DataAnnotationsValidator` をカスタム実装に置き換えます。 ASP.NET Core の実装は、参照ソース: [Data注釈](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/DataAnnotationsValidator.cs)を検証するために、 [adddata注釈](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/EditContextDataAnnotationsExtensions.cs)を使用して/ます。
 
 Blazor は、次の2種類の検証を実行します。
 
@@ -247,11 +247,11 @@ private class MyCustomValidator : ValidationAttribute
 
 ### <a name="opno-locblazor-data-annotations-validation-package"></a>データ注釈検証パッケージの Blazor
 
-[BlazorAspNetCore です。DataAnnotations。検証](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation)は、`DataAnnotationsValidator` コンポーネントを使用して検証エクスペリエンスのギャップを埋めるパッケージです。 パッケージは現在*試験段階*です。
+[Microsoft.AspNetCore.Blazor.DataAnnotations.Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation)は、`DataAnnotationsValidator` コンポーネントを使用して検証エクスペリエンスのギャップを埋めるパッケージです。 パッケージは現在*試験段階*です。
 
 ### <a name="compareproperty-attribute"></a>[CompareProperty] 属性
 
-<xref:System.ComponentModel.DataAnnotations.CompareAttribute> は、`DataAnnotationsValidator` コンポーネントでは適切に機能しません。 [BlazorAspNetCore です。DataAnnotations。検証](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation)の*実験的*なパッケージでは、これらの制限を回避する追加の検証属性 `ComparePropertyAttribute`が導入されています。 Blazor アプリでは、`[CompareProperty]` は `[Compare]` 属性の直接置換です。 詳細については、「 [OnValidSubmit EditForm (aspnet/AspNetCore #10643) によって無視される Compareattribute](https://github.com/aspnet/AspNetCore/issues/10643#issuecomment-543909748)」を参照してください。
+<xref:System.ComponentModel.DataAnnotations.CompareAttribute> は、`DataAnnotationsValidator` コンポーネントでは適切に機能しません。 [BlazorAspNetCore です。DataAnnotations。検証](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation)の*実験的*なパッケージでは、これらの制限を回避する追加の検証属性 `ComparePropertyAttribute`が導入されています。 Blazor アプリでは、`[CompareProperty]` は `[Compare]` 属性の直接置換です。 詳細については、「 [OnValidSubmit EditForm によって無視される Compareattribute (dotnet/AspNetCore #10643)](https://github.com/dotnet/AspNetCore/issues/10643#issuecomment-543909748)」を参照してください。
 
 ### <a name="nested-models-collection-types-and-complex-types"></a>入れ子になったモデル、コレクション型、および複合型
 

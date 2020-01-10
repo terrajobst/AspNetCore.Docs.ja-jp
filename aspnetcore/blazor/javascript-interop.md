@@ -9,12 +9,12 @@ ms.date: 12/05/2019
 no-loc:
 - Blazor
 uid: blazor/javascript-interop
-ms.openlocfilehash: 2350870f8548a9c8df324182883a105706c12c20
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: 7135e44278632ee53bdf899b95da9ad70d329045
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75355745"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75828127"
 ---
 # <a name="aspnet-core-opno-locblazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 相互運用機能
 
@@ -339,7 +339,7 @@ JS 相互運用コードは、NuGet パッケージ内のコードを共有で�
 
 ビルド済みの NuGet パッケージは、NuGet パッケージを参照するのと同じ方法で、アプリのプロジェクトファイルで参照されます。 パッケージが復元された後、アプリコードはと同じように JavaScript C#を呼び出すことができます。
 
-詳細については、「 <xref:blazor/class-libraries>」を参照してください。
+詳細については、「<xref:blazor/class-libraries>」を参照してください。
 
 ## <a name="harden-js-interop-calls"></a>JS 相互運用呼び出しの強化
 
@@ -363,4 +363,4 @@ JS 相互運用機能は、ネットワークエラーのために失敗する�
 
 ## <a name="additional-resources"></a>その他の技術情報
 
-* [InteropComponent の例 (aspnet/AspNetCore GitHub リポジトリ、3.0 リリースブランチ)](https://github.com/aspnet/AspNetCore/blob/release/3.0/src/Components/test/testassets/BasicTestApp/InteropComponent.razor)
+* [InteropComponent の例 (dotnet/AspNetCore GitHub リポジトリ、3.0 リリースブランチ)](https://github.com/dotnet/AspNetCore/blob/release/3.0/src/Components/test/testassets/BasicTestApp/InteropComponent.razor)

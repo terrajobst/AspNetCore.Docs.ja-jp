@@ -7,30 +7,30 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 11/08/2019
 uid: security/authentication/identity/spa
-ms.openlocfilehash: f58d92634ce1ef6110533d56c40b7520dda90514
-ms.sourcegitcommit: 4818385c3cfe0805e15138a2c1785b62deeaab90
+ms.openlocfilehash: 31a5e47d772e7416646c4d83c3209d7d2b254199
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/09/2019
-ms.locfileid: "73897050"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829167"
 ---
 # <a name="authentication-and-authorization-for-spas"></a>SPAs の認証と承認
 
-ASP.NET Core 3.0 以降では、API 承認のサポートを使用して、シングルページアプリ (spa) で認証を提供します。 ユーザーを認証および格納するための ASP.NET Core Id は、Open ID Connect を実装する[ために、ユーザーと組み合わせ](https://identityserver.io/)て使用されます。
+ASP.NET Core 3.0 以降では、API 承認のサポートを使用して、シングルページアプリ (spa) で認証を提供します。 ユーザーを認証および格納するための ASP.NET Core Id は、Open ID Connect を実装するために、ユーザーと [IdentityServer](https://identityserver.io/) を組み合わせて使用されます。
 
 **Angular** プロジェクトテンプレートと **React** プロジェクトテンプレートに、**Webアプリケーション(Model-View-Controller)** (MVC)と **Web アプリケーション**(Razor Pages)プロジェクトテンプレートの認証パラメータに似た認証パラメータが追加されました。 使用できるパラメータ値は、**None** および **Individual** です。 現時点では、 **React.js および Redux** プロジェクトテンプレートは認証パラメータをサポートしていません。
 
 ## <a name="create-an-app-with-api-authorization-support"></a>API authorization サポートを使用してアプリを作成する
 
-ユーザーの認証と承認は、Angular SPA と React SPA の両方で使用できます。 コマンドシェルを開き、次のコマンドを実行します。
+ユーザーの認証と承認は、両方の角度で使用でき、SPAs として対応します。 コマンド シェルを開き、次のコマンドを実行します。
 
-**Angular**:
+**角度**:
 
 ```dotnetcli
 dotnet new angular -o <output_directory_name> -au Individual
 ```
 
-**React**:
+**反応**:
 
 ```dotnetcli
 dotnet new react -o <output_directory_name> -au Individual
@@ -42,7 +42,7 @@ dotnet new react -o <output_directory_name> -au Individual
 
 次のセクションでは、認証のサポートが含まれている場合のプロジェクトへの追加について説明します。
 
-### <a name="startup-class"></a>Startup クラス
+### <a name="startup-class"></a>スタートアップ クラス
 
 `Startup` クラスには、次の追加機能があります。
 
@@ -95,7 +95,7 @@ dotnet new react -o <output_directory_name> -au Individual
 
 ### <a name="weatherforecastcontroller"></a>WeatherForecastController
 
-*Controllers\WeatherForecastController.cs*ファイルで、リソースにアクセスするための既定のポリシーに基づいてユーザーを承認する必要があることを示す `[Authorize]` 属性がクラスに適用されていることを確認します。 既定の承認ポリシーは、既定の認証スキームを使用するように構成されます。これは、前述のポリシースキームに `AddIdentityServerJwt` によって設定されます。このようなヘルパーメソッドによって構成された `JwtBearerHandler` は、要求の既定のハンドラーになります。アプリ。
+*Controllers\WeatherForecastController.cs*ファイルで、リソースにアクセスするための既定のポリシーに基づいてユーザーを承認する必要があることを示す `[Authorize]` 属性がクラスに適用されていることを確認します。 既定の承認ポリシーは、既定の認証スキームを使用するように構成されます。これは、前述のポリシースキームに `AddIdentityServerJwt` によって設定されます。このようなヘルパーメソッドによって構成された `JwtBearerHandler` は、アプリに対する要求の既定のハンドラーになります。
 
 ### <a name="applicationdbcontext"></a>ApplicationDbContext
 
@@ -109,7 +109,7 @@ dotnet new react -o <output_directory_name> -au Individual
 
 ### <a name="appsettingsjson"></a>appsettings.json
 
-プロジェクトルートの*appsettings.json*ファイルには、構成されたクライアントの一覧を説明する新しい `IdentityServer` セクションがあります。 次の例には、1つのクライアントがあります。 クライアント名はアプリケーション名に対応し、OAuth `ClientId` パラメーターに規約によってマップされます。 プロファイルは、構成されているアプリの種類を示します。 サーバーの構成プロセスを簡略化する規則を実現するために、内部的に使用されます。 「[アプリケーションプロファイル](#application-profiles)」セクションで説明されているように、使用可能なプロファイルがいくつかあります。
+プロジェクトルートの*appsettings*ファイルには、構成されたクライアントの一覧を説明する新しい `IdentityServer` セクションがあります。 次の例には、1つのクライアントがあります。 クライアント名はアプリケーション名に対応し、OAuth `ClientId` パラメーターに規約によってマップされます。 プロファイルは、構成されているアプリの種類を示します。 サーバーの構成プロセスを簡略化する規則を実現するために、内部的に使用されます。 「[アプリケーションプロファイル](#application-profiles)」セクションで説明されているように、使用可能なプロファイルがいくつかあります。
 
 ```json
 "IdentityServer": {
@@ -133,7 +133,7 @@ dotnet new react -o <output_directory_name> -au Individual
 }
 ```
 
-## <a name="general-description-of-the-angular-app"></a>Angular アプリの概要
+## <a name="general-description-of-the-angular-app"></a>角度アプリの一般的な説明
 
 Angular テンプレートでの認証と API 承認のサポートは、*ClientApp\src\api-authorization* ディレクトリの、独自の Angular モジュールに存在します。 モジュールは、次の要素で構成されています。
 
@@ -146,9 +146,9 @@ Angular テンプレートでの認証と API 承認のサポートは、*Client
 * ルートに追加することができ、ルートにアクセスする前にユーザーを認証する必要があるルートガード `AuthorizeGuard`。
 * ユーザーが認証されるときに、API を対象とする発信 HTTP 要求にアクセストークンを結び付ける HTTP インターセプター `AuthorizeInterceptor`。
 * 認証プロセスの下位レベルの詳細を処理し、認証されたユーザーに関する情報をアプリの残りの部分に公開するサービス `AuthorizeService`。
-* アプリの認証部分に関連付けられているルートを定義する Angular モジュール。 ログインメニューコンポーネント、インターセプター、ガード、およびアプリの残りの部分から使用するためのサービスを公開します。
+* アプリの認証部分に関連付けられているルートを定義する角度モジュール。 ログインメニューコンポーネント、インターセプター、ガード、およびアプリの残りの部分から使用するためのサービスを公開します。
 
-## <a name="general-description-of-the-react-app"></a>React アプリの概要
+## <a name="general-description-of-the-react-app"></a>反応アプリの一般的な説明
 
 応答テンプレートでの認証と API 承認のサポートは、 *ClientApp\src\components\api-authorization*ディレクトリにあります。 これは、次の要素で構成されています。
 
@@ -185,7 +185,7 @@ services.Configure<JwtBearerOptions>(
 
 API の JWT ハンドラーは、`JwtBearerEvents`を使用して認証プロセスを制御できるようにするイベントを発生させます。 API 認証のサポートを提供するために、`AddIdentityServerJwt` 独自のイベントハンドラーを登録します。
 
-イベントの処理をカスタマイズするには、必要に応じて追加のロジックを使用して既存のイベントハンドラーをラップします。 (例:
+イベントの処理をカスタマイズするには、必要に応じて追加のロジックを使用して既存のイベントハンドラーをラップします。 例:
 
 ```csharp
 services.Configure<JwtBearerOptions>(
@@ -207,9 +207,9 @@ services.Configure<JwtBearerOptions>(
 1. API 承認サポートによって提供される元の実装を呼び出します。
 1. 独自のカスタムロジックを実行します。
 
-## <a name="protect-a-client-side-route-angular"></a>クライアント側のルートを保護する (Angular)
+## <a name="protect-a-client-side-route-angular"></a>クライアント側のルートを保護する (角度)
 
-クライアント側ルートの保護は、ルートを構成するときに実行するガードのリストに承認ガードを追加することによって行われます。 例として、`fetch-data` ルートがメインアプリの Angular モジュール内でどのように構成されているかを確認できます。
+クライアント側ルートの保護は、ルートを構成するときに実行するガードのリストに承認ガードを追加することによって行われます。 例として、`fetch-data` ルートがメインアプリの角度モジュール内でどのように構成されているかを確認できます。
 
 ```typescript
 RouterModule.forRoot([
@@ -220,11 +220,11 @@ RouterModule.forRoot([
 
 ルートを保護しても実際のエンドポイントが保護されないことに注意してください (これには `[Authorize]` 属性が適用されている必要があります) が、ユーザーが認証されていないときに、特定のクライアント側ルートに移動できないようにすることをお勧めします。
 
-## <a name="authenticate-api-requests-angular"></a>API 要求の認証 (Angular)
+## <a name="authenticate-api-requests-angular"></a>API 要求の認証 (角度)
 
 アプリと共にホストされる Api に対する要求の認証は、アプリによって定義された HTTP クライアントインターセプターを使用することによって自動的に行われます。
 
-## <a name="protect-a-client-side-route-react"></a>クライアント側のルートを保護する (React)
+## <a name="protect-a-client-side-route-react"></a>クライアント側のルートを保護する (応答)
 
 プレーン `Route` コンポーネントの代わりに `AuthorizeRoute` コンポーネントを使用して、クライアント側のルートを保護します。 たとえば、`App` コンポーネント内で `fetch-data` ルートがどのように構成されているかに注目してください。
 
@@ -237,7 +237,7 @@ RouterModule.forRoot([
 * では、実際のエンドポイントは保護されません (`[Authorize]` 属性も適用する必要があります)。
 * は、ユーザーが認証されていないときに、特定のクライアント側ルートに移動できないようにします。
 
-## <a name="authenticate-api-requests-react"></a>API 要求の認証 (React)
+## <a name="authenticate-api-requests-react"></a>API 要求の認証 (応答)
 
 React を含む要求の認証は、最初に `AuthorizeService`から `authService` インスタンスをインポートすることによって行われます。 次に示すように、アクセストークンは `authService` から取得され、要求にアタッチされます。 コンポーネントの処理では、通常、この作業は `componentDidMount` ライフサイクルメソッドで実行されるか、一部のユーザー操作の結果として行われます。
 
@@ -247,7 +247,7 @@ React を含む要求の認証は、最初に `AuthorizeService`から `authServ
 import authService from './api-authorization/AuthorizeService'
 ```
 
-### <a name="retrieve-and-attach-the-access-token-to-the-response"></a>アクセストークンを取得して React にアタッチする
+### <a name="retrieve-and-attach-the-access-token-to-the-response"></a>アクセストークンを取得して応答にアタッチする
 
 ```javascript
 async populateWeatherData() {
@@ -260,7 +260,7 @@ async populateWeatherData() {
 }
 ```
 
-## <a name="deploy-to-production"></a>運用環境へのデプロイ
+## <a name="deploy-to-production"></a>運用環境に展開する
 
 アプリを運用環境にデプロイするには、次のリソースをプロビジョニングする必要があります。
 
@@ -301,7 +301,7 @@ Azure Websites にデプロイするには、「 [azure へのアプリのデプ
 
 API 承認のサポートは、一連の規則、既定値、および拡張機能を使用して、サーバー上に構築されます。これにより、SPAs のエクスペリエンスが簡単になります。 言うまでもありませんが、ASP.NET Core 統合によって実際のシナリオがカバーされていない場合は、サーバーの全機能をバックグラウンドで利用できます。 ASP.NET Core サポートは、すべてのアプリが組織によって作成および展開される "ファーストパーティ" アプリに重点を置いています。 そのため、同意やフェデレーションなどのサポートは提供されていません。 これらのシナリオでは、ユーザーを使用して、そのドキュメントに従ってください。
 
-### <a name="application-profiles"></a>アプリケーションプロファイル
+### <a name="application-profiles"></a>アプリケーション プロファイル
 
 アプリケーションプロファイルは、そのパラメーターをさらに定義するアプリの事前定義された構成です。 現時点では、次のプロファイルがサポートされています。
 

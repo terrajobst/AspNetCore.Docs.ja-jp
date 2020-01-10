@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/07/2019
 uid: security/data-protection/configuration/overview
-ms.openlocfilehash: cda510d0f8211641e3544b53ded79878d717cc58
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: c0846aca4bb663b1d562ab0c877fefba02da460f
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75358411"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829037"
 ---
 # <a name="configure-aspnet-core-data-protection"></a>ASP.NET Core データ保護の構成
 
@@ -389,7 +389,7 @@ services.AddDataProtection()
 
 ## <a name="persisting-keys-with-redis"></a>Redis でのキーの永続化
 
-キーを格納するには、 [Redis データの永続](/azure/azure-cache-for-redis/cache-how-to-premium-persistence)化をサポートする redis のバージョンのみを使用する必要があります。 [Azure Blob storage](/azure/storage/blobs/storage-blobs-introduction)は永続的で、キーを格納するために使用できます。 詳細については、次を参照してください。[この GitHub の問題](https://github.com/aspnet/AspNetCore/issues/13476)します。
+キーを格納するには、 [Redis データの永続](/azure/azure-cache-for-redis/cache-how-to-premium-persistence)化をサポートする redis のバージョンのみを使用する必要があります。 [Azure Blob storage](/azure/storage/blobs/storage-blobs-introduction)は永続的で、キーを格納するために使用できます。 詳細については、次を参照してください。[この GitHub の問題](https://github.com/dotnet/AspNetCore/issues/13476)します。
 
 ## <a name="additional-resources"></a>その他の技術情報
 

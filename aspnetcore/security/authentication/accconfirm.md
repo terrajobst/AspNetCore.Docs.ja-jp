@@ -5,12 +5,12 @@ description: 電子メールの確認とパスワードのリセットを使用�
 ms.author: riande
 ms.date: 03/11/2019
 uid: security/authentication/accconfirm
-ms.openlocfilehash: a4ecc2d91fb72915703dfaa146260f0c1360bded
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 49d3d214fd64edc5b17df2df929ddc3c2af47ede
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880768"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829271"
 ---
 # <a name="account-confirmation-and-password-recovery-in-aspnet-core"></a>ASP.NET Core でのアカウントの確認とパスワードの回復
 
@@ -32,7 +32,7 @@ ASP.NET Core 1.1 バージョンについては、[この PDF ファイル](http
 
 ::: moniker range="> aspnetcore-2.2"
 
-## <a name="prerequisites"></a>必要条件
+## <a name="prerequisites"></a>[前提条件]
 
 [.NET Core 3.0 SDK 以降](https://dotnet.microsoft.com/download/dotnet-core/3.0)
 
@@ -155,11 +155,11 @@ Web アプリを実行し、アカウントの確認とパスワードの回復�
 
 [!code-csharp[](accconfirm/sample/WebPWrecover30/StartupAllTokens.cs?name=snippet1&highlight=11-12)]
 
-組み込みの Id ユーザートークン (「 [AspNetCore/src/Identity/Extensions. Core/src/TokenOptions .cs](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs) 」を参照) には、 [1 日のタイムアウト](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs)があります。
+組み込みの Id ユーザートークン (「 [AspNetCore/src/Identity/Extensions. Core/src/TokenOptions .cs](https://github.com/dotnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs) 」を参照) には、 [1 日のタイムアウト](https://github.com/dotnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs)があります。
 
 ### <a name="change-the-email-token-lifespan"></a>電子メールトークンの有効期間を変更する
 
-[Id ユーザートークン](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs)の既定のトークン有効期間は[1 日](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs)です。 このセクションでは、電子メールトークンの有効期間を変更する方法について説明します。
+[Id ユーザートークン](https://github.com/dotnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs)の既定のトークン有効期間は[1 日](https://github.com/dotnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs)です。 このセクションでは、電子メールトークンの有効期間を変更する方法について説明します。
 
 カスタムの[DataProtectorTokenProvider\<TUser >](/dotnet/api/microsoft.aspnetcore.identity.dataprotectortokenprovider-1)と <xref:Microsoft.AspNetCore.Identity.DataProtectionTokenProviderOptions>を追加します。
 
@@ -171,7 +171,7 @@ Web アプリを実行し、アカウントの確認とパスワードの回復�
 
 ### <a name="resend-email-confirmation"></a>電子メールの再送信の確認
 
-[こちらの GitHub のイシュー](https://github.com/aspnet/AspNetCore/issues/5410)を参照してください。
+[こちらの GitHub のイシュー](https://github.com/dotnet/AspNetCore/issues/5410)を参照してください。
 
 <a name="debug"></a>
 
@@ -217,7 +217,7 @@ Web アプリを実行し、アカウントの確認とパスワードの回復�
 
 ::: moniker range="> aspnetcore-2.0 < aspnetcore-3.0"
 
-## <a name="prerequisites"></a>必要条件
+## <a name="prerequisites"></a>[前提条件]
 
 [.NET Core 2.2 SDK 以降](https://www.microsoft.com/net/download/all)
 
@@ -381,11 +381,11 @@ Web アプリを実行し、アカウントの確認とパスワードの回復�
 
 [!code-csharp[](accconfirm/sample/WebPWrecover22/StartupAllTokens.cs?name=snippet1&highlight=15-16)]
 
-組み込みの Id ユーザートークン (「 [AspNetCore/src/Identity/Extensions. Core/src/TokenOptions .cs](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs) 」を参照) には、 [1 日のタイムアウト](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs)があります。
+組み込みの Id ユーザートークン (「 [AspNetCore/src/Identity/Extensions. Core/src/TokenOptions .cs](https://github.com/dotnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs) 」を参照) には、 [1 日のタイムアウト](https://github.com/dotnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs)があります。
 
 ### <a name="change-the-email-token-lifespan"></a>電子メールトークンの有効期間を変更する
 
-[Id ユーザートークン](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs)の既定のトークン有効期間は[1 日](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs)です。 このセクションでは、電子メールトークンの有効期間を変更する方法について説明します。
+[Id ユーザートークン](https://github.com/dotnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs)の既定のトークン有効期間は[1 日](https://github.com/dotnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs)です。 このセクションでは、電子メールトークンの有効期間を変更する方法について説明します。
 
 カスタムの[DataProtectorTokenProvider\<TUser >](/dotnet/api/microsoft.aspnetcore.identity.dataprotectortokenprovider-1)と <xref:Microsoft.AspNetCore.Identity.DataProtectionTokenProviderOptions>を追加します。
 
@@ -397,7 +397,7 @@ Web アプリを実行し、アカウントの確認とパスワードの回復�
 
 ### <a name="resend-email-confirmation"></a>電子メールの再送信の確認
 
-[こちらの GitHub のイシュー](https://github.com/aspnet/AspNetCore/issues/5410)を参照してください。
+[こちらの GitHub のイシュー](https://github.com/dotnet/AspNetCore/issues/5410)を参照してください。
 
 <a name="debug"></a>
 

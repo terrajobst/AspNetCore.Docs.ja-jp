@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/05/2019
 uid: security/authorization/policies
-ms.openlocfilehash: e3929fb0f45d4ba28f46a6b42b653940de0badb0
-ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
+ms.openlocfilehash: eeb5ddd63ef8177325b35e5a666aa5e9ab047057
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/07/2019
-ms.locfileid: "73761041"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75828959"
 ---
 # <a name="policy-based-authorization-in-aspnet-core"></a>ASP.NET Core でのポリシーベースの承認
 
@@ -31,13 +31,13 @@ ms.locfileid: "73761041"
 
 [!code-csharp[](policies/samples/stubs/copy_of_IAuthorizationService.cs?highlight=24-25,48-49&name=snippet)]
 
-上記のコードは、 [IAuthorizationService](https://github.com/aspnet/AspNetCore/blob/v2.2.4/src/Security/Authorization/Core/src/IAuthorizationService.cs)の2つのメソッドを強調表示しています。
+上記のコードは、 [IAuthorizationService](https://github.com/dotnet/AspNetCore/blob/v2.2.4/src/Security/Authorization/Core/src/IAuthorizationService.cs)の2つのメソッドを強調表示しています。
 
 <xref:Microsoft.AspNetCore.Authorization.IAuthorizationRequirement> は、メソッドのないマーカーサービスと、承認が成功したかどうかを追跡するための機構です。
 
 各 <xref:Microsoft.AspNetCore.Authorization.IAuthorizationHandler> は、要件が満たされているかどうかを確認します。
 <!--The following code is a copy/paste from 
-https://github.com/aspnet/AspNetCore/blob/v2.2.4/src/Security/Authorization/Core/src/IAuthorizationHandler.cs -->
+https://github.com/dotnet/AspNetCore/blob/v2.2.4/src/Security/Authorization/Core/src/IAuthorizationHandler.cs -->
 
 ```csharp
 /// <summary>
@@ -111,19 +111,19 @@ public void ConfigureServices(IServiceCollection services)
 
 Razor Pages を使用している場合は、このドキュメントの「 [Razor Pages にポリシーを適用する](#applying-policies-to-razor-pages)」を参照してください。
 
-ポリシーは、ポリシー名と共に `[Authorize]` 属性を使用して、コントローラーに適用されます。 (例:
+ポリシーは、ポリシー名と共に `[Authorize]` 属性を使用して、コントローラーに適用されます。 例:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Controllers/AlcoholPurchaseController.cs?name=snippet_AlcoholPurchaseControllerClass&highlight=4)]
 
 ## <a name="applying-policies-to-razor-pages"></a>Razor Pages にポリシーを適用する
 
-ポリシーは、`[Authorize]` 属性をポリシー名と共に使用して、Razor Pages に適用されます。 (例:
+ポリシーは、`[Authorize]` 属性をポリシー名と共に使用して、Razor Pages に適用されます。 例:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp2/Pages/AlcoholPurchase.cshtml.cs?name=snippet_AlcoholPurchaseModelClass&highlight=4)]
 
 ポリシーは、[承認規則](xref:security/authorization/razor-pages-authorization)を使用して Razor Pages に適用することもできます。
 
-## <a name="requirements"></a>［要件］
+## <a name="requirements"></a>要件
 
 承認要件とは、ポリシーが現在のユーザープリンシパルを評価するために使用できるデータパラメーターのコレクションです。 "AtLeast21" ポリシーでは、最小有効期間を&mdash;1 つのパラメーターが必要です。 要件には、空のマーカーインターフェイスである[IAuthorizationRequirement](/dotnet/api/microsoft.aspnetcore.authorization.iauthorizationrequirement)が実装されています。 パラメーター化された最小年齢要件は、次のように実装できます。
 
@@ -164,7 +164,7 @@ Razor Pages を使用している場合は、このドキュメントの「 [Raz
 
 ### <a name="handler-registration"></a>ハンドラーの登録
 
-ハンドラーは、構成中にサービスコレクションに登録されます。 (例:
+ハンドラーは、構成中にサービスコレクションに登録されます。 例:
 
 [!code-csharp[](policies/samples/3.0PoliciesAuthApp1/Startup.cs?range=31-32,39-40,42-45, 53-55, 58)]
 
@@ -249,13 +249,13 @@ if (context.Resource is AuthorizationFilterContext mvcContext)
 
 [!code-csharp[](policies/samples/stubs/copy_of_IAuthorizationService.cs?highlight=24-25,48-49&name=snippet)]
 
-上記のコードは、 [IAuthorizationService](https://github.com/aspnet/AspNetCore/blob/v2.2.4/src/Security/Authorization/Core/src/IAuthorizationService.cs)の2つのメソッドを強調表示しています。
+上記のコードは、 [IAuthorizationService](https://github.com/dotnet/AspNetCore/blob/v2.2.4/src/Security/Authorization/Core/src/IAuthorizationService.cs)の2つのメソッドを強調表示しています。
 
 <xref:Microsoft.AspNetCore.Authorization.IAuthorizationRequirement> は、メソッドのないマーカーサービスと、承認が成功したかどうかを追跡するための機構です。
 
 各 <xref:Microsoft.AspNetCore.Authorization.IAuthorizationHandler> は、要件が満たされているかどうかを確認します。
 <!--The following code is a copy/paste from 
-https://github.com/aspnet/AspNetCore/blob/v2.2.4/src/Security/Authorization/Core/src/IAuthorizationHandler.cs -->
+https://github.com/dotnet/AspNetCore/blob/v2.2.4/src/Security/Authorization/Core/src/IAuthorizationHandler.cs -->
 
 ```csharp
 /// <summary>
@@ -328,19 +328,19 @@ public void ConfigureServices(IServiceCollection services)
 
 Razor Pages を使用している場合は、このドキュメントの「 [Razor Pages にポリシーを適用する](#applying-policies-to-razor-pages)」を参照してください。
 
-ポリシーは、ポリシー名と共に `[Authorize]` 属性を使用して、コントローラーに適用されます。 (例:
+ポリシーは、ポリシー名と共に `[Authorize]` 属性を使用して、コントローラーに適用されます。 例:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Controllers/AlcoholPurchaseController.cs?name=snippet_AlcoholPurchaseControllerClass&highlight=4)]
 
 ## <a name="applying-policies-to-razor-pages"></a>Razor Pages にポリシーを適用する
 
-ポリシーは、`[Authorize]` 属性をポリシー名と共に使用して、Razor Pages に適用されます。 (例:
+ポリシーは、`[Authorize]` 属性をポリシー名と共に使用して、Razor Pages に適用されます。 例:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp2/Pages/AlcoholPurchase.cshtml.cs?name=snippet_AlcoholPurchaseModelClass&highlight=4)]
 
 ポリシーは、[承認規則](xref:security/authorization/razor-pages-authorization)を使用して Razor Pages に適用することもできます。
 
-## <a name="requirements"></a>［要件］
+## <a name="requirements"></a>要件
 
 承認要件とは、ポリシーが現在のユーザープリンシパルを評価するために使用できるデータパラメーターのコレクションです。 "AtLeast21" ポリシーでは、最小有効期間を&mdash;1 つのパラメーターが必要です。 要件には、空のマーカーインターフェイスである[IAuthorizationRequirement](/dotnet/api/microsoft.aspnetcore.authorization.iauthorizationrequirement)が実装されています。 パラメーター化された最小年齢要件は、次のように実装できます。
 
@@ -381,7 +381,7 @@ Razor Pages を使用している場合は、このドキュメントの「 [Raz
 
 ### <a name="handler-registration"></a>ハンドラーの登録
 
-ハンドラーは、構成中にサービスコレクションに登録されます。 (例:
+ハンドラーは、構成中にサービスコレクションに登録されます。 例:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Startup.cs?range=32-33,48-53,61,62-63,66)]
 

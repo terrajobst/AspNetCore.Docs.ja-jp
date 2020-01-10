@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/14/2019
 uid: security/authorization/iauthorizationpolicyprovider
-ms.openlocfilehash: fe07a113a29ed3e14679e3f3f2249b0810c17593
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 9f0a0cd5337f7f8d2fc8a4b6902a63b98f6bd702
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880707"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75828985"
 ---
 # <a name="custom-authorization-policy-providers-using-iauthorizationpolicyprovider-in-aspnet-core"></a>ASP.NET Core で IAuthorizationPolicyProvider を使用するカスタム承認ポリシープロバイダー 
 
@@ -25,7 +25,7 @@ ms.locfileid: "74880707"
 * 多数のポリシー (部屋番号や年齢など) を使用しているため、`AuthorizationOptions.AddPolicy` 呼び出しを使用して個々の承認ポリシーを追加することは意味がありません。
 * 外部データソース (データベースなど) の情報に基づいて実行時にポリシーを作成するか、別のメカニズムを使用して承認要件を動的に決定します。
 
-[AspNetCore GitHub リポジトリ](https://github.com/aspnet/AspNetCore)から[サンプルコードを表示またはダウンロード](https://github.com/aspnet/AspNetCore/tree/release/2.2/src/Security/samples/CustomPolicyProvider)します。 Aspnet/AspNetCore リポジトリ ZIP ファイルをダウンロードします。 ファイルを解凍します。 *Src/Security/samples/CustomPolicyProvider*プロジェクトフォルダーに移動します。
+[AspNetCore GitHub リポジトリ](https://github.com/dotnet/AspNetCore)から[サンプルコードを表示またはダウンロード](https://github.com/dotnet/AspNetCore/tree/release/2.2/src/Security/samples/CustomPolicyProvider)します。 Dotnet/AspNetCore リポジトリ ZIP ファイルをダウンロードします。 ファイルを解凍します。 *Src/Security/samples/CustomPolicyProvider*プロジェクトフォルダーに移動します。
 
 ## <a name="customize-policy-retrieval"></a>ポリシーの取得のカスタマイズ
 
@@ -183,4 +183,4 @@ public Task<AuthorizationPolicy> GetFallbackPolicyAsync() =>
 services.AddSingleton<IAuthorizationPolicyProvider, MinimumAgePolicyProvider>();
 ```
 
-完全なカスタム `IAuthorizationPolicyProvider` サンプルについては、 [aspnet/AuthSamples GitHub リポジトリ](https://github.com/aspnet/AspNetCore/tree/release/2.2/src/Security/samples/CustomPolicyProvider)を参照してください。
+完全なカスタム `IAuthorizationPolicyProvider` サンプルについては、 [aspnet/AuthSamples GitHub リポジトリ](https://github.com/dotnet/AspNetCore/tree/release/2.2/src/Security/samples/CustomPolicyProvider)を参照してください。

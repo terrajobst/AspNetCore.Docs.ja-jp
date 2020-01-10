@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/20/2019
 uid: test/troubleshoot-azure-iis
-ms.openlocfilehash: 49a0f59fb6930235de10c726f3695f2a5352efb2
-ms.sourcegitcommit: 8157e5a351f49aeef3769f7d38b787b4386aad5f
+ms.openlocfilehash: b0f5d44f153a095a6108a12ee91f4cc46fe0a0de
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/20/2019
-ms.locfileid: "74251965"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829011"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service-and-iis"></a>Azure App Service および IIS での ASP.NET Core のトラブルシューティング
 
@@ -109,7 +109,7 @@ The Web server is configured to not list the contents of this directory.
 
 * [Microsoft サポート](https://support.microsoft.com/oas/default.aspx?prid=15832)に問い合わせます ( **[開発者ツール]** 、 **[ASP.NET Core]** の順に選択します)。
 * Stack Overflow について質問します。
-* [GitHub リポジトリ](https://github.com/aspnet/AspNetCore)で問題を報告します。
+* [GitHub リポジトリ](https://github.com/dotnet/AspNetCore)で問題を報告します。
 
 ### <a name="50030-in-process-startup-failure"></a>500.30 インプロセス起動エラー
 
@@ -240,7 +240,7 @@ Failed to start application '/LM/W3SVC/6/ROOT/', ErrorCode '0x800700c1'.
 1. **[問題の診断と解決]** を選択します。
 1. **[診断ツール]** という見出しを選択します。
 1. **[サポート ツール]** で **[アプリケーション イベント]** ボタンを選択します。
-1. *[Source]\(ソース\)* 列で、*IIS AspNetCoreModule* または **IIS AspNetCoreModule V2** によって提供された最新のエラーを調べます。
+1. **[Source]\(ソース\)** 列で、*IIS AspNetCoreModule* または *IIS AspNetCoreModule V2* によって提供された最新のエラーを調べます。
 
 **[問題の診断と解決]** ブレードを使う代わりに、[Kudu](https://github.com/projectkudu/kudu/wiki) を使ってアプリケーション イベント ログ ファイルを直接調べることもできます。
 
@@ -332,12 +332,12 @@ ASP.NET Core モジュールの stdout には、アプリケーション イベ�
 1. **stdoutLogEnabled** を `false` に設定します。
 1. **[保存]** を選んでファイルを保存します。
 
-詳細については、「 <xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>」を参照してください。
+詳細については、「<xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>」を参照してください。
 
 > [!WARNING]
 > stdout ログを無効にしないと、アプリまたはサーバーで障害が発生する可能性があります。 ログ ファイルのサイズまたは作成されるログ ファイルの数に制限はありません。 stdout ログは、アプリ起動時の問題のトラブルシューティングにのみ使ってください。
 >
-> 起動後の ASP.NET Core アプリでの一般的なログの場合は、ログ ファイルのサイズを制限し、ログをローテーションするログ ライブラリを使います。 詳しくは、「[サードパーティ製のログ プロバイダー](xref:fundamentals/logging/index#third-party-logging-providers)」をご覧ください。
+> 起動後の ASP.NET Core アプリでの一般的なログの場合は、ログ ファイルのサイズを制限し、ログをローテーションするログ ライブラリを使います。 詳細については、「[サードパーティ製のログ プロバイダー](xref:fundamentals/logging/index#third-party-logging-providers)」を参照してください。
 
 ::: moniker range=">= aspnetcore-2.2"
 
@@ -350,7 +350,7 @@ ASP.NET Core モジュール デバッグ ログでは、ASP.NET Core モジュ�
    * Kudu コンソールを利用し、「`<handlerSettings>`強化された診断ログ[」にある ](xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs) をライブ アプリの *web.config* ファイルに追加します。
      1. **[開発ツール]** 領域で **[高度なツール]** を開きます。 **[Go&rarr;]** ボタンを選びます。 新しいブラウザー タブまたはウィンドウで Kudu コンソールが開きます。
      1. ページの上部にあるナビゲーション バーを使って **[デバッグ コンソール]** を開き、 **[CMD]** を選びます。
-     1. パス **site** > **wwwroot** へのフォルダーを開きます。 鉛筆アイコンを選択し、*web.config* ファイルを編集します。 「`<handlerSettings>`強化された診断ログ[」にある ](xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs) セクションを追加します。 **[保存]** ボタンを選択します。
+     1. パス **site** > **wwwroot** へのフォルダーを開きます。 鉛筆アイコンを選択し、*web.config* ファイルを編集します。 「[強化された診断ログ](xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs)」にある `<handlerSettings>` セクションを追加します。 **[保存]** ボタンを選択します。
 1. **[開発ツール]** 領域で **[高度なツール]** を開きます。 **[Go&rarr;]** ボタンを選びます。 新しいブラウザー タブまたはウィンドウで Kudu コンソールが開きます。
 1. ページの上部にあるナビゲーション バーを使って **[デバッグ コンソール]** を開き、 **[CMD]** を選びます。
 1. パス **site** > **wwwroot** へのフォルダーを開きます。 *aspnetcore-debug.log* ファイルにパスを指定しなかった場合、ファイルが一覧に表示されます。 パスを指定した場合、ログ ファイルの場所に移動します。
@@ -360,15 +360,15 @@ ASP.NET Core モジュール デバッグ ログでは、ASP.NET Core モジュ�
 
 強化されたデバッグ ログを無効にするには、次のいずれかを実行します。
 
-* ローカルの `<handlerSettings>`web.config*ファイルから* を削除し、アプリを再デプロイします。
+* ローカルの *web.config* ファイルから `<handlerSettings>` を削除し、アプリを再デプロイします。
 * Kudu コンソールを使用して *web.config* ファイルを編集し、`<handlerSettings>` セクションを削除します。 ファイルを保存します。
 
-詳細については、「 <xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs>」を参照してください。
+詳細については、「<xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs>」を参照してください。
 
 > [!WARNING]
 > debug ログを無効にしないと、アプリまたはサーバーで障害が発生する可能性があります。 ログ ファイルのサイズに制限はありません。 debug ログは、アプリ起動時の問題のトラブルシューティングにのみ使ってください。
 >
-> 起動後の ASP.NET Core アプリでの一般的なログの場合は、ログ ファイルのサイズを制限し、ログをローテーションするログ ライブラリを使います。 詳しくは、「[サードパーティ製のログ プロバイダー](xref:fundamentals/logging/index#third-party-logging-providers)」をご覧ください。
+> 起動後の ASP.NET Core アプリでの一般的なログの場合は、ログ ファイルのサイズを制限し、ログをローテーションするログ ライブラリを使います。 詳細については、「[サードパーティ製のログ プロバイダー](xref:fundamentals/logging/index#third-party-logging-providers)」を参照してください。
 
 ::: moniker-end
 
@@ -425,7 +425,7 @@ stdout ログが有効になっていない場合は、次の手順のように�
 > [!WARNING]
 > stdout ログを無効にしないと、アプリまたはサーバーで障害が発生する可能性があります。 ログ ファイルのサイズまたは作成されるログ ファイルの数に制限はありません。
 >
-> ASP.NET Core アプリでのルーチン ログの場合は、ログ ファイルのサイズを制限し、ログをローテーションするログ ライブラリを使います。 詳しくは、「[サードパーティ製のログ プロバイダー](xref:fundamentals/logging/index#third-party-logging-providers)」をご覧ください。
+> ASP.NET Core アプリでのルーチン ログの場合は、ログ ファイルのサイズを制限し、ログをローテーションするログ ライブラリを使います。 詳細については、「[サードパーティ製のログ プロバイダー](xref:fundamentals/logging/index#third-party-logging-providers)」を参照してください。
 
 ## <a name="troubleshoot-on-iis"></a>IIS でのトラブルシューティング
 
@@ -446,7 +446,7 @@ stdout ログが有効になっていない場合は、次の手順のように�
 
 アプリが[フレームワークに依存する展開](/dotnet/core/deploying/#framework-dependent-deployments-fdd)の場合:
 
-1. コマンド プロンプトで展開フォルダーに移動し、*dotnet.exe* 使用してアプリのアセンブリを実行して、アプリを実行します。 コマンド \< の `dotnet .\<assembly_name>.dll`assembly_name> にアプリのアセンブリの名前を指定して実行します。
+1. コマンド プロンプトで展開フォルダーに移動し、*dotnet.exe* 使用してアプリのアセンブリを実行して、アプリを実行します。 コマンド `dotnet .\<assembly_name>.dll` の \<assembly_name> にアプリのアセンブリの名前を指定して実行します。
 1. エラーを示すアプリからのコンソール出力は、すべてコンソール ウィンドウに書き込まれます。
 1. アプリへの要求時にエラーが発生した場合は、Kestrel がリッスンしているホストとポートに要求が送信されます。 既定のホストと post を使用して `http://localhost:5000/` に要求を行います。 アプリが Kestrel のエンドポイント アドレスで正常に応答する場合、問題はホスティングの構成に関連している可能性が高く、アプリ内が原因の可能性は低くなります。
 
@@ -454,7 +454,7 @@ stdout ログが有効になっていない場合は、次の手順のように�
 
 アプリが[自己完結型の展開](/dotnet/core/deploying/#self-contained-deployments-scd)の場合:
 
-1. コマンド プロンプトで、展開フォルダーに移動し、アプリの実行可能ファイルを実行します。 コマンド \< の `<assembly_name>.exe`assembly_name> にアプリのアセンブリの名前を指定して実行します。
+1. コマンド プロンプトで、展開フォルダーに移動し、アプリの実行可能ファイルを実行します。 コマンド `<assembly_name>.exe` の \<assembly_name> にアプリのアセンブリの名前を指定して実行します。
 1. エラーを示すアプリからのコンソール出力は、すべてコンソール ウィンドウに書き込まれます。
 1. アプリへの要求時にエラーが発生した場合は、Kestrel がリッスンしているホストとポートに要求が送信されます。 既定のホストと post を使用して `http://localhost:5000/` に要求を行います。 アプリが Kestrel のエンドポイント アドレスで正常に応答する場合、問題はホスティングの構成に関連している可能性が高く、アプリ内が原因の可能性は低くなります。
 
@@ -477,12 +477,12 @@ stdout ログを有効にして表示するには:
 1. **stdoutLogEnabled** を `false` に設定します。
 1. ファイルを保存します。
 
-詳細については、「 <xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>」を参照してください。
+詳細については、「<xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>」を参照してください。
 
 > [!WARNING]
 > stdout ログを無効にしないと、アプリまたはサーバーで障害が発生する可能性があります。 ログ ファイルのサイズまたは作成されるログ ファイルの数に制限はありません。
 >
-> ASP.NET Core アプリでのルーチン ログの場合は、ログ ファイルのサイズを制限し、ログをローテーションするログ ライブラリを使います。 詳しくは、「[サードパーティ製のログ プロバイダー](xref:fundamentals/logging/index#third-party-logging-providers)」をご覧ください。
+> ASP.NET Core アプリでのルーチン ログの場合は、ログ ファイルのサイズを制限し、ログをローテーションするログ ライブラリを使います。 詳細については、「[サードパーティ製のログ プロバイダー](xref:fundamentals/logging/index#third-party-logging-providers)」を参照してください。
 
 ::: moniker range=">= aspnetcore-2.2"
 
@@ -501,13 +501,13 @@ stdout ログを有効にして表示するには:
 
 ログに指定されたパスが存在することと、アプリ プールの ID にその場所への書き込みアクセス許可があることを確認します。
 
-詳細については、「 <xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs>」を参照してください。
+詳細については、「<xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs>」を参照してください。
 
 ::: moniker-end
 
 ### <a name="enable-the-developer-exception-page"></a>開発者例外ページを有効にする
 
-開発環境でアプリを実行するには、`ASPNETCORE_ENVIRONMENT` [環境変数を web.config](xref:host-and-deploy/aspnet-core-module#setting-environment-variables) に追加することができます。 アプリの起動時にホスト ビルダー上で `UseEnvironment` によって環境がオーバーライドされない限り、環境変数を設定すると、アプリの実行時に[開発者例外ページ](xref:fundamentals/error-handling)が表示されます。
+`ASPNETCORE_ENVIRONMENT`[環境変数を web.config に追加](xref:host-and-deploy/aspnet-core-module#setting-environment-variables)して、開発環境でアプリを実行できます。 アプリの起動時にホスト ビルダー上で `UseEnvironment` によって環境がオーバーライドされない限り、環境変数を設定すると、アプリの実行時に[開発者例外ページ](xref:fundamentals/error-handling)が表示されます。
 
 ::: moniker range=">= aspnetcore-2.2"
 
@@ -607,14 +607,14 @@ stdout ログを有効にして表示するには:
 1. プロジェクトを復元してリビルドします。
 1. アプリケーションを再展開する前に、サーバー上の展開フォルダーにあるすべてのファイルを削除します。
 
-## <a name="additional-resources"></a>その他のリソース
+## <a name="additional-resources"></a>その他の技術情報
 
 * <xref:test/troubleshoot>
 * <xref:host-and-deploy/azure-iis-errors-reference>
 * <xref:fundamentals/error-handling>
 * <xref:host-and-deploy/aspnet-core-module>
 
-### <a name="azure-documentation"></a>Azure のドキュメント
+### <a name="azure-documentation"></a>Azure ドキュメント
 
 * [ASP.NET Core 用 Application Insights](/azure/application-insights/app-insights-asp-net-core)
 * [「Visual Studio を使用した Azure App Service での web アプリのトラブルシューティング」の「web アプリのリモートデバッグ」セクション](/azure/app-service/web-sites-dotnet-troubleshoot-visual-studio#remotedebug)

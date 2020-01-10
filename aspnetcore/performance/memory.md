@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: performance/memory
-ms.openlocfilehash: dfc789d080beec09a4f0eb34c3809b9f2df0d4b5
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: 0ae367e954e21e2f696a3b292fa64f1d2dba98ec
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75357279"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829024"
 ---
 # <a name="memory-management-and-garbage-collection-gc-in-aspnet-core"></a>ASP.NET Core のメモリ管理とガベージコレクション (GC)
 
@@ -139,7 +139,7 @@ GC モードは、プロジェクトファイルまたは発行されたアプ�
 
 プロジェクトファイルの `ServerGarbageCollection` を変更するには、アプリを再構築する必要があります。
 
-**注:** サーバーのガベージコレクションは、コアが1つのマシンでは使用でき**ません**。 詳細については、「 <xref:System.Runtime.GCSettings.IsServerGC>」を参照してください。
+**注:** サーバーのガベージコレクションは、コアが1つのマシンでは使用でき**ません**。 詳細については、「<xref:System.Runtime.GCSettings.IsServerGC>」を参照してください。
 
 次の図は、ワークステーション GC を使用した 5K RPS のメモリプロファイルを示しています。
 
@@ -209,7 +209,7 @@ public void GetFileProvider()
 
 ![前のグラフ](memory/_static/fileprovider.png)
 
-前のグラフは、このクラスの実装に関する明らかな問題を示しています。これは、メモリ使用量が増加し続けるためです。 これは、[この問題](https://github.com/aspnet/Home/issues/3110)で追跡されている既知の問題です。
+前のグラフは、このクラスの実装に関する明らかな問題を示しています。これは、メモリ使用量が増加し続けるためです。 これは、[この問題](https://github.com/dotnet/aspnetcore/issues/3110)で追跡されている既知の問題です。
 
 次のいずれかの方法で、ユーザーコードで同じリークが発生する可能性があります。
 
@@ -271,8 +271,9 @@ public int GetLOH1(int size)
 最大のパフォーマンスを向上させるには、大きなオブジェクトの使用を最小限にする必要があります。 可能であれば、大きなオブジェクトを分割します。 たとえば、ASP.NET Core の[応答キャッシュ](xref:performance/caching/response)ミドルウェアでは、キャッシュエントリが85000バイト未満のブロックに分割されます。
 
 次のリンクでは、オブジェクトを LOH の制限下に維持するための ASP.NET Core アプローチについて説明します。
-- [ResponseCaching/Streams/StreamUtilities .cs](https://github.com/aspnet/AspNetCore/blob/v3.0.0/src/Middleware/ResponseCaching/src/Streams/StreamUtilities.cs#L16)
-- [ResponseCaching/MemoryResponseCache](https://github.com/aspnet/ResponseCaching/blob/c1cb7576a0b86e32aec990c22df29c780af29ca5/src/Microsoft.AspNetCore.ResponseCaching/Internal/MemoryResponseCache.cs#L55)
+
+* [ResponseCaching/Streams/StreamUtilities .cs](https://github.com/dotnet/AspNetCore/blob/v3.0.0/src/Middleware/ResponseCaching/src/Streams/StreamUtilities.cs#L16)
+* [ResponseCaching/MemoryResponseCache](https://github.com/aspnet/ResponseCaching/blob/c1cb7576a0b86e32aec990c22df29c780af29ca5/src/Microsoft.AspNetCore.ResponseCaching/Internal/MemoryResponseCache.cs#L55)
 
 詳細については、次のトピックを参照してください。
 

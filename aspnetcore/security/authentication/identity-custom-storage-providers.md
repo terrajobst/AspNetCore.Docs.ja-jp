@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/23/2019
 uid: security/authentication/identity-custom-storage-providers
-ms.openlocfilehash: 6d0d9b5467d9d27b936a17fa86f73e7d8123b75b
-ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
+ms.openlocfilehash: 70951085474d88fd57f1b1496a41adcda520b91f
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/07/2019
-ms.locfileid: "73760972"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829154"
 ---
 # <a name="custom-storage-providers-for-aspnet-core-identity"></a>ASP.NET Core Id のカスタムストレージプロバイダー
 
@@ -19,11 +19,11 @@ ms.locfileid: "73760972"
 
 ASP.NET Core Id は拡張可能なシステムであり、カスタム記憶域プロバイダーを作成してアプリに接続することができます。 このトピックでは、ASP.NET Core Id 用にカスタマイズされた記憶域プロバイダーを作成する方法について説明します。 この記事では、独自の記憶域プロバイダーを作成するための重要な概念について説明しますが、詳細な手順については説明しません。
 
-[GitHub のサンプルを表示またはダウンロードする](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity/sample)
+[GitHub のサンプルを表示またはダウンロードしてください](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity/sample)。
 
-## <a name="introduction"></a>概要
+## <a name="introduction"></a>はじめに
 
-既定では、ASP.NET Core Id システムは Entity Framework Core を使用して SQL Server データベースにユーザー情報を格納します。 多くのアプリでは、この方法が適しています。 ただし、別の永続化メカニズムまたはデータスキーマを使用することをお勧めします。 (例:
+既定では、ASP.NET Core Id システムは Entity Framework Core を使用して SQL Server データベースにユーザー情報を格納します。 多くのアプリでは、この方法が適しています。 ただし、別の永続化メカニズムまたはデータスキーマを使用することをお勧めします。 例:
 
 * [Azure Table Storage](/azure/storage/)または別のデータストアを使用します。
 * データベーステーブルの構造が異なります。 
@@ -57,7 +57,7 @@ ASP.NET Core Id は、マネージャーとストアと呼ばれるクラスで�
 
 [ASP.NET Core id](https://github.com/aspnet/identity)データ型の詳細については、次のセクションで説明します。
 
-### <a name="users"></a>Users
+### <a name="users"></a>ユーザー
 
 Web サイトの登録済みユーザー。 [ユーザー](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuser)の種類は、独自のカスタム型の例として拡張または使用できます。 独自のカスタム id ストレージソリューションを実装するために、特定の型から継承する必要はありません。
 
@@ -69,7 +69,7 @@ Web サイトの登録済みユーザー。 [ユーザー](/dotnet/api/microsoft
 
 ユーザーのログイン時に使用する外部認証プロバイダー (Facebook や Microsoft アカウントなど) に関する情報。 [例](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuserlogin)
 
-### <a name="roles"></a>役割
+### <a name="roles"></a>ロール
 
 サイトの承認グループ。 ロール Id とロール名 ("Admin" や "Employee" など) が含まれます。 [例](/dotnet/api/microsoft.aspnet.identity.corecompat.identityrole)
 
@@ -169,7 +169,7 @@ Web サイトの登録済みユーザー。 [ユーザー](/dotnet/api/microsoft
 * **IQueryableUserStore**  
  [Iqueryableuserstore&lt;TUser&gt;](/dotnet/api/microsoft.aspnetcore.identity.iqueryableuserstore-1)インターフェイスは、クエリ可能なユーザーストアを提供するために実装するメンバーを定義します。
 
-アプリケーションで必要なインターフェイスだけを実装します。 (例:
+アプリケーションで必要なインターフェイスだけを実装します。 例:
 
 ```csharp
 public class UserStore : IUserStore<IdentityUser>,
@@ -185,7 +185,7 @@ public class UserStore : IUserStore<IdentityUser>,
 
 ### <a name="identityuserclaim-identityuserlogin-and-identityuserrole"></a>ユーザー Id、ユーザー名、およびユーザー名
 
-`Microsoft.AspNet.Identity.EntityFramework` 名前空間に[は、ユーザー](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserclaim-1) [id](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuserlogin)クラスの実装が含ま[れてい](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserrole-1)ます。 これらの機能を使用している場合は、これらのクラスの独自のバージョンを作成し、アプリのプロパティを定義することができます。 ただし、基本操作 (ユーザーの要求の追加や削除など) を実行するときに、これらのエンティティをメモリに読み込まない方が効率的な場合もあります。 代わりに、バックエンドストアクラスは、データソースでこれらの操作を直接実行できます。 たとえば、`UserStore.GetClaimsAsync` メソッドは、`userClaimTable.FindByUserId(user.Id)` メソッドを呼び出して、そのテーブルに対してクエリを直接実行し、クレームの一覧を返すことができます。
+名前`Microsoft.AspNet.Identity.EntityFramework`空間には、ユーザー [IdentityUserClaim](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserclaim-1) [IdentityUserLogin](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuserlogin)[IdentityUserRole](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserrole-1)クラスの実装が含まれています。 これらの機能を使用している場合は、これらのクラスの独自のバージョンを作成し、アプリのプロパティを定義することができます。 ただし、基本操作 (ユーザーの要求の追加や削除など) を実行するときに、これらのエンティティをメモリに読み込まない方が効率的な場合もあります。 代わりに、バックエンドストアクラスは、データソースでこれらの操作を直接実行できます。 たとえば、`UserStore.GetClaimsAsync` メソッドは、`userClaimTable.FindByUserId(user.Id)` メソッドを呼び出して、そのテーブルに対してクエリを直接実行し、クレームの一覧を返すことができます。
 
 ## <a name="customize-the-role-class"></a>ロールクラスをカスタマイズする
 
@@ -235,7 +235,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-## <a name="references"></a>関連項目
+## <a name="references"></a>参照
 
 * [ASP.NET 4.x Id 用のカスタムストレージプロバイダー](/aspnet/identity/overview/extensibility/overview-of-custom-storage-providers-for-aspnet-identity)
-* [ASP.NET Core id](https://github.com/aspnet/AspNetCore/tree/master/src/Identity) &ndash; このリポジトリには、コミュニティによって管理されるストアプロバイダーへのリンクが含まれています。
+* [ASP.NET Core id](https://github.com/dotnet/AspNetCore/tree/master/src/Identity) &ndash; このリポジトリには、コミュニティによって管理されるストアプロバイダーへのリンクが含まれています。

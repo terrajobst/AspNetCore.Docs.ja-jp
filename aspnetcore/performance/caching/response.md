@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 11/04/2019
 uid: performance/caching/response
-ms.openlocfilehash: a456e97053fea7c9ee9ec634ae9b7bbd52febe7f
-ms.sourcegitcommit: 09f4a5ded39cc8204576fe801d760bd8b611f3aa
+ms.openlocfilehash: 9246305e6979a6a7e006f567ee6bf9569029aef1
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/05/2019
-ms.locfileid: "73611469"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75828309"
 ---
 # <a name="response-caching-in-aspnet-core"></a>ASP.NET Core での応答のキャッシュ
 
@@ -29,32 +29,32 @@ HTTP 1.1 キャッシュ仕様に従ったサーバー側キャッシュの場�
 
 [HTTP 1.1 キャッシュ仕様](https://tools.ietf.org/html/rfc7234)では、インターネットキャッシュの動作方法について説明します。 キャッシュに使用されるプライマリ HTTP ヘッダーは[cache-control](https://tools.ietf.org/html/rfc7234#section-5.2)で、キャッシュ*ディレクティブ*を指定するために使用されます。 ディレクティブは、要求に応じてキャッシュ動作を制御し、応答としてサーバーからクライアントへの応答を行います。 要求と応答はプロキシサーバーを経由して移動し、プロキシサーバーも HTTP 1.1 キャッシュ仕様に準拠している必要があります。
 
-次の表に、一般的な `Cache-Control` ディレクティブを示します。
+共通 `Cache-Control` ディレクティブを次の表に示します。
 
-| ディレクティブ                                                       | 操作 |
+| Directive                                                       | 動作 |
 | --------------------------------------------------------------- | ------ |
 | [public](https://tools.ietf.org/html/rfc7234#section-5.2.2.5)   | キャッシュは応答を格納できます。 |
 | [private](https://tools.ietf.org/html/rfc7234#section-5.2.2.6)  | 応答は、共有キャッシュによって格納されていない必要があります。 プライベートキャッシュは、応答を格納して再利用できます。 |
-| [最長有効期間](https://tools.ietf.org/html/rfc7234#section-5.2.1.1)  | クライアントは、指定された秒数よりも有効期間が長い応答を受け入れません。 例: `max-age=60` (60 秒)、`max-age=2592000` (1 か月) |
-| [キャッシュなし](https://tools.ietf.org/html/rfc7234#section-5.2.1.4) | **要求時**: キャッシュは、要求を満たすために格納された応答を使用することはできません。 配信元サーバーはクライアントの応答を再生成し、ミドルウェアはキャッシュに格納されている応答を更新します。<br><br>**応答時**: 配信元サーバーで検証を行わずに、後続の要求に応答を使用することはできません。 |
-| [ストアなし](https://tools.ietf.org/html/rfc7234#section-5.2.1.5) | **要求時**: キャッシュは要求を格納できません。<br><br>**応答**の場合: キャッシュは、応答の一部を格納することはできません。 |
+| [max-age](https://tools.ietf.org/html/rfc7234#section-5.2.1.1)  | クライアントは、指定された秒数よりも有効期間が長い応答を受け入れません。 例: `max-age=60` (60 秒)、`max-age=2592000` (1 か月) |
+| [no-cache](https://tools.ietf.org/html/rfc7234#section-5.2.1.4) | **要求時**: キャッシュは、要求を満たすために格納された応答を使用することはできません。 配信元サーバーはクライアントの応答を再生成し、ミドルウェアはキャッシュに格納されている応答を更新します。<br><br>**応答時**: 配信元サーバーで検証を行わずに、後続の要求に応答を使用することはできません。 |
+| [no-store](https://tools.ietf.org/html/rfc7234#section-5.2.1.5) | **要求時**: キャッシュは要求を格納できません。<br><br>**応答**の場合: キャッシュは、応答の一部を格納することはできません。 |
 
 キャッシュでロールを果たすその他のキャッシュヘッダーを次の表に示します。
 
-| Header                                                     | 機能 |
+| Header                                                     | 関数 |
 | ---------------------------------------------------------- | -------- |
-| [変更](https://tools.ietf.org/html/rfc7234#section-5.1)     | 配信元サーバーで応答が生成または正常に検証されてからの、秒単位の推定時間。 |
+| [Age](https://tools.ietf.org/html/rfc7234#section-5.1)     | 配信元サーバーで応答が生成または正常に検証されてからの、秒単位の推定時間。 |
 | [経過](https://tools.ietf.org/html/rfc7234#section-5.3) | 応答が古くなったと見なされるまでの時間。 |
 | [Unmanaged](https://tools.ietf.org/html/rfc7234#section-5.4)  | `no-cache` の動作を設定するために HTTP/1.0 キャッシュとの下位互換性を維持するために存在します。 `Cache-Control` ヘッダーが存在する場合、`Pragma` ヘッダーは無視されます。 |
-| [要因](https://tools.ietf.org/html/rfc7231#section-7.1.4)  | キャッシュされた応答の元の要求と新しい要求の両方ですべての `Vary` ヘッダーフィールドが一致しない限り、キャッシュされた応答を送信しないように指定します。 |
+| [要因](https://tools.ietf.org/html/rfc7231#section-7.1.4)  | キャッシュされた応答の元の要求と新しい要求の両方ですべての `Vary` ヘッダーフィールドが一致する場合を除き、キャッシュされた応答を送信しないように指定します。 |
 
 ## <a name="http-based-caching-respects-request-cache-control-directives"></a>HTTP ベースのキャッシュは、要求のキャッシュ制御ディレクティブを尊重します。
 
-[Cache-control ヘッダーの HTTP 1.1 キャッシュ仕様](https://tools.ietf.org/html/rfc7234#section-5.2)では、クライアントから送信された有効な `Cache-Control` ヘッダーを優先するキャッシュが必要です。 クライアントは、`no-cache` ヘッダー値を使用して要求を行い、すべての要求に対して新しい応答をサーバーに強制的に生成できます。
+[Cache-control ヘッダーの HTTP 1.1 キャッシュ仕様](https://tools.ietf.org/html/rfc7234#section-5.2)では、クライアントから送信された有効な `Cache-Control` ヘッダーを受け入れるためにキャッシュが必要です。 クライアントは、`no-cache` ヘッダー値を使用して要求を行い、すべての要求に対して新しい応答をサーバーに強制的に生成できます。
 
-HTTP キャッシュの目的を検討している場合は、常にクライアントの `Cache-Control` 要求ヘッダーを使用することをお勧めします。 公式仕様では、キャッシュは、クライアント、プロキシ、およびサーバーのネットワーク経由で要求を満たすことの待機時間とネットワークオーバーヘッドを削減することを目的としています。 配信元サーバーの負荷を制御する方法であるとは限りません。
+HTTP キャッシュの目的を検討している場合、クライアント `Cache-Control` 要求ヘッダーを常に認識することは理にかなっています。 公式仕様では、キャッシュは、クライアント、プロキシ、およびサーバーのネットワーク経由で要求を満たすことの待機時間とネットワークオーバーヘッドを削減することを目的としています。 配信元サーバーの負荷を制御する方法であるとは限りません。
 
-ミドルウェアが公式のキャッシュ仕様に準拠しているため、[応答キャッシュミドルウェア](xref:performance/caching/middleware)を使用する場合、開発者はこのキャッシュ動作を制御することはできません。 ミドルウェアの計画された[拡張機能](https://github.com/aspnet/AspNetCore/issues/2612)は、キャッシュされた応答の提供を決定するときに、要求の `Cache-Control` ヘッダーを無視するようにミドルウェアを構成する機会です。 計画された拡張機能により、サーバーの負荷をより適切に制御できるようになります。
+ミドルウェアが公式のキャッシュ仕様に準拠しているため、[応答キャッシュミドルウェア](xref:performance/caching/middleware)を使用する場合、開発者はこのキャッシュ動作を制御することはできません。 ミドルウェアの計画された[拡張機能](https://github.com/dotnet/AspNetCore/issues/2612)は、キャッシュされた応答を提供するかを決定するときに、要求の `Cache-Control` ヘッダーを無視するようにミドルウェアを構成する機会です。 計画された拡張機能により、サーバーの負荷をより適切に制御できるようになります。
 
 ## <a name="other-caching-technology-in-aspnet-core"></a>ASP.NET Core のその他のキャッシュテクノロジ
 
@@ -89,7 +89,7 @@ HTTP キャッシュの目的を検討している場合は、常にクライア
 > [!WARNING]
 > 認証されたクライアントの情報が含まれているコンテンツのキャッシュを無効にします。 キャッシュは、ユーザーの id またはユーザーがサインインしているかどうかによって変更されないコンテンツに対してのみ有効にする必要があります。
 
-<xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByQueryKeys> は、指定されたクエリキーのリストの値によって、格納されている応答を変化させることができます。 `*` の1つの値を指定すると、ミドルウェアはすべての要求クエリ文字列パラメーターによって応答を変化させることができます。
+<xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByQueryKeys> は、指定されたクエリキーの一覧の値によって、格納されている応答を変化させることができます。 `*` の1つの値を指定すると、ミドルウェアはすべての要求クエリ文字列パラメーターによって応答を変化させることができます。
 
 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByQueryKeys> プロパティを設定するには、[応答キャッシュミドルウェア](xref:performance/caching/middleware)を有効にする必要があります。 それ以外の場合は、ランタイム例外がスローされます。 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByQueryKeys> プロパティに対応する HTTP ヘッダーがありません。 プロパティは、応答キャッシュミドルウェアによって処理される HTTP 機能です。 ミドルウェアがキャッシュされた応答を提供するには、クエリ文字列とクエリ文字列の値が以前の要求と一致している必要があります。 たとえば、次の表に示すような一連の要求と結果を考えてみましょう。
 
@@ -122,7 +122,7 @@ Vary: User-Agent
 
 ### <a name="nostore-and-locationnone"></a>NoStore と Location。なし
 
-<xref:Microsoft.AspNetCore.Mvc.CacheProfile.NoStore> は、他のほとんどのプロパティをオーバーライドします。 このプロパティが `true` に設定されている場合、`Cache-Control` ヘッダーは `no-store` に設定されます。 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> が `None`に設定されている場合:
+他のプロパティの大部分は、<xref:Microsoft.AspNetCore.Mvc.CacheProfile.NoStore> によってオーバーライドされます。 このプロパティが `true`に設定されている場合、`Cache-Control` ヘッダーは `no-store`に設定されます。 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> が `None`に設定されている場合:
 
 * `Cache-Control` が `no-store,no-cache` に設定されます。
 * `Pragma` が `no-cache` に設定されます。
@@ -152,7 +152,7 @@ Pragma: no-cache
 
 キャッシュ制御ヘッダーは、応答をキャッシュするタイミングと方法について、クライアントと仲介プロキシに関するガイダンスを提供するだけです。 クライアントとプロキシが[HTTP 1.1 のキャッシュ仕様](https://tools.ietf.org/html/rfc7234)に従うという保証はありません。 [応答キャッシュミドルウェア](xref:performance/caching/middleware)は、常に仕様によって配置されたキャッシュ規則に従います。
 
-次の例では、サンプルアプリの Cache3 ページモデルと、<xref:Microsoft.AspNetCore.Mvc.CacheProfile.Duration> を設定して生成されたヘッダーを示し、既定の <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> 値をそのまま使用します。
+次の例では、サンプルアプリの Cache3 ページモデルと、<xref:Microsoft.AspNetCore.Mvc.CacheProfile.Duration> を設定し、既定の <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> 値をそのまま使用して生成されたヘッダーを示します。
 
 [!code-csharp[](response/samples/2.x/ResponseCacheSample/Pages/Cache3.cshtml.cs?name=snippet)]
 
@@ -164,7 +164,7 @@ Cache-Control: public,max-age=10
 
 ### <a name="cache-profiles"></a>キャッシュプロファイル
 
-多くのコントローラーアクション属性に対して応答キャッシュ設定を複製するのではなく、`Startup.ConfigureServices` で MVC/Razor Pages を設定するときに、キャッシュプロファイルをオプションとして構成できます。 参照されるキャッシュプロファイルで見つかった値は、<xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute> によって既定値として使用され、属性で指定されたプロパティによって上書きされます。
+多くのコントローラーアクション属性に対して応答キャッシュ設定を複製するのではなく、`Startup.ConfigureServices`で MVC/Razor Pages を設定するときに、キャッシュプロファイルをオプションとして構成できます。 参照キャッシュプロファイルで見つかった値は、<xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute> によって既定値として使用され、属性で指定されたプロパティによって上書きされます。
 
 キャッシュプロファイルを設定します。 次の例は、サンプルアプリの `Startup.ConfigureServices`における30秒のキャッシュプロファイルを示しています。
 
@@ -178,7 +178,7 @@ Cache-Control: public,max-age=10
 
 * Razor ページハンドラー (クラス) &ndash; 属性をハンドラーメソッドに適用することはできません。
 * MVC コントローラー (クラス)。
-* MVC アクション (メソッド) &ndash; メソッドレベルの属性は、クラスレベルの属性で指定された設定をオーバーライドします。
+* MVC アクション (メソッド) &ndash; メソッドレベルの属性では、クラスレベルの属性で指定された設定がオーバーライドされます。
 
 結果として得られるヘッダーは、`Default30` キャッシュプロファイルによって Cache4 ページ応答に適用されます。
 
@@ -189,7 +189,7 @@ Cache-Control: public,max-age=30
 ## <a name="additional-resources"></a>その他の技術情報
 
 * [キャッシュへの応答の格納](https://tools.ietf.org/html/rfc7234#section-3)
-* [Cache-control](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9)
+* [Cache-Control](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9)
 * <xref:performance/caching/memory>
 * <xref:performance/caching/distributed>
 * <xref:fundamentals/change-tokens>

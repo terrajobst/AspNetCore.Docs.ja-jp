@@ -5,12 +5,12 @@ description: ASP.NET Core アプリで Id を使用します。 パスワード�
 ms.author: riande
 ms.date: 12/05/2019
 uid: security/authentication/identity
-ms.openlocfilehash: 787d39dd7824f912128e6af849fa268c3e8eb908
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: d4cda43c417a0d8e1b78f8b59b7050debf017269
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75359200"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75828231"
 ---
 # <a name="introduction-to-identity-on-aspnet-core"></a>ASP.NET Core Identity の概要
 
@@ -25,7 +25,7 @@ ASP.NET Core Id:
 
 ユーザーは、Id に格納されているログイン情報を持つアカウントを作成することも、外部ログインプロバイダーを使用することもできます。 サポートされている外部ログインプロバイダーには、 [Facebook、Google、Microsoft アカウント、Twitter](xref:security/authentication/social/index)があります。
 
-[Id ソースコード](https://github.com/aspnet/AspNetCore/tree/master/src/Identity)は、GitHub で入手できます。 [スキャフォールディング](xref:security/authentication/scaffold-identity)は、id とのテンプレートの対話を確認するために、生成されたファイルを識別して表示します。
+[Id ソースコード](https://github.com/dotnet/AspNetCore/tree/master/src/Identity)は、GitHub で入手できます。 [スキャフォールディング](xref:security/authentication/scaffold-identity)は、id とのテンプレートの対話を確認するために、生成されたファイルを識別して表示します。
 
 Id は、通常、ユーザー名、パスワード、およびプロファイルデータを格納するために SQL Server データベースを使用して構成されます。 別の永続ストアを使用することもできます (たとえば、Azure Table Storage)。
 
@@ -159,7 +159,7 @@ PowerShell では、コマンドの区切り記号としてセミコロンを使
 
 [!code-csharp[](identity/sample/WebApp3/Areas/Identity/Pages/Account/Login.cshtml.cs?name=snippet&highlight=10-11)]
 
-基本 `Controller` クラスは、コントローラーメソッドからアクセスできる `User` プロパティを公開します。 たとえば`User.Claims`を列挙して承認の決定を行うことができます。 詳細については、「 <xref:security/authorization/introduction>」を参照してください。
+基本 `Controller` クラスは、コントローラーメソッドからアクセスできる `User` プロパティを公開します。 たとえば`User.Claims`を列挙して承認の決定を行うことができます。 詳細については、「<xref:security/authorization/introduction>」を参照してください。
 
 ### <a name="log-out"></a>ログアウト
 
@@ -212,7 +212,7 @@ Id のプライマリパッケージは[Microsoft.AspNetCore.Identity](https://w
 * <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>
 * <xref:Microsoft.AspNetCore.Identity.IdentityBuilderExtensions.AddDefaultTokenProviders*>
 
-詳細については[AddDefaultIdentity のソース](https://github.com/aspnet/AspNetCore/blob/release/3.0/src/Identity/UI/src/IdentityServiceCollectionUIExtensions.cs#L47-L63)を参照してください。
+詳細については[AddDefaultIdentity のソース](https://github.com/dotnet/AspNetCore/blob/release/3.0/src/Identity/UI/src/IdentityServiceCollectionUIExtensions.cs#L47-L63)を参照してください。
 
 ## <a name="next-steps"></a>次のステップ
 
@@ -250,7 +250,7 @@ Id は、SQL Server データベースを使用して、ユーザー名、パス
 * <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>
 * <xref:Microsoft.AspNetCore.Identity.IdentityBuilderExtensions.AddDefaultTokenProviders*>
 
-詳細については[AddDefaultIdentity のソース](https://github.com/aspnet/AspNetCore/blob/release/3.0/src/Identity/UI/src/IdentityServiceCollectionUIExtensions.cs#L47-L63)を参照してください。
+詳細については[AddDefaultIdentity のソース](https://github.com/dotnet/AspNetCore/blob/release/3.0/src/Identity/UI/src/IdentityServiceCollectionUIExtensions.cs#L47-L63)を参照してください。
 
 ## <a name="create-a-web-app-with-authentication"></a>認証を使用して Web アプリを作成する
 
@@ -359,7 +359,7 @@ PowerShell では、コマンドの区切り記号としてセミコロンを使
 
 [!code-csharp[](identity/sample/WebApp1/Areas/Identity/Pages/Account/Login.cshtml.cs?name=snippet&highlight=10-11)]
 
-ベース`Controller`クラスでは、コントローラー メソッドからアクセスできる`User`プロパティを公開します。 たとえば`User.Claims`を列挙して承認の決定を行うことができます。 詳細については、「 <xref:security/authorization/introduction>」を参照してください。
+ベース`Controller`クラスでは、コントローラー メソッドからアクセスできる`User`プロパティを公開します。 たとえば`User.Claims`を列挙して承認の決定を行うことができます。 詳細については、「<xref:security/authorization/introduction>」を参照してください。
 
 ### <a name="log-out"></a>ログアウト
 

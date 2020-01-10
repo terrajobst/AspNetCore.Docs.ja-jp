@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 08/21/2019
 uid: grpc/client
-ms.openlocfilehash: 56f79b303a8d53699e8eb6156d328c0da1259416
-ms.sourcegitcommit: dc5b293e08336dc236de66ed1834f7ef78359531
+ms.openlocfilehash: 1e7887388a752fb35d00e65db210c3924c6ab192
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71011144"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829102"
 ---
 # <a name="call-grpc-services-with-the-net-client"></a>.NET クライアントを使用して gRPC サービスを呼び出す
 
@@ -22,18 +22,16 @@ ms.locfileid: "71011144"
 
 ## <a name="configure-grpc-client"></a>GRPC クライアントを構成する
 
-grpc クライアントは、 [  *\*プロトコル*ファイルから生成](xref:grpc/basics#generated-c-assets)される具象クライアントの種類です。 具象 grpc クライアントには、  *\*proto*ファイルの grpc サービスに変換するメソッドがあります。
+gRPC クライアントは、[ *\*.proto* ファイルから生成される](xref:grpc/basics#generated-c-assets)具象的なクライアントの種類です。 具象 gRPC クライアントには、 *\*.proto* ファイル内の gRPC サービスに変換するためのメソッドが含まれます。
 
-GRPC クライアントは、チャネルから作成されます。 まずを使用`GrpcChannel.ForAddress`してチャネルを作成し、次にチャネルを使用して grpc クライアントを作成します。
+GRPC クライアントは、チャネルから作成されます。 まず、`GrpcChannel.ForAddress` を使用してチャネルを作成し、次にチャネルを使用して gRPC クライアントを作成します。
 
 ```csharp
 var channel = GrpcChannel.ForAddress("https://localhost:5001");
 var client = new Greet.GreeterClient(channel);
 ```
 
-チャネルは、gRPC サービスへの長期的な接続を表します。 チャネルが作成されると、サービスの呼び出しに関連するオプションを使用して構成されます。 たとえば、呼び出しを`HttpClient`行うために使用される、送信メッセージと受信メッセージの最大サイズ、およびログ記録`GrpcChannelOptions`は、で`GrpcChannel.ForAddress`指定し、と共に使用できます。 オプションの完全な一覧については、「[クライアント構成オプション](xref:grpc/configuration#configure-client-options)」を参照してください。
-
-チャネルの作成は高価な操作であり、gRPC 呼び出しのチャネルを再利用すると、パフォーマンスが向上します。 複数の具象 gRPC クライアントは、さまざまな種類のクライアントを含むチャネルから作成できます。 具象 gRPC クライアントの種類は軽量のオブジェクトであり、必要に応じて作成できます。
+チャネルは、gRPC サービスへの長期的な接続を表します。 チャネルが作成されると、サービスの呼び出しに関連するオプションが構成されます。 たとえば、呼び出しを行うために使用される `HttpClient`、送信メッセージと受信メッセージの最大サイズ、およびログ記録を `GrpcChannelOptions` で指定し、`GrpcChannel.ForAddress`と共に使用することができます。 オプションの完全な一覧については、「[クライアント構成オプション](xref:grpc/configuration#configure-client-options)」を参照してください。
 
 ```csharp
 var channel = GrpcChannel.ForAddress("https://localhost:5001");
@@ -44,7 +42,15 @@ var counterClient = new Count.CounterClient(channel);
 // Use clients to call gRPC services
 ```
 
-`GrpcChannel.ForAddress`gRPC クライアントを作成するための唯一のオプションではありません。 ASP.NET Core アプリから gRPC サービスを呼び出す場合は、 [grpc クライアントファクトリの統合](xref:grpc/clientfactory)を検討してください。 grpc との`HttpClientFactory`統合には、grpc クライアントを作成するための一元化された代替手段が用意されています。
+チャネルとクライアントのパフォーマンスと使用状況:
+
+* チャネルの作成は、コストのかかる操作になることがあります。 GRPC 呼び出しにチャネルを再利用すると、パフォーマンスが向上します。
+* gRPC クライアントは、チャネルを使用して作成されます。 gRPC クライアントはライトウェイトオブジェクトであり、キャッシュまたは再利用する必要はありません。
+* 複数の gRPC クライアントは、さまざまな種類のクライアントを含むチャネルから作成できます。
+* チャネルとチャネルから作成されたクライアントは、複数のスレッドで安全に使用できます。
+* チャネルから作成されたクライアントは、複数の同時呼び出しを行うことができます。
+
+gRPC クライアントを作成するためのオプションは `GrpcChannel.ForAddress` だけではありません。 ASP.NET Core アプリから gRPC サービスを呼び出している場合は、 [grpc クライアントファクトリの統合](xref:grpc/clientfactory)を検討してください。 gRPC と `HttpClientFactory` の統合には、gRPC クライアントを作成するための一元化された代替手段が用意されています。
 
 > [!NOTE]
 > [.Net クライアントでセキュリティで保護されていない gRPC サービスを呼び出す](xref:grpc/troubleshoot#call-insecure-grpc-services-with-net-core-client)には、追加の構成が必要です。
@@ -72,14 +78,14 @@ Console.WriteLine("Greeting: " + response.Message);
 // Greeting: Hello World
 ```
 
-*\*Proto*ファイルの各単項サービスメソッドは、メソッドを呼び出すための具象 grpc クライアント型に対して、非同期メソッドとブロッキングメソッドの2つの .net メソッドを生成します。 たとえば、を呼び出す`GreeterClient` `SayHello`には、次の2つの方法があります。
+*\*プロトコル*ファイルの各単項サービスメソッドは、メソッドを呼び出すための具象 grpc クライアント型に、非同期メソッドとブロッキングメソッドの2つの .net メソッドを生成します。 たとえば、`GreeterClient` で `SayHello`を呼び出すには、次の2つの方法があります。
 
-* `GreeterClient.SayHelloAsync`-サービス`Greeter.SayHello`を非同期的に呼び出します。 待機することができます。
-* `GreeterClient.SayHello`-サービス`Greeter.SayHello`を呼び出し、が完了するまでブロックします。 非同期コードでは使用しないでください。
+* `GreeterClient.SayHelloAsync`-`Greeter.SayHello` サービスを非同期に呼び出します。 待機することができます。
+* `GreeterClient.SayHello`-`Greeter.SayHello` サービスを呼び出し、完了するまでブロックします。 非同期コードでは使用しないでください。
 
 ### <a name="server-streaming-call"></a>サーバーストリーミング呼び出し
 
-サーバーストリーミング呼び出しは、クライアントから要求メッセージを送信することで開始されます。 `ResponseStream.MoveNext()`サービスからストリーミングされたメッセージを読み取ります。 が返さ`ResponseStream.MoveNext()` `false`れると、サーバーストリーミングの呼び出しが完了します。
+サーバーストリーミング呼び出しは、クライアントから要求メッセージを送信することで開始されます。 `ResponseStream.MoveNext()` は、サービスからストリーミングされたメッセージを読み取ります。 `ResponseStream.MoveNext()` が `false`を返すと、サーバーストリーミングの呼び出しが完了します。
 
 ```csharp
 var client = new Greet.GreeterClient(channel);
@@ -93,7 +99,7 @@ using (var call = client.SayHellos(new HelloRequest { Name = "World" }))
 }
 ```
 
-8以降を使用C#している場合は`await foreach` 、構文を使用してメッセージを読み取ることができます。 拡張`IAsyncStreamReader<T>.ReadAllAsync()`メソッドは、応答ストリームからすべてのメッセージを読み取ります。
+8以降を使用C#している場合は、`await foreach` 構文を使用してメッセージを読み取ることができます。 `IAsyncStreamReader<T>.ReadAllAsync()` 拡張メソッドは、応答ストリームからすべてのメッセージを読み取ります。
 
 ```csharp
 var client = new Greet.GreeterClient(channel);
@@ -109,7 +115,7 @@ using (var call = client.SayHellos(new HelloRequest { Name = "World" }))
 
 ### <a name="client-streaming-call"></a>クライアントストリーミング呼び出し
 
-クライアントのストリーミング呼び出しは、クライアントがメッセージを送信する*ことなく*開始されます。 クライアントは、を使用して`RequestStream.WriteAsync`メッセージを送信することを選択できます。 クライアントがメッセージ`RequestStream.CompleteAsync`の送信を完了したら、サービスに通知するためにを呼び出す必要があります。 サービスが応答メッセージを返すと、呼び出しが完了します。
+クライアントのストリーミング呼び出しは、クライアントがメッセージを送信する*ことなく*開始されます。 クライアントは、`RequestStream.WriteAsync`を使用してメッセージを送信することを選択できます。 クライアントがメッセージの送信を完了したら `RequestStream.CompleteAsync` を呼び出してサービスに通知する必要があります。 サービスが応答メッセージを返すと、呼び出しが完了します。
 
 ```csharp
 var client = new Counter.CounterClient(channel);
@@ -129,7 +135,7 @@ using (var call = client.AccumulateCount())
 
 ### <a name="bi-directional-streaming-call"></a>双方向ストリーミング呼び出し
 
-双方向のストリーミング呼び出しは、クライアントがメッセージを送信する*ことなく*開始されます。 クライアントは、を使用して`RequestStream.WriteAsync`メッセージを送信することを選択できます。 サービスからストリーミングされたメッセージに`ResponseStream.MoveNext()`は`ResponseStream.ReadAllAsync()`、またはを使用してアクセスできます。 にメッセージ`ResponseStream`がなくなった場合、双方向のストリーミング呼び出しは完了です。
+双方向のストリーミング呼び出しは、クライアントがメッセージを送信する*ことなく*開始されます。 クライアントは、`RequestStream.WriteAsync`を使用してメッセージを送信することを選択できます。 サービスからストリーミングされたメッセージには、`ResponseStream.MoveNext()` または `ResponseStream.ReadAllAsync()`でアクセスできます。 双方向ストリーミング呼び出しは、`ResponseStream` にメッセージがなくなったときに完了します。
 
 ```csharp
 using (var call = client.Echo())
