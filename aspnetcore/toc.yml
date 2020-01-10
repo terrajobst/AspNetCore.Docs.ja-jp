@@ -584,6 +584,8 @@
       uid: grpc/diagnostics
     - name: セキュリティの考慮事項
       uid: grpc/security
+    - name: gRPC サービスのバージョン管理
+      uid: grpc/versioning
     - name: dotnet-grpc を使用して Protobuf 参照を管理する
       uid: grpc/dotnet-grpc
     - name: C コアから gRPC サービスを移行する
