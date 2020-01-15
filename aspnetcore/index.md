@@ -9,12 +9,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: index
-ms.openlocfilehash: dc1acd9e31fdc4f626c9dee2f378252c802491b6
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 3e41b329feb359c006258b8ed558496dfcbbf3b0
+ms.sourcegitcommit: 57b85708f4cded99b8f008a69830cb104cd8e879
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963649"
+ms.lasthandoff: 01/13/2020
+ms.locfileid: "75914220"
 ---
 # <a name="introduction-to-aspnet-core"></a>ASP.NET Core の概要
 
@@ -100,11 +100,11 @@ ASP.NET Core アプリを開発する場合の概要として、次の順序で�
 
 1. 興味のあるその他のトピックは、目次から参照してください。
 
-\* [すべてブラウザーでたどる新しい Web API のチュートリアル](https://docs.microsoft.com/learn/modules/build-web-api-net-core)があります。ローカルに IDE をインストールする必要はありません。  このコードは、[Azure Cloud Shell](https://azure.microsoft.com/features/cloud-shell/) で実行し、テストには [curl](https://curl.haxx.se/) を使用します。
+\*[すべてブラウザーでたどる新しい Web API のチュートリアル](https://docs.microsoft.com/learn/modules/build-web-api-net-core)があります。ローカルに IDE をインストールする必要はありません。  このコードは、[Azure Cloud Shell](https://azure.microsoft.com/features/cloud-shell/) で実行し、テストには [curl](https://curl.haxx.se/) を使用します。
 
 ## <a name="migration-from-the-net-framework"></a>.NET Framework からの移行
 
-ASP.NET アプリを ASP.NET Core に移行するためのリファレンス ガイドについては、<migration/proper-to-2x/index> を参照してください。
+ASP.NET アプリを ASP.NET Core に移行するためのリファレンス ガイドについては、「<xref:migration/proper-to-2x/index>」を参照してください。
 
 ## <a name="how-to-download-a-sample"></a>サンプルをダウンロードする方法
 

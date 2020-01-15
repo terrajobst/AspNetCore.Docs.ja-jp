@@ -5,14 +5,14 @@ description: Windows Server インターネット インフォメーション �
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/06/2020
+ms.date: 01/13/2020
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 8e0475e3e18688c7d4344661826290d15a2443c0
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: bf035bc65f0f120f52e55effe4d413bfecdf735d
+ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829193"
+ms.lasthandoff: 01/14/2020
+ms.locfileid: "75952085"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>IIS を使用した Windows での ASP.NET Core のホスト
 
@@ -771,31 +771,19 @@ Windows Server 2008 R2 以降の場合:
 
 ## <a name="deployment-resources-for-iis-administrators"></a>IIS 管理者用の展開リソース
 
-IIS ドキュメントでの IIS の詳細について説明します。  
-[IIS ドキュメント ](/iis)
-
-.NET Core アプリの展開モデルについて説明します。  
-[.NET Core アプリケーションの展開](/dotnet/core/deploying/)
-
-構成のガイダンスなど、ASP.NET Core モジュールについて説明します。  
-<xref:host-and-deploy/aspnet-core-module>
-
-発行された ASP.NET Core アプリのディレクトリ構造について説明します。  
-[ディレクトリの構造](xref:host-and-deploy/directory-structure)
-
-ASP.NET Core アプリに対してアクティブおよび非アクティブな IIS モジュールについて、さらに IIS モジュールの管理方法についてを把握します。  
-[IIS モジュール](xref:host-and-deploy/iis/modules)
-
-ASP.NET Core アプリの IIS 展開に関する問題を診断する方法について説明します。  
-[トラブルシューティング](xref:test/troubleshoot-azure-iis)
-
-IIS で ASP.NET Core アプリをホストする場合の一般的なエラーを識別します。  
-[Azure App Service と IIS の一般的なエラーのリファレンス](xref:host-and-deploy/azure-iis-errors-reference)
+* [IIS ドキュメント ](/iis)
+* [IIS での IIS マネージャーの概要](/iis/get-started/getting-started-with-iis/getting-started-with-the-iis-manager-in-iis-7-and-iis-8)
+* [.NET Core アプリケーションの展開](/dotnet/core/deploying/)
+* <xref:host-and-deploy/aspnet-core-module>
+* <xref:host-and-deploy/directory-structure>
+* <xref:host-and-deploy/iis/modules>
+* <xref:test/troubleshoot-azure-iis>
+* <xref:host-and-deploy/azure-iis-errors-reference>
 
 ## <a name="additional-resources"></a>その他の技術情報
 
 * <xref:test/troubleshoot>
-* [ASP.NET Core の概要](xref:index)
+* <xref:index>
 * [Microsoft IIS 公式サイト](https://www.iis.net/)
 * [Windows Server テクニカル コンテンツ ライブラリ](/windows-server/windows-server)
 * [IIS での HTTP/2](/iis/get-started/whats-new-in-iis-10/http2-on-iis)
