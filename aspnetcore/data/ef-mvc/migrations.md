@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/migrations
-ms.openlocfilehash: 4c96815461898ce9273f953f083143d8b50d406e
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: bcd36509fe42da0a79b9243d17701f40e066a212
+ms.sourcegitcommit: 077b45eceae044475f04c1d7ef2d153d7c0515a8
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259406"
+ms.lasthandoff: 12/29/2019
+ms.locfileid: "75542687"
 ---
 # <a name="tutorial-using-the-migrations-feature---aspnet-mvc-with-ef-core"></a>チュートリアル: 移行機能の使用 - ASP.NET MVC と EF Core
 
@@ -104,7 +104,7 @@ Done. To undo this action, use 'ef migrations remove'
 
 移行は、現在のデータベース スキーマの*スナップショット*を *Migrations/SchoolContextModelSnapshot.cs* 内に作成します。 移行を追加するときに、EF は、スナップショット ファイルとデータ モデルを比較することによって変更内容を判断します。
 
-移行を削除するには、[dotnet ef migrations remove](/ef/core/miscellaneous/cli/dotnet#dotnet-ef-migrations-remove) コマンドを使用します。 `dotnet ef migrations remove` によって移行が削除され、スナップショットが正しくリセットされたことが確認されます。
+移行を削除するには、[dotnet ef migrations remove](/ef/core/miscellaneous/cli/dotnet#dotnet-ef-migrations-remove) コマンドを使用します。 `dotnet ef migrations remove` によって移行が削除され、スナップショットが正しくリセットされたことが確認されます。 `dotnet ef migrations remove` が失敗した場合は、`dotnet ef migrations remove -v` を使用して、エラーに関する詳細情報を確認してください。
 
 スナップショット ファイルの使用方法の詳細については、[チーム環境での EF Core 移行](/ef/core/managing-schemas/migrations/teams)に関するページを参照してください。
 
@@ -116,7 +116,7 @@ Done. To undo this action, use 'ef migrations remove'
 dotnet ef database update
 ```
 
-コマンドからの出力は、データベースを設定する SQL コマンドのログを表示する以外は、`migrations add` コマンドと同様です。 次のサンプル出力では、ログのほとんどは省略されています。 ログ メッセージの詳細レベルを表示しない場合は、*appsettings.Development.json* ファイルでログ レベルを変更できます。 詳細については、<xref:fundamentals/logging/index> を参照してください。
+コマンドからの出力は、データベースを設定する SQL コマンドのログを表示する以外は、`migrations add` コマンドと同様です。 次のサンプル出力では、ログのほとんどは省略されています。 ログ メッセージの詳細レベルを表示しない場合は、*appsettings.Development.json* ファイルでログ レベルを変更できます。 詳細については、「<xref:fundamentals/logging/index>」を参照してください。
 
 ```text
 info: Microsoft.EntityFrameworkCore.Infrastructure[10403]

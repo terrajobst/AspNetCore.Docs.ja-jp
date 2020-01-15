@@ -5,12 +5,12 @@ description: このチュートリアル シリーズでは、ASP.NET Core で R
 ms.author: riande
 ms.date: 11/12/2019
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: b651437b698d01310f90c5f14832616c1896e6c0
-ms.sourcegitcommit: 4e3edff24ba6e43a103fee1b126c9826241bb37b
+ms.openlocfilehash: 6e1d58ccd83f7d7c1083dc2bf9ce7476650812a1
+ms.sourcegitcommit: da2fb2d78ce70accdba903ccbfdcfffdd0112123
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/10/2019
-ms.locfileid: "74959100"
+ms.lasthandoff: 01/07/2020
+ms.locfileid: "75723016"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>チュートリアル: ASP.NET Core の Razor ページの概要
 
@@ -56,7 +56,7 @@ ms.locfileid: "74959100"
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* Visual Studio の **[ファイル]** メニューから、 **[新規作成]** 、> **[プロジェクト]** の順に選択します。
+* Visual Studio の **[ファイル]** メニューから、 **[新規作成]** > **[プロジェクト]** の順に選択します。
 * 新しい ASP.NET CoreWeb アプリケーションを作成し、 **[次へ]** を選択します。
   ![新しい ASP.NET Core Web アプリケーション](razor-pages-start/_static/np_2.1.png)
 * プロジェクトに **RazorPagesMovie** という名前を付けます。 コードのコピーおよび貼り付けを行う際に名前空間が一致するように、プロジェクトに *RazorPagesMovie* という名前を付けることが重要です。
@@ -100,18 +100,13 @@ ms.locfileid: "74959100"
 
   ![macOS の [新しいプロジェクト] ダイアログ](razor-pages-start/_static/webapp.png)
 
-* **[Configure your new ASP.NET Core Web API]\(新しい ASP.NET Core Web API を構成する\)** ダイアログで、 **[ターゲット フレームワーク]** を **[.NET Core 3.1]** に設定します。
+* **[Configure your new Web Application]\(新しい Web アプリケーションを構成する\)** ダイアログで、 **[ターゲット フレームワーク]** を **[.NET Core 3.1]** に設定します。
 
-  ![macOS .NET Core 3.0 の選択](razor-pages-start/_static/targetframework3.png)
+  ![macOS .NET Core 3.1 の選択](razor-pages-start/_static/targetframework3.png)
 
 * プロジェクトに **RazorPagesMovie** という名前を付けて、 **[作成]** を選択します。
 
   ![nameproj](razor-pages-start/_static/RazorPagesMovie.png)
-
-
-## <a name="open-the-project"></a>プロジェクトを開く
-
-Visual Studio から、 **[ファイル]、[開く]** の順に選択し、*RazorPagesMovie.csproj* ファイルを選択します。
 
 <!-- End of VS tabs -->
 
@@ -132,23 +127,23 @@ Razor ページとサポート ファイルが格納されます。 各 Razor �
 * *.cshtml* ファイル: HTML マークアップと、Razor 構文を使用した C# コードが保存されます。
 * *.cshtml.cs* ファイル: ページ イベントを処理する C# コードが保存されます。
 
-サポート ファイルには、アンダー スコアで始まる名前が付けられます。 たとえば、 *_Layout.cshtml* ファイルでは、すべてのページに共通の UI 要素が構成されます。 このファイルでは、ページの上部に表示されるナビゲーション メニューと、ページの下部に表示される著作権の通知が設定されます。 詳細については、<xref:mvc/views/layout> を参照してください。
+サポート ファイルには、アンダー スコアで始まる名前が付けられます。 たとえば、 *_Layout.cshtml* ファイルでは、すべてのページに共通の UI 要素が構成されます。 このファイルでは、ページの上部に表示されるナビゲーション メニューと、ページの下部に表示される著作権の通知が設定されます。 詳細については、「<xref:mvc/views/layout>」を参照してください。
 
 ### <a name="wwwroot-folder"></a>wwwroot フォルダー
 
-HTML ファイル、JavaScript ファイル、CSS ファイルなどの静的ファイルが格納されます。 詳細については、<xref:fundamentals/static-files> を参照してください。
+HTML ファイル、JavaScript ファイル、CSS ファイルなどの静的ファイルが格納されます。 詳細については、「<xref:fundamentals/static-files>」を参照してください。
 
 ### <a name="appsettingsjson"></a>appSettings.json
 
-接続文字列などの構成データが保存されます。 詳細については、<xref:fundamentals/configuration/index> を参照してください。
+接続文字列などの構成データが保存されます。 詳細については、「<xref:fundamentals/configuration/index>」を参照してください。
 
 ### <a name="programcs"></a>Program.cs
 
-プログラムのエントリ ポイントが保存されます。 詳細については、<xref:fundamentals/host/generic-host> を参照してください。
+プログラムのエントリ ポイントが保存されます。 詳細については、「<xref:fundamentals/host/generic-host>」を参照してください。
 
 ### <a name="startupcs"></a>Startup.cs
 
-アプリの動作を構成するコードが含まれています。 詳細については、<xref:fundamentals/startup> を参照してください。
+アプリの動作を構成するコードが含まれています。 詳細については、「<xref:fundamentals/startup>」を参照してください。
 
 ## <a name="next-steps"></a>次の手順
 
@@ -202,7 +197,7 @@ HTML ファイル、JavaScript ファイル、CSS ファイルなどの静的フ
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* Visual Studio の **[ファイル]** メニューから、 **[新規作成]** 、> **[プロジェクト]** の順に選択します。
+* Visual Studio の **[ファイル]** メニューから、 **[新規作成]** > **[プロジェクト]** の順に選択します。
 
 * 新しい ASP.NET CoreWeb アプリケーションを作成し、 **[次へ]** を選択します。
 
@@ -242,19 +237,21 @@ HTML ファイル、JavaScript ファイル、CSS ファイルなどの静的フ
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-端末から、次のコマンドを実行します。
+* **[ファイル]** > **[新しいソリューション]** の順に選択します。
 
-<!-- TODO: update these instruction once mac support 2.2 projects -->
+![macOS の新しいソリューション](../first-mvc-app/start-mvc/_static/new_project_vsmac.png)
 
-```dotnetcli
-dotnet new webapp -o RazorPagesMovie
-```
+* **[.NET Core]** > **[アプリ]** > **[Web アプリケーション]** > **[次へ]** の順に選択します。
 
-上記のコマンドでは、[.NET Core CLI](/dotnet/core/tools/dotnet) を使用して、Razor ページ プロジェクトが作成されます。
+  ![macOS の [新しいプロジェクト] ダイアログ](razor-pages-start/_static/webapp.png)
 
-## <a name="open-the-project"></a>プロジェクトを開く
+* **[Configure your new ASP.NET Core Web API]\(新しい ASP.NET Core Web API を構成する\)** ダイアログで、 **[ターゲット フレームワーク]** を **[.NET Core 3.1]** に設定します。
 
-Visual Studio から、 **[ファイル]、[開く]** の順に選択し、*RazorPagesMovie.csproj* ファイルを選択します。
+  ![macOS .NET Core 3.0 の選択](razor-pages-start/_static/targetframework3.png)
+
+* プロジェクトに **RazorPagesMovie** という名前を付けて、 **[作成]** を選択します。
+
+  ![nameproj](razor-pages-start/_static/RazorPagesMovie.png)
 
 <!-- End of VS tabs -->
 
@@ -331,23 +328,23 @@ Razor ページとサポート ファイルが格納されます。 各 Razor �
 * *.cshtml* ファイル: HTML マークアップと、Razor 構文を使用した C# コードが保存されます。
 * *.cshtml.cs* ファイル: ページ イベントを処理する C# コードが保存されます。
 
-サポート ファイルには、アンダー スコアで始まる名前が付けられます。 たとえば、 *_Layout.cshtml* ファイルでは、すべてのページに共通の UI 要素が構成されます。 このファイルでは、ページの上部に表示されるナビゲーション メニューと、ページの下部に表示される著作権の通知が設定されます。 詳細については、<xref:mvc/views/layout> を参照してください。
+サポート ファイルには、アンダー スコアで始まる名前が付けられます。 たとえば、 *_Layout.cshtml* ファイルでは、すべてのページに共通の UI 要素が構成されます。 このファイルでは、ページの上部に表示されるナビゲーション メニューと、ページの下部に表示される著作権の通知が設定されます。 詳細については、「<xref:mvc/views/layout>」を参照してください。
 
 ### <a name="wwwroot-folder"></a>wwwroot フォルダー
 
-HTML ファイル、JavaScript ファイル、CSS ファイルなどの静的ファイルが格納されます。 詳細については、<xref:fundamentals/static-files> を参照してください。
+HTML ファイル、JavaScript ファイル、CSS ファイルなどの静的ファイルが格納されます。 詳細については、「<xref:fundamentals/static-files>」を参照してください。
 
 ### <a name="appsettingsjson"></a>appSettings.json
 
-接続文字列などの構成データが保存されます。 詳細については、<xref:fundamentals/configuration/index> を参照してください。
+接続文字列などの構成データが保存されます。 詳細については、「<xref:fundamentals/configuration/index>」を参照してください。
 
 ### <a name="programcs"></a>Program.cs
 
-プログラムのエントリ ポイントが保存されます。 詳細については、<xref:fundamentals/host/generic-host> を参照してください。
+プログラムのエントリ ポイントが保存されます。 詳細については、「<xref:fundamentals/host/generic-host>」を参照してください。
 
 ### <a name="startupcs"></a>Startup.cs
 
-cookie に対する同意が必要かどうかなど、アプリの動作を構成するコードが保存されます。 詳細については、<xref:fundamentals/startup> を参照してください。
+cookie に対する同意が必要かどうかなど、アプリの動作を構成するコードが保存されます。 詳細については、「<xref:fundamentals/startup>」を参照してください。
 
 ## <a name="additional-resources"></a>その他の技術情報
 

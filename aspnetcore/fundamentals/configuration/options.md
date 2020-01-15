@@ -5,14 +5,14 @@ description: ASP.NET Core アプリの関連のある設定のグループを表
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/18/2019
+ms.date: 01/07/2019
 uid: fundamentals/configuration/options
-ms.openlocfilehash: 46cfff905636dc0d50fcde5e781ce47fb6d85cc0
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 98fe30fbc424dd51ce8f8319b7ce959fd755c480
+ms.sourcegitcommit: da2fb2d78ce70accdba903ccbfdcfffdd0112123
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880392"
+ms.lasthandoff: 01/07/2020
+ms.locfileid: "75722740"
 ---
 # <a name="options-pattern-in-aspnet-core"></a>ASP.NET Core のオプション パターン
 
@@ -54,7 +54,7 @@ ASP.NET Core アプリでは、[Microsoft.Extensions.Options.ConfigurationExtens
 
 ## <a name="general-options-configuration"></a>一般般的なオプションの構成
 
-サンプル アプリの例 &num;1 は一般的なオプション構成です。
+サンプル アプリの例 1 は一般的なオプション構成です。
 
 オプション クラスはパラメーターのないパブリック コンストラクターを持った非抽象でなければなりません。 次のクラス `MyOptions` には `Option1` と `Option2` という 2 つのプロパティがあります。 既定値の設定は任意ですが、次の例のクラス コンストラクターは既定値 `Option1` を設定します。 `Option2` には、プロパティを直接初期化することで既定値が設定されます (*Models/MyOptions.cs*)。
 
@@ -98,7 +98,7 @@ option1 = value1_from_json, option2 = -1
 
 ## <a name="configure-simple-options-with-a-delegate"></a>デリゲートで単純なオプションを構成する
 
-サンプル アプリの例 &num;2 では、デリゲートで単純なオプションを構成します。
+サンプル アプリの例 2 では、デリゲートで単純なオプションを構成します。
 
 デリゲートを使用し、オプション値を設定します。 サンプル アプリでは、`MyOptionsWithDelegateConfig` クラス (*Models/MyOptionsWithDelegateConfig.cs*) を使用しています。
 
@@ -116,7 +116,7 @@ option1 = value1_from_json, option2 = -1
 
 [!code-csharp[](options/samples/3.x/OptionsSample/Pages/Index.cshtml.cs?name=snippet_Example2)]
 
-複数の構成プロバイダーを追加できます。 構成プロバイダーは NuGet パッケージにあり、登録順に適用されます。 詳細については、<xref:fundamentals/configuration/index> を参照してください。
+複数の構成プロバイダーを追加できます。 構成プロバイダーは NuGet パッケージにあり、登録順に適用されます。 詳細については、「<xref:fundamentals/configuration/index>」を参照してください。
 
 <xref:Microsoft.Extensions.Options.IConfigureOptions%601.Configure*> を呼び出すたびに <xref:Microsoft.Extensions.Options.IConfigureOptions%601> サービスがサービス コンテナーに追加されます。 先の例では、値 `Option1` と `Option2` が両方とも *appsettings.json* で指定されていますが、構成されているデリゲートにより値 `Option1` と `Option2` がオーバーライドされます。
 
@@ -128,7 +128,7 @@ delegate_option1 = value1_configured_by_delegate, delegate_option2 = 500
 
 ## <a name="suboptions-configuration"></a>サブオプション構成
 
-サンプル アプリの例 &num;3 はサブオプション構成です。
+サンプル アプリの例 3 はサブオプション構成です。
 
 アプリでは、アプリの特定のシナリオ グループ (クラス) に関連するオプション クラスを作成する必要があります。 構成値を必要とするアプリの各パーツには、そのパーツが使用する構成値へのアクセスのみを与える必要があります。
 
@@ -164,7 +164,7 @@ subOption1 = subvalue1_from_json, subOption2 = 200
 
 ## <a name="options-injection"></a>オプションの挿入
 
-オプションの挿入は、サンプル アプリの例 &num;4 に示されています。
+オプションの挿入は、サンプル アプリの例 4 に示されています。
 
 <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> を次に挿入します。
 
@@ -189,7 +189,7 @@ subOption1 = subvalue1_from_json, subOption2 = 200
 
 ## <a name="reload-configuration-data-with-ioptionssnapshot"></a>IOptionsSnapshot で構成データを再読み込みする
 
-サンプル アプリの例 &num;5 では、<xref:Microsoft.Extensions.Options.IOptionsSnapshot%601> で構成データを再読み込みする方法を確認できます。
+サンプル アプリの例 5 では、<xref:Microsoft.Extensions.Options.IOptionsSnapshot%601> で構成データを再読み込みする方法を確認できます。
 
 <xref:Microsoft.Extensions.Options.IOptionsSnapshot%601> を使用すると、オプションは要求の有効期間中にアクセスされ、キャッシュされたとき、要求につき 1 回計算されます。
 
@@ -220,9 +220,9 @@ snapshot option1 = value1_from_json UPDATED, snapshot option2 = 200
 
 ## <a name="named-options-support-with-iconfigurenamedoptions"></a>IConfigureNamedOptions による名前付きオプションのサポート
 
-サンプル アプリの例 &num;6 は、<xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> による名前付きオプションのサポートです。
+サンプル アプリの例 6 は、<xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> による名前付きオプションのサポートです。
 
-*名前付きオプション*をサポートすることで、アプリでは名前付きオプション構成が区別されます。 サンプル アプリでは、名前付きオプションは [OptionsServiceCollectionExtensions.Configure](xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.Configure*) で宣言されます。これは、[ConfigureNamedOptions\<TOptions>.Configure](xref:Microsoft.Extensions.Options.ConfigureNamedOptions`1.Configure*) 拡張メソッドを呼び出します。
+名前付きオプションをサポートすることで、アプリでは名前付きオプション構成が区別されます。 サンプル アプリでは、名前付きオプションは [OptionsServiceCollectionExtensions.Configure](xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.Configure*) で宣言されます。これは、[ConfigureNamedOptions\<TOptions>.Configure](xref:Microsoft.Extensions.Options.ConfigureNamedOptions`1.Configure*) 拡張メソッドを呼び出します。 名前付きオプションでは大文字と小文字が区別されます。
 
 [!code-csharp[](options/samples/3.x/OptionsSample/Startup.cs?name=snippet_Example6)]
 
@@ -283,7 +283,7 @@ services.AddOptions<MyOptions>("optionalName")
 
 オプションの構成中、2 とおりの方法で依存関係挿入から他のサービスにアクセスできます。
 
-* [OptionsBuilder\<TOptions>](xref:Microsoft.Extensions.Options.OptionsBuilder`1) で [Configure](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) に構成デリゲートを渡します。 [OptionsBuilder\<TOptions>](xref:Microsoft.Extensions.Options.OptionsBuilder`1) から [Configure](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) のオーバーロードが与えられます。これにより、最大 5 つのサービスを使用し、オプションを構成できます。
+* [OptionsBuilder\<TOptions>](xref:Microsoft.Extensions.Options.OptionsBuilder`1) で [Configure](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) に構成デリゲートを渡します。 `OptionsBuilder<TOptions>` から [Configure](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) のオーバーロードが与えられます。これにより、最大 5 つのサービスを使用し、オプションを構成できます。
 
   ```csharp
   services.AddOptions<MyOptions>("optionalName")
@@ -478,7 +478,7 @@ public void Configure(IApplicationBuilder app,
 
 ## <a name="general-options-configuration"></a>一般般的なオプションの構成
 
-サンプル アプリの例 &num;1 は一般的なオプション構成です。
+サンプル アプリの例 1 は一般的なオプション構成です。
 
 オプション クラスはパラメーターのないパブリック コンストラクターを持った非抽象でなければなりません。 次のクラス `MyOptions` には `Option1` と `Option2` という 2 つのプロパティがあります。 既定値の設定は任意ですが、次の例のクラス コンストラクターは既定値 `Option1` を設定します。 `Option2` には、プロパティを直接初期化することで既定値が設定されます (*Models/MyOptions.cs*)。
 
@@ -522,7 +522,7 @@ option1 = value1_from_json, option2 = -1
 
 ## <a name="configure-simple-options-with-a-delegate"></a>デリゲートで単純なオプションを構成する
 
-サンプル アプリの例 &num;2 では、デリゲートで単純なオプションを構成します。
+サンプル アプリの例 2 では、デリゲートで単純なオプションを構成します。
 
 デリゲートを使用し、オプション値を設定します。 サンプル アプリでは、`MyOptionsWithDelegateConfig` クラス (*Models/MyOptionsWithDelegateConfig.cs*) を使用しています。
 
@@ -540,7 +540,7 @@ option1 = value1_from_json, option2 = -1
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Pages/Index.cshtml.cs?name=snippet_Example2)]
 
-複数の構成プロバイダーを追加できます。 構成プロバイダーは NuGet パッケージにあり、登録順に適用されます。 詳細については、<xref:fundamentals/configuration/index> を参照してください。
+複数の構成プロバイダーを追加できます。 構成プロバイダーは NuGet パッケージにあり、登録順に適用されます。 詳細については、「<xref:fundamentals/configuration/index>」を参照してください。
 
 <xref:Microsoft.Extensions.Options.IConfigureOptions%601.Configure*> を呼び出すたびに <xref:Microsoft.Extensions.Options.IConfigureOptions%601> サービスがサービス コンテナーに追加されます。 先の例では、値 `Option1` と `Option2` が両方とも *appsettings.json* で指定されていますが、構成されているデリゲートにより値 `Option1` と `Option2` がオーバーライドされます。
 
@@ -552,7 +552,7 @@ delegate_option1 = value1_configured_by_delegate, delegate_option2 = 500
 
 ## <a name="suboptions-configuration"></a>サブオプション構成
 
-サンプル アプリの例 &num;3 はサブオプション構成です。
+サンプル アプリの例 3 はサブオプション構成です。
 
 アプリでは、アプリの特定のシナリオ グループ (クラス) に関連するオプション クラスを作成する必要があります。 構成値を必要とするアプリの各パーツには、そのパーツが使用する構成値へのアクセスのみを与える必要があります。
 
@@ -588,7 +588,7 @@ subOption1 = subvalue1_from_json, subOption2 = 200
 
 ## <a name="options-injection"></a>オプションの挿入
 
-オプションの挿入は、サンプル アプリの例 &num;4 に示されています。
+オプションの挿入は、サンプル アプリの例 4 に示されています。
 
 <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> を次に挿入します。
 
@@ -613,7 +613,7 @@ subOption1 = subvalue1_from_json, subOption2 = 200
 
 ## <a name="reload-configuration-data-with-ioptionssnapshot"></a>IOptionsSnapshot で構成データを再読み込みする
 
-サンプル アプリの例 &num;5 では、<xref:Microsoft.Extensions.Options.IOptionsSnapshot%601> で構成データを再読み込みする方法を確認できます。
+サンプル アプリの例 5 では、<xref:Microsoft.Extensions.Options.IOptionsSnapshot%601> で構成データを再読み込みする方法を確認できます。
 
 <xref:Microsoft.Extensions.Options.IOptionsSnapshot%601> を使用すると、オプションは要求の有効期間中にアクセスされ、キャッシュされたとき、要求につき 1 回計算されます。
 
@@ -644,9 +644,9 @@ snapshot option1 = value1_from_json UPDATED, snapshot option2 = 200
 
 ## <a name="named-options-support-with-iconfigurenamedoptions"></a>IConfigureNamedOptions による名前付きオプションのサポート
 
-サンプル アプリの例 &num;6 は、<xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> による名前付きオプションのサポートです。
+サンプル アプリの例 6 は、<xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> による名前付きオプションのサポートです。
 
-*名前付きオプション*をサポートすることで、アプリでは名前付きオプション構成が区別されます。 サンプル アプリでは、名前付きオプションは [OptionsServiceCollectionExtensions.Configure](xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.Configure*) で宣言されます。これは、[ConfigureNamedOptions\<TOptions>.Configure](xref:Microsoft.Extensions.Options.ConfigureNamedOptions`1.Configure*) 拡張メソッドを呼び出します。
+名前付きオプションをサポートすることで、アプリでは名前付きオプション構成が区別されます。 サンプル アプリでは、名前付きオプションは [OptionsServiceCollectionExtensions.Configure](xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.Configure*) で宣言されます。これは、[ConfigureNamedOptions\<TOptions>.Configure](xref:Microsoft.Extensions.Options.ConfigureNamedOptions`1.Configure*) 拡張メソッドを呼び出します。 名前付きオプションでは大文字と小文字が区別されます。
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Startup.cs?name=snippet_Example6)]
 
@@ -900,7 +900,7 @@ public void Configure(IApplicationBuilder app, IOptionsMonitor<MyOptions> option
 
 ## <a name="general-options-configuration"></a>一般般的なオプションの構成
 
-サンプル アプリの例 &num;1 は一般的なオプション構成です。
+サンプル アプリの例 1 は一般的なオプション構成です。
 
 オプション クラスはパラメーターのないパブリック コンストラクターを持った非抽象でなければなりません。 次のクラス `MyOptions` には `Option1` と `Option2` という 2 つのプロパティがあります。 既定値の設定は任意ですが、次の例のクラス コンストラクターは既定値 `Option1` を設定します。 `Option2` には、プロパティを直接初期化することで既定値が設定されます (*Models/MyOptions.cs*)。
 
@@ -944,7 +944,7 @@ option1 = value1_from_json, option2 = -1
 
 ## <a name="configure-simple-options-with-a-delegate"></a>デリゲートで単純なオプションを構成する
 
-サンプル アプリの例 &num;2 では、デリゲートで単純なオプションを構成します。
+サンプル アプリの例 2 では、デリゲートで単純なオプションを構成します。
 
 デリゲートを使用し、オプション値を設定します。 サンプル アプリでは、`MyOptionsWithDelegateConfig` クラス (*Models/MyOptionsWithDelegateConfig.cs*) を使用しています。
 
@@ -962,7 +962,7 @@ option1 = value1_from_json, option2 = -1
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Pages/Index.cshtml.cs?name=snippet_Example2)]
 
-複数の構成プロバイダーを追加できます。 構成プロバイダーは NuGet パッケージにあり、登録順に適用されます。 詳細については、<xref:fundamentals/configuration/index> を参照してください。
+複数の構成プロバイダーを追加できます。 構成プロバイダーは NuGet パッケージにあり、登録順に適用されます。 詳細については、「<xref:fundamentals/configuration/index>」を参照してください。
 
 <xref:Microsoft.Extensions.Options.IConfigureOptions%601.Configure*> を呼び出すたびに <xref:Microsoft.Extensions.Options.IConfigureOptions%601> サービスがサービス コンテナーに追加されます。 先の例では、値 `Option1` と `Option2` が両方とも *appsettings.json* で指定されていますが、構成されているデリゲートにより値 `Option1` と `Option2` がオーバーライドされます。
 
@@ -974,7 +974,7 @@ delegate_option1 = value1_configured_by_delegate, delegate_option2 = 500
 
 ## <a name="suboptions-configuration"></a>サブオプション構成
 
-サンプル アプリの例 &num;3 はサブオプション構成です。
+サンプル アプリの例 3 はサブオプション構成です。
 
 アプリでは、アプリの特定のシナリオ グループ (クラス) に関連するオプション クラスを作成する必要があります。 構成値を必要とするアプリの各パーツには、そのパーツが使用する構成値へのアクセスのみを与える必要があります。
 
@@ -1010,7 +1010,7 @@ subOption1 = subvalue1_from_json, subOption2 = 200
 
 ## <a name="options-provided-by-a-view-model-or-with-direct-view-injection"></a>ビュー モデルまたは直接的なビュー挿入で与えられるオプション
 
-サンプル アプリの例 &num;4 は、ビュー モデルまたは直接的なビュー挿入で与えられるオプションです。
+サンプル アプリの例 4 は、ビュー モデルまたは直接的なビュー挿入で与えられるオプションです。
 
 オプションはビュー モデルで提供するか、ビューに <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> を直接挿入することで提供できます (*Pages/Index.cshtml.cs*)。
 
@@ -1030,7 +1030,7 @@ subOption1 = subvalue1_from_json, subOption2 = 200
 
 ## <a name="reload-configuration-data-with-ioptionssnapshot"></a>IOptionsSnapshot で構成データを再読み込みする
 
-サンプル アプリの例 &num;5 では、<xref:Microsoft.Extensions.Options.IOptionsSnapshot%601> で構成データを再読み込みする方法を確認できます。
+サンプル アプリの例 5 では、<xref:Microsoft.Extensions.Options.IOptionsSnapshot%601> で構成データを再読み込みする方法を確認できます。
 
 <xref:Microsoft.Extensions.Options.IOptionsSnapshot%601> では、最小の処理オーバーヘッドでオプションを再読み込みできます。
 
@@ -1058,9 +1058,9 @@ snapshot option1 = value1_from_json UPDATED, snapshot option2 = 200
 
 ## <a name="named-options-support-with-iconfigurenamedoptions"></a>IConfigureNamedOptions による名前付きオプションのサポート
 
-サンプル アプリの例 &num;6 は、<xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> による名前付きオプションのサポートです。
+サンプル アプリの例 6 は、<xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> による名前付きオプションのサポートです。
 
-*名前付きオプション*をサポートすることで、アプリでは名前付きオプション構成が区別されます。 サンプル アプリでは、名前付きオプションは [OptionsServiceCollectionExtensions.Configure](xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.Configure*) で宣言されます。これは、[ConfigureNamedOptions\<TOptions>.Configure](xref:Microsoft.Extensions.Options.ConfigureNamedOptions`1.Configure*) 拡張メソッドを呼び出します。
+名前付きオプションをサポートすることで、アプリでは名前付きオプション構成が区別されます。 サンプル アプリでは、名前付きオプションは [OptionsServiceCollectionExtensions.Configure](xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.Configure*) で宣言されます。これは、[ConfigureNamedOptions\<TOptions>.Configure](xref:Microsoft.Extensions.Options.ConfigureNamedOptions`1.Configure*) 拡張メソッドを呼び出します。 名前付きオプションでは大文字と小文字が区別されます。
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Startup.cs?name=snippet_Example6)]
 

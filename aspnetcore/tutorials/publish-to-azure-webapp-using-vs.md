@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/10/2019
 uid: tutorials/publish-to-azure-webapp-using-vs
-ms.openlocfilehash: 802d5c65423227e5fb7ccf39d692df2f0178ad34
-ms.sourcegitcommit: e6bd2bbe5683e9a7dbbc2f2eab644986e6dc8a87
+ms.openlocfilehash: 7fc3644df3dcb957f2537538aaa9506c6b38a480
+ms.sourcegitcommit: 79850db9e79b1705b89f466c6f2c961ff15485de
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/03/2019
-ms.locfileid: "70238193"
+ms.lasthandoff: 01/07/2020
+ms.locfileid: "75693974"
 ---
 # <a name="publish-an-aspnet-core-app-to-azure-with-visual-studio"></a>Visual Studio を使用して Azure に ASP.NET Core アプリを発行する
 
@@ -23,7 +23,7 @@ ms.locfileid: "70238193"
 ::: moniker-end
 
 
-macOS を使用している場合は、[Visual Studio for Mac から Azure への公開](https://blog.xamarin.com/publish-azure-visual-studio-mac/)に関するページを参照してください。
+macOS で作業している場合は、「[Visual Studio for Mac を使用して Azure App Service に Web アプリを発行する](https://docs.microsoft.com/visualstudio/mac/publish-app-svc?view=vsmac-2019)」を参照してください。
 
 App Service の配置に関する問題を解決するには、「<xref:test/troubleshoot-azure-iis>」を参照してください。
 
@@ -176,7 +176,7 @@ Visual Studio は、Azure で Web アプリと SQL Server を作成します。 
 
 * **[リソース グループ]** を選択し、作成したリソース グループを選択します。
 
-![Azure Portal:サイドバー メニューの [リソース グループ]](publish-to-azure-webapp-using-vs/_static/portalrg.png)
+![Azure Portal: サイドバー メニューの [リソース グループ]](publish-to-azure-webapp-using-vs/_static/portalrg.png)
 
 * **[リソース グループ]** ページで、 **[削除]** を選択します。
 

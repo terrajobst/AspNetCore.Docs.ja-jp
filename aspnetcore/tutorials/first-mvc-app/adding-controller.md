@@ -5,12 +5,12 @@ description: 単純な ASP.NET Core MVC アプリにコントローラーを追�
 ms.author: riande
 ms.date: 08/05/2017
 uid: tutorials/first-mvc-app/adding-controller
-ms.openlocfilehash: 1c54959130f3a9959d4d4fdb8dcaa0d37ee2f046
-ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
+ms.openlocfilehash: fe0c1d3c066d6ab20387391e15c3a7cfe684c61e
+ms.sourcegitcommit: 077b45eceae044475f04c1d7ef2d153d7c0515a8
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/06/2019
-ms.locfileid: "68820053"
+ms.lasthandoff: 12/29/2019
+ms.locfileid: "75542706"
 ---
 # <a name="add-a-controller-to-an-aspnet-core-mvc-app"></a>ASP.NET Core MVC アプリにコントローラーを追加する
 
@@ -96,7 +96,7 @@ URL からコントローラーにいくつかのパラメーター情報を渡�
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/HelloWorldController.cs?name=snippet_2)]
 
-上のコードでは以下の操作が行われます。
+上記のコードでは次の操作が行われます。
 
 * C# のオプション パラメーター機能を使って、`numTimes` パラメーターに値が渡されない場合の既定値が 1 であることを示します。 <!-- remove for simplified -->
 * `HtmlEncoder.Default.Encode` を使って、悪意のある入力 (つまり JavaScript) からアプリを保護します。
@@ -108,7 +108,7 @@ URL からコントローラーにいくつかのパラメーター情報を渡�
 
 (`{PORT}` は実際のポート番号に置き換えます。)URL の `name` と `numtimes` に違う値を指定してみてください。 MVC の[モデル バインド](xref:mvc/models/model-binding) システムは、名前付きパラメーターを、アドレス バーのクエリ文字列からメソッドのパラメーターに自動的にマップします。 詳しくは、「[モデル バインド](xref:mvc/models/model-binding)」をご覧ください。
 
-![Hello Rick のアプリケーションの応答が表示されているブラウザー ウィンドウ。NumTimes は次のとおり: 4](~/tutorials/first-mvc-app/adding-controller/_static/rick4.png)
+!["Hello Rick, NumTimes is\: 4" というアプリケーションの応答が表示されているブラウザー ウィンドウ](~/tutorials/first-mvc-app/adding-controller/_static/rick4.png)
 
 上の図では、URL セグメント (`Parameters`) は使われておらず、`name` および `numTimes` パラメーターは[クエリ文字列](https://wikipedia.org/wiki/Query_string)として渡されています。 上の URL の `?` (疑問符) は区切り記号であり、後にクエリ文字列が続きます。 `&` 文字は、クエリ文字列を区切ります。
 
@@ -215,7 +215,7 @@ URL からコントローラーにいくつかのパラメーター情報を渡�
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/HelloWorldController.cs?name=snippet_2)]
 
-上のコードでは以下の操作が行われます。
+上記のコードでは次の操作が行われます。
 
 * C# のオプション パラメーター機能を使って、`numTimes` パラメーターに値が渡されない場合の既定値が 1 であることを示します。 <!-- remove for simplified -->
 * `HtmlEncoder.Default.Encode` を使って、悪意のある入力 (つまり JavaScript) からアプリを保護します。
@@ -227,7 +227,7 @@ URL からコントローラーにいくつかのパラメーター情報を渡�
 
 (`{PORT}` は実際のポート番号に置き換えます。)URL の `name` と `numtimes` に違う値を指定してみてください。 MVC の[モデル バインド](xref:mvc/models/model-binding) システムは、名前付きパラメーターを、アドレス バーのクエリ文字列からメソッドのパラメーターに自動的にマップします。 詳しくは、「[モデル バインド](xref:mvc/models/model-binding)」をご覧ください。
 
-![Hello Rick のアプリケーションの応答が表示されているブラウザー ウィンドウ。NumTimes は次のとおり: 4](~/tutorials/first-mvc-app/adding-controller/_static/rick4.png)
+!["Hello Rick, NumTimes is\: 4" というアプリケーションの応答が表示されているブラウザー ウィンドウ](~/tutorials/first-mvc-app/adding-controller/_static/rick4.png)
 
 上の図では、URL セグメント (`Parameters`) は使われておらず、`name` および `numTimes` パラメーターは[クエリ文字列](https://wikipedia.org/wiki/Query_string)として渡されています。 上の URL の `?` (疑問符) は区切り記号であり、後にクエリ文字列が続きます。 `&` 文字は、クエリ文字列を区切ります。
 

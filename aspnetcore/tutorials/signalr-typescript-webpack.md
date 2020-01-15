@@ -8,12 +8,12 @@ ms.date: 11/21/2019
 no-loc:
 - SignalR
 uid: tutorials/signalr-typescript-webpack
-ms.openlocfilehash: a7c99c9e79647995886aec5b3a91584fd2f24451
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: 9094a1d391c087a6f58aa9dd66e3697a79f4af86
+ms.sourcegitcommit: ef1720cb733908f36a54825d84c3461c5280bdbe
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317488"
+ms.lasthandoff: 01/08/2020
+ms.locfileid: "75737517"
 ---
 # <a name="use-aspnet-core-opno-locsignalr-with-typescript-and-webpack"></a>TypeScript と Webpack で ASP.NET Core SignalR を使用する
 
@@ -123,7 +123,7 @@ dotnet new web -o SignalRWebPack
 
     * `build`: 開発モードでクライアント側のリソースをバンドルし、ファイルの変更を監視します。 ファイル監視により、プロジェクト ファイルを変更するたびにバンドルが再生成されます。 `mode` オプションは、ツリー シェイキングや縮小などの運用環境の最適化を無効にします。 `build` は開発でのみ使用します。
     * `release`: 運用モードでクライアント側のリソースをバンドルします。
-    * `publish`: `release` スクリプトを実行して、運用モードでクライアント側のリソースをバンドルします。 .NET Core CLI の [publish](/dotnet/core/tools/dotnet-publish) コマンドを呼び出してアプリを公開します。
+    * `publish`:`release` スクリプトを実行して、運用モードでクライアント側のリソースをバンドルします。 .NET Core CLI の [publish](/dotnet/core/tools/dotnet-publish) コマンドを呼び出してアプリを公開します。
 
 1. プロジェクト ルートに、次の内容を持つ *webpack.config.js* という名前のファイルを作成します。
 
@@ -271,6 +271,8 @@ dotnet new web -o SignalRWebPack
 
 ::: moniker range="< aspnetcore-3.0"
 
+## <a name="prerequisites"></a>必須コンポーネント
+
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) と **ASP.NET と Web 開発**ワークロード
@@ -358,7 +360,7 @@ dotnet new web -o SignalRWebPack
 
     * `build`: 開発モードでクライアント側のリソースをバンドルし、ファイルの変更を監視します。 ファイル監視により、プロジェクト ファイルを変更するたびにバンドルが再生成されます。 `mode` オプションは、ツリー シェイキングや縮小などの運用環境の最適化を無効にします。 `build` は開発でのみ使用します。
     * `release`: 運用モードでクライアント側のリソースをバンドルします。
-    * `publish`: `release` スクリプトを実行して、運用モードでクライアント側のリソースをバンドルします。 .NET Core CLI の [publish](/dotnet/core/tools/dotnet-publish) コマンドを呼び出してアプリを公開します。
+    * `publish`:`release` スクリプトを実行して、運用モードでクライアント側のリソースをバンドルします。 .NET Core CLI の [publish](/dotnet/core/tools/dotnet-publish) コマンドを呼び出してアプリを公開します。
 
 1. プロジェクト ルートに、次の内容を持つ *webpack.config.js* という名前のファイルを作成します。
 
@@ -433,7 +435,7 @@ dotnet new web -o SignalRWebPack
 1. プロジェクト ルートで、次のコマンドを実行します。
 
     ```console
-    npm install @microsoft/signalr
+    npm install @aspnet/signalr
     ```
 
     上記のコマンドにより [SignalR TypeScript クライアント](https://www.npmjs.com/package/@microsoft/signalr) がインストールされ、クライアントがサーバーにメッセージを送信できるようになります。

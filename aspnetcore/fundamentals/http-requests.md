@@ -2,16 +2,17 @@
 title: ASP.NET Core で IHttpClientFactory を使用して HTTP 要求を行う
 author: stevejgordon
 description: IHttpClientFactory インターフェイスを使用して、ASP.NET Core の論理 HttpClient インスタンスを管理する方法について説明します。
+monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 11/27/2019
+ms.date: 12/16/2019
 uid: fundamentals/http-requests
-ms.openlocfilehash: f33444b8fc08dc022da7700af53a218600290162
-ms.sourcegitcommit: 169ea5116de729c803685725d96450a270bc55b7
+ms.openlocfilehash: 482f8e28c23c621cecaf9ce111d89e9166ea6d85
+ms.sourcegitcommit: da2fb2d78ce70accdba903ccbfdcfffdd0112123
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74733922"
+ms.lasthandoff: 01/07/2020
+ms.locfileid: "75722727"
 ---
 # <a name="make-http-requests-using-ihttpclientfactory-in-aspnet-core"></a>ASP.NET Core で IHttpClientFactory を使用して HTTP 要求を行う
 
@@ -190,7 +191,7 @@ public class ValuesController : ControllerBase
     * キャッシュ
     * エラー処理
     * シリアル化
-    * logging
+    * ログ
 
 デリゲート ハンドラーを作成するには、次のようにします。
 
@@ -299,7 +300,7 @@ DI 対応のアプリ内で `IHttpClientFactory` を使用すれば、次のこ�
 
 - アプリの起動時に `SocketsHttpHandler` インスタンスを作成し、アプリの有効期間中、それを使用します。
 - DNS の更新時間に基づいて、<xref:System.Net.Http.SocketsHttpHandler.PooledConnectionLifetime> を適切な値に構成します。
-- 必要に応じて `new HttpClient(handler, dispostHandler: false)` を使用して `HttpClient` インスタンスを作成します。
+- 必要に応じて `new HttpClient(handler, disposeHandler: false)` を使用して `HttpClient` インスタンスを作成します。
 
 上記の方法を使用すると、`IHttpClientFactory` が同様の方法で解決するリソース管理の問題を解決できます。
 
@@ -357,6 +358,7 @@ DI 対応のアプリ内で `IHttpClientFactory` を使用すれば、次のこ�
 * [HttpClientFactory を使用して回復力の高い HTTP 要求を実装する](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)
 * [HttpClientFactory ポリシーと Polly ポリシーで指数バックオフを含む HTTP 呼び出しの再試行を実装する](/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly)
 * [サーキット ブレーカー パターンを実装する](/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-circuit-breaker-pattern)
+* [.NET で JSON のシリアル化と逆シリアル化を行う方法](/dotnet/standard/serialization/system-text-json-how-to)
 
 ::: moniker-end
 
@@ -600,7 +602,7 @@ DI 対応のアプリ内で `IHttpClientFactory` を使用すれば、次のこ�
 
 - アプリの起動時に `SocketsHttpHandler` インスタンスを作成し、アプリの有効期間中、それを使用します。
 - DNS の更新時間に基づいて、<xref:System.Net.Http.SocketsHttpHandler.PooledConnectionLifetime> を適切な値に構成します。
-- 必要に応じて `new HttpClient(handler, dispostHandler: false)` を使用して `HttpClient` インスタンスを作成します。
+- 必要に応じて `new HttpClient(handler, disposeHandler: false)` を使用して `HttpClient` インスタンスを作成します。
 
 上記の方法を使用すると、`IHttpClientFactory` が同様の方法で解決するリソース管理の問題を解決できます。
 
@@ -661,7 +663,7 @@ DI 対応のアプリ内で `IHttpClientFactory` を使用すれば、次のこ�
 
 ::: moniker-end
 
-::: moniker range="<= aspnetcore-2.1"
+::: moniker range="= aspnetcore-2.1"
 
 寄稿者: [Glenn Condron](https://github.com/glennc)、[Ryan Nowak](https://github.com/rynowak)、[Steve Gordon](https://github.com/stevejgordon)
 
@@ -908,7 +910,7 @@ DI 対応のアプリ内で `IHttpClientFactory` を使用すれば、次のこ�
 
 - アプリの起動時に `SocketsHttpHandler` インスタンスを作成し、アプリの有効期間中、それを使用します。
 - DNS の更新時間に基づいて、<xref:System.Net.Http.SocketsHttpHandler.PooledConnectionLifetime> を適切な値に構成します。
-- 必要に応じて `new HttpClient(handler, dispostHandler: false)` を使用して `HttpClient` インスタンスを作成します。
+- 必要に応じて `new HttpClient(handler, disposeHandler: false)` を使用して `HttpClient` インスタンスを作成します。
 
 上記の方法を使用すると、`IHttpClientFactory` が同様の方法で解決するリソース管理の問題を解決できます。
 

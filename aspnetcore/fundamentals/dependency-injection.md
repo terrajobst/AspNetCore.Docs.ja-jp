@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/05/2019
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: c46e7322e86c2836a15bd0720995a8634bb185be
-ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
+ms.openlocfilehash: fabc6df07d2d7beaa546b189bb7527f626fc669d
+ms.sourcegitcommit: 47d453f34b6fd0179119c572cb8be64c5365cbb6
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73634011"
+ms.lasthandoff: 01/02/2020
+ms.locfileid: "75597942"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>ASP.NET Core での依存関係の挿入
 
@@ -107,7 +107,7 @@ public class IndexModel : PageModel
 コンテナーでは、[(ジェネリック) オープン型](/dotnet/csharp/language-reference/language-specification/types#open-and-closed-types)を活用し、すべての [(ジェネリック) 構築型](/dotnet/csharp/language-reference/language-specification/types#constructed-types)を登録する必要をなくすことで、`ILogger<TCategoryName>` を解決します。
 
 ```csharp
-services.AddSingleton(typeof(ILogger<T>), typeof(Logger<T>));
+services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
 ```
 
 サンプル アプリにおいて、`IMyDependency` サービスは `MyDependency` 具象型を使用して登録されます。 登録によって、サービスの有効期間が 1 つの要求の有効期間に範囲設定されます。 [サービスの有効期間](#service-lifetimes)については、このトピックの後半で説明します。
@@ -176,7 +176,7 @@ public void Configure(IApplicationBuilder app, IOptions<MyOptions> options)
 }
 ```
 
-詳細については、<xref:fundamentals/startup> を参照してください。
+詳細については、「<xref:fundamentals/startup>」を参照してください。
 
 ## <a name="framework-provided-services"></a>フレームワークが提供するサービス
 
@@ -259,7 +259,7 @@ public void ConfigureServices(IServiceCollection services)
 有効期間がスコープのサービス (<xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddScoped*>) は、クライアント要求 (接続) ごとに 1 回作成されます。
 
 > [!WARNING]
-> ミドルウェアでスコープ サービスを使用している場合、サービスを `Invoke` または `InvokeAsync` メソッドに追加します。 コンストラクターを使用して挿入すると、サービスがシングルトンのように動作するよう強制されるので、コンストラクターを使用した挿入は行わないでください。 詳細については、<xref:fundamentals/middleware/write#per-request-middleware-dependencies> を参照してください。
+> ミドルウェアでスコープ サービスを使用している場合、サービスを `Invoke` または `InvokeAsync` メソッドに追加します。 コンストラクターを使用して挿入すると、サービスがシングルトンのように動作するよう強制されるので、コンストラクターを使用した挿入は行わないでください。 詳細については、「<xref:fundamentals/middleware/write#per-request-middleware-dependencies>」を参照してください。
 
 ### <a name="singleton"></a>シングルトン
 
@@ -276,9 +276,9 @@ public void ConfigureServices(IServiceCollection services)
 | ------ | :-----------------------------: | :-------------------------: | :-------: |
 | `Add{LIFETIME}<{SERVICE}, {IMPLEMENTATION}>()`<br>例:<br>`services.AddSingleton<IMyDep, MyDep>();` | はい | はい | いいえ |
 | `Add{LIFETIME}<{SERVICE}>(sp => new {IMPLEMENTATION})`<br>次に例を示します。<br>`services.AddSingleton<IMyDep>(sp => new MyDep());`<br>`services.AddSingleton<IMyDep>(sp => new MyDep("A string!"));` | はい | はい | はい |
-| `Add{LIFETIME}<{IMPLEMENTATION}>()`<br>例:<br>`services.AddSingleton<MyDep>();` | はい | × | いいえ |
-| `AddSingleton<{SERVICE}>(new {IMPLEMENTATION})`<br>次に例を示します。<br>`services.AddSingleton<IMyDep>(new MyDep());`<br>`services.AddSingleton<IMyDep>(new MyDep("A string!"));` | いいえ | [はい] | はい |
-| `AddSingleton(new {IMPLEMENTATION})`<br>次に例を示します。<br>`services.AddSingleton(new MyDep());`<br>`services.AddSingleton(new MyDep("A string!"));` | いいえ | × | はい |
+| `Add{LIFETIME}<{IMPLEMENTATION}>()`<br>例:<br>`services.AddSingleton<MyDep>();` | はい | いいえ | いいえ |
+| `AddSingleton<{SERVICE}>(new {IMPLEMENTATION})`<br>次に例を示します。<br>`services.AddSingleton<IMyDep>(new MyDep());`<br>`services.AddSingleton<IMyDep>(new MyDep("A string!"));` | いいえ | はい | はい |
+| `AddSingleton(new {IMPLEMENTATION})`<br>次に例を示します。<br>`services.AddSingleton(new MyDep());`<br>`services.AddSingleton(new MyDep("A string!"));` | いいえ | いいえ | はい |
 
 型の廃棄の詳細については、「[サービスの破棄](#disposal-of-services)」を参照してください。 実装が複数の場合の一般的なシナリオとしては、[テスト用に型のモックを作成](xref:test/integration-tests#inject-mock-services)します。
 
@@ -553,7 +553,7 @@ public class Program
 
 スコープ サービスは、それを作成したコンテナーによって破棄されます。 ルート コンテナーにスコープ サービスが作成されると、サービスはアプリ/サーバーのシャットダウン時に、ルート コンテナーによってのみ破棄されるため、サービスの有効期間は実質的にシングルトンに昇格されます。 `BuildServiceProvider` が呼び出されると、サービス スコープの検証がこれらの状況をキャッチします。
 
-詳細については、<xref:fundamentals/host/web-host#scope-validation> を参照してください。
+詳細については、「<xref:fundamentals/host/web-host#scope-validation>」を参照してください。
 
 ## <a name="request-services"></a>要求サービス
 

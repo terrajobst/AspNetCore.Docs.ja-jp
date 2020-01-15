@@ -5,12 +5,12 @@ description: 単純な ASP.NET Core アプリケーションにモデルを追�
 ms.author: riande
 ms.date: 8/15/2019
 uid: tutorials/first-mvc-app/adding-model
-ms.openlocfilehash: 2fac37e7069fb2a464d4de1da8912197f7adf8a8
-ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
+ms.openlocfilehash: 5d4251a2577111324aa2cfb715c41e3ecad5a9d1
+ms.sourcegitcommit: da2fb2d78ce70accdba903ccbfdcfffdd0112123
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/07/2019
-ms.locfileid: "73761095"
+ms.lasthandoff: 01/07/2020
+ms.locfileid: "75722799"
 ---
 # <a name="add-a-model-to-an-aspnet-core-mvc-app"></a>ASP.NET Core MVC アプリへのモデルの追加
 
@@ -32,9 +32,13 @@ ms.locfileid: "73761095"
 
 *Models* フォルダーを右クリックし、 **[追加]**  >  **[クラス]** の順に選択します。 ファイルに *Movie.cs* という名前を付けます。
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 *Movie.cs* という名前のファイルを *Models* フォルダーに追加します。
+
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+
+*Models* フォルダーを右クリックし、 **[追加]**  >  **[新しいクラス]**  >  **[空のクラス]** の順に選択します。 ファイルに *Movie.cs* という名前を付けます。
 
 ---
 
@@ -67,9 +71,26 @@ Install-Package Microsoft.EntityFrameworkCore.SqlServer
 
 上記のコマンドによって EF Core SQL Server プロバイダーが追加されます。 プロバイダー パッケージによって、依存関係として EF Core パッケージがインストールされます。 追加のパッケージは、このチュートリアルの後半で、スキャフォールディングの手順で自動的にインストールされます。
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 [!INCLUDE[](~/includes/add-EF-NuGet-SQLite-CLI.md)]
+
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+
+**[プロジェクト]** メニューから、 **[NuGet パッケージの管理]** を選択します。
+
+右上の **[検索]** フィールドに「`Microsoft.EntityFrameworkCore.SQLite`」と入力し、**Return** キーを押して検索します。 一致する NuGet パッケージを選択し、 **[パッケージの追加]** ボタンをクリックします。
+
+![Entity Framework Core NuGet パッケージを追加する](~/tutorials/first-mvc-app-mac/adding-model/_static/add-nuget-packages.png)
+
+**[プロジェクトの選択]** ダイアログが、`MvcMovie` プロジェクトが選択された状態で表示されます。 **[OK]** ボタンをクリックします。
+
+**[ライセンスの同意]** ダイアログが表示されます。 必要に応じてライセンスを確認し、 **[同意する]** ボタンをクリックします。
+
+上記の手順を繰り返して、次の NuGet パッケージをインストールします。
+ * `Microsoft.VisualStudio.Web.CodeGeneration.Design`
+ * `Microsoft.EntityFrameworkCore.SqlServer`
+ * `Microsoft.EntityFrameworkCore.Design`
 
 ---
 
@@ -394,7 +415,7 @@ Movies コントローラーの *Index.cshtml* ビューと `Index` メソッド
 
 [!INCLUDE [model 1b](~/includes/mvc-intro/model1b.md)]
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code/Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 * *Movie.cs* という名前の *Models* フォルダーにクラスを追加します。
 
@@ -537,7 +558,7 @@ Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(int rc, sqlite3 db)
 
    `Add-Migration` コマンドによって最初のデータベース スキーマを作成するコードが生成されます。
 
-   データベース スキーマは、`MvcMovieContext` クラスで指定されたモデルに基づきます。 `Initial` 引数は、移行の名前です。 任意の名前を使用できますが、慣例により、移行を説明する名前が使用されます。 詳細については、<xref:data/ef-mvc/migrations> を参照してください。
+   データベース スキーマは、`MvcMovieContext` クラスで指定されたモデルに基づきます。 `Initial` 引数は、移行の名前です。 任意の名前を使用できますが、慣例により、移行を説明する名前が使用されます。 詳細については、「<xref:data/ef-mvc/migrations>」を参照してください。
 
    `Update-Database` コマンドは、データベースを作成する、*Migrations/{time-stamp}_InitialCreate.cs* ファイルの `Up` メソッドを実行します。
 
@@ -689,6 +710,6 @@ Movies コントローラーの *Index.cshtml* ビューと `Index` メソッド
 
 > [!div class="step-by-step"]
 > [前のチュートリアル ビューの追加](adding-view.md)
-> [次のチュートリアル SQL の使用](working-with-sql.md)
+> [次のチュートリアル データベースの使用](working-with-sql.md)
 
 ::: moniker-end

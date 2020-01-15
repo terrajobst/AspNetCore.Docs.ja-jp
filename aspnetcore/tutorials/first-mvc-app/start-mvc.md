@@ -5,12 +5,12 @@ description: ASP.NET Core MVC の概要について説明します。
 ms.author: riande
 ms.date: 10/16/2019
 uid: tutorials/first-mvc-app/start-mvc
-ms.openlocfilehash: 0c8c59a5c59c8a70985dc8463c80f9569a00621f
-ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
+ms.openlocfilehash: 901257efdfbc7b36249233745175f5ed253da2c7
+ms.sourcegitcommit: da2fb2d78ce70accdba903ccbfdcfffdd0112123
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/07/2019
-ms.locfileid: "73761240"
+ms.lasthandoff: 01/07/2020
+ms.locfileid: "75722880"
 ---
 # <a name="get-started-with-aspnet-core-mvc"></a>ASP.NET Core MVC の概要
 
@@ -38,15 +38,15 @@ ms.locfileid: "73761240"
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-[!INCLUDE[](~/includes/net-core-prereqs-vs-3.0.md)]
+[!INCLUDE[](~/includes/net-core-prereqs-vs-3.1.md)]
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-[!INCLUDE[](~/includes/net-core-prereqs-vsc-3.0.md)]
+[!INCLUDE[](~/includes/net-core-prereqs-vsc-3.1.md)]
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-[!INCLUDE[](~/includes/net-core-prereqs-mac-3.0.md)]
+[!INCLUDE[](~/includes/net-core-prereqs-mac-3.1.md)]
 
 ---
 
@@ -94,15 +94,13 @@ Visual Studio では、作成した MVC プロジェクトに既定のテンプ�
 
   ![macOS の新しいソリューション](./start-mvc/_static/new_project_vsmac.png)
 
-* **[.NET Core]** > **[アプリ]** > **[Web アプリケーション (Model-View-Controller)]** > **[次へ]** の順に選択します。
+* **[.NET Core]** > **[アプリ]** > **[Web アプリケーション (モデル ビュー コントローラー)]** > **[次へ]** の順に選択します。
 
   ![macOS の [新しいプロジェクト] ダイアログ](./start-mvc/_static/new_project_mvc_vsmac.png)
 
-* **[Configure your new ASP.NET Core Web API]\(新しい ASP.NET Core Web API を構成する\)** ダイアログで、* **[.NET Core 3.0]** の **[ターゲット フレームワーク]** を設定します。
+* **[Configure your new ASP.NET Core Web API]\(新しい ASP.NET Core Web API を構成する\)** ダイアログで、 **[.NET Core 3.1]** の **[ターゲット フレームワーク]** を設定します。
 
-<!-- 
-  ![macOS .NET Core 2.2 selection](./start-mvc/_static/new_project_22_vsmac.png)
--->
+  ![macOS .NET Core 3.1 の選択](./start-mvc/_static/new_project_31_vsmac.png)
 
 * プロジェクトに **MvcMovie** という名前を付けて、 **[作成]** を選択します。
 
@@ -244,7 +242,7 @@ Visual Studio では、作成した MVC プロジェクトに既定のテンプ�
 
   ![macOS の新しいソリューション](./start-mvc/_static/new_project_vsmac.png)
 
-* **[.NET Core]** > **[アプリ]** > **[Web アプリケーション (Model-View-Controller)]** > **[次へ]** の順に選択します。
+* **[.NET Core]** > **[アプリ]** > **[Web アプリケーション (モデル ビュー コントローラー)]** > **[次へ]** の順に選択します。
 
   ![macOS の [新しいプロジェクト] ダイアログ](./start-mvc/_static/new_project_mvc_vsmac.png)
 

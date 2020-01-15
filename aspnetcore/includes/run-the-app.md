@@ -19,7 +19,7 @@
 
   [!INCLUDE[](~/includes/trustCertMac.md)]
 
-* Visual Studio から **Alt-Cmd-Enter** キーを押して、デバッガーなしで実行します。 または、メニュー バーに移動して **[実行] > [デバッグなしで開始]** を選択します。
+* Visual Studio から **Opt-Cmd-Return** キーを押して、デバッガーなしで実行します。 または、メニュー バーに移動して **[実行] > [デバッグなしで開始]** を選択します。
 
   Visual Studio は [Kestrel](xref:fundamentals/servers/kestrel) を開始し、ブラウザーを起動して、`http://localhost:5001` に移動します。
 
