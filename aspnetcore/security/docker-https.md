@@ -9,12 +9,12 @@ ms.date: 07/05/2019
 no-loc:
 - Let's Encrypt
 uid: security/docker-https
-ms.openlocfilehash: 47027033c0b7130f2d38d22c02a54945b2cc31b3
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: 07e2791e5b26975c71323f8cb41a4b0fbe0cdf11
+ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75358914"
+ms.lasthandoff: 01/14/2020
+ms.locfileid: "75952139"
 ---
 # <a name="hosting-aspnet-core-images-with-docker-over-https"></a>HTTPS 経由で Docker を使用して ASP.NET Core イメージをホストする
 
@@ -28,7 +28,7 @@ ms.locfileid: "75358914"
 
 このサンプルでは、docker [17.06](https://docs.docker.com/release-notes/docker-ce)以降の[docker クライアント](https://www.docker.com/products/docker)が必要です。
 
-## <a name="prerequisites"></a>Prerequisites
+## <a name="prerequisites"></a>[前提条件]
 
 このドキュメントの一部の手順では、 [.Net Core 2.2 SDK](https://www.microsoft.com/net/download)以降が必要です。
 
@@ -43,7 +43,7 @@ ms.locfileid: "75358914"
 * `dotnet dev-certs` ツールは必要ありません。
 * 手順で使用した場所に証明書を保存する必要はありません。 任意の場所を使用できますが、証明書をサイトディレクトリ内に格納することはお勧めしません。
 
-指示ボリュームは、コンテナーに証明書をマウントします。 *Dockerfile*で `COPY` コマンドを使用して、コンテナーイメージに証明書を追加できます。 証明書をイメージにコピーすることは、次の理由から推奨されません。
+次のセクションに記載されている手順では、Docker の `-v` コマンドラインオプションを使用して、コンテナーに証明書をマウントします。 *Dockerfile*で `COPY` コマンドを使用してコンテナーイメージに証明書を追加することもできますが、この方法はお勧めしません。 証明書をイメージにコピーすることは、次の理由から推奨されません。
 
 * 開発者の証明書を使用したテストで同じイメージを使用するのは困難です。
 * 実稼働証明書を使用してホストする場合、同じイメージを使用するのは困難です。

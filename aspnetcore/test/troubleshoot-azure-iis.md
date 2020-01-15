@@ -5,14 +5,14 @@ description: ASP.NET Core アプリの Azure App Service およびインター�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/20/2019
+ms.date: 01/10/2020
 uid: test/troubleshoot-azure-iis
-ms.openlocfilehash: b0f5d44f153a095a6108a12ee91f4cc46fe0a0de
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 23c90c33d197d26d1c4ad758449e318e20ef3760
+ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829011"
+ms.lasthandoff: 01/14/2020
+ms.locfileid: "75952149"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service-and-iis"></a>Azure App Service および IIS での ASP.NET Core のトラブルシューティング
 
@@ -433,7 +433,7 @@ stdout ログが有効になっていない場合は、次の手順のように�
 
 アプリケーション イベント ログにアクセスします。
 
-1. [スタート] メニューを開き、**イベント ビューアー**を検索し、**イベント ビューアー** アプリを選択します。
+1. [スタート] メニューを開き、*イベントビューアー*を検索して、**イベントビューアー**アプリを選択します。
 1. **イベント ビューアー**で **[Windows ログ]** ノードを開きます。
 1. **[Application]** を選択して、アプリケーション イベント ログを開きます。
 1. 失敗したアプリに関連するエラーを検索します。 エラーの *[ソース]* 列には *IIS AspNetCore Module* または *IIS Express AspNetCore Module* の値が表示されます。
@@ -597,10 +597,10 @@ stdout ログを有効にして表示するには:
 
 ## <a name="clear-package-caches"></a>パッケージキャッシュのクリア
 
-開発用コンピューターの .NET Core SDK をアップグレードした後、またはアプリ内のパッケージバージョンを変更した直後に、機能しているアプリが失敗することがあります。 場合によっては、パッケージに統一性がないと、メジャー アップグレード実行時にアプリが破壊されることがあります。 これらの問題のほとんどは、次の手順で解決できます。
+開発用コンピューターの .NET Core SDK をアップグレードした後、またはアプリ内のパッケージバージョンを変更した直後に、機能しているアプリが失敗する場合があります。 場合によっては、パッケージに統一性がないと、メジャー アップグレード実行時にアプリが破壊されることがあります。 これらの問題のほとんどは、次の手順で解決できます。
 
 1. *bin* フォルダーと *obj* フォルダーを削除します。
-1. コマンドシェルから `dotnet nuget locals all --clear` を実行して、パッケージキャッシュをクリアします。
+1. コマンドシェルから[dotnet nuget ローカルのすべて](/dotnet/core/tools/dotnet-nuget-locals)を実行して、パッケージのキャッシュをクリアします。
 
    パッケージキャッシュのクリアは、 [nuget.exe](https://www.nuget.org/downloads)ツールを使用して実行し、コマンド `nuget locals all -clear`を実行することもできます。 *nuget.exe* は、Windows デスクトップ オペレーティング システムにバンドルされているインストールではなく、[NuGet Web サイト](https://www.nuget.org/downloads)から別に入手する必要があります。
 
