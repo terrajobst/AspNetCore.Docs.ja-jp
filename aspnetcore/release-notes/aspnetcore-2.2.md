@@ -8,12 +8,12 @@ ms.date: 12/05/2019
 no-loc:
 - SignalR
 uid: aspnetcore-2.2
-ms.openlocfilehash: 8995a514ea2e5016da85952d0f0beaf396a5d639
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 97deafd520926476f7653fc3de40d577b394734b
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880843"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829128"
 ---
 # <a name="whats-new-in-aspnet-core-22"></a>ASP.NET Core 2.2 の新機能
 
@@ -119,4 +119,4 @@ ASP.NET Core 2.2 では、接続プールのロック競合を減らすことで
 
 ## <a name="additional-information"></a>追加情報
 
-変更の全一覧については、[ASP.NET Core 2.2 のリリース ノート](https://github.com/aspnet/Home/releases/tag/2.2.0)に関する記事を参照してください。
+変更の全一覧については、[ASP.NET Core 2.2 のリリース ノート](https://github.com/dotnet/aspnetcore/releases/tag/2.2.0)に関する記事を参照してください。

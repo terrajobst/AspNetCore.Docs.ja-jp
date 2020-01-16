@@ -9,12 +9,12 @@ ms.date: 11/21/2019
 no-loc:
 - Blazor
 uid: host-and-deploy/blazor/configure-linker
-ms.openlocfilehash: 0bc987d72d2f684b1ecbd4a883e9a09fac7c801e
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: cdf506f0c0fa720df64e59342d352ef41271d24b
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317287"
+ms.lasthandoff: 01/10/2020
+ms.locfileid: "75866047"
 ---
 # <a name="configure-the-linker-for-aspnet-core-opno-locblazor"></a>ASP.NET Core Blazor 用のリンカーを構成する
 
@@ -62,7 +62,7 @@ XML の構成ファイルを用意してそのファイルをプロジェクト 
     <!--
       Preserve the methods in WasmRuntime because its methods are called by 
       JavaScript client-side code to implement timers.
-      Fixes: https://github.com/aspnet/Blazor/issues/239
+      Fixes: https://github.com/dotnet/blazor/issues/239
     -->
     <type fullname="System.Threading.WasmRuntime" />
   </assembly>
@@ -100,7 +100,7 @@ XML の構成ファイルを用意してそのファイルをプロジェクト 
 | `all`            | すべてのアセンブリが含まれます |
 | `cjk`            | *I18N.CJK.dll*          |
 | `mideast`        | *I18N.MidEast.dll*      |
-| `none` (既定値) | なし                    |
+| `none` (既定値) | None                    |
 | `other`          | *I18N.Other.dll*        |
 | `rare`           | *I18N.Rare.dll*         |
 | `west`           | *I18N.West.dll*         |

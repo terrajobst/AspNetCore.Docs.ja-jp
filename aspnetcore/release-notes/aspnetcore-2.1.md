@@ -8,12 +8,12 @@ ms.date: 12/05/2019
 no-loc:
 - SignalR
 uid: aspnetcore-2.1
-ms.openlocfilehash: d969b4caab44e3e50b3a0202b25864921d6d01dc
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 57fe6c4e32ad666987c782fac75ddb19e3d3b5c7
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880857"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829141"
 ---
 # <a name="whats-new-in-aspnet-core-21"></a>ASP.NET Core 2.1 の新機能
 
@@ -169,7 +169,7 @@ Razor Pages が、[区分](xref:mvc/controllers/areas)をサポートするよ�
 
 <xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*> メソッドを使用すると、ASP.NET Core MVC 2.1 以降に導入されている、互換性に影響する重大な変更をオプトインまたはオプトアウトすることができます。
 
-詳細については、<xref:mvc/compatibility-version> を参照してください。
+詳細については、「<xref:mvc/compatibility-version>」を参照してください。
 
 ## <a name="migrate-from-20-to-21"></a>2\.0 から 2.1 への移行
 
@@ -177,4 +177,4 @@ Razor Pages が、[区分](xref:mvc/controllers/areas)をサポートするよ�
 
 ## <a name="additional-information"></a>追加情報
 
-変更の全一覧については、「[ASP.NET Core 2.1 Release Notes](https://github.com/aspnet/Home/releases/tag/2.1.0)」 (ASP.NET Core 2.1 のリリース ノート) を参照してください。
+変更の全一覧については、「[ASP.NET Core 2.1 Release Notes](https://github.com/dotnet/aspnetcore/releases/tag/2.1.0)」 (ASP.NET Core 2.1 のリリース ノート) を参照してください。

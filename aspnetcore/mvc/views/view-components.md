@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/18/2019
 uid: mvc/views/view-components
-ms.openlocfilehash: a4583d49eb0b42f1fa6e3d8c444d263cba34da79
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: 8df070b580b6125db6616b33a81f3ffebad69f3a
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75356848"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75828920"
 ---
 # <a name="view-components-in-aspnet-core"></a>ASP.NET Core のビュー コンポーネント
 
@@ -337,7 +337,7 @@ Razor マークアップ ファイルでビュー コンポーネントのタグ
 
 ## <a name="all-view-component-parameters-are-required"></a>ビュー コンポーネントのすべてのパラメーターが必要
 
-ビュー コンポーネントの各パラメーターは、必須の属性です。 [こちらの GitHub のイシュー](https://github.com/aspnet/AspNetCore/issues/5011)を参照してください。 パラメーターを省略した場合は、次のようになります。
+ビュー コンポーネントの各パラメーターは、必須の属性です。 [こちらの GitHub のイシュー](https://github.com/dotnet/AspNetCore/issues/5011)を参照してください。 パラメーターを省略した場合は、次のようになります。
 
 * `InvokeAsync` メソッドのシグネチャが一致しないため、メソッドが実行されません。
 * ViewComponent がマークアップをレンダリングしません。

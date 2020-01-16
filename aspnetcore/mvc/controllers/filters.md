@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 1/1/2020
 uid: mvc/controllers/filters
-ms.openlocfilehash: 2300b14a6a89191d3d8c673311880fc144183da9
-ms.sourcegitcommit: e7d4fe6727d423f905faaeaa312f6c25ef844047
+ms.openlocfilehash: 759c150e7f35f3f6a52947edc5ef41448dc227fe
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/02/2020
-ms.locfileid: "75608127"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75828972"
 ---
 # <a name="filters-in-aspnet-core"></a>ASP.NET Core フィルター
 
@@ -213,7 +213,7 @@ Razor ページ ハンドラー メソッドにフィルターを適用するこ
   * `MySampleActionFilter.OnActionExecuted`
 * `TestController.OnActionExecuted`
 
-コントローラー レベルのフィルターでは、[Order](https://github.com/aspnet/AspNetCore/blob/master/src/Mvc/Mvc.Core/src/Filters/ControllerActionFilter.cs#L15-L17) プロパティが `int.MinValue` に設定されます。 コントローラー レベルのフィルターは、メソッドにフィルターが適用された後に実行されるように設定することは**できません**。 順序については、次のセクションで説明します。
+コントローラー レベルのフィルターでは、[Order](https://github.com/dotnet/AspNetCore/blob/master/src/Mvc/Mvc.Core/src/Filters/ControllerActionFilter.cs#L15-L17) プロパティが `int.MinValue` に設定されます。 コントローラー レベルのフィルターは、メソッドにフィルターが適用された後に実行されるように設定することは**できません**。 順序については、次のセクションで説明します。
 
 Razor Pages の場合、「[フィルター メソッドをオーバーライドして Razor ページにフィルターを実装する](xref:razor-pages/filter#implement-razor-page-filters-by-overriding-filter-methods)」を参照してください。
 
@@ -246,7 +246,7 @@ Razor Pages の場合、「[フィルター メソッドをオーバーライド
   * `MyAction2FilterAttribute.OnResultExecuting`
 * `Test2Controller.OnActionExecuted`
 
-フィルターの実行順序を決定するときに、`Order` プロパティによりスコープがオーバーライドされます。 最初に順序でフィルターが並べ替えられ、次に同じ順位の優先度を決めるためにスコープが使用されます。 組み込みのフィルターはすべて `IOrderedFilter` を実装し、既定の `Order` 値を 0 に設定します。 既に説明したように、コントローラー レベルのフィルターでは、[Order](https://github.com/aspnet/AspNetCore/blob/master/src/Mvc/Mvc.Core/src/Filters/ControllerActionFilter.cs#L15-L17) プロパティが `int.MinValue` に設定されます。組み込みのフィルターの場合は、`Order` が 0 以外の値に設定されている場合を除き、スコープによって順序が決定されます。
+フィルターの実行順序を決定するときに、`Order` プロパティによりスコープがオーバーライドされます。 最初に順序でフィルターが並べ替えられ、次に同じ順位の優先度を決めるためにスコープが使用されます。 組み込みのフィルターはすべて `IOrderedFilter` を実装し、既定の `Order` 値を 0 に設定します。 既に説明したように、コントローラー レベルのフィルターでは、[Order](https://github.com/dotnet/AspNetCore/blob/master/src/Mvc/Mvc.Core/src/Filters/ControllerActionFilter.cs#L15-L17) プロパティが `int.MinValue` に設定されます。組み込みのフィルターの場合は、`Order` が 0 以外の値に設定されている場合を除き、スコープによって順序が決定されます。
 
 上記のコードにおいて、`MySampleActionFilter` にはグローバル スコープがあるため、コントローラー スコープを持つ `MyAction2FilterAttribute` の前で実行されます。 `MyAction2FilterAttribute` を最初に実行するようにするには、`int.MinValue` に対して順序を設定します。
 

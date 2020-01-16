@@ -5,12 +5,12 @@ description: ASP.NET Core 1.1 の新機能について説明します。
 ms.author: riande
 ms.date: 12/18/2018
 uid: aspnetcore-1.1
-ms.openlocfilehash: 0b1c4eb467dd13a7654229b3ed76dd14e984e94b
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: df9fd6bda00ac5f5516f40507001463fd7d0b92e
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75355226"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75828504"
 ---
 # <a name="whats-new-in-aspnet-core-11"></a>ASP.NET Core 1.1 の新機能
 
@@ -33,5 +33,5 @@ ASP.NET Core 1.1 には、ASP.NET Core 1.0 よりも多くの機能がありま�
 
 ## <a name="additional-information"></a>追加情報
 
-- [ASP.NET Core 1.1.0 リリース ノート](https://github.com/aspnet/Home/releases/tag/1.1.0)
+- [ASP.NET Core 1.1.0 リリース ノート](https://github.com/dotnet/aspnetcore/releases/tag/1.1.0)
 - ASP.NET Core 開発チームの進捗状況や計画とつながるには、週次の [ASP.NET Community Standup](https://live.asp.net/) にアクセスしてください。

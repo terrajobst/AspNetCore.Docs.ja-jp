@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/advanced
-ms.openlocfilehash: d4a2aad6d93cc9a53c730323620de59fead6d5ab
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: abea9b189861954533b24cb73650af41952d1a86
+ms.sourcegitcommit: 57b85708f4cded99b8f008a69830cb104cd8e879
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259594"
+ms.lasthandoff: 01/13/2020
+ms.locfileid: "75914115"
 ---
 # <a name="tutorial-learn-about-advanced-scenarios---aspnet-mvc-with-ef-core"></a>チュートリアル: 高度なシナリオについて学習する - ASP.NET MVC と EF Core
 
@@ -181,7 +181,7 @@ _context.ChangeTracker.AutoDetectChangesEnabled = false;
 
 ## <a name="ef-core-source-code-and-development-plans"></a>EF Core のソース コードと開発計画
 
-Entity Framework Core のソースは、[https://github.com/aspnet/EntityFrameworkCore](https://github.com/aspnet/EntityFrameworkCore) にあります。 EF Core リポジトリには、夜間ビルド、問題追跡、機能仕様、設計ミーティング メモ、および[将来の開発のためのロードマップ](https://github.com/aspnet/EntityFrameworkCore/wiki/Roadmap)が含まれています。 バグを見つけて報告したり、投稿することができます。
+Entity Framework Core のソースは、[https://github.com/dotnet/efcore](https://github.com/dotnet/efcore) にあります。 EF Core リポジトリには、夜間ビルド、問題追跡、機能仕様、設計ミーティング メモ、および[将来の開発のためのロードマップ](https://github.com/dotnet/efcore/wiki/Roadmap)が含まれています。 バグを見つけて報告したり、投稿することができます。
 
 ソース コードはオープンですが、Entity Framework Core はマイクロソフト製品として完全にサポートされています。 Microsoft Entity Framework チームは、各リリースの品質を保証するため、受け入れる投稿を管理し、すべてのコード変更をテストしています。
 
@@ -243,7 +243,7 @@ dotnet ef database drop
 
 エラー メッセージ:
 
-> SQL Server への接続を確立しているときに、ネットワーク関連またはインスタンス固有のエラーが発生しました。 サーバーが見つからないかアクセスできません。 インスタンス名が正しいこと、および SQL Server がリモート接続を許可するように構成されていることを確認してください。 (プロバイダー:SQL ネットワーク インターフェイス。エラー: 26 - 指定されたサーバーまたはインスタンスの位置を特定しているときにエラーが発生しました)
+> SQL Server への接続を確立しているときに、ネットワーク関連またはインスタンス固有のエラーが発生しました。 サーバーが見つからないかアクセスできません。 インスタンス名が正しいこと、および SQL Server がリモート接続を許可するように構成されていることを確認してください。 (プロバイダー:SQL ネットワーク インターフェイス、エラー:26 - 指定されたサーバーまたはインスタンスの位置を特定しているときにエラーが発生しました)
 
 解決方法 :
 
