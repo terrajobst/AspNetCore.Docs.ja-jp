@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 09/12/2018
 uid: host-and-deploy/docker/visual-studio-tools-for-docker
-ms.openlocfilehash: 5faf0be19448d8272901bf018357da63bbe22d4b
-ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
+ms.openlocfilehash: cecec09d3d58a84a7c15630e41d23facdb9b236e
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68308069"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75356154"
 ---
 # <a name="visual-studio-container-tools-with-aspnet-core"></a>Visual Studio コンテナー ツールと ASP.NET Core
 
@@ -90,7 +90,7 @@ Visual Studio 2017 バージョン 15.8 以降では、指示された場合に�
 
 Visual Studio コンテナー ツールでは、ソリューションに *docker-compose* プロジェクトを追加します。これには以下のファイルが含まれます。
 
-* *docker-compose.dcproj* &ndash;プロジェクトを表すファイル。 使用する OS を指定する `<DockerTargetOS>` 要素が含まれます。
+* *docker-compose.dcproj* &ndash; プロジェクトを表すファイル。 使用する OS を指定する `<DockerTargetOS>` 要素が含まれます。
 * *.dockerignore* &ndash; ビルド コンテキストを生成するときに除外するファイルとディレクトリのパターンが一覧表示されます。
 * *docker-compose.yml* &ndash; `docker-compose build` および `docker-compose run` を使用して、それぞれビルドおよび実行されるイメージのコレクションを定義するために使用される、基本の [Docker Compose](https://docs.docker.com/compose/overview/) ファイル。
 * *docker-compose.override.yml* &ndash; サービスの構成オーバーライドを含む、Docker Compose によって読み取られるオプション ファイル。 Visual Studio は `docker-compose -f "docker-compose.yml" -f "docker-compose.override.yml"` を実行してこれらのファイルをマージします。
@@ -107,6 +107,8 @@ Visual Studio コンテナー ツールでは、ソリューションに *docker
 
 構成固有の上書きファイルを使用して、デバッグおよびリリース ビルド構成に対して、さまざまな構成設定 (環境変数やエンドポイントなど) を指定できます。
 
+Docker Compose で Visual Studio で実行するオプションを表示するには、Docker プロジェクトがスタートアップ プロジェクトである必要があります。
+
 ### <a name="service-fabric"></a>Service Fabric
 
 基本的な[前提条件](#prerequisites)に加え、[Service Fabric](/azure/service-fabric/) オーケストレーション ソリューションでは次の前提条件が求められます。
@@ -118,7 +120,7 @@ Service Fabric では、Windows 上のローカル開発クラスターでの Li
 
 Visual Studio コンテナーツールでは、次のタスクを実行します。
 
-* *&lt;プロジェクト名&gt;アプリケーション* **Service Fabric アプリケーション** プロジェクトをソリューションに追加します。
+* ソリューションに、 *&lt;プロジェクト名&gt;Application* **Service Fabric アプリケーション** プロジェクトが追加されます。
 * *Dockerfile* と *.dockerignore* ファイルを ASP.NET Core プロジェクトに追加します。 *Dockerfile* が既に ASP.NET Core プロジェクトに存在する場合は、名前が *Dockerfile.original* に変更されます。 次のような、新しい *Dockerfile* が作成されます。
 
     [!code-dockerfile[](visual-studio-tools-for-docker/samples/2.1/HelloDockerTools/Dockerfile)]

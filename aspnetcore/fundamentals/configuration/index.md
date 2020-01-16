@@ -5,14 +5,14 @@ description: 構成 API を使用して、ASP.NET Core アプリを構成する�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/04/2019
+ms.date: 01/13/2020
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 9f0ad2791e504a0ff46daad07054b6bf909a546a
-ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
+ms.openlocfilehash: 09ef06f179e34cd7f4f04ac30c3b5dd95d058244
+ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73634073"
+ms.lasthandoff: 01/14/2020
+ms.locfileid: "75951890"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core の構成
 
@@ -47,7 +47,7 @@ ASP.NET Core でのアプリの構成は、"*構成プロバイダー*" によ�
 using Microsoft.Extensions.Configuration;
 ```
 
-"*オプション パターン*" は、このトピックで説明する構成の概念を拡張したものです。 オプションでは、クラスを使用して関連する設定のグループを表します。 詳細については、<xref:fundamentals/configuration/options> を参照してください。
+"*オプション パターン*" は、このトピックで説明する構成の概念を拡張したものです。 オプションでは、クラスを使用して関連する設定のグループを表します。 詳細については、「<xref:fundamentals/configuration/options>」を参照してください。
 
 [サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
@@ -109,9 +109,9 @@ ASP.NET Core の [dotnet new](/dotnet/core/tools/dotnet-new) テンプレート�
 詳細については、次のトピックを参照してください。
 
 * <xref:fundamentals/environments>
-* <xref:security/app-secrets> &ndash; には、環境変数を使用して機密データを格納する場合に関するアドバイスが記載されています。 シークレット マネージャーは、ファイル構成プロバイダーを使用して、ユーザーの機密情報をローカル システム上の JSON ファイルに格納します。 ファイル構成プロバイダーについては、このトピックの後半で説明します。
+* <xref:security/app-secrets> &ndash; 環境変数を使用して機密データを格納する場合に関するアドバイスが記載されています。 シークレット マネージャーは、ファイル構成プロバイダーを使用して、ユーザーの機密情報をローカル システム上の JSON ファイルに格納します。 ファイル構成プロバイダーについては、このトピックの後半で説明します。
 
-[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) では、ASP.NET Core アプリのアプリのシークレットが安全に保存されます。 詳細については、<xref:security/key-vault-configuration> を参照してください。
+[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) では、ASP.NET Core アプリのアプリのシークレットが安全に保存されます。 詳細については、「<xref:security/key-vault-configuration>」を参照してください。
 
 ## <a name="hierarchical-configuration-data"></a>階層的な構成データ
 
@@ -149,7 +149,9 @@ ASP.NET Core の [dotnet new](/dotnet/core/tools/dotnet-new) テンプレート�
 
 変更の検出を実装する構成プロバイダーは、基になる設定が変更された場合に構成を再読み込みする機能を備えています。 たとえば、ファイル構成プロバイダー (このトピックで後から説明します) と[Azure Key Vault 構成プロバイダー](xref:security/key-vault-configuration)では、変更の検出を実装します。
 
-<xref:Microsoft.Extensions.Configuration.IConfiguration> は、アプリの[依存関係の挿入 (DI)](xref:fundamentals/dependency-injection) コンテナーで使用できます。 <xref:Microsoft.Extensions.Configuration.IConfiguration> を Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> を挿入して、クラスの構成を取得することができます。
+<xref:Microsoft.Extensions.Configuration.IConfiguration> は、アプリの[依存関係の挿入 (DI)](xref:fundamentals/dependency-injection) コンテナーで使用できます。 <xref:Microsoft.Extensions.Configuration.IConfiguration> を Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> または MVC <xref:Microsoft.AspNetCore.Mvc.Controller> に挿入して、クラスの構成を取得することができます。
+
+次の例では、構成値にアクセスするために `_config` フィールドが使用されています。
 
 ```csharp
 public class IndexModel : PageModel
@@ -160,9 +162,18 @@ public class IndexModel : PageModel
     {
         _config = config;
     }
+}
+```
 
-    // The _config local variable is used to obtain configuration 
-    // throughout the class.
+```csharp
+public class HomeController : Controller
+{
+    private readonly IConfiguration _config;
+
+    public HomeController(IConfiguration config)
+    {
+        _config = config;
+    }
 }
 ```
 
@@ -177,7 +188,7 @@ public class IndexModel : PageModel
 * 階層キー
   * 構成 API 内では、すべてのプラットフォームでコロン (`:`) の区切りが機能します。
   * 環境変数内では、コロン区切りがすべてのプラットフォームでは機能しない場合があります。 二重のアンダースコア (`__`) はすべてのプラットフォームでサポートされ、コロンに自動的に変換されます。
-  * Azure Key Vault では、階層キーは区切り記号として `--` (2 つのダッシュ) を使用します。 コードを指定して、アプリの構成にシークレットが読み込まれるときにダッシュをコロンで置き換える必要があります。
+  * Azure Key Vault では、階層キーは区切り記号として `--` (2 つのダッシュ) を使用します。 コードを指定して、アプリの構成にシークレットが読み込まれるときにダッシュをコロンで置き換えます。
 * <xref:Microsoft.Extensions.Configuration.ConfigurationBinder> は、構成キーで配列インデックスを使用して、オブジェクトに対する配列のバインドをサポートしています。 配列のバインドについては、「[配列をクラスにバインドする](#bind-an-array-to-a-class)」セクションで説明します。
 
 ### <a name="values"></a>値
@@ -203,7 +214,7 @@ ASP.NET Core アプリで使用できる構成プロバイダーを次の表に�
 | [メモリ構成プロバイダー](#memory-configuration-provider) | メモリ内コレクション |
 | [ユーザー シークレット (Secret Manager)](xref:security/app-secrets) ("*セキュリティ*" トピック) | ユーザー プロファイル ディレクトリ内のファイル |
 
-アプリの起動時に各構成プロバイダーが指定されている順序で構成ソースが読み取られます。 このトピックで説明する構成プロバイダーは、それらをコードで配置する順ではなく、アルファベット順で説明します。 基になる構成ソースの優先順位に合わせるために、コード内で構成プロバイダーを並べ替えます。
+アプリの起動時に各構成プロバイダーが指定されている順序で構成ソースが読み取られます。 このトピックで説明する構成プロバイダーは、それらをコードで配置する順ではなく、アルファベット順で説明します。 アプリで必要とされる、基になる構成ソースの優先順位に合わせるために、コード内で構成プロバイダーを並べ替えます。
 
 一般的な一連の構成プロバイダーは次のとおりです。
 
@@ -359,8 +370,8 @@ ASP.NET Core テンプレートに基づくアプリの場合、`AddCommandLine`
 | キーのプレフィックス               | 例                                                |
 | ------------------------ | ------------------------------------------------------ |
 | プレフィックスなし                | `CommandLineKey1=value1`                               |
-| 2 つのダッシュ (`--`)        | `--CommandLineKey2=value2`、 `--CommandLineKey2 value2` |
-| スラッシュ (`/`)      | `/CommandLineKey3=value3`、 `/CommandLineKey3 value3`   |
+| 2 つのダッシュ (`--`)        | `--CommandLineKey2=value2`、`--CommandLineKey2 value2` |
+| スラッシュ (`/`)      | `/CommandLineKey3=value3`、`/CommandLineKey3 value3`   |
 
 同じコマンド内のコマンド ライン引数で、等号を使用するキーと値のペアと、スペースを使用するキーと値のペアを混在させないでください。
 
@@ -374,7 +385,7 @@ dotnet run CommandLineKey1= CommandLineKey2=value2
 
 ### <a name="switch-mappings"></a>スイッチ マッピング
 
-スイッチ マッピングでは、キー名の交換ロジックが許可されます。 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> で構成を手動でビルドするときに、<xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> メソッドにスイッチ置換のディクショナリを指定することができます。
+スイッチ マッピングでは、キー名の交換ロジックが許可されます。 <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> で構成を手動でビルドするときに、<xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> メソッドにスイッチ置換のディクショナリを指定します。
 
 スイッチ マッピング ディクショナリが使用されている場合、そのディレクトリで、コマンドライン引数によって指定されたキーと一致するキーが確認されます。 コマンド ライン キーがディクショナリで見つかった場合は、アプリの構成にキーと値のペアを設定するためにディクショナリの値 (キー交換) が返されます。 スイッチ マッピングは、単一のダッシュ (`-`) が前に付いたすべてのコマンドライン キーに必要です。
 
@@ -407,7 +418,7 @@ public static readonly Dictionary<string, string> _switchMappings =
 
 スイッチ マッピング ディクショナリが作成されると、以下の表に示すデータが含まれます。
 
-| キー       | [値]             |
+| Key       | [値]             |
 | --------- | ----------------- |
 | `-CLKey1` | `CommandLineKey1` |
 | `-CLKey2` | `CommandLineKey2` |
@@ -420,7 +431,7 @@ dotnet run -CLKey1=value1 -CLKey2=value2
 
 上記のコマンドを実行すると、次の表に示す値が構成に含まれます。
 
-| キー               | [値]    |
+| Key               | [値]    |
 | ----------------- | -------- |
 | `CommandLineKey1` | `value1` |
 | `CommandLineKey2` | `value2` |
@@ -433,7 +444,7 @@ dotnet run -CLKey1=value1 -CLKey2=value2
 
 [!INCLUDE[](~/includes/environmentVarableColon.md)]
 
-[Azure App Service](https://azure.microsoft.com/services/app-service/) を使用すると、環境変数構成プロバイダーを使用してアプリの構成をオーバーライドすることができる環境変数を、Azure Portal で設定できます。 詳細については、「[Azure アプリ: Azure Portal を使用してアプリの構成をオーバーライドする](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal)」を参照してください。
+[Azure App Service](https://azure.microsoft.com/services/app-service/) を使用すると、環境変数構成プロバイダーを使用してアプリの構成をオーバーライドすることができる環境変数を、Azure portal で設定できます。 詳細については、「[Azure アプリ: Azure Portal を使用してアプリの構成をオーバーライドする](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal)」を参照してください。
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -456,19 +467,16 @@ dotnet run -CLKey1=value1 -CLKey2=value2
 
 ユーザー シークレットと *appsettings* ファイルから構成が設定された後に、環境変数構成プロバイダーが呼び出されます。 この位置でプロバイダーを呼び出すことにより、実行時に読み込まれた環境変数が、ユーザー シークレットと *appsettings* ファイルによって設定された構成をオーバーライドすることができます。
 
-追加の環境変数からアプリの構成を指定する必要がある場合は、`ConfigureAppConfiguration` のアプリの追加プロバイダーを呼び出し、そのプレフィックスを含む `AddEnvironmentVariables` を呼び出します。
+追加の環境変数からアプリの構成を指定するには、`ConfigureAppConfiguration` のアプリの追加プロバイダーを呼び出し、次のプレフィックスを含む `AddEnvironmentVariables` を呼び出します。
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
 {
-    // Call additional providers here as needed.
-    // Call AddEnvironmentVariables last if you need to allow
-    // environment variables to override values from other 
-    // providers.
     config.AddEnvironmentVariables(prefix: "PREFIX_");
 })
-}
 ```
+
+`AddEnvironmentVariables` を最後に呼び出して、指定されたプレフィックスを持つ環境変数が他のプロバイダーの値をオーバーライドできるようにします。
 
 **例**
 
@@ -618,17 +626,47 @@ JSON 構成プロバイダーが最初に確立されます。 このため、�
 
 **例**
 
-サンプル アプリでは、静的な簡易メソッド `CreateDefaultBuilder` を利用してホストをビルドします。これには `AddJsonFile` の 2 回の呼び出しが含まれます。 構成は、*appsettings.json* および *appsettings.{Environment}.json* から読み込まれます。
+サンプル アプリでは、静的な簡易メソッド `CreateDefaultBuilder` を利用してホストをビルドします。これには `AddJsonFile` の 2 回の呼び出しが含まれます。
+
+::: moniker range=">= aspnetcore-3.0"
+
+* `AddJsonFile` の最初の呼び出しでは、*appsettings.json* から構成を読み込みます。
+
+  [!code-json[](index/samples/3.x/ConfigurationSample/appsettings.json)]
+
+* `AddJsonFile` の 2 回目の呼び出しでは、*appsettings.{Environment}.json* から構成を読み込みます。 サンプル アプリの *appsettings.Development.json* では、次のファイルが読み込まれます。
+
+  [!code-json[](index/samples/3.x/ConfigurationSample/appsettings.Development.json)]
 
 1. サンプル アプリを実行します。 アプリに対して `http://localhost:5000` でブラウザーを開きます。
-1. 出力に、環境に応じて、表に示す構成のキーと値のペアが含まれていることを観察します。 ログの構成キーでは、階層の区切り文字としてコロン (`:`) が使用されます。
+1. 出力には、アプリの環境に基づく構成のキーと値のペアが含まれています。 開発環境でアプリを実行する場合、キー `Logging:LogLevel:Default` のログ レベルは `Debug` です。
+1. 運用環境でもう一度サンプル アプリを実行します。
+   1. *Properties/launchSettings.json* ファイルを開きます。
+   1. `ConfigurationSample` プロファイルで、`ASPNETCORE_ENVIRONMENT` 環境変数の値を `Production` に変更します。
+   1. ファイルを保存し、コマンド シェルで `dotnet run` を使用してアプリを実行します。
+1. *appsettings.Development.json* の設定では、*appsettings.json* の設定がオーバーライドされなくなりました。 キー `Logging:LogLevel:Default` のログ レベルは `Information` です。
 
-| キー                        | 開発時の値 | 運用時の値 |
-| -------------------------- | :---------------: | :--------------: |
-| Logging:LogLevel:System    | 情報       | 情報      |
-| Logging:LogLevel:Microsoft | 情報       | 情報      |
-| Logging:LogLevel:Default   | デバッグ             | Error            |
-| AllowedHosts               | *                 | *                |
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+* `AddJsonFile` の最初の呼び出しでは、*appsettings.json* から構成を読み込みます。
+
+  [!code-json[](index/samples/2.x/ConfigurationSample/appsettings.json)]
+
+* `AddJsonFile` の 2 回目の呼び出しでは、*appsettings.{Environment}.json* から構成を読み込みます。 サンプル アプリの *appsettings.Development.json* では、次のファイルが読み込まれます。
+
+  [!code-json[](index/samples/2.x/ConfigurationSample/appsettings.Development.json)]
+
+1. サンプル アプリを実行します。 アプリに対して `http://localhost:5000` でブラウザーを開きます。
+1. 出力には、アプリの環境に基づく構成のキーと値のペアが含まれています。 開発環境でアプリを実行する場合、キー `Logging:LogLevel:Default` のログ レベルは `Debug` です。
+1. 運用環境でもう一度サンプル アプリを実行します。
+   1. *Properties/launchSettings.json* ファイルを開きます。
+   1. `ConfigurationSample` プロファイルで、`ASPNETCORE_ENVIRONMENT` 環境変数の値を `Production` に変更します。
+   1. ファイルを保存し、コマンド シェルで `dotnet run` を使用してアプリを実行します。
+1. *appsettings.Development.json* の設定では、*appsettings.json* の設定がオーバーライドされなくなりました。 キー `Logging:LogLevel:Default` のログ レベルは `Warning` です。
+
+::: moniker-end
 
 ### <a name="xml-configuration-provider"></a>XML 構成プロバイダー
 
@@ -883,7 +921,7 @@ var sectionExists = _config.GetSection("section2:subsection2").Exists();
 
 ## <a name="bind-to-a-class"></a>クラスにバインドする
 
-"*オプション パターン*" を使用して、関連する設定のグループを表すクラスに構成をバインドすることができます。 詳細については、<xref:fundamentals/configuration/options> を参照してください。
+"*オプション パターン*" を使用して、関連する設定のグループを表すクラスに構成をバインドすることができます。 詳細については、「<xref:fundamentals/configuration/options>」を参照してください。
 
 構成値は文字列として返されますが、<xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> を呼び出すことで [POCO](https://wikipedia.org/wiki/Plain_Old_CLR_Object) オブジェクトを構築できます。
 
@@ -917,7 +955,7 @@ var sectionExists = _config.GetSection("section2:subsection2").Exists();
 
 次の構成のキーと値のペアが作成されます。
 
-| キー                   | [値]                                             |
+| Key                   | [値]                                             |
 | --------------------- | ------------------------------------------------- |
 | starship:name         | USS Enterprise                                    |
 | starship:registry     | NCC-1701                                          |
@@ -1007,7 +1045,7 @@ TvShow = tvShow;
 
 次の表に示す構成のキーと値について考えます。
 
-| キー             | [値]  |
+| Key             | [値]  |
 | :-------------: | :----: |
 | 配列:エントリ:0 | value0 |
 | 配列:エントリ:1 | value1 |
@@ -1097,7 +1135,7 @@ config.AddJsonFile(
 
 表に示すキーと値のペアが構成に読み込まれます。
 
-| キー             | [値]  |
+| Key             | [値]  |
 | :-------------: | :----: |
 | array:entries:3 | value3 |
 
@@ -1130,7 +1168,7 @@ JSON ファイルに配列が含まれる場合、配列要素の構成キーは
 
 JSON 構成プロバイダーは、次のキーと値のペアに構成データを読み取ります。
 
-| キー                     | [値]  |
+| Key                     | [値]  |
 | ----------------------- | :----: |
 | json_array:key          | valueA |
 | json_array:subsection:0 | valueB |
@@ -1315,7 +1353,7 @@ MVC ビュー:
 
 ## <a name="add-configuration-from-an-external-assembly"></a>外部アセンブリから構成を追加する
 
-<xref:Microsoft.AspNetCore.Hosting.IHostingStartup> の実装により、アプリの `Startup` クラスの外部にある外部アセンブリから、起動時に拡張機能をアプリに追加できるようになります。 詳細については、<xref:fundamentals/configuration/platform-specific-configuration> を参照してください。
+<xref:Microsoft.AspNetCore.Hosting.IHostingStartup> の実装により、アプリの `Startup` クラスの外部にある外部アセンブリから、起動時に拡張機能をアプリに追加できるようになります。 詳細については、「<xref:fundamentals/configuration/platform-specific-configuration>」を参照してください。
 
 ## <a name="additional-resources"></a>その他の技術情報
 

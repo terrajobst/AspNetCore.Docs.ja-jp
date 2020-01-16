@@ -5,14 +5,14 @@ description: ASP.NET Core のルーティングでどのように要求 URI を�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/24/2019
+ms.date: 12/13/2019
 uid: fundamentals/routing
-ms.openlocfilehash: be4493cc927bd5437a2c9dab00b6a555756195bb
-ms.sourcegitcommit: eb2fe5ad2e82fab86ca952463af8d017ba659b25
+ms.openlocfilehash: 9780183f8f9bc322f73d058b3cab7f8c10f7cd5f
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/01/2019
-ms.locfileid: "73416133"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75354736"
 ---
 # <a name="routing-in-aspnet-core"></a>ASP.NET Core のルーティング
 
@@ -20,7 +20,7 @@ ms.locfileid: "73416133"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-ルーティングでは、要求 URI をエンドポイントにマッピングし、受信要求をそれらのエンドポイントに配布します。 ルートはアプリに定義され、アプリの起動時に構成されます。 ルートは、要求に含まれている URL から値を任意で抽出できます。その値を要求処理に利用できます。 ルーティングでは、アプリからのルート情報を利用し、エンドポイントにマッピングする URL を生成することもできます。
+ルーティングでは、要求 URI をエンドポイントにマッピングし、受信要求をそれらのエンドポイントに配布します。 ルートはアプリに定義され、アプリの起動時に構成されます。 ルートは、要求に含まれている URL から値を任意で抽出できます。その値を要求処理に利用できます。 ルーティングでは、アプリからのルート情報を利用し、エンドポイントにマッピングする URL を生成することもできます。 多くのアプリでは、テンプレートによって提供されるもの以外のルートを追加する必要はありません。 コントローラーと Razor ページ用の ASP.NET Core テンプレートにより、ルート エンドポイントが構成されます。 カスタム ルート エンドポイントを追加する必要がある場合は、テンプレートによって生成されたルート エンドポイントと共にカスタム エンドポイントを構成できます。
 
 > [!IMPORTANT]
 > 本文では、ASP.NET Core ルーティングについて詳しく取り上げます。 ASP.NET Core MVC ルーティングの詳細については、「<xref:mvc/controllers/routing>」を参照してください。 Razor Pages のルーティング規則については、「<xref:razor-pages/razor-pages-conventions>」を参照してください。
@@ -126,6 +126,22 @@ URL 生成は、ルーティングにおいて、一連のルート値に基づ�
 > * 受信要求の `Host` ヘッダーが確認されないアプリ構成では、`GetUri*` 拡張メソッドは注意して使用してください。 受信要求の `Host` ヘッダーが確認されていない場合、信頼されていない要求入力を、ビュー/ページの URI でクライアントに送り返すことができます。 すべての運用アプリで、`Host` ヘッダーを既知の有効な値と照らし合わせて確認するようにサーバーを構成することをお勧めします。
 >
 > * ミドルウェアで `Map` または `MapWhen` と組み合わせて、<xref:Microsoft.AspNetCore.Routing.LinkGenerator> を使用する場合は注意してください。 `Map*` では、実行中の要求の基本パスが変更され、リンク生成の出力に影響します。 すべての <xref:Microsoft.AspNetCore.Routing.LinkGenerator> API で基本パスを指定することができます。 リンク生成への `Map*` の影響を元に戻すための空の基本パスを必ず指定してください。
+
+## <a name="endpoint-routing"></a>エンドポイント ルーティング
+
+* ルート エンドポイントには、エンドポイントの応答を提供するためのテンプレート、メタデータ、および要求デリゲートがあります。 メタデータは、各エンドポイントにアタッチされている構成とポリシーに基づいて横断的な関心事を実装するために使用されます。 たとえば、承認ミドルウェアでは、エンドポイントのメタデータ コレクションに対し、[承認ポリシー](xref:security/authorization/policies#applying-policies-to-mvc-controllers)を問い合わせることができます。
+* エンドポイント ルーティングは、次の 2 つの拡張メソッドを使ってミドルウェアと統合されます。
+  * [UseRouting](xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseRouting*) により、ミドルウェア パイプラインにルート照合が追加されます。 これは、承認やエンドポイントの実行など、ルート対応のあらゆるミドルウェアの前に配置する必要があります。
+  * [UseEndpoints](xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints*) により、ミドルウェア パイプラインにエンドポイントの実行が追加されます。 これにより、エンドポイントの応答を提供する要求デリゲートが実行されます。
+  また、`UseEndpoints` は、アプリによって照合および実行できるルート エンドポイントが構成される場所でもあります。 たとえば、<xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapRazorPages*>、<xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllers*>、<xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapGet*>、<xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapPost*> などです。
+* アプリでは、そのルートを構成するために、ASP.NET Core のヘルパー メソッドが使用されます。 ASP.NET Core フレームワークには、<xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapRazorPages*>、<xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllers*>、`MapHub<THub>` などのヘルパー メソッドが用意されています。 独自のカスタム ルート エンドポイントを構成するためのヘルパー メソッドもあります。<xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapGet*>、<xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapPost*>、および [MapVerb](xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions) です。 
+* エンドポイント ルーティングでは、アプリケーションが起動した後のエンドポイントの変更もサポートされています。 ご自分のアプリまたは ASP.NET Core フレームワークでこれをサポートするには、カスタムの <xref:Microsoft.AspNetCore.Routing.EndpointDataSource> を作成して登録する必要があります。 これは高度な機能であり、多くの場合、必要ありません。 通常、エンドポイントは起動時に構成され、アプリの有効期間にわたって静的です。 起動時にファイルまたはデータベースからルート構成を読み込むことは、動的ではありません。
+
+次のコードは、エンドポイント ルーティングの基本的な例を示しています。
+
+[!code-csharp[](routing/samples/3.x/Startup.cs?name=snippet)]
+
+エンドポイント ルーティングの詳細については、このドキュメントの「[URL 一致](#url-matching)」をご覧ください。
 
 ## <a name="endpoint-routing-differences-from-earlier-versions-of-routing"></a>エンドポイント ルーティングと以前のバージョンのルーティングとの相違点
 
@@ -443,14 +459,14 @@ URL 生成の詳細については、「[URL 生成参照](#url-generation-refer
 
 | 制約 | 例 | 一致の例 | メモ |
 | ---------- | ------- | --------------- | ----- |
-| `int` | `{id:int}` | `123456789`、 `-123456789` | あらゆる整数に一致する |
-| `bool` | `{active:bool}` | `true`、 `FALSE` | `true` または `false` に一致する (大文字と小文字を区別しません) |
-| `datetime` | `{dob:datetime}` | `2016-12-31`、 `2016-12-31 7:32pm` | 有効な `DateTime` 値に一致する (インバリアント カルチャで - 警告参照) |
-| `decimal` | `{price:decimal}` | `49.99`、 `-1,000.01` | 有効な `decimal` 値に一致する (インバリアント カルチャで - 警告参照) |
-| `double` | `{weight:double}` | `1.234`、 `-1,001.01e8` | 有効な `double` 値に一致する (インバリアント カルチャで - 警告参照) |
-| `float` | `{weight:float}` | `1.234`、 `-1,001.01e8` | 有効な `float` 値に一致する (インバリアント カルチャで - 警告参照) |
-| `guid` | `{id:guid}` | `CD2C1638-1638-72D5-1638-DEADBEEF1638`、 `{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | 有効な `Guid` 値に一致する |
-| `long` | `{ticks:long}` | `123456789`、 `-123456789` | 有効な `long` 値に一致する |
+| `int` | `{id:int}` | `123456789`、`-123456789` | あらゆる整数に一致する |
+| `bool` | `{active:bool}` | `true`、`FALSE` | `true` または `false` に一致する (大文字と小文字を区別しません) |
+| `datetime` | `{dob:datetime}` | `2016-12-31`、`2016-12-31 7:32pm` | 有効な `DateTime` 値に一致する (インバリアント カルチャで - 警告参照) |
+| `decimal` | `{price:decimal}` | `49.99`、`-1,000.01` | 有効な `decimal` 値に一致する (インバリアント カルチャで - 警告参照) |
+| `double` | `{weight:double}` | `1.234`、`-1,001.01e8` | 有効な `double` 値に一致する (インバリアント カルチャで - 警告参照) |
+| `float` | `{weight:float}` | `1.234`、`-1,001.01e8` | 有効な `float` 値に一致する (インバリアント カルチャで - 警告参照) |
+| `guid` | `{id:guid}` | `CD2C1638-1638-72D5-1638-DEADBEEF1638`、`{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | 有効な `Guid` 値に一致する |
+| `long` | `{ticks:long}` | `123456789`、`-123456789` | 有効な `long` 値に一致する |
 | `minlength(value)` | `{username:minlength(4)}` | `Rick` | 4 文字以上の文字列であることが必要 |
 | `maxlength(value)` | `{filename:maxlength(8)}` | `Richard` | 8 文字以内の文字列であることが必要 |
 | `length(length)` | `{filename:length(12)}` | `somefile.txt` | 厳密に 12 文字の文字列であることが必要 |
@@ -1104,14 +1120,14 @@ URL 生成の詳細については、「[URL 生成参照](#url-generation-refer
 
 | 制約 | 例 | 一致の例 | メモ |
 | ---------- | ------- | --------------- | ----- |
-| `int` | `{id:int}` | `123456789`、 `-123456789` | あらゆる整数に一致する |
-| `bool` | `{active:bool}` | `true`、 `FALSE` | `true` または `false` に一致する (大文字と小文字を区別しません) |
-| `datetime` | `{dob:datetime}` | `2016-12-31`、 `2016-12-31 7:32pm` | 有効な `DateTime` 値に一致する (インバリアント カルチャで - 警告参照) |
-| `decimal` | `{price:decimal}` | `49.99`、 `-1,000.01` | 有効な `decimal` 値に一致する (インバリアント カルチャで - 警告参照) |
-| `double` | `{weight:double}` | `1.234`、 `-1,001.01e8` | 有効な `double` 値に一致する (インバリアント カルチャで - 警告参照) |
-| `float` | `{weight:float}` | `1.234`、 `-1,001.01e8` | 有効な `float` 値に一致する (インバリアント カルチャで - 警告参照) |
-| `guid` | `{id:guid}` | `CD2C1638-1638-72D5-1638-DEADBEEF1638`、 `{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | 有効な `Guid` 値に一致する |
-| `long` | `{ticks:long}` | `123456789`、 `-123456789` | 有効な `long` 値に一致する |
+| `int` | `{id:int}` | `123456789`、`-123456789` | あらゆる整数に一致する |
+| `bool` | `{active:bool}` | `true`、`FALSE` | `true` または `false` に一致する (大文字と小文字を区別しません) |
+| `datetime` | `{dob:datetime}` | `2016-12-31`、`2016-12-31 7:32pm` | 有効な `DateTime` 値に一致する (インバリアント カルチャで - 警告参照) |
+| `decimal` | `{price:decimal}` | `49.99`、`-1,000.01` | 有効な `decimal` 値に一致する (インバリアント カルチャで - 警告参照) |
+| `double` | `{weight:double}` | `1.234`、`-1,001.01e8` | 有効な `double` 値に一致する (インバリアント カルチャで - 警告参照) |
+| `float` | `{weight:float}` | `1.234`、`-1,001.01e8` | 有効な `float` 値に一致する (インバリアント カルチャで - 警告参照) |
+| `guid` | `{id:guid}` | `CD2C1638-1638-72D5-1638-DEADBEEF1638`、`{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | 有効な `Guid` 値に一致する |
+| `long` | `{ticks:long}` | `123456789`、`-123456789` | 有効な `long` 値に一致する |
 | `minlength(value)` | `{username:minlength(4)}` | `Rick` | 4 文字以上の文字列であることが必要 |
 | `maxlength(value)` | `{filename:maxlength(8)}` | `Richard` | 8 文字以内の文字列であることが必要 |
 | `length(length)` | `{filename:length(12)}` | `somefile.txt` | 厳密に 12 文字の文字列であることが必要 |
@@ -1558,14 +1574,14 @@ URL 生成の詳細については、「[URL 生成参照](#url-generation-refer
 
 | 制約 | 例 | 一致の例 | メモ |
 | ---------- | ------- | --------------- | ----- |
-| `int` | `{id:int}` | `123456789`、 `-123456789` | あらゆる整数に一致する |
-| `bool` | `{active:bool}` | `true`、 `FALSE` | `true` または `false` に一致する (大文字と小文字を区別しません) |
-| `datetime` | `{dob:datetime}` | `2016-12-31`、 `2016-12-31 7:32pm` | 有効な `DateTime` 値に一致する (インバリアント カルチャで - 警告参照) |
-| `decimal` | `{price:decimal}` | `49.99`、 `-1,000.01` | 有効な `decimal` 値に一致する (インバリアント カルチャで - 警告参照) |
-| `double` | `{weight:double}` | `1.234`、 `-1,001.01e8` | 有効な `double` 値に一致する (インバリアント カルチャで - 警告参照) |
-| `float` | `{weight:float}` | `1.234`、 `-1,001.01e8` | 有効な `float` 値に一致する (インバリアント カルチャで - 警告参照) |
-| `guid` | `{id:guid}` | `CD2C1638-1638-72D5-1638-DEADBEEF1638`、 `{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | 有効な `Guid` 値に一致する |
-| `long` | `{ticks:long}` | `123456789`、 `-123456789` | 有効な `long` 値に一致する |
+| `int` | `{id:int}` | `123456789`、`-123456789` | あらゆる整数に一致する |
+| `bool` | `{active:bool}` | `true`、`FALSE` | `true` または `false` に一致する (大文字と小文字を区別しません) |
+| `datetime` | `{dob:datetime}` | `2016-12-31`、`2016-12-31 7:32pm` | 有効な `DateTime` 値に一致する (インバリアント カルチャで - 警告参照) |
+| `decimal` | `{price:decimal}` | `49.99`、`-1,000.01` | 有効な `decimal` 値に一致する (インバリアント カルチャで - 警告参照) |
+| `double` | `{weight:double}` | `1.234`、`-1,001.01e8` | 有効な `double` 値に一致する (インバリアント カルチャで - 警告参照) |
+| `float` | `{weight:float}` | `1.234`、`-1,001.01e8` | 有効な `float` 値に一致する (インバリアント カルチャで - 警告参照) |
+| `guid` | `{id:guid}` | `CD2C1638-1638-72D5-1638-DEADBEEF1638`、`{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | 有効な `Guid` 値に一致する |
+| `long` | `{ticks:long}` | `123456789`、`-123456789` | 有効な `long` 値に一致する |
 | `minlength(value)` | `{username:minlength(4)}` | `Rick` | 4 文字以上の文字列であることが必要 |
 | `maxlength(value)` | `{filename:maxlength(8)}` | `Richard` | 8 文字以内の文字列であることが必要 |
 | `length(length)` | `{filename:length(12)}` | `somefile.txt` | 厳密に 12 文字の文字列であることが必要 |

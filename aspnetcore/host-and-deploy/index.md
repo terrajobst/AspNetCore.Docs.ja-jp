@@ -5,14 +5,14 @@ description: ホスティング環境を設定し、ASP.NET Core アプリを展
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/07/2019
+ms.date: 01/13/2020
 uid: host-and-deploy/index
-ms.openlocfilehash: 8c7c131ca328f3118c45e822d6d5c86f0d44001f
-ms.sourcegitcommit: b3e1e31e5d8bdd94096cf27444594d4a7b065525
+ms.openlocfilehash: ffc1f0b649e24e5e4a0bca2fc36a0b0c25460238
+ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74803267"
+ms.lasthandoff: 01/14/2020
+ms.locfileid: "75951795"
 ---
 # <a name="host-and-deploy-aspnet-core"></a>ASP.NET Core のホストと展開
 
@@ -32,7 +32,7 @@ ms.locfileid: "74803267"
 
 .NET Core アプリは、*自己完結型展開*または*フレームワーク依存展開*として発行できます。 アプリが自己完結型の場合、.NET ランタイムを含むアセンブリ ファイルが *publish* フォルダーに含まれています。 アプリがフレームワークに依存する場合、.NET ランタイムのファイルは含まれていません。これは、サーバーにインストールされている .NET のバージョンへの参照がアプリに含まれていないためです。 既定の展開モデルはフレームワークに依存します。 詳細については、「[.NET Core アプリケーションの展開](/dotnet/core/deploying/)」を参照してください。
 
-*.exe* ファイルと *.dll* ファイルに加え、ASP.NET Core アプリの *publish* フォルダーには、通常、構成ファイル、静的資産、および MVC ビューが含まれています。 詳細については、<xref:host-and-deploy/directory-structure> を参照してください。
+*.exe* ファイルと *.dll* ファイルに加え、ASP.NET Core アプリの *publish* フォルダーには、通常、構成ファイル、静的資産、および MVC ビューが含まれています。 詳細については、「<xref:host-and-deploy/directory-structure>」を参照してください。
 
 ## <a name="set-up-a-process-manager"></a>プロセス マネージャーを設定する
 
@@ -77,17 +77,19 @@ Visual Studio 発行プロファイルを使って (Windows コマンド プロ�
 
 Web ファーム環境 (たとえば、スケーラビリティのためのアプリの複数のインスタンスの展開) で ASP.NET Core アプリをホストするための構成については、<xref:host-and-deploy/web-farm> を参照してください。
 
+## <a name="host-on-docker"></a>Docker でのホスト
+
+詳細については、「<xref:host-and-deploy/docker/index>」を参照してください。
+
 ::: moniker range=">= aspnetcore-2.2"
 
 ## <a name="perform-health-checks"></a>正常性チェックを実行する
 
-アプリとその依存関係に対して正常性チェックを実行するには、正常性チェックのミドルウェアを使用します。 詳細については、<xref:host-and-deploy/health-checks> を参照してください。
+アプリとその依存関係に対して正常性チェックを実行するには、正常性チェックのミドルウェアを使用します。 詳細については、「<xref:host-and-deploy/health-checks>」を参照してください。
 
 ::: moniker-end
 
 ## <a name="additional-resources"></a>その他の技術情報
 
-* <xref:host-and-deploy/docker/index>
 * <xref:test/troubleshoot>
 * [ASP.NET ホスティング](https://dotnet.microsoft.com/apps/aspnet/hosting)
-

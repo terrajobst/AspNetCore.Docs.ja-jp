@@ -6,12 +6,12 @@ ms.author: rybrande
 ms.date: 09/26/2019
 monikerRange: '>= aspnetcore-3.0'
 uid: web-api/Microsoft.dotnet-openapi
-ms.openlocfilehash: f5eae9e871bc8efc30d500769adb845ff244a90c
-ms.sourcegitcommit: e644258c95dd50a82284f107b9bf3becbc43b2b2
+ms.openlocfilehash: 4be2846f0348788102672978a0487e646da434a0
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/26/2019
-ms.locfileid: "71317772"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75354755"
 ---
 # <a name="develop-aspnet-core-apps-using-openapi-tools"></a>OpenAPI ツールを使用した ASP.NET Core アプリの開発
 
@@ -44,7 +44,6 @@ dotnet tool install -g Microsoft.dotnet-openapi
 
 | Short option | Long option | Description | Example |
 |-------|------|-------|---------|
-| -v|--verbose | Show verbose output. |dotnet openapi add project *-v* ../Ref/ProjRef.csproj |
 | -p|--project | The project to operate on. |dotnet openapi add project *--project .\Ref.csproj* ../Ref/ProjRef.csproj |
 
 #### Arguments
@@ -59,7 +58,6 @@ dotnet tool install -g Microsoft.dotnet-openapi
 
 | 短いオプション| 長いオプション| 説明 | 例 |
 |-------|------|-------|---------|
-| -v|--verbose | 詳細出力を表示します。 |dotnet openapi add file *-v* .\OpenAPI.json |
 | -p|--updateProject | 操作対象のプロジェクト。 |dotnet openapi add file *--updateProject .\Ref.csproj* .\OpenAPI.json |
 | -c|--code-generator| 参照に適用するコード ジェネレーター。 オプションは `NSwagCSharp` と `NSwagTypeScript` です。 `--code-generator` を指定しない場合、ツールは既定で `NSwagCSharp` になります。|dotnet openapi add file .\OpenApi.json --code-generator
 | -h|--help|ヘルプ情報を表示します。|dotnet openapi add file --help|
@@ -76,7 +74,6 @@ dotnet tool install -g Microsoft.dotnet-openapi
 
 | 短いオプション| 長いオプション| 説明 | 例 |
 |-------|------|-------------|---------|
-| -v|--verbose | 詳細出力を表示します。 |dotnet openapi add url *-v* `https://contoso.com/openapi.json` |
 | -p|--updateProject | 操作対象のプロジェクト。 |dotnet openapi add url *--updateProject .\Ref.csproj* `https://contoso.com/openapi.json` |
 | -o|--output-file | OpenAPI ファイルのローカル コピーを配置する場所。 |dotnet openapi add url `https://contoso.com/openapi.json` *--output-file myclient.json* |
 | -c|--code-generator| 参照に適用するコード ジェネレーター。 オプションは `NSwagCSharp` と `NSwagTypeScript` です。 |dotnet openapi add file .\OpenApi.json --code-generator
@@ -96,7 +93,6 @@ dotnet tool install -g Microsoft.dotnet-openapi
 
 | 短いオプション| 長いオプション| 説明| 例 |
 |-------|------|------------|---------|
-| -v|--verbose | 詳細出力を表示します。 |dotnet openapi remove *-v*|
 | -p|--updateProject | 操作対象のプロジェクト。 |dotnet openapi remove *--updateProject .\Ref.csproj* .\OpenAPI.json |
 | -h|--help|ヘルプ情報を表示します。|dotnet openapi remove --help|
 
@@ -114,7 +110,6 @@ dotnet tool install -g Microsoft.dotnet-openapi
 
 | 短いオプション| 長いオプション| 説明 | 例 |
 |-------|------|-------------|---------|
-| -v|--verbose | 詳細出力を表示します。 | dotnet openapi refresh *-v* `https://contoso.com/openapi.json` |
 | -p|--updateProject | 操作対象のプロジェクト。 | dotnet openapi refresh *--updateProject .\Ref.csproj* `https://contoso.com/openapi.json` |
 | -h|--help|ヘルプ情報を表示します。|dotnet openapi refresh --help|
 

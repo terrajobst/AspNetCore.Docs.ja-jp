@@ -4,14 +4,14 @@ author: rick-anderson
 description: ASP.NET Core MVC および Razor Pages でのモデルの検証について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/15/2019
 uid: mvc/models/validation
-ms.openlocfilehash: 7a6017141eb1016128c4a135c187479717580bb5
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 042a9933e561de4957f6332bdff3c4f09d2e119b
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74881036"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75355264"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>ASP.NET Core MVC および Razor Pages でのモデルの検証
 
@@ -58,7 +58,7 @@ Web API コントローラーでは、`[ApiController]` 属性が設定されて
 * `[Required]`:フィールドが null ではないことを検証します。 この属性の動作について詳しくは、「[`[Required]` 属性](#required-attribute)」をご覧ください。
 * `[StringLength]`:文字列プロパティの値が指定した長さ制限を超えていないことを検証します。
 * `[Url]`:プロパティが URL 形式であることを検証します。
-* `[Remote]`:サーバーでアクション メソッドを呼び出すことによって、クライアントでの入力を検証します。 この属性の動作について詳しくは、「`[`[Remote] 属性]」をご覧ください。
+* `[Remote]`:サーバーでアクション メソッドを呼び出すことによって、クライアントでの入力を検証します。 この属性の動作について詳しくは、「[`[Remote]` 属性](#remote-attribute)」をご覧ください。
 
 検証属性の完全な一覧については、[System.ComponentModel.DataAnnotations](xref:System.ComponentModel.DataAnnotations) 名前空間で確認できます。
 
@@ -372,7 +372,7 @@ HTML に `data-` 属性をレンダリングするこの方法は、サンプル
 * すべての *.cshtml* ファイル内の `_ValidationScriptsPartial` への参照をコメントアウトします。
 * *Pages\Shared\_ValidationScriptsPartial.cshtml* ファイルの内容を削除します。
 
-上記の方法では、ASP.NET Core Identity Razor クラス ライブラリのクライアント側の検証は阻止されません。 詳細については、<xref:security/authentication/scaffold-identity> を参照してください。
+上記の方法では、ASP.NET Core Identity Razor クラス ライブラリのクライアント側の検証は阻止されません。 詳細については、「<xref:security/authentication/scaffold-identity>」を参照してください。
 
 ## <a name="additional-resources"></a>その他の技術情報
 
@@ -423,6 +423,8 @@ Web API コントローラーでは、`[ApiController]` 属性が設定されて
 * `[StringLength]`:文字列プロパティの値が指定した長さ制限を超えていないことを検証します。
 * `[Url]`:プロパティが URL 形式であることを検証します。
 * `[Remote]`:サーバーでアクション メソッドを呼び出すことによって、クライアントでの入力を検証します。 この属性の動作について詳しくは、「[`[Remote]` 属性](#remote-attribute)」をご覧ください。
+
+クライアント側の検証で `[RegularExpression]` 属性を使用する場合、regex はクライアントの JavaScript で実行されます。 これは、[ECMAScript](/dotnet/standard/base-types/regular-expression-options#ecmascript-matching-behavior) 一致の動作が使用されることを意味します。 詳細については、次を参照してください。[この GitHub の問題](https://github.com/dotnet/corefx/issues/42487)します。
 
 検証属性の完全な一覧については、[System.ComponentModel.DataAnnotations](xref:System.ComponentModel.DataAnnotations) 名前空間で確認できます。
 

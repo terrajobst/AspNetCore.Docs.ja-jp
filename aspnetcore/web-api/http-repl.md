@@ -5,14 +5,14 @@ description: HTTP REPL .NET Core グローバル ツールを使用して、ASP.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 12/02/2019
+ms.date: 12/11/2019
 uid: web-api/http-repl
-ms.openlocfilehash: c6e3ab5685b5bd0b154d20585fb0d187f81da641
-ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
+ms.openlocfilehash: 34ec2b2eb511f33e1263cdad4a338183a3e4b83a
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74717166"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75356168"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>HTTP REPL を使用して Web API をテストする
 
@@ -690,8 +690,9 @@ HTTP DELETE 要求を発行するには、次のようにします。
         "data": "Strawberry"
       }
     ]
+    ```
 
-1. Run the `delete` command on an endpoint that supports it:
+1. それをサポートしているエンドポイントで `delete` コマンドを実行します。
 
     ```console
     https://localhost:5001/fruits~ delete 2
@@ -820,7 +821,7 @@ set header Authorization "bearer <TOKEN VALUE>"
 
 Azure でホストされたエンドポイントにアクセスしたり、[Azure REST API](/rest/api/azure/) を使用したりするには、ベアラー トークンが必要です。 [Azure CLI](/cli/azure/) で自分の Azure サブスクリプションのベアラー トークンを取得するには、次の手順を使用します。 HTTP REPL では、HTTP 要求ヘッダーにベアラー トークンが設定され、Azure App Service Web Apps のリストが取得されます。
 
-1. Azure へのログイン:
+1. Azure にログインします。
 
     ```azcli
     az login

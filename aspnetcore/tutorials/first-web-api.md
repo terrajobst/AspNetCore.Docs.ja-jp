@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 4377d7d1895b80b3c98a5b480c0f42820f11fbb8
-ms.sourcegitcommit: 4e3edff24ba6e43a103fee1b126c9826241bb37b
+ms.openlocfilehash: 3bf930d19684e84365f0ff0255fccd2939fb3f39
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/10/2019
-ms.locfileid: "74959113"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75354918"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>チュートリアル: ASP.NET Core で Web API を作成する
 
@@ -38,11 +38,11 @@ ms.locfileid: "74959113"
 
 |API | 説明 | 要求本文 | 応答本文 |
 |--- | ---- | ---- | ---- |
-|GET /api/TodoItems | すべての To Do アイテムを取得します。 | なし | To Do アイテムの配列|
-|GET /api/TodoItems/{id} | ID でアイテムを取得します。 | なし | To Do アイテム|
+|GET /api/TodoItems | すべての To Do アイテムを取得します。 | None | To Do アイテムの配列|
+|GET /api/TodoItems/{id} | ID でアイテムを取得します。 | None | To Do アイテム|
 |POST /api/TodoItems | 新しいアイテムを追加します。 | To Do アイテム | To Do アイテム |
-|PUT /api/TodoItems/{id} | 既存のアイテムを更新します。&nbsp; | To Do アイテム | なし |
-|DELETE /api/TodoItems/{id} &nbsp; &nbsp; | アイテムを削除します &nbsp; &nbsp; | なし | なし|
+|PUT /api/TodoItems/{id} | 既存のアイテムを更新します。&nbsp; | To Do アイテム | None |
+|DELETE /api/TodoItems/{id} &nbsp; &nbsp; | アイテムを削除します &nbsp; &nbsp; | None | None|
 
 次の図は、アプリのデザインを示しています。
 
@@ -68,7 +68,7 @@ ms.locfileid: "74959113"
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* **[ファイル]** メニューで **[新規作成]** > **[プロジェクト]** の順に選択します。
+* **[ファイル]** メニューで、 **[新規作成]** > **[プロジェクト]** の順に選択します。
 * **[ASP.NET Core Web アプリケーション]** テンプレートを選択して、 **[次へ]** をクリックします。
 * プロジェクトに「*TodoApi*」という名前を付け、 **[作成]** をクリックします。
 * **[新しい ASP.NET Core Web アプリケーションを作成する]** ダイアログで、 **[.NET Core]** と **[ASP.NET Core 3.1]** が選択されていることを確認します。 **API** テンプレートを選択し、 **[作成]** をクリックします。
@@ -204,7 +204,7 @@ Ctrl キーを押しながら F5 キーを押して、アプリを実行しま�
 
   ![新しいフォルダー](first-web-api-mac/_static/folder.png)
 
-* *Models* フォルダーを右クリックし、 **[追加]** > **[新しいファイル]** > **[全般]** > **[Empty Class]\(空のクラス)** の順に選択します。
+* *Models* フォルダーを右クリックし、 **[追加]** > **[新しいファイル]** > **[全般]** > **[空のクラス]** の順に選択します。
 
 * クラスに「*TodoItem*」という名前を付け、 **[新規]** をクリックします。
 
@@ -267,7 +267,7 @@ ASP.NET Core で、サービス (DB コンテキストなど) を[依存関係�
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * *Controllers* フォルダーを右クリックします。
-* **[追加]** > **[新規スキャフォールディング アイテム]** を選択します。
+* **[追加]** > **[スキャフォールディングされた新しい項目]** を選択します。
 * **[Entity Framework を使用したアクションがある API コントローラー]** を選択してから、 **[追加]** を選択します。
 * **[Entity Framework を使用したアクションがある API コントローラー]** ダイアログで次を実行します。
 
@@ -451,8 +451,6 @@ ID = 1 の To Do アイテムを更新し、その名前を "feed fish" に設�
 
 [!code-csharp[](first-web-api/samples/3.0/TodoApi/Controllers/TodoItemsController.cs?name=snippet_Delete)]
 
-`DeleteTodoItem` の応答は [204 (No Content)](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html) となります。
-
 ### <a name="test-the-deletetodoitem-method"></a>DeleteTodoItem メソッドのテスト
 
 Postman を使用して、To Do アイテムを削除します。
@@ -463,7 +461,7 @@ Postman を使用して、To Do アイテムを削除します。
 
 ## <a name="call-the-web-api-with-javascript"></a>JavaScript を使用した Web API の呼び出し
 
-手順については、「[チュートリアル: JavaScript を使用して ASP.NET Core Web API を呼び出す](xref:tutorials/web-api-javascript)」を参照してください。
+「[チュートリアル:JavaScript を使用して ASP.NET Core Web API を呼び出す](xref:tutorials/web-api-javascript)」を参照してください。
 
 ::: moniker-end
 
@@ -489,11 +487,11 @@ Postman を使用して、To Do アイテムを削除します。
 
 |API | 説明 | 要求本文 | 応答本文 |
 |--- | ---- | ---- | ---- |
-|GET /api/TodoItems | すべての To Do アイテムを取得します。 | なし | To Do アイテムの配列|
-|GET /api/TodoItems/{id} | ID でアイテムを取得します。 | なし | To Do アイテム|
+|GET /api/TodoItems | すべての To Do アイテムを取得します。 | None | To Do アイテムの配列|
+|GET /api/TodoItems/{id} | ID でアイテムを取得します。 | None | To Do アイテム|
 |POST /api/TodoItems | 新しいアイテムを追加します。 | To Do アイテム | To Do アイテム |
-|PUT /api/TodoItems/{id} | 既存のアイテムを更新します。&nbsp; | To Do アイテム | なし |
-|DELETE /api/TodoItems/{id} &nbsp; &nbsp; | アイテムを削除します &nbsp; &nbsp; | なし | なし|
+|PUT /api/TodoItems/{id} | 既存のアイテムを更新します。&nbsp; | To Do アイテム | None |
+|DELETE /api/TodoItems/{id} &nbsp; &nbsp; | アイテムを削除します &nbsp; &nbsp; | None | None|
 
 次の図は、アプリのデザインを示しています。
 
@@ -519,7 +517,7 @@ Postman を使用して、To Do アイテムを削除します。
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* **[ファイル]** メニューで **[新規作成]** > **[プロジェクト]** の順に選択します。
+* **[ファイル]** メニューで、 **[新規作成]** > **[プロジェクト]** の順に選択します。
 * **[ASP.NET Core Web アプリケーション]** テンプレートを選択して、 **[次へ]** をクリックします。
 * プロジェクトに「*TodoApi*」という名前を付け、 **[作成]** をクリックします。
 * **[新しい ASP.NET Core Web アプリケーションを作成する]** ダイアログで、 **[.NET Core]** と **[ASP.NET Core 2.2]** が選択されていることを確認します。 **API** テンプレートを選択し、 **[作成]** をクリックします。 **[Enable Docker Support]\(Docker サポートを有効にする\)** は**選択しないで**ください。
@@ -609,7 +607,7 @@ Ctrl キーを押しながら F5 キーを押して、アプリを実行しま�
 
   ![新しいフォルダー](first-web-api-mac/_static/folder.png)
 
-* *Models* フォルダーを右クリックし、 **[追加]** > **[新しいファイル]** > **[全般]** > **[Empty Class]\(空のクラス)** の順に選択します。
+* *Models* フォルダーを右クリックし、 **[追加]** > **[新しいファイル]** > **[全般]** > **[空のクラス]** の順に選択します。
 
 * クラスに「*TodoItem*」という名前を付け、 **[新規]** をクリックします。
 
