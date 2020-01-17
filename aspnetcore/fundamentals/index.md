@@ -5,14 +5,14 @@ description: ASP.NET Core アプリの構築に関する基本概念について
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/07/2019
+ms.date: 01/15/2020
 uid: fundamentals/index
-ms.openlocfilehash: 7173a732a04bf3e598adef298fa9120c15dd52fb
-ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
+ms.openlocfilehash: 3fbfc7c4c0d5e568339bc00a7cbe84a3932acf1f
+ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/07/2019
-ms.locfileid: "73799373"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76146356"
 ---
 # <a name="aspnet-core-fundamentals"></a>ASP.NET Core の基礎
 
@@ -33,7 +33,7 @@ ms.locfileid: "73799373"
 
 [!code-csharp[](index/snapshots/2.x/Startup1.cs?highlight=3,12)]
 
-詳細については、<xref:fundamentals/startup> を参照してください。
+詳細については、「<xref:fundamentals/startup>」を参照してください。
 
 ## <a name="dependency-injection-services"></a>依存性の注入 (サービス)
 
@@ -45,7 +45,7 @@ Entity Framework Core コンテキスト オブジェクトを取得するため
 
 DI が組み込まれており、必要に応じてサードパーティ製の制御の反転 (IoC) コンテナーを組み込むことができるよう設計されています。
 
-詳細については、<xref:fundamentals/dependency-injection> を参照してください。
+詳細については、「<xref:fundamentals/dependency-injection>」を参照してください。
 
 ## <a name="middleware"></a>ミドルウェア
 
@@ -59,7 +59,7 @@ DI が組み込まれており、必要に応じてサードパーティ製の�
 
 ASP.NET Core にはミドルウェアのセットが豊富に組み込まれており、カスタム ミドルウェアをユーザーが記述できます。
 
-詳細については、<xref:fundamentals/middleware/index> を参照してください。
+詳細については、「<xref:fundamentals/middleware/index>」を参照してください。
 
 ## <a name="host"></a>Host
 
@@ -87,7 +87,7 @@ ASP.NET Core アプリは起動時に*ホスト*をビルドします。 ホス�
 * *appsettings.json*、"*appsettings.{環境名}.json*"、環境変数、コマンド ライン引数、およびその他の構成ソースから構成を読み込みます。
 * ログ出力をコンソールとデバッグ プロバイダーに送ります。
 
-詳細については、<xref:fundamentals/host/generic-host> を参照してください。
+詳細については、「<xref:fundamentals/host/generic-host>」を参照してください。
 
 ::: moniker-end
 
@@ -105,7 +105,7 @@ Web ホストと汎用ホストの 2 つのホストが利用可能です。 ASP
 * *appsettings.json*、"*appsettings.{環境名}.json*"、環境変数、コマンド ライン引数、およびその他の構成ソースから構成を読み込みます。
 * ログ出力をコンソールとデバッグ プロバイダーに送ります。
 
-詳細については、<xref:fundamentals/host/web-host> を参照してください。
+詳細については、「<xref:fundamentals/host/web-host>」を参照してください。
 
 ::: moniker-end
 
@@ -160,7 +160,7 @@ ASP.NET Core は、*Kestrel* クロスプラットフォーム サーバーの�
 
 ::: moniker-end
 
-詳細については、<xref:fundamentals/servers/index> を参照してください。
+詳細については、「<xref:fundamentals/servers/index>」を参照してください。
 
 ## <a name="configuration"></a>構成
 
@@ -170,7 +170,7 @@ ASP.NET Core は、構成プロバイダーの順序付けされたセットか�
 
 ASP.NET Core には、パスワードなどの機密の構成データの管理に[シークレット マネージャー ツール](xref:security/app-secrets)が用意されています。 実稼働の機密情報には、[Azure Key Vault](xref:security/key-vault-configuration) を使用することをお勧めします。
 
-詳細については、<xref:fundamentals/configuration/index> を参照してください。
+詳細については、「<xref:fundamentals/configuration/index>」を参照してください。
 
 ## <a name="options"></a>オプション
 
@@ -187,7 +187,7 @@ var options = new WebSocketOptions
 app.UseWebSockets(options);
 ```
 
-詳細については、<xref:fundamentals/configuration/options> を参照してください。
+詳細については、「<xref:fundamentals/configuration/options>」を参照してください。
 
 ## <a name="environments"></a>環境
 
@@ -197,7 +197,7 @@ app.UseWebSockets(options);
 
 [!code-csharp[](index/snapshots/2.x/Startup2.cs?highlight=3-6)]
 
-詳細については、<xref:fundamentals/environments> を参照してください。
+詳細については、「<xref:fundamentals/environments>」を参照してください。
 
 ## <a name="logging"></a>ログの記録
 
@@ -219,13 +219,13 @@ DI からの `ILogger` オブジェクトの取得およびログ メソッド�
 
 `ILogger` インターフェイスは、ログ プロバイダーに任意の数のフィールドを渡すことができます。 このフィールドは、一般的にメッセージの文字列を構築するために使用しますが、プロバイダーがデータ ストアに別のフィールドとして送信することも可能です。 この機能は、[構造化ロギングとも呼ばれるセマンティック ロギング](https://softwareengineering.stackexchange.com/questions/312197/benefits-of-structured-logging-vs-basic-logging)をログ プロバイダーが実装するのを可能にします。
 
-詳細については、<xref:fundamentals/logging/index> を参照してください。
+詳細については、「<xref:fundamentals/logging/index>」を参照してください。
 
 ## <a name="routing"></a>ルーティング
 
 *ルート*とは、ハンドラーにマップされている URL のパターンです。 このハンドラーは一般的には Razor Pages、MVC コントローラーのアクション メソッドまたはミドルウェアです。 ASP.NET Core のルーティングでは、アプリで使用する URL を制御できます。
 
-詳細については、<xref:fundamentals/routing> を参照してください。
+詳細については、「<xref:fundamentals/routing>」を参照してください。
 
 ## <a name="error-handling"></a>エラー処理
 
@@ -236,7 +236,7 @@ ASP.NET Core には、次などのエラー処理用の機能が組み込まれ�
 * 静的状態コード ページ
 * 起動時の例外処理
 
-詳細については、<xref:fundamentals/error-handling> を参照してください。
+詳細については、「<xref:fundamentals/error-handling>」を参照してください。
 
 ## <a name="make-http-requests"></a>HTTP 要求を行う
 
@@ -248,7 +248,7 @@ ASP.NET Core には、次などのエラー処理用の機能が組み込まれ�
 * 基になっている `HttpClientMessageHandler` インスタンスのプールと有効期間を管理し、`HttpClient` の有効期間を手動で管理するときに発生する一般的な DNS の問題を防ぎます。
 * ファクトリによって作成されたクライアントから送信されるすべての要求に対し、(`ILogger` によって) 構成可能なログ エクスペリエンスを追加します。
 
-詳細については、<xref:fundamentals/http-requests> を参照してください。
+詳細については、「<xref:fundamentals/http-requests>」を参照してください。
 
 ## <a name="content-root"></a>コンテンツ ルート
 
@@ -271,13 +271,13 @@ ASP.NET Core には、次などのエラー処理用の機能が組み込まれ�
 
 ::: moniker range=">= aspnetcore-3.0"
 
-[ホストの構築時](#host)には、別のコンテンツ ルート パスを指定できます。 詳細については、<xref:fundamentals/host/generic-host#contentrootpath> を参照してください。
+[ホストの構築時](#host)には、別のコンテンツ ルート パスを指定できます。 詳細については、「<xref:fundamentals/host/generic-host#contentrootpath>」を参照してください。
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-[ホストの構築時](#host)には、別のコンテンツ ルート パスを指定できます。 詳細については、<xref:fundamentals/host/web-host#content-root> を参照してください。
+[ホストの構築時](#host)には、別のコンテンツ ルート パスを指定できます。 詳細については、「<xref:fundamentals/host/web-host#content-root>」を参照してください。
 
 ::: moniker-end
 
@@ -293,7 +293,7 @@ Web ルートは、次のような、パブリックで非コードの静的な�
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Web ルートのパスの既定値は、" *{コンテンツ ルート}/wwwroot*" ですが、[ホストの構築](#host)時に別の Web ルートを指定することも可能です。 詳細については、<xref:fundamentals/host/generic-host#webroot> を参照してください。
+Web ルートのパスの既定値は、" *{コンテンツ ルート}/wwwroot*" ですが、[ホストの構築](#host)時に別の Web ルートを指定することも可能です。 詳細については、「<xref:fundamentals/host/generic-host#webroot>」を参照してください。
 
 ::: moniker-end
 
@@ -311,6 +311,12 @@ Web ルートのパスの既定値は、" *{コンテンツ ルート}/wwwroot*"
 </ItemGroup>
 ```
 
+::: moniker range=">= aspnetcore-3.0"
+
+静的な ID 資産が Web ルートに公開されないようにするには、<xref:security/authentication/identity#prevent-publish-of-static-identity-assets> を参照してください。
+
+::: moniker-end
+
 Razor ( *.cshtml*) ファイルの場合、チルダとスラッシュ (`~/`) が Web ルートを指します。 `~/` で始まるパスは、"*仮想パス*" と呼ばれます。
 
-詳細については、<xref:fundamentals/static-files> を参照してください。
+詳細については、「<xref:fundamentals/static-files>」を参照してください。
