@@ -3,14 +3,14 @@ title: ASP.NET Core Identity の概要
 author: rick-anderson
 description: ASP.NET Core アプリで Id を使用します。 パスワードの要件 (RequireDigit、RequiredLength、RequiredUniqueChars など) を設定する方法について説明します。
 ms.author: riande
-ms.date: 12/05/2019
+ms.date: 01/15/2020
 uid: security/authentication/identity
-ms.openlocfilehash: d4cda43c417a0d8e1b78f8b59b7050debf017269
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 98fee261a741a20eed181ca5b9a4ebb693deeb63
+ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828231"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76146512"
 ---
 # <a name="introduction-to-identity-on-aspnet-core"></a>ASP.NET Core Identity の概要
 
@@ -159,7 +159,7 @@ PowerShell では、コマンドの区切り記号としてセミコロンを使
 
 [!code-csharp[](identity/sample/WebApp3/Areas/Identity/Pages/Account/Login.cshtml.cs?name=snippet&highlight=10-11)]
 
-基本 `Controller` クラスは、コントローラーメソッドからアクセスできる `User` プロパティを公開します。 たとえば`User.Claims`を列挙して承認の決定を行うことができます。 詳細については、「<xref:security/authorization/introduction>」を参照してください。
+基本 `Controller` クラスは、コントローラーメソッドからアクセスできる `User` プロパティを公開します。 たとえば`User.Claims`を列挙して承認の決定を行うことができます。 詳細については、「 <xref:security/authorization/introduction>」を参照してください。
 
 ### <a name="log-out"></a>ログアウト
 
@@ -213,6 +213,22 @@ Id のプライマリパッケージは[Microsoft.AspNetCore.Identity](https://w
 * <xref:Microsoft.AspNetCore.Identity.IdentityBuilderExtensions.AddDefaultTokenProviders*>
 
 詳細については[AddDefaultIdentity のソース](https://github.com/dotnet/AspNetCore/blob/release/3.0/src/Identity/UI/src/IdentityServiceCollectionUIExtensions.cs#L47-L63)を参照してください。
+
+## <a name="prevent-publish-of-static-identity-assets"></a>静的 Id 資産の発行を禁止する
+
+静的な Id アセット (Id UI 用のスタイルシートおよび JavaScript ファイル) を web ルートに発行できないようにするには、次の `ResolveStaticWebAssetsInputsDependsOn` プロパティを追加し、アプリのプロジェクトファイルにターゲット `RemoveIdentityAssets` します。
+
+```xml
+<PropertyGroup>
+  <ResolveStaticWebAssetsInputsDependsOn>RemoveIdentityAssets</ResolveStaticWebAssetsInputsDependsOn>
+</PropertyGroup>
+
+<Target Name="RemoveIdentityAssets">
+  <ItemGroup>
+    <StaticWebAsset Remove="@(StaticWebAsset)" Condition="%(SourceId) == 'Microsoft.AspNetCore.Identity.UI'" />
+  </ItemGroup>
+</Target>
+```
 
 ## <a name="next-steps"></a>次のステップ
 
@@ -359,7 +375,7 @@ PowerShell では、コマンドの区切り記号としてセミコロンを使
 
 [!code-csharp[](identity/sample/WebApp1/Areas/Identity/Pages/Account/Login.cshtml.cs?name=snippet&highlight=10-11)]
 
-ベース`Controller`クラスでは、コントローラー メソッドからアクセスできる`User`プロパティを公開します。 たとえば`User.Claims`を列挙して承認の決定を行うことができます。 詳細については、「<xref:security/authorization/introduction>」を参照してください。
+ベース`Controller`クラスでは、コントローラー メソッドからアクセスできる`User`プロパティを公開します。 たとえば`User.Claims`を列挙して承認の決定を行うことができます。 詳細については、「 <xref:security/authorization/introduction>」を参照してください。
 
 ### <a name="log-out"></a>ログアウト
 

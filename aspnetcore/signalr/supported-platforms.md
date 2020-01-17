@@ -5,16 +5,16 @@ description: ASP.NET Core SignalRでサポートされているプラットフ�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 11/21/2019
+ms.date: 01/16/2020
 no-loc:
 - SignalR
 uid: signalr/supported-platforms
-ms.openlocfilehash: 9b9cf1d57d61c333c485f23b7ab952c66814d2aa
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: 054965921c87c1a9be27e5ddaa8a87b0fa1f4113
+ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317464"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76146499"
 ---
 # <a name="aspnet-core-opno-locsignalr-supported-platforms"></a>ASP.NET Core SignalR サポートされているプラットフォーム
 
@@ -26,7 +26,7 @@ ASP.NET Core の SignalR は、ASP.NET Core がサポートするすべてのサ
 
 [JavaScript クライアント](xref:signalr/javascript-client)は、nodejs 8 以降のバージョンと次のブラウザーで実行されます。
 
-| ブラウザー                         | バージョン         |
+| ブラウザー                         | Version         |
 | ------------------------------- | --------------- |
 | Microsoft Edge                  | 現在の&dagger; |
 | Mozilla Firefox                 | 現在の&dagger; |
@@ -50,6 +50,6 @@ ASP.NET Core の SignalR は、ASP.NET Core がサポートするすべてのサ
 
 次のクライアントは使用できますが、試験的または非公式です。 現時点ではサポートされておらず、そうでない場合もあります。
 
-* [C++client](https://github.com/aspnet/SignalR/tree/master/clients/cpp)
+* [C++client](https://github.com/aspnet/SignalR-Client-Cpp)
 
 * [Swift クライアント](https://github.com/moozzyk/SignalR-Client-Swift)

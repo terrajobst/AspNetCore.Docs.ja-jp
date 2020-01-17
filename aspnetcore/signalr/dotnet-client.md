@@ -5,16 +5,16 @@ description: .NET クライアント SignalR ASP.NET Core に関する情報
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 01/14/2020
 no-loc:
 - SignalR
 uid: signalr/dotnet-client
-ms.openlocfilehash: 28e8fcf808406cd0251ba94e2ef97ab04841fcd0
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 39d9eccdb1e0457b177e75e6f94f3dd185b0093d
+ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963968"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76146317"
 ---
 # <a name="aspnet-core-opno-locsignalr-net-client"></a>ASP.NET Core SignalR .NET クライアント
 
@@ -46,7 +46,7 @@ dotnet add package Microsoft.AspNetCore.SignalR.Client
 
 ---
 
-## <a name="connect-to-a-hub"></a>ハブへの接続
+## <a name="connect-to-a-hub"></a>ハブへの接続します。
 
 接続を確立するには、`HubConnectionBuilder` を作成し、`Build`を呼び出します。 接続の構築中に、ハブの URL、プロトコル、トランスポートの種類、ログレベル、ヘッダー、およびその他のオプションを構成できます。 `HubConnectionBuilder` のメソッドのいずれかを `Build`に挿入して、必要なオプションを構成します。 `StartAsync`との接続を開始します。
 
@@ -164,7 +164,7 @@ HubConnection connection= new HubConnectionBuilder()
 
 自動再接続試行のタイミングと回数をさらに細かく制御する場合、`WithAutomaticReconnect` は、`NextRetryDelay`という名前の1つのメソッドを持つ `IRetryPolicy` インターフェイスを実装するオブジェクトを受け入れます。
 
-`NextRetryDelay` は、`RetryContext`型の1つの引数を受け取ります。 `RetryContext` には、`PreviousRetryCount`、`ElapsedTime` と `RetryReason` という3つのプロパティがあります。これは、それぞれ `long`、`TimeSpan`、および `Exception` です。 最初の再接続を試行する前に、`PreviousRetryCount` と `ElapsedTime` の両方がゼロになり、`RetryReason` は接続が失われる原因となった例外になります。 再試行に失敗するたびに、`PreviousRetryCount` が1ずつインクリメントされます。これまでに再接続に費やされた時間が反映されるように `ElapsedTime` が更新され、最後の再接続の試行が失敗した原因となった例外が `RetryReason` ます。
+`NextRetryDelay` は、`RetryContext`型の1つの引数を受け取ります。 `RetryContext` には、`PreviousRetryCount`、`ElapsedTime`、`RetryReason`の3つのプロパティがあります。これは、それぞれ `long`、`TimeSpan`、および `Exception` です。 最初の再接続を試行する前に、`PreviousRetryCount` と `ElapsedTime` の両方がゼロになり、`RetryReason` は接続が失われる原因となった例外になります。 再試行に失敗するたびに、`PreviousRetryCount` が1ずつインクリメントされます。これまでに再接続に費やされた時間が反映されるように `ElapsedTime` が更新され、最後の再接続の試行が失敗した原因となった例外が `RetryReason` ます。
 
 `NextRetryDelay` は、次の再接続を試行する前に待機する時間を表す TimeSpan を返すか、`HubConnection` の再接続を停止する必要がある場合は `null` する必要があります。
 
@@ -179,7 +179,7 @@ public class RandomRetryPolicy : IRetryPolicy
         // wait between 0 and 10 seconds before the next reconnect attempt.
         if (retryContext.ElapsedTime < TimeSpan.FromSeconds(60))
         {
-            return TimeSpan.FromSeconds(_random.Next() * 10);
+            return TimeSpan.FromSeconds(_random.NextDouble() * 10);
         }
         else
         {
@@ -227,7 +227,7 @@ connection.Closed += (error) => {
 
 [!code-csharp[Use Closed event handler to automate reconnection](dotnet-client/sample/signalrchatclient/MainWindow.xaml.cs?name=snippet_ClosedRestart)]
 
-## <a name="call-hub-methods-from-client"></a>クライアントからのハブメソッドの呼び出し
+## <a name="call-hub-methods-from-client"></a>クライアントからのハブ メソッドの呼び出し
 
 `InvokeAsync` は、ハブでメソッドを呼び出します。 ハブメソッドの名前と、ハブメソッドで定義されているすべての引数を `InvokeAsync`に渡します。 SignalR は非同期なので、呼び出しを行うときに `async` と `await` を使用します。
 
@@ -240,7 +240,7 @@ connection.Closed += (error) => {
 > [!NOTE]
 > *サーバーレスモード*で Azure SignalR サービスを使用している場合は、クライアントからハブメソッドを呼び出すことはできません。 詳細については、 [SignalR サービスのドキュメント](/azure/azure-signalr/signalr-concept-serverless-development-config)を参照してください。
 
-## <a name="call-client-methods-from-hub"></a>ハブからクライアントメソッドを呼び出す
+## <a name="call-client-methods-from-hub"></a>ハブからのクライアント メソッドを呼び出す
 
 ハブがビルド後、接続を開始する前に `connection.On` を使用して呼び出すメソッドを定義します。
 

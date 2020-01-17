@@ -2,20 +2,20 @@
 title: ASP.NET Core Blazor の概要
 author: guardrex
 description: ASP.NET Core アプリ内に .NET を使った対話型のクライアント側 Web UI を構築する方法である、ASP.NET Core Blazor について調べます。
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc, seoapril2019
-ms.date: 12/05/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/index
-ms.openlocfilehash: 4ab6af649afe66d92fb2ea07d3abed057f321bce
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: 9f43735fc02ba9f8da4ba27c8b5763d587b5429a
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74943720"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76159925"
 ---
 # <a name="introduction-to-aspnet-core-opno-locblazor"></a>ASP.NET Core Blazor の概要
 
@@ -140,7 +140,7 @@ Blazor では、UI の更新プログラムを適用する方法からコンポ�
 
 ## <a name="javascript-interop"></a>JavaScript 相互運用
 
-サード パーティ製の JavaScript ライブラリや、ブラウザーの API へのアクセスを必要とするアプリのために、コンポーネントは JavaScript と相互運用します。 コンポーネントでは、JavaScript で使用できるライブラリまたは API はいずれも使用することができます。 C# コードによる JavaScript コードの呼び出し、および JavaScript コードによる C# コードの呼び出しを行うことができます。 詳細については、<xref:blazor/javascript-interop> を参照してください。
+サード パーティ製の JavaScript ライブラリや、ブラウザーの API へのアクセスを必要とするアプリのために、コンポーネントは JavaScript と相互運用します。 コンポーネントでは、JavaScript で使用できるライブラリまたは API はいずれも使用することができます。 C# コードによる JavaScript コードの呼び出し、および JavaScript コードによる C# コードの呼び出しを行うことができます。 詳細については、「<xref:blazor/javascript-interop>」を参照してください。
 
 ## <a name="code-sharing-and-net-standard"></a>コードの共有と .NET Standard
 

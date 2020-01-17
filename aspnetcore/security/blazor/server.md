@@ -2,20 +2,20 @@
 title: ASP.NET Core Blazor サーバーアプリをセキュリティで保護する
 author: guardrex
 description: Blazor サーバーアプリに対するセキュリティ上の脅威を軽減する方法について説明します。
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/server
-ms.openlocfilehash: 2d644b84b304a31ad0debc16164ad155c7f7da65
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: d87aac02137681e62cf8f5cbd4dc8b0be6f8431e
+ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944283"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76146304"
 ---
 # <a name="secure-aspnet-core-opno-locblazor-server-apps"></a>ASP.NET Core Blazor サーバーアプリをセキュリティで保護する
 
@@ -42,7 +42,7 @@ JS 相互運用はインターネット経由で行われ、クライアント�
 
 サービス拒否 (DoS) 攻撃は、通常、アプリまたはサーバーのリソースを枯渇させることを求めています。 ただし、リソース枯渇はシステムへの攻撃の結果であるとは限りません。 たとえば、ユーザーの要求が多いため、有限のリソースが使い果たされる可能性があります。 DoS の詳細については、「[サービス拒否 (dos) 攻撃](#denial-of-service-dos-attacks)」セクションを参照してください。
 
-データベースやファイルハンドル (ファイルの読み取りと書き込みに使用される) など Blazor framework の外部のリソースにも、リソースの枯渇が発生する可能性があります。 詳細については、「<xref:performance/performance-best-practices>」を参照してください。
+データベースやファイルハンドル (ファイルの読み取りと書き込みに使用される) など Blazor framework の外部のリソースにも、リソースの枯渇が発生する可能性があります。 詳細については、「 <xref:performance/performance-best-practices>」を参照してください。
 
 ### <a name="cpu"></a>CPU
 
@@ -126,7 +126,7 @@ Blazor クライアントは、セッションごとに1つの接続を確立し
 
 次の予防措置を講じて、上記のシナリオを防止します。
 
-* 呼び出し中に発生する可能性のあるエラーを考慮するために、 [try catch](/dotnet/csharp/language-reference/keywords/try-catch)ステートメント内に JS 相互運用機能呼び出しをラップします。 詳細については、「<xref:blazor/handle-errors#javascript-interop>」を参照してください。
+* 呼び出し中に発生する可能性のあるエラーを考慮するために、 [try catch](/dotnet/csharp/language-reference/keywords/try-catch)ステートメント内に JS 相互運用機能呼び出しをラップします。 詳細については、「 <xref:blazor/handle-errors#javascript-interop>」を参照してください。
 * アクションを実行する前に、JS 相互運用機能の呼び出しから返されたデータを検証します (エラーメッセージを含む)。
 
 ### <a name="net-methods-invoked-from-the-browser"></a>ブラウザーから呼び出される .NET メソッド
@@ -206,7 +206,7 @@ Blazor サーバーイベントは非同期であるため、複数のイベン�
 
 ### <a name="guard-against-multiple-dispatches"></a>複数のディスパッチに対して保護する
 
-イベントコールバックが、外部サービスまたはデータベースからのデータのフェッチなど、長時間実行される操作を呼び出す場合は、ガードの使用を検討してください。 ガードを使用すると、操作の進行中に視覚的なフィードバックが発生している間に、ユーザーが複数の操作をキューに入れることを防ぐことができます。 次のコンポーネントコードは `isLoading` を `true` に設定し、`GetForecastAsync` はサーバーからデータを取得します。 `isLoading` が `true`場合、このボタンは UI では無効になっています。
+イベントコールバックが、外部サービスまたはデータベースからのデータのフェッチなど、長時間実行される操作を非同期に呼び出す場合は、ガードの使用を検討してください。 ガードを使用すると、操作の進行中に視覚的なフィードバックが発生している間に、ユーザーが複数の操作をキューに入れることを防ぐことができます。 次のコンポーネントコードは `isLoading` を `true` に設定し、`GetForecastAsync` はサーバーからデータを取得します。 `isLoading` が `true`場合、このボタンは UI では無効になっています。
 
 ```razor
 @page "/fetchdata"
@@ -230,6 +230,8 @@ Blazor サーバーイベントは非同期であるため、複数のイベン�
     }
 }
 ```
+
+前の例で示されているガードパターンは、バックグラウンド操作が `async`-`await` パターンで非同期に実行された場合に機能します。
 
 ### <a name="cancel-early-and-avoid-use-after-dispose"></a>早期にキャンセルして、dispose を使用しないようにする
 
@@ -292,7 +294,7 @@ ASP.NET Core アプリをセキュリティで保護するためのガイダン�
 詳細なエラーを有効にする:
 
 * `CircuitOptions.DetailedErrors`.
-* `DetailedErrors` 構成キー。 たとえば、`ASPNETCORE_DETAILEDERRORS` 環境変数を `true`の値に設定します。
+* 構成キーを `DetailedErrors` します。 たとえば、`ASPNETCORE_DETAILEDERRORS` 環境変数を `true`の値に設定します。
 
 > [!WARNING]
 > インターネット上のクライアントにエラー情報を公開することは、常に避ける必要があるセキュリティ上のリスクです。
@@ -346,7 +348,7 @@ XSS の脆弱性が存在するようにするには、レンダリングされ�
 
 XSS 攻撃からの保護の一環として、[コンテンツセキュリティポリシー (CSP)](https://developer.mozilla.org/docs/Web/HTTP/CSP)などの xss 軽減策を実装することを検討してください。
 
-詳細については、「<xref:security/cross-site-scripting>」を参照してください。
+詳細については、「 <xref:security/cross-site-scripting>」を参照してください。
 
 ### <a name="cross-origin-protection"></a>クロスオリジン保護
 
@@ -355,7 +357,7 @@ XSS 攻撃からの保護の一環として、[コンテンツセキュリティ
 * Blazor サーバーアプリは、追加の手段を講じて防ぐことができない限り、クロスオリジンにアクセスできます。 クロスオリジンアクセスを無効にするには、エンドポイントで cors を無効にします。そのためには、パイプラインに CORS ミドルウェアを追加し、Blazor エンドポイントメタデータに `DisableCorsAttribute` を追加するか、[クロスオリジンリソース共有の SignalR を構成](xref:signalr/security#cross-origin-resource-sharing)して、許可されるオリジンのセットを制限します。
 * CORS が有効になっている場合、CORS の構成によっては、アプリを保護するために追加の手順が必要になることがあります。 CORS がグローバルに有効になっている場合、`hub.MapBlazorHub()`を呼び出した後、エンドポイントのメタデータに `DisableCorsAttribute` メタデータを追加することによって、Blazor Server hub に対して CORS を無効にすることができます。
 
-詳細については、「<xref:security/anti-request-forgery>」を参照してください。
+詳細については、「 <xref:security/anti-request-forgery>」を参照してください。
 
 ### <a name="click-jacking"></a>[-Jacking] をクリックします。
 
@@ -383,7 +385,7 @@ Blazor Server アプリセッションが開始されると、サーバーは、
 * 可能であれば、相対リンクを使用します。
 * ページに含める前に、絶対リンク先が有効であることを検証します。
 
-詳細については、「<xref:security/preventing-open-redirects>」を参照してください。
+詳細については、「 <xref:security/preventing-open-redirects>」を参照してください。
 
 ## <a name="authentication-and-authorization"></a>認証と承認
 

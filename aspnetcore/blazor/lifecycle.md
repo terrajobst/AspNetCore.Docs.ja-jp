@@ -2,19 +2,20 @@
 title: ASP.NET Core Blazor ライフサイクル
 author: guardrex
 description: ASP.NET Core Blazor アプリで Razor コンポーネントライフサイクルメソッドを使用する方法について説明します。
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
+- SignalR
 uid: blazor/lifecycle
-ms.openlocfilehash: e600e7c7a6a8c646a655520bd5c127f2cd662753
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: df5bb676df59b538179a69978040521c4ee78ed1
+ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944032"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76146369"
 ---
 # <a name="aspnet-core-opno-locblazor-lifecycle"></a>ASP.NET Core Blazor ライフサイクル
 
@@ -26,26 +27,23 @@ Blazor framework には、同期および非同期のライフサイクルメソ
 
 ### <a name="component-initialization-methods"></a>コンポーネントの初期化メソッド
 
-<xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync*> し、コンポーネントを初期化するコードを実行 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized*> ます。 これらのメソッドは、コンポーネントが最初にインスタンス化されるときに1回だけ呼び出されます。
+<xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync*> と <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized*> は、その親コンポーネントから初期パラメーターを受け取った後に、コンポーネントが初期化されるときに呼び出されます。 コンポーネントが非同期操作を実行し、操作の完了時に更新する必要がある場合は、`OnInitializedAsync` を使用します。 これらのメソッドは、コンポーネントが最初にインスタンス化されるときに1回だけ呼び出されます。
 
-非同期操作を実行するには、操作で `OnInitializedAsync` と `await` キーワードを使用します。
-
-```csharp
-protected override async Task OnInitializedAsync()
-{
-    await ...
-}
-```
-
-> [!NOTE]
-> `OnInitializedAsync` のライフサイクルイベント中に、コンポーネントの初期化時に非同期作業を行う必要があります。
-
-同期操作の場合は、`OnInitialized`を使用します。
+同期操作の場合は、`OnInitialized`をオーバーライドします。
 
 ```csharp
 protected override void OnInitialized()
 {
     ...
+}
+```
+
+非同期操作を実行するには、`OnInitializedAsync` をオーバーライドし、操作で `await` キーワードを使用します。
+
+```csharp
+protected override async Task OnInitializedAsync()
+{
+    await ...
 }
 ```
 
@@ -70,7 +68,12 @@ public override async Task SetParametersAsync(ParameterView parameters)
 
 ### <a name="after-parameters-are-set"></a>パラメーターが設定された後
 
-コンポーネントが親からパラメーターを受け取り、値がプロパティに割り当てられると、<xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync*> と <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSet*> が呼び出されます。 これらのメソッドは、コンポーネントの初期化の後に、新しいパラメーター値が指定されるたびに実行されます。
+<xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync*> と <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSet*> は次のように呼び出されます。
+
+* コンポーネントが初期化され、その親コンポーネントからパラメーターの最初のセットを受け取ったとき。
+* 親コンポーネントが再レンダリングし、次のものを提供する場合:
+  * 少なくとも1つのパラメーターが変更された既知のプリミティブ不変型のみです。
+  * 任意の複合型のパラメーター。 フレームワークは、複合型のパラメーターの値が内部で変更されているかどうかを認識できないため、パラメーターセットは変更済みとして扱われます。
 
 ```csharp
 protected override async Task OnParametersSetAsync()
@@ -160,7 +163,7 @@ Blazor サーバーテンプレートでの*Pages/FetchData. razor* :
 
 コンポーネントが <xref:System.IDisposable>を実装している場合は、コンポーネントが UI から削除されるときに[Dispose メソッド](/dotnet/standard/garbage-collection/implementing-dispose)が呼び出されます。 次のコンポーネントでは、`@implements IDisposable` と `Dispose` メソッドが使用されます。
 
-```csharp
+```razor
 @using System
 @implements IDisposable
 
