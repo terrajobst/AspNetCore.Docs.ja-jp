@@ -2,20 +2,20 @@
 title: ASP.NET Core Blazor の認証と承認
 author: guardrex
 description: Blazor の認証と承認のシナリオについて説明します。
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/index
-ms.openlocfilehash: d3860a5e7f6ae5a3193d657b77fc593c9bd39131
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: 2ce2cff8d3ab77f21181070b6f1e48c50561036c
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944201"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76160289"
 ---
 # <a name="aspnet-core-opno-locblazor-authentication-and-authorization"></a>ASP.NET Core Blazor の認証と承認
 
@@ -69,7 +69,7 @@ dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 
 | 認証メカニズム                                                                 | `{AUTHENTICATION}` の値 |
 | ---------------------------------------------------------------------------------------- | :----------------------: |
-| [認証なし]                                                                        | `None`                   |
+| 認証なし                                                                        | `None`                   |
 | 個人<br>ASP.NET Core ID を使用するアプリに格納されているユーザー。                        | `Individual`             |
 | 個人<br>[Azure AD B2C](xref:security/authentication/azure-ad-b2c) に格納されているユーザー。 | `IndividualB2C`          |
 | 職場または学校アカウント<br>単一のテナントに対する組織認証。            | `SingleOrg`              |
@@ -316,7 +316,7 @@ UI オプションまたはアクセスを制御するロールやポリシー�
 </AuthorizeView>
 ```
 
-詳細については、<xref:security/authorization/roles> を参照してください。
+詳細については、「<xref:security/authorization/roles>」を参照してください。
 
 ポリシーベースの承認の場合は、`Policy` パラメーターを使用します。
 
@@ -326,7 +326,7 @@ UI オプションまたはアクセスを制御するロールやポリシー�
 </AuthorizeView>
 ```
 
-要求ベースの承認は、ポリシーベースの承認の特殊なケースです。 たとえば、ユーザーが特定の要求持つことを必須にするポリシーを定義できます。 詳細については、<xref:security/authorization/policies> を参照してください。
+要求ベースの承認は、ポリシーベースの承認の特殊なケースです。 たとえば、ユーザーが特定の要求持つことを必須にするポリシーを定義できます。 詳細については、「<xref:security/authorization/policies>」を参照してください。
 
 これらの API は、Blazor サーバー アプリまたは Blazor WebAssembly アプリのどちらでも使用できます。
 
@@ -492,7 +492,7 @@ Blazor WebAssembly アプリでは、すべてのクライアント側コード�
 
 **常に、クライアント側アプリからアクセスされるすべての API エンドポイント内のサーバー上で承認チェックを実行します。**
 
-## <a name="troubleshoot-errors"></a>エラーをトラブルシューティングする
+## <a name="troubleshoot-errors"></a>エラーのトラブルシューティング
 
 一般的なエラー:
 
