@@ -2,19 +2,20 @@
 title: ASP.NET Core Blazor から web API を呼び出す
 author: guardrex
 description: クロスオリジンリソース共有 (CORS) 要求の作成など、JSON ヘルパーを使用して Blazor アプリから web API を呼び出す方法について説明します。
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
+- SignalR
 uid: blazor/call-web-api
-ms.openlocfilehash: f1929b48275a36552f061a64823267df0f3acabc
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: 66605f38a6fcaedebc92b0946dca1e5f28b593c6
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74943915"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76160068"
 ---
 # <a name="call-a-web-api-from-aspnet-core-opno-locblazor"></a>ASP.NET Core Blazor から web API を呼び出す
 
@@ -24,7 +25,7 @@ ms.locfileid: "74943915"
 
 [Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly)は、構成済みの `HttpClient` サービスを使用して web api を呼び出します。 要求を作成します。これには、Blazor JSON ヘルパーまたは <xref:System.Net.Http.HttpRequestMessage>を使用した JavaScript [FETCH API](https://developer.mozilla.org/docs/Web/API/Fetch_API)オプションを含めることができます。
 
-[Blazor サーバー](xref:blazor/hosting-models#blazor-server)アプリは、通常 <xref:System.Net.Http.IHttpClientFactory>を使用して作成された <xref:System.Net.Http.HttpClient> インスタンスを使用して web api を呼び出します。 詳細については、「<xref:fundamentals/http-requests>」を参照してください。
+[Blazor サーバー](xref:blazor/hosting-models#blazor-server)アプリは、通常 <xref:System.Net.Http.IHttpClientFactory>を使用して作成された <xref:System.Net.Http.HttpClient> インスタンスを使用して web api を呼び出します。 詳細については、「 <xref:fundamentals/http-requests>」を参照してください。
 
 *BlazorWebAssemblySample*アプリを選択 &ndash; には、サンプルコード ([ダウンロード方法](xref:index#how-to-download-a-sample)) を[表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)します。
 

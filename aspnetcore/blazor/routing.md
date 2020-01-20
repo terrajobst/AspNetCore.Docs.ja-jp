@@ -2,19 +2,20 @@
 title: ASP.NET Core Blazor ルーティング
 author: guardrex
 description: アプリで要求をルーティングする方法と、[ナビゲーションリンク] コンポーネントについて説明します。
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
+- SignalR
 uid: blazor/routing
-ms.openlocfilehash: 1690434f48141bc83e7bc02e22cb763430eaa10d
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: 0cd15f25ff7975cae3f63a739212aa23062ece23
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944019"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76160159"
 ---
 # <a name="aspnet-core-opno-locblazor-routing"></a>ASP.NET Core Blazor ルーティング
 
@@ -66,7 +67,7 @@ Blazor サーバーは[ASP.NET Core エンドポイントルーティング](xre
 ```
 
 > [!IMPORTANT]
-> Url が正しく解決されるようにするには、アプリで、`href` 属性 (`<base href="/">`) で指定されたアプリの基本パスを使用して、 *wwwroot/index.html*ファイル (Blazor WebAssembly または*Pages/_Host*ファイル (Blazor サーバー) に `<base>` タグを含める必要があります。 詳細については、「<xref:host-and-deploy/blazor/index#app-base-path>」を参照してください。
+> Url が正しく解決されるようにするには、アプリで、`href` 属性 (`<base href="/">`) で指定されたアプリの基本パスを使用して、 *wwwroot/index.html*ファイル (Blazor WebAssembly または*Pages/_Host*ファイル (Blazor サーバー) に `<base>` タグを含める必要があります。 詳細については、「 <xref:host-and-deploy/blazor/index#app-base-path>」を参照してください。
 
 ## <a name="provide-custom-content-when-content-isnt-found"></a>コンテンツが見つからないときにカスタムコンテンツを提供する
 
@@ -121,7 +122,7 @@ Blazor サーバーは[ASP.NET Core エンドポイントルーティング](xre
 }
 ```
 
-ASP.NET Core 3.0 の Blazor アプリでは、省略可能なパラメーターはサポートされていません。 前の例では、2つの `@page` ディレクティブが適用されています。 最初のは、パラメーターを指定せずにコンポーネントへの移動を許可します。 2番目の `@page` ディレクティブは、`{text}` route パラメーターを受け取り、その値を `Text` プロパティに割り当てます。
+省略可能なパラメーターはサポートされていません。 前の例では、2つの `@page` ディレクティブが適用されています。 最初のは、パラメーターを指定せずにコンポーネントへの移動を許可します。 2番目の `@page` ディレクティブは、`{text}` route パラメーターを受け取り、その値を `Text` プロパティに割り当てます。
 
 ## <a name="route-constraints"></a>ルート制約
 
@@ -138,14 +139,14 @@ ASP.NET Core 3.0 の Blazor アプリでは、省略可能なパラメーター�
 
 | 制約 | 使用例           | 一致の例                                                                  | インバリアント<br>カルチャ<br>一致 |
 | ---------- | ----------------- | -------------------------------------------------------------------------------- | :------------------------------: |
-| `bool`     | `{active:bool}`   | `true`、 `FALSE`                                                                  | いいえ                               |
-| `datetime` | `{dob:datetime}`  | `2016-12-31`、 `2016-12-31 7:32pm`                                                | ○                              |
-| `decimal`  | `{price:decimal}` | `49.99`、 `-1,000.01`                                                             | ○                              |
-| `double`   | `{weight:double}` | `1.234`、 `-1,001.01e8`                                                           | ○                              |
-| `float`    | `{weight:float}`  | `1.234`、 `-1,001.01e8`                                                           | ○                              |
-| `guid`     | `{id:guid}`       | `CD2C1638-1638-72D5-1638-DEADBEEF1638`、 `{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | いいえ                               |
-| `int`      | `{id:int}`        | `123456789`、 `-123456789`                                                        | ○                              |
-| `long`     | `{ticks:long}`    | `123456789`、 `-123456789`                                                        | ○                              |
+| `bool`     | `{active:bool}`   | `true`、`FALSE`                                                                  | いいえ                               |
+| `datetime` | `{dob:datetime}`  | `2016-12-31`、`2016-12-31 7:32pm`                                                | ○                              |
+| `decimal`  | `{price:decimal}` | `49.99`、`-1,000.01`                                                             | ○                              |
+| `double`   | `{weight:double}` | `1.234`、`-1,001.01e8`                                                           | ○                              |
+| `float`    | `{weight:float}`  | `1.234`、`-1,001.01e8`                                                           | ○                              |
+| `guid`     | `{id:guid}`       | `CD2C1638-1638-72D5-1638-DEADBEEF1638`、`{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | いいえ                               |
+| `int`      | `{id:int}`        | `123456789`、`-123456789`                                                        | ○                              |
+| `long`     | `{ticks:long}`    | `123456789`、`-123456789`                                                        | ○                              |
 
 > [!WARNING]
 > URL の妥当性を検証し、CLR 型 (`int` や `DateTime` など) に変換されるルート制約では、常にインバリアント カルチャが使用されます。 これらの制約では、URL がローカライズ不可であることが前提となります。
@@ -166,7 +167,7 @@ Blazor サーバーアプリでは、 *_Host*の既定のルートは `/` (`@pag
 > [!NOTE]
 > *キャッチオール*パラメーター構文 (`*`/`**`) は、razor コンポーネント (*razor*) ではサポートされて**いません**。
 
-詳細については、「<xref:fundamentals/routing>」を参照してください。
+詳細については、「 <xref:fundamentals/routing>」を参照してください。
 
 ## <a name="navlink-component"></a>ナビゲーションリンクコンポーネント
 

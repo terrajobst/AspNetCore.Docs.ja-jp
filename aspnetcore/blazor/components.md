@@ -2,19 +2,20 @@
 title: ASP.NET Core Razor コンポーネントを作成して使用する
 author: guardrex
 description: データにバインドする方法、イベントを処理する方法、コンポーネントのライフサイクルを管理する方法など、Razor コンポーネントを作成および使用する方法について説明します。
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/28/2019
 no-loc:
 - Blazor
+- SignalR
 uid: blazor/components
-ms.openlocfilehash: 9e796a23a0b24a9fee314051644703ef12bd7607
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: e73667925c04dd1b2360138343c4a2dcef0ee310
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828205"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76160016"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>ASP.NET Core Razor コンポーネントを作成して使用する
 
@@ -34,9 +35,6 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 コンポーネント クラスのメンバーは、`@code` ブロック内で定義されています。 `@code` ブロックでは、コンポーネントの状態 (プロパティ、フィールド) は、イベント処理のメソッド、またはその他のコンポーネントロジックを定義するために指定されます。 複数の `@code` ブロックが許容されます。
 
-> [!NOTE]
-> ASP.NET Core 3.0 の以前のプレビューでは、`@functions` ブロックは Razor コンポーネントの `@code` ブロックと同じ目的で使用されていました。 `@functions` ブロックは Razor コンポーネントで引き続き機能しますが、ASP.NET Core 3.0 Preview 6 以降では `@code` ブロックを使用することをお勧めします。
-
 コンポーネントメンバーは、`@`で始まる式を使用してC# 、コンポーネントのレンダリングロジックの一部として使用できます。 たとえば、 C#フィールド名をプレフィックス `@` によって表示されます。 次の例では、が評価され、レンダリングされます。
 
 * `font-style`の CSS プロパティ値に `_headingFontStyle` します。
@@ -53,17 +51,37 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 コンポーネントが最初にレンダリングされた後、コンポーネントはイベントに応答してレンダリングツリーを再生成します。 Blazor は、新しいレンダリングツリーを前のレンダリングツリーと比較し、ブラウザーのドキュメントオブジェクトモデル (DOM) に変更を適用します。
 
-コンポーネントは通常C#のクラスであり、プロジェクト内の任意の場所に配置できます。 Web ページを生成するコンポーネントは、通常、[*ページ*] フォルダーにあります。 ページ以外のコンポーネントは、多くの場合、プロジェクトに追加された*共有*フォルダーまたはカスタムフォルダーに配置されます。 カスタムフォルダーを使用するには、カスタムフォルダーの名前空間を親コンポーネントまたはアプリの *_Imports razor*ファイルに追加します。 たとえば、次の名前空間は、アプリのルート名前空間が `WebApplication`場合*に、コンポーネントフォルダー内*のコンポーネントを使用可能にします。
+コンポーネントは通常C#のクラスであり、プロジェクト内の任意の場所に配置できます。 Web ページを生成するコンポーネントは、通常、[*ページ*] フォルダーにあります。 ページ以外のコンポーネントは、多くの場合、プロジェクトに追加された*共有*フォルダーまたはカスタムフォルダーに配置されます。
+
+通常、コンポーネントの名前空間は、アプリのルート名前空間と、アプリ内のコンポーネントの場所 (フォルダー) から派生します。 アプリのルート名前空間が `BlazorApp`、`Counter` コンポーネントが*Pages*フォルダーに存在する場合は、次のようになります。
+
+* `Counter` コンポーネントの名前空間が `BlazorApp.Pages`。
+* コンポーネントの完全修飾型名が `BlazorApp.Pages.Counter`ます。
+
+詳細については、「[コンポーネントのインポート](#import-components)」セクションを参照してください。
+
+カスタムフォルダーを使用するには、カスタムフォルダーの名前空間を親コンポーネントまたはアプリの *_Imports razor*ファイルに追加します。 たとえば、次の名前空間は、アプリのルート名前空間が `BlazorApp`場合*に、コンポーネントフォルダー内*のコンポーネントを使用可能にします。
 
 ```razor
-@using WebApplication.Components
+@using BlazorApp.Components
 ```
 
 ## <a name="integrate-components-into-razor-pages-and-mvc-apps"></a>コンポーネントを Razor Pages と MVC アプリに統合する
 
-既存の Razor Pages および MVC アプリでコンポーネントを使用します。 Razor コンポーネントを使用するために既存のページやビューを書き直す必要はありません。 ページまたはビューが表示されると、コンポーネントは同時に prerendered されます。
+Razor コンポーネントは Razor Pages と MVC アプリに統合できます。 ページまたはビューが表示されると、コンポーネントを同時に prerendered することができます。
 
-::: moniker range=">= aspnetcore-3.1"
+Razor コンポーネントをホストする Razor Pages または MVC アプリを準備するには、<xref:blazor/hosting-models#integrate-razor-components-into-razor-pages-and-mvc-apps> の記事の「 *razor コンポーネントを Razor Pages および mvc アプリに統合*する」セクションのガイダンスに従ってください。
+
+カスタムフォルダーを使用してアプリのコンポーネントを保持する場合は、フォルダーを表す名前空間をページ/ビューまたは *_ViewImports*ファイルに追加します。 たとえば、行が次のように表示されているとします。
+
+* `MyAppNamespace` をアプリの名前空間に変更します。
+* *コンポーネントという名前*のフォルダーを使用してコンポーネントを保持していない場合は、コンポーネントが存在するフォルダーに `Components` を変更します。
+
+```csharp
+@using MyAppNamespace.Components
+```
+
+*_ViewImports*のファイルは、Razor Pages アプリの*Pages*フォルダーまたは MVC アプリの*Views*フォルダーにあります。
 
 ページまたはビューからコンポーネントを表示するには、`Component` タグヘルパーを使用します。
 
@@ -90,35 +108,6 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 静的な HTML ページからのサーバーコンポーネントのレンダリングはサポートされていません。
 
 コンポーネントのレンダリング方法、コンポーネントの状態、および `Component` タグヘルパーの詳細については、「<xref:blazor/hosting-models>」を参照してください。
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.1"
-
-ページまたはビューからコンポーネントを表示するには、`RenderComponentAsync<TComponent>` HTML ヘルパーメソッドを使用します。
-
-```cshtml
-@(await Html.RenderComponentAsync<MyComponent>(RenderMode.ServerPrerendered))
-```
-
-コンポーネントの `RenderMode` を構成します。
-
-* ページに prerendered ます。
-* は、ページに静的な HTML として表示されるか、またはユーザーエージェントから Blazor アプリをブートストラップするために必要な情報が含まれている場合に表示されます。
-
-| `RenderMode`        | 説明 |
-| ------------------- | ----------- |
-| `ServerPrerendered` | コンポーネントを静的 HTML にレンダリングし、Blazor サーバーアプリのマーカーを含めます。 ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。 パラメーターはサポートされていません。 |
-| `Server`            | Blazor サーバーアプリのマーカーをレンダリングします。 コンポーネントからの出力は含まれていません。 ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。 パラメーターはサポートされていません。 |
-| `Static`            | コンポーネントを静的 HTML にレンダリングします。 パラメーターがサポートされています。 |
-
-ページとビューはコンポーネントを使用できますが、逆の場合は真実ではありません。 コンポーネントでは、ビューおよびページ固有のシナリオ (部分ビューやセクションなど) を使用できません。 コンポーネントの部分ビューからロジックを使用するには、部分ビューのロジックをコンポーネントにします。
-
-静的な HTML ページからのサーバーコンポーネントのレンダリングはサポートされていません。
-
-コンポーネントのレンダリング方法、コンポーネントの状態、および `RenderComponentAsync` HTML ヘルパーの詳細については、「<xref:blazor/hosting-models>」を参照してください。
-
-::: moniker-end
 
 ## <a name="use-components"></a>コンポーネントを使う
 
@@ -353,6 +342,11 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 
 要素がフォーカスを失ったときに発生する `onchange`とは異なり、テキストボックスの値が変更されたときに `oninput` が発生します。
 
+前の例の `@bind-value` は、次のようにバインドします。
+
+* 要素の `value` 属性に対して指定された式 (`CurrentValue`)。
+* `@bind-value:event`によって指定されたイベントへの変更イベントデリゲート。
+
 **解析不可能値**
 
 データバインド要素に解析できない値を指定すると、バインドイベントがトリガーされたときに、解析されていない値が自動的に前の値に戻されます。
@@ -522,6 +516,10 @@ Blazor に日付の書式を設定するためのサポートが組み込まれ�
 <MyComponent @bind-MyProp="MyValue" @bind-MyProp:event="MyEventHandler" />
 ```
 
+**ラジオ ボタン**
+
+フォームのオプションボタンへのバインドの詳細については、「<xref:blazor/forms-validation#work-with-radio-buttons>」を参照してください。
+
 ## <a name="event-handling"></a>イベント処理
 
 Razor コンポーネントは、イベント処理機能を提供します。 `on{EVENT}` という名前の HTML 要素属性 (`onclick`、`onsubmit`など) とデリゲート型の値がある場合、Razor コンポーネントはその属性の値をイベントハンドラーとして扱います。 属性の名前は常に[`@on{EVENT}`](xref:mvc/views/razor#onevent)書式設定されます。
@@ -584,15 +582,15 @@ Razor コンポーネントは、イベント処理機能を提供します。 `
 | エラー            | `ErrorEventArgs`     | `onerror` |
 | Event            | `EventArgs`          | *全般*<br>`onactivate`、`onbeforeactivate`、`onbeforedeactivate`、`ondeactivate`、`onended`、`onfullscreenchange`、`onfullscreenerror`、`onloadeddata`、`onloadedmetadata`、`onpointerlockchange`、`onpointerlockerror`、`onreadystatechange`、`onscroll`<br><br>*クリップボード*<br>`onbeforecut`では、 `onbeforecopy`では、 `onbeforepaste`<br><br>*入力*<br>`oninvalid`、 `onreset`、 `onselect`、 `onselectionchange`、 `onselectstart`、 `onsubmit`<br><br>*メディア*<br>`oncanplay`、`oncanplaythrough`、`oncuechange`、`ondurationchange`、`onemptied`、`onpause`、`onplay`、`onplaying`の `onratechange`、`onseeked`、`onseeking`、`onstalled`、`onstop`、および `onsuspend` |
 | フォーカス            | `FocusEventArgs`     | `onfocus`, `onblur`, `onfocusin`, `onfocusout`<br><br>には `relatedTarget`のサポートは含まれていません。 |
-| [入力]            | `ChangeEventArgs`    | `onchange`、 `oninput` |
+| [入力]            | `ChangeEventArgs`    | `onchange`、`oninput` |
 | キーボード         | `KeyboardEventArgs`  | `onkeydown`では、 `onkeypress`では、 `onkeyup` |
 | マウス            | `MouseEventArgs`     | `onclick`, `oncontextmenu`, `ondblclick`, `onmousedown`, `onmouseup`, `onmouseover`, `onmousemove`, `onmouseout` |
 | マウス ポインター    | `PointerEventArgs`   | `onpointerdown`、`onpointerup`、`onpointercancel`、`onpointermove`、`onpointerover`、`onpointerout`、`onpointerenter`、`onpointerleave`、`ongotpointercapture`、`onlostpointercapture` |
-| マウス ホイール      | `WheelEventArgs`     | `onwheel`、 `onmousewheel` |
+| マウス ホイール      | `WheelEventArgs`     | `onwheel`、`onmousewheel` |
 | 中         | `ProgressEventArgs`  | `onabort`、 `onload`、 `onloadend`、 `onloadstart`、 `onprogress`、 `ontimeout` |
 | タッチ            | `TouchEventArgs`     | `ontouchstart`、 `ontouchend`、 `ontouchmove`、 `ontouchenter`、 `ontouchleave`、 `ontouchcancel`<br><br>`TouchPoint` は、タッチを区別するデバイス上の1つの連絡先ポイントを表します。 |
 
-前の表に示したイベントのプロパティとイベント処理動作の詳細については、「[参照ソースの EventArgs クラス (dotnet/AspNetCore release/3.0 分岐)](https://github.com/dotnet/AspNetCore/tree/release/3.0/src/Components/Web/src/Web)」を参照してください。
+前の表に示したイベントのプロパティとイベント処理動作の詳細については、「[参照ソースの EventArgs クラス (dotnet/aspnetcore release/3.1 分岐)](https://github.com/dotnet/aspnetcore/tree/release/3.1/src/Components/Web/src/Web)」を参照してください。
 
 ### <a name="lambda-expressions"></a>ラムダ式
 
@@ -696,8 +694,6 @@ await callback.InvokeAsync(arg);
 
 厳密に型指定された `EventCallback<T>` `EventCallback`を優先します。 `EventCallback<T>` は、コンポーネントのユーザーに対してより適切なエラーフィードバックを提供します。 他の UI イベントハンドラーと同様に、イベントパラメーターの指定は省略可能です。 コールバックに値が渡されない場合は、`EventCallback` を使用します。
 
-::: moniker range=">= aspnetcore-3.1"
-
 ### <a name="prevent-default-actions"></a>既定のアクションを禁止する
 
 イベントの既定のアクションを回避するには、 [`@on{EVENT}:preventDefault`](xref:mvc/views/razor#oneventpreventdefault)ディレクティブ属性を使用します。
@@ -763,8 +759,6 @@ await callback.InvokeAsync(arg);
         Console.WriteLine($"A child div was selected. {DateTime.Now}");
 }
 ```
-
-::: moniker-end
 
 ## <a name="chained-bind"></a>チェーンバインド
 
@@ -1091,8 +1085,6 @@ Blazor でのルーティングは、アプリ内のアクセス可能な各コ�
 
 複数のフォルダー境界をまたいでパスをキャプチャする*キャッチオール*パラメーター構文 (`*`/`**`) は、razor コンポーネント (*razor*) ではサポートされて**いません**。
 
-::: moniker range=">= aspnetcore-3.1"
-
 ## <a name="partial-class-support"></a>部分クラスのサポート
 
 Razor コンポーネントは部分クラスとして生成されます。 Razor コンポーネントは、次のいずれかの方法を使用して作成されます。
@@ -1154,43 +1146,16 @@ namespace BlazorApp.Pages
 }
 ```
 
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.1"
-
-## <a name="specify-a-component-base-class"></a>コンポーネントの基本クラスを指定する
-
-`@inherits` ディレクティブは、コンポーネントの基底クラスを指定するために使用できます。
-
-この[サンプルアプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)は、コンポーネントが基底クラス `BlazorRocksBase`を継承して、コンポーネントのプロパティとメソッドを提供する方法を示しています。
-
-*Pages/BlazorRocks*:
-
-```razor
-@page "/BlazorRocks"
-@inherits BlazorRocksBase
-
-<h1>@BlazorRocksText</h1>
-```
-
-*BlazorRocksBase.cs*:
+必要に応じて、部分クラスファイルに必要な名前空間を追加します。 Razor コンポーネントで使用される一般的な名前空間は次のとおりです。
 
 ```csharp
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
-
-namespace BlazorSample
-{
-    public class BlazorRocksBase : ComponentBase
-    {
-        public string BlazorRocksText { get; set; } = 
-            "Blazor rocks the browser!";
-    }
-}
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.AspNetCore.Components.Web;
 ```
-
-基底クラスは `ComponentBase`から派生する必要があります。
-
-::: moniker-end
 
 ## <a name="import-components"></a>コンポーネントのインポート
 
@@ -1256,7 +1221,7 @@ HTML 要素の属性は、.NET の値に基づいて条件付きで表示され�
 <input type="checkbox" />
 ```
 
-詳細については、「<xref:mvc/views/razor>」を参照してください。
+詳細については、「 <xref:mvc/views/razor>」を参照してください。
 
 > [!WARNING]
 > [Aria](https://developer.mozilla.org/docs/Web/Accessibility/ARIA/Roles/button_role#Toggle_buttons)などの一部の HTML 属性は、.net 型が `bool`の場合、正しく機能しません。 そのような場合は、`bool`ではなく `string` の型を使用します。
@@ -1794,7 +1759,7 @@ public class CultureController : Controller
 ```
 
 > [!WARNING]
-> `LocalRedirect` アクションの結果を使用して、開いているリダイレクト攻撃を防止します。 詳細については、「<xref:security/preventing-open-redirects>」を参照してください。
+> `LocalRedirect` アクションの結果を使用して、開いているリダイレクト攻撃を防止します。 詳細については、「 <xref:security/preventing-open-redirects>」を参照してください。
 
 次のコンポーネントは、ユーザーがカルチャを選択したときに最初のリダイレクトを実行する方法の例を示しています。
 
@@ -1839,7 +1804,7 @@ Blazorの `@bind` 機能は、ユーザーの現在のカルチャに基づい�
 * `IStringLocalizer<>` は Blazor アプリで*サポートされて*います。
 * `IHtmlLocalizer<>`、`IViewLocalizer<>`、データ注釈のローカライズは MVC シナリオ ASP.NET Core、Blazor アプリではサポートされて**いません**。
 
-詳細については、「<xref:fundamentals/localization>」を参照してください。
+詳細については、「 <xref:fundamentals/localization>」を参照してください。
 
 ## <a name="scalable-vector-graphics-svg-images"></a>スケーラブルベクターグラフィックス (SVG) イメージ
 

@@ -2,20 +2,20 @@
 title: ASP.NET Core Blazor テンプレート
 author: guardrex
 description: ASP.NET Core Blazor アプリテンプレートと Blazor プロジェクトの構造について説明します。
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/25/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/templates
-ms.openlocfilehash: bc0ea4a777e8684a7b0925377b8a19a45c2b531c
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 2a95b986450471b474d93ead252255f2bd9d4918
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74879667"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76160120"
 ---
 # <a name="aspnet-core-opno-locblazor-templates"></a>ASP.NET Core Blazor テンプレート
 
@@ -50,13 +50,13 @@ Blazorのホスティングモデルの詳細については、「<xref:blazor/h
 * *wwwroot/index.html* (Blazor WebAssembly は、アプリのルートページ &ndash; html ページとして実装されています。
   * アプリのいずれかのページが最初に要求されたときに、このページが表示され、応答で返されます。
   * このページでは、ルート `App` コンポーネントを表示する場所を指定します。 `App` コンポーネント (*app.xaml*) は、`Startup.Configure`の `AddComponent` メソッドに `app` DOM 要素として指定されます。
-  * *_Framework/Blazor.webassembly.js* JavaScript ファイルが読み込まれます。次のようになります。
+  * `_framework/blazor.webassembly.js` JavaScript ファイルが読み込まれます。次のようになります。
     * .NET ランタイム、アプリ、およびアプリの依存関係をダウンロードします。
     * アプリを実行するランタイムを初期化します。
 
 * *Pages/_Host cshtml* (Blazor Server) &ndash; Razor ページとして実装されているアプリのルートページをします。
   * アプリのいずれかのページが最初に要求されたときに、このページが表示され、応答で返されます。
-  * *_Framework/Blazor.server.js* JavaScript ファイルが読み込まれ、ブラウザーとサーバーの間のリアルタイム SignalR 接続が設定されます。
+  * `_framework/blazor.server.js` JavaScript ファイルが読み込まれ、ブラウザーとサーバーの間のリアルタイム SignalR 接続が設定されます。
   * [ホスト] ページでは、ルート `App` コンポーネント (*app.xaml*) を表示する場所を指定します。
 
 * <xref:Microsoft.AspNetCore.Components.Routing.Router> コンポーネントを使用してクライアント側のルーティングを設定するアプリのルートコンポーネント &ndash; ます *。* `Router` コンポーネントは、ブラウザーナビゲーションをインターセプトし、要求されたアドレスと一致するページをレンダリングします。

@@ -2,19 +2,20 @@
 title: Razor コンポーネントクラスライブラリの ASP.NET Core
 author: guardrex
 description: コンポーネントを外部コンポーネントライブラリから Blazor アプリに組み込む方法について説明します。
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
+- SignalR
 uid: blazor/class-libraries
-ms.openlocfilehash: 6bac007e3e1d046d6b16a3a0be6dc5976b99b766
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: f8e8688cdb3d1aef0d470e0e2d8c3857140ef65f
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74943876"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76160029"
 ---
 # <a name="aspnet-core-razor-components-class-libraries"></a>Razor コンポーネントクラスライブラリの ASP.NET Core
 
@@ -107,7 +108,7 @@ dotnet pack
 
 ## <a name="create-a-razor-components-class-library-with-static-assets"></a>静的なアセットを含む Razor コンポーネントクラスライブラリを作成する
 
-RCL には、静的なアセットを含めることができます。 この静的アセットは、ライブラリを使用するすべてのアプリで使用できます。 詳細については、「<xref:razor-pages/ui-class#create-an-rcl-with-static-assets>」を参照してください。
+RCL には、静的なアセットを含めることができます。 この静的アセットは、ライブラリを使用するすべてのアプリで使用できます。 詳細については、「 <xref:razor-pages/ui-class#create-an-rcl-with-static-assets>」を参照してください。
 
 ## <a name="additional-resources"></a>その他の技術情報
 
