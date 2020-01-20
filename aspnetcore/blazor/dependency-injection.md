@@ -2,19 +2,20 @@
 title: ASP.NET Core Blazor 依存関係の挿入
 author: guardrex
 description: Blazor アプリがコンポーネントにサービスを挿入する方法について説明します。
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 01/08/2020
 no-loc:
 - Blazor
+- SignalR
 uid: blazor/dependency-injection
-ms.openlocfilehash: aad6cfee500b5cb502470f6a4a7cb5756df09dc4
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: 6930d721f04fd5f7cad2ba472724497a157fda0f
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74943785"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76159977"
 ---
 # <a name="aspnet-core-opno-locblazor-dependency-injection"></a>ASP.NET Core Blazor 依存関係の挿入
 
@@ -35,9 +36,9 @@ DI は、中央の場所で構成されたサービスにアクセスするた�
 
 | サービス | 有効期間 | 説明 |
 | ------- | -------- | ----------- |
-| <xref:System.Net.Http.HttpClient> | シングルトン | URI によって識別されるリソースから HTTP 要求を送信し、HTTP 応答を受信するためのメソッドを提供します。<br><br>`HttpClient` のインスタンス Blazor WebAssembly では、バックグラウンドで HTTP トラフィックを処理するためにブラウザーを使用します。<br><br>Blazor サーバーアプリには、既定でサービスとして構成されている `HttpClient` は含まれません。 Blazor サーバーアプリに `HttpClient` を提供します。<br><br>詳細については、「<xref:blazor/call-web-api>」を参照してください。 |
-| `IJSRuntime` | シングルトン | JavaScript 呼び出しがディスパッチされる JavaScript ランタイムのインスタンスを表します。 詳細については、「<xref:blazor/javascript-interop>」を参照してください。 |
-| `NavigationManager` | シングルトン | Uri とナビゲーション状態を操作するためのヘルパーが含まれています。 詳細については、「 [URI およびナビゲーション状態ヘルパー](xref:blazor/routing#uri-and-navigation-state-helpers)」を参照してください。 |
+| <xref:System.Net.Http.HttpClient> | シングルトン | URI によって識別されるリソースから HTTP 要求を送信し、HTTP 応答を受信するためのメソッドを提供します。<br><br>`HttpClient` のインスタンス Blazor WebAssembly では、バックグラウンドで HTTP トラフィックを処理するためにブラウザーを使用します。<br><br>Blazor サーバーアプリには、既定でサービスとして構成されている `HttpClient` は含まれません。 Blazor サーバーアプリに `HttpClient` を提供します。<br><br>詳細については、「 <xref:blazor/call-web-api>」を参照してください。 |
+| `IJSRuntime` | シングルトン (Blazor Webas)<br>スコープ (Blazor サーバー) | JavaScript 呼び出しがディスパッチされる JavaScript ランタイムのインスタンスを表します。 詳細については、「 <xref:blazor/javascript-interop>」を参照してください。 |
+| `NavigationManager` | シングルトン (Blazor Webas)<br>スコープ (Blazor サーバー) | Uri とナビゲーション状態を操作するためのヘルパーが含まれています。 詳細については、「 [URI およびナビゲーション状態ヘルパー](xref:blazor/routing#uri-and-navigation-state-helpers)」を参照してください。 |
 
 カスタムサービスプロバイダーは、表に示されている既定のサービスを自動的に提供しません。 カスタムサービスプロバイダーを使用し、表に示されているいずれかのサービスが必要な場合は、必要なサービスを新しいサービスプロバイダーに追加します。
 
@@ -69,7 +70,7 @@ public void ConfigureServices(IServiceCollection services)
 | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Singleton*> | DI は、サービスの*1 つのインスタンス*を作成します。 `Singleton` サービスを必要とするすべてのコンポーネントは、同じサービスのインスタンスを受け取ります。 |
 | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Transient*> | コンポーネントは、サービスコンテナーから `Transient` サービスのインスタンスを取得するたびに、サービスの*新しいインスタンス*を受け取ります。 |
 
-DI システムは ASP.NET Core の DI システムに基づいています。 詳細については、「<xref:fundamentals/dependency-injection>」を参照してください。
+DI システムは ASP.NET Core の DI システムに基づいています。 詳細については、「 <xref:fundamentals/dependency-injection>」を参照してください。
 
 ## <a name="request-a-service-in-a-component"></a>コンポーネントでサービスを要求する
 
@@ -78,7 +79,7 @@ DI システムは ASP.NET Core の DI システムに基づいています。 �
 * 挿入するサービスの型 &ndash; 入力します。
 * プロパティ &ndash;、挿入された app service を受け取るプロパティの名前です。 プロパティは手動で作成する必要はありません。 コンパイラによってプロパティが作成されます。
 
-詳細については、「<xref:mvc/views/dependency-injection>」を参照してください。
+詳細については、「 <xref:mvc/views/dependency-injection>」を参照してください。
 
 複数の `@inject` ステートメントを使用して、さまざまなサービスを挿入します。
 

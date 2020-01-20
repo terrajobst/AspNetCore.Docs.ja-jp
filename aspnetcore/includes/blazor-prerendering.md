@@ -1,4 +1,15 @@
-Blazor Server アプリをプリレンダリングするときに、ブラウザーとの接続が確立されていないため、JavaScript への呼び出しなどの特定のアクションは実行できません。 Prerendered の場合、コンポーネントのレンダリングが異なる場合があります。
+---
+no-loc:
+- Blazor
+- SignalR
+ms.openlocfilehash: 5f3e22e04fe18149ec5a8acb42f42a8ef83a7664
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76159901"
+---
+Blazor Server アプリをプリレンダリングしている間、ブラウザーとの接続が確立されていないため、JavaScript への呼び出しなどの特定のアクションは実行できません。 Prerendered の場合、コンポーネントのレンダリングが異なる場合があります。
 
 ブラウザーとの接続が確立されるまで、JavaScript の相互運用呼び出しを遅延するには、 [OnAfterRenderAsync コンポーネントライフサイクルイベント](xref:blazor/lifecycle#after-component-render)を使用できます。 このイベントは、アプリが完全にレンダリングされ、クライアント接続が確立された後にのみ呼び出されます。
 
@@ -31,7 +42,7 @@ Blazor Server アプリをプリレンダリングするときに、ブラウザ
 ```
 
 > [!WARNING]
-> 前の例では、デモンストレーションのみを目的として、ドキュメントオブジェクトモデル (DOM) を直接変更しています。 Javascript で DOM を直接変更することは、ほとんどのシナリオでは推奨されません。これは、JavaScript が Blazor の変更の追跡に干渉する可能性があるためです。
+> 前の例では、デモンストレーションのみを目的として、ドキュメントオブジェクトモデル (DOM) を直接変更しています。 Javascript で DOM を直接変更することは、ほとんどのシナリオでは推奨されません。これは、JavaScript が Blazorの変更の追跡に干渉する可能性があるためです。
 
 次のコンポーネントは、プリレンダリングと互換性のある方法で、コンポーネントの初期化ロジックの一部として JavaScript の相互運用機能を使用する方法を示しています。 コンポーネントには、`OnAfterRenderAsync`内からレンダリングの更新をトリガーできることが示されています。 このシナリオでは、開発者が無限ループを作成しないようにする必要があります。
 
@@ -82,4 +93,4 @@ Set value via JS interop call:
 ```
 
 > [!WARNING]
-> 前の例では、デモンストレーションのみを目的として、ドキュメントオブジェクトモデル (DOM) を直接変更しています。 Javascript で DOM を直接変更することは、ほとんどのシナリオでは推奨されません。これは、JavaScript が Blazor の変更の追跡に干渉する可能性があるためです。
+> 前の例では、デモンストレーションのみを目的として、ドキュメントオブジェクトモデル (DOM) を直接変更しています。 Javascript で DOM を直接変更することは、ほとんどのシナリオでは推奨されません。これは、JavaScript が Blazorの変更の追跡に干渉する可能性があるためです。

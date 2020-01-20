@@ -2,19 +2,20 @@
 title: Blazor 状態管理の ASP.NET Core
 author: guardrex
 description: Blazor サーバーアプリで状態を永続化する方法について説明します。
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
+- SignalR
 uid: blazor/state-management
-ms.openlocfilehash: 7351ee2438c6adf675b8aa5e8ecdb1b2da7b4f23
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: ffb32a4f274a30f2a5ceed9cbf193285e85bab4c
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74943928"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76160146"
 ---
 # <a name="aspnet-core-opno-locblazor-state-management"></a>Blazor 状態管理の ASP.NET Core
 
@@ -194,12 +195,12 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
-コンポーネントのパラメーターにナビゲーション状態が含まれている場合は、`ProtectedSessionStore.GetAsync` を呼び出し、`OnInitializedAsync`ではなく `OnParametersSetAsync`に結果を割り当てます。 `OnInitializedAsync` は、コンポーネントが最初にインスタンス化されるときに1回だけ呼び出されます。 ユーザーが同じページで別の URL に移動しても、後で `OnInitializedAsync` が呼び出されることはありません。 詳細については、「<xref:blazor/lifecycle>」を参照してください。
+コンポーネントのパラメーターにナビゲーション状態が含まれている場合は、`ProtectedSessionStore.GetAsync` を呼び出し、`OnInitializedAsync`ではなく `OnParametersSetAsync`に結果を割り当てます。 `OnInitializedAsync` は、コンポーネントが最初にインスタンス化されるときに1回だけ呼び出されます。 ユーザーが同じページで別の URL に移動しても、後で `OnInitializedAsync` が呼び出されることはありません。 詳細については、「 <xref:blazor/lifecycle>」を参照してください。
 
 > [!WARNING]
 > このセクションの例は、サーバーのプリレンダリングが有効になっていない場合にのみ機能します。 プリレンダリングが有効になっていると、次のようなエラーが生成されます。
 >
-> > この時点では、JavaScript の相互運用呼び出しは発行できません。 これは、コンポーネントが prerendered されているためです。
+> > JavaScript interop calls cannot be issued at this time. This is because the component is being prerendered.
 >
 > プリレンダリングを無効にするか、またはプリコーディングを使用するコードを追加します。 プリレンダリングで動作するコードの記述の詳細については、「[処理のプリ](#handle-prerendering)コーディング」を参照してください。
 
@@ -207,13 +208,13 @@ protected override async Task OnInitializedAsync()
 
 ブラウザーストレージは非同期 (ネットワーク接続経由でアクセスされる) であるため、データが読み込まれてコンポーネントで使用できるようになるまでには、常に一定の時間があります。 最適な結果を得るには、読み込み中に、空白または既定のデータを表示するのではなく、読み込み状態メッセージを表示します。
 
-1つの方法は、データが `null` (まだ読み込み中) かどうかを追跡することです。 既定の `Counter` コンポーネントでは、カウントは `int`に保持されます。 型 (`int`) に疑問符 (`?`) を追加して、`currentCount` null 値を許容するようにします。
+1つの方法は、データが `null` (まだ読み込み中) かどうかを追跡することです。 既定の `Counter` コンポーネントでは、カウントは `int`に保持されます。 Make `currentCount` nullable by adding a question mark (`?`) to the type (`int`):
 
 ```csharp
 private int? currentCount;
 ```
 
-[カウントと**インクリメント**] ボタンを無条件に表示するのではなく、データが読み込まれた場合にのみこれらの要素を表示するように選択します。
+Instead of unconditionally displaying the count and **Increment** button, choose to display these elements only if the data is loaded:
 
 ```razor
 @if (currentCount.HasValue)
@@ -228,32 +229,22 @@ else
 }
 ```
 
-### <a name="handle-prerendering"></a>プリレンダリングの処理
+### <a name="handle-prerendering"></a>Handle prerendering
 
-プリレンダリング中:
+During prerendering:
 
-* ユーザーのブラウザーへの対話型接続は存在しません。
-* ブラウザーには、JavaScript コードを実行できるページがまだありません。
+* An interactive connection to the user's browser doesn't exist.
+* The browser doesn't yet have a page in which it can run JavaScript code.
 
-`localStorage` または `sessionStorage` を、プリレンダリング中に使用することはできません。 コンポーネントがストレージを操作しようとすると、次のようなエラーが生成されます。
+`localStorage` or `sessionStorage` aren't available during prerendering. If the component attempts to interact with storage, an error is generated similar to:
 
-> この時点では、JavaScript の相互運用呼び出しは発行できません。 これは、コンポーネントが prerendered されているためです。
+> JavaScript interop calls cannot be issued at this time. This is because the component is being prerendered.
 
-このエラーを解決する方法の1つは、プリレンダリングを無効にすることです。 これは通常、アプリでブラウザーベースのストレージを多用する場合に最適な選択肢です。 プリレンダリングによって複雑さが増すため、アプリは `localStorage` または `sessionStorage` が利用可能になるまでは、役に立つコンテンツを事前に使用できません。
+One way to resolve the error is to disable prerendering. This is usually the best choice if the app makes heavy use of browser-based storage. Prerendering adds complexity and doesn't benefit the app because the app can't prerender any useful content until `localStorage` or `sessionStorage` are available.
 
-::: moniker range=">= aspnetcore-3.1"
+To disable prerendering, open the *Pages/_Host.cshtml* file and change the call to `render-mode` of the `Component` Tag Helper to `Server`.
 
-プリレンダリングを無効にするには、 *Pages/_Host cshtml*ファイルを開き、`Component` タグヘルパーの `render-mode` への呼び出しを `Server`に変更します。
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.1"
-
-プリレンダリングを無効にするには、 *Pages/_Host cshtml*ファイルを開き、`Html.RenderComponentAsync<App>(RenderMode.Server)`への呼び出しを変更します。
-
-::: moniker-end
-
-`localStorage` または `sessionStorage`を使用しない他のページでは、プリレンダリングが役立つ場合があります。 プリレンダリングが有効な状態を維持するには、ブラウザーが回線に接続されるまで読み込み操作を延期します。 次に、カウンター値を格納する例を示します。
+Prerendering might be useful for other pages that don't use `localStorage` or `sessionStorage`. To keep prerendering enabled, defer the loading operation until the browser is connected to the circuit. The following is an example for storing a counter value:
 
 ```razor
 @using Microsoft.AspNetCore.ProtectedBrowserStorage
@@ -290,11 +281,11 @@ else
 }
 ```
 
-### <a name="factor-out-the-state-preservation-to-a-common-location"></a>共通の場所に保持される状態を考慮する
+### <a name="factor-out-the-state-preservation-to-a-common-location"></a>Factor out the state preservation to a common location
 
-多くのコンポーネントがブラウザーベースのストレージに依存している場合は、状態プロバイダーコードを何度も再実装すると、コードの重複が発生します。 コードの重複を回避するためのオプションの1つは、状態プロバイダーのロジックをカプセル化する*状態プロバイダーの親コンポーネント*を作成することです。 子コンポーネントは、状態の永続化メカニズムに関係なく、永続化されたデータを処理できます。
+If many components rely on browser-based storage, re-implementing state provider code many times creates code duplication. One option for avoiding code duplication is to create a *state provider parent component* that encapsulates the state provider logic. Child components can work with persisted data without regard to the state persistence mechanism.
 
-次の `CounterStateProvider` コンポーネントの例では、カウンターデータが永続化されます。
+In the following example of a `CounterStateProvider` component, counter data is persisted:
 
 ```razor
 @using Microsoft.AspNetCore.ProtectedBrowserStorage
@@ -332,9 +323,9 @@ else
 }
 ```
 
-`CounterStateProvider` コンポーネントは、読み込みが完了するまで子コンテンツをレンダリングしないことによって、読み込みフェーズを処理します。
+The `CounterStateProvider` component handles the loading phase by not rendering its child content until loading is complete.
 
-`CounterStateProvider` コンポーネントを使用するには、カウンターの状態へのアクセスを必要とする他のコンポーネントの周囲にコンポーネントのインスタンスをラップします。 アプリ内のすべてのコンポーネントから状態にアクセスできるようにするには、`App` コンポーネント (*app.xaml*) の `Router` の周囲に `CounterStateProvider` コンポーネントをラップします。
+To use the `CounterStateProvider` component, wrap an instance of the component around any other component that requires access to the counter state. To make the state accessible to all components in an app, wrap the `CounterStateProvider` component around the `Router` in the `App` component (*App.razor*):
 
 ```razor
 <CounterStateProvider>
@@ -344,7 +335,7 @@ else
 </CounterStateProvider>
 ```
 
-ラップされたコンポーネントはを受け取り、永続化されたカウンターの状態を変更できます。 次の `Counter` コンポーネントは、というパターンを実装しています。
+Wrapped components receive and can modify the persisted counter state. The following `Counter` component implements the pattern:
 
 ```razor
 @page "/counter"
@@ -365,13 +356,13 @@ else
 }
 ```
 
-前のコンポーネントは、`ProtectedBrowserStorage`と対話する必要がなく、"読み込み中" フェーズにも対応していません。
+The preceding component isn't required to interact with `ProtectedBrowserStorage`, nor does it deal with a "loading" phase.
 
-前に説明したように、プリレンダリングを処理するには、カウンターデータを使用するすべてのコンポーネントがプリレンダリングを使用して自動的に動作するように `CounterStateProvider` を修正できます。 詳細については、「[ハンドルのプリレンダリング](#handle-prerendering)」を参照してください。
+To deal with prerendering as described earlier, `CounterStateProvider` can be amended so that all of the components that consume the counter data automatically work with prerendering. See the [Handle prerendering](#handle-prerendering) section for details.
 
-一般に、*状態プロバイダーの親コンポーネント*パターンをお勧めします。
+In general, *state provider parent component* pattern is recommended:
 
-* 他の多くのコンポーネントで状態を使用する場合。
-* 保持する最上位レベルの状態オブジェクトが1つだけの場合。
+* To consume state in many other components.
+* If there's just one top-level state object to persist.
 
-さまざまな状態オブジェクトを保持し、異なる場所にあるオブジェクトの異なるサブセットを使用するには、状態の読み込みと保存をグローバルに処理しないことをお勧めします。
+To persist many different state objects and consume different subsets of objects in different places, it's better to avoid handling the loading and saving of state globally.
