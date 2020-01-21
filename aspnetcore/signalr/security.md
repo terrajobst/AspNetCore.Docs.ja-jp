@@ -5,16 +5,16 @@ description: ASP.NET Core SignalRで認証と承認を使用する方法につ�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: anurse
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 01/16/2020
 no-loc:
 - SignalR
 uid: signalr/security
-ms.openlocfilehash: 1bdb8b10a24c65735f49f04285e4129cb77eb3fb
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 4b27d9abb36938ed8161ff0d3535204e3fa68765
+ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828946"
+ms.lasthandoff: 01/21/2020
+ms.locfileid: "76294712"
 ---
 # <a name="security-considerations-in-aspnet-core-opno-locsignalr"></a>ASP.NET Core SignalR でのセキュリティに関する考慮事項
 
@@ -112,16 +112,20 @@ ASP.NET Core 2.1 以降では、 **`UseSignalR`前に**配置されたカスタ�
 
 ::: moniker-end
 
+## <a name="connectionid"></a>ConnectionId
+
+`ConnectionId` を公開すると、SignalR サーバーまたはクライアントのバージョンが2.2 以前 ASP.NET Core 場合は、悪意のある偽装が発生する可能性があります。 SignalR サーバーとクライアントのバージョンが3.0 以降 ASP.NET Core 場合は、`ConnectionId` ではなく `ConnectionToken` をシークレットに保持する必要があります。 `ConnectionToken` は、どの API でも意図的に公開されていません。  古い SignalR クライアントがサーバーに接続していないことを確認するのは困難な場合があります。したがって、SignalR サーバーのバージョンが3.0 以降 ASP.NET Core 場合でも、`ConnectionId` は公開されません。
+
 ## <a name="access-token-logging"></a>アクセストークンのログ記録
 
-Websocket またはサーバー送信イベントを使用する場合、ブラウザークライアントはクエリ文字列にアクセストークンを送信します。 一般に、クエリ文字列を使用してアクセストークンを受け取ることは、標準の `Authorization` ヘッダーを使用する場合と同様に安全です。 クライアントとサーバー間のセキュリティで保護されたエンドツーエンド接続を確保するには、常に HTTPS を使用する必要があります。 多くの web サーバーでは、クエリ文字列を含め、各要求の URL がログに記録されます。 Url をログに記録すると、アクセストークンがログに記録される場合があります。 では、各要求の URL が既定でログに記録されます。これには、クエリ文字列が含まれます。 ASP.NET Core 例:
+Websocket またはサーバー送信イベントを使用する場合、ブラウザークライアントはクエリ文字列にアクセストークンを送信します。 一般に、クエリ文字列を使用したアクセストークンの受信は、標準の `Authorization` ヘッダーを使用する場合と同じように行われます。 クライアントとサーバー間のセキュリティで保護されたエンドツーエンド接続を確保するには、常に HTTPS を使用します。 多くの web サーバーでは、クエリ文字列を含め、各要求の URL がログに記録されます。 Url をログに記録すると、アクセストークンがログに記録される場合があります。 では、各要求の URL が既定でログに記録されます。これには、クエリ文字列が含まれます。 ASP.NET Core 例:
 
 ```
 info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
       Request starting HTTP/1.1 GET http://localhost:5000/myhub?access_token=1234
 ```
 
-このデータをサーバーログに記録することに懸念がある場合は、`Microsoft.AspNetCore.Hosting` logger を `Warning` レベル以上に構成することで、このログ記録を完全に無効にすることができます (これらのメッセージは `Info` レベルで書き込まれます)。 詳細については、[ログのフィルター処理](xref:fundamentals/logging/index#log-filtering)に関するドキュメントを参照してください。 それでも特定の要求情報をログに記録する場合は、必要なデータをログに記録する[ミドルウェアを記述](xref:fundamentals/middleware/write)し、`access_token` クエリ文字列値 (存在する場合) を除外することができます。
+このデータをサーバーログに記録することに懸念がある場合は、`Microsoft.AspNetCore.Hosting` logger を `Warning` レベル以上に構成することで、このログ記録を完全に無効にすることができます (これらのメッセージは `Info` レベルで書き込まれます)。 詳細については、「[ログのフィルター処理](xref:fundamentals/logging/index#log-filtering)」を参照してください。 それでも特定の要求情報をログに記録する場合は、必要なデータをログに記録する[ミドルウェアを記述](xref:fundamentals/middleware/write)し、`access_token` クエリ文字列値 (存在する場合) を除外することができます。
 
 ## <a name="exceptions"></a>例外
 

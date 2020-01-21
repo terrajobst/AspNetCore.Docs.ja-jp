@@ -5,14 +5,14 @@ description: ASP.NET Core アプリの Azure App Service およびインター�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/10/2020
+ms.date: 01/18/2020
 uid: test/troubleshoot-azure-iis
-ms.openlocfilehash: 23c90c33d197d26d1c4ad758449e318e20ef3760
-ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
+ms.openlocfilehash: 071dba9e936351e201b7582b3d0667cd6fac54bb
+ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/14/2020
-ms.locfileid: "75952149"
+ms.lasthandoff: 01/21/2020
+ms.locfileid: "76294611"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service-and-iis"></a>Azure App Service および IIS での ASP.NET Core のトラブルシューティング
 
@@ -117,7 +117,10 @@ The Web server is configured to not list the contents of this directory.
 
 [ASP.NET Core モジュール](xref:host-and-deploy/aspnet-core-module)は .NET Core CLR をインプロセスで開始しようとしますが、起動に失敗します。 プロセス起動エラーの原因は、通常、アプリケーションイベントログのエントリと、ASP.NET Core モジュールの stdout ログによって決まります。
 
-一般的なエラー条件は、存在しないバージョンの ASP.NET Core 共有フレームワークが対象にされていて、アプリが正しく構成されていないことです。 対象のコンピューターにどのバージョンの ASP.NET Core 共有フレームワークがインストールされているかを確認します。
+一般的なエラー条件:
+
+* アプリケーションの構成が正しくありません。これは、存在しない ASP.NET Core 共有フレームワークのバージョンをターゲットにしているためです。 対象のコンピューターにどのバージョンの ASP.NET Core 共有フレームワークがインストールされているかを確認します。
+* Azure Key Vault を使用しています。 Key Vault に対する権限がありません。 対象の Key Vault のアクセスポリシーを確認して、正しいアクセス許可が付与されていることを確認します。
 
 ### <a name="50031-ancm-failed-to-find-native-dependencies"></a>500.31 ANCM Failed to Find Native Dependencies (500.31 ANCM ネイティブの依存関係を見つけられませんでした)
 
@@ -332,7 +335,7 @@ ASP.NET Core モジュールの stdout には、アプリケーション イベ�
 1. **stdoutLogEnabled** を `false` に設定します。
 1. **[保存]** を選んでファイルを保存します。
 
-詳細については、「<xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>」を参照してください。
+詳細については、「 <xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>」を参照してください。
 
 > [!WARNING]
 > stdout ログを無効にしないと、アプリまたはサーバーで障害が発生する可能性があります。 ログ ファイルのサイズまたは作成されるログ ファイルの数に制限はありません。 stdout ログは、アプリ起動時の問題のトラブルシューティングにのみ使ってください。
@@ -363,7 +366,7 @@ ASP.NET Core モジュール デバッグ ログでは、ASP.NET Core モジュ�
 * ローカルの *web.config* ファイルから `<handlerSettings>` を削除し、アプリを再デプロイします。
 * Kudu コンソールを使用して *web.config* ファイルを編集し、`<handlerSettings>` セクションを削除します。 ファイルを保存します。
 
-詳細については、「<xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs>」を参照してください。
+詳細については、「 <xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs>」を参照してください。
 
 > [!WARNING]
 > debug ログを無効にしないと、アプリまたはサーバーで障害が発生する可能性があります。 ログ ファイルのサイズに制限はありません。 debug ログは、アプリ起動時の問題のトラブルシューティングにのみ使ってください。
@@ -477,7 +480,7 @@ stdout ログを有効にして表示するには:
 1. **stdoutLogEnabled** を `false` に設定します。
 1. ファイルを保存します。
 
-詳細については、「<xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>」を参照してください。
+詳細については、「 <xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>」を参照してください。
 
 > [!WARNING]
 > stdout ログを無効にしないと、アプリまたはサーバーで障害が発生する可能性があります。 ログ ファイルのサイズまたは作成されるログ ファイルの数に制限はありません。
@@ -501,7 +504,7 @@ stdout ログを有効にして表示するには:
 
 ログに指定されたパスが存在することと、アプリ プールの ID にその場所への書き込みアクセス許可があることを確認します。
 
-詳細については、「<xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs>」を参照してください。
+詳細については、「 <xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs>」を参照してください。
 
 ::: moniker-end
 
