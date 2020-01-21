@@ -109,7 +109,7 @@ SignalR サーバー ライブラリは、ASP.NET Core 3.0 共有フレームワ
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code/)
 
-* 統合端末で、次のコマンドを実行して LibMan をインストールします。
+* 統合ターミナルで、次のコマンドを実行して LibMan をインストールします。
 
   ```dotnetcli
   dotnet tool install -g Microsoft.Web.LibraryManager.Cli
@@ -219,7 +219,7 @@ SignalR 要求が SignalR に渡されるように SignalR サーバーを構成
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-* 統合端末で、次のコマンドを実行します。
+* 統合ターミナルで、次のコマンドを実行します。
 
   ```dotnetcli
   dotnet watch run -p SignalRChat.csproj
@@ -342,7 +342,7 @@ SignalR サーバー ライブラリは、`Microsoft.AspNetCore.App` メタパ�
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code/)    
 
-* 統合端末で、次のコマンドを実行して LibMan をインストールします。  
+* 統合ターミナルで、次のコマンドを実行して LibMan をインストールします。  
 
   ```dotnetcli  
   dotnet tool install -g Microsoft.Web.LibraryManager.Cli   
@@ -452,7 +452,7 @@ SignalR 要求が SignalR に渡されるように SignalR サーバーを構成
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code) 
 
-* 統合端末で、次のコマンドを実行します。    
+* 統合ターミナルで、次のコマンドを実行します。    
 
   ```dotnetcli
   dotnet run -p SignalRChat.csproj
