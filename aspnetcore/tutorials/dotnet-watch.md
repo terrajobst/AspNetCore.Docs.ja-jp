@@ -5,12 +5,12 @@ description: このチュートリアルでは、.NET Core CLI のファイル �
 ms.author: riande
 ms.date: 05/31/2018
 uid: tutorials/dotnet-watch
-ms.openlocfilehash: a2a0bcdace67052975630f99aab23bbb0fd99bff
-ms.sourcegitcommit: 383017d7060a6d58f6a79cf4d7335d5b4b6c5659
+ms.openlocfilehash: 053c98ba032c85b61776d5b5644c5575cd4f890c
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/23/2019
-ms.locfileid: "72816142"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75828998"
 ---
 # <a name="develop-aspnet-core-apps-using-a-file-watcher"></a>ファイル ウォッチャーを使用した ASP.NET Core アプリの開発
 
@@ -185,4 +185,4 @@ VSTest は、いずれかのテスト プロジェクトでファイルが変更
 
 ## <a name="dotnet-watch-in-github"></a>GitHub での `dotnet-watch`
 
-`dotnet-watch` は GitHub の [aspnet/AspNetCore リポジトリ](https://github.com/aspnet/AspNetCore/tree/master/src/Tools/dotnet-watch)に含まれています。
+`dotnet-watch` は GitHub の [aspnet/AspNetCore リポジトリ](https://github.com/dotnet/AspNetCore/tree/master/src/Tools/dotnet-watch)に含まれています。

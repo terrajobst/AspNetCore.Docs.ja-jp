@@ -5,14 +5,14 @@ description: Windows サービスで ASP.NET Core アプリケーションをホ
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/30/2019
+ms.date: 01/13/2020
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: 014585cd1e170fc94f7f577e11ec19824e54572f
-ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
+ms.openlocfilehash: 37fc0b7862db3280f9ade8d563feba28153ab79b
+ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73659842"
+ms.lasthandoff: 01/14/2020
+ms.locfileid: "75951837"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>Windows サービスでの ASP.NET Core のホスト
 
@@ -49,7 +49,7 @@ ASP.NET Core ワーカー サービス テンプレートは、実行時間が�
 ホストのビルド時に `IHostBuilder.UseWindowsService` が呼び出されます。 アプリが Windows サービスとして実行している場合、メソッドは
 
 * ホストの有効期間を `WindowsServiceLifetime` に設定します。
-* [コンテンツ ルート](xref:fundamentals/index#content-root)を設定します。
+* [コンテンツ ルート](xref:fundamentals/index#content-root)を [AppContext.BaseDirectory](xref:System.AppContext.BaseDirectory) に設定します。 詳しくは、「[現在のディレクトリとコンテンツのルート](#current-directory-and-content-root)」セクションをご覧ください。
 * 既定のソース名として、アプリケーション名によるイベント ログへの記録を有効にします。
   * *appsettings.Production.json* ファイルで `Logging:LogLevel:Default` キーを使用してログ レベルを構成できます。
   * 管理者のみが新しいイベント ソースを作成できます。 アプリケーション名を使用して、イベント ソースを作成できない場合、警告が*アプリケーション* ソースに記録され、イベント ログが無効になります。
@@ -175,7 +175,7 @@ Windows [ランタイム識別子 (RID)](/dotnet/core/rid-catalog) は、ター�
 複数の RID を発行するには、次の処理を実行します。
 
 * セミコロンで区切られたリストの形式で RID を指定します。
-* プロパティ名 [ \<RuntimeIdentifiers>](/dotnet/core/tools/csproj#runtimeidentifiers) (複数) を使用します。
+* プロパティ名 [\<RuntimeIdentifiers>](/dotnet/core/tools/csproj#runtimeidentifiers) (複数) を使用します。
 
 詳細については、「[.NET Core の RID カタログ](/dotnet/core/rid-catalog)」を参照してください。
 
@@ -196,13 +196,13 @@ Windows [ランタイム識別子 (RID)](/dotnet/core/rid-catalog) は、ター�
 Windows 10 October 2018 Update (バージョン 1809/ビルド 10.0.17763) 以降:
 
 ```PowerShell
-New-LocalUser -Name {NAME}
+New-LocalUser -Name {SERVICE NAME}
 ```
 
 Windows 10 October 2018 Update (バージョン 1809/ビルド 10.0.17763) 以前の Windows OS:
 
 ```console
-powershell -Command "New-LocalUser -Name {NAME}"
+powershell -Command "New-LocalUser -Name {SERVICE NAME}"
 ```
 
 入力を求められたら、[強力なパスワード](/windows/security/threat-protection/security-policy-settings/password-must-meet-complexity-requirements)を指定します。
@@ -239,12 +239,12 @@ $accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule($acl
 $acl.SetAccessRule($accessRule)
 $acl | Set-Acl "{EXE PATH}"
 
-New-Service -Name {NAME} -BinaryPathName {EXE FILE PATH} -Credential {DOMAIN OR COMPUTER NAME\USER} -Description "{DESCRIPTION}" -DisplayName "{DISPLAY NAME}" -StartupType Automatic
+New-Service -Name {SERVICE NAME} -BinaryPathName {EXE FILE PATH} -Credential {DOMAIN OR COMPUTER NAME\USER} -Description "{DESCRIPTION}" -DisplayName "{DISPLAY NAME}" -StartupType Automatic
 ```
 
 * `{EXE PATH}` &ndash; ホスト上のアプリのフォルダーへのパス (`d:\myservice` など)。 このパスに、アプリの実行可能ファイルは含めないでください。 末尾のスラッシュは、必要ありません。
 * `{DOMAIN OR COMPUTER NAME\USER}` &ndash; サービスのユーザー アカウント (`Contoso\ServiceUser` など)。
-* `{NAME}` &ndash; サービス名 (`MyService` など)。
+* `{SERVICE NAME}` &ndash; サービス名 (`MyService` など)。
 * `{EXE FILE PATH}` &ndash; アプリの実行可能ファイルのパス (`d:\myservice\myservice.exe` など)。 拡張子付きの実行可能ファイルのファイル名を含めます。
 * `{DESCRIPTION}` &ndash; サービスの説明 (`My sample service` など)。
 * `{DISPLAY NAME}` &ndash; サービスの表示名 (`My Service` など)。
@@ -254,7 +254,7 @@ New-Service -Name {NAME} -BinaryPathName {EXE FILE PATH} -Credential {DOMAIN OR 
 次の PowerShell 6 コマンドでサービスを開始します。
 
 ```powershell
-Start-Service -Name {NAME}
+Start-Service -Name {SERVICE NAME}
 ```
 
 このコマンドでサービスを開始するには数秒かかります。
@@ -264,7 +264,7 @@ Start-Service -Name {NAME}
 サービスの状態を確認するには、次の PowerShell 6 コマンドを使います。
 
 ```powershell
-Get-Service -Name {NAME}
+Get-Service -Name {SERVICE NAME}
 ```
 
 この状態は、次のいずれかの値として報告されます。
@@ -279,7 +279,7 @@ Get-Service -Name {NAME}
 次の PowerShell 6 コマンドでサービスを停止します。
 
 ```powershell
-Stop-Service -Name {NAME}
+Stop-Service -Name {SERVICE NAME}
 ```
 
 ### <a name="remove-a-service"></a>サービスを削除する
@@ -287,7 +287,7 @@ Stop-Service -Name {NAME}
 サービスを停止した後、少ししてから、次の Powershell 6 コマンドを使ってサービスを削除します。
 
 ```powershell
-Remove-Service -Name {NAME}
+Remove-Service -Name {SERVICE NAME}
 ```
 
 ::: moniker range="< aspnetcore-3.0"
@@ -316,7 +316,7 @@ Remove-Service -Name {NAME}
 
 ## <a name="proxy-server-and-load-balancer-scenarios"></a>プロキシ サーバーとロード バランサーのシナリオ
 
-インターネットまたは企業ネットワークからの要求とやり取りするサービスやプロキシまたはロード バランサーの背後にあるサービスでは、追加の構成が必要になる場合があります。 詳細については、<xref:host-and-deploy/proxy-load-balancer> を参照してください。
+インターネットまたは企業ネットワークからの要求とやり取りするサービスやプロキシまたはロード バランサーの背後にあるサービスでは、追加の構成が必要になる場合があります。 詳細については、「<xref:host-and-deploy/proxy-load-balancer>」を参照してください。
 
 ## <a name="configure-endpoints"></a>エンドポイントを構成する
 
@@ -341,6 +341,16 @@ Windows サービスに対して <xref:System.IO.Directory.GetCurrentDirectory*>
 ### <a name="use-contentrootpath-or-contentrootfileprovider"></a>ContentRootPath または ContentRootFileProvider を使用する
 
 [IHostEnvironment.ContentRootPath](xref:Microsoft.Extensions.Hosting.IHostEnvironment.ContentRootPath) または <xref:Microsoft.Extensions.Hosting.IHostEnvironment.ContentRootFileProvider> を使用して、アプリのリソースを見つけます。
+
+アプリがサービスとして実行されると、<xref:Microsoft.Extensions.Hosting.WindowsServiceLifetimeHostBuilderExtensions.UseWindowsService*> によって <xref:Microsoft.Extensions.Hosting.IHostEnvironment.ContentRootPath> が [AppContext.BaseDirectory](xref:System.AppContext.BaseDirectory) に設定されます。
+
+アプリの既定設定ファイルである *appsettings.json* と *appsettings.{Environment}.json* は、[ホストの構築中に CreateDefaultBuilder](xref:fundamentals/host/generic-host#set-up-a-host) を呼び出すことで、アプリのコンテンツ ルートから読み込まれます。
+
+<xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> の開発者コードによって読み込まれた他の設定ファイルについては、<xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> を呼び出す必要はありません。 次の例では、*custom_settings.json* ファイルはアプリのコンテンツ ルートに存在しており、明示的にベース パスを設定しなくても読み込まれます。
+
+[!code-csharp[](windows-service/samples_snapshot/CustomSettingsExample.cs?highlight=13)]
+
+Windows サービス アプリからは *C:\\WINDOWS\\system32* フォルダーが現在のディレクトリとして返されるため、<xref:System.IO.Directory.GetCurrentDirectory*> を使用してリソース パスを取得しないでください。
 
 ::: moniker-end
 
@@ -367,6 +377,83 @@ CreateWebHostBuilder(args)
 ### <a name="store-a-services-files-in-a-suitable-location-on-disk"></a>ディスク上の適切な場所にサービスのファイルを格納する
 
 ファイルを含むフォルダーに対して <xref:Microsoft.Extensions.Configuration.IConfigurationBuilder> を使用するときは、<xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> を使用して絶対パスを指定します。
+
+## <a name="troubleshoot"></a>トラブルシューティング
+
+Windows サービス アプリのトラブルシューティングについては、「<xref:test/troubleshoot>」を参照してください。
+
+### <a name="common-errors"></a>一般的なエラー
+
+* PowerShell の以前のバージョンまたはプレリリース バージョンが使用されています。
+* 登録されたサービスに、[dotnet publish](/dotnet/core/tools/dotnet-publish) コマンドからのアプリの**発行済み**出力が使用されません。 [dotnet build](/dotnet/core/tools/dotnet-build) コマンドの出力が、アプリの展開でサポートされていません。 発行された資産は、展開の種類に応じて次のいずれかのフォルダーにあります。
+  * *bin/Release/{TARGET FRAMEWORK}/publish* (FDD)
+  * *bin/Release/{TARGET FRAMEWORK}/{RUNTIME IDENTIFIER}/publish* (SCD)
+* サービスが実行中の状態ではありません。
+* アプリに使用されるリソース (証明書など) のパスが正しくありません。 Windows サービスのベース パスは *c:\\Windows\\System32* です。
+* "*サービスとしてログオンする*" アクセス権がユーザーにありません。
+* `New-Service` PowerShell コマンドの実行時に、ユーザーのパスワードの有効期限が切れていたか、正しく渡されていません。
+* アプリに ASP.NET Core 認証が必要ですが、セキュリティで保護された接続 (HTTPS) 用に構成されていません。
+* 要求 URL ポートが正しくないか、アプリで正しく構成されていません。
+
+### <a name="system-and-application-event-logs"></a>システム イベント ログとアプリケーション イベント ログ
+
+システム イベント ログとアプリケーション イベント ログにアクセスします。
+
+1. [スタート] メニューを開き、*イベント ビューアー*を検索し、**イベント ビューアー** アプリを選択します。
+1. **イベント ビューアー**で **[Windows ログ]** ノードを開きます。
+1. **[システム]** を選択してシステム イベント ログを開きます。 **[Application]** を選択して、アプリケーション イベント ログを開きます。
+1. 失敗したアプリに関連するエラーを検索します。
+
+### <a name="run-the-app-at-a-command-prompt"></a>コマンド プロンプトでアプリを実行する
+
+多くのスタートアップ エラーでは、イベント ログに有用な情報が生成されません。 ホスティング システムのコマンド プロンプトでアプリを実行すると、エラーの原因がわかることがあります。 アプリからさらに詳細情報をログに記録するには、[ログ レベル](xref:fundamentals/logging/index#log-level)を低くするか、[開発環境](xref:fundamentals/environments)でアプリを実行します。
+
+### <a name="clear-package-caches"></a>パッケージ キャッシュをクリアする
+
+開発マシンで .NET Core SDK をアップグレードしたり、アプリ内のパッケージ バージョンを変更したりした直後に、機能しているアプリが失敗することがあります。 場合によっては、パッケージに統一性がないと、メジャー アップグレード実行時にアプリが破壊されることがあります。 これらの問題のほとんどは、次の手順で解決できます。
+
+1. *bin* フォルダーと *obj* フォルダーを削除します。
+1. コマンド シェルから [dotnet nuget locals all --clear](/dotnet/core/tools/dotnet-nuget-locals) を実行して、パッケージ キャッシュをクリアします。
+
+   パッケージ キャッシュをクリアするには、[nuget.exe](https://www.nuget.org/downloads) ツールを使用して `nuget locals all -clear` コマンドを実行する方法もあります。 *nuget.exe* は、Windows デスクトップ オペレーティング システムにバンドルされているインストールではなく、[NuGet Web サイト](https://www.nuget.org/downloads)から別に入手する必要があります。
+
+1. プロジェクトを復元してリビルドします。
+1. アプリを再展開する前に、サーバー上の展開フォルダー内のすべてのファイルを削除します。
+
+### <a name="slow-or-hanging-app"></a>アプリの速度低下またはハング
+
+"*クラッシュ ダンプ*" とはシステムのメモリのスナップショットであり、アプリのクラッシュ、起動の失敗、遅いアプリの原因を突き止めるのに役立ちます。
+
+#### <a name="app-crashes-or-encounters-an-exception"></a>アプリのクラッシュまたは例外の発生
+
+[Windows エラー報告 (WER)](/windows/desktop/wer/windows-error-reporting) からダンプを取得して分析します。
+
+1. `c:\dumps` にクラッシュ ダンプ ファイルを保持するフォルダーを作成します。
+1. 次のアプリケーションの実行可能ファイル名で [EnableDumps PowerShell スクリプト](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/windows-service/scripts/EnableDumps.ps1)を実行します。
+
+   ```console
+   .\EnableDumps {APPLICATION EXE} c:\dumps
+   ```
+
+1. クラッシュが発生する条件の下でアプリを実行します。
+1. クラッシュが発生した後、[DisableDumps PowerShell スクリプト](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/windows-service/scripts/DisableDumps.ps1)を実行します。
+
+   ```console
+   .\DisableDumps {APPLICATION EXE}
+   ```
+
+アプリがクラッシュし、ダンプの収集が完了したら、アプリを普通に終了してかまいません。 PowerShell スクリプトにより、アプリごとに最大 5 つのダンプを収集する WER が構成されます。
+
+> [!WARNING]
+> クラッシュ ダンプでは、大量のディスク領域 (1 つにつき最大、数ギガバイト) が使用される場合があります。
+
+#### <a name="app-hangs-fails-during-startup-or-runs-normally"></a>アプリが起動時または正常な実行中にハングまたは失敗する
+
+アプリが起動時または正常な実行中に "*ハング*" (応答を停止するがクラッシュしない) または失敗するときは、「[User-Mode Dump Files:Choosing the Best Tool](/windows-hardware/drivers/debugger/user-mode-dump-files#choosing-the-best-tool)」(ユーザー モード ダンプ ファイル: 最適なツールの選択) を参照し、適切なツールを選択してダンプを生成します。
+
+#### <a name="analyze-the-dump"></a>ダンプを分析する
+
+ダンプはいくつかの方法で分析できます。 詳細については、「[Analyzing a User-Mode Dump File](/windows-hardware/drivers/debugger/analyzing-a-user-mode-dump-file)」(ユーザー モード ダンプ ファイルの分析) を参照してください。
 
 ## <a name="additional-resources"></a>その他の技術情報
 

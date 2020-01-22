@@ -9,12 +9,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: aspnetcore-3.0
-ms.openlocfilehash: 4ade13c38880c9915ec590297f2a43548ca400a8
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 1dee9a7e1cc381547e7ece71f302f407223dc838
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880828"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829115"
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>ASP.NET Core 3.0 の新機能
 
@@ -38,7 +38,7 @@ Blazor フレームワークでサポートされるシナリオ:
 * Razor クラス ライブラリを使用したコンポーネント ライブラリの構築
 * JavaScript 相互運用
 
-詳細については、<xref:blazor/index> を参照してください。
+詳細については、「<xref:blazor/index>」を参照してください。
 
 ### <a name="opno-locblazor-server"></a>Blazor サーバー
 
@@ -77,7 +77,7 @@ ASP.NET Core 3.0 の gRPC 機能には次のものが含まれます。
 * [Grpc.Net.Client](https://www.nuget.org/packages/Grpc.Net.Client) &ndash; 使い慣れた `HttpClient` に基づいて構築される .NET Core 用の gRPC クライアント。
 * [Grpc.Net.ClientFactory](https://www.nuget.org/packages/Grpc.Net.ClientFactory) &ndash; `HttpClientFactory` と gRPC クライアントの統合。
 
-詳細については、<xref:grpc/index> を参照してください。
+詳細については、「<xref:grpc/index>」を参照してください。
 
 ## SignalR
 
@@ -365,7 +365,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 * 証明書の失効を確認する。
 * 提供された証明書に適切な使用フラグが含まれていることを確認する。
 
-既定のユーザー プリンシパルは、証明書のプロパティで構成されます。 ユーザー プリンシパルには、プリンシパルの補完または置換を可能にするイベントが含まれています。 詳細については、<xref:security/authentication/certauth> を参照してください。
+既定のユーザー プリンシパルは、証明書のプロパティで構成されます。 ユーザー プリンシパルには、プリンシパルの補完または置換を可能にするイベントが含まれています。 詳細については、「<xref:security/authentication/certauth>」を参照してください。
 
 [Windows 認証](/windows-server/security/windows-authentication/windows-authentication-overview)は、Linux および macOS に拡張されています。 以前のバージョンでは、Windows 認証は [IIS](xref:host-and-deploy/iis/index) と [HttpSys](xref:fundamentals/servers/httpsys) に限定されていました。 ASP.NET Core 3.0 では、[Kestrel](xref:fundamentals/servers/kestrel) は、Windows、Linux、および macOS 上で、Windows ドメインに参加しているホストに対して Negotiate、[Kerberos](/windows-server/security/kerberos/kerberos-authentication-overview)、および [NTLM](/windows-server/security/kerberos/ntlm-overview) を使用できます。 これらの認証スキームの Kestrel サポートは、[Microsoft.AspNetCore.Authentication.Negotiate NuGet](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Negotiate) パッケージによって提供されます。 他の認証サービスと同様に、認証アプリ全体を構成してからサービスを構成します。
 
@@ -391,7 +391,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
   * Web プロセス用に SPN を作成する必要があります。
   * [キータブ ファイル](https://blogs.technet.microsoft.com/pie/2018/01/03/all-you-need-to-know-about-keytab-files/)をホスト マシン上で生成して構成する必要があります。
 
-詳細については、<xref:security/authentication/windowsauth> を参照してください。
+詳細については、「<xref:security/authentication/windowsauth>」を参照してください。
 
 ## <a name="template-changes"></a>テンプレートの変更
 
@@ -430,7 +430,7 @@ ASP.NET Core 3.0 リリースよりも前には、`ASPNETCORE_` というプレ�
 * ヘッダーとトレーラーのあいまいさは、末尾のヘッダーを新しいコレクションに移動することによって解決されました。
 * 同期 IO の API (`HttpRequest.Body.Read` など) は、アプリのクラッシュにつながるスレッド スタベーションの一般的な原因です。 3\.0 では、`AllowSynchronousIO` は既定で無効になっています。
 
-詳細については、<xref:migration/22-to-30#kestrel> を参照してください。
+詳細については、「<xref:migration/22-to-30#kestrel>」を参照してください。
 
 ## <a name="http2-enabled-by-default"></a>既定で有効な HTTP/2
 
@@ -454,7 +454,7 @@ HTTP/2 は、Kestrel では HTTPS エンドポイントに対して既定で有�
 * エンドポイントは、ミドルウェアと MVC の両方に、CORS や承認などのポリシーを実装できます。
 * フィルターおよび属性をコントローラーのメソッドに設定できます。
 
-詳細については、<xref:fundamentals/routing#routing-basics> を参照してください。
+詳細については、「<xref:fundamentals/routing#routing-basics>」を参照してください。
 
 ## <a name="health-checks"></a>正常性チェック
 
@@ -536,7 +536,7 @@ ASP.NET Core 3.0 共有フレームワークから削除された重要なアセ
 * [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json/) (Json.NET)。 Json.NET を ASP.NET Core 3.0 に追加するには、「[Newtonsoft.Json ベースの JSON 形式のサポートを追加する](xref:web-api/advanced/formatting#add-newtonsoftjson-based-json-format-support)」を参照してください。 ASP.NET Core 3.0 では JSON の読み取りと書き込みのために `System.Text.Json` が導入されています。 詳細については、このドキュメントの「[新しい JSON シリアル化](#new-json-serialization)」を参照してください。
 * [Entity Framework Core](/ef/core/)
 
-共有フレームワークから削除されたすべてのアセンブリの一覧については、「[Microsoft.AspNetCore.App 3.0 から削除されるアセンブリ](https://github.com/aspnet/AspNetCore/issues/3755)」を参照してください。 この変更の動機については、「[Microsoft.AspNetCore.App 3.0 に対する重大な変更](https://github.com/aspnet/Announcements/issues/325)」および「[ASP.NET Core 3.0 の変更点を初めて見て](https://devblogs.microsoft.com/aspnet/a-first-look-at-changes-coming-in-asp-net-core-3-0/)」を参照してください。
+共有フレームワークから削除されたすべてのアセンブリの一覧については、「[Microsoft.AspNetCore.App 3.0 から削除されるアセンブリ](https://github.com/dotnet/AspNetCore/issues/3755)」を参照してください。 この変更の動機については、「[Microsoft.AspNetCore.App 3.0 に対する重大な変更](https://github.com/aspnet/Announcements/issues/325)」および「[ASP.NET Core 3.0 の変更点を初めて見て](https://devblogs.microsoft.com/aspnet/a-first-look-at-changes-coming-in-asp-net-core-3-0/)」を参照してください。
 
 <!-- 
 ## Additional information

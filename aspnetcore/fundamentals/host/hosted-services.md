@@ -5,14 +5,14 @@ description: ASP.NET Core でホステッド サービスを使用するバッ�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/19/2019
+ms.date: 01/08/2020
 uid: fundamentals/host/hosted-services
-ms.openlocfilehash: da3c2679005714a3d82de94cf3bc3c809aa3500d
-ms.sourcegitcommit: 8157e5a351f49aeef3769f7d38b787b4386aad5f
+ms.openlocfilehash: 49229b5db4d58f25f86425f8622d12c9107262bd
+ms.sourcegitcommit: 57b85708f4cded99b8f008a69830cb104cd8e879
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/20/2019
-ms.locfileid: "74239734"
+ms.lasthandoff: 01/13/2020
+ms.locfileid: "75914208"
 ---
 # <a name="background-tasks-with-hosted-services-in-aspnet-core"></a>ASP.NET Core でホステッド サービスを使用するバックグラウンド タスク
 
@@ -95,8 +95,8 @@ ASP.NET Core ワーカー サービス テンプレートは、実行時間が�
 
   既定の 5 秒のシャットダウン タイムアウトを延長するには、次を設定します。
 
-  * <xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*> (汎用ホストを使用するとき) 詳細については、<xref:fundamentals/host/generic-host#shutdown-timeout> を参照してください。
-  * シャットダウン タイムアウトのホスト構成設定 (Web ホストを使用するとき) 詳細については、<xref:fundamentals/host/web-host#shutdown-timeout> を参照してください。
+  * <xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*> (汎用ホストを使用するとき) 詳細については、「<xref:fundamentals/host/generic-host#shutdown-timeout>」を参照してください。
+  * シャットダウン タイムアウトのホスト構成設定 (Web ホストを使用するとき) 詳細については、「<xref:fundamentals/host/web-host#shutdown-timeout>」を参照してください。
 
 ホステッド サービスは、アプリの起動時に一度アクティブ化され、アプリのシャットダウン時に正常にシャットダウンされます。 バックグラウンド タスクの実行中にエラーがスローされた場合、`StopAsync` が呼び出されていなくても `Dispose` を呼び出す必要があります。
 
@@ -104,7 +104,7 @@ ASP.NET Core ワーカー サービス テンプレートは、実行時間が�
 
 <xref:Microsoft.Extensions.Hosting.BackgroundService> は、長期 <xref:Microsoft.Extensions.Hosting.IHostedService> を実装するための基底クラスです。
 
-[ExecuteAsync(CancellationToken)](xref:Microsoft.Extensions.Hosting.BackgroundService.ExecuteAsync*) は、バックグラウンド サービスを実行するために呼び出されます。 この実装では、バックグラウンド サービスの有効期間全体を表す <xref:System.Threading.Tasks.Task> が返されます。 `await` を呼び出すなどして [ExecuteAsync が非同期になる](https://github.com/aspnet/Extensions/issues/2149)まで、以降のサービスは開始されません。 `ExecuteAsync` では、長時間の初期化作業を実行しないようにしてください。 ホストは [StopAsync(CancellationToken)](xref:Microsoft.Extensions.Hosting.BackgroundService.StopAsync*) でブロックされ、`ExecuteAsync` の完了を待機します。
+[ExecuteAsync(CancellationToken)](xref:Microsoft.Extensions.Hosting.BackgroundService.ExecuteAsync*) は、バックグラウンド サービスを実行するために呼び出されます。 この実装では、バックグラウンド サービスの有効期間全体を表す <xref:System.Threading.Tasks.Task> が返されます。 `await` を呼び出すなどして [ExecuteAsync が非同期になる](https://github.com/dotnet/extensions/issues/2149)まで、以降のサービスは開始されません。 `ExecuteAsync` では、長時間の初期化作業を実行しないようにしてください。 ホストは [StopAsync(CancellationToken)](xref:Microsoft.Extensions.Hosting.BackgroundService.StopAsync*) でブロックされ、`ExecuteAsync` の完了を待機します。
 
 [IHostedService.StopAsync](xref:Microsoft.Extensions.Hosting.IHostedService.StopAsync*) が呼び出されると、キャンセル トークンがトリガーされます。 サービスを正常にシャットダウンするためのキャンセル トークンが起動すると、`ExecuteAsync` の実装はすぐに終了します。 それ以外の場合は、シャットダウンのタイムアウト時にサービスが強制的にシャットダウンします。 詳細については、「[IHostedService インターフェイス](#ihostedservice-interface)」のセクションを参照してください。
 
@@ -112,7 +112,9 @@ ASP.NET Core ワーカー サービス テンプレートは、実行時間が�
 
 時間が指定されたバックグラウンド タスクは、[System.Threading.Timer](xref:System.Threading.Timer) クラスを利用します。 このタイマーはタスクの `DoWork` メソッドをトリガーします。 タイマーは `StopAsync` で無効になり、`Dispose` でサービス コンテナーが破棄されたときに破棄されます。
 
-[!code-csharp[](hosted-services/samples/3.x/BackgroundTasksSample/Services/TimedHostedService.cs?name=snippet1&highlight=16-18,34,41)]
+[!code-csharp[](hosted-services/samples/3.x/BackgroundTasksSample/Services/TimedHostedService.cs?name=snippet1&highlight=16-17,34,41)]
+
+前の `DoWork` の実行が完了するまで <xref:System.Threading.Timer> は待機されないため、ここで示したアプローチはすべてのシナリオに適しているとは限りません。 [Interlocked.Increment](xref:System.Threading.Interlocked.Increment*) は、アトミック操作として実行カウンターをインクリメントするために使用されされます。これにより、複数のスレッドによって `executionCount` が同時に更新されなくなります。
 
 サービスは、`AddHostedService` 拡張メソッドを使用して `IHostBuilder.ConfigureServices` (*Program.cs*) に登録されます。
 
@@ -200,8 +202,8 @@ ASP.NET Core では、バックグラウンド タスクを*ホステッド サ�
 
   既定の 5 秒のシャットダウン タイムアウトを延長するには、次を設定します。
 
-  * <xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*> (汎用ホストを使用するとき) 詳細については、<xref:fundamentals/host/generic-host#shutdown-timeout> を参照してください。
-  * シャットダウン タイムアウトのホスト構成設定 (Web ホストを使用するとき) 詳細については、<xref:fundamentals/host/web-host#shutdown-timeout> を参照してください。
+  * <xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*> (汎用ホストを使用するとき) 詳細については、「<xref:fundamentals/host/generic-host#shutdown-timeout>」を参照してください。
+  * シャットダウン タイムアウトのホスト構成設定 (Web ホストを使用するとき) 詳細については、「<xref:fundamentals/host/web-host#shutdown-timeout>」を参照してください。
 
 ホステッド サービスは、アプリの起動時に一度アクティブ化され、アプリのシャットダウン時に正常にシャットダウンされます。 バックグラウンド タスクの実行中にエラーがスローされた場合、`StopAsync` が呼び出されていなくても `Dispose` を呼び出す必要があります。
 
@@ -210,6 +212,8 @@ ASP.NET Core では、バックグラウンド タスクを*ホステッド サ�
 時間が指定されたバックグラウンド タスクは、[System.Threading.Timer](xref:System.Threading.Timer) クラスを利用します。 このタイマーはタスクの `DoWork` メソッドをトリガーします。 タイマーは `StopAsync` で無効になり、`Dispose` でサービス コンテナーが破棄されたときに破棄されます。
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample/Services/TimedHostedService.cs?name=snippet1&highlight=15-16,30,37)]
+
+前の `DoWork` の実行が完了するまで <xref:System.Threading.Timer> は待機されないため、ここで示したアプローチはすべてのシナリオに適しているとは限りません。
 
 サービスは、`AddHostedService` 拡張メソッドを使用して `Startup.ConfigureServices` に登録されます。
 

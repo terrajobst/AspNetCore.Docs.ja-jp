@@ -5,16 +5,16 @@ description: Blazor アプリを段階的に構築します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 01/13/2020
 no-loc:
 - Blazor
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: 11ff540a70ebdb8baa0c7adb98cb1dfe27d91e50
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: 8830dcf26b58b5f5fdd36b60298e7b365f99bdd9
+ms.sourcegitcommit: 925cdbd94613243f33bc7613a62ea34006219931
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944188"
+ms.lasthandoff: 01/13/2020
+ms.locfileid: "75921287"
 ---
 # <a name="build-your-first-opno-locblazor-app"></a>最初の Blazor アプリをビルドする
 
@@ -73,19 +73,19 @@ HTML 構文を使用して、別のコンポーネント内にコンポーネン
 
 コンポーネントにパラメーターを持たせることもできます。 コンポーネントのパラメーターは、`[Parameter]` 属性が指定されたコンポーネント クラス上で、パブリック プロパティを使用して定義されます。 マークアップ内でコンポーネントの引数を指定するには、属性を使います。
 
-1. コンポーネントの `@code` に関する C# コードを更新します。
+1. コンポーネントの `@code` C# コードを次のように更新します。
 
    * 属性 `[Parameter]` を使用してパブリック `IncrementAmount` プロパティを追加します。
-   * `currentCount` の値を増やすときに `IncrementAmount` を使うように `IncrementCount` メソッドを変更します。
+   * `currentCount` の値を増やすときに `IncrementAmount` プロパティを使うように `IncrementCount` メソッドを変更します。
 
    *Pages/Counter.razor*:
 
    [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/Counter.razor?highlight=13,17)]
 
-<!-- Add back when supported.
-   > [!NOTE]
-   > From Visual Studio, you can quickly add a component parameter by using the `para` snippet. Type `para` and press the `Tab` key twice.
--->
+   <!-- Add back when supported.
+       > [!NOTE]
+       > From Visual Studio, you can quickly add a component parameter by using the `para` snippet. Type `para` and press the `Tab` key twice.
+   -->
 
 1. 属性を使って、`Index` コンポーネントの `<Counter>` 要素に `IncrementAmount` パラメーターを指定します。 カウンターを 10 ずつインクリメントするように値を設定します。
 
@@ -93,7 +93,7 @@ HTML 構文を使用して、別のコンポーネント内にコンポーネン
 
    [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/Index2.razor?highlight=7)]
 
-1. `Index` コンポーネントを再度読み込みます。 カウンターは、**[クリックしてください]** ボタンを選択するたびに 10 ずつインクリメントされます。 `Counter` コンポーネントにあるカウンターは、継続して 1 ずつインクリメントされます。
+1. `Index` コンポーネントを再度読み込みます。 カウンターは、 **[クリックしてください]** ボタンを選択するたびに 10 ずつインクリメントされます。 `Counter` コンポーネントにあるカウンターは、継続して 1 ずつインクリメントされます。
 
 ## <a name="route-to-components"></a>コンポーネントにルーティングする
 

@@ -5,12 +5,12 @@ description: Entity Framework Core (EF Core) を利用し、データベース�
 ms.author: riande
 ms.date: 12/05/2019
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: 0934c94236b507f2f57200ded4344a71c483d356
-ms.sourcegitcommit: 5fe17e54f7e4267a2fdecc6f9aa1d41166cecc34
+ms.openlocfilehash: fa5be8f3a222a7c186409faa2f48e43347df637a
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/08/2020
-ms.locfileid: "75737859"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829297"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>ASP.NET Core での Razor ページ アプリへのモデルの追加
 
@@ -142,6 +142,16 @@ ms.locfileid: "75737859"
 ![前の手順からのイメージ。](model/_static/arpMac.png)
 
 *appsettings.json* ファイルは、ローカル データベースへの接続に使用される接続文字列を使用して更新されます。
+
+### <a name="add-ef-tools"></a>EF ツールの追加
+
+次の .NET Core CLI コマンドを実行します。
+
+```dotnetcli
+dotnet tool install --global dotnet-ef
+```
+
+上記のコマンドを実行すると、.NET Core CLI の Entity Framework Core ツールが追加されます。
 
 ---
 

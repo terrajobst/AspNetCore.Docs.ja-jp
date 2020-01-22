@@ -5,14 +5,14 @@ description: ASP.NET Core アプリに対してアクティブおよび非アク
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/12/2019
+ms.date: 01/13/2020
 uid: host-and-deploy/iis/modules
-ms.openlocfilehash: eb6cedfc572b4ffea969b3583ea6ec44cae1f575
-ms.sourcegitcommit: b4ef2b00f3e1eb287138f8b43c811cb35a100d3e
+ms.openlocfilehash: ca6cf349aa05db97e145f1cd0cae97a107761fd8
+ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/21/2019
-ms.locfileid: "65970059"
+ms.lasthandoff: 01/14/2020
+ms.locfileid: "75951807"
 ---
 # <a name="iis-modules-with-aspnet-core"></a>ASP.NET Core での IIS モジュール
 
@@ -107,11 +107,11 @@ IIS マネージャーを使って設定を構成すると、アプリの *web.c
 
 *web.config* の設定を使ってモジュールを削除する場合は、最初に、モジュールのロックを解除し、*web.config* の `<modules>` セクションのロックを解除します。
 
-1. サーバー レベルでモジュールのロックを解除します。 IIS マネージャーの **[接続]** サイド バーで IIS サーバーを選びます。 **[IIS]** 領域で **[モジュール]** を開きます。 一覧でモジュールを選びます。 右側の **[アクション]** サイド バーで、**[ロック解除]** を選びます。 モジュールのアクション エントリが **[ロック]** と表示される場合、モジュールのロックは既に解除されています。必要な操作はありません。 後で *web.config* から削除する予定のモジュールをできるだけ多くロック解除します。
+1. サーバー レベルでモジュールのロックを解除します。 IIS マネージャーの **[接続]** サイド バーで IIS サーバーを選びます。 **[IIS]** 領域で **[モジュール]** を開きます。 一覧でモジュールを選びます。 右側の **[アクション]** サイド バーで、 **[ロック解除]** を選びます。 モジュールのアクション エントリが **[ロック]** と表示される場合、モジュールのロックは既に解除されています。必要な操作はありません。 後で *web.config* から削除する予定のモジュールをできるだけ多くロック解除します。
 
 2. *web.config* の `<modules>` セクションを指定しないでアプリを展開します。最初に IIS マネージャーでセクションをロック解除せずに、`<modules>` セクションを含む *web.config* を使ってアプリを展開した場合、セクションのロックを解除しようとすると Configuration Manager で例外がスローされます。 したがって、`<modules>` セクションを指定しないでアプリを展開します。
 
-3. *web.config* の `<modules>` セクションのロックを解除します。**[接続]** サイド バーの **[サイト]** で Web サイトを選びます。 **[管理]** 領域で**構成エディター**を開きます。 ナビゲーション コントロールを使って、`system.webServer/modules` セクションを選びます。 右側の **[アクション]** サイド バーで、セクションの **[ロック解除]** を選びます。 モジュール セクションのアクション エントリが **[セクションのロック]** と表示される場合、モジュール セクションのロックは既に解除されています。必要な操作はありません。
+3. *web.config* の `<modules>` セクションのロックを解除します。 **[接続]** サイド バーの **[サイト]** で Web サイトを選びます。 **[管理]** 領域で**構成エディター**を開きます。 ナビゲーション コントロールを使って、`system.webServer/modules` セクションを選びます。 右側の **[アクション]** サイド バーで、セクションの **[ロック解除]** を選びます。 モジュール セクションのアクション エントリが **[セクションのロック]** と表示される場合、モジュール セクションのロックは既に解除されています。必要な操作はありません。
 
 4. アプリのローカル *web.config* ファイルに `<modules>` セクションを追加するとき、`<remove>` 要素を指定するとアプリからモジュールが取り除かれます。 複数のモジュールを削除するには、複数の `<remove>` 要素を追加します。 サーバー上で *web.config* を変更した場合は、すぐにプロジェクトのローカルな *web.config* ファイルに対して同じ変更を行ってください。 この手法でモジュールを削除すると、サーバー上の他のアプリでのモジュールの使用に影響がありません。
 
@@ -167,8 +167,7 @@ HTTP キャッシュ モジュール (`HttpCacheModule`) は、IIS 出力キャ�
 
 ## <a name="additional-resources"></a>その他の技術情報
 
-* <xref:host-and-deploy/iis/index>
 * [IIS アーキテクチャの概要: IIS のモジュール](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture#modules-in-iis)
 * [IIS モジュールの概要](/iis/get-started/introduction-to-iis/iis-modules-overview)
 * [IIS 7.0 のロールとモジュールのカスタマイズ](https://technet.microsoft.com/library/cc627313.aspx)
-* [IIS `<system.webServer>`](/iis/configuration/system.webServer/)
+* [IIS \<system.webServer>](/iis/configuration/system.webServer/)

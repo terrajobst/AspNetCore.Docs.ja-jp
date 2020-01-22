@@ -5,14 +5,14 @@ description: ASP.NET Core アプリをホストするための ASP.NET Core モ�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/07/2019
+ms.date: 01/13/2020
 uid: host-and-deploy/aspnet-core-module
-ms.openlocfilehash: c9bbd36b8a55b837f6d78abf99215c5496895a39
-ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
+ms.openlocfilehash: 75f4a158253dd3276ed37011d9aa73d82cad5b79
+ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/07/2019
-ms.locfileid: "73799408"
+ms.lasthandoff: 01/14/2020
+ms.locfileid: "75952017"
 ---
 # <a name="aspnet-core-module"></a>ASP.NET Core モジュール
 
@@ -173,7 +173,7 @@ IIS サブアプリケーション構成について詳しくは、「<xref:host
 
 ### <a name="attributes-of-the-aspnetcore-element"></a>aspNetCore 要素の属性
 
-| 属性 | 説明 | 既定値 |
+| 属性 | 説明 | Default |
 | --------- | ----------- | :-----: |
 | `arguments` | <p>省略可能な文字列属性。</p><p>**processPath** において指定されている実行可能ファイルへの引数です。</p> | |
 | `disableStartUpErrorPage` | <p>省略可能な Boolean 属性です。</p><p>true の場合、**502.5 - 処理エラー** ページは抑制され、*web.config* で構成されている 502 状態コード ページが優先されます。</p> | `false` |
@@ -188,7 +188,7 @@ IIS サブアプリケーション構成について詳しくは、「<xref:host
 | `stdoutLogEnabled` | <p>省略可能な Boolean 属性です。</p><p>true の場合、**processPath** で指定されているプロセスの **stdout** と **stderr** は、**stdoutLogFile** で指定されているファイルにリダイレクトされます。</p> | `false` |
 | `stdoutLogFile` | <p>省略可能な文字列属性。</p><p>**processPath** で指定されているプロセスからの **stdout** と **stderr** がログに記録される相対ファイル パスまたは絶対ファイル パスを指定します。 相対パスの基準はサイトのルートです。 `.` で始まっているパスはすべてサイト ルートに対する相対パスであり、他のすべてのパスは絶対パスとして扱われます。 パスで指定されたフォルダーは、ログ ファイルの作成時、モジュールによって作成されます。 アンダースコアの区切り記号を使って、タイムスタンプ、プロセス ID、およびファイル拡張子 ( *.log*) が、**stdoutLogFile** パスの最後のセグメントに追加されます。 たとえば、値として `.\logs\stdout` を指定し、2018 年 2 月 5 日の 19:41:32 にプロセス ID 1934 で保存すると、stdout ログは *logs* フォルダーに *stdout_20180205194132_1934.log* として保存されます。</p> | `aspnetcore-stdout` |
 
-### <a name="set-environment-variables"></a>環境変数の設定
+### <a name="set-environment-variables"></a>環境変数を設定する
 
 `processPath` 属性で、プロセスに対する環境変数を指定できます。 `<environmentVariables>` コレクション要素の `<environmentVariable>` 子要素で、環境変数を指定します。 このセクションで設定された環境変数は、システム環境変数より優先されます。
 
@@ -306,7 +306,7 @@ ASP.NET Core モジュールは、強化された診断ログを提供するよ�
 
 ハンドラー設定は、次の環境変数を使用して指定することもできます。
 
-* `ASPNETCORE_MODULE_DEBUG_FILE` &ndash; デバッグ ログ ファイルへのパス (既定: *aspnetcore debug.log*)。
+* `ASPNETCORE_MODULE_DEBUG_FILE` &ndash; デバッグ ログ ファイルのパス (既定: *aspnetcore debug.log*)。
 * `ASPNETCORE_MODULE_DEBUG` &ndash; デバッグ レベルの設定。
 
 > [!WARNING]
@@ -588,7 +588,7 @@ IIS サブアプリケーション構成について詳しくは、「<xref:host
 
 ### <a name="attributes-of-the-aspnetcore-element"></a>aspNetCore 要素の属性
 
-| 属性 | 説明 | 既定値 |
+| 属性 | 説明 | Default |
 | --------- | ----------- | :-----: |
 | `arguments` | <p>省略可能な文字列属性。</p><p>**processPath** において指定されている実行可能ファイルへの引数です。</p> | |
 | `disableStartUpErrorPage` | <p>省略可能な Boolean 属性です。</p><p>true の場合、**502.5 - 処理エラー** ページは抑制され、*web.config* で構成されている 502 状態コード ページが優先されます。</p> | `false` |
@@ -719,7 +719,7 @@ ASP.NET Core モジュールは、強化された診断ログを提供するよ�
 
 ハンドラー設定は、次の環境変数を使用して指定することもできます。
 
-* `ASPNETCORE_MODULE_DEBUG_FILE` &ndash; デバッグ ログ ファイルへのパス (既定: *aspnetcore debug.log*)。
+* `ASPNETCORE_MODULE_DEBUG_FILE` &ndash; デバッグ ログ ファイルのパス (既定: *aspnetcore debug.log*)。
 * `ASPNETCORE_MODULE_DEBUG` &ndash; デバッグ レベルの設定。
 
 > [!WARNING]
@@ -895,7 +895,7 @@ IIS サブアプリケーション構成について詳しくは、「<xref:host
 
 ### <a name="attributes-of-the-aspnetcore-element"></a>aspNetCore 要素の属性
 
-| 属性 | 説明 | 既定値 |
+| 属性 | 説明 | Default |
 | --------- | ----------- | :-----: |
 | `arguments` | <p>省略可能な文字列属性。</p><p>**processPath** において指定されている実行可能ファイルへの引数です。</p>| |
 | `disableStartUpErrorPage` | <p>省略可能な Boolean 属性です。</p><p>true の場合、**502.5 - 処理エラー** ページは抑制され、*web.config* で構成されている 502 状態コード ページが優先されます。</p> | `false` |
@@ -1046,5 +1046,6 @@ IIS 共有構成を使うときは、次の手順で行います。
 ## <a name="additional-resources"></a>その他の技術情報
 
 * <xref:host-and-deploy/iis/index>
-* [ASP.NET Core モジュールの GitHub リポジトリ (参照元)](https://github.com/aspnet/AspNetCoreModule)
+* <xref:host-and-deploy/azure-apps/index>
+* [ASP.NET Core Module 参照ソース (マスター ブランチ)](https://github.com/dotnet/aspnetcore/tree/master/src/Servers/IIS/AspNetCoreModuleV2) &ndash; **Branch** ドロップ ダウン リストを使用して、特定のリリース (たとえば、`release/3.1`) を選択します。
 * <xref:host-and-deploy/iis/modules>

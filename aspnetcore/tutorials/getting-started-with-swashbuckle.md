@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: tutorials/get-started-with-swashbuckle
-ms.openlocfilehash: dea8564a1ee94d6ff1d96e9aab68205292765178
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: f3c20eb085fa5277dd37b7323b5a7d7d286bcd99
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74881251"
+ms.lasthandoff: 01/10/2020
+ms.locfileid: "75866073"
 ---
 # <a name="get-started-with-swashbuckle-and-aspnet-core"></a>Swashbuckle と ASP.NET Core の概要
 
@@ -39,7 +39,7 @@ Swashbuckle は、次の方法で追加できます。
   * 次のコマンドを実行します。
 
     ```powershell
-    Install-Package Swashbuckle.AspNetCore -Version 5.0.0-rc4
+    Install-Package Swashbuckle.AspNetCore -Version 5.0.0-rc5
     ```
 
 * **[NuGet パッケージの管理]** ダイアログ ボックスから:
@@ -443,7 +443,7 @@ Swagger UI は、予期される HTTP 応答コードを明確に記述するよ
 
 ::: moniker range=">= aspnetcore-2.2"
 
-ASP.NET Core 2.2 以降では、明示的に個別のアクションを `[ProducesResponseType]` で装飾する代わりに、規約を使用できます。 詳細については、<xref:web-api/advanced/conventions> を参照してください。
+ASP.NET Core 2.2 以降では、明示的に個別のアクションを `[ProducesResponseType]` で装飾する代わりに、規約を使用できます。 詳細については、「<xref:web-api/advanced/conventions>」を参照してください。
 
 ::: moniker-end
 
