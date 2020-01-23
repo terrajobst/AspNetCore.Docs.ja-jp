@@ -4,14 +4,14 @@ author: Rick-Anderson
 description: ASP.NET Core の Razor ページを使用して、ページのコーディングに重点を置いたシナリオをより簡略化して、MVC を使用する場合よりも生産性を高める方法について説明します。
 monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
-ms.date: 12/05/2019
+ms.date: 01/18/2020
 uid: razor-pages/index
-ms.openlocfilehash: fbe6e307ff5f7388e91cc2276f22ae1672507587
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 69c9f09aa0e3dbdbe78720c573b5e1fc63464571
+ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880899"
+ms.lasthandoff: 01/21/2020
+ms.locfileid: "76294652"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>ASP.NET Core での Razor ページの概要
 
@@ -128,7 +128,7 @@ db コンテキスト:
 * [依存関係の挿入](xref:fundamentals/dependency-injection)によるページの依存関係の管理。
 * [単体テスト](xref:test/razor-pages-tests)
 
-このページには、(ユーザーがフォームを投稿したときに) `POST` 要求で実行される `OnPostAsync` *ハンドラー メソッド*があります。 任意の HTTP 動詞のハンドラー メソッドを追加できます。 最も一般的なハンドラーは次のとおりです。
+このページには、(ユーザーがフォームを投稿したときに) `POST` 要求で実行される `OnPostAsync` "*ハンドラー メソッド*" があります。 任意の HTTP 動詞のハンドラー メソッドを追加できます。 最も一般的なハンドラーは次のとおりです。
 
 * ページに必要な状態を初期化するための `OnGet`。 前のコードでは、`OnGet` メソッドにより *CreateModel.cshtml* Razor ページが表示されます。
 * フォームの送信を処理するための `OnPost`。
@@ -212,7 +212,7 @@ db コンテキスト:
 
 [!code-cshtml[](index/3.0sample/RazorPagesContacts/Pages/Customers/Index.cshtml?range=21)]
 
-`<a /a>` [アンカー タグ ヘルパー](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)は `asp-route-{value}` 属性を使用して編集ページへのリンクを生成しました。 リンクには、連絡先 ID とともにルート データが含まれています。 たとえば、`https://localhost:5001/Edit/1` のようにします。 [タグ ヘルパー](xref:mvc/views/tag-helpers/intro)を使うと、Razor ファイルでの HTML 要素の作成とレンダリングに、サーバー側コードを組み込むことができます。
+`<a /a>` [アンカー タグ ヘルパー](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)では、`asp-route-{value}` 属性を使用して編集ページへのリンクが生成されました。 リンクには、連絡先 ID とともにルート データが含まれています。 たとえば、`https://localhost:5001/Edit/1` のようにします。 [タグ ヘルパー](xref:mvc/views/tag-helpers/intro)を使うと、Razor ファイルでの HTML 要素の作成とレンダリングに、サーバー側コードを組み込むことができます。
 
 *Index.cshtml* ファイルには、各顧客の連絡先の削除ボタンを作成するマークアップが含まれています。
 
@@ -396,7 +396,7 @@ Razor ページからのビュー検索には、*Pages* フォルダーが含ま
 
 *Pages/Customers/Edit.cshtml* Razor ページの生成された名前空間は、`PageModel` クラスと同じです。
 
-`@namespace`  *は従来の Razor ビューでも機能します。*
+`@namespace` は "*従来の Razor ビューでも機能します。* "
 
 *Pages/Create.cshtml* ビュー ファイル を考えてみましょう。
 
@@ -559,8 +559,6 @@ public string Message { get; set; }
 
 パスの先頭のチルダ (`~`) によって指定されたルートの相対パスがサポートされます。 たとえば、`@page "~/Some/Other/Path"` は `@page "/Some/Other/Path"` と同じです。
 
-ルート テンプレート `@page "{handler?}"` を指定することで、URL のクエリ文字列 `?handler=JoinList` をルート セグメント `/JoinList` に変更することができます。
-
 URL 内のクエリ文字列 `?handler=JoinList` が気に入らない場合は、ルートを変更して URL のパス部分にハンドラー名を挿入することができます。 `@page` ディレクティブの後に二重引用符で囲んだルート テンプレートを追加して、ルートをカスタマイズすることができます。
 
 [!code-cshtml[](index/sample/RazorPagesContacts2/Pages/Customers/CreateRoute.cshtml?highlight=1)]
@@ -721,7 +719,7 @@ db コンテキスト:
 * [依存関係の挿入](xref:fundamentals/dependency-injection)によるページの依存関係の管理。
 * ページを[単体テスト](xref:test/razor-pages-tests)します。
 
-このページには、(ユーザーがフォームを投稿したときに) `POST` 要求で実行される `OnPostAsync` *ハンドラー メソッド*があります。 任意の HTTP 動詞のハンドラー メソッドを追加できます。 最も一般的なハンドラーは次のとおりです。
+このページには、(ユーザーがフォームを投稿したときに) `POST` 要求で実行される `OnPostAsync` "*ハンドラー メソッド*" があります。 任意の HTTP 動詞のハンドラー メソッドを追加できます。 最も一般的なハンドラーは次のとおりです。
 
 * ページに必要な状態を初期化するための `OnGet`。 [OnGet](#OnGet) サンプル。
 * フォームの送信を処理するための `OnPost`。
@@ -768,7 +766,7 @@ db コンテキスト:
 
 [!code-cshtml[](index/sample/RazorPagesContacts/Pages/Index.cshtml?range=21)]
 
-`<a asp-page="./Edit" asp-route-id="@contact.Id">Edit</a>` [アンカー タグ ヘルパー](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)は `asp-route-{value}` 属性を使用して編集ページへのリンクを生成しました。 リンクには、連絡先 ID とともにルート データが含まれています。 たとえば、`https://localhost:5001/Edit/1` のようにします。 [タグ ヘルパー](xref:mvc/views/tag-helpers/intro)を使うと、Razor ファイルでの HTML 要素の作成とレンダリングに、サーバー側コードを組み込むことができます。 タグ ヘルパーは `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers` によって有効になります
+`<a asp-page="./Edit" asp-route-id="@contact.Id">Edit</a>` [アンカー タグ ヘルパー](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)では、`asp-route-{value}` 属性を使用して編集ページへのリンクが生成されました。 リンクには、連絡先 ID とともにルート データが含まれています。 たとえば、`https://localhost:5001/Edit/1` のようにします。 [タグ ヘルパー](xref:mvc/views/tag-helpers/intro)を使うと、Razor ファイルでの HTML 要素の作成とレンダリングに、サーバー側コードを組み込むことができます。 タグ ヘルパーは `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers` によって有効になります
 
 *Pages/Edit.cshtml* ファイル:
 
@@ -915,7 +913,7 @@ Razor ページからのビュー検索には、*Pages* フォルダーが含ま
 
 *Pages/Customers/Edit.cshtml* Razor ページの生成された名前空間は、`PageModel` クラスと同じです。
 
-`@namespace`  *は従来の Razor ビューでも機能します。*
+`@namespace` は "*従来の Razor ビューでも機能します。* "
 
 元の *Pages/Create.cshtml* ビュー ファイル:
 
@@ -975,7 +973,7 @@ Razor ページからのビュー検索には、*Pages* フォルダーが含ま
 RedirectToPage("/Index", new { area = "Services" });
 ```
 
-詳細については、<xref:mvc/controllers/areas> を参照してください。
+詳細については、「<xref:mvc/controllers/areas>」を参照してください。
 
 ## <a name="viewdata-attribute"></a>ViewData 属性
 
@@ -1065,8 +1063,6 @@ public string Message { get; set; }
 * ページの既定のルートにパラメーターを追加します。 たとえば、`@page "{id}"` を含むページに ID パラメーター `id` を必須とすることができます。
 
 パスの先頭のチルダ (`~`) によって指定されたルートの相対パスがサポートされます。 たとえば、`@page "~/Some/Other/Path"` は `@page "/Some/Other/Path"` と同じです。
-
-ルート テンプレート `@page "{handler?}"` を指定することで、URL のクエリ文字列 `?handler=JoinList` をルート セグメント `/JoinList` に変更することができます。
 
 URL 内のクエリ文字列 `?handler=JoinList` が気に入らない場合は、ルートを変更して URL のパス部分にハンドラー名を挿入することができます。 `@page` ディレクティブの後に二重引用符で囲んだルート テンプレートを追加して、ルートをカスタマイズすることができます。
 
