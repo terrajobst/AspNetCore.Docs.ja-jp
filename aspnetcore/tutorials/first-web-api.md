@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 3bf930d19684e84365f0ff0255fccd2939fb3f39
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: 73e547b014d78dcbcbf1c887ebec16e0743d10b9
+ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75354918"
+ms.lasthandoff: 01/21/2020
+ms.locfileid: "76294746"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>チュートリアル: ASP.NET Core で Web API を作成する
 
@@ -296,7 +296,6 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 生成されたコードでは次の操作が行われます。
 
-* メソッドを使用せず、API コントローラー クラスを定義します。
 * クラスを [`[ApiController]`](/dotnet/api/microsoft.aspnetcore.mvc.apicontrollerattribute) 属性でマークします。 この属性は、コントローラーが Web API 要求に応答することを示します。 属性によって有効化される特定の動作については、「<xref:web-api/index>」 を参照してください。
 * DI を使用して、データベース コンテキスト (`TodoContext`) をコントローラーに挿入します。 データベース コンテキストは、コントローラーの各 [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) メソッドで使用されます。
 
@@ -322,7 +321,7 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 * Web アプリを起動します。
 * Postman を起動します。
 * **[SSL 証明書の確認]** を無効にします。
-* **[ファイル]** > **[設定]** ( **[全般]** タブ) で、 **[SSL 証明書の確認]** を無効にします。
+  * **[ファイル]** > **[設定]** ( **[全般]** タブ) で、 **[SSL 証明書の確認]** を無効にします。
     > [!WARNING]
     > コントローラーをテストした後、SSL 証明書の検証を再度有効にします。
 

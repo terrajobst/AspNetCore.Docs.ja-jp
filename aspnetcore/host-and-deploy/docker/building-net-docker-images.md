@@ -4,14 +4,14 @@ author: rick-anderson
 description: 公開されている .NET Core Docker イメージを Docker レジストリから使用する方法について説明します。 イメージをプルして独自のイメージをビルドします。
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/18/2019
+ms.date: 01/15/2020
 uid: host-and-deploy/docker/building-net-docker-images
-ms.openlocfilehash: 64503ed55438b24f2d3d87092107408ddcb515d7
-ms.sourcegitcommit: fcdf9aaa6c45c1a926bd870ed8f893bdb4935152
+ms.openlocfilehash: 5bed5e9a4a6109a45badcef7c0d4e03eb2312bf0
+ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72165274"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76146343"
 ---
 # <a name="docker-images-for-aspnet-core"></a>ASP.NET Core 向けの Docker イメージ
 
@@ -269,4 +269,4 @@ ENTRYPOINT ["dotnet", "aspnetapp.dll"]
 同じアプリを格納している Git リポジトリにも、ドキュメントが用意されています。 リポジトリ内にある利用可能なリソースの概要については、[README ファイル](https://github.com/dotnet/dotnet-docker/blob/master/samples/aspnetapp/README.md)をご覧ください。 特に、HTTPS を実装する方法について確認してください。
 
 > [!div class="nextstepaction"]
-> 「[Developing ASP.NET Core Applications with Docker over HTTPS (Docker を使用して HTTPS による ASP.NET Core アプリケーションを開発する)](https://github.com/dotnet/dotnet-docker/blob/master/samples/aspnetapp/aspnetcore-docker-https-development.md)」
+> 「[Developing ASP.NET Core Applications with Docker over HTTPS (Docker を使用して HTTPS による ASP.NET Core アプリケーションを開発する)](https://github.com/dotnet/dotnet-docker/blob/master/samples/run-aspnetcore-https-development.md)」

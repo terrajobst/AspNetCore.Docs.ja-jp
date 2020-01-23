@@ -4,14 +4,14 @@ author: zuckerthoben
 description: Swashbuckle を ASP.NET Core Web API プロジェクトに追加し、Swagger UI を統合する方法について説明します。
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 01/17/2020
 uid: tutorials/get-started-with-swashbuckle
-ms.openlocfilehash: f3c20eb085fa5277dd37b7323b5a7d7d286bcd99
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 16583cde2f4a6deaabc2fc965a5b9484ca94c2fd
+ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/10/2020
-ms.locfileid: "75866073"
+ms.lasthandoff: 01/18/2020
+ms.locfileid: "76268722"
 ---
 # <a name="get-started-with-swashbuckle-and-aspnet-core"></a>Swashbuckle と ASP.NET Core の概要
 
@@ -39,7 +39,7 @@ Swashbuckle は、次の方法で追加できます。
   * 次のコマンドを実行します。
 
     ```powershell
-    Install-Package Swashbuckle.AspNetCore -Version 5.0.0-rc5
+    Install-Package Swashbuckle.AspNetCore -Version 5.0.0
     ```
 
 * **[NuGet パッケージの管理]** ダイアログ ボックスから:
@@ -62,7 +62,7 @@ Swashbuckle は、次の方法で追加できます。
 **統合端末**からから次のコマンドを実行します。
 
 ```dotnetcli
-dotnet add TodoApi.csproj package Swashbuckle.AspNetCore -v 5.0.0-rc4
+dotnet add TodoApi.csproj package Swashbuckle.AspNetCore -v 5.0.0
 ```
 
 ### <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
@@ -70,7 +70,7 @@ dotnet add TodoApi.csproj package Swashbuckle.AspNetCore -v 5.0.0-rc4
 次のコマンドを実行します。
 
 ```dotnetcli
-dotnet add TodoApi.csproj package Swashbuckle.AspNetCore -v 5.0.0-rc4
+dotnet add TodoApi.csproj package Swashbuckle.AspNetCore -v 5.0.0
 ```
 
 ---
