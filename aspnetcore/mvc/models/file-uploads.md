@@ -83,7 +83,7 @@ ASP.NET Core では、小さいファイルの場合はバッファー モデル
   * 通常、サービスでは、大抵の場合に単一障害点となるオンプレミス ソリューションより高いスケーラビリティと回復性が提供されます。
   * 大規模なストレージ インフラストラクチャのシナリオでは、サービスのコストが低下する可能性があります。
 
-  詳細については、「[クイック スタート:.NET を使用してオブジェクト ストレージに BLOB を作成する](/azure/storage/blobs/storage-quickstart-blobs-dotnet)」を参照してください。 そのトピックでは <xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromFileAsync*> が示されていますが、<xref:System.IO.Stream> を使用する場合は、<xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromStreamAsync*> を使用して <xref:System.IO.FileStream> を Blob Storage に保存することもできます。
+  詳細については、[クイック スタート:.NET を使用してオブジェクト ストレージに BLOB を作成する方法](/azure/storage/blobs/storage-quickstart-blobs-dotnet)に関する記事を参照してください。 そのトピックでは <xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromFileAsync*> が示されていますが、<xref:System.IO.Stream> を使用する場合は、<xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromStreamAsync*> を使用して <xref:System.IO.FileStream> を Blob Storage に保存することもできます。
 
 ## <a name="file-upload-scenarios"></a>ファイル アップロードのシナリオ
 
@@ -812,7 +812,7 @@ ASP.NET Core では、小さいファイルの場合はバッファー モデル
   * 通常、サービスでは、大抵の場合に単一障害点となるオンプレミス ソリューションより高いスケーラビリティと回復性が提供されます。
   * 大規模なストレージ インフラストラクチャのシナリオでは、サービスのコストが低下する可能性があります。
 
-  詳細については、「[クイック スタート:.NET を使用してオブジェクト ストレージに BLOB を作成する](/azure/storage/blobs/storage-quickstart-blobs-dotnet)」を参照してください。 そのトピックでは <xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromFileAsync*> が示されていますが、<xref:System.IO.Stream> を使用する場合は、<xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromStreamAsync*> を使用して <xref:System.IO.FileStream> を Blob Storage に保存することもできます。
+  詳細については、[クイック スタート:.NET を使用してオブジェクト ストレージに BLOB を作成する方法](/azure/storage/blobs/storage-quickstart-blobs-dotnet)に関する記事を参照してください。 そのトピックでは <xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromFileAsync*> が示されていますが、<xref:System.IO.Stream> を使用する場合は、<xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromStreamAsync*> を使用して <xref:System.IO.FileStream> を Blob Storage に保存することもできます。
 
 ## <a name="file-upload-scenarios"></a>ファイル アップロードのシナリオ
 
