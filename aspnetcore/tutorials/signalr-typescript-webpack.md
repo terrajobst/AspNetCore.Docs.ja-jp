@@ -70,7 +70,7 @@ Visual Studio の構成が完了しました。 次はプロジェクトを作�
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-**統合端末**で次のコマンドを実行します。
+**統合ターミナル**で次のコマンドを実行します。
 
 ```dotnetcli
 dotnet new web -o SignalRWebPack
@@ -307,7 +307,7 @@ Visual Studio の構成が完了しました。 次はプロジェクトを作�
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-**統合端末**で次のコマンドを実行します。
+**統合ターミナル**で次のコマンドを実行します。
 
 ```dotnetcli
 dotnet new web -o SignalRWebPack

@@ -59,7 +59,7 @@ Swashbuckle は、次の方法で追加できます。
 
 ### <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-**統合端末**からから次のコマンドを実行します。
+**統合ターミナル**からから次のコマンドを実行します。
 
 ```dotnetcli
 dotnet add TodoApi.csproj package Swashbuckle.AspNetCore -v 5.0.0
