@@ -5,14 +5,14 @@ description: 応答圧縮と ASP.NET Core アプリで応答圧縮ミドルウ�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 01/22/2020
 uid: performance/response-compression
-ms.openlocfilehash: 04b2ffd7047e8b127968adb5d40e0141365fb5fe
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: b8a84418a3258e9ac43b4eadd8564c0708590bce
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880906"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76726966"
 ---
 # <a name="response-compression-in-aspnet-core"></a>ASP.NET Core での応答圧縮
 
@@ -139,7 +139,7 @@ public class Startup
 
 注:
 
-* `app.UseMvc`する前に `app.UseResponseCompression` を呼び出す必要があります。
+* 応答を圧縮するミドルウェアの前に `app.UseResponseCompression` を呼び出す必要があります。 詳細については、「 <xref:fundamentals/middleware/index#middleware-order>」を参照してください。
 * [Fiddler](https://www.telerik.com/fiddler)、[消火バグ](https://getfirebug.com/)、または[Postman](https://www.getpostman.com/)などのツールを使用して `Accept-Encoding` 要求ヘッダーを設定し、応答ヘッダー、サイズ、および本文を調査します。
 
 `Accept-Encoding` ヘッダーを使用せずにサンプルアプリに要求を送信し、応答が圧縮されていないことを確認します。 `Content-Encoding` ヘッダーと `Vary` ヘッダーが応答に存在しません。
@@ -202,7 +202,7 @@ public void ConfigureServices(IServiceCollection services)
 
 圧縮レベルを <xref:Microsoft.AspNetCore.ResponseCompression.BrotliCompressionProviderOptions>に設定します。 Brotli 圧縮プロバイダーは、既定で最も高速な圧縮レベル ([CompressionLevel](xref:System.IO.Compression.CompressionLevel)) に設定されています。これにより、圧縮率が最も高くなる可能性があります。 最も効率的な圧縮が必要な場合は、最適な圧縮のためにミドルウェアを構成します。
 
-| Compression Level | 説明 |
+| 圧縮レベル | 説明 |
 | ----------------- | ----------- |
 | [CompressionLevel](xref:System.IO.Compression.CompressionLevel) | 圧縮は、結果の出力が最適に圧縮されない場合でも、できるだけ早く完了する必要があります。 |
 | [CompressionLevel](xref:System.IO.Compression.CompressionLevel) | 圧縮は実行されません。 |
@@ -265,7 +265,7 @@ public void ConfigureServices(IServiceCollection services)
 
 圧縮レベルを <xref:Microsoft.AspNetCore.ResponseCompression.GzipCompressionProviderOptions>に設定します。 Gzip 圧縮プロバイダーは、既定で最も高速な圧縮レベル ([CompressionLevel](xref:System.IO.Compression.CompressionLevel)) に設定されています。これにより、圧縮率が最も高くなる可能性があります。 最も効率的な圧縮が必要な場合は、最適な圧縮のためにミドルウェアを構成します。
 
-| Compression Level | 説明 |
+| 圧縮レベル | 説明 |
 | ----------------- | ----------- |
 | [CompressionLevel](xref:System.IO.Compression.CompressionLevel) | 圧縮は、結果の出力が最適に圧縮されない場合でも、できるだけ早く完了する必要があります。 |
 | [CompressionLevel](xref:System.IO.Compression.CompressionLevel) | 圧縮は実行されません。 |
@@ -283,7 +283,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-### <a name="custom-providers"></a>カスタム プロバイダー
+### <a name="custom-providers"></a>カスタムプロバイダー
 
 <xref:Microsoft.AspNetCore.ResponseCompression.ICompressionProvider>を使用して、カスタム圧縮実装を作成します。 この `ICompressionProvider` が生成するコンテンツエンコーディングを表す <xref:Microsoft.AspNetCore.ResponseCompression.ICompressionProvider.EncodingName*>。 ミドルウェアは、この情報を使用して、要求の `Accept-Encoding` ヘッダーに指定されている一覧に基づいてプロバイダーを選択します。
 

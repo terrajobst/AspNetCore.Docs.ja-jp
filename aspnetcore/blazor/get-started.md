@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/get-started
-ms.openlocfilehash: 09400a076849bdec35beb284a488d01feb8a84c2
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.openlocfilehash: 642881b5400a70a99f6e7e262d2a2f1038389ce7
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76160003"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76726848"
 ---
 # <a name="get-started-with-aspnet-core-opno-locblazor"></a>ASP.NET Core Blazor の概要
 
@@ -39,7 +39,7 @@ Blazorの概要:
 
    # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-   1\. **ASP.NET と Web 開発**ワークロードを使用して、 [Visual Studio 16.4](https://visualstudio.microsoft.com/vs/preview/)以降をインストールします。
+   1\. **ASP.NET と web 開発**ワークロードを使用して、 [Visual Studio 2019 バージョン 16.4](https://visualstudio.microsoft.com/vs/preview/)以降をインストールします。
 
    2\. 新しいプロジェクトを作成します。
 

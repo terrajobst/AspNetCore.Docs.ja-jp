@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/forms-validation
-ms.openlocfilehash: 6f6fdc13dbb754ecfe06025d496017d3c16951fe
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.openlocfilehash: 2758bcbbc76c8a59716fe224dd2deb4ca8c06929
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76159964"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76726884"
 ---
 # <a name="aspnet-core-opno-locblazor-forms-and-validation"></a>フォームと検証の Blazor の ASP.NET Core
 
@@ -39,17 +39,17 @@ public class ExampleModel
 フォームは、`EditForm` コンポーネントを使用して定義されます。 次のフォームは、一般的な要素、コンポーネント、および Razor コードを示しています。
 
 ```razor
-<EditForm Model="@exampleModel" OnValidSubmit="HandleValidSubmit">
+<EditForm Model="@_exampleModel" OnValidSubmit="HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
-    <InputText id="name" @bind-Value="exampleModel.Name" />
+    <InputText id="name" @bind-Value="_exampleModel.Name" />
 
     <button type="submit">Submit</button>
 </EditForm>
 
 @code {
-    private ExampleModel exampleModel = new ExampleModel();
+    private ExampleModel _exampleModel = new ExampleModel();
 
     private void HandleValidSubmit()
     {
@@ -60,9 +60,9 @@ public class ExampleModel
 
 前の例の場合:
 
-* フォームは、`ExampleModel` の種類で定義されている検証を使用して、`name` フィールドのユーザー入力を検証します。 モデルはコンポーネントの `@code` ブロック内に作成され、プライベートフィールド (`exampleModel`) に保持されます。 フィールドは、`<EditForm>` 要素の `Model` 属性に割り当てられます。
+* フォームは、`ExampleModel` の種類で定義されている検証を使用して、`name` フィールドのユーザー入力を検証します。 モデルはコンポーネントの `@code` ブロック内に作成され、プライベートフィールド (`_exampleModel`) に保持されます。 フィールドは、`<EditForm>` 要素の `Model` 属性に割り当てられます。
 * `InputText` コンポーネントの `@bind-Value` は次のようにバインドされます。
-  * `InputText` コンポーネントの `Value` プロパティへのモデルプロパティ (`exampleModel.Name`)。
+  * `InputText` コンポーネントの `Value` プロパティへのモデルプロパティ (`_exampleModel.Name`)。
   * `InputText` コンポーネントの `ValueChanged` プロパティに対する変更イベントデリゲート。
 * `DataAnnotationsValidator` コンポーネントは、データ注釈を使用して検証サポートをアタッチします。
 * `ValidationSummary` コンポーネントは、検証メッセージの概要を示します。
@@ -124,26 +124,26 @@ public class Starship
 
 <h2>New Ship Entry Form</h2>
 
-<EditForm Model="@starship" OnValidSubmit="HandleValidSubmit">
+<EditForm Model="@_starship" OnValidSubmit="HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
     <p>
         <label>
             Identifier:
-            <InputText @bind-Value="starship.Identifier" />
+            <InputText @bind-Value="_starship.Identifier" />
         </label>
     </p>
     <p>
         <label>
             Description (optional):
-            <InputTextArea @bind-Value="starship.Description" />
+            <InputTextArea @bind-Value="_starship.Description" />
         </label>
     </p>
     <p>
         <label>
             Primary Classification:
-            <InputSelect @bind-Value="starship.Classification">
+            <InputSelect @bind-Value="_starship.Classification">
                 <option value="">Select classification ...</option>
                 <option value="Exploration">Exploration</option>
                 <option value="Diplomacy">Diplomacy</option>
@@ -154,19 +154,19 @@ public class Starship
     <p>
         <label>
             Maximum Accommodation:
-            <InputNumber @bind-Value="starship.MaximumAccommodation" />
+            <InputNumber @bind-Value="_starship.MaximumAccommodation" />
         </label>
     </p>
     <p>
         <label>
             Engineering Approval:
-            <InputCheckbox @bind-Value="starship.IsValidatedDesign" />
+            <InputCheckbox @bind-Value="_starship.IsValidatedDesign" />
         </label>
     </p>
     <p>
         <label>
             Production Date:
-            <InputDate @bind-Value="starship.ProductionDate" />
+            <InputDate @bind-Value="_starship.ProductionDate" />
         </label>
     </p>
 
@@ -180,7 +180,7 @@ public class Starship
 </EditForm>
 
 @code {
-    private Starship starship = new Starship();
+    private Starship _starship = new Starship();
 
     private void HandleValidSubmit()
     {
@@ -199,7 +199,7 @@ public class Starship
 * `isValid`をチェックすることによって、クライアント側とサーバー側の検証の結果に応じて、追加のコードが実行されます。
 
 ```razor
-<EditForm EditContext="@editContext" OnSubmit="@HandleSubmit">
+<EditForm EditContext="@_editContext" OnSubmit="@HandleSubmit">
 
     ...
 
@@ -207,18 +207,18 @@ public class Starship
 </EditForm>
 
 @code {
-    private Starship starship = new Starship();
-    private EditContext editContext;
+    private Starship _starship = new Starship();
+    private EditContext _editContext;
 
     protected override void OnInitialized()
     {
-        editContext = new EditContext(starship);
+        _editContext = new EditContext(_starship);
     }
 
     private async Task HandleSubmit()
     {
-        var isValid = editContext.Validate() && 
-            await ServerValidate(editContext);
+        var isValid = _editContext.Validate() && 
+            await ServerValidate(_editContext);
 
         if (isValid)
         {
@@ -258,7 +258,7 @@ public class Starship
 
 ## <a name="work-with-radio-buttons"></a>ラジオボタンの操作
 
-フォームでオプションボタンを使用する場合、オプションボタンはグループとして評価されるため、データバインディングは他の要素とは異なる方法で処理されます。 各オプションボタンの値は固定されていますが、ラジオボタングループの値は、選択したラジオボタンの値です。 以下の例では、次のことを行っています。
+フォームでオプションボタンを使用する場合、オプションボタンはグループとして評価されるため、データバインディングは他の要素とは異なる方法で処理されます。 各オプションボタンの値は固定されていますが、ラジオボタングループの値は、選択したラジオボタンの値です。 次の例は、その方法を示しています。
 
 * ラジオボタングループのデータバインディングを処理します。
 * カスタム `InputRadio` コンポーネントを使用した検証をサポートします。
@@ -311,14 +311,14 @@ public class Starship
 
 <h1>Radio Button Group Test</h1>
 
-<EditForm Model="model" OnValidSubmit="HandleValidSubmit">
+<EditForm Model="_model" OnValidSubmit="HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
     @for (int i = 1; i <= 5; i++)
     {
         <label>
-            <InputRadio name="rate" SelectedValue="i" @bind-Value="model.Rating" />
+            <InputRadio name="rate" SelectedValue="i" @bind-Value="_model.Rating" />
             @i
         </label>
     }
@@ -326,10 +326,10 @@ public class Starship
     <button type="submit">Submit</button>
 </EditForm>
 
-<p>You chose: @model.Rating</p>
+<p>You chose: @_model.Rating</p>
 
 @code {
-    private Model model = new Model();
+    private Model _model = new Model();
 
     private void HandleValidSubmit()
     {
@@ -364,13 +364,13 @@ Blazor は、次の2種類の検証を実行します。
 `Model` パラメーターを使用して、特定のモデルの検証メッセージを出力します。
   
 ```razor
-<ValidationSummary Model="@starship" />
+<ValidationSummary Model="@_starship" />
 ```
 
 `ValidationMessage` コンポーネントには、[検証メッセージタグヘルパー](xref:mvc/views/working-with-forms#the-validation-message-tag-helper)に似た、特定のフィールドの検証メッセージが表示されます。 `For` 属性と、モデルプロパティに名前を付けるラムダ式を使用して、検証用のフィールドを指定します。
 
 ```razor
-<ValidationMessage For="@(() => starship.MaximumAccommodation)" />
+<ValidationMessage For="@(() => _starship.MaximumAccommodation)" />
 ```
 
 `ValidationMessage` コンポーネントと `ValidationSummary` コンポーネントでは、任意の属性がサポートされています。 コンポーネントパラメーターと一致しない属性は、生成された `<div>` 要素または `<ul>` 要素に追加されます。
@@ -411,7 +411,7 @@ Blazor は、組み込みの `DataAnnotationsValidator`でデータ注釈を使�
 コレクションと複合型のプロパティを含む、バインドされたモデルのオブジェクトグラフ全体を検証するには、*実験的*な[BlazorAspNetCore によって提供される `ObjectGraphDataAnnotationsValidator` を使用します。DataAnnotations。検証](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation)パッケージ:
 
 ```razor
-<EditForm Model="@model" OnValidSubmit="HandleValidSubmit">
+<EditForm Model="@_model" OnValidSubmit="HandleValidSubmit">
     <ObjectGraphDataAnnotationsValidator />
     ...
 </EditForm>
@@ -462,34 +462,34 @@ public class ShipDescription
 * コンテキストの `OnFieldChanged` コールバックでフォームを検証して、[送信] ボタンを有効または無効にします。
 
 ```razor
-<EditForm EditContext="@editContext">
+<EditForm EditContext="@_editContext">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
     ...
 
-    <button type="submit" disabled="@formInvalid">Submit</button>
+    <button type="submit" disabled="@_formInvalid">Submit</button>
 </EditForm>
 
 @code {
-    private Starship starship = new Starship();
-    private bool formInvalid = true;
-    private EditContext editContext;
+    private Starship _starship = new Starship();
+    private bool _formInvalid = true;
+    private EditContext _editContext;
 
     protected override void OnInitialized()
     {
-        editContext = new EditContext(starship);
+        _editContext = new EditContext(_starship);
 
-        editContext.OnFieldChanged += (_, __) =>
+        _editContext.OnFieldChanged += (_, __) =>
         {
-            formInvalid = !editContext.Validate();
+            _formInvalid = !_editContext.Validate();
             StateHasChanged();
         };
     }
 }
 ```
 
-前の例では、次の場合に `formInvalid` を `false` に設定します。
+前の例では、次の場合に `_formInvalid` を `false` に設定します。
 
 * フォームには、有効な既定値が事前に読み込まれています。
 * フォームが読み込まれるときに [送信] ボタンを有効にします。
@@ -500,23 +500,23 @@ public class ShipDescription
 * [送信] ボタンが選択されているとき (たとえば、`HandleValidSubmit` メソッドなど) に `ValidationSummary` コンポーネントを表示します。
 
 ```razor
-<EditForm EditContext="@editContext" OnValidSubmit="HandleValidSubmit">
+<EditForm EditContext="@_editContext" OnValidSubmit="HandleValidSubmit">
     <DataAnnotationsValidator />
-    <ValidationSummary style="@displaySummary" />
+    <ValidationSummary style="@_displaySummary" />
 
     ...
 
-    <button type="submit" disabled="@formInvalid">Submit</button>
+    <button type="submit" disabled="@_formInvalid">Submit</button>
 </EditForm>
 
 @code {
-    private string displaySummary = "display:none";
+    private string _displaySummary = "display:none";
 
     ...
 
     private void HandleValidSubmit()
     {
-        displaySummary = "display:block";
+        _displaySummary = "display:block";
     }
 }
 ```

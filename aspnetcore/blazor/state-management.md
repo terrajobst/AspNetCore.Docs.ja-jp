@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/state-management
-ms.openlocfilehash: ffb32a4f274a30f2a5ceed9cbf193285e85bab4c
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.openlocfilehash: 990d392b0e1658774256626eb277701e40287b79
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76160146"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76726907"
 ---
 # <a name="aspnet-core-opno-locblazor-state-management"></a>Blazor 状態管理の ASP.NET Core
 
@@ -78,7 +78,7 @@ Blazor サーバーアプリで状態を永続化するには、3つの一般的
 永続的なデータ永続化や、複数のユーザーまたはデバイスにまたがる必要があるデータについては、独立したサーバー側データベースが最適な選択肢です。 次のオプションが用意されています。
 
 * リレーショナル SQL データベース
-* キー値ストア
+* キー/値ストア
 * Blob ストア
 * テーブルストア
 
@@ -172,26 +172,26 @@ ASP.NET Core の[データ保護](xref:security/data-protection/introduction)を
 
 `@using` ステートメントは、コンポーネントではなく *_Imports の razor*ファイルに配置できます。 *_Imports razor*ファイルを使用すると、アプリまたはアプリ全体で名前空間を使用できるようになります。
 
-プロジェクトテンプレートの `Counter` コンポーネントで `currentCount` の値を保持するには、`ProtectedSessionStore.SetAsync`を使用するように `IncrementCount` メソッドを変更します。
+プロジェクトテンプレートの `Counter` コンポーネントで `_currentCount` の値を保持するには、`ProtectedSessionStore.SetAsync`を使用するように `IncrementCount` メソッドを変更します。
 
 ```csharp
 private async Task IncrementCount()
 {
-    currentCount++;
-    await ProtectedSessionStore.SetAsync("count", currentCount);
+    _currentCount++;
+    await ProtectedSessionStore.SetAsync("count", _currentCount);
 }
 ```
 
 大規模でより現実的なアプリでは、個々のフィールドを格納するシナリオはほとんどありません。 アプリは、複雑な状態を含むモデルオブジェクト全体を格納する可能性が高くなります。 `ProtectedSessionStore` は、JSON データを自動的にシリアル化および逆シリアル化します。
 
-前のコード例では、`currentCount` データは `sessionStorage['count']` としてユーザーのブラウザーに格納されます。 データはプレーンテキストで保存されるのではなく、ASP.NET Core の[データ保護](xref:security/data-protection/introduction)を使用して保護されます。 暗号化されたデータは、ブラウザーの開発者コンソールで `sessionStorage['count']` が評価された場合に表示されます。
+前のコード例では、`_currentCount` データは `sessionStorage['count']` としてユーザーのブラウザーに格納されます。 データはプレーンテキストで保存されるのではなく、ASP.NET Core の[データ保護](xref:security/data-protection/introduction)を使用して保護されます。 暗号化されたデータは、ブラウザーの開発者コンソールで `sessionStorage['count']` が評価された場合に表示されます。
 
-ユーザーが後で (まったく新しい回線上にいるかどうかを含めて) `Counter` コンポーネントに戻った場合に `currentCount` データを回復するには、`ProtectedSessionStore.GetAsync`を使用します。
+ユーザーが後で (まったく新しい回線上にいるかどうかを含めて) `Counter` コンポーネントに戻った場合に `_currentCount` データを回復するには、`ProtectedSessionStore.GetAsync`を使用します。
 
 ```csharp
 protected override async Task OnInitializedAsync()
 {
-    currentCount = await ProtectedSessionStore.GetAsync<int>("count");
+    _currentCount = await ProtectedSessionStore.GetAsync<int>("count");
 }
 ```
 
@@ -200,7 +200,7 @@ protected override async Task OnInitializedAsync()
 > [!WARNING]
 > このセクションの例は、サーバーのプリレンダリングが有効になっていない場合にのみ機能します。 プリレンダリングが有効になっていると、次のようなエラーが生成されます。
 >
-> > JavaScript interop calls cannot be issued at this time. This is because the component is being prerendered.
+> > この時点では、JavaScript の相互運用呼び出しは発行できません。 これは、コンポーネントが prerendered されているためです。
 >
 > プリレンダリングを無効にするか、またはプリコーディングを使用するコードを追加します。 プリレンダリングで動作するコードの記述の詳細については、「[処理のプリ](#handle-prerendering)コーディング」を参照してください。
 
@@ -208,18 +208,18 @@ protected override async Task OnInitializedAsync()
 
 ブラウザーストレージは非同期 (ネットワーク接続経由でアクセスされる) であるため、データが読み込まれてコンポーネントで使用できるようになるまでには、常に一定の時間があります。 最適な結果を得るには、読み込み中に、空白または既定のデータを表示するのではなく、読み込み状態メッセージを表示します。
 
-1つの方法は、データが `null` (まだ読み込み中) かどうかを追跡することです。 既定の `Counter` コンポーネントでは、カウントは `int`に保持されます。 Make `currentCount` nullable by adding a question mark (`?`) to the type (`int`):
+1つの方法は、データが `null` (まだ読み込み中) かどうかを追跡することです。 既定の `Counter` コンポーネントでは、カウントは `int`に保持されます。 型 (`int`) に疑問符 (`?`) を追加して、`_currentCount` null 値を許容するようにします。
 
 ```csharp
-private int? currentCount;
+private int? _currentCount;
 ```
 
-Instead of unconditionally displaying the count and **Increment** button, choose to display these elements only if the data is loaded:
+[カウントと**インクリメント**] ボタンを無条件に表示するのではなく、データが読み込まれた場合にのみこれらの要素を表示するように選択します。
 
 ```razor
-@if (currentCount.HasValue)
+@if (_currentCount.HasValue)
 {
-    <p>Current count: <strong>@currentCount</strong></p>
+    <p>Current count: <strong>@_currentCount</strong></p>
 
     <button @onclick="IncrementCount">Increment</button>
 }
@@ -229,22 +229,22 @@ else
 }
 ```
 
-### <a name="handle-prerendering"></a>Handle prerendering
+### <a name="handle-prerendering"></a>プリレンダリングの処理
 
-During prerendering:
+プリレンダリング中:
 
-* An interactive connection to the user's browser doesn't exist.
-* The browser doesn't yet have a page in which it can run JavaScript code.
+* ユーザーのブラウザーへの対話型接続は存在しません。
+* ブラウザーには、JavaScript コードを実行できるページがまだありません。
 
-`localStorage` or `sessionStorage` aren't available during prerendering. If the component attempts to interact with storage, an error is generated similar to:
+`localStorage` または `sessionStorage` を、プリレンダリング中に使用することはできません。 コンポーネントがストレージを操作しようとすると、次のようなエラーが生成されます。
 
-> JavaScript interop calls cannot be issued at this time. This is because the component is being prerendered.
+> この時点では、JavaScript の相互運用呼び出しは発行できません。 これは、コンポーネントが prerendered されているためです。
 
-One way to resolve the error is to disable prerendering. This is usually the best choice if the app makes heavy use of browser-based storage. Prerendering adds complexity and doesn't benefit the app because the app can't prerender any useful content until `localStorage` or `sessionStorage` are available.
+このエラーを解決する方法の1つは、プリレンダリングを無効にすることです。 これは通常、アプリでブラウザーベースのストレージを多用する場合に最適な選択肢です。 プリレンダリングによって複雑さが増すため、アプリは `localStorage` または `sessionStorage` が利用可能になるまでは、役に立つコンテンツを事前に使用できません。
 
-To disable prerendering, open the *Pages/_Host.cshtml* file and change the call to `render-mode` of the `Component` Tag Helper to `Server`.
+プリレンダリングを無効にするには、 *Pages/_Host cshtml*ファイルを開き、`Component` タグヘルパーの `render-mode` への呼び出しを `Server`に変更します。
 
-Prerendering might be useful for other pages that don't use `localStorage` or `sessionStorage`. To keep prerendering enabled, defer the loading operation until the browser is connected to the circuit. The following is an example for storing a counter value:
+`localStorage` または `sessionStorage`を使用しない他のページでは、プリレンダリングが役立つ場合があります。 プリレンダリングが有効な状態を維持するには、ブラウザーが回線に接続されるまで読み込み操作を延期します。 次に、カウンター値を格納する例を示します。
 
 ```razor
 @using Microsoft.AspNetCore.ProtectedBrowserStorage
@@ -253,8 +253,8 @@ Prerendering might be useful for other pages that don't use `localStorage` or `s
 ... rendering code goes here ...
 
 @code {
-    private int? currentCount;
-    private bool isConnected = false;
+    private int? _currentCount;
+    private bool _isConnected = false;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -262,7 +262,7 @@ Prerendering might be useful for other pages that don't use `localStorage` or `s
         {
             // When execution reaches this point, the first *interactive* render
             // is complete. The component has an active connection to the browser.
-            isConnected = true;
+            _isConnected = true;
             await LoadStateAsync();
             StateHasChanged();
         }
@@ -270,28 +270,28 @@ Prerendering might be useful for other pages that don't use `localStorage` or `s
 
     private async Task LoadStateAsync()
     {
-        currentCount = await ProtectedLocalStore.GetAsync<int>("prerenderedCount");
+        _currentCount = await ProtectedLocalStore.GetAsync<int>("prerenderedCount");
     }
 
     private async Task IncrementCount()
     {
-        currentCount++;
-        await ProtectedSessionStore.SetAsync("count", currentCount);
+        _currentCount++;
+        await ProtectedSessionStore.SetAsync("count", _currentCount);
     }
 }
 ```
 
-### <a name="factor-out-the-state-preservation-to-a-common-location"></a>Factor out the state preservation to a common location
+### <a name="factor-out-the-state-preservation-to-a-common-location"></a>共通の場所に保持される状態を考慮する
 
-If many components rely on browser-based storage, re-implementing state provider code many times creates code duplication. One option for avoiding code duplication is to create a *state provider parent component* that encapsulates the state provider logic. Child components can work with persisted data without regard to the state persistence mechanism.
+多くのコンポーネントがブラウザーベースのストレージに依存している場合は、状態プロバイダーコードを何度も再実装すると、コードの重複が発生します。 コードの重複を回避するためのオプションの1つは、状態プロバイダーのロジックをカプセル化する*状態プロバイダーの親コンポーネント*を作成することです。 子コンポーネントは、状態の永続化メカニズムに関係なく、永続化されたデータを処理できます。
 
-In the following example of a `CounterStateProvider` component, counter data is persisted:
+次の `CounterStateProvider` コンポーネントの例では、カウンターデータが永続化されます。
 
 ```razor
 @using Microsoft.AspNetCore.ProtectedBrowserStorage
 @inject ProtectedSessionStorage ProtectedSessionStore
 
-@if (hasLoaded)
+@if (_hasLoaded)
 {
     <CascadingValue Value="@this">
         @ChildContent
@@ -303,7 +303,7 @@ else
 }
 
 @code {
-    private bool hasLoaded;
+    private bool _hasLoaded;
 
     [Parameter]
     public RenderFragment ChildContent { get; set; }
@@ -313,7 +313,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         CurrentCount = await ProtectedSessionStore.GetAsync<int>("count");
-        hasLoaded = true;
+        _hasLoaded = true;
     }
 
     public async Task SaveChangesAsync()
@@ -323,9 +323,9 @@ else
 }
 ```
 
-The `CounterStateProvider` component handles the loading phase by not rendering its child content until loading is complete.
+`CounterStateProvider` コンポーネントは、読み込みが完了するまで子コンテンツをレンダリングしないことによって、読み込みフェーズを処理します。
 
-To use the `CounterStateProvider` component, wrap an instance of the component around any other component that requires access to the counter state. To make the state accessible to all components in an app, wrap the `CounterStateProvider` component around the `Router` in the `App` component (*App.razor*):
+`CounterStateProvider` コンポーネントを使用するには、カウンターの状態へのアクセスを必要とする他のコンポーネントの周囲にコンポーネントのインスタンスをラップします。 アプリ内のすべてのコンポーネントから状態にアクセスできるようにするには、`App` コンポーネント (*app.xaml*) の `Router` の周囲に `CounterStateProvider` コンポーネントをラップします。
 
 ```razor
 <CounterStateProvider>
@@ -335,7 +335,7 @@ To use the `CounterStateProvider` component, wrap an instance of the component a
 </CounterStateProvider>
 ```
 
-Wrapped components receive and can modify the persisted counter state. The following `Counter` component implements the pattern:
+ラップされたコンポーネントはを受け取り、永続化されたカウンターの状態を変更できます。 次の `Counter` コンポーネントは、というパターンを実装しています。
 
 ```razor
 @page "/counter"
@@ -356,13 +356,13 @@ Wrapped components receive and can modify the persisted counter state. The follo
 }
 ```
 
-The preceding component isn't required to interact with `ProtectedBrowserStorage`, nor does it deal with a "loading" phase.
+前のコンポーネントは、`ProtectedBrowserStorage`と対話する必要がなく、"読み込み中" フェーズにも対応していません。
 
-To deal with prerendering as described earlier, `CounterStateProvider` can be amended so that all of the components that consume the counter data automatically work with prerendering. See the [Handle prerendering](#handle-prerendering) section for details.
+前に説明したように、プリレンダリングを処理するには、カウンターデータを使用するすべてのコンポーネントがプリレンダリングを使用して自動的に動作するように `CounterStateProvider` を修正できます。 詳細については、「[ハンドルのプリレンダリング](#handle-prerendering)」を参照してください。
 
-In general, *state provider parent component* pattern is recommended:
+一般に、*状態プロバイダーの親コンポーネント*パターンをお勧めします。
 
-* To consume state in many other components.
-* If there's just one top-level state object to persist.
+* 他の多くのコンポーネントで状態を使用する場合。
+* 保持する最上位レベルの状態オブジェクトが1つだけの場合。
 
-To persist many different state objects and consume different subsets of objects in different places, it's better to avoid handling the loading and saving of state globally.
+さまざまな状態オブジェクトを保持し、異なる場所にあるオブジェクトの異なるサブセットを使用するには、状態の読み込みと保存をグローバルに処理しないことをお勧めします。

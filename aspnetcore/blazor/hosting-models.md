@@ -11,12 +11,12 @@ no-loc:
 - SignalR
 - blazor.webassembly.js
 uid: blazor/hosting-models
-ms.openlocfilehash: c9521acf40317c90d1197660bfa516710263cfc9
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.openlocfilehash: 2c66bede9c1e31b22fd1612fead556176d6f192b
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76160042"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76726867"
 ---
 # <a name="aspnet-core-opno-locblazor-hosting-models"></a>Blazor ホスティングモデルの ASP.NET Core
 
@@ -293,7 +293,7 @@ MVC アプリでルーティング可能な Razor コンポーネントをサポ
 
    カスタムフォルダーを使用してアプリのコンポーネントを保持する場合は、フォルダーを表す名前空間を*Views/_ViewImports cshtml*ファイルに追加します。 詳細については、「 <xref:blazor/components#integrate-components-into-razor-pages-and-mvc-apps>」を参照してください。
 
-### <a name="circuits"></a>回線
+### <a name="circuits"></a>接続
 
 Blazor サーバーアプリは[ASP.NET Core SignalR](xref:signalr/introduction)の上に構築されています。 各クライアントは、*回線*と呼ばれる1つ以上の SignalR 接続を介してサーバーと通信します。 回線は、一時的なネットワーク中断が許容される SignalR 接続に対して Blazor抽象化されています。 Blazor クライアントは、SignalR 接続が切断されていることを確認すると、新しい SignalR 接続を使用してサーバーへの再接続を試みます。
 
@@ -392,7 +392,7 @@ Blazor サーバーアプリでダブルレンダリングのシナリオを回�
 ```csharp
 public class WeatherForecastService
 {
-    private static readonly string[] Summaries = new[]
+    private static readonly string[] _summaries = new[]
     {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild",
         "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -423,7 +423,7 @@ public class WeatherForecastService
             {
                 Date = startDate.AddDays(index),
                 TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
+                Summary = _summaries[rng.Next(_summaries.Length)]
             }).ToArray();
         });
     }

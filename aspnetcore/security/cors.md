@@ -4,14 +4,14 @@ author: rick-anderson
 description: ASP.NET Core アプリでのクロスオリジン要求を許可または拒否するための標準として CORS を使用する方法について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/13/2019
+ms.date: 01/23/2020
 uid: security/cors
-ms.openlocfilehash: 3a51d365626c858ad48298a1108e37eba9050fe7
-ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
+ms.openlocfilehash: 57098be73164c71d1b0d1fe2f3aee7ec41a32346
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72391295"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76727311"
 ---
 # <a name="enable-cross-origin-requests-cors-in-aspnet-core"></a>ASP.NET Core でのクロスオリジン要求 (CORS) を有効にする
 
@@ -471,7 +471,7 @@ Test message
 CORS をテストするには:
 
 1. [API プロジェクトを作成](xref:tutorials/first-web-api)します。 または、[サンプルをダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/cors/sample/Cors)することもできます。
-1. このドキュメントのいずれかの方法を使用して CORS を有効にします。 例 :
+1. このドキュメントのいずれかの方法を使用して CORS を有効にします。 例:
 
   [!code-csharp[](cors/sample/Cors/WebAPI/StartupTest.cs?name=snippet2&highlight=13-18)]
 
@@ -502,6 +502,11 @@ CORS が有効なエンドポイントは、 [Fiddler](https://www.telerik.com/f
 * CORS ミドルウェアが要求を処理する必要はありません。
 * CORS ヘッダーが応答で返されません。
 
-## <a name="additional-resources"></a>その他のリソース
+## <a name="cors-in-iis"></a>IIS での CORS
+
+IIS に展開する場合、サーバーが匿名アクセスを許可するように構成されていない場合、CORS は Windows 認証の前に実行する必要があります。 このシナリオをサポートするには、アプリ用に[IIS CORS モジュール](https://www.iis.net/downloads/microsoft/iis-cors-module)をインストールして構成する必要があります。
+
+## <a name="additional-resources"></a>その他の技術情報
 
 * [クロスオリジンリソース共有 (CORS)](https://developer.mozilla.org/docs/Web/HTTP/CORS)
+* [IIS CORS モジュールの概要](https://blogs.iis.net/iisteam/getting-started-with-the-iis-cors-module)

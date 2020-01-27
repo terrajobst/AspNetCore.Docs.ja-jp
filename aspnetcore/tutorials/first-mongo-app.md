@@ -153,7 +153,7 @@ Windows を使用する場合、MongoDB は既定では *C:\\Program Files\\Mong
 1. **[ASP.NET Core Web アプリケーション]** プロジェクトの種類を選択し、 **[次へ]** を選択します。
 1. プロジェクトに *BooksApi* という名前を付けて、 **[作成]** を選択します。
 1. **[.NET Core]** ターゲット フレームワークと **[ASP.NET Core 3.0]** を選択します。 **[API]** プロジェクト テンプレートを選択し、 **[作成]** を選択します。
-1. [NuGet ギャラリー:MongoDB.Driver](https://www.nuget.org/packages/MongoDB.Driver/) に関するページを参照して、MongoDB 用 .NET ドライバーの最新の安定バージョンを確認します。 **[パッケージ マネージャー コンソール]** ウィンドウで、プロジェクトのルートに移動します。 次のコマンドを実行して、MongoDB 用の .NET ドライバーをインストールします。
+1. [NuGet ギャラリー: MongoDB.Driver](https://www.nuget.org/packages/MongoDB.Driver/) に関するページを参照して、MongoDB 用 .NET ドライバーの最新の安定バージョンを確認します。 **[パッケージ マネージャー コンソール]** ウィンドウで、プロジェクトのルートに移動します。 次のコマンドを実行して、MongoDB 用の .NET ドライバーをインストールします。
 
    ```powershell
    Install-Package MongoDB.Driver -Version {VERSION}
@@ -503,7 +503,7 @@ Windows を使用する場合、MongoDB は既定では *C:\\Program Files\\Mong
 1. **[ASP.NET Core Web アプリケーション]** プロジェクトの種類を選択し、 **[次へ]** を選択します。
 1. プロジェクトに *BooksApi* という名前を付けて、 **[作成]** を選択します。
 1. **[.NET Core]** ターゲット フレームワークと **[ASP.NET Core 2.2]** を選択します。 **[API]** プロジェクト テンプレートを選択し、 **[作成]** を選択します。
-1. [NuGet ギャラリー:MongoDB.Driver](https://www.nuget.org/packages/MongoDB.Driver/) に関するページを参照して、MongoDB 用 .NET ドライバーの最新の安定バージョンを確認します。 **[パッケージ マネージャー コンソール]** ウィンドウで、プロジェクトのルートに移動します。 次のコマンドを実行して、MongoDB 用の .NET ドライバーをインストールします。
+1. [NuGet ギャラリー: MongoDB.Driver](https://www.nuget.org/packages/MongoDB.Driver/) に関するページを参照して、MongoDB 用 .NET ドライバーの最新の安定バージョンを確認します。 **[パッケージ マネージャー コンソール]** ウィンドウで、プロジェクトのルートに移動します。 次のコマンドを実行して、MongoDB 用の .NET ドライバーをインストールします。
 
    ```powershell
    Install-Package MongoDB.Driver -Version {VERSION}

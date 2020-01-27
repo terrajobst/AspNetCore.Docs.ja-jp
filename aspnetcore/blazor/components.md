@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/components
-ms.openlocfilehash: e73667925c04dd1b2360138343c4a2dcef0ee310
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.openlocfilehash: 6643ccd0fdb62243427bb0972d8deb3f7b57079d
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76160016"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76726922"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>ASP.NET Core Razor コンポーネントを作成して使用する
 
@@ -516,7 +516,7 @@ Blazor に日付の書式を設定するためのサポートが組み込まれ�
 <MyComponent @bind-MyProp="MyValue" @bind-MyProp:event="MyEventHandler" />
 ```
 
-**ラジオ ボタン**
+**オプションボタン**
 
 フォームのオプションボタンへのバインドの詳細については、「<xref:blazor/forms-validation#work-with-radio-buttons>」を参照してください。
 
@@ -578,15 +578,15 @@ Razor コンポーネントは、イベント処理機能を提供します。 `
 | Event            | &lt;クラス&gt; のすべてのオブジェクト                | DOM のイベントとメモ |
 | ---------------- | -------------------- | -------------------- |
 | クリップボードのトピック        | `ClipboardEventArgs` | `oncut`では、 `oncopy`では、 `onpaste` |
-| ドラッグ             | `DragEventArgs`      | `ondrag`, `ondragstart`, `ondragenter`, `ondragleave`, `ondragover`, `ondrop`, `ondragend`<br><br>`DataTransfer` および `DataTransferItem` ドラッグした項目データを保持します。 |
+| 抗力             | `DragEventArgs`      | `ondrag`, `ondragstart`, `ondragenter`, `ondragleave`, `ondragover`, `ondrop`, `ondragend`<br><br>`DataTransfer` および `DataTransferItem` ドラッグした項目データを保持します。 |
 | エラー            | `ErrorEventArgs`     | `onerror` |
 | Event            | `EventArgs`          | *全般*<br>`onactivate`、`onbeforeactivate`、`onbeforedeactivate`、`ondeactivate`、`onended`、`onfullscreenchange`、`onfullscreenerror`、`onloadeddata`、`onloadedmetadata`、`onpointerlockchange`、`onpointerlockerror`、`onreadystatechange`、`onscroll`<br><br>*クリップボード*<br>`onbeforecut`では、 `onbeforecopy`では、 `onbeforepaste`<br><br>*入力*<br>`oninvalid`、 `onreset`、 `onselect`、 `onselectionchange`、 `onselectstart`、 `onsubmit`<br><br>*メディア*<br>`oncanplay`、`oncanplaythrough`、`oncuechange`、`ondurationchange`、`onemptied`、`onpause`、`onplay`、`onplaying`の `onratechange`、`onseeked`、`onseeking`、`onstalled`、`onstop`、および `onsuspend` |
 | フォーカス            | `FocusEventArgs`     | `onfocus`, `onblur`, `onfocusin`, `onfocusout`<br><br>には `relatedTarget`のサポートは含まれていません。 |
 | [入力]            | `ChangeEventArgs`    | `onchange`、`oninput` |
 | キーボード         | `KeyboardEventArgs`  | `onkeydown`では、 `onkeypress`では、 `onkeyup` |
 | マウス            | `MouseEventArgs`     | `onclick`, `oncontextmenu`, `ondblclick`, `onmousedown`, `onmouseup`, `onmouseover`, `onmousemove`, `onmouseout` |
-| マウス ポインター    | `PointerEventArgs`   | `onpointerdown`、`onpointerup`、`onpointercancel`、`onpointermove`、`onpointerover`、`onpointerout`、`onpointerenter`、`onpointerleave`、`ongotpointercapture`、`onlostpointercapture` |
-| マウス ホイール      | `WheelEventArgs`     | `onwheel`、`onmousewheel` |
+| マウスポインター    | `PointerEventArgs`   | `onpointerdown`、`onpointerup`、`onpointercancel`、`onpointermove`、`onpointerover`、`onpointerout`、`onpointerenter`、`onpointerleave`、`ongotpointercapture`、`onlostpointercapture` |
+| マウスホイール      | `WheelEventArgs`     | `onwheel`、`onmousewheel` |
 | 中         | `ProgressEventArgs`  | `onabort`、 `onload`、 `onloadend`、 `onloadstart`、 `onprogress`、 `ontimeout` |
 | タッチ            | `TouchEventArgs`     | `ontouchstart`、 `ontouchend`、 `ontouchmove`、 `ontouchenter`、 `ontouchleave`、 `ontouchcancel`<br><br>`TouchPoint` は、タッチを区別するデバイス上の1つの連絡先ポイントを表します。 |
 
@@ -603,7 +603,7 @@ Razor コンポーネントは、イベント処理機能を提供します。 `
 多くの場合、要素のセットを反復処理するときなど、追加の値を終了すると便利です。 次の例では、3つのボタンを作成します。各ボタンは、UI で選択されたときに、イベント引数 (`MouseEventArgs`) とそのボタン番号 (`buttonNumber`) を渡す `UpdateHeading` を呼び出します。
 
 ```razor
-<h2>@message</h2>
+<h2>@_message</h2>
 
 @for (var i = 1; i < 4; i++)
 {
@@ -616,11 +616,11 @@ Razor コンポーネントは、イベント処理機能を提供します。 `
 }
 
 @code {
-    private string message = "Select a button to learn its position.";
+    private string _message = "Select a button to learn its position.";
 
     private void UpdateHeading(MouseEventArgs e, int buttonNumber)
     {
-        message = $"You selected Button #{buttonNumber} at " +
+        _message = $"You selected Button #{buttonNumber} at " +
             $"mouse position: {e.ClientX} X {e.ClientY}.";
     }
 }
@@ -637,7 +637,7 @@ Razor コンポーネントは、イベント処理機能を提供します。 `
 
 [!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=5-7,17-18)]
 
-`ParentComponent` は、子の `EventCallback<T>` を `ShowMessage` メソッドに設定します。
+`ParentComponent` によって、子の `EventCallback<T>` (`OnClick`) が `ShowMessage` メソッドに設定されます。
 
 *Pages/ParentComponent。 razor*:
 
@@ -652,36 +652,28 @@ Razor コンポーネントは、イベント処理機能を提供します。 `
     by the parent component.
 </ChildComponent>
 
-<p><b>@messageText</b></p>
+<p><b>@_messageText</b></p>
 
 @code {
-    private string messageText;
+    private string _messageText;
 
     private void ShowMessage(MouseEventArgs e)
     {
-        messageText = $"Blaze a new trail with Blazor! ({e.ScreenX}, {e.ScreenY})";
+        _messageText = $"Blaze a new trail with Blazor! ({e.ScreenX}, {e.ScreenY})";
     }
 }
 ```
 
 `ChildComponent`でボタンが選択されている場合:
 
-* `ParentComponent`の `ShowMessage` メソッドが呼び出されます。 `messageText` が更新され、`ParentComponent`に表示されます。
+* `ParentComponent`の `ShowMessage` メソッドが呼び出されます。 `_messageText` が更新され、`ParentComponent`に表示されます。
 * このコールバックのメソッド (`ShowMessage`) では、 [Statehaschanged](xref:blazor/lifecycle#state-changes)の呼び出しは必要ありません。 `StateHasChanged` は、子イベントと同様に、子の内部で実行されるイベントハンドラーでコンポーネントの実行がトリガーされるのと同様に、`ParentComponent`をレンダリングするために自動的に呼び出されます。
 
 `EventCallback` および `EventCallback<T>` 非同期デリゲートを許可します。 `EventCallback<T>` は厳密に型指定され、特定の引数型を必要とします。 `EventCallback` は弱く型指定され、任意の引数型を使用できます。
 
 ```razor
-<p><b>@messageText</b></p>
-
-@{ var message = "Default Text"; }
-
 <ChildComponent 
-    OnClick="@(async () => { await Task.Yield(); messageText = "Blaze It!"; })" />
-
-@code {
-    private string messageText;
-}
+    OnClick="@(async () => { await Task.Yield(); _messageText = "Blaze It!"; })" />
 ```
 
 `InvokeAsync` で `EventCallback` または `EventCallback<T>` を呼び出し、<xref:System.Threading.Tasks.Task>を待機します。
@@ -776,7 +768,7 @@ Password:
 
 <input @oninput="OnPasswordChanged" 
        required 
-       type="@(showPassword ? "text" : "password")" 
+       type="@(_showPassword ? "text" : "password")" 
        value="@Password" />
 
 <button class="btn btn-primary" @onclick="ToggleShowPassword">
@@ -784,7 +776,7 @@ Password:
 </button>
 
 @code {
-    private bool showPassword;
+    private bool _showPassword;
 
     [Parameter]
     public string Password { get; set; }
@@ -801,7 +793,7 @@ Password:
 
     private void ToggleShowPassword()
     {
-        showPassword = !showPassword;
+        _showPassword = !_showPassword;
     }
 }
 ```
@@ -809,16 +801,16 @@ Password:
 `PasswordField` コンポーネントが別のコンポーネントで使用されています。
 
 ```razor
-<PasswordField @bind-Password="password" />
+<PasswordField @bind-Password="_password" />
 
 @code {
-    private string password;
+    private string _password;
 }
 ```
 
 前の例で、パスワードの確認またはトラップエラーを実行するには、次の手順を実行します。
 
-* `Password` のバッキングフィールドを作成します (次のコード例では`password`)。
+* `Password` のバッキングフィールドを作成します (次のコード例では`_password`)。
 * `Password` setter で、チェックまたはトラップのエラーを実行します。
 
 次の例では、パスワードの値にスペースが使用されている場合に、ユーザーにすぐにフィードバックを提供します。
@@ -828,36 +820,36 @@ Password:
 
 <input @oninput="OnPasswordChanged" 
        required 
-       type="@(showPassword ? "text" : "password")" 
+       type="@(_showPassword ? "text" : "password")" 
        value="@Password" />
 
 <button class="btn btn-primary" @onclick="ToggleShowPassword">
     Show password
 </button>
 
-<span class="text-danger">@validationMessage</span>
+<span class="text-danger">@_validationMessage</span>
 
 @code {
-    private bool showPassword;
-    private string password;
-    private string validationMessage;
+    private bool _showPassword;
+    private string _password;
+    private string _validationMessage;
 
     [Parameter]
     public string Password
     {
-        get { return password ?? string.Empty; }
+        get { return _password ?? string.Empty; }
         set
         {
-            if (password != value)
+            if (_password != value)
             {
                 if (value.Contains(' '))
                 {
-                    validationMessage = "Spaces not allowed!";
+                    _validationMessage = "Spaces not allowed!";
                 }
                 else
                 {
-                    password = value;
-                    validationMessage = string.Empty;
+                    _password = value;
+                    _validationMessage = string.Empty;
                 }
             }
         }
@@ -875,7 +867,7 @@ Password:
 
     private void ToggleShowPassword()
     {
-        showPassword = !showPassword;
+        _showPassword = !_showPassword;
     }
 }
 ```
@@ -888,22 +880,22 @@ Password:
 * 子コンポーネントと同じ型のフィールドを定義します。
 
 ```razor
-<MyLoginDialog @ref="loginDialog" ... />
+<MyLoginDialog @ref="_loginDialog" ... />
 
 @code {
-    private MyLoginDialog loginDialog;
+    private MyLoginDialog _loginDialog;
 
     private void OnSomething()
     {
-        loginDialog.Show();
+        _loginDialog.Show();
     }
 }
 ```
 
-コンポーネントがレンダリングされると、[`loginDialog`] フィールドに `MyLoginDialog` 子コンポーネントインスタンスが設定されます。 その後、コンポーネントインスタンスで .NET メソッドを呼び出すことができます。
+コンポーネントがレンダリングされると、[`_loginDialog`] フィールドに `MyLoginDialog` 子コンポーネントインスタンスが設定されます。 その後、コンポーネントインスタンスで .NET メソッドを呼び出すことができます。
 
 > [!IMPORTANT]
-> `loginDialog` 変数は、コンポーネントがレンダリングされた後にのみ設定され、その出力には `MyLoginDialog` 要素が含まれます。 この時点までは、参照するものはありません。 コンポーネント参照のレンダリングが完了した後にコンポーネント参照を操作するに[は、OnAfterRenderAsync メソッドまたは OnAfterRender メソッド](xref:blazor/lifecycle#after-component-render)を使用します。
+> `_loginDialog` 変数は、コンポーネントがレンダリングされた後にのみ設定され、その出力には `MyLoginDialog` 要素が含まれます。 この時点までは、参照するものはありません。 コンポーネント参照のレンダリングが完了した後にコンポーネント参照を操作するに[は、OnAfterRenderAsync メソッドまたは OnAfterRender メソッド](xref:blazor/lifecycle#after-component-render)を使用します。
 
 コンポーネント参照のキャプチャは、[要素参照のキャプチャ](xref:blazor/javascript-interop#capture-references-to-elements)に似た構文を使用しますが、 [JavaScript 相互運用](xref:blazor/javascript-interop)機能ではありません。 コンポーネント参照は、.NET コードでのみ使用される&mdash;JavaScript コードに渡されません。
 
@@ -939,10 +931,10 @@ public class NotifierService
 @inject NotifierService Notifier
 @implements IDisposable
 
-<p>Last update: @lastNotification.key = @lastNotification.value</p>
+<p>Last update: @_lastNotification.key = @_lastNotification.value</p>
 
 @code {
-    private (string key, int value) lastNotification;
+    private (string key, int value) _lastNotification;
 
     protected override void OnInitialized()
     {
@@ -953,7 +945,7 @@ public class NotifierService
     {
         await InvokeAsync(() =>
         {
-            lastNotification = (key, value);
+            _lastNotification = (key, value);
             StateHasChanged();
         });
     }
@@ -1101,16 +1093,16 @@ Razor コンポーネントは部分クラスとして生成されます。 Razo
 
 <h1>Counter</h1>
 
-<p>Current count: @currentCount</p>
+<p>Current count: @_currentCount</p>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 @code {
-    int currentCount = 0;
+    private int _currentCount = 0;
 
     void IncrementCount()
     {
-        currentCount++;
+        _currentCount++;
     }
 }
 ```
@@ -1124,7 +1116,7 @@ Razor コンポーネントは部分クラスとして生成されます。 Razo
 
 <h1>Counter</h1>
 
-<p>Current count: @currentCount</p>
+<p>Current count: @_currentCount</p>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 ```
@@ -1136,11 +1128,11 @@ namespace BlazorApp.Pages
 {
     public partial class Counter
     {
-        int currentCount = 0;
+        private int _currentCount = 0;
 
         void IncrementCount()
         {
-            currentCount++;
+            _currentCount++;
         }
     }
 }
@@ -1236,10 +1228,10 @@ HTML 要素の属性は、.NET の値に基づいて条件付きで表示され�
 次の例では、`MarkupString` 型を使用して、コンポーネントのレンダリングされた出力に静的 HTML コンテンツのブロックを追加します。
 
 ```html
-@((MarkupString)myMarkup)
+@((MarkupString)_myMarkup)
 
 @code {
-    private string myMarkup = 
+    private string _myMarkup = 
         "<p class='markup'>This is a <em>markup string</em>.</p>";
 }
 ```
@@ -1365,7 +1357,7 @@ public class ThemeInfo
             <NavMenu />
         </div>
         <div class="col-sm-9">
-            <CascadingValue Value="theme">
+            <CascadingValue Value="_theme">
                 <div class="content px-4">
                     @Body
                 </div>
@@ -1375,7 +1367,7 @@ public class ThemeInfo
 </div>
 
 @code {
-    private ThemeInfo theme = new ThemeInfo { ButtonClass = "btn-success" };
+    private ThemeInfo _theme = new ThemeInfo { ButtonClass = "btn-success" };
 }
 ```
 
@@ -1392,7 +1384,7 @@ public class ThemeInfo
 
 <h1>Cascading Values & Parameters</h1>
 
-<p>Current count: @currentCount</p>
+<p>Current count: @_currentCount</p>
 
 <p>
     <button class="btn" @onclick="IncrementCount">
@@ -1407,14 +1399,14 @@ public class ThemeInfo
 </p>
 
 @code {
-    private int currentCount = 0;
+    private int _currentCount = 0;
 
     [CascadingParameter]
     protected ThemeInfo ThemeInfo { get; set; }
 
     private void IncrementCount()
     {
-        currentCount++;
+        _currentCount++;
     }
 }
 ```
@@ -1422,14 +1414,14 @@ public class ThemeInfo
 同じサブツリー内で同じ型の複数の値を連鎖させるには、各 `CascadingValue` コンポーネントとそれに対応する `CascadingParameter`に一意の `Name` 文字列を指定します。 次の例では、2つの `CascadingValue` コンポーネントが名前で `MyCascadingType` の異なるインスタンスをカスケードしています。
 
 ```razor
-<CascadingValue Value=@ParentCascadeParameter1 Name="CascadeParam1">
+<CascadingValue Value=@_parentCascadeParameter1 Name="CascadeParam1">
     <CascadingValue Value=@ParentCascadeParameter2 Name="CascadeParam2">
         ...
     </CascadingValue>
 </CascadingValue>
 
 @code {
-    private MyCascadingType ParentCascadeParameter1;
+    private MyCascadingType _parentCascadeParameter1;
 
     [Parameter]
     public MyCascadingType ParentCascadeParameter2 { get; set; }
@@ -1509,14 +1501,13 @@ public class ThemeInfo
 次の例は、`RenderFragment` と `RenderFragment<T>` の値を指定し、テンプレートをコンポーネント内で直接表示する方法を示しています。 レンダーフラグメントは、[テンプレートコンポーネント](#templated-components)に引数として渡すこともできます。
 
 ```razor
-@timeTemplate
+@_timeTemplate
 
-@petTemplate(new Pet { Name = "Rex" })
+@_petTemplate(new Pet { Name = "Rex" })
 
 @code {
-    private RenderFragment timeTemplate = @<p>The time is @DateTime.Now.</p>;
-    private RenderFragment<Pet> petTemplate = 
-        (pet) => @<p>Your pet's name is @pet.Name.</p>;
+    private RenderFragment _timeTemplate = @<p>The time is @DateTime.Now.</p>;
+    private RenderFragment<Pet> _petTemplate = (pet) => @<p>Pet: @pet.Name</p>;
 
     private class Pet
     {
@@ -1530,7 +1521,7 @@ public class ThemeInfo
 ```html
 <p>The time is 10/04/2018 01:26:52.</p>
 
-<p>Your pet's name is Rex.</p>
+<p>Pet: Rex</p>
 ```
 
 ## <a name="manual-rendertreebuilder-logic"></a>手動の RenderTreeBuilder ロジック
@@ -1775,8 +1766,6 @@ public class CultureController : Controller
 </select>
 
 @code {
-    private double textNumber;
-
     private void OnSelected(ChangeEventArgs e)
     {
         var culture = (string)e.Value;
