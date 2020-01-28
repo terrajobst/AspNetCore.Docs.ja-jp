@@ -1,5 +1,7 @@
 - name: ASP.NET Core ドキュメント
   href: '/aspnet/#pivot=core'
+- name: ASP.NET Core ドキュメントの新機能
+  href: whats-new/index.yml
 - name: 概要
   items:
     - name: ASP.NET Core について
@@ -10,7 +12,7 @@
       href: /dotnet/standard/choosing-core-framework-server?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
 - name: 作業開始
   uid: getting-started
-- name: 新機能
+- name: リリース ノート
   items:
     - name: 3.1 の新機能
       uid: aspnetcore-3.1
@@ -393,7 +395,7 @@
               href: 'mvc/views/working-with-forms.md#the-label-tag-helper'
             - name: Link
               uid: mvc/views/tag-helpers/builtin-th/link-tag-helper
-            - name: 部分的
+            - name: Partial
               uid: mvc/views/tag-helpers/builtin-th/partial-tag-helper
             - name: スクリプト
               uid: mvc/views/tag-helpers/builtin-th/script-tag-helper
@@ -885,15 +887,27 @@
             - name: 概要
               uid: security/authentication/azure-active-directory/index
             - name: Web アプリへの Azure AD の統合
-              href: 'https://github.com/Azure-Samples/ms-identity-aspnetcore-webapp-tutorial'
-            - name: Web アプリへの Azure AD B2C の統合
-              uid: security/authentication/azure-ad-b2c
-            - name: Web API への Azure AD B2C の統合
-              uid: security/authentication/azure-ad-b2c-webapi
-            - name: WPF からの Web API の呼び出し
-              href: 'https://github.com/Azure-Samples/active-directory-dotnet-native-aspnetcore'
-            - name: Azure AD を使用した Web アプリでの Web API の呼び出し
-              href: 'https://github.com/Azure-Samples/active-directory-dotnet-webapp-webapi-openidconnect-aspnetcore'
+              href: /azure/active-directory/develop/quickstart-v2-aspnet-core-webapp
+            - name: シナリオ
+              items:
+                - name: ユーザーがサインインする Web アプリ
+                  href: /azure/active-directory/develop/scenario-web-app-sign-user-overview?tabs=aspnetcore
+                - name: Web API を呼び出す Web アプリ
+                  href: /azure/active-directory/develop/scenario-web-app-call-api-overview
+                - name: 保護された Web API
+                  href: /azure/active-directory/develop/scenario-protected-web-api-overview
+                - name: 他の Web API を呼び出す Web アプリ
+                  href: /azure/active-directory/develop/scenario-web-api-call-api-overview
+                - name: Web アプリへの Azure AD B2C の統合
+                  uid: security/authentication/azure-ad-b2c
+            - name: サンプル
+              items:
+                - name: Azure AD V2 を使用してユーザーをサインインさせ、Web API を呼び出す
+                  href: /samples/azure-samples/active-directory-aspnetcore-webapp-openidconnect-v2/enable-webapp-signin/
+                - name: Azure AD V2 を使用した WPF アプリケーションからの ASP.NET Core 2.0 Web API の呼び出し
+                  href: /samples/azure-samples/active-directory-dotnet-native-aspnetcore-v2/calling-an-aspnet-core-web-api-from-a-wpf-application-using-azure-ad-v2/
+                - name: Azure AD B2C を使用した Web API
+                  href: 'https://azure.microsoft.com/resources/samples/active-directory-b2c-dotnetcore-webapi/'
         - name: IdentityServer4 での ASP.NET Core アプリのセキュリティ保護
           href: 'https://identityserver4.readthedocs.io/'
         - name: Azure App Service 認証 (Easy Auth) での ASP.NET Core アプリのセキュリティ保護

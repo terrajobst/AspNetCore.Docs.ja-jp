@@ -1,37 +1,37 @@
 ---
-title: Azure Active Directory と ASP.NET Core
+title: ASP.NET Core を使用した Microsoft ID プラットフォームと Azure Active Directory
 author: rick-anderson
-description: ASP.NET Core での Azure Active Directory による認証に関連するトピックについて説明します。
+description: ASP.NET Core における Web アプリと API のための Microsoft ID プラットフォームと Azure Active Directory での認証に関連するトピックを紹介します。
 ms.author: riande
-ms.date: 01/14/2020
+ms.date: 01/21/2020
 ms.custom: mvc, seodec18
 uid: security/authentication/azure-active-directory/index
-ms.openlocfilehash: a856643216d423c791d3df47bd2206f9121b543f
-ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
+ms.openlocfilehash: 7829a062d4727238addca051d0599438c99e90dc
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/14/2020
-ms.locfileid: "75951915"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76726759"
 ---
 # <a name="azure-active-directory-with-aspnet-core"></a>Azure Active Directory と ASP.NET Core
 
-## <a name="azure-ad-v1-samples"></a>Azure AD V1 のサンプル
+これらのチュートリアルとサンプルは、Microsoft ID プラットフォームと Azure Active Directory を使用した ASP.NET Core での認証を示します。 Azure AD での ASP.NET Core を使用したその他のチュートリアルとサンプルについては、「[Microsoft ID プラットフォーム](/azure/active-directory/develop/)」を参照してください。
 
-次のサンプルは、Azure AD V1 を統合して職場/学校アカウントでのサインインを可能にする方法を示します。
-* [ASP.NET Core Web アプリへの Azure AD の統合](https://github.com/Azure-Samples/active-directory-dotnet-webapp-openidconnect-aspnetcore/tree/master) (アーカイブ済みであり、未サポートです)
-* [Azure AD を使用した WPF アプリケーションからの ASP.NET Core Web API の呼び出し](https://github.com/Azure-Samples/active-directory-dotnet-native-aspnetcore)
-* [Azure AD を使用した ASP.NET Core Web アプリケーションでの Web API の呼び出し](https://azure.microsoft.com/documentation/samples/active-directory-dotnet-webapp-webapi-openidconnect-aspnetcore/)
+## <a name="application-scenarios"></a>アプリケーション シナリオ
 
-## <a name="azure-ad-v2-samples"></a>Azure AD V2 のサンプル
+* [クイック スタート:Microsoft でのサインインを ASP.NET Core Web アプリに追加する](/azure/active-directory/develop/quickstart-v2-aspnet-core-webapp)
+* [ユーザーがサインインする Web アプリ](/azure/active-directory/develop/scenario-web-app-sign-user-overview?tabs=aspnetcore)
+* [Web API を呼び出す Web アプリ](/azure/active-directory/develop/scenario-web-app-call-api-overview)
+* [保護された Web API](/azure/active-directory/develop/scenario-protected-web-api-overview)
+* [他の Web API を呼び出す Web アプリ](/azure/active-directory/develop/scenario-web-api-call-api-overview)
+* [Azure AD B2C にユーザーをサインインさせる Web アプリ](xref:security/authentication/azure-ad-b2c)
 
-次のサンプルは、Azure AD V2 を統合して職場/学校アカウント、または Microsoft 個人アカウント (旧 Live アカウント) でのサインインを可能にする方法を示します。
-* [ASP.NET Core 2.0 Web アプリへの Azure AD V2 の統合](https://github.com/Azure-Samples/active-directory-aspnetcore-webapp-openidconnect-v2): 
-  * [こちらの関連ビデオ](https://channel9.msdn.com/Events/Build/2018/THR5001)をご覧ください 
+## <a name="samples"></a>サンプル
 
-* [Azure AD V2 を使用した WPF アプリケーションからの ASP.NET Core 2.0 Web API の呼び出し](https://github.com/azure-samples/active-directory-dotnet-native-aspnetcore-v2): 
+* [Azure AD V2 を使用して ASP.NET Core アプリでユーザーをサインインさせ、Web API が呼び出せるようにする](/samples/azure-samples/active-directory-aspnetcore-webapp-openidconnect-v2/enable-webapp-signin/): 
+  * [こちらの関連ビデオ](https://channel9.msdn.com/Events/Build/2018/THR5001)をご覧ください
+
+* [Azure AD V2 を使用した WPF アプリケーションからの ASP.NET Core 2.0 Web API の呼び出し](/samples/azure-samples/active-directory-dotnet-native-aspnetcore-v2/calling-an-aspnet-core-web-api-from-a-wpf-application-using-azure-ad-v2/): 
   * [こちらの関連ビデオ](https://channel9.msdn.com/Events/Build/2018/THR5000)をご覧ください
 
-## <a name="azure-ad-b2c-sample"></a>Azure AD B2C のサンプル
-
-このサンプルは、Azure AD B2C を統合してソーシャル ID (Facebook、Google など) でのサインインを可能にする方法を示します
 * [ASP.NET Core Web API アプリでの Azure AD B2C](https://azure.microsoft.com/resources/samples/active-directory-b2c-dotnetcore-webapi/)

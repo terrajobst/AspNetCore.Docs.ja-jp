@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/13/2020
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: bf035bc65f0f120f52e55effe4d413bfecdf735d
-ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
+ms.openlocfilehash: 146a204509856186a2696b770cae2249d348fa34
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/14/2020
-ms.locfileid: "75952085"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76726840"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>IIS を使用した Windows での ASP.NET Core のホスト
 
@@ -26,8 +26,19 @@ ASP.NET Core アプリを IIS サーバーに発行する手順のチュート�
 
 次のオペレーティング システムがサポートされています。
 
+::: moniker range=">= aspnetcore-3.0"
+
+* Windows 7 以降
+* Windows Server 2012 R2 以降
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 * Windows 7 以降
 * Windows Server 2008 R2 以降
+
+::: moniker-end
 
 [HTTP.sys サーバー](xref:fundamentals/servers/httpsys) (旧称 WebListener) は、IIS が含まれるリバース プロキシ構成では動作しません。 [Kestrel サーバー](xref:fundamentals/servers/kestrel)を使用します。
 
