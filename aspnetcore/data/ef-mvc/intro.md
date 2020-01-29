@@ -7,22 +7,21 @@ ms.custom: mvc
 ms.date: 02/06/2019
 ms.topic: tutorial
 uid: data/ef-mvc/intro
-ms.openlocfilehash: a8909d391ae1a35e9c8155df767ab157701c8a51
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: 04694f20c7142cc2917df25458e8e335ee933900
+ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259445"
+ms.lasthandoff: 01/18/2020
+ms.locfileid: "76268771"
 ---
 # <a name="tutorial-get-started-with-ef-core-in-an-aspnet-mvc-web-app"></a>チュートリアル: ASP.NET MVC Web アプリでの EF Core の概要
 
-::: moniker range=">= aspnetcore-3.0"
+このチュートリアルは ASP.NET Core 3.0 に更新されて**いません**。 [Razor Pages バージョン](xref:data/ef-rp/intro)は更新されています。 このチュートリアルの ASP.NET Core 3.0 以降のバージョンの、ほとんどのコード変更は:
 
-このチュートリアルは ASP.NET Core 3.0 に更新されて**いません**。 [Razor Pages バージョン](xref:data/ef-rp/intro)は更新されています。 この情報がいつ更新されるかについては、[こちらの GitHub の問題](https://github.com/aspnet/AspNetCore.Docs/issues/13920)を参照してください。
+* *Startup.cs* と *Program.cs* ファイルにあります。
+* [Razor Pages バージョン](xref:data/ef-rp/intro)にある場合があります。 
 
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.0"
+この情報がいつ更新されるかについては、[こちらの GitHub の問題](https://github.com/aspnet/AspNetCore.Docs/issues/13920)を参照してください。
 
 [!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc.md)]
 
@@ -52,7 +51,7 @@ Contoso University のサンプル Web アプリケーションでは、Entity F
 
 ## <a name="troubleshooting"></a>トラブルシューティング
 
-解決できない問題に遭遇した場合、通常、[完成済みのプロジェクト](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)と自分のコードを比較することで解決策がわかります。 一般的なエラーとその解決方法の一覧については、[チュートリアル シリーズの後半に登場するトラブルシューティング セクション](advanced.md#common-errors)をご覧ください。 そこで必要な答えが見つからない場合、StackOverflow.com で [ASP.NET Core](https://stackoverflow.com/questions/tagged/asp.net-core) または [EF Core](https://stackoverflow.com/questions/tagged/entity-framework-core) に関する質問を投稿できます。
+解決できない問題に遭遇した場合、通常、[完成済みのプロジェクト](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)と自分のコードを比較することで解決策がわかります。 一般的なエラーとその解決方法の一覧については、[このシリーズの最後のチュートリアルにあるトラブルシューティングのセクション](advanced.md#common-errors)をご覧ください。 そこで必要な答えが見つからない場合、StackOverflow.com で [ASP.NET Core](https://stackoverflow.com/questions/tagged/asp.net-core) または [EF Core](https://stackoverflow.com/questions/tagged/entity-framework-core) に関する質問を投稿できます。
 
 > [!TIP]
 > これは 10 回のチュートリアルからなるシリーズであり、いずれの回も前のチュートリアルを基盤にしています。 チュートリアルが完了したら、毎回、プロジェクトのコピーを保存するようお勧めします。 問題に遭遇したとき、前のチュートリアルから始めることができます。シリーズ全体の始めまで戻る必要がありません。
@@ -387,4 +386,3 @@ Entity Framework を利用する非同期コードの記述で注意すべき点
 > [!div class="nextstepaction"]
 > [基本 CRUD 機能を実装する](crud.md)
 
-::: moniker-end

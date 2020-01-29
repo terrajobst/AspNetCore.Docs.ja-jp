@@ -2,20 +2,20 @@
 title: ASP.NET Core Blazor サーバーのホストとデプロイ
 author: guardrex
 description: ASP.NET Core を使用して Blazor サーバー アプリをホストおよびデプロイする方法について学習します。
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/server
-ms.openlocfilehash: d45d355eabc53fc90bcda4cb7be22fb6a9f04541
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: c07cd05dd8e1c4384c6f8f019173b9b7a9a06fd0
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944335"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76160224"
 ---
 # <a name="host-and-deploy-opno-locblazor-server"></a>Blazor サーバーをホストおよびデプロイする
 
@@ -79,11 +79,11 @@ Blazor サーバー アプリには [Azure SignalR Service](/azure/azure-signalr
        "Azure:SignalR:ServerStickyMode": "Required"
        ```
 
-     * Azure portal で App Service の **[構成]** > **[アプリケーションの設定]** (**名前**: `Azure:SignalR:ServerStickyMode`、**値**: `Required`)。
+     * Azure portal で App Service の **[構成]**  >  **[アプリケーションの設定]** (**名前**: `Azure:SignalR:ServerStickyMode`、**値**: `Required`)。
 
 1. Blazor サーバー アプリ用に、Visual Studio に Azure アプリ発行プロファイルを作成する。
-1. プロファイルに **Azure SignalR Service** の依存関係を追加する。 Azure サブスクリプションに、アプリに割り当てる既存の Azure SignalR Service のインスタンスがない場合は、**[新しい Azure SignalR Service のインスタンスを作成する]** を選択して新しいサービス インスタンスをプロビジョニングします。
-1. アプリを Azure に発行する
+1. プロファイルに **Azure SignalR Service** の依存関係を追加する。 Azure サブスクリプションに、アプリに割り当てる既存の Azure SignalR Service のインスタンスがない場合は、 **[新しい Azure SignalR Service のインスタンスを作成する]** を選択して新しいサービス インスタンスをプロビジョニングします。
+1. Azure にアプリを公開します。
 
 #### <a name="iis"></a>IIS
 

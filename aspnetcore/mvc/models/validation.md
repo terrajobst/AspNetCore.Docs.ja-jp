@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/15/2019
 uid: mvc/models/validation
-ms.openlocfilehash: 042a9933e561de4957f6332bdff3c4f09d2e119b
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: b697f02183c76b9a96471a748a86c144fde47bb0
+ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75355264"
+ms.lasthandoff: 01/18/2020
+ms.locfileid: "76268749"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>ASP.NET Core MVC および Razor Pages でのモデルの検証
 
@@ -82,7 +82,9 @@ Web API コントローラーでは、`[ApiController]` 属性が設定されて
 
 ## <a name="required-attribute"></a>[Required] 属性
 
-既定では、検証システムでは null 非許容型のパラメーターまたはプロパティは `[Required]` 属性を持つものとして処理されます。 `decimal` や `int` などの[値の型](/dotnet/csharp/language-reference/keywords/value-types)は null 非許容型です。
+.NET Core 3.0 以降の検証システムでは null 非許容型のパラメーターまたはバインド プロパティは `[Required]` 属性を持つものとして処理されます。 `decimal` や `int` などの[値の型](/dotnet/csharp/language-reference/keywords/value-types)は null 非許容型です。 `Startup.ConfigureServices` で <xref:Microsoft.AspNetCore.Mvc.MvcOptions.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes> を次のように構成することで、この動作を無効にできます。
+
+``csharp services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true); ...
 
 ### <a name="required-validation-on-the-server"></a>サーバーでの [Required] の検証
 

@@ -2,19 +2,20 @@
 title: ASP.NET Core Blazor WebAssembly をホストしてデプロイする
 author: guardrex
 description: ASP.NET Core、Content Delivery Networks (CDN)、ファイル サーバー、GitHub ページを使用して、Blazor アプリをホストしデプロイする方法について説明します。
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/15/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
+- SignalR
 uid: host-and-deploy/blazor/webassembly
-ms.openlocfilehash: 0fcefc3f1e51beb7cc29aef6dd4f4b8557e61965
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 8ed95cdb96804e08c3f1273bbea8f64a8e4f173c
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963641"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76160250"
 ---
 # <a name="host-and-deploy-aspnet-core-opno-locblazor-webassembly"></a>ASP.NET Core Blazor WebAssembly をホストしてデプロイする
 
@@ -317,4 +318,4 @@ URL の書き換えを処理するために、*404.html* ファイルを、要�
 
 ## <a name="configure-the-linker"></a>リンカーを構成する
 
-Blazor では、出力アセンブリから不要な中間言語 (IL) を削除するために、IL リンク設定が各ビルド上で実行されます。 アセンブリのリンクはビルドで制御できます。 詳細については、<xref:host-and-deploy/blazor/configure-linker> を参照してください。
+Blazor では、出力アセンブリから不要な中間言語 (IL) を削除するために、IL リンク設定が各ビルド上で実行されます。 アセンブリのリンクはビルドで制御できます。 詳細については、「<xref:host-and-deploy/blazor/configure-linker>」を参照してください。

@@ -3,15 +3,15 @@ title: ASP.NET Core のクラス ライブラリの再利用可能 Razor UI
 author: Rick-Anderson
 description: Razor を ASP.NET core クラス ライブラリの部分ビューを使用して再利用可能な UI を作成する方法について説明します。
 ms.author: riande
-ms.date: 10/26/2019
+ms.date: 01/25/2020
 ms.custom: mvc, seodec18
 uid: razor-pages/ui-class
-ms.openlocfilehash: b5235f4e31f6edd21fb410824fb215ab2d4a41b6
-ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
+ms.openlocfilehash: 420cc54701394673e2b442b1fdf999e421820fd5
+ms.sourcegitcommit: b5ceb0a46d0254cc3425578116e2290142eec0f0
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/24/2020
-ms.locfileid: "76727289"
+ms.lasthandoff: 01/28/2020
+ms.locfileid: "76809121"
 ---
 # <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a>ASP.NET Core の Razor クラスライブラリプロジェクトを使用して、再利用可能な UI を作成する
 
@@ -86,7 +86,7 @@ Web アプリと RCL の両方にビュー、部分ビュー、Razor ページ�
 
 ## <a name="create-an-rcl-with-static-assets"></a>静的なアセットを含む RCL を作成する
 
-RCL では、RCL の消費アプリから参照できる、関連する静的アセットが必要な場合があります。 ASP.NET Core では、使用中のアプリで利用可能な静的アセットを含む RCLs を作成できます。
+Rcl では、rcl または RCL の使用中のアプリで参照できる、コンパニオンの静的アセットが必要になる場合があります。 ASP.NET Core では、使用中のアプリで利用可能な静的アセットを含む RCLs を作成できます。
 
 RCL の一部としてコンパニオン資産を含めるには、クラスライブラリに*wwwroot*フォルダーを作成し、そのフォルダーに必要なファイルを含めます。
 
@@ -127,7 +127,7 @@ TypeScript ファイルを RCL に含めるには、次のようにします。
 
 ### <a name="consume-content-from-a-referenced-rcl"></a>参照されている RCL からのコンテンツの使用
 
-RCL の*wwwroot*フォルダーに含まれるファイルは、使用中のアプリにプレフィックス `_content/{LIBRARY NAME}/`で公開されます。 たとえば、という名前のライブラリを使用*すると、* `_content/Razor.Class.Lib/`の静的コンテンツへのパスが生成されます。 NuGet パッケージを生成するときに、アセンブリ名がパッケージ ID と異なる場合は、`{LIBRARY NAME}`のパッケージ ID を使用します。
+RCL の*wwwroot*フォルダーに含まれるファイルは、`_content/{LIBRARY NAME}/`プレフィックスで rcl または使用中のアプリのいずれかに公開されます。 たとえば、という名前のライブラリを使用*すると、* `_content/Razor.Class.Lib/`の静的コンテンツへのパスが生成されます。 NuGet パッケージを生成するときに、アセンブリ名がパッケージ ID と異なる場合は、`{LIBRARY NAME}`のパッケージ ID を使用します。
 
 使用中のアプリは、ライブラリによって提供される静的なアセットを `<script>`、`<style>`、`<img>`、およびその他の HTML タグと共に参照します。 コンシューマーアプリの `Startup.Configure`では、[静的ファイルのサポート](xref:fundamentals/static-files)が有効になっている必要があります。
 

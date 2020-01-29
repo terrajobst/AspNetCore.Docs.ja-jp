@@ -9,20 +9,20 @@ ms.date: 08/23/2019
 no-loc:
 - Blazor
 uid: razor-pages/sdk
-ms.openlocfilehash: 2fbdf95d02d7918236981c7fee8ebcbedf5c55e1
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 872d90662494735dc0e4caa01c46fcdcc2606bc6
+ms.sourcegitcommit: b5ceb0a46d0254cc3425578116e2290142eec0f0
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963259"
+ms.lasthandoff: 01/28/2020
+ms.locfileid: "76809134"
 ---
 # <a name="aspnet-core-razor-sdk"></a>ASP.NET Core の Razor SDK
 
 作成者: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-## <a name="overview"></a>概要
+## <a name="overview"></a>の概要
 
-[!INCLUDE[](~/includes/2.1-SDK.md)] には、`Microsoft.NET.Sdk.Razor` MSBuild SDK (Razor SDK) が含まれています。 Razor SDK とは、次のとおりです。
+[!INCLUDE[](~/includes/2.1-SDK.md)]が含まれています、 `Microsoft.NET.Sdk.Razor` MSBuild SDK (Razor SDK)。 Razor SDK とは、次のとおりです。
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -42,17 +42,17 @@ Razor SDK には、`Include` 属性が `**\*.cshtml` グロビングパターン
 
 ::: moniker-end
 
-## <a name="prerequisites"></a>必要条件
+## <a name="prerequisites"></a>Prerequisites
 
 [!INCLUDE[](~/includes/2.1-SDK.md)]
 
 ## <a name="use-the-razor-sdk"></a>Razor SDK を使用する
 
-ほとんどの web アプリは、Razor SDK を明示的に参照する必要がありません。
+ほとんどの web アプリは、Razor の SDK を明示的に参照する必要はありません。
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Razor SDK を使用して Razor ビューまたは Razor Pages を含むクラスライブラリをビルドするには、Razor クラスライブラリ (RCL) プロジェクトテンプレートから始めることをお勧めします。 Blazor (*razor*) ファイルのビルドに使用される rcl では、 [Microsoft.AspNetCore.Components](https://www.nuget.org/packages/Microsoft.AspNetCore.Components)パッケージへの参照が最低限必要です。 Razor ビューまたはページ (*cshtml*ファイル) をビルドするために使用される rcl では、`netcoreapp3.0` 以降をターゲットにする必要があります。また、プロジェクトファイルの[Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)に `FrameworkReference` があります。
+Razor SDK を使用して Razor ビューまたは Razor Pages を含むクラスライブラリをビルドするには、Razor クラスライブラリ (RCL) プロジェクトテンプレートから始めることをお勧めします。 Blazor (*razor*) ファイルのビルドに使用される rcl では、 [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Components)パッケージへの参照が最低限必要です。 Razor ビューまたはページ (*cshtml*ファイル) をビルドするために使用される rcl では、`netcoreapp3.0` 以降をターゲットにする必要があります。また、プロジェクトファイルの[Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)に `FrameworkReference` があります。
 
 ::: moniker-end
 
@@ -68,66 +68,70 @@ Razor SDK を使用して Razor ビューまたは Razor ページを含むク�
   </Project>
   ```
 
-* 通常、Razor Pages および Razor ビューのビルドとコンパイルに必要な追加の依存関係を受け取るには、`Microsoft.AspNetCore.Mvc` へのパッケージ参照が必要です。 少なくとも、プロジェクトでパッケージ参照を追加する必要があります。
+* 通常、パッケージ参照を`Microsoft.AspNetCore.Mvc`ビルドし、Razor ページと Razor ビュー コンパイルに必要な追加の依存関係を受信するが必要です。 少なくとも、プロジェクトへのパッケージ参照を追加する必要があります。
 
-  * `Microsoft.AspNetCore.Razor.Design` 
+  * `Microsoft.AspNetCore.Razor.Design`
   * `Microsoft.AspNetCore.Mvc.Razor.Extensions`
   * `Microsoft.AspNetCore.Mvc.Razor`
-    
-  `Microsoft.AspNetCore.Razor.Design` パッケージは、プロジェクトの Razor コンパイルタスクとターゲットを提供します。
 
-  前述のパッケージは、`Microsoft.AspNetCore.Mvc` に組み込まれています。 次のマークアップは、Razor SDK を使用して ASP.NET Core Razor Pages アプリの Razor ファイルを作成するプロジェクトファイルを示しています。
-    
+  `Microsoft.AspNetCore.Razor.Design`パッケージがプロジェクトに、Razor コンパイル タスクとターゲットを提供します。
+
+  前述のパッケージは、`Microsoft.AspNetCore.Mvc` に組み込まれています。 次のマークアップは、Razor ファイルの ASP.NET Core Razor ページ アプリをビルドする Razor SDK を使用するプロジェクト ファイルを示します。
+
   [!code-xml[](sdk/sample/RazorSDK.csproj)]
-  
+
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.1"
 
 > [!WARNING]
-> `Microsoft.AspNetCore.Razor.Design` パッケージと `Microsoft.AspNetCore.Mvc.Razor.Extensions` パッケージは、 [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)に含まれています。 ただし、バージョンが少ない `Microsoft.AspNetCore.App` のパッケージ参照では、`Microsoft.AspNetCore.Razor.Design` の最新バージョンを含まないアプリにメタパッケージが提供されます。 プロジェクトは、Razor の最新のビルド時修正プログラムが含まれるように、`Microsoft.AspNetCore.Razor.Design` (または `Microsoft.AspNetCore.Mvc`) の一貫したバージョンを参照する必要があります。 詳細については、次を参照してください。[この GitHub の問題](https://github.com/aspnet/Razor/issues/2553)します。
+> `Microsoft.AspNetCore.Razor.Design`と`Microsoft.AspNetCore.Mvc.Razor.Extensions`でパッケージが含まれている、 [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)します。 ただし、バージョンのない`Microsoft.AspNetCore.App`パッケージ参照は、の最新バージョンが含まれていないアプリへのメタパッケージ`Microsoft.AspNetCore.Razor.Design`します。 プロジェクトは、一貫したバージョンを参照する必要があります`Microsoft.AspNetCore.Razor.Design`(または`Microsoft.AspNetCore.Mvc`) Razor の最新のビルド時の修正プログラムが含まれるようにします。 詳細については、次を参照してください。[この GitHub の問題](https://github.com/aspnet/Razor/issues/2553)します。
 
 ::: moniker-end
 
-### <a name="properties"></a>プロパティ
+### <a name="properties"></a>[プロパティ]
 
 Razor の SDK の動作は、プロジェクトをビルドする際に次のプロパティにより制御されます。
 
-* `true`時に &ndash; `RazorCompileOnBuild`、プロジェクトのビルドの一部として Razor アセンブリをコンパイルして出力します。 既定値は `true` です。
-* `true`時に &ndash; `RazorCompileOnPublish`、プロジェクトの発行の一部として Razor アセンブリをコンパイルして出力します。 既定値は `true` です。
+* `RazorCompileOnBuild` &ndash; ときに`true`、コンパイルし、プロジェクトのビルドの一部として Razor アセンブリを生成します。 既定値は `true` です。
+* `RazorCompileOnPublish` &ndash; ときに`true`、コンパイルし、プロジェクトの発行の一部として Razor アセンブリを生成します。 既定値は `true` です。
 
-次の表のプロパティと項目は、Razor SDK への入力と出力を構成するために使用されます。
+プロパティと、次の表の項目は、入力と剃刀 SDK への出力の構成に使用されます。
 
 ::: moniker range=">= aspnetcore-3.0"
 
 > [!WARNING]
-> ASP.NET Core 3.0 以降では、プロジェクトファイル内の `RazorCompileOnBuild` または `RazorCompileOnPublish` の MSBuild プロパティが無効になっている場合、MVC ビューまたは Razor Pages は既定では提供されません。 アプリケーションがランタイムコンパイルに依存して[Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation)ファイルを処理する場合は、RuntimeCompilation パッケージへの明示的な参照を追加する必要があります。
+> ASP.NET Core 3.0 以降では、プロジェクトファイルの `RazorCompileOnBuild` または `RazorCompileOnPublish` MSBuild プロパティが無効になっている場合、MVC ビューまたは Razor Pages は既定では提供されません。 アプリケーションがランタイムコンパイルに依存して[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation)ファイルを処理する場合は、RuntimeCompilation パッケージへの明示的な参照を追加する必要があります。
 
 ::: moniker-end
 
-| 項目 | 説明 |
+| [項目] | 説明 |
 | ----- | ----------- |
 | `RazorGenerate` | コード生成の入力である項目要素 (*cshtml*ファイル)。 |
 | `RazorComponent` | Razor コンポーネントのコード生成に入力する項目要素 (*razor*ファイル)。 |
-| `RazorCompile` | Razor コンパイルターゲットへの入力である項目要素 ( *.cs*ファイル)。 Razor アセンブリにコンパイルする追加ファイルを指定するには、この `ItemGroup` を使用します。 |
-| `RazorTargetAssemblyAttribute` | Razor アセンブリ用の属性をコード生成するために使用する項目要素です。 (例:  <br>`RazorAssemblyAttribute`<br>`Include="System.Reflection.AssemblyMetadataAttribute"`<br>`_Parameter1="BuildSource" _Parameter2="https://docs.microsoft.com/">` |
-| `RazorEmbeddedResource` | 生成された Razor アセンブリに埋め込みリソースとして追加された項目要素。 |
+| `RazorCompile` | Razor コンパイルターゲットへの入力である項目要素 ( *.cs*ファイル)。 この `ItemGroup` を使用して、Razor アセンブリにコンパイルする追加ファイルを指定します。 |
+| `RazorTargetAssemblyAttribute` | Razor アセンブリ用の属性をコード生成するために使用する項目要素です。 例:  <br>`RazorAssemblyAttribute`<br>`Include="System.Reflection.AssemblyMetadataAttribute"`<br>`_Parameter1="BuildSource" _Parameter2="https://docs.microsoft.com/">` |
+| `RazorEmbeddedResource` | 項目の要素が生成された Razor アセンブリに埋め込みリソースとして追加します。 |
 
 | property | 説明 |
 | -------- | ----------- |
-| `RazorTargetName` | Razor によって生成されたアセンブリの (拡張子なしの) ファイル名です。 | 
+| `RazorTargetName` | Razor によって生成されたアセンブリの (拡張子なしの) ファイル名です。 |
 | `RazorOutputPath` | Razor の出力ディレクトリです。 |
 | `RazorCompileToolset` | Razor アセンブリをビルドするために使用するツールセットを決定するために使用します。 有効な値は `Implicit`、`RazorSDK`、`PrecompilationTool` です。 |
-| [EnableDefaultContentItems](https://github.com/aspnet/websdk/blob/rel-2.0.0/src/ProjectSystem/Microsoft.NET.Sdk.Web.ProjectSystem.Targets/netstandard1.0/Microsoft.NET.Sdk.Web.ProjectSystem.targets#L21) | 既定値は `true` です。 `true`すると、web.config ファイル、 *json*ファイル、および*cshtml*ファイルがプロジェクトのコンテンツとし*て含まれ*ます。 `Microsoft.NET.Sdk.Web`によって参照される場合、 *wwwroot*ファイルと config ファイルのファイルも含まれます。 |
+| [EnableDefaultContentItems](https://github.com/aspnet/websdk/blob/rel-2.0.0/src/ProjectSystem/Microsoft.NET.Sdk.Web.ProjectSystem.Targets/netstandard1.0/Microsoft.NET.Sdk.Web.ProjectSystem.targets#L21) | 既定値は `true` です。 `true`すると、web.config ファイル、 *json*ファイル、および*cshtml*ファイルがプロジェクトのコンテンツとし*て含まれ*ます。 使用して参照されている場合`Microsoft.NET.Sdk.Web`、ファイル*wwwroot*し、構成ファイルも含まれています。 |
 | `EnableDefaultRazorGenerateItems` | `true` の場合、`RazorGenerate` 項目の `Content` 項目の *.cshtml* ファイルが含まれます。 |
-| `GenerateRazorTargetAssemblyInfo` | `true`すると、`RazorAssemblyAttribute` によって指定された属性を含む *.cs*ファイルを生成し、そのファイルをコンパイル出力に含めます。 |
+| `GenerateRazorTargetAssemblyInfo` | ときに`true`、生成、 *.cs*ファイルで指定された属性を格納している`RazorAssemblyAttribute`コンパイル出力ファイルが含まれています。 |
 | `EnableDefaultRazorTargetAssemblyInfoAttributes` | `true` の場合、`RazorAssemblyAttribute` にアセンブリ属性の既定のセットが追加されます。 |
-| `CopyRazorGenerateFilesToPublishDirectory` | `true`すると、`RazorGenerate` 項目 (*cshtml*) ファイルが発行ディレクトリにコピーされます。 通常、ビルド時または発行時にコンパイルに参加する場合、Razor ファイルは発行されたアプリには必要ありません。 既定値は `false` です。 |
-| `CopyRefAssembliesToPublishDirectory` | `true` の場合、発行ディレクトリに参照アセンブリ項目がコピーされます。 通常、ビルド時または発行時に Razor コンパイルが発生した場合、公開されたアプリには参照アセンブリは必要ありません。 発行されたアプリがランタイムコンパイルを必要とする場合は、`true` に設定します。 たとえば、アプリで実行時に、または埋め込みビューを使用する場合は、値を `true` に設定し*ます*。 既定値は `false` です。 |
-| `IncludeRazorContentInPack` | `true`すると、すべての Razor コンテンツ項目 (*cshtml*ファイル) が、生成される NuGet パッケージに含めるようにマークされます。 既定値は `false` です。 |
+| `CopyRazorGenerateFilesToPublishDirectory` | ときに`true`、コピー`RazorGenerate`項目 ( *.cshtml*) ファイルを発行ディレクトリ。 通常、Razor ファイルは必要ありません発行されたアプリの場合、それらのビルド時または発行時のコンパイルに参加します。 既定値は `false` です。 |
+| `CopyRefAssembliesToPublishDirectory` | `true` の場合、発行ディレクトリに参照アセンブリ項目がコピーされます。 通常、参照アセンブリは必要ありません発行されたアプリのビルド時または発行時に Razor コンパイルが発生した場合。 設定`true`発行されたアプリケーションがランタイムのコンパイルを必要とする場合。 などの値を設定`true`アプリを変更する場合 *.cshtml*実行時にファイルや埋め込みのビューを使用します。 既定値は `false` です。 |
+| `IncludeRazorContentInPack` | ときに`true`、すべての Razor コンテンツ アイテム ( *.cshtml*ファイル)、生成された NuGet パッケージに含める対象としてマークされました。 既定値は `false` です。 |
 | `EmbedRazorGenerateSources` | `true` の場合、生成された Razor アセンブリに、埋め込みファイルとして RazorGenerate ( *.cshtml*) 項目が追加されます。 既定値は `false` です。 |
 | `UseRazorBuildServer` | `true` の場合、コードの生成作業をオフロードするために、永続的なビルド サーバーが使用されます。 既定値は、`UseSharedCompilation` の値です。 |
 | `GenerateMvcApplicationPartsAssemblyAttributes` | `true`すると、アプリケーションパーツの検出を実行するために、SDK によって実行時に MVC によって使用される追加の属性が生成されます。 |
+| `DefaultWebContentItemExcludes` | Web または Razor SDK を対象とするプロジェクトの `Content` 項目グループから除外される項目要素のグロビングパターン |
+| `ExcludeConfigFilesFromBuildOutput` | `true`すると、 *.config*ファイルと*json*ファイルがビルド出力ディレクトリにコピーされません。 |
+| `AddRazorSupportForMvc` | `true`すると、MVC ビューまたは Razor Pages を含むアプリケーションを構築するときに必要な MVC 構成のサポートを追加するように Razor SDK を構成します。 このプロパティは、Web SDK を対象とする .NET Core 3.0 以降のプロジェクトに対して暗黙的に設定されます |
+| `RazorLangVersion` | 対象となる Razor 言語のバージョン。 |
 
 プロパティの詳細については、「[MSBuild プロパティ](/visualstudio/msbuild/msbuild-properties)」を参照してください。
 
@@ -135,15 +139,15 @@ Razor の SDK の動作は、プロジェクトをビルドする際に次のプ
 
 Razor SDK では、次の 2 つの主要なターゲットが定義されています。
 
-* `RazorGenerate` &ndash; コードは `RazorGenerate` 項目要素から .cs ファイルを生成*し*ます。 このターゲットの前または後に実行できる追加のターゲットを指定するには、`RazorGenerateDependsOn` プロパティを使用します。
-* `RazorCompile` &ndash; は、生成された *.cs*ファイルを Razor アセンブリにコンパイルします。 このターゲットの前または後に実行できる追加のターゲットを指定するには、`RazorCompileDependsOn` を使用します。
+* `RazorGenerate` &ndash; コード生成 *.cs*ファイルから`RazorGenerate`項目要素。 このターゲットの前または後に実行できる追加のターゲットを指定するには、`RazorGenerateDependsOn` プロパティを使用します。
+* `RazorCompile` &ndash; 生成されたコンパイル *.cs* Razor アセンブリへのファイルします。 このターゲットの前または後に実行できる追加のターゲットを指定するには、`RazorCompileDependsOn` を使用します。
 * `RazorComponentGenerate` &ndash; コードによって `RazorComponent` 項目要素の *.cs*ファイルが生成されます。 このターゲットの前または後に実行できる追加のターゲットを指定するには、`RazorComponentGenerateDependsOn` プロパティを使用します。
 
 ### <a name="runtime-compilation-of-razor-views"></a>Razor ビューの実行時のコンパイル
 
 * 既定では、Razor SDK は、実行時のコンパイルを実行するために必要な参照アセンブリを公開しません。 この結果、アプリケーション モデルが実行時のコンパイルに依存している場合には、コンパイルが失敗します。たとえば、アプリが公開後に埋め込まれたビューを使用したり、ビューを変更したりする場合などです。 `CopyRefAssembliesToPublishDirectory` を `true` に設定して、参照アセンブリの公開を続行します。
 
-* Web アプリの場合は、アプリが `Microsoft.NET.Sdk.Web` SDK を対象としていることを確認します。
+* Web アプリの場合、アプリが対象とすることを確認して、 `Microsoft.NET.Sdk.Web` SDK。
 
 ## <a name="razor-language-version"></a>Razor 言語バージョン
 
