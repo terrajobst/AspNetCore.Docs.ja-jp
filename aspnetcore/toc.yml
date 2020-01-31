@@ -230,8 +230,6 @@
           uid: razor-pages/filter
         - name: ルートとアプリの規則
           uid: razor-pages/razor-pages-conventions
-        - name: Razor SDK
-          uid: razor-pages/sdk
     - name: MVC
       items:
         - name: 概要
@@ -409,21 +407,25 @@
               href: 'mvc/views/working-with-forms.md#the-validation-summary-tag-helper'
     - name: 詳細設定
       items:
+        - name: アプリケーション パーツ
+          uid: mvc/extensibility/app-parts
+        - name: アプリケーション モデル
+          uid: mvc/controllers/application-model
+        - name: Areas
+          uid: mvc/controllers/areas
+        - name: フィルター
+          uid: mvc/controllers/filters
+        - name: Razor SDK
+          uid: razor-pages/sdk
         - name: ビュー コンポーネント
           uid: mvc/views/view-components
         - name: ビューのコンパイル
           uid: mvc/views/view-compilation
-        - name: アプリ モデル
-          uid: mvc/controllers/application-model
-        - name: フィルター
-          uid: mvc/controllers/filters
-        - name: Areas
-          uid: mvc/controllers/areas
         - name: ファイルのアップロード
           uid: mvc/models/file-uploads
-        - name: アプリのパーツ
-          uid: mvc/extensibility/app-parts
-        - name: aspnet-codegenerator
+        - name: Web SDK
+          uid: razor-pages/web-sdk
+        - name: aspnet-codegenerator (スキャフォールディング)
           uid: fundamentals/tools/dotnet-aspnet-codegenerator
 - name: Web API アプリ
   items:
@@ -578,6 +580,8 @@
       uid: grpc/client
     - name: gRPC クライアント ファクトリの統合
       uid: grpc/clientfactory
+    - name: ブラウザー アプリでの gRPC の使用
+      uid: grpc/browser
     - name: 構成
       uid: grpc/configuration
     - name: 認証と承認
