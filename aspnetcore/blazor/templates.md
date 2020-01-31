@@ -5,17 +5,17 @@ description: ASP.NET Core Blazor アプリテンプレートと Blazor プロジ
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 01/29/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/templates
-ms.openlocfilehash: 2a95b986450471b474d93ead252255f2bd9d4918
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.openlocfilehash: acfa4b8a42cbd310c6fc6dc973573578e94ef999
+ms.sourcegitcommit: c81ef12a1b6e6ac838e5e07042717cf492e6635b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76160120"
+ms.lasthandoff: 01/29/2020
+ms.locfileid: "76885508"
 ---
 # <a name="aspnet-core-opno-locblazor-templates"></a>ASP.NET Core Blazor テンプレート
 
@@ -36,16 +36,20 @@ Blazorのホスティングモデルの詳細については、「<xref:blazor/h
 
 次のファイルとフォルダーは、Blazor テンプレートから生成された Blazor アプリを構成します。
 
-* *Program.cs* &ndash;、ASP.NET Core[ホスト](xref:fundamentals/host/generic-host)を設定するアプリのエントリポイントを指定します。 このファイルのコードは、ASP.NET Core テンプレートから生成されたすべての ASP.NET Core アプリに共通です。
+* *Program.cs*は、を設定するアプリのエントリポイント &ndash; ます。
 
-* *Startup.cs* &ndash; には、アプリのスタートアップロジックが含まれています。 `Startup` クラスは、次の2つのメソッドを定義します。
+  * ASP.NET Core[ホスト](xref:fundamentals/host/generic-host)(Blazor サーバー)
+  * このファイルのコードは、Blazor webassembly のテンプレート (`blazorwasm`) から作成されたアプリに固有のものです。このようなホスト (Blazor webas) です。
+    * `App` コンポーネント (アプリのルートコンポーネント) は、`Add` メソッドに `app` DOM 要素として指定されます。
+    * サービスは、ホストビルダーの `ConfigureServices` 方法 (`builder.Services.AddSingleton<IMyDependency, MyDependency>();`など) を使用して構成できます。
+    * 構成は、ホストビルダー (`builder.Configuration`) を使用して指定できます。
+
+* *Startup.cs* (Blazor Server) &ndash; には、アプリのスタートアップロジックが含まれています。 `Startup` クラスは、次の2つのメソッドを定義します。
 
   * `ConfigureServices` &ndash; は、アプリの[依存関係挿入 (DI)](xref:fundamentals/dependency-injection)サービスを構成します。 Blazor サーバーアプリでは、<xref:Microsoft.Extensions.DependencyInjection.ComponentServiceCollectionExtensions.AddServerSideBlazor*>を呼び出すことによってサービスが追加されます。 `WeatherForecastService` は、例の `FetchData` コンポーネントで使用するためにサービスコンテナーに追加されます。
   * `Configure` &ndash; は、アプリの要求処理パイプラインを構成します。
-    * Blazor WebAssembly `App` コンポーネント (`app` DOM 要素として指定されています) を `AddComponent` メソッドに追加します。これは、アプリのルートコンポーネントです。
-    * Blazor サーバー
-      * ブラウザーを使用してリアルタイム接続を行うためにエンドポイントを設定するために <xref:Microsoft.AspNetCore.Builder.ComponentEndpointRouteBuilderExtensions.MapBlazorHub*> が呼び出されます。 この接続は[SignalR](xref:signalr/introduction)で作成されます。これは、アプリにリアルタイムの web 機能を追加するためのフレームワークです。
-      * [Mapfallbacktopage ("/_Host")](xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapFallbackToPage*)は、アプリのルートページ (*Pages/_Host*) を設定し、ナビゲーションを有効にするために呼び出されます。
+    * ブラウザーを使用してリアルタイム接続を行うためにエンドポイントを設定するために <xref:Microsoft.AspNetCore.Builder.ComponentEndpointRouteBuilderExtensions.MapBlazorHub*> が呼び出されます。 この接続は[SignalR](xref:signalr/introduction)で作成されます。これは、アプリにリアルタイムの web 機能を追加するためのフレームワークです。
+    * [Mapfallbacktopage ("/_Host")](xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapFallbackToPage*)は、アプリのルートページ (*Pages/_Host*) を設定し、ナビゲーションを有効にするために呼び出されます。
 
 * *wwwroot/index.html* (Blazor WebAssembly は、アプリのルートページ &ndash; html ページとして実装されています。
   * アプリのいずれかのページが最初に要求されたときに、このページが表示され、応答で返されます。

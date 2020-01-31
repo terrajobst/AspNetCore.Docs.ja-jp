@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/javascript-interop
-ms.openlocfilehash: e1b9c84dace193768c6f3fbb5636ef675d65a20d
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.openlocfilehash: 4edef123bc1fe41845b8060b9c3b8e77ffd2969d
+ms.sourcegitcommit: c81ef12a1b6e6ac838e5e07042717cf492e6635b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76159902"
+ms.lasthandoff: 01/29/2020
+ms.locfileid: "76885473"
 ---
 # <a name="aspnet-core-opno-locblazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 相互運用機能
 
@@ -94,11 +94,11 @@ JavaScript ファイルを参照する `<script>` タグを、 *wwwroot/index.ht
 
 *wwwroot/index.html* (Blazor webas):
 
-[!code-html[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/index.html?highlight=15)]
+[!code-html[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/index.html?highlight=22)]
 
 *Pages/_Host* (Blazor サーバー):
 
-[!code-cshtml[](./common/samples/3.x/BlazorServerSample/Pages/_Host.cshtml?highlight=21)]
+[!code-cshtml[](./common/samples/3.x/BlazorServerSample/Pages/_Host.cshtml?highlight=35)]
 
 `<script>` タグを動的に更新できないため、コンポーネントファイルに `<script>` タグを配置しないでください。
 

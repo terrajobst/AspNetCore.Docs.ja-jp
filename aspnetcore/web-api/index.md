@@ -5,14 +5,14 @@ description: ASP.NET Core での Web API の作成の基本について説明し
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 11/22/2019
+ms.date: 01/27/2020
 uid: web-api/index
-ms.openlocfilehash: 5ef8b4d012f4ed90339ffea191612e4dc365d958
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 8609e2095c202643cdc905cc610298195b654215
+ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880528"
+ms.lasthandoff: 01/29/2020
+ms.locfileid: "76870018"
 ---
 # <a name="create-web-apis-with-aspnet-core"></a>ASP.NET Core を使って Web API を作成する
 
@@ -78,13 +78,28 @@ Web API は、<xref:Microsoft.AspNetCore.Mvc.ControllerBase> から派生した 
 
 [`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) 属性をコントローラー クラスに適用して、次の厳格な、API に固有の動作を有効にできます。
 
+::: moniker range=">= aspnetcore-2.2"
+
 * [属性ルーティング要件](#attribute-routing-requirement)
 * [自動的な HTTP 400 応答](#automatic-http-400-responses)
 * [バインディング ソース パラメーター推論](#binding-source-parameter-inference)
 * [マルチパート/フォーム データ要求の推論](#multipartform-data-request-inference)
 * [エラー状態コードに関する問題の詳細](#problem-details-for-error-status-codes)
 
+"*エラー状態コードに関する問題の詳細*" 機能には、[互換性バージョン](xref:mvc/compatibility-version) 2.2 以降が必要です。 その他の機能では、互換性バージョン 2.1 以降が必要です。
+
+::: moniker-end
+
+::: moniker range="= aspnetcore-2.1"
+
+* [属性ルーティング要件](#attribute-routing-requirement)
+* [自動的な HTTP 400 応答](#automatic-http-400-responses)
+* [バインディング ソース パラメーター推論](#binding-source-parameter-inference)
+* [マルチパート/フォーム データ要求の推論](#multipartform-data-request-inference)
+
 これらの機能では[互換性バージョン](xref:mvc/compatibility-version) 2.1 以降が必要です。
+
+::: moniker-end
 
 ### <a name="attribute-on-specific-controllers"></a>特定のコントローラーにおける属性
 

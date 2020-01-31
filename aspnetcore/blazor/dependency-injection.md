@@ -10,20 +10,20 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/dependency-injection
-ms.openlocfilehash: 6930d721f04fd5f7cad2ba472724497a157fda0f
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
-ms.translationtype: MT
+ms.openlocfilehash: fa6762522c831c7fbe2742dbfe4e25a377988e1e
+ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
+ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76159977"
+ms.lasthandoff: 01/29/2020
+ms.locfileid: "76869565"
 ---
-# <a name="aspnet-core-opno-locblazor-dependency-injection"></a>ASP.NET Core Blazor 依存関係の挿入
+# <a name="aspnet-core-blazor-dependency-injection"></a>ASP.NET Core Blazor の依存関係の挿入
 
 [Rainer Stropek](https://www.timecockpit.com)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-Blazor は、[依存関係の挿入 (DI)](xref:fundamentals/dependency-injection)をサポートしています。 アプリは、組み込みのサービスをコンポーネントに挿入することによって使用できます。 アプリでは、カスタムサービスを定義して登録し、DI を使用してアプリ全体で使用できるようにすることもできます。
+Blazor では、[依存関係の挿入 (DI)](xref:fundamentals/dependency-injection)がサポートされています。 アプリは、組み込みのサービスをコンポーネントに挿入することによって使用できます。 アプリでは、カスタムサービスを定義して登録し、DI を使用してアプリ全体で使用できるようにすることもできます。
 
 DI は、中央の場所で構成されたサービスにアクセスするための手法です。 これは、Blazor アプリで次のような場合に役立ちます。
 
@@ -36,9 +36,9 @@ DI は、中央の場所で構成されたサービスにアクセスするた�
 
 | サービス | 有効期間 | 説明 |
 | ------- | -------- | ----------- |
-| <xref:System.Net.Http.HttpClient> | シングルトン | URI によって識別されるリソースから HTTP 要求を送信し、HTTP 応答を受信するためのメソッドを提供します。<br><br>`HttpClient` のインスタンス Blazor WebAssembly では、バックグラウンドで HTTP トラフィックを処理するためにブラウザーを使用します。<br><br>Blazor サーバーアプリには、既定でサービスとして構成されている `HttpClient` は含まれません。 Blazor サーバーアプリに `HttpClient` を提供します。<br><br>詳細については、「 <xref:blazor/call-web-api>」を参照してください。 |
-| `IJSRuntime` | シングルトン (Blazor Webas)<br>スコープ (Blazor サーバー) | JavaScript 呼び出しがディスパッチされる JavaScript ランタイムのインスタンスを表します。 詳細については、「 <xref:blazor/javascript-interop>」を参照してください。 |
-| `NavigationManager` | シングルトン (Blazor Webas)<br>スコープ (Blazor サーバー) | Uri とナビゲーション状態を操作するためのヘルパーが含まれています。 詳細については、「 [URI およびナビゲーション状態ヘルパー](xref:blazor/routing#uri-and-navigation-state-helpers)」を参照してください。 |
+| <xref:System.Net.Http.HttpClient> | シングルトン | URI によって識別されるリソースから HTTP 要求を送信し、HTTP 応答を受信するためのメソッドを提供します。<br><br>Blazor WebAssembly アプリの `HttpClient` インスタンスは、ブラウザーを使用してバックグラウンドで HTTP トラフィックを処理します。<br><br>Blazor サーバーアプリには、既定でサービスとして構成されている `HttpClient` は含まれません。 Blazor Server アプリに `HttpClient` を提供します。<br><br>詳細については、「 <xref:blazor/call-web-api>」を参照してください。 |
+| `IJSRuntime` | シングルトン (Blazor WebAssembly<br>スコープ (Blazor サーバー) | JavaScript 呼び出しがディスパッチされる JavaScript ランタイムのインスタンスを表します。 詳細については、「 <xref:blazor/javascript-interop>」を参照してください。 |
+| `NavigationManager` | シングルトン (Blazor WebAssembly<br>スコープ (Blazor サーバー) | Uri とナビゲーション状態を操作するためのヘルパーが含まれています。 詳細については、「 [URI およびナビゲーション状態ヘルパー](xref:blazor/routing#uri-and-navigation-state-helpers)」を参照してください。 |
 
 カスタムサービスプロバイダーは、表に示されている既定のサービスを自動的に提供しません。 カスタムサービスプロバイダーを使用し、表に示されているいずれかのサービスが必要な場合は、必要なサービスを新しいサービスプロバイダーに追加します。
 
@@ -134,7 +134,7 @@ public class DataAccess : IDataAccess
 
 ASP.NET Core アプリでは、スコープ付きサービスは通常、現在の要求にスコープが設定されます。 要求が完了すると、スコープまたは一時的なサービスが DI システムによって破棄されます。 Blazor サーバーアプリでは、要求スコープはクライアント接続の間継続されるため、一時的でスコープのあるサービスが予想よりもはるかに長くなる可能性があります。
 
-サービスのスコープをコンポーネントの有効期間に限定するために、では `OwningComponentBase` と `OwningComponentBase<TService>` 基底クラスを使用できます。 これらの基本クラスは、コンポーネントの有効期間にスコープが設定されているサービスを解決する `IServiceProvider` 型の `ScopedServices` プロパティを公開します。 Razor の基底クラスから継承するコンポーネントを作成するには、`@inherits` ディレクティブを使用します。
+サービスのスコープをコンポーネントの有効期間に限定するには、`OwningComponentBase` と `OwningComponentBase<TService>` 基底クラスを使用できます。 これらの基本クラスは、コンポーネントの有効期間にスコープが設定されているサービスを解決する `IServiceProvider` 型の `ScopedServices` プロパティを公開します。 Razor の基底クラスから継承するコンポーネントを作成するには、`@inherits` ディレクティブを使用します。
 
 ```razor
 @page "/users"
