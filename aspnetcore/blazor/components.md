@@ -5,17 +5,17 @@ description: データにバインドする方法、イベントを処理する�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/28/2019
+ms.date: 01/24/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/components
-ms.openlocfilehash: 6643ccd0fdb62243427bb0972d8deb3f7b57079d
-ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
+ms.openlocfilehash: d6ba60b20d21636c7f780a80d8fbdb152505a3a3
+ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/24/2020
-ms.locfileid: "76726922"
+ms.lasthandoff: 02/01/2020
+ms.locfileid: "76928260"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>ASP.NET Core Razor コンポーネントを作成して使用する
 
@@ -90,17 +90,17 @@ Razor コンポーネントをホストする Razor Pages または MVC アプ�
     param-IncrementAmount="10" />
 ```
 
-パラメーターの引き渡し (たとえば、前の例では `IncrementAmount`) はサポートされています。
+パラメーターの型は、JSON シリアル化可能である必要があります。これは通常、型が既定のコンストラクターと設定可能なプロパティを持つ必要があることを意味します。 たとえば、`IncrementAmount` の型は `int`であるため、`IncrementAmount` の値を指定できます。これは、JSON シリアライザーによってサポートされるプリミティブ型です。
 
 コンポーネントの `RenderMode` を構成します。
 
 * ページに prerendered ます。
-* は、ページに静的な HTML として表示されるか、またはユーザーエージェントから Blazor アプリをブートストラップするために必要な情報が含まれている場合に表示されます。
+* は、ページに静的 HTML として表示されるか、ユーザーエージェントから Blazor アプリをブートストラップするために必要な情報が含まれている場合に表示されます。
 
 | `RenderMode`        | 説明 |
 | ------------------- | ----------- |
-| `ServerPrerendered` | コンポーネントを静的 HTML にレンダリングし、Blazor サーバーアプリのマーカーを含めます。 ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。 |
-| `Server`            | Blazor サーバーアプリのマーカーをレンダリングします。 コンポーネントからの出力は含まれていません。 ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。 |
+| `ServerPrerendered` | コンポーネントを静的 HTML にレンダリングし、Blazor Server アプリのマーカーを含めます。 ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。 |
+| `Server`            | Blazor Server アプリのマーカーをレンダリングします。 コンポーネントからの出力は含まれていません。 ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。 |
 | `Static`            | コンポーネントを静的 HTML にレンダリングします。 |
 
 ページとビューはコンポーネントを使用できますが、逆の場合は真実ではありません。 コンポーネントでは、ビューおよびページ固有のシナリオ (部分ビューやセクションなど) を使用できません。 コンポーネントの部分ビューからロジックを使用するには、部分ビューのロジックをコンポーネントにします。
@@ -108,6 +108,10 @@ Razor コンポーネントをホストする Razor Pages または MVC アプ�
 静的な HTML ページからのサーバーコンポーネントのレンダリングはサポートされていません。
 
 コンポーネントのレンダリング方法、コンポーネントの状態、および `Component` タグヘルパーの詳細については、「<xref:blazor/hosting-models>」を参照してください。
+
+## <a name="tag-helpers-arent-used-in-components"></a>タグヘルパーはコンポーネントで使用されていません
+
+[タグヘルパー](xref:mvc/views/tag-helpers/intro)は razor コンポーネント (*razor*ファイル) ではサポートされていません。 Blazor でタグヘルパーのような機能を提供するには、タグヘルパーと同じ機能を持つコンポーネントを作成し、代わりにそのコンポーネントを使用します。
 
 ## <a name="use-components"></a>コンポーネントを使う
 
@@ -392,7 +396,7 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 * 自由形式のテキストを含めることはできません。
 * ブラウザーの実装に基づいてユーザーの操作特性を指定します。
 
-次のフィールド型には特定の書式設定要件がありますが、Blazor で現在サポートされていないのは、すべての主要なブラウザーでサポートされていないためです。
+次のフィールド型には特定の書式要件があり、Blazor では現在サポートされていません。これは、すべての主要なブラウザーでサポートされていないためです。
 
 * `datetime-local`
 * `month`
@@ -424,7 +428,7 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 
 `@bind:format` 属性は、`<input>` 要素の `value` に適用する日付形式を指定します。 この形式は、`onchange` イベントが発生したときに値を解析するためにも使用されます。
 
-Blazor に日付の書式を設定するためのサポートが組み込まれているため、`date` フィールド型の形式を指定することは推奨されません。 推奨事項では、`date` フィールドの種類で形式が指定されている場合、バインドの `yyyy-MM-dd` 日付形式のみを使用することをお勧めします。
+Blazor には日付を書式設定するためのサポートが組み込まれているため、`date` フィールド型の形式を指定することは推奨されません。 推奨事項では、`date` フィールドの種類で形式が指定されている場合、バインドの `yyyy-MM-dd` 日付形式のみを使用することをお勧めします。
 
 ```razor
 <input type="date" @bind="StartDate" @bind:format="yyyy-MM-dd">
@@ -904,7 +908,7 @@ Password:
 
 ## <a name="invoke-component-methods-externally-to-update-state"></a>状態を更新するためにコンポーネントメソッドを外部に呼び出す
 
-Blazor は、`SynchronizationContext` を使用して、1つの論理スレッドの実行を強制します。 Blazor によって発生するコンポーネントの[ライフサイクルメソッド](xref:blazor/lifecycle)とイベントコールバックは、この `SynchronizationContext`で実行されます。 タイマーやその他の通知など、外部のイベントに基づいてコンポーネントを更新する必要がある場合は、`InvokeAsync` メソッドを使用します。これにより、Blazorの `SynchronizationContext`にディスパッチされます。
+Blazor は、1つの論理スレッドの実行を強制するために `SynchronizationContext` を使用します。 Blazor によって発生するコンポーネントの[ライフサイクルメソッド](xref:blazor/lifecycle)とイベントコールバックは、この `SynchronizationContext`で実行されます。 タイマーやその他の通知など、外部のイベントに基づいてコンポーネントを更新する必要がある場合は、`InvokeAsync` メソッドを使用します。このメソッドは、Blazor の `SynchronizationContext`にディスパッチされます。
 
 たとえば、更新された状態のすべてのリッスンコンポーネントに通知できる通知*サービス*を考えてみます。
 
@@ -957,11 +961,11 @@ public class NotifierService
 }
 ```
 
-前の例では、`NotifierService` は Blazorの `SynchronizationContext`の外部でコンポーネントの `OnNotify` メソッドを呼び出します。 `InvokeAsync` は、正しいコンテキストに切り替え、レンダリングをキューに移動するために使用されます。
+前の例では、`NotifierService` によって、コンポーネントの `OnNotify` メソッドが Blazor の `SynchronizationContext`の外部で呼び出されます。 `InvokeAsync` は、正しいコンテキストに切り替え、レンダリングをキューに移動するために使用されます。
 
 ## <a name="use-key-to-control-the-preservation-of-elements-and-components"></a>\@キーを使用して要素とコンポーネントの保存を制御する
 
-要素またはコンポーネントのリストをレンダリングするときに、要素またはコンポーネントが変更された場合、Blazorの比較アルゴリズムは、前の要素またはコンポーネントを保持できるかどうか、およびモデルオブジェクトをどのようにマップするかを決定する必要があります。 通常、このプロセスは自動的に実行され、無視することができますが、プロセスの制御が必要になる場合があります。
+要素またはコンポーネントのリストをレンダリングするときに、要素またはコンポーネントが変更された場合、Blazor の比較アルゴリズムは、前の要素またはコンポーネントを保持できるかどうか、およびモデルオブジェクトをどのようにマップするかを決定する必要があります。 通常、このプロセスは自動的に実行され、無視することができますが、プロセスの制御が必要になる場合があります。
 
 次に例を示します。
 
@@ -1008,7 +1012,7 @@ public class NotifierService
 
 通常は、リストがレンダリングされるたびに (たとえば、`@foreach` ブロックで) `@key` を使用し、`@key`を定義するための適切な値が存在することを意味します。
 
-また、`@key` を使用すると、オブジェクトが変更されたときに Blazor によって要素またはコンポーネントのサブツリーが保持されないようにすることもできます。
+また、`@key` を使用すると、オブジェクトが変更されたときに、Blazor が要素またはコンポーネントのサブツリーを保持しないようにすることもできます。
 
 ```razor
 <div @key="currentPerson">
@@ -1016,13 +1020,13 @@ public class NotifierService
 </div>
 ```
 
-`@currentPerson` が変更された場合、`@key` attribute ディレクティブは、`<div>` とその子孫全体を破棄し、新しい要素とコンポーネントで UI 内のサブツリーを再構築する Blazor を強制的に実行します。 これは、`@currentPerson` 変更時に UI の状態が保持されないことを保証する必要がある場合に役立ちます。
+`@currentPerson` が変更された場合、`@key` attribute ディレクティブは、Blazor が `<div>` とその子孫全体を破棄し、新しい要素とコンポーネントで UI 内のサブツリーを再構築することを強制します。 これは、`@currentPerson` 変更時に UI の状態が保持されないことを保証する必要がある場合に役立ちます。
 
 ### <a name="when-not-to-use-key"></a>\@キーを使用しない場合
 
 `@key`を使用すると、パフォーマンスが低下します。 パフォーマンスコストは大きくありませんが、要素またはコンポーネントの保存規則を制御することによってアプリにメリットがある場合にのみ `@key` を指定します。
 
-`@key` が使用されていない場合でも Blazor、子要素とコンポーネントインスタンスは可能な限り保持されます。 `@key` を使用する唯一の利点は、マッピングを選択する比較アルゴリズムではなく、保持されているコンポーネントインスタンスにモデルインスタンスをマップする*方法*を制御することです。
+`@key` が使用されていない場合でも、Blazor は子要素とコンポーネントインスタンスを可能な限り保持します。 `@key` を使用する唯一の利点は、マッピングを選択する比較アルゴリズムではなく、保持されているコンポーネントインスタンスにモデルインスタンスをマップする*方法*を制御することです。
 
 ### <a name="what-values-to-use-for-key"></a>\@キーに使用する値
 
@@ -1147,6 +1151,43 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
+```
+
+## <a name="specify-a-base-class"></a>基底クラスの指定
+
+[`@inherits`](xref:mvc/views/razor#inherits)ディレクティブは、コンポーネントの基底クラスを指定するために使用できます。 次の例は、コンポーネントが基本クラス `BlazorRocksBase`を継承して、コンポーネントのプロパティとメソッドを提供する方法を示しています。 基底クラスは `ComponentBase`から派生する必要があります。
+
+*Pages/BlazorRocks*:
+
+```razor
+@page "/BlazorRocks"
+@inherits BlazorRocksBase
+
+<h1>@BlazorRocksText</h1>
+```
+
+*BlazorRocksBase.cs*:
+
+```csharp
+using Microsoft.AspNetCore.Components;
+
+namespace BlazorSample
+{
+    public class BlazorRocksBase : ComponentBase
+    {
+        public string BlazorRocksText { get; set; } = 
+            "Blazor rocks the browser!";
+    }
+}
+```
+
+## <a name="specify-an-attribute"></a>属性を指定する
+
+属性は、 [`@attribute`](xref:mvc/views/razor#attribute)ディレクティブを使用して Razor コンポーネントで指定できます。 次の例では、`[Authorize]` 属性を component クラスに適用します。
+
+```razor
+@page "/"
+@attribute [Authorize]
 ```
 
 ## <a name="import-components"></a>コンポーネントのインポート

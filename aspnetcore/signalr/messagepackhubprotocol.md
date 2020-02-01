@@ -9,12 +9,12 @@ ms.date: 11/12/2019
 no-loc:
 - SignalR
 uid: signalr/messagepackhubprotocol
-ms.openlocfilehash: 1b01357233a9b95a5da052d92e30232c94e78a78
-ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
+ms.openlocfilehash: 3c2a4285945d3fdc6bba195e3160da8b9dcbba44
+ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/24/2020
-ms.locfileid: "76727227"
+ms.lasthandoff: 02/01/2020
+ms.locfileid: "76928172"
 ---
 # <a name="use-messagepack-hub-protocol-in-opno-locsignalr-for-aspnet-core"></a>ASP.NET Core には SignalR の MessagePack ハブプロトコルを使用します。
 
@@ -49,6 +49,18 @@ services.AddSignalR()
             MessagePack.Resolvers.StandardResolver.Instance
         };
     });
+```
+
+> [!WARNING]
+> [CVE-2020-5234](https://github.com/neuecc/MessagePack-CSharp/security/advisories/GHSA-7q36-4xx7-xcxf)を確認し、推奨される修正プログラムを適用することを強くお勧めします。 たとえば、`MessagePackSecurity.Active` 静的プロパティを `MessagePackSecurity.UntrustedData`に設定します。 `MessagePackSecurity.Active` を設定するには、[バージョンの MessagePack の 1.9. x](https://www.nuget.org/packages/MessagePack/1.9.3)を手動でインストールする必要があります。 `MessagePack` 1.9. x をインストールすると SignalR が使用するバージョンがアップグレードされます。 `MessagePackSecurity.Active` が `MessagePackSecurity.UntrustedData`に設定されていない場合、悪意のあるクライアントによってサービス拒否が発生する可能性があります。 次のコードに示すように `Program.Main`で `MessagePackSecurity.Active` を設定します。
+
+```csharp
+public static void Main(string[] args)
+{
+  MessagePackSecurity.Active = MessagePackSecurity.UntrustedData;
+
+  CreateHostBuilder(args).Build().Run();
+}
 ```
 
 ## <a name="configure-messagepack-on-the-client"></a>クライアントでの MessagePack の構成

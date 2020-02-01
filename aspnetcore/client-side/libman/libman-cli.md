@@ -1,31 +1,31 @@
 ---
-title: ASP.NET Core で LibMan コマンドラインインターフェイス (CLI) を使用する
+title: ASP.NET Core で LibMan CLI を使用する
 author: scottaddie
-description: ASP.NET Core プロジェクトで LibMan コマンドラインインターフェイス (CLI) を使用する方法について説明します。
+description: ASP.NET Core プロジェクトで LibMan CLI を使用する方法について説明します。
 ms.author: scaddie
 ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
 - SignalR
 uid: client-side/libman/libman-cli
-ms.openlocfilehash: 8b2b1e45ab4685482554ac439b0276e0cf381609
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 02d88d09805bd23a86ef924766373245fec7ff52
+ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73962798"
+ms.lasthandoff: 02/01/2020
+ms.locfileid: "76928362"
 ---
-# <a name="use-the-libman-command-line-interface-cli-with-aspnet-core"></a>ASP.NET Core で LibMan コマンドラインインターフェイス (CLI) を使用する
+# <a name="use-the-libman-cli-with-aspnet-core"></a>ASP.NET Core で LibMan CLI を使用する
 
 作成者: [Scott Addie](https://twitter.com/Scott_Addie)
 
 [Libman](xref:client-side/libman/index) CLI は、.net Core がサポートされているすべての場所でサポートされるクロスプラットフォームツールです。
 
-## <a name="prerequisites"></a>必要条件
+## <a name="prerequisites"></a>Prerequisites
 
 * [!INCLUDE [2.1-SDK](../../includes/2.1-SDK.md)]
 
-## <a name="installation"></a>インストール
+## <a name="installation"></a>のインストール
 
 LibMan CLI をインストールするには:
 
@@ -33,7 +33,7 @@ LibMan CLI をインストールするには:
 dotnet tool install -g Microsoft.Web.LibraryManager.Cli
 ```
 
-[.Net Core グローバルツール](/dotnet/core/tools/global-tools#install-a-global-tool)は、 [Microsoft.Web.LibraryManager.Cli](https://www.nuget.org/packages/Microsoft.Web.LibraryManager.Cli/)の NuGet パッケージからインストールされます。
+[.Net Core グローバルツール](/dotnet/core/tools/global-tools#install-a-global-tool)は、 [Microsoft の Web. librarymanager](https://www.nuget.org/packages/Microsoft.Web.LibraryManager.Cli/)の NuGet パッケージからインストールされます。
 
 特定の NuGet パッケージソースから LibMan CLI をインストールするには、次のようにします。
 
@@ -43,7 +43,7 @@ dotnet tool install -g Microsoft.Web.LibraryManager.Cli --version 1.0.94-g606058
 
 前の例では、.NET Core グローバルツールがローカル Windows コンピューターの*C:\Temp\Microsoft.Web.LibraryManager.Cli.1.0.94-g606058a278.nupkg*ファイルからインストールされています。
 
-## <a name="usage"></a>使用方法
+## <a name="usage"></a>使用状況
 
 CLI が正常にインストールされたら、次のコマンドを使用できます。
 
@@ -103,7 +103,7 @@ libman init [-d|--default-destination] [-p|--default-provider] [--verbosity]
 libman init [-h|--help]
 ```
 
-### <a name="options"></a>オプション
+### <a name="options"></a>[オプション]
 
 `libman init` コマンドには以下のオプションを使用できます。
 
@@ -124,7 +124,7 @@ libman init [-h|--help]
 ASP.NET Core プロジェクトに*libman. json*ファイルを作成するには、次のようにします。
 
 * プロジェクトのルートに移動します。
-* 次のコマンドを実行します。
+* コマンドを実行します。
 
   ```console
   libman init
@@ -163,7 +163,7 @@ libman install [-h|--help]
 
 インストールするライブラリの名前。 この名前には、バージョン番号の表記 (`@1.2.0`など) を含めることができます。
 
-### <a name="options"></a>オプション
+### <a name="options"></a>[オプション]
 
 `libman install` コマンドには以下のオプションを使用できます。
 
@@ -276,7 +276,7 @@ libman restore [--verbosity]
 libman restore [-h|--help]
 ```
 
-### <a name="options"></a>オプション
+### <a name="options"></a>[オプション]
 
 `libman restore` コマンドには以下のオプションを使用できます。
 
@@ -301,7 +301,7 @@ libman clean [--verbosity]
 libman clean [-h|--help]
 ```
 
-### <a name="options"></a>オプション
+### <a name="options"></a>[オプション]
 
 `libman clean` コマンドには以下のオプションを使用できます。
 
@@ -342,7 +342,7 @@ libman uninstall [-h|--help]
 
 アンインストールするライブラリの名前を指定します。 この名前には、バージョン番号の表記 (`@1.2.0`など) を含めることができます。
 
-### <a name="options"></a>オプション
+### <a name="options"></a>[オプション]
 
 `libman uninstall` コマンドには以下のオプションを使用できます。
 
@@ -394,7 +394,7 @@ libman update [-h|--help]
 
 更新するライブラリの名前。
 
-### <a name="options"></a>オプション
+### <a name="options"></a>[オプション]
 
 `libman update` コマンドには以下のオプションを使用できます。
 
@@ -448,7 +448,7 @@ libman cache [-h|--help]
 
 [!INCLUDE [LibMan provider names](../../includes/libman-cli/provider-names.md)]
 
-### <a name="options"></a>オプション
+### <a name="options"></a>[オプション]
 
 `libman cache` コマンドには以下のオプションを使用できます。
 

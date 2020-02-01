@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 11/08/2019
 uid: security/authentication/identity/spa
-ms.openlocfilehash: 31a5e47d772e7416646c4d83c3209d7d2b254199
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 623f739b17c0bed3ce929f562c9581ab26ecf5bc
+ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829167"
+ms.lasthandoff: 02/01/2020
+ms.locfileid: "76928558"
 ---
 # <a name="authentication-and-authorization-for-spas"></a>SPAs の認証と承認
 
@@ -42,7 +42,7 @@ dotnet new react -o <output_directory_name> -au Individual
 
 次のセクションでは、認証のサポートが含まれている場合のプロジェクトへの追加について説明します。
 
-### <a name="startup-class"></a>スタートアップ クラス
+### <a name="startup-class"></a>Startup クラス
 
 `Startup` クラスには、次の追加機能があります。
 
@@ -260,7 +260,7 @@ async populateWeatherData() {
 }
 ```
 
-## <a name="deploy-to-production"></a>運用環境に展開する
+## <a name="deploy-to-production"></a>運用環境へのデプロイ
 
 アプリを運用環境にデプロイするには、次のリソースをプロビジョニングする必要があります。
 
@@ -285,9 +285,9 @@ async populateWeatherData() {
 }
 ```
 
-* Certificate の name プロパティは、証明書の識別サブジェクトに対応します。
-* ストアの場所は、証明書の読み込み元 (`CurrentUser` または `LocalMachine`) を表します。
 * ストア名は、証明書が格納されている証明書ストアの名前を表します。 この場合、個人ユーザーストアを指します。
+* ストアの場所は、証明書の読み込み元 (`CurrentUser` または `LocalMachine`) を表します。
+* Certificate の name プロパティは、証明書の識別サブジェクトに対応します。
 
 Azure Websites にデプロイするには、「 [azure へのアプリのデプロイ](xref:tutorials/publish-to-azure-webapp-using-vs#deploy-the-app-to-azure)」の手順に従ってアプリをデプロイし、必要な azure リソースを作成して、アプリを運用環境にデプロイします。
 
@@ -301,7 +301,7 @@ Azure Websites にデプロイするには、「 [azure へのアプリのデプ
 
 API 承認のサポートは、一連の規則、既定値、および拡張機能を使用して、サーバー上に構築されます。これにより、SPAs のエクスペリエンスが簡単になります。 言うまでもありませんが、ASP.NET Core 統合によって実際のシナリオがカバーされていない場合は、サーバーの全機能をバックグラウンドで利用できます。 ASP.NET Core サポートは、すべてのアプリが組織によって作成および展開される "ファーストパーティ" アプリに重点を置いています。 そのため、同意やフェデレーションなどのサポートは提供されていません。 これらのシナリオでは、ユーザーを使用して、そのドキュメントに従ってください。
 
-### <a name="application-profiles"></a>アプリケーション プロファイル
+### <a name="application-profiles"></a>アプリケーションプロファイル
 
 アプリケーションプロファイルは、そのパラメーターをさらに定義するアプリの事前定義された構成です。 現時点では、次のプロファイルがサポートされています。
 

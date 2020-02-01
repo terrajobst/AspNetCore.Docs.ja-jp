@@ -10,14 +10,14 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/routing
-ms.openlocfilehash: 0cd15f25ff7975cae3f63a739212aa23062ece23
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.openlocfilehash: 32459f9f42220b01ce04e6444a9bb4a9592ee2da
+ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76160159"
+ms.lasthandoff: 02/01/2020
+ms.locfileid: "76928281"
 ---
-# <a name="aspnet-core-opno-locblazor-routing"></a>ASP.NET Core Blazor ルーティング
+# <a name="aspnet-core-blazor-routing"></a>ASP.NET Core Blazor ルーティング
 
 作成者: [Luke Latham](https://github.com/guardrex)
 
@@ -31,7 +31,7 @@ Blazor サーバーは[ASP.NET Core エンドポイントルーティング](xre
 
 [!code-csharp[](routing/samples_snapshot/3.x/Startup.cs?highlight=5)]
 
-最も一般的な構成は、すべての要求を Razor ページにルーティングすることです。これは、Blazor サーバーアプリのサーバー側の部分のホストとして機能します。 規則により、通常、*ホスト*ページは _Host という名前になり*ます。* ホストファイルに指定されているルートは、ルート照合の優先順位が低いため、*フォールバックルート*と呼ばれます。 フォールバックルートは、他のルートが一致しない場合に考慮されます。 これにより、アプリは、Blazor Server アプリに干渉することなく他のコントローラーやページを使用できるようになります。
+最も一般的な構成は、すべての要求を Razor ページにルーティングすることです。これは、Blazor Server アプリのサーバー側の部分のホストとして機能します。 規則により、通常、*ホスト*ページは _Host という名前になり*ます。* ホストファイルに指定されているルートは、ルート照合の優先順位が低いため、*フォールバックルート*と呼ばれます。 フォールバックルートは、他のルートが一致しない場合に考慮されます。 これにより、Blazor Server アプリに干渉することなく、他のコントローラーやページをアプリで使用できるようになります。
 
 ## <a name="route-templates"></a>ルートテンプレート
 
@@ -48,7 +48,7 @@ Blazor サーバーは[ASP.NET Core エンドポイントルーティング](xre
 </Router>
 ```
 
-`@page` ディレクティブを含む*razor*ファイルがコンパイルされると、生成されたクラスにルートテンプレートを指定する <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> が提供されます。
+`@page` ディレクティブを含む*razor*ファイルがコンパイルされると、生成されたクラスにルートテンプレートを指定する <xref:Microsoft.AspNetCore.Components.RouteAttribute> が提供されます。
 
 実行時には、`RouteView` コンポーネントが次のようになります。
 
@@ -67,7 +67,7 @@ Blazor サーバーは[ASP.NET Core エンドポイントルーティング](xre
 ```
 
 > [!IMPORTANT]
-> Url が正しく解決されるようにするには、アプリで、`href` 属性 (`<base href="/">`) で指定されたアプリの基本パスを使用して、 *wwwroot/index.html*ファイル (Blazor WebAssembly または*Pages/_Host*ファイル (Blazor サーバー) に `<base>` タグを含める必要があります。 詳細については、「 <xref:host-and-deploy/blazor/index#app-base-path>」を参照してください。
+> Url が正しく解決されるようにするには、アプリで、`href` 属性 (`<base href="/">`) で指定されたアプリの基本パスを使用して、 *wwwroot/index.html*ファイル (Blazor) または*Pages/_Host*ファイル (Blazor Server) に `<base>` タグを含める必要があります。 詳細については、「 <xref:host-and-deploy/blazor/index#app-base-path>」を参照してください。
 
 ## <a name="provide-custom-content-when-content-isnt-found"></a>コンテンツが見つからないときにカスタムコンテンツを提供する
 
@@ -153,7 +153,7 @@ Blazor サーバーは[ASP.NET Core エンドポイントルーティング](xre
 
 ### <a name="routing-with-urls-that-contain-dots"></a>ドットを含む Url を使用したルーティング
 
-Blazor サーバーアプリでは、 *_Host*の既定のルートは `/` (`@page "/"`) です。 ドット (`.`) を含む要求 URL が、既定のルートと一致しません。これは、URL がファイルを要求しているためです。 Blazor アプリは、存在しない静的ファイルに対して*404-Not Found*応答を返します。 ドットを含むルートを使用するには、次のルートテンプレートを使用して *_Host*を構成します。
+Blazor Server apps では、 *_Host*の既定のルートは `/` (`@page "/"`) です。 ドット (`.`) を含む要求 URL が、既定のルートと一致しません。これは、URL がファイルを要求しているためです。 Blazor アプリは、存在しない静的ファイルに対して*404-Not Found*応答を返します。 ドットを含むルートを使用するには、次のルートテンプレートを使用して *_Host*を構成します。
 
 ```cshtml
 @page "/{**path}"

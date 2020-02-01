@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/handle-errors
-ms.openlocfilehash: 7b5602d5ae5e58d1678762fe1cd2adec1f31c969
-ms.sourcegitcommit: b5ceb0a46d0254cc3425578116e2290142eec0f0
+ms.openlocfilehash: b987513e5410e95ab632b9935d858b648838d94f
+ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/28/2020
-ms.locfileid: "76809004"
+ms.lasthandoff: 02/01/2020
+ms.locfileid: "76928265"
 ---
 # <a name="handle-errors-in-aspnet-core-opno-locblazor-apps"></a>ASP.NET Core Blazor アプリでのエラーの処理
 
@@ -30,7 +30,9 @@ ms.locfileid: "76809004"
 * 開発中は、金色のバーによってブラウザー コンソールが表示され、そこで例外を確認できます。
 * 実稼働環境では、金色のバーによって、エラーが発生したことがユーザーに通知され、ブラウザーの更新が推奨されます。
 
-このエラー処理エクスペリエンスの UI は、Blazor プロジェクトテンプレートの一部です。 Blazor WebAssembly で、 *wwwroot/index.html*ファイルのエクスペリエンスをカスタマイズします。
+このエラー処理エクスペリエンスの UI は、Blazor プロジェクトテンプレートの一部です。
+
+Blazor WebAssembly で、 *wwwroot/index.html*ファイルのエクスペリエンスをカスタマイズします。
 
 ```html
 <div id="blazor-error-ui">
@@ -57,7 +59,7 @@ Blazor Server アプリで、 *Pages/_Host cshtml*ファイルのエクスペリ
 
 `blazor-error-ui` 要素は、Blazor テンプレートに含まれるスタイルによって非表示になり、エラーが発生したときに表示されます。
 
-## <a name="how-the-opno-locblazor-framework-reacts-to-unhandled-exceptions"></a>Blazor フレームワークがハンドルされない例外にどのように反応するか
+## <a name="how-a-opno-locblazor-server-app-reacts-to-unhandled-exceptions"></a>Blazor サーバーアプリがハンドルされない例外にどのように反応するか
 
 Blazor Server は、ステートフルなフレームワークです。 ユーザーは、アプリを操作している間、*回線*と呼ばれるサーバーへの接続を維持します。 回線は、アクティブなコンポーネントインスタンスに加えて、次のような状態の他の多くの側面を保持します。
 
@@ -101,9 +103,9 @@ Blazor は、ほとんどのハンドルされない例外を、発生した回�
 * [イベントハンドラー](#event-handlers)
 * [コンポーネントの破棄](#component-disposal)
 * [JavaScript の相互運用](#javascript-interop)
-* [サーキットハンドラー](#circuit-handlers)
-* [回線破棄](#circuit-disposal)
-* [プリ](#prerendering)
+* [Blazor サーバーのサーキットハンドラー](#blazor-server-circuit-handlers)
+* [Blazor サーバー回線の破棄](#blazor-server-circuit-disposal)
+* [Blazor サーバーの再度リリース](#blazor-server-prerendering)
 
 上記のハンドルされない例外については、この記事の次のセクションで説明します。
 
@@ -114,7 +116,7 @@ Blazor がコンポーネントのインスタンスを作成する場合:
 * コンポーネントのコンストラクターが呼び出されます。
 * [`@inject`](xref:blazor/dependency-injection#request-a-service-in-a-component)ディレクティブまたは[`[Inject]`](xref:blazor/dependency-injection#request-a-service-in-a-component)属性を使用して、コンポーネントのコンストラクターに渡される非シングルトン DI サービスのコンストラクターが呼び出されます。
 
-任意の `[Inject]` プロパティに対して実行されるコンストラクターまたは setter がハンドルされない例外をスローすると、回線が失敗します。 フレームワークはコンポーネントをインスタンス化できないため、例外は fatal です。 コンストラクターのロジックによって例外がスローされる可能性がある場合、アプリでは、エラー処理とログ記録を含む [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) ステートメントを使用して例外をトラップする必要があります。
+任意の `[Inject]` プロパティの実行コンストラクターまたは setter がハンドルされない例外をスローすると、Blazor サーバー回線が失敗します。 フレームワークはコンポーネントをインスタンス化できないため、例外は fatal です。 コンストラクターのロジックによって例外がスローされる可能性がある場合、アプリでは、エラー処理とログ記録を含む [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) ステートメントを使用して例外をトラップする必要があります。
 
 ### <a name="lifecycle-methods"></a>ライフサイクル メソッド
 
@@ -125,7 +127,7 @@ Blazor がコンポーネントのインスタンスを作成する場合:
 * `ShouldRender` / `ShouldRenderAsync`
 * `OnAfterRender` / `OnAfterRenderAsync`
 
-あるライフサイクルメソッドが例外を同期的または非同期的にスローする場合、この例外は回線にとって致命的です。 コンポーネントがライフサイクルメソッドのエラーに対処するには、エラー処理ロジックを追加します。
+いずれかのライフサイクルメソッドが、同期的または非同期的に例外をスローした場合、例外は Blazor サーバー回線にとって致命的です。 コンポーネントがライフサイクルメソッドのエラーに対処するには、エラー処理ロジックを追加します。
 
 次の例では、`OnParametersSetAsync` がメソッドを呼び出して製品を取得します。
 
@@ -140,7 +142,7 @@ Blazor がコンポーネントのインスタンスを作成する場合:
 
 `.razor` コンポーネントファイル内の宣言マークアップは、`BuildRenderTree`とC#呼ばれるメソッドにコンパイルされます。 コンポーネントがレンダリングされると、`BuildRenderTree` が実行され、レンダリングされたコンポーネントの要素、テキスト、および子コンポーネントを記述するデータ構造が構築されます。
 
-レンダリングロジックは例外をスローすることがあります。 このシナリオの例は、`@someObject.PropertyName` が評価され、`@someObject` が `null`場合に発生します。 レンダリングロジックによってスローされた未処理の例外は、回線にとって致命的です。
+レンダリングロジックは例外をスローすることがあります。 このシナリオの例は、`@someObject.PropertyName` が評価され、`@someObject` が `null`場合に発生します。 レンダリングロジックによってスローされた未処理の例外は、Blazor サーバー回線にとって致命的です。
 
 レンダリングロジックで null 参照例外が発生しないようにするには、そのメンバーにアクセスする前に `null` オブジェクトを確認します。 次の例では、`person.Address` が `null`場合、`person.Address` のプロパティにはアクセスしません。
 
@@ -159,7 +161,7 @@ Blazor がコンポーネントのインスタンスを作成する場合:
 
 これらのシナリオでは、イベントハンドラーコードによってハンドルされない例外がスローされることがあります。
 
-イベントハンドラーがハンドルされない例外をスローした場合 (たとえば、データベースクエリが失敗した場合)、その例外は回線にとって致命的です。 アプリが外部の理由で失敗する可能性のあるコードを呼び出した場合は、エラー処理とログ記録を含む [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) ステートメントを使用して例外をトラップします。
+イベントハンドラーがハンドルされない例外をスローした場合 (たとえば、データベースクエリが失敗した場合)、例外は Blazor サーバー回線にとって致命的です。 アプリが外部の理由で失敗する可能性のあるコードを呼び出した場合は、エラー処理とログ記録を含む [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) ステートメントを使用して例外をトラップします。
 
 ユーザーコードによって例外がトラップされて処理されない場合は、フレームワークによって例外がログに記録され、回線が終了します。
 
@@ -167,7 +169,7 @@ Blazor がコンポーネントのインスタンスを作成する場合:
 
 たとえば、ユーザーが別のページに移動したため、コンポーネントが UI から削除されることがあります。 <xref:System.IDisposable?displayProperty=fullName> を実装するコンポーネントが UI から削除されると、フレームワークはコンポーネントの <xref:System.IDisposable.Dispose*> メソッドを呼び出します。
 
-コンポーネントの `Dispose` メソッドがハンドルされない例外をスローした場合、この例外は回線にとって致命的です。 破棄ロジックによって例外がスローされる可能性がある場合、アプリでは、エラー処理とログ記録を含む [try-catch ](/dotnet/csharp/language-reference/keywords/try-catch)ステートメントを使用して例外をトラップする必要があります。
+コンポーネントの `Dispose` メソッドがハンドルされない例外をスローした場合、例外は Blazor サーバー回線にとって致命的です。 破棄ロジックによって例外がスローされる可能性がある場合、アプリでは、エラー処理とログ記録を含む [try-catch ](/dotnet/csharp/language-reference/keywords/try-catch)ステートメントを使用して例外をトラップする必要があります。
 
 コンポーネントの破棄の詳細については、「<xref:blazor/lifecycle#component-disposal-with-idisposable>」を参照してください。
 
@@ -177,20 +179,20 @@ Blazor がコンポーネントのインスタンスを作成する場合:
 
 `InvokeAsync<T>`でのエラー処理には、次の条件が適用されます。
 
-* `InvokeAsync<T>` の呼び出しが同期的に失敗した場合、.NET 例外が発生します。 たとえば、指定された引数をシリアル化できないため、`InvokeAsync<T>` を呼び出すことはできません。 開発者コードは例外をキャッチする必要があります。 イベントハンドラーまたはコンポーネントのライフサイクルメソッドのアプリコードで例外が処理されない場合、結果として得られる例外は回線にとって致命的です。
-* `InvokeAsync<T>` の呼び出しが非同期に失敗した場合、.NET <xref:System.Threading.Tasks.Task> は失敗します。 たとえば、JavaScript 側のコードが例外をスローしたり、`rejected`として完了した `Promise` を返したりするために、`InvokeAsync<T>` の呼び出しが失敗することがあります。 開発者コードは例外をキャッチする必要があります。 [Await](/dotnet/csharp/language-reference/keywords/await)演算子を使用する場合は、エラー処理とログ記録を使用し[て、try-catch](/dotnet/csharp/language-reference/keywords/try-catch)ステートメントでメソッド呼び出しをラップすることを検討してください。 それ以外の場合、失敗したコードは、回路にとって致命的な未処理の例外を発生させることになります。
+* `InvokeAsync<T>` の呼び出しが同期的に失敗した場合、.NET 例外が発生します。 たとえば、指定された引数をシリアル化できないため、`InvokeAsync<T>` を呼び出すことはできません。 開発者コードは例外をキャッチする必要があります。 イベントハンドラーまたはコンポーネントのライフサイクルメソッドのアプリコードで例外が処理されない場合、結果として得られる例外は Blazor サーバー回線にとって致命的です。
+* `InvokeAsync<T>` の呼び出しが非同期に失敗した場合、.NET <xref:System.Threading.Tasks.Task> は失敗します。 たとえば、JavaScript 側のコードが例外をスローしたり、`rejected`として完了した `Promise` を返したりするために、`InvokeAsync<T>` の呼び出しが失敗することがあります。 開発者コードは例外をキャッチする必要があります。 [Await](/dotnet/csharp/language-reference/keywords/await)演算子を使用する場合は、エラー処理とログ記録を使用し[て、try-catch](/dotnet/csharp/language-reference/keywords/try-catch)ステートメントでメソッド呼び出しをラップすることを検討してください。 それ以外の場合、失敗したコードは、Blazor サーバー回線にとって致命的な未処理の例外を発生させることになります。
 * 既定では、`InvokeAsync<T>` の呼び出しは特定の期間内に完了する必要があります。そうでない場合は、呼び出しがタイムアウトします。既定のタイムアウト期間は1分です。 タイムアウトは、完了メッセージを返信しないネットワーク接続または JavaScript コードの損失からコードを保護します。 呼び出しがタイムアウトした場合、結果として得られる `Task` は <xref:System.OperationCanceledException>で失敗します。 ログ記録で例外をトラップして処理します。
 
 同様に、JavaScript コードでは、 [`[JSInvokable]`](xref:blazor/javascript-interop#invoke-net-methods-from-javascript-functions)属性によって示される .net メソッドの呼び出しを開始できます。 これらの .NET メソッドでハンドルされない例外がスローされた場合:
 
-* この例外は、回線にとって致命的な例外として扱われません。
+* この例外は、Blazor サーバー回線にとって致命的なものとして扱われません。
 * JavaScript 側の `Promise` は拒否されます。
 
 .NET 側またはメソッド呼び出しの JavaScript 側でエラー処理コードを使用するオプションがあります。
 
 詳細については、「 <xref:blazor/javascript-interop>」を参照してください。
 
-### <a name="circuit-handlers"></a>サーキットハンドラー
+### <a name="opno-locblazor-server-circuit-handlers"></a>Blazor サーバーのサーキットハンドラー
 
 Blazor Server を使用すると、コードで*サーキットハンドラー*を定義できます。これにより、ユーザーの回線の状態の変更時にコードを実行できます。 サーキットハンドラーを実装するには、`CircuitHandler` から派生させ、そのクラスをアプリのサービスコンテナーに登録します。 次のサーキットハンドラーの例では、開いている SignalR 接続を追跡します。
 
@@ -236,11 +238,11 @@ public void ConfigureServices(IServiceCollection services)
 
 カスタムサーキットハンドラーのメソッドがハンドルされない例外をスローした場合、例外は Blazor サーバー回線にとって致命的です。 ハンドラーのコードまたはメソッドで例外が許容されるようにするには、エラー処理とログ記録を含む1つまたは複数の[try-catch](/dotnet/csharp/language-reference/keywords/try-catch)ステートメントでコードをラップします。
 
-### <a name="circuit-disposal"></a>回線破棄
+### <a name="opno-locblazor-server-circuit-disposal"></a>Blazor サーバー回線の破棄
 
 ユーザーが切断され、フレームワークが回線の状態をクリーンアップしているために回線が終了すると、フレームワークは回線の DI スコープを破棄します。 スコープを破棄すると、<xref:System.IDisposable?displayProperty=fullName>を実装するサーキットスコープの DI サービスが破棄されます。 破棄中にいずれかの DI サービスがハンドルされない例外をスローした場合、フレームワークは例外をログに記録します。
 
-### <a name="prerendering"></a>プリ
+### <a name="opno-locblazor-server-prerendering"></a>Blazor サーバーのプリレンダリング
 
 Blazor コンポーネントは、レンダリングされた HTML マークアップがユーザーの初期 HTTP 要求の一部として返されるように、`Component` タグヘルパーを使用して prerendered できます。 これは次のように機能します。
 
@@ -274,7 +276,7 @@ Blazor コンポーネントは、レンダリングされた HTML マークア�
 * レンダリングプロセスを永久に続行します。
 * は、終了しないループを作成するのと同じです。
 
-これらのシナリオでは、影響を受ける回線がハングし、スレッドは通常次を試行します。
+これらのシナリオでは、影響を受ける Blazor サーバー回線に障害が発生すると、通常、スレッドは次のことを試行します。
 
 * オペレーティングシステムで許可されている CPU 時間を無期限に使用します。
 * 無制限の数のサーバーメモリを消費します。 メモリを無制限に使用することは、反復処理のたびに終了しないループによってコレクションにエントリが追加されるシナリオと同じです。
