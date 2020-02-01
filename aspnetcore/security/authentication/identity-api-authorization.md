@@ -7,47 +7,47 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 11/08/2019
 uid: security/authentication/identity/spa
-ms.openlocfilehash: 31a5e47d772e7416646c4d83c3209d7d2b254199
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 623f739b17c0bed3ce929f562c9581ab26ecf5bc
+ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829167"
+ms.lasthandoff: 02/01/2020
+ms.locfileid: "76928558"
 ---
-# <a name="authentication-and-authorization-for-spas"></a><span data-ttu-id="87eca-103">SPAs の認証と承認</span><span class="sxs-lookup"><span data-stu-id="87eca-103">Authentication and authorization for SPAs</span></span>
+# <a name="authentication-and-authorization-for-spas"></a><span data-ttu-id="90e36-103">SPAs の認証と承認</span><span class="sxs-lookup"><span data-stu-id="90e36-103">Authentication and authorization for SPAs</span></span>
 
-<span data-ttu-id="87eca-104">ASP.NET Core 3.0 以降では、API 承認のサポートを使用して、シングルページアプリ (spa) で認証を提供します。</span><span class="sxs-lookup"><span data-stu-id="87eca-104">ASP.NET Core 3.0 or later offers authentication in Single Page Apps (SPAs) using the support for API authorization.</span></span> <span data-ttu-id="87eca-105">ユーザーを認証および格納するための ASP.NET Core Id は、Open ID Connect を実装するために、ユーザーと [IdentityServer](https://identityserver.io/) を組み合わせて使用されます。</span><span class="sxs-lookup"><span data-stu-id="87eca-105">ASP.NET Core Identity for authenticating and storing users is combined with [IdentityServer](https://identityserver.io/) for implementing Open ID Connect.</span></span>
+<span data-ttu-id="90e36-104">ASP.NET Core 3.0 以降では、API 承認のサポートを使用して、シングルページアプリ (spa) で認証を提供します。</span><span class="sxs-lookup"><span data-stu-id="90e36-104">ASP.NET Core 3.0 or later offers authentication in Single Page Apps (SPAs) using the support for API authorization.</span></span> <span data-ttu-id="90e36-105">ユーザーを認証および格納するための ASP.NET Core Id は、Open ID Connect を実装するために、ユーザーと [IdentityServer](https://identityserver.io/) を組み合わせて使用されます。</span><span class="sxs-lookup"><span data-stu-id="90e36-105">ASP.NET Core Identity for authenticating and storing users is combined with [IdentityServer](https://identityserver.io/) for implementing Open ID Connect.</span></span>
 
-<span data-ttu-id="87eca-106">**Angular** プロジェクトテンプレートと **React** プロジェクトテンプレートに、**Webアプリケーション(Model-View-Controller)** (MVC)と **Web アプリケーション**(Razor Pages)プロジェクトテンプレートの認証パラメータに似た認証パラメータが追加されました。</span><span class="sxs-lookup"><span data-stu-id="87eca-106">An authentication parameter was added to the **Angular** and **React** project templates that is similar to the authentication parameter in the **Web Application (Model-View-Controller)** (MVC) and **Web Application** (Razor Pages) project templates.</span></span> <span data-ttu-id="87eca-107">使用できるパラメータ値は、**None** および **Individual** です。</span><span class="sxs-lookup"><span data-stu-id="87eca-107">The allowed parameter values are **None** and **Individual**.</span></span> <span data-ttu-id="87eca-108">現時点では、 **React.js および Redux** プロジェクトテンプレートは認証パラメータをサポートしていません。</span><span class="sxs-lookup"><span data-stu-id="87eca-108">The **React.js and Redux** project template doesn't support the authentication parameter at this time.</span></span>
+<span data-ttu-id="90e36-106">**Angular** プロジェクトテンプレートと **React** プロジェクトテンプレートに、**Webアプリケーション(Model-View-Controller)** (MVC)と **Web アプリケーション**(Razor Pages)プロジェクトテンプレートの認証パラメータに似た認証パラメータが追加されました。</span><span class="sxs-lookup"><span data-stu-id="90e36-106">An authentication parameter was added to the **Angular** and **React** project templates that is similar to the authentication parameter in the **Web Application (Model-View-Controller)** (MVC) and **Web Application** (Razor Pages) project templates.</span></span> <span data-ttu-id="90e36-107">使用できるパラメータ値は、**None** および **Individual** です。</span><span class="sxs-lookup"><span data-stu-id="90e36-107">The allowed parameter values are **None** and **Individual**.</span></span> <span data-ttu-id="90e36-108">現時点では、 **React.js および Redux** プロジェクトテンプレートは認証パラメータをサポートしていません。</span><span class="sxs-lookup"><span data-stu-id="90e36-108">The **React.js and Redux** project template doesn't support the authentication parameter at this time.</span></span>
 
-## <a name="create-an-app-with-api-authorization-support"></a><span data-ttu-id="87eca-109">API authorization サポートを使用してアプリを作成する</span><span class="sxs-lookup"><span data-stu-id="87eca-109">Create an app with API authorization support</span></span>
+## <a name="create-an-app-with-api-authorization-support"></a><span data-ttu-id="90e36-109">API authorization サポートを使用してアプリを作成する</span><span class="sxs-lookup"><span data-stu-id="90e36-109">Create an app with API authorization support</span></span>
 
-<span data-ttu-id="87eca-110">ユーザーの認証と承認は、両方の角度で使用でき、SPAs として対応します。</span><span class="sxs-lookup"><span data-stu-id="87eca-110">User authentication and authorization can be used with both Angular and React SPAs.</span></span> <span data-ttu-id="87eca-111">コマンド シェルを開き、次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="87eca-111">Open a command shell, and run the following command:</span></span>
+<span data-ttu-id="90e36-110">ユーザーの認証と承認は、両方の角度で使用でき、SPAs として対応します。</span><span class="sxs-lookup"><span data-stu-id="90e36-110">User authentication and authorization can be used with both Angular and React SPAs.</span></span> <span data-ttu-id="90e36-111">コマンド シェルを開き、次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="90e36-111">Open a command shell, and run the following command:</span></span>
 
-<span data-ttu-id="87eca-112">**角度**:</span><span class="sxs-lookup"><span data-stu-id="87eca-112">**Angular**:</span></span>
+<span data-ttu-id="90e36-112">**角度**:</span><span class="sxs-lookup"><span data-stu-id="90e36-112">**Angular**:</span></span>
 
 ```dotnetcli
 dotnet new angular -o <output_directory_name> -au Individual
 ```
 
-<span data-ttu-id="87eca-113">**反応**:</span><span class="sxs-lookup"><span data-stu-id="87eca-113">**React**:</span></span>
+<span data-ttu-id="90e36-113">**反応**:</span><span class="sxs-lookup"><span data-stu-id="90e36-113">**React**:</span></span>
 
 ```dotnetcli
 dotnet new react -o <output_directory_name> -au Individual
 ```
 
-<span data-ttu-id="87eca-114">前のコマンドは、 *ClientApp*ディレクトリに SPA を含む ASP.NET Core アプリを作成します。</span><span class="sxs-lookup"><span data-stu-id="87eca-114">The preceding command creates an ASP.NET Core app with a *ClientApp* directory containing the SPA.</span></span>
+<span data-ttu-id="90e36-114">前のコマンドは、 *ClientApp*ディレクトリに SPA を含む ASP.NET Core アプリを作成します。</span><span class="sxs-lookup"><span data-stu-id="90e36-114">The preceding command creates an ASP.NET Core app with a *ClientApp* directory containing the SPA.</span></span>
 
-## <a name="general-description-of-the-aspnet-core-components-of-the-app"></a><span data-ttu-id="87eca-115">アプリの ASP.NET Core コンポーネントの一般的な説明</span><span class="sxs-lookup"><span data-stu-id="87eca-115">General description of the ASP.NET Core components of the app</span></span>
+## <a name="general-description-of-the-aspnet-core-components-of-the-app"></a><span data-ttu-id="90e36-115">アプリの ASP.NET Core コンポーネントの一般的な説明</span><span class="sxs-lookup"><span data-stu-id="90e36-115">General description of the ASP.NET Core components of the app</span></span>
 
-<span data-ttu-id="87eca-116">次のセクションでは、認証のサポートが含まれている場合のプロジェクトへの追加について説明します。</span><span class="sxs-lookup"><span data-stu-id="87eca-116">The following sections describe additions to the project when authentication support is included:</span></span>
+<span data-ttu-id="90e36-116">次のセクションでは、認証のサポートが含まれている場合のプロジェクトへの追加について説明します。</span><span class="sxs-lookup"><span data-stu-id="90e36-116">The following sections describe additions to the project when authentication support is included:</span></span>
 
-### <a name="startup-class"></a><span data-ttu-id="87eca-117">スタートアップ クラス</span><span class="sxs-lookup"><span data-stu-id="87eca-117">Startup class</span></span>
+### <a name="startup-class"></a><span data-ttu-id="90e36-117">Startup クラス</span><span class="sxs-lookup"><span data-stu-id="90e36-117">Startup class</span></span>
 
-<span data-ttu-id="87eca-118">`Startup` クラスには、次の追加機能があります。</span><span class="sxs-lookup"><span data-stu-id="87eca-118">The `Startup` class has the following additions:</span></span>
+<span data-ttu-id="90e36-118">`Startup` クラスには、次の追加機能があります。</span><span class="sxs-lookup"><span data-stu-id="90e36-118">The `Startup` class has the following additions:</span></span>
 
-* <span data-ttu-id="87eca-119">`Startup.ConfigureServices` メソッド内:</span><span class="sxs-lookup"><span data-stu-id="87eca-119">Inside the `Startup.ConfigureServices` method:</span></span>
-  * <span data-ttu-id="87eca-120">既定の UI を使用した id:</span><span class="sxs-lookup"><span data-stu-id="87eca-120">Identity with the default UI:</span></span>
+* <span data-ttu-id="90e36-119">`Startup.ConfigureServices` メソッド内:</span><span class="sxs-lookup"><span data-stu-id="90e36-119">Inside the `Startup.ConfigureServices` method:</span></span>
+  * <span data-ttu-id="90e36-120">既定の UI を使用した id:</span><span class="sxs-lookup"><span data-stu-id="90e36-120">Identity with the default UI:</span></span>
 
     ```csharp
     services.AddDbContext<ApplicationDbContext>(options =>
@@ -58,58 +58,58 @@ dotnet new react -o <output_directory_name> -au Individual
         .AddEntityFrameworkStores<ApplicationDbContext>();
     ```
 
-  * <span data-ttu-id="87eca-121">次のように、追加の `AddApiAuthorization` ヘルパーメソッドを使用して、サーバーの上に既定の ASP.NET Core 規則を設定します。</span><span class="sxs-lookup"><span data-stu-id="87eca-121">IdentityServer with an additional `AddApiAuthorization` helper method that sets up some default ASP.NET Core conventions on top of IdentityServer:</span></span>
+  * <span data-ttu-id="90e36-121">次のように、追加の `AddApiAuthorization` ヘルパーメソッドを使用して、サーバーの上に既定の ASP.NET Core 規則を設定します。</span><span class="sxs-lookup"><span data-stu-id="90e36-121">IdentityServer with an additional `AddApiAuthorization` helper method that sets up some default ASP.NET Core conventions on top of IdentityServer:</span></span>
 
     ```csharp
     services.AddIdentityServer()
         .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
     ```
 
-  * <span data-ttu-id="87eca-122">追加の `AddIdentityServerJwt` ヘルパーメソッドを使用した認証。次のように、アプリを構成して、サーバーによって生成された JWT トークンを検証します。</span><span class="sxs-lookup"><span data-stu-id="87eca-122">Authentication with an additional `AddIdentityServerJwt` helper method that configures the app to validate JWT tokens produced by IdentityServer:</span></span>
+  * <span data-ttu-id="90e36-122">追加の `AddIdentityServerJwt` ヘルパーメソッドを使用した認証。次のように、アプリを構成して、サーバーによって生成された JWT トークンを検証します。</span><span class="sxs-lookup"><span data-stu-id="90e36-122">Authentication with an additional `AddIdentityServerJwt` helper method that configures the app to validate JWT tokens produced by IdentityServer:</span></span>
 
     ```csharp
     services.AddAuthentication()
         .AddIdentityServerJwt();
     ```
 
-* <span data-ttu-id="87eca-123">`Startup.Configure` メソッド内:</span><span class="sxs-lookup"><span data-stu-id="87eca-123">Inside the `Startup.Configure` method:</span></span>
-  * <span data-ttu-id="87eca-124">要求の資格情報を検証し、要求コンテキストでユーザーを設定する認証ミドルウェア。</span><span class="sxs-lookup"><span data-stu-id="87eca-124">The authentication middleware that is responsible for validating the request credentials and setting the user on the request context:</span></span>
+* <span data-ttu-id="90e36-123">`Startup.Configure` メソッド内:</span><span class="sxs-lookup"><span data-stu-id="90e36-123">Inside the `Startup.Configure` method:</span></span>
+  * <span data-ttu-id="90e36-124">要求の資格情報を検証し、要求コンテキストでユーザーを設定する認証ミドルウェア。</span><span class="sxs-lookup"><span data-stu-id="90e36-124">The authentication middleware that is responsible for validating the request credentials and setting the user on the request context:</span></span>
 
     ```csharp
     app.UseAuthentication();
     ```
 
-  * <span data-ttu-id="87eca-125">Open ID Connect エンドポイントを公開するサーバーミドルウェア:</span><span class="sxs-lookup"><span data-stu-id="87eca-125">The IdentityServer middleware that exposes the Open ID Connect endpoints:</span></span>
+  * <span data-ttu-id="90e36-125">Open ID Connect エンドポイントを公開するサーバーミドルウェア:</span><span class="sxs-lookup"><span data-stu-id="90e36-125">The IdentityServer middleware that exposes the Open ID Connect endpoints:</span></span>
 
     ```csharp
     app.UseIdentityServer();
     ```
 
-### <a name="addapiauthorization"></a><span data-ttu-id="87eca-126">AddApiAuthorization</span><span class="sxs-lookup"><span data-stu-id="87eca-126">AddApiAuthorization</span></span>
+### <a name="addapiauthorization"></a><span data-ttu-id="90e36-126">AddApiAuthorization</span><span class="sxs-lookup"><span data-stu-id="90e36-126">AddApiAuthorization</span></span>
 
-<span data-ttu-id="87eca-127">このヘルパーメソッドは、サポートされる構成を使用するようにサーバーを構成します。</span><span class="sxs-lookup"><span data-stu-id="87eca-127">This helper method configures IdentityServer to use our supported configuration.</span></span> <span data-ttu-id="87eca-128">サービスは、アプリのセキュリティの問題を処理するための強力で拡張可能なフレームワークです。</span><span class="sxs-lookup"><span data-stu-id="87eca-128">IdentityServer is a powerful and extensible framework for handling app security concerns.</span></span> <span data-ttu-id="87eca-129">同時に、最も一般的なシナリオでは不必要な複雑さを公開します。</span><span class="sxs-lookup"><span data-stu-id="87eca-129">At the same time, that exposes unnecessary complexity for the most common scenarios.</span></span> <span data-ttu-id="87eca-130">そのため、適切な出発点と見なされる一連の規則と構成オプションが用意されています。</span><span class="sxs-lookup"><span data-stu-id="87eca-130">Consequently, a set of conventions and configuration options is provided to you that are considered a good starting point.</span></span> <span data-ttu-id="87eca-131">認証を変更する必要がある場合でも、ユーザーのニーズに合わせて認証をカスタマイズするために、ユーザーサーバーの能力を最大限に活用できます。</span><span class="sxs-lookup"><span data-stu-id="87eca-131">Once your authentication needs change, the full power of IdentityServer is still available to customize authentication to suit your needs.</span></span>
+<span data-ttu-id="90e36-127">このヘルパーメソッドは、サポートされる構成を使用するようにサーバーを構成します。</span><span class="sxs-lookup"><span data-stu-id="90e36-127">This helper method configures IdentityServer to use our supported configuration.</span></span> <span data-ttu-id="90e36-128">サービスは、アプリのセキュリティの問題を処理するための強力で拡張可能なフレームワークです。</span><span class="sxs-lookup"><span data-stu-id="90e36-128">IdentityServer is a powerful and extensible framework for handling app security concerns.</span></span> <span data-ttu-id="90e36-129">同時に、最も一般的なシナリオでは不必要な複雑さを公開します。</span><span class="sxs-lookup"><span data-stu-id="90e36-129">At the same time, that exposes unnecessary complexity for the most common scenarios.</span></span> <span data-ttu-id="90e36-130">そのため、適切な出発点と見なされる一連の規則と構成オプションが用意されています。</span><span class="sxs-lookup"><span data-stu-id="90e36-130">Consequently, a set of conventions and configuration options is provided to you that are considered a good starting point.</span></span> <span data-ttu-id="90e36-131">認証を変更する必要がある場合でも、ユーザーのニーズに合わせて認証をカスタマイズするために、ユーザーサーバーの能力を最大限に活用できます。</span><span class="sxs-lookup"><span data-stu-id="90e36-131">Once your authentication needs change, the full power of IdentityServer is still available to customize authentication to suit your needs.</span></span>
 
-### <a name="addidentityserverjwt"></a><span data-ttu-id="87eca-132">AddIdentityServerJwt</span><span class="sxs-lookup"><span data-stu-id="87eca-132">AddIdentityServerJwt</span></span>
+### <a name="addidentityserverjwt"></a><span data-ttu-id="90e36-132">AddIdentityServerJwt</span><span class="sxs-lookup"><span data-stu-id="90e36-132">AddIdentityServerJwt</span></span>
 
-<span data-ttu-id="87eca-133">このヘルパーメソッドは、アプリのポリシースキームを既定の認証ハンドラーとして構成します。</span><span class="sxs-lookup"><span data-stu-id="87eca-133">This helper method configures a policy scheme for the app as the default authentication handler.</span></span> <span data-ttu-id="87eca-134">Id URL 空間 "/identity" のサブパスにルーティングされるすべての要求を Id で処理できるように、ポリシーが構成されています。</span><span class="sxs-lookup"><span data-stu-id="87eca-134">The policy is configured to let Identity handle all requests routed to any subpath in the Identity URL space "/Identity".</span></span> <span data-ttu-id="87eca-135">`JwtBearerHandler` は、他のすべての要求を処理します。</span><span class="sxs-lookup"><span data-stu-id="87eca-135">The `JwtBearerHandler` handles all other requests.</span></span> <span data-ttu-id="87eca-136">さらに、このメソッドは、`<<ApplicationName>>API` API リソースを、既定のスコープである `<<ApplicationName>>API` を使用して登録し、JWT ベアラートークンミドルウェアを構成して、アプリのために、サービスによって発行されたトークンを検証します。</span><span class="sxs-lookup"><span data-stu-id="87eca-136">Additionally, this method registers an `<<ApplicationName>>API` API resource with IdentityServer with a default scope of `<<ApplicationName>>API` and configures the JWT Bearer token middleware to validate tokens issued by IdentityServer for the app.</span></span>
+<span data-ttu-id="90e36-133">このヘルパーメソッドは、アプリのポリシースキームを既定の認証ハンドラーとして構成します。</span><span class="sxs-lookup"><span data-stu-id="90e36-133">This helper method configures a policy scheme for the app as the default authentication handler.</span></span> <span data-ttu-id="90e36-134">Id URL 空間 "/identity" のサブパスにルーティングされるすべての要求を Id で処理できるように、ポリシーが構成されています。</span><span class="sxs-lookup"><span data-stu-id="90e36-134">The policy is configured to let Identity handle all requests routed to any subpath in the Identity URL space "/Identity".</span></span> <span data-ttu-id="90e36-135">`JwtBearerHandler` は、他のすべての要求を処理します。</span><span class="sxs-lookup"><span data-stu-id="90e36-135">The `JwtBearerHandler` handles all other requests.</span></span> <span data-ttu-id="90e36-136">さらに、このメソッドは、`<<ApplicationName>>API` API リソースを、既定のスコープである `<<ApplicationName>>API` を使用して登録し、JWT ベアラートークンミドルウェアを構成して、アプリのために、サービスによって発行されたトークンを検証します。</span><span class="sxs-lookup"><span data-stu-id="90e36-136">Additionally, this method registers an `<<ApplicationName>>API` API resource with IdentityServer with a default scope of `<<ApplicationName>>API` and configures the JWT Bearer token middleware to validate tokens issued by IdentityServer for the app.</span></span>
 
-### <a name="weatherforecastcontroller"></a><span data-ttu-id="87eca-137">WeatherForecastController</span><span class="sxs-lookup"><span data-stu-id="87eca-137">WeatherForecastController</span></span>
+### <a name="weatherforecastcontroller"></a><span data-ttu-id="90e36-137">WeatherForecastController</span><span class="sxs-lookup"><span data-stu-id="90e36-137">WeatherForecastController</span></span>
 
-<span data-ttu-id="87eca-138">*Controllers\WeatherForecastController.cs*ファイルで、リソースにアクセスするための既定のポリシーに基づいてユーザーを承認する必要があることを示す `[Authorize]` 属性がクラスに適用されていることを確認します。</span><span class="sxs-lookup"><span data-stu-id="87eca-138">In the *Controllers\WeatherForecastController.cs* file, notice the `[Authorize]` attribute applied to the class that indicates that the user needs to be authorized based on the default policy to access the resource.</span></span> <span data-ttu-id="87eca-139">既定の承認ポリシーは、既定の認証スキームを使用するように構成されます。これは、前述のポリシースキームに `AddIdentityServerJwt` によって設定されます。このようなヘルパーメソッドによって構成された `JwtBearerHandler` は、アプリに対する要求の既定のハンドラーになります。</span><span class="sxs-lookup"><span data-stu-id="87eca-139">The default authorization policy happens to be configured to use the default authentication scheme, which is set up by `AddIdentityServerJwt` to the policy scheme that was mentioned above, making the `JwtBearerHandler` configured by such helper method the default handler for requests to the app.</span></span>
+<span data-ttu-id="90e36-138">*Controllers\WeatherForecastController.cs*ファイルで、リソースにアクセスするための既定のポリシーに基づいてユーザーを承認する必要があることを示す `[Authorize]` 属性がクラスに適用されていることを確認します。</span><span class="sxs-lookup"><span data-stu-id="90e36-138">In the *Controllers\WeatherForecastController.cs* file, notice the `[Authorize]` attribute applied to the class that indicates that the user needs to be authorized based on the default policy to access the resource.</span></span> <span data-ttu-id="90e36-139">既定の承認ポリシーは、既定の認証スキームを使用するように構成されます。これは、前述のポリシースキームに `AddIdentityServerJwt` によって設定されます。このようなヘルパーメソッドによって構成された `JwtBearerHandler` は、アプリに対する要求の既定のハンドラーになります。</span><span class="sxs-lookup"><span data-stu-id="90e36-139">The default authorization policy happens to be configured to use the default authentication scheme, which is set up by `AddIdentityServerJwt` to the policy scheme that was mentioned above, making the `JwtBearerHandler` configured by such helper method the default handler for requests to the app.</span></span>
 
-### <a name="applicationdbcontext"></a><span data-ttu-id="87eca-140">ApplicationDbContext</span><span class="sxs-lookup"><span data-stu-id="87eca-140">ApplicationDbContext</span></span>
+### <a name="applicationdbcontext"></a><span data-ttu-id="90e36-140">ApplicationDbContext</span><span class="sxs-lookup"><span data-stu-id="90e36-140">ApplicationDbContext</span></span>
 
-<span data-ttu-id="87eca-141">*Data\ApplicationDbContext.cs*ファイルで、id に同じ `DbContext` が使用されていることに注意してください `ApiAuthorizationDbContext` (`IdentityDbContext`から派生したクラス) を使用して、ユーザーのスキーマを含めることができます。</span><span class="sxs-lookup"><span data-stu-id="87eca-141">In the *Data\ApplicationDbContext.cs* file, notice the same `DbContext` is used in Identity with the exception that it extends `ApiAuthorizationDbContext` (a more derived class from `IdentityDbContext`) to include the schema for IdentityServer.</span></span>
+<span data-ttu-id="90e36-141">*Data\ApplicationDbContext.cs*ファイルで、id に同じ `DbContext` が使用されていることに注意してください `ApiAuthorizationDbContext` (`IdentityDbContext`から派生したクラス) を使用して、ユーザーのスキーマを含めることができます。</span><span class="sxs-lookup"><span data-stu-id="90e36-141">In the *Data\ApplicationDbContext.cs* file, notice the same `DbContext` is used in Identity with the exception that it extends `ApiAuthorizationDbContext` (a more derived class from `IdentityDbContext`) to include the schema for IdentityServer.</span></span>
 
-<span data-ttu-id="87eca-142">データベーススキーマを完全に制御するには、使用可能な Id `DbContext` クラスの1つを継承し、`OnModelCreating` メソッドで `builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value)` を呼び出して、Id スキーマを含めるようにコンテキストを構成します。</span><span class="sxs-lookup"><span data-stu-id="87eca-142">To gain full control of the database schema, inherit from one of the available Identity `DbContext` classes and configure the context to include the Identity schema by calling `builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value)` on the `OnModelCreating` method.</span></span>
+<span data-ttu-id="90e36-142">データベーススキーマを完全に制御するには、使用可能な Id `DbContext` クラスの1つを継承し、`OnModelCreating` メソッドで `builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value)` を呼び出して、Id スキーマを含めるようにコンテキストを構成します。</span><span class="sxs-lookup"><span data-stu-id="90e36-142">To gain full control of the database schema, inherit from one of the available Identity `DbContext` classes and configure the context to include the Identity schema by calling `builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value)` on the `OnModelCreating` method.</span></span>
 
-### <a name="oidcconfigurationcontroller"></a><span data-ttu-id="87eca-143">OidcConfigurationController</span><span class="sxs-lookup"><span data-stu-id="87eca-143">OidcConfigurationController</span></span>
+### <a name="oidcconfigurationcontroller"></a><span data-ttu-id="90e36-143">OidcConfigurationController</span><span class="sxs-lookup"><span data-stu-id="90e36-143">OidcConfigurationController</span></span>
 
-<span data-ttu-id="87eca-144">*Controllers\OidcConfigurationController.cs*ファイルで、クライアントが使用する必要のある oidc パラメーターを提供するためにプロビジョニングされたエンドポイントを確認します。</span><span class="sxs-lookup"><span data-stu-id="87eca-144">In the *Controllers\OidcConfigurationController.cs* file, notice the endpoint that's provisioned to serve the OIDC parameters that the client needs to use.</span></span>
+<span data-ttu-id="90e36-144">*Controllers\OidcConfigurationController.cs*ファイルで、クライアントが使用する必要のある oidc パラメーターを提供するためにプロビジョニングされたエンドポイントを確認します。</span><span class="sxs-lookup"><span data-stu-id="90e36-144">In the *Controllers\OidcConfigurationController.cs* file, notice the endpoint that's provisioned to serve the OIDC parameters that the client needs to use.</span></span>
 
-### <a name="appsettingsjson"></a><span data-ttu-id="87eca-145">appsettings.json</span><span class="sxs-lookup"><span data-stu-id="87eca-145">appsettings.json</span></span>
+### <a name="appsettingsjson"></a><span data-ttu-id="90e36-145">appsettings.json</span><span class="sxs-lookup"><span data-stu-id="90e36-145">appsettings.json</span></span>
 
-<span data-ttu-id="87eca-146">プロジェクトルートの*appsettings*ファイルには、構成されたクライアントの一覧を説明する新しい `IdentityServer` セクションがあります。</span><span class="sxs-lookup"><span data-stu-id="87eca-146">In the *appsettings.json* file of the project root, there's a new `IdentityServer` section that describes the list of configured clients.</span></span> <span data-ttu-id="87eca-147">次の例には、1つのクライアントがあります。</span><span class="sxs-lookup"><span data-stu-id="87eca-147">In the following example, there's a single client.</span></span> <span data-ttu-id="87eca-148">クライアント名はアプリケーション名に対応し、OAuth `ClientId` パラメーターに規約によってマップされます。</span><span class="sxs-lookup"><span data-stu-id="87eca-148">The client name corresponds to the app name and is mapped by convention to the OAuth `ClientId` parameter.</span></span> <span data-ttu-id="87eca-149">プロファイルは、構成されているアプリの種類を示します。</span><span class="sxs-lookup"><span data-stu-id="87eca-149">The profile indicates the app type being configured.</span></span> <span data-ttu-id="87eca-150">サーバーの構成プロセスを簡略化する規則を実現するために、内部的に使用されます。</span><span class="sxs-lookup"><span data-stu-id="87eca-150">It's used internally to drive conventions that simplify the configuration process for the server.</span></span> <span data-ttu-id="87eca-151">「[アプリケーションプロファイル](#application-profiles)」セクションで説明されているように、使用可能なプロファイルがいくつかあります。</span><span class="sxs-lookup"><span data-stu-id="87eca-151">There are several profiles available, as explained in the [Application profiles](#application-profiles) section.</span></span>
+<span data-ttu-id="90e36-146">プロジェクトルートの*appsettings*ファイルには、構成されたクライアントの一覧を説明する新しい `IdentityServer` セクションがあります。</span><span class="sxs-lookup"><span data-stu-id="90e36-146">In the *appsettings.json* file of the project root, there's a new `IdentityServer` section that describes the list of configured clients.</span></span> <span data-ttu-id="90e36-147">次の例には、1つのクライアントがあります。</span><span class="sxs-lookup"><span data-stu-id="90e36-147">In the following example, there's a single client.</span></span> <span data-ttu-id="90e36-148">クライアント名はアプリケーション名に対応し、OAuth `ClientId` パラメーターに規約によってマップされます。</span><span class="sxs-lookup"><span data-stu-id="90e36-148">The client name corresponds to the app name and is mapped by convention to the OAuth `ClientId` parameter.</span></span> <span data-ttu-id="90e36-149">プロファイルは、構成されているアプリの種類を示します。</span><span class="sxs-lookup"><span data-stu-id="90e36-149">The profile indicates the app type being configured.</span></span> <span data-ttu-id="90e36-150">サーバーの構成プロセスを簡略化する規則を実現するために、内部的に使用されます。</span><span class="sxs-lookup"><span data-stu-id="90e36-150">It's used internally to drive conventions that simplify the configuration process for the server.</span></span> <span data-ttu-id="90e36-151">「[アプリケーションプロファイル](#application-profiles)」セクションで説明されているように、使用可能なプロファイルがいくつかあります。</span><span class="sxs-lookup"><span data-stu-id="90e36-151">There are several profiles available, as explained in the [Application profiles](#application-profiles) section.</span></span>
 
 ```json
 "IdentityServer": {
@@ -121,9 +121,9 @@ dotnet new react -o <output_directory_name> -au Individual
 }
 ```
 
-### <a name="appsettingsdevelopmentjson"></a><span data-ttu-id="87eca-152">appsettings.Development.json</span><span class="sxs-lookup"><span data-stu-id="87eca-152">appsettings.Development.json</span></span>
+### <a name="appsettingsdevelopmentjson"></a><span data-ttu-id="90e36-152">appsettings.Development.json</span><span class="sxs-lookup"><span data-stu-id="90e36-152">appsettings.Development.json</span></span>
 
-<span data-ttu-id="87eca-153">プロジェクトルートの*appsettings.Development.json*ファイルには、トークンの署名に使用されるキーについて説明する `IdentityServer` セクションがあります。</span><span class="sxs-lookup"><span data-stu-id="87eca-153">In the *appsettings.Development.json* file of the project root, there's an `IdentityServer` section that describes the key used to sign tokens.</span></span> <span data-ttu-id="87eca-154">運用環境にデプロイする場合は、「[運用環境にデプロイする](#deploy-to-production)」セクションで説明されているように、アプリと共にキーをプロビジョニングしてデプロイする必要があります。</span><span class="sxs-lookup"><span data-stu-id="87eca-154">When deploying to production, a key needs to be provisioned and deployed alongside the app, as explained in the [Deploy to production](#deploy-to-production) section.</span></span>
+<span data-ttu-id="90e36-153">プロジェクトルートの*appsettings.Development.json*ファイルには、トークンの署名に使用されるキーについて説明する `IdentityServer` セクションがあります。</span><span class="sxs-lookup"><span data-stu-id="90e36-153">In the *appsettings.Development.json* file of the project root, there's an `IdentityServer` section that describes the key used to sign tokens.</span></span> <span data-ttu-id="90e36-154">運用環境にデプロイする場合は、「[運用環境にデプロイする](#deploy-to-production)」セクションで説明されているように、アプリと共にキーをプロビジョニングしてデプロイする必要があります。</span><span class="sxs-lookup"><span data-stu-id="90e36-154">When deploying to production, a key needs to be provisioned and deployed alongside the app, as explained in the [Deploy to production](#deploy-to-production) section.</span></span>
 
 ```json
 "IdentityServer": {
@@ -133,43 +133,43 @@ dotnet new react -o <output_directory_name> -au Individual
 }
 ```
 
-## <a name="general-description-of-the-angular-app"></a><span data-ttu-id="87eca-155">角度アプリの一般的な説明</span><span class="sxs-lookup"><span data-stu-id="87eca-155">General description of the Angular app</span></span>
+## <a name="general-description-of-the-angular-app"></a><span data-ttu-id="90e36-155">角度アプリの一般的な説明</span><span class="sxs-lookup"><span data-stu-id="90e36-155">General description of the Angular app</span></span>
 
-<span data-ttu-id="87eca-156">Angular テンプレートでの認証と API 承認のサポートは、*ClientApp\src\api-authorization* ディレクトリの、独自の Angular モジュールに存在します。</span><span class="sxs-lookup"><span data-stu-id="87eca-156">The authentication and API authorization support in the Angular template resides in its own Angular module in the *ClientApp\src\api-authorization* directory.</span></span> <span data-ttu-id="87eca-157">モジュールは、次の要素で構成されています。</span><span class="sxs-lookup"><span data-stu-id="87eca-157">The module is composed of the following elements:</span></span>
+<span data-ttu-id="90e36-156">Angular テンプレートでの認証と API 承認のサポートは、*ClientApp\src\api-authorization* ディレクトリの、独自の Angular モジュールに存在します。</span><span class="sxs-lookup"><span data-stu-id="90e36-156">The authentication and API authorization support in the Angular template resides in its own Angular module in the *ClientApp\src\api-authorization* directory.</span></span> <span data-ttu-id="90e36-157">モジュールは、次の要素で構成されています。</span><span class="sxs-lookup"><span data-stu-id="90e36-157">The module is composed of the following elements:</span></span>
 
-* <span data-ttu-id="87eca-158">3個のコンポーネント:</span><span class="sxs-lookup"><span data-stu-id="87eca-158">3 components:</span></span>
-  * <span data-ttu-id="87eca-159">*login. component. ts*: アプリのログインフローを処理します。</span><span class="sxs-lookup"><span data-stu-id="87eca-159">*login.component.ts*: Handles the app's login flow.</span></span>
-  * <span data-ttu-id="87eca-160">*logout*: アプリのログアウトフローを処理します。</span><span class="sxs-lookup"><span data-stu-id="87eca-160">*logout.component.ts*: Handles the app's logout flow.</span></span>
-  * <span data-ttu-id="87eca-161">*login-menu. component. ts*: 次のリンクのセットのいずれかを表示するウィジェット。</span><span class="sxs-lookup"><span data-stu-id="87eca-161">*login-menu.component.ts*: A widget that displays one of the following sets of links:</span></span>
-    * <span data-ttu-id="87eca-162">ユーザーが認証されると、ユーザープロファイルの管理とログアウトのリンクがあります。</span><span class="sxs-lookup"><span data-stu-id="87eca-162">User profile management and log out links when the user is authenticated.</span></span>
-    * <span data-ttu-id="87eca-163">ユーザーが認証されていない場合の登録とログインリンク。</span><span class="sxs-lookup"><span data-stu-id="87eca-163">Registration and log in links when the user isn't authenticated.</span></span>
-* <span data-ttu-id="87eca-164">ルートに追加することができ、ルートにアクセスする前にユーザーを認証する必要があるルートガード `AuthorizeGuard`。</span><span class="sxs-lookup"><span data-stu-id="87eca-164">A route guard `AuthorizeGuard` that can be added to routes and requires a user to be authenticated before visiting the route.</span></span>
-* <span data-ttu-id="87eca-165">ユーザーが認証されるときに、API を対象とする発信 HTTP 要求にアクセストークンを結び付ける HTTP インターセプター `AuthorizeInterceptor`。</span><span class="sxs-lookup"><span data-stu-id="87eca-165">An HTTP interceptor `AuthorizeInterceptor` that attaches the access token to outgoing HTTP requests targeting the API when the user is authenticated.</span></span>
-* <span data-ttu-id="87eca-166">認証プロセスの下位レベルの詳細を処理し、認証されたユーザーに関する情報をアプリの残りの部分に公開するサービス `AuthorizeService`。</span><span class="sxs-lookup"><span data-stu-id="87eca-166">A service `AuthorizeService` that handles the lower-level details of the authentication process and exposes information about the authenticated user to the rest of the app for consumption.</span></span>
-* <span data-ttu-id="87eca-167">アプリの認証部分に関連付けられているルートを定義する角度モジュール。</span><span class="sxs-lookup"><span data-stu-id="87eca-167">An Angular module that defines routes associated with the authentication parts of the app.</span></span> <span data-ttu-id="87eca-168">ログインメニューコンポーネント、インターセプター、ガード、およびアプリの残りの部分から使用するためのサービスを公開します。</span><span class="sxs-lookup"><span data-stu-id="87eca-168">It exposes the login menu component, the interceptor, the guard, and the service for consumption from the rest of the app.</span></span>
+* <span data-ttu-id="90e36-158">3個のコンポーネント:</span><span class="sxs-lookup"><span data-stu-id="90e36-158">3 components:</span></span>
+  * <span data-ttu-id="90e36-159">*login. component. ts*: アプリのログインフローを処理します。</span><span class="sxs-lookup"><span data-stu-id="90e36-159">*login.component.ts*: Handles the app's login flow.</span></span>
+  * <span data-ttu-id="90e36-160">*logout*: アプリのログアウトフローを処理します。</span><span class="sxs-lookup"><span data-stu-id="90e36-160">*logout.component.ts*: Handles the app's logout flow.</span></span>
+  * <span data-ttu-id="90e36-161">*login-menu. component. ts*: 次のリンクのセットのいずれかを表示するウィジェット。</span><span class="sxs-lookup"><span data-stu-id="90e36-161">*login-menu.component.ts*: A widget that displays one of the following sets of links:</span></span>
+    * <span data-ttu-id="90e36-162">ユーザーが認証されると、ユーザープロファイルの管理とログアウトのリンクがあります。</span><span class="sxs-lookup"><span data-stu-id="90e36-162">User profile management and log out links when the user is authenticated.</span></span>
+    * <span data-ttu-id="90e36-163">ユーザーが認証されていない場合の登録とログインリンク。</span><span class="sxs-lookup"><span data-stu-id="90e36-163">Registration and log in links when the user isn't authenticated.</span></span>
+* <span data-ttu-id="90e36-164">ルートに追加することができ、ルートにアクセスする前にユーザーを認証する必要があるルートガード `AuthorizeGuard`。</span><span class="sxs-lookup"><span data-stu-id="90e36-164">A route guard `AuthorizeGuard` that can be added to routes and requires a user to be authenticated before visiting the route.</span></span>
+* <span data-ttu-id="90e36-165">ユーザーが認証されるときに、API を対象とする発信 HTTP 要求にアクセストークンを結び付ける HTTP インターセプター `AuthorizeInterceptor`。</span><span class="sxs-lookup"><span data-stu-id="90e36-165">An HTTP interceptor `AuthorizeInterceptor` that attaches the access token to outgoing HTTP requests targeting the API when the user is authenticated.</span></span>
+* <span data-ttu-id="90e36-166">認証プロセスの下位レベルの詳細を処理し、認証されたユーザーに関する情報をアプリの残りの部分に公開するサービス `AuthorizeService`。</span><span class="sxs-lookup"><span data-stu-id="90e36-166">A service `AuthorizeService` that handles the lower-level details of the authentication process and exposes information about the authenticated user to the rest of the app for consumption.</span></span>
+* <span data-ttu-id="90e36-167">アプリの認証部分に関連付けられているルートを定義する角度モジュール。</span><span class="sxs-lookup"><span data-stu-id="90e36-167">An Angular module that defines routes associated with the authentication parts of the app.</span></span> <span data-ttu-id="90e36-168">ログインメニューコンポーネント、インターセプター、ガード、およびアプリの残りの部分から使用するためのサービスを公開します。</span><span class="sxs-lookup"><span data-stu-id="90e36-168">It exposes the login menu component, the interceptor, the guard, and the service for consumption from the rest of the app.</span></span>
 
-## <a name="general-description-of-the-react-app"></a><span data-ttu-id="87eca-169">反応アプリの一般的な説明</span><span class="sxs-lookup"><span data-stu-id="87eca-169">General description of the React app</span></span>
+## <a name="general-description-of-the-react-app"></a><span data-ttu-id="90e36-169">反応アプリの一般的な説明</span><span class="sxs-lookup"><span data-stu-id="90e36-169">General description of the React app</span></span>
 
-<span data-ttu-id="87eca-170">応答テンプレートでの認証と API 承認のサポートは、 *ClientApp\src\components\api-authorization*ディレクトリにあります。</span><span class="sxs-lookup"><span data-stu-id="87eca-170">The support for authentication and API authorization in the React template resides in the *ClientApp\src\components\api-authorization* directory.</span></span> <span data-ttu-id="87eca-171">これは、次の要素で構成されています。</span><span class="sxs-lookup"><span data-stu-id="87eca-171">It's composed of the following elements:</span></span>
+<span data-ttu-id="90e36-170">応答テンプレートでの認証と API 承認のサポートは、 *ClientApp\src\components\api-authorization*ディレクトリにあります。</span><span class="sxs-lookup"><span data-stu-id="90e36-170">The support for authentication and API authorization in the React template resides in the *ClientApp\src\components\api-authorization* directory.</span></span> <span data-ttu-id="90e36-171">これは、次の要素で構成されています。</span><span class="sxs-lookup"><span data-stu-id="90e36-171">It's composed of the following elements:</span></span>
 
-* <span data-ttu-id="87eca-172">4つのコンポーネント:</span><span class="sxs-lookup"><span data-stu-id="87eca-172">4 components:</span></span>
-  * <span data-ttu-id="87eca-173">*.Js*: アプリのログインフローを処理します。</span><span class="sxs-lookup"><span data-stu-id="87eca-173">*Login.js*: Handles the app's login flow.</span></span>
-  * <span data-ttu-id="87eca-174">*Logout*: アプリのログアウトフローを処理します。</span><span class="sxs-lookup"><span data-stu-id="87eca-174">*Logout.js*: Handles the app's logout flow.</span></span>
-  * <span data-ttu-id="87eca-175">*Loginmenu js*: 次のリンクのセットのいずれかを表示するウィジェット。</span><span class="sxs-lookup"><span data-stu-id="87eca-175">*LoginMenu.js*: A widget that displays one of the following sets of links:</span></span>
-    * <span data-ttu-id="87eca-176">ユーザーが認証されると、ユーザープロファイルの管理とログアウトのリンクがあります。</span><span class="sxs-lookup"><span data-stu-id="87eca-176">User profile management and log out links when the user is authenticated.</span></span>
-    * <span data-ttu-id="87eca-177">ユーザーが認証されていない場合の登録とログインリンク。</span><span class="sxs-lookup"><span data-stu-id="87eca-177">Registration and log in links when the user isn't authenticated.</span></span>
-  * <span data-ttu-id="87eca-178">*AuthorizeRoute*: `Component` パラメーターに示されているコンポーネントを表示する前に、ユーザーを認証する必要があるルートコンポーネント。</span><span class="sxs-lookup"><span data-stu-id="87eca-178">*AuthorizeRoute.js*: A route component that requires a user to be authenticated before rendering the component indicated in the `Component` parameter.</span></span>
-* <span data-ttu-id="87eca-179">認証プロセスの下位レベルの詳細を処理し、認証されたユーザーに関する情報をアプリの残りの部分に公開する、クラス `AuthorizeService` のエクスポートされた `authService` インスタンス。</span><span class="sxs-lookup"><span data-stu-id="87eca-179">An exported `authService` instance of class `AuthorizeService` that handles the lower-level details of the authentication process and exposes information about the authenticated user to the rest of the app for consumption.</span></span>
+* <span data-ttu-id="90e36-172">4つのコンポーネント:</span><span class="sxs-lookup"><span data-stu-id="90e36-172">4 components:</span></span>
+  * <span data-ttu-id="90e36-173">*.Js*: アプリのログインフローを処理します。</span><span class="sxs-lookup"><span data-stu-id="90e36-173">*Login.js*: Handles the app's login flow.</span></span>
+  * <span data-ttu-id="90e36-174">*Logout*: アプリのログアウトフローを処理します。</span><span class="sxs-lookup"><span data-stu-id="90e36-174">*Logout.js*: Handles the app's logout flow.</span></span>
+  * <span data-ttu-id="90e36-175">*Loginmenu js*: 次のリンクのセットのいずれかを表示するウィジェット。</span><span class="sxs-lookup"><span data-stu-id="90e36-175">*LoginMenu.js*: A widget that displays one of the following sets of links:</span></span>
+    * <span data-ttu-id="90e36-176">ユーザーが認証されると、ユーザープロファイルの管理とログアウトのリンクがあります。</span><span class="sxs-lookup"><span data-stu-id="90e36-176">User profile management and log out links when the user is authenticated.</span></span>
+    * <span data-ttu-id="90e36-177">ユーザーが認証されていない場合の登録とログインリンク。</span><span class="sxs-lookup"><span data-stu-id="90e36-177">Registration and log in links when the user isn't authenticated.</span></span>
+  * <span data-ttu-id="90e36-178">*AuthorizeRoute*: `Component` パラメーターに示されているコンポーネントを表示する前に、ユーザーを認証する必要があるルートコンポーネント。</span><span class="sxs-lookup"><span data-stu-id="90e36-178">*AuthorizeRoute.js*: A route component that requires a user to be authenticated before rendering the component indicated in the `Component` parameter.</span></span>
+* <span data-ttu-id="90e36-179">認証プロセスの下位レベルの詳細を処理し、認証されたユーザーに関する情報をアプリの残りの部分に公開する、クラス `AuthorizeService` のエクスポートされた `authService` インスタンス。</span><span class="sxs-lookup"><span data-stu-id="90e36-179">An exported `authService` instance of class `AuthorizeService` that handles the lower-level details of the authentication process and exposes information about the authenticated user to the rest of the app for consumption.</span></span>
 
-<span data-ttu-id="87eca-180">これで、ソリューションの主要なコンポーネントを確認できました。次は、アプリの個々のシナリオについて詳しく見ていきましょう。</span><span class="sxs-lookup"><span data-stu-id="87eca-180">Now that you've seen the main components of the solution, you can take a deeper look at individual scenarios for the app.</span></span>
+<span data-ttu-id="90e36-180">これで、ソリューションの主要なコンポーネントを確認できました。次は、アプリの個々のシナリオについて詳しく見ていきましょう。</span><span class="sxs-lookup"><span data-stu-id="90e36-180">Now that you've seen the main components of the solution, you can take a deeper look at individual scenarios for the app.</span></span>
 
-## <a name="require-authorization-on-a-new-api"></a><span data-ttu-id="87eca-181">新しい API での承認が必要</span><span class="sxs-lookup"><span data-stu-id="87eca-181">Require authorization on a new API</span></span>
+## <a name="require-authorization-on-a-new-api"></a><span data-ttu-id="90e36-181">新しい API での承認が必要</span><span class="sxs-lookup"><span data-stu-id="90e36-181">Require authorization on a new API</span></span>
 
-<span data-ttu-id="87eca-182">既定では、システムは新しい Api の承認を要求するように構成されています。</span><span class="sxs-lookup"><span data-stu-id="87eca-182">By default, the system is configured to easily require authorization for new APIs.</span></span> <span data-ttu-id="87eca-183">これを行うには、新しいコントローラーを作成し、コントローラークラスまたはコントローラー内の任意のアクションに `[Authorize]` 属性を追加します。</span><span class="sxs-lookup"><span data-stu-id="87eca-183">To do so, create a new controller and add the `[Authorize]` attribute to the controller class or to any action within the controller.</span></span>
+<span data-ttu-id="90e36-182">既定では、システムは新しい Api の承認を要求するように構成されています。</span><span class="sxs-lookup"><span data-stu-id="90e36-182">By default, the system is configured to easily require authorization for new APIs.</span></span> <span data-ttu-id="90e36-183">これを行うには、新しいコントローラーを作成し、コントローラークラスまたはコントローラー内の任意のアクションに `[Authorize]` 属性を追加します。</span><span class="sxs-lookup"><span data-stu-id="90e36-183">To do so, create a new controller and add the `[Authorize]` attribute to the controller class or to any action within the controller.</span></span>
 
-## <a name="customize-the-api-authentication-handler"></a><span data-ttu-id="87eca-184">API 認証ハンドラーをカスタマイズする</span><span class="sxs-lookup"><span data-stu-id="87eca-184">Customize the API authentication handler</span></span>
+## <a name="customize-the-api-authentication-handler"></a><span data-ttu-id="90e36-184">API 認証ハンドラーをカスタマイズする</span><span class="sxs-lookup"><span data-stu-id="90e36-184">Customize the API authentication handler</span></span>
 
-<span data-ttu-id="87eca-185">API の JWT ハンドラーの構成をカスタマイズするには、その <xref:Microsoft.AspNetCore.Builder.JwtBearerOptions> インスタンスを構成します。</span><span class="sxs-lookup"><span data-stu-id="87eca-185">To customize the configuration of the API's JWT handler, configure its <xref:Microsoft.AspNetCore.Builder.JwtBearerOptions> instance:</span></span>
+<span data-ttu-id="90e36-185">API の JWT ハンドラーの構成をカスタマイズするには、その <xref:Microsoft.AspNetCore.Builder.JwtBearerOptions> インスタンスを構成します。</span><span class="sxs-lookup"><span data-stu-id="90e36-185">To customize the configuration of the API's JWT handler, configure its <xref:Microsoft.AspNetCore.Builder.JwtBearerOptions> instance:</span></span>
 
 ```csharp
 services.AddAuthentication()
@@ -183,9 +183,9 @@ services.Configure<JwtBearerOptions>(
     });
 ```
 
-<span data-ttu-id="87eca-186">API の JWT ハンドラーは、`JwtBearerEvents`を使用して認証プロセスを制御できるようにするイベントを発生させます。</span><span class="sxs-lookup"><span data-stu-id="87eca-186">The API's JWT handler raises events that enable control over the authentication process using `JwtBearerEvents`.</span></span> <span data-ttu-id="87eca-187">API 認証のサポートを提供するために、`AddIdentityServerJwt` 独自のイベントハンドラーを登録します。</span><span class="sxs-lookup"><span data-stu-id="87eca-187">To provide support for API authorization, `AddIdentityServerJwt` registers its own event handlers.</span></span>
+<span data-ttu-id="90e36-186">API の JWT ハンドラーは、`JwtBearerEvents`を使用して認証プロセスを制御できるようにするイベントを発生させます。</span><span class="sxs-lookup"><span data-stu-id="90e36-186">The API's JWT handler raises events that enable control over the authentication process using `JwtBearerEvents`.</span></span> <span data-ttu-id="90e36-187">API 認証のサポートを提供するために、`AddIdentityServerJwt` 独自のイベントハンドラーを登録します。</span><span class="sxs-lookup"><span data-stu-id="90e36-187">To provide support for API authorization, `AddIdentityServerJwt` registers its own event handlers.</span></span>
 
-<span data-ttu-id="87eca-188">イベントの処理をカスタマイズするには、必要に応じて追加のロジックを使用して既存のイベントハンドラーをラップします。</span><span class="sxs-lookup"><span data-stu-id="87eca-188">To customize the handling of an event, wrap the existing event handler with additional logic as required.</span></span> <span data-ttu-id="87eca-189">例:</span><span class="sxs-lookup"><span data-stu-id="87eca-189">For example:</span></span>
+<span data-ttu-id="90e36-188">イベントの処理をカスタマイズするには、必要に応じて追加のロジックを使用して既存のイベントハンドラーをラップします。</span><span class="sxs-lookup"><span data-stu-id="90e36-188">To customize the handling of an event, wrap the existing event handler with additional logic as required.</span></span> <span data-ttu-id="90e36-189">例:</span><span class="sxs-lookup"><span data-stu-id="90e36-189">For example:</span></span>
 
 ```csharp
 services.Configure<JwtBearerOptions>(
@@ -202,14 +202,14 @@ services.Configure<JwtBearerOptions>(
     });
 ```
 
-<span data-ttu-id="87eca-190">前のコードでは、`OnTokenValidated` イベントハンドラーはカスタム実装に置き換えられています。</span><span class="sxs-lookup"><span data-stu-id="87eca-190">In the preceding code, the `OnTokenValidated` event handler is replaced with a custom implementation.</span></span> <span data-ttu-id="87eca-191">この実装は次のとおりです。</span><span class="sxs-lookup"><span data-stu-id="87eca-191">This implementation:</span></span>
+<span data-ttu-id="90e36-190">前のコードでは、`OnTokenValidated` イベントハンドラーはカスタム実装に置き換えられています。</span><span class="sxs-lookup"><span data-stu-id="90e36-190">In the preceding code, the `OnTokenValidated` event handler is replaced with a custom implementation.</span></span> <span data-ttu-id="90e36-191">この実装は次のとおりです。</span><span class="sxs-lookup"><span data-stu-id="90e36-191">This implementation:</span></span>
 
-1. <span data-ttu-id="87eca-192">API 承認サポートによって提供される元の実装を呼び出します。</span><span class="sxs-lookup"><span data-stu-id="87eca-192">Calls the original implementation provided by the API authorization support.</span></span>
-1. <span data-ttu-id="87eca-193">独自のカスタムロジックを実行します。</span><span class="sxs-lookup"><span data-stu-id="87eca-193">Run its own custom logic.</span></span>
+1. <span data-ttu-id="90e36-192">API 承認サポートによって提供される元の実装を呼び出します。</span><span class="sxs-lookup"><span data-stu-id="90e36-192">Calls the original implementation provided by the API authorization support.</span></span>
+1. <span data-ttu-id="90e36-193">独自のカスタムロジックを実行します。</span><span class="sxs-lookup"><span data-stu-id="90e36-193">Run its own custom logic.</span></span>
 
-## <a name="protect-a-client-side-route-angular"></a><span data-ttu-id="87eca-194">クライアント側のルートを保護する (角度)</span><span class="sxs-lookup"><span data-stu-id="87eca-194">Protect a client-side route (Angular)</span></span>
+## <a name="protect-a-client-side-route-angular"></a><span data-ttu-id="90e36-194">クライアント側のルートを保護する (角度)</span><span class="sxs-lookup"><span data-stu-id="90e36-194">Protect a client-side route (Angular)</span></span>
 
-<span data-ttu-id="87eca-195">クライアント側ルートの保護は、ルートを構成するときに実行するガードのリストに承認ガードを追加することによって行われます。</span><span class="sxs-lookup"><span data-stu-id="87eca-195">Protecting a client-side route is done by adding the authorize guard to the list of guards to run when configuring a route.</span></span> <span data-ttu-id="87eca-196">例として、`fetch-data` ルートがメインアプリの角度モジュール内でどのように構成されているかを確認できます。</span><span class="sxs-lookup"><span data-stu-id="87eca-196">As an example, you can see how the `fetch-data` route is configured within the main app Angular module:</span></span>
+<span data-ttu-id="90e36-195">クライアント側ルートの保護は、ルートを構成するときに実行するガードのリストに承認ガードを追加することによって行われます。</span><span class="sxs-lookup"><span data-stu-id="90e36-195">Protecting a client-side route is done by adding the authorize guard to the list of guards to run when configuring a route.</span></span> <span data-ttu-id="90e36-196">例として、`fetch-data` ルートがメインアプリの角度モジュール内でどのように構成されているかを確認できます。</span><span class="sxs-lookup"><span data-stu-id="90e36-196">As an example, you can see how the `fetch-data` route is configured within the main app Angular module:</span></span>
 
 ```typescript
 RouterModule.forRoot([
@@ -218,36 +218,36 @@ RouterModule.forRoot([
 ])
 ```
 
-<span data-ttu-id="87eca-197">ルートを保護しても実際のエンドポイントが保護されないことに注意してください (これには `[Authorize]` 属性が適用されている必要があります) が、ユーザーが認証されていないときに、特定のクライアント側ルートに移動できないようにすることをお勧めします。</span><span class="sxs-lookup"><span data-stu-id="87eca-197">It's important to mention that protecting a route doesn't protect the actual endpoint (which still requires an `[Authorize]` attribute applied to it) but that it only prevents the user from navigating to the given client-side route when it isn't authenticated.</span></span>
+<span data-ttu-id="90e36-197">ルートを保護しても実際のエンドポイントが保護されないことに注意してください (これには `[Authorize]` 属性が適用されている必要があります) が、ユーザーが認証されていないときに、特定のクライアント側ルートに移動できないようにすることをお勧めします。</span><span class="sxs-lookup"><span data-stu-id="90e36-197">It's important to mention that protecting a route doesn't protect the actual endpoint (which still requires an `[Authorize]` attribute applied to it) but that it only prevents the user from navigating to the given client-side route when it isn't authenticated.</span></span>
 
-## <a name="authenticate-api-requests-angular"></a><span data-ttu-id="87eca-198">API 要求の認証 (角度)</span><span class="sxs-lookup"><span data-stu-id="87eca-198">Authenticate API requests (Angular)</span></span>
+## <a name="authenticate-api-requests-angular"></a><span data-ttu-id="90e36-198">API 要求の認証 (角度)</span><span class="sxs-lookup"><span data-stu-id="90e36-198">Authenticate API requests (Angular)</span></span>
 
-<span data-ttu-id="87eca-199">アプリと共にホストされる Api に対する要求の認証は、アプリによって定義された HTTP クライアントインターセプターを使用することによって自動的に行われます。</span><span class="sxs-lookup"><span data-stu-id="87eca-199">Authenticating requests to APIs hosted alongside the app is done automatically through the use of the HTTP client interceptor defined by the app.</span></span>
+<span data-ttu-id="90e36-199">アプリと共にホストされる Api に対する要求の認証は、アプリによって定義された HTTP クライアントインターセプターを使用することによって自動的に行われます。</span><span class="sxs-lookup"><span data-stu-id="90e36-199">Authenticating requests to APIs hosted alongside the app is done automatically through the use of the HTTP client interceptor defined by the app.</span></span>
 
-## <a name="protect-a-client-side-route-react"></a><span data-ttu-id="87eca-200">クライアント側のルートを保護する (応答)</span><span class="sxs-lookup"><span data-stu-id="87eca-200">Protect a client-side route (React)</span></span>
+## <a name="protect-a-client-side-route-react"></a><span data-ttu-id="90e36-200">クライアント側のルートを保護する (応答)</span><span class="sxs-lookup"><span data-stu-id="90e36-200">Protect a client-side route (React)</span></span>
 
-<span data-ttu-id="87eca-201">プレーン `Route` コンポーネントの代わりに `AuthorizeRoute` コンポーネントを使用して、クライアント側のルートを保護します。</span><span class="sxs-lookup"><span data-stu-id="87eca-201">Protect a client-side route by using the `AuthorizeRoute` component instead of the plain `Route` component.</span></span> <span data-ttu-id="87eca-202">たとえば、`App` コンポーネント内で `fetch-data` ルートがどのように構成されているかに注目してください。</span><span class="sxs-lookup"><span data-stu-id="87eca-202">For example, notice how the `fetch-data` route is configured within the `App` component:</span></span>
+<span data-ttu-id="90e36-201">プレーン `Route` コンポーネントの代わりに `AuthorizeRoute` コンポーネントを使用して、クライアント側のルートを保護します。</span><span class="sxs-lookup"><span data-stu-id="90e36-201">Protect a client-side route by using the `AuthorizeRoute` component instead of the plain `Route` component.</span></span> <span data-ttu-id="90e36-202">たとえば、`App` コンポーネント内で `fetch-data` ルートがどのように構成されているかに注目してください。</span><span class="sxs-lookup"><span data-stu-id="90e36-202">For example, notice how the `fetch-data` route is configured within the `App` component:</span></span>
 
 ```jsx
 <AuthorizeRoute path='/fetch-data' component={FetchData} />
 ```
 
-<span data-ttu-id="87eca-203">ルートの保護:</span><span class="sxs-lookup"><span data-stu-id="87eca-203">Protecting a route:</span></span>
+<span data-ttu-id="90e36-203">ルートの保護:</span><span class="sxs-lookup"><span data-stu-id="90e36-203">Protecting a route:</span></span>
 
-* <span data-ttu-id="87eca-204">では、実際のエンドポイントは保護されません (`[Authorize]` 属性も適用する必要があります)。</span><span class="sxs-lookup"><span data-stu-id="87eca-204">Doesn't protect the actual endpoint (which still requires an `[Authorize]` attribute applied to it).</span></span>
-* <span data-ttu-id="87eca-205">は、ユーザーが認証されていないときに、特定のクライアント側ルートに移動できないようにします。</span><span class="sxs-lookup"><span data-stu-id="87eca-205">Only prevents the user from navigating to the given client-side route when it isn't authenticated.</span></span>
+* <span data-ttu-id="90e36-204">では、実際のエンドポイントは保護されません (`[Authorize]` 属性も適用する必要があります)。</span><span class="sxs-lookup"><span data-stu-id="90e36-204">Doesn't protect the actual endpoint (which still requires an `[Authorize]` attribute applied to it).</span></span>
+* <span data-ttu-id="90e36-205">は、ユーザーが認証されていないときに、特定のクライアント側ルートに移動できないようにします。</span><span class="sxs-lookup"><span data-stu-id="90e36-205">Only prevents the user from navigating to the given client-side route when it isn't authenticated.</span></span>
 
-## <a name="authenticate-api-requests-react"></a><span data-ttu-id="87eca-206">API 要求の認証 (応答)</span><span class="sxs-lookup"><span data-stu-id="87eca-206">Authenticate API requests (React)</span></span>
+## <a name="authenticate-api-requests-react"></a><span data-ttu-id="90e36-206">API 要求の認証 (応答)</span><span class="sxs-lookup"><span data-stu-id="90e36-206">Authenticate API requests (React)</span></span>
 
-<span data-ttu-id="87eca-207">React を含む要求の認証は、最初に `AuthorizeService`から `authService` インスタンスをインポートすることによって行われます。</span><span class="sxs-lookup"><span data-stu-id="87eca-207">Authenticating requests with React is done by first importing the `authService` instance from the `AuthorizeService`.</span></span> <span data-ttu-id="87eca-208">次に示すように、アクセストークンは `authService` から取得され、要求にアタッチされます。</span><span class="sxs-lookup"><span data-stu-id="87eca-208">The access token is retrieved from the `authService` and is attached to the request as shown below.</span></span> <span data-ttu-id="87eca-209">コンポーネントの処理では、通常、この作業は `componentDidMount` ライフサイクルメソッドで実行されるか、一部のユーザー操作の結果として行われます。</span><span class="sxs-lookup"><span data-stu-id="87eca-209">In React components, this work is typically done in the `componentDidMount` lifecycle method or as the result from some user interaction.</span></span>
+<span data-ttu-id="90e36-207">React を含む要求の認証は、最初に `AuthorizeService`から `authService` インスタンスをインポートすることによって行われます。</span><span class="sxs-lookup"><span data-stu-id="90e36-207">Authenticating requests with React is done by first importing the `authService` instance from the `AuthorizeService`.</span></span> <span data-ttu-id="90e36-208">次に示すように、アクセストークンは `authService` から取得され、要求にアタッチされます。</span><span class="sxs-lookup"><span data-stu-id="90e36-208">The access token is retrieved from the `authService` and is attached to the request as shown below.</span></span> <span data-ttu-id="90e36-209">コンポーネントの処理では、通常、この作業は `componentDidMount` ライフサイクルメソッドで実行されるか、一部のユーザー操作の結果として行われます。</span><span class="sxs-lookup"><span data-stu-id="90e36-209">In React components, this work is typically done in the `componentDidMount` lifecycle method or as the result from some user interaction.</span></span>
 
-### <a name="import-the-authservice-into-your-component"></a><span data-ttu-id="87eca-210">コンポーネントに authService をインポートする</span><span class="sxs-lookup"><span data-stu-id="87eca-210">Import the authService into your component</span></span>
+### <a name="import-the-authservice-into-your-component"></a><span data-ttu-id="90e36-210">コンポーネントに authService をインポートする</span><span class="sxs-lookup"><span data-stu-id="90e36-210">Import the authService into your component</span></span>
 
 ```javascript
 import authService from './api-authorization/AuthorizeService'
 ```
 
-### <a name="retrieve-and-attach-the-access-token-to-the-response"></a><span data-ttu-id="87eca-211">アクセストークンを取得して応答にアタッチする</span><span class="sxs-lookup"><span data-stu-id="87eca-211">Retrieve and attach the access token to the response</span></span>
+### <a name="retrieve-and-attach-the-access-token-to-the-response"></a><span data-ttu-id="90e36-211">アクセストークンを取得して応答にアタッチする</span><span class="sxs-lookup"><span data-stu-id="90e36-211">Retrieve and attach the access token to the response</span></span>
 
 ```javascript
 async populateWeatherData() {
@@ -260,19 +260,19 @@ async populateWeatherData() {
 }
 ```
 
-## <a name="deploy-to-production"></a><span data-ttu-id="87eca-212">運用環境に展開する</span><span class="sxs-lookup"><span data-stu-id="87eca-212">Deploy to production</span></span>
+## <a name="deploy-to-production"></a><span data-ttu-id="90e36-212">運用環境へのデプロイ</span><span class="sxs-lookup"><span data-stu-id="90e36-212">Deploy to production</span></span>
 
-<span data-ttu-id="87eca-213">アプリを運用環境にデプロイするには、次のリソースをプロビジョニングする必要があります。</span><span class="sxs-lookup"><span data-stu-id="87eca-213">To deploy the app to production, the following resources need to be provisioned:</span></span>
+<span data-ttu-id="90e36-213">アプリを運用環境にデプロイするには、次のリソースをプロビジョニングする必要があります。</span><span class="sxs-lookup"><span data-stu-id="90e36-213">To deploy the app to production, the following resources need to be provisioned:</span></span>
 
-* <span data-ttu-id="87eca-214">Id ユーザーアカウントとサーバー権限を格納するデータベース。</span><span class="sxs-lookup"><span data-stu-id="87eca-214">A database to store the Identity user accounts and the IdentityServer grants.</span></span>
-* <span data-ttu-id="87eca-215">トークンの署名に使用する実稼働証明書。</span><span class="sxs-lookup"><span data-stu-id="87eca-215">A production certificate to use for signing tokens.</span></span>
-  * <span data-ttu-id="87eca-216">この証明書には特定の要件はありません。自己署名証明書、または CA 証明機関を通じてプロビジョニングされた証明書を使用できます。</span><span class="sxs-lookup"><span data-stu-id="87eca-216">There are no specific requirements for this certificate; it can be a self-signed certificate or a certificate provisioned through a CA authority.</span></span>
-  * <span data-ttu-id="87eca-217">PowerShell や OpenSSL などの標準ツールを使用して生成できます。</span><span class="sxs-lookup"><span data-stu-id="87eca-217">It can be generated through standard tools like PowerShell or OpenSSL.</span></span>
-  * <span data-ttu-id="87eca-218">ターゲットコンピューターの証明書ストアにインストールすることも、強力なパスワードを使用して *.pfx*ファイルとして展開することもできます。</span><span class="sxs-lookup"><span data-stu-id="87eca-218">It can be installed into the certificate store on the target machines or deployed as a *.pfx* file with a strong password.</span></span>
+* <span data-ttu-id="90e36-214">Id ユーザーアカウントとサーバー権限を格納するデータベース。</span><span class="sxs-lookup"><span data-stu-id="90e36-214">A database to store the Identity user accounts and the IdentityServer grants.</span></span>
+* <span data-ttu-id="90e36-215">トークンの署名に使用する実稼働証明書。</span><span class="sxs-lookup"><span data-stu-id="90e36-215">A production certificate to use for signing tokens.</span></span>
+  * <span data-ttu-id="90e36-216">この証明書には特定の要件はありません。自己署名証明書、または CA 証明機関を通じてプロビジョニングされた証明書を使用できます。</span><span class="sxs-lookup"><span data-stu-id="90e36-216">There are no specific requirements for this certificate; it can be a self-signed certificate or a certificate provisioned through a CA authority.</span></span>
+  * <span data-ttu-id="90e36-217">PowerShell や OpenSSL などの標準ツールを使用して生成できます。</span><span class="sxs-lookup"><span data-stu-id="90e36-217">It can be generated through standard tools like PowerShell or OpenSSL.</span></span>
+  * <span data-ttu-id="90e36-218">ターゲットコンピューターの証明書ストアにインストールすることも、強力なパスワードを使用して *.pfx*ファイルとして展開することもできます。</span><span class="sxs-lookup"><span data-stu-id="90e36-218">It can be installed into the certificate store on the target machines or deployed as a *.pfx* file with a strong password.</span></span>
 
-### <a name="example-deploy-to-azure-websites"></a><span data-ttu-id="87eca-219">例: Azure Websites へのデプロイ</span><span class="sxs-lookup"><span data-stu-id="87eca-219">Example: Deploy to Azure Websites</span></span>
+### <a name="example-deploy-to-azure-websites"></a><span data-ttu-id="90e36-219">例: Azure Websites へのデプロイ</span><span class="sxs-lookup"><span data-stu-id="90e36-219">Example: Deploy to Azure Websites</span></span>
 
-<span data-ttu-id="87eca-220">このセクションでは、証明書ストアに格納されている証明書を使用して、Azure websites にアプリをデプロイする方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="87eca-220">This section describes deploying the app to Azure websites using a certificate stored in the certificate store.</span></span> <span data-ttu-id="87eca-221">証明書ストアから証明書を読み込むようにアプリを変更するには、後の手順でを構成するときに、App Service プランが少なくとも標準レベルになっている必要があります。</span><span class="sxs-lookup"><span data-stu-id="87eca-221">To modify the app to load a certificate from the certificate store, the App Service plan needs to be on at least the Standard tier when you configure in a later step.</span></span> <span data-ttu-id="87eca-222">アプリの*appsettings*ファイルで、`IdentityServer` セクションを変更して、キーの詳細を含めます。</span><span class="sxs-lookup"><span data-stu-id="87eca-222">In the app's *appsettings.json* file, modify the `IdentityServer` section to include the key details:</span></span>
+<span data-ttu-id="90e36-220">このセクションでは、証明書ストアに格納されている証明書を使用して、Azure websites にアプリをデプロイする方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="90e36-220">This section describes deploying the app to Azure websites using a certificate stored in the certificate store.</span></span> <span data-ttu-id="90e36-221">証明書ストアから証明書を読み込むようにアプリを変更するには、後の手順でを構成するときに、App Service プランが少なくとも標準レベルになっている必要があります。</span><span class="sxs-lookup"><span data-stu-id="90e36-221">To modify the app to load a certificate from the certificate store, the App Service plan needs to be on at least the Standard tier when you configure in a later step.</span></span> <span data-ttu-id="90e36-222">アプリの*appsettings*ファイルで、`IdentityServer` セクションを変更して、キーの詳細を含めます。</span><span class="sxs-lookup"><span data-stu-id="90e36-222">In the app's *appsettings.json* file, modify the `IdentityServer` section to include the key details:</span></span>
 
 ```json
 "IdentityServer": {
@@ -285,46 +285,46 @@ async populateWeatherData() {
 }
 ```
 
-* <span data-ttu-id="87eca-223">Certificate の name プロパティは、証明書の識別サブジェクトに対応します。</span><span class="sxs-lookup"><span data-stu-id="87eca-223">The name property on certificate corresponds with the distinguished subject for the certificate.</span></span>
-* <span data-ttu-id="87eca-224">ストアの場所は、証明書の読み込み元 (`CurrentUser` または `LocalMachine`) を表します。</span><span class="sxs-lookup"><span data-stu-id="87eca-224">The store location represents where to load the certificate from (`CurrentUser` or `LocalMachine`).</span></span>
-* <span data-ttu-id="87eca-225">ストア名は、証明書が格納されている証明書ストアの名前を表します。</span><span class="sxs-lookup"><span data-stu-id="87eca-225">The store name represents the name of the certificate store where the certificate is stored.</span></span> <span data-ttu-id="87eca-226">この場合、個人ユーザーストアを指します。</span><span class="sxs-lookup"><span data-stu-id="87eca-226">In this case, it points to the personal user store.</span></span>
+* <span data-ttu-id="90e36-223">ストア名は、証明書が格納されている証明書ストアの名前を表します。</span><span class="sxs-lookup"><span data-stu-id="90e36-223">The store name represents the name of the certificate store where the certificate is stored.</span></span> <span data-ttu-id="90e36-224">この場合、個人ユーザーストアを指します。</span><span class="sxs-lookup"><span data-stu-id="90e36-224">In this case, it points to the personal user store.</span></span>
+* <span data-ttu-id="90e36-225">ストアの場所は、証明書の読み込み元 (`CurrentUser` または `LocalMachine`) を表します。</span><span class="sxs-lookup"><span data-stu-id="90e36-225">The store location represents where to load the certificate from (`CurrentUser` or `LocalMachine`).</span></span>
+* <span data-ttu-id="90e36-226">Certificate の name プロパティは、証明書の識別サブジェクトに対応します。</span><span class="sxs-lookup"><span data-stu-id="90e36-226">The name property on certificate corresponds with the distinguished subject for the certificate.</span></span>
 
-<span data-ttu-id="87eca-227">Azure Websites にデプロイするには、「 [azure へのアプリのデプロイ](xref:tutorials/publish-to-azure-webapp-using-vs#deploy-the-app-to-azure)」の手順に従ってアプリをデプロイし、必要な azure リソースを作成して、アプリを運用環境にデプロイします。</span><span class="sxs-lookup"><span data-stu-id="87eca-227">To deploy to Azure Websites, deploy the app following the steps in [Deploy the app to Azure](xref:tutorials/publish-to-azure-webapp-using-vs#deploy-the-app-to-azure) to create the necessary Azure resources and deploy the app to production.</span></span>
+<span data-ttu-id="90e36-227">Azure Websites にデプロイするには、「 [azure へのアプリのデプロイ](xref:tutorials/publish-to-azure-webapp-using-vs#deploy-the-app-to-azure)」の手順に従ってアプリをデプロイし、必要な azure リソースを作成して、アプリを運用環境にデプロイします。</span><span class="sxs-lookup"><span data-stu-id="90e36-227">To deploy to Azure Websites, deploy the app following the steps in [Deploy the app to Azure](xref:tutorials/publish-to-azure-webapp-using-vs#deploy-the-app-to-azure) to create the necessary Azure resources and deploy the app to production.</span></span>
 
-<span data-ttu-id="87eca-228">前述の手順に従うと、アプリは Azure にデプロイされますが、まだ機能していません。</span><span class="sxs-lookup"><span data-stu-id="87eca-228">After following the preceding instructions, the app is deployed to Azure but isn't yet functional.</span></span> <span data-ttu-id="87eca-229">アプリによって使用される証明書は、まだセットアップする必要があります。</span><span class="sxs-lookup"><span data-stu-id="87eca-229">The certificate used by the app still needs to be set up.</span></span> <span data-ttu-id="87eca-230">使用する証明書のサムプリントを見つけて、「[証明書の読み込み](/azure/app-service/app-service-web-ssl-cert-load#load-the-certificate-in-code)」で説明されている手順に従います。</span><span class="sxs-lookup"><span data-stu-id="87eca-230">Locate the thumbprint for the certificate to be used, and follow the steps described in [Load your certificates](/azure/app-service/app-service-web-ssl-cert-load#load-the-certificate-in-code).</span></span>
+<span data-ttu-id="90e36-228">前述の手順に従うと、アプリは Azure にデプロイされますが、まだ機能していません。</span><span class="sxs-lookup"><span data-stu-id="90e36-228">After following the preceding instructions, the app is deployed to Azure but isn't yet functional.</span></span> <span data-ttu-id="90e36-229">アプリによって使用される証明書は、まだセットアップする必要があります。</span><span class="sxs-lookup"><span data-stu-id="90e36-229">The certificate used by the app still needs to be set up.</span></span> <span data-ttu-id="90e36-230">使用する証明書のサムプリントを見つけて、「[証明書の読み込み](/azure/app-service/app-service-web-ssl-cert-load#load-the-certificate-in-code)」で説明されている手順に従います。</span><span class="sxs-lookup"><span data-stu-id="90e36-230">Locate the thumbprint for the certificate to be used, and follow the steps described in [Load your certificates](/azure/app-service/app-service-web-ssl-cert-load#load-the-certificate-in-code).</span></span>
 
-<span data-ttu-id="87eca-231">これらの手順では SSL について説明していますが、ポータルには **[プライベート証明書]** セクションがあります。このセクションでは、アプリで使用するプロビジョニング済みの証明書をアップロードできます。</span><span class="sxs-lookup"><span data-stu-id="87eca-231">While these steps mention SSL, there's a **Private certificates** section on the portal where you can upload the provisioned certificate to use with the app.</span></span>
+<span data-ttu-id="90e36-231">これらの手順では SSL について説明していますが、ポータルには **[プライベート証明書]** セクションがあります。このセクションでは、アプリで使用するプロビジョニング済みの証明書をアップロードできます。</span><span class="sxs-lookup"><span data-stu-id="90e36-231">While these steps mention SSL, there's a **Private certificates** section on the portal where you can upload the provisioned certificate to use with the app.</span></span>
 
-<span data-ttu-id="87eca-232">この手順の後にアプリを再起動すると、アプリが機能するようになります。</span><span class="sxs-lookup"><span data-stu-id="87eca-232">After this step, restart the app and it should be functional.</span></span>
+<span data-ttu-id="90e36-232">この手順の後にアプリを再起動すると、アプリが機能するようになります。</span><span class="sxs-lookup"><span data-stu-id="90e36-232">After this step, restart the app and it should be functional.</span></span>
 
-## <a name="other-configuration-options"></a><span data-ttu-id="87eca-233">その他の構成オプション</span><span class="sxs-lookup"><span data-stu-id="87eca-233">Other configuration options</span></span>
+## <a name="other-configuration-options"></a><span data-ttu-id="90e36-233">その他の構成オプション</span><span class="sxs-lookup"><span data-stu-id="90e36-233">Other configuration options</span></span>
 
-<span data-ttu-id="87eca-234">API 承認のサポートは、一連の規則、既定値、および拡張機能を使用して、サーバー上に構築されます。これにより、SPAs のエクスペリエンスが簡単になります。</span><span class="sxs-lookup"><span data-stu-id="87eca-234">The support for API authorization builds on top of IdentityServer with a set of conventions, default values, and enhancements to simplify the experience for SPAs.</span></span> <span data-ttu-id="87eca-235">言うまでもありませんが、ASP.NET Core 統合によって実際のシナリオがカバーされていない場合は、サーバーの全機能をバックグラウンドで利用できます。</span><span class="sxs-lookup"><span data-stu-id="87eca-235">Needless to say, the full power of IdentityServer is available behind the scenes if the ASP.NET Core integrations don't cover your scenario.</span></span> <span data-ttu-id="87eca-236">ASP.NET Core サポートは、すべてのアプリが組織によって作成および展開される "ファーストパーティ" アプリに重点を置いています。</span><span class="sxs-lookup"><span data-stu-id="87eca-236">The ASP.NET Core support is focused on "first-party" apps, where all the apps are created and deployed by our organization.</span></span> <span data-ttu-id="87eca-237">そのため、同意やフェデレーションなどのサポートは提供されていません。</span><span class="sxs-lookup"><span data-stu-id="87eca-237">As such, support isn't offered for things like consent or federation.</span></span> <span data-ttu-id="87eca-238">これらのシナリオでは、ユーザーを使用して、そのドキュメントに従ってください。</span><span class="sxs-lookup"><span data-stu-id="87eca-238">For those scenarios, use IdentityServer and follow their documentation.</span></span>
+<span data-ttu-id="90e36-234">API 承認のサポートは、一連の規則、既定値、および拡張機能を使用して、サーバー上に構築されます。これにより、SPAs のエクスペリエンスが簡単になります。</span><span class="sxs-lookup"><span data-stu-id="90e36-234">The support for API authorization builds on top of IdentityServer with a set of conventions, default values, and enhancements to simplify the experience for SPAs.</span></span> <span data-ttu-id="90e36-235">言うまでもありませんが、ASP.NET Core 統合によって実際のシナリオがカバーされていない場合は、サーバーの全機能をバックグラウンドで利用できます。</span><span class="sxs-lookup"><span data-stu-id="90e36-235">Needless to say, the full power of IdentityServer is available behind the scenes if the ASP.NET Core integrations don't cover your scenario.</span></span> <span data-ttu-id="90e36-236">ASP.NET Core サポートは、すべてのアプリが組織によって作成および展開される "ファーストパーティ" アプリに重点を置いています。</span><span class="sxs-lookup"><span data-stu-id="90e36-236">The ASP.NET Core support is focused on "first-party" apps, where all the apps are created and deployed by our organization.</span></span> <span data-ttu-id="90e36-237">そのため、同意やフェデレーションなどのサポートは提供されていません。</span><span class="sxs-lookup"><span data-stu-id="90e36-237">As such, support isn't offered for things like consent or federation.</span></span> <span data-ttu-id="90e36-238">これらのシナリオでは、ユーザーを使用して、そのドキュメントに従ってください。</span><span class="sxs-lookup"><span data-stu-id="90e36-238">For those scenarios, use IdentityServer and follow their documentation.</span></span>
 
-### <a name="application-profiles"></a><span data-ttu-id="87eca-239">アプリケーション プロファイル</span><span class="sxs-lookup"><span data-stu-id="87eca-239">Application profiles</span></span>
+### <a name="application-profiles"></a><span data-ttu-id="90e36-239">アプリケーションプロファイル</span><span class="sxs-lookup"><span data-stu-id="90e36-239">Application profiles</span></span>
 
-<span data-ttu-id="87eca-240">アプリケーションプロファイルは、そのパラメーターをさらに定義するアプリの事前定義された構成です。</span><span class="sxs-lookup"><span data-stu-id="87eca-240">Application profiles are predefined configurations for apps that further define their parameters.</span></span> <span data-ttu-id="87eca-241">現時点では、次のプロファイルがサポートされています。</span><span class="sxs-lookup"><span data-stu-id="87eca-241">At this time, the following profiles are supported:</span></span>
+<span data-ttu-id="90e36-240">アプリケーションプロファイルは、そのパラメーターをさらに定義するアプリの事前定義された構成です。</span><span class="sxs-lookup"><span data-stu-id="90e36-240">Application profiles are predefined configurations for apps that further define their parameters.</span></span> <span data-ttu-id="90e36-241">現時点では、次のプロファイルがサポートされています。</span><span class="sxs-lookup"><span data-stu-id="90e36-241">At this time, the following profiles are supported:</span></span>
 
-* <span data-ttu-id="87eca-242">`IdentityServerSPA`: 1 つの単位としてホストされる SPA サーバーを表します。</span><span class="sxs-lookup"><span data-stu-id="87eca-242">`IdentityServerSPA`: Represents a SPA hosted alongside IdentityServer as a single unit.</span></span>
-  * <span data-ttu-id="87eca-243">`redirect_uri` の既定値は `/authentication/login-callback`です。</span><span class="sxs-lookup"><span data-stu-id="87eca-243">The `redirect_uri` defaults to `/authentication/login-callback`.</span></span>
-  * <span data-ttu-id="87eca-244">`post_logout_redirect_uri` の既定値は `/authentication/logout-callback`です。</span><span class="sxs-lookup"><span data-stu-id="87eca-244">The `post_logout_redirect_uri` defaults to `/authentication/logout-callback`.</span></span>
-  * <span data-ttu-id="87eca-245">スコープのセットには、アプリ内の Api に対して定義されている、`openid`、`profile`、およびすべてのスコープが含まれます。</span><span class="sxs-lookup"><span data-stu-id="87eca-245">The set of scopes includes the `openid`, `profile`, and every scope defined for the APIs in the app.</span></span>
-  * <span data-ttu-id="87eca-246">許可される OIDC 応答の種類のセットは、`id_token token` またはそれぞれ個別に (`id_token`、`token`) 使用されます。</span><span class="sxs-lookup"><span data-stu-id="87eca-246">The set of allowed OIDC response types is `id_token token` or each of them individually (`id_token`, `token`).</span></span>
-  * <span data-ttu-id="87eca-247">許可される応答モードは `fragment`です。</span><span class="sxs-lookup"><span data-stu-id="87eca-247">The allowed response mode is `fragment`.</span></span>
-* <span data-ttu-id="87eca-248">`SPA`: は、サーバーでホストされていない SPA を表します。</span><span class="sxs-lookup"><span data-stu-id="87eca-248">`SPA`: Represents a SPA that isn't hosted with IdentityServer.</span></span>
-  * <span data-ttu-id="87eca-249">スコープのセットには、アプリ内の Api に対して定義されている、`openid`、`profile`、およびすべてのスコープが含まれます。</span><span class="sxs-lookup"><span data-stu-id="87eca-249">The set of scopes includes the `openid`, `profile`, and every scope defined for the APIs in the app.</span></span>
-  * <span data-ttu-id="87eca-250">許可される OIDC 応答の種類のセットは、`id_token token` またはそれぞれ個別に (`id_token`、`token`) 使用されます。</span><span class="sxs-lookup"><span data-stu-id="87eca-250">The set of allowed OIDC response types is `id_token token` or each of them individually (`id_token`, `token`).</span></span>
-  * <span data-ttu-id="87eca-251">許可される応答モードは `fragment`です。</span><span class="sxs-lookup"><span data-stu-id="87eca-251">The allowed response mode is `fragment`.</span></span>
-* <span data-ttu-id="87eca-252">`IdentityServerJwt`: サービスと共にホストされる API を表します。</span><span class="sxs-lookup"><span data-stu-id="87eca-252">`IdentityServerJwt`: Represents an API that is hosted alongside with IdentityServer.</span></span>
-  * <span data-ttu-id="87eca-253">アプリは、アプリ名を既定とする1つのスコープを持つように構成されています。</span><span class="sxs-lookup"><span data-stu-id="87eca-253">The app is configured to have a single scope that defaults to the app name.</span></span>
-* <span data-ttu-id="87eca-254">`API`: は、サーバーでホストされていない API を表します。</span><span class="sxs-lookup"><span data-stu-id="87eca-254">`API`: Represents an API that isn't hosted with IdentityServer.</span></span>
-  * <span data-ttu-id="87eca-255">アプリは、アプリ名を既定とする1つのスコープを持つように構成されています。</span><span class="sxs-lookup"><span data-stu-id="87eca-255">The app is configured to have a single scope that defaults to the app name.</span></span>
+* <span data-ttu-id="90e36-242">`IdentityServerSPA`: 1 つの単位としてホストされる SPA サーバーを表します。</span><span class="sxs-lookup"><span data-stu-id="90e36-242">`IdentityServerSPA`: Represents a SPA hosted alongside IdentityServer as a single unit.</span></span>
+  * <span data-ttu-id="90e36-243">`redirect_uri` の既定値は `/authentication/login-callback`です。</span><span class="sxs-lookup"><span data-stu-id="90e36-243">The `redirect_uri` defaults to `/authentication/login-callback`.</span></span>
+  * <span data-ttu-id="90e36-244">`post_logout_redirect_uri` の既定値は `/authentication/logout-callback`です。</span><span class="sxs-lookup"><span data-stu-id="90e36-244">The `post_logout_redirect_uri` defaults to `/authentication/logout-callback`.</span></span>
+  * <span data-ttu-id="90e36-245">スコープのセットには、アプリ内の Api に対して定義されている、`openid`、`profile`、およびすべてのスコープが含まれます。</span><span class="sxs-lookup"><span data-stu-id="90e36-245">The set of scopes includes the `openid`, `profile`, and every scope defined for the APIs in the app.</span></span>
+  * <span data-ttu-id="90e36-246">許可される OIDC 応答の種類のセットは、`id_token token` またはそれぞれ個別に (`id_token`、`token`) 使用されます。</span><span class="sxs-lookup"><span data-stu-id="90e36-246">The set of allowed OIDC response types is `id_token token` or each of them individually (`id_token`, `token`).</span></span>
+  * <span data-ttu-id="90e36-247">許可される応答モードは `fragment`です。</span><span class="sxs-lookup"><span data-stu-id="90e36-247">The allowed response mode is `fragment`.</span></span>
+* <span data-ttu-id="90e36-248">`SPA`: は、サーバーでホストされていない SPA を表します。</span><span class="sxs-lookup"><span data-stu-id="90e36-248">`SPA`: Represents a SPA that isn't hosted with IdentityServer.</span></span>
+  * <span data-ttu-id="90e36-249">スコープのセットには、アプリ内の Api に対して定義されている、`openid`、`profile`、およびすべてのスコープが含まれます。</span><span class="sxs-lookup"><span data-stu-id="90e36-249">The set of scopes includes the `openid`, `profile`, and every scope defined for the APIs in the app.</span></span>
+  * <span data-ttu-id="90e36-250">許可される OIDC 応答の種類のセットは、`id_token token` またはそれぞれ個別に (`id_token`、`token`) 使用されます。</span><span class="sxs-lookup"><span data-stu-id="90e36-250">The set of allowed OIDC response types is `id_token token` or each of them individually (`id_token`, `token`).</span></span>
+  * <span data-ttu-id="90e36-251">許可される応答モードは `fragment`です。</span><span class="sxs-lookup"><span data-stu-id="90e36-251">The allowed response mode is `fragment`.</span></span>
+* <span data-ttu-id="90e36-252">`IdentityServerJwt`: サービスと共にホストされる API を表します。</span><span class="sxs-lookup"><span data-stu-id="90e36-252">`IdentityServerJwt`: Represents an API that is hosted alongside with IdentityServer.</span></span>
+  * <span data-ttu-id="90e36-253">アプリは、アプリ名を既定とする1つのスコープを持つように構成されています。</span><span class="sxs-lookup"><span data-stu-id="90e36-253">The app is configured to have a single scope that defaults to the app name.</span></span>
+* <span data-ttu-id="90e36-254">`API`: は、サーバーでホストされていない API を表します。</span><span class="sxs-lookup"><span data-stu-id="90e36-254">`API`: Represents an API that isn't hosted with IdentityServer.</span></span>
+  * <span data-ttu-id="90e36-255">アプリは、アプリ名を既定とする1つのスコープを持つように構成されています。</span><span class="sxs-lookup"><span data-stu-id="90e36-255">The app is configured to have a single scope that defaults to the app name.</span></span>
 
-### <a name="configuration-through-appsettings"></a><span data-ttu-id="87eca-256">AppSettings を使用した構成</span><span class="sxs-lookup"><span data-stu-id="87eca-256">Configuration through AppSettings</span></span>
+### <a name="configuration-through-appsettings"></a><span data-ttu-id="90e36-256">AppSettings を使用した構成</span><span class="sxs-lookup"><span data-stu-id="90e36-256">Configuration through AppSettings</span></span>
 
-<span data-ttu-id="87eca-257">構成システムを使用してアプリを構成するには、`Clients` または `Resources`の一覧にアプリを追加します。</span><span class="sxs-lookup"><span data-stu-id="87eca-257">Configure the apps through the configuration system by adding them to the list of `Clients` or `Resources`.</span></span>
+<span data-ttu-id="90e36-257">構成システムを使用してアプリを構成するには、`Clients` または `Resources`の一覧にアプリを追加します。</span><span class="sxs-lookup"><span data-stu-id="90e36-257">Configure the apps through the configuration system by adding them to the list of `Clients` or `Resources`.</span></span>
 
-<span data-ttu-id="87eca-258">次の例に示すように、各クライアントの `redirect_uri` と `post_logout_redirect_uri` プロパティを構成します。</span><span class="sxs-lookup"><span data-stu-id="87eca-258">Configure each client's `redirect_uri` and `post_logout_redirect_uri` property, as shown in the following example:</span></span>
+<span data-ttu-id="90e36-258">次の例に示すように、各クライアントの `redirect_uri` と `post_logout_redirect_uri` プロパティを構成します。</span><span class="sxs-lookup"><span data-stu-id="90e36-258">Configure each client's `redirect_uri` and `post_logout_redirect_uri` property, as shown in the following example:</span></span>
 
 ```json
 "IdentityServer": {
@@ -338,7 +338,7 @@ async populateWeatherData() {
 }
 ```
 
-<span data-ttu-id="87eca-259">リソースを構成するときは、次に示すように、リソースのスコープを構成できます。</span><span class="sxs-lookup"><span data-stu-id="87eca-259">When configuring resources, you can configure the scopes for the resource as shown below:</span></span>
+<span data-ttu-id="90e36-259">リソースを構成するときは、次に示すように、リソースのスコープを構成できます。</span><span class="sxs-lookup"><span data-stu-id="90e36-259">When configuring resources, you can configure the scopes for the resource as shown below:</span></span>
 
 ```json
 "IdentityServer": {
@@ -351,9 +351,9 @@ async populateWeatherData() {
 }
 ```
 
-### <a name="configuration-through-code"></a><span data-ttu-id="87eca-260">コードを使用した構成</span><span class="sxs-lookup"><span data-stu-id="87eca-260">Configuration through code</span></span>
+### <a name="configuration-through-code"></a><span data-ttu-id="90e36-260">コードを使用した構成</span><span class="sxs-lookup"><span data-stu-id="90e36-260">Configuration through code</span></span>
 
-<span data-ttu-id="87eca-261">また、オプションを構成するアクションを実行する `AddApiAuthorization` のオーバーロードを使用して、コードを使用してクライアントとリソースを構成することもできます。</span><span class="sxs-lookup"><span data-stu-id="87eca-261">You can also configure the clients and resources through code using an overload of `AddApiAuthorization` that takes an action to configure options.</span></span>
+<span data-ttu-id="90e36-261">また、オプションを構成するアクションを実行する `AddApiAuthorization` のオーバーロードを使用して、コードを使用してクライアントとリソースを構成することもできます。</span><span class="sxs-lookup"><span data-stu-id="90e36-261">You can also configure the clients and resources through code using an overload of `AddApiAuthorization` that takes an action to configure options.</span></span>
 
 ```csharp
 AddApiAuthorization<ApplicationUser, ApplicationDbContext>(options =>
@@ -369,7 +369,7 @@ AddApiAuthorization<ApplicationUser, ApplicationDbContext>(options =>
 });
 ```
 
-## <a name="additional-resources"></a><span data-ttu-id="87eca-262">その他の技術情報</span><span class="sxs-lookup"><span data-stu-id="87eca-262">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="90e36-262">その他の技術情報</span><span class="sxs-lookup"><span data-stu-id="90e36-262">Additional resources</span></span>
 
 * <xref:spa/angular>
 * <xref:spa/react>
