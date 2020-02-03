@@ -17,11 +17,11 @@ ms.contentlocale: ja-JP
 ms.lasthandoff: 01/24/2020
 ms.locfileid: "76726884"
 ---
-# <a name="aspnet-core-opno-locblazor-forms-and-validation"></a>フォームと検証の Blazor の ASP.NET Core
+# <a name="aspnet-core-opno-locblazor-forms-and-validation"></a>フォームと検証の [!OP.NO-LOC(Blazor)] の ASP.NET Core
 
 作成者: [Daniel Roth](https://github.com/danroth27)、[Luke Latham](https://github.com/guardrex)
 
-[データ注釈](xref:mvc/models/validation)を使用した Blazor では、フォームおよび検証がサポートされています。
+[データ注釈](xref:mvc/models/validation)を使用した [!OP.NO-LOC(Blazor)] では、フォームおよび検証がサポートされています。
 
 次の `ExampleModel` 型は、データ注釈を使用して検証ロジックを定義します。
 
@@ -191,7 +191,7 @@ public class Starship
 
 `EditForm` は、変更されたフィールドと現在の検証メッセージを含む、編集プロセスに関するメタデータを追跡する[カスケード値](xref:blazor/components#cascading-values-and-parameters)として `EditContext` を作成します。 `EditForm` は、有効かつ無効な送信 (`OnValidSubmit`、`OnInvalidSubmit`) にも便利なイベントを提供します。 または、`OnSubmit` を使用して、カスタム検証コードで検証フィールドとチェックフィールドの値をトリガーします。
 
-たとえば、行が次のように表示されているとします。
+次に例を示します。
 
 * `HandleSubmit` メソッドは、 **[送信]** ボタンを選択したときに実行されます。
 * フォームは、フォームの `EditContext`を使用して検証されます。
@@ -258,7 +258,7 @@ public class Starship
 
 ## <a name="work-with-radio-buttons"></a>ラジオボタンの操作
 
-フォームでオプションボタンを使用する場合、オプションボタンはグループとして評価されるため、データバインディングは他の要素とは異なる方法で処理されます。 各オプションボタンの値は固定されていますが、ラジオボタングループの値は、選択したラジオボタンの値です。 次の例は、その方法を示しています。
+フォームでオプションボタンを使用する場合、オプションボタンはグループとして評価されるため、データバインディングは他の要素とは異なる方法で処理されます。 各オプションボタンの値は固定されていますが、ラジオボタングループの値は、選択したラジオボタンの値です。 以下の例では、次のことを行っています。
 
 * ラジオボタングループのデータバインディングを処理します。
 * カスタム `InputRadio` コンポーネントを使用した検証をサポートします。
@@ -398,7 +398,7 @@ private class MyCustomValidator : ValidationAttribute
 
 ### <a name="opno-locblazor-data-annotations-validation-package"></a>データ注釈検証パッケージの Blazor
 
-[Microsoft.AspNetCore.Blazor.DataAnnotations.Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation)は、`DataAnnotationsValidator` コンポーネントを使用して検証エクスペリエンスのギャップを埋めるパッケージです。 パッケージは現在*試験段階*です。
+[BlazorAspNetCore です。DataAnnotations。検証](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation)は、`DataAnnotationsValidator` コンポーネントを使用して検証エクスペリエンスのギャップを埋めるパッケージです。 パッケージは現在*試験段階*です。
 
 ### <a name="compareproperty-attribute"></a>[CompareProperty] 属性
 

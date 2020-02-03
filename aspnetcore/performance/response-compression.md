@@ -44,29 +44,29 @@ IIS、Apache、または Nginx のサーバーベースの応答圧縮テクノ�
 
 ::: moniker range=">= aspnetcore-2.2"
 
-| ヘッダー値の `Accept-Encoding` | サポートされているミドルウェア | 説明 |
+| ヘッダー値の `Accept-Encoding` | サポートされているミドルウェア | [説明] |
 | ------------------------------- | :------------------: | ----------- |
 | `br`                            | 可 (既定)        | [Brotli 圧縮データ形式](https://tools.ietf.org/html/rfc7932) |
 | `deflate`                       | いいえ                   | [圧縮データ形式の DEFLATE](https://tools.ietf.org/html/rfc1951) |
 | `exi`                           | いいえ                   | [W3C の効率的な XML インターチェンジ](https://tools.ietf.org/id/draft-varga-netconf-exi-capability-00.html) |
-| `gzip`                          | ○                  | [Gzip ファイル形式](https://tools.ietf.org/html/rfc1952) |
-| `identity`                      | ○                  | "エンコードなし" 識別子: 応答をエンコードすることはできません。 |
+| `gzip`                          | はい                  | [Gzip ファイル形式](https://tools.ietf.org/html/rfc1952) |
+| `identity`                      | はい                  | "エンコードなし" 識別子: 応答をエンコードすることはできません。 |
 | `pack200-gzip`                  | いいえ                   | [Java アーカイブのネットワーク転送形式](https://jcp.org/aboutJava/communityprocess/review/jsr200/index.html) |
-| `*`                             | ○                  | 明示的に要求されていない利用可能なコンテンツエンコーディング |
+| `*`                             | はい                  | 明示的に要求されていない利用可能なコンテンツエンコーディング |
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-2.2"
 
-| ヘッダー値の `Accept-Encoding` | サポートされているミドルウェア | 説明 |
+| ヘッダー値の `Accept-Encoding` | サポートされているミドルウェア | [説明] |
 | ------------------------------- | :------------------: | ----------- |
 | `br`                            | いいえ                   | [Brotli 圧縮データ形式](https://tools.ietf.org/html/rfc7932) |
 | `deflate`                       | いいえ                   | [圧縮データ形式の DEFLATE](https://tools.ietf.org/html/rfc1951) |
 | `exi`                           | いいえ                   | [W3C の効率的な XML インターチェンジ](https://tools.ietf.org/id/draft-varga-netconf-exi-capability-00.html) |
 | `gzip`                          | 可 (既定)        | [Gzip ファイル形式](https://tools.ietf.org/html/rfc1952) |
-| `identity`                      | ○                  | "エンコードなし" 識別子: 応答をエンコードすることはできません。 |
+| `identity`                      | はい                  | "エンコードなし" 識別子: 応答をエンコードすることはできません。 |
 | `pack200-gzip`                  | いいえ                   | [Java アーカイブのネットワーク転送形式](https://jcp.org/aboutJava/communityprocess/review/jsr200/index.html) |
-| `*`                             | ○                  | 明示的に要求されていない利用可能なコンテンツエンコーディング |
+| `*`                             | はい                  | 明示的に要求されていない利用可能なコンテンツエンコーディング |
 
 ::: moniker-end
 
@@ -80,7 +80,7 @@ IIS、Apache、または Nginx のサーバーベースの応答圧縮テクノ�
 
 次の表では、圧縮されたコンテンツの要求、送信、キャッシュ、および受信に関連するヘッダーについて説明します。
 
-| Header             | 役割 |
+| ヘッダー             | ロール |
 | ------------------ | ---- |
 | `Accept-Encoding`  | クライアントからサーバーに送信され、クライアントが使用できるコンテンツエンコーディングスキームを示します。 |
 | `Content-Encoding` | ペイロード内のコンテンツのエンコードを示すために、サーバーからクライアントに送信されます。 |
@@ -94,21 +94,21 @@ IIS、Apache、または Nginx のサーバーベースの応答圧縮テクノ�
 * Gzip およびカスタム圧縮プロバイダーを使用したアプリ応答の圧縮。
 * 圧縮する mime の種類の既定の一覧に MIME の種類を追加する方法について説明します。
 
-## <a name="package"></a>[パッケージ]
+## <a name="package"></a>パッケージ
 
 ::: moniker range=">= aspnetcore-3.0"
 
-応答圧縮ミドルウェアは、ASP.NET Core アプリに暗黙的に含まれる [Microsoft.AspNetCore.ResponseCompression](https://www.nuget.org/packages/Microsoft.AspNetCore.ResponseCompression/) パッケージによって提供されます。
+応答圧縮ミドルウェアは、AspNetCore アプリ ASP.NET Core に暗黙的に含まれる[ResponseCompression](https://www.nuget.org/packages/Microsoft.AspNetCore.ResponseCompression/)パッケージによって提供されます。
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-ミドルウェアをプロジェクトに含めるには、 [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)への参照を追加します。これには、 [Microsoft.AspNetCore.ResponseCompression](https://www.nuget.org/packages/Microsoft.AspNetCore.ResponseCompression/)パッケージが含まれています。
+ミドルウェアをプロジェクトに含めるには、 [AspNetCore メタパッケージ](xref:fundamentals/metapackage-app)への参照を追加します。これには、 [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.ResponseCompression/)パッケージが含まれています。
 
 ::: moniker-end
 
-## <a name="configuration"></a>の構成
+## <a name="configuration"></a>構成
 
 ::: moniker range=">= aspnetcore-2.2"
 
@@ -137,9 +137,9 @@ public class Startup
 }
 ```
 
-注:
+メモ:
 
-* 応答を圧縮するミドルウェアの前に `app.UseResponseCompression` を呼び出す必要があります。 詳細については、「 <xref:fundamentals/middleware/index#middleware-order>」を参照してください。
+* 応答を圧縮するミドルウェアの前に `app.UseResponseCompression` を呼び出す必要があります。 詳細については、「<xref:fundamentals/middleware/index#middleware-order>」を参照してください。
 * [Fiddler](https://www.telerik.com/fiddler)、[消火バグ](https://getfirebug.com/)、または[Postman](https://www.getpostman.com/)などのツールを使用して `Accept-Encoding` 要求ヘッダーを設定し、応答ヘッダー、サイズ、および本文を調査します。
 
 `Accept-Encoding` ヘッダーを使用せずにサンプルアプリに要求を送信し、応答が圧縮されていないことを確認します。 `Content-Encoding` ヘッダーと `Vary` ヘッダーが応答に存在しません。
@@ -202,7 +202,7 @@ public void ConfigureServices(IServiceCollection services)
 
 圧縮レベルを <xref:Microsoft.AspNetCore.ResponseCompression.BrotliCompressionProviderOptions>に設定します。 Brotli 圧縮プロバイダーは、既定で最も高速な圧縮レベル ([CompressionLevel](xref:System.IO.Compression.CompressionLevel)) に設定されています。これにより、圧縮率が最も高くなる可能性があります。 最も効率的な圧縮が必要な場合は、最適な圧縮のためにミドルウェアを構成します。
 
-| 圧縮レベル | 説明 |
+| Compression Level | [説明] |
 | ----------------- | ----------- |
 | [CompressionLevel](xref:System.IO.Compression.CompressionLevel) | 圧縮は、結果の出力が最適に圧縮されない場合でも、できるだけ早く完了する必要があります。 |
 | [CompressionLevel](xref:System.IO.Compression.CompressionLevel) | 圧縮は実行されません。 |
@@ -265,7 +265,7 @@ public void ConfigureServices(IServiceCollection services)
 
 圧縮レベルを <xref:Microsoft.AspNetCore.ResponseCompression.GzipCompressionProviderOptions>に設定します。 Gzip 圧縮プロバイダーは、既定で最も高速な圧縮レベル ([CompressionLevel](xref:System.IO.Compression.CompressionLevel)) に設定されています。これにより、圧縮率が最も高くなる可能性があります。 最も効率的な圧縮が必要な場合は、最適な圧縮のためにミドルウェアを構成します。
 
-| 圧縮レベル | 説明 |
+| Compression Level | [説明] |
 | ----------------- | ----------- |
 | [CompressionLevel](xref:System.IO.Compression.CompressionLevel) | 圧縮は、結果の出力が最適に圧縮されない場合でも、できるだけ早く完了する必要があります。 |
 | [CompressionLevel](xref:System.IO.Compression.CompressionLevel) | 圧縮は実行されません。 |
@@ -283,7 +283,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-### <a name="custom-providers"></a>カスタムプロバイダー
+### <a name="custom-providers"></a>カスタム プロバイダー
 
 <xref:Microsoft.AspNetCore.ResponseCompression.ICompressionProvider>を使用して、カスタム圧縮実装を作成します。 この `ICompressionProvider` が生成するコンテンツエンコーディングを表す <xref:Microsoft.AspNetCore.ResponseCompression.ICompressionProvider.EncodingName*>。 ミドルウェアは、この情報を使用して、要求の `Accept-Encoding` ヘッダーに指定されている一覧に基づいてプロバイダーを選択します。
 

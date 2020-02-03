@@ -75,10 +75,10 @@ Blazor サーバーアプリで状態を永続化するには、3つの一般的
 
 ### <a name="server-side-in-a-database"></a>データベース内のサーバー側
 
-永続的なデータ永続化や、複数のユーザーまたはデバイスにまたがる必要があるデータについては、独立したサーバー側データベースが最適な選択肢です。 次のオプションが用意されています。
+永続的なデータ永続化や、複数のユーザーまたはデバイスにまたがる必要があるデータについては、独立したサーバー側データベースが最適な選択肢です。 次のオプションがあります。
 
 * リレーショナル SQL データベース
-* キー/値ストア
+* キー値ストア
 * Blob ストア
 * テーブルストア
 
@@ -134,16 +134,16 @@ ASP.NET Core の[データ保護](xref:security/data-protection/introduction)を
 
 ## <a name="protected-browser-storage-experimental-package"></a>保護されたブラウザーストレージの試験的パッケージ
 
-`localStorage` と `sessionStorage` の[データ保護](xref:security/data-protection/introduction)を提供するNuGetパッケージの例は、[Microsoft.AspNetCore.ProtectedBrowserStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage)です。
+`localStorage` と `sessionStorage` の[データ保護](xref:security/data-protection/introduction)を提供する NuGet パッケージの例としては、 [AspNetCore. ProtectedBrowserStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage)があります。
 
 > [!WARNING]
 > 現時点では、運用環境での使用に適していない、サポートされていない実験的パッケージは `Microsoft.AspNetCore.ProtectedBrowserStorage`。
 
-### <a name="installation"></a>のインストール
+### <a name="installation"></a>インストール
 
 `Microsoft.AspNetCore.ProtectedBrowserStorage` パッケージをインストールするには:
 
-1. Blazor Server アプリプロジェクトで、 [Microsoft.AspNetCore.ProtectedBrowserStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage)へのパッケージ参照を追加します。
+1. Blazor Server アプリプロジェクトで、 [ProtectedBrowserStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage)へのパッケージ参照を追加します。
 1. 最上位レベルの HTML (たとえば、既定のプロジェクトテンプレートの*Pages/_Host*ファイル) で、次の `<script>` タグを追加します。
 
    ```html
@@ -195,7 +195,7 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
-コンポーネントのパラメーターにナビゲーション状態が含まれている場合は、`ProtectedSessionStore.GetAsync` を呼び出し、`OnInitializedAsync`ではなく `OnParametersSetAsync`に結果を割り当てます。 `OnInitializedAsync` は、コンポーネントが最初にインスタンス化されるときに1回だけ呼び出されます。 ユーザーが同じページで別の URL に移動しても、後で `OnInitializedAsync` が呼び出されることはありません。 詳細については、「 <xref:blazor/lifecycle>」を参照してください。
+コンポーネントのパラメーターにナビゲーション状態が含まれている場合は、`ProtectedSessionStore.GetAsync` を呼び出し、`OnInitializedAsync`ではなく `OnParametersSetAsync`に結果を割り当てます。 `OnInitializedAsync` は、コンポーネントが最初にインスタンス化されるときに1回だけ呼び出されます。 ユーザーが同じページで別の URL に移動しても、後で `OnInitializedAsync` が呼び出されることはありません。 詳細については、「<xref:blazor/lifecycle>」を参照してください。
 
 > [!WARNING]
 > このセクションの例は、サーバーのプリレンダリングが有効になっていない場合にのみ機能します。 プリレンダリングが有効になっていると、次のようなエラーが生成されます。

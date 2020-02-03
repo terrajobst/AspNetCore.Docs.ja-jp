@@ -17,20 +17,20 @@ ms.locfileid: "76727276"
 
 作成者: [Cam Soper](https://twitter.com/camsoper)
 
-[Azure Active Directory B2C](/azure/active-directory-b2c/active-directory-b2c-overview) (Azure AD B2C) は、web およびモバイル アプリのクラウド id 管理ソリューションです。 サービスは、クラウドとオンプレミスでホストされているアプリの認証を提供します。 認証の種類は、個々 のアカウントに、ソーシャル ネットワーク アカウントを含めるし、エンタープライズ アカウントをフェデレーションします。 また、Azure AD B2C では、最小構成で multi-factor authentication を提供できます。
+[Azure Active Directory B2C](/azure/active-directory-b2c/active-directory-b2c-overview) (Azure AD B2C) は、web アプリとモバイルアプリのクラウド id 管理ソリューションです。 サービスは、クラウドとオンプレミスでホストされているアプリの認証を提供します。 認証の種類は、個々 のアカウントに、ソーシャル ネットワーク アカウントを含めるし、エンタープライズ アカウントをフェデレーションします。 また、Azure AD B2C では、最小構成で multi-factor authentication を提供できます。
 
 > [!TIP]
-> Azure Active Directory (Azure AD) と Azure AD B2C は個別の製品を提供します。 Azure AD テナントは、組織を表し、Azure AD B2C テナントは証明書利用者アプリケーションで使用される id のコレクションを表します。 詳細についてを参照してください。 [Azure AD B2C: よく寄せられる質問 (FAQ)](/azure/active-directory-b2c/active-directory-b2c-faqs)します。
+> Azure Active Directory (Azure AD) と Azure AD B2C は個別の製品を提供します。 Azure AD テナントは、組織を表し、Azure AD B2C テナントは証明書利用者アプリケーションで使用される id のコレクションを表します。 詳細については、「 [Azure AD B2C: よく寄せられる質問 (faq)](/azure/active-directory-b2c/active-directory-b2c-faqs)」を参照してください。
 
-このチュートリアルで学習する方法。
+このチュートリアルで学習する内容は次のとおりです。
 
 > [!div class="checklist"]
-> * Azure Active Directory B2C テナントを作成する
+> * Azure Active Directory B2C テナントの作成
 > * Azure AD B2C にアプリを登録する
 > * Visual Studio を使用して、認証に Azure AD B2C テナントを使用するように構成された ASP.NET Core web アプリを作成する
 > * Azure AD B2C テナントの動作を制御するポリシーを構成する
 
-## <a name="prerequisites"></a>Prerequisites
+## <a name="prerequisites"></a>前提条件
 
 次に、このチュートリアルでは必須です。
 
@@ -43,23 +43,23 @@ ms.locfileid: "76727276"
 
 ## <a name="register-the-app-in-azure-ad-b2c"></a>Azure AD B2C にアプリを登録する
 
-新しく作成された Azure AD B2C テナントで、「 **web アプリを登録する**」セクションにある[ドキュメントの手順](/azure/active-directory-b2c/tutorial-register-applications#register-a-web-application)に従って、アプリを登録します。 停止時刻、 **web アプリ クライアント シークレットの作成**セクション。 このチュートリアルでは、クライアント シークレットが必要はありません。 
+新しく作成された Azure AD B2C テナントで、「 **web アプリを登録する**」セクションにある[ドキュメントの手順](/azure/active-directory-b2c/tutorial-register-applications#register-a-web-application)に従って、アプリを登録します。 **[Web アプリクライアントシークレットの作成]** セクションで停止します。 このチュートリアルでは、クライアント シークレットが必要はありません。 
 
 次の値を使用します。
 
-| 設定                       | Value                     | メモ                                                                                                                                                                                              |
+| 設定                       | [値]                     | メモ                                                                                                                                                                                              |
 |-------------------------------|---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **名前**                      | *&lt;アプリケーション名&gt;*        | 入力、**名前**コンシューマーに、アプリについて説明しているアプリ。                                                                                                                                 |
-| **Web アプリを含める/web API** | ○                       |                                                                                                                                                                                                    |
-| **暗黙的なフローを許可します。**       | ○                       |                                                                                                                                                                                                    |
-| **応答 URL**                 | `https://localhost:44300/signin-oidc` | 応答 Url とは、Azure AD B2C が、アプリが要求したトークンを返すエンドポイントです。 Visual Studio には、使用する応答 URL が用意されています。 ここでは、`https://localhost:44300/signin-oidc` 入力してフォームを完成させます。 |
-| **アプリ ID URI**                | 空白のままにする               | このチュートリアルでは必要ありません。                                                                                                                                                                    |
+| **Name**                      | *&lt;アプリケーション名&gt;*        | アプリをコンシューマーに説明するアプリの**名前**を入力します。                                                                                                                                 |
+| **Web アプリ/Web API を含める** | はい                       |                                                                                                                                                                                                    |
+| **暗黙的フローを許可する**       | はい                       |                                                                                                                                                                                                    |
+| **応答 URL**                 | `https://localhost:44300/signin-oidc` | 応答 URL は、アプリが要求したトークンを Azure AD B2C が返すエンドポイントです。 Visual Studio には、使用する応答 URL が用意されています。 ここでは、`https://localhost:44300/signin-oidc` 入力してフォームを完成させます。 |
+| **アプリケーション ID/URI**                | 空白               | このチュートリアルでは必要ありません。                                                                                                                                                                    |
 | **ネイティブ クライアントを含める**     | いいえ                        |                                                                                                                                                                                                    |
 
 > [!WARNING]
 > Localhost 以外の応答 URL を設定する場合は、[[応答 url] の一覧で許可されている内容に関する制約](/azure/active-directory-b2c/tutorial-register-applications#register-a-web-application)に注意してください。 
 
-アプリが登録されると、テナント内のアプリの一覧が表示されます。 登録したばかりのアプリを選択します。 選択、**コピー**アイコンの右側に、**アプリケーション ID**フィールドをクリップボードにコピーします。
+アプリが登録されると、テナント内のアプリの一覧が表示されます。 登録したばかりのアプリを選択します。 **[アプリケーション ID]** フィールドの右側にある**コピー**アイコンを選択して、クリップボードにコピーします。
 
 現時点では、Azure AD B2C テナントで構成できるものはありませんが、ブラウザーウィンドウは開いたままにしておきます。 ASP.NET Core アプリが作成された後は、さらに多くの構成があります。
 
@@ -71,7 +71,7 @@ Visual Studio:
 
 1. 新しい ASP.NET Core Web アプリケーションを作成します。 
 2. テンプレートの一覧から **[Web アプリケーション]** を選択します。
-3. 選択、**認証の変更**ボタンをクリックします。
+3. **[認証の変更]** ボタンを選択します。
     
     ![変更の認証 ボタン](./azure-ad-b2c/_static/changeauth.png)
 
@@ -81,16 +81,16 @@ Visual Studio:
 
 5. 次の値をフォームに入力します。
     
-    | 設定                       | Value                                                 |
+    | 設定                       | [値]                                                 |
     |-------------------------------|-------------------------------------------------------|
     | **ドメイン名**               | *B2C テナントのドメイン名を &lt;&gt;*          |
     | **アプリケーション ID**            | *&lt;クリップボードからアプリケーション ID を貼り付け&gt;* |
     | **コールバックパス**             | *既定値を使用 &lt;&gt;*                       |
-    | **サインアップまたはサインイン ポリシー** | `B2C_1_SiUpIn`                                        |
+    | **サインアップまたはサインインポリシー** | `B2C_1_SiUpIn`                                        |
     | **パスワードポリシーのリセット**     | `B2C_1_SSPR`                                          |
     | **プロファイルポリシーの編集**       | *空白のまま &lt;&gt;*                                 |
     
-    **[応答 uri]** の横にある **[コピー]** リンクを選択して、応答 uri をクリップボードにコピーします。 選択**OK**を閉じる、**認証の変更**ダイアログ。 選択**OK** web アプリを作成します。
+    **[応答 uri]** の横にある **[コピー]** リンクを選択して、応答 uri をクリップボードにコピーします。 [ **OK]** を選択して **[認証の変更]** ダイアログを閉じます。 [ **OK]** を選択して web アプリを作成します。
 
 ## <a name="finish-the-b2c-app-registration"></a>B2C アプリの登録を完了する
 
@@ -101,7 +101,7 @@ B2C アプリのプロパティを開いたままブラウザーウィンドウ�
 
 ## <a name="configure-policies"></a>ポリシーの構成
 
-Azure AD B2C のドキュメントに記載されている手順に従って、[サインアップまたはサインインポリシーを作成](/azure/active-directory-b2c/active-directory-b2c-reference-policies#user-flow-versions)し、[パスワードリセットポリシーを作成](/azure/active-directory-b2c/active-directory-b2c-reference-policies#user-flow-versions)します。 ドキュメントの例の値を使用して、 **Id プロバイダー**、**サインアップ属性**、および**アプリケーション要求**します。 ドキュメントで説明されているように、 **[今すぐ実行]** ボタンを使用してポリシーをテストすることは、オプションです。
+Azure AD B2C のドキュメントに記載されている手順に従って、[サインアップまたはサインインポリシーを作成](/azure/active-directory-b2c/active-directory-b2c-reference-policies#user-flow-versions)し、[パスワードリセットポリシーを作成](/azure/active-directory-b2c/active-directory-b2c-reference-policies#user-flow-versions)します。 **Id プロバイダー**、**サインアップ属性**、および**アプリケーション要求**に関するドキュメントに記載されている値の例を使用します。 ドキュメントで説明されているように、 **[今すぐ実行]** ボタンを使用してポリシーをテストすることは、オプションです。
 
 > [!WARNING]
 > ポリシー名は、Visual Studio の **[認証の変更]** ダイアログで使用されていたので、ドキュメントに記載されているとおりに記述してください。 ポリシー名は、 *appsettings*で検証できます。
@@ -136,30 +136,30 @@ Visual Studio で、 **F5**キーを押してアプリをビルドして実行�
 
 ![アプリにサインインする](./azure-ad-b2c/_static/signin.png)
 
-ブラウザーが Azure AD B2C テナントにリダイレクトされます。 (この場合、ポリシーをテストする 1 つが作成された) 既存のアカウントでサインインまたは選択**今すぐサインアップ**新しいアカウントを作成します。 **パスワードを忘れた場合でしょうか。** 忘れたパスワードをリセットするリンクを使用します。
+ブラウザーが Azure AD B2C テナントにリダイレクトされます。 (ポリシーのテストを作成した場合は) 既存のアカウントでサインインするか、 **[今すぐサインアップ]** を選択して新しいアカウントを作成します。 忘れたパスワードをリセットするには、[**パスワードを忘れ**た場合] リンクを使用します。
 
-![ログインの Azure AD B2C](./azure-ad-b2c/_static/b2csts.png)
+![Azure AD B2C のログイン](./azure-ad-b2c/_static/b2csts.png)
 
 サインインに成功すると、ブラウザーが web アプリにリダイレクトされます。
 
 ![成功](./azure-ad-b2c/_static/success.png)
 
-## <a name="next-steps"></a>次のステップ:
+## <a name="next-steps"></a>次の手順
 
 このチュートリアルでは、次の作業を行う方法を学びました。
 
 > [!div class="checklist"]
-> * Azure Active Directory B2C テナントを作成する
+> * Azure Active Directory B2C テナントの作成
 > * Azure AD B2C にアプリを登録する
 > * Visual Studio を使用して、認証に Azure AD B2C テナントを使用するように構成された ASP.NET Core Web アプリケーションを作成する
 > * Azure AD B2C テナントの動作を制御するポリシーを構成する
 
 認証に Azure AD B2C を使用するように ASP.NET Core アプリが構成されたので、[承認属性](xref:security/authorization/simple)を使用してアプリをセキュリティで保護することができます。 次のことを学習してアプリの開発を続けます。
 
-* [Azure AD B2C ユーザー インターフェイスをカスタマイズ](/azure/active-directory-b2c/active-directory-b2c-reference-ui-customization)します。
-* [パスワードの複雑さの要件を構成する](/azure/active-directory-b2c/active-directory-b2c-reference-password-complexity)します。
-* [多要素認証を有効にする](/azure/active-directory-b2c/active-directory-b2c-reference-mfa)します。
-* など、追加の id プロバイダーを構成[Microsoft](/azure/active-directory-b2c/active-directory-b2c-setup-msa-app)、 [Facebook](/azure/active-directory-b2c/active-directory-b2c-setup-fb-app)、 [Google](/azure/active-directory-b2c/active-directory-b2c-setup-goog-app)、 [Amazon](/azure/active-directory-b2c/active-directory-b2c-setup-amzn-app)、 [Twitter](/azure/active-directory-b2c/active-directory-b2c-setup-twitter-app)、およびその他。
-* [Azure AD Graph API を使用して、](/azure/active-directory-b2c/active-directory-b2c-devquickstarts-graph-dotnet) Azure AD B2C テナントからグループのメンバーシップなどの追加のユーザー情報を取得します。
+* [Azure AD B2C ユーザーインターフェイスをカスタマイズ](/azure/active-directory-b2c/active-directory-b2c-reference-ui-customization)します。
+* [パスワードの複雑さの要件を構成](/azure/active-directory-b2c/active-directory-b2c-reference-password-complexity)します。
+* [多要素認証を有効に](/azure/active-directory-b2c/active-directory-b2c-reference-mfa)します。
+* [Microsoft](/azure/active-directory-b2c/active-directory-b2c-setup-msa-app)、 [Facebook](/azure/active-directory-b2c/active-directory-b2c-setup-fb-app)、 [Google](/azure/active-directory-b2c/active-directory-b2c-setup-goog-app)、 [Amazon](/azure/active-directory-b2c/active-directory-b2c-setup-amzn-app)、 [Twitter](/azure/active-directory-b2c/active-directory-b2c-setup-twitter-app)など、その他の id プロバイダーを構成します。
+* [Azure AD Graph API を使用](/azure/active-directory-b2c/active-directory-b2c-devquickstarts-graph-dotnet)して、Azure AD B2C テナントからグループメンバーシップなどの追加のユーザー情報を取得します。
 * [Azure AD B2C を使用して ASP.NET Core WEB API をセキュリティで保護](https://azure.microsoft.com/resources/samples/active-directory-b2c-dotnetcore-webapi/)します。
-* [Azure AD B2C を使用して .NET web アプリから .NET web API を呼び出す](/azure/active-directory-b2c/active-directory-b2c-devquickstarts-web-api-dotnet)します。
+* [Azure AD B2C を使用して .net web アプリから .net WEB API を呼び出し](/azure/active-directory-b2c/active-directory-b2c-devquickstarts-web-api-dotnet)ます。
