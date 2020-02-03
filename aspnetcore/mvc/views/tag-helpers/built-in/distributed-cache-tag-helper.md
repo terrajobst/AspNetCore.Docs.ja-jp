@@ -4,14 +4,14 @@ author: pkellner
 description: 分散キャッシュ タグ ヘルパーを使用する方法について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/10/2018
+ms.date: 01/24/2020
 uid: mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper
-ms.openlocfilehash: 4e4d383bac67c73bad8b0a31b9ceb9452251761b
-ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
+ms.openlocfilehash: e5100d7244600358186b653073990985f48434a7
+ms.sourcegitcommit: b5ceb0a46d0254cc3425578116e2290142eec0f0
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/12/2019
-ms.locfileid: "67856196"
+ms.lasthandoff: 01/28/2020
+ms.locfileid: "76809056"
 ---
 # <a name="distributed-cache-tag-helper-in-aspnet-core"></a>ASP.NET Core の分散キャッシュ タグ ヘルパー
 
@@ -60,7 +60,7 @@ ms.locfileid: "67856196"
 
 ## <a name="distributed-cache-tag-helper-idistributedcache-implementations"></a>分散キャッシュ タグ ヘルパー IDistributedCache の実装
 
-ASP.NET Core には <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> の 2 つの実装が組み込まれています。 1 つは SQL Server を、もう 1 つは Redis をベースにしています。 これらの実装の詳細については、<xref:performance/caching/distributed> を参照してください。 どちらの実装も、`Startup` での `IDistributedCache` インスタンスの設定を伴います。
+ASP.NET Core には <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> の 2 つの実装が組み込まれています。 1 つは SQL Server を、もう 1 つは Redis をベースにしています。 [NCache](http://www.alachisoft.com/ncache/aspnet-core-idistributedcache-ncache.html) など、サードパーティの実装も利用できます。 これらの実装の詳細については、<xref:performance/caching/distributed> を参照してください。 どちらの実装も、`Startup` での `IDistributedCache` インスタンスの設定を伴います。
 
 `IDistributedCache` のいずれかの具体的な実装の使用に、明確に関連付けられている属性はありません。
 

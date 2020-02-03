@@ -5,12 +5,12 @@ description: 単純な ASP.NET Core MVC アプリにビューを追加する
 ms.author: riande
 ms.date: 8/04/2019
 uid: tutorials/first-mvc-app/adding-view
-ms.openlocfilehash: de75c3b0651c0cda6629af786d7db9dc83bc4fef
-ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
+ms.openlocfilehash: a25233968f115c6e3a214d97cf2ca5ab81df8d83
+ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/12/2019
-ms.locfileid: "72288828"
+ms.lasthandoff: 01/29/2020
+ms.locfileid: "76870429"
 ---
 # <a name="add-a-view-to-an-aspnet-core-mvc-app"></a>ASP.NET Core MVC アプリへのビューの追加
 
@@ -61,9 +61,9 @@ ms.locfileid: "72288828"
 * *Views/HelloWorld* フォルダーを右クリックし、 **[追加]、[新しいファイル]** の順に選択します。
 * **[新しいファイル]** ダイアログで次を実行します。
 
-  * 左側のウィンドウで **[Web]** を選択します。
-  * 中央のウィンドウで **[空の HTML ファイル]** を選択します。
-  * **[名前]** ボックスに「*Index.cshtml*」と入力します。
+  * 左側のウィンドウで、 **[ASP .NET Core]** を選択します。
+  * 中央のウィンドウで、 **[MVC ビュー ページ]** を選択します。
+  * **[名前]** ボックスに「*Index*」と入力します。
   * **[新規]** を選択します。
 
 ![[新しい項目の追加] ダイアログ](adding-view/_static/add_view_mac.png)

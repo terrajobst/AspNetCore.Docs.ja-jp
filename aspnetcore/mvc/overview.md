@@ -3,14 +3,14 @@ title: ASP.NET Core MVC の概要
 author: ardalis
 description: ASP.NET Core MVC が、モデル ビュー コントローラー デザイン パターンを使用して、Web アプリと API をビルドするための豊富なフレームワークであることについて説明します。
 ms.author: riande
-ms.date: 11/07/2019
+ms.date: 01/28/2020
 uid: mvc/overview
-ms.openlocfilehash: 4f4ea3da8563cabaaa6183c6835c2f1eb8c387b4
-ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
+ms.openlocfilehash: a147c2aa01f1440f8ac59f73eb7be734193f802a
+ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/07/2019
-ms.locfileid: "73799495"
+ms.lasthandoff: 01/29/2020
+ms.locfileid: "76869972"
 ---
 # <a name="overview-of-aspnet-core-mvc"></a>ASP.NET Core MVC の概要
 
@@ -253,9 +253,10 @@ MVC の Razor ビューは、モデルを基にして厳密に型指定できま
 
 <xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*> メソッドを使用すると、ASP.NET Core MVC 2.1 以降に導入されている、互換性に影響する重大な変更をオプトインまたはオプトアウトすることができます。
 
-詳細については、<xref:mvc/compatibility-version> を参照してください。
+詳細については、「<xref:mvc/compatibility-version>」を参照してください。
 
 ## <a name="additional-resources"></a>その他の技術情報
 
 * [MyTested.AspNetCore.Mvc - ASP.NET Core MVC 用の Fluent テスト ライブラリ](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) &ndash; MVC と Web API アプリをテストするための fluent インターフェイスを提供する厳密に型指定された単体テスト ライブラリ。 ("*Microsoft では保守管理もサポートも行っていません。* ")
+* [Razor コンポーネントを Razor Pages と MVC アプリに統合する](xref:blazor/hosting-models#integrate-razor-components-into-razor-pages-and-mvc-apps)
 

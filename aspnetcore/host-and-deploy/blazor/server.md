@@ -5,17 +5,17 @@ description: ASP.NET Core を使用して Blazor サーバー アプリをホス
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 01/17/2020
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/server
-ms.openlocfilehash: c07cd05dd8e1c4384c6f8f019173b9b7a9a06fd0
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.openlocfilehash: e8b3a7faaf1dc88059a79abbc7e74657ebb2068c
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76160224"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76726729"
 ---
 # <a name="host-and-deploy-opno-locblazor-server"></a>Blazor サーバーをホストおよびデプロイする
 
@@ -104,6 +104,17 @@ metadata:
     nginx.ingress.kubernetes.io/session-cookie-expires: "14400"
     nginx.ingress.kubernetes.io/session-cookie-max-age: "14400"
 ```
+
+#### <a name="linux-with-nginx"></a>Nginx を使用した Linux
+
+SignalR Websocket が正常に機能するには、プロキシの `Upgrade` ヘッダーと `Connection` ヘッダーを次のように設定します。
+
+```
+proxy_set_header Upgrade $http_upgrade;
+proxy_set_header Connection $connection_upgrade;
+```
+
+詳細については、「[WebSocket プロキシとしての NGINX](https://www.nginx.com/blog/websocket-nginx/)」を参照してください。
 
 ### <a name="measure-network-latency"></a>ネットワーク待機時間の測定
 

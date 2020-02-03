@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/16/2019
 uid: fundamentals/http-requests
-ms.openlocfilehash: 482f8e28c23c621cecaf9ce111d89e9166ea6d85
-ms.sourcegitcommit: da2fb2d78ce70accdba903ccbfdcfffdd0112123
+ms.openlocfilehash: 9b9da82191a587be0603ee114562e9a964f05250
+ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/07/2020
-ms.locfileid: "75722727"
+ms.lasthandoff: 01/29/2020
+ms.locfileid: "76870399"
 ---
 # <a name="make-http-requests-using-ihttpclientfactory-in-aspnet-core"></a>ASP.NET Core で IHttpClientFactory を使用して HTTP 要求を行う
 
@@ -352,6 +352,22 @@ DI 対応のアプリ内で `IHttpClientFactory` を使用すれば、次のこ�
 * `Main` により、サービスの `GetPage` メソッドを実行し、Web ページ コンテンツの最初の 500 文字をコンソールに書き込むためのスコープが作成されます。
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactoryConsoleSample/Program.cs?highlight=14-15,20,26-27,59-62)]
+
+## <a name="header-propagation-middleware"></a>ヘッダー伝達ミドルウェア
+
+ヘッダー伝達は、受信要求から送信 HTTP クライアント要求に HTTP ヘッダーを伝達するための ASP.NET Core ミドルウェアです。 ヘッダー伝達を使用するには、次を行います。
+
+* [Microsoft.AspNetCore.HeaderPropagation](https://www.nuget.org/packages/Microsoft.AspNetCore.HeaderPropagation) パッケージを参照します。
+* `Startup` でミドルウェアと `HttpClient` を構成します。
+
+  [!code-csharp[](http-requests/samples/3.x/Startup.cs?highlight=5-9,21&name=snippet)]
+
+* クライアントで、構成されたヘッダーが送信要求に含まれます。
+
+  ```C#
+  var client = clientFactory.CreateClient("MyForwardingClient");
+  var response = client.GetAsync(...);
+  ```
 
 ## <a name="additional-resources"></a>その他の技術情報
 
@@ -962,6 +978,23 @@ DI 対応のアプリ内で `IHttpClientFactory` を使用すれば、次のこ�
 * `Main` により、サービスの `GetPage` メソッドを実行し、Web ページ コンテンツの最初の 500 文字をコンソールに書き込むためのスコープが作成されます。
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactoryConsoleSample/Program.cs?highlight=14-15,20,26-27,59-62)]
+
+## <a name="header-propagation-middleware"></a>ヘッダー伝達ミドルウェア
+
+ヘッダー伝達は、受信要求から送信 HTTP クライアント要求に HTTP ヘッダーを伝達するためのコミュニティでサポートされたミドルウェアです。 ヘッダー伝達を使用するには、次を行います。
+
+* パッケージ [HeaderPropagation](https://www.nuget.org/packages/HeaderPropagation) のコミュニティでサポートされているポートを参照します。 ASP.NET Core 3.1 以降では、[Microsoft.AspNetCore.HeaderPropagation](https://www.nuget.org/packages/Microsoft.AspNetCore.HeaderPropagation) がサポートされています。
+
+* `Startup` でミドルウェアと `HttpClient` を構成します。
+
+  [!code-csharp[](http-requests/samples/2.x/Startup21.cs?highlight=5-9,25&name=snippet)]
+
+* クライアントで、構成されたヘッダーが送信要求に含まれます。
+
+  ```C#
+  var client = clientFactory.CreateClient("MyForwardingClient");
+  var response = client.GetAsync(...);
+  ```
 
 ## <a name="additional-resources"></a>その他の技術情報
 

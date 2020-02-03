@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/13/2019
 uid: fundamentals/routing
-ms.openlocfilehash: 462f34664540b92ba6758224a722c7ca8f9c8de0
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 5e3ff65420b3c6769d52f8b96c216043cb1fdc1a
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829063"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76727008"
 ---
 # <a name="routing-in-aspnet-core"></a>ASP.NET Core のルーティング
 

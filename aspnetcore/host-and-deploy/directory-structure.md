@@ -5,14 +5,14 @@ description: 発行された ASP.NET Core アプリのディレクトリ構造�
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/17/2019
+ms.date: 01/28/2020
 uid: host-and-deploy/directory-structure
-ms.openlocfilehash: f1df047decc7a0a6b7dcee57a690c55eea428b05
-ms.sourcegitcommit: 28a2874765cefe9eaa068dceb989a978ba2096aa
+ms.openlocfilehash: ba5cb96dfdcdca10034299e3bbe662ce056af791
+ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/17/2019
-ms.locfileid: "67166978"
+ms.lasthandoff: 01/29/2020
+ms.locfileid: "76870267"
 ---
 # <a name="aspnet-core-directory-structure"></a>ASP.NET Core のディレクトリ構造
 
@@ -28,8 +28,8 @@ ms.locfileid: "67166978"
 
 | アプリの種類 | ディレクトリの構造 |
 | -------- | ------------------- |
-| [フレームワークに依存する展開](/dotnet/core/deploying/#framework-dependent-deployments-fdd) | <ul><li>publish&dagger;<ul><li>Views&dagger; (MVC アプリ、ビューがプリコンパイルされていない場合)</li><li>Pages&dagger; (MVC または Razor ページ アプリ、ページがプリコンパイルされていない場合)</li><li>wwwroot&dagger;</li><li>*\.dll ファイル</li><li>{ASSEMBLY NAME}.deps.json</li><li>{ASSEMBLY NAME}.dll</li><li>{ASSEMBLY NAME}.pdb</li><li>{ASSEMBLY NAME}.Views.dll</li><li>{ASSEMBLY NAME}.Views.pdb</li><li>{ASSEMBLY NAME}.runtimeconfig.json</li><li>web.config (IIS 展開)</li></ul></li></ul> |
-| [自己完結型の展開](/dotnet/core/deploying/#self-contained-deployments-scd) | <ul><li>publish&dagger;<ul><li>Views&dagger; (MVC アプリ、ビューがプリコンパイルされていない場合)</li><li>Pages&dagger; (MVC または Razor ページ アプリ、ページがプリコンパイルされていない場合)</li><li>wwwroot&dagger;</li><li>\*.dll ファイル</li><li>{ASSEMBLY NAME}.deps.json</li><li>{ASSEMBLY NAME}.dll</li><li>{ASSEMBLY NAME}.exe</li><li>{ASSEMBLY NAME}.pdb</li><li>{ASSEMBLY NAME}.Views.dll</li><li>{ASSEMBLY NAME}.Views.pdb</li><li>{ASSEMBLY NAME}.runtimeconfig.json</li><li>web.config (IIS 展開)</li></ul></li></ul> |
+| [フレームワークに依存する実行可能ファイル (FDE)](/dotnet/core/deploying/#framework-dependent-executables-fde) | <ul><li>publish&dagger;<ul><li>Views&dagger; MVC アプリ、ビューがプリコンパイルされていない場合</li><li>Pages&dagger; MVC または Razor Pages アプリ、ページがプリコンパイルされていない場合</li><li>wwwroot&dagger;</li><li>*.dll ファイル</li><li>{ASSEMBLY NAME}.deps.json</li><li>{ASSEMBLY NAME}.dll</li><li>Windows 上の {ASSEMBLY NAME}{.EXTENSION} *.exe* 拡張機能、macOS または Linux 上は拡張機能なし</li><li>{ASSEMBLY NAME}.pdb</li><li>{ASSEMBLY NAME}.Views.dll</li><li>{ASSEMBLY NAME}.Views.pdb</li><li>{ASSEMBLY NAME}.runtimeconfig.json</li><li>web.config (IIS 展開)</li><li>createdump ([Linux createdump ユーティリティ](https://github.com/dotnet/coreclr/blob/master/Documentation/botr/xplat-minidump-generation.md#configurationpolicy))</li><li>* .so (Linux 共有オブジェクト ライブラリ)</li><li>*.a (macOS アーカイブ)</li><li>* .dylib (macOS ダイナミック ライブラリ)</li></ul></li></ul> |
+| [自己完結型の展開 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) | <ul><li>publish&dagger;<ul><li>Views&dagger; MVC アプリ、ビューがプリコンパイルされていない場合</li><li>Pages&dagger; MVC または Razor Pages アプリ、ページがプリコンパイルされていない場合</li><li>wwwroot&dagger;</li><li>*.dll ファイル</li><li>{ASSEMBLY NAME}.deps.json</li><li>{ASSEMBLY NAME}.dll</li><li>{ASSEMBLY NAME}.exe</li><li>{ASSEMBLY NAME}.pdb</li><li>{ASSEMBLY NAME}.Views.dll</li><li>{ASSEMBLY NAME}.Views.pdb</li><li>{ASSEMBLY NAME}.runtimeconfig.json</li><li>web.config (IIS 展開)</li></ul></li></ul> |
 
 &dagger; ディレクトリを示します
 

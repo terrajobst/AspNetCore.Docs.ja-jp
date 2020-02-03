@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/13/2020
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: e718592127115e46df3154364957943a457b0b1b
-ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
+ms.openlocfilehash: 880d1762ebbea641c0b9c5a9f8bbca0b68a463c5
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76146330"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76726662"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>Nginx 搭載の Linux で ASP.NET Core をホストする
 
@@ -126,7 +126,7 @@ sudo service nginx start
 
 ### <a name="configure-nginx"></a>Nginx を構成する
 
-Nginx をリバース プロキシとして構成し、ASP.NET Core アプリに要求を転送するには、*/etc/nginx/sites-available/default* を変更します。 テキスト エディターで開き、中身を次のものに変更します。
+Nginx をリバース プロキシとして構成し、ASP.NET Core アプリに要求を転送するには、 */etc/nginx/sites-available/default* を変更します。 テキスト エディターで開き、中身を次のものに変更します。
 
 ```nginx
 server {
@@ -144,6 +144,8 @@ server {
     }
 }
 ```
+
+SignalR Websocket に依存する Blazor サーバー アプリの場合、`Connection` ヘッダーを設定する方法については、「<xref:host-and-deploy/blazor/server#linux-with-nginx>」を参照してください。
 
 `server_name` が一致しない場合、Nginx では既定のサーバーが使用されます。 既定のサーバーが定義されていない場合、構成ファイルの最初のサーバーが既定のサーバーとなります。 ベスト プラクティスとして、構成ファイルで 444 の状態コードを返す既定のサーバーを具体的に追加します。 既定のサーバーの構成例は次のとおりです。
 
