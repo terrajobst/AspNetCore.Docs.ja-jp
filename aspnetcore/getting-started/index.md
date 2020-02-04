@@ -6,16 +6,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/07/2020
 uid: getting-started
-ms.openlocfilehash: c806bd1e79dea9119f1c9e99d0a2b9742a10987a
-ms.sourcegitcommit: ef1720cb733908f36a54825d84c3461c5280bdbe
+ms.openlocfilehash: 4f7e67e1e422afe3f7e2970e0c40380f065390ac
+ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/08/2020
-ms.locfileid: "75737478"
+ms.lasthandoff: 02/01/2020
+ms.locfileid: "76928327"
 ---
 # <a name="tutorial-get-started-with-aspnet-core"></a>チュートリアル: ASP.NET Core の概要
 
-このチュートリアルでは、.NET Core コマンド ライン インターフェイスを使用して ASP.NET Core Web アプリを作成して実行する方法について説明します。
+このチュートリアルでは、.NET Core CLI を使用して ASP.NET Core Web アプリを作成および実行する方法について説明します。
 
 以下の方法について説明します。
 
