@@ -4,14 +4,14 @@ author: rick-anderson
 description: ASP.NET Core でメモリにデータをキャッシュする方法について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/2/2019
+ms.date: 02/02/2020
 uid: performance/caching/memory
-ms.openlocfilehash: eb40026bc9686357cc7cfb8a99f127a3b433cb70
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 23acc17c861c203a87b1c113940e7bf42b51e810
+ms.sourcegitcommit: 990a4c2e623c202a27f60bdf3902f250359c13be
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/10/2020
-ms.locfileid: "75866034"
+ms.lasthandoff: 02/03/2020
+ms.locfileid: "76972016"
 ---
 # <a name="cache-in-memory-in-aspnet-core"></a>ASP.NET Core 内のメモリ内のキャッシュ
 
@@ -115,7 +115,7 @@ ASP.NET 4.x から ASP.NET Core にコードを移植するときに、互換性
 * Web アプリが主に文字列をキャッシュしている場合は、各キャッシュエントリのサイズを文字列の長さにすることができます。
 * アプリでは、すべてのエントリのサイズを1と指定することができ、サイズ制限はエントリの数です。
 
-<xref:Microsoft.Extensions.Caching.Memory.MemoryCacheOptions.SizeLimit> が設定されていない場合、キャッシュはバインドされずに拡張されます。 ASP.NET Core ランタイムは、システムメモリが不足しているとキャッシュをトリミングしません。 アプリは次のように設計されています。
+<xref:Microsoft.Extensions.Caching.Memory.MemoryCacheOptions.SizeLimit> が設定されていない場合、キャッシュはバインドされずに拡張されます。 システムメモリが不足している場合、ASP.NET Core ランタイムはキャッシュをトリミングしません。 アプリは次のように設計する必要があります。
 
 * キャッシュの拡張を制限します。
 * 使用可能なメモリが制限されている場合は <xref:Microsoft.Extensions.Caching.Memory.MemoryCache.Compact*> または <xref:Microsoft.Extensions.Caching.Memory.MemoryCache.Remove*> を呼び出します。

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/15/2020
 uid: security/authentication/scaffold-identity
-ms.openlocfilehash: a0e9603cbca8c7f5771b0acf1a60839dffc89d4e
-ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
+ms.openlocfilehash: b3e077aeac11e62d9e992884100476f7be35b59a
+ms.sourcegitcommit: 990a4c2e623c202a27f60bdf3902f250359c13be
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76146486"
+ms.lasthandoff: 02/03/2020
+ms.locfileid: "76972042"
 ---
 # <a name="scaffold-identity-in-aspnet-core-projects"></a>ASP.NET Core プロジェクトにおけるIdentityのスキャフォールディング
 
@@ -259,7 +259,7 @@ Web アプリの外部にユーザーを追加するためのメカニズムを�
 
 ## <a name="prevent-publish-of-static-identity-assets"></a>静的 Id 資産の発行を禁止する
 
-静的な Id 資産が web ルートに発行されないようにするには、「<xref:security/authentication/identity#prevent-publish-of-static-identity-assets>」を参照してください。
+静的な ID 資産が Web ルートに公開されないようにするには、<xref:security/authentication/identity#prevent-publish-of-static-identity-assets> を参照してください。
 
 ## <a name="additional-resources"></a>その他の技術情報
 

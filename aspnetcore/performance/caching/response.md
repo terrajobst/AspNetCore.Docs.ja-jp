@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 11/04/2019
 uid: performance/caching/response
-ms.openlocfilehash: e20c197c7ce3334d4f4f0b917d1fc94174e6c615
-ms.sourcegitcommit: 57b85708f4cded99b8f008a69830cb104cd8e879
+ms.openlocfilehash: ab5d1414ae72edade81ab55aef6b0fa5af30f0f4
+ms.sourcegitcommit: 990a4c2e623c202a27f60bdf3902f250359c13be
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/13/2020
-ms.locfileid: "75914200"
+ms.lasthandoff: 02/03/2020
+ms.locfileid: "76971970"
 ---
 # <a name="response-caching-in-aspnet-core"></a>ASP.NET Core での応答のキャッシュ
 
@@ -43,7 +43,7 @@ HTTP 1.1 キャッシュ仕様に従ったサーバー側キャッシュの場�
 
 | Header                                                     | 関数 |
 | ---------------------------------------------------------- | -------- |
-| [Age](https://tools.ietf.org/html/rfc7234#section-5.1)     | 配信元サーバーで応答が生成または正常に検証されてからの、秒単位の推定時間。 |
+| [変更](https://tools.ietf.org/html/rfc7234#section-5.1)     | 配信元サーバーで応答が生成または正常に検証されてからの、秒単位の推定時間。 |
 | [経過](https://tools.ietf.org/html/rfc7234#section-5.3) | 応答が古くなったと見なされるまでの時間。 |
 | [Unmanaged](https://tools.ietf.org/html/rfc7234#section-5.4)  | `no-cache` の動作を設定するために HTTP/1.0 キャッシュとの下位互換性を維持するために存在します。 `Cache-Control` ヘッダーが存在する場合、`Pragma` ヘッダーは無視されます。 |
 | [要因](https://tools.ietf.org/html/rfc7231#section-7.1.4)  | キャッシュされた応答の元の要求と新しい要求の両方ですべての `Vary` ヘッダーフィールドが一致する場合を除き、キャッシュされた応答を送信しないように指定します。 |
@@ -62,25 +62,25 @@ HTTP キャッシュの目的を検討している場合、クライアント `C
 
 インメモリキャッシュは、キャッシュされたデータを格納するためにサーバーメモリを使用します。 この種のキャッシュは、1台のサーバーまたは*固定セッション*を使用している複数のサーバーに適しています。 固定セッションとは、クライアントからの要求が常に同じサーバーにルーティングされて処理されることを意味します。
 
-詳細については、「<xref:performance/caching/memory>」を参照してください。
+詳細については、「 <xref:performance/caching/memory>」を参照してください。
 
 ### <a name="distributed-cache"></a>分散キャッシュ
 
 アプリがクラウドまたはサーバーファームでホストされている場合は、分散キャッシュを使用してデータをメモリに格納します。 キャッシュは、要求を処理するサーバー間で共有されます。 クライアントのキャッシュデータが使用可能な場合、クライアントは、グループ内の任意のサーバーによって処理される要求を送信できます。 ASP.NET Core は、SQL Server、 [Redis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis)、および[ncache](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/)分散キャッシュと連動します。
 
-詳細については、「<xref:performance/caching/distributed>」を参照してください。
+詳細については、「 <xref:performance/caching/distributed>」を参照してください。
 
 ### <a name="cache-tag-helper"></a>キャッシュタグヘルパー
 
 キャッシュタグヘルパーを使用して、MVC ビューまたは Razor ページからコンテンツをキャッシュします。 キャッシュタグヘルパーは、メモリ内キャッシュを使用してデータを格納します。
 
-詳細については、「<xref:mvc/views/tag-helpers/builtin-th/cache-tag-helper>」を参照してください。
+詳細については、「 <xref:mvc/views/tag-helpers/builtin-th/cache-tag-helper>」を参照してください。
 
 ### <a name="distributed-cache-tag-helper"></a>分散キャッシュ タグ ヘルパー
 
 分散キャッシュタグヘルパーを使用して、分散型クラウドまたは web ファームのシナリオで、MVC ビューまたは Razor ページからコンテンツをキャッシュします。 分散キャッシュタグヘルパーは、SQL Server、 [Redis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis)、または[ncache](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/)を使用してデータを格納します。
 
-詳細については、「<xref:mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper>」を参照してください。
+詳細については、「 <xref:mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper>」を参照してください。
 
 ## <a name="responsecache-attribute"></a>ResponseCache 属性
 
