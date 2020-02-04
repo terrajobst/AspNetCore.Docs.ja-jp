@@ -702,7 +702,7 @@
         - name: Visual Studio for Mac での公開
           displayName: 'azure, deploy, publish'
           href: /visualstudio/mac/publish-app-svc?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-        - name: CLI ツールでの公開
+        - name: CLI を使用した発行
           displayName: 'azure, deploy, publish'
           href: /azure/app-service/app-service-web-tutorial-dotnetcore-sqldb?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
         - name: Visual Studio および Git での公開
