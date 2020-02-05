@@ -7,12 +7,12 @@ ms.author: stevesa
 ms.custom: mvc
 ms.date: 03/07/2019
 uid: spa/angular
-ms.openlocfilehash: 62654ca040be99de8063a63c7e4ac09cbb8564eb
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 150b2176eac2e68c1ef9ec6deabb087836ff84ce
+ms.sourcegitcommit: cb6015f737b6a93127016ab0f21b58e34b624ff3
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080400"
+ms.lasthandoff: 02/04/2020
+ms.locfileid: "77004267"
 ---
 # <a name="use-the-angular-project-template-with-aspnet-core"></a>ASP.NET Core で Angular プロジェクト テンプレートを使用する
 
@@ -53,7 +53,7 @@ Now listening on: http://localhost:<port>
 
 ブラウザーでこの URL に移動します。
 
-アプリは、Angular CLI サーバーのインスタンスをバックグラウンドで開始します。 次のようなメッセージがログに記録されます。 *&lt;NG ライブ開発サーバーは localhost: otherport&gt;でリッスンしています。 http://localhost:&lt ブラウザーを開い&gt; て、otherport/ を開き*ます。 このメッセージは無視してください。それは、結合された ASP.NET Core と Angular CLI アプリの URLでは**ありません**。
+アプリは、Angular CLI サーバーのインスタンスをバックグラウンドで開始します。 次のようなメッセージがログに記録されます。*NG Live Development Server is listening on localhost:&lt;otherport&gt;, open your browser on http://localhost:&lt;otherport&gt;/* 。 このメッセージは無視してください。それは、結合された ASP.NET Core と Angular CLI アプリの URLでは**ありません**。
 
 ---
 
@@ -61,7 +61,7 @@ Now listening on: http://localhost:<port>
 
 ## <a name="add-pages-images-styles-modules-etc"></a>ページ、画像、スタイル、モジュールなどを追加する
 
-*ClientApp* ディレクトリには、標準的な Angular CLI アプリが含まれます。 詳細については、公式の [Angular ドキュメント](https://github.com/angular/angular-cli/wiki)を参照してください。
+*ClientApp* ディレクトリには、標準的な Angular CLI アプリが含まれます。 詳細については、公式の [Angular ドキュメント](https://https://angular.io)を参照してください。
 
 このテンプレートによって作成される Angular アプリと Angular CLI 自体によって (`ng new` で) 作成されるアプリにはわずかな違いがありますが、アプリの機能は変わりません。 テンプレートによって作成されるアプリには、[ブートストラップ](https://getbootstrap.com/)ベースのレイアウトと基本的なルーティングの例が含まれます。
 
@@ -73,13 +73,13 @@ Now listening on: http://localhost:<port>
 cd ClientApp
 ```
 
-`ng` ツールがグローバルにインストールされている場合は、そのコマンドのすべてを実行できます。 たとえば、`ng lint`、`ng test`、またはその他の [Angular CLI コマンド](https://github.com/angular/angular-cli/wiki#additional-commands) を実行できます。 ただし、`ng serve` を実行する必要はありません。これは、アプリのサーバー側とクライアント側の両方に関わる部分は、ASP.NET Core アプリが処理するためです。 内部的には、それは、開発時に `ng serve` を使用します。
+`ng` ツールがグローバルにインストールされている場合は、そのコマンドのすべてを実行できます。 たとえば、`ng lint`、`ng test`、またはその他の [Angular CLI コマンド](https://angular.io/cli) を実行できます。 ただし、`ng serve` を実行する必要はありません。これは、アプリのサーバー側とクライアント側の両方に関わる部分は、ASP.NET Core アプリが処理するためです。 内部的には、それは、開発時に `ng serve` を使用します。
 
 `ng` ツールがインストールされていない場合は、代わりに `npm run ng` を実行します。 たとえば、`npm run ng lint` または `npm run ng test` を実行できます。
 
 ## <a name="install-npm-packages"></a>npm パッケージをインストールする
 
-サードパーティ製の npm パッケージをインストールするには、*ClientApp* サブディレクトリでコマンド プロンプトを使用します。 例えば:
+サードパーティ製の npm パッケージをインストールするには、*ClientApp* サブディレクトリでコマンド プロンプトを使用します。 例:
 
 ```console
 cd ClientApp
@@ -98,7 +98,7 @@ npm install --save <package_name>
 
 ASP.NET Core アプリが開発モードで起動された場合、プロジェクトは、Angular CLI サーバーの独自のインスタンスをバックグラウンドで開始するように構成されます。 これが便利なのは、別のサーバーを手動で実行する必要がないためです。
 
-この既定の設定には欠点があります。 C# コードを変更し、ASP.NET Core アプリを再起動する必要がある場合、Angular CLI サーバーが毎回再起動します。 再起動には、約 10 秒必要です。 C# コードを何度も編集するが、Angular CLI が再起動するまで待ちたくない場合は、ASP.NET Core プロセスから独立した Angular CLI サーバーを外部で実行します。 そのためには次を行います。
+この既定の設定には欠点があります。 C# コードを変更し、ASP.NET Core アプリを再起動する必要がある場合、Angular CLI サーバーが毎回再起動します。 再起動には、約 10 秒必要です。 C# コードを何度も編集するが、Angular CLI が再起動するまで待ちたくない場合は、ASP.NET Core プロセスから独立した Angular CLI サーバーを外部で実行します。 次の手順に従います。
 
 1. コマンド プロンプトで、*ClientApp* サブディレクトリに切り替え、Angular CLI 開発サーバーを起動します。
 
