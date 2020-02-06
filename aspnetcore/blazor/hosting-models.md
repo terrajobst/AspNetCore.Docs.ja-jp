@@ -5,17 +5,17 @@ description: Blazor Webasと Blazor サーバーホスティングモデルに�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 01/31/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/hosting-models
-ms.openlocfilehash: 145f385fd6c5d04510a4ac15a41b879591ab5caa
-ms.sourcegitcommit: c81ef12a1b6e6ac838e5e07042717cf492e6635b
+ms.openlocfilehash: 7b4d4aca0bc4650c31bc8e5c4a84ecbad6a49b09
+ms.sourcegitcommit: 0e21d4f8111743bcb205a2ae0f8e57910c3e8c25
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/29/2020
-ms.locfileid: "76885528"
+ms.lasthandoff: 02/05/2020
+ms.locfileid: "77034089"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>Blazor ホスティングモデルの ASP.NET Core
 
@@ -35,7 +35,7 @@ Blazor のプリンシパルホスティングモデルは、ブラウザーで�
 
 クライアント側のホスティングモデルを使用して Blazor アプリを作成するには、 **Blazor WebAssembly アプリ**テンプレート ([dotnet new blazorwasm](/dotnet/core/tools/dotnet-new)) を使用します。
 
-**Blazor WebAssembly アプリ**テンプレートを選択した後、[ホストされている**ASP.NET Core** ] チェックボックス ([new blazorwasm--hosted](/dotnet/core/tools/dotnet-new)) を選択して、ASP.NET Core バックエンドを使用するようにアプリを構成することができます。 ASP.NET Core アプリは、Blazor アプリをクライアントに提供します。 Blazor WebAssembly は、web API 呼び出しまたは[SignalR](xref:signalr/introduction)を使用して、ネットワーク経由でサーバーと通信できます。
+**Blazor WebAssembly アプリ**テンプレートを選択した後、[ホストされている**ASP.NET Core** ] チェックボックス ([new blazorwasm--hosted](/dotnet/core/tools/dotnet-new)) を選択して、ASP.NET Core バックエンドを使用するようにアプリを構成することができます。 ASP.NET Core アプリは、Blazor アプリをクライアントに提供します。 Blazor WebAssembly は、web API 呼び出しまたは[SignalR](xref:signalr/introduction) (<xref:tutorials/signalr-blazor-webassembly>) を使用して、ネットワーク経由でサーバーと通信できます。
 
 テンプレートには、を処理する `blazor.webassembly.js` スクリプトが含まれています。
 
@@ -212,7 +212,7 @@ Razor Pages アプリでルーティング可能な Razor コンポーネント�
    });
    ```
 
-1. ルーティング可能なコンポーネントをアプリに追加します。 例:
+1. ルーティング可能なコンポーネントをアプリに追加します。 次に例を示します。
 
    ```razor
    @page "/counter"
@@ -222,7 +222,7 @@ Razor Pages アプリでルーティング可能な Razor コンポーネント�
    ...
    ```
 
-   カスタムフォルダーを使用してアプリのコンポーネントを保持する場合は、フォルダーを表す名前空間を*Pages/_ViewImports cshtml*ファイルに追加します。 詳細については、「 <xref:blazor/components#integrate-components-into-razor-pages-and-mvc-apps>」を参照してください。
+   カスタムフォルダーを使用してアプリのコンポーネントを保持する場合は、フォルダーを表す名前空間を*Pages/_ViewImports cshtml*ファイルに追加します。 詳細については、<xref:blazor/components#integrate-components-into-razor-pages-and-mvc-apps> を参照してください。
 
 #### <a name="use-routable-components-in-an-mvc-app"></a>MVC アプリでルーティング可能なコンポーネントを使用する
 
@@ -280,7 +280,7 @@ MVC アプリでルーティング可能な Razor コンポーネントをサポ
    });
    ```
 
-1. *ページ*フォルダーを作成し、ルーティング可能なコンポーネントをアプリに追加します。 例:
+1. *ページ*フォルダーを作成し、ルーティング可能なコンポーネントをアプリに追加します。 次に例を示します。
 
    ```razor
    @page "/counter"
@@ -290,9 +290,9 @@ MVC アプリでルーティング可能な Razor コンポーネントをサポ
    ...
    ```
 
-   カスタムフォルダーを使用してアプリのコンポーネントを保持する場合は、フォルダーを表す名前空間を*Views/_ViewImports cshtml*ファイルに追加します。 詳細については、「 <xref:blazor/components#integrate-components-into-razor-pages-and-mvc-apps>」を参照してください。
+   カスタムフォルダーを使用してアプリのコンポーネントを保持する場合は、フォルダーを表す名前空間を*Views/_ViewImports cshtml*ファイルに追加します。 詳細については、<xref:blazor/components#integrate-components-into-razor-pages-and-mvc-apps> を参照してください。
 
-### <a name="circuits"></a>接続
+### <a name="circuits"></a>回線
 
 Blazor Server アプリは、 [ASP.NET Core SignalR](xref:signalr/introduction)の上に構築されています。 各クライアントは、*回線*と呼ばれる1つ以上の SignalR 接続を介してサーバーと通信します。 回線は、一時的なネットワーク中断を許容できる SignalR 接続に対する Blazor の抽象化です。 Blazor クライアントは、SignalR 接続が切断されていることを確認すると、新しい SignalR 接続を使用してサーバーへの再接続を試みます。
 
@@ -306,7 +306,7 @@ UI 待機時間とは、開始されたアクションから UI が更新され�
 
 企業のプライベートネットワークに限定された基幹業務アプリの場合、ネットワーク待機時間による待ち時間のユーザーへの影響は、通常はなるべくです。 インターネット経由で展開されたアプリの場合、ユーザーにとって待機時間が顕著になる可能性があります。ユーザーが地理的に広く分散している場合は特にそうです。
 
-メモリ使用量は、アプリの待機時間に寄与する場合もあります。 メモリ使用量が増加すると、ガベージコレクションまたはメモリのページングが頻繁に発生します。どちらの場合も、アプリのパフォーマンスが低下し、その結果、UI の遅延が増加します。 詳細については、「 <xref:security/blazor/server>」を参照してください。
+メモリ使用量は、アプリの待機時間に寄与する場合もあります。 メモリ使用量が増加すると、ガベージコレクションまたはメモリのページングが頻繁に発生します。どちらの場合も、アプリのパフォーマンスが低下し、その結果、UI の遅延が増加します。 詳細については、<xref:security/blazor/server> を参照してください。
 
 Blazor サーバーアプリは、ネットワーク待機時間とメモリ使用量を削減することで、UI の待機時間を最小限に抑えるように最適化する必要があります。 ネットワーク待機時間を測定する方法については、「<xref:host-and-deploy/blazor/server#measure-network-latency>」を参照してください。 SignalR と Blazor の詳細については、次を参照してください。
 
@@ -321,7 +321,7 @@ Blazor サーバーアプリには、サーバーへのアクティブな Signal
 
 Blazor Server アプリ prerenders は、最初のクライアント要求に応答して、サーバーの UI 状態を設定します。 クライアントが SignalR 接続を作成しようとすると、クライアントは同じサーバーに再接続する必要があります。 複数のバックエンドサーバーを使用する Blazor サーバーアプリでは、SignalR 接続用の*固定セッション*を実装する必要があります。
 
-Blazor サーバー アプリには [Azure SignalR Service](/azure/azure-signalr) を使用することをお勧めします。 このサービスでは、多数の同時 SignalR 接続に対して Blazor Server アプリをスケールアップできます。 Azure SignalR サービスでは、サービスの `ServerStickyMode` オプションまたは構成値を `Required`に設定することにより、固定セッションが有効になります。 詳細については、「 <xref:host-and-deploy/blazor/server#signalr-configuration>」を参照してください。
+Blazor サーバー アプリには [Azure SignalR Service](/azure/azure-signalr) を使用することをお勧めします。 このサービスでは、多数の同時 SignalR 接続に対して Blazor Server アプリをスケールアップできます。 Azure SignalR サービスでは、サービスの `ServerStickyMode` オプションまたは構成値を `Required`に設定することにより、固定セッションが有効になります。 詳細については、<xref:host-and-deploy/blazor/server#signalr-configuration> を参照してください。
 
 IIS を使用すると、スティッキー セッションはアプリケーション要求ルーティングによって有効になります。 詳しくは、「[アプリケーション要求ルーティングを使用した HTTP 負荷分散](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing)」をご覧ください。
 
@@ -365,7 +365,7 @@ Blazor サーバーアプリは、サーバーへのクライアント接続が�
 * ページに prerendered ます。
 * は、ページに静的 HTML として表示されるか、ユーザーエージェントから Blazor アプリをブートストラップするために必要な情報が含まれている場合に表示されます。
 
-| `RenderMode`        | 説明 |
+| `RenderMode`        | [説明] |
 | ------------------- | ----------- |
 | `ServerPrerendered` | コンポーネントを静的 HTML にレンダリングし、Blazor サーバーアプリのマーカーを含めます。 ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。 |
 | `Server`            | Blazor サーバーアプリのマーカーをレンダリングします。 コンポーネントからの出力は含まれていません。 ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。 |
@@ -500,7 +500,8 @@ public class WeatherForecastService
 </script>
 ```
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * <xref:blazor/get-started>
 * <xref:signalr/introduction>
+* <xref:tutorials/signalr-blazor-webassembly>
