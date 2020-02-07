@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/02/2020
 uid: fundamentals/middleware/index
-ms.openlocfilehash: 5c8e9e58ab222e482ef029f5099d0a8acd07d8a6
-ms.sourcegitcommit: 990a4c2e623c202a27f60bdf3902f250359c13be
+ms.openlocfilehash: 47f465c00138acf434c6ec59f757e37361ad97db
+ms.sourcegitcommit: 0e21d4f8111743bcb205a2ae0f8e57910c3e8c25
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/03/2020
-ms.locfileid: "76972033"
+ms.lasthandoff: 02/05/2020
+ms.locfileid: "77034105"
 ---
 # <a name="aspnet-core-middleware"></a>ASP.NET Core のミドルウェア
 
@@ -162,6 +162,13 @@ public void Configure(IApplicationBuilder app)
 }
 ```
 
+シングルページ アプリケーションの場合、ミドルウェア パイプラインの最後に通常 SPA ミドルウェア <xref:Microsoft.Extensions.DependencyInjection.SpaStaticFilesExtensions.UseSpaStaticFiles*> を配置します。 SPA ミドルウェアは、次のために最後になります。
+
+* 対応する要求に最初にその他のミドルウェアが応答するため。
+* クライアント側ルーティングを使用する SPA がサーバー アプリに認識されないすべてのルートを実行するため。
+
+シングルページ アプリケーションの詳細については、[React](xref:spa/react) と [Angular](xref: client-side/spa/angular) プロジェクト テンプレートのガイドを参照してください。
+
 ## <a name="branch-the-middleware-pipeline"></a>ミドルウェア パイプラインを分岐する
 
 <xref:Microsoft.AspNetCore.Builder.MapExtensions.Map*> 拡張メソッドは、パイプラインを分岐する規則として使われます。 `Map` は、指定された要求パスの一致に基づいて、要求パイプラインを分岐します。 要求パスが指定されたパスで開始する場合、分岐が実行されます。
@@ -236,7 +243,8 @@ ASP.NET Core には、次のミドルウェア コンポーネントが付属し
 | [応答圧縮](xref:performance/response-compression) | 応答の圧縮のサポートを提供します。 | 圧縮が必要なコンポーネントの前。 |
 | [要求のローカライズ](xref:fundamentals/localization) | ローカライズのサポートを提供します。 | ローカリゼーションが重要なコンポーネントの前。 |
 | [エンドポイント ルーティング](xref:fundamentals/routing) | 要求のルートを定義および制約します。 | 一致するルートの終端。 |
-| [セッション](xref:fundamentals/app-state) | ユーザー セッションの管理のサポートを提供します。 | セッションが必要なコンポーネントの前。 |
+| [SPA](xref:Microsoft.AspNetCore.Builder.SpaApplicationBuilderExtensions.UseSpa*) | シングルページ アプリケーション (SPA) の既定のページを返し、ミドルウェア チェーン内のこの時点以降のすべての要求を処理します。 | チェーンの終わりで、静的ファイルや MVC アクションなどにサービスを提供する他のミドルウェアが優先されるようにするためです。|
+| [セッション](xref:fundamentals/app-state) | ユーザー セッションの管理のサポートを提供します。 | セッションが必要なコンポーネントの前。 | 
 | [静的ファイル](xref:fundamentals/static-files) | 静的ファイルとディレクトリ参照に対応するサポートを提供します。 | 要求がファイルと一致した場合の終端。 |
 | [URL 書き換え](xref:fundamentals/url-rewriting) | URL の書き換えと要求のリダイレクトのサポートを提供します。 | URL を使うコンポーネントの前。 |
 | [WebSocket](xref:fundamentals/websockets) | WebSocket プロトコルを有効にします。 | WebSocket 要求を受け入れる必要があるコンポーネントの前。 |
