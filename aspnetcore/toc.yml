@@ -101,6 +101,9 @@
         - name: TypeScript による SignalR
           displayName: tutorial
           uid: tutorials/signalr-typescript-webpack
+        - name: Blazor WebAssembly による SignalR
+          displayName: tutorial
+          uid: tutorials/signalr-blazor-webassembly
     - name: リモート プロシージャ コール アプリ
       items:
         - name: gRPC サービスの概要
@@ -282,8 +285,12 @@
           uid: blazor/get-started
         - name: ホスティング モデル
           uid: blazor/hosting-models
-        - name: 最初のアプリをビルドする
-          uid: tutorials/first-blazor-app
+        - name: チュートリアル
+          items:
+            - name: 最初のアプリをビルドする
+              uid: tutorials/first-blazor-app
+            - name: Blazor WebAssembly による SignalR
+              uid: tutorials/signalr-blazor-webassembly
         - name: テンプレート
           uid: blazor/templates
         - name: コンポーネント
@@ -477,6 +484,8 @@
           uid: tutorials/signalr
         - name: TypeScript による SignalR
           uid: tutorials/signalr-typescript-webpack
+        - name: Blazor WebAssembly による SignalR
+          uid: tutorials/signalr-blazor-webassembly
     - name: サンプル
       href: 'https://github.com/aspnet/SignalR-samples'
       displayName: signalr
