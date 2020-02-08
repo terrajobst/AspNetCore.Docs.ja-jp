@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/02/2020
 uid: fundamentals/middleware/index
-ms.openlocfilehash: 47f465c00138acf434c6ec59f757e37361ad97db
-ms.sourcegitcommit: 0e21d4f8111743bcb205a2ae0f8e57910c3e8c25
+ms.openlocfilehash: 6698e269e0a6480cd5a03c59f9a19da31e23bf69
+ms.sourcegitcommit: 235623b6e5a5d1841139c82a11ac2b4b3f31a7a9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/05/2020
-ms.locfileid: "77034105"
+ms.lasthandoff: 02/08/2020
+ms.locfileid: "77089150"
 ---
 # <a name="aspnet-core-middleware"></a>ASP.NET Core のミドルウェア
 
@@ -167,7 +167,7 @@ public void Configure(IApplicationBuilder app)
 * 対応する要求に最初にその他のミドルウェアが応答するため。
 * クライアント側ルーティングを使用する SPA がサーバー アプリに認識されないすべてのルートを実行するため。
 
-シングルページ アプリケーションの詳細については、[React](xref:spa/react) と [Angular](xref: client-side/spa/angular) プロジェクト テンプレートのガイドを参照してください。
+シングルページ アプリケーションの詳細については、[React](xref:spa/react) と [Angular](xref:spa/angular) プロジェクト テンプレートのガイドを参照してください。
 
 ## <a name="branch-the-middleware-pipeline"></a>ミドルウェア パイプラインを分岐する
 
