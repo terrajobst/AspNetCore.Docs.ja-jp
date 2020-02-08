@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/06/2019
 uid: security/enforcing-ssl
-ms.openlocfilehash: d7d4eece935bd83b69a6a5d81898012b99d73193
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 59883a8165040fa58edb2f6cf22d4d6b3abf6f3e
+ms.sourcegitcommit: 80286715afb93c4d13c931b008016d6086c0312b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828907"
+ms.lasthandoff: 02/07/2020
+ms.locfileid: "77074550"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>ASP.NET Core に HTTPS を適用する
 
@@ -20,7 +20,7 @@ ms.locfileid: "75828907"
 このドキュメントでは次の方法について説明します:
 
 * すべての要求に HTTPS を必要とさせる。
-* すべての HTTP 要求を HTTPS にリダイレクトします。
+* すべての HTTP 要求を HTTPS にリダイレクトさせる。
 
 API がないと、クライアントが最初の要求で機微なデータを送信できなくなる可能性があります。
 
@@ -52,7 +52,7 @@ API がないと、クライアントが最初の要求で機微なデータを�
 
 ::: moniker-end
 
-## <a name="require-https"></a>HTTPS が必須
+## <a name="require-https"></a>HTTPS を要求する
 
 Web アプリの運用 ASP.NET Core では次のものを使用することをお勧めします。
 
@@ -148,9 +148,9 @@ Kestrel または http.sys が公開エッジサーバーとして使用され�
 
 リバースプロキシ構成で要求が転送される場合は、HTTPS リダイレクトミドルウェアを呼び出す前に、転送された[ヘッダーミドルウェア](xref:host-and-deploy/proxy-load-balancer)を使用します。 転送されたヘッダーミドルウェアは、`X-Forwarded-Proto` ヘッダーを使用して `Request.Scheme`を更新します。 ミドルウェアは、リダイレクト Uri とその他のセキュリティポリシーを正しく動作させることを許可します。 転送ヘッダーミドルウェアが使用されていない場合、バックエンドアプリは正しいスキームを受信せず、リダイレクトループで終了する可能性があります。 一般的なエンドユーザーエラーメッセージは、リダイレクトされた回数が多すぎることを示しています。
 
-Azure App Service にデプロイする場合は、 [「チュートリアル: 既存のカスタム SSL 証明書を Azure Web Apps にバインドする](/azure/app-service/app-service-web-tutorial-custom-ssl)」のガイダンスに従ってください。
+Azure App Service にデプロイする場合は、[Tutorial のガインスに従ってください。既存のカスタム SSL 証明書を Azure Web Apps にバインドする](/azure/app-service/app-service-web-tutorial-custom-ssl)」をご覧ください。
 
-### <a name="options"></a>[オプション]
+### <a name="options"></a>オプション
 
 次の強調表示されたコードは、 [AddHttpsRedirection](/dotnet/api/microsoft.aspnetcore.builder.httpsredirectionservicesextensions.addhttpsredirection)を呼び出してミドルウェアオプションを構成します。
 
@@ -284,9 +284,9 @@ HSTS の設定はブラウザーによって非常にキャッシュ可能であ
 
 `UseHsts` は、次のループバックホストを除外します。
 
-* `localhost`: IPv4 ループバックアドレス。
-* `127.0.0.1`: IPv4 ループバックアドレス。
-* `[::1]`: IPv6 ループバックアドレス。
+* `localhost` は、次のとおりです。IPv4 ループバックアドレス。
+* `127.0.0.1` は、次のとおりです。IPv4 ループバックアドレス。
+* `[::1]` は、次のとおりです。IPv6 ループバックアドレス。
 
 ## <a name="opt-out-of-httpshsts-on-project-creation"></a>プロジェクト作成時の HTTPS/HSTS のオプトアウト
 
@@ -419,12 +419,12 @@ Visual Studio での証明書の問題のトラブルシューティングにつ
 
 ### <a name="iis-express-ssl-certificate-used-with-visual-studio"></a>IIS Express Visual Studio で使用される SSL 証明書
 
-IIS Express 証明書の問題を解決するには、Visual Studio インストーラーで **[修復]** を選択します。
+IIS Express 証明書の問題を解決するには、Visual Studio インストーラーで **[修復]** を選択します。 詳細については、次を参照してください。[この GitHub の問題](https://github.com/dotnet/aspnetcore/issues/16892)します。
 
 ## <a name="additional-information"></a>追加情報
 
 * <xref:host-and-deploy/proxy-load-balancer>
-* [Apache: HTTPS 構成を使用した Linux での ASP.NET Core のホスト](xref:host-and-deploy/linux-apache#https-configuration)
-* [Nginx: HTTPS 構成を使用した Linux でのホスト ASP.NET Core](xref:host-and-deploy/linux-nginx#https-configuration)
+* Apache を使用した Linux でのホスト ASP.NET Core の [:HTTPS 構成](xref:host-and-deploy/linux-apache#https-configuration)
+* Nginx を使用した Linux でのホスト ASP.NET Core の [:HTTPS 構成](xref:host-and-deploy/linux-nginx#https-configuration)
 * [IIS で SSL を設定する方法](/iis/manage/configuring-security/how-to-set-up-ssl-on-iis)
 * [OWASP HSTS ブラウザーサポート](https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet#Browser_Support)
