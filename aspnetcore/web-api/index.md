@@ -5,14 +5,14 @@ description: ASP.NET Core での Web API の作成の基本について説明し
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 01/27/2020
+ms.date: 02/02/2020
 uid: web-api/index
-ms.openlocfilehash: 8609e2095c202643cdc905cc610298195b654215
-ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
+ms.openlocfilehash: 420fe89fe969c6df5c949f643fe018fff2bc77a5
+ms.sourcegitcommit: bd896935e91236e03241f75e6534ad6debcecbbf
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/29/2020
-ms.locfileid: "76870018"
+ms.lasthandoff: 02/06/2020
+ms.locfileid: "77051460"
 ---
 # <a name="create-web-apis-with-aspnet-core"></a>ASP.NET Core を使って Web API を作成する
 
@@ -397,6 +397,28 @@ ASP.NET Core MVC では、<xref:Microsoft.AspNetCore.Mvc.Infrastructure.ModelSta
 [!code-csharp[](index/samples/2.x/2.2/Startup.cs?name=snippet_ConfigureApiBehaviorOptions&highlight=3,8)]
 
 ::: moniker-end
+
+## <a name="define-supported-request-content-types-with-the-consumes-attribute"></a>[Consumes] 属性を使ってサポートされる要求のコンテンツの種類を定義する
+
+既定では、アクションでは使用可能な要求のコンテンツの種類がすべてサポートされます。 たとえば、アプリが JSON と XML の[入力フォーマッタ](xref:mvc/models/model-binding#input-formatters)を両方サポートするように構成されている場合、アクションでは、`application/json` と `application/xml` を含む複数のコンテンツの種類がサポートされます。
+
+[[Consumes]](<xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute>) 属性を使用すると、アクションでサポートされる要求のコンテンツの種類を制限できます。 1 つ以上のコンテンツの種類を指定して、アクションまたはコントローラーに `[Consumes]` 属性を適用します。
+
+```csharp
+[HttpPost]
+[Consumes("application/xml")]
+public IActionResult CreateProduct(Product product)
+```
+
+上記のコードでは、`CreateProduct` アクションでコンテンツの種類 `application/xml` が指定されています。 このアクションにルーティングされる要求では、`Content-Type` ヘッダーに `application/xml` を指定する必要があります。 `Content-Type` ヘッダーに `application/xml` を指定していない要求では、[415 Unsupported Media Type](https://developer.mozilla.org/docs/Web/HTTP/Status/415) 応答が発生します。
+
+また、`[Consumes]` 属性を使用すると、種類の制約を適用することによって、受信要求のコンテンツの種類に基づいてアクションの選択に影響を与えることができます。 次に例を示します。
+
+[!code-csharp[](index/samples/3.x/Controllers/ConsumesController.cs?name=snippet_Class)]
+
+上記のコードでは、`ConsumesController` は `https://localhost:5001/api/Consumes` の URL に送信された要求を処理するように構成されています。 コントローラーの両方のアクション `PostJson` と `PostForm` では、同じ URL の POST 要求が処理されます。 種類の制約を適用する `[Consumes]` 属性がなかった場合は、あいまい一致の例外がスローされます。
+
+`[Consumes]` 属性は両方のアクションに適用されます。 `PostJson` アクションでは、`Content-Type` ヘッダーに `application/json` を指定して送信された要求が処理されます。 `PostForm` アクションでは、`Content-Type` ヘッダーに `application/x-www-form-urlencoded` を指定して送信された要求が処理されます。 
 
 ## <a name="additional-resources"></a>その他の技術情報
 
