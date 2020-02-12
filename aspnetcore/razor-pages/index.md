@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.date: 01/28/2020
 uid: razor-pages/index
-ms.openlocfilehash: da30908b38d553405fd3f959f09a19eff750ed17
-ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
+ms.openlocfilehash: 402e11d653cf0e7433c63844cb7e2802abc61679
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/29/2020
-ms.locfileid: "76870523"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77172609"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>ASP.NET Core での Razor ページの概要
 
@@ -67,7 +67,7 @@ Razor ページは *Startup.cs* で有効になっています。
 
 [!code-cs[](index/3.0sample/RazorPagesIntro/Startup.cs?name=snippet_Startup&highlight=12,36)]
 
-基本ページを検討します。 <a name="OnGet"></a>
+基本ページを検討します。<a name="OnGet"></a>
 
 [!code-cshtml[](index/3.0sample/RazorPagesIntro/Pages/Index.cshtml?highlight=1)]
 
@@ -220,7 +220,7 @@ db コンテキスト:
 
 レンダリングされた HTML:
 
-```HTML
+```html
 <button type="submit" formaction="/Customers?id=1&amp;handler=delete">delete</button>
 ```
 
@@ -522,7 +522,7 @@ ASP.NET Core により <xref:Microsoft.AspNetCore.Mvc.Controller.TempData> が�
 
 *Pages/Customers/Index.cshtml.cs* ページは、`[TempData]` 属性を `Message` プロパティに適用します。
 
-```cs
+```csharp
 [TempData]
 public string Message { get; set; }
 ```
@@ -603,7 +603,7 @@ Razor ページのルートは既定で */Pages* ディレクトリです。 <xr
 * <xref:razor-pages/razor-pages-conventions>
 * <xref:test/razor-pages-tests>
 * <xref:mvc/views/partial>
-* [Razor コンポーネントを Razor Pages と MVC アプリに統合する](xref:blazor/hosting-models#integrate-razor-components-into-razor-pages-and-mvc-apps)
+* [Razor コンポーネントを Razor Pages と MVC アプリに統合する](xref:blazor/hosting-model-configuration#integrate-razor-components-into-razor-pages-and-mvc-apps)
 
 ::: moniker-end
 
@@ -659,7 +659,7 @@ Razor ページは *Startup.cs* で有効になっています。
 
 [!code-cs[](index/sample/RazorPagesIntro/Startup.cs?name=snippet_Startup)]
 
-基本ページを検討します。 <a name="OnGet"></a>
+基本ページを検討します。<a name="OnGet"></a>
 
 [!code-cshtml[](index/sample/RazorPagesIntro/Pages/Index.cshtml)]
 
@@ -1026,7 +1026,7 @@ ASP.NET Core は [コントローラー](/dotnet/api/microsoft.aspnetcore.mvc.co
 
 *Pages/Customers/Index.cshtml.cs* ページは、`[TempData]` 属性を `Message` プロパティに適用します。
 
-```cs
+```csharp
 [TempData]
 public string Message { get; set; }
 ```
