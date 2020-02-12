@@ -1,1 +1,1 @@
-EF Core 用の CLI ツールの詳細については、[.Net CLI の EF Core ツール リファレンス](/ef/core/miscellaneous/cli/dotnet)を参照してください。
+EF Core 用の CLI の詳細については、[.Net CLI の EF Core ツール リファレンス](/ef/core/miscellaneous/cli/dotnet)を参照してください。

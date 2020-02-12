@@ -4,14 +4,14 @@ author: Rick-Anderson
 description: フィルターのしくみと ASP.NET Core でそれを使用する方法について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 1/1/2020
+ms.date: 02/04/2020
 uid: mvc/controllers/filters
-ms.openlocfilehash: 759c150e7f35f3f6a52947edc5ef41448dc227fe
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: c4bb9d5746e494106ead6ad5bbf972bbcc5a39f1
+ms.sourcegitcommit: 0e21d4f8111743bcb205a2ae0f8e57910c3e8c25
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828972"
+ms.lasthandoff: 02/05/2020
+ms.locfileid: "77034066"
 ---
 # <a name="filters-in-aspnet-core"></a>ASP.NET Core フィルター
 
@@ -28,13 +28,16 @@ ASP.NET Core で*フィルター*を使用すると、要求処理パイプラ�
 
 横断的な問題を処理するカスタム フィルターを作成できます。 横断的な問題の例には、エラー処理、キャッシュ、構成、認証、ログなどがあります。  フィルターにより、コードの重複が回避されます。 たとえば、エラー処理例外フィルターではエラー処理を統合できます。
 
-このドキュメントは、Razor Pages、API コントローラー、ビューのあるコントローラーに当てはまります。
+このドキュメントは、Razor Pages、API コントローラー、ビューのあるコントローラーに当てはまります。 フィルターは、[Razor コンポーネント](xref:blazor/components)では直接機能しません。 次の場合、フィルターは間接的にコンポーネントに影響するのみです。
+
+* コンポーネントがページまたはビューに埋め込まれている。
+* ページまたはコントローラー/ビューでフィルターが使用されている。
 
 [サンプルを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/3.1sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="how-filters-work"></a>フィルターのしくみ
 
-*ASP.NET Core のアクション呼び出しパイプライン*内で実行されるフィルターは、*フィルター パイプライン*と呼ばれることがあります。  フィルター パイプラインは、ASP.NET Core が実行するアクションを選択した後に実行されます。
+*ASP.NET Core のアクション呼び出しパイプライン*内で実行されるフィルターは、*フィルター パイプライン*と呼ばれることがあります。 フィルター パイプラインは、ASP.NET Core が実行するアクションを選択した後に実行されます。
 
 ![要求は、他のミドルウェア、ルーティング ミドルウェア、アクション選択、およびアクション呼び出しパイプラインを通じて処理されます。 要求の処理は、クライアントに送信される応答になる前に、アクション選択、ルーティング ミドルウェア、およびさまざまな他のミドルウェアを遡って続行されます。](filters/_static/filter-pipeline-1.png)
 
