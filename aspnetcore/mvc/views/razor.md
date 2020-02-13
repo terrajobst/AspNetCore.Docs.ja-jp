@@ -5,96 +5,96 @@ description: Web ページにサーバー ベースのコードを埋め込む�
 ms.author: riande
 ms.date: 12/05/2019
 uid: mvc/views/razor
-ms.openlocfilehash: baac0ac38a0781cb9c16689cf3e29526b602d8da
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: 2d47fbc33328ab454616bcabab796df089686d79
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944253"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77171862"
 ---
-# <a name="razor-syntax-reference-for-aspnet-core"></a><span data-ttu-id="a3dc3-103">ASP.NET Core の Razor 構文リファレンス</span><span class="sxs-lookup"><span data-stu-id="a3dc3-103">Razor syntax reference for ASP.NET Core</span></span>
+# <a name="razor-syntax-reference-for-aspnet-core"></a><span data-ttu-id="99e0d-103">ASP.NET Core の Razor 構文リファレンス</span><span class="sxs-lookup"><span data-stu-id="99e0d-103">Razor syntax reference for ASP.NET Core</span></span>
 
-<span data-ttu-id="a3dc3-104">作成者: [Rick Anderson](https://twitter.com/RickAndMSFT)、[Luke Latham](https://github.com/guardrex)、[Taylor Mullen](https://twitter.com/ntaylormullen)、[Dan Vicarel](https://github.com/Rabadash8820)</span><span class="sxs-lookup"><span data-stu-id="a3dc3-104">By [Rick Anderson](https://twitter.com/RickAndMSFT), [Luke Latham](https://github.com/guardrex), [Taylor Mullen](https://twitter.com/ntaylormullen), and [Dan Vicarel](https://github.com/Rabadash8820)</span></span>
+<span data-ttu-id="99e0d-104">作成者: [Rick Anderson](https://twitter.com/RickAndMSFT)、[Luke Latham](https://github.com/guardrex)、[Taylor Mullen](https://twitter.com/ntaylormullen)、[Dan Vicarel](https://github.com/Rabadash8820)</span><span class="sxs-lookup"><span data-stu-id="99e0d-104">By [Rick Anderson](https://twitter.com/RickAndMSFT), [Luke Latham](https://github.com/guardrex), [Taylor Mullen](https://twitter.com/ntaylormullen), and [Dan Vicarel](https://github.com/Rabadash8820)</span></span>
 
-<span data-ttu-id="a3dc3-105">Razor は、Web ページにサーバー ベースのコードを埋め込むためのマークアップ構文です。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-105">Razor is a markup syntax for embedding server-based code into webpages.</span></span> <span data-ttu-id="a3dc3-106">Razor 構文は、Razor マークアップ、C#、HTML で構成されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-106">The Razor syntax consists of Razor markup, C#, and HTML.</span></span> <span data-ttu-id="a3dc3-107">通常、Razor を含むファイルのファイル拡張子は *.cshtml* です。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-107">Files containing Razor generally have a *.cshtml* file extension.</span></span> <span data-ttu-id="a3dc3-108">Razor は [Razor コンポーネント](xref:blazor/components) ファイル (*.razor*) にもあります。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-108">Razor is also found in [Razor components](xref:blazor/components) files (*.razor*).</span></span>
+<span data-ttu-id="99e0d-105">Razor は、Web ページにサーバー ベースのコードを埋め込むためのマークアップ構文です。</span><span class="sxs-lookup"><span data-stu-id="99e0d-105">Razor is a markup syntax for embedding server-based code into webpages.</span></span> <span data-ttu-id="99e0d-106">Razor 構文は、Razor マークアップ、C#、HTML で構成されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-106">The Razor syntax consists of Razor markup, C#, and HTML.</span></span> <span data-ttu-id="99e0d-107">通常、Razor を含むファイルのファイル拡張子は *.cshtml* です。</span><span class="sxs-lookup"><span data-stu-id="99e0d-107">Files containing Razor generally have a *.cshtml* file extension.</span></span> <span data-ttu-id="99e0d-108">Razor は [Razor コンポーネント](xref:blazor/components) ファイル ( *.razor*) にもあります。</span><span class="sxs-lookup"><span data-stu-id="99e0d-108">Razor is also found in [Razor components](xref:blazor/components) files (*.razor*).</span></span>
 
-## <a name="rendering-html"></a><span data-ttu-id="a3dc3-109">HTML のレンダリング</span><span class="sxs-lookup"><span data-stu-id="a3dc3-109">Rendering HTML</span></span>
+## <a name="rendering-html"></a><span data-ttu-id="99e0d-109">HTML のレンダリング</span><span class="sxs-lookup"><span data-stu-id="99e0d-109">Rendering HTML</span></span>
 
-<span data-ttu-id="a3dc3-110">Razor の既定の言語は HTML です。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-110">The default Razor language is HTML.</span></span> <span data-ttu-id="a3dc3-111">Razor マークアップからの HTML のレンダリングは、HTML ファイルからの HTML のレンダリングと同じです。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-111">Rendering HTML from Razor markup is no different than rendering HTML from an HTML file.</span></span> <span data-ttu-id="a3dc3-112">*.cshtml* Razor ファイル内の HTML マークアップは、サーバーによって変更されずにレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-112">HTML markup in *.cshtml* Razor files is rendered by the server unchanged.</span></span>
+<span data-ttu-id="99e0d-110">Razor の既定の言語は HTML です。</span><span class="sxs-lookup"><span data-stu-id="99e0d-110">The default Razor language is HTML.</span></span> <span data-ttu-id="99e0d-111">Razor マークアップからの HTML のレンダリングは、HTML ファイルからの HTML のレンダリングと同じです。</span><span class="sxs-lookup"><span data-stu-id="99e0d-111">Rendering HTML from Razor markup is no different than rendering HTML from an HTML file.</span></span> <span data-ttu-id="99e0d-112">*.cshtml* Razor ファイル内の HTML マークアップは、サーバーによって変更されずにレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-112">HTML markup in *.cshtml* Razor files is rendered by the server unchanged.</span></span>
 
-## <a name="razor-syntax"></a><span data-ttu-id="a3dc3-113">Razor の構文</span><span class="sxs-lookup"><span data-stu-id="a3dc3-113">Razor syntax</span></span>
+## <a name="razor-syntax"></a><span data-ttu-id="99e0d-113">Razor の構文</span><span class="sxs-lookup"><span data-stu-id="99e0d-113">Razor syntax</span></span>
 
-<span data-ttu-id="a3dc3-114">Razor は C# をサポートし、`@` 記号を使って HTML から C# に移行します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-114">Razor supports C# and uses the `@` symbol to transition from HTML to C#.</span></span> <span data-ttu-id="a3dc3-115">Razor は C# の式を評価し、それらを HTML の出力でレンダリングします。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-115">Razor evaluates C# expressions and renders them in the HTML output.</span></span>
+<span data-ttu-id="99e0d-114">Razor は C# をサポートし、`@` 記号を使って HTML から C# に移行します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-114">Razor supports C# and uses the `@` symbol to transition from HTML to C#.</span></span> <span data-ttu-id="99e0d-115">Razor は C# の式を評価し、それらを HTML の出力でレンダリングします。</span><span class="sxs-lookup"><span data-stu-id="99e0d-115">Razor evaluates C# expressions and renders them in the HTML output.</span></span>
 
-<span data-ttu-id="a3dc3-116">`@` 記号の後に [Razor の予約済みキーワード](#razor-reserved-keywords)が続いている場合は、Razor 固有のマークアップに移行します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-116">When an `@` symbol is followed by a [Razor reserved keyword](#razor-reserved-keywords), it transitions into Razor-specific markup.</span></span> <span data-ttu-id="a3dc3-117">それ以外の場合は、普通の C# に移行します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-117">Otherwise, it transitions into plain C#.</span></span>
+<span data-ttu-id="99e0d-116">`@` 記号の後に [Razor の予約済みキーワード](#razor-reserved-keywords)が続いている場合は、Razor 固有のマークアップに移行します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-116">When an `@` symbol is followed by a [Razor reserved keyword](#razor-reserved-keywords), it transitions into Razor-specific markup.</span></span> <span data-ttu-id="99e0d-117">それ以外の場合は、普通の C# に移行します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-117">Otherwise, it transitions into plain C#.</span></span>
 
-<span data-ttu-id="a3dc3-118">Razor マークアップで `@` 記号をエスケープするには、`@` 記号をもう 1 つ使います。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-118">To escape an `@` symbol in Razor markup, use a second `@` symbol:</span></span>
+<span data-ttu-id="99e0d-118">Razor マークアップで `@` 記号をエスケープするには、`@` 記号をもう 1 つ使います。</span><span class="sxs-lookup"><span data-stu-id="99e0d-118">To escape an `@` symbol in Razor markup, use a second `@` symbol:</span></span>
 
 ```cshtml
 <p>@@Username</p>
 ```
 
-<span data-ttu-id="a3dc3-119">HTML では、コードは 1 つの `@` 記号でレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-119">The code is rendered in HTML with a single `@` symbol:</span></span>
+<span data-ttu-id="99e0d-119">HTML では、コードは 1 つの `@` 記号でレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-119">The code is rendered in HTML with a single `@` symbol:</span></span>
 
 ```html
 <p>@Username</p>
 ```
 
-<span data-ttu-id="a3dc3-120">メール アドレスを含む HTML の属性とコンテンツは、`@` 記号を遷移文字として扱いません。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-120">HTML attributes and content containing email addresses don't treat the `@` symbol as a transition character.</span></span> <span data-ttu-id="a3dc3-121">次の例のメール アドレスは、Razor の解析ではそのまま残ります。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-121">The email addresses in the following example are untouched by Razor parsing:</span></span>
+<span data-ttu-id="99e0d-120">メール アドレスを含む HTML の属性とコンテンツは、`@` 記号を遷移文字として扱いません。</span><span class="sxs-lookup"><span data-stu-id="99e0d-120">HTML attributes and content containing email addresses don't treat the `@` symbol as a transition character.</span></span> <span data-ttu-id="99e0d-121">次の例のメール アドレスは、Razor の解析ではそのまま残ります。</span><span class="sxs-lookup"><span data-stu-id="99e0d-121">The email addresses in the following example are untouched by Razor parsing:</span></span>
 
 ```cshtml
 <a href="mailto:Support@contoso.com">Support@contoso.com</a>
 ```
 
-## <a name="implicit-razor-expressions"></a><span data-ttu-id="a3dc3-122">暗黙的な Razor 式</span><span class="sxs-lookup"><span data-stu-id="a3dc3-122">Implicit Razor expressions</span></span>
+## <a name="implicit-razor-expressions"></a><span data-ttu-id="99e0d-122">暗黙的な Razor 式</span><span class="sxs-lookup"><span data-stu-id="99e0d-122">Implicit Razor expressions</span></span>
 
-<span data-ttu-id="a3dc3-123">Razor の暗黙的な式は、`@` で始まって C# のコードが続きます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-123">Implicit Razor expressions start with `@` followed by C# code:</span></span>
+<span data-ttu-id="99e0d-123">Razor の暗黙的な式は、`@` で始まって C# のコードが続きます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-123">Implicit Razor expressions start with `@` followed by C# code:</span></span>
 
 ```cshtml
 <p>@DateTime.Now</p>
 <p>@DateTime.IsLeapYear(2016)</p>
 ```
 
-<span data-ttu-id="a3dc3-124">C# の `await` キーワードを除き、暗黙的な式にスペースを含めることはできません。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-124">With the exception of the C# `await` keyword, implicit expressions must not contain spaces.</span></span> <span data-ttu-id="a3dc3-125">C# のステートメントに明確な終わりがある場合は、スペースを混在させることができます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-125">If the C# statement has a clear ending, spaces can be intermingled:</span></span>
+<span data-ttu-id="99e0d-124">C# の `await` キーワードを除き、暗黙的な式にスペースを含めることはできません。</span><span class="sxs-lookup"><span data-stu-id="99e0d-124">With the exception of the C# `await` keyword, implicit expressions must not contain spaces.</span></span> <span data-ttu-id="99e0d-125">C# のステートメントに明確な終わりがある場合は、スペースを混在させることができます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-125">If the C# statement has a clear ending, spaces can be intermingled:</span></span>
 
 ```cshtml
 <p>@await DoSomething("hello", "world")</p>
 ```
 
-<span data-ttu-id="a3dc3-126">暗黙的な式では、山かっこ (`<>`) の内側の文字は HTML タグとして解釈されるため、C# ジェネリックを含めることは**できません**。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-126">Implicit expressions **cannot** contain C# generics, as the characters inside the brackets (`<>`) are interpreted as an HTML tag.</span></span> <span data-ttu-id="a3dc3-127">次のコードは有効では**ありません**。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-127">The following code is **not** valid:</span></span>
+<span data-ttu-id="99e0d-126">暗黙的な式では、山かっこ (`<>`) の内側の文字は HTML タグとして解釈されるため、C# ジェネリックを含めることは**できません**。</span><span class="sxs-lookup"><span data-stu-id="99e0d-126">Implicit expressions **cannot** contain C# generics, as the characters inside the brackets (`<>`) are interpreted as an HTML tag.</span></span> <span data-ttu-id="99e0d-127">次のコードは有効では**ありません**。</span><span class="sxs-lookup"><span data-stu-id="99e0d-127">The following code is **not** valid:</span></span>
 
 ```cshtml
 <p>@GenericMethod<int>()</p>
 ```
 
-<span data-ttu-id="a3dc3-128">上記のコードでは、次のいずれかのようなコンパイラ エラーが生成されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-128">The preceding code generates a compiler error similar to one of the following:</span></span>
+<span data-ttu-id="99e0d-128">上記のコードでは、次のいずれかのようなコンパイラ エラーが生成されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-128">The preceding code generates a compiler error similar to one of the following:</span></span>
 
-* <span data-ttu-id="a3dc3-129">The "int" element wasn't closed.</span><span class="sxs-lookup"><span data-stu-id="a3dc3-129">The "int" element wasn't closed.</span></span> <span data-ttu-id="a3dc3-130">All elements must be either self-closing or have a matching end tag. ("int" 要素が閉じられませんでした。すべての要素は、自己終了するか、対応する終了タグが存在する必要があります。)</span><span class="sxs-lookup"><span data-stu-id="a3dc3-130">All elements must be either self-closing or have a matching end tag.</span></span>
-* <span data-ttu-id="a3dc3-131">メソッド グループ 'GenericMethod' を非デリゲート型 'object' に変換することはできません。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-131">Cannot convert method group 'GenericMethod' to non-delegate type 'object'.</span></span> <span data-ttu-id="a3dc3-132">このメソッドを呼び出しますか?</span><span class="sxs-lookup"><span data-stu-id="a3dc3-132">Did you intend to invoke the method?\`</span></span>
+* <span data-ttu-id="99e0d-129">The "int" element wasn't closed.</span><span class="sxs-lookup"><span data-stu-id="99e0d-129">The "int" element wasn't closed.</span></span> <span data-ttu-id="99e0d-130">All elements must be either self-closing or have a matching end tag. ("int" 要素が閉じられませんでした。すべての要素は、自己終了するか、対応する終了タグが存在する必要があります。)</span><span class="sxs-lookup"><span data-stu-id="99e0d-130">All elements must be either self-closing or have a matching end tag.</span></span>
+* <span data-ttu-id="99e0d-131">メソッド グループ 'GenericMethod' を非デリゲート型 'object' に変換することはできません。</span><span class="sxs-lookup"><span data-stu-id="99e0d-131">Cannot convert method group 'GenericMethod' to non-delegate type 'object'.</span></span> <span data-ttu-id="99e0d-132">このメソッドを呼び出しますか?</span><span class="sxs-lookup"><span data-stu-id="99e0d-132">Did you intend to invoke the method?\`</span></span>
 
-<span data-ttu-id="a3dc3-133">ジェネリック メソッドの呼び出しは、[明示的な Razor 式](#explicit-razor-expressions)または [Razor コード ブロック](#razor-code-blocks)にラップする必要があります。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-133">Generic method calls must be wrapped in an [explicit Razor expression](#explicit-razor-expressions) or a [Razor code block](#razor-code-blocks).</span></span>
+<span data-ttu-id="99e0d-133">ジェネリック メソッドの呼び出しは、[明示的な Razor 式](#explicit-razor-expressions)または [Razor コード ブロック](#razor-code-blocks)にラップする必要があります。</span><span class="sxs-lookup"><span data-stu-id="99e0d-133">Generic method calls must be wrapped in an [explicit Razor expression](#explicit-razor-expressions) or a [Razor code block](#razor-code-blocks).</span></span>
 
-## <a name="explicit-razor-expressions"></a><span data-ttu-id="a3dc3-134">明示的な Razor 式</span><span class="sxs-lookup"><span data-stu-id="a3dc3-134">Explicit Razor expressions</span></span>
+## <a name="explicit-razor-expressions"></a><span data-ttu-id="99e0d-134">明示的な Razor 式</span><span class="sxs-lookup"><span data-stu-id="99e0d-134">Explicit Razor expressions</span></span>
 
-<span data-ttu-id="a3dc3-135">明示的な Razor 式は、`@` 記号とバランスの取れたかっこ記号で構成されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-135">Explicit Razor expressions consist of an `@` symbol with balanced parenthesis.</span></span> <span data-ttu-id="a3dc3-136">1 週間前の時刻を表示するには、次の Razor マークアップを使います。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-136">To render last week's time, the following Razor markup is used:</span></span>
+<span data-ttu-id="99e0d-135">明示的な Razor 式は、`@` 記号とバランスの取れたかっこ記号で構成されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-135">Explicit Razor expressions consist of an `@` symbol with balanced parenthesis.</span></span> <span data-ttu-id="99e0d-136">1 週間前の時刻を表示するには、次の Razor マークアップを使います。</span><span class="sxs-lookup"><span data-stu-id="99e0d-136">To render last week's time, the following Razor markup is used:</span></span>
 
 ```cshtml
 <p>Last week this time: @(DateTime.Now - TimeSpan.FromDays(7))</p>
 ```
 
-<span data-ttu-id="a3dc3-137">`@()` のかっこ内の内容が評価されて、出力にレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-137">Any content within the `@()` parenthesis is evaluated and rendered to the output.</span></span>
+<span data-ttu-id="99e0d-137">`@()` のかっこ内の内容が評価されて、出力にレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-137">Any content within the `@()` parenthesis is evaluated and rendered to the output.</span></span>
 
-<span data-ttu-id="a3dc3-138">前のセクションで説明した暗黙的な式は、一般に、スペースを含むことはできません。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-138">Implicit expressions, described in the previous section, generally can't contain spaces.</span></span> <span data-ttu-id="a3dc3-139">次のコードでは、現在時刻から 1 週間は減算されません。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-139">In the following code, one week isn't subtracted from the current time:</span></span>
+<span data-ttu-id="99e0d-138">前のセクションで説明した暗黙的な式は、一般に、スペースを含むことはできません。</span><span class="sxs-lookup"><span data-stu-id="99e0d-138">Implicit expressions, described in the previous section, generally can't contain spaces.</span></span> <span data-ttu-id="99e0d-139">次のコードでは、現在時刻から 1 週間は減算されません。</span><span class="sxs-lookup"><span data-stu-id="99e0d-139">In the following code, one week isn't subtracted from the current time:</span></span>
 
 [!code-cshtml[](razor/sample/Views/Home/Contact.cshtml?range=17)]
 
-<span data-ttu-id="a3dc3-140">このコードでは、次のような HTML がレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-140">The code renders the following HTML:</span></span>
+<span data-ttu-id="99e0d-140">このコードでは、次のような HTML がレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-140">The code renders the following HTML:</span></span>
 
 ```html
 <p>Last week: 7/7/2016 4:39:52 PM - TimeSpan.FromDays(7)</p>
 ```
 
-<span data-ttu-id="a3dc3-141">明示的な式を使うと、テキストと式の結果を連結できます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-141">Explicit expressions can be used to concatenate text with an expression result:</span></span>
+<span data-ttu-id="99e0d-141">明示的な式を使うと、テキストと式の結果を連結できます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-141">Explicit expressions can be used to concatenate text with an expression result:</span></span>
 
 ```cshtml
 @{
@@ -104,52 +104,52 @@ ms.locfileid: "74944253"
 <p>Age@(joe.Age)</p>
 ```
 
-<span data-ttu-id="a3dc3-142">明示的な式を使わないと、`<p>Age@joe.Age</p>` はメール アドレスとして扱われ、`<p>Age@joe.Age</p>` がレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-142">Without the explicit expression, `<p>Age@joe.Age</p>` is treated as an email address, and `<p>Age@joe.Age</p>` is rendered.</span></span> <span data-ttu-id="a3dc3-143">明示的な式として記述すると、`<p>Age33</p>` がレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-143">When written as an explicit expression, `<p>Age33</p>` is rendered.</span></span>
+<span data-ttu-id="99e0d-142">明示的な式を使わないと、`<p>Age@joe.Age</p>` はメール アドレスとして扱われ、`<p>Age@joe.Age</p>` がレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-142">Without the explicit expression, `<p>Age@joe.Age</p>` is treated as an email address, and `<p>Age@joe.Age</p>` is rendered.</span></span> <span data-ttu-id="99e0d-143">明示的な式として記述すると、`<p>Age33</p>` がレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-143">When written as an explicit expression, `<p>Age33</p>` is rendered.</span></span>
 
-<span data-ttu-id="a3dc3-144">明示的な式を使うと、ジェネリック メソッドから *.cshtml* ファイルに出力できます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-144">Explicit expressions can be used to render output from generic methods in *.cshtml* files.</span></span> <span data-ttu-id="a3dc3-145">次のマークアップは、C# ジェネリックの山かっこによって発生した前述のエラーを修正する方法について示します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-145">The following markup shows how to correct the error shown earlier caused by the brackets of a C# generic.</span></span> <span data-ttu-id="a3dc3-146">コードは明示的な式として書き込まれます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-146">The code is written as an explicit expression:</span></span>
+<span data-ttu-id="99e0d-144">明示的な式を使うと、ジェネリック メソッドから *.cshtml* ファイルに出力できます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-144">Explicit expressions can be used to render output from generic methods in *.cshtml* files.</span></span> <span data-ttu-id="99e0d-145">次のマークアップは、C# ジェネリックの山かっこによって発生した前述のエラーを修正する方法について示します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-145">The following markup shows how to correct the error shown earlier caused by the brackets of a C# generic.</span></span> <span data-ttu-id="99e0d-146">コードは明示的な式として書き込まれます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-146">The code is written as an explicit expression:</span></span>
 
 ```cshtml
 <p>@(GenericMethod<int>())</p>
 ```
 
-## <a name="expression-encoding"></a><span data-ttu-id="a3dc3-147">式のエンコード</span><span class="sxs-lookup"><span data-stu-id="a3dc3-147">Expression encoding</span></span>
+## <a name="expression-encoding"></a><span data-ttu-id="99e0d-147">式のエンコード</span><span class="sxs-lookup"><span data-stu-id="99e0d-147">Expression encoding</span></span>
 
-<span data-ttu-id="a3dc3-148">文字列として評価される C# の式は、HTML でエンコードされます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-148">C# expressions that evaluate to a string are HTML encoded.</span></span> <span data-ttu-id="a3dc3-149">`IHtmlContent` として評価される C# の式は、`IHtmlContent.WriteTo` によって直接レンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-149">C# expressions that evaluate to `IHtmlContent` are rendered directly through `IHtmlContent.WriteTo`.</span></span> <span data-ttu-id="a3dc3-150">`IHtmlContent` として評価されない C# の式は、`ToString` によって文字列に変換され、レンダリングされる前にエンコードされます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-150">C# expressions that don't evaluate to `IHtmlContent` are converted to a string by `ToString` and encoded before they're rendered.</span></span>
+<span data-ttu-id="99e0d-148">文字列として評価される C# の式は、HTML でエンコードされます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-148">C# expressions that evaluate to a string are HTML encoded.</span></span> <span data-ttu-id="99e0d-149">`IHtmlContent` として評価される C# の式は、`IHtmlContent.WriteTo` によって直接レンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-149">C# expressions that evaluate to `IHtmlContent` are rendered directly through `IHtmlContent.WriteTo`.</span></span> <span data-ttu-id="99e0d-150">`IHtmlContent` として評価されない C# の式は、`ToString` によって文字列に変換され、レンダリングされる前にエンコードされます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-150">C# expressions that don't evaluate to `IHtmlContent` are converted to a string by `ToString` and encoded before they're rendered.</span></span>
 
 ```cshtml
 @("<span>Hello World</span>")
 ```
 
-<span data-ttu-id="a3dc3-151">このコードでは、次のような HTML がレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-151">The code renders the following HTML:</span></span>
+<span data-ttu-id="99e0d-151">このコードでは、次のような HTML がレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-151">The code renders the following HTML:</span></span>
 
 ```html
 &lt;span&gt;Hello World&lt;/span&gt;
 ```
 
-<span data-ttu-id="a3dc3-152">HTML はブラウザーで次のように表示されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-152">The HTML is shown in the browser as:</span></span>
-
-```
-<span>Hello World</span>
-```
-
-<span data-ttu-id="a3dc3-153">`HtmlHelper.Raw` の出力はエンコードされませんが、HTML マークアップとしてレンダリングされません。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-153">`HtmlHelper.Raw` output isn't encoded but rendered as HTML markup.</span></span>
-
-> [!WARNING]
-> <span data-ttu-id="a3dc3-154">サニタイズされていないユーザー入力で `HtmlHelper.Raw` を使うと、セキュリティ上のリスクがあります。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-154">Using `HtmlHelper.Raw` on unsanitized user input is a security risk.</span></span> <span data-ttu-id="a3dc3-155">ユーザー入力には、悪意のある JavaScript または他の攻撃が含まれる可能性があります。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-155">User input might contain malicious JavaScript or other exploits.</span></span> <span data-ttu-id="a3dc3-156">ユーザー入力をサニタイズすることは困難です。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-156">Sanitizing user input is difficult.</span></span> <span data-ttu-id="a3dc3-157">ユーザー入力では `HtmlHelper.Raw` を使わないでください。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-157">Avoid using `HtmlHelper.Raw` with user input.</span></span>
-
-```cshtml
-@Html.Raw("<span>Hello World</span>")
-```
-
-<span data-ttu-id="a3dc3-158">このコードでは、次のような HTML がレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-158">The code renders the following HTML:</span></span>
+<span data-ttu-id="99e0d-152">HTML はブラウザーで次のように表示されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-152">The HTML is shown in the browser as:</span></span>
 
 ```html
 <span>Hello World</span>
 ```
 
-## <a name="razor-code-blocks"></a><span data-ttu-id="a3dc3-159">Razor コード ブロック</span><span class="sxs-lookup"><span data-stu-id="a3dc3-159">Razor code blocks</span></span>
+<span data-ttu-id="99e0d-153">`HtmlHelper.Raw` の出力はエンコードされませんが、HTML マークアップとしてレンダリングされません。</span><span class="sxs-lookup"><span data-stu-id="99e0d-153">`HtmlHelper.Raw` output isn't encoded but rendered as HTML markup.</span></span>
 
-<span data-ttu-id="a3dc3-160">Razor コード ブロックは、`@` で始まり、`{}` で囲まれています。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-160">Razor code blocks start with `@` and are enclosed by `{}`.</span></span> <span data-ttu-id="a3dc3-161">式とは異なり、コード ブロック内の C# コードはレンダリングされません。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-161">Unlike expressions, C# code inside code blocks isn't rendered.</span></span> <span data-ttu-id="a3dc3-162">ビュー内のコード ブロックと式は同じスコープを共有し、次の順序で定義されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-162">Code blocks and expressions in a view share the same scope and are defined in order:</span></span>
+> [!WARNING]
+> <span data-ttu-id="99e0d-154">サニタイズされていないユーザー入力で `HtmlHelper.Raw` を使うと、セキュリティ上のリスクがあります。</span><span class="sxs-lookup"><span data-stu-id="99e0d-154">Using `HtmlHelper.Raw` on unsanitized user input is a security risk.</span></span> <span data-ttu-id="99e0d-155">ユーザー入力には、悪意のある JavaScript または他の攻撃が含まれる可能性があります。</span><span class="sxs-lookup"><span data-stu-id="99e0d-155">User input might contain malicious JavaScript or other exploits.</span></span> <span data-ttu-id="99e0d-156">ユーザー入力をサニタイズすることは困難です。</span><span class="sxs-lookup"><span data-stu-id="99e0d-156">Sanitizing user input is difficult.</span></span> <span data-ttu-id="99e0d-157">ユーザー入力では `HtmlHelper.Raw` を使わないでください。</span><span class="sxs-lookup"><span data-stu-id="99e0d-157">Avoid using `HtmlHelper.Raw` with user input.</span></span>
+
+```cshtml
+@Html.Raw("<span>Hello World</span>")
+```
+
+<span data-ttu-id="99e0d-158">このコードでは、次のような HTML がレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-158">The code renders the following HTML:</span></span>
+
+```html
+<span>Hello World</span>
+```
+
+## <a name="razor-code-blocks"></a><span data-ttu-id="99e0d-159">Razor コード ブロック</span><span class="sxs-lookup"><span data-stu-id="99e0d-159">Razor code blocks</span></span>
+
+<span data-ttu-id="99e0d-160">Razor コード ブロックは、`@` で始まり、`{}` で囲まれています。</span><span class="sxs-lookup"><span data-stu-id="99e0d-160">Razor code blocks start with `@` and are enclosed by `{}`.</span></span> <span data-ttu-id="99e0d-161">式とは異なり、コード ブロック内の C# コードはレンダリングされません。</span><span class="sxs-lookup"><span data-stu-id="99e0d-161">Unlike expressions, C# code inside code blocks isn't rendered.</span></span> <span data-ttu-id="99e0d-162">ビュー内のコード ブロックと式は同じスコープを共有し、次の順序で定義されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-162">Code blocks and expressions in a view share the same scope and are defined in order:</span></span>
 
 ```cshtml
 @{
@@ -165,7 +165,7 @@ ms.locfileid: "74944253"
 <p>@quote</p>
 ```
 
-<span data-ttu-id="a3dc3-163">このコードでは、次のような HTML がレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-163">The code renders the following HTML:</span></span>
+<span data-ttu-id="99e0d-163">このコードでは、次のような HTML がレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-163">The code renders the following HTML:</span></span>
 
 ```html
 <p>The future depends on what you do today. - Mahatma Gandhi</p>
@@ -174,7 +174,7 @@ ms.locfileid: "74944253"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="a3dc3-164">コード ブロックで、る[ローカル関数](/dotnet/csharp/programming-guide/classes-and-structs/local-functions)をマークアップで宣言し、テンプレート メソッドとしてのサービスを提供します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-164">In code blocks, declare [local functions](/dotnet/csharp/programming-guide/classes-and-structs/local-functions) with markup to serve as templating methods:</span></span>
+<span data-ttu-id="99e0d-164">コード ブロックで、る[ローカル関数](/dotnet/csharp/programming-guide/classes-and-structs/local-functions)をマークアップで宣言し、テンプレート メソッドとしてのサービスを提供します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-164">In code blocks, declare [local functions](/dotnet/csharp/programming-guide/classes-and-structs/local-functions) with markup to serve as templating methods:</span></span>
 
 ```cshtml
 @{
@@ -188,7 +188,7 @@ ms.locfileid: "74944253"
 }
 ```
 
-<span data-ttu-id="a3dc3-165">このコードでは、次のような HTML がレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-165">The code renders the following HTML:</span></span>
+<span data-ttu-id="99e0d-165">このコードでは、次のような HTML がレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-165">The code renders the following HTML:</span></span>
 
 ```html
 <p>Name: <strong>Mahatma Gandhi</strong></p>
@@ -197,9 +197,9 @@ ms.locfileid: "74944253"
 
 ::: moniker-end
 
-### <a name="implicit-transitions"></a><span data-ttu-id="a3dc3-166">暗黙の移行</span><span class="sxs-lookup"><span data-stu-id="a3dc3-166">Implicit transitions</span></span>
+### <a name="implicit-transitions"></a><span data-ttu-id="99e0d-166">暗黙の移行</span><span class="sxs-lookup"><span data-stu-id="99e0d-166">Implicit transitions</span></span>
 
-<span data-ttu-id="a3dc3-167">コード ブロック内の既定の言語は C# ですが、Razor ページは HTML に移行して戻ることがあります。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-167">The default language in a code block is C#, but the Razor Page can transition back to HTML:</span></span>
+<span data-ttu-id="99e0d-167">コード ブロック内の既定の言語は C# ですが、Razor ページは HTML に移行して戻ることがあります。</span><span class="sxs-lookup"><span data-stu-id="99e0d-167">The default language in a code block is C#, but the Razor Page can transition back to HTML:</span></span>
 
 ```cshtml
 @{
@@ -208,9 +208,9 @@ ms.locfileid: "74944253"
 }
 ```
 
-### <a name="explicit-delimited-transition"></a><span data-ttu-id="a3dc3-168">明示的に区切られた遷移</span><span class="sxs-lookup"><span data-stu-id="a3dc3-168">Explicit delimited transition</span></span>
+### <a name="explicit-delimited-transition"></a><span data-ttu-id="99e0d-168">明示的に区切られた遷移</span><span class="sxs-lookup"><span data-stu-id="99e0d-168">Explicit delimited transition</span></span>
 
-<span data-ttu-id="a3dc3-169">HTML をレンダリングする必要のあるコード ブロックのサブセクションを定義するには、レンダリングする文字を Razor の `<text>` タグで囲みます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-169">To define a subsection of a code block that should render HTML, surround the characters for rendering with the Razor `<text>` tag:</span></span>
+<span data-ttu-id="99e0d-169">HTML をレンダリングする必要のあるコード ブロックのサブセクションを定義するには、レンダリングする文字を Razor の `<text>` タグで囲みます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-169">To define a subsection of a code block that should render HTML, surround the characters for rendering with the Razor `<text>` tag:</span></span>
 
 ```cshtml
 @for (var i = 0; i < people.Length; i++)
@@ -220,16 +220,16 @@ ms.locfileid: "74944253"
 }
 ```
 
-<span data-ttu-id="a3dc3-170">HTML タグによって囲まれていない HTML をレンダリングするには、この方法を使います。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-170">Use this approach to render HTML that isn't surrounded by an HTML tag.</span></span> <span data-ttu-id="a3dc3-171">HTML タグまたは Razor タグがない場合、Razor ラインタイム エラーが発生します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-171">Without an HTML or Razor tag, a Razor runtime error occurs.</span></span>
+<span data-ttu-id="99e0d-170">HTML タグによって囲まれていない HTML をレンダリングするには、この方法を使います。</span><span class="sxs-lookup"><span data-stu-id="99e0d-170">Use this approach to render HTML that isn't surrounded by an HTML tag.</span></span> <span data-ttu-id="99e0d-171">HTML タグまたは Razor タグがない場合、Razor ラインタイム エラーが発生します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-171">Without an HTML or Razor tag, a Razor runtime error occurs.</span></span>
 
-<span data-ttu-id="a3dc3-172">`<text>` タグは、内容をレンダリングするときに空白文字を制御するのに便利です。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-172">The `<text>` tag is useful to control whitespace when rendering content:</span></span>
+<span data-ttu-id="99e0d-172">`<text>` タグは、内容をレンダリングするときに空白文字を制御するのに便利です。</span><span class="sxs-lookup"><span data-stu-id="99e0d-172">The `<text>` tag is useful to control whitespace when rendering content:</span></span>
 
-* <span data-ttu-id="a3dc3-173">`<text>` タグの間の内容だけがレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-173">Only the content between the `<text>` tag is rendered.</span></span>
-* <span data-ttu-id="a3dc3-174">`<text>` タグの前後にある空白文字は HTML の出力には表示されません。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-174">No whitespace before or after the `<text>` tag appears in the HTML output.</span></span>
+* <span data-ttu-id="99e0d-173">`<text>` タグの間の内容だけがレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-173">Only the content between the `<text>` tag is rendered.</span></span>
+* <span data-ttu-id="99e0d-174">`<text>` タグの前後にある空白文字は HTML の出力には表示されません。</span><span class="sxs-lookup"><span data-stu-id="99e0d-174">No whitespace before or after the `<text>` tag appears in the HTML output.</span></span>
 
-### <a name="explicit-line-transition"></a><span data-ttu-id="a3dc3-175">明示的な行の遷移</span><span class="sxs-lookup"><span data-stu-id="a3dc3-175">Explicit line transition</span></span>
+### <a name="explicit-line-transition"></a><span data-ttu-id="99e0d-175">明示的な行の遷移</span><span class="sxs-lookup"><span data-stu-id="99e0d-175">Explicit line transition</span></span>
 
-<span data-ttu-id="a3dc3-176">残りの行全体をコード ブロック内に HTML としてレンダリングするには、`@:` 構文を使います。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-176">To render the rest of an entire line as HTML inside a code block, use `@:` syntax:</span></span>
+<span data-ttu-id="99e0d-176">残りの行全体をコード ブロック内に HTML としてレンダリングするには、`@:` 構文を使います。</span><span class="sxs-lookup"><span data-stu-id="99e0d-176">To render the rest of an entire line as HTML inside a code block, use `@:` syntax:</span></span>
 
 ```cshtml
 @for (var i = 0; i < people.Length; i++)
@@ -239,17 +239,17 @@ ms.locfileid: "74944253"
 }
 ```
 
-<span data-ttu-id="a3dc3-177">コードに `@:` がないと、Razor ランタイム エラーが生成されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-177">Without the `@:` in the code, a Razor runtime error is generated.</span></span>
+<span data-ttu-id="99e0d-177">コードに `@:` がないと、Razor ランタイム エラーが生成されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-177">Without the `@:` in the code, a Razor runtime error is generated.</span></span>
 
-<span data-ttu-id="a3dc3-178">Razor ファイルに余分な `@` 文字があると、ブロックの後続のステートメントでコンパイラ エラーが発生することがあります。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-178">Extra `@` characters in a Razor file can cause compiler errors at statements later in the block.</span></span> <span data-ttu-id="a3dc3-179">これらのコンパイラ エラーは、実際のエラーは報告されたエラーより前で発生しているため、理解するのが難しい場合があります。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-179">These compiler errors can be difficult to understand because the actual error occurs before the reported error.</span></span> <span data-ttu-id="a3dc3-180">このエラーは、複数の暗黙的/明示的な式を 1 つのコード ブロックに結合した後で発生することがよくあります。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-180">This error is common after combining multiple implicit/explicit expressions into a single code block.</span></span>
+<span data-ttu-id="99e0d-178">Razor ファイルに余分な `@` 文字があると、ブロックの後続のステートメントでコンパイラ エラーが発生することがあります。</span><span class="sxs-lookup"><span data-stu-id="99e0d-178">Extra `@` characters in a Razor file can cause compiler errors at statements later in the block.</span></span> <span data-ttu-id="99e0d-179">これらのコンパイラ エラーは、実際のエラーは報告されたエラーより前で発生しているため、理解するのが難しい場合があります。</span><span class="sxs-lookup"><span data-stu-id="99e0d-179">These compiler errors can be difficult to understand because the actual error occurs before the reported error.</span></span> <span data-ttu-id="99e0d-180">このエラーは、複数の暗黙的/明示的な式を 1 つのコード ブロックに結合した後で発生することがよくあります。</span><span class="sxs-lookup"><span data-stu-id="99e0d-180">This error is common after combining multiple implicit/explicit expressions into a single code block.</span></span>
 
-## <a name="control-structures"></a><span data-ttu-id="a3dc3-181">制御構造</span><span class="sxs-lookup"><span data-stu-id="a3dc3-181">Control structures</span></span>
+## <a name="control-structures"></a><span data-ttu-id="99e0d-181">制御構造</span><span class="sxs-lookup"><span data-stu-id="99e0d-181">Control structures</span></span>
 
-<span data-ttu-id="a3dc3-182">制御構造は、コード ブロックの拡張機能です。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-182">Control structures are an extension of code blocks.</span></span> <span data-ttu-id="a3dc3-183">コード ブロックのすべての側面 (マークアップへの遷移、インライン C# ) が、次の構造にも適用されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-183">All aspects of code blocks (transitioning to markup, inline C#) also apply to the following structures:</span></span>
+<span data-ttu-id="99e0d-182">制御構造は、コード ブロックの拡張機能です。</span><span class="sxs-lookup"><span data-stu-id="99e0d-182">Control structures are an extension of code blocks.</span></span> <span data-ttu-id="99e0d-183">コード ブロックのすべての側面 (マークアップへの遷移、インライン C# ) が、次の構造にも適用されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-183">All aspects of code blocks (transitioning to markup, inline C#) also apply to the following structures:</span></span>
 
-### <a name="conditionals-if-else-if-else-and-switch"></a><span data-ttu-id="a3dc3-184">条件付き \@if、else if、else、\@switch</span><span class="sxs-lookup"><span data-stu-id="a3dc3-184">Conditionals \@if, else if, else, and \@switch</span></span>
+### <a name="conditionals-if-else-if-else-and-switch"></a><span data-ttu-id="99e0d-184">条件付き \@if、else if、else、\@switch</span><span class="sxs-lookup"><span data-stu-id="99e0d-184">Conditionals \@if, else if, else, and \@switch</span></span>
 
-<span data-ttu-id="a3dc3-185">`@if` は、いつコードを実行するかを制御します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-185">`@if` controls when code runs:</span></span>
+<span data-ttu-id="99e0d-185">`@if` は、いつコードを実行するかを制御します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-185">`@if` controls when code runs:</span></span>
 
 ```cshtml
 @if (value % 2 == 0)
@@ -258,7 +258,7 @@ ms.locfileid: "74944253"
 }
 ```
 
-<span data-ttu-id="a3dc3-186">`else` および `else if` には、`@` 記号は必要ありません。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-186">`else` and `else if` don't require the `@` symbol:</span></span>
+<span data-ttu-id="99e0d-186">`else` および `else if` には、`@` 記号は必要ありません。</span><span class="sxs-lookup"><span data-stu-id="99e0d-186">`else` and `else if` don't require the `@` symbol:</span></span>
 
 ```cshtml
 @if (value % 2 == 0)
@@ -275,7 +275,7 @@ else
 }
 ```
 
-<span data-ttu-id="a3dc3-187">次のマークアップでは、switch ステートメントの使い方を示します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-187">The following markup shows how to use a switch statement:</span></span>
+<span data-ttu-id="99e0d-187">次のマークアップでは、switch ステートメントの使い方を示します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-187">The following markup shows how to use a switch statement:</span></span>
 
 ```cshtml
 @switch (value)
@@ -292,9 +292,9 @@ else
 }
 ```
 
-### <a name="looping-for-foreach-while-and-do-while"></a><span data-ttu-id="a3dc3-188">ループ処理 \@for、\@foreach、\@while、\@do while</span><span class="sxs-lookup"><span data-stu-id="a3dc3-188">Looping \@for, \@foreach, \@while, and \@do while</span></span>
+### <a name="looping-for-foreach-while-and-do-while"></a><span data-ttu-id="99e0d-188">ループ処理 \@for、\@foreach、\@while、\@do while</span><span class="sxs-lookup"><span data-stu-id="99e0d-188">Looping \@for, \@foreach, \@while, and \@do while</span></span>
 
-<span data-ttu-id="a3dc3-189">ループ制御ステートメントを使って、テンプレート化された HTML をレンダリングできます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-189">Templated HTML can be rendered with looping control statements.</span></span> <span data-ttu-id="a3dc3-190">人の一覧をレンダリングするには:</span><span class="sxs-lookup"><span data-stu-id="a3dc3-190">To render a list of people:</span></span>
+<span data-ttu-id="99e0d-189">ループ制御ステートメントを使って、テンプレート化された HTML をレンダリングできます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-189">Templated HTML can be rendered with looping control statements.</span></span> <span data-ttu-id="99e0d-190">人の一覧をレンダリングするには:</span><span class="sxs-lookup"><span data-stu-id="99e0d-190">To render a list of people:</span></span>
 
 ```cshtml
 @{
@@ -307,7 +307,7 @@ else
 }
 ```
 
-<span data-ttu-id="a3dc3-191">以下のループ ステートメントがサポートされています。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-191">The following looping statements are supported:</span></span>
+<span data-ttu-id="99e0d-191">以下のループ ステートメントがサポートされています。</span><span class="sxs-lookup"><span data-stu-id="99e0d-191">The following looping statements are supported:</span></span>
 
 `@for`
 
@@ -358,9 +358,9 @@ else
 } while (i < people.Length);
 ```
 
-### <a name="compound-using"></a><span data-ttu-id="a3dc3-192">複合 \@using</span><span class="sxs-lookup"><span data-stu-id="a3dc3-192">Compound \@using</span></span>
+### <a name="compound-using"></a><span data-ttu-id="99e0d-192">複合 \@using</span><span class="sxs-lookup"><span data-stu-id="99e0d-192">Compound \@using</span></span>
 
-<span data-ttu-id="a3dc3-193">C# では、オブジェクトを確実に破棄するために `using` オブジェクトが使われています。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-193">In C#, a `using` statement is used to ensure an object is disposed.</span></span> <span data-ttu-id="a3dc3-194">Razor では、同じメカニズムが、追加コンテンツを含む HTML ヘルパーを作成するために使われています。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-194">In Razor, the same mechanism is used to create HTML Helpers that contain additional content.</span></span> <span data-ttu-id="a3dc3-195">次のコードの HTML ヘルパーは、`@using` ステートメントを含む `<form>` タグをレンダリングします。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-195">In the following code, HTML Helpers render a `<form>` tag with the `@using` statement:</span></span>
+<span data-ttu-id="99e0d-193">C# では、オブジェクトを確実に破棄するために `using` オブジェクトが使われています。</span><span class="sxs-lookup"><span data-stu-id="99e0d-193">In C#, a `using` statement is used to ensure an object is disposed.</span></span> <span data-ttu-id="99e0d-194">Razor では、同じメカニズムが、追加コンテンツを含む HTML ヘルパーを作成するために使われています。</span><span class="sxs-lookup"><span data-stu-id="99e0d-194">In Razor, the same mechanism is used to create HTML Helpers that contain additional content.</span></span> <span data-ttu-id="99e0d-195">次のコードの HTML ヘルパーは、`@using` ステートメントを含む `<form>` タグをレンダリングします。</span><span class="sxs-lookup"><span data-stu-id="99e0d-195">In the following code, HTML Helpers render a `<form>` tag with the `@using` statement:</span></span>
 
 ```cshtml
 @using (Html.BeginForm())
@@ -372,15 +372,15 @@ else
 }
 ```
 
-### <a name="try-catch-finally"></a><span data-ttu-id="a3dc3-196">\@try、catch、finally</span><span class="sxs-lookup"><span data-stu-id="a3dc3-196">\@try, catch, finally</span></span>
+### <a name="try-catch-finally"></a><span data-ttu-id="99e0d-196">\@try、catch、finally</span><span class="sxs-lookup"><span data-stu-id="99e0d-196">\@try, catch, finally</span></span>
 
-<span data-ttu-id="a3dc3-197">例外処理は C# に似ています。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-197">Exception handling is similar to C#:</span></span>
+<span data-ttu-id="99e0d-197">例外処理は C# に似ています。</span><span class="sxs-lookup"><span data-stu-id="99e0d-197">Exception handling is similar to C#:</span></span>
 
 [!code-cshtml[](razor/sample/Views/Home/Contact7.cshtml)]
 
-### <a name="lock"></a><span data-ttu-id="a3dc3-198">\@lock</span><span class="sxs-lookup"><span data-stu-id="a3dc3-198">\@lock</span></span>
+### <a name="lock"></a><span data-ttu-id="99e0d-198">\@lock</span><span class="sxs-lookup"><span data-stu-id="99e0d-198">\@lock</span></span>
 
-<span data-ttu-id="a3dc3-199">Razor には、重要なセクションを lock ステートメントで保護する機能があります。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-199">Razor has the capability to protect critical sections with lock statements:</span></span>
+<span data-ttu-id="99e0d-199">Razor には、重要なセクションを lock ステートメントで保護する機能があります。</span><span class="sxs-lookup"><span data-stu-id="99e0d-199">Razor has the capability to protect critical sections with lock statements:</span></span>
 
 ```cshtml
 @lock (SomeLock)
@@ -389,9 +389,9 @@ else
 }
 ```
 
-### <a name="comments"></a><span data-ttu-id="a3dc3-200">コメント</span><span class="sxs-lookup"><span data-stu-id="a3dc3-200">Comments</span></span>
+### <a name="comments"></a><span data-ttu-id="99e0d-200">コメント</span><span class="sxs-lookup"><span data-stu-id="99e0d-200">Comments</span></span>
 
-<span data-ttu-id="a3dc3-201">Razor は、C# と HTML のコメントをサポートしています。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-201">Razor supports C# and HTML comments:</span></span>
+<span data-ttu-id="99e0d-201">Razor は、C# と HTML のコメントをサポートしています。</span><span class="sxs-lookup"><span data-stu-id="99e0d-201">Razor supports C# and HTML comments:</span></span>
 
 ```cshtml
 @{
@@ -401,13 +401,13 @@ else
 <!-- HTML comment -->
 ```
 
-<span data-ttu-id="a3dc3-202">このコードでは、次のような HTML がレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-202">The code renders the following HTML:</span></span>
+<span data-ttu-id="99e0d-202">このコードでは、次のような HTML がレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-202">The code renders the following HTML:</span></span>
 
 ```html
 <!-- HTML comment -->
 ```
 
-<span data-ttu-id="a3dc3-203">Razor のコメントは、Web ページがレンダリングされる前に、サーバーによって削除されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-203">Razor comments are removed by the server before the webpage is rendered.</span></span> <span data-ttu-id="a3dc3-204">Razor では、`@*  *@` を使ってコメントを区切ります。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-204">Razor uses `@*  *@` to delimit comments.</span></span> <span data-ttu-id="a3dc3-205">次のコードはコメント化されているため、サーバーはどのマークアップもレンダリングしません。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-205">The following code is commented out, so the server doesn't render any markup:</span></span>
+<span data-ttu-id="99e0d-203">Razor のコメントは、Web ページがレンダリングされる前に、サーバーによって削除されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-203">Razor comments are removed by the server before the webpage is rendered.</span></span> <span data-ttu-id="99e0d-204">Razor では、`@*  *@` を使ってコメントを区切ります。</span><span class="sxs-lookup"><span data-stu-id="99e0d-204">Razor uses `@*  *@` to delimit comments.</span></span> <span data-ttu-id="99e0d-205">次のコードはコメント化されているため、サーバーはどのマークアップもレンダリングしません。</span><span class="sxs-lookup"><span data-stu-id="99e0d-205">The following code is commented out, so the server doesn't render any markup:</span></span>
 
 ```cshtml
 @*
@@ -419,15 +419,15 @@ else
 *@
 ```
 
-## <a name="directives"></a><span data-ttu-id="a3dc3-206">ディレクティブ</span><span class="sxs-lookup"><span data-stu-id="a3dc3-206">Directives</span></span>
+## <a name="directives"></a><span data-ttu-id="99e0d-206">ディレクティブ</span><span class="sxs-lookup"><span data-stu-id="99e0d-206">Directives</span></span>
 
-<span data-ttu-id="a3dc3-207">Razor のディレクティブは、`@` 記号の後の予約キーワードによる暗黙的な式で表されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-207">Razor directives are represented by implicit expressions with reserved keywords following the `@` symbol.</span></span> <span data-ttu-id="a3dc3-208">通常、ディレクティブは、ビューの解析方法を変更したり、異なる機能を有効にしたりします。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-208">A directive typically changes the way a view is parsed or enables different functionality.</span></span>
+<span data-ttu-id="99e0d-207">Razor のディレクティブは、`@` 記号の後の予約キーワードによる暗黙的な式で表されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-207">Razor directives are represented by implicit expressions with reserved keywords following the `@` symbol.</span></span> <span data-ttu-id="99e0d-208">通常、ディレクティブは、ビューの解析方法を変更したり、異なる機能を有効にしたりします。</span><span class="sxs-lookup"><span data-stu-id="99e0d-208">A directive typically changes the way a view is parsed or enables different functionality.</span></span>
 
-<span data-ttu-id="a3dc3-209">Razor がビューのコードを生成する方法を理解すると、ディレクティブの動作を理解しやすくなります。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-209">Understanding how Razor generates code for a view makes it easier to understand how directives work.</span></span>
+<span data-ttu-id="99e0d-209">Razor がビューのコードを生成する方法を理解すると、ディレクティブの動作を理解しやすくなります。</span><span class="sxs-lookup"><span data-stu-id="99e0d-209">Understanding how Razor generates code for a view makes it easier to understand how directives work.</span></span>
 
 [!code-cshtml[](razor/sample/Views/Home/Contact8.cshtml)]
 
-<span data-ttu-id="a3dc3-210">上のコードでは、次のようなクラスが生成されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-210">The code generates a class similar to the following:</span></span>
+<span data-ttu-id="99e0d-210">上のコードでは、次のようなクラスが生成されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-210">The code generates a class similar to the following:</span></span>
 
 ```csharp
 public class _Views_Something_cshtml : RazorPage<dynamic>
@@ -443,11 +443,11 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 }
 ```
 
-<span data-ttu-id="a3dc3-211">後の「[ビューに対して生成された Razor C# クラスを調べる](#inspect-the-razor-c-class-generated-for-a-view)」セクションでは、この生成されたクラスを表示する方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-211">Later in this article, the section [Inspect the Razor C# class generated for a view](#inspect-the-razor-c-class-generated-for-a-view) explains how to view this generated class.</span></span>
+<span data-ttu-id="99e0d-211">後の「[ビューに対して生成された Razor C# クラスを調べる](#inspect-the-razor-c-class-generated-for-a-view)」セクションでは、この生成されたクラスを表示する方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-211">Later in this article, the section [Inspect the Razor C# class generated for a view](#inspect-the-razor-c-class-generated-for-a-view) explains how to view this generated class.</span></span>
 
-### <a name="attribute"></a><span data-ttu-id="a3dc3-212">\@attribute</span><span class="sxs-lookup"><span data-stu-id="a3dc3-212">\@attribute</span></span>
+### <a name="attribute"></a><span data-ttu-id="99e0d-212">\@attribute</span><span class="sxs-lookup"><span data-stu-id="99e0d-212">\@attribute</span></span>
 
-<span data-ttu-id="a3dc3-213">`@attribute` ディレクティブでは、指定された属性が生成されたページまたはビューのクラスに追加されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-213">The `@attribute` directive adds the given attribute to the class of the generated page or view.</span></span> <span data-ttu-id="a3dc3-214">次の例では、`[Authorize]` 属性が追加されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-214">The following example adds the `[Authorize]` attribute:</span></span>
+<span data-ttu-id="99e0d-213">`@attribute` ディレクティブでは、指定された属性が生成されたページまたはビューのクラスに追加されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-213">The `@attribute` directive adds the given attribute to the class of the generated page or view.</span></span> <span data-ttu-id="99e0d-214">次の例では、`[Authorize]` 属性が追加されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-214">The following example adds the `[Authorize]` attribute:</span></span>
 
 ```cshtml
 @attribute [Authorize]
@@ -455,11 +455,11 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-### <a name="code"></a><span data-ttu-id="a3dc3-215">\@code</span><span class="sxs-lookup"><span data-stu-id="a3dc3-215">\@code</span></span>
+### <a name="code"></a><span data-ttu-id="99e0d-215">\@code</span><span class="sxs-lookup"><span data-stu-id="99e0d-215">\@code</span></span>
 
-<span data-ttu-id="a3dc3-216">"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。*"</span><span class="sxs-lookup"><span data-stu-id="a3dc3-216">*This scenario only applies to Razor components (.razor).*</span></span>
+<span data-ttu-id="99e0d-216">"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "</span><span class="sxs-lookup"><span data-stu-id="99e0d-216">*This scenario only applies to Razor components (.razor).*</span></span>
 
-<span data-ttu-id="a3dc3-217">`@code` ブロックにより、[Razor コンポーネント](xref:blazor/components)では、C# メンバー (フィールド、プロパティ、メソッド) をコンポーネントに追加できます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-217">The `@code` block enables a [Razor component](xref:blazor/components) to add C# members (fields, properties, and methods) to a component:</span></span>
+<span data-ttu-id="99e0d-217">`@code` ブロックにより、[Razor コンポーネント](xref:blazor/components)では、C# メンバー (フィールド、プロパティ、メソッド) をコンポーネントに追加できます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-217">The `@code` block enables a [Razor component](xref:blazor/components) to add C# members (fields, properties, and methods) to a component:</span></span>
 
 ```razor
 @code {
@@ -467,13 +467,13 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 }
 ```
 
-<span data-ttu-id="a3dc3-218">Razor コンポーネントの場合、`@code` は [`@functions`](#functions) のエイリアスであり、`@functions` よりも優先されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-218">For Razor components, `@code` is an alias of [`@functions`](#functions) and recommended over `@functions`.</span></span> <span data-ttu-id="a3dc3-219">複数の `@code` ブロックが許容されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-219">More than one `@code` block is permissible.</span></span>
+<span data-ttu-id="99e0d-218">Razor コンポーネントの場合、`@code` は [`@functions`](#functions) のエイリアスであり、`@functions` よりも優先されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-218">For Razor components, `@code` is an alias of [`@functions`](#functions) and recommended over `@functions`.</span></span> <span data-ttu-id="99e0d-219">複数の `@code` ブロックが許容されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-219">More than one `@code` block is permissible.</span></span>
 
 ::: moniker-end
 
-### <a name="functions"></a><span data-ttu-id="a3dc3-220">\@functions</span><span class="sxs-lookup"><span data-stu-id="a3dc3-220">\@functions</span></span>
+### <a name="functions"></a><span data-ttu-id="99e0d-220">\@functions</span><span class="sxs-lookup"><span data-stu-id="99e0d-220">\@functions</span></span>
 
-<span data-ttu-id="a3dc3-221">`@functions` ディレクティブでは、生成されたクラスに C# メンバー (フィールド、プロパティ、メソッド) を追加できます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-221">The `@functions` directive enables adding C# members (fields, properties, and methods) to the generated class:</span></span>
+<span data-ttu-id="99e0d-221">`@functions` ディレクティブでは、生成されたクラスに C# メンバー (フィールド、プロパティ、メソッド) を追加できます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-221">The `@functions` directive enables adding C# members (fields, properties, and methods) to the generated class:</span></span>
 
 ```cshtml
 @functions {
@@ -483,27 +483,27 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="a3dc3-222">[Razor コンポーネント](xref:blazor/components)では、`@functions` ではなく `@code` を使用して C# メンバーを追加します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-222">In [Razor components](xref:blazor/components), use `@code` over `@functions` to add C# members.</span></span>
+<span data-ttu-id="99e0d-222">[Razor コンポーネント](xref:blazor/components)では、`@functions` ではなく `@code` を使用して C# メンバーを追加します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-222">In [Razor components](xref:blazor/components), use `@code` over `@functions` to add C# members.</span></span>
 
 ::: moniker-end
 
-<span data-ttu-id="a3dc3-223">次に例を示します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-223">For example:</span></span>
+<span data-ttu-id="99e0d-223">次に例を示します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-223">For example:</span></span>
 
 [!code-cshtml[](razor/sample/Views/Home/Contact6.cshtml)]
 
-<span data-ttu-id="a3dc3-224">このコードは、次の HTML マークアップを生成します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-224">The code generates the following HTML markup:</span></span>
+<span data-ttu-id="99e0d-224">このコードは、次の HTML マークアップを生成します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-224">The code generates the following HTML markup:</span></span>
 
 ```html
 <div>From method: Hello</div>
 ```
 
-<span data-ttu-id="a3dc3-225">次のコードは、生成された Razor C# クラスです。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-225">The following code is the generated Razor C# class:</span></span>
+<span data-ttu-id="99e0d-225">次のコードは、生成された Razor C# クラスです。</span><span class="sxs-lookup"><span data-stu-id="99e0d-225">The following code is the generated Razor C# class:</span></span>
 
 [!code-csharp[](razor/sample/Classes/Views_Home_Test_cshtml.cs?range=1-19)]
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="a3dc3-226">`@functions` メソッドは、マークアップが与えられているとき、テンプレート メソッドとしてサービスを提供します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-226">`@functions` methods serve as templating methods when they have markup:</span></span>
+<span data-ttu-id="99e0d-226">`@functions` メソッドは、マークアップが与えられているとき、テンプレート メソッドとしてサービスを提供します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-226">`@functions` methods serve as templating methods when they have markup:</span></span>
 
 ```cshtml
 @{
@@ -519,18 +519,18 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 }
 ```
 
-<span data-ttu-id="a3dc3-227">このコードでは、次のような HTML がレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-227">The code renders the following HTML:</span></span>
+<span data-ttu-id="99e0d-227">このコードでは、次のような HTML がレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-227">The code renders the following HTML:</span></span>
 
 ```html
 <p>Name: <strong>Mahatma Gandhi</strong></p>
 <p>Name: <strong>Martin Luther King, Jr.</strong></p>
 ```
 
-### <a name="implements"></a><span data-ttu-id="a3dc3-228">\@implements</span><span class="sxs-lookup"><span data-stu-id="a3dc3-228">\@implements</span></span>
+### <a name="implements"></a><span data-ttu-id="99e0d-228">\@implements</span><span class="sxs-lookup"><span data-stu-id="99e0d-228">\@implements</span></span>
 
-<span data-ttu-id="a3dc3-229">`@implements` ディレクティブでは、生成されたクラスのインターフェイスが実装されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-229">The `@implements` directive implements an interface for the generated class.</span></span>
+<span data-ttu-id="99e0d-229">`@implements` ディレクティブでは、生成されたクラスのインターフェイスが実装されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-229">The `@implements` directive implements an interface for the generated class.</span></span>
 
-<span data-ttu-id="a3dc3-230">次の例では、<xref:System.IDisposable.Dispose*> メソッドを呼び出せるように、<xref:System.IDisposable?displayProperty=fullName> が実装されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-230">The following example implements <xref:System.IDisposable?displayProperty=fullName> so that the <xref:System.IDisposable.Dispose*> method can be called:</span></span>
+<span data-ttu-id="99e0d-230">次の例では、<xref:System.IDisposable.Dispose*> メソッドを呼び出せるように、<xref:System.IDisposable?displayProperty=fullName> が実装されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-230">The following example implements <xref:System.IDisposable?displayProperty=fullName> so that the <xref:System.IDisposable.Dispose*> method can be called:</span></span>
 
 ```cshtml
 @implements IDisposable
@@ -548,23 +548,23 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 
 ::: moniker-end
 
-### <a name="inherits"></a><span data-ttu-id="a3dc3-231">\@inherits</span><span class="sxs-lookup"><span data-stu-id="a3dc3-231">\@inherits</span></span>
+### <a name="inherits"></a><span data-ttu-id="99e0d-231">\@inherits</span><span class="sxs-lookup"><span data-stu-id="99e0d-231">\@inherits</span></span>
 
-<span data-ttu-id="a3dc3-232">`@inherits` ディレクティブは、ビューが継承するクラスの完全な制御を提供します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-232">The `@inherits` directive provides full control of the class the view inherits:</span></span>
+<span data-ttu-id="99e0d-232">`@inherits` ディレクティブは、ビューが継承するクラスの完全な制御を提供します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-232">The `@inherits` directive provides full control of the class the view inherits:</span></span>
 
 ```cshtml
 @inherits TypeNameOfClassToInheritFrom
 ```
 
-<span data-ttu-id="a3dc3-233">次のコードは、カスタム Razor ページ型です。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-233">The following code is a custom Razor page type:</span></span>
+<span data-ttu-id="99e0d-233">次のコードは、カスタム Razor ページ型です。</span><span class="sxs-lookup"><span data-stu-id="99e0d-233">The following code is a custom Razor page type:</span></span>
 
 [!code-csharp[](razor/sample/Classes/CustomRazorPage.cs)]
 
-<span data-ttu-id="a3dc3-234">`CustomText` がビューに表示されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-234">The `CustomText` is displayed in a view:</span></span>
+<span data-ttu-id="99e0d-234">`CustomText` がビューに表示されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-234">The `CustomText` is displayed in a view:</span></span>
 
 [!code-cshtml[](razor/sample/Views/Home/Contact10.cshtml)]
 
-<span data-ttu-id="a3dc3-235">このコードでは、次のような HTML がレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-235">The code renders the following HTML:</span></span>
+<span data-ttu-id="99e0d-235">このコードでは、次のような HTML がレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-235">The code renders the following HTML:</span></span>
 
 ```html
 <div>
@@ -573,15 +573,15 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 </div>
 ```
 
- <span data-ttu-id="a3dc3-236">`@model` と `@inherits` は同じビューで使うことができます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-236">`@model` and `@inherits` can be used in the same view.</span></span> <span data-ttu-id="a3dc3-237">`@inherits` は、ビューがインポートする *_ViewImports.cshtml* ファイルで指定できます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-237">`@inherits` can be in a *_ViewImports.cshtml* file that the view imports:</span></span>
+ <span data-ttu-id="99e0d-236">`@model` と `@inherits` は同じビューで使うことができます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-236">`@model` and `@inherits` can be used in the same view.</span></span> <span data-ttu-id="99e0d-237">`@inherits` は、ビューがインポートする *_ViewImports.cshtml* ファイルで指定できます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-237">`@inherits` can be in a *_ViewImports.cshtml* file that the view imports:</span></span>
 
 [!code-cshtml[](razor/sample/Views/_ViewImportsModel.cshtml)]
 
-<span data-ttu-id="a3dc3-238">次のコードは、厳密に型指定されたビューの例です。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-238">The following code is an example of a strongly-typed view:</span></span>
+<span data-ttu-id="99e0d-238">次のコードは、厳密に型指定されたビューの例です。</span><span class="sxs-lookup"><span data-stu-id="99e0d-238">The following code is an example of a strongly-typed view:</span></span>
 
 [!code-cshtml[](razor/sample/Views/Home/Login1.cshtml)]
 
-<span data-ttu-id="a3dc3-239">モデルに rick@contoso.com が渡された場合、ビューは次の HTML マークアップを生成します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-239">If "rick@contoso.com" is passed in the model, the view generates the following HTML markup:</span></span>
+<span data-ttu-id="99e0d-239">モデルに rick@contoso.com が渡された場合、ビューは次の HTML マークアップを生成します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-239">If "rick@contoso.com" is passed in the model, the view generates the following HTML markup:</span></span>
 
 ```html
 <div>The Login Email: rick@contoso.com</div>
@@ -591,191 +591,191 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 </div>
 ```
 
-### <a name="inject"></a><span data-ttu-id="a3dc3-240">\@inject</span><span class="sxs-lookup"><span data-stu-id="a3dc3-240">\@inject</span></span>
+### <a name="inject"></a><span data-ttu-id="99e0d-240">\@inject</span><span class="sxs-lookup"><span data-stu-id="99e0d-240">\@inject</span></span>
 
-<span data-ttu-id="a3dc3-241">`@inject` ディレクティブを使うと、Razor ページで[サービス コンテナー](xref:fundamentals/dependency-injection)からビューにサービスを挿入できます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-241">The `@inject` directive enables the Razor Page to inject a service from the [service container](xref:fundamentals/dependency-injection) into a view.</span></span> <span data-ttu-id="a3dc3-242">詳しくは、「[ビューへの依存関係の挿入](xref:mvc/views/dependency-injection)」をご覧ください。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-242">For more information, see [Dependency injection into views](xref:mvc/views/dependency-injection).</span></span>
+<span data-ttu-id="99e0d-241">`@inject` ディレクティブを使うと、Razor ページで[サービス コンテナー](xref:fundamentals/dependency-injection)からビューにサービスを挿入できます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-241">The `@inject` directive enables the Razor Page to inject a service from the [service container](xref:fundamentals/dependency-injection) into a view.</span></span> <span data-ttu-id="99e0d-242">詳しくは、「[ビューへの依存関係の挿入](xref:mvc/views/dependency-injection)」をご覧ください。</span><span class="sxs-lookup"><span data-stu-id="99e0d-242">For more information, see [Dependency injection into views](xref:mvc/views/dependency-injection).</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-### <a name="layout"></a><span data-ttu-id="a3dc3-243">\@layout</span><span class="sxs-lookup"><span data-stu-id="a3dc3-243">\@layout</span></span>
+### <a name="layout"></a><span data-ttu-id="99e0d-243">\@layout</span><span class="sxs-lookup"><span data-stu-id="99e0d-243">\@layout</span></span>
 
-<span data-ttu-id="a3dc3-244">"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。*"</span><span class="sxs-lookup"><span data-stu-id="a3dc3-244">*This scenario only applies to Razor components (.razor).*</span></span>
+<span data-ttu-id="99e0d-244">"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "</span><span class="sxs-lookup"><span data-stu-id="99e0d-244">*This scenario only applies to Razor components (.razor).*</span></span>
 
-<span data-ttu-id="a3dc3-245">`@layout` ディレクティブにより、Razor コンポーネントのレイアウトが指定されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-245">The `@layout` directive specifies a layout for a Razor component.</span></span> <span data-ttu-id="a3dc3-246">レイアウト コンポーネントは、コードの重複や不整合を回避するために使用されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-246">Layout components are used to avoid code duplication and inconsistency.</span></span> <span data-ttu-id="a3dc3-247">詳細については、<xref:blazor/layouts> を参照してください。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-247">For more information, see <xref:blazor/layouts>.</span></span>
+<span data-ttu-id="99e0d-245">`@layout` ディレクティブにより、Razor コンポーネントのレイアウトが指定されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-245">The `@layout` directive specifies a layout for a Razor component.</span></span> <span data-ttu-id="99e0d-246">レイアウト コンポーネントは、コードの重複や不整合を回避するために使用されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-246">Layout components are used to avoid code duplication and inconsistency.</span></span> <span data-ttu-id="99e0d-247">詳細については、「<xref:blazor/layouts>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="99e0d-247">For more information, see <xref:blazor/layouts>.</span></span>
 
 ::: moniker-end
 
-### <a name="model"></a><span data-ttu-id="a3dc3-248">\@model</span><span class="sxs-lookup"><span data-stu-id="a3dc3-248">\@model</span></span>
+### <a name="model"></a><span data-ttu-id="99e0d-248">\@model</span><span class="sxs-lookup"><span data-stu-id="99e0d-248">\@model</span></span>
 
-<span data-ttu-id="a3dc3-249">"*このシナリオは、MVC ビューと Razor Pages (.cshtml) にのみ適用されます。*"</span><span class="sxs-lookup"><span data-stu-id="a3dc3-249">*This scenario only applies to MVC views and Razor Pages (.cshtml).*</span></span>
+<span data-ttu-id="99e0d-249">"*このシナリオは、MVC ビューと Razor Pages (.cshtml) にのみ適用されます。* "</span><span class="sxs-lookup"><span data-stu-id="99e0d-249">*This scenario only applies to MVC views and Razor Pages (.cshtml).*</span></span>
 
-<span data-ttu-id="a3dc3-250">`@model` ディレクティブにより、ビューまたはページに渡されるモデルの型が指定されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-250">The `@model` directive specifies the type of the model passed to a view or page:</span></span>
+<span data-ttu-id="99e0d-250">`@model` ディレクティブにより、ビューまたはページに渡されるモデルの型が指定されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-250">The `@model` directive specifies the type of the model passed to a view or page:</span></span>
 
 ```cshtml
 @model TypeNameOfModel
 ```
 
-<span data-ttu-id="a3dc3-251">個々のユーザー アカウントで作成された ASP.NET Core MVC または Razor Pages アプリでは、*Views/Account/Login.cshtml* に次のモデル宣言が含まれています。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-251">In an ASP.NET Core MVC or Razor Pages app created with individual user accounts, *Views/Account/Login.cshtml* contains the following model declaration:</span></span>
+<span data-ttu-id="99e0d-251">個々のユーザー アカウントで作成された ASP.NET Core MVC または Razor Pages アプリでは、*Views/Account/Login.cshtml* に次のモデル宣言が含まれています。</span><span class="sxs-lookup"><span data-stu-id="99e0d-251">In an ASP.NET Core MVC or Razor Pages app created with individual user accounts, *Views/Account/Login.cshtml* contains the following model declaration:</span></span>
 
 ```cshtml
 @model LoginViewModel
 ```
 
-<span data-ttu-id="a3dc3-252">生成されるクラスは、`RazorPage<dynamic>` を継承します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-252">The class generated inherits from `RazorPage<dynamic>`:</span></span>
+<span data-ttu-id="99e0d-252">生成されるクラスは、`RazorPage<dynamic>` を継承します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-252">The class generated inherits from `RazorPage<dynamic>`:</span></span>
 
 ```csharp
 public class _Views_Account_Login_cshtml : RazorPage<LoginViewModel>
 ```
 
-<span data-ttu-id="a3dc3-253">Razor では、ビューに渡されるモデルにアクセスするための `Model` プロパティが公開されています。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-253">Razor exposes a `Model` property for accessing the model passed to the view:</span></span>
+<span data-ttu-id="99e0d-253">Razor では、ビューに渡されるモデルにアクセスするための `Model` プロパティが公開されています。</span><span class="sxs-lookup"><span data-stu-id="99e0d-253">Razor exposes a `Model` property for accessing the model passed to the view:</span></span>
 
 ```cshtml
 <div>The Login Email: @Model.Email</div>
 ```
 
-<span data-ttu-id="a3dc3-254">`@model` ディレクティブにより、`Model` プロパティの型が指定されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-254">The `@model` directive specifies the type of the `Model` property.</span></span> <span data-ttu-id="a3dc3-255">ディレクティブでは、ビューが派生する生成されたクラスの `T` を `RazorPage<T>` で指定します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-255">The directive specifies the `T` in `RazorPage<T>` that the generated class that the view derives from.</span></span> <span data-ttu-id="a3dc3-256">`@model` ディレクティブが指定されていない場合、`Model` プロパティは `dynamic` 型になります。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-256">If the `@model` directive isn't specified, the `Model` property is of type `dynamic`.</span></span> <span data-ttu-id="a3dc3-257">詳しくは、「[厳密に型指定されたモデルと @model キーワード](xref:tutorials/first-mvc-app/adding-model#strongly-typed-models-and-the--keyword)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-257">For more information, see [Strongly typed models and the @model keyword](xref:tutorials/first-mvc-app/adding-model#strongly-typed-models-and-the--keyword).</span></span>
+<span data-ttu-id="99e0d-254">`@model` ディレクティブにより、`Model` プロパティの型が指定されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-254">The `@model` directive specifies the type of the `Model` property.</span></span> <span data-ttu-id="99e0d-255">ディレクティブでは、ビューが派生する生成されたクラスの `T` を `RazorPage<T>` で指定します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-255">The directive specifies the `T` in `RazorPage<T>` that the generated class that the view derives from.</span></span> <span data-ttu-id="99e0d-256">`@model` ディレクティブが指定されていない場合、`Model` プロパティは `dynamic` 型になります。</span><span class="sxs-lookup"><span data-stu-id="99e0d-256">If the `@model` directive isn't specified, the `Model` property is of type `dynamic`.</span></span> <span data-ttu-id="99e0d-257">詳しくは、「[厳密に型指定されたモデルと @model キーワード](xref:tutorials/first-mvc-app/adding-model#strongly-typed-models-and-the--keyword)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="99e0d-257">For more information, see [Strongly typed models and the @model keyword](xref:tutorials/first-mvc-app/adding-model#strongly-typed-models-and-the--keyword).</span></span>
 
-### <a name="namespace"></a><span data-ttu-id="a3dc3-258">\@namespace</span><span class="sxs-lookup"><span data-stu-id="a3dc3-258">\@namespace</span></span>
+### <a name="namespace"></a><span data-ttu-id="99e0d-258">\@namespace</span><span class="sxs-lookup"><span data-stu-id="99e0d-258">\@namespace</span></span>
 
-<span data-ttu-id="a3dc3-259">`@namespace` ディレクティブ:</span><span class="sxs-lookup"><span data-stu-id="a3dc3-259">The `@namespace` directive:</span></span>
+<span data-ttu-id="99e0d-259">`@namespace` ディレクティブ:</span><span class="sxs-lookup"><span data-stu-id="99e0d-259">The `@namespace` directive:</span></span>
 
-* <span data-ttu-id="a3dc3-260">生成された Razor ページ、MVC ビュー、または Razor コンポーネントのクラスの名前空間を設定します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-260">Sets the namespace of the class of the generated Razor page, MVC view, or Razor component.</span></span>
-* <span data-ttu-id="a3dc3-261">ディレクトリ ツリーで最も近いインポート ファイル (*_ViewImports.cshtml* (ビューまたはページ) または *_Imports.razor* (Razor コンポーネント)) から、ページ、ビュー、またはコンポーネント クラスのルート派生名前空間を設定します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-261">Sets the root derived namespaces of a pages, views, or components classes from the closest imports file in the directory tree, *_ViewImports.cshtml* (views or pages) or *_Imports.razor* (Razor components).</span></span>
+* <span data-ttu-id="99e0d-260">生成された Razor ページ、MVC ビュー、または Razor コンポーネントのクラスの名前空間を設定します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-260">Sets the namespace of the class of the generated Razor page, MVC view, or Razor component.</span></span>
+* <span data-ttu-id="99e0d-261">ディレクトリ ツリーで最も近いインポート ファイル ( *_ViewImports.cshtml* (ビューまたはページ) または *_Imports.razor* (Razor コンポーネント)) から、ページ、ビュー、またはコンポーネント クラスのルート派生名前空間を設定します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-261">Sets the root derived namespaces of a pages, views, or components classes from the closest imports file in the directory tree, *_ViewImports.cshtml* (views or pages) or *_Imports.razor* (Razor components).</span></span>
 
 ```cshtml
 @namespace Your.Namespace.Here
 ```
 
-<span data-ttu-id="a3dc3-262">次の表に示す Razor Pages の例の場合:</span><span class="sxs-lookup"><span data-stu-id="a3dc3-262">For the Razor Pages example shown in the following table:</span></span>
+<span data-ttu-id="99e0d-262">次の表に示す Razor Pages の例の場合:</span><span class="sxs-lookup"><span data-stu-id="99e0d-262">For the Razor Pages example shown in the following table:</span></span>
 
-* <span data-ttu-id="a3dc3-263">各ページで *Pages/_ViewImports.cshtml* がインポートされます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-263">Each page imports *Pages/_ViewImports.cshtml*.</span></span>
-* <span data-ttu-id="a3dc3-264">*Pages/_ViewImports.cshtml* に `@namespace Hello.World` が含まれます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-264">*Pages/_ViewImports.cshtml* contains `@namespace Hello.World`.</span></span>
-* <span data-ttu-id="a3dc3-265">各ページには、その名前空間のルートとして `Hello.World` が含まれます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-265">Each page has `Hello.World` as the root of it's namespace.</span></span>
+* <span data-ttu-id="99e0d-263">各ページで *Pages/_ViewImports.cshtml* がインポートされます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-263">Each page imports *Pages/_ViewImports.cshtml*.</span></span>
+* <span data-ttu-id="99e0d-264">*Pages/_ViewImports.cshtml* に `@namespace Hello.World` が含まれます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-264">*Pages/_ViewImports.cshtml* contains `@namespace Hello.World`.</span></span>
+* <span data-ttu-id="99e0d-265">各ページには、その名前空間のルートとして `Hello.World` が含まれます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-265">Each page has `Hello.World` as the root of it's namespace.</span></span>
 
-| <span data-ttu-id="a3dc3-266">ページ</span><span class="sxs-lookup"><span data-stu-id="a3dc3-266">Page</span></span>                                        | <span data-ttu-id="a3dc3-267">名前空間</span><span class="sxs-lookup"><span data-stu-id="a3dc3-267">Namespace</span></span>                             |
+| <span data-ttu-id="99e0d-266">ページ</span><span class="sxs-lookup"><span data-stu-id="99e0d-266">Page</span></span>                                        | <span data-ttu-id="99e0d-267">名前空間</span><span class="sxs-lookup"><span data-stu-id="99e0d-267">Namespace</span></span>                             |
 | ------------------------------------------- | ------------------------------------- |
-| <span data-ttu-id="a3dc3-268">*Pages/Index.cshtml*</span><span class="sxs-lookup"><span data-stu-id="a3dc3-268">*Pages/Index.cshtml*</span></span>                        | `Hello.World`                         |
-| <span data-ttu-id="a3dc3-269">*Pages/MorePages/Page.cshtml*</span><span class="sxs-lookup"><span data-stu-id="a3dc3-269">*Pages/MorePages/Page.cshtml*</span></span>               | `Hello.World.MorePages`               |
-| <span data-ttu-id="a3dc3-270">*Pages/MorePages/EvenMorePages/Page.cshtml*</span><span class="sxs-lookup"><span data-stu-id="a3dc3-270">*Pages/MorePages/EvenMorePages/Page.cshtml*</span></span> | `Hello.World.MorePages.EvenMorePages` |
+| <span data-ttu-id="99e0d-268">*Pages/Index.cshtml*</span><span class="sxs-lookup"><span data-stu-id="99e0d-268">*Pages/Index.cshtml*</span></span>                        | `Hello.World`                         |
+| <span data-ttu-id="99e0d-269">*Pages/MorePages/Page.cshtml*</span><span class="sxs-lookup"><span data-stu-id="99e0d-269">*Pages/MorePages/Page.cshtml*</span></span>               | `Hello.World.MorePages`               |
+| <span data-ttu-id="99e0d-270">*Pages/MorePages/EvenMorePages/Page.cshtml*</span><span class="sxs-lookup"><span data-stu-id="99e0d-270">*Pages/MorePages/EvenMorePages/Page.cshtml*</span></span> | `Hello.World.MorePages.EvenMorePages` |
 
-<span data-ttu-id="a3dc3-271">前のリレーションシップは、MVC ビューと Razor コンポーネントで使用されるインポート ファイルに適用されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-271">The preceding relationships apply to import files used with MVC views and Razor components.</span></span>
+<span data-ttu-id="99e0d-271">前のリレーションシップは、MVC ビューと Razor コンポーネントで使用されるインポート ファイルに適用されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-271">The preceding relationships apply to import files used with MVC views and Razor components.</span></span>
 
-<span data-ttu-id="a3dc3-272">複数のインポート ファイルに `@namespace` ディレクティブがあるとき、ディレクトリ ツリーでページ、ビュー、またはコンポーネントに最も近いファイルがルート名前空間の設定に使用されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-272">When multiple import files have a `@namespace` directive, the file closest to the page, view, or component in the directory tree is used to set the root namespace.</span></span>
+<span data-ttu-id="99e0d-272">複数のインポート ファイルに `@namespace` ディレクティブがあるとき、ディレクトリ ツリーでページ、ビュー、またはコンポーネントに最も近いファイルがルート名前空間の設定に使用されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-272">When multiple import files have a `@namespace` directive, the file closest to the page, view, or component in the directory tree is used to set the root namespace.</span></span>
 
-<span data-ttu-id="a3dc3-273">前の例の *EvenMorePages* フォルダーに `@namespace Another.Planet` が含まれるインポート ファイルがある場合 (または、*Pages/MorePages/EvenMorePages/Page.cshtml* ファイルに `@namespace Another.Planet` が含まれる場合)、結果は次の表のようになります。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-273">If the *EvenMorePages* folder in the preceding example has an imports file with `@namespace Another.Planet` (or the *Pages/MorePages/EvenMorePages/Page.cshtml* file contains `@namespace Another.Planet`), the result is shown in the following table.</span></span>
+<span data-ttu-id="99e0d-273">前の例の *EvenMorePages* フォルダーに `@namespace Another.Planet` が含まれるインポート ファイルがある場合 (または、*Pages/MorePages/EvenMorePages/Page.cshtml* ファイルに `@namespace Another.Planet` が含まれる場合)、結果は次の表のようになります。</span><span class="sxs-lookup"><span data-stu-id="99e0d-273">If the *EvenMorePages* folder in the preceding example has an imports file with `@namespace Another.Planet` (or the *Pages/MorePages/EvenMorePages/Page.cshtml* file contains `@namespace Another.Planet`), the result is shown in the following table.</span></span>
 
-| <span data-ttu-id="a3dc3-274">ページ</span><span class="sxs-lookup"><span data-stu-id="a3dc3-274">Page</span></span>                                        | <span data-ttu-id="a3dc3-275">名前空間</span><span class="sxs-lookup"><span data-stu-id="a3dc3-275">Namespace</span></span>               |
+| <span data-ttu-id="99e0d-274">ページ</span><span class="sxs-lookup"><span data-stu-id="99e0d-274">Page</span></span>                                        | <span data-ttu-id="99e0d-275">名前空間</span><span class="sxs-lookup"><span data-stu-id="99e0d-275">Namespace</span></span>               |
 | ------------------------------------------- | ----------------------- |
-| <span data-ttu-id="a3dc3-276">*Pages/Index.cshtml*</span><span class="sxs-lookup"><span data-stu-id="a3dc3-276">*Pages/Index.cshtml*</span></span>                        | `Hello.World`           |
-| <span data-ttu-id="a3dc3-277">*Pages/MorePages/Page.cshtml*</span><span class="sxs-lookup"><span data-stu-id="a3dc3-277">*Pages/MorePages/Page.cshtml*</span></span>               | `Hello.World.MorePages` |
-| <span data-ttu-id="a3dc3-278">*Pages/MorePages/EvenMorePages/Page.cshtml*</span><span class="sxs-lookup"><span data-stu-id="a3dc3-278">*Pages/MorePages/EvenMorePages/Page.cshtml*</span></span> | `Another.Planet`        |
+| <span data-ttu-id="99e0d-276">*Pages/Index.cshtml*</span><span class="sxs-lookup"><span data-stu-id="99e0d-276">*Pages/Index.cshtml*</span></span>                        | `Hello.World`           |
+| <span data-ttu-id="99e0d-277">*Pages/MorePages/Page.cshtml*</span><span class="sxs-lookup"><span data-stu-id="99e0d-277">*Pages/MorePages/Page.cshtml*</span></span>               | `Hello.World.MorePages` |
+| <span data-ttu-id="99e0d-278">*Pages/MorePages/EvenMorePages/Page.cshtml*</span><span class="sxs-lookup"><span data-stu-id="99e0d-278">*Pages/MorePages/EvenMorePages/Page.cshtml*</span></span> | `Another.Planet`        |
 
-### <a name="page"></a><span data-ttu-id="a3dc3-279">\@page</span><span class="sxs-lookup"><span data-stu-id="a3dc3-279">\@page</span></span>
+### <a name="page"></a><span data-ttu-id="99e0d-279">\@page</span><span class="sxs-lookup"><span data-stu-id="99e0d-279">\@page</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="a3dc3-280">`@page` ディレクティブには、それが表示されるファイルの型によって、さまざまな効果があります。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-280">The `@page` directive has different effects depending on the type of the file where it appears.</span></span> <span data-ttu-id="a3dc3-281">ディレクティブ:</span><span class="sxs-lookup"><span data-stu-id="a3dc3-281">The directive:</span></span>
+<span data-ttu-id="99e0d-280">`@page` ディレクティブには、それが表示されるファイルの型によって、さまざまな効果があります。</span><span class="sxs-lookup"><span data-stu-id="99e0d-280">The `@page` directive has different effects depending on the type of the file where it appears.</span></span> <span data-ttu-id="99e0d-281">ディレクティブ:</span><span class="sxs-lookup"><span data-stu-id="99e0d-281">The directive:</span></span>
 
-* <span data-ttu-id="a3dc3-282">*.cshtml* ファイルでは、ファイルが Razor Page であることを示します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-282">In in a *.cshtml* file indicates that the file is a Razor Page.</span></span> <span data-ttu-id="a3dc3-283">詳細については、「[カスタム ルート](xref:razor-pages/index#custom-routes)」と「<xref:razor-pages/index>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-283">For more information, see [Custom routes](xref:razor-pages/index#custom-routes) and <xref:razor-pages/index>.</span></span>
-* <span data-ttu-id="a3dc3-284">Razor コンポーネントで要求を直接処理することを指定します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-284">Specifies that a Razor component should handle requests directly.</span></span> <span data-ttu-id="a3dc3-285">詳細については、<xref:blazor/routing> を参照してください。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-285">For more information, see <xref:blazor/routing>.</span></span>
+* <span data-ttu-id="99e0d-282">*.cshtml* ファイルでは、ファイルが Razor Page であることを示します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-282">In in a *.cshtml* file indicates that the file is a Razor Page.</span></span> <span data-ttu-id="99e0d-283">詳細については、「[カスタム ルート](xref:razor-pages/index#custom-routes)」と「<xref:razor-pages/index>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="99e0d-283">For more information, see [Custom routes](xref:razor-pages/index#custom-routes) and <xref:razor-pages/index>.</span></span>
+* <span data-ttu-id="99e0d-284">Razor コンポーネントで要求を直接処理することを指定します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-284">Specifies that a Razor component should handle requests directly.</span></span> <span data-ttu-id="99e0d-285">詳細については、「<xref:blazor/routing>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="99e0d-285">For more information, see <xref:blazor/routing>.</span></span>
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-<span data-ttu-id="a3dc3-286">*.cshtml* ファイルの最初の行にある `@page` ディレクティブは、ファイルが Razor Page であることを示します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-286">The `@page` directive on the first line of a *.cshtml* file indicates that the file is a Razor Page.</span></span> <span data-ttu-id="a3dc3-287">詳細については、<xref:razor-pages/index> を参照してください。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-287">For more information, see <xref:razor-pages/index>.</span></span>
+<span data-ttu-id="99e0d-286">*.cshtml* ファイルの最初の行にある `@page` ディレクティブは、ファイルが Razor Page であることを示します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-286">The `@page` directive on the first line of a *.cshtml* file indicates that the file is a Razor Page.</span></span> <span data-ttu-id="99e0d-287">詳細については、「<xref:razor-pages/index>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="99e0d-287">For more information, see <xref:razor-pages/index>.</span></span>
 
 ::: moniker-end
 
-### <a name="section"></a><span data-ttu-id="a3dc3-288">\@section</span><span class="sxs-lookup"><span data-stu-id="a3dc3-288">\@section</span></span>
+### <a name="section"></a><span data-ttu-id="99e0d-288">\@section</span><span class="sxs-lookup"><span data-stu-id="99e0d-288">\@section</span></span>
 
-<span data-ttu-id="a3dc3-289">"*このシナリオは、MVC ビューと Razor Pages (.cshtml) にのみ適用されます。*"</span><span class="sxs-lookup"><span data-stu-id="a3dc3-289">*This scenario only applies to MVC views and Razor Pages (.cshtml).*</span></span>
+<span data-ttu-id="99e0d-289">"*このシナリオは、MVC ビューと Razor Pages (.cshtml) にのみ適用されます。* "</span><span class="sxs-lookup"><span data-stu-id="99e0d-289">*This scenario only applies to MVC views and Razor Pages (.cshtml).*</span></span>
 
-<span data-ttu-id="a3dc3-290">`@section` ディレクティブを [MVC および Razor Pages レイアウト](xref:mvc/views/layout)と組み合わせて使用すると、HTML ページのさまざまな部分のコンテンツをビューやページでレンダリングできます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-290">The `@section` directive is used in conjunction with [MVC and Razor Pages layouts](xref:mvc/views/layout) to enable views or pages to render content in different parts of the HTML page.</span></span> <span data-ttu-id="a3dc3-291">詳細については、<xref:mvc/views/layout> を参照してください。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-291">For more information, see <xref:mvc/views/layout>.</span></span>
+<span data-ttu-id="99e0d-290">`@section` ディレクティブを [MVC および Razor Pages レイアウト](xref:mvc/views/layout)と組み合わせて使用すると、HTML ページのさまざまな部分のコンテンツをビューやページでレンダリングできます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-290">The `@section` directive is used in conjunction with [MVC and Razor Pages layouts](xref:mvc/views/layout) to enable views or pages to render content in different parts of the HTML page.</span></span> <span data-ttu-id="99e0d-291">詳細については、「<xref:mvc/views/layout>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="99e0d-291">For more information, see <xref:mvc/views/layout>.</span></span>
 
-### <a name="using"></a><span data-ttu-id="a3dc3-292">\@using</span><span class="sxs-lookup"><span data-stu-id="a3dc3-292">\@using</span></span>
+### <a name="using"></a><span data-ttu-id="99e0d-292">\@using</span><span class="sxs-lookup"><span data-stu-id="99e0d-292">\@using</span></span>
 
-<span data-ttu-id="a3dc3-293">`@using` ディレクティブは、生成されるビューに C# の `using` ディレクティブを追加します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-293">The `@using` directive adds the C# `using` directive to the generated view:</span></span>
+<span data-ttu-id="99e0d-293">`@using` ディレクティブは、生成されるビューに C# の `using` ディレクティブを追加します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-293">The `@using` directive adds the C# `using` directive to the generated view:</span></span>
 
 [!code-cshtml[](razor/sample/Views/Home/Contact9.cshtml)]
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="a3dc3-294">[Razor コンポーネント](xref:blazor/components)では、`@using` により、スコープ内のコンポーネントも制御されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-294">In [Razor components](xref:blazor/components), `@using` also controls which components are in scope.</span></span>
+<span data-ttu-id="99e0d-294">[Razor コンポーネント](xref:blazor/components)では、`@using` により、スコープ内のコンポーネントも制御されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-294">In [Razor components](xref:blazor/components), `@using` also controls which components are in scope.</span></span>
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-3.0"
 
-## <a name="directive-attributes"></a><span data-ttu-id="a3dc3-295">ディレクティブ属性</span><span class="sxs-lookup"><span data-stu-id="a3dc3-295">Directive attributes</span></span>
+## <a name="directive-attributes"></a><span data-ttu-id="99e0d-295">ディレクティブ属性</span><span class="sxs-lookup"><span data-stu-id="99e0d-295">Directive attributes</span></span>
 
-### <a name="attributes"></a><span data-ttu-id="a3dc3-296">\@attributes</span><span class="sxs-lookup"><span data-stu-id="a3dc3-296">\@attributes</span></span>
+### <a name="attributes"></a><span data-ttu-id="99e0d-296">\@attributes</span><span class="sxs-lookup"><span data-stu-id="99e0d-296">\@attributes</span></span>
 
-<span data-ttu-id="a3dc3-297">"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。*"</span><span class="sxs-lookup"><span data-stu-id="a3dc3-297">*This scenario only applies to Razor components (.razor).*</span></span>
+<span data-ttu-id="99e0d-297">"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "</span><span class="sxs-lookup"><span data-stu-id="99e0d-297">*This scenario only applies to Razor components (.razor).*</span></span>
 
-<span data-ttu-id="a3dc3-298">`@attributes` では、非宣言属性のレンダリングがコンポーネントに許可されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-298">`@attributes` allows a component to render non-declared attributes.</span></span> <span data-ttu-id="a3dc3-299">詳細については、<xref:blazor/components#attribute-splatting-and-arbitrary-parameters> を参照してください。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-299">For more information, see <xref:blazor/components#attribute-splatting-and-arbitrary-parameters>.</span></span>
+<span data-ttu-id="99e0d-298">`@attributes` では、非宣言属性のレンダリングがコンポーネントに許可されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-298">`@attributes` allows a component to render non-declared attributes.</span></span> <span data-ttu-id="99e0d-299">詳細については、「<xref:blazor/components#attribute-splatting-and-arbitrary-parameters>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="99e0d-299">For more information, see <xref:blazor/components#attribute-splatting-and-arbitrary-parameters>.</span></span>
 
-### <a name="bind"></a><span data-ttu-id="a3dc3-300">\@bind</span><span class="sxs-lookup"><span data-stu-id="a3dc3-300">\@bind</span></span>
+### <a name="bind"></a><span data-ttu-id="99e0d-300">\@bind</span><span class="sxs-lookup"><span data-stu-id="99e0d-300">\@bind</span></span>
 
-<span data-ttu-id="a3dc3-301">"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。*"</span><span class="sxs-lookup"><span data-stu-id="a3dc3-301">*This scenario only applies to Razor components (.razor).*</span></span>
+<span data-ttu-id="99e0d-301">"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "</span><span class="sxs-lookup"><span data-stu-id="99e0d-301">*This scenario only applies to Razor components (.razor).*</span></span>
 
-<span data-ttu-id="a3dc3-302">コンポーネントのデータ バインドは、`@bind` 属性によって実現されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-302">Data binding in components is accomplished with the `@bind` attribute.</span></span> <span data-ttu-id="a3dc3-303">詳細については、<xref:blazor/components#data-binding> を参照してください。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-303">For more information, see <xref:blazor/components#data-binding>.</span></span>
+<span data-ttu-id="99e0d-302">コンポーネントのデータ バインドは、`@bind` 属性によって実現されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-302">Data binding in components is accomplished with the `@bind` attribute.</span></span> <span data-ttu-id="99e0d-303">詳細については、「<xref:blazor/components#data-binding>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="99e0d-303">For more information, see <xref:blazor/components#data-binding>.</span></span>
 
-### <a name="onevent"></a><span data-ttu-id="a3dc3-304">\@on{EVENT}</span><span class="sxs-lookup"><span data-stu-id="a3dc3-304">\@on{EVENT}</span></span>
+### <a name="onevent"></a><span data-ttu-id="99e0d-304">\@on{EVENT}</span><span class="sxs-lookup"><span data-stu-id="99e0d-304">\@on{EVENT}</span></span>
 
-<span data-ttu-id="a3dc3-305">"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。*"</span><span class="sxs-lookup"><span data-stu-id="a3dc3-305">*This scenario only applies to Razor components (.razor).*</span></span>
+<span data-ttu-id="99e0d-305">"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "</span><span class="sxs-lookup"><span data-stu-id="99e0d-305">*This scenario only applies to Razor components (.razor).*</span></span>
 
-<span data-ttu-id="a3dc3-306">Razor からは、コンポーネントのイベント処理機能が提供されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-306">Razor provides event handling features for components.</span></span> <span data-ttu-id="a3dc3-307">詳細については、<xref:blazor/components#event-handling> を参照してください。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-307">For more information, see <xref:blazor/components#event-handling>.</span></span>
+<span data-ttu-id="99e0d-306">Razor からは、コンポーネントのイベント処理機能が提供されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-306">Razor provides event handling features for components.</span></span> <span data-ttu-id="99e0d-307">詳細については、「<xref:blazor/components#event-handling>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="99e0d-307">For more information, see <xref:blazor/components#event-handling>.</span></span>
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-3.1"
 
-### <a name="oneventpreventdefault"></a><span data-ttu-id="a3dc3-308">\@on{EVENT}:preventDefault</span><span class="sxs-lookup"><span data-stu-id="a3dc3-308">\@on{EVENT}:preventDefault</span></span>
+### <a name="oneventpreventdefault"></a><span data-ttu-id="99e0d-308">\@on{EVENT}:preventDefault</span><span class="sxs-lookup"><span data-stu-id="99e0d-308">\@on{EVENT}:preventDefault</span></span>
 
-<span data-ttu-id="a3dc3-309">"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。*"</span><span class="sxs-lookup"><span data-stu-id="a3dc3-309">*This scenario only applies to Razor components (.razor).*</span></span>
+<span data-ttu-id="99e0d-309">"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "</span><span class="sxs-lookup"><span data-stu-id="99e0d-309">*This scenario only applies to Razor components (.razor).*</span></span>
 
-<span data-ttu-id="a3dc3-310">イベントの既定のアクションを禁止します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-310">Prevents the default action for the event.</span></span>
+<span data-ttu-id="99e0d-310">イベントの既定のアクションを禁止します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-310">Prevents the default action for the event.</span></span>
 
-### <a name="oneventstoppropagation"></a><span data-ttu-id="a3dc3-311">\@on{EVENT}:stopPropagation</span><span class="sxs-lookup"><span data-stu-id="a3dc3-311">\@on{EVENT}:stopPropagation</span></span>
+### <a name="oneventstoppropagation"></a><span data-ttu-id="99e0d-311">\@on{EVENT}:stopPropagation</span><span class="sxs-lookup"><span data-stu-id="99e0d-311">\@on{EVENT}:stopPropagation</span></span>
 
-<span data-ttu-id="a3dc3-312">"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。*"</span><span class="sxs-lookup"><span data-stu-id="a3dc3-312">*This scenario only applies to Razor components (.razor).*</span></span>
+<span data-ttu-id="99e0d-312">"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "</span><span class="sxs-lookup"><span data-stu-id="99e0d-312">*This scenario only applies to Razor components (.razor).*</span></span>
 
-<span data-ttu-id="a3dc3-313">イベントのイベント伝達を停止します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-313">Stops event propagation for the event.</span></span>
+<span data-ttu-id="99e0d-313">イベントのイベント伝達を停止します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-313">Stops event propagation for the event.</span></span>
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-3.0"
 
-### <a name="key"></a><span data-ttu-id="a3dc3-314">\@key</span><span class="sxs-lookup"><span data-stu-id="a3dc3-314">\@key</span></span>
+### <a name="key"></a><span data-ttu-id="99e0d-314">\@key</span><span class="sxs-lookup"><span data-stu-id="99e0d-314">\@key</span></span>
 
-<span data-ttu-id="a3dc3-315">"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。*"</span><span class="sxs-lookup"><span data-stu-id="a3dc3-315">*This scenario only applies to Razor components (.razor).*</span></span>
+<span data-ttu-id="99e0d-315">"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "</span><span class="sxs-lookup"><span data-stu-id="99e0d-315">*This scenario only applies to Razor components (.razor).*</span></span>
 
-<span data-ttu-id="a3dc3-316">`@key` ディレクティブ属性により、コンポーネントの比較アルゴリズムは、キーの値に基づいて要素またはコンポーネントの保存を保証します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-316">The `@key` directive attribute causes the components diffing algorithm to guarantee preservation of elements or components based on the key's value.</span></span> <span data-ttu-id="a3dc3-317">詳細については、<xref:blazor/components#use-key-to-control-the-preservation-of-elements-and-components> を参照してください。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-317">For more information, see <xref:blazor/components#use-key-to-control-the-preservation-of-elements-and-components>.</span></span>
+<span data-ttu-id="99e0d-316">`@key` ディレクティブ属性により、コンポーネントの比較アルゴリズムは、キーの値に基づいて要素またはコンポーネントの保存を保証します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-316">The `@key` directive attribute causes the components diffing algorithm to guarantee preservation of elements or components based on the key's value.</span></span> <span data-ttu-id="99e0d-317">詳細については、「<xref:blazor/components#use-key-to-control-the-preservation-of-elements-and-components>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="99e0d-317">For more information, see <xref:blazor/components#use-key-to-control-the-preservation-of-elements-and-components>.</span></span>
 
-### <a name="ref"></a><span data-ttu-id="a3dc3-318">\@ref</span><span class="sxs-lookup"><span data-stu-id="a3dc3-318">\@ref</span></span>
+### <a name="ref"></a><span data-ttu-id="99e0d-318">\@ref</span><span class="sxs-lookup"><span data-stu-id="99e0d-318">\@ref</span></span>
 
-<span data-ttu-id="a3dc3-319">"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。*"</span><span class="sxs-lookup"><span data-stu-id="a3dc3-319">*This scenario only applies to Razor components (.razor).*</span></span>
+<span data-ttu-id="99e0d-319">"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "</span><span class="sxs-lookup"><span data-stu-id="99e0d-319">*This scenario only applies to Razor components (.razor).*</span></span>
 
-<span data-ttu-id="a3dc3-320">コンポーネント参照 (`@ref`) からは、コンポーネント インスタンスにコマンドを発行できるように、そのインスタンスを参照する方法が与えられます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-320">Component references (`@ref`) provide a way to reference a component instance so that you can issue commands to that instance.</span></span> <span data-ttu-id="a3dc3-321">詳細については、<xref:blazor/components#capture-references-to-components> を参照してください。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-321">For more information, see <xref:blazor/components#capture-references-to-components>.</span></span>
+<span data-ttu-id="99e0d-320">コンポーネント参照 (`@ref`) からは、コンポーネント インスタンスにコマンドを発行できるように、そのインスタンスを参照する方法が与えられます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-320">Component references (`@ref`) provide a way to reference a component instance so that you can issue commands to that instance.</span></span> <span data-ttu-id="99e0d-321">詳細については、「<xref:blazor/components#capture-references-to-components>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="99e0d-321">For more information, see <xref:blazor/components#capture-references-to-components>.</span></span>
 
-### <a name="typeparam"></a><span data-ttu-id="a3dc3-322">\@typeparam</span><span class="sxs-lookup"><span data-stu-id="a3dc3-322">\@typeparam</span></span>
+### <a name="typeparam"></a><span data-ttu-id="99e0d-322">\@typeparam</span><span class="sxs-lookup"><span data-stu-id="99e0d-322">\@typeparam</span></span>
 
-<span data-ttu-id="a3dc3-323">"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。*"</span><span class="sxs-lookup"><span data-stu-id="a3dc3-323">*This scenario only applies to Razor components (.razor).*</span></span>
+<span data-ttu-id="99e0d-323">"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "</span><span class="sxs-lookup"><span data-stu-id="99e0d-323">*This scenario only applies to Razor components (.razor).*</span></span>
 
-<span data-ttu-id="a3dc3-324">`@typeparam` ディレクティブによって、生成されるコンポーネント クラスのジェネリック型パラメーターを宣言します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-324">The `@typeparam` directive declares a generic type parameter for the generated component class.</span></span> <span data-ttu-id="a3dc3-325">詳細については、<xref:blazor/components#generic-typed-components> を参照してください。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-325">For more information, see <xref:blazor/components#generic-typed-components>.</span></span>
+<span data-ttu-id="99e0d-324">`@typeparam` ディレクティブによって、生成されるコンポーネント クラスのジェネリック型パラメーターを宣言します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-324">The `@typeparam` directive declares a generic type parameter for the generated component class.</span></span> <span data-ttu-id="99e0d-325">詳細については、「<xref:blazor/components#generic-typed-components>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="99e0d-325">For more information, see <xref:blazor/components#generic-typed-components>.</span></span>
 
 ::: moniker-end
 
-## <a name="templated-razor-delegates"></a><span data-ttu-id="a3dc3-326">テンプレート化された Razor デリゲート</span><span class="sxs-lookup"><span data-stu-id="a3dc3-326">Templated Razor delegates</span></span>
+## <a name="templated-razor-delegates"></a><span data-ttu-id="99e0d-326">テンプレート化された Razor デリゲート</span><span class="sxs-lookup"><span data-stu-id="99e0d-326">Templated Razor delegates</span></span>
 
-<span data-ttu-id="a3dc3-327">Razor テンプレートを使用すると、次の形式で UI スニペットを定義できます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-327">Razor templates allow you to define a UI snippet with the following format:</span></span>
+<span data-ttu-id="99e0d-327">Razor テンプレートを使用すると、次の形式で UI スニペットを定義できます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-327">Razor templates allow you to define a UI snippet with the following format:</span></span>
 
 ```cshtml
 @<tag>...</tag>
 ```
 
-<span data-ttu-id="a3dc3-328">次の例では、テンプレート化された Razor デリゲートを <xref:System.Func%602> として指定する方法を示します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-328">The following example illustrates how to specify a templated Razor delegate as a <xref:System.Func%602>.</span></span> <span data-ttu-id="a3dc3-329">デリゲートによってカプセル化されるメソッドのパラメーターに対しては、[dynamic 型](/dotnet/csharp/programming-guide/types/using-type-dynamic)を指定します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-329">The [dynamic type](/dotnet/csharp/programming-guide/types/using-type-dynamic) is specified for the parameter of the method that the delegate encapsulates.</span></span> <span data-ttu-id="a3dc3-330">デリゲートの戻り値としては、[object 型](/dotnet/csharp/language-reference/keywords/object)を指定します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-330">An [object type](/dotnet/csharp/language-reference/keywords/object) is specified as the return value of the delegate.</span></span> <span data-ttu-id="a3dc3-331">テンプレートは、`Name` プロパティを持つ `Pet` の <xref:System.Collections.Generic.List%601> で使用されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-331">The template is used with a <xref:System.Collections.Generic.List%601> of `Pet` that has a `Name` property.</span></span>
+<span data-ttu-id="99e0d-328">次の例では、テンプレート化された Razor デリゲートを <xref:System.Func%602> として指定する方法を示します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-328">The following example illustrates how to specify a templated Razor delegate as a <xref:System.Func%602>.</span></span> <span data-ttu-id="99e0d-329">デリゲートによってカプセル化されるメソッドのパラメーターに対しては、[dynamic 型](/dotnet/csharp/programming-guide/types/using-type-dynamic)を指定します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-329">The [dynamic type](/dotnet/csharp/programming-guide/types/using-type-dynamic) is specified for the parameter of the method that the delegate encapsulates.</span></span> <span data-ttu-id="99e0d-330">デリゲートの戻り値としては、[object 型](/dotnet/csharp/language-reference/keywords/object)を指定します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-330">An [object type](/dotnet/csharp/language-reference/keywords/object) is specified as the return value of the delegate.</span></span> <span data-ttu-id="99e0d-331">テンプレートは、`Name` プロパティを持つ `Pet` の <xref:System.Collections.Generic.List%601> で使用されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-331">The template is used with a <xref:System.Collections.Generic.List%601> of `Pet` that has a `Name` property.</span></span>
 
 ```csharp
 public class Pet
@@ -797,7 +797,7 @@ public class Pet
 }
 ```
 
-<span data-ttu-id="a3dc3-332">テンプレートは、`foreach` ステートメントによって提供される `pets` で表示されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-332">The template is rendered with `pets` supplied by a `foreach` statement:</span></span>
+<span data-ttu-id="99e0d-332">テンプレートは、`foreach` ステートメントによって提供される `pets` で表示されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-332">The template is rendered with `pets` supplied by a `foreach` statement:</span></span>
 
 ```cshtml
 @foreach (var pet in pets)
@@ -806,7 +806,7 @@ public class Pet
 }
 ```
 
-<span data-ttu-id="a3dc3-333">表示される出力:</span><span class="sxs-lookup"><span data-stu-id="a3dc3-333">Rendered output:</span></span>
+<span data-ttu-id="99e0d-333">表示される出力:</span><span class="sxs-lookup"><span data-stu-id="99e0d-333">Rendered output:</span></span>
 
 ```html
 <p>You have a pet named <strong>Rin Tin Tin</strong>.</p>
@@ -814,7 +814,7 @@ public class Pet
 <p>You have a pet named <strong>K-9</strong>.</p>
 ```
 
-<span data-ttu-id="a3dc3-334">メソッドへの引数としてインライン Razor テンプレートを指定することもできます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-334">You can also supply an inline Razor template as an argument to a method.</span></span> <span data-ttu-id="a3dc3-335">次の例では、`Repeat` メソッドは Razor テンプレートを受け取ります。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-335">In the following example, the `Repeat` method receives a Razor template.</span></span> <span data-ttu-id="a3dc3-336">メソッドは、テンプレートを使用して、リストから提供される項目の繰り返しで HTML コンテンツを生成します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-336">The method uses the template to produce HTML content with repeats of items supplied from a list:</span></span>
+<span data-ttu-id="99e0d-334">メソッドへの引数としてインライン Razor テンプレートを指定することもできます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-334">You can also supply an inline Razor template as an argument to a method.</span></span> <span data-ttu-id="99e0d-335">次の例では、`Repeat` メソッドは Razor テンプレートを受け取ります。</span><span class="sxs-lookup"><span data-stu-id="99e0d-335">In the following example, the `Repeat` method receives a Razor template.</span></span> <span data-ttu-id="99e0d-336">メソッドは、テンプレートを使用して、リストから提供される項目の繰り返しで HTML コンテンツを生成します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-336">The method uses the template to produce HTML content with repeats of items supplied from a list:</span></span>
 
 ```cshtml
 @using Microsoft.AspNetCore.Html
@@ -838,11 +838,11 @@ public class Pet
 }
 ```
 
-<span data-ttu-id="a3dc3-337">前の例のペットのリストを使用して、次のように `Repeat` メソッドを呼び出します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-337">Using the list of pets from the prior example, the `Repeat` method is called with:</span></span>
+<span data-ttu-id="99e0d-337">前の例のペットのリストを使用して、次のように `Repeat` メソッドを呼び出します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-337">Using the list of pets from the prior example, the `Repeat` method is called with:</span></span>
 
-* <span data-ttu-id="a3dc3-338"><xref:System.Collections.Generic.List%601> の `Pet`。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-338"><xref:System.Collections.Generic.List%601> of `Pet`.</span></span>
-* <span data-ttu-id="a3dc3-339">各ペットを繰り返す回数。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-339">Number of times to repeat each pet.</span></span>
-* <span data-ttu-id="a3dc3-340">順不同のリストのリスト項目に対して使用するインライン テンプレート。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-340">Inline template to use for the list items of an unordered list.</span></span>
+* <span data-ttu-id="99e0d-338"><xref:System.Collections.Generic.List%601> の `Pet`。</span><span class="sxs-lookup"><span data-stu-id="99e0d-338"><xref:System.Collections.Generic.List%601> of `Pet`.</span></span>
+* <span data-ttu-id="99e0d-339">各ペットを繰り返す回数。</span><span class="sxs-lookup"><span data-stu-id="99e0d-339">Number of times to repeat each pet.</span></span>
+* <span data-ttu-id="99e0d-340">順不同のリストのリスト項目に対して使用するインライン テンプレート。</span><span class="sxs-lookup"><span data-stu-id="99e0d-340">Inline template to use for the list items of an unordered list.</span></span>
 
 ```cshtml
 <ul>
@@ -850,7 +850,7 @@ public class Pet
 </ul>
 ```
 
-<span data-ttu-id="a3dc3-341">表示される出力:</span><span class="sxs-lookup"><span data-stu-id="a3dc3-341">Rendered output:</span></span>
+<span data-ttu-id="99e0d-341">表示される出力:</span><span class="sxs-lookup"><span data-stu-id="99e0d-341">Rendered output:</span></span>
 
 ```html
 <ul>
@@ -866,125 +866,125 @@ public class Pet
 </ul>
 ```
 
-## <a name="tag-helpers"></a><span data-ttu-id="a3dc3-342">タグ ヘルパー</span><span class="sxs-lookup"><span data-stu-id="a3dc3-342">Tag Helpers</span></span>
+## <a name="tag-helpers"></a><span data-ttu-id="99e0d-342">タグ ヘルパー</span><span class="sxs-lookup"><span data-stu-id="99e0d-342">Tag Helpers</span></span>
 
-<span data-ttu-id="a3dc3-343">"*このシナリオは、MVC ビューと Razor Pages (.cshtml) にのみ適用されます。*"</span><span class="sxs-lookup"><span data-stu-id="a3dc3-343">*This scenario only applies to MVC views and Razor Pages (.cshtml).*</span></span>
+<span data-ttu-id="99e0d-343">"*このシナリオは、MVC ビューと Razor Pages (.cshtml) にのみ適用されます。* "</span><span class="sxs-lookup"><span data-stu-id="99e0d-343">*This scenario only applies to MVC views and Razor Pages (.cshtml).*</span></span>
 
-<span data-ttu-id="a3dc3-344">[タグ ヘルパー](xref:mvc/views/tag-helpers/intro)に関する 3 つのディレクティブがあります。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-344">There are three directives that pertain to [Tag Helpers](xref:mvc/views/tag-helpers/intro).</span></span>
+<span data-ttu-id="99e0d-344">[タグ ヘルパー](xref:mvc/views/tag-helpers/intro)に関する 3 つのディレクティブがあります。</span><span class="sxs-lookup"><span data-stu-id="99e0d-344">There are three directives that pertain to [Tag Helpers](xref:mvc/views/tag-helpers/intro).</span></span>
 
-| <span data-ttu-id="a3dc3-345">ディレクティブ</span><span class="sxs-lookup"><span data-stu-id="a3dc3-345">Directive</span></span> | <span data-ttu-id="a3dc3-346">関数</span><span class="sxs-lookup"><span data-stu-id="a3dc3-346">Function</span></span> |
+| <span data-ttu-id="99e0d-345">ディレクティブ</span><span class="sxs-lookup"><span data-stu-id="99e0d-345">Directive</span></span> | <span data-ttu-id="99e0d-346">関数</span><span class="sxs-lookup"><span data-stu-id="99e0d-346">Function</span></span> |
 | --------- | -------- |
-| [`@addTagHelper`](xref:mvc/views/tag-helpers/intro#add-helper-label) | <span data-ttu-id="a3dc3-347">ビューでタグ ヘルパーを使えるようにします。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-347">Makes Tag Helpers available to a view.</span></span> |
-| [`@removeTagHelper`](xref:mvc/views/tag-helpers/intro#remove-razor-directives-label) | <span data-ttu-id="a3dc3-348">前に追加したタグ ヘルパーをビューから削除します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-348">Removes Tag Helpers previously added from a view.</span></span> |
-| [`@tagHelperPrefix`](xref:mvc/views/tag-helpers/intro#prefix-razor-directives-label) | <span data-ttu-id="a3dc3-349">タグ プレフィックスを指定して、タグ ヘルパーのサポートを有効にしたり、タグ ヘルパーの使用を明示的にしたりします。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-349">Specifies a tag prefix to enable Tag Helper support and to make Tag Helper usage explicit.</span></span> |
+| [`@addTagHelper`](xref:mvc/views/tag-helpers/intro#add-helper-label) | <span data-ttu-id="99e0d-347">ビューでタグ ヘルパーを使えるようにします。</span><span class="sxs-lookup"><span data-stu-id="99e0d-347">Makes Tag Helpers available to a view.</span></span> |
+| [`@removeTagHelper`](xref:mvc/views/tag-helpers/intro#remove-razor-directives-label) | <span data-ttu-id="99e0d-348">前に追加したタグ ヘルパーをビューから削除します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-348">Removes Tag Helpers previously added from a view.</span></span> |
+| [`@tagHelperPrefix`](xref:mvc/views/tag-helpers/intro#prefix-razor-directives-label) | <span data-ttu-id="99e0d-349">タグ プレフィックスを指定して、タグ ヘルパーのサポートを有効にしたり、タグ ヘルパーの使用を明示的にしたりします。</span><span class="sxs-lookup"><span data-stu-id="99e0d-349">Specifies a tag prefix to enable Tag Helper support and to make Tag Helper usage explicit.</span></span> |
 
-## <a name="razor-reserved-keywords"></a><span data-ttu-id="a3dc3-350">Razor の予約済みキーワード</span><span class="sxs-lookup"><span data-stu-id="a3dc3-350">Razor reserved keywords</span></span>
+## <a name="razor-reserved-keywords"></a><span data-ttu-id="99e0d-350">Razor の予約済みキーワード</span><span class="sxs-lookup"><span data-stu-id="99e0d-350">Razor reserved keywords</span></span>
 
-### <a name="razor-keywords"></a><span data-ttu-id="a3dc3-351">Razor のキーワード</span><span class="sxs-lookup"><span data-stu-id="a3dc3-351">Razor keywords</span></span>
+### <a name="razor-keywords"></a><span data-ttu-id="99e0d-351">Razor のキーワード</span><span class="sxs-lookup"><span data-stu-id="99e0d-351">Razor keywords</span></span>
 
-* <span data-ttu-id="a3dc3-352">page (ASP.NET Core 2.1 以降を必要とします)</span><span class="sxs-lookup"><span data-stu-id="a3dc3-352">page (Requires ASP.NET Core 2.1 or later)</span></span>
-* <span data-ttu-id="a3dc3-353">namespace</span><span class="sxs-lookup"><span data-stu-id="a3dc3-353">namespace</span></span>
-* <span data-ttu-id="a3dc3-354">関数</span><span class="sxs-lookup"><span data-stu-id="a3dc3-354">functions</span></span>
-* <span data-ttu-id="a3dc3-355">継承</span><span class="sxs-lookup"><span data-stu-id="a3dc3-355">inherits</span></span>
-* <span data-ttu-id="a3dc3-356">モデル</span><span class="sxs-lookup"><span data-stu-id="a3dc3-356">model</span></span>
-* <span data-ttu-id="a3dc3-357">section</span><span class="sxs-lookup"><span data-stu-id="a3dc3-357">section</span></span>
-* <span data-ttu-id="a3dc3-358">helper (現在は ASP.NET Core ではサポートされていません)</span><span class="sxs-lookup"><span data-stu-id="a3dc3-358">helper (Not currently supported by ASP.NET Core)</span></span>
+* <span data-ttu-id="99e0d-352">page (ASP.NET Core 2.1 以降を必要とします)</span><span class="sxs-lookup"><span data-stu-id="99e0d-352">page (Requires ASP.NET Core 2.1 or later)</span></span>
+* <span data-ttu-id="99e0d-353">namespace</span><span class="sxs-lookup"><span data-stu-id="99e0d-353">namespace</span></span>
+* <span data-ttu-id="99e0d-354">関数</span><span class="sxs-lookup"><span data-stu-id="99e0d-354">functions</span></span>
+* <span data-ttu-id="99e0d-355">継承</span><span class="sxs-lookup"><span data-stu-id="99e0d-355">inherits</span></span>
+* <span data-ttu-id="99e0d-356">モデル</span><span class="sxs-lookup"><span data-stu-id="99e0d-356">model</span></span>
+* <span data-ttu-id="99e0d-357">section</span><span class="sxs-lookup"><span data-stu-id="99e0d-357">section</span></span>
+* <span data-ttu-id="99e0d-358">helper (現在は ASP.NET Core ではサポートされていません)</span><span class="sxs-lookup"><span data-stu-id="99e0d-358">helper (Not currently supported by ASP.NET Core)</span></span>
 
-<span data-ttu-id="a3dc3-359">Razor のキーワードは、`@(Razor Keyword)` でエスケープします (例: `@(functions)`)。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-359">Razor keywords are escaped with `@(Razor Keyword)` (for example, `@(functions)`).</span></span>
+<span data-ttu-id="99e0d-359">Razor のキーワードは、`@(Razor Keyword)` でエスケープします (例: `@(functions)`)。</span><span class="sxs-lookup"><span data-stu-id="99e0d-359">Razor keywords are escaped with `@(Razor Keyword)` (for example, `@(functions)`).</span></span>
 
-### <a name="c-razor-keywords"></a><span data-ttu-id="a3dc3-360">C# Razor のキーワード</span><span class="sxs-lookup"><span data-stu-id="a3dc3-360">C# Razor keywords</span></span>
+### <a name="c-razor-keywords"></a><span data-ttu-id="99e0d-360">C# Razor のキーワード</span><span class="sxs-lookup"><span data-stu-id="99e0d-360">C# Razor keywords</span></span>
 
-* <span data-ttu-id="a3dc3-361">case</span><span class="sxs-lookup"><span data-stu-id="a3dc3-361">case</span></span>
-* <span data-ttu-id="a3dc3-362">do</span><span class="sxs-lookup"><span data-stu-id="a3dc3-362">do</span></span>
-* <span data-ttu-id="a3dc3-363">default</span><span class="sxs-lookup"><span data-stu-id="a3dc3-363">default</span></span>
-* <span data-ttu-id="a3dc3-364">for</span><span class="sxs-lookup"><span data-stu-id="a3dc3-364">for</span></span>
-* <span data-ttu-id="a3dc3-365">foreach</span><span class="sxs-lookup"><span data-stu-id="a3dc3-365">foreach</span></span>
-* <span data-ttu-id="a3dc3-366">if</span><span class="sxs-lookup"><span data-stu-id="a3dc3-366">if</span></span>
-* <span data-ttu-id="a3dc3-367">else</span><span class="sxs-lookup"><span data-stu-id="a3dc3-367">else</span></span>
-* <span data-ttu-id="a3dc3-368">lock</span><span class="sxs-lookup"><span data-stu-id="a3dc3-368">lock</span></span>
-* <span data-ttu-id="a3dc3-369">switch</span><span class="sxs-lookup"><span data-stu-id="a3dc3-369">switch</span></span>
-* <span data-ttu-id="a3dc3-370">try</span><span class="sxs-lookup"><span data-stu-id="a3dc3-370">try</span></span>
-* <span data-ttu-id="a3dc3-371">catch</span><span class="sxs-lookup"><span data-stu-id="a3dc3-371">catch</span></span>
-* <span data-ttu-id="a3dc3-372">finally</span><span class="sxs-lookup"><span data-stu-id="a3dc3-372">finally</span></span>
-* <span data-ttu-id="a3dc3-373">使用</span><span class="sxs-lookup"><span data-stu-id="a3dc3-373">using</span></span>
-* <span data-ttu-id="a3dc3-374">while</span><span class="sxs-lookup"><span data-stu-id="a3dc3-374">while</span></span>
+* <span data-ttu-id="99e0d-361">case</span><span class="sxs-lookup"><span data-stu-id="99e0d-361">case</span></span>
+* <span data-ttu-id="99e0d-362">do</span><span class="sxs-lookup"><span data-stu-id="99e0d-362">do</span></span>
+* <span data-ttu-id="99e0d-363">default</span><span class="sxs-lookup"><span data-stu-id="99e0d-363">default</span></span>
+* <span data-ttu-id="99e0d-364">for</span><span class="sxs-lookup"><span data-stu-id="99e0d-364">for</span></span>
+* <span data-ttu-id="99e0d-365">foreach</span><span class="sxs-lookup"><span data-stu-id="99e0d-365">foreach</span></span>
+* <span data-ttu-id="99e0d-366">if</span><span class="sxs-lookup"><span data-stu-id="99e0d-366">if</span></span>
+* <span data-ttu-id="99e0d-367">else</span><span class="sxs-lookup"><span data-stu-id="99e0d-367">else</span></span>
+* <span data-ttu-id="99e0d-368">lock</span><span class="sxs-lookup"><span data-stu-id="99e0d-368">lock</span></span>
+* <span data-ttu-id="99e0d-369">switch</span><span class="sxs-lookup"><span data-stu-id="99e0d-369">switch</span></span>
+* <span data-ttu-id="99e0d-370">try</span><span class="sxs-lookup"><span data-stu-id="99e0d-370">try</span></span>
+* <span data-ttu-id="99e0d-371">catch</span><span class="sxs-lookup"><span data-stu-id="99e0d-371">catch</span></span>
+* <span data-ttu-id="99e0d-372">finally</span><span class="sxs-lookup"><span data-stu-id="99e0d-372">finally</span></span>
+* <span data-ttu-id="99e0d-373">使用</span><span class="sxs-lookup"><span data-stu-id="99e0d-373">using</span></span>
+* <span data-ttu-id="99e0d-374">while</span><span class="sxs-lookup"><span data-stu-id="99e0d-374">while</span></span>
 
-<span data-ttu-id="a3dc3-375">C# Razor のキーワードは、`@(@C# Razor Keyword)` で二重にエスケープする必要があります (例: `@(@case)`)。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-375">C# Razor keywords must be double-escaped with `@(@C# Razor Keyword)` (for example, `@(@case)`).</span></span> <span data-ttu-id="a3dc3-376">最初の `@` は、Razor パーサーをエスケープします。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-376">The first `@` escapes the Razor parser.</span></span> <span data-ttu-id="a3dc3-377">2 番目の `@` は、C# パーサーをエスケープします。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-377">The second `@` escapes the C# parser.</span></span>
+<span data-ttu-id="99e0d-375">C# Razor のキーワードは、`@(@C# Razor Keyword)` で二重にエスケープする必要があります (例: `@(@case)`)。</span><span class="sxs-lookup"><span data-stu-id="99e0d-375">C# Razor keywords must be double-escaped with `@(@C# Razor Keyword)` (for example, `@(@case)`).</span></span> <span data-ttu-id="99e0d-376">最初の `@` は、Razor パーサーをエスケープします。</span><span class="sxs-lookup"><span data-stu-id="99e0d-376">The first `@` escapes the Razor parser.</span></span> <span data-ttu-id="99e0d-377">2 番目の `@` は、C# パーサーをエスケープします。</span><span class="sxs-lookup"><span data-stu-id="99e0d-377">The second `@` escapes the C# parser.</span></span>
 
-### <a name="reserved-keywords-not-used-by-razor"></a><span data-ttu-id="a3dc3-378">Razor で使われない予約済みキーワード</span><span class="sxs-lookup"><span data-stu-id="a3dc3-378">Reserved keywords not used by Razor</span></span>
+### <a name="reserved-keywords-not-used-by-razor"></a><span data-ttu-id="99e0d-378">Razor で使われない予約済みキーワード</span><span class="sxs-lookup"><span data-stu-id="99e0d-378">Reserved keywords not used by Razor</span></span>
 
-* <span data-ttu-id="a3dc3-379">class</span><span class="sxs-lookup"><span data-stu-id="a3dc3-379">class</span></span>
+* <span data-ttu-id="99e0d-379">class</span><span class="sxs-lookup"><span data-stu-id="99e0d-379">class</span></span>
 
-## <a name="inspect-the-razor-c-class-generated-for-a-view"></a><span data-ttu-id="a3dc3-380">ビューに対して生成された Razor C# クラスを調べる</span><span class="sxs-lookup"><span data-stu-id="a3dc3-380">Inspect the Razor C# class generated for a view</span></span>
+## <a name="inspect-the-razor-c-class-generated-for-a-view"></a><span data-ttu-id="99e0d-380">ビューに対して生成された Razor C# クラスを調べる</span><span class="sxs-lookup"><span data-stu-id="99e0d-380">Inspect the Razor C# class generated for a view</span></span>
 
 ::: moniker range=">= aspnetcore-2.1"
 
-<span data-ttu-id="a3dc3-381">.NET Core SDK 2.1 以降、[Razor SDK](xref:razor-pages/sdk) は Razor ファイルのコンパイルを処理します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-381">With .NET Core SDK 2.1 or later, the [Razor SDK](xref:razor-pages/sdk) handles compilation of Razor files.</span></span> <span data-ttu-id="a3dc3-382">プロジェクトを作成する際に、Razor SDK はプロジェクト ルートに *obj/<build_configuration>/<target_framework_moniker>/Razor* ディレクトリを生成します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-382">When building a project, the Razor SDK generates an *obj/<build_configuration>/<target_framework_moniker>/Razor* directory in the project root.</span></span> <span data-ttu-id="a3dc3-383">*Razor* ディレクトリ内のディレクトリ構造は、プロジェクトのディレクトリ構造をミラー化します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-383">The directory structure within the *Razor* directory mirrors the project's directory structure.</span></span>
+<span data-ttu-id="99e0d-381">.NET Core SDK 2.1 以降、[Razor SDK](xref:razor-pages/sdk) は Razor ファイルのコンパイルを処理します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-381">With .NET Core SDK 2.1 or later, the [Razor SDK](xref:razor-pages/sdk) handles compilation of Razor files.</span></span> <span data-ttu-id="99e0d-382">プロジェクトを作成する際に、Razor SDK はプロジェクト ルートに *obj/<build_configuration>/<target_framework_moniker>/Razor* ディレクトリを生成します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-382">When building a project, the Razor SDK generates an *obj/<build_configuration>/<target_framework_moniker>/Razor* directory in the project root.</span></span> <span data-ttu-id="99e0d-383">*Razor* ディレクトリ内のディレクトリ構造は、プロジェクトのディレクトリ構造をミラー化します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-383">The directory structure within the *Razor* directory mirrors the project's directory structure.</span></span>
 
-<span data-ttu-id="a3dc3-384">.NET Core 2.1 をターゲットとする ASP.NET Core 2.1 Razor Pages プロジェクト内の次のディレクトリ構造を考えてみましょう。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-384">Consider the following directory structure in an ASP.NET Core 2.1 Razor Pages project targeting .NET Core 2.1:</span></span>
+<span data-ttu-id="99e0d-384">.NET Core 2.1 をターゲットとする ASP.NET Core 2.1 Razor Pages プロジェクト内の次のディレクトリ構造を考えてみましょう。</span><span class="sxs-lookup"><span data-stu-id="99e0d-384">Consider the following directory structure in an ASP.NET Core 2.1 Razor Pages project targeting .NET Core 2.1:</span></span>
 
-* <span data-ttu-id="a3dc3-385">**Areas/**</span><span class="sxs-lookup"><span data-stu-id="a3dc3-385">**Areas/**</span></span>
-  * <span data-ttu-id="a3dc3-386">**Admin/**</span><span class="sxs-lookup"><span data-stu-id="a3dc3-386">**Admin/**</span></span>
-    * <span data-ttu-id="a3dc3-387">**Pages/**</span><span class="sxs-lookup"><span data-stu-id="a3dc3-387">**Pages/**</span></span>
-      * <span data-ttu-id="a3dc3-388">*Index.cshtml*</span><span class="sxs-lookup"><span data-stu-id="a3dc3-388">*Index.cshtml*</span></span>
-      * <span data-ttu-id="a3dc3-389">*Index.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="a3dc3-389">*Index.cshtml.cs*</span></span>
-* <span data-ttu-id="a3dc3-390">**Pages/**</span><span class="sxs-lookup"><span data-stu-id="a3dc3-390">**Pages/**</span></span>
-  * <span data-ttu-id="a3dc3-391">**Shared/**</span><span class="sxs-lookup"><span data-stu-id="a3dc3-391">**Shared/**</span></span>
-    * <span data-ttu-id="a3dc3-392">*_Layout.cshtml*</span><span class="sxs-lookup"><span data-stu-id="a3dc3-392">*_Layout.cshtml*</span></span>
-  * <span data-ttu-id="a3dc3-393">*_ViewImports.cshtml*</span><span class="sxs-lookup"><span data-stu-id="a3dc3-393">*_ViewImports.cshtml*</span></span>
-  * <span data-ttu-id="a3dc3-394">*_ViewStart.cshtml*</span><span class="sxs-lookup"><span data-stu-id="a3dc3-394">*_ViewStart.cshtml*</span></span>
-  * <span data-ttu-id="a3dc3-395">*Index.cshtml*</span><span class="sxs-lookup"><span data-stu-id="a3dc3-395">*Index.cshtml*</span></span>
-  * <span data-ttu-id="a3dc3-396">*Index.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="a3dc3-396">*Index.cshtml.cs*</span></span>
+* <span data-ttu-id="99e0d-385">**Areas/**</span><span class="sxs-lookup"><span data-stu-id="99e0d-385">**Areas/**</span></span>
+  * <span data-ttu-id="99e0d-386">**Admin/**</span><span class="sxs-lookup"><span data-stu-id="99e0d-386">**Admin/**</span></span>
+    * <span data-ttu-id="99e0d-387">**Pages/**</span><span class="sxs-lookup"><span data-stu-id="99e0d-387">**Pages/**</span></span>
+      * <span data-ttu-id="99e0d-388">*Index.cshtml*</span><span class="sxs-lookup"><span data-stu-id="99e0d-388">*Index.cshtml*</span></span>
+      * <span data-ttu-id="99e0d-389">*Index.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="99e0d-389">*Index.cshtml.cs*</span></span>
+* <span data-ttu-id="99e0d-390">**Pages/**</span><span class="sxs-lookup"><span data-stu-id="99e0d-390">**Pages/**</span></span>
+  * <span data-ttu-id="99e0d-391">**Shared/**</span><span class="sxs-lookup"><span data-stu-id="99e0d-391">**Shared/**</span></span>
+    * <span data-ttu-id="99e0d-392">*_Layout.cshtml*</span><span class="sxs-lookup"><span data-stu-id="99e0d-392">*_Layout.cshtml*</span></span>
+  * <span data-ttu-id="99e0d-393">*_ViewImports.cshtml*</span><span class="sxs-lookup"><span data-stu-id="99e0d-393">*_ViewImports.cshtml*</span></span>
+  * <span data-ttu-id="99e0d-394">*_ViewStart.cshtml*</span><span class="sxs-lookup"><span data-stu-id="99e0d-394">*_ViewStart.cshtml*</span></span>
+  * <span data-ttu-id="99e0d-395">*Index.cshtml*</span><span class="sxs-lookup"><span data-stu-id="99e0d-395">*Index.cshtml*</span></span>
+  * <span data-ttu-id="99e0d-396">*Index.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="99e0d-396">*Index.cshtml.cs*</span></span>
 
-<span data-ttu-id="a3dc3-397">*Debug* 構成でプロジェクトを作成すると、次の *obj* ディレクトリが生成されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-397">Building the project in *Debug* configuration yields the following *obj* directory:</span></span>
+<span data-ttu-id="99e0d-397">*Debug* 構成でプロジェクトを作成すると、次の *obj* ディレクトリが生成されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-397">Building the project in *Debug* configuration yields the following *obj* directory:</span></span>
 
-* <span data-ttu-id="a3dc3-398">**obj/**</span><span class="sxs-lookup"><span data-stu-id="a3dc3-398">**obj/**</span></span>
-  * <span data-ttu-id="a3dc3-399">**Debug/**</span><span class="sxs-lookup"><span data-stu-id="a3dc3-399">**Debug/**</span></span>
-    * <span data-ttu-id="a3dc3-400">**netcoreapp2.1/**</span><span class="sxs-lookup"><span data-stu-id="a3dc3-400">**netcoreapp2.1/**</span></span>
-      * <span data-ttu-id="a3dc3-401">**Razor/**</span><span class="sxs-lookup"><span data-stu-id="a3dc3-401">**Razor/**</span></span>
-        * <span data-ttu-id="a3dc3-402">**Areas/**</span><span class="sxs-lookup"><span data-stu-id="a3dc3-402">**Areas/**</span></span>
-          * <span data-ttu-id="a3dc3-403">**Admin/**</span><span class="sxs-lookup"><span data-stu-id="a3dc3-403">**Admin/**</span></span>
-            * <span data-ttu-id="a3dc3-404">**Pages/**</span><span class="sxs-lookup"><span data-stu-id="a3dc3-404">**Pages/**</span></span>
-              * <span data-ttu-id="a3dc3-405">*Index.g.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="a3dc3-405">*Index.g.cshtml.cs*</span></span>
-        * <span data-ttu-id="a3dc3-406">**Pages/**</span><span class="sxs-lookup"><span data-stu-id="a3dc3-406">**Pages/**</span></span>
-          * <span data-ttu-id="a3dc3-407">**Shared/**</span><span class="sxs-lookup"><span data-stu-id="a3dc3-407">**Shared/**</span></span>
-            * <span data-ttu-id="a3dc3-408">*_Layout.g.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="a3dc3-408">*_Layout.g.cshtml.cs*</span></span>
-          * <span data-ttu-id="a3dc3-409">*_ViewImports.g.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="a3dc3-409">*_ViewImports.g.cshtml.cs*</span></span>
-          * <span data-ttu-id="a3dc3-410">*_ViewStart.g.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="a3dc3-410">*_ViewStart.g.cshtml.cs*</span></span>
-          * <span data-ttu-id="a3dc3-411">*Index.g.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="a3dc3-411">*Index.g.cshtml.cs*</span></span>
+* <span data-ttu-id="99e0d-398">**obj/**</span><span class="sxs-lookup"><span data-stu-id="99e0d-398">**obj/**</span></span>
+  * <span data-ttu-id="99e0d-399">**Debug/**</span><span class="sxs-lookup"><span data-stu-id="99e0d-399">**Debug/**</span></span>
+    * <span data-ttu-id="99e0d-400">**netcoreapp2.1/**</span><span class="sxs-lookup"><span data-stu-id="99e0d-400">**netcoreapp2.1/**</span></span>
+      * <span data-ttu-id="99e0d-401">**Razor/**</span><span class="sxs-lookup"><span data-stu-id="99e0d-401">**Razor/**</span></span>
+        * <span data-ttu-id="99e0d-402">**Areas/**</span><span class="sxs-lookup"><span data-stu-id="99e0d-402">**Areas/**</span></span>
+          * <span data-ttu-id="99e0d-403">**Admin/**</span><span class="sxs-lookup"><span data-stu-id="99e0d-403">**Admin/**</span></span>
+            * <span data-ttu-id="99e0d-404">**Pages/**</span><span class="sxs-lookup"><span data-stu-id="99e0d-404">**Pages/**</span></span>
+              * <span data-ttu-id="99e0d-405">*Index.g.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="99e0d-405">*Index.g.cshtml.cs*</span></span>
+        * <span data-ttu-id="99e0d-406">**Pages/**</span><span class="sxs-lookup"><span data-stu-id="99e0d-406">**Pages/**</span></span>
+          * <span data-ttu-id="99e0d-407">**Shared/**</span><span class="sxs-lookup"><span data-stu-id="99e0d-407">**Shared/**</span></span>
+            * <span data-ttu-id="99e0d-408">*_Layout.g.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="99e0d-408">*_Layout.g.cshtml.cs*</span></span>
+          * <span data-ttu-id="99e0d-409">*_ViewImports.g.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="99e0d-409">*_ViewImports.g.cshtml.cs*</span></span>
+          * <span data-ttu-id="99e0d-410">*_ViewStart.g.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="99e0d-410">*_ViewStart.g.cshtml.cs*</span></span>
+          * <span data-ttu-id="99e0d-411">*Index.g.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="99e0d-411">*Index.g.cshtml.cs*</span></span>
 
-<span data-ttu-id="a3dc3-412">*Pages/Index.cshtml* に対して生成されたクラスを表示するには、*obj/Debug/netcoreapp2.1/Razor/Pages/Index.g.cshtml.cs* を開きます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-412">To view the generated class for *Pages/Index.cshtml*, open *obj/Debug/netcoreapp2.1/Razor/Pages/Index.g.cshtml.cs*.</span></span>
+<span data-ttu-id="99e0d-412">*Pages/Index.cshtml* に対して生成されたクラスを表示するには、*obj/Debug/netcoreapp2.1/Razor/Pages/Index.g.cshtml.cs* を開きます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-412">To view the generated class for *Pages/Index.cshtml*, open *obj/Debug/netcoreapp2.1/Razor/Pages/Index.g.cshtml.cs*.</span></span>
 
 ::: moniker-end
 
 ::: moniker range="<= aspnetcore-2.0"
 
-<span data-ttu-id="a3dc3-413">次のクラスを ASP.NET Core MVC プロジェクトに追加します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-413">Add the following class to the ASP.NET Core MVC project:</span></span>
+<span data-ttu-id="99e0d-413">次のクラスを ASP.NET Core MVC プロジェクトに追加します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-413">Add the following class to the ASP.NET Core MVC project:</span></span>
 
 [!code-csharp[](razor/sample/Utilities/CustomTemplateEngine.cs)]
 
-<span data-ttu-id="a3dc3-414">`Startup.ConfigureServices` で、MVC によって追加された `RazorTemplateEngine` を `CustomTemplateEngine` クラスでオーバーライドします。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-414">In `Startup.ConfigureServices`, override the `RazorTemplateEngine` added by MVC with the `CustomTemplateEngine` class:</span></span>
+<span data-ttu-id="99e0d-414">`Startup.ConfigureServices` で、MVC によって追加された `RazorTemplateEngine` を `CustomTemplateEngine` クラスでオーバーライドします。</span><span class="sxs-lookup"><span data-stu-id="99e0d-414">In `Startup.ConfigureServices`, override the `RazorTemplateEngine` added by MVC with the `CustomTemplateEngine` class:</span></span>
 
 [!code-csharp[](razor/sample/Startup.cs?highlight=4&range=10-14)]
 
-<span data-ttu-id="a3dc3-415">`CustomTemplateEngine` の `return csharpDocument;` ステートメントにブレークポイントを設定します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-415">Set a breakpoint on the `return csharpDocument;` statement of `CustomTemplateEngine`.</span></span> <span data-ttu-id="a3dc3-416">プログラムの実行がブレークポイントで停止したら、`generatedCode` の値を表示します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-416">When program execution stops at the breakpoint, view the value of `generatedCode`.</span></span>
+<span data-ttu-id="99e0d-415">`CustomTemplateEngine` の `return csharpDocument;` ステートメントにブレークポイントを設定します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-415">Set a breakpoint on the `return csharpDocument;` statement of `CustomTemplateEngine`.</span></span> <span data-ttu-id="99e0d-416">プログラムの実行がブレークポイントで停止したら、`generatedCode` の値を表示します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-416">When program execution stops at the breakpoint, view the value of `generatedCode`.</span></span>
 
 ![generatedCode のテキスト ビジュアライザーの表示](razor/_static/tvr.png)
 
 ::: moniker-end
 
-## <a name="view-lookups-and-case-sensitivity"></a><span data-ttu-id="a3dc3-418">ビューの参照と大文字/小文字の区別</span><span class="sxs-lookup"><span data-stu-id="a3dc3-418">View lookups and case sensitivity</span></span>
+## <a name="view-lookups-and-case-sensitivity"></a><span data-ttu-id="99e0d-418">ビューの参照と大文字/小文字の区別</span><span class="sxs-lookup"><span data-stu-id="99e0d-418">View lookups and case sensitivity</span></span>
 
-<span data-ttu-id="a3dc3-419">Razor ビュー エンジンによるビューの参照では、大文字と小文字が区別されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-419">The Razor view engine performs case-sensitive lookups for views.</span></span> <span data-ttu-id="a3dc3-420">ただし、実際の参照は、基になるファイル システムによって決定されます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-420">However, the actual lookup is determined by the underlying file system:</span></span>
+<span data-ttu-id="99e0d-419">Razor ビュー エンジンによるビューの参照では、大文字と小文字が区別されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-419">The Razor view engine performs case-sensitive lookups for views.</span></span> <span data-ttu-id="99e0d-420">ただし、実際の参照は、基になるファイル システムによって決定されます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-420">However, the actual lookup is determined by the underlying file system:</span></span>
 
-* <span data-ttu-id="a3dc3-421">ファイル ベースのソース:</span><span class="sxs-lookup"><span data-stu-id="a3dc3-421">File based source:</span></span>
-  * <span data-ttu-id="a3dc3-422">大文字と小文字が区別されないファイル システムを使っているオペレーティング システム (Windows など) では、物理的なファイル プロバイダーの参照は大文字と小文字を区別しません。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-422">On operating systems with case insensitive file systems (for example, Windows), physical file provider lookups are case insensitive.</span></span> <span data-ttu-id="a3dc3-423">たとえば、`return View("Test")` は、*/Views/Home/Test.cshtml*、*/Views/home/test.cshtml*、その他のすべての大文字と小文字のバリエーションと一致します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-423">For example, `return View("Test")` results in matches for */Views/Home/Test.cshtml*, */Views/home/test.cshtml*, and any other casing variant.</span></span>
-  * <span data-ttu-id="a3dc3-424">大文字と小文字が区別されるファイル システム (たとえば、Linux、OSX、および `EmbeddedFileProvider`) では、参照は大文字と小文字を区別します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-424">On case-sensitive file systems (for example, Linux, OSX, and with `EmbeddedFileProvider`), lookups are case-sensitive.</span></span> <span data-ttu-id="a3dc3-425">たとえば、`return View("Test")` は */Views/Home/Test.cshtml* だけと一致します。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-425">For example, `return View("Test")` specifically matches */Views/Home/Test.cshtml*.</span></span>
-* <span data-ttu-id="a3dc3-426">プリコンパイル済みのビュー:ASP.NET Core 2.0 以降では、プリコンパイル済みのビューの参照は、すべてのオペレーティング システムで大文字と小文字を区別しません。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-426">Precompiled views: With ASP.NET Core 2.0 and later, looking up precompiled views is case insensitive on all operating systems.</span></span> <span data-ttu-id="a3dc3-427">動作は、Windows での物理ファイル プロバイダーの動作と同じです。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-427">The behavior is identical to physical file provider's behavior on Windows.</span></span> <span data-ttu-id="a3dc3-428">2 つのプリコンパイル済みビューの相違点が大文字と小文字の使い分けだけの場合、参照の結果はどちらになるかわかりません。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-428">If two precompiled views differ only in case, the result of lookup is non-deterministic.</span></span>
+* <span data-ttu-id="99e0d-421">ファイル ベースのソース:</span><span class="sxs-lookup"><span data-stu-id="99e0d-421">File based source:</span></span>
+  * <span data-ttu-id="99e0d-422">大文字と小文字が区別されないファイル システムを使っているオペレーティング システム (Windows など) では、物理的なファイル プロバイダーの参照は大文字と小文字を区別しません。</span><span class="sxs-lookup"><span data-stu-id="99e0d-422">On operating systems with case insensitive file systems (for example, Windows), physical file provider lookups are case insensitive.</span></span> <span data-ttu-id="99e0d-423">たとえば、`return View("Test")` は、 */Views/Home/Test.cshtml*、 */Views/home/test.cshtml*、その他のすべての大文字と小文字のバリエーションと一致します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-423">For example, `return View("Test")` results in matches for */Views/Home/Test.cshtml*, */Views/home/test.cshtml*, and any other casing variant.</span></span>
+  * <span data-ttu-id="99e0d-424">大文字と小文字が区別されるファイル システム (たとえば、Linux、OSX、および `EmbeddedFileProvider`) では、参照は大文字と小文字を区別します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-424">On case-sensitive file systems (for example, Linux, OSX, and with `EmbeddedFileProvider`), lookups are case-sensitive.</span></span> <span data-ttu-id="99e0d-425">たとえば、`return View("Test")` は */Views/Home/Test.cshtml* だけと一致します。</span><span class="sxs-lookup"><span data-stu-id="99e0d-425">For example, `return View("Test")` specifically matches */Views/Home/Test.cshtml*.</span></span>
+* <span data-ttu-id="99e0d-426">プリコンパイル済みのビュー:ASP.NET Core 2.0 以降では、プリコンパイル済みのビューの参照は、すべてのオペレーティング システムで大文字と小文字を区別しません。</span><span class="sxs-lookup"><span data-stu-id="99e0d-426">Precompiled views: With ASP.NET Core 2.0 and later, looking up precompiled views is case insensitive on all operating systems.</span></span> <span data-ttu-id="99e0d-427">動作は、Windows での物理ファイル プロバイダーの動作と同じです。</span><span class="sxs-lookup"><span data-stu-id="99e0d-427">The behavior is identical to physical file provider's behavior on Windows.</span></span> <span data-ttu-id="99e0d-428">2 つのプリコンパイル済みビューの相違点が大文字と小文字の使い分けだけの場合、参照の結果はどちらになるかわかりません。</span><span class="sxs-lookup"><span data-stu-id="99e0d-428">If two precompiled views differ only in case, the result of lookup is non-deterministic.</span></span>
 
-<span data-ttu-id="a3dc3-429">開発者には、ファイル名とディレクトリ名の大文字/小文字の使い分けを、次のものと一致させることをお勧めします。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-429">Developers are encouraged to match the casing of file and directory names to the casing of:</span></span>
+<span data-ttu-id="99e0d-429">開発者には、ファイル名とディレクトリ名の大文字/小文字の使い分けを、次のものと一致させることをお勧めします。</span><span class="sxs-lookup"><span data-stu-id="99e0d-429">Developers are encouraged to match the casing of file and directory names to the casing of:</span></span>
 
-* <span data-ttu-id="a3dc3-430">領域、コントローラー、アクションの名前。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-430">Area, controller, and action names.</span></span>
-* <span data-ttu-id="a3dc3-431">Razor ページ。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-431">Razor Pages.</span></span>
+* <span data-ttu-id="99e0d-430">領域、コントローラー、アクションの名前。</span><span class="sxs-lookup"><span data-stu-id="99e0d-430">Area, controller, and action names.</span></span>
+* <span data-ttu-id="99e0d-431">Razor ページ。</span><span class="sxs-lookup"><span data-stu-id="99e0d-431">Razor Pages.</span></span>
 
-<span data-ttu-id="a3dc3-432">大文字と小文字の使い分けを一致させると、展開は基になっているファイル システムに関係なくビューを検索できます。</span><span class="sxs-lookup"><span data-stu-id="a3dc3-432">Matching case ensures the deployments find their views regardless of the underlying file system.</span></span>
+<span data-ttu-id="99e0d-432">大文字と小文字の使い分けを一致させると、展開は基になっているファイル システムに関係なくビューを検索できます。</span><span class="sxs-lookup"><span data-stu-id="99e0d-432">Matching case ensures the deployments find their views regardless of the underlying file system.</span></span>
