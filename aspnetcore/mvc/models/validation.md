@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/15/2019
 uid: mvc/models/validation
-ms.openlocfilehash: b697f02183c76b9a96471a748a86c144fde47bb0
-ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
+ms.openlocfilehash: a39eeead10849d11349688c42fe814ede9e8a847
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/18/2020
-ms.locfileid: "76268749"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77172500"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>ASP.NET Core MVC および Razor Pages でのモデルの検証
 
@@ -84,7 +84,9 @@ Web API コントローラーでは、`[ApiController]` 属性が設定されて
 
 .NET Core 3.0 以降の検証システムでは null 非許容型のパラメーターまたはバインド プロパティは `[Required]` 属性を持つものとして処理されます。 `decimal` や `int` などの[値の型](/dotnet/csharp/language-reference/keywords/value-types)は null 非許容型です。 `Startup.ConfigureServices` で <xref:Microsoft.AspNetCore.Mvc.MvcOptions.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes> を次のように構成することで、この動作を無効にできます。
 
-``csharp services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true); ...
+```csharp
+services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
+```
 
 ### <a name="required-validation-on-the-server"></a>サーバーでの [Required] の検証
 
@@ -144,7 +146,7 @@ Web API コントローラーでは、`[ApiController]` 属性が設定されて
 
 複数の追加フィールドを検証するには、それらをコンマ区切りのリストとして提供します。 たとえば、`MiddleName` プロパティをモデルに追加するには、`[Remote]` 属性を次の例のように設定します。
 
-```cs
+```csharp
 [Remote(action: "VerifyName", controller: "Users", AdditionalFields = nameof(FirstName) + "," + nameof(LastName))]
 public string MiddleName { get; set; }
 ```
@@ -269,7 +271,7 @@ HTML 出力の `data-` 属性が、`Movie.ReleaseDate` プロパティの検証�
 
 ページが初めて読み込まれるときに、jQuery Unobtrusive Validation によって検証ロジックとパラメーターが jQuery Validate に渡されます。 したがって、動的に生成されるフォームでは、検証は自動的には機能しません。 検証を有効にするには、作成直後に動的フォームを解析するよう、jQuery Unobtrusive Validation に指示します。 たとえば、次のコードでは、AJAX によって追加されるフォームでクライアント側検証が設定されます。
 
-```js
+```javascript
 $.get({
     url: "https://url/that/returns/a/form",
     dataType: "html",
@@ -292,7 +294,7 @@ $.get({
 
 `$.validator.unobtrusive.parse()` メソッドは、`<input>` や `<select/>` などの動的に生成される個々のコントロールではなく、フォーム全体に対して動作します。 フォームを再解析するには、次の例に示すように、フォームが前に解析されたときに追加された検証データを削除します。
 
-```js
+```javascript
 $.get({
     url: "https://url/that/returns/a/control",
     dataType: "html",
@@ -510,7 +512,7 @@ Web API コントローラーでは、`[ApiController]` 属性が設定されて
 
 複数の追加フィールドを検証するには、それらをコンマ区切りのリストとして提供します。 たとえば、`MiddleName` プロパティをモデルに追加するには、`[Remote]` 属性を次の例のように設定します。
 
-```cs
+```csharp
 [Remote(action: "VerifyName", controller: "Users", AdditionalFields = nameof(FirstName) + "," + nameof(LastName))]
 public string MiddleName { get; set; }
 ```
@@ -640,7 +642,7 @@ HTML 出力の `data-` 属性が、`ReleaseDate` プロパティの検証属性�
 
 ページが初めて読み込まれるときに、jQuery Unobtrusive Validation によって検証ロジックとパラメーターが jQuery Validate に渡されます。 したがって、動的に生成されるフォームでは、検証は自動的には機能しません。 検証を有効にするには、作成直後に動的フォームを解析するよう、jQuery Unobtrusive Validation に指示します。 たとえば、次のコードでは、AJAX によって追加されるフォームでクライアント側検証が設定されます。
 
-```js
+```javascript
 $.get({
     url: "https://url/that/returns/a/form",
     dataType: "html",
@@ -663,7 +665,7 @@ $.get({
 
 `$.validator.unobtrusive.parse()` メソッドは、`<input>` や `<select/>` などの動的に生成される個々のコントロールではなく、フォーム全体に対して動作します。 フォームを再解析するには、次の例に示すように、フォームが前に解析されたときに追加された検証データを削除します。
 
-```js
+```javascript
 $.get({
     url: "https://url/that/returns/a/control",
     dataType: "html",

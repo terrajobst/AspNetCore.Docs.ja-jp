@@ -5,12 +5,12 @@ description: ASP.NET Core MVC が、モデル ビュー コントローラー �
 ms.author: riande
 ms.date: 01/28/2020
 uid: mvc/overview
-ms.openlocfilehash: a147c2aa01f1440f8ac59f73eb7be734193f802a
-ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
+ms.openlocfilehash: a0d1e364bf4cda4ad30c5070c9e61e6972759bb0
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/29/2020
-ms.locfileid: "76869972"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77171821"
 ---
 # <a name="overview-of-aspnet-core-mvc"></a>ASP.NET Core MVC の概要
 
@@ -258,5 +258,5 @@ MVC の Razor ビューは、モデルを基にして厳密に型指定できま
 ## <a name="additional-resources"></a>その他の技術情報
 
 * [MyTested.AspNetCore.Mvc - ASP.NET Core MVC 用の Fluent テスト ライブラリ](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) &ndash; MVC と Web API アプリをテストするための fluent インターフェイスを提供する厳密に型指定された単体テスト ライブラリ。 ("*Microsoft では保守管理もサポートも行っていません。* ")
-* [Razor コンポーネントを Razor Pages と MVC アプリに統合する](xref:blazor/hosting-models#integrate-razor-components-into-razor-pages-and-mvc-apps)
+* [Razor コンポーネントを Razor Pages と MVC アプリに統合する](xref:blazor/hosting-model-configuration#integrate-razor-components-into-razor-pages-and-mvc-apps)
 

@@ -5,18 +5,18 @@ description: Web ページにサーバー ベースのコードを埋め込む�
 ms.author: riande
 ms.date: 12/05/2019
 uid: mvc/views/razor
-ms.openlocfilehash: baac0ac38a0781cb9c16689cf3e29526b602d8da
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: 2d47fbc33328ab454616bcabab796df089686d79
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944253"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77171862"
 ---
 # <a name="razor-syntax-reference-for-aspnet-core"></a>ASP.NET Core の Razor 構文リファレンス
 
 作成者: [Rick Anderson](https://twitter.com/RickAndMSFT)、[Luke Latham](https://github.com/guardrex)、[Taylor Mullen](https://twitter.com/ntaylormullen)、[Dan Vicarel](https://github.com/Rabadash8820)
 
-Razor は、Web ページにサーバー ベースのコードを埋め込むためのマークアップ構文です。 Razor 構文は、Razor マークアップ、C#、HTML で構成されます。 通常、Razor を含むファイルのファイル拡張子は *.cshtml* です。 Razor は [Razor コンポーネント](xref:blazor/components) ファイル (*.razor*) にもあります。
+Razor は、Web ページにサーバー ベースのコードを埋め込むためのマークアップ構文です。 Razor 構文は、Razor マークアップ、C#、HTML で構成されます。 通常、Razor を含むファイルのファイル拡張子は *.cshtml* です。 Razor は [Razor コンポーネント](xref:blazor/components) ファイル ( *.razor*) にもあります。
 
 ## <a name="rendering-html"></a>HTML のレンダリング
 
@@ -128,7 +128,7 @@ C# の `await` キーワードを除き、暗黙的な式にスペースを含�
 
 HTML はブラウザーで次のように表示されます。
 
-```
+```html
 <span>Hello World</span>
 ```
 
@@ -457,7 +457,7 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 
 ### <a name="code"></a>\@code
 
-"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。*"
+"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "
 
 `@code` ブロックにより、[Razor コンポーネント](xref:blazor/components)では、C# メンバー (フィールド、プロパティ、メソッド) をコンポーネントに追加できます。
 
@@ -599,15 +599,15 @@ Razor コンポーネントの場合、`@code` は [`@functions`](#functions) �
 
 ### <a name="layout"></a>\@layout
 
-"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。*"
+"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "
 
-`@layout` ディレクティブにより、Razor コンポーネントのレイアウトが指定されます。 レイアウト コンポーネントは、コードの重複や不整合を回避するために使用されます。 詳細については、<xref:blazor/layouts> を参照してください。
+`@layout` ディレクティブにより、Razor コンポーネントのレイアウトが指定されます。 レイアウト コンポーネントは、コードの重複や不整合を回避するために使用されます。 詳細については、「<xref:blazor/layouts>」を参照してください。
 
 ::: moniker-end
 
 ### <a name="model"></a>\@model
 
-"*このシナリオは、MVC ビューと Razor Pages (.cshtml) にのみ適用されます。*"
+"*このシナリオは、MVC ビューと Razor Pages (.cshtml) にのみ適用されます。* "
 
 `@model` ディレクティブにより、ビューまたはページに渡されるモデルの型が指定されます。
 
@@ -640,7 +640,7 @@ Razor では、ビューに渡されるモデルにアクセスするための `
 `@namespace` ディレクティブ:
 
 * 生成された Razor ページ、MVC ビュー、または Razor コンポーネントのクラスの名前空間を設定します。
-* ディレクトリ ツリーで最も近いインポート ファイル (*_ViewImports.cshtml* (ビューまたはページ) または *_Imports.razor* (Razor コンポーネント)) から、ページ、ビュー、またはコンポーネント クラスのルート派生名前空間を設定します。
+* ディレクトリ ツリーで最も近いインポート ファイル ( *_ViewImports.cshtml* (ビューまたはページ) または *_Imports.razor* (Razor コンポーネント)) から、ページ、ビュー、またはコンポーネント クラスのルート派生名前空間を設定します。
 
 ```cshtml
 @namespace Your.Namespace.Here
@@ -677,21 +677,21 @@ Razor では、ビューに渡されるモデルにアクセスするための `
 `@page` ディレクティブには、それが表示されるファイルの型によって、さまざまな効果があります。 ディレクティブ:
 
 * *.cshtml* ファイルでは、ファイルが Razor Page であることを示します。 詳細については、「[カスタム ルート](xref:razor-pages/index#custom-routes)」と「<xref:razor-pages/index>」を参照してください。
-* Razor コンポーネントで要求を直接処理することを指定します。 詳細については、<xref:blazor/routing> を参照してください。
+* Razor コンポーネントで要求を直接処理することを指定します。 詳細については、「<xref:blazor/routing>」を参照してください。
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-*.cshtml* ファイルの最初の行にある `@page` ディレクティブは、ファイルが Razor Page であることを示します。 詳細については、<xref:razor-pages/index> を参照してください。
+*.cshtml* ファイルの最初の行にある `@page` ディレクティブは、ファイルが Razor Page であることを示します。 詳細については、「<xref:razor-pages/index>」を参照してください。
 
 ::: moniker-end
 
 ### <a name="section"></a>\@section
 
-"*このシナリオは、MVC ビューと Razor Pages (.cshtml) にのみ適用されます。*"
+"*このシナリオは、MVC ビューと Razor Pages (.cshtml) にのみ適用されます。* "
 
-`@section` ディレクティブを [MVC および Razor Pages レイアウト](xref:mvc/views/layout)と組み合わせて使用すると、HTML ページのさまざまな部分のコンテンツをビューやページでレンダリングできます。 詳細については、<xref:mvc/views/layout> を参照してください。
+`@section` ディレクティブを [MVC および Razor Pages レイアウト](xref:mvc/views/layout)と組み合わせて使用すると、HTML ページのさまざまな部分のコンテンツをビューやページでレンダリングできます。 詳細については、「<xref:mvc/views/layout>」を参照してください。
 
 ### <a name="using"></a>\@using
 
@@ -711,21 +711,21 @@ Razor では、ビューに渡されるモデルにアクセスするための `
 
 ### <a name="attributes"></a>\@attributes
 
-"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。*"
+"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "
 
-`@attributes` では、非宣言属性のレンダリングがコンポーネントに許可されます。 詳細については、<xref:blazor/components#attribute-splatting-and-arbitrary-parameters> を参照してください。
+`@attributes` では、非宣言属性のレンダリングがコンポーネントに許可されます。 詳細については、「<xref:blazor/components#attribute-splatting-and-arbitrary-parameters>」を参照してください。
 
 ### <a name="bind"></a>\@bind
 
-"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。*"
+"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "
 
-コンポーネントのデータ バインドは、`@bind` 属性によって実現されます。 詳細については、<xref:blazor/components#data-binding> を参照してください。
+コンポーネントのデータ バインドは、`@bind` 属性によって実現されます。 詳細については、「<xref:blazor/components#data-binding>」を参照してください。
 
 ### <a name="onevent"></a>\@on{EVENT}
 
-"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。*"
+"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "
 
-Razor からは、コンポーネントのイベント処理機能が提供されます。 詳細については、<xref:blazor/components#event-handling> を参照してください。
+Razor からは、コンポーネントのイベント処理機能が提供されます。 詳細については、「<xref:blazor/components#event-handling>」を参照してください。
 
 ::: moniker-end
 
@@ -733,13 +733,13 @@ Razor からは、コンポーネントのイベント処理機能が提供さ�
 
 ### <a name="oneventpreventdefault"></a>\@on{EVENT}:preventDefault
 
-"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。*"
+"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "
 
 イベントの既定のアクションを禁止します。
 
 ### <a name="oneventstoppropagation"></a>\@on{EVENT}:stopPropagation
 
-"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。*"
+"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "
 
 イベントのイベント伝達を停止します。
 
@@ -749,21 +749,21 @@ Razor からは、コンポーネントのイベント処理機能が提供さ�
 
 ### <a name="key"></a>\@key
 
-"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。*"
+"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "
 
-`@key` ディレクティブ属性により、コンポーネントの比較アルゴリズムは、キーの値に基づいて要素またはコンポーネントの保存を保証します。 詳細については、<xref:blazor/components#use-key-to-control-the-preservation-of-elements-and-components> を参照してください。
+`@key` ディレクティブ属性により、コンポーネントの比較アルゴリズムは、キーの値に基づいて要素またはコンポーネントの保存を保証します。 詳細については、「<xref:blazor/components#use-key-to-control-the-preservation-of-elements-and-components>」を参照してください。
 
 ### <a name="ref"></a>\@ref
 
-"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。*"
+"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "
 
-コンポーネント参照 (`@ref`) からは、コンポーネント インスタンスにコマンドを発行できるように、そのインスタンスを参照する方法が与えられます。 詳細については、<xref:blazor/components#capture-references-to-components> を参照してください。
+コンポーネント参照 (`@ref`) からは、コンポーネント インスタンスにコマンドを発行できるように、そのインスタンスを参照する方法が与えられます。 詳細については、「<xref:blazor/components#capture-references-to-components>」を参照してください。
 
 ### <a name="typeparam"></a>\@typeparam
 
-"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。*"
+"*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "
 
-`@typeparam` ディレクティブによって、生成されるコンポーネント クラスのジェネリック型パラメーターを宣言します。 詳細については、<xref:blazor/components#generic-typed-components> を参照してください。
+`@typeparam` ディレクティブによって、生成されるコンポーネント クラスのジェネリック型パラメーターを宣言します。 詳細については、「<xref:blazor/components#generic-typed-components>」を参照してください。
 
 ::: moniker-end
 
@@ -868,7 +868,7 @@ public class Pet
 
 ## <a name="tag-helpers"></a>タグ ヘルパー
 
-"*このシナリオは、MVC ビューと Razor Pages (.cshtml) にのみ適用されます。*"
+"*このシナリオは、MVC ビューと Razor Pages (.cshtml) にのみ適用されます。* "
 
 [タグ ヘルパー](xref:mvc/views/tag-helpers/intro)に関する 3 つのディレクティブがあります。
 
@@ -978,7 +978,7 @@ C# Razor のキーワードは、`@(@C# Razor Keyword)` で二重にエスケー
 Razor ビュー エンジンによるビューの参照では、大文字と小文字が区別されます。 ただし、実際の参照は、基になるファイル システムによって決定されます。
 
 * ファイル ベースのソース:
-  * 大文字と小文字が区別されないファイル システムを使っているオペレーティング システム (Windows など) では、物理的なファイル プロバイダーの参照は大文字と小文字を区別しません。 たとえば、`return View("Test")` は、*/Views/Home/Test.cshtml*、*/Views/home/test.cshtml*、その他のすべての大文字と小文字のバリエーションと一致します。
+  * 大文字と小文字が区別されないファイル システムを使っているオペレーティング システム (Windows など) では、物理的なファイル プロバイダーの参照は大文字と小文字を区別しません。 たとえば、`return View("Test")` は、 */Views/Home/Test.cshtml*、 */Views/home/test.cshtml*、その他のすべての大文字と小文字のバリエーションと一致します。
   * 大文字と小文字が区別されるファイル システム (たとえば、Linux、OSX、および `EmbeddedFileProvider`) では、参照は大文字と小文字を区別します。 たとえば、`return View("Test")` は */Views/Home/Test.cshtml* だけと一致します。
 * プリコンパイル済みのビュー:ASP.NET Core 2.0 以降では、プリコンパイル済みのビューの参照は、すべてのオペレーティング システムで大文字と小文字を区別しません。 動作は、Windows での物理ファイル プロバイダーの動作と同じです。 2 つのプリコンパイル済みビューの相違点が大文字と小文字の使い分けだけの場合、参照の結果はどちらになるかわかりません。
 

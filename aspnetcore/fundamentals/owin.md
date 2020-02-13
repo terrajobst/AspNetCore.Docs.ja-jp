@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 12/18/2018
 uid: fundamentals/owin
-ms.openlocfilehash: 7edb4db026f1b778d43ac72883690a0b2a18ee31
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 980b60512bdeadd2a58b87e633ebf1416f725851
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67814893"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77172085"
 ---
 # <a name="open-web-interface-for-net-owin-with-aspnet-core"></a>Open Web Interface for .NET (OWIN) と ASP.NET Core
 
@@ -79,11 +79,14 @@ OWIN パイプライン内で実行する他のアクションを構成できま
 ```csharp
 app.UseOwin(pipeline =>
 {
-    pipeline(async (next) =>
+    pipeline(next =>
     {
-        // do something before
-        await OwinHello(new OwinEnvironment(HttpContext));
-        // do something after
+        return async environment =>
+        {
+            // Do something before.
+            await next(environment);
+            // Do something after.
+        };
     });
 });
 ```
@@ -234,7 +237,7 @@ OWIN は、HTTP 要求/応答の交換を通じて情報を伝達するために
 
 ### <a name="request-data-owin-v100"></a>要求データ (OWIN v1.0.0)
 
-| キー               | 値 (型) | 説明 |
+| Key               | 値 (型) | 説明 |
 | ----------------- | ------------ | ----------- |
 | owin.RequestScheme | `String` |  |
 | owin.RequestMethod  | `String` | |    
@@ -247,13 +250,13 @@ OWIN は、HTTP 要求/応答の交換を通じて情報を伝達するために
 
 ### <a name="request-data-owin-v110"></a>要求データ (OWIN v1.1.0)
 
-| キー               | 値 (型) | 説明 |
+| Key               | 値 (型) | 説明 |
 | ----------------- | ------------ | ----------- |
 | owin.RequestId | `String` | Optional |
 
 ### <a name="response-data-owin-v100"></a>応答データ (OWIN v1.0.0)
 
-| キー               | 値 (型) | 説明 |
+| Key               | 値 (型) | 説明 |
 | ----------------- | ------------ | ----------- |
 | owin.ResponseStatusCode | `int` | Optional |
 | owin.ResponseReasonPhrase | `String` | Optional |
@@ -262,14 +265,14 @@ OWIN は、HTTP 要求/応答の交換を通じて情報を伝達するために
 
 ### <a name="other-data-owin-v100"></a>その他のデータ (OWIN v1.0.0)
 
-| キー               | 値 (型) | 説明 |
+| Key               | 値 (型) | 説明 |
 | ----------------- | ------------ | ----------- |
 | owin.CallCancelled | `CancellationToken` |  |
 | owin.Version  | `String` | |   
 
 ### <a name="common-keys"></a>共通キー
 
-| キー               | 値 (型) | 説明 |
+| Key               | 値 (型) | 説明 |
 | ----------------- | ------------ | ----------- |
 | ssl.ClientCertificate | `X509Certificate` |  |
 | ssl.LoadClientCertAsync  | `Func<Task>` | |    
@@ -282,13 +285,13 @@ OWIN は、HTTP 要求/応答の交換を通じて情報を伝達するために
 
 ### <a name="sendfiles-v030"></a>SendFiles v0.3.0
 
-| キー               | 値 (型) | 説明 |
+| Key               | 値 (型) | 説明 |
 | ----------------- | ------------ | ----------- |
 | sendfile.SendAsync | 「[Delegate Signature](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)」(デリゲート シグネチャ) を参照してください。 | 要求ごと |
 
 ### <a name="opaque-v030"></a>Opaque v0.3.0
 
-| キー               | 値 (型) | 説明 |
+| Key               | 値 (型) | 説明 |
 | ----------------- | ------------ | ----------- |
 | opaque.Version | `String` |  |
 | opaque.Upgrade | `OpaqueUpgrade` | 「[Delegate Signature](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)」(デリゲート シグネチャ) を参照してください。 |
@@ -297,7 +300,7 @@ OWIN は、HTTP 要求/応答の交換を通じて情報を伝達するために
 
 ### <a name="websocket-v030"></a>WebSocket v0.3.0
 
-| キー               | 値 (型) | 説明 |
+| Key               | 値 (型) | 説明 |
 | ----------------- | ------------ | ----------- |
 | websocket.Version | `String` |  |
 | websocket.Accept | `WebSocketAccept` | 「[Delegate Signature](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)」(デリゲート シグネチャ) を参照してください。 |

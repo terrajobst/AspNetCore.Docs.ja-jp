@@ -5,12 +5,12 @@ description: 単純な ASP.NET Core MVC アプリにビューを追加する
 ms.author: riande
 ms.date: 8/04/2019
 uid: tutorials/first-mvc-app/adding-view
-ms.openlocfilehash: a25233968f115c6e3a214d97cf2ca5ab81df8d83
-ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
+ms.openlocfilehash: 5510fb6844452571ca764e21640f0bd16444c782
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/29/2020
-ms.locfileid: "76870429"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77171970"
 ---
 # <a name="add-a-view-to-an-aspnet-core-mvc-app"></a>ASP.NET Core MVC アプリへのビューの追加
 
@@ -107,7 +107,7 @@ ms.locfileid: "76870429"
 
 *Views/_ViewStart.cshtml* ファイルを確認します。
 
-```HTML
+```cshtml
 @{
     Layout = "_Layout";
 }
@@ -123,9 +123,9 @@ ms.locfileid: "76870429"
 
 上のコードの `ViewData["Title"] = "Movie List";` では、`Title` ディクショナリの `ViewData` プロパティを "Movie List" に設定します。 `Title` プロパティは、次のように、レイアウト ページの `<title>` HTML 要素で使用されます。
 
-```HTML
+```cshtml
 <title>@ViewData["Title"] - Movie App</title>
-   ```
+```
 
 変更内容を保存して、`https://localhost:{PORT}/HelloWorld` に移動します。 ブラウザーのタイトル、プライマリ見出し、およびセカンダリ見出しが変更されていることに注意してください (ブラウザーに変更内容が表示されない場合は、キャッシュされたコンテンツを表示している可能性があります。 ブラウザーで Ctrl + F5 キーを押して、サーバーからの応答が強制的に読み込まれるようにしてください)。ブラウザーのタイトルは、*Index.cshtml* ビュー テンプレートで設定した `ViewData["Title"]` で作成されます。レイアウト ファイルには "- Movie App" が追加されます。
 
@@ -267,7 +267,7 @@ ms.locfileid: "76870429"
 
 *Views/_ViewStart.cshtml* ファイルを確認します。
 
-```HTML
+```cshtml
 @{
     Layout = "_Layout";
 }
@@ -283,9 +283,9 @@ ms.locfileid: "76870429"
 
 上のコードの `ViewData["Title"] = "Movie List";` では、`Title` ディクショナリの `ViewData` プロパティを "Movie List" に設定します。 `Title` プロパティは、次のように、レイアウト ページの `<title>` HTML 要素で使用されます。
 
-```HTML
+```cshtml
 <title>@ViewData["Title"] - Movie App</title>
-   ```
+```
 
 変更内容を保存して、`https://localhost:{PORT}/HelloWorld` に移動します。 ブラウザーのタイトル、プライマリ見出し、およびセカンダリ見出しが変更されていることに注意してください (ブラウザーに変更内容が表示されない場合は、キャッシュされたコンテンツを表示している可能性があります。 ブラウザーで Ctrl + F5 キーを押して、サーバーからの応答が強制的に読み込まれるようにしてください)。ブラウザーのタイトルは、*Index.cshtml* ビュー テンプレートで設定した `ViewData["Title"]` で作成されます。レイアウト ファイルには "- Movie App" が追加されます。
 

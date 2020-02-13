@@ -5,14 +5,14 @@ description: モデル バインドとストリーミングを使用して、ASP
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/04/2019
+ms.date: 02/11/2020
 uid: mvc/models/file-uploads
-ms.openlocfilehash: b5433576ff3e997e6d80201236be2d8463a52d07
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 56fd26c1864089558f5cd89f693dc86ea30c3331
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829232"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77172471"
 ---
 # <a name="upload-files-in-aspnet-core"></a>ASP.NET Core でファイルをアップロードする
 
@@ -83,7 +83,7 @@ ASP.NET Core では、小さいファイルの場合はバッファー モデル
   * 通常、サービスでは、大抵の場合に単一障害点となるオンプレミス ソリューションより高いスケーラビリティと回復性が提供されます。
   * 大規模なストレージ インフラストラクチャのシナリオでは、サービスのコストが低下する可能性があります。
 
-  詳細については、[クイック スタート:.NET を使用してオブジェクト ストレージに BLOB を作成する方法](/azure/storage/blobs/storage-quickstart-blobs-dotnet)に関する記事を参照してください。 そのトピックでは <xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromFileAsync*> が示されていますが、<xref:System.IO.Stream> を使用する場合は、<xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromStreamAsync*> を使用して <xref:System.IO.FileStream> を Blob Storage に保存することもできます。
+  詳細については、[クイック スタート:.NET を使用してオブジェクト ストレージに BLOB を作成する方法](/azure/storage/blobs/storage-quickstart-blobs-dotnet)に関する記事を参照してください。
 
 ## <a name="file-upload-scenarios"></a>ファイル アップロードのシナリオ
 

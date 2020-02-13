@@ -5,18 +5,20 @@ description: 発行された ASP.NET Core アプリのディレクトリ構造�
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/28/2020
+ms.date: 02/07/2020
 uid: host-and-deploy/directory-structure
-ms.openlocfilehash: ba5cb96dfdcdca10034299e3bbe662ce056af791
-ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
+ms.openlocfilehash: c3c05e6bc461ea4a3bfefa2c7a49d524562f7e5b
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/29/2020
-ms.locfileid: "76870267"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77172264"
 ---
 # <a name="aspnet-core-directory-structure"></a>ASP.NET Core のディレクトリ構造
 
 作成者: [Luke Latham](https://github.com/guardrex)
+
+::: moniker range=">= aspnetcore-3.0"
 
 *publish* ディレクトリには、[dotnet publish](/dotnet/core/tools/dotnet-publish) コマンドによって生成された、アプリの展開可能な資産が含まれています。 ディレクトリには次のものが含まれます。
 
@@ -37,7 +39,35 @@ ms.locfileid: "76870267"
 
 *Wwwroot* ディレクトリが存在する場合は、静的資産のみが含まれます。
 
+## <a name="additional-resources"></a>その他の技術情報
+
+* [dotnet publish](/dotnet/core/tools/dotnet-publish)
+* [.NET Core アプリケーションの展開](/dotnet/core/deploying/)
+* [ターゲット フレームワーク](/dotnet/standard/frameworks)
+* [.NET Core の RID カタログ](/dotnet/core/rid-catalog)
+
+::: moniker-end
+
 ::: moniker range="< aspnetcore-3.0"
+
+*publish* ディレクトリには、[dotnet publish](/dotnet/core/tools/dotnet-publish) コマンドによって生成された、アプリの展開可能な資産が含まれています。 ディレクトリには次のものが含まれます。
+
+* アプリケーション ファイル
+* 構成ファイル
+* 静的な資産
+* パッケージ
+* ランタイム ([自己完結型展開](/dotnet/core/deploying/#self-contained-deployments-scd)のみ)
+
+| アプリの種類 | ディレクトリの構造 |
+| -------- | ------------------- |
+| [フレームワークに依存する実行可能ファイル (FDE)](/dotnet/core/deploying/#framework-dependent-executables-fde) | <ul><li>publish&dagger;<ul><li>Views&dagger; MVC アプリ、ビューがプリコンパイルされていない場合</li><li>Pages&dagger; MVC または Razor Pages アプリ、ページがプリコンパイルされていない場合</li><li>wwwroot&dagger;</li><li>*.dll ファイル</li><li>{ASSEMBLY NAME}.deps.json</li><li>{ASSEMBLY NAME}.dll</li><li>Windows 上の {ASSEMBLY NAME}{.EXTENSION} *.exe* 拡張機能、macOS または Linux 上は拡張機能なし</li><li>{ASSEMBLY NAME}.pdb</li><li>{ASSEMBLY NAME}.Views.dll</li><li>{ASSEMBLY NAME}.Views.pdb</li><li>{ASSEMBLY NAME}.runtimeconfig.json</li><li>web.config (IIS 展開)</li><li>createdump ([Linux createdump ユーティリティ](https://github.com/dotnet/coreclr/blob/master/Documentation/botr/xplat-minidump-generation.md#configurationpolicy))</li><li>* .so (Linux 共有オブジェクト ライブラリ)</li><li>*.a (macOS アーカイブ)</li><li>* .dylib (macOS ダイナミック ライブラリ)</li></ul></li></ul> |
+| [自己完結型の展開 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) | <ul><li>publish&dagger;<ul><li>Views&dagger; MVC アプリ、ビューがプリコンパイルされていない場合</li><li>Pages&dagger; MVC または Razor Pages アプリ、ページがプリコンパイルされていない場合</li><li>wwwroot&dagger;</li><li>*.dll ファイル</li><li>{ASSEMBLY NAME}.deps.json</li><li>{ASSEMBLY NAME}.dll</li><li>{ASSEMBLY NAME}.exe</li><li>{ASSEMBLY NAME}.pdb</li><li>{ASSEMBLY NAME}.Views.dll</li><li>{ASSEMBLY NAME}.Views.pdb</li><li>{ASSEMBLY NAME}.runtimeconfig.json</li><li>web.config (IIS 展開)</li></ul></li></ul> |
+
+&dagger; ディレクトリを示します
+
+*publish* ディレクトリは、展開の "*コンテンツ ルート パス*" ("*アプリケーション ベース パス*" とも呼ばれます) を表します。 サーバー上で展開されたアプリの *publish* ディレクトリにどのような名前が指定されても、その場所がホストされたアプリへのサーバーの物理パスとして機能します。
+
+*Wwwroot* ディレクトリが存在する場合は、静的資産のみが含まれます。
 
 [ASP.NET Core モジュールの強化されたデバッグ ログ](xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs)では、*Logs* フォルダーを作成すると便利です。 `<handlerSetting>` 値に提供されるパスのフォルダーがこのモジュールによって自動的に作成されることはありません。デバッグ ログの書き込みをモジュールに許可するには、フォルダーがデプロイに事前に存在する必要があります。
 
@@ -62,11 +92,11 @@ ms.locfileid: "76870267"
 
 展開ディレクトリには、読み取り/実行アクセス許可が必要です。 *Logs* ディレクトリには、読み取り/書き込みアクセス許可が必要です。 ファイルが書き込まれる追加のディレクトリには、読み取り/書き込みアクセス許可が必要です。
 
-::: moniker-end
-
 ## <a name="additional-resources"></a>その他の技術情報
 
 * [dotnet publish](/dotnet/core/tools/dotnet-publish)
 * [.NET Core アプリケーションの展開](/dotnet/core/deploying/)
 * [ターゲット フレームワーク](/dotnet/standard/frameworks)
 * [.NET Core の RID カタログ](/dotnet/core/rid-catalog)
+
+::: moniker-end

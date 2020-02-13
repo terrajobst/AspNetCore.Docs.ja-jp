@@ -5,12 +5,12 @@ description: 基本的な ASP.NET Core MVC アプリに検索を追加する方�
 ms.author: riande
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/search
-ms.openlocfilehash: 97ee5f66c142780d54d28013c109da61241d967b
-ms.sourcegitcommit: 2719c70cd15a430479ab4007ff3e197fbf5dfee0
+ms.openlocfilehash: 89f1fa84783430f160ca0b840bf7ae9699520cb7
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68862946"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77171639"
 ---
 # <a name="add-search-to-an-aspnet-core-mvc-app"></a>ASP.NET Core MVC アプリへの検索の追加
 
@@ -101,9 +101,9 @@ HTML `<form>` タグでは[フォーム タグ ヘルパー](xref:mvc/views/work
 
 次のマークアップは `form` タグの変更を示しています。
 
-```html
+```cshtml
 <form asp-controller="Movies" asp-action="Index" method="get">
-   ```
+```
 
 ## <a name="add-search-by-genre"></a>ジャンルによる検索の追加
 

@@ -4,14 +4,14 @@ author: scottaddie
 description: ASP.NET Core Web API でのさまざまなコントローラー アクション メソッドの戻り値の型の使用について説明します。
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 09/09/2019
+ms.date: 02/03/2020
 uid: web-api/action-return-types
-ms.openlocfilehash: fe665026fdced22ccf4b4f1ba655e858a7acf016
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: aeea005abfcfd45a6fc94dfddfd65e60ffb15df8
+ms.sourcegitcommit: 235623b6e5a5d1841139c82a11ac2b4b3f31a7a9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74879741"
+ms.lasthandoff: 02/08/2020
+ms.locfileid: "77089189"
 ---
 # <a name="controller-action-return-types-in-aspnet-core-web-api"></a>ASP.NET Core Web API のコントローラー アクションの戻り値の型
 
@@ -60,8 +60,8 @@ public IEnumerable<Product> GetOnSaleProducts() =>
 ASP.NET Core 2.2 以前のデータベースで同期的な列挙とブロックの待機を回避するには、`ToListAsync` を呼び出します。
 
 ```csharp
-public IEnumerable<Product> GetOnSaleProducts() =>
-    _context.Products.Where(p => p.IsOnSale).ToListAsync();
+public async Task<IEnumerable<Product>> GetOnSaleProducts() =>
+    await _context.Products.Where(p => p.IsOnSale).ToListAsync();
 ```
 
 ASP.NET Core 3.0 以降では、アクションから `IAsyncEnumerable<T>` を返します。
