@@ -5,23 +5,23 @@ description: キー記憶域プロバイダーでは、ASP.NET Core とキー記
 ms.author: riande
 ms.date: 12/05/2019
 uid: security/data-protection/implementation/key-storage-providers
-ms.openlocfilehash: c1d2ac1304230af88e63e1aca441f044b32038fd
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 219ebc471de32d15e4a43c938eef156c52e5f11e
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829089"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77172590"
 ---
 # <a name="key-storage-providers-in-aspnet-core"></a>ASP.NET Core でのキー記憶域プロバイダー
 
-データ保護システム[検出メカニズムを使用して、既定で](xref:security/data-protection/configuration/default-settings)暗号化キーを保持するかを判断します。 開発者は、既定の検出メカニズムをオーバーライドし、場所を手動で指定できます。
+データ保護システムでは、暗号化キーの保存先を決定するために、[既定で検出メカニズム](xref:security/data-protection/configuration/default-settings)が使用されます。 開発者は、既定の検出メカニズムをオーバーライドし、場所を手動で指定できます。
 
 > [!WARNING]
-> キーの永続性の明示的な場所を指定する場合データ保護システムの登録を解除 rest のメカニズムで既定のキーの暗号化キーは保存時暗号化されなくようにします。 お勧めするさらに[明示的なキーの暗号化メカニズムを指定](xref:security/data-protection/implementation/key-encryption-at-rest)運用環境のデプロイ。
+> キーの永続性の明示的な場所を指定する場合データ保護システムの登録を解除 rest のメカニズムで既定のキーの暗号化キーは保存時暗号化されなくようにします。 運用環境のデプロイで[は、明示的なキー暗号化メカニズム](xref:security/data-protection/implementation/key-encryption-at-rest)を追加で指定することをお勧めします。
 
 ## <a name="file-system"></a>ファイル システム
 
-ファイル システム ベースのキー リポジトリを構成するには、呼び出し、 [PersistKeysToFileSystem](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.persistkeystofilesystem)次に示すように構成ルーチン。 提供、 [DirectoryInfo](/dotnet/api/system.io.directoryinfo)キーを格納するリポジトリをポイントします。
+ファイルシステムベースのキーリポジトリを構成するには、次に示すように、 [Persistkeystofilesystem](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.persistkeystofilesystem)構成ルーチンを呼び出します。 キーを格納するリポジトリを指す[DirectoryInfo](/dotnet/api/system.io.directoryinfo)を指定します。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -31,7 +31,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-`DirectoryInfo`ローカル コンピューター上のディレクトリを指すことができます、またはネットワーク共有上のフォルダーを指すことができます。 ローカル コンピューター上のディレクトリを指している場合 (および、シナリオでは、ローカル コンピューター上のアプリのみが使用して、このリポジトリへのアクセスを必要と)、使用を検討して[Windows DPAPI](xref:security/data-protection/implementation/key-encryption-at-rest)保存時のキーを暗号化する (on Windows)。 それ以外の場合、使用を検討して、 [X.509 証明書](xref:security/data-protection/implementation/key-encryption-at-rest)保存時のキーを暗号化します。
+`DirectoryInfo` は、ローカルコンピューター上のディレクトリをポイントするか、ネットワーク共有上のフォルダーを指すことができます。 ローカルコンピューター上のディレクトリを指している場合 (つまり、このリポジトリを使用するためにアクセスが必要なのはローカルコンピューター上のアプリのみです)、windows [DPAPI](xref:security/data-protection/implementation/key-encryption-at-rest) (windows) を使用して保存時のキーを暗号化することを検討してください。 それ以外の場合は、 [x.509 証明書](xref:security/data-protection/implementation/key-encryption-at-rest)を使用して保存時のキーを暗号化することを検討してください。
 
 ## <a name="azure-storage"></a>Azure ストレージ
 
@@ -47,7 +47,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Web アプリが Azure サービスとして実行されている場合は、[Microsoft.Azure.Services.AppAuthentication](https://www.nuget.org/packages/Microsoft.Azure.Services.AppAuthentication/)を使用して認証トークンを自動的に作成できます。
+Web アプリが Azure サービスとして実行されている場合は、認証トークンを自動的に作成でき[ます。](https://www.nuget.org/packages/Microsoft.Azure.Services.AppAuthentication/)
 
 ```csharp
 var tokenProvider = new AzureServiceTokenProvider();
@@ -82,7 +82,7 @@ services.AddDataProtection()
 
 ::: moniker range=">= aspnetcore-2.2"
 
-で Redis を構成するには、のいずれかを呼び出して、 [PersistKeysToStackExchangeRedis](/dotnet/api/microsoft.aspnetcore.dataprotection.stackexchangeredisdataprotectionbuilderextensions.persistkeystostackexchangeredis)オーバー ロードします。
+Redis でを構成するには、 [PersistKeysToStackExchangeRedis](/dotnet/api/microsoft.aspnetcore.dataprotection.stackexchangeredisdataprotectionbuilderextensions.persistkeystostackexchangeredis)オーバーロードのいずれかを呼び出します。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -97,7 +97,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ::: moniker range="< aspnetcore-2.2"
 
-で Redis を構成するには、のいずれかを呼び出して、 [PersistKeysToRedis](/dotnet/api/microsoft.aspnetcore.dataprotection.redisdataprotectionbuilderextensions.persistkeystoredis)オーバー ロードします。
+Redis でを構成するには、 [PersistKeysToRedis](/dotnet/api/microsoft.aspnetcore.dataprotection.redisdataprotectionbuilderextensions.persistkeystoredis)オーバーロードのいずれかを呼び出します。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -110,9 +110,9 @@ public void ConfigureServices(IServiceCollection services)
 
 ::: moniker-end
 
-詳細については、以下のトピックを参照してください。
+詳細については、次のトピックを参照してください。
 
-* [StackExchange.Redis ConnectionMultiplexer](https://github.com/StackExchange/StackExchange.Redis/blob/master/docs/Basics.md)
+* [StackExchange. Redis ConnectionMultiplexer](https://github.com/StackExchange/StackExchange.Redis/blob/master/docs/Basics.md)
 * [Azure Redis Cache](/azure/redis-cache/cache-dotnet-how-to-use-azure-redis-cache#connect-to-the-cache)
 * [ASP.NET Core DataProtection のサンプル](https://github.com/dotnet/AspNetCore/tree/2.2.0/src/DataProtection/samples)
 
@@ -120,7 +120,7 @@ public void ConfigureServices(IServiceCollection services)
 
 **Windows の展開にのみ適用されます。**
 
-場合によって、アプリでは、ファイル システムへの書き込みアクセスがあります。 アプリが仮想サービス アカウントとして実行されているシナリオについて考えてみます (など*w3wp.exe*のアプリケーション プール id)。 このような場合は、管理者は、サービス アカウント id でアクセスできるレジストリ キーをプロビジョニングできます。 呼び出す、 [PersistKeysToRegistry](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.persistkeystoregistry)次に示すように、拡張メソッド。 提供、 [RegistryKey](/dotnet/api/microsoft.aspnetcore.dataprotection.repositories.registryxmlrepository.registrykey)暗号化キーを格納する場所を指しています。
+場合によって、アプリでは、ファイル システムへの書き込みアクセスがあります。 アプリが仮想サービスアカウント ( *w3wp.exe のアプリプール id など)* として実行されているシナリオについて考えてみましょう。 このような場合は、管理者は、サービス アカウント id でアクセスできるレジストリ キーをプロビジョニングできます。 次に示すように、 [PersistKeysToRegistry](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.persistkeystoregistry) extension メソッドを呼び出します。 暗号化キーを格納する場所を指す[RegistryKey](/dotnet/api/microsoft.aspnetcore.dataprotection.repositories.registryxmlrepository.registrykey)を指定します。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -131,13 +131,13 @@ public void ConfigureServices(IServiceCollection services)
 ```
 
 > [!IMPORTANT]
-> 使用することをお勧めします。 [Windows DPAPI](xref:security/data-protection/implementation/key-encryption-at-rest)保存時のキーを暗号化します。
+> Rest でのキーの暗号化には[WINDOWS DPAPI](xref:security/data-protection/implementation/key-encryption-at-rest)を使用することをお勧めします。
 
 ::: moniker range=">= aspnetcore-2.2"
 
 ## <a name="entity-framework-core"></a>Entity Framework Core
 
-[Microsoft.AspNetCore.DataProtection.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.EntityFrameworkCore/)パッケージには、Entity Framework Core を使用してデータベースにデータ保護キーを格納するためのメカニズムが用意されています。 `Microsoft.AspNetCore.DataProtection.EntityFrameworkCore` NuGet パッケージする必要がありますファイルに追加する、プロジェクトはの一部、 [Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)します。
+[AspNetCore コア](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.EntityFrameworkCore/)パッケージは、Entity Framework Core を使用してデータベースにデータ保護キーを格納するためのメカニズムを提供します。 `Microsoft.AspNetCore.DataProtection.EntityFrameworkCore` NuGet パッケージは、 [AspNetCore メタパッケージ](xref:fundamentals/metapackage-app)の一部ではなく、プロジェクトファイルに追加する必要があります。
 
 このパッケージによって、web アプリの複数のインスタンス間でキーを共有できます。
 
@@ -155,7 +155,7 @@ EF Core プロバイダーを構成するには、 [Persistkeystodbcontext\<tcon
 
 **パッケージマネージャーコンソール**(PMC) ウィンドウで、次のコマンドを実行します。
 
-```PowerShell
+```powershell
 Add-Migration AddDataProtectionKeys -Context MyKeysContext
 Update-Database -Context MyKeysContext
 ```
@@ -185,4 +185,4 @@ dotnet ef database update --context MyKeysContext
 
 ## <a name="custom-key-repository"></a>カスタム キー リポジトリ
 
-組み込みのメカニズムがない適切な場合、開発者がカスタムを提供することで独自のキーの永続化メカニズムを指定できます[IXmlRepository](/dotnet/api/microsoft.aspnetcore.dataprotection.repositories.ixmlrepository)します。
+インボックス機構が適切でない場合、開発者はカスタム[IXmlRepository](/dotnet/api/microsoft.aspnetcore.dataprotection.repositories.ixmlrepository)を提供することで、独自のキー永続化メカニズムを指定できます。

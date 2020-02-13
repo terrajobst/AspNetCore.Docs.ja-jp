@@ -5,12 +5,12 @@ description: クロス サイト スクリプティング (XSS) と ASP.NET Core
 ms.author: riande
 ms.date: 10/02/2018
 uid: security/cross-site-scripting
-ms.openlocfilehash: 1e9e988be68313cfd493832519c1be89335d6e48
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 1d6f605dc336d8768b8a47e4995f119d198a61af
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815211"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77172631"
 ---
 # <a name="prevent-cross-site-scripting-xss-in-aspnet-core"></a>ASP.NET Core でのクロスサイトスクリプティング (XSS) の防止
 
@@ -20,21 +20,21 @@ ms.locfileid: "67815211"
 
 ## <a name="protecting-your-application-against-xss"></a>XSS からアプリケーションを保護
 
-基本的には、レンダリングされたページに `<script>` タグを挿入することでアプリを操作したり、 `On*` イベント を要素に挿入することで、XSS は動作します。 開発者は、アプリに XSS が導入されないように次の防止策を使う必要があります。
+基本的なレベルの XSS では、アプリケーションを欺いして、レンダリングされたページに `<script>` タグを挿入したり、`On*` イベントを要素に挿入したりすることができます。 開発者は、アプリに XSS が導入されないように次の防止策を使う必要があります。
 
 1. 以下の残りの手順に従わない限り、信頼できないデータを HTML の入力に入れるべきではありません。 信頼できないデータとは、攻撃者によって制御される可能性があるデータで、HTML のフォームの入力、クエリ文字列、HTTP ヘッダーです。また、攻撃者がアプリケーションを侵害できなくてもデータベースを侵害する可能性があるため、データベースから取得したデータソースもです。
 
-2. 信頼できないデータを HTML の要素の中に配置する前に、 HTML エンコードがされていることを確認しましょう。 HTML エンコーディングは、 < といった文字列を &lt; のような安全な文字列に変換します。
+2. 信頼できないデータを HTML の要素の中に配置する前に、 HTML エンコードがされていることを確認しましょう。 HTML エンコードは、&lt; などの文字を受け取り、&amp;lt; のように安全な形式に変更します。
 
 3. 信頼できないデータを HTML の属性の中に配置する前に、 HTML エンコードがされていることを確認しましょう。 HTML 属性のエンコーディングは HTML エンコーディングの上位互換であり、 " や ' といった追加文字列をエンコードします。
 
-4. 信頼できないデータを JavaScript に入れる前に、実行時に内容を取得する HTML 要素にデータを配置します。 それができなければ、データが JavaScript でエンコードされていることを確認しましょう。 JavaScript のエンコーディングは、JavaScript にとって危険な文字列をとり、それらを16進数に変換します。例えば、&lt; は `\u003C` にエンコードされます。
+4. 信頼できないデータを JavaScript に入れる前に、実行時に内容を取得する HTML 要素にデータを配置します。 それができなければ、データが JavaScript でエンコードされていることを確認しましょう。 Javascript のエンコードでは、JavaScript では危険な文字が使用され、16進数に置き換えられます。たとえば、&lt; は `\u003C`としてエンコードされます。
 
 5. 信頼できないデータを URL クエリ文字列に入れる前に、URL エンコードされていることを確認しましょう。
 
-## <a name="html-encoding-using-razor"></a>Razor を使用して HTML エンコード
+## <a name="html-encoding-using-razor"></a>Razor を使用した HTML エンコード
 
-MVC で使われている Razor のエンジンは、自身でそうするのを防がない限り、変数から供給されるすべての出力を自動的にエンコードします。 *@* ディレクティブを使えばいつでも HTML 属性のエンコード規則が適用されます。 HTML 属性エンコーディングが HTML エンコーディングの上位互換であるため、HTML 属性エンコーディングが HTML エンコーディングのどちらを使うか気にする必要はありません。 信頼できない入力データを JavaScript に直接代入するのではなく、必ず HTML コンテキストの中で @を使うよう確認しましょう。 TagHelper もまた、タグのパラメーターで使う入力をエンコードします。
+MVC で使われている Razor のエンジンは、自身でそうするのを防がない限り、変数から供給されるすべての出力を自動的にエンコードします。 *@* ディレクティブを使用する場合は、常に HTML 属性のエンコード規則が使用されます。 HTML 属性エンコーディングが HTML エンコーディングの上位互換であるため、HTML 属性エンコーディングが HTML エンコーディングのどちらを使うか気にする必要はありません。 信頼できない入力データを JavaScript に直接代入するのではなく、必ず HTML コンテキストの中で @を使うよう確認しましょう。 TagHelper もまた、タグのパラメーターで使う入力をエンコードします。
 
 次の Razor ビューを実行します。
 
@@ -46,18 +46,18 @@ MVC で使われている Razor のエンジンは、自身でそうするのを
    @untrustedInput
    ```
 
-このビューでは、 *untrustedInput*変数の内容を出力します。 この変数には、XSS 攻撃で使われるいくつかの文字列、つまり < や > が含まれています。 &lt;、"と&gt;します。 ソースを実行すると、次のようにエンコードされた出力が表示されます。
+このビューは、 *Untrustedinput*変数の内容を出力します。 この変数には、XSS 攻撃で使用される文字 (&lt;、&gt;) が含まれています。 ソースを実行すると、次のようにエンコードされた出力が表示されます。
 
 ```html
 &lt;&quot;123&quot;&gt;
    ```
 
 >[!WARNING]
-> ASP.NET Core MVC では、出力時に自動的にエンコードしない `HtmlString` クラスを提供しています。 これは、XSS の脆弱性が露呈するため、信頼できない入力と組み合わせて使用しないでください。
+> MVC ASP.NET Core は、出力時に自動的にエンコードされない `HtmlString` クラスを提供します。 これは、XSS の脆弱性が露呈するため、信頼できない入力と組み合わせて使用しないでください。
 
-## <a name="javascript-encoding-using-razor"></a>Razor を使用して JavaScript のエンコード
+## <a name="javascript-encoding-using-razor"></a>Razor を使用した JavaScript のエンコード
 
-ビューで処理するのに Javascript に値を代入したい場合があるとします。 これを行うには 2 つの方法があります。 値を代入するのに最も安全な方法は、タグのデータ属性の中に値を配置して JavaScript で読み取ることです。 例:
+ビューで処理するのに Javascript に値を代入したい場合があるとします。 これには、2 つの方法があります。 値を代入するのに最も安全な方法は、タグのデータ属性の中に値を配置して JavaScript で読み取ることです。 例 :
 
 ```cshtml
 @{
@@ -85,7 +85,7 @@ MVC で使われている Razor のエンジンは、自身でそうするのを
    </script>
    ```
 
-次の HTML が生成されます。
+これにより、次の HTML が生成されます。
 
 ```html
 <div
@@ -109,10 +109,10 @@ MVC で使われている Razor のエンジンは、自身でそうするのを
 
 実行すると、次のように表示されます。
 
-```none
+```
 <"123">
    <"123">
-   ```
+```
 
 JavaScript のエンコーダーを直接呼び出すこともできます。
 
@@ -127,24 +127,24 @@ JavaScript のエンコーダーを直接呼び出すこともできます。
    <script>
        document.write("@encoder.Encode(untrustedInput)");
    </script>
-   ```
+```
 
 ブラウザーで次のようにレンダリングされます。
 
 ```html
 <script>
-       document.write("\u003C\u0022123\u0022\u003E");
-   </script>
-   ```
+    document.write("\u003C\u0022123\u0022\u003E");
+</script>
+```
 
 >[!WARNING]
-> DOM の要素を作成するのに、信頼できない入力を JavaScript で連結しないでください。 `createElement()` を使用し `node.TextContent=` のような適切にプロパティの値を代入するか、または、 `element.SetAttribute()`/`element[attribute]=` を使う必要があります。そうでないと、 DOM ベースの XSS を露呈します。
+> DOM の要素を作成するのに、信頼できない入力を JavaScript で連結しないでください。 `createElement()` を使用し、`node.TextContent=`などのプロパティ値を適切に割り当てるか `element.SetAttribute()``element[attribute]=` /を使用する必要があります。それ以外の場合は、DOM ベースの XSS に公開します。
 
 ## <a name="accessing-encoders-in-code"></a>コード内のエンコーダーへのアクセス
 
-HTML 、JavaScript や URL のエンコーダーを使うには 2 つの方法があります。[依存関係の注入](xref:fundamentals/dependency-injection)を使って注入する、または、`System.Text.Encodings.Web` 名前空間に含まれるデフォルトのエンコーダーを使用することです。 デフォルトのエンコーダーを使用する場合、安全として扱われる文字範囲を適用した場合は、効果が出ません - デフォルトのエンコーダーでは可能な限り最も安全なエンコード規則を使用します。
+HTML、JavaScript、および URL エンコーダーは、2つの方法でコードで使用できます。[依存関係の挿入](xref:fundamentals/dependency-injection)を使用して挿入することも、`System.Text.Encodings.Web` 名前空間に含まれる既定のエンコーダーを使用することもできます。 デフォルトのエンコーダーを使用する場合、安全として扱われる文字範囲を適用した場合は、効果が出ません - デフォルトのエンコーダーでは可能な限り最も安全なエンコード規則を使用します。
 
-DI を介して設定可能なエンコーダーを使うには、コンストラクターで *HtmlEncoder* 、 *JavaScriptEncoder* 、 *UrlEncoder* のパラメーターを適切に取得する必要があります。 例:
+DI を使用して構成可能なエンコーダーを使用するには、コンストラクターが*htmlencoder*、 *JavaScriptEncoder* 、および*urlencoder*パラメーターを必要に応じて受け取る必要があります。 次に例を示します。
 
 ```csharp
 public class HomeController : Controller
@@ -164,16 +164,16 @@ public class HomeController : Controller
    }
    ```
 
-## <a name="encoding-url-parameters"></a>URL パラメーターのエンコード
+## <a name="encoding-url-parameters"></a>エンコード URL パラメーター
 
-信頼できない入力で URL のクエリ文字列を作成したい場合、値のエンコードに `UrlEncoder` を使います。 例えば以下のようにします。
+信頼できない入力の URL クエリ文字列を値として作成する場合は、`UrlEncoder` を使用して値をエンコードします。 次に例を示します。
 
 ```csharp
 var example = "\"Quoted Value with spaces and &\"";
    var encodedValue = _urlEncoder.Encode(example);
    ```
 
-エンコード後、encodedValue 変数には、 `%22Quoted%20Value%20with%20spaces%20and%20%26%22` が含まれています。 スペース、引用符、句読点やその他の安全でない文字は、16 進数の値にパーセントエンコードされます。たとえばスペースの文字は ％20 になります。
+エンコード後に、エンコード値の変数には `%22Quoted%20Value%20with%20spaces%20and%20%26%22`が含まれます。 スペース、引用符、句読点やその他の安全でない文字は、16 進数の値にパーセントエンコードされます。たとえばスペースの文字は ％20 になります。
 
 >[!WARNING]
 > URL のパスに信頼できない入力を使用しないでください。 信頼できない入力は、必ずクエリ文字列として渡します。
@@ -186,7 +186,7 @@ var example = "\"Quoted Value with spaces and &\"";
 
 この理由は、未知または将来のブラウザーのバグから守るためです（過去に、ブラウザーのバグで、英語ではない文字の処理の解析に失敗しました）。 もしウェブサイトが中国語やキリル文字などラテン語以外の文字を多く利用している場合、これはあなたの望む動作ではないでしょう。
 
-起動時に `ConfigureServices()` で、アプリの適切な Unicode の範囲を含むエンコーダーのセーフリストにカスタマイズできます。
+エンコーダーセーフリストをカスタマイズして、起動時にアプリケーションに適した Unicode 範囲を `ConfigureServices()`に含めることができます。
 
 例として、デフォルトの設定で Razor の HtmlHelper を使用することができます;
 
@@ -200,7 +200,7 @@ Web ページのソースを見ると、中国語のテキストがエンコー�
 <p>This link text is in Chinese: <a href="/">&#x6C49;&#x8BED;/&#x6F22;&#x8A9E;</a></p>
    ```
 
-エンコーダーによって安全に扱われる文字を拡張するには、`startup.cs` の `ConfigureServices()` メソッドに次の行を挿入します;
+エンコーダーによって安全として扱われる文字を拡大するには、`startup.cs`の `ConfigureServices()` メソッドに次の行を挿入します。
 
 ```csharp
 services.AddSingleton<HtmlEncoder>(
@@ -214,10 +214,10 @@ services.AddSingleton<HtmlEncoder>(
 <p>This link text is in Chinese: <a href="/">汉语/漢語</a></p>
    ```
 
-セーフリストは、言語ではなく Unicode のコード表として指定されています。 [Unicode の規格](https://unicode.org/)は[コード表](https://www.unicode.org/charts/index.html)のリストがあり、使う文字が含まれる表を探すことができます。 HTML、JavaScript、URL のそれぞれのエンコーダーで別々に設定する必要があります。
+セーフリストは、言語ではなく Unicode のコード表として指定されています。 [Unicode 規格](https://unicode.org/)には、文字を含むグラフを検索するために使用できる[コード表](https://www.unicode.org/charts/index.html)の一覧があります。 HTML、JavaScript、URL のそれぞれのエンコーダーで別々に設定する必要があります。
 
 > [!NOTE]
-> セーフリストのカスタマイズは、 DI 経由でのエンコーダーのみに影響します。 `System.Text.Encodings.Web.*Encoder.Default` を介してエンコーダーに直接アクセスすると、デフォルトの Basic Latin のみのセーフリストが使われます。
+> セーフリストのカスタマイズは、 DI 経由でのエンコーダーのみに影響します。 `System.Text.Encodings.Web.*Encoder.Default` によってエンコーダーに直接アクセスした場合は、既定の基本的なラテン only セーフセーフセーフポイントが使用されます。
 
 ## <a name="where-should-encoding-take-place"></a>エンコードはどこで行われるべきか？
 

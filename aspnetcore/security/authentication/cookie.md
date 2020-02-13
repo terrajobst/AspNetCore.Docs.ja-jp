@@ -4,14 +4,14 @@ author: rick-anderson
 description: ASP.NET Core Id を使用せずに cookie 認証を使用する方法について説明します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 08/20/2019
+ms.date: 02/11/2020
 uid: security/authentication/cookie
-ms.openlocfilehash: 288fa4317801544bf0d689280c56836431017c89
-ms.sourcegitcommit: 9e85c2562df5e108d7933635c830297f484bb775
+ms.openlocfilehash: 62a3d247dade6c83156a8378407d5e3891713fd1
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/04/2019
-ms.locfileid: "73462931"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77172116"
 ---
 # <a name="use-cookie-authentication-without-aspnet-core-identity"></a>ASP.NET Core Id を指定せずに cookie 認証を使用する
 
@@ -19,7 +19,7 @@ By [Rick Anderson](https://twitter.com/RickAndMSFT)と[Luke latham](https://gith
 
 ::: moniker range=">= aspnetcore-3.0"
 
-ASP.NET Core Id は、ログインを作成および管理するための完全な機能を備えた完全な認証プロバイダーです。 ただし、ASP.NET Core Id のない cookie ベースの認証プロバイダーを使用することもできます。 詳細については、「<xref:security/authentication/identity>」を参照してください。
+ASP.NET Core Id は、ログインを作成および管理するための完全な機能を備えた完全な認証プロバイダーです。 ただし、ASP.NET Core Id のない cookie ベースの認証プロバイダーを使用することもできます。 詳細については、「 <xref:security/authentication/identity>」を参照してください。
 
 [サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/cookie/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
@@ -27,7 +27,7 @@ ASP.NET Core Id は、ログインを作成および管理するための完全�
 
 ## <a name="configuration"></a>構成
 
-アプリで[Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)が使用されていない場合は、[Microsoft.AspNetCore.Authentication.Cookies](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Cookies/)パッケージのプロジェクトファイルにパッケージ参照を作成します。
+アプリで[AspNetCore メタパッケージ](xref:fundamentals/metapackage-app)が使用されていない場合は、 [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Cookies/)パッケージのプロジェクトファイルにパッケージ参照を作成します。
 
 `Startup.ConfigureServices` メソッドで、<xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*> と <xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*> のメソッドを使用して認証ミドルウェアサービスを作成します。
 
@@ -37,7 +37,7 @@ ASP.NET Core Id は、ログインを作成および管理するための完全�
 
 アプリの認証方式は、アプリの cookie 認証スキームとは異なります。 <xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*>に cookie 認証スキームが指定されていない場合、`CookieAuthenticationDefaults.AuthenticationScheme` ("Cookie") が使用されます。
 
-認証 cookie の <xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential> プロパティは、既定では `true` に設定されています。 サイトビジターがデータコレクションに同意していない場合は、認証 cookie が許可されます。 詳細については、「<xref:security/gdpr#essential-cookies>」を参照してください。
+認証 cookie の <xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential> プロパティは、既定では `true` に設定されています。 サイトビジターがデータコレクションに同意していない場合は、認証 cookie が許可されます。 詳細については、「 <xref:security/gdpr#essential-cookies>」を参照してください。
 
 `Startup.Configure`で `UseAuthentication` と `UseAuthorization` を呼び出して `HttpContext.User` プロパティを設定し、要求の承認ミドルウェアを実行します。 `UseEndpoints`を呼び出す前に、`UseAuthentication` および `UseAuthorization` メソッドを呼び出します。
 
@@ -76,11 +76,11 @@ var cookiePolicyOptions = new CookiePolicyOptions
 
 `MinimumSameSitePolicy` の Cookie ポリシーのミドルウェア設定は、次の表に従って `CookieAuthenticationOptions` 設定の `Cookie.SameSite` の設定に影響を与える可能性があります。
 
-| MinimumSameSitePolicy | SameSite | 結果の SameSite 設定 |
+| MinimumSameSitePolicy | Cookie.SameSite | 結果の SameSite 設定 |
 | --------------------- | --------------- | --------------------------------- |
-| SameSiteMode なし     | SameSiteMode なし<br>SameSiteMode 厳密でない<br>SameSiteMode Strict | SameSiteMode なし<br>SameSiteMode 厳密でない<br>SameSiteMode Strict |
-| SameSiteMode 厳密でない      | SameSiteMode なし<br>SameSiteMode 厳密でない<br>SameSiteMode Strict | SameSiteMode 厳密でない<br>SameSiteMode 厳密でない<br>SameSiteMode Strict |
-| SameSiteMode Strict   | SameSiteMode なし<br>SameSiteMode 厳密でない<br>SameSiteMode Strict | SameSiteMode Strict<br>SameSiteMode Strict<br>SameSiteMode Strict |
+| SameSiteMode.None     | SameSiteMode.None<br>SameSiteMode.Lax<br>SameSiteMode.Strict | SameSiteMode.None<br>SameSiteMode.Lax<br>SameSiteMode.Strict |
+| SameSiteMode.Lax      | SameSiteMode.None<br>SameSiteMode.Lax<br>SameSiteMode.Strict | SameSiteMode.Lax<br>SameSiteMode.Lax<br>SameSiteMode.Strict |
+| SameSiteMode.Strict   | SameSiteMode.None<br>SameSiteMode.Lax<br>SameSiteMode.Strict | SameSiteMode.Strict<br>SameSiteMode.Strict<br>SameSiteMode.Strict |
 
 ## <a name="create-an-authentication-cookie"></a>認証 cookie を作成する
 
@@ -215,7 +215,7 @@ await HttpContext.SignInAsync(
 
 ## <a name="absolute-cookie-expiration"></a>クッキーの絶対有効期限
 
-絶対有効期限は <xref:Microsoft.AspNetCore.Authentication.AuthenticationProperties.ExpiresUtc>で設定できます。 永続的なクッキーを作成するには、`IsPersistent` も設定する必要があります。 それ以外の場合、cookie はセッションベースの有効期間で作成され、保持する認証チケットの前または後に有効期限が切れる可能性があります。 `ExpiresUtc` が設定されている場合は <xref:Microsoft.AspNetCore.Builder.CookieAuthenticationOptions>の <xref:Microsoft.AspNetCore.Builder.CookieAuthenticationOptions.ExpireTimeSpan> オプションの値が上書きされます (設定されている場合)。
+絶対有効期限は <xref:Microsoft.AspNetCore.Authentication.AuthenticationProperties.ExpiresUtc>で設定できます。 永続的なクッキーを作成するには、`IsPersistent` も設定する必要があります。 それ以外の場合、cookie はセッションベースの有効期間で作成され、保持する認証チケットの前または後に有効期限が切れる可能性があります。 `ExpiresUtc` が設定されている場合は <xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions>の <xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.ExpireTimeSpan> オプションの値が上書きされます (設定されている場合)。
 
 次のコードスニペットでは、20分間継続する id とそれに対応する cookie を作成します。 これにより、以前に構成したスライド式有効期限の設定は無視されます。
 
@@ -236,7 +236,7 @@ await HttpContext.SignInAsync(
 
 ::: moniker range="< aspnetcore-3.0"
 
-ASP.NET Core Id は、ログインを作成および管理するための完全な機能を備えた完全な認証プロバイダーです。 ただし、ASP.NET Core Id のない cookie ベースの認証認証プロバイダーを使用できます。 詳細については、「<xref:security/authentication/identity>」を参照してください。
+ASP.NET Core Id は、ログインを作成および管理するための完全な機能を備えた完全な認証プロバイダーです。 ただし、ASP.NET Core Id のない cookie ベースの認証認証プロバイダーを使用できます。 詳細については、「 <xref:security/authentication/identity>」を参照してください。
 
 [サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/cookie/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
@@ -244,7 +244,7 @@ ASP.NET Core Id は、ログインを作成および管理するための完全�
 
 ## <a name="configuration"></a>構成
 
-アプリで[Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)が使用されていない場合は、[Microsoft.AspNetCore.Authentication.Cookies](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Cookies/)パッケージのプロジェクトファイルにパッケージ参照を作成します。
+アプリで[AspNetCore メタパッケージ](xref:fundamentals/metapackage-app)が使用されていない場合は、 [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Cookies/)パッケージのプロジェクトファイルにパッケージ参照を作成します。
 
 `Startup.ConfigureServices` メソッドで、<xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*> および <xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*> メソッドを使用して認証ミドルウェアサービスを作成します。
 
@@ -254,7 +254,7 @@ ASP.NET Core Id は、ログインを作成および管理するための完全�
 
 アプリの認証方式は、アプリの cookie 認証スキームとは異なります。 <xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*>に cookie 認証スキームが指定されていない場合、`CookieAuthenticationDefaults.AuthenticationScheme` ("Cookie") が使用されます。
 
-認証 cookie の <xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential> プロパティは、既定では `true` に設定されています。 サイトビジターがデータコレクションに同意していない場合は、認証 cookie が許可されます。 詳細については、「<xref:security/gdpr#essential-cookies>」を参照してください。
+認証 cookie の <xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential> プロパティは、既定では `true` に設定されています。 サイトビジターがデータコレクションに同意していない場合は、認証 cookie が許可されます。 詳細については、「 <xref:security/gdpr#essential-cookies>」を参照してください。
 
 `Startup.Configure` メソッドで、`UseAuthentication` メソッドを呼び出して、`HttpContext.User` プロパティを設定する認証ミドルウェアを呼び出します。 `UseMvcWithDefaultRoute` または `UseMvc`を呼び出す前に、`UseAuthentication` メソッドを呼び出します。
 
@@ -293,11 +293,11 @@ var cookiePolicyOptions = new CookiePolicyOptions
 
 `MinimumSameSitePolicy` の Cookie ポリシーのミドルウェア設定は、次の表に従って `CookieAuthenticationOptions` 設定の `Cookie.SameSite` の設定に影響を与える可能性があります。
 
-| MinimumSameSitePolicy | SameSite | 結果の SameSite 設定 |
+| MinimumSameSitePolicy | Cookie.SameSite | 結果の SameSite 設定 |
 | --------------------- | --------------- | --------------------------------- |
-| SameSiteMode なし     | SameSiteMode なし<br>SameSiteMode 厳密でない<br>SameSiteMode Strict | SameSiteMode なし<br>SameSiteMode 厳密でない<br>SameSiteMode Strict |
-| SameSiteMode 厳密でない      | SameSiteMode なし<br>SameSiteMode 厳密でない<br>SameSiteMode Strict | SameSiteMode 厳密でない<br>SameSiteMode 厳密でない<br>SameSiteMode Strict |
-| SameSiteMode Strict   | SameSiteMode なし<br>SameSiteMode 厳密でない<br>SameSiteMode Strict | SameSiteMode Strict<br>SameSiteMode Strict<br>SameSiteMode Strict |
+| SameSiteMode.None     | SameSiteMode.None<br>SameSiteMode.Lax<br>SameSiteMode.Strict | SameSiteMode.None<br>SameSiteMode.Lax<br>SameSiteMode.Strict |
+| SameSiteMode.Lax      | SameSiteMode.None<br>SameSiteMode.Lax<br>SameSiteMode.Strict | SameSiteMode.Lax<br>SameSiteMode.Lax<br>SameSiteMode.Strict |
+| SameSiteMode.Strict   | SameSiteMode.None<br>SameSiteMode.Lax<br>SameSiteMode.Strict | SameSiteMode.Strict<br>SameSiteMode.Strict<br>SameSiteMode.Strict |
 
 ## <a name="create-an-authentication-cookie"></a>認証 cookie を作成する
 
@@ -451,7 +451,7 @@ await HttpContext.SignInAsync(
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * <xref:security/authorization/limitingidentitybyscheme>
 * <xref:security/authorization/claims>
