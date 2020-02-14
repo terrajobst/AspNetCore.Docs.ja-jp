@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/lifecycle
-ms.openlocfilehash: df5bb676df59b538179a69978040521c4ee78ed1
-ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
+ms.openlocfilehash: ecacd0a9728cbefd716e9dc7cd8a8c62f3df6e0d
+ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76146369"
+ms.lasthandoff: 02/14/2020
+ms.locfileid: "77213390"
 ---
 # <a name="aspnet-core-opno-locblazor-lifecycle"></a>ASP.NET Core Blazor ライフサイクル
 
@@ -27,7 +27,7 @@ Blazor framework には、同期および非同期のライフサイクルメソ
 
 ### <a name="component-initialization-methods"></a>コンポーネントの初期化メソッド
 
-<xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync*> と <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized*> は、その親コンポーネントから初期パラメーターを受け取った後に、コンポーネントが初期化されるときに呼び出されます。 コンポーネントが非同期操作を実行し、操作の完了時に更新する必要がある場合は、`OnInitializedAsync` を使用します。 これらのメソッドは、コンポーネントが最初にインスタンス化されるときに1回だけ呼び出されます。
+<xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync*> と <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized*> は、その親コンポーネントから初期パラメーターを受け取った後に、コンポーネントが初期化されるときに呼び出されます。 コンポーネントが非同期操作を実行し、操作の完了時に更新する必要がある場合は、`OnInitializedAsync` を使用します。
 
 同期操作の場合は、`OnInitialized`をオーバーライドします。
 
@@ -46,6 +46,15 @@ protected override async Task OnInitializedAsync()
     await ...
 }
 ```
+
+コンテンツの呼び出しを[プリレンダリング](xref:blazor/hosting-model-configuration#render-mode)する Blazor サーバーアプリは、 **_2 回_** `OnInitializedAsync` ます。
+
+* コンポーネントが最初にページの一部として静的にレンダリングされたとき。
+* ブラウザーがサーバーへの接続を確立する2回目。
+
+`OnInitializedAsync` の開発者コードが2回実行されないようにするには、「[プリコーディング後のステートフル再接続](#stateful-reconnection-after-prerendering)」セクションを参照してください。
+
+Blazor Server アプリをプリレンダリングしている間、ブラウザーとの接続が確立されていないため、JavaScript への呼び出しなどの特定のアクションは実行できません。 Prerendered の場合、コンポーネントのレンダリングが異なる場合があります。 詳細については、「[アプリのプリレンダリングを検出する](#detect-when-the-app-is-prerendering)」セクションを参照してください。
 
 ### <a name="before-parameters-are-set"></a>パラメーターを設定する前
 
@@ -145,7 +154,7 @@ protected override bool ShouldRender()
 
 `ShouldRender` がオーバーライドされた場合でも、コンポーネントは常に最初に表示されます。
 
-## <a name="state-changes"></a>状態変更
+## <a name="state-changes"></a>状態の変化
 
 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged*> は、状態が変更されたことをコンポーネントに通知します。 必要に応じて、`StateHasChanged` を呼び出すと、コンポーネントが再スローされます。
 
@@ -180,6 +189,70 @@ Blazor サーバーテンプレートでの*Pages/FetchData. razor* :
 > [!NOTE]
 > `Dispose` での <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged*> の呼び出しはサポートされていません。 `StateHasChanged` は、レンダラーの破棄の一部として呼び出されることがあるため、その時点での UI 更新の要求はサポートされていません。
 
-## <a name="handle-errors"></a>エラーの処理
+## <a name="handle-errors"></a>エラーを処理する
 
 ライフサイクルメソッドの実行中のエラー処理の詳細については、「<xref:blazor/handle-errors#lifecycle-methods>」を参照してください。
+
+## <a name="stateful-reconnection-after-prerendering"></a>プリレンダリング後のステートフル再接続
+
+Blazor サーバーアプリで `RenderMode` が `ServerPrerendered`場合、コンポーネントは最初にページの一部として静的にレンダリングされます。 ブラウザーがサーバーへの接続を確立すると、コンポーネントが*再び*表示され、コンポーネントが対話型になります。 コンポーネントを初期化するための[Oninitialized 化された {Async}](xref:blazor/lifecycle#component-initialization-methods)ライフサイクルメソッドが存在する場合、メソッドは*2 回*実行されます。
+
+* コンポーネントが静的に prerendered された場合。
+* サーバー接続が確立された後。
+
+これにより、コンポーネントが最終的にレンダリングされるときに、UI に表示されるデータが大幅に変化する可能性があります。
+
+Blazor サーバーアプリでダブルレンダリングのシナリオを回避するには、次の手順を実行します。
+
+* プリレンダリング中に状態をキャッシュし、アプリの再起動後に状態を取得するために使用できる識別子を渡します。
+* コンポーネントの状態を保存するには、プリレンダリング時に識別子を使用します。
+* プリレンダリング後に識別子を使用して、キャッシュされた状態を取得します。
+
+次のコードは、テンプレートベースの Blazor サーバーアプリで、ダブルレンダリングを回避する更新された `WeatherForecastService` を示しています。
+
+```csharp
+public class WeatherForecastService
+{
+    private static readonly string[] _summaries = new[]
+    {
+        "Freezing", "Bracing", "Chilly", "Cool", "Mild",
+        "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+    };
+    
+    public WeatherForecastService(IMemoryCache memoryCache)
+    {
+        MemoryCache = memoryCache;
+    }
+    
+    public IMemoryCache MemoryCache { get; }
+
+    public Task<WeatherForecast[]> GetForecastAsync(DateTime startDate)
+    {
+        return MemoryCache.GetOrCreateAsync(startDate, async e =>
+        {
+            e.SetOptions(new MemoryCacheEntryOptions
+            {
+                AbsoluteExpirationRelativeToNow = 
+                    TimeSpan.FromSeconds(30)
+            });
+
+            var rng = new Random();
+
+            await Task.Delay(TimeSpan.FromSeconds(10));
+
+            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            {
+                Date = startDate.AddDays(index),
+                TemperatureC = rng.Next(-20, 55),
+                Summary = _summaries[rng.Next(_summaries.Length)]
+            }).ToArray();
+        });
+    }
+}
+```
+
+`RenderMode`の詳細については、「<xref:blazor/hosting-model-configuration#render-mode>」を参照してください。
+
+## <a name="detect-when-the-app-is-prerendering"></a>アプリがプリレンダリングされるタイミングを検出する
+
+[!INCLUDE[](~/includes/blazor-prerendering.md)]

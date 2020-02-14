@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/layouts
-ms.openlocfilehash: 51720af8fec5b4427fc66660eb8ac9c54ba2e99e
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.openlocfilehash: 8e7294f6b66d34781473522a71f929ed5f9c33f2
+ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76159860"
+ms.lasthandoff: 02/14/2020
+ms.locfileid: "77213377"
 ---
 # <a name="aspnet-core-opno-locblazor-layouts"></a>Blazor レイアウトの ASP.NET Core
 
@@ -66,7 +66,7 @@ Blazor アプリテンプレートのいずれかに基づくアプリでは、`
 
 次の *_Imports の razor*ファイルのインポート:
 
-* `MyCoolLayout`.
+* [https://login.microsoftonline.com/consumers/](`MyCoolLayout`)
 * 同じフォルダーおよびサブフォルダー内のすべての Razor コンポーネント。
 * `BlazorApp1.Data` 名前空間。
  
@@ -94,8 +94,8 @@ Blazor アプリテンプレートのいずれかに基づくアプリでは、`
 
 ## <a name="share-a-razor-pages-layout-with-integrated-components"></a>Razor Pages レイアウトを統合コンポーネントと共有する
 
-ルーティング可能なコンポーネントが Razor Pages アプリに統合されている場合、アプリの共有レイアウトをコンポーネントで使用できます。 詳細については、「 <xref:blazor/hosting-models#integrate-razor-components-into-razor-pages-and-mvc-apps>」を参照してください。
+ルーティング可能なコンポーネントが Razor Pages アプリに統合されている場合、アプリの共有レイアウトをコンポーネントで使用できます。 詳細については、<xref:blazor/hosting-model-configuration#integrate-razor-components-into-razor-pages-and-mvc-apps> を参照してください。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * <xref:mvc/views/layout>

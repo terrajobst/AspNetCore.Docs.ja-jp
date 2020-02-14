@@ -5,17 +5,17 @@ description: クロスオリジンリソース共有 (CORS) 要求の作成な�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 01/22/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/call-web-api
-ms.openlocfilehash: 66605f38a6fcaedebc92b0946dca1e5f28b593c6
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.openlocfilehash: 345fb6962e3376c22551eb7914c70c89cb7100d5
+ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76160068"
+ms.lasthandoff: 02/14/2020
+ms.locfileid: "77213276"
 ---
 # <a name="call-a-web-api-from-aspnet-core-opno-locblazor"></a>ASP.NET Core Blazor から web API を呼び出す
 
@@ -23,9 +23,9 @@ ms.locfileid: "76160068"
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-[Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly)は、構成済みの `HttpClient` サービスを使用して web api を呼び出します。 要求を作成します。これには、Blazor JSON ヘルパーまたは <xref:System.Net.Http.HttpRequestMessage>を使用した JavaScript [FETCH API](https://developer.mozilla.org/docs/Web/API/Fetch_API)オプションを含めることができます。
+[Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly)は、構成済みの `HttpClient` サービスを使用して web api を呼び出します。 要求を作成します。これには、Blazor JSON ヘルパーまたは <xref:System.Net.Http.HttpRequestMessage>を使用した JavaScript [FETCH API](https://developer.mozilla.org/docs/Web/API/Fetch_API)オプションを含めることができます。 Blazor Webasのアプリの `HttpClient` サービスは、配信元のサーバーに要求を戻すことに重点を置いています。 このトピックのガイダンスは Blazor Webasapps アプリにのみ関連しています。
 
-[Blazor サーバー](xref:blazor/hosting-models#blazor-server)アプリは、通常 <xref:System.Net.Http.IHttpClientFactory>を使用して作成された <xref:System.Net.Http.HttpClient> インスタンスを使用して web api を呼び出します。 詳細については、「 <xref:fundamentals/http-requests>」を参照してください。
+[Blazor サーバー](xref:blazor/hosting-models#blazor-server)アプリは <xref:System.Net.Http.HttpClient> インスタンスを使用して web api を呼び出します。通常は <xref:System.Net.Http.IHttpClientFactory>を使用して作成されます。 このトピックのガイダンスは Blazor サーバーアプリには関係しません。 Blazor サーバーアプリを開発するときは、<xref:fundamentals/http-requests>のガイダンスに従ってください。
 
 *BlazorWebAssemblySample*アプリを選択 &ndash; には、サンプルコード ([ダウンロード方法](xref:index#how-to-download-a-sample)) を[表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)します。
 
@@ -202,7 +202,7 @@ Blazor webassembly で Webasで実行する場合は、 [Httpclient](xref:fundam
 }
 ```
 
-Fetch API オプションの詳細については、 [MDN の web ドキュメント: WindowOrWorkerGlobalScope ():P arameters](https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)を参照してください。
+Fetch API オプションの詳細については、[MDN の web ドキュメントを参照してください。WindowOrWorkerGlobalScope ():P arameters](https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)。
 
 CORS 要求で資格情報 (承認 cookie/ヘッダー) を送信する場合、CORS ポリシーで `Authorization` ヘッダーが許可されている必要があります。
 

@@ -5,17 +5,17 @@ description: データにバインドする方法、イベントを処理する�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/24/2020
+ms.date: 02/04/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/components
-ms.openlocfilehash: d6ba60b20d21636c7f780a80d8fbdb152505a3a3
-ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
+ms.openlocfilehash: 0da0d83a4fde7b753a84bf05d3a9284776f2881f
+ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/01/2020
-ms.locfileid: "76928260"
+ms.lasthandoff: 02/14/2020
+ms.locfileid: "77213351"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>ASP.NET Core Razor コンポーネントを作成して使用する
 
@@ -70,9 +70,9 @@ Blazor アプリは*コンポーネント*を使用して構築されます。 �
 
 Razor コンポーネントは Razor Pages と MVC アプリに統合できます。 ページまたはビューが表示されると、コンポーネントを同時に prerendered することができます。
 
-Razor コンポーネントをホストする Razor Pages または MVC アプリを準備するには、<xref:blazor/hosting-models#integrate-razor-components-into-razor-pages-and-mvc-apps> の記事の「 *razor コンポーネントを Razor Pages および mvc アプリに統合*する」セクションのガイダンスに従ってください。
+Razor コンポーネントをホストする Razor Pages または MVC アプリを準備するには、<xref:blazor/hosting-model-configuration#integrate-razor-components-into-razor-pages-and-mvc-apps> の記事の「 *razor コンポーネントを Razor Pages および mvc アプリに統合*する」セクションのガイダンスに従ってください。
 
-カスタムフォルダーを使用してアプリのコンポーネントを保持する場合は、フォルダーを表す名前空間をページ/ビューまたは *_ViewImports*ファイルに追加します。 たとえば、行が次のように表示されているとします。
+カスタムフォルダーを使用してアプリのコンポーネントを保持する場合は、フォルダーを表す名前空間をページ/ビューまたは *_ViewImports*ファイルに追加します。 次の例では
 
 * `MyAppNamespace` をアプリの名前空間に変更します。
 * *コンポーネントという名前*のフォルダーを使用してコンポーネントを保持していない場合は、コンポーネントが存在するフォルダーに `Components` を変更します。
@@ -97,7 +97,7 @@ Razor コンポーネントをホストする Razor Pages または MVC アプ�
 * ページに prerendered ます。
 * は、ページに静的 HTML として表示されるか、ユーザーエージェントから Blazor アプリをブートストラップするために必要な情報が含まれている場合に表示されます。
 
-| `RenderMode`        | 説明 |
+| `RenderMode`        | [説明] |
 | ------------------- | ----------- |
 | `ServerPrerendered` | コンポーネントを静的 HTML にレンダリングし、Blazor Server アプリのマーカーを含めます。 ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。 |
 | `Server`            | Blazor Server アプリのマーカーをレンダリングします。 コンポーネントからの出力は含まれていません。 ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。 |
@@ -107,7 +107,10 @@ Razor コンポーネントをホストする Razor Pages または MVC アプ�
 
 静的な HTML ページからのサーバーコンポーネントのレンダリングはサポートされていません。
 
-コンポーネントのレンダリング方法、コンポーネントの状態、および `Component` タグヘルパーの詳細については、「<xref:blazor/hosting-models>」を参照してください。
+コンポーネントのレンダリング方法、コンポーネントの状態、および `Component` タグヘルパーの詳細については、次の記事を参照してください。
+
+* <xref:blazor/hosting-models>
+* <xref:blazor/hosting-model-configuration>
 
 ## <a name="tag-helpers-arent-used-in-components"></a>タグヘルパーはコンポーネントで使用されていません
 
@@ -149,7 +152,7 @@ Razor コンポーネントをホストする Razor Pages または MVC アプ�
 <h1>Parent-child example</h1>
 
 <ChildComponent Title="Panel Title from Parent"
-                OnClick="@ShowMessage">
+                OnClickCallback="@ShowMessage">
     Content of the child component is supplied
     by the parent component.
 </ChildComponent>
@@ -180,7 +183,7 @@ Razor コンポーネントをホストする Razor Pages または MVC アプ�
 <h1>Parent-child example</h1>
 
 <ChildComponent Title="Panel Title from Parent"
-                OnClick="@ShowMessage">
+                OnClickCallback="@ShowMessage">
     Content of the child component is supplied
     by the parent component.
 </ChildComponent>
@@ -351,11 +354,11 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 * 要素の `value` 属性に対して指定された式 (`CurrentValue`)。
 * `@bind-value:event`によって指定されたイベントへの変更イベントデリゲート。
 
-**解析不可能値**
+### <a name="unparsable-values"></a>解析不可能値
 
 データバインド要素に解析できない値を指定すると、バインドイベントがトリガーされたときに、解析されていない値が自動的に前の値に戻されます。
 
-このような場合は、まず、次のことを確認してください。
+以下のシナリオについて考えてみます。
 
 * `<input>` 要素は、初期値 `123`を持つ `int` 型にバインドされます。
 
@@ -379,7 +382,7 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
   * ユーザーが無効な入力を提供し、関連付けられた `EditContext`で検証エラーを受信することを許可します。
   * 追加の web フォームデータを入力するユーザーに干渉することなく、UI に検証エラーを表示します。
 
-**グローバリゼーション**
+### <a name="globalization"></a>グローバリゼーション
 
 `@bind` 値は、現在のカルチャの規則を使用して表示および解析するように書式設定されます。
 
@@ -406,7 +409,7 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 
 ユーザーのカルチャを設定する方法については、「[ローカリゼーション](#localization)」セクションを参照してください。
 
-**書式指定文字列**
+### <a name="format-strings"></a>書式指定文字列
 
 データバインディングは、 [`@bind:format`](xref:mvc/views/razor#bind)を使用して <xref:System.DateTime> 書式指定文字列で動作します。 通貨形式や数値形式など、その他の書式指定式は現時点では使用できません。
 
@@ -422,9 +425,9 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 前のコードでは、`<input>` 要素のフィールドの種類 (`type`) は既定で `text`に設定されています。 `@bind:format` は、次の .NET 型のバインドに対してサポートされています。
 
 * <xref:System.DateTime?displayProperty=fullName>
-* <xref:System.DateTime?displayProperty=fullName> ですか。
+* <xref:System.DateTime?displayProperty=fullName>?
 * <xref:System.DateTimeOffset?displayProperty=fullName>
-* <xref:System.DateTimeOffset?displayProperty=fullName> ですか。
+* <xref:System.DateTimeOffset?displayProperty=fullName>?
 
 `@bind:format` 属性は、`<input>` 要素の `value` に適用する日付形式を指定します。 この形式は、`onchange` イベントが発生したときに値を解析するためにも使用されます。
 
@@ -434,9 +437,9 @@ Blazor には日付を書式設定するためのサポートが組み込まれ�
 <input type="date" @bind="StartDate" @bind:format="yyyy-MM-dd">
 ```
 
-**コンポーネントのパラメーター**
+### <a name="parent-to-child-binding-with-component-parameters"></a>コンポーネントパラメーターを使用した親子バインド
 
-バインディングはコンポーネントパラメーターを認識しますが、`@bind-{property}` はコンポーネント間でプロパティ値をバインドできます。
+バインディングは、コンポーネントのパラメーターを認識します。 `@bind-{property}` は、親コンポーネントのプロパティ値を子コンポーネントにバインドできます。 子から親へのバインドについては、「[チェーンバインドを使用した子から親へのバインド](#child-to-parent-binding-with-chained-bind)」を参照してください。
 
 次の子コンポーネント (`ChildComponent`) には、`Year` コンポーネントパラメーターと `YearChanged` コールバックがあります。
 
@@ -456,7 +459,10 @@ Blazor には日付を書式設定するためのサポートが組み込まれ�
 
 `EventCallback<T>` については、「 [Eventcallback](#eventcallback) 」セクションを参照してください。
 
-次の親コンポーネントは `ChildComponent` を使用し、親の `ParentYear` パラメーターを子コンポーネントの `Year` パラメーターにバインドします。
+次の親コンポーネントはを使用します。
+
+* を `ChildComponent` し、親の `ParentYear` パラメーターを子コンポーネントの `Year` パラメーターにバインドします。
+* `onclick` イベントは、`ChangeTheYear` メソッドをトリガーするために使用されます。 詳細については、「[イベント処理](#event-handling)」セクションを参照してください。
 
 ```razor
 @page "/ParentComponent"
@@ -520,7 +526,138 @@ Blazor には日付を書式設定するためのサポートが組み込まれ�
 <MyComponent @bind-MyProp="MyValue" @bind-MyProp:event="MyEventHandler" />
 ```
 
-**オプションボタン**
+### <a name="child-to-parent-binding-with-chained-bind"></a>チェーンバインドを使用した親子バインド
+
+一般的なシナリオでは、データバインドパラメーターをコンポーネントの出力のページ要素に連結します。 このシナリオは、複数のレベルのバインドが同時に発生するため、*チェーンバインド*と呼ばれます。
+
+チェーンバインドは、ページの要素で `@bind` 構文を使用して実装することはできません。 イベントハンドラーと値は、個別に指定する必要があります。 ただし、親コンポーネントでは、`@bind` 構文をコンポーネントのパラメーターと共に使用できます。
+
+次の `PasswordField` コンポーネント (*Passwordfield*):
+
+* `Password` プロパティに `<input>` 要素の値を設定します。
+* [Eventcallback](#eventcallback)を使用して、`Password` プロパティの変更を親コンポーネントに公開します。
+* `onclick` イベントを使用して、`ToggleShowPassword` メソッドをトリガーします。 詳細については、「[イベント処理](#event-handling)」セクションを参照してください。
+
+```razor
+<h1>Child Component</h2>
+
+Password: 
+
+<input @oninput="OnPasswordChanged" 
+       required 
+       type="@(_showPassword ? "text" : "password")" 
+       value="@Password" />
+
+<button class="btn btn-primary" @onclick="ToggleShowPassword">
+    Show password
+</button>
+
+@code {
+    private bool _showPassword;
+
+    [Parameter]
+    public string Password { get; set; }
+
+    [Parameter]
+    public EventCallback<string> PasswordChanged { get; set; }
+
+    private Task OnPasswordChanged(ChangeEventArgs e)
+    {
+        Password = e.Value.ToString();
+
+        return PasswordChanged.InvokeAsync(Password);
+    }
+
+    private void ToggleShowPassword()
+    {
+        _showPassword = !_showPassword;
+    }
+}
+```
+
+`PasswordField` コンポーネントが別のコンポーネントで使用されています。
+
+```razor
+@page "/ParentComponent"
+
+<h1>Parent Component</h1>
+
+<PasswordField @bind-Password="_password" />
+
+@code {
+    private string _password;
+}
+```
+
+前の例で、パスワードの確認またはトラップエラーを実行するには、次の手順を実行します。
+
+* `Password` のバッキングフィールドを作成します (次のコード例では`_password`)。
+* `Password` setter で、チェックまたはトラップのエラーを実行します。
+
+次の例では、パスワードの値にスペースが使用されている場合に、ユーザーにすぐにフィードバックを提供します。
+
+```razor
+@page "/ParentComponent"
+
+<h1>Parent Component</h1>
+
+Password: 
+
+<input @oninput="OnPasswordChanged" 
+       required 
+       type="@(_showPassword ? "text" : "password")" 
+       value="@Password" />
+
+<button class="btn btn-primary" @onclick="ToggleShowPassword">
+    Show password
+</button>
+
+<span class="text-danger">@_validationMessage</span>
+
+@code {
+    private bool _showPassword;
+    private string _password;
+    private string _validationMessage;
+
+    [Parameter]
+    public string Password
+    {
+        get { return _password ?? string.Empty; }
+        set
+        {
+            if (_password != value)
+            {
+                if (value.Contains(' '))
+                {
+                    _validationMessage = "Spaces not allowed!";
+                }
+                else
+                {
+                    _password = value;
+                    _validationMessage = string.Empty;
+                }
+            }
+        }
+    }
+
+    [Parameter]
+    public EventCallback<string> PasswordChanged { get; set; }
+
+    private Task OnPasswordChanged(ChangeEventArgs e)
+    {
+        Password = e.Value.ToString();
+
+        return PasswordChanged.InvokeAsync(Password);
+    }
+
+    private void ToggleShowPassword()
+    {
+        _showPassword = !_showPassword;
+    }
+}
+```
+
+### <a name="radio-buttons"></a>オプション ボタン
 
 フォームのオプションボタンへのバインドの詳細については、「<xref:blazor/forms-validation#work-with-radio-buttons>」を参照してください。
 
@@ -579,22 +716,25 @@ Razor コンポーネントは、イベント処理機能を提供します。 `
 
 次の表に、サポートされている `EventArgs` を示します。
 
-| Event            | &lt;クラス&gt; のすべてのオブジェクト                | DOM のイベントとメモ |
+| Event            | クラス                | DOM のイベントとメモ |
 | ---------------- | -------------------- | -------------------- |
-| クリップボードのトピック        | `ClipboardEventArgs` | `oncut`では、 `oncopy`では、 `onpaste` |
-| 抗力             | `DragEventArgs`      | `ondrag`, `ondragstart`, `ondragenter`, `ondragleave`, `ondragover`, `ondrop`, `ondragend`<br><br>`DataTransfer` および `DataTransferItem` ドラッグした項目データを保持します。 |
+| クリップボード        | `ClipboardEventArgs` | `oncut`、`oncopy`、`onpaste` |
+| 抗力             | `DragEventArgs`      | `ondrag`､`ondragstart`、`ondragenter`、`ondragleave`、`ondragover`、`ondrop`、`ondragend`<br><br>`DataTransfer` および `DataTransferItem` ドラッグした項目データを保持します。 |
 | エラー            | `ErrorEventArgs`     | `onerror` |
-| Event            | `EventArgs`          | *全般*<br>`onactivate`、`onbeforeactivate`、`onbeforedeactivate`、`ondeactivate`、`onended`、`onfullscreenchange`、`onfullscreenerror`、`onloadeddata`、`onloadedmetadata`、`onpointerlockchange`、`onpointerlockerror`、`onreadystatechange`、`onscroll`<br><br>*クリップボード*<br>`onbeforecut`では、 `onbeforecopy`では、 `onbeforepaste`<br><br>*入力*<br>`oninvalid`、 `onreset`、 `onselect`、 `onselectionchange`、 `onselectstart`、 `onsubmit`<br><br>*メディア*<br>`oncanplay`、`oncanplaythrough`、`oncuechange`、`ondurationchange`、`onemptied`、`onpause`、`onplay`、`onplaying`の `onratechange`、`onseeked`、`onseeking`、`onstalled`、`onstop`、および `onsuspend` |
-| フォーカス            | `FocusEventArgs`     | `onfocus`, `onblur`, `onfocusin`, `onfocusout`<br><br>には `relatedTarget`のサポートは含まれていません。 |
-| [入力]            | `ChangeEventArgs`    | `onchange`、`oninput` |
-| キーボード         | `KeyboardEventArgs`  | `onkeydown`では、 `onkeypress`では、 `onkeyup` |
+| Event            | `EventArgs`          | *全般*<br>`onactivate`、`onbeforeactivate`、`onbeforedeactivate`、`ondeactivate`、`onended`、`onfullscreenchange`、`onfullscreenerror`、`onloadeddata`、`onloadedmetadata`、`onpointerlockchange`、`onpointerlockerror`、`onreadystatechange`、`onscroll`<br><br>*クリップボード*<br>`onbeforecut`、`onbeforecopy`、`onbeforepaste`<br><br>*入力*<br>`oninvalid`、`onreset`、`onselect`、`onselectionchange`、`onselectstart`、`onsubmit`<br><br>*メディア*<br>`oncanplay`、`oncanplaythrough`、`oncuechange`、`ondurationchange`、`onemptied`、`onpause`、`onplay`、`onplaying`の `onratechange`、`onseeked`、`onseeking`、`onstalled`、`onstop`、および `onsuspend``ontimeupdate``onvolumechange``onwaiting` |
+| Focus            | `FocusEventArgs`     | `onfocus`、`onblur`、`onfocusin`, `onfocusout`<br><br>には `relatedTarget`のサポートは含まれていません。 |
+| 入力            | `ChangeEventArgs`    | `onchange`, `oninput` |
+| [キーボード]         | `KeyboardEventArgs`  | `onkeydown`、`onkeypress`、`onkeyup` |
 | マウス            | `MouseEventArgs`     | `onclick`, `oncontextmenu`, `ondblclick`, `onmousedown`, `onmouseup`, `onmouseover`, `onmousemove`, `onmouseout` |
 | マウスポインター    | `PointerEventArgs`   | `onpointerdown`、`onpointerup`、`onpointercancel`、`onpointermove`、`onpointerover`、`onpointerout`、`onpointerenter`、`onpointerleave`、`ongotpointercapture`、`onlostpointercapture` |
-| マウスホイール      | `WheelEventArgs`     | `onwheel`、`onmousewheel` |
-| 中         | `ProgressEventArgs`  | `onabort`、 `onload`、 `onloadend`、 `onloadstart`、 `onprogress`、 `ontimeout` |
-| タッチ            | `TouchEventArgs`     | `ontouchstart`、 `ontouchend`、 `ontouchmove`、 `ontouchenter`、 `ontouchleave`、 `ontouchcancel`<br><br>`TouchPoint` は、タッチを区別するデバイス上の1つの連絡先ポイントを表します。 |
+| マウスホイール      | `WheelEventArgs`     | `onwheel`, `onmousewheel` |
+| 進行状況         | `ProgressEventArgs`  | `onabort`、`onload`、`onloadend`、`onloadstart`、`onprogress`、`ontimeout` |
+| タッチ            | `TouchEventArgs`     | `ontouchstart`、`ontouchend`、`ontouchmove`、`ontouchenter`、`ontouchleave`、`ontouchcancel`<br><br>`TouchPoint` は、タッチを区別するデバイス上の1つの連絡先ポイントを表します。 |
 
-前の表に示したイベントのプロパティとイベント処理動作の詳細については、「[参照ソースの EventArgs クラス (dotnet/aspnetcore release/3.1 分岐)](https://github.com/dotnet/aspnetcore/tree/release/3.1/src/Components/Web/src/Web)」を参照してください。
+詳細については、次のリソースを参照してください。
+
+* [ASP.NET Core 参照ソースの EventArgs クラス (dotnet/aspnetcore release/3.1 分岐)](https://github.com/dotnet/aspnetcore/tree/release/3.1/src/Components/Web/src/Web)。
+* [MDN web ドキュメント: GlobalEventHandlers](https://developer.mozilla.org/docs/Web/API/GlobalEventHandlers) &ndash; には、各 DOM イベントをサポートする HTML 要素に関する情報が含まれています。
 
 ### <a name="lambda-expressions"></a>ラムダ式
 
@@ -641,7 +781,7 @@ Razor コンポーネントは、イベント処理機能を提供します。 `
 
 [!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=5-7,17-18)]
 
-`ParentComponent` によって、子の `EventCallback<T>` (`OnClick`) が `ShowMessage` メソッドに設定されます。
+`ParentComponent` によって、子の `EventCallback<T>` (`OnClickCallback`) が `ShowMessage` メソッドに設定されます。
 
 *Pages/ParentComponent。 razor*:
 
@@ -651,7 +791,7 @@ Razor コンポーネントは、イベント処理機能を提供します。 `
 <h1>Parent-child example</h1>
 
 <ChildComponent Title="Panel Title from Parent"
-                OnClick="@ShowMessage">
+                OnClickCallback="@ShowMessage">
     Content of the child component is supplied
     by the parent component.
 </ChildComponent>
@@ -677,7 +817,7 @@ Razor コンポーネントは、イベント処理機能を提供します。 `
 
 ```razor
 <ChildComponent 
-    OnClick="@(async () => { await Task.Yield(); _messageText = "Blaze It!"; })" />
+    OnClickCallback="@(async () => { await Task.Yield(); _messageText = "Blaze It!"; })" />
 ```
 
 `InvokeAsync` で `EventCallback` または `EventCallback<T>` を呼び出し、<xref:System.Threading.Tasks.Task>を待機します。
@@ -756,126 +896,6 @@ await callback.InvokeAsync(arg);
 }
 ```
 
-## <a name="chained-bind"></a>チェーンバインド
-
-一般的なシナリオでは、データバインドパラメーターをコンポーネントの出力のページ要素に連結します。 このシナリオは、複数のレベルのバインドが同時に発生するため、*チェーンバインド*と呼ばれます。
-
-チェーンバインドは、ページの要素で `@bind` 構文を使用して実装することはできません。 イベントハンドラーと値は、個別に指定する必要があります。 ただし、親コンポーネントでは、`@bind` 構文をコンポーネントのパラメーターと共に使用できます。
-
-次の `PasswordField` コンポーネント (*Passwordfield*):
-
-* `Password` プロパティに `<input>` 要素の値を設定します。
-* [Eventcallback](#eventcallback)を使用して、`Password` プロパティの変更を親コンポーネントに公開します。
-
-```razor
-Password: 
-
-<input @oninput="OnPasswordChanged" 
-       required 
-       type="@(_showPassword ? "text" : "password")" 
-       value="@Password" />
-
-<button class="btn btn-primary" @onclick="ToggleShowPassword">
-    Show password
-</button>
-
-@code {
-    private bool _showPassword;
-
-    [Parameter]
-    public string Password { get; set; }
-
-    [Parameter]
-    public EventCallback<string> PasswordChanged { get; set; }
-
-    private Task OnPasswordChanged(ChangeEventArgs e)
-    {
-        Password = e.Value.ToString();
-
-        return PasswordChanged.InvokeAsync(Password);
-    }
-
-    private void ToggleShowPassword()
-    {
-        _showPassword = !_showPassword;
-    }
-}
-```
-
-`PasswordField` コンポーネントが別のコンポーネントで使用されています。
-
-```razor
-<PasswordField @bind-Password="_password" />
-
-@code {
-    private string _password;
-}
-```
-
-前の例で、パスワードの確認またはトラップエラーを実行するには、次の手順を実行します。
-
-* `Password` のバッキングフィールドを作成します (次のコード例では`_password`)。
-* `Password` setter で、チェックまたはトラップのエラーを実行します。
-
-次の例では、パスワードの値にスペースが使用されている場合に、ユーザーにすぐにフィードバックを提供します。
-
-```razor
-Password: 
-
-<input @oninput="OnPasswordChanged" 
-       required 
-       type="@(_showPassword ? "text" : "password")" 
-       value="@Password" />
-
-<button class="btn btn-primary" @onclick="ToggleShowPassword">
-    Show password
-</button>
-
-<span class="text-danger">@_validationMessage</span>
-
-@code {
-    private bool _showPassword;
-    private string _password;
-    private string _validationMessage;
-
-    [Parameter]
-    public string Password
-    {
-        get { return _password ?? string.Empty; }
-        set
-        {
-            if (_password != value)
-            {
-                if (value.Contains(' '))
-                {
-                    _validationMessage = "Spaces not allowed!";
-                }
-                else
-                {
-                    _password = value;
-                    _validationMessage = string.Empty;
-                }
-            }
-        }
-    }
-
-    [Parameter]
-    public EventCallback<string> PasswordChanged { get; set; }
-
-    private Task OnPasswordChanged(ChangeEventArgs e)
-    {
-        Password = e.Value.ToString();
-
-        return PasswordChanged.InvokeAsync(Password);
-    }
-
-    private void ToggleShowPassword()
-    {
-        _showPassword = !_showPassword;
-    }
-}
-```
-
 ## <a name="capture-references-to-components"></a>コンポーネントへの参照をキャプチャする
 
 コンポーネント参照を使用すると、`Show` や `Reset`などのコマンドをそのインスタンスに発行できるように、コンポーネントインスタンスを参照することができます。 コンポーネント参照をキャプチャするには、次のようにします。
@@ -928,7 +948,21 @@ public class NotifierService
 }
 ```
 
-コンポーネントを更新するための `NotifierService` の使用法:
+`NotifierService` を次のように登録します。
+
+* Blazor WebAssembly、`Program.Main`にサービスを登録します。
+
+  ```csharp
+  builder.Services.AddSingleton<NotifierService>();
+  ```
+
+* Blazor Server で、`Startup.ConfigureServices`にサービスを登録します。
+
+  ```csharp
+  services.AddSingleton<NotifierService>();
+  ```
+
+コンポーネントを更新するには、`NotifierService` を使用します。
 
 ```razor
 @page "/"
@@ -967,7 +1001,7 @@ public class NotifierService
 
 要素またはコンポーネントのリストをレンダリングするときに、要素またはコンポーネントが変更された場合、Blazor の比較アルゴリズムは、前の要素またはコンポーネントを保持できるかどうか、およびモデルオブジェクトをどのようにマップするかを決定する必要があります。 通常、このプロセスは自動的に実行され、無視することができますが、プロセスの制御が必要になる場合があります。
 
-次に例を示します。
+次の例を確認してください。
 
 ```csharp
 @foreach (var person in People)
@@ -1254,7 +1288,7 @@ HTML 要素の属性は、.NET の値に基づいて条件付きで表示され�
 <input type="checkbox" />
 ```
 
-詳細については、「 <xref:mvc/views/razor>」を参照してください。
+詳細については、<xref:mvc/views/razor> を参照してください。
 
 > [!WARNING]
 > [Aria](https://developer.mozilla.org/docs/Web/Accessibility/ARIA/Roles/button_role#Toggle_buttons)などの一部の HTML 属性は、.net 型が `bool`の場合、正しく機能しません。 そのような場合は、`bool`ではなく `string` の型を使用します。
@@ -1284,7 +1318,7 @@ HTML 要素の属性は、.NET の値に基づいて条件付きで表示され�
 * テーブルのヘッダー、行、およびフッターのテンプレートをユーザーが指定できるようにするテーブルコンポーネント。
 * リスト内の項目を表示するためのテンプレートをユーザーが指定できるようにするリストコンポーネント。
 
-### <a name="template-parameters"></a>テンプレート パラメーター
+### <a name="template-parameters"></a>Template parameters
 
 `RenderFragment` または `RenderFragment<T>`型の1つ以上のコンポーネントパラメーターを指定して、テンプレート化されたコンポーネントを定義します。 レンダーフラグメントは、レンダリングする UI のセグメントを表します。 `RenderFragment<T>` は、レンダリングフラグメントが呼び出されたときに指定できる型パラメーターを受け取ります。
 
@@ -1654,16 +1688,16 @@ builder.AddContent(1, "Second");
 
 コードを初めて実行するときに、`someFlag` が `true`場合、ビルダーは次のメッセージを受け取ります。
 
-| シーケンス | の型      | データ   |
+| Sequence | 種類      | Data   |
 | :------: | --------- | :----: |
-| 0        | テキスト ノード | First  |
-| 1        | テキスト ノード | Second |
+| 0        | テキスト ノード | First (先頭へ)  |
+| 1        | テキスト ノード | 秒 |
 
 `someFlag` が `false`になり、マークアップが再び表示されるとします。 この時点で、ビルダーは次のものを受け取ります。
 
-| シーケンス | の型       | データ   |
+| Sequence | 種類       | Data   |
 | :------: | ---------- | :----: |
-| 1        | テキスト ノード  | Second |
+| 1        | テキスト ノード  | 秒 |
 
 ランタイムが diff を実行すると、シーケンス `0` の項目が削除されたことが認識されるため、次のような単純な*編集スクリプト*が生成されます。
 
@@ -1686,16 +1720,16 @@ builder.AddContent(seq++, "Second");
 
 これで、最初の出力は次のようになります。
 
-| シーケンス | の型      | データ   |
+| Sequence | 種類      | Data   |
 | :------: | --------- | :----: |
-| 0        | テキスト ノード | First  |
-| 1        | テキスト ノード | Second |
+| 0        | テキスト ノード | First (先頭へ)  |
+| 1        | テキスト ノード | 秒 |
 
 この結果は前のケースと同じであるため、負の問題は存在しません。 2番目のレンダリングでは `someFlag` が `false`、出力は次のようになります。
 
-| シーケンス | の型      | データ   |
+| Sequence | 種類      | Data   |
 | :------: | --------- | ------ |
-| 0        | テキスト ノード | Second |
+| 0        | テキスト ノード | 秒 |
 
 今回は、diff アルゴリズムによって*2 つ*の変更が行われたことが確認され、アルゴリズムによって次の編集スクリプトが生成されます。
 
@@ -1720,16 +1754,16 @@ Blazor サーバーアプリはローカライズ[ミドルウェア](xref:funda
 
 カルチャは、次のいずれかの方法を使用して設定できます。
 
-* [クッキー](#cookies)
+* [Cookie](#cookies)
 * [カルチャを選択するための UI を提供する](#provide-ui-to-choose-the-culture)
 
-使用例を含む詳細については、「<xref:fundamentals/localization>」を参照してください。
+詳細と例については、<xref:fundamentals/localization> をご覧ください。
 
 ### <a name="configure-the-linker-for-internationalization-opno-locblazor-webassembly"></a>国際化のためのリンカーの構成 (Blazor WebAssembly
 
 既定では、Blazor WebAssembly に対する Blazor のリンカー構成により、明示的に要求されたロケールを除き、国際化情報は除去されます。 リンカーの動作を制御する方法の詳細とガイダンスについては、「<xref:host-and-deploy/blazor/configure-linker#configure-the-linker-for-internationalization>」を参照してください。
 
-### <a name="cookies"></a>Cookies
+### <a name="cookies"></a>Cookie
 
 ローカリゼーションカルチャクッキーは、ユーザーのカルチャを保持できます。 Cookie は、アプリのホストページ (*Pages/host. cshtml. .cs*) の `OnGet` メソッドによって作成されます。 ローカリゼーションミドルウェアは、後続の要求で cookie を読み取り、ユーザーのカルチャを設定します。 
 
@@ -1791,7 +1825,7 @@ public class CultureController : Controller
 ```
 
 > [!WARNING]
-> `LocalRedirect` アクションの結果を使用して、開いているリダイレクト攻撃を防止します。 詳細については、「 <xref:security/preventing-open-redirects>」を参照してください。
+> `LocalRedirect` アクションの結果を使用して、開いているリダイレクト攻撃を防止します。 詳細については、<xref:security/preventing-open-redirects> を参照してください。
 
 次のコンポーネントは、ユーザーがカルチャを選択したときに最初のリダイレクトを実行する方法の例を示しています。
 
@@ -1834,7 +1868,7 @@ Blazorの `@bind` 機能は、ユーザーの現在のカルチャに基づい�
 * `IStringLocalizer<>` は Blazor アプリで*サポートされて*います。
 * `IHtmlLocalizer<>`、`IViewLocalizer<>`、データ注釈のローカライズは MVC シナリオ ASP.NET Core、Blazor アプリではサポートされて**いません**。
 
-詳細については、「 <xref:fundamentals/localization>」を参照してください。
+詳細については、<xref:fundamentals/localization> を参照してください。
 
 ## <a name="scalable-vector-graphics-svg-images"></a>スケーラブルベクターグラフィックス (SVG) イメージ
 
@@ -1854,6 +1888,6 @@ Blazor は HTML をレンダリングするため、スケーラブルベクタ�
 
 ただし、インライン SVG マークアップは、すべてのシナリオでサポートされているわけではありません。 コンポーネントファイル (*razor*) に `<svg>` タグを直接配置した場合、基本的な画像レンダリングはサポートされますが、多くの高度なシナリオはサポートされていません。 たとえば、`<use>` タグは現在尊重されていないため、`@bind` をいくつかの SVG タグと共に使用することはできません。 今後のリリースでは、これらの制限に対処する予定です。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * <xref:security/blazor/server> &ndash; には、リソース枯渇に対処する必要がある Blazor サーバーアプリを構築するためのガイダンスが含まれています。

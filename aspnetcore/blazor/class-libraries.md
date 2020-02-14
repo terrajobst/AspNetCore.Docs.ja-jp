@@ -5,17 +5,17 @@ description: コンポーネントを外部コンポーネントライブラリ�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 01/23/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/class-libraries
-ms.openlocfilehash: f8e8688cdb3d1aef0d470e0e2d8c3857140ef65f
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.openlocfilehash: 32088b43f91174596f6b9251d36782e806f966b9
+ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76160029"
+ms.lasthandoff: 02/14/2020
+ms.locfileid: "77213250"
 ---
 # <a name="aspnet-core-razor-components-class-libraries"></a>Razor コンポーネントクラスライブラリの ASP.NET Core
 
@@ -31,7 +31,7 @@ ms.locfileid: "76160029"
 
 ## <a name="create-an-rcl"></a>RCL を作成する
 
-<xref:blazor/get-started> の記事のガイダンスに従って、Blazor用に環境を構成します。
+<xref:blazor/get-started> の記事のガイダンスに従って、Blazor 用に環境を構成します。
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -47,6 +47,15 @@ ms.locfileid: "76160029"
    1. アプリプロジェクトを右クリックします。 [ > **参照**の**追加**] を選択します。
    1. RCL プロジェクトを選択します。 **[OK]** を選択します。
 
+> [!NOTE]
+> テンプレートから RCL を生成するときに **[サポートページとビュー]** チェックボックスがオンになっている場合は、次の内容を使用して、生成されたプロジェクトのルートに *_Imports razor*ファイルを追加して、razor コンポーネントの作成を有効にします。
+>
+> ```razor
+> @using Microsoft.AspNetCore.Components.Web
+> ```
+>
+> 生成されたプロジェクトのルートにファイルを手動で追加します。
+
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 1. コマンドシェルで[dotnet new](/dotnet/core/tools/dotnet-new)コマンドを使用して、 **Razor クラスライブラリ**テンプレート (`razorclasslib`) を使用します。 次の例では、`MyComponentLib1`という名前の RCL が作成されます。 コマンドの実行時に、`MyComponentLib1` を保持するフォルダーが自動的に作成されます。
@@ -54,6 +63,15 @@ ms.locfileid: "76160029"
    ```dotnetcli
    dotnet new razorclasslib -o MyComponentLib1
    ```
+
+   > [!NOTE]
+   > テンプレートから RCL を生成するときに `-s|--support-pages-and-views` スイッチが使用されている場合は、次の内容を使用して、生成されたプロジェクトのルートに *_Imports razor*ファイルを追加して、razor コンポーネントの作成を有効にします。
+   >
+   > ```razor
+   > @using Microsoft.AspNetCore.Components.Web
+   > ```
+   >
+   > 生成されたプロジェクトのルートにファイルを手動で追加します。
 
 1. 既存のプロジェクトにライブラリを追加するには、コマンドシェルで dotnet の [[参照の追加](/dotnet/core/tools/dotnet-add-reference)] コマンドを使用します。 次の例では、RCL がアプリに追加されています。 ライブラリへのパスを使用して、アプリのプロジェクトフォルダーから次のコマンドを実行します。
 
@@ -108,8 +126,8 @@ dotnet pack
 
 ## <a name="create-a-razor-components-class-library-with-static-assets"></a>静的なアセットを含む Razor コンポーネントクラスライブラリを作成する
 
-RCL には、静的なアセットを含めることができます。 この静的アセットは、ライブラリを使用するすべてのアプリで使用できます。 詳細については、「 <xref:razor-pages/ui-class#create-an-rcl-with-static-assets>」を参照してください。
+RCL には、静的なアセットを含めることができます。 この静的アセットは、ライブラリを使用するすべてのアプリで使用できます。 詳細については、<xref:razor-pages/ui-class#create-an-rcl-with-static-assets> を参照してください。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * <xref:razor-pages/ui-class>
