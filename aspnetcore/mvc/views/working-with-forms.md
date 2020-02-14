@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: mvc/views/working-with-forms
-ms.openlocfilehash: 61b50a63bd026f917035f64785d8d3b1956958a6
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 1c7652c909432b25ae373873cd593afd879cfa00
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880960"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77172563"
 ---
 # <a name="tag-helpers-in-forms-in-aspnet-core"></a>ASP.NET Core のフォームのタグ ヘルパー
 
@@ -27,7 +27,7 @@ ms.locfileid: "74880960"
 
 [フォーム](https://www.w3.org/TR/html401/interact/forms.html) タグ ヘルパー:
 
-* MVC コントローラー アクションまたは名前付きルートについて HTML の [\<FORM>](https://www.w3.org/TR/html401/interact/forms.html) `action` 属性値を生成します。
+* MVC コントローラー アクションまたは名前付きルートについて HTML の [\<FORM>](https://www.w3.org/TR/html401/interact/forms.html) `action` 属性値を生成します
 
 * クロスサイト リクエスト フォージェリを防ぐために、非表示の[要求検証トークン](/aspnet/mvc/overview/security/xsrfcsrf-prevention-in-aspnet-mvc-and-web-pages)を生成します (HTTP POST アクション メソッドで `[ValidateAntiForgeryToken]` 属性と共に使用する場合)
 
@@ -41,7 +41,7 @@ ms.locfileid: "74880960"
 
 上記のフォーム タグ ヘルパーで、次の HTML が生成されます。
 
-```HTML
+```html
 <form method="post" action="/Demo/Register">
     <!-- Input and Submit elements -->
     <input name="__RequestVerificationToken" type="hidden" value="<removed for brevity>">
@@ -165,7 +165,7 @@ public class HomeController : Controller
 
 構文:
 
-```HTML
+```cshtml
 <input asp-for="<Expression Name>">
 ```
 
@@ -183,7 +183,7 @@ public class HomeController : Controller
 
 * 厳密な型指定を提供します。 プロパティの名前が変更され、タグ ヘルパーを更新しない場合は、次のようなエラーが表示されます。
 
-```HTML
+```
 An error occurred during the compilation of a resource required to process
 this request. Please review the following specific error details and modify
 your source code appropriately.
@@ -225,7 +225,7 @@ Type expected
 
 上記のコードで、次の HTML が生成されます。
 
-```HTML
+```html
   <form method="post" action="/Demo/RegisterInput">
       Email:
       <input type="email" data-val="true"
@@ -241,7 +241,7 @@ Type expected
    </form>
 ```
 
-`Email` および `Password` プロパティに適用されたデータ注釈によって、モデルに関するメタデータが生成されます。 入力タグ ヘルパーはモデルのメタデータを使用し、[HTML5](https://developer.mozilla.org/docs/Web/Guide/HTML/HTML5) `data-val-*` 属性を生成します ([モデルの検証](../models/validation.md)に関するページを参照してください)。 これらの属性に、入力フィールドにアタッチする検証コントロールを記述します。 これで、控えめな HTML5 と [jQuery](https://jquery.com/) の検証機能を提供します。 控えめな属性の形式は `data-val-rule="Error Message"` です。この rule は検証ルールの名前です (`data-val-required`、`data-val-email`、`data-val-maxlength` など)。属性にエラー メッセージが指定されている場合は、`data-val-rule` 属性の値として表示されます。 `data-val-maxlength-max="1024"` など、ルールに関する追加の詳細情報を提供するフォームの属性 `data-val-ruleName-argumentName="argumentValue"` もあります。
+`Email` および `Password` プロパティに適用されたデータ注釈によって、モデルに関するメタデータが生成されます。 入力タグ ヘルパーはモデルのメタデータを使用し、[HTML5](https://developer.mozilla.org/docs/Web/Guide/HTML/HTML5) の `data-val-*` 属性を生成します ([モデルの検証](../models/validation.md)に関するページを参照してください)。 これらの属性に、入力フィールドにアタッチする検証コントロールを記述します。 これで、控えめな HTML5 と [jQuery](https://jquery.com/) の検証機能を提供します。 控えめな属性の形式は `data-val-rule="Error Message"` です。この rule は検証ルールの名前です (`data-val-required`、`data-val-email`、`data-val-maxlength` など)。属性にエラー メッセージが指定されている場合は、`data-val-rule` 属性の値として表示されます。 `data-val-maxlength-max="1024"` など、ルールに関する追加の詳細情報を提供するフォームの属性 `data-val-ruleName-argumentName="argumentValue"` もあります。
 
 ### <a name="html-helper-alternatives-to-input-tag-helper"></a>入力タグ ヘルパーの代替となる HTML ヘルパー
 
@@ -251,7 +251,7 @@ Type expected
 
 `@Html.Editor()` と `@Html.EditorFor()` は、既定のテンプレートを実行するときに `htmlAttributes` という名前の特殊な `ViewDataDictionary` エントリを使用します。 この動作は、必要に応じて `additionalViewData` パラメーターを使用して拡張されます。 キー "htmlAttributes" は大文字と小文字が区別されません。 キー "htmlAttributes" は、`htmlAttributes` のような入力ヘルパーに渡される `@Html.TextBox()` オブジェクトと同様に処理されます。
 
-```HTML
+```cshtml
 @Html.EditorFor(model => model.YourProperty, 
   new { htmlAttributes = new { @class="myCssClass", style="Width:100px" } })
 ```
@@ -260,16 +260,17 @@ Type expected
 
 `asp-for` 属性値は `ModelExpression` であり、ラムダ式の右辺です。 そのため、生成されるコードで `asp-for="Property1"` は `m => m.Property1` になります。したがって、`Model` をプレフィックスとして付加する必要はありません。 "\@" 文字を使用してインライン式を開始し、`m.` の前に移動できます。
 
-```HTML
+```cshtml
 @{
-       var joe = "Joe";
-   }
-   <input asp-for="@joe">
+  var joe = "Joe";
+}
+
+<input asp-for="@joe">
 ```
 
 以下が生成されます。
 
-```HTML
+```html
 <input type="text" id="joe" name="joe" value="Joe">
 ```
 
@@ -294,7 +295,7 @@ ASP.NET Core MVC で `ModelExpression` の値が計算されるとき、`ModelSt
 
 `Address.AddressLine1` に対して次の HTML が生成されます。
 
-```HTML
+```html
 <input type="text" id="Address_AddressLine1" name="Address.AddressLine1" value="">
 ```
 
@@ -308,10 +309,10 @@ ASP.NET Core MVC で `ModelExpression` の値が計算されるとき、`ModelSt
 
 ```csharp
 public IActionResult Edit(int id, int colorIndex)
-   {
-       ViewData["Index"] = colorIndex;
-       return View(GetPerson(id));
-   }
+{
+    ViewData["Index"] = colorIndex;
+    return View(GetPerson(id));
+}
 ```
 
 次の Razor は、特定の `Color` 要素にアクセスする方法を示しています。
@@ -359,7 +360,7 @@ public IActionResult Edit(int id, int colorIndex)
 
 次の HTML が生成されます。
 
-```HTML
+```html
 <form method="post" action="/Demo/RegisterTextArea">
   <textarea data-val="true"
    data-val-maxlength="The field Description must be a string or array type with a maximum length of &#x27;1024&#x27;."
@@ -395,7 +396,7 @@ public IActionResult Edit(int id, int colorIndex)
 
 `<label>` 要素に対して次の HTML が生成されます。
 
-```HTML
+```html
 <label for="Email">Email Address</label>
 ```
 
@@ -407,7 +408,7 @@ public IActionResult Edit(int id, int colorIndex)
 
 ### <a name="the-validation-message-tag-helper"></a>検証メッセージ タグ ヘルパー
 
-* [HTML5](https://developer.mozilla.org/docs/Web/Guide/HTML/HTML5) `data-valmsg-for="property"` 属性を [span](https://developer.mozilla.org/docs/Web/HTML/Element/span) 要素に追加します。これによって、指定されたモデル プロパティの入力フィールドに検証エラー メッセージがアタッチされます。 クライアント側の検証エラーが発生すると、[jQuery](https://jquery.com/) によって `<span>` 要素のエラー メッセージが表示されます。
+* [HTML5](https://developer.mozilla.org/docs/Web/Guide/HTML/HTML5) の `data-valmsg-for="property"` 属性を [span](https://developer.mozilla.org/docs/Web/HTML/Element/span) 要素に追加します。これによって、指定されたモデル プロパティの入力フィールドに検証エラー メッセージがアタッチされます。 クライアント側の検証エラーが発生すると、[jQuery](https://jquery.com/) によって `<span>` 要素のエラー メッセージが表示されます。
 
 * 検証はサーバー側でも実行されます。 クライアントで JavaScript が無効にされている場合や、一部の検証をサーバー側でのみ実行できる場合があります。
 
@@ -415,13 +416,13 @@ public IActionResult Edit(int id, int colorIndex)
 
 `Validation Message Tag Helper` は、HTML の [span](https://developer.mozilla.org/docs/Web/HTML/Element/span) 要素で `asp-validation-for` 属性と共に使用されます。
 
-```HTML
+```cshtml
 <span asp-validation-for="Email"></span>
 ```
 
 検証メッセージ タグ ヘルパーから、次の HTML が生成されます。
 
-```HTML
+```html
 <span class="field-validation-valid"
   data-valmsg-for="Email"
   data-valmsg-replace="true"></span>
@@ -434,7 +435,7 @@ public IActionResult Edit(int id, int colorIndex)
 
 サーバー側の検証エラーが発生した場合 (カスタムのサーバー側の検証がある場合や、クライアント側の検証が無効な場合など)、MVC はそのエラー メッセージを `<span>` 要素の本文として配置します。
 
-```HTML
+```html
 <span class="field-validation-error" data-valmsg-for="Email"
             data-valmsg-replace="true">
    The Email Address field is required.
@@ -453,7 +454,7 @@ public IActionResult Edit(int id, int colorIndex)
 |--- |--- |
 |ValidationSummary.All|プロパティとモデル レベル|
 |ValidationSummary.ModelOnly|モデル|
-|ValidationSummary.None|なし|
+|ValidationSummary.None|None|
 
 ### <a name="sample"></a>サンプル
 
@@ -465,7 +466,7 @@ public IActionResult Edit(int id, int colorIndex)
 
 生成される HTML (モデルが有効な場合):
 
-```HTML
+```html
 <form action="/DemoReg/Register" method="post">
   <div class="validation-summary-valid" data-valmsg-summary="true">
   <ul><li style="display:none"></li></ul></div>
@@ -551,7 +552,7 @@ HTTP POST `Index` メソッドによって選択内容が表示されます。
 
 次の HTML が生成されます。
 
-```HTML
+```html
   <form method="post" action="/Home/IndexEnum">
          <select data-val="true" data-val-required="The EnumCountry field is required."
                  id="EnumCountry" name="EnumCountry">
@@ -581,7 +582,7 @@ HTML の [\<optgroup>](https://www.w3.org/wiki/HTML/Elements/optgroup) 要素は
 
 生成される HTML:
 
-```HTML
+```html
  <form method="post" action="/Home/IndexGroup">
       <select id="Country" name="Country">
           <optgroup label="North America">
@@ -612,7 +613,7 @@ HTML の [\<optgroup>](https://www.w3.org/wiki/HTML/Elements/optgroup) 要素は
 
 次の HTML が生成されます。
 
-```HTML
+```html
 <form method="post" action="/Home/IndexMultiSelect">
     <select id="CountryCodes"
     multiple="multiple"
@@ -648,7 +649,7 @@ HTML の [\<option>](https://www.w3.org/wiki/HTML/Elements/option) 要素の追�
 
 [!code-csharp[](working-with-forms/sample/final/Controllers/HomeController.cs?range=114-119)]
 
-```HTML
+```html
  <form method="post" action="/Home/IndexEmpty">
       <select id="Country" name="Country">
           <option value="">&lt;none&gt;</option>

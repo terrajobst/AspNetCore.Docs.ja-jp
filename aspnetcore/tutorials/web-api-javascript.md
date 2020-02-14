@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/26/2019
 uid: tutorials/web-api-javascript
-ms.openlocfilehash: 5a31aa2974eb41938db89f97c070c352a26290fd
-ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
+ms.openlocfilehash: 2a19a7d16ca8b8f5d6ac8eb99ad919b89f1e368b
+ms.sourcegitcommit: 235623b6e5a5d1841139c82a11ac2b4b3f31a7a9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/02/2019
-ms.locfileid: "74681176"
+ms.lasthandoff: 02/10/2020
+ms.locfileid: "77114654"
 ---
 # <a name="tutorial-call-an-aspnet-core-web-api-with-javascript"></a>チュートリアル: JavaScript を使用して ASP.NET Core Web API を呼び出す
 
@@ -36,7 +36,7 @@ ASP.NET Core 2.2 の場合は、2.2 バージョンの「[JavaScript で Web API
 
 このセクションでは、To Do アイテムを作成および管理するためのフォームが含まれる HTML ページを追加します。 イベント ハンドラーを、ページ上の要素にアタッチします。 イベント ハンドラーによって、Web API のアクション メソッドに HTTP 要求が送信されます。 Fetch API の `fetch` 関数により、各 HTTP 要求が開始されます。
 
-`fetch` 関数からは `Promise` オブジェクトが返され、このオブジェクトには `Response` オブジェクトとして表された HTTP 応答が含まれます。 一般的なパターンでは、`Response` オブジェクトに対して `json` 関数を呼び出して、JSON 応答の本文を抽出します。 JavaScript により、Web API の応答からの詳細を使ってページが更新されます。
+`fetch` 関数からは [Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) オブジェクトが返され、このオブジェクトには `Response` オブジェクトとして表された HTTP 応答が含まれます。 一般的なパターンでは、`Response` オブジェクトに対して `json` 関数を呼び出して、JSON 応答の本文を抽出します。 JavaScript により、Web API の応答からの詳細を使ってページが更新されます。
 
 `fetch` の最も簡単な呼び出しでは、ルートを表す 1 つのパラメーターが受け付けられます。 `init` オブジェクトである 2 番目のパラメーターは省略可能です。 `init` は、HTTP 要求を構成するために使用されます。
 
@@ -77,9 +77,9 @@ Web API から正常状態コードが返されると、`_displayItems` 関数�
 
 * `item` 変数は、To Do アイテムのオブジェクト リテラル表現を構築するために宣言されています。
 * フェッチ要求は、次のオプションで構成されます。
-  * `method` &mdash; POST HTTP アクション動詞が指定されています。
-  * `body` &mdash; 要求本文の JSON 表現が指定されています。 JSON は、`item` に格納されているオブジェクト リテラルを [JSON.stringify](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) 関数に渡すことによって生成されます。
-  * `headers` &mdash; `Accept` および `Content-Type` の HTTP 要求ヘッダーが指定されています。 どちらのヘッダーも `application/json` に設定され、それぞれ、受信および送信されるメディアの種類が指定されています。
+  * `method`&mdash; POST HTTP アクション動詞が指定されています。
+  * `body`&mdash; 要求本文の JSON 表現が指定されています。 JSON は、`item` に格納されているオブジェクト リテラルを [JSON.stringify](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) 関数に渡すことによって生成されます。
+  * `headers`&mdash;`Accept` および `Content-Type` の HTTP 要求ヘッダーが指定されています。 どちらのヘッダーも `application/json` に設定され、それぞれ、受信および送信されるメディアの種類が指定されています。
 * HTTP POST 要求が *api/TodoItems* ルートに送信されます。
 
 [!code-javascript[](first-web-api/samples/3.0/TodoApi/wwwroot/js/site.js?name=snippet_AddItem)]

@@ -5,14 +5,14 @@ description: ASP.NET Core でホステッド サービスを使用するバッ�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/05/2020
+ms.date: 02/10/2020
 uid: fundamentals/host/hosted-services
-ms.openlocfilehash: 6a88e56afc4fb1b4f673c362f83d948eda84b930
-ms.sourcegitcommit: bd896935e91236e03241f75e6534ad6debcecbbf
+ms.openlocfilehash: 9b7224c07df027c9466db34dcc23505410893f1f
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/06/2020
-ms.locfileid: "77044881"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77171798"
 ---
 # <a name="background-tasks-with-hosted-services-in-aspnet-core"></a>ASP.NET Core でホステッド サービスを使用するバックグラウンド タスク
 
@@ -166,6 +166,10 @@ ASP.NET Core ワーカー サービス テンプレートは、実行時間が�
 サービスは `IHostBuilder.ConfigureServices` (*Program.cs*) に登録されています。 ホステッド サービスは、`AddHostedService` 拡張メソッドを使用して登録されます。
 
 [!code-csharp[](hosted-services/samples/3.x/BackgroundTasksSample/Program.cs?name=snippet3)]
+
+`MontiorLoop` は `Program.Main` で開始されます。
+
+[!code-csharp[](hosted-services/samples/3.x/BackgroundTasksSample/Program.cs?name=snippet4)]
 
 ::: moniker-end
 

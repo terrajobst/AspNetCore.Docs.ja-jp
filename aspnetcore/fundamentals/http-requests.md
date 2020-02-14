@@ -5,14 +5,14 @@ description: IHttpClientFactory インターフェイスを使用して、ASP.NE
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 12/16/2019
+ms.date: 02/09/2020
 uid: fundamentals/http-requests
-ms.openlocfilehash: 9b9da82191a587be0603ee114562e9a964f05250
-ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
+ms.openlocfilehash: 93b75525e8a3f10c4e0b655baaff83c0f6e8131b
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/29/2020
-ms.locfileid: "76870399"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77171802"
 ---
 # <a name="make-http-requests-using-ihttpclientfactory-in-aspnet-core"></a>ASP.NET Core で IHttpClientFactory を使用して HTTP 要求を行う
 
@@ -109,7 +109,12 @@ ms.locfileid: "76870399"
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Startup.cs?name=snippet3)]
 
-型指定されたクライアントは、DI で一時的として登録されます。 型指定されたクライアントは、直接挿入して使用できます。
+型指定されたクライアントは、DI で一時的として登録されます。 上記のコードで、`AddHttpClient` は `GitHubService` を一時的なサービスとして登録します。 この登録では、ファクトリ メソッドを使用して次のことを行います。
+
+1. `HttpClient` のインスタンスを作成します。
+1. `GitHubService` のインスタンスを作成し、`HttpClient` のインスタンスをそのコンストラクターに渡します。
+
+型指定されたクライアントは、直接挿入して使用できます。
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Pages/TypedClient.cshtml.cs?name=snippet1&highlight=11-14,20)]
 
@@ -364,7 +369,7 @@ DI 対応のアプリ内で `IHttpClientFactory` を使用すれば、次のこ�
 
 * クライアントで、構成されたヘッダーが送信要求に含まれます。
 
-  ```C#
+  ```csharp
   var client = clientFactory.CreateClient("MyForwardingClient");
   var response = client.GetAsync(...);
   ```
@@ -991,7 +996,7 @@ DI 対応のアプリ内で `IHttpClientFactory` を使用すれば、次のこ�
 
 * クライアントで、構成されたヘッダーが送信要求に含まれます。
 
-  ```C#
+  ```csharp
   var client = clientFactory.CreateClient("MyForwardingClient");
   var response = client.GetAsync(...);
   ```
