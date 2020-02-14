@@ -5,14 +5,14 @@ description: Windows サービスで ASP.NET Core アプリケーションをホ
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/13/2020
+ms.date: 02/06/2020
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: d4b540de50f4153f517f871f037521347fb5eb84
-ms.sourcegitcommit: 990a4c2e623c202a27f60bdf3902f250359c13be
+ms.openlocfilehash: 71f7bf3f5dcf8068d0ada03675ef7948267b79f4
+ms.sourcegitcommit: bd896935e91236e03241f75e6534ad6debcecbbf
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/03/2020
-ms.locfileid: "76972005"
+ms.lasthandoff: 02/06/2020
+ms.locfileid: "77044894"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>Windows サービスでの ASP.NET Core のホスト
 
@@ -50,8 +50,10 @@ ASP.NET Core ワーカー サービス テンプレートは、実行時間が�
 
 * ホストの有効期間を `WindowsServiceLifetime` に設定します。
 * [コンテンツ ルート](xref:fundamentals/index#content-root)を [AppContext.BaseDirectory](xref:System.AppContext.BaseDirectory) に設定します。 詳しくは、「[現在のディレクトリとコンテンツのルート](#current-directory-and-content-root)」セクションをご覧ください。
-* 既定のソース名として、アプリケーション名によるイベント ログへの記録を有効にします。
-  * *appsettings.Production.json* ファイルで `Logging:LogLevel:Default` キーを使用してログ レベルを構成できます。
+* イベント ログへのログ記録を有効にします。
+  * アプリケーション名が既定のソース名として使用されます。
+  * 既定のログ レベルは、ホストを構築するために `CreateDefaultBuilder` が呼び出される ASP.NET Core テンプレートに基づくアプリに対して "*警告*" 以上です。
+  * 既定のログ レベルを、*appsettings.json*/*appsettings.{環境}.json* の `Logging:EventLog:LogLevel:Default` キーまたは他の構成プロバイダーでオーバーライドします。
   * 管理者のみが新しいイベント ソースを作成できます。 アプリケーション名を使用して、イベント ソースを作成できない場合、警告が*アプリケーション* ソースに記録され、イベント ログが無効になります。
 
 *Program.cs* の `CreateHostBuilder` の場合:

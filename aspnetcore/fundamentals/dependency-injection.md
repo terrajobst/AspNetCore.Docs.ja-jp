@@ -5,14 +5,14 @@ description: ASP.NET Core で依存関係の挿入を実装する方法とそれ
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/30/2020
+ms.date: 02/05/2020
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: a9d268489ebcef69d64c6fd65087bc38a3581821
-ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
+ms.openlocfilehash: 7c0789dafcb7dfacd15ac448a39bad94649963c8
+ms.sourcegitcommit: bd896935e91236e03241f75e6534ad6debcecbbf
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/01/2020
-ms.locfileid: "76928417"
+ms.lasthandoff: 02/06/2020
+ms.locfileid: "77044924"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>ASP.NET Core での依存関係の挿入
 
@@ -544,7 +544,17 @@ public class Program
 
 ## <a name="scope-validation"></a>スコープの検証
 
-アプリが開発環境で実行されている場合、既定のサービス プロバイダーは次を確認するためのチェックを実行します。
+::: moniker range=">= aspnetcore-3.0"
+
+アプリが開発環境で実行されていて、ホストを構築するために [CreateDefaultBuilder](xref:fundamentals/host/generic-host#default-builder-settings) が呼び出される場合、既定のサービス プロバイダーによって次を確認するためのチェックが実行されます。
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+アプリが開発環境で実行されていて、ホストを構築するために [CreateDefaultBuilder](xref:fundamentals/host/web-host#set-up-a-host) が呼び出される場合、既定のサービス プロバイダーによって次を確認するためのチェックが実行されます。
+
+::: moniker-end
 
 * スコープ サービスが、ルート サービス プロバイダーによって直接的または間接的に解決されない。
 * スコープ サービスが、シングルトンに直接または間接に挿入されない。
