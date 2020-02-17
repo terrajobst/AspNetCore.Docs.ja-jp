@@ -297,18 +297,20 @@
           uid: blazor/components
         - name: ライフサイクル
           uid: blazor/lifecycle
-        - name: フォームと検証
-          uid: blazor/forms-validation
-        - name: コンポーネント ライブラリ
-          uid: blazor/class-libraries
         - name: レイアウト
           uid: blazor/layouts
+        - name: フォームと検証
+          uid: blazor/forms-validation
         - name: 依存関係の挿入
           uid: blazor/dependency-injection
         - name: ルーティング
           uid: blazor/routing
         - name: JavaScript 相互運用
           uid: blazor/javascript-interop
+        - name: ホスティング モデルの構成
+          uid: blazor/hosting-model-configuration
+        - name: コンポーネント ライブラリ
+          uid: blazor/class-libraries
         - name: セキュリティと ID
           items:
             - name: 概要
