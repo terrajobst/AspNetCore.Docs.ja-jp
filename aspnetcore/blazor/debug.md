@@ -17,13 +17,13 @@ ms.contentlocale: ja-JP
 ms.lasthandoff: 01/17/2020
 ms.locfileid: "76159990"
 ---
-# <a name="debug-aspnet-core-opno-locblazor"></a>デバッグ ASP.NET Core Blazor
+# <a name="debug-aspnet-core-opno-locblazor"></a>デバッグ ASP.NET Core [!OP.NO-LOC(Blazor)]
 
 [Daniel Roth](https://github.com/danroth27)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-Chromium ベースのブラウザー (Chrome/Edge) でブラウザー開発ツールを使用することにより、Blazor デバッグのための*早期*サポートが導入されています。 次の作業が進行中です:
+Chromium ベースのブラウザー (Chrome/Microsoft Edge) でブラウザー開発ツールを使用することにより、[!OP.NO-LOC(Blazor)] デバッグのための*早期*サポートが導入されています。 次の作業が進行中です:
 
 * Visual Studio でのデバッグを完全に有効にします。
 * Visual Studio Code でデバッグを有効にします。
@@ -60,10 +60,10 @@ Chromium ベースのブラウザー (Chrome/Edge) でブラウザー開発ツ�
 > [!WARNING]
 > Visual Studio でのデバッグのサポートは、開発の初期段階です。 **F5**のデバッグは現在サポートされていません。
 
-1. デバッグせずに `Debug` の構成で Blazor WebAssembly を実行します ( **F5**キーではなく、Ctrl+**F5** **キーを押し**ます)。
-1. アプリのデバッグプロパティ ( **[デバッグ]** メニューの最後のエントリ) を開き、HTTP**アプリの URL**をコピーします。 Chromium ベースのブラウザー (Edge ベータまたは Chrome) を使用して、アプリの HTTP アドレス (HTTPS アドレスではない) を参照します。
+1. デバッグせずに `Debug` の構成で [!OP.NO-LOC(Blazor)] WebAssembly を実行します ( **F5**キーではなく、Ctrl+**F5** **キーを押し**ます)。
+1. アプリのデバッグプロパティ ( **[デバッグ]** メニューの最後のエントリ) を開き、HTTP**アプリの URL**をコピーします。 Chromium ベースのブラウザー (Microsoft Edge ベータまたは Chrome) を使用して、アプリの HTTP アドレス (HTTPS アドレスではない) を参照します。
 1. 開発者ツールパネルではなく、ブラウザーウィンドウでキーボードフォーカスをアプリに配置します。 この手順では、開発者ツールパネルを閉じたままにしておくことをお勧めします。 デバッグが開始されたら、[開発者ツール] パネルを再び開くことができます。
-1. 次の Blazor固有のキーボードショートカットを選択します。
+1. 次の [!OP.NO-LOC(Blazor)]固有のキーボードショートカットを選択します。
 
    * Windows での `Shift+Alt+D`
    * macOS の `Shift+Cmd+D`
@@ -76,7 +76,7 @@ Chromium ベースのブラウザー (Chrome/Edge) でブラウザー開発ツ�
 
    2\. ブラウザーウィンドウで、キーボードフォーカスをアプリに配置します。
 
-   3\. 新しいブラウザーウィンドウで Blazor固有のキーボードショートカットを選択します。 Windows の場合は `Shift+Alt+D`、macOS の場合は `Shift+Cmd+D` です。
+   3\. 新しいブラウザーウィンドウで [!OP.NO-LOC(Blazor)]固有のキーボードショートカットを選択します。 Windows の場合は `Shift+Alt+D`、macOS の場合は `Shift+Cmd+D` です。
 
    4\. **[Devtools]** タブがブラウザーに表示されます。 **ブラウザーウィンドウでアプリのタブを再度選択します。**
 
@@ -84,10 +84,10 @@ Chromium ベースのブラウザー (Chrome/Edge) でブラウザー開発ツ�
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
 
-1. `--configuration Debug` オプションを[dotnet run](/dotnet/core/tools/dotnet-run)コマンドに渡すことによって `Debug` 構成で Blazor WebAssembly を実行します: `dotnet run --configuration Debug`。
+1. `--configuration Debug` オプションを[dotnet run](/dotnet/core/tools/dotnet-run)コマンドに渡すことによって `Debug` 構成で [!OP.NO-LOC(Blazor)] WebAssembly を実行します: `dotnet run --configuration Debug`。
 1. シェルのウィンドウに表示されている HTTP URL でアプリに移動します。
 1. 開発者ツールパネルではなく、アプリにキーボードフォーカスを置きます。 この手順では、開発者ツールパネルを閉じたままにしておくことをお勧めします。 デバッグが開始されたら、[開発者ツール] パネルを再び開くことができます。
-1. 次の Blazor固有のキーボードショートカットを選択します。
+1. 次の [!OP.NO-LOC(Blazor)]固有のキーボードショートカットを選択します。
 
    * Windows での `Shift+Alt+D`
    * macOS の `Shift+Cmd+D`
@@ -100,7 +100,7 @@ Chromium ベースのブラウザー (Chrome/Edge) でブラウザー開発ツ�
 
    2\. 開発者ツールパネルではなく、ブラウザーウィンドウでキーボードフォーカスをアプリに配置します。
 
-   3\. 新しいブラウザーウィンドウで Blazor固有のキーボードショートカットを選択します。 Windows の場合は `Shift+Alt+D`、macOS の場合は `Shift+Cmd+D` です。
+   3\. 新しいブラウザーウィンドウで [!OP.NO-LOC(Blazor)]固有のキーボードショートカットを選択します。 Windows の場合は `Shift+Alt+D`、macOS の場合は `Shift+Cmd+D` です。
 
 ---
 
