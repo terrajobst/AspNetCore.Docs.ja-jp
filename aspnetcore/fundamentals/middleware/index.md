@@ -430,7 +430,7 @@ app.Map("/level1", level1App => {
 
 ASP.NET Core には、次のミドルウェア コンポーネントが付属しています。 "*順番*" 列には、要求を処理するパイプライン内のミドルウェアの配置と、ミドルウェアが要求処理を終了する条件に関するメモが記載されています。 ミドルウェアが要求を処理するパイプラインをショートサーキットし、下流のさらなるミドルウェアによる要求の処理を回避する場合、これは "*ターミナル ミドルウェア*" と呼ばれます。 ショートサーキットについて詳しくは、「[IApplicationBuilder を使用したミドルウェア パイプラインの作成](#create-a-middleware-pipeline-with-iapplicationbuilder)」セクションをご覧ください。
 
-| ミドルウェア | 説明 | 注文 |
+| ミドルウェア | 説明 | 順番 |
 | ---------- | ----------- | ----- |
 | [認証](xref:security/authentication/identity) | 認証のサポートを提供します。 | `HttpContext.User` が必要な場所の前。 OAuth コールバックの終端。 |
 | [Cookie のポリシー](xref:security/gdpr) | 個人情報の保存に関してユーザーからの同意を追跡し、`secure` や `SameSite` など、Cookie フィールドの最小要件を適用します。 | Cookie を発行するミドルウェアの前。 次に例を示します。 認証、セッション、MVC (TempData) |
