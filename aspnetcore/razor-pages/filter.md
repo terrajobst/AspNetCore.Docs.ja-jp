@@ -4,14 +4,14 @@ author: Rick-Anderson
 description: ASP.NET Core の Razor ページのフィルター メソッドを作成する方法を説明します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 12/28/2019
+ms.date: 2/18/2020
 uid: razor-pages/filter
-ms.openlocfilehash: 02771219454556b236080c2668243f788693b2c1
-ms.sourcegitcommit: 077b45eceae044475f04c1d7ef2d153d7c0515a8
+ms.openlocfilehash: a60b17685c6f836de7c0afcc5b89a9894fb8b28f
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/29/2019
-ms.locfileid: "75542721"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447232"
 ---
 # <a name="filter-methods-for-razor-pages-in-aspnet-core"></a>ASP.NET Core の Razor ページのフィルター メソッド
 
@@ -30,7 +30,7 @@ Razor ページ フィルターとは、次のとおりです。
 * 特定のページ ハンドラー メソッドには適用できません。
 * [依存関係の挿入](xref:fundamentals/dependency-injection)(DI) によってコンストラクターの依存関係を設定できます。 詳細については、「 [Servicefilterattribute](/aspnet/core/mvc/controllers/filters#servicefilterattribute) 」と「 [typefilterattribute](/aspnet/core/mvc/controllers/filters#typefilterattribute)」を参照してください。
 
-コードは、ページコンストラクターまたはミドルウェアを使用してハンドラーメソッドを実行する前に実行できますが、<xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel.HttpContext>にアクセスできるのは Razor ページフィルターのみです。 フィルターには <xref:Microsoft.AspNetCore.Mvc.Filters.FilterContext> 派生パラメーターがあり、`HttpContext`へのアクセスを提供します。 たとえば、「[フィルター属性を実装する](#ifa)」のサンプルでは、応答にヘッダーが追加されます。これは、コンストラクターやミドルウェアでは実行できません。
+ページコンストラクターとミドルウェアは、ハンドラーメソッドの実行前にカスタムコードの実行を有効にしますが、Razor ページフィルターのみを使用して <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel.HttpContext> およびページにアクセスできます。 ミドルウェアは `HttpContext`にアクセスできますが、"ページコンテキスト" にはアクセスできません。 フィルターには <xref:Microsoft.AspNetCore.Mvc.Filters.FilterContext> 派生パラメーターがあり、`HttpContext`へのアクセスを提供します。 たとえば、「[フィルター属性を実装する](#ifa)」のサンプルでは、応答にヘッダーが追加されます。これは、コンストラクターやミドルウェアでは実行できません。
 
 [サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/filter/3.1sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
@@ -57,7 +57,7 @@ Razor ページ フィルターには、グローバルまたはページ レベ
 
 上記のコードでは、`ProcessUserAgent.Write` ユーザーが指定したコードがユーザーエージェント文字列で動作します。
 
-次のコードは、`Startup` クラスで `SampleAsyncPageFilter` を有効にします。
+次のコードは、`SampleAsyncPageFilter` クラスで `Startup` を有効にします。
 
 [!code-csharp[Main](filter/3.1sample/PageFilter/Startup.cs?name=snippet2)]
 
@@ -101,7 +101,7 @@ Razor ページ フィルターには、グローバルまたはページ レベ
 
 ## <a name="authorize-filter-attribute"></a>Authorize フィルター属性
 
-`PageModel` に [Authorize](/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute?view=aspnetcore-2.0) 属性を適用できます。
+[ に ](/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute?view=aspnetcore-2.0)Authorize`PageModel` 属性を適用できます。
 
 [!code-csharp[Main](filter/sample/PageFilter/Pages/ModelWithAuthFilter.cshtml.cs?highlight=7)]
 
@@ -121,7 +121,7 @@ Razor ページ フィルターとは、次のとおりです。
 * ページまたはグローバルに実装できます。
 * 特定のページ ハンドラー メソッドには適用できません。
 
-コードは、ページ コンストラクターまたはミドルウェアを使用してハンドラー メソッドの実行前に実行できますが、[HttpContext](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel.httpcontext?view=aspnetcore-2.0#Microsoft_AspNetCore_Mvc_RazorPages_PageModel_HttpContext) にアクセスできるのは Razor ページ フィルターのみです。 フィルターには、`HttpContext` へのアクセスを提供する [FilterContext](/dotnet/api/microsoft.aspnetcore.mvc.filters.filtercontext?view=aspnetcore-2.0) 派生のパラメーターがあります。 たとえば、「[フィルター属性を実装する](#ifa)」のサンプルでは、応答にヘッダーが追加されます。これは、コンストラクターやミドルウェアでは実行できません。
+コードは、ページ コンストラクターまたはミドルウェアを使用してハンドラー メソッドの実行前に実行できますが、[HttpContext](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel.httpcontext?view=aspnetcore-2.0#Microsoft_AspNetCore_Mvc_RazorPages_PageModel_HttpContext) にアクセスできるのは Razor ページ フィルターのみです。 フィルターには、[ へのアクセスを提供する ](/dotnet/api/microsoft.aspnetcore.mvc.filters.filtercontext?view=aspnetcore-2.0)FilterContext`HttpContext` 派生のパラメーターがあります。 たとえば、「[フィルター属性を実装する](#ifa)」のサンプルでは、応答にヘッダーが追加されます。これは、コンストラクターやミドルウェアでは実行できません。
 
 [サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/filter/sample/PageFilter)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
@@ -149,7 +149,7 @@ Razor ページ フィルターには、グローバルまたはページ レベ
 
 前述のコードでは、[ILogger](/dotnet/api/microsoft.extensions.logging.ilogger?view=aspnetcore-2.0) は不要です。 これは、アプリケーションのトレース情報を提供するためにサンプルで使用されています。
 
-次のコードは、`Startup` クラスで `SampleAsyncPageFilter` を有効にします。
+次のコードは、`SampleAsyncPageFilter` クラスで `Startup` を有効にします。
 
 [!code-csharp[Main](filter/sample/PageFilter/Startup.cs?name=snippet2&highlight=11)]
 
@@ -157,7 +157,7 @@ Razor ページ フィルターには、グローバルまたはページ レベ
 
 [!code-csharp[Main](filter/sample/PageFilter/Startup.cs?name=snippet1)]
 
-次のコードは、`AddFolderApplicationModelConvention` を呼び出し、 */subFolder* のページにのみ `SampleAsyncPageFilter` を適用します。
+次のコードは、`AddFolderApplicationModelConvention` を呼び出し、`SampleAsyncPageFilter`/subFolder*のページにのみ* を適用します。
 
 [!code-csharp[Main](filter/sample/PageFilter/Startup2.cs?name=snippet2)]
 
@@ -195,7 +195,7 @@ Razor ページ フィルターには、グローバルまたはページ レベ
 
 ## <a name="authorize-filter-attribute"></a>Authorize フィルター属性
 
-`PageModel` に [Authorize](/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute?view=aspnetcore-2.0) 属性を適用できます。
+[ に ](/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute?view=aspnetcore-2.0)Authorize`PageModel` 属性を適用できます。
 
 [!code-csharp[Main](filter/sample/PageFilter/Pages/ModelWithAuthFilter.cshtml.cs?highlight=7)]
 

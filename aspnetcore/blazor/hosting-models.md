@@ -5,17 +5,17 @@ description: Blazor Webasと Blazor サーバーホスティングモデルに�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/31/2020
+ms.date: 02/12/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/hosting-models
-ms.openlocfilehash: 2314ba39e67fbf734807b96de6c54bc94283a67d
-ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
+ms.openlocfilehash: 54be0e032a60c69880f428e52f9d778032385dc5
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/14/2020
-ms.locfileid: "77213315"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447049"
 ---
 # <a name="aspnet-core-opno-locblazor-hosting-models"></a>Blazor ホスティングモデルの ASP.NET Core
 
@@ -121,7 +121,7 @@ Blazor サーバーアプリは[ASP.NET Core SignalR](xref:signalr/introduction)
 
 Blazor Server アプリに接続されている各ブラウザー画面 (ブラウザータブまたは iframe) は、SignalR 接続を使用します。 これは、サーバーでレンダリングされる一般的なアプリと比較して、もう1つ重要な違いです。 サーバー側でレンダリングされるアプリでは、複数のブラウザー画面で同じアプリを開くのは、通常、サーバーに対する追加のリソース要求には変換されません。 Blazor サーバーアプリでは、各ブラウザー画面に個別の回線が必要で、コンポーネント状態の個別のインスタンスがサーバーによって管理されます。
 
-Blazor は、ブラウザータブを閉じるか、外部 URL に移動して*正常*に終了すると見なされます。 正常な終了が発生した場合、回線と関連するリソースが直ちに解放されます。 クライアントは、ネットワークの中断などによって、正常に切断されることもあります。 Blazor サーバーは、クライアントが再接続できるように、接続されていない回線を構成可能な間隔で格納します。 詳細については、「[同じサーバーへの再接続](xref:blazor/hosting-model-configuration#reconnection-to-the-same-server)」を参照してください。
+Blazor は、ブラウザータブを閉じるか、外部 URL に移動して*正常*に終了すると見なされます。 正常な終了が発生した場合、回線と関連するリソースが直ちに解放されます。 クライアントは、ネットワークの中断などによって、正常に切断されることもあります。 Blazor サーバーは、クライアントが再接続できるように、接続されていない回線を構成可能な間隔で格納します。
 
 ### <a name="ui-latency"></a>UI の待機時間
 
@@ -129,7 +129,7 @@ UI 待機時間とは、開始されたアクションから UI が更新され�
 
 企業のプライベートネットワークに限定された基幹業務アプリの場合、ネットワーク待機時間による待ち時間のユーザーへの影響は、通常はなるべくです。 インターネット経由で展開されたアプリの場合、ユーザーにとって待機時間が顕著になる可能性があります。ユーザーが地理的に広く分散している場合は特にそうです。
 
-メモリ使用量は、アプリの待機時間に寄与する場合もあります。 メモリ使用量が増加すると、ガベージコレクションまたはメモリのページングが頻繁に発生します。どちらの場合も、アプリのパフォーマンスが低下し、その結果、UI の遅延が増加します。 詳細については、<xref:security/blazor/server> を参照してください。
+メモリ使用量は、アプリの待機時間に寄与する場合もあります。 メモリ使用量が増加すると、ガベージコレクションまたはメモリのページングが頻繁に発生します。どちらの場合も、アプリのパフォーマンスが低下し、その結果、UI の遅延が増加します。 詳細については、「<xref:security/blazor/server>」を参照してください。
 
 Blazor サーバーアプリは、ネットワーク待機時間とメモリ使用量を削減することで、UI の待機時間を最小限に抑えるように最適化する必要があります。 ネットワーク待機時間を測定する方法については、「<xref:host-and-deploy/blazor/server#measure-network-latency>」を参照してください。 SignalR と Blazorの詳細については、以下を参照してください。
 
@@ -142,7 +142,7 @@ Blazor サーバーアプリには、サーバーへのアクティブな Signal
 
 最初のクライアント要求への応答としての Blazor Server アプリ prerenders。これにより、サーバー上で UI の状態が設定されます。 クライアントが SignalR 接続を作成しようとすると、クライアントは同じサーバーに再接続する必要があります。 複数のバックエンドサーバーを使用する Blazor サーバーアプリは、SignalR 接続用の*固定セッション*を実装する必要があります。
 
-[ サーバー アプリには SignalRAzure ](/azure/azure-signalr) ServiceBlazor を使用することをお勧めします。 このサービスでは、多数の同時 Blazor 接続に対して SignalR Server アプリをスケールアップできます。 Azure SignalR サービスでは、サービスの `ServerStickyMode` オプションまたは構成値を `Required`に設定することにより、固定セッションが有効になります。 詳細については、<xref:host-and-deploy/blazor/server#signalr-configuration> を参照してください。
+[ サーバー アプリには SignalRAzure ](/azure/azure-signalr) ServiceBlazor を使用することをお勧めします。 このサービスでは、多数の同時 Blazor 接続に対して SignalR Server アプリをスケールアップできます。 Azure SignalR サービスでは、サービスの `ServerStickyMode` オプションまたは構成値を `Required`に設定することにより、固定セッションが有効になります。 詳細については、「<xref:host-and-deploy/blazor/server#signalr-configuration>」を参照してください。
 
 IIS を使用すると、スティッキー セッションはアプリケーション要求ルーティングによって有効になります。 詳しくは、「[アプリケーション要求ルーティングを使用した HTTP 負荷分散](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing)」をご覧ください。
 

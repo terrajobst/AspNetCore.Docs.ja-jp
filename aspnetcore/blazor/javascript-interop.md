@@ -5,17 +5,17 @@ description: Blazor アプリで JavaScript から .NET および .NET メソッ
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/23/2020
+ms.date: 02/12/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/javascript-interop
-ms.openlocfilehash: c4f2444b60fc2d3a8af893df379cf62636a7bdd5
-ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
+ms.openlocfilehash: d681eea5a5e876912bd614fba8ea45a464844496
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/14/2020
-ms.locfileid: "77213364"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447166"
 ---
 # <a name="aspnet-core-opno-locblazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript 相互運用機能
 
@@ -74,7 +74,7 @@ JavaScript 関数を呼び出すために .NET コードが必要になる場合
 
   [!code-html[](javascript-interop/samples_snapshot/index-script-handleTickerChanged2.html)]
 
-* [BuildRenderTree](xref:blazor/components#manual-rendertreebuilder-logic)を使用した動的なコンテンツ生成の場合は、`[Inject]` 属性を使用します。
+* [BuildRenderTree](xref:blazor/advanced-scenarios#manual-rendertreebuilder-logic)を使用した動的なコンテンツ生成の場合は、`[Inject]` 属性を使用します。
 
   ```razor
   [Inject]
@@ -512,7 +512,9 @@ returnArrayAsyncJs: function () {
 
 JavaScript から .NET インスタンスメソッドを呼び出すこともできます。 JavaScript から .NET インスタンスメソッドを呼び出すには、次の手順を実行します。
 
-* .NET インスタンスを `DotNetObjectReference` インスタンスにラップして、JavaScript に渡します。 .NET インスタンスは、JavaScript への参照によって渡されます。
+* .NET インスタンスを JavaScript への参照によって渡します。
+  * `DotNetObjectReference.Create`の静的な呼び出しを行います。
+  * インスタンスを `DotNetObjectReference` インスタンスにラップし、`DotNetObjectReference` インスタンスで `Create` を呼び出します。 `DotNetObjectReference` オブジェクトを破棄します (このセクションの後半で例を示します)。
 * `invokeMethod` または `invokeMethodAsync` 関数を使用して、インスタンスで .NET インスタンスメソッドを呼び出します。 .NET インスタンスは、JavaScript から他の .NET メソッドを呼び出すときに引数として渡すこともできます。
 
 > [!NOTE]
@@ -558,6 +560,68 @@ JavaScript から .NET インスタンスメソッドを呼び出すこともで
 Hello, Blazor!
 ```
 
+メモリリークを回避し、`DotNetObjectReference`を作成するコンポーネントでガベージコレクションを許可するには、`DotNetObjectReference` インスタンスを作成したクラスでオブジェクトを破棄します。
+
+```csharp
+public class ExampleJsInterop : IDisposable
+{
+    private readonly IJSRuntime _jsRuntime;
+    private DotNetObjectReference<HelloHelper> _objRef;
+
+    public ExampleJsInterop(IJSRuntime jsRuntime)
+    {
+        _jsRuntime = jsRuntime;
+    }
+
+    public ValueTask<string> CallHelloHelperSayHello(string name)
+    {
+        _objRef = DotNetObjectReference.Create(new HelloHelper(name));
+
+        return _jsRuntime.InvokeAsync<string>(
+            "exampleJsFunctions.sayHello",
+            _objRef);
+    }
+
+    public void Dispose()
+    {
+        _objRef?.Dispose();
+    }
+}
+```
+  
+`ExampleJsInterop` クラスに示されている上記のパターンは、コンポーネントに実装することもできます。
+  
+```razor
+@page "/JSInteropComponent"
+@using BlazorSample.JsInteropClasses
+@implements IDisposable
+@inject IJSRuntime JSRuntime
+
+<h1>JavaScript Interop</h1>
+
+<button type="button" class="btn btn-primary" @onclick="TriggerNetInstanceMethod">
+    Trigger .NET instance method HelloHelper.SayHello
+</button>
+
+@code {
+    private DotNetObjectReference<HelloHelper> _objRef;
+
+    public async Task TriggerNetInstanceMethod()
+    {
+        _objRef = DotNetObjectReference.Create(new HelloHelper("Blazor"));
+
+        await JSRuntime.InvokeAsync<string>(
+            "exampleJsFunctions.sayHello",
+            _objRef);
+    }
+
+    public void Dispose()
+    {
+        _objRef?.Dispose();
+    }
+}
+```
+
 ## <a name="share-interop-code-in-a-class-library"></a>クラスライブラリで相互運用コードを共有する
 
 JS 相互運用コードは、NuGet パッケージ内のコードを共有できるクラスライブラリに含めることができます。
@@ -566,7 +630,7 @@ JS 相互運用コードは、NuGet パッケージ内のコードを共有で�
 
 ビルド済みの NuGet パッケージは、NuGet パッケージを参照するのと同じ方法で、アプリのプロジェクトファイルで参照されます。 パッケージが復元された後、アプリコードはと同じように JavaScript C#を呼び出すことができます。
 
-詳細については、<xref:blazor/class-libraries> を参照してください。
+詳細については、「<xref:blazor/class-libraries>」を参照してください。
 
 ## <a name="harden-js-interop-calls"></a>JS 相互運用呼び出しの強化
 

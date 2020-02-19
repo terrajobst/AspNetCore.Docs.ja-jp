@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/06/2019
 uid: security/enforcing-ssl
-ms.openlocfilehash: 9efd49bb246a10c4eb49fb1bb0374ae9442d55a1
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: 43f3abfa4bc311ed246f6f2585d522661e492039
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172622"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447153"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>ASP.NET Core に HTTPS を適用する
 
@@ -259,7 +259,7 @@ ASP.NET Core 2.1 以降では、`UseHsts` 拡張メソッドを使用して HSTS
 
 HSTS の設定はブラウザーによって非常にキャッシュ可能であるため、`UseHsts` は開発で推奨されていません。 既定では、`UseHsts` はローカルループバックアドレスを除外します。
 
-初めて HTTPS を実装する運用環境では、<xref:System.TimeSpan> メソッドのいずれかを使用して、初期の[HstsOptions](xref:Microsoft.AspNetCore.HttpsPolicy.HstsOptions.MaxAge*)を小さい値に設定します。 HTTPS インフラストラクチャを HTTP に戻す必要がある場合に備えて、値を時間から1日以内に設定します。 HTTPS 構成の持続性を確認したら、HSTS の最長有効期間の値を増やします。一般的に使用される値は1年です。
+初めて HTTPS を実装する運用環境では、<xref:System.TimeSpan> メソッドのいずれかを使用して、初期の[HstsOptions](xref:Microsoft.AspNetCore.HttpsPolicy.HstsOptions.MaxAge*)を小さい値に設定します。 HTTPS インフラストラクチャを HTTP に戻す必要がある場合に備えて、値を時間から1日以内に設定します。 HTTPS 構成の持続性を確認したら、HSTS `max-age` の値を増やします。一般的に使用される値は1年です。
 
 コード例を次に示します。
 
@@ -277,9 +277,9 @@ HSTS の設定はブラウザーによって非常にキャッシュ可能であ
 ::: moniker-end
 
 
-* Strict-Transport-Security ヘッダーのプリロードパラメーターを設定します。 プリロードは[RFC hsts 仕様](https://tools.ietf.org/html/rfc6797)の一部ではありませんが、web ブラウザーでは、新規インストール時に hsts サイトを事前に読み込むことがサポートされています。 詳細については、「[https://hstspreload.org/](https://hstspreload.org/)」を参照してください。
+* `Strict-Transport-Security` ヘッダーのプリロードパラメーターを設定します。 プリロードは[RFC hsts 仕様](https://tools.ietf.org/html/rfc6797)の一部ではありませんが、web ブラウザーでは、新規インストール時に hsts サイトを事前に読み込むことがサポートされています。 詳細については、「[https://hstspreload.org/](https://hstspreload.org/)」を参照してください。
 * HSTS ポリシーをホストサブドメインに適用する[includeSubDomain](https://tools.ietf.org/html/rfc6797#section-6.1.2)を有効にします。
-* 厳密な-Transport-Security ヘッダーの最長有効期間パラメーターを60日に明示的に設定します。 設定されていない場合、既定値は30日です。 詳細については、「[最長有効期間」ディレクティブ](https://tools.ietf.org/html/rfc6797#section-6.1.1)を参照してください。
+* `Strict-Transport-Security` ヘッダーの `max-age` パラメーターを明示的に60日に設定します。 設定されていない場合、既定値は30日です。 詳細については、「[最長有効期間」ディレクティブ](https://tools.ietf.org/html/rfc6797#section-6.1.1)を参照してください。
 * 除外するホストの一覧に `example.com` を追加します。
 
 `UseHsts` は、次のループバックホストを除外します。
@@ -294,7 +294,7 @@ HSTS の設定はブラウザーによって非常にキャッシュ可能であ
 
 HTTPS/HSTS をオプトアウトするには、次のようにします。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio) 
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio) 
 
 **[HTTPS 用に構成]** チェックボックスをオフにします。
 
@@ -311,7 +311,7 @@ HTTPS/HSTS をオプトアウトするには、次のようにします。
 ::: moniker-end
 
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli) 
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli) 
 
 `--no-https` オプションを使用します。 次に例を示します。
 
@@ -325,7 +325,7 @@ dotnet new webapp --no-https
 
 ## <a name="trust-the-aspnet-core-https-development-certificate-on-windows-and-macos"></a>Windows および macOS で ASP.NET Core HTTPS 開発証明書を信頼する
 
-.NET Core SDK には、HTTPS 開発証明書が含まれています。 証明書は、最初の実行エクスペリエンスの一部としてインストールされます。 たとえば、`dotnet --info` では次のような出力が生成されます。
+.NET Core SDK には、HTTPS 開発証明書が含まれています。 証明書は、最初の実行エクスペリエンスの一部としてインストールされます。 たとえば、`dotnet --info` は次の出力のバリエーションを生成します。
 
 ```
 ASP.NET Core
@@ -358,7 +358,7 @@ dotnet dev-certs https --help
 
 Windows Subsystem for Linux (WSL) は、HTTPS 自己署名証明書を生成します。WSL 証明書を信頼するように Windows 証明書ストアを構成するには、次のようにします。
 
-* 次のコマンドを実行して、WSL によって生成された証明書をエクスポートします。 `dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p <cryptic-password>`
+* 次のコマンドを実行して、WSL で生成された証明書をエクスポートします。 `dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p <cryptic-password>`
 * WSL ウィンドウで、次のコマンドを実行します: `ASPNETCORE_Kestrel__Certificates__Default__Password="<cryptic-password>" ASPNETCORE_Kestrel__Certificates__Default__Path=/mnt/c/Users/user-name/.aspnet/https/aspnetapp.pfx dotnet watch run`
 
   上記のコマンドは、Linux が Windows の信頼された証明書を使用するように環境変数を設定します。

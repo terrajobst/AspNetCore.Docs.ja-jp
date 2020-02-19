@@ -5,17 +5,17 @@ description: Blazor アプリ用の再利用可能なレイアウトコンポー
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 02/12/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/layouts
-ms.openlocfilehash: 8e7294f6b66d34781473522a71f929ed5f9c33f2
-ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
+ms.openlocfilehash: 5b6e1c7ceb4a6e41230e31bbe379bde1bb0a8286
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/14/2020
-ms.locfileid: "77213377"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447140"
 ---
 # <a name="aspnet-core-opno-locblazor-layouts"></a>Blazor レイアウトの ASP.NET Core
 
@@ -23,7 +23,7 @@ By [Rainer Stropek](https://www.timecockpit.com)と[Luke latham](https://github.
 
 メニュー、著作権メッセージ、会社のロゴなどの一部のアプリ要素は、通常、アプリの全体的なレイアウトの一部であり、アプリのすべてのコンポーネントで使用されます。 これらの要素のコードをアプリのすべてのコンポーネントにコピーするのは、いずれかの要素に更新が必要な場合に、すべてのコンポーネントを更新する必要があるので&mdash;効率的な方法ではありません。 このような重複を維持することは困難であり、時間の経過と共にコンテンツの一貫性が失われる可能性があります。 *レイアウト*はこの問題を解決します。
 
-技術的には、レイアウトは別のコンポーネントにすぎません。 レイアウトは Razor テンプレートまたはC#コードで定義され、[データバインディング](xref:blazor/components#data-binding)、[依存関係の挿入](xref:blazor/dependency-injection)、およびその他のコンポーネントのシナリオを使用できます。
+技術的には、レイアウトは別のコンポーネントにすぎません。 レイアウトは Razor テンプレートまたはC#コードで定義され、[データバインディング](xref:blazor/data-binding)、[依存関係の挿入](xref:blazor/dependency-injection)、およびその他のコンポーネントのシナリオを使用できます。
 
 *コンポーネント*を*レイアウト*に変換するには、次のコンポーネントを実行します。
 
@@ -66,7 +66,7 @@ Blazor アプリテンプレートのいずれかに基づくアプリでは、`
 
 次の *_Imports の razor*ファイルのインポート:
 
-* [https://login.microsoftonline.com/consumers/](`MyCoolLayout`)
+* `MyCoolLayout` で初期化します。
 * 同じフォルダーおよびサブフォルダー内のすべての Razor コンポーネント。
 * `BlazorApp1.Data` 名前空間。
  
@@ -94,7 +94,7 @@ Blazor アプリテンプレートのいずれかに基づくアプリでは、`
 
 ## <a name="share-a-razor-pages-layout-with-integrated-components"></a>Razor Pages レイアウトを統合コンポーネントと共有する
 
-ルーティング可能なコンポーネントが Razor Pages アプリに統合されている場合、アプリの共有レイアウトをコンポーネントで使用できます。 詳細については、<xref:blazor/hosting-model-configuration#integrate-razor-components-into-razor-pages-and-mvc-apps> を参照してください。
+ルーティング可能なコンポーネントが Razor Pages アプリに統合されている場合、アプリの共有レイアウトをコンポーネントで使用できます。 詳細については、「<xref:blazor/integrate-components>」を参照してください。
 
 ## <a name="additional-resources"></a>その他のリソース
 

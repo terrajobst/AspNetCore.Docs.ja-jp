@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: bdorrans
 ms.date: 01/02/2020
 uid: security/authentication/certauth
-ms.openlocfilehash: 9c175439c0313d62c75898f1af097774b06f353a
-ms.sourcegitcommit: e7d4fe6727d423f905faaeaa312f6c25ef844047
+ms.openlocfilehash: 280daa86510d4445c791b6952653122961f13aeb
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/02/2020
-ms.locfileid: "75608146"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447283"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>ASP.NET Core で証明書認証を構成する
 
@@ -36,7 +36,7 @@ Web アプリで、`Microsoft.AspNetCore.Authentication.Certificate` パッケ�
 
 認証が失敗した場合、このハンドラーは `401 (Unauthorized)`ではなく `403 (Forbidden)` 応答を返します。 これは、最初の TLS 接続中に認証が行われるということです。 ハンドラーに到達するまでには遅すぎます。 匿名接続から証明書を使用して接続をアップグレードする方法はありません。
 
-また、`Startup.Configure` メソッドに `app.UseAuthentication();` を追加します。 それ以外の場合、`HttpContext.User` は証明書から作成された `ClaimsPrincipal` には設定されません。 例:
+また、`Startup.Configure` メソッドに `app.UseAuthentication();` を追加します。 それ以外の場合、`HttpContext.User` は証明書から作成された `ClaimsPrincipal` には設定されません。 例 :
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -63,25 +63,25 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 ### <a name="allowedcertificatetypes--chained-selfsigned-or-all-chained--selfsigned"></a>AllowedCertificateTypes = チェーン、自己署名、またはすべて (チェーン |自己署名済み)
 
-既定値: `CertificateTypes.Chained`
+[既定値]\: [すべての要求]
 
 このチェックでは、適切な証明書の種類のみが許可されていることが検証されます。 アプリが自己署名証明書を使用している場合は、このオプションを `CertificateTypes.All` または `CertificateTypes.SelfSigned`に設定する必要があります。
 
 ### <a name="validatecertificateuse"></a>ValidateCertificateUse
 
-既定値: `true`
+[既定値]\: [すべての要求]
 
 このチェックでは、クライアントが提示した証明書にクライアント認証の拡張キー使用法 (EKU) があること、またはまったく Eku がないことを検証します。 仕様として、EKU が指定されていない場合は、すべての Eku が有効と見なされます。
 
 ### <a name="validatevalidityperiod"></a>ValidateValidityPeriod
 
-既定値: `true`
+[既定値]\: [すべての要求]
 
 このチェックでは、証明書が有効期間内であることを検証します。 要求が発生するたびに、ハンドラーは、提示されたときに有効だった証明書が現在のセッション中に期限切れにならないようにします。
 
 ### <a name="revocationflag"></a>RevocationFlag
 
-既定値: `X509RevocationFlag.ExcludeRoot`
+[既定値]\: [すべての要求]
 
 チェーン内のどの証明書の失効を確認するかを指定するフラグ。
 
@@ -89,7 +89,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 ### <a name="revocationmode"></a>RevocationMode
 
-既定値: `X509RevocationMode.Online`
+[既定値]\: [すべての要求]
 
 失効確認の実行方法を指定するフラグ。
 
@@ -218,7 +218,7 @@ public static IHostBuilder CreateHostBuilder(string[] args)
 ```
 
 > [!NOTE]
-> <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ConfigureHttpsDefaults*> を呼び出す**前に**<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> を呼び出して作成されたエンドポイントには、既定値は適用されません。
+> <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> を呼び出す**前に** <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ConfigureHttpsDefaults*> を呼び出すことで作成されるエンドポイントには既定値が適用されません。
 
 ### <a name="iis"></a>IIS
 
@@ -236,19 +236,26 @@ IIS マネージャーで、次の手順を実行します。
 
 ### <a name="use-certificate-authentication-in-azure-web-apps"></a>Azure Web Apps で証明書認証を使用する
 
+Azure では、転送構成は必要ありません。 これは既に証明書転送ミドルウェアで設定されています。
+
+> [!NOTE]
+> これを行うには、CertificateForwardingMiddleware が存在している必要があります。
+
+### <a name="use-certificate-authentication-in-custom-web-proxies"></a>カスタム web プロキシで証明書認証を使用する
+
 `AddCertificateForwarding` メソッドを使用して、次のように指定します。
 
 * クライアントヘッダー名。
 * (`HeaderConverter` プロパティを使用して) 証明書を読み込む方法。
 
-Azure Web Apps では、証明書は `X-ARR-ClientCert`という名前のカスタム要求ヘッダーとして渡されます。 これを使用するには `Startup.ConfigureServices`で証明書の転送を構成します。
+カスタム web プロキシでは、証明書はカスタム要求ヘッダー (`X-SSL-CERT`など) として渡されます。 これを使用するには `Startup.ConfigureServices`で証明書の転送を構成します。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
     services.AddCertificateForwarding(options =>
     {
-        options.CertificateHeader = "X-ARR-ClientCert";
+        options.CertificateHeader = "X-SSL-CERT";
         options.HeaderConverter = (headerValue) =>
         {
             X509Certificate2 clientCertificate = null;
@@ -326,46 +333,80 @@ namespace AspNetCoreCertificateAuthApi
 }
 ```
 
-#### <a name="implement-an-httpclient-using-a-certificate"></a>証明書を使用して HttpClient を実装する
+#### <a name="implement-an-httpclient-using-a-certificate-and-the-httpclienthandler"></a>証明書と HttpClientHandler を使用して HttpClient を実装する
 
-Web API クライアントは、`IHttpClientFactory` インスタンスを使用して作成された `HttpClient`を使用します。 これにより、`HttpClient`のハンドラーを定義する方法が提供されないため、`HttpRequestMessage` を使用して `X-ARR-ClientCert` 要求ヘッダーに証明書を追加します。 証明書は、`GetRawCertDataString` メソッドを使用して文字列として追加されます。 
+HttpClientHandler は、HttpClient クラスのコンストラクターに直接追加できます。 HttpClient のインスタンスを作成するときは注意が必要です。 HttpClient は、要求ごとに証明書を送信します。
 
 ```csharp
-private async Task<JsonDocument> GetApiDataAsync()
+private async Task<JsonDocument> GetApiDataUsingHttpClientHandler()
 {
-    try
+    var cert = new X509Certificate2(Path.Combine(_environment.ContentRootPath, "sts_dev_cert.pfx"), "1234");
+    var handler = new HttpClientHandler();
+    handler.ClientCertificates.Add(cert);
+    var client = new HttpClient(handler);
+     
+    var request = new HttpRequestMessage()
     {
-        // Do not hardcode passwords in production code
-        // Use thumbprint or key vault
-        var cert = new X509Certificate2(
-            Path.Combine(_environment.ContentRootPath, 
-                "sts_dev_cert.pfx"), "1234");
-        var client = _clientFactory.CreateClient();
-        var request = new HttpRequestMessage()
-        {
-            RequestUri = new Uri("https://localhost:44379/api/values"),
-            Method = HttpMethod.Get,
-        };
-
-        request.Headers.Add("X-ARR-ClientCert", cert.GetRawCertDataString());
-        var response = await client.SendAsync(request);
-
-        if (response.IsSuccessStatusCode)
-        {
-            var responseContent = await response.Content.ReadAsStringAsync();
-            var data = JsonDocument.Parse(responseContent);
-
-            return data;
-        }
-
-        throw new ApplicationException(
-            $"Status code: {response.StatusCode}, " +
-            $"Error: {response.ReasonPhrase}");
-    }
-    catch (Exception e)
+        RequestUri = new Uri("https://localhost:44379/api/values"),
+        Method = HttpMethod.Get,
+    };
+    var response = await client.SendAsync(request);
+    if (response.IsSuccessStatusCode)
     {
-        throw new ApplicationException($"Exception {e}");
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var data = JsonDocument.Parse(responseContent);
+        return data;
     }
+ 
+    throw new ApplicationException($"Status code: {response.StatusCode}, Error: {response.ReasonPhrase}");
+}
+```
+
+#### <a name="implement-an-httpclient-using-a-certificate-and-a-named-httpclient-from-ihttpclientfactory"></a>IHttpClientFactory から証明書と名前付き HttpClient を使用して HttpClient を実装する 
+
+次の例では、ハンドラーから ClientCertificates プロパティを使用して、クライアント証明書を HttpClientHandler に追加しています。 このハンドラーは、HttpClient の名前付きインスタンスで ConfigurePrimaryHttpMessageHandler メソッドを使用して使用できます。 これは、ConfigureServices メソッドの Startup クラスに設定されています。
+
+```csharp
+var clientCertificate = 
+    new X509Certificate2(
+      Path.Combine(_environment.ContentRootPath, "sts_dev_cert.pfx"), "1234");
+ 
+var handler = new HttpClientHandler();
+handler.ClientCertificates.Add(clientCertificate);
+ 
+services.AddHttpClient("namedClient", c =>
+{
+}).ConfigurePrimaryHttpMessageHandler(() => handler);
+```
+
+IHttpClientFactory を使用すると、ハンドラーと証明書を使用して名前付きインスタンスを取得できます。 インスタンスを取得するには、Startup クラスで定義されているクライアントの名前を持つ CreateClient メソッドを使用します。 HTTP 要求は、クライアントを使用して必要に応じて送信できます。
+
+```csharp
+private readonly IHttpClientFactory _clientFactory;
+ 
+public ApiService(IHttpClientFactory clientFactory)
+{
+    _clientFactory = clientFactory;
+}
+ 
+private async Task<JsonDocument> GetApiDataWithNamedClient()
+{
+    var client = _clientFactory.CreateClient("namedClient");
+ 
+    var request = new HttpRequestMessage()
+    {
+        RequestUri = new Uri("https://localhost:44379/api/values"),
+        Method = HttpMethod.Get,
+    };
+    var response = await client.SendAsync(request);
+    if (response.IsSuccessStatusCode)
+    {
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var data = JsonDocument.Parse(responseContent);
+        return data;
+    }
+ 
+    throw new ApplicationException($"Status code: {response.StatusCode}, Error: {response.ReasonPhrase}");
 }
 ```
 
