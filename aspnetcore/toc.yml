@@ -295,6 +295,16 @@
           uid: blazor/templates
         - name: コンポーネント
           uid: blazor/components
+        - name: データ バインディング
+          uid: blazor/data-binding
+        - name: イベント処理
+          uid: blazor/event-handling
+        - name: テンプレート コンポーネント
+          uid: blazor/templated-components
+        - name: コンポーネントの統合
+          uid: blazor/integrate-components
+        - name: グローバリゼーションとローカリゼーション
+          uid: blazor/globalization-localization
         - name: ライフサイクル
           uid: blazor/lifecycle
         - name: レイアウト
@@ -335,6 +345,8 @@
               uid: host-and-deploy/blazor/server
             - name: リンカーを構成する
               uid: host-and-deploy/blazor/configure-linker
+        - name: 高度なシナリオ
+          uid: blazor/advanced-scenarios
     - name: クライアント側の開発
       items:
         - name: 単一ページのアプリ
