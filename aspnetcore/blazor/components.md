@@ -5,40 +5,40 @@ description: データにバインドする方法、イベントを処理する�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/04/2020
+ms.date: 02/12/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/components
-ms.openlocfilehash: 0da0d83a4fde7b753a84bf05d3a9284776f2881f
-ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
+ms.openlocfilehash: f9b4eab29fafe8113528062f57d28dadd0f57577
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/14/2020
-ms.locfileid: "77213351"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447101"
 ---
-# <a name="create-and-use-aspnet-core-razor-components"></a><span data-ttu-id="c2b8c-103">ASP.NET Core Razor コンポーネントを作成して使用する</span><span class="sxs-lookup"><span data-stu-id="c2b8c-103">Create and use ASP.NET Core Razor components</span></span>
+# <a name="create-and-use-aspnet-core-razor-components"></a><span data-ttu-id="603ae-103">ASP.NET Core Razor コンポーネントを作成して使用する</span><span class="sxs-lookup"><span data-stu-id="603ae-103">Create and use ASP.NET Core Razor components</span></span>
 
-<span data-ttu-id="c2b8c-104">[Luke Latham](https://github.com/guardrex)および[Daniel Roth](https://github.com/danroth27)</span><span class="sxs-lookup"><span data-stu-id="c2b8c-104">By [Luke Latham](https://github.com/guardrex) and [Daniel Roth](https://github.com/danroth27)</span></span>
+<span data-ttu-id="603ae-104">[Luke Latham](https://github.com/guardrex)および[Daniel Roth](https://github.com/danroth27)</span><span class="sxs-lookup"><span data-stu-id="603ae-104">By [Luke Latham](https://github.com/guardrex) and [Daniel Roth](https://github.com/danroth27)</span></span>
 
-<span data-ttu-id="c2b8c-105">[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-105">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+<span data-ttu-id="603ae-105">[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。</span><span class="sxs-lookup"><span data-stu-id="603ae-105">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-<span data-ttu-id="c2b8c-106">Blazor アプリは*コンポーネント*を使用して構築されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-106">Blazor apps are built using *components*.</span></span> <span data-ttu-id="c2b8c-107">コンポーネントは、ページ、ダイアログ、フォームなどのユーザーインターフェイス (UI) の自己完結型のチャンクです。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-107">A component is a self-contained chunk of user interface (UI), such as a page, dialog, or form.</span></span> <span data-ttu-id="c2b8c-108">コンポーネントには、HTML マークアップと、データを挿入したり UI イベントに応答したりするために必要な処理ロジックが含まれています。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-108">A component includes HTML markup and the processing logic required to inject data or respond to UI events.</span></span> <span data-ttu-id="c2b8c-109">コンポーネントは柔軟で軽量です。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-109">Components are flexible and lightweight.</span></span> <span data-ttu-id="c2b8c-110">入れ子にして再利用したり、プロジェクト間で共有したりすることができます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-110">They can be nested, reused, and shared among projects.</span></span>
+Blazor<span data-ttu-id="603ae-106"> アプリは*コンポーネント*を使用して構築されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-106"> apps are built using *components*.</span></span> <span data-ttu-id="603ae-107">コンポーネントは、ページ、ダイアログ、フォームなどのユーザーインターフェイス (UI) の自己完結型のチャンクです。</span><span class="sxs-lookup"><span data-stu-id="603ae-107">A component is a self-contained chunk of user interface (UI), such as a page, dialog, or form.</span></span> <span data-ttu-id="603ae-108">コンポーネントには、HTML マークアップと、データを挿入したり UI イベントに応答したりするために必要な処理ロジックが含まれています。</span><span class="sxs-lookup"><span data-stu-id="603ae-108">A component includes HTML markup and the processing logic required to inject data or respond to UI events.</span></span> <span data-ttu-id="603ae-109">コンポーネントは柔軟で軽量です。</span><span class="sxs-lookup"><span data-stu-id="603ae-109">Components are flexible and lightweight.</span></span> <span data-ttu-id="603ae-110">入れ子にして再利用したり、プロジェクト間で共有したりすることができます。</span><span class="sxs-lookup"><span data-stu-id="603ae-110">They can be nested, reused, and shared among projects.</span></span>
 
-## <a name="component-classes"></a><span data-ttu-id="c2b8c-111">コンポーネントクラス</span><span class="sxs-lookup"><span data-stu-id="c2b8c-111">Component classes</span></span>
+## <a name="component-classes"></a><span data-ttu-id="603ae-111">コンポーネントクラス</span><span class="sxs-lookup"><span data-stu-id="603ae-111">Component classes</span></span>
 
-<span data-ttu-id="c2b8c-112">コンポーネントは、と HTML マークアップの C#組み合わせを使用して[razor](xref:mvc/views/razor)コンポーネントファイル (razor) に実装されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-112">Components are implemented in [Razor](xref:mvc/views/razor) component files (*.razor*) using a combination of C# and HTML markup.</span></span> <span data-ttu-id="c2b8c-113">Blazor のコンポーネントは、正式に*Razor コンポーネント*として参照されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-113">A component in Blazor is formally referred to as a *Razor component*.</span></span>
+<span data-ttu-id="603ae-112">コンポーネントは、と HTML マークアップの C#組み合わせを使用して[razor](xref:mvc/views/razor)コンポーネントファイル (razor) に実装されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-112">Components are implemented in [Razor](xref:mvc/views/razor) component files (*.razor*) using a combination of C# and HTML markup.</span></span> <span data-ttu-id="603ae-113">Blazor のコンポーネントは、正式に*Razor コンポーネント*として参照されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-113">A component in Blazor is formally referred to as a *Razor component*.</span></span>
 
-<span data-ttu-id="c2b8c-114">コンポーネントの名前は、大文字で始まる必要があります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-114">A component's name must start with an uppercase character.</span></span> <span data-ttu-id="c2b8c-115">たとえば、 *MyCoolComponent*は有効で、 *MyCoolComponent*は無効です。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-115">For example, *MyCoolComponent.razor* is valid, and *myCoolComponent.razor* is invalid.</span></span>
+<span data-ttu-id="603ae-114">コンポーネントの名前は、大文字で始まる必要があります。</span><span class="sxs-lookup"><span data-stu-id="603ae-114">A component's name must start with an uppercase character.</span></span> <span data-ttu-id="603ae-115">たとえば、 *MyCoolComponent*は有効で、 *MyCoolComponent*は無効です。</span><span class="sxs-lookup"><span data-stu-id="603ae-115">For example, *MyCoolComponent.razor* is valid, and *myCoolComponent.razor* is invalid.</span></span>
 
-<span data-ttu-id="c2b8c-116">コンポーネントの UI は、HTML を使用して定義されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-116">The UI for a component is defined using HTML.</span></span> <span data-ttu-id="c2b8c-117">動的なレンダリング ロジック (たとえばループ、条件、式) が、[Razor](xref:mvc/views/razor) と呼ばれる埋め込みの C# 構文を使って追加されています。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-117">Dynamic rendering logic (for example, loops, conditionals, expressions) is added using an embedded C# syntax called [Razor](xref:mvc/views/razor).</span></span> <span data-ttu-id="c2b8c-118">アプリがコンパイルされると、HTML マークアップC#およびレンダリングロジックはコンポーネントクラスに変換されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-118">When an app is compiled, the HTML markup and C# rendering logic are converted into a component class.</span></span> <span data-ttu-id="c2b8c-119">生成されたクラスの名前は、ファイルの名前と一致します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-119">The name of the generated class matches the name of the file.</span></span>
+<span data-ttu-id="603ae-116">コンポーネントの UI は、HTML を使用して定義されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-116">The UI for a component is defined using HTML.</span></span> <span data-ttu-id="603ae-117">動的なレンダリング ロジック (たとえばループ、条件、式) が、[Razor](xref:mvc/views/razor) と呼ばれる埋め込みの C# 構文を使って追加されています。</span><span class="sxs-lookup"><span data-stu-id="603ae-117">Dynamic rendering logic (for example, loops, conditionals, expressions) is added using an embedded C# syntax called [Razor](xref:mvc/views/razor).</span></span> <span data-ttu-id="603ae-118">アプリがコンパイルされると、HTML マークアップC#およびレンダリングロジックはコンポーネントクラスに変換されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-118">When an app is compiled, the HTML markup and C# rendering logic are converted into a component class.</span></span> <span data-ttu-id="603ae-119">生成されたクラスの名前は、ファイルの名前と一致します。</span><span class="sxs-lookup"><span data-stu-id="603ae-119">The name of the generated class matches the name of the file.</span></span>
 
-<span data-ttu-id="c2b8c-120">コンポーネント クラスのメンバーは、`@code` ブロック内で定義されています。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-120">Members of the component class are defined in an `@code` block.</span></span> <span data-ttu-id="c2b8c-121">`@code` ブロックでは、コンポーネントの状態 (プロパティ、フィールド) は、イベント処理のメソッド、またはその他のコンポーネントロジックを定義するために指定されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-121">In the `@code` block, component state (properties, fields) is specified with methods for event handling or for defining other component logic.</span></span> <span data-ttu-id="c2b8c-122">複数の `@code` ブロックが許容されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-122">More than one `@code` block is permissible.</span></span>
+<span data-ttu-id="603ae-120">コンポーネント クラスのメンバーは、`@code` ブロック内で定義されています。</span><span class="sxs-lookup"><span data-stu-id="603ae-120">Members of the component class are defined in an `@code` block.</span></span> <span data-ttu-id="603ae-121">`@code` ブロックでは、コンポーネントの状態 (プロパティ、フィールド) は、イベント処理のメソッド、またはその他のコンポーネントロジックを定義するために指定されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-121">In the `@code` block, component state (properties, fields) is specified with methods for event handling or for defining other component logic.</span></span> <span data-ttu-id="603ae-122">複数の `@code` ブロックが許容されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-122">More than one `@code` block is permissible.</span></span>
 
-<span data-ttu-id="c2b8c-123">コンポーネントメンバーは、`@`で始まる式を使用してC# 、コンポーネントのレンダリングロジックの一部として使用できます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-123">Component members can be used as part of the component's rendering logic using C# expressions that start with `@`.</span></span> <span data-ttu-id="c2b8c-124">たとえば、 C#フィールド名をプレフィックス `@` によって表示されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-124">For example, a C# field is rendered by prefixing `@` to the field name.</span></span> <span data-ttu-id="c2b8c-125">次の例では、が評価され、レンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-125">The following example evaluates and renders:</span></span>
+<span data-ttu-id="603ae-123">コンポーネントメンバーは、`@`で始まる式を使用してC# 、コンポーネントのレンダリングロジックの一部として使用できます。</span><span class="sxs-lookup"><span data-stu-id="603ae-123">Component members can be used as part of the component's rendering logic using C# expressions that start with `@`.</span></span> <span data-ttu-id="603ae-124">たとえば、 C#フィールド名をプレフィックス `@` によって表示されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-124">For example, a C# field is rendered by prefixing `@` to the field name.</span></span> <span data-ttu-id="603ae-125">次の例では、が評価され、レンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="603ae-125">The following example evaluates and renders:</span></span>
 
-* <span data-ttu-id="c2b8c-126">`font-style`の CSS プロパティ値に `_headingFontStyle` します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-126">`_headingFontStyle` to the CSS property value for `font-style`.</span></span>
-* <span data-ttu-id="c2b8c-127">`<h1>` 要素の内容に `_headingText` します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-127">`_headingText` to the content of the `<h1>` element.</span></span>
+* <span data-ttu-id="603ae-126">`font-style`の CSS プロパティ値に `_headingFontStyle` します。</span><span class="sxs-lookup"><span data-stu-id="603ae-126">`_headingFontStyle` to the CSS property value for `font-style`.</span></span>
+* <span data-ttu-id="603ae-127">`<h1>` 要素の内容に `_headingText` します。</span><span class="sxs-lookup"><span data-stu-id="603ae-127">`_headingText` to the content of the `<h1>` element.</span></span>
 
 ```razor
 <h1 style="font-style:@_headingFontStyle">@_headingText</h1>
@@ -49,153 +49,111 @@ ms.locfileid: "77213351"
 }
 ```
 
-<span data-ttu-id="c2b8c-128">コンポーネントが最初にレンダリングされた後、コンポーネントはイベントに応答してレンダリングツリーを再生成します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-128">After the component is initially rendered, the component regenerates its render tree in response to events.</span></span> <span data-ttu-id="c2b8c-129">Blazor は、新しいレンダリングツリーを前のレンダリングツリーと比較し、ブラウザーのドキュメントオブジェクトモデル (DOM) に変更を適用します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-129">Blazor then compares the new render tree against the previous one and applies any modifications to the browser's Document Object Model (DOM).</span></span>
+<span data-ttu-id="603ae-128">コンポーネントが最初にレンダリングされた後、コンポーネントはイベントに応答してレンダリングツリーを再生成します。</span><span class="sxs-lookup"><span data-stu-id="603ae-128">After the component is initially rendered, the component regenerates its render tree in response to events.</span></span> Blazor<span data-ttu-id="603ae-129"> は、新しいレンダリングツリーを前のレンダリングツリーと比較し、ブラウザーのドキュメントオブジェクトモデル (DOM) に変更を適用します。</span><span class="sxs-lookup"><span data-stu-id="603ae-129"> then compares the new render tree against the previous one and applies any modifications to the browser's Document Object Model (DOM).</span></span>
 
-<span data-ttu-id="c2b8c-130">コンポーネントは通常C#のクラスであり、プロジェクト内の任意の場所に配置できます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-130">Components are ordinary C# classes and can be placed anywhere within a project.</span></span> <span data-ttu-id="c2b8c-131">Web ページを生成するコンポーネントは、通常、[*ページ*] フォルダーにあります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-131">Components that produce webpages usually reside in the *Pages* folder.</span></span> <span data-ttu-id="c2b8c-132">ページ以外のコンポーネントは、多くの場合、プロジェクトに追加された*共有*フォルダーまたはカスタムフォルダーに配置されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-132">Non-page components are frequently placed in the *Shared* folder or a custom folder added to the project.</span></span>
+<span data-ttu-id="603ae-130">コンポーネントは通常C#のクラスであり、プロジェクト内の任意の場所に配置できます。</span><span class="sxs-lookup"><span data-stu-id="603ae-130">Components are ordinary C# classes and can be placed anywhere within a project.</span></span> <span data-ttu-id="603ae-131">Web ページを生成するコンポーネントは、通常、[*ページ*] フォルダーにあります。</span><span class="sxs-lookup"><span data-stu-id="603ae-131">Components that produce webpages usually reside in the *Pages* folder.</span></span> <span data-ttu-id="603ae-132">ページ以外のコンポーネントは、多くの場合、プロジェクトに追加された*共有*フォルダーまたはカスタムフォルダーに配置されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-132">Non-page components are frequently placed in the *Shared* folder or a custom folder added to the project.</span></span>
 
-<span data-ttu-id="c2b8c-133">通常、コンポーネントの名前空間は、アプリのルート名前空間と、アプリ内のコンポーネントの場所 (フォルダー) から派生します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-133">Typically, a component's namespace is derived from the app's root namespace and the component's location (folder) within the app.</span></span> <span data-ttu-id="c2b8c-134">アプリのルート名前空間が `BlazorApp`、`Counter` コンポーネントが*Pages*フォルダーに存在する場合は、次のようになります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-134">If the app's root namespace is `BlazorApp` and the `Counter` component resides in the *Pages* folder:</span></span>
+<span data-ttu-id="603ae-133">通常、コンポーネントの名前空間は、アプリのルート名前空間と、アプリ内のコンポーネントの場所 (フォルダー) から派生します。</span><span class="sxs-lookup"><span data-stu-id="603ae-133">Typically, a component's namespace is derived from the app's root namespace and the component's location (folder) within the app.</span></span> <span data-ttu-id="603ae-134">アプリのルート名前空間が `BlazorApp`、`Counter` コンポーネントが*Pages*フォルダーに存在する場合は、次のようになります。</span><span class="sxs-lookup"><span data-stu-id="603ae-134">If the app's root namespace is `BlazorApp` and the `Counter` component resides in the *Pages* folder:</span></span>
 
-* <span data-ttu-id="c2b8c-135">`Counter` コンポーネントの名前空間が `BlazorApp.Pages`。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-135">The `Counter` component's namespace is `BlazorApp.Pages`.</span></span>
-* <span data-ttu-id="c2b8c-136">コンポーネントの完全修飾型名が `BlazorApp.Pages.Counter`ます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-136">The fully qualified type name of the component is `BlazorApp.Pages.Counter`.</span></span>
+* <span data-ttu-id="603ae-135">`Counter` コンポーネントの名前空間が `BlazorApp.Pages`。</span><span class="sxs-lookup"><span data-stu-id="603ae-135">The `Counter` component's namespace is `BlazorApp.Pages`.</span></span>
+* <span data-ttu-id="603ae-136">コンポーネントの完全修飾型名が `BlazorApp.Pages.Counter`ます。</span><span class="sxs-lookup"><span data-stu-id="603ae-136">The fully qualified type name of the component is `BlazorApp.Pages.Counter`.</span></span>
 
-<span data-ttu-id="c2b8c-137">詳細については、「[コンポーネントのインポート](#import-components)」セクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-137">For more information, see the [Import components](#import-components) section.</span></span>
+<span data-ttu-id="603ae-137">詳細については、「[コンポーネントのインポート](#import-components)」セクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="603ae-137">For more information, see the [Import components](#import-components) section.</span></span>
 
-<span data-ttu-id="c2b8c-138">カスタムフォルダーを使用するには、カスタムフォルダーの名前空間を親コンポーネントまたはアプリの *_Imports razor*ファイルに追加します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-138">To use a custom folder, add the custom folder's namespace to either the parent component or to the app's *_Imports.razor* file.</span></span> <span data-ttu-id="c2b8c-139">たとえば、次の名前空間は、アプリのルート名前空間が `BlazorApp`場合*に、コンポーネントフォルダー内*のコンポーネントを使用可能にします。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-139">For example, the following namespace makes components in a *Components* folder available when the app's root namespace is `BlazorApp`:</span></span>
+<span data-ttu-id="603ae-138">カスタムフォルダーを使用するには、カスタムフォルダーの名前空間を親コンポーネントまたはアプリの *_Imports razor*ファイルに追加します。</span><span class="sxs-lookup"><span data-stu-id="603ae-138">To use a custom folder, add the custom folder's namespace to either the parent component or to the app's *_Imports.razor* file.</span></span> <span data-ttu-id="603ae-139">たとえば、次の名前空間は、アプリのルート名前空間が `BlazorApp`場合*に、コンポーネントフォルダー内*のコンポーネントを使用可能にします。</span><span class="sxs-lookup"><span data-stu-id="603ae-139">For example, the following namespace makes components in a *Components* folder available when the app's root namespace is `BlazorApp`:</span></span>
 
 ```razor
 @using BlazorApp.Components
 ```
 
-## <a name="integrate-components-into-razor-pages-and-mvc-apps"></a><span data-ttu-id="c2b8c-140">コンポーネントを Razor Pages と MVC アプリに統合する</span><span class="sxs-lookup"><span data-stu-id="c2b8c-140">Integrate components into Razor Pages and MVC apps</span></span>
+## <a name="tag-helpers-arent-used-in-components"></a><span data-ttu-id="603ae-140">タグヘルパーはコンポーネントで使用されていません</span><span class="sxs-lookup"><span data-stu-id="603ae-140">Tag Helpers aren't used in components</span></span>
 
-<span data-ttu-id="c2b8c-141">Razor コンポーネントは Razor Pages と MVC アプリに統合できます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-141">Razor components can be integrated into Razor Pages and MVC apps.</span></span> <span data-ttu-id="c2b8c-142">ページまたはビューが表示されると、コンポーネントを同時に prerendered することができます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-142">When the page or view is rendered, components can be prerendered at the same time.</span></span>
+<span data-ttu-id="603ae-141">[タグヘルパー](xref:mvc/views/tag-helpers/intro)は razor コンポーネント (*razor*ファイル) ではサポートされていません。</span><span class="sxs-lookup"><span data-stu-id="603ae-141">[Tag Helpers](xref:mvc/views/tag-helpers/intro) aren't supported in Razor components (*.razor* files).</span></span> <span data-ttu-id="603ae-142">Blazorにタグヘルパーのような機能を提供するには、タグヘルパーと同じ機能を持つコンポーネントを作成し、代わりにそのコンポーネントを使用します。</span><span class="sxs-lookup"><span data-stu-id="603ae-142">To provide Tag Helper-like functionality in Blazor, create a component with the same functionality as the Tag Helper and use the component instead.</span></span>
 
-<span data-ttu-id="c2b8c-143">Razor コンポーネントをホストする Razor Pages または MVC アプリを準備するには、<xref:blazor/hosting-model-configuration#integrate-razor-components-into-razor-pages-and-mvc-apps> の記事の「 *razor コンポーネントを Razor Pages および mvc アプリに統合*する」セクションのガイダンスに従ってください。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-143">To prepare a Razor Pages or MVC app to host Razor components, follow the guidance in the *Integrate Razor components into Razor Pages and MVC apps* section of the <xref:blazor/hosting-model-configuration#integrate-razor-components-into-razor-pages-and-mvc-apps> article.</span></span>
+## <a name="use-components"></a><span data-ttu-id="603ae-143">コンポーネントを使う</span><span class="sxs-lookup"><span data-stu-id="603ae-143">Use components</span></span>
 
-<span data-ttu-id="c2b8c-144">カスタムフォルダーを使用してアプリのコンポーネントを保持する場合は、フォルダーを表す名前空間をページ/ビューまたは *_ViewImports*ファイルに追加します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-144">When using a custom folder to hold the app's components, add the namespace representing the folder to either the page/view or to the *_ViewImports.cshtml* file.</span></span> <span data-ttu-id="c2b8c-145">次の例では</span><span class="sxs-lookup"><span data-stu-id="c2b8c-145">In the following example:</span></span>
+<span data-ttu-id="603ae-144">コンポーネントには、HTML 要素構文を使用して宣言することで、他のコンポーネントを含めることができます。</span><span class="sxs-lookup"><span data-stu-id="603ae-144">Components can include other components by declaring them using HTML element syntax.</span></span> <span data-ttu-id="603ae-145">コンポーネントを使うためのマークアップは、そのコンポーネントの種類をタグ名とする HTML タグのようになります。</span><span class="sxs-lookup"><span data-stu-id="603ae-145">The markup for using a component looks like an HTML tag where the name of the tag is the component type.</span></span>
 
-* <span data-ttu-id="c2b8c-146">`MyAppNamespace` をアプリの名前空間に変更します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-146">Change `MyAppNamespace` to the app's namespace.</span></span>
-* <span data-ttu-id="c2b8c-147">*コンポーネントという名前*のフォルダーを使用してコンポーネントを保持していない場合は、コンポーネントが存在するフォルダーに `Components` を変更します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-147">If a folder named *Components* isn't used to hold the components, change `Components` to the folder where the components reside.</span></span>
+<span data-ttu-id="603ae-146">属性のバインドでは大文字と小文字が区別されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-146">Attribute binding is case sensitive.</span></span> <span data-ttu-id="603ae-147">たとえば、`@bind` が有効で、`@Bind` が無効です。</span><span class="sxs-lookup"><span data-stu-id="603ae-147">For example, `@bind` is valid, and `@Bind` is invalid.</span></span>
 
-```csharp
-@using MyAppNamespace.Components
-```
-
-<span data-ttu-id="c2b8c-148">*_ViewImports*のファイルは、Razor Pages アプリの*Pages*フォルダーまたは MVC アプリの*Views*フォルダーにあります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-148">The *_ViewImports.cshtml* file is located in the *Pages* folder of a Razor Pages app or the *Views* folder of an MVC app.</span></span>
-
-<span data-ttu-id="c2b8c-149">ページまたはビューからコンポーネントを表示するには、`Component` タグヘルパーを使用します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-149">To render a component from a page or view, use the `Component` Tag Helper:</span></span>
-
-```cshtml
-<component type="typeof(Counter)" render-mode="ServerPrerendered" 
-    param-IncrementAmount="10" />
-```
-
-<span data-ttu-id="c2b8c-150">パラメーターの型は、JSON シリアル化可能である必要があります。これは通常、型が既定のコンストラクターと設定可能なプロパティを持つ必要があることを意味します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-150">The parameter type must be JSON serializable, which typically means that the type must have a default constructor and settable properties.</span></span> <span data-ttu-id="c2b8c-151">たとえば、`IncrementAmount` の型は `int`であるため、`IncrementAmount` の値を指定できます。これは、JSON シリアライザーによってサポートされるプリミティブ型です。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-151">For example, you can specify a value for `IncrementAmount` because the type of `IncrementAmount` is an `int`, which is a primitive type supported by the JSON serializer.</span></span>
-
-<span data-ttu-id="c2b8c-152">コンポーネントの `RenderMode` を構成します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-152">`RenderMode` configures whether the component:</span></span>
-
-* <span data-ttu-id="c2b8c-153">ページに prerendered ます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-153">Is prerendered into the page.</span></span>
-* <span data-ttu-id="c2b8c-154">は、ページに静的 HTML として表示されるか、ユーザーエージェントから Blazor アプリをブートストラップするために必要な情報が含まれている場合に表示されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-154">Is rendered as static HTML on the page or if it includes the necessary information to bootstrap a Blazor app from the user agent.</span></span>
-
-| `RenderMode`        | <span data-ttu-id="c2b8c-155">[説明]</span><span class="sxs-lookup"><span data-stu-id="c2b8c-155">Description</span></span> |
-| ------------------- | ----------- |
-| `ServerPrerendered` | <span data-ttu-id="c2b8c-156">コンポーネントを静的 HTML にレンダリングし、Blazor Server アプリのマーカーを含めます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-156">Renders the component into static HTML and includes a marker for a Blazor Server app.</span></span> <span data-ttu-id="c2b8c-157">ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-157">When the user-agent starts, this marker is used to bootstrap a Blazor app.</span></span> |
-| `Server`            | <span data-ttu-id="c2b8c-158">Blazor Server アプリのマーカーをレンダリングします。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-158">Renders a marker for a Blazor Server app.</span></span> <span data-ttu-id="c2b8c-159">コンポーネントからの出力は含まれていません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-159">Output from the component isn't included.</span></span> <span data-ttu-id="c2b8c-160">ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-160">When the user-agent starts, this marker is used to bootstrap a Blazor app.</span></span> |
-| `Static`            | <span data-ttu-id="c2b8c-161">コンポーネントを静的 HTML にレンダリングします。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-161">Renders the component into static HTML.</span></span> |
-
-<span data-ttu-id="c2b8c-162">ページとビューはコンポーネントを使用できますが、逆の場合は真実ではありません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-162">While pages and views can use components, the converse isn't true.</span></span> <span data-ttu-id="c2b8c-163">コンポーネントでは、ビューおよびページ固有のシナリオ (部分ビューやセクションなど) を使用できません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-163">Components can't use view- and page-specific scenarios, such as partial views and sections.</span></span> <span data-ttu-id="c2b8c-164">コンポーネントの部分ビューからロジックを使用するには、部分ビューのロジックをコンポーネントにします。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-164">To use logic from partial view in a component, factor out the partial view logic into a component.</span></span>
-
-<span data-ttu-id="c2b8c-165">静的な HTML ページからのサーバーコンポーネントのレンダリングはサポートされていません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-165">Rendering server components from a static HTML page isn't supported.</span></span>
-
-<span data-ttu-id="c2b8c-166">コンポーネントのレンダリング方法、コンポーネントの状態、および `Component` タグヘルパーの詳細については、次の記事を参照してください。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-166">For more information on how components are rendered, component state, and the `Component` Tag Helper, see the following articles:</span></span>
-
-* <xref:blazor/hosting-models>
-* <xref:blazor/hosting-model-configuration>
-
-## <a name="tag-helpers-arent-used-in-components"></a><span data-ttu-id="c2b8c-167">タグヘルパーはコンポーネントで使用されていません</span><span class="sxs-lookup"><span data-stu-id="c2b8c-167">Tag Helpers aren't used in components</span></span>
-
-<span data-ttu-id="c2b8c-168">[タグヘルパー](xref:mvc/views/tag-helpers/intro)は razor コンポーネント (*razor*ファイル) ではサポートされていません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-168">[Tag Helpers](xref:mvc/views/tag-helpers/intro) aren't supported in Razor components (*.razor* files).</span></span> <span data-ttu-id="c2b8c-169">Blazor でタグヘルパーのような機能を提供するには、タグヘルパーと同じ機能を持つコンポーネントを作成し、代わりにそのコンポーネントを使用します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-169">To provide Tag Helper-like functionality in Blazor, create a component with the same functionality as the Tag Helper and use the component instead.</span></span>
-
-## <a name="use-components"></a><span data-ttu-id="c2b8c-170">コンポーネントを使う</span><span class="sxs-lookup"><span data-stu-id="c2b8c-170">Use components</span></span>
-
-<span data-ttu-id="c2b8c-171">コンポーネントには、HTML 要素構文を使用して宣言することで、他のコンポーネントを含めることができます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-171">Components can include other components by declaring them using HTML element syntax.</span></span> <span data-ttu-id="c2b8c-172">コンポーネントを使うためのマークアップは、そのコンポーネントの種類をタグ名とする HTML タグのようになります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-172">The markup for using a component looks like an HTML tag where the name of the tag is the component type.</span></span>
-
-<span data-ttu-id="c2b8c-173">属性のバインドでは大文字と小文字が区別されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-173">Attribute binding is case sensitive.</span></span> <span data-ttu-id="c2b8c-174">たとえば、`@bind` が有効で、`@Bind` が無効です。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-174">For example, `@bind` is valid, and `@Bind` is invalid.</span></span>
-
-<span data-ttu-id="c2b8c-175">*Index. razor*の次のマークアップは、`HeadingComponent` インスタンスをレンダリングします。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-175">The following markup in *Index.razor* renders a `HeadingComponent` instance:</span></span>
+<span data-ttu-id="603ae-148">*Index. razor*の次のマークアップは、`HeadingComponent` インスタンスをレンダリングします。</span><span class="sxs-lookup"><span data-stu-id="603ae-148">The following markup in *Index.razor* renders a `HeadingComponent` instance:</span></span>
 
 ```razor
 <HeadingComponent />
 ```
 
-<span data-ttu-id="c2b8c-176">*Components/HeadingComponent*:</span><span class="sxs-lookup"><span data-stu-id="c2b8c-176">*Components/HeadingComponent.razor*:</span></span>
+<span data-ttu-id="603ae-149">*Components/HeadingComponent*:</span><span class="sxs-lookup"><span data-stu-id="603ae-149">*Components/HeadingComponent.razor*:</span></span>
 
 [!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/HeadingComponent.razor)]
 
-<span data-ttu-id="c2b8c-177">コンポーネント名と一致しない大文字の最初の文字を含む HTML 要素がコンポーネントに含まれている場合は、要素に予期しない名前が付いていることを示す警告が出力されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-177">If a component contains an HTML element with an uppercase first letter that doesn't match a component name, a warning is emitted indicating that the element has an unexpected name.</span></span> <span data-ttu-id="c2b8c-178">コンポーネントの名前空間に `@using` ステートメントを追加すると、コンポーネントが使用可能になり、警告が削除されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-178">Adding an `@using` statement for the component's namespace makes the component available, which removes the warning.</span></span>
+<span data-ttu-id="603ae-150">コンポーネント名と一致しない大文字の最初の文字を含む HTML 要素がコンポーネントに含まれている場合は、要素に予期しない名前が付いていることを示す警告が出力されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-150">If a component contains an HTML element with an uppercase first letter that doesn't match a component name, a warning is emitted indicating that the element has an unexpected name.</span></span> <span data-ttu-id="603ae-151">コンポーネントの名前空間に `@using` ディレクティブを追加すると、コンポーネントが使用可能になり、警告が解決されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-151">Adding an `@using` directive for the component's namespace makes the component available, which resolves the warning.</span></span>
 
-## <a name="component-parameters"></a><span data-ttu-id="c2b8c-179">コンポーネントのパラメーター</span><span class="sxs-lookup"><span data-stu-id="c2b8c-179">Component parameters</span></span>
+## <a name="routing"></a><span data-ttu-id="603ae-152">ルーティング</span><span class="sxs-lookup"><span data-stu-id="603ae-152">Routing</span></span>
 
-<span data-ttu-id="c2b8c-180">コンポーネントには、コンポーネントクラスのパブリックプロパティを使用して定義されるコンポーネント*パラメーター*を含めることができます。これは、`[Parameter]` 属性を使用して構成します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-180">Components can have *component parameters*, which are defined using public properties on the component class with the `[Parameter]` attribute.</span></span> <span data-ttu-id="c2b8c-181">マークアップ内でコンポーネントの引数を指定するには、属性を使います。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-181">Use attributes to specify arguments for a component in markup.</span></span>
+<span data-ttu-id="603ae-153">Blazor でのルーティングは、アプリ内のアクセス可能な各コンポーネントにルートテンプレートを提供することで実現されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-153">Routing in Blazor is achieved by providing a route template to each accessible component in the app.</span></span>
 
-<span data-ttu-id="c2b8c-182">*Components/ChildComponent。 razor*:</span><span class="sxs-lookup"><span data-stu-id="c2b8c-182">*Components/ChildComponent.razor*:</span></span>
-
-[!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=11-12)]
-
-<span data-ttu-id="c2b8c-183">サンプルアプリの次の例では、`ParentComponent` によって `ChildComponent`の `Title` プロパティの値が設定されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-183">In the following example from the sample app, the `ParentComponent` sets the value of the `Title` property of the `ChildComponent`.</span></span>
-
-<span data-ttu-id="c2b8c-184">*Pages/ParentComponent。 razor*:</span><span class="sxs-lookup"><span data-stu-id="c2b8c-184">*Pages/ParentComponent.razor*:</span></span>
+<span data-ttu-id="603ae-154">`@page` ディレクティブを含む Razor ファイルがコンパイルされると、生成されたクラスにルートテンプレートを指定する <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> が与えられます。</span><span class="sxs-lookup"><span data-stu-id="603ae-154">When a Razor file with an `@page` directive is compiled, the generated class is given a <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> specifying the route template.</span></span> <span data-ttu-id="603ae-155">実行時に、ルーターは `RouteAttribute` を持つコンポーネントクラスを検索し、要求された URL に一致するルートテンプレートを持つコンポーネントをレンダリングします。</span><span class="sxs-lookup"><span data-stu-id="603ae-155">At runtime, the router looks for component classes with a `RouteAttribute` and renders whichever component has a route template that matches the requested URL.</span></span>
 
 ```razor
 @page "/ParentComponent"
 
-<h1>Parent-child example</h1>
-
-<ChildComponent Title="Panel Title from Parent"
-                OnClickCallback="@ShowMessage">
-    Content of the child component is supplied
-    by the parent component.
-</ChildComponent>
-
 ...
 ```
 
-## <a name="child-content"></a><span data-ttu-id="c2b8c-185">子コンテンツ</span><span class="sxs-lookup"><span data-stu-id="c2b8c-185">Child content</span></span>
+<span data-ttu-id="603ae-156">詳細については、「<xref:blazor/routing>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="603ae-156">For more information, see <xref:blazor/routing>.</span></span>
 
-<span data-ttu-id="c2b8c-186">コンポーネントでは、別のコンポーネントのコンテンツを設定できます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-186">Components can set the content of another component.</span></span> <span data-ttu-id="c2b8c-187">割り当てコンポーネントは、受信コンポーネントを指定するタグの間にコンテンツを提供します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-187">The assigning component provides the content between the tags that specify the receiving component.</span></span>
+## <a name="parameters"></a><span data-ttu-id="603ae-157">パラメーター</span><span class="sxs-lookup"><span data-stu-id="603ae-157">Parameters</span></span>
 
-<span data-ttu-id="c2b8c-188">次の例では、`ChildComponent` に、レンダリングする UI のセグメントを表す `RenderFragment`を表す `ChildContent` プロパティがあります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-188">In the following example, the `ChildComponent` has a `ChildContent` property that represents a `RenderFragment`, which represents a segment of UI to render.</span></span> <span data-ttu-id="c2b8c-189">`ChildContent` の値は、コンテンツをレンダリングする必要があるコンポーネントのマークアップに配置されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-189">The value of `ChildContent` is positioned in the component's markup where the content should be rendered.</span></span> <span data-ttu-id="c2b8c-190">`ChildContent` の値は、親コンポーネントから受信され、ブートストラップパネルの `panel-body`内に表示されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-190">The value of `ChildContent` is received from the parent component and rendered inside the Bootstrap panel's `panel-body`.</span></span>
+### <a name="route-parameters"></a><span data-ttu-id="603ae-158">ルートパラメーター</span><span class="sxs-lookup"><span data-stu-id="603ae-158">Route parameters</span></span>
 
-<span data-ttu-id="c2b8c-191">*Components/ChildComponent。 razor*:</span><span class="sxs-lookup"><span data-stu-id="c2b8c-191">*Components/ChildComponent.razor*:</span></span>
+<span data-ttu-id="603ae-159">コンポーネントは、`@page` ディレクティブで指定されたルートテンプレートからルートパラメーターを受け取ることができます。</span><span class="sxs-lookup"><span data-stu-id="603ae-159">Components can receive route parameters from the route template provided in the `@page` directive.</span></span> <span data-ttu-id="603ae-160">ルーターは、ルートパラメーターを使用して、対応するコンポーネントパラメーターを設定します。</span><span class="sxs-lookup"><span data-stu-id="603ae-160">The router uses route parameters to populate the corresponding component parameters.</span></span>
+
+<span data-ttu-id="603ae-161">*Pages/RouteParameter。 razor*:</span><span class="sxs-lookup"><span data-stu-id="603ae-161">*Pages/RouteParameter.razor*:</span></span>
+
+[!code-razor[](components/samples_snapshot/RouteParameter.razor?highlight=2,7-8)]
+
+<span data-ttu-id="603ae-162">省略可能なパラメーターはサポートされていないため、前の例では2つの `@page` ディレクティブが適用されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-162">Optional parameters aren't supported, so two `@page` directives are applied in the preceding example.</span></span> <span data-ttu-id="603ae-163">最初のは、パラメーターを指定せずにコンポーネントへの移動を許可します。</span><span class="sxs-lookup"><span data-stu-id="603ae-163">The first permits navigation to the component without a parameter.</span></span> <span data-ttu-id="603ae-164">2番目の `@page` ディレクティブは、`{text}` route パラメーターを受け取り、その値を `Text` プロパティに割り当てます。</span><span class="sxs-lookup"><span data-stu-id="603ae-164">The second `@page` directive receives the `{text}` route parameter and assigns the value to the `Text` property.</span></span>
+
+<span data-ttu-id="603ae-165">複数のフォルダー境界をまたいでパスをキャプチャする*キャッチオール*パラメーター構文 (`*`/`**`) は、razor コンポーネント (*razor*) ではサポートされて**いません**。</span><span class="sxs-lookup"><span data-stu-id="603ae-165">*Catch-all* parameter syntax (`*`/`**`), which captures the path across multiple folder boundaries, is **not** supported in Razor components (*.razor*).</span></span>
+
+### <a name="component-parameters"></a><span data-ttu-id="603ae-166">コンポーネントのパラメーター</span><span class="sxs-lookup"><span data-stu-id="603ae-166">Component parameters</span></span>
+
+<span data-ttu-id="603ae-167">コンポーネントには、コンポーネントクラスのパブリックプロパティを使用して定義されるコンポーネント*パラメーター*を含めることができます。これは、`[Parameter]` 属性を使用して構成します。</span><span class="sxs-lookup"><span data-stu-id="603ae-167">Components can have *component parameters*, which are defined using public properties on the component class with the `[Parameter]` attribute.</span></span> <span data-ttu-id="603ae-168">マークアップ内でコンポーネントの引数を指定するには、属性を使います。</span><span class="sxs-lookup"><span data-stu-id="603ae-168">Use attributes to specify arguments for a component in markup.</span></span>
+
+<span data-ttu-id="603ae-169">*Components/ChildComponent。 razor*:</span><span class="sxs-lookup"><span data-stu-id="603ae-169">*Components/ChildComponent.razor*:</span></span>
+
+[!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=2,11-12)]
+
+<span data-ttu-id="603ae-170">サンプルアプリの次の例では、`ParentComponent` によって `ChildComponent`の `Title` プロパティの値が設定されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-170">In the following example from the sample app, the `ParentComponent` sets the value of the `Title` property of the `ChildComponent`.</span></span>
+
+<span data-ttu-id="603ae-171">*Pages/ParentComponent。 razor*:</span><span class="sxs-lookup"><span data-stu-id="603ae-171">*Pages/ParentComponent.razor*:</span></span>
+
+[!code-razor[](components/samples_snapshot/ParentComponent.razor?highlight=5-6)]
+
+## <a name="child-content"></a><span data-ttu-id="603ae-172">子コンテンツ</span><span class="sxs-lookup"><span data-stu-id="603ae-172">Child content</span></span>
+
+<span data-ttu-id="603ae-173">コンポーネントでは、別のコンポーネントのコンテンツを設定できます。</span><span class="sxs-lookup"><span data-stu-id="603ae-173">Components can set the content of another component.</span></span> <span data-ttu-id="603ae-174">割り当てコンポーネントは、受信コンポーネントを指定するタグの間にコンテンツを提供します。</span><span class="sxs-lookup"><span data-stu-id="603ae-174">The assigning component provides the content between the tags that specify the receiving component.</span></span>
+
+<span data-ttu-id="603ae-175">次の例では、`ChildComponent` に、レンダリングする UI のセグメントを表す `RenderFragment`を表す `ChildContent` プロパティがあります。</span><span class="sxs-lookup"><span data-stu-id="603ae-175">In the following example, the `ChildComponent` has a `ChildContent` property that represents a `RenderFragment`, which represents a segment of UI to render.</span></span> <span data-ttu-id="603ae-176">`ChildContent` の値は、コンテンツをレンダリングする必要があるコンポーネントのマークアップに配置されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-176">The value of `ChildContent` is positioned in the component's markup where the content should be rendered.</span></span> <span data-ttu-id="603ae-177">`ChildContent` の値は、親コンポーネントから受信され、ブートストラップパネルの `panel-body`内に表示されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-177">The value of `ChildContent` is received from the parent component and rendered inside the Bootstrap panel's `panel-body`.</span></span>
+
+<span data-ttu-id="603ae-178">*Components/ChildComponent。 razor*:</span><span class="sxs-lookup"><span data-stu-id="603ae-178">*Components/ChildComponent.razor*:</span></span>
 
 [!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=3,14-15)]
 
 > [!NOTE]
-> <span data-ttu-id="c2b8c-192">`RenderFragment` コンテンツを受け取るプロパティには、規約によって `ChildContent` 名前を付ける必要があります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-192">The property receiving the `RenderFragment` content must be named `ChildContent` by convention.</span></span>
+> <span data-ttu-id="603ae-179">`RenderFragment` コンテンツを受け取るプロパティには、規約によって `ChildContent` 名前を付ける必要があります。</span><span class="sxs-lookup"><span data-stu-id="603ae-179">The property receiving the `RenderFragment` content must be named `ChildContent` by convention.</span></span>
 
-<span data-ttu-id="c2b8c-193">サンプルアプリの `ParentComponent` では、コンテンツを `<ChildComponent>` タグ内に配置することによって、`ChildComponent` を表示するためのコンテンツを提供できます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-193">The `ParentComponent` in the sample app can provide content for rendering the `ChildComponent` by placing the content inside the `<ChildComponent>` tags.</span></span>
+<span data-ttu-id="603ae-180">サンプルアプリの `ParentComponent` では、コンテンツを `<ChildComponent>` タグ内に配置することによって、`ChildComponent` を表示するためのコンテンツを提供できます。</span><span class="sxs-lookup"><span data-stu-id="603ae-180">The `ParentComponent` in the sample app can provide content for rendering the `ChildComponent` by placing the content inside the `<ChildComponent>` tags.</span></span>
 
-<span data-ttu-id="c2b8c-194">*Pages/ParentComponent。 razor*:</span><span class="sxs-lookup"><span data-stu-id="c2b8c-194">*Pages/ParentComponent.razor*:</span></span>
+<span data-ttu-id="603ae-181">*Pages/ParentComponent。 razor*:</span><span class="sxs-lookup"><span data-stu-id="603ae-181">*Pages/ParentComponent.razor*:</span></span>
 
-```razor
-@page "/ParentComponent"
+[!code-razor[](components/samples_snapshot/ParentComponent.razor?highlight=7-8)]
 
-<h1>Parent-child example</h1>
+## <a name="attribute-splatting-and-arbitrary-parameters"></a><span data-ttu-id="603ae-182">属性スプラッティングと任意のパラメーター</span><span class="sxs-lookup"><span data-stu-id="603ae-182">Attribute splatting and arbitrary parameters</span></span>
 
-<ChildComponent Title="Panel Title from Parent"
-                OnClickCallback="@ShowMessage">
-    Content of the child component is supplied
-    by the parent component.
-</ChildComponent>
+<span data-ttu-id="603ae-183">コンポーネントは、コンポーネントの宣言されたパラメーターに加えて、追加の属性をキャプチャして表示できます。</span><span class="sxs-lookup"><span data-stu-id="603ae-183">Components can capture and render additional attributes in addition to the component's declared parameters.</span></span> <span data-ttu-id="603ae-184">Splatted Razor ディレクティブ[`@attributes`](xref:mvc/views/razor#attributes)を使用してコンポーネントがレンダリングされるときに、ディクショナリ内で追加の属性をキャプチャし、要素にすることができます。</span><span class="sxs-lookup"><span data-stu-id="603ae-184">Additional attributes can be captured in a dictionary and then *splatted* onto an element when the component is rendered using the [`@attributes`](xref:mvc/views/razor#attributes) Razor directive.</span></span> <span data-ttu-id="603ae-185">このシナリオは、さまざまなカスタマイズをサポートするマークアップ要素を生成するコンポーネントを定義する場合に便利です。</span><span class="sxs-lookup"><span data-stu-id="603ae-185">This scenario is useful when defining a component that produces a markup element that supports a variety of customizations.</span></span> <span data-ttu-id="603ae-186">たとえば、多くのパラメーターをサポートする `<input>` に対して、属性を個別に定義するのは面倒な場合があります。</span><span class="sxs-lookup"><span data-stu-id="603ae-186">For example, it can be tedious to define attributes separately for an `<input>` that supports many parameters.</span></span>
 
-...
-```
-
-## <a name="attribute-splatting-and-arbitrary-parameters"></a><span data-ttu-id="c2b8c-195">属性スプラッティングと任意のパラメーター</span><span class="sxs-lookup"><span data-stu-id="c2b8c-195">Attribute splatting and arbitrary parameters</span></span>
-
-<span data-ttu-id="c2b8c-196">コンポーネントは、コンポーネントの宣言されたパラメーターに加えて、追加の属性をキャプチャして表示できます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-196">Components can capture and render additional attributes in addition to the component's declared parameters.</span></span> <span data-ttu-id="c2b8c-197">Splatted Razor ディレクティブ[`@attributes`](xref:mvc/views/razor#attributes)を使用してコンポーネントがレンダリングされるときに、ディクショナリ内で追加の属性をキャプチャし、要素にすることができます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-197">Additional attributes can be captured in a dictionary and then *splatted* onto an element when the component is rendered using the [`@attributes`](xref:mvc/views/razor#attributes) Razor directive.</span></span> <span data-ttu-id="c2b8c-198">このシナリオは、さまざまなカスタマイズをサポートするマークアップ要素を生成するコンポーネントを定義する場合に便利です。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-198">This scenario is useful when defining a component that produces a markup element that supports a variety of customizations.</span></span> <span data-ttu-id="c2b8c-199">たとえば、多くのパラメーターをサポートする `<input>` に対して、属性を個別に定義するのは面倒な場合があります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-199">For example, it can be tedious to define attributes separately for an `<input>` that supports many parameters.</span></span>
-
-<span data-ttu-id="c2b8c-200">次の例では、最初の `<input>` 要素 (`id="useIndividualParams"`) は個々のコンポーネントパラメーターを使用し、2番目の `<input>` 要素 (`id="useAttributesDict"`) は属性スプラッティングを使用します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-200">In the following example, the first `<input>` element (`id="useIndividualParams"`) uses individual component parameters, while the second `<input>` element (`id="useAttributesDict"`) uses attribute splatting:</span></span>
+<span data-ttu-id="603ae-187">次の例では、最初の `<input>` 要素 (`id="useIndividualParams"`) は個々のコンポーネントパラメーターを使用し、2番目の `<input>` 要素 (`id="useAttributesDict"`) は属性スプラッティングを使用します。</span><span class="sxs-lookup"><span data-stu-id="603ae-187">In the following example, the first `<input>` element (`id="useIndividualParams"`) uses individual component parameters, while the second `<input>` element (`id="useAttributesDict"`) uses attribute splatting:</span></span>
 
 ```razor
 <input id="useIndividualParams"
@@ -232,9 +190,9 @@ ms.locfileid: "77213351"
 }
 ```
 
-<span data-ttu-id="c2b8c-201">パラメーターの型は、文字列キーを使用して `IEnumerable<KeyValuePair<string, object>>` を実装する必要があります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-201">The type of the parameter must implement `IEnumerable<KeyValuePair<string, object>>` with string keys.</span></span> <span data-ttu-id="c2b8c-202">このシナリオでは `IReadOnlyDictionary<string, object>` を使用することもできます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-202">Using `IReadOnlyDictionary<string, object>` is also an option in this scenario.</span></span>
+<span data-ttu-id="603ae-188">パラメーターの型は、文字列キーを使用して `IEnumerable<KeyValuePair<string, object>>` を実装する必要があります。</span><span class="sxs-lookup"><span data-stu-id="603ae-188">The type of the parameter must implement `IEnumerable<KeyValuePair<string, object>>` with string keys.</span></span> <span data-ttu-id="603ae-189">このシナリオでは `IReadOnlyDictionary<string, object>` を使用することもできます。</span><span class="sxs-lookup"><span data-stu-id="603ae-189">Using `IReadOnlyDictionary<string, object>` is also an option in this scenario.</span></span>
 
-<span data-ttu-id="c2b8c-203">両方の方法を使用して表示される `<input>` 要素は同じです。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-203">The rendered `<input>` elements using both approaches is identical:</span></span>
+<span data-ttu-id="603ae-190">両方の方法を使用して表示される `<input>` 要素は同じです。</span><span class="sxs-lookup"><span data-stu-id="603ae-190">The rendered `<input>` elements using both approaches is identical:</span></span>
 
 ```html
 <input id="useIndividualParams"
@@ -250,7 +208,7 @@ ms.locfileid: "77213351"
        size="50">
 ```
 
-<span data-ttu-id="c2b8c-204">任意の属性を受け入れるには、`CaptureUnmatchedValues` プロパティを `true`に設定して、`[Parameter]` 属性を使用してコンポーネントパラメーターを定義します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-204">To accept arbitrary attributes, define a component parameter using the `[Parameter]` attribute with the `CaptureUnmatchedValues` property set to `true`:</span></span>
+<span data-ttu-id="603ae-191">任意の属性を受け入れるには、`CaptureUnmatchedValues` プロパティを `true`に設定して、`[Parameter]` 属性を使用してコンポーネントパラメーターを定義します。</span><span class="sxs-lookup"><span data-stu-id="603ae-191">To accept arbitrary attributes, define a component parameter using the `[Parameter]` attribute with the `CaptureUnmatchedValues` property set to `true`:</span></span>
 
 ```razor
 @code {
@@ -259,17 +217,17 @@ ms.locfileid: "77213351"
 }
 ```
 
-<span data-ttu-id="c2b8c-205">`[Parameter]` の `CaptureUnmatchedValues` プロパティを使用すると、パラメーターを他のパラメーターと一致しないすべての属性と一致させることができます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-205">The `CaptureUnmatchedValues` property on `[Parameter]` allows the parameter to match all attributes that don't match any other parameter.</span></span> <span data-ttu-id="c2b8c-206">コンポーネントは、`CaptureUnmatchedValues`で1つのパラメーターのみを定義できます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-206">A component can only define a single parameter with `CaptureUnmatchedValues`.</span></span> <span data-ttu-id="c2b8c-207">`CaptureUnmatchedValues` で使用されるプロパティの型は、文字列キーを使用して `Dictionary<string, object>` から割り当て可能である必要があります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-207">The property type used with `CaptureUnmatchedValues` must be assignable from `Dictionary<string, object>` with string keys.</span></span> <span data-ttu-id="c2b8c-208">このシナリオでは、`IEnumerable<KeyValuePair<string, object>>` または `IReadOnlyDictionary<string, object>` もオプションです。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-208">`IEnumerable<KeyValuePair<string, object>>` or `IReadOnlyDictionary<string, object>` are also options in this scenario.</span></span>
+<span data-ttu-id="603ae-192">`[Parameter]` の `CaptureUnmatchedValues` プロパティを使用すると、パラメーターを他のパラメーターと一致しないすべての属性と一致させることができます。</span><span class="sxs-lookup"><span data-stu-id="603ae-192">The `CaptureUnmatchedValues` property on `[Parameter]` allows the parameter to match all attributes that don't match any other parameter.</span></span> <span data-ttu-id="603ae-193">コンポーネントは、`CaptureUnmatchedValues`で1つのパラメーターのみを定義できます。</span><span class="sxs-lookup"><span data-stu-id="603ae-193">A component can only define a single parameter with `CaptureUnmatchedValues`.</span></span> <span data-ttu-id="603ae-194">`CaptureUnmatchedValues` で使用されるプロパティの型は、文字列キーを使用して `Dictionary<string, object>` から割り当て可能である必要があります。</span><span class="sxs-lookup"><span data-stu-id="603ae-194">The property type used with `CaptureUnmatchedValues` must be assignable from `Dictionary<string, object>` with string keys.</span></span> <span data-ttu-id="603ae-195">このシナリオでは、`IEnumerable<KeyValuePair<string, object>>` または `IReadOnlyDictionary<string, object>` もオプションです。</span><span class="sxs-lookup"><span data-stu-id="603ae-195">`IEnumerable<KeyValuePair<string, object>>` or `IReadOnlyDictionary<string, object>` are also options in this scenario.</span></span>
 
-<span data-ttu-id="c2b8c-209">要素属性の位置を基準とした `@attributes` の位置が重要です。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-209">The position of `@attributes` relative to the position of element attributes is important.</span></span> <span data-ttu-id="c2b8c-210">要素に対して `@attributes` が splatted されると、属性は右から左 (最後から順) に処理されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-210">When `@attributes` are splatted on the element, the attributes are processed from right to left (last to first).</span></span> <span data-ttu-id="c2b8c-211">`Child` コンポーネントを使用するコンポーネントの次の例を考えてみます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-211">Consider the following example of a component that consumes a `Child` component:</span></span>
+<span data-ttu-id="603ae-196">要素属性の位置を基準とした `@attributes` の位置が重要です。</span><span class="sxs-lookup"><span data-stu-id="603ae-196">The position of `@attributes` relative to the position of element attributes is important.</span></span> <span data-ttu-id="603ae-197">要素に対して `@attributes` が splatted されると、属性は右から左 (最後から順) に処理されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-197">When `@attributes` are splatted on the element, the attributes are processed from right to left (last to first).</span></span> <span data-ttu-id="603ae-198">`Child` コンポーネントを使用するコンポーネントの次の例を考えてみます。</span><span class="sxs-lookup"><span data-stu-id="603ae-198">Consider the following example of a component that consumes a `Child` component:</span></span>
 
-<span data-ttu-id="c2b8c-212">*Parentcomponent。 razor*:</span><span class="sxs-lookup"><span data-stu-id="c2b8c-212">*ParentComponent.razor*:</span></span>
+<span data-ttu-id="603ae-199">*Parentcomponent。 razor*:</span><span class="sxs-lookup"><span data-stu-id="603ae-199">*ParentComponent.razor*:</span></span>
 
 ```razor
 <ChildComponent extra="10" />
 ```
 
-<span data-ttu-id="c2b8c-213">*Childcomponent。 razor*:</span><span class="sxs-lookup"><span data-stu-id="c2b8c-213">*ChildComponent.razor*:</span></span>
+<span data-ttu-id="603ae-200">*Childcomponent。 razor*:</span><span class="sxs-lookup"><span data-stu-id="603ae-200">*ChildComponent.razor*:</span></span>
 
 ```razor
 <div @attributes="AdditionalAttributes" extra="5" />
@@ -278,21 +236,21 @@ ms.locfileid: "77213351"
 public IDictionary<string, object> AdditionalAttributes { get; set; }
 ```
 
-<span data-ttu-id="c2b8c-214">`Child` コンポーネントの `extra` 属性が `@attributes`の右側に設定されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-214">The `Child` component's `extra` attribute is set to the right of `@attributes`.</span></span> <span data-ttu-id="c2b8c-215">属性が右から左に処理されるため、`Parent` コンポーネントのレンダリングされる `<div>` には `extra="5"` が含まれます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-215">The `Parent` component's rendered `<div>` contains `extra="5"` when passed through the additional attribute because the attributes are processed right to left (last to first):</span></span>
+<span data-ttu-id="603ae-201">`Child` コンポーネントの `extra` 属性が `@attributes`の右側に設定されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-201">The `Child` component's `extra` attribute is set to the right of `@attributes`.</span></span> <span data-ttu-id="603ae-202">属性が右から左に処理されるため、`Parent` コンポーネントのレンダリングされる `<div>` には `extra="5"` が含まれます。</span><span class="sxs-lookup"><span data-stu-id="603ae-202">The `Parent` component's rendered `<div>` contains `extra="5"` when passed through the additional attribute because the attributes are processed right to left (last to first):</span></span>
 
 ```html
 <div extra="5" />
 ```
 
-<span data-ttu-id="c2b8c-216">次の例では、`Child` コンポーネントの `<div>`で `extra` と `@attributes` の順序が逆になっています。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-216">In the following example, the order of `extra` and `@attributes` is reversed in the `Child` component's `<div>`:</span></span>
+<span data-ttu-id="603ae-203">次の例では、`Child` コンポーネントの `<div>`で `extra` と `@attributes` の順序が逆になっています。</span><span class="sxs-lookup"><span data-stu-id="603ae-203">In the following example, the order of `extra` and `@attributes` is reversed in the `Child` component's `<div>`:</span></span>
 
-<span data-ttu-id="c2b8c-217">*Parentcomponent。 razor*:</span><span class="sxs-lookup"><span data-stu-id="c2b8c-217">*ParentComponent.razor*:</span></span>
+<span data-ttu-id="603ae-204">*Parentcomponent。 razor*:</span><span class="sxs-lookup"><span data-stu-id="603ae-204">*ParentComponent.razor*:</span></span>
 
 ```razor
 <ChildComponent extra="10" />
 ```
 
-<span data-ttu-id="c2b8c-218">*Childcomponent。 razor*:</span><span class="sxs-lookup"><span data-stu-id="c2b8c-218">*ChildComponent.razor*:</span></span>
+<span data-ttu-id="603ae-205">*Childcomponent。 razor*:</span><span class="sxs-lookup"><span data-stu-id="603ae-205">*ChildComponent.razor*:</span></span>
 
 ```razor
 <div extra="5" @attributes="AdditionalAttributes" />
@@ -301,607 +259,18 @@ public IDictionary<string, object> AdditionalAttributes { get; set; }
 public IDictionary<string, object> AdditionalAttributes { get; set; }
 ```
 
-<span data-ttu-id="c2b8c-219">`Parent` コンポーネントに表示される `<div>` には、追加の属性を通じて渡された `extra="10"` が含まれます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-219">The rendered `<div>` in the `Parent` component contains `extra="10"` when passed through the additional attribute:</span></span>
+<span data-ttu-id="603ae-206">`Parent` コンポーネントに表示される `<div>` には、追加の属性を通じて渡された `extra="10"` が含まれます。</span><span class="sxs-lookup"><span data-stu-id="603ae-206">The rendered `<div>` in the `Parent` component contains `extra="10"` when passed through the additional attribute:</span></span>
 
 ```html
 <div extra="10" />
 ```
 
-## <a name="data-binding"></a><span data-ttu-id="c2b8c-220">データ バインディング</span><span class="sxs-lookup"><span data-stu-id="c2b8c-220">Data binding</span></span>
+## <a name="capture-references-to-components"></a><span data-ttu-id="603ae-207">コンポーネントへの参照をキャプチャする</span><span class="sxs-lookup"><span data-stu-id="603ae-207">Capture references to components</span></span>
 
-<span data-ttu-id="c2b8c-221">コンポーネントと DOM 要素の両方に対するデータバインディングは、 [`@bind`](xref:mvc/views/razor#bind)属性を使用して行われます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-221">Data binding to both components and DOM elements is accomplished with the [`@bind`](xref:mvc/views/razor#bind) attribute.</span></span> <span data-ttu-id="c2b8c-222">次の例では、`CurrentValue` プロパティをテキストボックスの値にバインドします。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-222">The following example binds a `CurrentValue` property to the text box's value:</span></span>
+<span data-ttu-id="603ae-208">コンポーネント参照を使用すると、`Show` や `Reset`などのコマンドをそのインスタンスに発行できるように、コンポーネントインスタンスを参照することができます。</span><span class="sxs-lookup"><span data-stu-id="603ae-208">Component references provide a way to reference a component instance so that you can issue commands to that instance, such as `Show` or `Reset`.</span></span> <span data-ttu-id="603ae-209">コンポーネント参照をキャプチャするには、次のようにします。</span><span class="sxs-lookup"><span data-stu-id="603ae-209">To capture a component reference:</span></span>
 
-```razor
-<input @bind="CurrentValue" />
-
-@code {
-    private string CurrentValue { get; set; }
-}
-```
-
-<span data-ttu-id="c2b8c-223">テキストボックスがフォーカスを失うと、プロパティの値が更新されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-223">When the text box loses focus, the property's value is updated.</span></span>
-
-<span data-ttu-id="c2b8c-224">テキストボックスは、プロパティの値の変更に対する応答ではなく、コンポーネントがレンダリングされたときにのみ UI で更新されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-224">The text box is updated in the UI only when the component is rendered, not in response to changing the property's value.</span></span> <span data-ttu-id="c2b8c-225">イベントハンドラーのコードを実行した後にコンポーネントがレンダリングされるため、*通常*、イベントハンドラーがトリガーされた直後に、プロパティの更新が UI に反映されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-225">Since components render themselves after event handler code executes, property updates are *usually* reflected in the UI immediately after an event handler is triggered.</span></span>
-
-<span data-ttu-id="c2b8c-226">`CurrentValue` プロパティ (`<input @bind="CurrentValue" />`) で `@bind` を使用することは、基本的に次のようなものです。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-226">Using `@bind` with the `CurrentValue` property (`<input @bind="CurrentValue" />`) is essentially equivalent to the following:</span></span>
-
-```razor
-<input value="@CurrentValue"
-    @onchange="@((ChangeEventArgs __e) => CurrentValue = 
-        __e.Value.ToString())" />
-        
-@code {
-    private string CurrentValue { get; set; }
-}
-```
-
-<span data-ttu-id="c2b8c-227">コンポーネントがレンダリングされると、入力要素の `value` は `CurrentValue` プロパティから取得されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-227">When the component is rendered, the `value` of the input element comes from the `CurrentValue` property.</span></span> <span data-ttu-id="c2b8c-228">ユーザーがテキストボックスに入力し、要素のフォーカスを変更すると、`onchange` イベントが発生し、`CurrentValue` プロパティが変更された値に設定されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-228">When the user types in the text box and changes element focus, the `onchange` event is fired and the `CurrentValue` property is set to the changed value.</span></span> <span data-ttu-id="c2b8c-229">実際には、型変換が実行されるケースが `@bind` によって処理されるため、コード生成はより複雑になります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-229">In reality, the code generation is more complex because `@bind` handles cases where type conversions are performed.</span></span> <span data-ttu-id="c2b8c-230">原則として、`@bind` は、式の現在の値を `value` 属性と関連付け、登録されたハンドラーを使用して変更を処理します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-230">In principle, `@bind` associates the current value of an expression with a `value` attribute and handles changes using the registered handler.</span></span>
-
-<span data-ttu-id="c2b8c-231">`@bind` 構文を使用した `onchange` イベントの処理に加えて、`event` パラメーター ([`@bind-value:event`](xref:mvc/views/razor#bind)) を使用して[`@bind-value`](xref:mvc/views/razor#bind)属性を指定することで、プロパティまたはフィールドを他のイベントを使用してバインドできます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-231">In addition to handling `onchange` events with `@bind` syntax, a property or field can be bound using other events by specifying an [`@bind-value`](xref:mvc/views/razor#bind) attribute with an `event` parameter ([`@bind-value:event`](xref:mvc/views/razor#bind)).</span></span> <span data-ttu-id="c2b8c-232">次の例では、`oninput` イベントの `CurrentValue` プロパティをバインドします。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-232">The following example binds the `CurrentValue` property for the `oninput` event:</span></span>
-
-```razor
-<input @bind-value="CurrentValue" @bind-value:event="oninput" />
-
-@code {
-    private string CurrentValue { get; set; }
-}
-```
-
-<span data-ttu-id="c2b8c-233">要素がフォーカスを失ったときに発生する `onchange`とは異なり、テキストボックスの値が変更されたときに `oninput` が発生します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-233">Unlike `onchange`, which fires when the element loses focus, `oninput` fires when the value of the text box changes.</span></span>
-
-<span data-ttu-id="c2b8c-234">前の例の `@bind-value` は、次のようにバインドします。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-234">`@bind-value` in the preceding example binds:</span></span>
-
-* <span data-ttu-id="c2b8c-235">要素の `value` 属性に対して指定された式 (`CurrentValue`)。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-235">The specified expression (`CurrentValue`) to the element's `value` attribute.</span></span>
-* <span data-ttu-id="c2b8c-236">`@bind-value:event`によって指定されたイベントへの変更イベントデリゲート。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-236">A change event delegate to the event specified by `@bind-value:event`.</span></span>
-
-### <a name="unparsable-values"></a><span data-ttu-id="c2b8c-237">解析不可能値</span><span class="sxs-lookup"><span data-stu-id="c2b8c-237">Unparsable values</span></span>
-
-<span data-ttu-id="c2b8c-238">データバインド要素に解析できない値を指定すると、バインドイベントがトリガーされたときに、解析されていない値が自動的に前の値に戻されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-238">When a user provides an unparsable value to a databound element, the unparsable value is automatically reverted to its previous value when the bind event is triggered.</span></span>
-
-<span data-ttu-id="c2b8c-239">以下のシナリオについて考えてみます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-239">Consider the following scenario:</span></span>
-
-* <span data-ttu-id="c2b8c-240">`<input>` 要素は、初期値 `123`を持つ `int` 型にバインドされます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-240">An `<input>` element is bound to an `int` type with an initial value of `123`:</span></span>
-
-  ```razor
-  <input @bind="MyProperty" />
-
-  @code {
-      [Parameter]
-      public int MyProperty { get; set; } = 123;
-  }
-  ```
-* <span data-ttu-id="c2b8c-241">ユーザーは、要素の値をページの `123.45` に更新し、要素のフォーカスを変更します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-241">The user updates the value of the element to `123.45` in the page and changes the element focus.</span></span>
-
-<span data-ttu-id="c2b8c-242">前のシナリオでは、要素の値が `123`に戻されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-242">In the preceding scenario, the element's value is reverted to `123`.</span></span> <span data-ttu-id="c2b8c-243">`123`の元の値を優先して `123.45` 値が拒否された場合、ユーザーはその値が受け入れられていないことを認識します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-243">When the value `123.45` is rejected in favor of the original value of `123`, the user understands that their value wasn't accepted.</span></span>
-
-<span data-ttu-id="c2b8c-244">既定では、バインドは要素の `onchange` イベント (`@bind="{PROPERTY OR FIELD}"`) に適用されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-244">By default, binding applies to the element's `onchange` event (`@bind="{PROPERTY OR FIELD}"`).</span></span> <span data-ttu-id="c2b8c-245">別のイベントを設定するには、`@bind-value="{PROPERTY OR FIELD}" @bind-value:event={EVENT}` を使用します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-245">Use `@bind-value="{PROPERTY OR FIELD}" @bind-value:event={EVENT}` to set a different event.</span></span> <span data-ttu-id="c2b8c-246">`oninput` イベント (`@bind-value:event="oninput"`) の場合、解析できない値を導入するキーストロークの後に再設定が発生します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-246">For the `oninput` event (`@bind-value:event="oninput"`), the reversion occurs after any keystroke that introduces an unparsable value.</span></span> <span data-ttu-id="c2b8c-247">`int`バインドされた型の `oninput` イベントを対象とする場合、ユーザーは `.` 文字を入力できません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-247">When targeting the `oninput` event with an `int`-bound type, a user is prevented from typing a `.` character.</span></span> <span data-ttu-id="c2b8c-248">`.` 文字はすぐに削除されるので、ユーザーは、整数のみが許可されるというフィードバックをすぐに受け取ることができます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-248">A `.` character is immediately removed, so the user receives immediate feedback that only whole numbers are permitted.</span></span> <span data-ttu-id="c2b8c-249">`oninput` イベントの値を元に戻すことは、ユーザーが解析できない `<input>` 値のクリアを許可する必要がある場合など、理想的ではありません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-249">There are scenarios where reverting the value on the `oninput` event isn't ideal, such as when the user should be allowed to clear an unparsable `<input>` value.</span></span> <span data-ttu-id="c2b8c-250">代替手段は次のとおりです。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-250">Alternatives include:</span></span>
-
-* <span data-ttu-id="c2b8c-251">`oninput` イベントは使用しないでください。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-251">Don't use the `oninput` event.</span></span> <span data-ttu-id="c2b8c-252">既定の `onchange` イベント (`@bind="{PROPERTY OR FIELD}"`) を使用します。この場合、要素がフォーカスを失うまで無効な値は元に戻されません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-252">Use the default `onchange` event (`@bind="{PROPERTY OR FIELD}"`), where an invalid value isn't reverted until the element loses focus.</span></span>
-* <span data-ttu-id="c2b8c-253">`int?` や `string`などの null 許容型にバインドし、無効なエントリを処理するカスタムロジックを提供します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-253">Bind to a nullable type, such as `int?` or `string`, and provide custom logic to handle invalid entries.</span></span>
-* <span data-ttu-id="c2b8c-254">`InputNumber` や `InputDate`などの[フォーム検証コンポーネント](xref:blazor/forms-validation)を使用します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-254">Use a [form validation component](xref:blazor/forms-validation), such as `InputNumber` or `InputDate`.</span></span> <span data-ttu-id="c2b8c-255">フォーム検証コンポーネントには、無効な入力を管理するためのサポートが組み込まれています。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-255">Form validation components have built-in support to manage invalid inputs.</span></span> <span data-ttu-id="c2b8c-256">フォーム検証コンポーネント:</span><span class="sxs-lookup"><span data-stu-id="c2b8c-256">Form validation components:</span></span>
-  * <span data-ttu-id="c2b8c-257">ユーザーが無効な入力を提供し、関連付けられた `EditContext`で検証エラーを受信することを許可します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-257">Permit the user to provide invalid input and receive validation errors on the associated `EditContext`.</span></span>
-  * <span data-ttu-id="c2b8c-258">追加の web フォームデータを入力するユーザーに干渉することなく、UI に検証エラーを表示します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-258">Display validation errors in the UI without interfering with the user entering additional webform data.</span></span>
-
-### <a name="globalization"></a><span data-ttu-id="c2b8c-259">グローバリゼーション</span><span class="sxs-lookup"><span data-stu-id="c2b8c-259">Globalization</span></span>
-
-<span data-ttu-id="c2b8c-260">`@bind` 値は、現在のカルチャの規則を使用して表示および解析するように書式設定されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-260">`@bind` values are formatted for display and parsed using the current culture's rules.</span></span>
-
-<span data-ttu-id="c2b8c-261">現在のカルチャには、<xref:System.Globalization.CultureInfo.CurrentCulture?displayProperty=fullName> プロパティからアクセスできます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-261">The current culture can be accessed from the <xref:System.Globalization.CultureInfo.CurrentCulture?displayProperty=fullName> property.</span></span>
-
-<span data-ttu-id="c2b8c-262">[InvariantCulture](xref:System.Globalization.CultureInfo.InvariantCulture)は、次のフィールドの種類 (`<input type="{TYPE}" />`) に使用されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-262">[CultureInfo.InvariantCulture](xref:System.Globalization.CultureInfo.InvariantCulture) is used for the following field types (`<input type="{TYPE}" />`):</span></span>
-
-* `date`
-* `number`
-
-<span data-ttu-id="c2b8c-263">上記のフィールド型は次のとおりです。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-263">The preceding field types:</span></span>
-
-* <span data-ttu-id="c2b8c-264">は、適切なブラウザーベースの書式規則を使用して表示されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-264">Are displayed using their appropriate browser-based formatting rules.</span></span>
-* <span data-ttu-id="c2b8c-265">自由形式のテキストを含めることはできません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-265">Can't contain free-form text.</span></span>
-* <span data-ttu-id="c2b8c-266">ブラウザーの実装に基づいてユーザーの操作特性を指定します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-266">Provide user interaction characteristics based on the browser's implementation.</span></span>
-
-<span data-ttu-id="c2b8c-267">次のフィールド型には特定の書式要件があり、Blazor では現在サポートされていません。これは、すべての主要なブラウザーでサポートされていないためです。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-267">The following field types have specific formatting requirements and aren't currently supported by Blazor because they aren't supported by all major browsers:</span></span>
-
-* `datetime-local`
-* `month`
-* `week`
-
-<span data-ttu-id="c2b8c-268">`@bind` では、`@bind:culture` パラメーターを使用して、値の解析および書式設定のための <xref:System.Globalization.CultureInfo?displayProperty=fullName> を提供します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-268">`@bind` supports the `@bind:culture` parameter to provide a <xref:System.Globalization.CultureInfo?displayProperty=fullName> for parsing and formatting a value.</span></span> <span data-ttu-id="c2b8c-269">`date` および `number` のフィールドの種類を使用する場合は、カルチャを指定しないことをお勧めします。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-269">Specifying a culture isn't recommended when using the `date` and `number` field types.</span></span> <span data-ttu-id="c2b8c-270">`date` と `number` には、必要なカルチャを提供する Blazor サポートが組み込まれています。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-270">`date` and `number` have built-in Blazor support that provides the required culture.</span></span>
-
-<span data-ttu-id="c2b8c-271">ユーザーのカルチャを設定する方法については、「[ローカリゼーション](#localization)」セクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-271">For information on how to set the user's culture, see the [Localization](#localization) section.</span></span>
-
-### <a name="format-strings"></a><span data-ttu-id="c2b8c-272">書式指定文字列</span><span class="sxs-lookup"><span data-stu-id="c2b8c-272">Format strings</span></span>
-
-<span data-ttu-id="c2b8c-273">データバインディングは、 [`@bind:format`](xref:mvc/views/razor#bind)を使用して <xref:System.DateTime> 書式指定文字列で動作します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-273">Data binding works with <xref:System.DateTime> format strings using [`@bind:format`](xref:mvc/views/razor#bind).</span></span> <span data-ttu-id="c2b8c-274">通貨形式や数値形式など、その他の書式指定式は現時点では使用できません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-274">Other format expressions, such as currency or number formats, aren't available at this time.</span></span>
-
-```razor
-<input @bind="StartDate" @bind:format="yyyy-MM-dd" />
-
-@code {
-    [Parameter]
-    public DateTime StartDate { get; set; } = new DateTime(2020, 1, 1);
-}
-```
-
-<span data-ttu-id="c2b8c-275">前のコードでは、`<input>` 要素のフィールドの種類 (`type`) は既定で `text`に設定されています。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-275">In the preceding code, the `<input>` element's field type (`type`) defaults to `text`.</span></span> <span data-ttu-id="c2b8c-276">`@bind:format` は、次の .NET 型のバインドに対してサポートされています。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-276">`@bind:format` is supported for binding the following .NET types:</span></span>
-
-* <xref:System.DateTime?displayProperty=fullName>
-* <span data-ttu-id="c2b8c-277"><xref:System.DateTime?displayProperty=fullName>?</span><span class="sxs-lookup"><span data-stu-id="c2b8c-277"><xref:System.DateTime?displayProperty=fullName>?</span></span>
-* <xref:System.DateTimeOffset?displayProperty=fullName>
-* <span data-ttu-id="c2b8c-278"><xref:System.DateTimeOffset?displayProperty=fullName>?</span><span class="sxs-lookup"><span data-stu-id="c2b8c-278"><xref:System.DateTimeOffset?displayProperty=fullName>?</span></span>
-
-<span data-ttu-id="c2b8c-279">`@bind:format` 属性は、`<input>` 要素の `value` に適用する日付形式を指定します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-279">The `@bind:format` attribute specifies the date format to apply to the `value` of the `<input>` element.</span></span> <span data-ttu-id="c2b8c-280">この形式は、`onchange` イベントが発生したときに値を解析するためにも使用されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-280">The format is also used to parse the value when an `onchange` event occurs.</span></span>
-
-<span data-ttu-id="c2b8c-281">Blazor には日付を書式設定するためのサポートが組み込まれているため、`date` フィールド型の形式を指定することは推奨されません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-281">Specifying a format for the `date` field type isn't recommended because Blazor has built-in support to format dates.</span></span> <span data-ttu-id="c2b8c-282">推奨事項では、`date` フィールドの種類で形式が指定されている場合、バインドの `yyyy-MM-dd` 日付形式のみを使用することをお勧めします。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-282">In spite of the recommendation, only use the `yyyy-MM-dd` date format for binding to work correctly if a format is supplied with the `date` field type:</span></span>
-
-```razor
-<input type="date" @bind="StartDate" @bind:format="yyyy-MM-dd">
-```
-
-### <a name="parent-to-child-binding-with-component-parameters"></a><span data-ttu-id="c2b8c-283">コンポーネントパラメーターを使用した親子バインド</span><span class="sxs-lookup"><span data-stu-id="c2b8c-283">Parent-to-child binding with component parameters</span></span>
-
-<span data-ttu-id="c2b8c-284">バインディングは、コンポーネントのパラメーターを認識します。 `@bind-{property}` は、親コンポーネントのプロパティ値を子コンポーネントにバインドできます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-284">Binding recognizes component parameters, where `@bind-{property}` can bind a property value from a parent component down to a child component.</span></span> <span data-ttu-id="c2b8c-285">子から親へのバインドについては、「[チェーンバインドを使用した子から親へのバインド](#child-to-parent-binding-with-chained-bind)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-285">Binding from a child to a parent is covered in the [Child-to-parent binding with chained bind](#child-to-parent-binding-with-chained-bind) section.</span></span>
-
-<span data-ttu-id="c2b8c-286">次の子コンポーネント (`ChildComponent`) には、`Year` コンポーネントパラメーターと `YearChanged` コールバックがあります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-286">The following child component (`ChildComponent`) has a `Year` component parameter and `YearChanged` callback:</span></span>
-
-```razor
-<h2>Child Component</h2>
-
-<p>Year: @Year</p>
-
-@code {
-    [Parameter]
-    public int Year { get; set; }
-
-    [Parameter]
-    public EventCallback<int> YearChanged { get; set; }
-}
-```
-
-<span data-ttu-id="c2b8c-287">`EventCallback<T>` については、「 [Eventcallback](#eventcallback) 」セクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-287">`EventCallback<T>` is explained in the [EventCallback](#eventcallback) section.</span></span>
-
-<span data-ttu-id="c2b8c-288">次の親コンポーネントはを使用します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-288">The following parent component uses:</span></span>
-
-* <span data-ttu-id="c2b8c-289">を `ChildComponent` し、親の `ParentYear` パラメーターを子コンポーネントの `Year` パラメーターにバインドします。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-289">`ChildComponent` and binds the `ParentYear` parameter from the parent to the `Year` parameter on the child component.</span></span>
-* <span data-ttu-id="c2b8c-290">`onclick` イベントは、`ChangeTheYear` メソッドをトリガーするために使用されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-290">The `onclick` event is used to trigger the `ChangeTheYear` method.</span></span> <span data-ttu-id="c2b8c-291">詳細については、「[イベント処理](#event-handling)」セクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-291">For more information, see the [Event handling](#event-handling) section.</span></span>
-
-```razor
-@page "/ParentComponent"
-
-<h1>Parent Component</h1>
-
-<p>ParentYear: @ParentYear</p>
-
-<ChildComponent @bind-Year="ParentYear" />
-
-<button class="btn btn-primary" @onclick="ChangeTheYear">
-    Change Year to 1986
-</button>
-
-@code {
-    [Parameter]
-    public int ParentYear { get; set; } = 1978;
-
-    private void ChangeTheYear()
-    {
-        ParentYear = 1986;
-    }
-}
-```
-
-<span data-ttu-id="c2b8c-292">`ParentComponent` を読み込むと、次のマークアップが生成されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-292">Loading the `ParentComponent` produces the following markup:</span></span>
-
-```html
-<h1>Parent Component</h1>
-
-<p>ParentYear: 1978</p>
-
-<h2>Child Component</h2>
-
-<p>Year: 1978</p>
-```
-
-<span data-ttu-id="c2b8c-293">`ParentComponent`のボタンを選択して `ParentYear` プロパティの値が変更された場合は、`ChildComponent` の `Year` プロパティが更新されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-293">If the value of the `ParentYear` property is changed by selecting the button in the `ParentComponent`, the `Year` property of the `ChildComponent` is updated.</span></span> <span data-ttu-id="c2b8c-294">`Year` の新しい値は、`ParentComponent` が再度実行されたときに UI に表示されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-294">The new value of `Year` is rendered in the UI when the `ParentComponent` is rerendered:</span></span>
-
-```html
-<h1>Parent Component</h1>
-
-<p>ParentYear: 1986</p>
-
-<h2>Child Component</h2>
-
-<p>Year: 1986</p>
-```
-
-<span data-ttu-id="c2b8c-295">`Year` パラメーターは、`Year` パラメーターの型と一致するコンパニオン `YearChanged` イベントがあるため、バインド可能です。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-295">The `Year` parameter is bindable because it has a companion `YearChanged` event that matches the type of the `Year` parameter.</span></span>
-
-<span data-ttu-id="c2b8c-296">慣例により、`<ChildComponent @bind-Year="ParentYear" />` は基本的には書き込みと同じです。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-296">By convention, `<ChildComponent @bind-Year="ParentYear" />` is essentially equivalent to writing:</span></span>
-
-```razor
-<ChildComponent @bind-Year="ParentYear" @bind-Year:event="YearChanged" />
-```
-
-<span data-ttu-id="c2b8c-297">一般に、プロパティは、`@bind-property:event` 属性を使用して、対応するイベントハンドラーにバインドできます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-297">In general, a property can be bound to a corresponding event handler using `@bind-property:event` attribute.</span></span> <span data-ttu-id="c2b8c-298">たとえば、プロパティ `MyProp` は、次の2つの属性を使用して `MyEventHandler` にバインドできます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-298">For example, the property `MyProp` can be bound to `MyEventHandler` using the following two attributes:</span></span>
-
-```razor
-<MyComponent @bind-MyProp="MyValue" @bind-MyProp:event="MyEventHandler" />
-```
-
-### <a name="child-to-parent-binding-with-chained-bind"></a><span data-ttu-id="c2b8c-299">チェーンバインドを使用した親子バインド</span><span class="sxs-lookup"><span data-stu-id="c2b8c-299">Child-to-parent binding with chained bind</span></span>
-
-<span data-ttu-id="c2b8c-300">一般的なシナリオでは、データバインドパラメーターをコンポーネントの出力のページ要素に連結します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-300">A common scenario is chaining a data-bound parameter to a page element in the component's output.</span></span> <span data-ttu-id="c2b8c-301">このシナリオは、複数のレベルのバインドが同時に発生するため、*チェーンバインド*と呼ばれます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-301">This scenario is called a *chained bind* because multiple levels of binding occur simultaneously.</span></span>
-
-<span data-ttu-id="c2b8c-302">チェーンバインドは、ページの要素で `@bind` 構文を使用して実装することはできません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-302">A chained bind can't be implemented with `@bind` syntax in the page's element.</span></span> <span data-ttu-id="c2b8c-303">イベントハンドラーと値は、個別に指定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-303">The event handler and value must be specified separately.</span></span> <span data-ttu-id="c2b8c-304">ただし、親コンポーネントでは、`@bind` 構文をコンポーネントのパラメーターと共に使用できます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-304">A parent component, however, can use `@bind` syntax with the component's parameter.</span></span>
-
-<span data-ttu-id="c2b8c-305">次の `PasswordField` コンポーネント (*Passwordfield*):</span><span class="sxs-lookup"><span data-stu-id="c2b8c-305">The following `PasswordField` component (*PasswordField.razor*):</span></span>
-
-* <span data-ttu-id="c2b8c-306">`Password` プロパティに `<input>` 要素の値を設定します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-306">Sets an `<input>` element's value to a `Password` property.</span></span>
-* <span data-ttu-id="c2b8c-307">[Eventcallback](#eventcallback)を使用して、`Password` プロパティの変更を親コンポーネントに公開します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-307">Exposes changes of the `Password` property to a parent component with an [EventCallback](#eventcallback).</span></span>
-* <span data-ttu-id="c2b8c-308">`onclick` イベントを使用して、`ToggleShowPassword` メソッドをトリガーします。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-308">Uses the `onclick` event is used to trigger the `ToggleShowPassword` method.</span></span> <span data-ttu-id="c2b8c-309">詳細については、「[イベント処理](#event-handling)」セクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-309">For more information, see the [Event handling](#event-handling) section.</span></span>
-
-```razor
-<h1>Child Component</h2>
-
-Password: 
-
-<input @oninput="OnPasswordChanged" 
-       required 
-       type="@(_showPassword ? "text" : "password")" 
-       value="@Password" />
-
-<button class="btn btn-primary" @onclick="ToggleShowPassword">
-    Show password
-</button>
-
-@code {
-    private bool _showPassword;
-
-    [Parameter]
-    public string Password { get; set; }
-
-    [Parameter]
-    public EventCallback<string> PasswordChanged { get; set; }
-
-    private Task OnPasswordChanged(ChangeEventArgs e)
-    {
-        Password = e.Value.ToString();
-
-        return PasswordChanged.InvokeAsync(Password);
-    }
-
-    private void ToggleShowPassword()
-    {
-        _showPassword = !_showPassword;
-    }
-}
-```
-
-<span data-ttu-id="c2b8c-310">`PasswordField` コンポーネントが別のコンポーネントで使用されています。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-310">The `PasswordField` component is used in another component:</span></span>
-
-```razor
-@page "/ParentComponent"
-
-<h1>Parent Component</h1>
-
-<PasswordField @bind-Password="_password" />
-
-@code {
-    private string _password;
-}
-```
-
-<span data-ttu-id="c2b8c-311">前の例で、パスワードの確認またはトラップエラーを実行するには、次の手順を実行します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-311">To perform checks or trap errors on the password in the preceding example:</span></span>
-
-* <span data-ttu-id="c2b8c-312">`Password` のバッキングフィールドを作成します (次のコード例では`_password`)。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-312">Create a backing field for `Password` (`_password` in the following example code).</span></span>
-* <span data-ttu-id="c2b8c-313">`Password` setter で、チェックまたはトラップのエラーを実行します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-313">Perform the checks or trap errors in the `Password` setter.</span></span>
-
-<span data-ttu-id="c2b8c-314">次の例では、パスワードの値にスペースが使用されている場合に、ユーザーにすぐにフィードバックを提供します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-314">The following example provides immediate feedback to the user if a space is used in the password's value:</span></span>
-
-```razor
-@page "/ParentComponent"
-
-<h1>Parent Component</h1>
-
-Password: 
-
-<input @oninput="OnPasswordChanged" 
-       required 
-       type="@(_showPassword ? "text" : "password")" 
-       value="@Password" />
-
-<button class="btn btn-primary" @onclick="ToggleShowPassword">
-    Show password
-</button>
-
-<span class="text-danger">@_validationMessage</span>
-
-@code {
-    private bool _showPassword;
-    private string _password;
-    private string _validationMessage;
-
-    [Parameter]
-    public string Password
-    {
-        get { return _password ?? string.Empty; }
-        set
-        {
-            if (_password != value)
-            {
-                if (value.Contains(' '))
-                {
-                    _validationMessage = "Spaces not allowed!";
-                }
-                else
-                {
-                    _password = value;
-                    _validationMessage = string.Empty;
-                }
-            }
-        }
-    }
-
-    [Parameter]
-    public EventCallback<string> PasswordChanged { get; set; }
-
-    private Task OnPasswordChanged(ChangeEventArgs e)
-    {
-        Password = e.Value.ToString();
-
-        return PasswordChanged.InvokeAsync(Password);
-    }
-
-    private void ToggleShowPassword()
-    {
-        _showPassword = !_showPassword;
-    }
-}
-```
-
-### <a name="radio-buttons"></a><span data-ttu-id="c2b8c-315">オプション ボタン</span><span class="sxs-lookup"><span data-stu-id="c2b8c-315">Radio buttons</span></span>
-
-<span data-ttu-id="c2b8c-316">フォームのオプションボタンへのバインドの詳細については、「<xref:blazor/forms-validation#work-with-radio-buttons>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-316">For information on binding to radio buttons in a form, see <xref:blazor/forms-validation#work-with-radio-buttons>.</span></span>
-
-## <a name="event-handling"></a><span data-ttu-id="c2b8c-317">イベント処理</span><span class="sxs-lookup"><span data-stu-id="c2b8c-317">Event handling</span></span>
-
-<span data-ttu-id="c2b8c-318">Razor コンポーネントは、イベント処理機能を提供します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-318">Razor components provide event handling features.</span></span> <span data-ttu-id="c2b8c-319">`on{EVENT}` という名前の HTML 要素属性 (`onclick`、`onsubmit`など) とデリゲート型の値がある場合、Razor コンポーネントはその属性の値をイベントハンドラーとして扱います。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-319">For an HTML element attribute named `on{EVENT}` (for example, `onclick` and `onsubmit`) with a delegate-typed value, Razor components treats the attribute's value as an event handler.</span></span> <span data-ttu-id="c2b8c-320">属性の名前は常に[`@on{EVENT}`](xref:mvc/views/razor#onevent)書式設定されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-320">The attribute's name is always formatted [`@on{EVENT}`](xref:mvc/views/razor#onevent).</span></span>
-
-<span data-ttu-id="c2b8c-321">次のコードは、UI でボタンが選択されたときに `UpdateHeading` メソッドを呼び出します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-321">The following code calls the `UpdateHeading` method when the button is selected in the UI:</span></span>
-
-```razor
-<button class="btn btn-primary" @onclick="UpdateHeading">
-    Update heading
-</button>
-
-@code {
-    private void UpdateHeading(MouseEventArgs e)
-    {
-        ...
-    }
-}
-```
-
-<span data-ttu-id="c2b8c-322">次のコードは、UI でチェックボックスが変更されたときに `CheckChanged` メソッドを呼び出します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-322">The following code calls the `CheckChanged` method when the check box is changed in the UI:</span></span>
-
-```razor
-<input type="checkbox" class="form-check-input" @onchange="CheckChanged" />
-
-@code {
-    private void CheckChanged()
-    {
-        ...
-    }
-}
-```
-
-<span data-ttu-id="c2b8c-323">イベントハンドラーを非同期にして、<xref:System.Threading.Tasks.Task>を返すこともできます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-323">Event handlers can also be asynchronous and return a <xref:System.Threading.Tasks.Task>.</span></span> <span data-ttu-id="c2b8c-324">[Statehaschanged](xref:blazor/lifecycle#state-changes)を手動で呼び出す必要はありません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-324">There's no need to manually call [StateHasChanged](xref:blazor/lifecycle#state-changes).</span></span> <span data-ttu-id="c2b8c-325">例外は、発生するとログに記録されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-325">Exceptions are logged when they occur.</span></span>
-
-<span data-ttu-id="c2b8c-326">次の例では、ボタンが選択されると `UpdateHeading` が非同期に呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-326">In the following example, `UpdateHeading` is called asynchronously when the button is selected:</span></span>
-
-```razor
-<button class="btn btn-primary" @onclick="UpdateHeading">
-    Update heading
-</button>
-
-@code {
-    private async Task UpdateHeading(MouseEventArgs e)
-    {
-        ...
-    }
-}
-```
-
-### <a name="event-argument-types"></a><span data-ttu-id="c2b8c-327">イベント引数の型</span><span class="sxs-lookup"><span data-stu-id="c2b8c-327">Event argument types</span></span>
-
-<span data-ttu-id="c2b8c-328">イベントによっては、イベント引数の型が許可されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-328">For some events, event argument types are permitted.</span></span> <span data-ttu-id="c2b8c-329">これらのイベントの種類のいずれかにアクセスする必要がない場合は、メソッドの呼び出しで必要とされません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-329">If access to one of these event types isn't necessary, it isn't required in the method call.</span></span>
-
-<span data-ttu-id="c2b8c-330">次の表に、サポートされている `EventArgs` を示します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-330">Supported `EventArgs` are shown in the following table.</span></span>
-
-| <span data-ttu-id="c2b8c-331">Event</span><span class="sxs-lookup"><span data-stu-id="c2b8c-331">Event</span></span>            | <span data-ttu-id="c2b8c-332">クラス</span><span class="sxs-lookup"><span data-stu-id="c2b8c-332">Class</span></span>                | <span data-ttu-id="c2b8c-333">DOM のイベントとメモ</span><span class="sxs-lookup"><span data-stu-id="c2b8c-333">DOM events and notes</span></span> |
-| ---------------- | -------------------- | -------------------- |
-| <span data-ttu-id="c2b8c-334">クリップボード</span><span class="sxs-lookup"><span data-stu-id="c2b8c-334">Clipboard</span></span>        | `ClipboardEventArgs` | <span data-ttu-id="c2b8c-335">`oncut`、`oncopy`、`onpaste`</span><span class="sxs-lookup"><span data-stu-id="c2b8c-335">`oncut`, `oncopy`, `onpaste`</span></span> |
-| <span data-ttu-id="c2b8c-336">抗力</span><span class="sxs-lookup"><span data-stu-id="c2b8c-336">Drag</span></span>             | `DragEventArgs`      | <span data-ttu-id="c2b8c-337">`ondrag`､`ondragstart`、`ondragenter`、`ondragleave`、`ondragover`、`ondrop`、`ondragend`</span><span class="sxs-lookup"><span data-stu-id="c2b8c-337">`ondrag`, `ondragstart`, `ondragenter`, `ondragleave`, `ondragover`, `ondrop`, `ondragend`</span></span><br><br><span data-ttu-id="c2b8c-338">`DataTransfer` および `DataTransferItem` ドラッグした項目データを保持します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-338">`DataTransfer` and `DataTransferItem` hold dragged item data.</span></span> |
-| <span data-ttu-id="c2b8c-339">エラー</span><span class="sxs-lookup"><span data-stu-id="c2b8c-339">Error</span></span>            | `ErrorEventArgs`     | `onerror` |
-| <span data-ttu-id="c2b8c-340">Event</span><span class="sxs-lookup"><span data-stu-id="c2b8c-340">Event</span></span>            | `EventArgs`          | <span data-ttu-id="c2b8c-341">*全般*</span><span class="sxs-lookup"><span data-stu-id="c2b8c-341">*General*</span></span><br><span data-ttu-id="c2b8c-342">`onactivate`、`onbeforeactivate`、`onbeforedeactivate`、`ondeactivate`、`onended`、`onfullscreenchange`、`onfullscreenerror`、`onloadeddata`、`onloadedmetadata`、`onpointerlockchange`、`onpointerlockerror`、`onreadystatechange`、`onscroll`</span><span class="sxs-lookup"><span data-stu-id="c2b8c-342">`onactivate`, `onbeforeactivate`, `onbeforedeactivate`, `ondeactivate`, `onended`, `onfullscreenchange`, `onfullscreenerror`, `onloadeddata`, `onloadedmetadata`, `onpointerlockchange`, `onpointerlockerror`, `onreadystatechange`, `onscroll`</span></span><br><br><span data-ttu-id="c2b8c-343">*クリップボード*</span><span class="sxs-lookup"><span data-stu-id="c2b8c-343">*Clipboard*</span></span><br><span data-ttu-id="c2b8c-344">`onbeforecut`、`onbeforecopy`、`onbeforepaste`</span><span class="sxs-lookup"><span data-stu-id="c2b8c-344">`onbeforecut`, `onbeforecopy`, `onbeforepaste`</span></span><br><br><span data-ttu-id="c2b8c-345">*入力*</span><span class="sxs-lookup"><span data-stu-id="c2b8c-345">*Input*</span></span><br><span data-ttu-id="c2b8c-346">`oninvalid`、`onreset`、`onselect`、`onselectionchange`、`onselectstart`、`onsubmit`</span><span class="sxs-lookup"><span data-stu-id="c2b8c-346">`oninvalid`, `onreset`, `onselect`, `onselectionchange`, `onselectstart`, `onsubmit`</span></span><br><br><span data-ttu-id="c2b8c-347">*メディア*</span><span class="sxs-lookup"><span data-stu-id="c2b8c-347">*Media*</span></span><br><span data-ttu-id="c2b8c-348">`oncanplay`、`oncanplaythrough`、`oncuechange`、`ondurationchange`、`onemptied`、`onpause`、`onplay`、`onplaying`の `onratechange`、`onseeked`、`onseeking`、`onstalled`、`onstop`、および `onsuspend``ontimeupdate``onvolumechange``onwaiting`</span><span class="sxs-lookup"><span data-stu-id="c2b8c-348">`oncanplay`, `oncanplaythrough`, `oncuechange`, `ondurationchange`, `onemptied`, `onpause`, `onplay`, `onplaying`, `onratechange`, `onseeked`, `onseeking`, `onstalled`, `onstop`, `onsuspend`, `ontimeupdate`, `onvolumechange`, `onwaiting`</span></span> |
-| <span data-ttu-id="c2b8c-349">Focus</span><span class="sxs-lookup"><span data-stu-id="c2b8c-349">Focus</span></span>            | `FocusEventArgs`     | <span data-ttu-id="c2b8c-350">`onfocus`、`onblur`、`onfocusin`, `onfocusout`</span><span class="sxs-lookup"><span data-stu-id="c2b8c-350">`onfocus`, `onblur`, `onfocusin`, `onfocusout`</span></span><br><br><span data-ttu-id="c2b8c-351">には `relatedTarget`のサポートは含まれていません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-351">Doesn't include support for `relatedTarget`.</span></span> |
-| <span data-ttu-id="c2b8c-352">入力</span><span class="sxs-lookup"><span data-stu-id="c2b8c-352">Input</span></span>            | `ChangeEventArgs`    | <span data-ttu-id="c2b8c-353">`onchange`, `oninput`</span><span class="sxs-lookup"><span data-stu-id="c2b8c-353">`onchange`, `oninput`</span></span> |
-| <span data-ttu-id="c2b8c-354">[キーボード]</span><span class="sxs-lookup"><span data-stu-id="c2b8c-354">Keyboard</span></span>         | `KeyboardEventArgs`  | <span data-ttu-id="c2b8c-355">`onkeydown`、`onkeypress`、`onkeyup`</span><span class="sxs-lookup"><span data-stu-id="c2b8c-355">`onkeydown`, `onkeypress`, `onkeyup`</span></span> |
-| <span data-ttu-id="c2b8c-356">マウス</span><span class="sxs-lookup"><span data-stu-id="c2b8c-356">Mouse</span></span>            | `MouseEventArgs`     | <span data-ttu-id="c2b8c-357">`onclick`, `oncontextmenu`, `ondblclick`, `onmousedown`, `onmouseup`, `onmouseover`, `onmousemove`, `onmouseout`</span><span class="sxs-lookup"><span data-stu-id="c2b8c-357">`onclick`, `oncontextmenu`, `ondblclick`, `onmousedown`, `onmouseup`, `onmouseover`, `onmousemove`, `onmouseout`</span></span> |
-| <span data-ttu-id="c2b8c-358">マウスポインター</span><span class="sxs-lookup"><span data-stu-id="c2b8c-358">Mouse pointer</span></span>    | `PointerEventArgs`   | <span data-ttu-id="c2b8c-359">`onpointerdown`、`onpointerup`、`onpointercancel`、`onpointermove`、`onpointerover`、`onpointerout`、`onpointerenter`、`onpointerleave`、`ongotpointercapture`、`onlostpointercapture`</span><span class="sxs-lookup"><span data-stu-id="c2b8c-359">`onpointerdown`, `onpointerup`, `onpointercancel`, `onpointermove`, `onpointerover`, `onpointerout`, `onpointerenter`, `onpointerleave`, `ongotpointercapture`, `onlostpointercapture`</span></span> |
-| <span data-ttu-id="c2b8c-360">マウスホイール</span><span class="sxs-lookup"><span data-stu-id="c2b8c-360">Mouse wheel</span></span>      | `WheelEventArgs`     | <span data-ttu-id="c2b8c-361">`onwheel`, `onmousewheel`</span><span class="sxs-lookup"><span data-stu-id="c2b8c-361">`onwheel`, `onmousewheel`</span></span> |
-| <span data-ttu-id="c2b8c-362">進行状況</span><span class="sxs-lookup"><span data-stu-id="c2b8c-362">Progress</span></span>         | `ProgressEventArgs`  | <span data-ttu-id="c2b8c-363">`onabort`、`onload`、`onloadend`、`onloadstart`、`onprogress`、`ontimeout`</span><span class="sxs-lookup"><span data-stu-id="c2b8c-363">`onabort`, `onload`, `onloadend`, `onloadstart`, `onprogress`, `ontimeout`</span></span> |
-| <span data-ttu-id="c2b8c-364">タッチ</span><span class="sxs-lookup"><span data-stu-id="c2b8c-364">Touch</span></span>            | `TouchEventArgs`     | <span data-ttu-id="c2b8c-365">`ontouchstart`、`ontouchend`、`ontouchmove`、`ontouchenter`、`ontouchleave`、`ontouchcancel`</span><span class="sxs-lookup"><span data-stu-id="c2b8c-365">`ontouchstart`, `ontouchend`, `ontouchmove`, `ontouchenter`, `ontouchleave`, `ontouchcancel`</span></span><br><br><span data-ttu-id="c2b8c-366">`TouchPoint` は、タッチを区別するデバイス上の1つの連絡先ポイントを表します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-366">`TouchPoint` represents a single contact point on a touch-sensitive device.</span></span> |
-
-<span data-ttu-id="c2b8c-367">詳細については、次のリソースを参照してください。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-367">For more information, see the following resources:</span></span>
-
-* <span data-ttu-id="c2b8c-368">[ASP.NET Core 参照ソースの EventArgs クラス (dotnet/aspnetcore release/3.1 分岐)](https://github.com/dotnet/aspnetcore/tree/release/3.1/src/Components/Web/src/Web)。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-368">[EventArgs classes in the ASP.NET Core reference source (dotnet/aspnetcore release/3.1 branch)](https://github.com/dotnet/aspnetcore/tree/release/3.1/src/Components/Web/src/Web).</span></span>
-* <span data-ttu-id="c2b8c-369">[MDN web ドキュメント: GlobalEventHandlers](https://developer.mozilla.org/docs/Web/API/GlobalEventHandlers) &ndash; には、各 DOM イベントをサポートする HTML 要素に関する情報が含まれています。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-369">[MDN web docs: GlobalEventHandlers](https://developer.mozilla.org/docs/Web/API/GlobalEventHandlers) &ndash; Includes information on which HTML elements support each DOM event.</span></span>
-
-### <a name="lambda-expressions"></a><span data-ttu-id="c2b8c-370">ラムダ式</span><span class="sxs-lookup"><span data-stu-id="c2b8c-370">Lambda expressions</span></span>
-
-<span data-ttu-id="c2b8c-371">ラムダ式を使用することもできます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-371">Lambda expressions can also be used:</span></span>
-
-```razor
-<button @onclick="@(e => Console.WriteLine("Hello, world!"))">Say hello</button>
-```
-
-<span data-ttu-id="c2b8c-372">多くの場合、要素のセットを反復処理するときなど、追加の値を終了すると便利です。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-372">It's often convenient to close over additional values, such as when iterating over a set of elements.</span></span> <span data-ttu-id="c2b8c-373">次の例では、3つのボタンを作成します。各ボタンは、UI で選択されたときに、イベント引数 (`MouseEventArgs`) とそのボタン番号 (`buttonNumber`) を渡す `UpdateHeading` を呼び出します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-373">The following example creates three buttons, each of which calls `UpdateHeading` passing an event argument (`MouseEventArgs`) and its button number (`buttonNumber`) when selected in the UI:</span></span>
-
-```razor
-<h2>@_message</h2>
-
-@for (var i = 1; i < 4; i++)
-{
-    var buttonNumber = i;
-
-    <button class="btn btn-primary"
-            @onclick="@(e => UpdateHeading(e, buttonNumber))">
-        Button #@i
-    </button>
-}
-
-@code {
-    private string _message = "Select a button to learn its position.";
-
-    private void UpdateHeading(MouseEventArgs e, int buttonNumber)
-    {
-        _message = $"You selected Button #{buttonNumber} at " +
-            $"mouse position: {e.ClientX} X {e.ClientY}.";
-    }
-}
-```
-
-> [!NOTE]
-> <span data-ttu-id="c2b8c-374">ラムダ式では、`for` ループでループ変数 (`i`) を**直接使用しないでください。**</span><span class="sxs-lookup"><span data-stu-id="c2b8c-374">Do **not** use the loop variable (`i`) in a `for` loop directly in a lambda expression.</span></span> <span data-ttu-id="c2b8c-375">それ以外の場合、すべてのラムダ式で同じ変数が使用され、`i`の値はすべてのラムダで同じになります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-375">Otherwise the same variable is used by all lambda expressions causing `i`'s value to be the same in all lambdas.</span></span> <span data-ttu-id="c2b8c-376">常にローカル変数 (前の例では`buttonNumber`) で値をキャプチャし、それを使用します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-376">Always capture its value in a local variable (`buttonNumber` in the preceding example) and then use it.</span></span>
-
-### <a name="eventcallback"></a><span data-ttu-id="c2b8c-377">EventCallback</span><span class="sxs-lookup"><span data-stu-id="c2b8c-377">EventCallback</span></span>
-
-<span data-ttu-id="c2b8c-378">入れ子になったコンポーネントの一般的なシナリオとして、子コンポーネントのイベント&mdash;が発生したときに親コンポーネントのメソッドを実行することが望まれます。たとえば、子で `onclick` イベントが発生した場合などです。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-378">A common scenario with nested components is the desire to run a parent component's method when a child component event occurs&mdash;for example, when an `onclick` event occurs in the child.</span></span> <span data-ttu-id="c2b8c-379">コンポーネント間でイベントを公開するには、`EventCallback`を使用します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-379">To expose events across components, use an `EventCallback`.</span></span> <span data-ttu-id="c2b8c-380">親コンポーネントは、コールバックメソッドを子コンポーネントの `EventCallback`に割り当てることができます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-380">A parent component can assign a callback method to a child component's `EventCallback`.</span></span>
-
-<span data-ttu-id="c2b8c-381">サンプルアプリ (*Components/ChildComponent. razor*) の `ChildComponent` は、ボタンの `onclick` ハンドラーが、サンプルの `ParentComponent`から `EventCallback` デリゲートを受け取るように設定されている方法を示しています。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-381">The `ChildComponent` in the sample app (*Components/ChildComponent.razor*) demonstrates how a button's `onclick` handler is set up to receive an `EventCallback` delegate from the sample's `ParentComponent`.</span></span> <span data-ttu-id="c2b8c-382">`EventCallback` は `MouseEventArgs`で入力されます。これは、周辺機器の `onclick` イベントに適しています。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-382">The `EventCallback` is typed with `MouseEventArgs`, which is appropriate for an `onclick` event from a peripheral device:</span></span>
-
-[!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=5-7,17-18)]
-
-<span data-ttu-id="c2b8c-383">`ParentComponent` によって、子の `EventCallback<T>` (`OnClickCallback`) が `ShowMessage` メソッドに設定されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-383">The `ParentComponent` sets the child's `EventCallback<T>` (`OnClickCallback`) to its `ShowMessage` method.</span></span>
-
-<span data-ttu-id="c2b8c-384">*Pages/ParentComponent。 razor*:</span><span class="sxs-lookup"><span data-stu-id="c2b8c-384">*Pages/ParentComponent.razor*:</span></span>
-
-```razor
-@page "/ParentComponent"
-
-<h1>Parent-child example</h1>
-
-<ChildComponent Title="Panel Title from Parent"
-                OnClickCallback="@ShowMessage">
-    Content of the child component is supplied
-    by the parent component.
-</ChildComponent>
-
-<p><b>@_messageText</b></p>
-
-@code {
-    private string _messageText;
-
-    private void ShowMessage(MouseEventArgs e)
-    {
-        _messageText = $"Blaze a new trail with Blazor! ({e.ScreenX}, {e.ScreenY})";
-    }
-}
-```
-
-<span data-ttu-id="c2b8c-385">`ChildComponent`でボタンが選択されている場合:</span><span class="sxs-lookup"><span data-stu-id="c2b8c-385">When the button is selected in the `ChildComponent`:</span></span>
-
-* <span data-ttu-id="c2b8c-386">`ParentComponent`の `ShowMessage` メソッドが呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-386">The `ParentComponent`'s `ShowMessage` method is called.</span></span> <span data-ttu-id="c2b8c-387">`_messageText` が更新され、`ParentComponent`に表示されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-387">`_messageText` is updated and displayed in the `ParentComponent`.</span></span>
-* <span data-ttu-id="c2b8c-388">このコールバックのメソッド (`ShowMessage`) では、 [Statehaschanged](xref:blazor/lifecycle#state-changes)の呼び出しは必要ありません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-388">A call to [StateHasChanged](xref:blazor/lifecycle#state-changes) isn't required in the callback's method (`ShowMessage`).</span></span> <span data-ttu-id="c2b8c-389">`StateHasChanged` は、子イベントと同様に、子の内部で実行されるイベントハンドラーでコンポーネントの実行がトリガーされるのと同様に、`ParentComponent`をレンダリングするために自動的に呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-389">`StateHasChanged` is called automatically to rerender the `ParentComponent`, just as child events trigger component rerendering in event handlers that execute within the child.</span></span>
-
-<span data-ttu-id="c2b8c-390">`EventCallback` および `EventCallback<T>` 非同期デリゲートを許可します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-390">`EventCallback` and `EventCallback<T>` permit asynchronous delegates.</span></span> <span data-ttu-id="c2b8c-391">`EventCallback<T>` は厳密に型指定され、特定の引数型を必要とします。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-391">`EventCallback<T>` is strongly typed and requires a specific argument type.</span></span> <span data-ttu-id="c2b8c-392">`EventCallback` は弱く型指定され、任意の引数型を使用できます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-392">`EventCallback` is weakly typed and allows any argument type.</span></span>
-
-```razor
-<ChildComponent 
-    OnClickCallback="@(async () => { await Task.Yield(); _messageText = "Blaze It!"; })" />
-```
-
-<span data-ttu-id="c2b8c-393">`InvokeAsync` で `EventCallback` または `EventCallback<T>` を呼び出し、<xref:System.Threading.Tasks.Task>を待機します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-393">Invoke an `EventCallback` or `EventCallback<T>` with `InvokeAsync` and await the <xref:System.Threading.Tasks.Task>:</span></span>
-
-```csharp
-await callback.InvokeAsync(arg);
-```
-
-<span data-ttu-id="c2b8c-394">イベント処理とバインドコンポーネントのパラメーターには、`EventCallback` と `EventCallback<T>` を使用します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-394">Use `EventCallback` and `EventCallback<T>` for event handling and binding component parameters.</span></span>
-
-<span data-ttu-id="c2b8c-395">厳密に型指定された `EventCallback<T>` `EventCallback`を優先します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-395">Prefer the strongly typed `EventCallback<T>` over `EventCallback`.</span></span> <span data-ttu-id="c2b8c-396">`EventCallback<T>` は、コンポーネントのユーザーに対してより適切なエラーフィードバックを提供します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-396">`EventCallback<T>` provides better error feedback to users of the component.</span></span> <span data-ttu-id="c2b8c-397">他の UI イベントハンドラーと同様に、イベントパラメーターの指定は省略可能です。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-397">Similar to other UI event handlers, specifying the event parameter is optional.</span></span> <span data-ttu-id="c2b8c-398">コールバックに値が渡されない場合は、`EventCallback` を使用します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-398">Use `EventCallback` when there's no value passed to the callback.</span></span>
-
-### <a name="prevent-default-actions"></a><span data-ttu-id="c2b8c-399">既定のアクションを禁止する</span><span class="sxs-lookup"><span data-stu-id="c2b8c-399">Prevent default actions</span></span>
-
-<span data-ttu-id="c2b8c-400">イベントの既定のアクションを回避するには、 [`@on{EVENT}:preventDefault`](xref:mvc/views/razor#oneventpreventdefault)ディレクティブ属性を使用します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-400">Use the [`@on{EVENT}:preventDefault`](xref:mvc/views/razor#oneventpreventdefault) directive attribute to prevent the default action for an event.</span></span>
-
-<span data-ttu-id="c2b8c-401">入力デバイスでキーが選択され、要素のフォーカスがテキストボックスに表示されている場合は、通常、ブラウザーによってテキストボックスにキーの文字が表示されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-401">When a key is selected on an input device and the element focus is on a text box, a browser normally displays the key's character in the text box.</span></span> <span data-ttu-id="c2b8c-402">次の例では、`@onkeypress:preventDefault` ディレクティブ属性を指定することで、既定の動作を回避できます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-402">In the following example, the default behavior is prevented by specifying the `@onkeypress:preventDefault` directive attribute.</span></span> <span data-ttu-id="c2b8c-403">カウンターがインクリメントされ、 **+** キーが `<input>` 要素の値にキャプチャされません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-403">The counter increments, and the **+** key isn't captured into the `<input>` element's value:</span></span>
-
-```razor
-<input value="@_count" @onkeypress="KeyHandler" @onkeypress:preventDefault />
-
-@code {
-    private int _count = 0;
-
-    private void KeyHandler(KeyboardEventArgs e)
-    {
-        if (e.Key == "+")
-        {
-            _count++;
-        }
-    }
-}
-```
-
-<span data-ttu-id="c2b8c-404">値を指定せずに `@on{EVENT}:preventDefault` 属性を指定することは `@on{EVENT}:preventDefault="true"`と同じです。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-404">Specifying the `@on{EVENT}:preventDefault` attribute without a value is equivalent to `@on{EVENT}:preventDefault="true"`.</span></span>
-
-<span data-ttu-id="c2b8c-405">属性の値は、式にすることもできます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-405">The value of the attribute can also be an expression.</span></span> <span data-ttu-id="c2b8c-406">次の例では、`_shouldPreventDefault` は `true` または `false`のいずれかに設定された `bool` フィールドです。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-406">In the following example, `_shouldPreventDefault` is a `bool` field set to either `true` or `false`:</span></span>
-
-```razor
-<input @onkeypress:preventDefault="_shouldPreventDefault" />
-```
-
-<span data-ttu-id="c2b8c-407">既定のアクションを防ぐために、イベントハンドラーは必要ありません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-407">An event handler isn't required to prevent the default action.</span></span> <span data-ttu-id="c2b8c-408">イベントハンドラーを使用したり、既定のアクションシナリオを回避したりすることができます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-408">The event handler and prevent default action scenarios can be used independently.</span></span>
-
-### <a name="stop-event-propagation"></a><span data-ttu-id="c2b8c-409">イベントの伝達の停止</span><span class="sxs-lookup"><span data-stu-id="c2b8c-409">Stop event propagation</span></span>
-
-<span data-ttu-id="c2b8c-410">イベントの伝達を停止するには、 [`@on{EVENT}:stopPropagation`](xref:mvc/views/razor#oneventstoppropagation)ディレクティブ属性を使用します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-410">Use the [`@on{EVENT}:stopPropagation`](xref:mvc/views/razor#oneventstoppropagation) directive attribute to stop event propagation.</span></span>
-
-<span data-ttu-id="c2b8c-411">次の例では、チェックボックスをオンにすると、2番目の子 `<div>` からのクリックイベントが親 `<div>`に反映されなくなります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-411">In the following example, selecting the check box prevents click events from the second child `<div>` from propagating to the parent `<div>`:</span></span>
-
-```razor
-<label>
-    <input @bind="_stopPropagation" type="checkbox" />
-    Stop Propagation
-</label>
-
-<div @onclick="OnSelectParentDiv">
-    <h3>Parent div</h3>
-
-    <div @onclick="OnSelectChildDiv">
-        Child div that doesn't stop propagation when selected.
-    </div>
-
-    <div @onclick="OnSelectChildDiv" @onclick:stopPropagation="_stopPropagation">
-        Child div that stops propagation when selected.
-    </div>
-</div>
-
-@code {
-    private bool _stopPropagation = false;
-
-    private void OnSelectParentDiv() => 
-        Console.WriteLine($"The parent div was selected. {DateTime.Now}");
-    private void OnSelectChildDiv() => 
-        Console.WriteLine($"A child div was selected. {DateTime.Now}");
-}
-```
-
-## <a name="capture-references-to-components"></a><span data-ttu-id="c2b8c-412">コンポーネントへの参照をキャプチャする</span><span class="sxs-lookup"><span data-stu-id="c2b8c-412">Capture references to components</span></span>
-
-<span data-ttu-id="c2b8c-413">コンポーネント参照を使用すると、`Show` や `Reset`などのコマンドをそのインスタンスに発行できるように、コンポーネントインスタンスを参照することができます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-413">Component references provide a way to reference a component instance so that you can issue commands to that instance, such as `Show` or `Reset`.</span></span> <span data-ttu-id="c2b8c-414">コンポーネント参照をキャプチャするには、次のようにします。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-414">To capture a component reference:</span></span>
-
-* <span data-ttu-id="c2b8c-415">子コンポーネントに[`@ref`](xref:mvc/views/razor#ref)属性を追加します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-415">Add an [`@ref`](xref:mvc/views/razor#ref) attribute to the child component.</span></span>
-* <span data-ttu-id="c2b8c-416">子コンポーネントと同じ型のフィールドを定義します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-416">Define a field with the same type as the child component.</span></span>
+* <span data-ttu-id="603ae-210">子コンポーネントに[`@ref`](xref:mvc/views/razor#ref)属性を追加します。</span><span class="sxs-lookup"><span data-stu-id="603ae-210">Add an [`@ref`](xref:mvc/views/razor#ref) attribute to the child component.</span></span>
+* <span data-ttu-id="603ae-211">子コンポーネントと同じ型のフィールドを定義します。</span><span class="sxs-lookup"><span data-stu-id="603ae-211">Define a field with the same type as the child component.</span></span>
 
 ```razor
 <MyLoginDialog @ref="_loginDialog" ... />
@@ -916,21 +285,21 @@ await callback.InvokeAsync(arg);
 }
 ```
 
-<span data-ttu-id="c2b8c-417">コンポーネントがレンダリングされると、[`_loginDialog`] フィールドに `MyLoginDialog` 子コンポーネントインスタンスが設定されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-417">When the component is rendered, the `_loginDialog` field is populated with the `MyLoginDialog` child component instance.</span></span> <span data-ttu-id="c2b8c-418">その後、コンポーネントインスタンスで .NET メソッドを呼び出すことができます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-418">You can then invoke .NET methods on the component instance.</span></span>
+<span data-ttu-id="603ae-212">コンポーネントがレンダリングされると、[`_loginDialog`] フィールドに `MyLoginDialog` 子コンポーネントインスタンスが設定されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-212">When the component is rendered, the `_loginDialog` field is populated with the `MyLoginDialog` child component instance.</span></span> <span data-ttu-id="603ae-213">その後、コンポーネントインスタンスで .NET メソッドを呼び出すことができます。</span><span class="sxs-lookup"><span data-stu-id="603ae-213">You can then invoke .NET methods on the component instance.</span></span>
 
 > [!IMPORTANT]
-> <span data-ttu-id="c2b8c-419">`_loginDialog` 変数は、コンポーネントがレンダリングされた後にのみ設定され、その出力には `MyLoginDialog` 要素が含まれます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-419">The `_loginDialog` variable is only populated after the component is rendered and its output includes the `MyLoginDialog` element.</span></span> <span data-ttu-id="c2b8c-420">この時点までは、参照するものはありません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-420">Until that point, there's nothing to reference.</span></span> <span data-ttu-id="c2b8c-421">コンポーネント参照のレンダリングが完了した後にコンポーネント参照を操作するに[は、OnAfterRenderAsync メソッドまたは OnAfterRender メソッド](xref:blazor/lifecycle#after-component-render)を使用します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-421">To manipulate components references after the component has finished rendering, use the [OnAfterRenderAsync or OnAfterRender methods](xref:blazor/lifecycle#after-component-render).</span></span>
+> <span data-ttu-id="603ae-214">`_loginDialog` 変数は、コンポーネントがレンダリングされた後にのみ設定され、その出力には `MyLoginDialog` 要素が含まれます。</span><span class="sxs-lookup"><span data-stu-id="603ae-214">The `_loginDialog` variable is only populated after the component is rendered and its output includes the `MyLoginDialog` element.</span></span> <span data-ttu-id="603ae-215">この時点までは、参照するものはありません。</span><span class="sxs-lookup"><span data-stu-id="603ae-215">Until that point, there's nothing to reference.</span></span> <span data-ttu-id="603ae-216">コンポーネント参照のレンダリングが完了した後にコンポーネント参照を操作するに[は、OnAfterRenderAsync メソッドまたは OnAfterRender メソッド](xref:blazor/lifecycle#after-component-render)を使用します。</span><span class="sxs-lookup"><span data-stu-id="603ae-216">To manipulate components references after the component has finished rendering, use the [OnAfterRenderAsync or OnAfterRender methods](xref:blazor/lifecycle#after-component-render).</span></span>
 
-<span data-ttu-id="c2b8c-422">コンポーネント参照のキャプチャは、[要素参照のキャプチャ](xref:blazor/javascript-interop#capture-references-to-elements)に似た構文を使用しますが、 [JavaScript 相互運用](xref:blazor/javascript-interop)機能ではありません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-422">While capturing component references use a similar syntax to [capturing element references](xref:blazor/javascript-interop#capture-references-to-elements), it isn't a [JavaScript interop](xref:blazor/javascript-interop) feature.</span></span> <span data-ttu-id="c2b8c-423">コンポーネント参照は、.NET コードでのみ使用される&mdash;JavaScript コードに渡されません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-423">Component references aren't passed to JavaScript code&mdash;they're only used in .NET code.</span></span>
+<span data-ttu-id="603ae-217">コンポーネント参照のキャプチャは、[要素参照のキャプチャ](xref:blazor/javascript-interop#capture-references-to-elements)に似た構文を使用しますが、 [JavaScript 相互運用](xref:blazor/javascript-interop)機能ではありません。</span><span class="sxs-lookup"><span data-stu-id="603ae-217">While capturing component references use a similar syntax to [capturing element references](xref:blazor/javascript-interop#capture-references-to-elements), it isn't a [JavaScript interop](xref:blazor/javascript-interop) feature.</span></span> <span data-ttu-id="603ae-218">コンポーネント参照は、.NET コードでのみ使用される&mdash;JavaScript コードに渡されません。</span><span class="sxs-lookup"><span data-stu-id="603ae-218">Component references aren't passed to JavaScript code&mdash;they're only used in .NET code.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="c2b8c-424">子コンポーネントの状態を変化**さ**せるためにコンポーネント参照を使用しないでください。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-424">Do **not** use component references to mutate the state of child components.</span></span> <span data-ttu-id="c2b8c-425">代わりに、通常の宣言型パラメーターを使用して、子コンポーネントにデータを渡します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-425">Instead, use normal declarative parameters to pass data to child components.</span></span> <span data-ttu-id="c2b8c-426">通常の宣言型パラメーターを使用すると、子コンポーネントが自動的にレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-426">Use of normal declarative parameters result in child components that rerender at the correct times automatically.</span></span>
+> <span data-ttu-id="603ae-219">子コンポーネントの状態を変化**さ**せるためにコンポーネント参照を使用しないでください。</span><span class="sxs-lookup"><span data-stu-id="603ae-219">Do **not** use component references to mutate the state of child components.</span></span> <span data-ttu-id="603ae-220">代わりに、通常の宣言型パラメーターを使用して、子コンポーネントにデータを渡します。</span><span class="sxs-lookup"><span data-stu-id="603ae-220">Instead, use normal declarative parameters to pass data to child components.</span></span> <span data-ttu-id="603ae-221">通常の宣言型パラメーターを使用すると、子コンポーネントが自動的にレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="603ae-221">Use of normal declarative parameters result in child components that rerender at the correct times automatically.</span></span>
 
-## <a name="invoke-component-methods-externally-to-update-state"></a><span data-ttu-id="c2b8c-427">状態を更新するためにコンポーネントメソッドを外部に呼び出す</span><span class="sxs-lookup"><span data-stu-id="c2b8c-427">Invoke component methods externally to update state</span></span>
+## <a name="invoke-component-methods-externally-to-update-state"></a><span data-ttu-id="603ae-222">状態を更新するためにコンポーネントメソッドを外部に呼び出す</span><span class="sxs-lookup"><span data-stu-id="603ae-222">Invoke component methods externally to update state</span></span>
 
-<span data-ttu-id="c2b8c-428">Blazor は、1つの論理スレッドの実行を強制するために `SynchronizationContext` を使用します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-428">Blazor uses a `SynchronizationContext` to enforce a single logical thread of execution.</span></span> <span data-ttu-id="c2b8c-429">Blazor によって発生するコンポーネントの[ライフサイクルメソッド](xref:blazor/lifecycle)とイベントコールバックは、この `SynchronizationContext`で実行されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-429">A component's [lifecycle methods](xref:blazor/lifecycle) and any event callbacks that are raised by Blazor are executed on this `SynchronizationContext`.</span></span> <span data-ttu-id="c2b8c-430">タイマーやその他の通知など、外部のイベントに基づいてコンポーネントを更新する必要がある場合は、`InvokeAsync` メソッドを使用します。このメソッドは、Blazor の `SynchronizationContext`にディスパッチされます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-430">In the event a component must be updated based on an external event, such as a timer or other notifications, use the `InvokeAsync` method, which will dispatch to Blazor's `SynchronizationContext`.</span></span>
+Blazor<span data-ttu-id="603ae-223"> は、`SynchronizationContext` を使用して、1つの論理スレッドの実行を強制します。</span><span class="sxs-lookup"><span data-stu-id="603ae-223"> uses a `SynchronizationContext` to enforce a single logical thread of execution.</span></span> <span data-ttu-id="603ae-224">Blazor によって発生するコンポーネントの[ライフサイクルメソッド](xref:blazor/lifecycle)とイベントコールバックは、この `SynchronizationContext`で実行されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-224">A component's [lifecycle methods](xref:blazor/lifecycle) and any event callbacks that are raised by Blazor are executed on this `SynchronizationContext`.</span></span> <span data-ttu-id="603ae-225">タイマーやその他の通知など、外部のイベントに基づいてコンポーネントを更新する必要がある場合は、`InvokeAsync` メソッドを使用します。これにより、Blazorの `SynchronizationContext`にディスパッチされます。</span><span class="sxs-lookup"><span data-stu-id="603ae-225">In the event a component must be updated based on an external event, such as a timer or other notifications, use the `InvokeAsync` method, which will dispatch to Blazor's `SynchronizationContext`.</span></span>
 
-<span data-ttu-id="c2b8c-431">たとえば、更新された状態のすべてのリッスンコンポーネントに通知できる通知*サービス*を考えてみます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-431">For example, consider a *notifier service* that can notify any listening component of the updated state:</span></span>
+<span data-ttu-id="603ae-226">たとえば、更新された状態のすべてのリッスンコンポーネントに通知できる通知*サービス*を考えてみます。</span><span class="sxs-lookup"><span data-stu-id="603ae-226">For example, consider a *notifier service* that can notify any listening component of the updated state:</span></span>
 
 ```csharp
 public class NotifierService
@@ -948,21 +317,21 @@ public class NotifierService
 }
 ```
 
-<span data-ttu-id="c2b8c-432">`NotifierService` を次のように登録します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-432">Register the `NotifierService` as a singletion:</span></span>
+<span data-ttu-id="603ae-227">`NotifierService` を次のように登録します。</span><span class="sxs-lookup"><span data-stu-id="603ae-227">Register the `NotifierService` as a singletion:</span></span>
 
-* <span data-ttu-id="c2b8c-433">Blazor WebAssembly、`Program.Main`にサービスを登録します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-433">In Blazor WebAssembly, register the service in `Program.Main`:</span></span>
+* <span data-ttu-id="603ae-228">Blazor WebAssembly、`Program.Main`にサービスを登録します。</span><span class="sxs-lookup"><span data-stu-id="603ae-228">In Blazor WebAssembly, register the service in `Program.Main`:</span></span>
 
   ```csharp
   builder.Services.AddSingleton<NotifierService>();
   ```
 
-* <span data-ttu-id="c2b8c-434">Blazor Server で、`Startup.ConfigureServices`にサービスを登録します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-434">In Blazor Server, register the service in `Startup.ConfigureServices`:</span></span>
+* <span data-ttu-id="603ae-229">Blazor サーバーで、`Startup.ConfigureServices`にサービスを登録します。</span><span class="sxs-lookup"><span data-stu-id="603ae-229">In Blazor Server, register the service in `Startup.ConfigureServices`:</span></span>
 
   ```csharp
   services.AddSingleton<NotifierService>();
   ```
 
-<span data-ttu-id="c2b8c-435">コンポーネントを更新するには、`NotifierService` を使用します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-435">Use the `NotifierService` to update a component:</span></span>
+<span data-ttu-id="603ae-230">コンポーネントを更新するには、`NotifierService` を使用します。</span><span class="sxs-lookup"><span data-stu-id="603ae-230">Use the `NotifierService` to update a component:</span></span>
 
 ```razor
 @page "/"
@@ -995,13 +364,13 @@ public class NotifierService
 }
 ```
 
-<span data-ttu-id="c2b8c-436">前の例では、`NotifierService` によって、コンポーネントの `OnNotify` メソッドが Blazor の `SynchronizationContext`の外部で呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-436">In the preceding example, `NotifierService` invokes the component's `OnNotify` method outside of Blazor's `SynchronizationContext`.</span></span> <span data-ttu-id="c2b8c-437">`InvokeAsync` は、正しいコンテキストに切り替え、レンダリングをキューに移動するために使用されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-437">`InvokeAsync` is used to switch to the correct context and queue a render.</span></span>
+<span data-ttu-id="603ae-231">前の例では、`NotifierService` は Blazorの `SynchronizationContext`の外部でコンポーネントの `OnNotify` メソッドを呼び出します。</span><span class="sxs-lookup"><span data-stu-id="603ae-231">In the preceding example, `NotifierService` invokes the component's `OnNotify` method outside of Blazor's `SynchronizationContext`.</span></span> <span data-ttu-id="603ae-232">`InvokeAsync` は、正しいコンテキストに切り替え、レンダリングをキューに移動するために使用されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-232">`InvokeAsync` is used to switch to the correct context and queue a render.</span></span>
 
-## <a name="use-key-to-control-the-preservation-of-elements-and-components"></a><span data-ttu-id="c2b8c-438">\@キーを使用して要素とコンポーネントの保存を制御する</span><span class="sxs-lookup"><span data-stu-id="c2b8c-438">Use \@key to control the preservation of elements and components</span></span>
+## <a name="use-key-to-control-the-preservation-of-elements-and-components"></a><span data-ttu-id="603ae-233">\@キーを使用して要素とコンポーネントの保存を制御する</span><span class="sxs-lookup"><span data-stu-id="603ae-233">Use \@key to control the preservation of elements and components</span></span>
 
-<span data-ttu-id="c2b8c-439">要素またはコンポーネントのリストをレンダリングするときに、要素またはコンポーネントが変更された場合、Blazor の比較アルゴリズムは、前の要素またはコンポーネントを保持できるかどうか、およびモデルオブジェクトをどのようにマップするかを決定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-439">When rendering a list of elements or components and the elements or components subsequently change, Blazor's diffing algorithm must decide which of the previous elements or components can be retained and how model objects should map to them.</span></span> <span data-ttu-id="c2b8c-440">通常、このプロセスは自動的に実行され、無視することができますが、プロセスの制御が必要になる場合があります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-440">Normally, this process is automatic and can be ignored, but there are cases where you may want to control the process.</span></span>
+<span data-ttu-id="603ae-234">要素またはコンポーネントのリストをレンダリングするときに、要素またはコンポーネントが変更された場合、Blazorの比較アルゴリズムは、前の要素またはコンポーネントを保持できるかどうか、およびモデルオブジェクトをどのようにマップするかを決定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="603ae-234">When rendering a list of elements or components and the elements or components subsequently change, Blazor's diffing algorithm must decide which of the previous elements or components can be retained and how model objects should map to them.</span></span> <span data-ttu-id="603ae-235">通常、このプロセスは自動的に実行され、無視することができますが、プロセスの制御が必要になる場合があります。</span><span class="sxs-lookup"><span data-stu-id="603ae-235">Normally, this process is automatic and can be ignored, but there are cases where you may want to control the process.</span></span>
 
-<span data-ttu-id="c2b8c-441">次の例を確認してください。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-441">Consider the following example:</span></span>
+<span data-ttu-id="603ae-236">次に例を示します。</span><span class="sxs-lookup"><span data-stu-id="603ae-236">Consider the following example:</span></span>
 
 ```csharp
 @foreach (var person in People)
@@ -1015,9 +384,9 @@ public class NotifierService
 }
 ```
 
-<span data-ttu-id="c2b8c-442">`People` コレクションの内容は、挿入、削除、または順序変更されたエントリで変更される可能性があります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-442">The contents of the `People` collection may change with inserted, deleted, or re-ordered entries.</span></span> <span data-ttu-id="c2b8c-443">コンポーネントのれ時に、`<DetailsEditor>` コンポーネントが異なる `Details` パラメーター値を受け取るように変更されることがあります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-443">When the component rerenders, the `<DetailsEditor>` component may change to receive different `Details` parameter values.</span></span> <span data-ttu-id="c2b8c-444">これにより、予想よりも複雑な再リリースが発生する可能性があります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-444">This may cause more complex rerendering than expected.</span></span> <span data-ttu-id="c2b8c-445">場合によっては、要素のフォーカスの喪失など、表示される動作の違いが発生する可能性があります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-445">In some cases, rerendering can lead to visible behavior differences, such as lost element focus.</span></span>
+<span data-ttu-id="603ae-237">`People` コレクションの内容は、挿入、削除、または順序変更されたエントリで変更される可能性があります。</span><span class="sxs-lookup"><span data-stu-id="603ae-237">The contents of the `People` collection may change with inserted, deleted, or re-ordered entries.</span></span> <span data-ttu-id="603ae-238">コンポーネントのれ時に、`<DetailsEditor>` コンポーネントが異なる `Details` パラメーター値を受け取るように変更されることがあります。</span><span class="sxs-lookup"><span data-stu-id="603ae-238">When the component rerenders, the `<DetailsEditor>` component may change to receive different `Details` parameter values.</span></span> <span data-ttu-id="603ae-239">これにより、予想よりも複雑な再リリースが発生する可能性があります。</span><span class="sxs-lookup"><span data-stu-id="603ae-239">This may cause more complex rerendering than expected.</span></span> <span data-ttu-id="603ae-240">場合によっては、要素のフォーカスの喪失など、表示される動作の違いが発生する可能性があります。</span><span class="sxs-lookup"><span data-stu-id="603ae-240">In some cases, rerendering can lead to visible behavior differences, such as lost element focus.</span></span>
 
-<span data-ttu-id="c2b8c-446">マッピングプロセスは、`@key` ディレクティブ属性を使用して制御できます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-446">The mapping process can be controlled with the `@key` directive attribute.</span></span> <span data-ttu-id="c2b8c-447">`@key` によって、キーの値に基づいて要素またはコンポーネントの保持が比較アルゴリズムによって保証されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-447">`@key` causes the diffing algorithm to guarantee preservation of elements or components based on the key's value:</span></span>
+<span data-ttu-id="603ae-241">マッピングプロセスは、`@key` ディレクティブ属性を使用して制御できます。</span><span class="sxs-lookup"><span data-stu-id="603ae-241">The mapping process can be controlled with the `@key` directive attribute.</span></span> <span data-ttu-id="603ae-242">`@key` によって、キーの値に基づいて要素またはコンポーネントの保持が比較アルゴリズムによって保証されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-242">`@key` causes the diffing algorithm to guarantee preservation of elements or components based on the key's value:</span></span>
 
 ```csharp
 @foreach (var person in People)
@@ -1031,22 +400,22 @@ public class NotifierService
 }
 ```
 
-<span data-ttu-id="c2b8c-448">`People` コレクションが変更されると、比較アルゴリズムによって、`<DetailsEditor>` インスタンスと `person` インスタンスの間の関連付けが保持されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-448">When the `People` collection changes, the diffing algorithm retains the association between `<DetailsEditor>` instances and `person` instances:</span></span>
+<span data-ttu-id="603ae-243">`People` コレクションが変更されると、比較アルゴリズムによって、`<DetailsEditor>` インスタンスと `person` インスタンスの間の関連付けが保持されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-243">When the `People` collection changes, the diffing algorithm retains the association between `<DetailsEditor>` instances and `person` instances:</span></span>
 
-* <span data-ttu-id="c2b8c-449">`Person` が `People` の一覧から削除された場合は、対応する `<DetailsEditor>` インスタンスだけが UI から削除されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-449">If a `Person` is deleted from the `People` list, only the corresponding `<DetailsEditor>` instance is removed from the UI.</span></span> <span data-ttu-id="c2b8c-450">その他のインスタンスは変更されません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-450">Other instances are left unchanged.</span></span>
-* <span data-ttu-id="c2b8c-451">リスト内のある位置に `Person` が挿入されると、その対応する位置に1つの新しい `<DetailsEditor>` インスタンスが挿入されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-451">If a `Person` is inserted at some position in the list, one new `<DetailsEditor>` instance is inserted at that corresponding position.</span></span> <span data-ttu-id="c2b8c-452">その他のインスタンスは変更されません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-452">Other instances are left unchanged.</span></span>
-* <span data-ttu-id="c2b8c-453">`Person` エントリが再順序付けされている場合は、対応する `<DetailsEditor>` インスタンスが UI に保持され、並べ替えられます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-453">If `Person` entries are re-ordered, the corresponding `<DetailsEditor>` instances are preserved and re-ordered in the UI.</span></span>
+* <span data-ttu-id="603ae-244">`Person` が `People` の一覧から削除された場合は、対応する `<DetailsEditor>` インスタンスだけが UI から削除されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-244">If a `Person` is deleted from the `People` list, only the corresponding `<DetailsEditor>` instance is removed from the UI.</span></span> <span data-ttu-id="603ae-245">その他のインスタンスは変更されません。</span><span class="sxs-lookup"><span data-stu-id="603ae-245">Other instances are left unchanged.</span></span>
+* <span data-ttu-id="603ae-246">リスト内のある位置に `Person` が挿入されると、その対応する位置に1つの新しい `<DetailsEditor>` インスタンスが挿入されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-246">If a `Person` is inserted at some position in the list, one new `<DetailsEditor>` instance is inserted at that corresponding position.</span></span> <span data-ttu-id="603ae-247">その他のインスタンスは変更されません。</span><span class="sxs-lookup"><span data-stu-id="603ae-247">Other instances are left unchanged.</span></span>
+* <span data-ttu-id="603ae-248">`Person` エントリが再順序付けされている場合は、対応する `<DetailsEditor>` インスタンスが UI に保持され、並べ替えられます。</span><span class="sxs-lookup"><span data-stu-id="603ae-248">If `Person` entries are re-ordered, the corresponding `<DetailsEditor>` instances are preserved and re-ordered in the UI.</span></span>
 
-<span data-ttu-id="c2b8c-454">場合によっては、`@key` を使用すると、回避の複雑さが最小限に抑えられるため、フォーカス位置など、DOM のステートフルな部分に対する潜在的な問題を回避できます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-454">In some scenarios, use of `@key` minimizes the complexity of rerendering and avoids potential issues with stateful parts of the DOM changing, such as focus position.</span></span>
+<span data-ttu-id="603ae-249">場合によっては、`@key` を使用すると、回避の複雑さが最小限に抑えられるため、フォーカス位置など、DOM のステートフルな部分に対する潜在的な問題を回避できます。</span><span class="sxs-lookup"><span data-stu-id="603ae-249">In some scenarios, use of `@key` minimizes the complexity of rerendering and avoids potential issues with stateful parts of the DOM changing, such as focus position.</span></span>
 
 > [!IMPORTANT]
-> <span data-ttu-id="c2b8c-455">キーは、各コンテナー要素またはコンポーネントに対してローカルです。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-455">Keys are local to each container element or component.</span></span> <span data-ttu-id="c2b8c-456">キーがドキュメント全体でグローバルに比較されることはありません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-456">Keys aren't compared globally across the document.</span></span>
+> <span data-ttu-id="603ae-250">キーは、各コンテナー要素またはコンポーネントに対してローカルです。</span><span class="sxs-lookup"><span data-stu-id="603ae-250">Keys are local to each container element or component.</span></span> <span data-ttu-id="603ae-251">キーがドキュメント全体でグローバルに比較されることはありません。</span><span class="sxs-lookup"><span data-stu-id="603ae-251">Keys aren't compared globally across the document.</span></span>
 
-### <a name="when-to-use-key"></a><span data-ttu-id="c2b8c-457">\@キーを使用する場合</span><span class="sxs-lookup"><span data-stu-id="c2b8c-457">When to use \@key</span></span>
+### <a name="when-to-use-key"></a><span data-ttu-id="603ae-252">\@キーを使用する場合</span><span class="sxs-lookup"><span data-stu-id="603ae-252">When to use \@key</span></span>
 
-<span data-ttu-id="c2b8c-458">通常は、リストがレンダリングされるたびに (たとえば、`@foreach` ブロックで) `@key` を使用し、`@key`を定義するための適切な値が存在することを意味します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-458">Typically, it makes sense to use `@key` whenever a list is rendered (for example, in a `@foreach` block) and a suitable value exists to define the `@key`.</span></span>
+<span data-ttu-id="603ae-253">通常は、リストがレンダリングされるたびに (たとえば、`@foreach` ブロックで) `@key` を使用し、`@key`を定義するための適切な値が存在することを意味します。</span><span class="sxs-lookup"><span data-stu-id="603ae-253">Typically, it makes sense to use `@key` whenever a list is rendered (for example, in a `@foreach` block) and a suitable value exists to define the `@key`.</span></span>
 
-<span data-ttu-id="c2b8c-459">また、`@key` を使用すると、オブジェクトが変更されたときに、Blazor が要素またはコンポーネントのサブツリーを保持しないようにすることもできます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-459">You can also use `@key` to prevent Blazor from preserving an element or component subtree when an object changes:</span></span>
+<span data-ttu-id="603ae-254">また、`@key` を使用すると、オブジェクトが変更されたときに Blazor によって要素またはコンポーネントのサブツリーが保持されないようにすることもできます。</span><span class="sxs-lookup"><span data-stu-id="603ae-254">You can also use `@key` to prevent Blazor from preserving an element or component subtree when an object changes:</span></span>
 
 ```razor
 <div @key="currentPerson">
@@ -1054,77 +423,33 @@ public class NotifierService
 </div>
 ```
 
-<span data-ttu-id="c2b8c-460">`@currentPerson` が変更された場合、`@key` attribute ディレクティブは、Blazor が `<div>` とその子孫全体を破棄し、新しい要素とコンポーネントで UI 内のサブツリーを再構築することを強制します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-460">If `@currentPerson` changes, the `@key` attribute directive forces Blazor to discard the entire `<div>` and its descendants and rebuild the subtree within the UI with new elements and components.</span></span> <span data-ttu-id="c2b8c-461">これは、`@currentPerson` 変更時に UI の状態が保持されないことを保証する必要がある場合に役立ちます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-461">This can be useful if you need to guarantee that no UI state is preserved when `@currentPerson` changes.</span></span>
+<span data-ttu-id="603ae-255">`@currentPerson` が変更された場合、`@key` attribute ディレクティブは、`<div>` とその子孫全体を破棄し、新しい要素とコンポーネントで UI 内のサブツリーを再構築する Blazor を強制的に実行します。</span><span class="sxs-lookup"><span data-stu-id="603ae-255">If `@currentPerson` changes, the `@key` attribute directive forces Blazor to discard the entire `<div>` and its descendants and rebuild the subtree within the UI with new elements and components.</span></span> <span data-ttu-id="603ae-256">これは、`@currentPerson` 変更時に UI の状態が保持されないことを保証する必要がある場合に役立ちます。</span><span class="sxs-lookup"><span data-stu-id="603ae-256">This can be useful if you need to guarantee that no UI state is preserved when `@currentPerson` changes.</span></span>
 
-### <a name="when-not-to-use-key"></a><span data-ttu-id="c2b8c-462">\@キーを使用しない場合</span><span class="sxs-lookup"><span data-stu-id="c2b8c-462">When not to use \@key</span></span>
+### <a name="when-not-to-use-key"></a><span data-ttu-id="603ae-257">\@キーを使用しない場合</span><span class="sxs-lookup"><span data-stu-id="603ae-257">When not to use \@key</span></span>
 
-<span data-ttu-id="c2b8c-463">`@key`を使用すると、パフォーマンスが低下します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-463">There's a performance cost when diffing with `@key`.</span></span> <span data-ttu-id="c2b8c-464">パフォーマンスコストは大きくありませんが、要素またはコンポーネントの保存規則を制御することによってアプリにメリットがある場合にのみ `@key` を指定します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-464">The performance cost isn't large, but only specify `@key` if controlling the element or component preservation rules benefit the app.</span></span>
+<span data-ttu-id="603ae-258">`@key`を使用すると、パフォーマンスが低下します。</span><span class="sxs-lookup"><span data-stu-id="603ae-258">There's a performance cost when diffing with `@key`.</span></span> <span data-ttu-id="603ae-259">パフォーマンスコストは大きくありませんが、要素またはコンポーネントの保存規則を制御することによってアプリにメリットがある場合にのみ `@key` を指定します。</span><span class="sxs-lookup"><span data-stu-id="603ae-259">The performance cost isn't large, but only specify `@key` if controlling the element or component preservation rules benefit the app.</span></span>
 
-<span data-ttu-id="c2b8c-465">`@key` が使用されていない場合でも、Blazor は子要素とコンポーネントインスタンスを可能な限り保持します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-465">Even if `@key` isn't used, Blazor preserves child element and component instances as much as possible.</span></span> <span data-ttu-id="c2b8c-466">`@key` を使用する唯一の利点は、マッピングを選択する比較アルゴリズムではなく、保持されているコンポーネントインスタンスにモデルインスタンスをマップする*方法*を制御することです。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-466">The only advantage to using `@key` is control over *how* model instances are mapped to the preserved component instances, instead of the diffing algorithm selecting the mapping.</span></span>
+<span data-ttu-id="603ae-260">`@key` が使用されていない場合でも Blazor、子要素とコンポーネントインスタンスは可能な限り保持されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-260">Even if `@key` isn't used, Blazor preserves child element and component instances as much as possible.</span></span> <span data-ttu-id="603ae-261">`@key` を使用する唯一の利点は、マッピングを選択する比較アルゴリズムではなく、保持されているコンポーネントインスタンスにモデルインスタンスをマップする*方法*を制御することです。</span><span class="sxs-lookup"><span data-stu-id="603ae-261">The only advantage to using `@key` is control over *how* model instances are mapped to the preserved component instances, instead of the diffing algorithm selecting the mapping.</span></span>
 
-### <a name="what-values-to-use-for-key"></a><span data-ttu-id="c2b8c-467">\@キーに使用する値</span><span class="sxs-lookup"><span data-stu-id="c2b8c-467">What values to use for \@key</span></span>
+### <a name="what-values-to-use-for-key"></a><span data-ttu-id="603ae-262">\@キーに使用する値</span><span class="sxs-lookup"><span data-stu-id="603ae-262">What values to use for \@key</span></span>
 
-<span data-ttu-id="c2b8c-468">一般に、`@key`には、次のいずれかの値を指定するのが理にかなっています。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-468">Generally, it makes sense to supply one of the following kinds of value for `@key`:</span></span>
+<span data-ttu-id="603ae-263">一般に、`@key`には、次のいずれかの値を指定するのが理にかなっています。</span><span class="sxs-lookup"><span data-stu-id="603ae-263">Generally, it makes sense to supply one of the following kinds of value for `@key`:</span></span>
 
-* <span data-ttu-id="c2b8c-469">モデルオブジェクトインスタンス (たとえば、前の例のように、`Person` インスタンス)。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-469">Model object instances (for example, a `Person` instance as in the earlier example).</span></span> <span data-ttu-id="c2b8c-470">これにより、オブジェクト参照の等価性に基づいて保持されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-470">This ensures preservation based on object reference equality.</span></span>
-* <span data-ttu-id="c2b8c-471">一意の識別子 (たとえば、`int`型、`string`型、`Guid`型の主キー値)。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-471">Unique identifiers (for example, primary key values of type `int`, `string`, or `Guid`).</span></span>
+* <span data-ttu-id="603ae-264">モデルオブジェクトインスタンス (たとえば、前の例のように、`Person` インスタンス)。</span><span class="sxs-lookup"><span data-stu-id="603ae-264">Model object instances (for example, a `Person` instance as in the earlier example).</span></span> <span data-ttu-id="603ae-265">これにより、オブジェクト参照の等価性に基づいて保持されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-265">This ensures preservation based on object reference equality.</span></span>
+* <span data-ttu-id="603ae-266">一意の識別子 (たとえば、`int`型、`string`型、`Guid`型の主キー値)。</span><span class="sxs-lookup"><span data-stu-id="603ae-266">Unique identifiers (for example, primary key values of type `int`, `string`, or `Guid`).</span></span>
 
-<span data-ttu-id="c2b8c-472">`@key` に使用される値が競合しないようにしてください。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-472">Ensure that values used for `@key` don't clash.</span></span> <span data-ttu-id="c2b8c-473">競合するの値が同じ親要素内で検出された場合、Blazor は、古い要素またはコンポーネントを新しい要素またはコンポーネントに確定的にマップできないため、例外をスローします。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-473">If clashing values are detected within the same parent element, Blazor throws an exception because it can't deterministically map old elements or components to new elements or components.</span></span> <span data-ttu-id="c2b8c-474">個別の値 (オブジェクトインスタンスや主キー値など) のみを使用してください。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-474">Only use distinct values, such as object instances or primary key values.</span></span>
+<span data-ttu-id="603ae-267">`@key` に使用される値が競合しないようにしてください。</span><span class="sxs-lookup"><span data-stu-id="603ae-267">Ensure that values used for `@key` don't clash.</span></span> <span data-ttu-id="603ae-268">競合するの値が同じ親要素内で検出された場合、Blazor は、古い要素またはコンポーネントを新しい要素またはコンポーネントに確定的にマップできないため、例外をスローします。</span><span class="sxs-lookup"><span data-stu-id="603ae-268">If clashing values are detected within the same parent element, Blazor throws an exception because it can't deterministically map old elements or components to new elements or components.</span></span> <span data-ttu-id="603ae-269">個別の値 (オブジェクトインスタンスや主キー値など) のみを使用してください。</span><span class="sxs-lookup"><span data-stu-id="603ae-269">Only use distinct values, such as object instances or primary key values.</span></span>
 
-## <a name="routing"></a><span data-ttu-id="c2b8c-475">ルーティング</span><span class="sxs-lookup"><span data-stu-id="c2b8c-475">Routing</span></span>
+## <a name="partial-class-support"></a><span data-ttu-id="603ae-270">部分クラスのサポート</span><span class="sxs-lookup"><span data-stu-id="603ae-270">Partial class support</span></span>
 
-<span data-ttu-id="c2b8c-476">Blazor でのルーティングは、アプリ内のアクセス可能な各コンポーネントにルートテンプレートを提供することで実現されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-476">Routing in Blazor is achieved by providing a route template to each accessible component in the app.</span></span>
+<span data-ttu-id="603ae-271">Razor コンポーネントは部分クラスとして生成されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-271">Razor components are generated as partial classes.</span></span> <span data-ttu-id="603ae-272">Razor コンポーネントは、次のいずれかの方法を使用して作成されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-272">Razor components are authored using either of the following approaches:</span></span>
 
-<span data-ttu-id="c2b8c-477">`@page` ディレクティブを含む Razor ファイルがコンパイルされると、生成されたクラスにルートテンプレートを指定する <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> が与えられます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-477">When a Razor file with an `@page` directive is compiled, the generated class is given a <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> specifying the route template.</span></span> <span data-ttu-id="c2b8c-478">実行時に、ルーターは `RouteAttribute` を持つコンポーネントクラスを検索し、要求された URL に一致するルートテンプレートを持つコンポーネントをレンダリングします。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-478">At runtime, the router looks for component classes with a `RouteAttribute` and renders whichever component has a route template that matches the requested URL.</span></span>
+* <span data-ttu-id="603ae-273">C#コードは、1つのファイル内に HTML マークアップと Razor コードを含む[`@code`](xref:mvc/views/razor#code)ブロックで定義されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-273">C# code is defined in an [`@code`](xref:mvc/views/razor#code) block with HTML markup and Razor code in a single file.</span></span> Blazor<span data-ttu-id="603ae-274"> テンプレートでは、この方法を使用して Razor コンポーネントを定義します。</span><span class="sxs-lookup"><span data-stu-id="603ae-274"> templates define their Razor components using this approach.</span></span>
+* <span data-ttu-id="603ae-275">C#コードは、部分クラスとして定義されている分離コードファイルに配置されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-275">C# code is placed in a code-behind file defined as a partial class.</span></span>
 
-<span data-ttu-id="c2b8c-479">コンポーネントには、複数のルートテンプレートを適用できます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-479">Multiple route templates can be applied to a component.</span></span> <span data-ttu-id="c2b8c-480">次のコンポーネントは、`/BlazorRoute` と `/DifferentBlazorRoute`に対する要求に応答します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-480">The following component responds to requests for `/BlazorRoute` and `/DifferentBlazorRoute`.</span></span>
+<span data-ttu-id="603ae-276">次の例は、Blazor テンプレートから生成されたアプリで `@code` ブロックを持つ既定の `Counter` コンポーネントを示しています。</span><span class="sxs-lookup"><span data-stu-id="603ae-276">The following example shows the default `Counter` component with an `@code` block in an app generated from a Blazor template.</span></span> <span data-ttu-id="603ae-277">HTML マークアップ、Razor コード、 C#およびコードは、同じファイル内にあります。</span><span class="sxs-lookup"><span data-stu-id="603ae-277">HTML markup, Razor code, and C# code are in the same file:</span></span>
 
-<span data-ttu-id="c2b8c-481">*Pages/BlazorRoute*:</span><span class="sxs-lookup"><span data-stu-id="c2b8c-481">*Pages/BlazorRoute.razor*:</span></span>
-
-```razor
-@page "/BlazorRoute"
-@page "/DifferentBlazorRoute"
-
-<h1>Blazor routing</h1>
-```
-
-## <a name="route-parameters"></a><span data-ttu-id="c2b8c-482">ルートパラメーター</span><span class="sxs-lookup"><span data-stu-id="c2b8c-482">Route parameters</span></span>
-
-<span data-ttu-id="c2b8c-483">コンポーネントは、`@page` ディレクティブで指定されたルートテンプレートからルートパラメーターを受け取ることができます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-483">Components can receive route parameters from the route template provided in the `@page` directive.</span></span> <span data-ttu-id="c2b8c-484">ルーターは、ルートパラメーターを使用して、対応するコンポーネントパラメーターを設定します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-484">The router uses route parameters to populate the corresponding component parameters.</span></span>
-
-<span data-ttu-id="c2b8c-485">*Pages/RouteParameter。 razor*:</span><span class="sxs-lookup"><span data-stu-id="c2b8c-485">*Pages/RouteParameter.razor*:</span></span>
-
-```razor
-@page "/RouteParameter"
-@page "/RouteParameter/{text}"
-
-<h1>Blazor is @Text!</h1>
-
-@code {
-    [Parameter]
-    public string Text { get; set; }
-
-    protected override void OnInitialized()
-    {
-        Text = Text ?? "fantastic";
-    }
-}
-```
-
-<span data-ttu-id="c2b8c-486">省略可能なパラメーターはサポートされていないため、上記の例では2つの `@page` ディレクティブが適用されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-486">Optional parameters aren't supported, so two `@page` directives are applied in the example above.</span></span> <span data-ttu-id="c2b8c-487">最初のは、パラメーターを指定せずにコンポーネントへの移動を許可します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-487">The first permits navigation to the component without a parameter.</span></span> <span data-ttu-id="c2b8c-488">2番目の `@page` ディレクティブは、`{text}` route パラメーターを受け取り、その値を `Text` プロパティに割り当てます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-488">The second `@page` directive takes the `{text}` route parameter and assigns the value to the `Text` property.</span></span>
-
-<span data-ttu-id="c2b8c-489">複数のフォルダー境界をまたいでパスをキャプチャする*キャッチオール*パラメーター構文 (`*`/`**`) は、razor コンポーネント (*razor*) ではサポートされて**いません**。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-489">*Catch-all* parameter syntax (`*`/`**`), which captures the path across multiple folder boundaries, is **not** supported in Razor components (*.razor*).</span></span>
-
-## <a name="partial-class-support"></a><span data-ttu-id="c2b8c-490">部分クラスのサポート</span><span class="sxs-lookup"><span data-stu-id="c2b8c-490">Partial class support</span></span>
-
-<span data-ttu-id="c2b8c-491">Razor コンポーネントは部分クラスとして生成されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-491">Razor components are generated as partial classes.</span></span> <span data-ttu-id="c2b8c-492">Razor コンポーネントは、次のいずれかの方法を使用して作成されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-492">Razor components are authored using either of the following approaches:</span></span>
-
-* <span data-ttu-id="c2b8c-493">C#コードは、1つのファイル内に HTML マークアップと Razor コードを含む[`@code`](xref:mvc/views/razor#code)ブロックで定義されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-493">C# code is defined in an [`@code`](xref:mvc/views/razor#code) block with HTML markup and Razor code in a single file.</span></span> <span data-ttu-id="c2b8c-494">Blazor テンプレートでは、この方法を使用して Razor コンポーネントを定義します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-494">Blazor templates define their Razor components using this approach.</span></span>
-* <span data-ttu-id="c2b8c-495">C#コードは、部分クラスとして定義されている分離コードファイルに配置されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-495">C# code is placed in a code-behind file defined as a partial class.</span></span>
-
-<span data-ttu-id="c2b8c-496">次の例は、Blazor テンプレートから生成されたアプリで `@code` ブロックを持つ既定の `Counter` コンポーネントを示しています。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-496">The following example shows the default `Counter` component with an `@code` block in an app generated from a Blazor template.</span></span> <span data-ttu-id="c2b8c-497">HTML マークアップ、Razor コード、 C#およびコードは、同じファイル内にあります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-497">HTML markup, Razor code, and C# code are in the same file:</span></span>
-
-<span data-ttu-id="c2b8c-498">*Counter。 razor*:</span><span class="sxs-lookup"><span data-stu-id="c2b8c-498">*Counter.razor*:</span></span>
+<span data-ttu-id="603ae-278">*Counter。 razor*:</span><span class="sxs-lookup"><span data-stu-id="603ae-278">*Counter.razor*:</span></span>
 
 ```razor
 @page "/counter"
@@ -1145,9 +470,9 @@ public class NotifierService
 }
 ```
 
-<span data-ttu-id="c2b8c-499">`Counter` コンポーネントは、部分クラスの分離コードファイルを使用して作成することもできます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-499">The `Counter` component can also be created using a code-behind file with a partial class:</span></span>
+<span data-ttu-id="603ae-279">`Counter` コンポーネントは、部分クラスの分離コードファイルを使用して作成することもできます。</span><span class="sxs-lookup"><span data-stu-id="603ae-279">The `Counter` component can also be created using a code-behind file with a partial class:</span></span>
 
-<span data-ttu-id="c2b8c-500">*Counter。 razor*:</span><span class="sxs-lookup"><span data-stu-id="c2b8c-500">*Counter.razor*:</span></span>
+<span data-ttu-id="603ae-280">*Counter。 razor*:</span><span class="sxs-lookup"><span data-stu-id="603ae-280">*Counter.razor*:</span></span>
 
 ```razor
 @page "/counter"
@@ -1159,7 +484,7 @@ public class NotifierService
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 ```
 
-<span data-ttu-id="c2b8c-501">*Counter.razor.cs*:</span><span class="sxs-lookup"><span data-stu-id="c2b8c-501">*Counter.razor.cs*:</span></span>
+<span data-ttu-id="603ae-281">*Counter.razor.cs*:</span><span class="sxs-lookup"><span data-stu-id="603ae-281">*Counter.razor.cs*:</span></span>
 
 ```csharp
 namespace BlazorApp.Pages
@@ -1176,7 +501,7 @@ namespace BlazorApp.Pages
 }
 ```
 
-<span data-ttu-id="c2b8c-502">必要に応じて、部分クラスファイルに必要な名前空間を追加します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-502">Add any required namespaces to the partial class file as needed.</span></span> <span data-ttu-id="c2b8c-503">Razor コンポーネントで使用される一般的な名前空間は次のとおりです。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-503">Typical namespaces used by Razor components include:</span></span>
+<span data-ttu-id="603ae-282">必要に応じて、部分クラスファイルに必要な名前空間を追加します。</span><span class="sxs-lookup"><span data-stu-id="603ae-282">Add any required namespaces to the partial class file as needed.</span></span> <span data-ttu-id="603ae-283">Razor コンポーネントで使用される一般的な名前空間は次のとおりです。</span><span class="sxs-lookup"><span data-stu-id="603ae-283">Typical namespaces used by Razor components include:</span></span>
 
 ```csharp
 using Microsoft.AspNetCore.Authorization;
@@ -1187,11 +512,11 @@ using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
 ```
 
-## <a name="specify-a-base-class"></a><span data-ttu-id="c2b8c-504">基底クラスの指定</span><span class="sxs-lookup"><span data-stu-id="c2b8c-504">Specify a base class</span></span>
+## <a name="specify-a-base-class"></a><span data-ttu-id="603ae-284">基底クラスの指定</span><span class="sxs-lookup"><span data-stu-id="603ae-284">Specify a base class</span></span>
 
-<span data-ttu-id="c2b8c-505">[`@inherits`](xref:mvc/views/razor#inherits)ディレクティブは、コンポーネントの基底クラスを指定するために使用できます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-505">The [`@inherits`](xref:mvc/views/razor#inherits) directive can be used to specify a base class for a component.</span></span> <span data-ttu-id="c2b8c-506">次の例は、コンポーネントが基本クラス `BlazorRocksBase`を継承して、コンポーネントのプロパティとメソッドを提供する方法を示しています。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-506">The following example shows how a component can inherit a base class, `BlazorRocksBase`, to provide the component's properties and methods.</span></span> <span data-ttu-id="c2b8c-507">基底クラスは `ComponentBase`から派生する必要があります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-507">The base class should derive from `ComponentBase`.</span></span>
+<span data-ttu-id="603ae-285">[`@inherits`](xref:mvc/views/razor#inherits)ディレクティブは、コンポーネントの基底クラスを指定するために使用できます。</span><span class="sxs-lookup"><span data-stu-id="603ae-285">The [`@inherits`](xref:mvc/views/razor#inherits) directive can be used to specify a base class for a component.</span></span> <span data-ttu-id="603ae-286">次の例は、コンポーネントが基本クラス `BlazorRocksBase`を継承して、コンポーネントのプロパティとメソッドを提供する方法を示しています。</span><span class="sxs-lookup"><span data-stu-id="603ae-286">The following example shows how a component can inherit a base class, `BlazorRocksBase`, to provide the component's properties and methods.</span></span> <span data-ttu-id="603ae-287">基底クラスは `ComponentBase`から派生する必要があります。</span><span class="sxs-lookup"><span data-stu-id="603ae-287">The base class should derive from `ComponentBase`.</span></span>
 
-<span data-ttu-id="c2b8c-508">*Pages/BlazorRocks*:</span><span class="sxs-lookup"><span data-stu-id="c2b8c-508">*Pages/BlazorRocks.razor*:</span></span>
+<span data-ttu-id="603ae-288">*Pages/BlazorRocks*:</span><span class="sxs-lookup"><span data-stu-id="603ae-288">*Pages/BlazorRocks.razor*:</span></span>
 
 ```razor
 @page "/BlazorRocks"
@@ -1200,7 +525,7 @@ using Microsoft.AspNetCore.Components.Web;
 <h1>@BlazorRocksText</h1>
 ```
 
-<span data-ttu-id="c2b8c-509">*BlazorRocksBase.cs*:</span><span class="sxs-lookup"><span data-stu-id="c2b8c-509">*BlazorRocksBase.cs*:</span></span>
+<span data-ttu-id="603ae-289">*BlazorRocksBase.cs*:</span><span class="sxs-lookup"><span data-stu-id="603ae-289">*BlazorRocksBase.cs*:</span></span>
 
 ```csharp
 using Microsoft.AspNetCore.Components;
@@ -1215,28 +540,28 @@ namespace BlazorSample
 }
 ```
 
-## <a name="specify-an-attribute"></a><span data-ttu-id="c2b8c-510">属性を指定する</span><span class="sxs-lookup"><span data-stu-id="c2b8c-510">Specify an attribute</span></span>
+## <a name="specify-an-attribute"></a><span data-ttu-id="603ae-290">属性を指定する</span><span class="sxs-lookup"><span data-stu-id="603ae-290">Specify an attribute</span></span>
 
-<span data-ttu-id="c2b8c-511">属性は、 [`@attribute`](xref:mvc/views/razor#attribute)ディレクティブを使用して Razor コンポーネントで指定できます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-511">Attributes can be specified in Razor components with the [`@attribute`](xref:mvc/views/razor#attribute) directive.</span></span> <span data-ttu-id="c2b8c-512">次の例では、`[Authorize]` 属性を component クラスに適用します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-512">The following example applies the `[Authorize]` attribute to the component class:</span></span>
+<span data-ttu-id="603ae-291">属性は、 [`@attribute`](xref:mvc/views/razor#attribute)ディレクティブを使用して Razor コンポーネントで指定できます。</span><span class="sxs-lookup"><span data-stu-id="603ae-291">Attributes can be specified in Razor components with the [`@attribute`](xref:mvc/views/razor#attribute) directive.</span></span> <span data-ttu-id="603ae-292">次の例では、`[Authorize]` 属性を component クラスに適用します。</span><span class="sxs-lookup"><span data-stu-id="603ae-292">The following example applies the `[Authorize]` attribute to the component class:</span></span>
 
 ```razor
 @page "/"
 @attribute [Authorize]
 ```
 
-## <a name="import-components"></a><span data-ttu-id="c2b8c-513">コンポーネントのインポート</span><span class="sxs-lookup"><span data-stu-id="c2b8c-513">Import components</span></span>
+## <a name="import-components"></a><span data-ttu-id="603ae-293">コンポーネントのインポート</span><span class="sxs-lookup"><span data-stu-id="603ae-293">Import components</span></span>
 
-<span data-ttu-id="c2b8c-514">Razor で作成されるコンポーネントの名前空間は、(優先順位に従って) に基づきます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-514">The namespace of a component authored with Razor is based on (in priority order):</span></span>
+<span data-ttu-id="603ae-294">Razor で作成されるコンポーネントの名前空間は、(優先順位に従って) に基づきます。</span><span class="sxs-lookup"><span data-stu-id="603ae-294">The namespace of a component authored with Razor is based on (in priority order):</span></span>
 
-* <span data-ttu-id="c2b8c-515">Razor ファイル (*razor*) マークアップ (`@namespace BlazorSample.MyNamespace`) の[`@namespace`](xref:mvc/views/razor#namespace)指定。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-515">[`@namespace`](xref:mvc/views/razor#namespace) designation in Razor file (*.razor*) markup (`@namespace BlazorSample.MyNamespace`).</span></span>
-* <span data-ttu-id="c2b8c-516">プロジェクトファイル内のプロジェクトの `RootNamespace` (`<RootNamespace>BlazorSample</RootNamespace>`)。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-516">The project's `RootNamespace` in the project file (`<RootNamespace>BlazorSample</RootNamespace>`).</span></span>
-* <span data-ttu-id="c2b8c-517">プロジェクトファイルのファイル名 ( *.csproj*) から取得されたプロジェクト名、およびプロジェクトルートからコンポーネントへのパス。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-517">The project name, taken from the project file's file name (*.csproj*), and the path from the project root to the component.</span></span> <span data-ttu-id="c2b8c-518">たとえば、フレームワークは *{PROJECT ROOT}/* *BlazorSample (* ) を名前空間 `BlazorSample.Pages`に解決します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-518">For example, the framework resolves *{PROJECT ROOT}/Pages/Index.razor* (*BlazorSample.csproj*) to the namespace `BlazorSample.Pages`.</span></span> <span data-ttu-id="c2b8c-519">コンポーネントはC# 、名前のバインド規則に従います。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-519">Components follow C# name binding rules.</span></span> <span data-ttu-id="c2b8c-520">この例の `Index` コンポーネントの場合、スコープ内のコンポーネントはすべてコンポーネントです。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-520">For the `Index` component in this example, the components in scope are all of the components:</span></span>
-  * <span data-ttu-id="c2b8c-521">同じフォルダー内の*ページ*。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-521">In the same folder, *Pages*.</span></span>
-  * <span data-ttu-id="c2b8c-522">別の名前空間を明示的に指定していない、プロジェクトのルート内のコンポーネント。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-522">The components in the project's root that don't explicitly specify a different namespace.</span></span>
+* <span data-ttu-id="603ae-295">Razor ファイル (*razor*) マークアップ (`@namespace BlazorSample.MyNamespace`) の[`@namespace`](xref:mvc/views/razor#namespace)指定。</span><span class="sxs-lookup"><span data-stu-id="603ae-295">[`@namespace`](xref:mvc/views/razor#namespace) designation in Razor file (*.razor*) markup (`@namespace BlazorSample.MyNamespace`).</span></span>
+* <span data-ttu-id="603ae-296">プロジェクトファイル内のプロジェクトの `RootNamespace` (`<RootNamespace>BlazorSample</RootNamespace>`)。</span><span class="sxs-lookup"><span data-stu-id="603ae-296">The project's `RootNamespace` in the project file (`<RootNamespace>BlazorSample</RootNamespace>`).</span></span>
+* <span data-ttu-id="603ae-297">プロジェクトファイルのファイル名 ( *.csproj*) から取得されたプロジェクト名、およびプロジェクトルートからコンポーネントへのパス。</span><span class="sxs-lookup"><span data-stu-id="603ae-297">The project name, taken from the project file's file name (*.csproj*), and the path from the project root to the component.</span></span> <span data-ttu-id="603ae-298">たとえば、フレームワークは *{PROJECT ROOT}/* *BlazorSample (* ) を名前空間 `BlazorSample.Pages`に解決します。</span><span class="sxs-lookup"><span data-stu-id="603ae-298">For example, the framework resolves *{PROJECT ROOT}/Pages/Index.razor* (*BlazorSample.csproj*) to the namespace `BlazorSample.Pages`.</span></span> <span data-ttu-id="603ae-299">コンポーネントはC# 、名前のバインド規則に従います。</span><span class="sxs-lookup"><span data-stu-id="603ae-299">Components follow C# name binding rules.</span></span> <span data-ttu-id="603ae-300">この例の `Index` コンポーネントの場合、スコープ内のコンポーネントはすべてコンポーネントです。</span><span class="sxs-lookup"><span data-stu-id="603ae-300">For the `Index` component in this example, the components in scope are all of the components:</span></span>
+  * <span data-ttu-id="603ae-301">同じフォルダー内の*ページ*。</span><span class="sxs-lookup"><span data-stu-id="603ae-301">In the same folder, *Pages*.</span></span>
+  * <span data-ttu-id="603ae-302">別の名前空間を明示的に指定していない、プロジェクトのルート内のコンポーネント。</span><span class="sxs-lookup"><span data-stu-id="603ae-302">The components in the project's root that don't explicitly specify a different namespace.</span></span>
 
-<span data-ttu-id="c2b8c-523">別の名前空間で定義されているコンポーネントは、Razor の[`@using`](xref:mvc/views/razor#using)ディレクティブを使用してスコープ内に置かれます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-523">Components defined in a different namespace are brought into scope using Razor's [`@using`](xref:mvc/views/razor#using) directive.</span></span>
+<span data-ttu-id="603ae-303">別の名前空間で定義されているコンポーネントは、Razor の[`@using`](xref:mvc/views/razor#using)ディレクティブを使用してスコープ内に置かれます。</span><span class="sxs-lookup"><span data-stu-id="603ae-303">Components defined in a different namespace are brought into scope using Razor's [`@using`](xref:mvc/views/razor#using) directive.</span></span>
 
-<span data-ttu-id="c2b8c-524">*BlazorSample/Shared/* フォルダーに別のコンポーネント (`NavMenu.razor`) が存在する場合は、次の `@using` ステートメントを使用して `Index.razor` でコンポーネントを使用できます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-524">If another component, `NavMenu.razor`, exists in the *BlazorSample/Shared/* folder, the component can be used in `Index.razor` with the following `@using` statement:</span></span>
+<span data-ttu-id="603ae-304">*BlazorSample/Shared/* フォルダーに別のコンポーネント (`NavMenu.razor`) が存在する場合は、次の `@using` ステートメントを使用して `Index.razor` でコンポーネントを使用できます。</span><span class="sxs-lookup"><span data-stu-id="603ae-304">If another component, `NavMenu.razor`, exists in the *BlazorSample/Shared/* folder, the component can be used in `Index.razor` with the following `@using` statement:</span></span>
 
 ```razor
 @using BlazorSample.Shared
@@ -1246,7 +571,7 @@ This is the Index page.
 <NavMenu></NavMenu>
 ```
 
-<span data-ttu-id="c2b8c-525">コンポーネントは、完全修飾名を使用して参照することもできます。この場合、 [`@using`](xref:mvc/views/razor#using)ディレクティブは必要ありません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-525">Components can also be referenced using their fully qualified names, which doesn't require the [`@using`](xref:mvc/views/razor#using) directive:</span></span>
+<span data-ttu-id="603ae-305">コンポーネントは、完全修飾名を使用して参照することもできます。この場合、 [`@using`](xref:mvc/views/razor#using)ディレクティブは必要ありません。</span><span class="sxs-lookup"><span data-stu-id="603ae-305">Components can also be referenced using their fully qualified names, which doesn't require the [`@using`](xref:mvc/views/razor#using) directive:</span></span>
 
 ```razor
 This is the Index page.
@@ -1255,17 +580,17 @@ This is the Index page.
 ```
 
 > [!NOTE]
-> <span data-ttu-id="c2b8c-526">`global::` の修飾はサポートされていません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-526">The `global::` qualification isn't supported.</span></span>
+> <span data-ttu-id="603ae-306">`global::` の修飾はサポートされていません。</span><span class="sxs-lookup"><span data-stu-id="603ae-306">The `global::` qualification isn't supported.</span></span>
 >
-> <span data-ttu-id="c2b8c-527">エイリアス付き `using` ステートメント (`@using Foo = Bar`など) を含むコンポーネントのインポートはサポートされていません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-527">Importing components with aliased `using` statements (for example, `@using Foo = Bar`) isn't supported.</span></span>
+> <span data-ttu-id="603ae-307">エイリアス付き `using` ステートメント (`@using Foo = Bar`など) を含むコンポーネントのインポートはサポートされていません。</span><span class="sxs-lookup"><span data-stu-id="603ae-307">Importing components with aliased `using` statements (for example, `@using Foo = Bar`) isn't supported.</span></span>
 >
-> <span data-ttu-id="c2b8c-528">部分修飾名はサポートされていません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-528">Partially qualified names aren't supported.</span></span> <span data-ttu-id="c2b8c-529">たとえば、`<Shared.NavMenu></Shared.NavMenu>` での `@using BlazorSample` の追加と `NavMenu.razor` の参照はサポートされていません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-529">For example, adding `@using BlazorSample` and referencing `NavMenu.razor` with `<Shared.NavMenu></Shared.NavMenu>` isn't supported.</span></span>
+> <span data-ttu-id="603ae-308">部分修飾名はサポートされていません。</span><span class="sxs-lookup"><span data-stu-id="603ae-308">Partially qualified names aren't supported.</span></span> <span data-ttu-id="603ae-309">たとえば、`<Shared.NavMenu></Shared.NavMenu>` での `@using BlazorSample` の追加と `NavMenu.razor` の参照はサポートされていません。</span><span class="sxs-lookup"><span data-stu-id="603ae-309">For example, adding `@using BlazorSample` and referencing `NavMenu.razor` with `<Shared.NavMenu></Shared.NavMenu>` isn't supported.</span></span>
 
-## <a name="conditional-html-element-attributes"></a><span data-ttu-id="c2b8c-530">条件付き HTML 要素の属性</span><span class="sxs-lookup"><span data-stu-id="c2b8c-530">Conditional HTML element attributes</span></span>
+## <a name="conditional-html-element-attributes"></a><span data-ttu-id="603ae-310">条件付き HTML 要素の属性</span><span class="sxs-lookup"><span data-stu-id="603ae-310">Conditional HTML element attributes</span></span>
 
-<span data-ttu-id="c2b8c-531">HTML 要素の属性は、.NET の値に基づいて条件付きで表示されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-531">HTML element attributes are conditionally rendered based on the .NET value.</span></span> <span data-ttu-id="c2b8c-532">値が `false` または `null`の場合、属性はレンダリングされません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-532">If the value is `false` or `null`, the attribute isn't rendered.</span></span> <span data-ttu-id="c2b8c-533">値が `true`場合は、属性が最小化されて表示されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-533">If the value is `true`, the attribute is rendered minimized.</span></span>
+<span data-ttu-id="603ae-311">HTML 要素の属性は、.NET の値に基づいて条件付きで表示されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-311">HTML element attributes are conditionally rendered based on the .NET value.</span></span> <span data-ttu-id="603ae-312">値が `false` または `null`の場合、属性はレンダリングされません。</span><span class="sxs-lookup"><span data-stu-id="603ae-312">If the value is `false` or `null`, the attribute isn't rendered.</span></span> <span data-ttu-id="603ae-313">値が `true`場合は、属性が最小化されて表示されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-313">If the value is `true`, the attribute is rendered minimized.</span></span>
 
-<span data-ttu-id="c2b8c-534">次の例では、`IsCompleted` によって `checked` が要素のマークアップに表示されるかどうかが決まります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-534">In the following example, `IsCompleted` determines if `checked` is rendered in the element's markup:</span></span>
+<span data-ttu-id="603ae-314">次の例では、`IsCompleted` によって `checked` が要素のマークアップに表示されるかどうかが決まります。</span><span class="sxs-lookup"><span data-stu-id="603ae-314">In the following example, `IsCompleted` determines if `checked` is rendered in the element's markup:</span></span>
 
 ```razor
 <input type="checkbox" checked="@IsCompleted" />
@@ -1276,31 +601,31 @@ This is the Index page.
 }
 ```
 
-<span data-ttu-id="c2b8c-535">`IsCompleted` が `true`場合、このチェックボックスは次のように表示されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-535">If `IsCompleted` is `true`, the check box is rendered as:</span></span>
+<span data-ttu-id="603ae-315">`IsCompleted` が `true`場合、このチェックボックスは次のように表示されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-315">If `IsCompleted` is `true`, the check box is rendered as:</span></span>
 
 ```html
 <input type="checkbox" checked />
 ```
 
-<span data-ttu-id="c2b8c-536">`IsCompleted` が `false`場合、このチェックボックスは次のように表示されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-536">If `IsCompleted` is `false`, the check box is rendered as:</span></span>
+<span data-ttu-id="603ae-316">`IsCompleted` が `false`場合、このチェックボックスは次のように表示されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-316">If `IsCompleted` is `false`, the check box is rendered as:</span></span>
 
 ```html
 <input type="checkbox" />
 ```
 
-<span data-ttu-id="c2b8c-537">詳細については、<xref:mvc/views/razor> を参照してください。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-537">For more information, see <xref:mvc/views/razor>.</span></span>
+<span data-ttu-id="603ae-317">詳細については、「<xref:mvc/views/razor>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="603ae-317">For more information, see <xref:mvc/views/razor>.</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="c2b8c-538">[Aria](https://developer.mozilla.org/docs/Web/Accessibility/ARIA/Roles/button_role#Toggle_buttons)などの一部の HTML 属性は、.net 型が `bool`の場合、正しく機能しません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-538">Some HTML attributes, such as [aria-pressed](https://developer.mozilla.org/docs/Web/Accessibility/ARIA/Roles/button_role#Toggle_buttons), don't function properly when the .NET type is a `bool`.</span></span> <span data-ttu-id="c2b8c-539">そのような場合は、`bool`ではなく `string` の型を使用します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-539">In those cases, use a `string` type instead of a `bool`.</span></span>
+> <span data-ttu-id="603ae-318">[Aria](https://developer.mozilla.org/docs/Web/Accessibility/ARIA/Roles/button_role#Toggle_buttons)などの一部の HTML 属性は、.net 型が `bool`の場合、正しく機能しません。</span><span class="sxs-lookup"><span data-stu-id="603ae-318">Some HTML attributes, such as [aria-pressed](https://developer.mozilla.org/docs/Web/Accessibility/ARIA/Roles/button_role#Toggle_buttons), don't function properly when the .NET type is a `bool`.</span></span> <span data-ttu-id="603ae-319">そのような場合は、`bool`ではなく `string` の型を使用します。</span><span class="sxs-lookup"><span data-stu-id="603ae-319">In those cases, use a `string` type instead of a `bool`.</span></span>
 
-## <a name="raw-html"></a><span data-ttu-id="c2b8c-540">未加工の HTML</span><span class="sxs-lookup"><span data-stu-id="c2b8c-540">Raw HTML</span></span>
+## <a name="raw-html"></a><span data-ttu-id="603ae-320">未加工の HTML</span><span class="sxs-lookup"><span data-stu-id="603ae-320">Raw HTML</span></span>
 
-<span data-ttu-id="c2b8c-541">通常、文字列は DOM テキストノードを使用してレンダリングされます。つまり、含まれているすべてのマークアップは無視され、リテラルテキストとして扱われます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-541">Strings are normally rendered using DOM text nodes, which means that any markup they may contain is ignored and treated as literal text.</span></span> <span data-ttu-id="c2b8c-542">生の HTML をレンダリングするには、`MarkupString` 値で HTML コンテンツをラップします。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-542">To render raw HTML, wrap the HTML content in a `MarkupString` value.</span></span> <span data-ttu-id="c2b8c-543">値は HTML または SVG として解析され、DOM に挿入されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-543">The value is parsed as HTML or SVG and inserted into the DOM.</span></span>
+<span data-ttu-id="603ae-321">通常、文字列は DOM テキストノードを使用してレンダリングされます。つまり、含まれているすべてのマークアップは無視され、リテラルテキストとして扱われます。</span><span class="sxs-lookup"><span data-stu-id="603ae-321">Strings are normally rendered using DOM text nodes, which means that any markup they may contain is ignored and treated as literal text.</span></span> <span data-ttu-id="603ae-322">生の HTML をレンダリングするには、`MarkupString` 値で HTML コンテンツをラップします。</span><span class="sxs-lookup"><span data-stu-id="603ae-322">To render raw HTML, wrap the HTML content in a `MarkupString` value.</span></span> <span data-ttu-id="603ae-323">値は HTML または SVG として解析され、DOM に挿入されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-323">The value is parsed as HTML or SVG and inserted into the DOM.</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="c2b8c-544">信頼できないソースから構築された生の HTML をレンダリングすることは、**セキュリティ上のリスク**があるため、回避する必要があります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-544">Rendering raw HTML constructed from any untrusted source is a **security risk** and should be avoided!</span></span>
+> <span data-ttu-id="603ae-324">信頼できないソースから構築された生の HTML をレンダリングすることは、**セキュリティ上のリスク**があるため、回避する必要があります。</span><span class="sxs-lookup"><span data-stu-id="603ae-324">Rendering raw HTML constructed from any untrusted source is a **security risk** and should be avoided!</span></span>
 
-<span data-ttu-id="c2b8c-545">次の例では、`MarkupString` 型を使用して、コンポーネントのレンダリングされた出力に静的 HTML コンテンツのブロックを追加します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-545">The following example shows using the `MarkupString` type to add a block of static HTML content to the rendered output of a component:</span></span>
+<span data-ttu-id="603ae-325">次の例では、`MarkupString` 型を使用して、コンポーネントのレンダリングされた出力に静的 HTML コンテンツのブロックを追加します。</span><span class="sxs-lookup"><span data-stu-id="603ae-325">The following example shows using the `MarkupString` type to add a block of static HTML content to the rendered output of a component:</span></span>
 
 ```html
 @((MarkupString)_myMarkup)
@@ -1311,103 +636,15 @@ This is the Index page.
 }
 ```
 
-## <a name="templated-components"></a><span data-ttu-id="c2b8c-546">テンプレートコンポーネント</span><span class="sxs-lookup"><span data-stu-id="c2b8c-546">Templated components</span></span>
+## <a name="cascading-values-and-parameters"></a><span data-ttu-id="603ae-326">カスケード値とパラメーター</span><span class="sxs-lookup"><span data-stu-id="603ae-326">Cascading values and parameters</span></span>
 
-<span data-ttu-id="c2b8c-547">テンプレートコンポーネントは、1つまたは複数の UI テンプレートをパラメーターとして受け取り、コンポーネントのレンダリングロジックの一部として使用できるコンポーネントです。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-547">Templated components are components that accept one or more UI templates as parameters, which can then be used as part of the component's rendering logic.</span></span> <span data-ttu-id="c2b8c-548">テンプレート化されたコンポーネントを使用すると、通常のコンポーネントよりも再利用しやすい上位レベルのコンポーネントを作成できます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-548">Templated components allow you to author higher-level components that are more reusable than regular components.</span></span> <span data-ttu-id="c2b8c-549">いくつかの例を次に示します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-549">A couple of examples include:</span></span>
+<span data-ttu-id="603ae-327">場合によっては、[コンポーネントパラメーター](#component-parameters)を使用して先祖コンポーネントから子孫コンポーネントにデータをフローするのは不便です。コンポーネントレイヤーが複数ある場合は特にそうです。</span><span class="sxs-lookup"><span data-stu-id="603ae-327">In some scenarios, it's inconvenient to flow data from an ancestor component to a descendent component using [component parameters](#component-parameters), especially when there are several component layers.</span></span> <span data-ttu-id="603ae-328">カスケード値およびパラメーターは、先祖コンポーネントがすべての子孫コンポーネントに値を提供するのに便利な方法を提供することで、この問題を解決します。</span><span class="sxs-lookup"><span data-stu-id="603ae-328">Cascading values and parameters solve this problem by providing a convenient way for an ancestor component to provide a value to all of its descendent components.</span></span> <span data-ttu-id="603ae-329">カスケード値とパラメーターは、コンポーネントでコーディネートする方法も提供します。</span><span class="sxs-lookup"><span data-stu-id="603ae-329">Cascading values and parameters also provide an approach for components to coordinate.</span></span>
 
-* <span data-ttu-id="c2b8c-550">テーブルのヘッダー、行、およびフッターのテンプレートをユーザーが指定できるようにするテーブルコンポーネント。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-550">A table component that allows a user to specify templates for the table's header, rows, and footer.</span></span>
-* <span data-ttu-id="c2b8c-551">リスト内の項目を表示するためのテンプレートをユーザーが指定できるようにするリストコンポーネント。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-551">A list component that allows a user to specify a template for rendering items in a list.</span></span>
+### <a name="theme-example"></a><span data-ttu-id="603ae-330">テーマの例</span><span class="sxs-lookup"><span data-stu-id="603ae-330">Theme example</span></span>
 
-### <a name="template-parameters"></a><span data-ttu-id="c2b8c-552">Template parameters</span><span class="sxs-lookup"><span data-stu-id="c2b8c-552">Template parameters</span></span>
+<span data-ttu-id="603ae-331">次のサンプルアプリの例では、`ThemeInfo` クラスが、コンポーネント階層の下位にあるテーマ情報を指定して、アプリの特定の部分にあるすべてのボタンが同じスタイルを共有するようにしています。</span><span class="sxs-lookup"><span data-stu-id="603ae-331">In the following example from the sample app, the `ThemeInfo` class specifies the theme information to flow down the component hierarchy so that all of the buttons within a given part of the app share the same style.</span></span>
 
-<span data-ttu-id="c2b8c-553">`RenderFragment` または `RenderFragment<T>`型の1つ以上のコンポーネントパラメーターを指定して、テンプレート化されたコンポーネントを定義します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-553">A templated component is defined by specifying one or more component parameters of type `RenderFragment` or `RenderFragment<T>`.</span></span> <span data-ttu-id="c2b8c-554">レンダーフラグメントは、レンダリングする UI のセグメントを表します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-554">A render fragment represents a segment of UI to render.</span></span> <span data-ttu-id="c2b8c-555">`RenderFragment<T>` は、レンダリングフラグメントが呼び出されたときに指定できる型パラメーターを受け取ります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-555">`RenderFragment<T>` takes a type parameter that can be specified when the render fragment is invoked.</span></span>
-
-<span data-ttu-id="c2b8c-556">`TableTemplate` コンポーネント:</span><span class="sxs-lookup"><span data-stu-id="c2b8c-556">`TableTemplate` component:</span></span>
-
-[!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/TableTemplate.razor)]
-
-<span data-ttu-id="c2b8c-557">テンプレート化されたコンポーネントを使用する場合、テンプレートパラメーターは、パラメーターの名前と一致する子要素を使用して指定できます (`TableHeader` と、次の例の `RowTemplate`)。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-557">When using a templated component, the template parameters can be specified using child elements that match the names of the parameters (`TableHeader` and `RowTemplate` in the following example):</span></span>
-
-```razor
-<TableTemplate Items="pets">
-    <TableHeader>
-        <th>ID</th>
-        <th>Name</th>
-    </TableHeader>
-    <RowTemplate>
-        <td>@context.PetId</td>
-        <td>@context.Name</td>
-    </RowTemplate>
-</TableTemplate>
-```
-
-### <a name="template-context-parameters"></a><span data-ttu-id="c2b8c-558">テンプレートコンテキストパラメーター</span><span class="sxs-lookup"><span data-stu-id="c2b8c-558">Template context parameters</span></span>
-
-<span data-ttu-id="c2b8c-559">要素として渡される型 `RenderFragment<T>` のコンポーネント引数には、`context` という名前の暗黙的なパラメーターがあります (たとえば、上記のコードサンプルでは `@context.PetId`)。ただし、子要素の `Context` 属性を使用してパラメーター名を変更することもできます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-559">Component arguments of type `RenderFragment<T>` passed as elements have an implicit parameter named `context` (for example from the preceding code sample, `@context.PetId`), but you can change the parameter name using the `Context` attribute on the child element.</span></span> <span data-ttu-id="c2b8c-560">次の例では、`RowTemplate` 要素の `Context` 属性で `pet` パラメーターを指定しています。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-560">In the following example, the `RowTemplate` element's `Context` attribute specifies the `pet` parameter:</span></span>
-
-```razor
-<TableTemplate Items="pets">
-    <TableHeader>
-        <th>ID</th>
-        <th>Name</th>
-    </TableHeader>
-    <RowTemplate Context="pet">
-        <td>@pet.PetId</td>
-        <td>@pet.Name</td>
-    </RowTemplate>
-</TableTemplate>
-```
-
-<span data-ttu-id="c2b8c-561">または、コンポーネント要素の `Context` 属性を指定することもできます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-561">Alternatively, you can specify the `Context` attribute on the component element.</span></span> <span data-ttu-id="c2b8c-562">指定された `Context` 属性は、指定されたすべてのテンプレートパラメーターに適用されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-562">The specified `Context` attribute applies to all specified template parameters.</span></span> <span data-ttu-id="c2b8c-563">これは、暗黙的な子コンテンツ (ラップする子要素を持たない) のコンテンツパラメーター名を指定する場合に便利です。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-563">This can be useful when you want to specify the content parameter name for implicit child content (without any wrapping child element).</span></span> <span data-ttu-id="c2b8c-564">次の例では、`Context` 属性が `TableTemplate` 要素に表示され、すべてのテンプレートパラメーターに適用されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-564">In the following example, the `Context` attribute appears on the `TableTemplate` element and applies to all template parameters:</span></span>
-
-```razor
-<TableTemplate Items="pets" Context="pet">
-    <TableHeader>
-        <th>ID</th>
-        <th>Name</th>
-    </TableHeader>
-    <RowTemplate>
-        <td>@pet.PetId</td>
-        <td>@pet.Name</td>
-    </RowTemplate>
-</TableTemplate>
-```
-
-### <a name="generic-typed-components"></a><span data-ttu-id="c2b8c-565">汎用型のコンポーネント</span><span class="sxs-lookup"><span data-stu-id="c2b8c-565">Generic-typed components</span></span>
-
-<span data-ttu-id="c2b8c-566">多くの場合、テンプレート化されたコンポーネントは一般的に型指定されます</span><span class="sxs-lookup"><span data-stu-id="c2b8c-566">Templated components are often generically typed.</span></span> <span data-ttu-id="c2b8c-567">たとえば、汎用 `ListViewTemplate` コンポーネントを使用して `IEnumerable<T>` 値を表示できます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-567">For example, a generic `ListViewTemplate` component can be used to render `IEnumerable<T>` values.</span></span> <span data-ttu-id="c2b8c-568">ジェネリックコンポーネントを定義するには、 [`@typeparam`](xref:mvc/views/razor#typeparam)ディレクティブを使用して型パラメーターを指定します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-568">To define a generic component, use the [`@typeparam`](xref:mvc/views/razor#typeparam) directive to specify type parameters:</span></span>
-
-[!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/ListViewTemplate.razor)]
-
-<span data-ttu-id="c2b8c-569">ジェネリック型のコンポーネントを使用する場合、可能であれば型パラメーターは推論されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-569">When using generic-typed components, the type parameter is inferred if possible:</span></span>
-
-```razor
-<ListViewTemplate Items="pets">
-    <ItemTemplate Context="pet">
-        <li>@pet.Name</li>
-    </ItemTemplate>
-</ListViewTemplate>
-```
-
-<span data-ttu-id="c2b8c-570">それ以外の場合は、型パラメーターの名前と一致する属性を使用して、型パラメーターを明示的に指定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-570">Otherwise, the type parameter must be explicitly specified using an attribute that matches the name of the type parameter.</span></span> <span data-ttu-id="c2b8c-571">次の例では、`TItem="Pet"` 型を指定しています。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-571">In the following example, `TItem="Pet"` specifies the type:</span></span>
-
-```razor
-<ListViewTemplate Items="pets" TItem="Pet">
-    <ItemTemplate Context="pet">
-        <li>@pet.Name</li>
-    </ItemTemplate>
-</ListViewTemplate>
-```
-
-## <a name="cascading-values-and-parameters"></a><span data-ttu-id="c2b8c-572">カスケード値とパラメーター</span><span class="sxs-lookup"><span data-stu-id="c2b8c-572">Cascading values and parameters</span></span>
-
-<span data-ttu-id="c2b8c-573">場合によっては、[コンポーネントパラメーター](#component-parameters)を使用して先祖コンポーネントから子孫コンポーネントにデータをフローするのは不便です。コンポーネントレイヤーが複数ある場合は特にそうです。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-573">In some scenarios, it's inconvenient to flow data from an ancestor component to a descendent component using [component parameters](#component-parameters), especially when there are several component layers.</span></span> <span data-ttu-id="c2b8c-574">カスケード値およびパラメーターは、先祖コンポーネントがすべての子孫コンポーネントに値を提供するのに便利な方法を提供することで、この問題を解決します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-574">Cascading values and parameters solve this problem by providing a convenient way for an ancestor component to provide a value to all of its descendent components.</span></span> <span data-ttu-id="c2b8c-575">カスケード値とパラメーターは、コンポーネントでコーディネートする方法も提供します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-575">Cascading values and parameters also provide an approach for components to coordinate.</span></span>
-
-### <a name="theme-example"></a><span data-ttu-id="c2b8c-576">テーマの例</span><span class="sxs-lookup"><span data-stu-id="c2b8c-576">Theme example</span></span>
-
-<span data-ttu-id="c2b8c-577">次のサンプルアプリの例では、`ThemeInfo` クラスが、コンポーネント階層の下位にあるテーマ情報を指定して、アプリの特定の部分にあるすべてのボタンが同じスタイルを共有するようにしています。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-577">In the following example from the sample app, the `ThemeInfo` class specifies the theme information to flow down the component hierarchy so that all of the buttons within a given part of the app share the same style.</span></span>
-
-<span data-ttu-id="c2b8c-578">*UiThemeInfo/* :</span><span class="sxs-lookup"><span data-stu-id="c2b8c-578">*UIThemeClasses/ThemeInfo.cs*:</span></span>
+<span data-ttu-id="603ae-332">*UiThemeInfo/* :</span><span class="sxs-lookup"><span data-stu-id="603ae-332">*UIThemeClasses/ThemeInfo.cs*:</span></span>
 
 ```csharp
 public class ThemeInfo
@@ -1416,11 +653,11 @@ public class ThemeInfo
 }
 ```
 
-<span data-ttu-id="c2b8c-579">先祖コンポーネントでは、カスケード値コンポーネントを使用してカスケード値を指定できます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-579">An ancestor component can provide a cascading value using the Cascading Value component.</span></span> <span data-ttu-id="c2b8c-580">`CascadingValue` コンポーネントは、コンポーネント階層のサブツリーをラップし、そのサブツリー内のすべてのコンポーネントに単一の値を提供します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-580">The `CascadingValue` component wraps a subtree of the component hierarchy and supplies a single value to all components within that subtree.</span></span>
+<span data-ttu-id="603ae-333">先祖コンポーネントでは、カスケード値コンポーネントを使用してカスケード値を指定できます。</span><span class="sxs-lookup"><span data-stu-id="603ae-333">An ancestor component can provide a cascading value using the Cascading Value component.</span></span> <span data-ttu-id="603ae-334">`CascadingValue` コンポーネントは、コンポーネント階層のサブツリーをラップし、そのサブツリー内のすべてのコンポーネントに単一の値を提供します。</span><span class="sxs-lookup"><span data-stu-id="603ae-334">The `CascadingValue` component wraps a subtree of the component hierarchy and supplies a single value to all components within that subtree.</span></span>
 
-<span data-ttu-id="c2b8c-581">たとえば、サンプルアプリでは、アプリのいずれかのレイアウトのテーマ情報 (`ThemeInfo`) を、`@Body` プロパティのレイアウト本体を構成するすべてのコンポーネントのカスケード型パラメーターとして指定します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-581">For example, the sample app specifies theme information (`ThemeInfo`) in one of the app's layouts as a cascading parameter for all components that make up the layout body of the `@Body` property.</span></span> <span data-ttu-id="c2b8c-582">`ButtonClass` には、レイアウトコンポーネントで `btn-success` の値が割り当てられます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-582">`ButtonClass` is assigned a value of `btn-success` in the layout component.</span></span> <span data-ttu-id="c2b8c-583">すべての子孫コンポーネントは、`ThemeInfo` カスケードオブジェクトを介してこのプロパティを使用できます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-583">Any descendent component can consume this property through the `ThemeInfo` cascading object.</span></span>
+<span data-ttu-id="603ae-335">たとえば、サンプルアプリでは、アプリのいずれかのレイアウトのテーマ情報 (`ThemeInfo`) を、`@Body` プロパティのレイアウト本体を構成するすべてのコンポーネントのカスケード型パラメーターとして指定します。</span><span class="sxs-lookup"><span data-stu-id="603ae-335">For example, the sample app specifies theme information (`ThemeInfo`) in one of the app's layouts as a cascading parameter for all components that make up the layout body of the `@Body` property.</span></span> <span data-ttu-id="603ae-336">`ButtonClass` には、レイアウトコンポーネントで `btn-success` の値が割り当てられます。</span><span class="sxs-lookup"><span data-stu-id="603ae-336">`ButtonClass` is assigned a value of `btn-success` in the layout component.</span></span> <span data-ttu-id="603ae-337">すべての子孫コンポーネントは、`ThemeInfo` カスケードオブジェクトを介してこのプロパティを使用できます。</span><span class="sxs-lookup"><span data-stu-id="603ae-337">Any descendent component can consume this property through the `ThemeInfo` cascading object.</span></span>
 
-<span data-ttu-id="c2b8c-584">`CascadingValuesParametersLayout` コンポーネント:</span><span class="sxs-lookup"><span data-stu-id="c2b8c-584">`CascadingValuesParametersLayout` component:</span></span>
+<span data-ttu-id="603ae-338">`CascadingValuesParametersLayout` コンポーネント:</span><span class="sxs-lookup"><span data-stu-id="603ae-338">`CascadingValuesParametersLayout` component:</span></span>
 
 ```razor
 @inherits LayoutComponentBase
@@ -1446,11 +683,11 @@ public class ThemeInfo
 }
 ```
 
-<span data-ttu-id="c2b8c-585">カスケード値を使用するために、コンポーネントは `[CascadingParameter]` 属性を使用してカスケード型パラメーターを宣言します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-585">To make use of cascading values, components declare cascading parameters using the `[CascadingParameter]` attribute.</span></span> <span data-ttu-id="c2b8c-586">カスケード値は、型によってカスケード型パラメーターにバインドされます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-586">Cascading values are bound to cascading parameters by type.</span></span>
+<span data-ttu-id="603ae-339">カスケード値を使用するために、コンポーネントは `[CascadingParameter]` 属性を使用してカスケード型パラメーターを宣言します。</span><span class="sxs-lookup"><span data-stu-id="603ae-339">To make use of cascading values, components declare cascading parameters using the `[CascadingParameter]` attribute.</span></span> <span data-ttu-id="603ae-340">カスケード値は、型によってカスケード型パラメーターにバインドされます。</span><span class="sxs-lookup"><span data-stu-id="603ae-340">Cascading values are bound to cascading parameters by type.</span></span>
 
-<span data-ttu-id="c2b8c-587">サンプルアプリでは、`CascadingValuesParametersTheme` コンポーネントによって `ThemeInfo` カスケード値がカスケード型パラメーターにバインドされます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-587">In the sample app, the `CascadingValuesParametersTheme` component binds the `ThemeInfo` cascading value to a cascading parameter.</span></span> <span data-ttu-id="c2b8c-588">パラメーターは、コンポーネントによって表示されるボタンの1つに CSS クラスを設定するために使用されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-588">The parameter is used to set the CSS class for one of the buttons displayed by the component.</span></span>
+<span data-ttu-id="603ae-341">サンプルアプリでは、`CascadingValuesParametersTheme` コンポーネントによって `ThemeInfo` カスケード値がカスケード型パラメーターにバインドされます。</span><span class="sxs-lookup"><span data-stu-id="603ae-341">In the sample app, the `CascadingValuesParametersTheme` component binds the `ThemeInfo` cascading value to a cascading parameter.</span></span> <span data-ttu-id="603ae-342">パラメーターは、コンポーネントによって表示されるボタンの1つに CSS クラスを設定するために使用されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-342">The parameter is used to set the CSS class for one of the buttons displayed by the component.</span></span>
 
-<span data-ttu-id="c2b8c-589">`CascadingValuesParametersTheme` コンポーネント:</span><span class="sxs-lookup"><span data-stu-id="c2b8c-589">`CascadingValuesParametersTheme` component:</span></span>
+<span data-ttu-id="603ae-343">`CascadingValuesParametersTheme` コンポーネント:</span><span class="sxs-lookup"><span data-stu-id="603ae-343">`CascadingValuesParametersTheme` component:</span></span>
 
 ```razor
 @page "/cascadingvaluesparameterstheme"
@@ -1486,7 +723,7 @@ public class ThemeInfo
 }
 ```
 
-<span data-ttu-id="c2b8c-590">同じサブツリー内で同じ型の複数の値を連鎖させるには、各 `CascadingValue` コンポーネントとそれに対応する `CascadingParameter`に一意の `Name` 文字列を指定します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-590">To cascade multiple values of the same type within the same subtree, provide a unique `Name` string to each `CascadingValue` component and its corresponding `CascadingParameter`.</span></span> <span data-ttu-id="c2b8c-591">次の例では、2つの `CascadingValue` コンポーネントが名前で `MyCascadingType` の異なるインスタンスをカスケードしています。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-591">In the following example, two `CascadingValue` components cascade different instances of `MyCascadingType` by name:</span></span>
+<span data-ttu-id="603ae-344">同じサブツリー内で同じ型の複数の値を連鎖させるには、各 `CascadingValue` コンポーネントとそれに対応する `CascadingParameter`に一意の `Name` 文字列を指定します。</span><span class="sxs-lookup"><span data-stu-id="603ae-344">To cascade multiple values of the same type within the same subtree, provide a unique `Name` string to each `CascadingValue` component and its corresponding `CascadingParameter`.</span></span> <span data-ttu-id="603ae-345">次の例では、2つの `CascadingValue` コンポーネントが名前で `MyCascadingType` の異なるインスタンスをカスケードしています。</span><span class="sxs-lookup"><span data-stu-id="603ae-345">In the following example, two `CascadingValue` components cascade different instances of `MyCascadingType` by name:</span></span>
 
 ```razor
 <CascadingValue Value=@_parentCascadeParameter1 Name="CascadeParam1">
@@ -1505,7 +742,7 @@ public class ThemeInfo
 }
 ```
 
-<span data-ttu-id="c2b8c-592">子孫コンポーネントでは、カスケードされたパラメーターは、先祖コンポーネントの対応するカスケード値から名前で値を受け取ります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-592">In a descendant component, the cascaded parameters receive their values from the corresponding cascaded values in the ancestor component by name:</span></span>
+<span data-ttu-id="603ae-346">子孫コンポーネントでは、カスケードされたパラメーターは、先祖コンポーネントの対応するカスケード値から名前で値を受け取ります。</span><span class="sxs-lookup"><span data-stu-id="603ae-346">In a descendant component, the cascaded parameters receive their values from the corresponding cascaded values in the ancestor component by name:</span></span>
 
 ```razor
 ...
@@ -1519,15 +756,15 @@ public class ThemeInfo
 }
 ```
 
-### <a name="tabset-example"></a><span data-ttu-id="c2b8c-593">TabSet の例</span><span class="sxs-lookup"><span data-stu-id="c2b8c-593">TabSet example</span></span>
+### <a name="tabset-example"></a><span data-ttu-id="603ae-347">TabSet の例</span><span class="sxs-lookup"><span data-stu-id="603ae-347">TabSet example</span></span>
 
-<span data-ttu-id="c2b8c-594">カスケード型パラメーターを使用すると、コンポーネント階層全体でコンポーネントを連携させることもできます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-594">Cascading parameters also enable components to collaborate across the component hierarchy.</span></span> <span data-ttu-id="c2b8c-595">たとえば、サンプルアプリで次の*Tabset*の例を考えてみます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-595">For example, consider the following *TabSet* example in the sample app.</span></span>
+<span data-ttu-id="603ae-348">カスケード型パラメーターを使用すると、コンポーネント階層全体でコンポーネントを連携させることもできます。</span><span class="sxs-lookup"><span data-stu-id="603ae-348">Cascading parameters also enable components to collaborate across the component hierarchy.</span></span> <span data-ttu-id="603ae-349">たとえば、サンプルアプリで次の*Tabset*の例を考えてみます。</span><span class="sxs-lookup"><span data-stu-id="603ae-349">For example, consider the following *TabSet* example in the sample app.</span></span>
 
-<span data-ttu-id="c2b8c-596">このサンプルアプリには、タブに実装されている `ITab` インターフェイスがあります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-596">The sample app has an `ITab` interface that tabs implement:</span></span>
+<span data-ttu-id="603ae-350">このサンプルアプリには、タブに実装されている `ITab` インターフェイスがあります。</span><span class="sxs-lookup"><span data-stu-id="603ae-350">The sample app has an `ITab` interface that tabs implement:</span></span>
 
 [!code-csharp[](common/samples/3.x/BlazorWebAssemblySample/UIInterfaces/ITab.cs)]
 
-<span data-ttu-id="c2b8c-597">`CascadingValuesParametersTabSet` コンポーネントは、いくつかの `Tab` コンポーネントを含む `TabSet` コンポーネントを使用します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-597">The `CascadingValuesParametersTabSet` component uses the `TabSet` component, which contains several `Tab` components:</span></span>
+<span data-ttu-id="603ae-351">`CascadingValuesParametersTabSet` コンポーネントは、いくつかの `Tab` コンポーネントを含む `TabSet` コンポーネントを使用します。</span><span class="sxs-lookup"><span data-stu-id="603ae-351">The `CascadingValuesParametersTabSet` component uses the `TabSet` component, which contains several `Tab` components:</span></span>
 
 ```razor
 <TabSet>
@@ -1553,27 +790,27 @@ public class ThemeInfo
 </TabSet>
 ```
 
-<span data-ttu-id="c2b8c-598">子 `Tab` コンポーネントは、パラメーターとして `TabSet`に明示的に渡されません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-598">The child `Tab` components aren't explicitly passed as parameters to the `TabSet`.</span></span> <span data-ttu-id="c2b8c-599">代わりに、子 `Tab` コンポーネントは、`TabSet`の子コンテンツの一部になります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-599">Instead, the child `Tab` components are part of the child content of the `TabSet`.</span></span> <span data-ttu-id="c2b8c-600">ただし、`TabSet` は、ヘッダーとアクティブなタブをレンダリングできるように、各 `Tab` コンポーネントについて認識している必要があります。追加のコードを必要とせずにこの調整を可能にするために、`TabSet` コンポーネントは、*それ自体をカスケード値として提供*し、その後、子孫 `Tab` コンポーネントによって取得されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-600">However, the `TabSet` still needs to know about each `Tab` component so that it can render the headers and the active tab. To enable this coordination without requiring additional code, the `TabSet` component *can provide itself as a cascading value* that is then picked up by the descendent `Tab` components.</span></span>
+<span data-ttu-id="603ae-352">子 `Tab` コンポーネントは、パラメーターとして `TabSet`に明示的に渡されません。</span><span class="sxs-lookup"><span data-stu-id="603ae-352">The child `Tab` components aren't explicitly passed as parameters to the `TabSet`.</span></span> <span data-ttu-id="603ae-353">代わりに、子 `Tab` コンポーネントは、`TabSet`の子コンテンツの一部になります。</span><span class="sxs-lookup"><span data-stu-id="603ae-353">Instead, the child `Tab` components are part of the child content of the `TabSet`.</span></span> <span data-ttu-id="603ae-354">ただし、`TabSet` は、ヘッダーとアクティブなタブをレンダリングできるように、各 `Tab` コンポーネントについて認識している必要があります。追加のコードを必要とせずにこの調整を可能にするために、`TabSet` コンポーネントは、*それ自体をカスケード値として提供*し、その後、子孫 `Tab` コンポーネントによって取得されます。</span><span class="sxs-lookup"><span data-stu-id="603ae-354">However, the `TabSet` still needs to know about each `Tab` component so that it can render the headers and the active tab. To enable this coordination without requiring additional code, the `TabSet` component *can provide itself as a cascading value* that is then picked up by the descendent `Tab` components.</span></span>
 
-<span data-ttu-id="c2b8c-601">`TabSet` コンポーネント:</span><span class="sxs-lookup"><span data-stu-id="c2b8c-601">`TabSet` component:</span></span>
+<span data-ttu-id="603ae-355">`TabSet` コンポーネント:</span><span class="sxs-lookup"><span data-stu-id="603ae-355">`TabSet` component:</span></span>
 
 [!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/TabSet.razor)]
 
-<span data-ttu-id="c2b8c-602">子孫の `Tab` コンポーネントは、含まれている `TabSet` をカスケード型パラメーターとしてキャプチャするので、`Tab` のコンポーネントは、どのタブがアクティブであるかを `TabSet` および座標に追加します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-602">The descendent `Tab` components capture the containing `TabSet` as a cascading parameter, so the `Tab` components add themselves to the `TabSet` and coordinate on which tab is active.</span></span>
+<span data-ttu-id="603ae-356">子孫の `Tab` コンポーネントは、含まれている `TabSet` をカスケード型パラメーターとしてキャプチャするので、`Tab` のコンポーネントは、どのタブがアクティブであるかを `TabSet` および座標に追加します。</span><span class="sxs-lookup"><span data-stu-id="603ae-356">The descendent `Tab` components capture the containing `TabSet` as a cascading parameter, so the `Tab` components add themselves to the `TabSet` and coordinate on which tab is active.</span></span>
 
-<span data-ttu-id="c2b8c-603">`Tab` コンポーネント:</span><span class="sxs-lookup"><span data-stu-id="c2b8c-603">`Tab` component:</span></span>
+<span data-ttu-id="603ae-357">`Tab` コンポーネント:</span><span class="sxs-lookup"><span data-stu-id="603ae-357">`Tab` component:</span></span>
 
 [!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/Tab.razor)]
 
-## <a name="razor-templates"></a><span data-ttu-id="c2b8c-604">Razor テンプレート</span><span class="sxs-lookup"><span data-stu-id="c2b8c-604">Razor templates</span></span>
+## <a name="razor-templates"></a><span data-ttu-id="603ae-358">Razor テンプレート</span><span class="sxs-lookup"><span data-stu-id="603ae-358">Razor templates</span></span>
 
-<span data-ttu-id="c2b8c-605">レンダリングフラグメントは、Razor テンプレート構文を使用して定義できます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-605">Render fragments can be defined using Razor template syntax.</span></span> <span data-ttu-id="c2b8c-606">Razor テンプレートは、UI スニペットを定義する方法であり、次の形式を想定しています。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-606">Razor templates are a way to define a UI snippet and assume the following format:</span></span>
+<span data-ttu-id="603ae-359">レンダリングフラグメントは、Razor テンプレート構文を使用して定義できます。</span><span class="sxs-lookup"><span data-stu-id="603ae-359">Render fragments can be defined using Razor template syntax.</span></span> <span data-ttu-id="603ae-360">Razor テンプレートは、UI スニペットを定義する方法であり、次の形式を想定しています。</span><span class="sxs-lookup"><span data-stu-id="603ae-360">Razor templates are a way to define a UI snippet and assume the following format:</span></span>
 
 ```razor
 @<{HTML tag}>...</{HTML tag}>
 ```
 
-<span data-ttu-id="c2b8c-607">次の例は、`RenderFragment` と `RenderFragment<T>` の値を指定し、テンプレートをコンポーネント内で直接表示する方法を示しています。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-607">The following example illustrates how to specify `RenderFragment` and `RenderFragment<T>` values and render templates directly in a component.</span></span> <span data-ttu-id="c2b8c-608">レンダーフラグメントは、[テンプレートコンポーネント](#templated-components)に引数として渡すこともできます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-608">Render fragments can also be passed as arguments to [templated components](#templated-components).</span></span>
+<span data-ttu-id="603ae-361">次の例は、`RenderFragment` と `RenderFragment<T>` の値を指定し、テンプレートをコンポーネント内で直接表示する方法を示しています。</span><span class="sxs-lookup"><span data-stu-id="603ae-361">The following example illustrates how to specify `RenderFragment` and `RenderFragment<T>` values and render templates directly in a component.</span></span> <span data-ttu-id="603ae-362">レンダーフラグメントは、[テンプレートコンポーネント](xref:blazor/templated-components)に引数として渡すこともできます。</span><span class="sxs-lookup"><span data-stu-id="603ae-362">Render fragments can also be passed as arguments to [templated components](xref:blazor/templated-components).</span></span>
 
 ```razor
 @_timeTemplate
@@ -1591,7 +828,7 @@ public class ThemeInfo
 }
 ```
 
-<span data-ttu-id="c2b8c-609">前のコードの出力をレンダリングします。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-609">Rendered output of the preceding code:</span></span>
+<span data-ttu-id="603ae-363">前のコードの出力をレンダリングします。</span><span class="sxs-lookup"><span data-stu-id="603ae-363">Rendered output of the preceding code:</span></span>
 
 ```html
 <p>The time is 10/04/2018 01:26:52.</p>
@@ -1599,286 +836,15 @@ public class ThemeInfo
 <p>Pet: Rex</p>
 ```
 
-## <a name="manual-rendertreebuilder-logic"></a><span data-ttu-id="c2b8c-610">手動の RenderTreeBuilder ロジック</span><span class="sxs-lookup"><span data-stu-id="c2b8c-610">Manual RenderTreeBuilder logic</span></span>
+## <a name="scalable-vector-graphics-svg-images"></a><span data-ttu-id="603ae-364">スケーラブルベクターグラフィックス (SVG) イメージ</span><span class="sxs-lookup"><span data-stu-id="603ae-364">Scalable Vector Graphics (SVG) images</span></span>
 
-<span data-ttu-id="c2b8c-611">`Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder` には、コンポーネントと要素を操作するためのメソッドがC#用意されています</span><span class="sxs-lookup"><span data-stu-id="c2b8c-611">`Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder` provides methods for manipulating components and elements, including building components manually in C# code.</span></span>
-
-> [!NOTE]
-> <span data-ttu-id="c2b8c-612">コンポーネントの作成に `RenderTreeBuilder` を使用することは、高度なシナリオです。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-612">Use of `RenderTreeBuilder` to create components is an advanced scenario.</span></span> <span data-ttu-id="c2b8c-613">形式が正しくないコンポーネント (たとえば、閉じていないマークアップタグなど) は、未定義の動作になる可能性があります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-613">A malformed component (for example, an unclosed markup tag) can result in undefined behavior.</span></span>
-
-<span data-ttu-id="c2b8c-614">次の `PetDetails` コンポーネントを検討してください。これは手動で別のコンポーネントに組み込むことができます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-614">Consider the following `PetDetails` component, which can be manually built into another component:</span></span>
-
-```razor
-<h2>Pet Details Component</h2>
-
-<p>@PetDetailsQuote</p>
-
-@code
-{
-    [Parameter]
-    public string PetDetailsQuote { get; set; }
-}
-```
-
-<span data-ttu-id="c2b8c-615">次の例では、`CreateComponent` メソッドのループによって、3つの `PetDetails` コンポーネントが生成されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-615">In the following example, the loop in the `CreateComponent` method generates three `PetDetails` components.</span></span> <span data-ttu-id="c2b8c-616">`RenderTreeBuilder` メソッドを呼び出してコンポーネント (`OpenComponent` と `AddAttribute`) を作成する場合、シーケンス番号はソースコードの行番号です。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-616">When calling `RenderTreeBuilder` methods to create the components (`OpenComponent` and `AddAttribute`), sequence numbers are source code line numbers.</span></span> <span data-ttu-id="c2b8c-617">Blazor の相違アルゴリズムは、個別の呼び出し呼び出しではなく、個別のコード行に対応するシーケンス番号に依存します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-617">The Blazor difference algorithm relies on the sequence numbers corresponding to distinct lines of code, not distinct call invocations.</span></span> <span data-ttu-id="c2b8c-618">`RenderTreeBuilder` メソッドを使用してコンポーネントを作成する場合は、シーケンス番号の引数をハードコーディングします。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-618">When creating a component with `RenderTreeBuilder` methods, hardcode the arguments for sequence numbers.</span></span> <span data-ttu-id="c2b8c-619">**計算またはカウンターを使用してシーケンス番号を生成すると、パフォーマンスが低下する可能性があります。**</span><span class="sxs-lookup"><span data-stu-id="c2b8c-619">**Using a calculation or counter to generate the sequence number can lead to poor performance.**</span></span> <span data-ttu-id="c2b8c-620">詳細については、「[シーケンス番号はコード行番号に関連し、実行順序を](#sequence-numbers-relate-to-code-line-numbers-and-not-execution-order)使用しない」セクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-620">For more information, see the [Sequence numbers relate to code line numbers and not execution order](#sequence-numbers-relate-to-code-line-numbers-and-not-execution-order) section.</span></span>
-
-<span data-ttu-id="c2b8c-621">`BuiltContent` コンポーネント:</span><span class="sxs-lookup"><span data-stu-id="c2b8c-621">`BuiltContent` component:</span></span>
-
-```razor
-@page "/BuiltContent"
-
-<h1>Build a component</h1>
-
-@CustomRender
-
-<button type="button" @onclick="RenderComponent">
-    Create three Pet Details components
-</button>
-
-@code {
-    private RenderFragment CustomRender { get; set; }
-    
-    private RenderFragment CreateComponent() => builder =>
-    {
-        for (var i = 0; i < 3; i++) 
-        {
-            builder.OpenComponent(0, typeof(PetDetails));
-            builder.AddAttribute(1, "PetDetailsQuote", "Someone's best friend!");
-            builder.CloseComponent();
-        }
-    };    
-    
-    private void RenderComponent()
-    {
-        CustomRender = CreateComponent();
-    }
-}
-```
-
-> [!WARNING]
-> <span data-ttu-id="c2b8c-622">`Microsoft.AspNetCore.Components.RenderTree` の型により、レンダリング操作の*結果*を処理できます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-622">The types in `Microsoft.AspNetCore.Components.RenderTree` allow processing of the *results* of rendering operations.</span></span> <span data-ttu-id="c2b8c-623">これらは、Blazor framework 実装の内部的な詳細です。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-623">These are internal details of the Blazor framework implementation.</span></span> <span data-ttu-id="c2b8c-624">これらの型は*不安定*であると見なされ、今後のリリースで変更される可能性があります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-624">These types should be considered *unstable* and subject to change in future releases.</span></span>
-
-### <a name="sequence-numbers-relate-to-code-line-numbers-and-not-execution-order"></a><span data-ttu-id="c2b8c-625">シーケンス番号は、実行順序ではなくコード行番号に関連します</span><span class="sxs-lookup"><span data-stu-id="c2b8c-625">Sequence numbers relate to code line numbers and not execution order</span></span>
-
-<span data-ttu-id="c2b8c-626">Blazor `.razor` ファイルは常にコンパイルされます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-626">Blazor `.razor` files are always compiled.</span></span> <span data-ttu-id="c2b8c-627">コンパイル手順を使用すると、実行時にアプリのパフォーマンスを向上させる情報を挿入できるため、`.razor` にとって大きな利点があります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-627">This is potentially a great advantage for `.razor` because the compile step can be used to inject information that improve app performance at runtime.</span></span>
-
-<span data-ttu-id="c2b8c-628">これらの機能強化の主要な例には、*シーケンス番号*が含まれます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-628">A key example of these improvements involve *sequence numbers*.</span></span> <span data-ttu-id="c2b8c-629">シーケンス番号は、コードの特定の行と順序付けられた行の出力元をランタイムに示します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-629">Sequence numbers indicate to the runtime which outputs came from which distinct and ordered lines of code.</span></span> <span data-ttu-id="c2b8c-630">ランタイムは、この情報を使用して、効率的なツリーの相違を線形時間で生成します。これは、一般的なツリーの相違アルゴリズムでは通常可能です。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-630">The runtime uses this information to generate efficient tree diffs in linear time, which is far faster than is normally possible for a general tree diff algorithm.</span></span>
-
-<span data-ttu-id="c2b8c-631">次の Razor コンポーネント (*razor*) ファイルについて考えてみます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-631">Consider the following Razor component (*.razor*) file:</span></span>
-
-```razor
-@if (someFlag)
-{
-    <text>First</text>
-}
-
-Second
-```
-
-<span data-ttu-id="c2b8c-632">上記のコードは、次のようにコンパイルされます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-632">The preceding code compiles to something like the following:</span></span>
-
-```csharp
-if (someFlag)
-{
-    builder.AddContent(0, "First");
-}
-
-builder.AddContent(1, "Second");
-```
-
-<span data-ttu-id="c2b8c-633">コードを初めて実行するときに、`someFlag` が `true`場合、ビルダーは次のメッセージを受け取ります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-633">When the code executes for the first time, if `someFlag` is `true`, the builder receives:</span></span>
-
-| <span data-ttu-id="c2b8c-634">Sequence</span><span class="sxs-lookup"><span data-stu-id="c2b8c-634">Sequence</span></span> | <span data-ttu-id="c2b8c-635">種類</span><span class="sxs-lookup"><span data-stu-id="c2b8c-635">Type</span></span>      | <span data-ttu-id="c2b8c-636">Data</span><span class="sxs-lookup"><span data-stu-id="c2b8c-636">Data</span></span>   |
-| :------: | --------- | :----: |
-| <span data-ttu-id="c2b8c-637">0</span><span class="sxs-lookup"><span data-stu-id="c2b8c-637">0</span></span>        | <span data-ttu-id="c2b8c-638">テキスト ノード</span><span class="sxs-lookup"><span data-stu-id="c2b8c-638">Text node</span></span> | <span data-ttu-id="c2b8c-639">First (先頭へ)</span><span class="sxs-lookup"><span data-stu-id="c2b8c-639">First</span></span>  |
-| <span data-ttu-id="c2b8c-640">1</span><span class="sxs-lookup"><span data-stu-id="c2b8c-640">1</span></span>        | <span data-ttu-id="c2b8c-641">テキスト ノード</span><span class="sxs-lookup"><span data-stu-id="c2b8c-641">Text node</span></span> | <span data-ttu-id="c2b8c-642">秒</span><span class="sxs-lookup"><span data-stu-id="c2b8c-642">Second</span></span> |
-
-<span data-ttu-id="c2b8c-643">`someFlag` が `false`になり、マークアップが再び表示されるとします。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-643">Imagine that `someFlag` becomes `false`, and the markup is rendered again.</span></span> <span data-ttu-id="c2b8c-644">この時点で、ビルダーは次のものを受け取ります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-644">This time, the builder receives:</span></span>
-
-| <span data-ttu-id="c2b8c-645">Sequence</span><span class="sxs-lookup"><span data-stu-id="c2b8c-645">Sequence</span></span> | <span data-ttu-id="c2b8c-646">種類</span><span class="sxs-lookup"><span data-stu-id="c2b8c-646">Type</span></span>       | <span data-ttu-id="c2b8c-647">Data</span><span class="sxs-lookup"><span data-stu-id="c2b8c-647">Data</span></span>   |
-| :------: | ---------- | :----: |
-| <span data-ttu-id="c2b8c-648">1</span><span class="sxs-lookup"><span data-stu-id="c2b8c-648">1</span></span>        | <span data-ttu-id="c2b8c-649">テキスト ノード</span><span class="sxs-lookup"><span data-stu-id="c2b8c-649">Text node</span></span>  | <span data-ttu-id="c2b8c-650">秒</span><span class="sxs-lookup"><span data-stu-id="c2b8c-650">Second</span></span> |
-
-<span data-ttu-id="c2b8c-651">ランタイムが diff を実行すると、シーケンス `0` の項目が削除されたことが認識されるため、次のような単純な*編集スクリプト*が生成されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-651">When the runtime performs a diff, it sees that the item at sequence `0` was removed, so it generates the following trivial *edit script*:</span></span>
-
-* <span data-ttu-id="c2b8c-652">最初のテキストノードを削除します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-652">Remove the first text node.</span></span>
-
-#### <a name="what-goes-wrong-if-you-generate-sequence-numbers-programmatically"></a><span data-ttu-id="c2b8c-653">プログラムによってシーケンス番号を生成した場合の問題</span><span class="sxs-lookup"><span data-stu-id="c2b8c-653">What goes wrong if you generate sequence numbers programmatically</span></span>
-
-<span data-ttu-id="c2b8c-654">代わりに、次のレンダーツリービルダーのロジックを記述したとします。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-654">Imagine instead that you wrote the following render tree builder logic:</span></span>
-
-```csharp
-var seq = 0;
-
-if (someFlag)
-{
-    builder.AddContent(seq++, "First");
-}
-
-builder.AddContent(seq++, "Second");
-```
-
-<span data-ttu-id="c2b8c-655">これで、最初の出力は次のようになります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-655">Now, the first output is:</span></span>
-
-| <span data-ttu-id="c2b8c-656">Sequence</span><span class="sxs-lookup"><span data-stu-id="c2b8c-656">Sequence</span></span> | <span data-ttu-id="c2b8c-657">種類</span><span class="sxs-lookup"><span data-stu-id="c2b8c-657">Type</span></span>      | <span data-ttu-id="c2b8c-658">Data</span><span class="sxs-lookup"><span data-stu-id="c2b8c-658">Data</span></span>   |
-| :------: | --------- | :----: |
-| <span data-ttu-id="c2b8c-659">0</span><span class="sxs-lookup"><span data-stu-id="c2b8c-659">0</span></span>        | <span data-ttu-id="c2b8c-660">テキスト ノード</span><span class="sxs-lookup"><span data-stu-id="c2b8c-660">Text node</span></span> | <span data-ttu-id="c2b8c-661">First (先頭へ)</span><span class="sxs-lookup"><span data-stu-id="c2b8c-661">First</span></span>  |
-| <span data-ttu-id="c2b8c-662">1</span><span class="sxs-lookup"><span data-stu-id="c2b8c-662">1</span></span>        | <span data-ttu-id="c2b8c-663">テキスト ノード</span><span class="sxs-lookup"><span data-stu-id="c2b8c-663">Text node</span></span> | <span data-ttu-id="c2b8c-664">秒</span><span class="sxs-lookup"><span data-stu-id="c2b8c-664">Second</span></span> |
-
-<span data-ttu-id="c2b8c-665">この結果は前のケースと同じであるため、負の問題は存在しません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-665">This outcome is identical to the prior case, so no negative issues exist.</span></span> <span data-ttu-id="c2b8c-666">2番目のレンダリングでは `someFlag` が `false`、出力は次のようになります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-666">`someFlag` is `false` on the second rendering, and the output is:</span></span>
-
-| <span data-ttu-id="c2b8c-667">Sequence</span><span class="sxs-lookup"><span data-stu-id="c2b8c-667">Sequence</span></span> | <span data-ttu-id="c2b8c-668">種類</span><span class="sxs-lookup"><span data-stu-id="c2b8c-668">Type</span></span>      | <span data-ttu-id="c2b8c-669">Data</span><span class="sxs-lookup"><span data-stu-id="c2b8c-669">Data</span></span>   |
-| :------: | --------- | ------ |
-| <span data-ttu-id="c2b8c-670">0</span><span class="sxs-lookup"><span data-stu-id="c2b8c-670">0</span></span>        | <span data-ttu-id="c2b8c-671">テキスト ノード</span><span class="sxs-lookup"><span data-stu-id="c2b8c-671">Text node</span></span> | <span data-ttu-id="c2b8c-672">秒</span><span class="sxs-lookup"><span data-stu-id="c2b8c-672">Second</span></span> |
-
-<span data-ttu-id="c2b8c-673">今回は、diff アルゴリズムによって*2 つ*の変更が行われたことが確認され、アルゴリズムによって次の編集スクリプトが生成されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-673">This time, the diff algorithm sees that *two* changes have occurred, and the algorithm generates the following edit script:</span></span>
-
-* <span data-ttu-id="c2b8c-674">最初のテキストノードの値を `Second`に変更します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-674">Change the value of the first text node to `Second`.</span></span>
-* <span data-ttu-id="c2b8c-675">2番目のテキストノードを削除します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-675">Remove the second text node.</span></span>
-
-<span data-ttu-id="c2b8c-676">シーケンス番号を生成すると、`if/else` 分岐とループが元のコードに存在する場所に関する有用な情報がすべて失われます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-676">Generating the sequence numbers has lost all the useful information about where the `if/else` branches and loops were present in the original code.</span></span> <span data-ttu-id="c2b8c-677">これにより、diff は前の**2 倍**になります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-677">This results in a diff **twice as long** as before.</span></span>
-
-<span data-ttu-id="c2b8c-678">これは簡単な例です。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-678">This is a trivial example.</span></span> <span data-ttu-id="c2b8c-679">複雑で深く入れ子になった構造、特にループを使用したより現実的なケースでは、パフォーマンスコストが高くなります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-679">In more realistic cases with complex and deeply nested structures, and especially with loops, the performance cost is more severe.</span></span> <span data-ttu-id="c2b8c-680">どのループブロックまたは分岐が挿入または削除されたかをすぐに識別するのではなく、diff アルゴリズムでは、レンダリングツリーに深く再帰する必要があります相互に関連付けられています。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-680">Instead of immediately identifying which loop blocks or branches have been inserted or removed, the diff algorithm has to recurse deeply into the render trees and usually build far longer edit scripts because it is misinformed about how the old and new structures relate to each other.</span></span>
-
-#### <a name="guidance-and-conclusions"></a><span data-ttu-id="c2b8c-681">ガイダンスと結論</span><span class="sxs-lookup"><span data-stu-id="c2b8c-681">Guidance and conclusions</span></span>
-
-* <span data-ttu-id="c2b8c-682">シーケンス番号が動的に生成される場合、アプリのパフォーマンスが低下します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-682">App performance suffers if sequence numbers are generated dynamically.</span></span>
-* <span data-ttu-id="c2b8c-683">コンパイル時にキャプチャされない場合、必要な情報が存在しないため、実行時にフレームワークで独自のシーケンス番号を自動的に作成することはできません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-683">The framework can't create its own sequence numbers automatically at runtime because the necessary information doesn't exist unless it's captured at compile time.</span></span>
-* <span data-ttu-id="c2b8c-684">手動で実装された `RenderTreeBuilder` ロジックの長いブロックは記述しないでください。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-684">Don't write long blocks of manually-implemented `RenderTreeBuilder` logic.</span></span> <span data-ttu-id="c2b8c-685">`.razor` ファイルを優先し、コンパイラがシーケンス番号を処理できるようにします。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-685">Prefer `.razor` files and allow the compiler to deal with the sequence numbers.</span></span> <span data-ttu-id="c2b8c-686">手動の `RenderTreeBuilder` ロジックを回避できない場合は、長いブロックのコードを `OpenRegion`/`CloseRegion` 呼び出しでラップされた小さな部分に分割します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-686">If you're unable to avoid manual `RenderTreeBuilder` logic, split long blocks of code into smaller pieces wrapped in `OpenRegion`/`CloseRegion` calls.</span></span> <span data-ttu-id="c2b8c-687">各リージョンにはシーケンス番号の個別のスペースがあるため、各リージョン内のゼロ (または任意の任意の数) から再起動できます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-687">Each region has its own separate space of sequence numbers, so you can restart from zero (or any other arbitrary number) inside each region.</span></span>
-* <span data-ttu-id="c2b8c-688">シーケンス番号がハードコードされている場合、diff アルゴリズムでは、シーケンス番号の値を大きくする必要があります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-688">If sequence numbers are hardcoded, the diff algorithm only requires that sequence numbers increase in value.</span></span> <span data-ttu-id="c2b8c-689">初期値とギャップは関係ありません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-689">The initial value and gaps are irrelevant.</span></span> <span data-ttu-id="c2b8c-690">正当な選択肢の1つは、コード行番号をシーケンス番号として使用するか、ゼロから開始し、1または数百 (または任意の間隔) で増やすことです。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-690">One legitimate option is to use the code line number as the sequence number, or start from zero and increase by ones or hundreds (or any preferred interval).</span></span> 
-* Blazor<span data-ttu-id="c2b8c-691"> はシーケンス番号を使用しますが、他のツリー比較 UI フレームワークでは使用しません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-691"> uses sequence numbers, while other tree-diffing UI frameworks don't use them.</span></span> <span data-ttu-id="c2b8c-692">シーケンス番号を使用すると比較ははるかに高速になり*ます。* また、Blazor には、開発者が razor ファイルを作成するときにシーケンス番号を自動的に処理するコンパイル手順の利点があります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-692">Diffing is far faster when sequence numbers are used, and Blazor has the advantage of a compile step that deals with sequence numbers automatically for developers authoring *.razor* files.</span></span>
-
-## <a name="localization"></a><span data-ttu-id="c2b8c-693">ローカリゼーション</span><span class="sxs-lookup"><span data-stu-id="c2b8c-693">Localization</span></span>
-
-Blazor<span data-ttu-id="c2b8c-694"> サーバーアプリはローカライズ[ミドルウェア](xref:fundamentals/localization#localization-middleware)を使用してローカライズされます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-694"> Server apps are localized using [Localization Middleware](xref:fundamentals/localization#localization-middleware).</span></span> <span data-ttu-id="c2b8c-695">ミドルウェアは、アプリからリソースを要求するユーザーに適切なカルチャを選択します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-695">The middleware selects the appropriate culture for users requesting resources from the app.</span></span>
-
-<span data-ttu-id="c2b8c-696">カルチャは、次のいずれかの方法を使用して設定できます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-696">The culture can be set using one of the following approaches:</span></span>
-
-* [<span data-ttu-id="c2b8c-697">Cookie</span><span class="sxs-lookup"><span data-stu-id="c2b8c-697">Cookies</span></span>](#cookies)
-* [<span data-ttu-id="c2b8c-698">カルチャを選択するための UI を提供する</span><span class="sxs-lookup"><span data-stu-id="c2b8c-698">Provide UI to choose the culture</span></span>](#provide-ui-to-choose-the-culture)
-
-<span data-ttu-id="c2b8c-699">詳細と例については、<xref:fundamentals/localization> をご覧ください。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-699">For more information and examples, see <xref:fundamentals/localization>.</span></span>
-
-### <a name="configure-the-linker-for-internationalization-opno-locblazor-webassembly"></a><span data-ttu-id="c2b8c-700">国際化のためのリンカーの構成 (Blazor WebAssembly</span><span class="sxs-lookup"><span data-stu-id="c2b8c-700">Configure the linker for internationalization (Blazor WebAssembly)</span></span>
-
-<span data-ttu-id="c2b8c-701">既定では、Blazor WebAssembly に対する Blazor のリンカー構成により、明示的に要求されたロケールを除き、国際化情報は除去されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-701">By default, Blazor's linker configuration for Blazor WebAssembly apps strips out internationalization information except for locales explicitly requested.</span></span> <span data-ttu-id="c2b8c-702">リンカーの動作を制御する方法の詳細とガイダンスについては、「<xref:host-and-deploy/blazor/configure-linker#configure-the-linker-for-internationalization>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-702">For more information and guidance on controlling the linker's behavior, see <xref:host-and-deploy/blazor/configure-linker#configure-the-linker-for-internationalization>.</span></span>
-
-### <a name="cookies"></a><span data-ttu-id="c2b8c-703">Cookie</span><span class="sxs-lookup"><span data-stu-id="c2b8c-703">Cookies</span></span>
-
-<span data-ttu-id="c2b8c-704">ローカリゼーションカルチャクッキーは、ユーザーのカルチャを保持できます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-704">A localization culture cookie can persist the user's culture.</span></span> <span data-ttu-id="c2b8c-705">Cookie は、アプリのホストページ (*Pages/host. cshtml. .cs*) の `OnGet` メソッドによって作成されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-705">The cookie is created by the `OnGet` method of the app's host page (*Pages/Host.cshtml.cs*).</span></span> <span data-ttu-id="c2b8c-706">ローカリゼーションミドルウェアは、後続の要求で cookie を読み取り、ユーザーのカルチャを設定します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-706">The Localization Middleware reads the cookie on subsequent requests to set the user's culture.</span></span> 
-
-<span data-ttu-id="c2b8c-707">Cookie を使用すると、WebSocket 接続がカルチャを正しく伝達できるようになります。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-707">Use of a cookie ensures that the WebSocket connection can correctly propagate the culture.</span></span> <span data-ttu-id="c2b8c-708">ローカライズスキームが URL パスまたはクエリ文字列に基づいている場合は、スキームが Websocket を使用できない可能性があるため、カルチャを永続化できません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-708">If localization schemes are based on the URL path or query string, the scheme might not be able to work with WebSockets, thus fail to persist the culture.</span></span> <span data-ttu-id="c2b8c-709">したがって、ローカライズカルチャ cookie を使用することをお勧めします。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-709">Therefore, use of a localization culture cookie is the recommended approach.</span></span>
-
-<span data-ttu-id="c2b8c-710">カルチャがローカライズ cookie に保存されている場合は、任意の手法を使用してカルチャを割り当てることができます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-710">Any technique can be used to assign a culture if the culture is persisted in a localization cookie.</span></span> <span data-ttu-id="c2b8c-711">アプリにサーバー側 ASP.NET Core 用に確立されたローカライズスキームが既にある場合は、引き続きアプリの既存のローカライズインフラストラクチャを使用し、アプリのスキーム内でローカライズカルチャ cookie を設定します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-711">If the app already has an established localization scheme for server-side ASP.NET Core, continue to use the app's existing localization infrastructure and set the localization culture cookie within the app's scheme.</span></span>
-
-<span data-ttu-id="c2b8c-712">次の例では、ローカリゼーションミドルウェアが読み取ることができる cookie で現在のカルチャを設定する方法を示します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-712">The following example shows how to set the current culture in a cookie that can be read by the Localization Middleware.</span></span> <span data-ttu-id="c2b8c-713">Blazor Server アプリで次の内容を含む*ページ/ホストの cshtml*ファイルを作成します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-713">Create a *Pages/Host.cshtml.cs* file with the following contents in the Blazor Server app:</span></span>
-
-```csharp
-public class HostModel : PageModel
-{
-    public void OnGet()
-    {
-        HttpContext.Response.Cookies.Append(
-            CookieRequestCultureProvider.DefaultCookieName,
-            CookieRequestCultureProvider.MakeCookieValue(
-                new RequestCulture(
-                    CultureInfo.CurrentCulture,
-                    CultureInfo.CurrentUICulture)));
-    }
-}
-```
-
-<span data-ttu-id="c2b8c-714">ローカライズはアプリで処理されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-714">Localization is handled in the app:</span></span>
-
-1. <span data-ttu-id="c2b8c-715">ブラウザーは、アプリに最初の HTTP 要求を送信します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-715">The browser sends an initial HTTP request to the app.</span></span>
-1. <span data-ttu-id="c2b8c-716">カルチャは、ローカリゼーションミドルウェアによって割り当てられます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-716">The culture is assigned by the Localization Middleware.</span></span>
-1. <span data-ttu-id="c2b8c-717">*_Host*の `OnGet` メソッドは、応答の一部として cookie 内のカルチャを永続化します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-717">The `OnGet` method in *_Host.cshtml.cs* persists the culture in a cookie as part of the response.</span></span>
-1. <span data-ttu-id="c2b8c-718">ブラウザーは、WebSocket 接続を開き、対話型の Blazor サーバーセッションを作成します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-718">The browser opens a WebSocket connection to create an interactive Blazor Server session.</span></span>
-1. <span data-ttu-id="c2b8c-719">ローカリゼーションミドルウェアは cookie を読み取り、カルチャを割り当てます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-719">The Localization Middleware reads the cookie and assigns the culture.</span></span>
-1. <span data-ttu-id="c2b8c-720">Blazor サーバーセッションは、正しいカルチャで開始されます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-720">The Blazor Server session begins with the correct culture.</span></span>
-
-### <a name="provide-ui-to-choose-the-culture"></a><span data-ttu-id="c2b8c-721">カルチャを選択するための UI を提供する</span><span class="sxs-lookup"><span data-stu-id="c2b8c-721">Provide UI to choose the culture</span></span>
-
-<span data-ttu-id="c2b8c-722">ユーザーがカルチャを選択できるように UI を提供するには、*リダイレクトベースのアプローチ*を使用することをお勧めします。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-722">To provide UI to allow a user to select a culture, a *redirect-based approach* is recommended.</span></span> <span data-ttu-id="c2b8c-723">このプロセスは、ユーザーがセキュリティで保護されたリソースにアクセスしようとしたときに、ユーザーがサインインページにリダイレクトされ、元のリソースにリダイレクトされる&mdash;、web アプリで発生する処理に似ています。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-723">The process is similar to what happens in a web app when a user attempts to access a secure resource&mdash;the user is redirected to a sign-in page and then redirected back to the original resource.</span></span> 
-
-<span data-ttu-id="c2b8c-724">アプリは、コントローラーへのリダイレクトによって、ユーザーが選択したカルチャを永続化します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-724">The app persists the user's selected culture via a redirect to a controller.</span></span> <span data-ttu-id="c2b8c-725">コントローラーは、ユーザーが選択したカルチャを cookie に設定し、ユーザーを元の URI にリダイレクトします。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-725">The controller sets the user's selected culture into a cookie and redirects the user back to the original URI.</span></span>
-
-<span data-ttu-id="c2b8c-726">Cookie でユーザーが選択したカルチャを設定し、元の URI へのリダイレクトを実行するために、サーバー上に HTTP エンドポイントを確立します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-726">Establish an HTTP endpoint on the server to set the user's selected culture in a cookie and perform the redirect back to the original URI:</span></span>
-
-```csharp
-[Route("[controller]/[action]")]
-public class CultureController : Controller
-{
-    public IActionResult SetCulture(string culture, string redirectUri)
-    {
-        if (culture != null)
-        {
-            HttpContext.Response.Cookies.Append(
-                CookieRequestCultureProvider.DefaultCookieName,
-                CookieRequestCultureProvider.MakeCookieValue(
-                    new RequestCulture(culture)));
-        }
-
-        return LocalRedirect(redirectUri);
-    }
-}
-```
-
-> [!WARNING]
-> <span data-ttu-id="c2b8c-727">`LocalRedirect` アクションの結果を使用して、開いているリダイレクト攻撃を防止します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-727">Use the `LocalRedirect` action result to prevent open redirect attacks.</span></span> <span data-ttu-id="c2b8c-728">詳細については、<xref:security/preventing-open-redirects> を参照してください。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-728">For more information, see <xref:security/preventing-open-redirects>.</span></span>
-
-<span data-ttu-id="c2b8c-729">次のコンポーネントは、ユーザーがカルチャを選択したときに最初のリダイレクトを実行する方法の例を示しています。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-729">The following component shows an example of how to perform the initial redirection when the user selects a culture:</span></span>
-
-```razor
-@inject NavigationManager NavigationManager
-
-<h3>Select your language</h3>
-
-<select @onchange="OnSelected">
-    <option>Select...</option>
-    <option value="en-US">English</option>
-    <option value="fr-FR">Français</option>
-</select>
-
-@code {
-    private void OnSelected(ChangeEventArgs e)
-    {
-        var culture = (string)e.Value;
-        var uri = new Uri(NavigationManager.Uri())
-            .GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
-        var query = $"?culture={Uri.EscapeDataString(culture)}&" +
-            $"redirectUri={Uri.EscapeDataString(uri)}";
-
-        NavigationManager.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
-    }
-}
-```
-
-### <a name="use-net-localization-scenarios-in-opno-locblazor-apps"></a><span data-ttu-id="c2b8c-730">Blazor アプリで .NET ローカライズシナリオを使用する</span><span class="sxs-lookup"><span data-stu-id="c2b8c-730">Use .NET localization scenarios in Blazor apps</span></span>
-
-<span data-ttu-id="c2b8c-731">Blazor アプリ内では、次の .NET ローカリゼーションとグローバリゼーションのシナリオを利用できます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-731">Inside Blazor apps, the following .NET localization and globalization scenarios are available:</span></span>
-
-* <span data-ttu-id="c2b8c-732">.NET のリソースシステム</span><span class="sxs-lookup"><span data-stu-id="c2b8c-732">.NET's resources system</span></span>
-* <span data-ttu-id="c2b8c-733">カルチャ固有の数値と日付の書式設定</span><span class="sxs-lookup"><span data-stu-id="c2b8c-733">Culture-specific number and date formatting</span></span>
-
-Blazor<span data-ttu-id="c2b8c-734">の `@bind` 機能は、ユーザーの現在のカルチャに基づいてグローバリゼーションを実行します。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-734">'s `@bind` functionality performs globalization based on the user's current culture.</span></span> <span data-ttu-id="c2b8c-735">詳細については、「[データバインディング](#data-binding)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-735">For more information, see the [Data binding](#data-binding) section.</span></span>
-
-<span data-ttu-id="c2b8c-736">現在、次のような ASP.NET Core のローカライズシナリオがサポートされています。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-736">A limited set of ASP.NET Core's localization scenarios are currently supported:</span></span>
-
-* <span data-ttu-id="c2b8c-737">`IStringLocalizer<>` は Blazor アプリで*サポートされて*います。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-737">`IStringLocalizer<>` *is supported* in Blazor apps.</span></span>
-* <span data-ttu-id="c2b8c-738">`IHtmlLocalizer<>`、`IViewLocalizer<>`、データ注釈のローカライズは MVC シナリオ ASP.NET Core、Blazor アプリではサポートされて**いません**。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-738">`IHtmlLocalizer<>`, `IViewLocalizer<>`, and Data Annotations localization are ASP.NET Core MVC scenarios and **not supported** in Blazor apps.</span></span>
-
-<span data-ttu-id="c2b8c-739">詳細については、<xref:fundamentals/localization> を参照してください。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-739">For more information, see <xref:fundamentals/localization>.</span></span>
-
-## <a name="scalable-vector-graphics-svg-images"></a><span data-ttu-id="c2b8c-740">スケーラブルベクターグラフィックス (SVG) イメージ</span><span class="sxs-lookup"><span data-stu-id="c2b8c-740">Scalable Vector Graphics (SVG) images</span></span>
-
-<span data-ttu-id="c2b8c-741">Blazor は HTML をレンダリングするため、スケーラブルベクターグラフィックス (svg) イメージ (*svg*) を含むブラウザーでサポートされているイメージは、`<img>` タグを介してサポートされます。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-741">Since Blazor renders HTML, browser-supported images, including Scalable Vector Graphics (SVG) images (*.svg*), are supported via the `<img>` tag:</span></span>
+<span data-ttu-id="603ae-365">Blazor は HTML をレンダリングするため、スケーラブルベクターグラフィックス (svg) イメージ (*svg*) を含むブラウザーでサポートされているイメージは、`<img>` タグを介してサポートされます。</span><span class="sxs-lookup"><span data-stu-id="603ae-365">Since Blazor renders HTML, browser-supported images, including Scalable Vector Graphics (SVG) images (*.svg*), are supported via the `<img>` tag:</span></span>
 
 ```html
 <img alt="Example image" src="some-image.svg" />
 ```
 
-<span data-ttu-id="c2b8c-742">同様に、SVG イメージは、スタイルシートファイル ( *.css*) の css 規則でサポートされています。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-742">Similarly, SVG images are supported in the CSS rules of a stylesheet file (*.css*):</span></span>
+<span data-ttu-id="603ae-366">同様に、SVG イメージは、スタイルシートファイル ( *.css*) の css 規則でサポートされています。</span><span class="sxs-lookup"><span data-stu-id="603ae-366">Similarly, SVG images are supported in the CSS rules of a stylesheet file (*.css*):</span></span>
 
 ```css
 .my-element {
@@ -1886,8 +852,8 @@ Blazor<span data-ttu-id="c2b8c-734">の `@bind` 機能は、ユーザーの現�
 }
 ```
 
-<span data-ttu-id="c2b8c-743">ただし、インライン SVG マークアップは、すべてのシナリオでサポートされているわけではありません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-743">However, inline SVG markup isn't supported in all scenarios.</span></span> <span data-ttu-id="c2b8c-744">コンポーネントファイル (*razor*) に `<svg>` タグを直接配置した場合、基本的な画像レンダリングはサポートされますが、多くの高度なシナリオはサポートされていません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-744">If you place an `<svg>` tag directly into a component file (*.razor*), basic image rendering is supported but many advanced scenarios aren't yet supported.</span></span> <span data-ttu-id="c2b8c-745">たとえば、`<use>` タグは現在尊重されていないため、`@bind` をいくつかの SVG タグと共に使用することはできません。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-745">For example, `<use>` tags aren't currently respected, and `@bind` can't be used with some SVG tags.</span></span> <span data-ttu-id="c2b8c-746">今後のリリースでは、これらの制限に対処する予定です。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-746">We expect to address these limitations in a future release.</span></span>
+<span data-ttu-id="603ae-367">ただし、インライン SVG マークアップは、すべてのシナリオでサポートされているわけではありません。</span><span class="sxs-lookup"><span data-stu-id="603ae-367">However, inline SVG markup isn't supported in all scenarios.</span></span> <span data-ttu-id="603ae-368">コンポーネントファイル (*razor*) に `<svg>` タグを直接配置した場合、基本的な画像レンダリングはサポートされますが、多くの高度なシナリオはサポートされていません。</span><span class="sxs-lookup"><span data-stu-id="603ae-368">If you place an `<svg>` tag directly into a component file (*.razor*), basic image rendering is supported but many advanced scenarios aren't yet supported.</span></span> <span data-ttu-id="603ae-369">たとえば、`<use>` タグは現在尊重されていないため、`@bind` をいくつかの SVG タグと共に使用することはできません。</span><span class="sxs-lookup"><span data-stu-id="603ae-369">For example, `<use>` tags aren't currently respected, and `@bind` can't be used with some SVG tags.</span></span> <span data-ttu-id="603ae-370">今後のリリースでは、これらの制限に対処する予定です。</span><span class="sxs-lookup"><span data-stu-id="603ae-370">We expect to address these limitations in a future release.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="c2b8c-747">その他のリソース</span><span class="sxs-lookup"><span data-stu-id="c2b8c-747">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="603ae-371">その他のリソース</span><span class="sxs-lookup"><span data-stu-id="603ae-371">Additional resources</span></span>
 
-* <span data-ttu-id="c2b8c-748"><xref:security/blazor/server> &ndash; には、リソース枯渇に対処する必要がある Blazor サーバーアプリを構築するためのガイダンスが含まれています。</span><span class="sxs-lookup"><span data-stu-id="c2b8c-748"><xref:security/blazor/server> &ndash; Includes guidance on building Blazor Server apps that must contend with resource exhaustion.</span></span>
+* <span data-ttu-id="603ae-372"><xref:security/blazor/server> &ndash; には、リソース枯渇に対処する必要がある Blazor サーバーアプリを構築するためのガイダンスが含まれています。</span><span class="sxs-lookup"><span data-stu-id="603ae-372"><xref:security/blazor/server> &ndash; Includes guidance on building Blazor Server apps that must contend with resource exhaustion.</span></span>
