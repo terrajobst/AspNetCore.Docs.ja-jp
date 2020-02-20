@@ -4,17 +4,17 @@ author: rick-anderson
 description: ASP.NET Core 3.1 の新機能について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 02/12/2020
 no-loc:
 - Blazor
 - SignalR
 uid: aspnetcore-3.1
-ms.openlocfilehash: 06c1d2596bff34bbfe3b55e782ea2d24321dd839
-ms.sourcegitcommit: da2fb2d78ce70accdba903ccbfdcfffdd0112123
+ms.openlocfilehash: f375022ad3ebdea2990f626320ef295926f88c22
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/07/2020
-ms.locfileid: "75722753"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447439"
 ---
 # <a name="whats-new-in-aspnet-core-31"></a>ASP.NET Core 3.1 の新機能
 
@@ -43,7 +43,7 @@ Blazor 初回のレンダリング時に、サーバーアプリで最上位レ�
     param-IncrementAmount="10" />
 ```
 
-詳細については、「[コンポーネントを Razor Pages と MVC アプリに統合する](xref:blazor/components#integrate-components-into-razor-pages-and-mvc-apps)」を参照してください。
+詳細については、「[コンポーネントを Razor Pages と MVC アプリに統合する](xref:blazor/integrate-components)」を参照してください。
 
 ## <a name="support-for-shared-queues-in-httpsys"></a>Http.sys での共有キューのサポート
 
@@ -63,7 +63,7 @@ SameSite Cookie の動作が、今後のブラウザーの変更を反映する�
 <input value="@_count" @onkeypress="KeyHandler" @onkeypress:preventDefault />
 ```
 
-詳細については、「[既定のアクションを禁止する](xref:blazor/components#prevent-default-actions)」を参照してください。
+詳細については、「[既定のアクションを禁止する](xref:blazor/event-handling#prevent-default-actions)」を参照してください。
 
 ## <a name="stop-event-propagation-in-opno-locblazor-apps"></a>Blazor アプリでのイベント伝達を停止する
 
@@ -83,7 +83,7 @@ SameSite Cookie の動作が、今後のブラウザーの変更を反映する�
 }
 ```
 
-詳細については、「[イベントの伝達の停止](xref:blazor/components#stop-event-propagation)」を参照してください。
+詳細については、「[イベントの伝達の停止](xref:blazor/event-handling#stop-event-propagation)」を参照してください。
 
 ## <a name="detailed-errors-during-opno-locblazor-app-development"></a>Blazor アプリの開発中の詳細なエラー
 

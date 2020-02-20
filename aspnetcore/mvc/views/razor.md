@@ -3,14 +3,14 @@ title: ASP.NET Core の Razor 構文リファレンス
 author: rick-anderson
 description: Web ページにサーバー ベースのコードを埋め込むための Razor マークアップの構文について説明します。
 ms.author: riande
-ms.date: 12/05/2019
+ms.date: 02/12/2020
 uid: mvc/views/razor
-ms.openlocfilehash: 2d47fbc33328ab454616bcabab796df089686d79
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: 0b1eed2816329d62fca4bdb5719825a4197af353
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77171862"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447179"
 ---
 # <a name="razor-syntax-reference-for-aspnet-core"></a>ASP.NET Core の Razor 構文リファレンス
 
@@ -719,13 +719,13 @@ Razor では、ビューに渡されるモデルにアクセスするための `
 
 "*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "
 
-コンポーネントのデータ バインドは、`@bind` 属性によって実現されます。 詳細については、「<xref:blazor/components#data-binding>」を参照してください。
+コンポーネントのデータ バインドは、`@bind` 属性によって実現されます。 詳細については、「<xref:blazor/data-binding>」を参照してください。
 
 ### <a name="onevent"></a>\@on{EVENT}
 
 "*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "
 
-Razor からは、コンポーネントのイベント処理機能が提供されます。 詳細については、「<xref:blazor/components#event-handling>」を参照してください。
+Razor からは、コンポーネントのイベント処理機能が提供されます。 詳細については、「<xref:blazor/event-handling>」を参照してください。
 
 ::: moniker-end
 
@@ -763,7 +763,7 @@ Razor からは、コンポーネントのイベント処理機能が提供さ�
 
 "*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "
 
-`@typeparam` ディレクティブによって、生成されるコンポーネント クラスのジェネリック型パラメーターを宣言します。 詳細については、「<xref:blazor/components#generic-typed-components>」を参照してください。
+`@typeparam` ディレクティブによって、生成されるコンポーネント クラスのジェネリック型パラメーターを宣言します。 詳細については、「<xref:blazor/templated-components#generic-typed-components>」を参照してください。
 
 ::: moniker-end
 
