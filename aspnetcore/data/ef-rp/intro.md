@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 09/26/2019
 uid: data/ef-rp/intro
-ms.openlocfilehash: 01e507326ddd57057aa178ad3909fd4027a013fd
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: 1a9d83be9180b1d32ab941932eb3cab8612dff01
+ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259377"
+ms.lasthandoff: 02/14/2020
+ms.locfileid: "77213403"
 ---
 # <a name="razor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>ASP.NET Core での Entity Framework Core を使用した Razor ページ - チュートリアル 1/8
 
@@ -19,7 +19,7 @@ ms.locfileid: "72259377"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-これは、[ASP.NET Core Razor Pages](xref:razor-pages/index) アプリで Entity Framework (EF) Core の使用方法を示す一連のチュートリアルの 1 番目です。 このチュートリアルでは、架空の Contoso University の Web サイトを構築します。 サイトには、学生の受け付け、講座の作成、講師の割り当てなどの機能が含まれます。
+これは、[ASP.NET Core Razor Pages](xref:razor-pages/index) アプリで Entity Framework (EF) Core の使用方法を示す一連のチュートリアルの 1 番目です。 このチュートリアルでは、架空の Contoso University の Web サイトを構築します。 サイトには、学生の受け付け、講座の作成、講師の割り当てなどの機能が含まれます。 このチュートリアルでは、コード ファーストのアプローチを使用します。 データベース ファーストのアプローチを使用してこのチュートリアルを実行する方法の詳細については、[こちらの Github イシュー](https://github.com/aspnet/AspNetCore.Docs/issues/16897)をご覧ください。
 
 [完成したアプリをダウンロードまたは表示します。](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples) [ダウンロードの方法はこちらをご覧ください。](xref:index#how-to-download-a-sample)
 
@@ -27,11 +27,11 @@ ms.locfileid: "72259377"
 
 * Razor Pages を初めて使用する場合は、このチュートリアルを開始する前に、[Razor Pages の概要](xref:tutorials/razor-pages/razor-pages-start)チュートリアル シリーズをご覧ください。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 [!INCLUDE[VS prereqs](~/includes/net-core-prereqs-vs-3.0.md)]
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 [!INCLUDE[VS Code prereqs](~/includes/net-core-prereqs-vsc-3.0.md)]
 
@@ -61,7 +61,7 @@ SQLite の使用を選択した場合は、SQLite データベースを管理お
 
 ページの上部にあるリンクを使用して、完成したプロジェクトのソース コードを取得します。 *cu30* フォルダーには、チュートリアルの ASP.NET Core 3.0 バージョン用のコードが含まれています。 チュートリアル 1-7 のコードの状態を反映するファイルは、*cu30snapshots* フォルダー内にあります。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 完成したプロジェクトをダウンロードした後にアプリを実行するには:
 
@@ -75,7 +75,7 @@ SQLite の使用を選択した場合は、SQLite データベースを管理お
 
 * プロジェクトを実行して、データベースをシードします。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 完成したプロジェクトをダウンロードした後にアプリを実行するには:
 
@@ -103,14 +103,14 @@ SQLite の使用を選択した場合は、SQLite データベースを管理お
 
 ## <a name="create-the-web-app-project"></a>Web アプリプロジェクトを作成する
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* Visual Studio の **[ファイル]** メニューから、 **[新規作成]** 、> **[プロジェクト]** の順に選択します。
+* Visual Studio の **[ファイル]** メニューから、 **[新規作成]** > **[プロジェクト]** の順に選択します。
 * **[ASP.NET Core Web アプリケーション]** を選択します。
 * プロジェクトに *ContosoUniversity* という名前を付けます。 コードをコピーして貼り付けるときに名前空間が一致するように、この正確な名前 (大文字と小文字を含む) を使用することが重要です。
 * ドロップダウン リストで **[.NET Core]** と **[ASP.NET Core 3.0]** を選択してから、 **[Web アプリケーション]** を選択します。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * ターミナルで、プロジェクト フォルダーを作成するフォルダーに移動します。
 
@@ -206,11 +206,11 @@ EF Core は、プロパティの名前が `<navigation property name><primary ke
 * EF Core *コンテキスト* クラス。 コンテキストは、定められたデータ モデルに対し、Entity Framework 機能を調整するメイン クラスです。 これは `Microsoft.EntityFrameworkCore.DbContext` クラスから派生します。
 * `Student` エンティティの CRUD (Create, Read, Update, and Delete/作成、読み取り、更新と削除) 操作を処理する Razor ページ。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * *Pages* フォルダー内に *Students* フォルダーを作成します。
-* **ソリューション エクスプローラー**で、 *[Pages/Students]* フォルダーを右クリックし、 **[追加]** > **[スキャフォールディングされた新しい項目]** の順に選択します。
-* **[スキャフォールディングを追加]** ダイアログで、 **[Razor Pages using Entity Framework (CRUD)]\(Entity Framework を使用する Razor Pages (CRUD)\)** > **[追加]** の順に選択します。
+* **ソリューション エクスプローラー**で、*Pages/Students* フォルダーを右クリックし、 **[追加]** > **[スキャフォールディングされた新しい項目]** の順に選択します。
+* **[スキャフォールディングを追加]** ダイアログで、 **[Entity Framework を使用する Razor Pages (CRUD)]** > **[追加]** を選択します。
 * **[Add Razor Pages using Entity Framework (CRUD)]\(Entity Framework を使用して Razor Pages (CRUD) を追加する\)** ダイアログで、次のことを行います。
   * **[モデル クラス]** ドロップダウンで、 **[Student (ContosoUniversity.Models)]** を選択します。
   * **Data context class** 行で、 **+** (+) 記号を選択します。
@@ -224,7 +224,7 @@ EF Core は、プロパティの名前が `<navigation property name><primary ke
 * `Microsoft.Extensions.Logging.Debug`
 * `Microsoft.EntityFrameworkCore.Tools`
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 次の .NET Core CLI コマンドを実行して、必要な NuGet パッケージをインストールします。
 <!-- TO DO  After testing, Replace with
@@ -282,7 +282,7 @@ remove dotnet tool install --global  below
 
 ## <a name="database-connection-string"></a>データベース接続文字列
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 この接続文字列によって [SQL Server LocalDB](/sql/database-engine/configure-windows/sql-server-2016-express-localdb) が指定されます。 
 
@@ -290,7 +290,7 @@ remove dotnet tool install --global  below
 
 LocalDB は SQL Server Express データベース エンジンの軽量版であり、実稼働ではなく、アプリの開発を意図して設計されています。 既定では、LocalDB は `C:/Users/<user>` ディレクトリに *.mdf* ファイルを作成します。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 *CU.db* という名前の SQLite データベース ファイルを指すように接続文字列を変更します。
 
@@ -323,13 +323,13 @@ ASP.NET Core には、[依存関係挿入](xref:fundamentals/dependency-injectio
 
 スキャフォールディング ツールにより、コンテキスト クラスが依存関係挿入コンテナーに自動的に登録されました。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * `ConfigureServices` では、強調表示された行がスキャフォールダーによって追加されました。
 
   [!code-csharp[Main](intro/samples/cu30/Startup.cs?name=snippet_ConfigureServices&highlight=5-6)]
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * `ConfigureServices` では、スキャフォールダーによって追加されたコードが `UseSqlite` を呼び出すことを確認します。
 
@@ -377,9 +377,9 @@ ASP.NET Core には、[依存関係挿入](xref:fundamentals/dependency-injectio
   ```csharp
   // context.Database.EnsureCreated();
   DbInitializer.Initialize(context);
-  ````
+  ```
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 アプリが実行されている場合は停止し、**パッケージ マネージャー コンソール** (PMC) で次のコマンドを実行します。
 
@@ -387,7 +387,7 @@ ASP.NET Core には、[依存関係挿入](xref:fundamentals/dependency-injectio
 Drop-Database
 ```
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * アプリが実行されている場合は停止し、*CU.db* ファイルを削除します。
 
@@ -399,7 +399,7 @@ Drop-Database
 
 ## <a name="view-the-database"></a>データベースを表示する
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * Visual Studio の **[表示]** メニューから **SQL Server オブジェクト エクスプローラー** (SSOX) を開きます。
 * SSOX で、 **(localdb)\MSSQLLocalDB > Databases > SchoolContext-{GUID}** を選択します。 前に指定したコンテキスト名にダッシュと GUID が追加されて、データベース名が生成されます。
@@ -407,7 +407,7 @@ Drop-Database
 * **[Student]\(学生\)** テーブルを右クリックし、 **[View Data]\(データの表示\)** をクリックすると、作成された列とテーブルに挿入された行が表示されます。
 * **Student** テーブルを右クリックして **[コードの表示]** をクリックし、`Student` モデルが `Student` テーブル スキーマにどのようにマップされるかを確認します。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 SQLite ツールを使用して、データベース スキーマとシードされたデータを表示します。 データベース ファイルの名前は *CU.db* で、プロジェクト フォルダー内に配置されています。
 
@@ -462,11 +462,11 @@ Contoso University のサンプル Web アプリでは、Entity Framework (EF) C
 
 ## <a name="prerequisites"></a>必須コンポーネント
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 [!INCLUDE [](~/includes/net-core-prereqs-windows.md)]
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 [!INCLUDE [](~/includes/2.1-SDK.md)]
 
@@ -492,16 +492,16 @@ Contoso University のサンプル Web アプリでは、Entity Framework (EF) C
 
 ## <a name="create-the-contosouniversity-razor-pages-web-app"></a>ContosoUniversity Razor Pages Web アプリを作成する
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* Visual Studio の **[ファイル]** メニューから、 **[新規作成]** 、> **[プロジェクト]** の順に選択します。
+* Visual Studio の **[ファイル]** メニューから、 **[新規作成]** > **[プロジェクト]** の順に選択します。
 * 新しい ASP.NET Core Web アプリケーションを作成します。 プロジェクトに **ContosoUniversity** という名前を付けます。 このプロジェクトに *ContosoUniversity* という名前を付けることは重要です。そうすることでコードをコピーしたり貼り付けるときに名前空間が一致します。
 * ドロップダウン リストで **[ASP.NET Core 2.1]** を選択してから、 **[Web アプリケーション]** を選択します。
 
 前の手順の画像については、「[Razor Web アプリの作成](xref:tutorials/razor-pages/razor-pages-start#create-a-razor-pages-web-app)」を参照してください。
 アプリを実行します。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 ```dotnetcli
 dotnet new webapp -o ContosoUniversity
@@ -588,10 +588,10 @@ EF Core は、プロパティの名前が `<navigation property name><primary ke
 * プロジェクトをビルドします。
 * *Pages/Students* フォルダーを作成します。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* **ソリューション エクスプローラー**で、 *[Pages/Students]* フォルダーを右クリックし、 **[追加]** > **[スキャフォールディングされた新しい項目]** の順に選択します。
-* **[スキャフォールディングを追加]** ダイアログで、 **[Razor Pages using Entity Framework (CRUD)]\(Entity Framework を使用する Razor Pages (CRUD)\)** > **[追加]** の順に選択します。
+* **ソリューション エクスプローラー**で、*Pages/Students* フォルダーを右クリックし、 **[追加]** > **[スキャフォールディングされた新しい項目]** の順に選択します。
+* **[スキャフォールディングを追加]** ダイアログで、 **[Entity Framework を使用する Razor Pages (CRUD)]** > **[追加]** を選択します。
 
 **[Add Razor Pages using Entity Framework (CRUD)]\(Entity Framework を使用して Razor Pages (CRUD) を追加する\)** ダイアログを完了します。
 
@@ -604,7 +604,7 @@ EF Core は、プロパティの名前が `<navigation property name><primary ke
 
 前の手順に問題がある場合は、「[ムービー モデルのスキャフォールディング](xref:tutorials/razor-pages/model#scaffold-the-movie-model)」を参照してください。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 次のコマンドを実行して、Student モデルをスキャホールディングします。
 
@@ -707,7 +707,7 @@ EF Core によって空の DB が作成されます。 このセクションで�
 
 [!code-csharp[](intro/samples/cu21/Program.cs?name=snippet2&highlight=14-15)]
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 アプリが実行されている場合は停止し、**パッケージ マネージャー コンソール** (PMC) で次のコマンドを実行します。
 
@@ -715,7 +715,7 @@ EF Core によって空の DB が作成されます。 このセクションで�
 Drop-Database
 ```
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * アプリが実行されている場合は停止し、*CU.db* ファイルを削除します。
 

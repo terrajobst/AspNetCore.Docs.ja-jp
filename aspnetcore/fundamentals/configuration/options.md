@@ -5,14 +5,14 @@ description: ASP.NET Core アプリの関連のある設定のグループを表
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/07/2019
+ms.date: 02/12/2020
 uid: fundamentals/configuration/options
-ms.openlocfilehash: 98fe30fbc424dd51ce8f8319b7ce959fd755c480
-ms.sourcegitcommit: da2fb2d78ce70accdba903ccbfdcfffdd0112123
+ms.openlocfilehash: 1f3625380d816c7d4df5a7a24b0ac146500330de
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/07/2020
-ms.locfileid: "75722740"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447206"
 ---
 # <a name="options-pattern-in-aspnet-core"></a>ASP.NET Core のオプション パターン
 
@@ -329,7 +329,7 @@ catch (OptionsValidationException e)
 オプションのインスタンスが作成されると、検証が実行されます。 オプションのインスタンスが最初にアクセスされる際は、検証に合格することが保証されます。
 
 > [!IMPORTANT]
-> オプションの検証は、最初に構成されて検証された後のオプションの変更を防ぐことはできません。
+> オプションの検証によって、オプションのインスタンスが作成された後のオプションの変更を防ぐことはできません。 たとえば、`IOptionsSnapshot` オプションは、オプションが最初にアクセスされたときに要求ごとに 1 回作成されて検証されます。 `IOptionsSnapshot` オプションが、"*同じ要求の*" 後続のアクセス試行に対して検証されることはありません。
 
 `Validate` メソッドは、`Func<TOptions, bool>` を受け取ります。 検証を完全にカスタマイズするには、`IValidateOptions<TOptions>` を実装します。これにより、次が可能になります。
 
@@ -753,7 +753,7 @@ catch (OptionsValidationException e)
 オプションのインスタンスが作成されると、検証が実行されます。 オプションのインスタンスが最初にアクセスされる際は、検証に合格することが保証されます。
 
 > [!IMPORTANT]
-> オプションの検証は、最初に構成されて検証された後のオプションの変更を防ぐことはできません。
+> オプションの検証によって、オプションのインスタンスが作成された後のオプションの変更を防ぐことはできません。 たとえば、`IOptionsSnapshot` オプションは、オプションが最初にアクセスされたときに要求ごとに 1 回作成されて検証されます。 `IOptionsSnapshot` オプションが、"*同じ要求の*" 後続のアクセス試行に対して検証されることはありません。
 
 `Validate` メソッドは、`Func<TOptions, bool>` を受け取ります。 検証を完全にカスタマイズするには、`IValidateOptions<TOptions>` を実装します。これにより、次が可能になります。
 

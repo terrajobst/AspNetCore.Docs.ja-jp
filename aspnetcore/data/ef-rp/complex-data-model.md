@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 uid: data/ef-rp/complex-data-model
-ms.openlocfilehash: 1244b2e23a842538ff2fca01a513317a690afe7c
-ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
+ms.openlocfilehash: 411c0874d2b2c6ecadd1da9aff7a093f1e8e525a
+ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/29/2019
-ms.locfileid: "73034033"
+ms.lasthandoff: 02/14/2020
+ms.locfileid: "77213429"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---data-model---5-of-8"></a>ASP.NET Core の Razor ページと EF Core - データ モデル - 5/8
 
@@ -99,7 +99,7 @@ ms.locfileid: "73034033"
 [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
 ```
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 **SQL Server オブジェクト エクスプローラー** (SSOX) で、**Student** テーブルをダブルクリックして、Student テーブル デザイナーを開きます。
 
@@ -107,7 +107,7 @@ ms.locfileid: "73034033"
 
 上の図には `Student` テーブルのスキーマが表示されています。 名前フィールドは `nvarchar(MAX)` 型です。 このチュートリアルの後半で移行を作成して適用すると、文字列長属性の結果として名前フィールドは `nvarchar(50)` になります。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 SQLite ツールで、`Student` テーブルの列の定義を調べます。 名前フィールドは `Text` 型です。 最初の名前フィールドの名前は `FirstMidName` であることに注意してください。 次のセクションでは、その列の名前を `FirstName` に変更します。
 
@@ -157,7 +157,7 @@ public string LastName { get; set; }
 
 アプリを実行して [Students] ページに移動します。 例外がスローされます。 `[Column]` 属性があるため、EF では `FirstName` という名前の列が検索されることが予想されますが、データベースの列名はまだ `FirstMidName` です。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 エラー メッセージは、次のようになります。
 
@@ -187,7 +187,7 @@ SqlException: Invalid column name 'FirstName'.
 
   移行が適用される前の名前列の型は [nvarchar(MAX)](/sql/t-sql/data-types/nchar-and-nvarchar-transact-sql) でした。 現在の名前列は `nvarchar(50)` です。 列名は `FirstMidName` から `FirstName` に変わりました。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 エラー メッセージは、次のようになります。
 
@@ -536,7 +536,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 プロジェクトをビルドします。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 PMC で、次のコマンドを実行します。
 
@@ -561,7 +561,7 @@ database "ContosoUniversity", table "dbo.Department", column 'DepartmentID'.
 
 次のセクションでは、このエラーの対処方法を説明します。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 移行を追加して `database update` コマンドを実行すると、次のエラーが生成されます。
 
@@ -591,7 +591,7 @@ SQL Server を使用していて、次のセクションの移行適用方法を
 
 EF Core に新しいデータベースを強制的に作成させるには、データベースを削除して更新します。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * **パッケージ マネージャー コンソール** (PMC) で、次のコマンドを実行します。
 
@@ -606,7 +606,7 @@ EF Core に新しいデータベースを強制的に作成させるには、デ
   Update-Database
   ```
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * コマンド ウィンドウを開き、プロジェクト フォルダーに移動します。 プロジェクト フォルダーには、*ContosoUniversity.csproj* ファイルが含まれています。
 
@@ -627,7 +627,7 @@ EF Core に新しいデータベースを強制的に作成させるには、デ
 
 アプリを実行します。 アプリを実行すると `DbInitializer.Initialize` メソッドが実行されます。 `DbInitializer.Initialize` では、新しいデータベースが設定されます。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 SSOX でデータベースを開きます。
 
@@ -643,7 +643,7 @@ SSOX でデータベースを開きます。
 
   ![SSOX の CourseAssignment データ](complex-data-model/_static/ssox-ci-data.png)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 SQLite ツールを使用してデータベースを確認します。
 
@@ -691,7 +691,7 @@ SQLite ツールを使用してデータベースを確認します。
 * コードまたはスクリプトを組み込み、`Department` 行と関連する `Course` 行を新しい `Department` 行に追加します。
 * `Course.DepartmentID` の既定値や "Temp" 学科は使用しません。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * **パッケージ マネージャー コンソール** (PMC) で、次のコマンドを実行します。
 
@@ -701,7 +701,7 @@ SQLite ツールを使用してデータベースを確認します。
 
 `DbInitializer.Initialize` メソッドは空のデータベースでのみ動作するように設計されているので、Student テーブルと Course テーブルのすべての行を削除するには SSOX を使用します。 (連鎖削除によって Enrollment テーブルが処理されます。)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * Visual Studio Code で SQL Server LocalDB を使用している場合は、次のコマンドを実行します。
 
@@ -821,7 +821,7 @@ DB が作成されたときに、列名でモデルのプロパティ名が使�
 
 `Column` 属性を追加すると、`SchoolContext` をサポートするモデルが変更されます。 `SchoolContext` をサポートするモデルはデータベースと一致しなくなります。 移行を適用する前にアプリを実行した場合は、次の例外が生成されます。
 
-```SQL
+```
 SqlException: Invalid column name 'FirstName'.
 ```
 
@@ -830,14 +830,14 @@ DB を更新するには、次のようにします。
 * プロジェクトをビルドします。
 * プロジェクト フォルダーでコマンド ウィンドウを開きます。 以下のコマンドを入力し、新しい移行を作成して DB を更新します。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-```PMC
+```powershell
 Add-Migration ColumnFirstName
 Update-Database
 ```
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 ```dotnetcli
 dotnet ef migrations add ColumnFirstName
@@ -1244,13 +1244,13 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 プロジェクトをビルドします。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 ```powershell
 Add-Migration ComplexDataModel
 ```
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 ```dotnetcli
 dotnet ef migrations add ComplexDataModel
@@ -1286,18 +1286,18 @@ database "ContosoUniversity", table "dbo.Department", column 'DepartmentID'.
 
 更新された `DbInitializer` のコードでは、新しいエンティティのシード データを追加します。 EF Core に新しい DB を強制的に作成させるには、DB を削除して更新します。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 **パッケージ マネージャー コンソール** (PMC) で、次のコマンドを実行します。
 
-```PMC
+```powershell
 Drop-Database
 Update-Database
 ```
 
 PMC から `Get-Help about_EntityFrameworkCore` を実行してヘルプ情報を入手します。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 コマンド ウィンドウを開き、プロジェクト フォルダーに移動します。 プロジェクト フォルダーには *Startup.cs* ファイルが含まれます。
 
