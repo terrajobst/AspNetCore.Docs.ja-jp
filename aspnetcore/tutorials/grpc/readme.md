@@ -9,11 +9,11 @@ products:
 - vs
 urlFragment: create-grpc-client
 ms.openlocfilehash: b9feb9eed62177358fffc0d7da582f625a431e32
-ms.sourcegitcommit: 9e85c2562df5e108d7933635c830297f484bb775
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/04/2019
-ms.locfileid: "73463052"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78648158"
 ---
 # <a name="create-a-grpc-client-and-server-in-aspnet-core-30-using-visual-studio"></a>Visual Studio を使用し、ASP.NET Core 3.0 で gRPC のクライアントとサーバーを作成する
 
@@ -68,8 +68,8 @@ info: Microsoft.Hosting.Lifetime[0]
 
 * *greet.proto*:*Protos/greet.proto* ファイルは、`Greeter` gRPC を定義し、gRPC サーバー資産を生成するために使用されます。 詳細については、「[gRPC の概要](xref:grpc/index)」を参照してください。
 * *Services* フォルダー:`Greeter` サービスの実装が含まれます。
-* *appSettings.json*:Kestrel で使用されるプロトコルなどの構成データが含まれています。 詳細については、<xref:fundamentals/configuration/index> を参照してください。
-* *Program.cs*:gRPC サービスのエントリ ポイントが含まれています。 詳細については、<xref:fundamentals/host/generic-host> を参照してください。
+* *appSettings.json*:Kestrel で使用されるプロトコルなどの構成データが含まれています。 詳細については、「<xref:fundamentals/configuration/index>」を参照してください。
+* *Program.cs*:gRPC サービスのエントリ ポイントが含まれています。 詳細については、「<xref:fundamentals/host/generic-host>」を参照してください。
 * *Startup.cs*:アプリの動作を構成するコードが含まれています。 詳細については、[アプリの Startup](xref:fundamentals/startup)に関するページを参照してください。
 
 ## <a name="create-the-grpc-client-in-a-net-console-app"></a>.NET コンソール アプリで gRPC クライアントを作成する

@@ -1,22 +1,20 @@
 ---
 title: IIS に ASP.NET Core アプリを発行する
-author: guardrex
+author: rick-anderson
 description: IIS サーバーで ASP.NET Core アプリをホストする方法を説明します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/03/2019
 uid: tutorials/publish-to-iis
-ms.openlocfilehash: 820527cc15f883c906d2fdf1c073d443a5b3b40e
-ms.sourcegitcommit: d8b12cc1716ee329d7bd2300e201b61e15d506ac
+ms.openlocfilehash: f3860ba6ca7b99e63000ba0066749751f80cdc23
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/04/2019
-ms.locfileid: "71942880"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78646622"
 ---
 # <a name="publish-an-aspnet-core-app-to-iis"></a>IIS に ASP.NET Core アプリを発行する
-
-作成者: [Luke Latham](https://github.com/guardrex)
 
 このチュートリアルでは、IIS サーバーで ASP.NET Core アプリをホストする方法を示します。
 
@@ -72,7 +70,7 @@ ms.locfileid: "71942880"
 * アプリはフォルダーに発行されます。
 * フォルダーの内容が IIS サイトのフォルダーに移動されます (IIS マネージャーのサイトの**物理パス**)。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 1. **[ソリューション エクスプローラー]** でプロジェクトを右クリックし、 **[発行]** を選択します。
 1. **[発行先を選択]** ダイアログで、 **[フォルダー]** 発行オプションを選択します。
@@ -80,7 +78,7 @@ ms.locfileid: "71942880"
    * ネットワーク共有として開発用のコンピューターで利用できる IIS サイトのフォルダーを作成した場合、共有へのパスを指定します。 現在のユーザーに、共有に発行するための書き込みアクセスを与える必要があります。
    * IIS サーバー上の IIS サイト フォルダーに直接展開できない場合、リムーバブル メディア上のフォルダーに発行し、IIS マネージャーでサイトの**物理パス**である、サーバー上の IIS サイト フォルダーに発行済みのアプリを物理的に移動します。 IIS マネージャーでサイトの**物理パス**である、サーバー上の IIS サイト フォルダーに *bin/Release/{TARGET FRAMEWORK}/publish* フォルダーの内容を移動します。
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 1. コマンド シェルで、[dotnet publish](/dotnet/core/tools/dotnet-publish) コマンドを使用してリリース構成でアプリを発行します。
 
@@ -90,7 +88,7 @@ ms.locfileid: "71942880"
 
 1. IIS マネージャーでサイトの**物理パス**である、サーバー上の IIS サイト フォルダーに *bin/Release/{TARGET FRAMEWORK}/publish* フォルダーの内容を移動します。
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 1. **[ソリューション]** でプロジェクトを右クリックし、 **[発行]** 、 **[フォルダーに発行]** の順に選択します。
 1. **[フォルダーを選択してください]** パスを設定します。

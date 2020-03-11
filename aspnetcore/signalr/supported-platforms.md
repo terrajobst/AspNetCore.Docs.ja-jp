@@ -10,23 +10,23 @@ no-loc:
 - SignalR
 uid: signalr/supported-platforms
 ms.openlocfilehash: 054965921c87c1a9be27e5ddaa8a87b0fa1f4113
-ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76146499"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78655148"
 ---
-# <a name="aspnet-core-opno-locsignalr-supported-platforms"></a>ASP.NET Core SignalR サポートされているプラットフォーム
+# <a name="aspnet-core-signalr-supported-platforms"></a>SignalR でサポートされているプラットフォームの ASP.NET Core
 
 ## <a name="server-system-requirements"></a>サーバー システムの要件
 
-ASP.NET Core の SignalR は、ASP.NET Core がサポートするすべてのサーバープラットフォームをサポートします。
+ASP.NET Core の SignalR は、ASP.NET Core がサポートするすべてのサーバープラットフォームをサポートしています。
 
 ## <a name="javascript-client"></a>JavaScript クライアント
 
 [JavaScript クライアント](xref:signalr/javascript-client)は、nodejs 8 以降のバージョンと次のブラウザーで実行されます。
 
-| ブラウザー                         | Version         |
+| ブラウザー                         | バージョン         |
 | ------------------------------- | --------------- |
 | Microsoft Edge                  | 現在の&dagger; |
 | Mozilla Firefox                 | 現在の&dagger; |

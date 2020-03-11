@@ -7,17 +7,17 @@ ms.date: 09/26/2019
 monikerRange: '>= aspnetcore-3.0'
 uid: web-api/Microsoft.dotnet-openapi
 ms.openlocfilehash: 079e36511b63c186ffa7726bdb1e3c3bcbda9d34
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
-ms.translationtype: HT
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829258"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78651248"
 ---
 # <a name="develop-aspnet-core-apps-using-openapi-tools"></a>OpenAPI ツールを使用した ASP.NET Core アプリの開発
 
 作成者: Ryan Brandenburg
 
-[Microsoft.dotnet-openapi](https://www.nuget.org/packages/Microsoft.dotnet-openapi) は、プロジェクト内での [OpenAPI](https://github.com/OAI/OpenAPI-Specification) 参照を管理するための [.NET Core グローバル ツール](/dotnet/core/tools/global-tools)です。
+[Microsoft.dotnet-openapi](https://www.nuget.org/packages/Microsoft.dotnet-openapi) は、プロジェクト内での [OpenAPI](/dotnet/core/tools/global-tools) 参照を管理するための [.NET Core グローバル ツール](https://github.com/OAI/OpenAPI-Specification)です。
 
 ## <a name="installation"></a>インストール
 
@@ -102,7 +102,7 @@ dotnet tool install -g Microsoft.dotnet-openapi
 | ------------|------------|---------|
 | source-file | 削除する参照のソース。 |dotnet openapi remove *.\OpenAPI.json* |
 
-## <a name="refresh"></a>最新の情報に更新
+## <a name="refresh"></a>更新
 
 ダウンロード URL の最新のコンテンツを使用してダウンロードされたファイルのローカル バージョンを更新します。
 

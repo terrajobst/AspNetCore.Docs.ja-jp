@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 12/05/2019
 uid: security/authentication/policyschemes
 ms.openlocfilehash: f02d8e5cac20a9b60c5eddbd28253efacf682ea1
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880718"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652352"
 ---
 # <a name="policy-schemes-in-aspnet-core"></a>ASP.NET Core のポリシースキーム
 
@@ -26,7 +26,7 @@ ms.locfileid: "74880718"
 
 [!code-csharp[sample](policyschemes/samples/AuthenticationSchemeOptions.cs?name=snippet)]
 
-## <a name="examples"></a>使用例
+## <a name="examples"></a>例
 
 次の例は、下位レベルのスキームを結合する上位のスキームを示しています。 Google 認証はチャレンジに使用され、その他のすべてに cookie 認証が使用されます。
 

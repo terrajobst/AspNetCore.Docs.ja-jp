@@ -6,18 +6,18 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 02/03/2020
 uid: web-api/action-return-types
-ms.openlocfilehash: aeea005abfcfd45a6fc94dfddfd65e60ffb15df8
-ms.sourcegitcommit: 235623b6e5a5d1841139c82a11ac2b4b3f31a7a9
-ms.translationtype: HT
+ms.openlocfilehash: 17e290d3aba4f724fcbd1693af371017c4d3f03a
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/08/2020
-ms.locfileid: "77089189"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78651236"
 ---
 # <a name="controller-action-return-types-in-aspnet-core-web-api"></a>ASP.NET Core Web API のコントローラー アクションの戻り値の型
 
 作成者: [Scott Addie](https://github.com/scottaddie)
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/action-return-types/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/action-return-types/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ASP.NET Core では、Web API コントローラー アクションの戻り値の型に次のオプションを提供しています。
 
@@ -148,7 +148,7 @@ ASP.NET Core 2.1 以降の [`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.Api
 
 ASP.NET Core 2.1 では、Web API コントローラー アクションに対して、[ActionResult\<T>](xref:Microsoft.AspNetCore.Mvc.ActionResult`1) の戻り値の型が導入されました。 これで、<xref:Microsoft.AspNetCore.Mvc.ActionResult> から派生した型を返したり、[特定の型](#specific-type)を返したりすることができるようになりました。 `ActionResult<T>` により、[IActionResult 型](#iactionresult-type)は次の利点を得られます。
 
-* [`[ProducesResponseType]`](xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute) 属性の `Type` プロパティを除外することができます。 たとえば、`[ProducesResponseType(200, Type = typeof(Product))]` は `[ProducesResponseType(200)]` に簡略化されます。 アクションの予期される戻り値の型は、代わりに `ActionResult<T>` の `T` から推論されます。
+* [`[ProducesResponseType]`](xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute) 属性の `Type` プロパティを除外することができます。 たとえば、`[ProducesResponseType(200, Type = typeof(Product))]` は `[ProducesResponseType(200)]` に簡略化されます。 アクションの予期される戻り値の型は、代わりに `T` の `ActionResult<T>` から推論されます。
 * [暗黙的なキャスト演算子](/dotnet/csharp/language-reference/keywords/implicit)は、`T` と `ActionResult` の両方の `ActionResult<T>` への変換をサポートしています。 `T` は <xref:Microsoft.AspNetCore.Mvc.ObjectResult> に変換されます。つまり、`return new ObjectResult(T);` は `return T;` に簡略化されます。
 
 C# はインターフェイス上での暗黙的なキャスト演算子をサポートしていません。 そのため、`ActionResult<T>` を使用するには、インターフェイスを具象型に変換する必要があります。 たとえば、次の例における `IEnumerable` の使用は機能しません。
@@ -189,7 +189,7 @@ public ActionResult<IEnumerable<Product>> Get() =>
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * <xref:mvc/controllers/actions>
 * <xref:mvc/models/validation>

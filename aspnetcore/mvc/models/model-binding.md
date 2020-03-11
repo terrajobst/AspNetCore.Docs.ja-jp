@@ -6,12 +6,12 @@ ms.assetid: 0be164aa-1d72-4192-bd6b-192c9c301164
 ms.author: riande
 ms.date: 12/18/2019
 uid: mvc/models/model-binding
-ms.openlocfilehash: a389afe46636155e4703677d362d879a18ea5864
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
-ms.translationtype: HT
+ms.openlocfilehash: 19580768679f30131683717792252c03aade68f9
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829206"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654470"
 ---
 # <a name="model-binding-in-aspnet-core"></a>ASP.NET Core でのモデル バインド
 
@@ -19,7 +19,7 @@ ms.locfileid: "75829206"
 
 この記事では、モデル バインドとは何か、そのしくみ、その動作のカスタマイズ方法を説明します。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/model-binding/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/model-binding/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="what-is-model-binding"></a>モデル バインドとは何か
 
@@ -51,7 +51,7 @@ http://contoso.com/api/pets/2?DogsOnly=true
 * 該当するソース内を調べ、クエリ文字列内で "DogsOnly=true" を検索します。 名前の照合では大文字と小文字が区別されません。
 * 文字列 "true" をブール型の `true` に変換します。
 
-次にフレームワークによって `GetById` メソッドが呼び出され、`id` パラメーターには 2 が、`dogsOnly` パラメーターには `true` が渡されます。
+次にフレームワークによって `GetById` メソッドが呼び出され、`id` パラメーターには 2 が、`true` パラメーターには `dogsOnly` が渡されます。
 
 上記の例で、モデル バインディング ターゲットは単純型のメソッド パラメーターになっています。 ターゲットは複合型のプロパティになる場合もあります。 各プロパティが正常にバインドされたら、そのプロパティに対して[モデル検証](xref:mvc/models/validation)が行われます。 どのようなデータがモデルにバインドされているかを示す記録、バインド エラー、または検証のエラーは、[ControllerBase.ModelState](xref:Microsoft.AspNetCore.Mvc.ControllerBase.ModelState) または [PageModel.ModelState](xref:Microsoft.AspNetCore.Mvc.ControllerBase.ModelState) に格納されます。 このプロセスが正常終了したかどうかを確認するために、アプリでは [ModelState.IsValid](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.IsValid) フラグが調べられます。
 
@@ -87,8 +87,8 @@ ASP.NET Core 2.1 以降で使用できます。  コントローラーまたは 
 
 1. フォーム フィールド
 1. 要求本文 ([[ApiController] 属性を持つコントローラー](xref:web-api/index#binding-source-parameter-inference) の場合)。
-1. ルート データ
-1. クエリ文字列のパラメーター
+1. データのルーティング
+1. クエリ文字列パラメーター
 1. アップロード済みのファイル
 
 ターゲット パラメーターまたはプロパティごとに、前述の一覧に示されている順序でソースがスキャンされます。 次のようにいくつかの例外があります。
@@ -153,11 +153,11 @@ public class Pet
 * `IValueProviderFactory` を実装するクラスを作成します。
 * `Startup.ConfigureServices` 内のファクトリ クラスを登録します。
 
-サンプル アプリには、cookie から値を取得する[値プロバイダー](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/3.x/ModelBindingSample/CookieValueProvider.cs)と[ファクトリ](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/3.x/ModelBindingSample/CookieValueProviderFactory.cs)の例が含まれています。 `Startup.ConfigureServices` 内の登録コードを次に示します。
+サンプル アプリには、cookie から値を取得する[値プロバイダー](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/3.x/ModelBindingSample/CookieValueProvider.cs)と[ファクトリ](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/3.x/ModelBindingSample/CookieValueProviderFactory.cs)の例が含まれています。 `Startup.ConfigureServices` 内の登録コードを次に示します。
 
 [!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Startup.cs?name=snippet_ValueProvider&highlight=4)]
 
-表示したコードでは、すべての組み込み値プロバイダーの後にカスタムの値プロバイダーが配置されています。  それをリストの最初に持ってくるには、`Add` ではなく `Insert(0, new CookieValueProviderFactory())` を呼び出します。
+表示したコードでは、すべての組み込み値プロバイダーの後にカスタムの値プロバイダーが配置されています。  それをリストの最初に持ってくるには、`Insert(0, new CookieValueProviderFactory())` ではなく `Add` を呼び出します。
 
 ## <a name="no-source-for-a-model-property"></a>モデル プロパティ用のソースがない
 
@@ -206,7 +206,7 @@ Razor ページでは、エラー メッセージを含むページが再表示�
 * [TimeSpan](xref:System.ComponentModel.TimeSpanConverter)
 * [UInt16](xref:System.ComponentModel.UInt16Converter)、[UInt32](xref:System.ComponentModel.UInt32Converter)、[UInt64](xref:System.ComponentModel.UInt64Converter)
 * [Uri](xref:System.UriTypeConverter)
-* [Version](xref:System.ComponentModel.VersionConverter)
+* [バージョン](xref:System.ComponentModel.VersionConverter)
 
 ## <a name="complex-types"></a>複合型
 
@@ -270,7 +270,7 @@ public IActionResult OnPost(
 > [!NOTE]
 > ポストされたフォーム データが値のソースである場合、これらの属性はモデル バインドに影響します。 ポストされた JSON および XML 要求本文を処理する入力フォーマッタには影響しません。 入力フォーマッタについては、[この記事で後ほど](#input-formatters)説明します。
 >
-> [モデル検証](xref:mvc/models/validation#required-attribute)に関するページにある `[Required]` 属性の説明も参照してください。
+> `[Required]`モデル検証[に関するページにある ](xref:mvc/models/validation#required-attribute) 属性の説明も参照してください。
 
 ### <a name="bindrequired-attribute"></a>[BindRequired] 属性
 
@@ -295,7 +295,7 @@ public IActionResult OnPost(
 public class Instructor
 ```
 
-次の例では、`OnPost` メソッドが呼び出されると、`Instructor` モデルの指定されたプロパティのみがバインドされます。
+次の例では、`Instructor` メソッドが呼び出されると、`OnPost` モデルの指定されたプロパティのみがバインドされます。
 
 ```csharp
 [HttpPost]
@@ -306,7 +306,7 @@ public IActionResult OnPost([Bind("LastName,FirstMidName,HireDate")] Instructor 
 
 ## <a name="collections"></a>コレクション
 
-ターゲットが単純型のコレクションである場合、モデル バインドでは *parameter_name* または *property_name* との一致が探索されます。 一致が見つからない場合は、サポートされているいずれかの形式がプレフィックスなしで探索されます。 次に例を示します。
+ターゲットが単純型のコレクションである場合、モデル バインドでは *parameter_name* または *property_name* との一致が探索されます。 一致が見つからない場合は、サポートされているいずれかの形式がプレフィックスなしで探索されます。 例 :
 
 * バインドされるパラメーターが `selectedCourses` という名前の配列であるとした場合:
 
@@ -351,9 +351,9 @@ public IActionResult OnPost([Bind("LastName,FirstMidName,HireDate")] Instructor 
 
 ## <a name="dictionaries"></a>ディクショナリ
 
-`Dictionary` ターゲットの場合、モデル バインドでは *parameter_name* または *property_name* との一致が探索されます。 一致が見つからない場合は、サポートされているいずれかの形式がプレフィックスなしで探索されます。 次に例を示します。
+`Dictionary` ターゲットの場合、モデル バインドでは *parameter_name* または *property_name* との一致が探索されます。 一致が見つからない場合は、サポートされているいずれかの形式がプレフィックスなしで探索されます。 例 :
 
-* ターゲット パラメーターが `selectedCourses` という名前の `Dictionary<int, string>` であるとします:
+* ターゲット パラメーターが `Dictionary<int, string>` という名前の `selectedCourses` であるとします:
 
   ```csharp
   public IActionResult OnPost(int? id, Dictionary<int, string> selectedCourses)
@@ -446,9 +446,9 @@ ASP.NET Core では、[Consumes](xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute
 
 ### <a name="customize-model-binding-with-input-formatters"></a>入力フォーマッタを使用してモデル バインドをカスタマイズする
 
-入力フォーマッタは、要求本文からデータを読み取るためのすべての役割を担います。 このプロセスをカスタマイズするには、入力フォーマッタによって使用される API を構成します。 このセクションでは、`ObjectId` という名前のカスタム型を理解するために、`System.Text.Json` ベースの入力フォーマッタをカスタマイズする方法について説明します。 
+入力フォーマッタは、要求本文からデータを読み取るためのすべての役割を担います。 このプロセスをカスタマイズするには、入力フォーマッタによって使用される API を構成します。 このセクションでは、`System.Text.Json` という名前のカスタム型を理解するために、`ObjectId` ベースの入力フォーマッタをカスタマイズする方法について説明します。 
 
-`Id` という名前のカスタム `ObjectId` プロパティが含まれている、次のモデルを考えてみます。
+`ObjectId` という名前のカスタム `Id` プロパティが含まれている、次のモデルを考えてみます。
 
 [!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Models/ModelWithObjectId.cs?name=snippet_Class&highlight=3)]
 
@@ -466,11 +466,11 @@ ASP.NET Core では、[Consumes](xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute
 
 モデル バインドおよび検証システムの動作は、[ModelMetadata](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.modelmetadata) によって駆動されます。 `ModelMetadata` については、詳細プロバイダーを [MvcOptions.ModelMetadataDetailsProviders](xref:Microsoft.AspNetCore.Mvc.MvcOptions.ModelMetadataDetailsProviders) に追加してカスタマイズできます。 組み込みの詳細プロバイダーは、指定された型に対してモデル バインドまたは検証を無効にする場合に使用できます。
 
-指定された型のすべてのモデルに対してモデル バインドを無効にするには、`Startup.ConfigureServices` に <xref:Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.ExcludeBindingMetadataProvider> を追加します。 たとえば、`System.Version` 型のすべてのモデルに対してモデル バインドを無効にするには、次のようにします。
+指定された型のすべてのモデルに対してモデル バインドを無効にするには、<xref:Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.ExcludeBindingMetadataProvider> に `Startup.ConfigureServices` を追加します。 たとえば、`System.Version` 型のすべてのモデルに対してモデル バインドを無効にするには、次のようにします。
 
 [!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Startup.cs?name=snippet_ValueProvider&highlight=5-6)]
 
-指定された型のプロパティに対して検証を無効にするには、`Startup.ConfigureServices` に <xref:Microsoft.AspNetCore.Mvc.ModelBinding.SuppressChildValidationMetadataProvider> を追加します。 たとえば、`System.Guid` 型のプロパティに対して検証を無効にするには、次のようにします。
+指定された型のプロパティに対して検証を無効にするには、<xref:Microsoft.AspNetCore.Mvc.ModelBinding.SuppressChildValidationMetadataProvider> に `Startup.ConfigureServices` を追加します。 たとえば、`System.Guid` 型のプロパティに対して検証を無効にするには、次のようにします。
 
 [!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Startup.cs?name=snippet_ValueProvider&highlight=7-8)]
 
@@ -495,7 +495,7 @@ ASP.NET Core では、[Consumes](xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute
 
 この属性の名前は、データ ソースを指定するモデル バインド属性のパターンに従います。 ただし、それは、値プロバイダーからのデータ バインドを説明するものではありません。 [依存関係挿入](xref:fundamentals/dependency-injection)コンテナーから型のインスタンスが取得されます。 その目的は、特定のメソッドが呼び出された場合にのみサービスを必要するときにコンストラクターの挿入の代替手段を提供することにあります。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * <xref:mvc/models/validation>
 * <xref:mvc/advanced/custom-model-binding>
@@ -505,7 +505,7 @@ ASP.NET Core では、[Consumes](xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute
 
 この記事では、モデル バインドとは何か、そのしくみ、その動作のカスタマイズ方法を説明します。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/model-binding/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/model-binding/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="what-is-model-binding"></a>モデル バインドとは何か
 
@@ -537,7 +537,7 @@ http://contoso.com/api/pets/2?DogsOnly=true
 * 該当するソース内を調べ、クエリ文字列内で "DogsOnly=true" を検索します。 名前の照合では大文字と小文字が区別されません。
 * 文字列 "true" をブール型の `true` に変換します。
 
-次にフレームワークによって `GetById` メソッドが呼び出され、`id` パラメーターには 2 が、`dogsOnly` パラメーターには `true` が渡されます。
+次にフレームワークによって `GetById` メソッドが呼び出され、`id` パラメーターには 2 が、`true` パラメーターには `dogsOnly` が渡されます。
 
 上記の例で、モデル バインディング ターゲットは単純型のメソッド パラメーターになっています。 ターゲットは複合型のプロパティになる場合もあります。 各プロパティが正常にバインドされたら、そのプロパティに対して[モデル検証](xref:mvc/models/validation)が行われます。 どのようなデータがモデルにバインドされているかを示す記録、バインド エラー、または検証のエラーは、[ControllerBase.ModelState](xref:Microsoft.AspNetCore.Mvc.ControllerBase.ModelState) または [PageModel.ModelState](xref:Microsoft.AspNetCore.Mvc.ControllerBase.ModelState) に格納されます。 このプロセスが正常終了したかどうかを確認するために、アプリでは [ModelState.IsValid](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.IsValid) フラグが調べられます。
 
@@ -573,8 +573,8 @@ ASP.NET Core 2.1 以降で使用できます。  コントローラーまたは 
 
 1. フォーム フィールド
 1. 要求本文 ([[ApiController] 属性を持つコントローラー](xref:web-api/index#binding-source-parameter-inference) の場合)。
-1. ルート データ
-1. クエリ文字列のパラメーター
+1. データのルーティング
+1. クエリ文字列パラメーター
 1. アップロード済みのファイル
 
 ターゲット パラメーターまたはプロパティごとに、前述の一覧に示されている順序でソースがスキャンされます。 次のようにいくつかの例外があります。
@@ -639,11 +639,11 @@ public class Pet
 * `IValueProviderFactory` を実装するクラスを作成します。
 * `Startup.ConfigureServices` 内のファクトリ クラスを登録します。
 
-サンプル アプリには、cookie から値を取得する[値プロバイダー](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/ModelBindingSample/CookieValueProvider.cs)と[ファクトリ](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/ModelBindingSample/CookieValueProviderFactory.cs)の例が含まれています。 `Startup.ConfigureServices` 内の登録コードを次に示します。
+サンプル アプリには、cookie から値を取得する[値プロバイダー](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/ModelBindingSample/CookieValueProvider.cs)と[ファクトリ](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/ModelBindingSample/CookieValueProviderFactory.cs)の例が含まれています。 `Startup.ConfigureServices` 内の登録コードを次に示します。
 
 [!code-csharp[](model-binding/samples/2.x/ModelBindingSample/Startup.cs?name=snippet_ValueProvider&highlight=3)]
 
-表示したコードでは、すべての組み込み値プロバイダーの後にカスタムの値プロバイダーが配置されています。  それをリストの最初に持ってくるには、`Add` ではなく `Insert(0, new CookieValueProviderFactory())` を呼び出します。
+表示したコードでは、すべての組み込み値プロバイダーの後にカスタムの値プロバイダーが配置されています。  それをリストの最初に持ってくるには、`Insert(0, new CookieValueProviderFactory())` ではなく `Add` を呼び出します。
 
 ## <a name="no-source-for-a-model-property"></a>モデル プロパティ用のソースがない
 
@@ -692,7 +692,7 @@ Razor ページでは、エラー メッセージを含むページが再表示�
 * [TimeSpan](xref:System.ComponentModel.TimeSpanConverter)
 * [UInt16](xref:System.ComponentModel.UInt16Converter)、[UInt32](xref:System.ComponentModel.UInt32Converter)、[UInt64](xref:System.ComponentModel.UInt64Converter)
 * [Uri](xref:System.UriTypeConverter)
-* [Version](xref:System.ComponentModel.VersionConverter)
+* [バージョン](xref:System.ComponentModel.VersionConverter)
 
 ## <a name="complex-types"></a>複合型
 
@@ -756,7 +756,7 @@ public IActionResult OnPost(
 > [!NOTE]
 > ポストされたフォーム データが値のソースである場合、これらの属性はモデル バインドに影響します。 ポストされた JSON および XML 要求本文を処理する入力フォーマッタには影響しません。 入力フォーマッタについては、[この記事で後ほど](#input-formatters)説明します。
 >
-> [モデル検証](xref:mvc/models/validation#required-attribute)に関するページにある `[Required]` 属性の説明も参照してください。
+> `[Required]`モデル検証[に関するページにある ](xref:mvc/models/validation#required-attribute) 属性の説明も参照してください。
 
 ### <a name="bindrequired-attribute"></a>[BindRequired] 属性
 
@@ -781,7 +781,7 @@ public IActionResult OnPost(
 public class Instructor
 ```
 
-次の例では、`OnPost` メソッドが呼び出されると、`Instructor` モデルの指定されたプロパティのみがバインドされます。
+次の例では、`Instructor` メソッドが呼び出されると、`OnPost` モデルの指定されたプロパティのみがバインドされます。
 
 ```csharp
 [HttpPost]
@@ -792,7 +792,7 @@ public IActionResult OnPost([Bind("LastName,FirstMidName,HireDate")] Instructor 
 
 ## <a name="collections"></a>コレクション
 
-ターゲットが単純型のコレクションである場合、モデル バインドでは *parameter_name* または *property_name* との一致が探索されます。 一致が見つからない場合は、サポートされているいずれかの形式がプレフィックスなしで探索されます。 次に例を示します。
+ターゲットが単純型のコレクションである場合、モデル バインドでは *parameter_name* または *property_name* との一致が探索されます。 一致が見つからない場合は、サポートされているいずれかの形式がプレフィックスなしで探索されます。 例 :
 
 * バインドされるパラメーターが `selectedCourses` という名前の配列であるとした場合:
 
@@ -837,9 +837,9 @@ public IActionResult OnPost([Bind("LastName,FirstMidName,HireDate")] Instructor 
 
 ## <a name="dictionaries"></a>ディクショナリ
 
-`Dictionary` ターゲットの場合、モデル バインドでは *parameter_name* または *property_name* との一致が探索されます。 一致が見つからない場合は、サポートされているいずれかの形式がプレフィックスなしで探索されます。 次に例を示します。
+`Dictionary` ターゲットの場合、モデル バインドでは *parameter_name* または *property_name* との一致が探索されます。 一致が見つからない場合は、サポートされているいずれかの形式がプレフィックスなしで探索されます。 例 :
 
-* ターゲット パラメーターが `selectedCourses` という名前の `Dictionary<int, string>` であるとします:
+* ターゲット パラメーターが `Dictionary<int, string>` という名前の `selectedCourses` であるとします:
 
   ```csharp
   public IActionResult OnPost(int? id, Dictionary<int, string> selectedCourses)
@@ -934,11 +934,11 @@ ASP.NET Core では、[Consumes](xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute
 
 モデル バインドおよび検証システムの動作は、[ModelMetadata](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.modelmetadata) によって駆動されます。 `ModelMetadata` については、詳細プロバイダーを [MvcOptions.ModelMetadataDetailsProviders](xref:Microsoft.AspNetCore.Mvc.MvcOptions.ModelMetadataDetailsProviders) に追加してカスタマイズできます。 組み込みの詳細プロバイダーは、指定された型に対してモデル バインドまたは検証を無効にする場合に使用できます。
 
-指定された型のすべてのモデルに対してモデル バインドを無効にするには、`Startup.ConfigureServices` に <xref:Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.ExcludeBindingMetadataProvider> を追加します。 たとえば、`System.Version` 型のすべてのモデルに対してモデル バインドを無効にするには、次のようにします。
+指定された型のすべてのモデルに対してモデル バインドを無効にするには、<xref:Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.ExcludeBindingMetadataProvider> に `Startup.ConfigureServices` を追加します。 たとえば、`System.Version` 型のすべてのモデルに対してモデル バインドを無効にするには、次のようにします。
 
 [!code-csharp[](model-binding/samples/2.x/ModelBindingSample/Startup.cs?name=snippet_ValueProvider&highlight=4-5)]
 
-指定された型のプロパティに対して検証を無効にするには、`Startup.ConfigureServices` に <xref:Microsoft.AspNetCore.Mvc.ModelBinding.SuppressChildValidationMetadataProvider> を追加します。 たとえば、`System.Guid` 型のプロパティに対して検証を無効にするには、次のようにします。
+指定された型のプロパティに対して検証を無効にするには、<xref:Microsoft.AspNetCore.Mvc.ModelBinding.SuppressChildValidationMetadataProvider> に `Startup.ConfigureServices` を追加します。 たとえば、`System.Guid` 型のプロパティに対して検証を無効にするには、次のようにします。
 
 [!code-csharp[](model-binding/samples/2.x/ModelBindingSample/Startup.cs?name=snippet_ValueProvider&highlight=6-7)]
 
@@ -956,7 +956,7 @@ ASP.NET Core では、[Consumes](xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute
 
 この属性の名前は、データ ソースを指定するモデル バインド属性のパターンに従います。 ただし、それは、値プロバイダーからのデータ バインドを説明するものではありません。 [依存関係挿入](xref:fundamentals/dependency-injection)コンテナーから型のインスタンスが取得されます。 その目的は、特定のメソッドが呼び出された場合にのみサービスを必要するときにコンストラクターの挿入の代替手段を提供することにあります。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * <xref:mvc/models/validation>
 * <xref:mvc/advanced/custom-model-binding>

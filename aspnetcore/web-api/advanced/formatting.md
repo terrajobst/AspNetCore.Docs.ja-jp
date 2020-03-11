@@ -6,20 +6,20 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 12/05/2019
 uid: web-api/advanced/formatting
-ms.openlocfilehash: cab383053751598b882f3716943d3d9392c56f4a
-ms.sourcegitcommit: 29ace642ca0e1f0b48a18d66de266d8811df2b83
-ms.translationtype: HT
+ms.openlocfilehash: 908016720ade67a02ebe30d1dcb7929ad7592270
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/10/2019
-ms.locfileid: "74987960"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653042"
 ---
 # <a name="format-response-data-in-aspnet-core-web-api"></a>ASP.NET Core Web API の応答データの書式設定
 
-作成者: [Rick Anderson](https://twitter.com/RickAndMSFT)、[Steve Smith](https://ardalis.com/)
+作成者: [Rick Anderson](https://twitter.com/RickAndMSFT) および [Steve Smith](https://ardalis.com/)
 
 ASP.NET Core MVC では、応答データの書式設定がサポートされます。 応答データは、特定の形式を使用して、またはクライアントが要求した形式に応じて書式設定できます。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/formatting)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/formatting)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="format-specific-action-results"></a>書式固有アクションの結果
 
@@ -31,14 +31,14 @@ ASP.NET Core MVC では、応答データの書式設定がサポートされま
 
 サンプル ダウンロードでは作成者の一覧が返されます。 F12 ブラウザー開発者ツールまたは [Postman](https://www.getpostman.com/tools) と前のコードを使用します。
 
-* **content-type:** `application/json; charset=utf-8` を含む応答ヘッダーが表示されます。
+* **Content-type:** `application/json; charset=utf-8` を含む応答ヘッダーが表示されます。
 * 要求ヘッダーが表示されます。 たとえば、`Accept` ヘッダーです。 `Accept` ヘッダーは前のコードでは無視されます。
 
 プレーンテキストで書式設定されたデータを返すには、<xref:Microsoft.AspNetCore.Mvc.ContentResult.Content> と <xref:Microsoft.AspNetCore.Mvc.ContentResult.Content> ヘルパーを使用します。
 
 [!code-csharp[](./formatting/sample/Controllers/AuthorsController.cs?name=snippet_about)]
 
-前のコードで、返される `Content-Type` は `text/plain` です。 文字列を返すと、`text/plain` の `Content-Type` が送られます。
+前のコードで、返される `Content-Type` は `text/plain` です。 文字列を返すと、`Content-Type` の `text/plain` が送られます。
 
 [!code-csharp[](./formatting/sample/Controllers/AuthorsController.cs?name=snippet_string)]
 
@@ -76,7 +76,7 @@ ASP.NET Core では、規定で `application/json`、`text/json`、`text/plain` 
 
 クライアントの要求を満たすことができるフォーマッタが見つからない場合は、ASP.NET Core は次のようにします。
 
-* <xref:Microsoft.AspNetCore.Mvc.MvcOptions> が設定されていた場合は、`406 Not Acceptable` を返します。それ以外の場合は次のようにします。
+* `406 Not Acceptable` が設定されていた場合は、<xref:Microsoft.AspNetCore.Mvc.MvcOptions> を返します。それ以外の場合は次のようにします。
 * 応答を生成できる最初のフォーマッタを見つけようとします。
 
 要求された形式に対応するフォーマッタが構成されていない場合、オブジェクトを書式設定できる最初のフォーマッタが使用されます。 要求に `Accept` ヘッダーが表示されない場合は、次のようになります。
@@ -135,7 +135,7 @@ services.AddControllers().AddJsonOptions(options =>
 });
 ```
 
-出力のシリアル化オプションは、アクションごとに `JsonResult` を使用して構成することができます。 次に例を示します。
+出力のシリアル化オプションは、アクションごとに `JsonResult` を使用して構成することができます。 例 :
 
 ```csharp
 public IActionResult Get()
@@ -155,10 +155,10 @@ ASP.NET Core 3.0 より前、既定では、`Newtonsoft.Json` パッケージを
 
 一部の機能は `System.Text.Json` ベースのフォーマッタでうまく動作せず、`Newtonsoft.Json` ベースのフォーマッタの参照が必要となる場合があります。 アプリが以下の場合には、`Newtonsoft.Json` ベースのフォーマッタの使用を続けます。
 
-* `Newtonsoft.Json` 属性を使用する。 たとえば、`[JsonProperty]` または `[JsonIgnore]` のようにします。
+* `Newtonsoft.Json` 属性を使用する。 たとえば、`[JsonProperty]` または `[JsonIgnore]` です。
 * シリアル化の設定をカスタマイズする。
 * `Newtonsoft.Json` で提供される機能に依存する。
-* `Microsoft.AspNetCore.Mvc.JsonResult.SerializerSettings` を構成する。 ASP.NET Core 3.0 より前は、`JsonResult.SerializerSettings`が `Newtonsoft.Json` に固有の `JsonSerializerSettings` のインスタンスを受け入れます。
+* `Microsoft.AspNetCore.Mvc.JsonResult.SerializerSettings` を構成する。 ASP.NET Core 3.0 より前は、`JsonResult.SerializerSettings`が `JsonSerializerSettings` に固有の `Newtonsoft.Json` のインスタンスを受け入れます。
 * [OpenAPI](<xref:tutorials/web-api-help-pages-using-swagger>) ドキュメントを生成する。
 
 `Newtonsoft.Json` ベースのフォーマッタの機能は、`Microsoft.AspNetCore.Mvc.MvcNewtonsoftJsonOptions.SerializerSettings` を使用して構成することができます。
@@ -174,7 +174,7 @@ services.AddControllers().AddNewtonsoftJson(options =>
 });
 ```
 
-出力のシリアル化オプションは、アクションごとに `JsonResult` を使用して構成することができます。 次に例を示します。
+出力のシリアル化オプションは、アクションごとに `JsonResult` を使用して構成することができます。 例 :
 
 ```csharp
 public IActionResult Get()
@@ -219,7 +219,7 @@ XML の書式設定には、[Microsoft.AspNetCore.Mvc.Formatters.Xml](https://ww
 
 ### <a name="special-case-formatters"></a>特殊なケースのフォーマッタ
 
-一部の特殊なケースが組み込みのフォーマッタで実装されます。 既定では、戻り値の型 `string` は *text/plain* として書式設定されます (`Accept` ヘッダー経由で要求された場合は *text/html*)。 この動作は <xref:Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter> を削除することで削除できます。 フォーマッタは `ConfigureServices` メソッドで削除します。 戻り値の型としてモデル オブジェクトをともなうアクションは、`null` を返すとき、`204 No Content` を返します。 この動作は <xref:Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter> を削除することで削除できます。 次のコードでは、`StringOutputFormatter` と `HttpNoContentOutputFormatter` が削除されます。
+一部の特殊なケースが組み込みのフォーマッタで実装されます。 既定では、戻り値の型 `string` は *text/plain* として書式設定されます (*ヘッダー経由で要求された場合は*text/html`Accept`)。 この動作は <xref:Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter> を削除することで削除できます。 フォーマッタは `ConfigureServices` メソッドで削除します。 戻り値の型としてモデル オブジェクトをともなうアクションは、`204 No Content` を返すとき、`null` を返します。 この動作は <xref:Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter> を削除することで削除できます。 次のコードでは、`StringOutputFormatter` と `HttpNoContentOutputFormatter` が削除されます。
 
 ::: moniker range=">= aspnetcore-3.0"
 [!code-csharp[](./formatting/3.0sample/StartupStringOutputFormatter.cs?name=snippet)]
@@ -230,7 +230,7 @@ XML の書式設定には、[Microsoft.AspNetCore.Mvc.Formatters.Xml](https://ww
 
 `StringOutputFormatter` がない場合は、組み込みの JSON フォーマッタによって戻り値の型 `string` が書式設定されます。 組み込みの JSON フォーマッタが削除され、XML フォーマッタを使用できる場合は、XML フォーマッタによって戻り値の型 `string` が書式設定されます。 それ以外の場合は、戻り値の型 `string` で `406 Not Acceptable` が返されます。
 
-`HttpNoContentOutputFormatter` がない場合、構成されているフォーマッタを利用し、null オブジェクトが書式設定されます。 次に例を示します。
+`HttpNoContentOutputFormatter` がない場合、構成されているフォーマッタを利用し、null オブジェクトが書式設定されます。 例 :
 
 * JSON フォーマッタは、本文が `null` の応答を返します。
 * XML フォーマッタは、属性 `xsi:nil="true"` が設定された空の XML 要素を返します。
@@ -242,7 +242,7 @@ XML の書式設定には、[Microsoft.AspNetCore.Mvc.Formatters.Xml](https://ww
 * クエリ文字列またはパスの一部。
 * .xml または .json など形式固有のファイル拡張子の使用。
 
-要求パスからのマッピングは、API で使用されるルートに指定する必要があります。 次に例を示します。
+要求パスからのマッピングは、API で使用されるルートに指定する必要があります。 例 :
 
 [!code-csharp[](./formatting/sample/Controllers/ProductsController.cs?name=snippet)]
 

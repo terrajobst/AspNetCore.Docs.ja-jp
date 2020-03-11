@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: migration/webapi
-ms.openlocfilehash: c68cf83f427f53b110075168c6d5e4d021808782
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 7f61b78c589fc9d01061b50554e5a639e372c3d8
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74881140"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653006"
 ---
 # <a name="migrate-from-aspnet-web-api-to-aspnet-core"></a>ASP.NET Web API から ASP.NET Core への移行
 
@@ -19,9 +19,9 @@ ms.locfileid: "74881140"
 
 ASP.NET 4.x Web API は、ブラウザーやモバイルデバイスを含む広範なクライアントに到達する HTTP サービスです。 ASP.NET Core は、ASP.NET 4.x の MVC および Web API アプリモデルを、ASP.NET Core MVC と呼ばれるより単純なプログラミングモデルに統合します。 この記事では、ASP.NET 4.x Web API から ASP.NET Core MVC に移行するために必要な手順について説明します。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/migration/webapi/sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/migration/webapi/sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
-## <a name="prerequisites"></a>必要条件
+## <a name="prerequisites"></a>前提条件
 
 [!INCLUDE [prerequisites](../includes/net-core-prereqs-vs2019-2.2.md)]
 
@@ -61,7 +61,7 @@ Visual Studio で次の手順を実行します。
 
 ## <a name="migrate-configuration"></a>構成の移行
 
-ASP.NET Core では、 *App_Start*フォルダーも*global.asax*ファイルも使用されません *。また、web.config ファイルは*発行時に追加されます。 *Startup.cs*は*global.asax*の後継であり、プロジェクトのルートにあります。 `Startup` クラスは、すべてのアプリのスタートアップタスクを処理します。 詳細については、「<xref:fundamentals/startup>」を参照してください。
+ASP.NET Core では、 *App_Start*フォルダーも*global.asax*ファイルも使用されません *。また、web.config ファイルは*発行時に追加されます。 *Startup.cs*は*global.asax*の後継であり、プロジェクトのルートにあります。 `Startup` クラスは、すべてのアプリのスタートアップタスクを処理します。 詳細については、<xref:fundamentals/startup> を参照してください。
 
 ASP.NET Core MVC では、`Startup.Configure`で <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc*> を呼び出すと、既定で属性ルーティングが含まれます。 次の `UseMvc` の呼び出しによって、製品*アプリ*プロジェクトの*App_Start*というファイルが置き換えられます。
 
@@ -69,7 +69,7 @@ ASP.NET Core MVC では、`Startup.Configure`で <xref:Microsoft.AspNetCore.Buil
 
 ## <a name="migrate-models-and-controllers"></a>モデルとコントローラーの移行
 
-*Productapp*プロジェクトのコントローラーとそれが使用するモデルをコピーします。 この場合は、以下の手順に従ってください。
+*Productapp*プロジェクトのコントローラーとそれが使用するモデルをコピーします。 次の手順に従います。
 
 1. 元のプロジェクトから新しいコントローラー */製品コントローラー .cs*をコピーします。
 1. 元のプロジェクトの [*モデル*] フォルダー全体を新しいプロジェクトにコピーします。
@@ -83,7 +83,7 @@ ASP.NET Core MVC では、`Startup.Configure`で <xref:Microsoft.AspNetCore.Buil
 
 次のようにエラーを修正します。
 
-1. 変更`ApiController`に<xref:Microsoft.AspNetCore.Mvc.ControllerBase>します。 `ControllerBase` 参照を解決する `using Microsoft.AspNetCore.Mvc;` を追加します。
+1. `ApiController` を <xref:Microsoft.AspNetCore.Mvc.ControllerBase> に変更します。 `ControllerBase` 参照を解決する `using Microsoft.AspNetCore.Mvc;` を追加します。
 1. `using System.Web.Http;`を削除します。
 1. `GetProduct` アクションの戻り値の型を `IHttpActionResult` から `ActionResult<Product>`に変更します。
 
@@ -93,7 +93,7 @@ ASP.NET Core MVC では、`Startup.Configure`で <xref:Microsoft.AspNetCore.Buil
 return product;
 ```
 
-## <a name="configure-routing"></a>ルーティングの構成
+## <a name="configure-routing"></a>ルーティングを構成する
 
 次のようにルーティングを構成します。
 
@@ -123,7 +123,7 @@ return product;
 
 [!code-csharp[](webapi/sample/ProductsCore/Controllers/ProductsController.cs)]
 
-移行したプロジェクトを実行し、`/api/products`を参照します。 3つの製品の完全な一覧が表示されます。 `/api/products/1` を参照します。 最初の製品が表示されます。
+移行したプロジェクトを実行し、`/api/products`を参照します。 3つの製品の完全な一覧が表示されます。 [https://www.microsoft.com](`/api/products/1`) を参照します。 最初の製品が表示されます。
 
 ## <a name="compatibility-shim"></a>互換性 shim
 
@@ -156,7 +156,7 @@ Web API 互換性 shim は、大規模な ASP.NET 4.x Web API プロジェクト
 1. `Startup.ConfigureServices`で `services.AddMvc().AddWebApiConventions()` を呼び出して、互換性 shim のサービスをアプリの DI コンテナーに登録します。
 1. アプリの `IApplicationBuilder.UseMvc` 呼び出しの `IRouteBuilder` で `MapWebApiRoute` を使用して、web API 固有のルートを定義します。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * <xref:web-api/index>
 * <xref:web-api/action-return-types>

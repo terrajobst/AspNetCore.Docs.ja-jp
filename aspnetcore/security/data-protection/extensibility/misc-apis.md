@@ -1,16 +1,16 @@
 ---
 title: その他の ASP.NET Core データ保護 Api
 author: rick-anderson
-description: ASP.NET Core データ保護 ISecret インターフェイスについて説明します。
+description: ASP.NET Core Data Protection ISecret インターフェイスについて説明します。
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/data-protection/extensibility/misc-apis
 ms.openlocfilehash: 114cdd6209970e46b827e403fbe79b95692d0242
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64896619"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654356"
 ---
 # <a name="miscellaneous-aspnet-core-data-protection-apis"></a>その他の ASP.NET Core データ保護 Api
 
@@ -21,7 +21,7 @@ ms.locfileid: "64896619"
 
 ## <a name="isecret"></a>ISecret
 
-`ISecret`インターフェイスは、暗号化キー マテリアルなどのシークレットの値を表します。 次の API サーフェスが含まれています。
+`ISecret` インターフェイスは、暗号化キーマテリアルなどのシークレット値を表します。 次の API サーフェイスが含まれています。
 
 * `Length`: `int`
 
@@ -29,6 +29,6 @@ ms.locfileid: "64896619"
 
 * `WriteSecretIntoBuffer(ArraySegment<byte> buffer)`: `void`
 
-`WriteSecretIntoBuffer`メソッドは生のシークレットの値で指定されたバッファーを設定します。 この API は、パラメーターとして、バッファーの理由を返すのではなく、`byte[]`バッファー オブジェクトは、管理対象のガベージ コレクターへのシークレットの露出を制限することをピン留めする営業案件これにより、呼び出し元を直接は。
+`WriteSecretIntoBuffer` メソッドは、指定されたバッファーに生のシークレット値を設定します。 この API が `byte[]` を直接返すのではなく、パラメーターとしてバッファーを受け取る理由は、呼び出し元がバッファーオブジェクトをピン留めして、管理対象のガベージコレクターに対して秘密の露出を制限する機会を与えることです。
 
-`Secret`型の具象実装は、`ISecret`プロセスでメモリ内にシークレットの値が格納されます。 Windows のプラットフォームで、シークレットの値が使用して暗号化されて[CryptProtectMemory](https://msdn.microsoft.com/library/windows/desktop/aa380262(v=vs.85).aspx)します。
+`Secret` 型は `ISecret` の具象実装で、シークレット値はインプロセスメモリに格納されます。 Windows プラットフォームでは、シークレット値は[CryptProtectMemory](https://msdn.microsoft.com/library/windows/desktop/aa380262(v=vs.85).aspx)を使用して暗号化されます。

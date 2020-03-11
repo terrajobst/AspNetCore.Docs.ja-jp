@@ -1,15 +1,15 @@
 Id scaffolder を実行します。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* **ソリューション エクスプ ローラー**、プロジェクトを右クリックして >**追加** > **スキャフォールディングされた新しい項目**します。
-* 左側のウィンドウから、**スキャフォールディングの追加**ダイアログ ボックスで、 **Identity** > **追加**します。
+* **ソリューションエクスプローラー**で、プロジェクトを右クリックして > **新しいスキャフォールディング項目**を**追加**> ます。
+* **[Add スキャフォールディング]** ダイアログボックスの左ペインで、[ > **Identity** ] を選択して **[add]** を選択します。
 * **[Id の追加]** ダイアログボックスで、必要なオプションを選択します。
   * 既存のレイアウトページを選択するか、レイアウトファイルが正しくないマークアップで上書きされます。 たとえば、MVC プロジェクトの Razor Pages `~/Views/Shared/_Layout.cshtml` の `~/Pages/Shared/_Layout.cshtml`
-  * 選択、 **+** 新たに作成するボタン**データ コンテキスト クラス**します。
-* 選択**追加**します。
+  * [ **+** ] ボタンを選択して、新しい**データコンテキストクラス**を作成します。
+* **[追加]** を選択します。
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 ASP.NET Core scaffolder を以前インストールしていない場合は、今すぐインストールします。
 
