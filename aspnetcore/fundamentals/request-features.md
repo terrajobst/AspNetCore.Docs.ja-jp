@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 10/14/2016
 uid: fundamentals/request-features
 ms.openlocfilehash: d0f3ae521d1f314dd04cb581d9a921da4719273d
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
-ms.translationtype: HT
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087032"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78651992"
 ---
 # <a name="request-features-in-aspnet-core"></a>ASP.NET Core での要求機能
 
@@ -26,9 +26,9 @@ ASP.NET Core には、サーバーがサポートする機能を識別するた�
 
 `IHttpResponseFeature` 状態コード、ヘッダー、応答の本文などの HTTP 応答の構造を定義します。
 
-`IHttpAuthenticationFeature` `ClaimsPrincipal` に基づいてユーザーを識別し、認証ハンドラーを指定するサポートを定義します。
+`IHttpAuthenticationFeature``ClaimsPrincipal` に基づいてユーザーを識別し、認証ハンドラーを指定するサポートを定義します。
 
-`IHttpUpgradeFeature` [HTTP アップグレード](https://tools.ietf.org/html/rfc2616.html#section-14.42)のサポートを定義します。これにより、サーバーでプロトコルを切り替えたい場合、使用するその他のプロトコルを指定することが可能になります。
+`IHttpUpgradeFeature`[HTTP アップグレード](https://tools.ietf.org/html/rfc2616.html#section-14.42)のサポートを定義します。これにより、サーバーでプロトコルを切り替えたい場合、使用するその他のプロトコルを指定することが可能になります。
 
 `IHttpBufferingFeature` 要求および応答のバッファーを無効化する方法を定義します。
 
@@ -53,7 +53,7 @@ ASP.NET Core には、サーバーがサポートする機能を識別するた�
 
 ## <a name="feature-collections"></a>機能のコレクション
 
-`HttpContext` の `Features` プロパティは、現在の要求で利用可能な HTTP 機能を取得および設定するためのインターフェイスです。 機能のコレクションは要求のコンテキスト内でも変更可能であるため、コレクションの変更と、その他の機能のサポートの追加にはミドルウェアを使用できます。
+`Features` の `HttpContext` プロパティは、現在の要求で利用可能な HTTP 機能を取得および設定するためのインターフェイスです。 機能のコレクションは要求のコンテキスト内でも変更可能であるため、コレクションの変更と、その他の機能のサポートの追加にはミドルウェアを使用できます。
 
 ## <a name="middleware-and-request-features"></a>ミドルウェアおよび要求機能
 
@@ -67,7 +67,7 @@ ASP.NET Core には、サーバーがサポートする機能を識別するた�
 
 機能インターフェイスは、特定の要求がサポートする可能性がある特定の HTTP 機能を定義します。 サーバーでは、機能のコレクションとそのサーバーによってサポートされる機能の初期セットを定義しますが、ミドルウェアは、これらの機能を強化するために使用できます。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * [サーバー](xref:fundamentals/servers/index)
 * [ミドルウェア](xref:fundamentals/middleware/index)
