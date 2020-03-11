@@ -1,22 +1,20 @@
 ---
 title: ASP.NET Core での IIS モジュール
-author: guardrex
+author: rick-anderson
 description: ASP.NET Core アプリに対してアクティブおよび非アクティブな IIS モジュールについて、さらに IIS モジュールの管理方法についてを把握します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 01/13/2020
 uid: host-and-deploy/iis/modules
-ms.openlocfilehash: ca6cf349aa05db97e145f1cd0cae97a107761fd8
-ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
+ms.openlocfilehash: 0f13ef3eb1da03960ef1fa54d33532b6ebbdc128
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/14/2020
-ms.locfileid: "75951807"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78646646"
 ---
 # <a name="iis-modules-with-aspnet-core"></a>ASP.NET Core での IIS モジュール
-
-作成者: [Luke Latham](https://github.com/guardrex)
 
 一部のネイティブ IIS モジュールとすべての IIS マネージド モジュールでは、ASP.NET Core アプリに対する要求を処理することはできません。 多くの場合、ASP.NET Core には、IIS のネイティブ モジュールおよびマネージド モジュールによって処理されるシナリオの代替が用意されています。
 

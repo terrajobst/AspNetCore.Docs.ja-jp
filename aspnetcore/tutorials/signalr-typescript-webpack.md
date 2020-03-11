@@ -8,12 +8,12 @@ ms.date: 02/10/2020
 no-loc:
 - SignalR
 uid: tutorials/signalr-typescript-webpack
-ms.openlocfilehash: f8bbd9ed2e9c792197eb29be459f7e5ee499bfd1
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: e1ab02077abc8f8b3315a52eb29a3d571af43fa0
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172016"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78647642"
 ---
 # <a name="use-aspnet-core-signalr-with-typescript-and-webpack"></a>TypeScript と Webpack で ASP.NET Core SignalR を使用する
 
@@ -30,19 +30,19 @@ ms.locfileid: "77172016"
 > * SignalR サーバーを構成する
 > * クライアントとサーバー間の通信を有効にする
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/signalr-typescript-webpack/sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/signalr-typescript-webpack/sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ::: moniker range=">= aspnetcore-3.0"
 
 ## <a name="prerequisites"></a>必須コンポーネント
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) と **ASP.NET と Web 開発**ワークロード
 * [.NET Core SDK 3.0 以降](https://www.microsoft.com/net/download/all)
 * [Node.js](https://nodejs.org/) ([npm](https://www.npmjs.com/) 使用)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * [Visual Studio Code](https://code.visualstudio.com/download)
 * [.NET Core SDK 3.0 以降](https://www.microsoft.com/net/download/all)
@@ -53,7 +53,7 @@ ms.locfileid: "77172016"
 
 ## <a name="create-the-aspnet-core-web-app"></a>ASP.NET Core Web アプリを作成する
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 *PATH* 環境変数で npm を検索するように Visual Studio を構成します。 既定では、Visual Studio は、そのインストール ディレクトリ内で見つかった npm のバージョンを使用します。 Visual Studio のこれらの説明に従ってください。
 
@@ -75,7 +75,7 @@ Visual Studio の構成が完了しました。
 
 Visual Studio によって**ソリューション エクスプローラー**の **[依存関係]** ノードの下に NuGet パッケージが追加され、プロジェクトで TypeScript のコンパイルができるようになります。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 **統合ターミナル**で次のコマンドを実行します。
 
@@ -249,7 +249,7 @@ dotnet add package Microsoft.TypeScript.MSBuild
 
 次の手順で、アプリの動作を確認します。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 1. *リリース* モードで Webpack を実行します。 **パッケージ マネージャー コンソール** ウィンドウを使用して、プロジェクト ルートで次のコマンドを実行します。 プロジェクト ルートにいない場合は、コマンドを入力する前に `cd SignalRWebPack` と入力します。
 
@@ -263,7 +263,7 @@ dotnet add package Microsoft.TypeScript.MSBuild
 
 1. いずれかのブラウザーを選択し、 **[メッセージ]** テキスト ボックスにメッセージを入力し、 **[送信]** ボタンをクリックします。 次の瞬間、両方のページに一意のユーザー名とメッセージが表示されます。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 1. プロジェクト ルートで次のコマンドを実行して、*リリース* モードで Webpack を実行します。
 
@@ -293,13 +293,13 @@ dotnet add package Microsoft.TypeScript.MSBuild
 
 ## <a name="prerequisites"></a>必須コンポーネント
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) と **ASP.NET と Web 開発**ワークロード
 * [.NET Core SDK 2.2 以降](https://www.microsoft.com/net/download/all)
 * [Node.js](https://nodejs.org/) ([npm](https://www.npmjs.com/) 使用)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * [Visual Studio Code](https://code.visualstudio.com/download)
 * [.NET Core SDK 2.2 以降](https://www.microsoft.com/net/download/all)
@@ -310,7 +310,7 @@ dotnet add package Microsoft.TypeScript.MSBuild
 
 ## <a name="create-the-aspnet-core-web-app"></a>ASP.NET Core Web アプリを作成する
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 *PATH* 環境変数で npm を検索するように Visual Studio を構成します。 既定では、Visual Studio は、そのインストール ディレクトリ内で見つかった npm のバージョンを使用します。 Visual Studio のこれらの説明に従ってください。
 
@@ -325,7 +325,7 @@ Visual Studio の構成が完了しました。 次はプロジェクトを作�
 1. プロジェクトに *SignalRWebPack* という名前を付け、 **[作成]** を選択します。
 1. ターゲット フレームワークのドロップダウンから、 *[.NET Core]* を選択し、フレームワーク セレクターのドロップダウンから *[ASP.NET Core 2.2]* を選択します。 **空**のテンプレートを選択して、 **[作成]** を選択します。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 **統合ターミナル**で次のコマンドを実行します。
 
@@ -486,7 +486,7 @@ dotnet new web -o SignalRWebPack
 
 次の手順で、アプリの動作を確認します。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 1. *リリース* モードで Webpack を実行します。 **パッケージ マネージャー コンソール** ウィンドウを使用して、プロジェクト ルートで次のコマンドを実行します。 プロジェクト ルートにいない場合は、コマンドを入力する前に `cd SignalRWebPack` と入力します。
 
@@ -498,7 +498,7 @@ dotnet new web -o SignalRWebPack
 
 1. いずれかのブラウザーを選択し、 **[メッセージ]** テキスト ボックスにメッセージを入力し、 **[送信]** ボタンをクリックします。 次の瞬間、両方のページに一意のユーザー名とメッセージが表示されます。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 1. プロジェクト ルートで次のコマンドを実行して、*リリース* モードで Webpack を実行します。
 

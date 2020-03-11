@@ -8,11 +8,11 @@ ms.custom: mvc
 ms.date: 08/03/2019
 uid: fundamentals/localization-extensibility
 ms.openlocfilehash: dfa2efe78b2e1e118e6b3f09bfc41f3330e1d721
-ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/12/2019
-ms.locfileid: "72288940"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78648416"
 ---
 # <a name="localization-extensibility"></a>ローカライズの拡張性
 

@@ -4,14 +4,14 @@
 
 ## <a name="how-to-make-a-simple-correction-or-suggestion"></a>簡単な修正や提案を行う方法
 
-記事は、マークダウン ファイルとしてリポジトリに格納されています。 マークダウン ファイルの内容に対する簡単な変更は、ブラウザー ウィンドウの右上隅にある **[Edit]\(編集\)** リンクを選択して、ブラウザーで行います。 (幅の狭いブラウザー ウィンドウでは、**オプション** バーを展開して、**[Edit]\(編集\)** リンクを表示します。)指示に従って pull request (PR) を作成します。 PR をレビューし、受け入れるか変更を提案します。
+記事は、マークダウン ファイルとしてリポジトリに格納されています。 マークダウン ファイルの内容に対する簡単な変更は、ブラウザー ウィンドウの右上隅にある **[Edit]\(編集\)** リンクを選択して、ブラウザーで行います。 (幅の狭いブラウザー ウィンドウでは、**オプション** バーを展開して、 **[Edit]\(編集\)** リンクを表示します。)指示に従って pull request (PR) を作成します。 PR をレビューし、受け入れるか変更を提案します。
 
 ## <a name="how-to-make-a-more-complex-submission"></a>もっと複雑な提案を行う方法
 
 [Git と GitHub.com](https://guides.github.com/activities/hello-world/) の基本的な理解が必要です。
 
-* 既存の記事の変更や新しい記事の作成など、行いたいことを説明した[問題](https://github.com/aspnet/Docs/issues/new)を開きます。 多くの場合、GitHub は新しいトピックの提案のアウトラインを要求します。 多くの時間を費やす前に、チームの承認を待ちます。
-* [Aspnet/docs](https://github.com/aspnet/Docs/) リポジトリにフォークして、変更のブランチを作成します。
+* 既存の記事の変更や新しい記事の作成など、行いたいことを説明した[問題](https://github.com/dotnet/AspNetCore.Docs/issues/new)を開きます。 多くの場合、GitHub は新しいトピックの提案のアウトラインを要求します。 多くの時間を費やす前に、チームの承認を待ちます。
+* [Aspnet/docs](https://github.com/dotnet/AspNetCore.Docs/) リポジトリにフォークして、変更のブランチを作成します。
 * 変更内容の PR をマスターに送信します。
 * PR にラベル "cla-required" が割り当てられた場合、[貢献者使用許諾契約書 (CLA) を作成します](https://cla.dotnetfoundation.org/)。
 * PR のフィードバックに対応します。
@@ -28,7 +28,7 @@ Visual Studio Code を使用して ASP.NET ドキュメントに貢献する場�
 
 ## <a name="folder-structure-conventions"></a>フォルダー構造の規則
 
-マークダウン ファイルごとに、画像用のフォルダーとサンプル コード用のフォルダーが存在する場合があります。 記事が [fundamentals/configuration/index.md](https://github.com/aspnet/Docs/blob/master/aspnetcore/fundamentals/configuration/index.md) の場合、画像は [fundamentals/configuration/index/\_static](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/configuration/index/_static) にあり、サンプル アプリのプロジェクト ファイルは [fundamentals/configuration/index/sample](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/configuration/index/sample) にあります。 *fundamentals/configuration/index.md* ファイル内の画像は、次の Markdown によってレンダリングされます。
+マークダウン ファイルごとに、画像用のフォルダーとサンプル コード用のフォルダーが存在する場合があります。 記事が [fundamentals/configuration/index.md](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/fundamentals/configuration/index.md) の場合、画像は [fundamentals/configuration/index/\_static](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/_static) にあり、サンプル アプリのプロジェクト ファイルは [fundamentals/configuration/index/sample](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/sample) にあります。 *fundamentals/configuration/index.md* ファイル内の画像は、次の Markdown によってレンダリングされます。
 
 ```md
 ![description of image for alt attribute](configuration/index/_static/imagename.png)
@@ -157,4 +157,4 @@ DocFX には次のものが必要です。
 
 ## <a name="redirects"></a>リダイレクト
 
-記事を削除する、記事のファイル名を変更する、または記事を別のフォルダーに移動する場合は、記事にブックマークを設定している人が *404 Not Found* エラーを受け取らないように、リダイレクトを作成します。 [マスター リダイレクト ファイル](https://github.com/aspnet/Docs/blob/master/.openpublishing.redirection.json)にリダイレクトを追加してください。
+記事を削除する、記事のファイル名を変更する、または記事を別のフォルダーに移動する場合は、記事にブックマークを設定している人が *404 Not Found* エラーを受け取らないように、リダイレクトを作成します。 [マスター リダイレクト ファイル](https://github.com/dotnet/AspNetCore.Docs/blob/master/.openpublishing.redirection.json)にリダイレクトを追加してください。

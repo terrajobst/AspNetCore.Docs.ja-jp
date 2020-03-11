@@ -1,16 +1,16 @@
 ---
 title: ASP.NET Core の Razor ページと EF Core - 関連データの更新 - 7/8
-author: tdykstra
+author: rick-anderson
 description: このチュートリアルでは、外部キー フィールドとナビゲーション プロパティを更新することで関連データを更新します。
 ms.author: riande
 ms.date: 07/22/2019
 uid: data/ef-rp/update-related-data
-ms.openlocfilehash: bc237cf928d852b92c5c1984527129404f88018d
-ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
+ms.openlocfilehash: fdfdb14ff8414b8bf30f9b95be7ba0a6bcbd2995
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/19/2019
-ms.locfileid: "69583498"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78645458"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---update-related-data---7-of-8"></a>ASP.NET Core の Razor ページと EF Core - 関連データの更新 - 7/8
 
@@ -49,7 +49,9 @@ Create と Edit のページ モデル クラスは、`DepartmentNamePageModel` 
 
 [!code-csharp[](intro/samples/cu30/Pages/Courses/Create.cshtml.cs?highlight=7,18,27-41)]
 
-上のコードでは以下の操作が行われます。
+[!INCLUDE[about the series](~/includes/code-comments-loc.md)]
+
+上記のコードでは次の操作が行われます。
 
 * `DepartmentNamePageModel`から派生します。
 * `TryUpdateModelAsync` を使用して[過剰ポスティング](xref:data/ef-rp/crud#overposting)を防止します。
@@ -178,7 +180,7 @@ Razor ページには Course エンティティのコレクションがないた
 
 [!code-csharp[](intro/samples/cu30/Pages/Instructors/Edit.cshtml.cs?name=snippet_All&highlight=9,28-32,38,42-77)]
 
-上のコードでは以下の操作が行われます。
+上記のコードでは次の操作が行われます。
 
 * `OfficeAssignment`、`CourseAssignment`、`CourseAssignment.Course` ナビゲーション プロパティの一括読み込みを使用し、現在の `Instructor` エンティティをデータベースから取得します。
 * モデル バインダーからの値を使用して、取得した `Instructor` エンティティを更新します。 `TryUpdateModel` は[過剰ポスティング](xref:data/ef-rp/crud#overposting)を防止します。
@@ -235,7 +237,7 @@ Instructors/Create ページをテストします。
 
 ::: moniker range="< aspnetcore-3.0"
 
-このチュートリアルでは、関連データの更新を示します。 解決できない問題が発生した場合は、[完成したアプリをダウンロードまたは表示](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)してください。 [ダウンロードの方法はこちらをご覧ください。](xref:index#how-to-download-a-sample)
+このチュートリアルでは、関連データの更新を示します。 解決できない問題が発生した場合は、[完成したアプリをダウンロードまたは表示](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)してください。 [ダウンロードの方法はこちらをご覧ください。](xref:index#how-to-download-a-sample)
 
 以下の図は、完成したページの一部を示しています。
 
@@ -264,7 +266,7 @@ Create と Edit のページ モデル クラスは、`DepartmentNamePageModel` 
 
 [!code-csharp[](intro/samples/cu/Pages/Courses/Create.cshtml.cs?highlight=7,18,32-999)]
 
-上のコードでは以下の操作が行われます。
+上記のコードでは次の操作が行われます。
 
 * `DepartmentNamePageModel`から派生します。
 * `TryUpdateModelAsync` を使用して[過剰ポスティング](xref:data/ef-rp/crud#overposting)を防止します。
@@ -351,7 +353,7 @@ Create、Edit、Details、Delete の各ページをテストします。
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Edit1.cshtml.cs?name=snippet&highlight=20-23,32,39-999)]
 
-上のコードでは以下の操作が行われます。
+上記のコードでは次の操作が行われます。
 
 * `OfficeAssignment` ナビゲーション プロパティの一括読み込みを使用して、現在の `Instructor` エンティティをデータベースから取得します。
 * モデル バインダーからの値を使用して、取得した `Instructor` エンティティを更新します。 `TryUpdateModel` は[過剰ポスティング](xref:data/ef-rp/crud#overposting)を防止します。
@@ -430,7 +432,7 @@ Instructor Razor ビューを更新します。
 
 Instructors/Create ページをテストします。
 
-## <a name="update-the-delete-page"></a>Delete ページを更新する
+## <a name="update-the-delete-page"></a>[削除] ページを更新する
 
 次のコードを使用して、Delete ページ モデルを更新します。
 

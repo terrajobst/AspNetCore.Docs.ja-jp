@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: aspnetcore-2.0
-ms.openlocfilehash: 9d1e1b1154113b8825f4d0faf0f4552b8bd22287
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 5ca43bab1496aa9fda65282cbb0b1177ad8689eb
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828426"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78650858"
 ---
 # <a name="whats-new-in-aspnet-core-20"></a>ASP.NET Core 2.0 の新機能
 
@@ -48,7 +48,7 @@ ASP.NET Core 2.0 パッケージは、.NET Standard 2.0 を対象としていま
 
 ASP.NET Core 2.0 では、既定で `IConfiguration` インスタンスがサービス コンテナーに追加されています。 サービス コンテナーの `IConfiguration` では、アプリケーションがコンテナーから構成値を取得するのを容易にします。
 
-計画されているドキュメントの状態については、「[GitHub issue](https://github.com/aspnet/AspNetCore.Docs/issues/3387)」 (GitHub の問題) を参照してください。
+計画されているドキュメントの状態については、「[GitHub issue](https://github.com/dotnet/AspNetCore.Docs/issues/3387)」 (GitHub の問題) を参照してください。
 
 ## <a name="logging-update"></a>ログ記録の更新
 
@@ -62,7 +62,7 @@ ASP.NET Core 2.0 には、既定で依存性の注入 (DI) システムにログ
 
 新しいテンプレートを使うと、[Azure AD B2C](https://azure.microsoft.com/services/active-directory-b2c/) を使って Web アプリと Web API に対する認証を構成できます。
 
-計画されているドキュメントの状態については、「[GitHub issue](https://github.com/aspnet/AspNetCore.Docs/issues/3054)」 (GitHub の問題) を参照してください。
+計画されているドキュメントの状態については、「[GitHub issue](https://github.com/dotnet/AspNetCore.Docs/issues/3054)」 (GitHub の問題) を参照してください。
 
 ## <a name="identity-update"></a>ID の更新
 
@@ -114,7 +114,7 @@ return File(data, "text/plain", "downloadName.txt", lastModified: DateTime.UtcNo
 
 ASP.NET Core 2.0 では、Visual Studio でのデバッグ時および Azure App Services での実行時 (有効化後に) に、Application Insights での診断を自動的に有効にするために、この機能が使用されています。 その結果、プロジェクト テンプレートでは Application Insights のパッケージとコードが既定で追加されなくなりました。
 
-計画されているドキュメントの状態については、「[GitHub issue](https://github.com/aspnet/AspNetCore.Docs/issues/3389)」 (GitHub の問題) を参照してください。
+計画されているドキュメントの状態については、「[GitHub issue](https://github.com/dotnet/AspNetCore.Docs/issues/3389)」 (GitHub の問題) を参照してください。
 
 ## <a name="automatic-use-of-anti-forgery-tokens"></a>偽造防止トークンの自動使用
 

@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/concurrency
-ms.openlocfilehash: 227128607460f9b5821bd0697fde3f393cf6daa9
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: 6839e383093b993ff55095f26cf88cd68708f001
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259432"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78646262"
 ---
 # <a name="tutorial-handle-concurrency---aspnet-mvc-with-ef-core"></a>チュートリアル: コンカレンシーの処理 - ASP.NET MVC と EF Core
 
@@ -212,7 +212,7 @@ _context.Entry(departmentToUpdate).Property("RowVersion").OriginalValue = rowVer
 
 **[保存]** をもう一度クリックします。 2 番目のブラウザー タブで入力した値が保存されます。 Index ページが表示されると、保存した値を確認できます。
 
-## <a name="update-the-delete-page"></a>Delete ページを更新する
+## <a name="update-the-delete-page"></a>[削除] ページを更新する
 
 Delete ページの場合、Entity Framework は、同様の方法で部署を編集している他のユーザーが起こしたコンカレンシーの競合を検出します。 HttpGet `Delete` 値に確定ビューが表示されると、そのビューに非表示フィールドの元の `RowVersion` 値が含まれます。 その値は、ユーザーが削除を確定したときに呼び出される HttpPost `Delete` メソッドで利用されます。 Entity Framework で SQL DELETE コマンドが作成されるとき、WHERE 句と元の `RowVersion` 値が含まれます。 コマンドの結果、影響を受けた行が 0 であれば (削除確認ページの表示後に行が変更された)、コンカレンシー例外がスローされます。確定ページをエラー メッセージと共に再表示するために、エラー フラグが true に設定された状態で HttpGet `Delete` メソッドが呼び出されます。 別のユーザーが行を削除したため、影響を受けた行が 0 になることもあります。その場合、エラー メッセージは表示されません。
 
@@ -288,7 +288,7 @@ RowVersion 列を削除し、管理者の姓名を表示するように *Views/D
 
 ## <a name="get-the-code"></a>コードを取得する
 
-[完成したアプリケーションをダウンロードまたは表示する。](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
+[完成したアプリケーションをダウンロードまたは表示する。](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
 ## <a name="additional-resources"></a>その他の技術情報
 

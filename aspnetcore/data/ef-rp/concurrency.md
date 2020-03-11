@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 uid: data/ef-rp/concurrency
-ms.openlocfilehash: 944e746624bf5fe7c586a521059fa4eb34b0f1e7
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: c4d43f26ba80e7922c3cbd37d9a5f8e1561b11ad
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259387"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78645878"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---concurrency---8-of-8"></a>ASP.NET Core の Razor ページと EF Core - コンカレンシー - 8/8
 
@@ -98,7 +98,7 @@ modelBuilder.Entity<Department>()
   .IsRowVersion();
 ```
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 SQL Server データベースでは、エンティティ プロパティの `[Timestamp]` 属性はバイト配列として定義されています。
 
@@ -123,7 +123,7 @@ SQL Server データベースでは、エンティティ プロパティの `[Ti
 
 [@@ROWCOUNT](/sql/t-sql/functions/rowcount-transact-sql) では、最後のステートメントの影響を受けた行数を返します。 更新された行がない場合、EF Core では `DbUpdateConcurrencyException` がスローされます。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 SQLite データベースでは、エンティティ プロパティの `[Timestamp]` 属性はバイト配列として定義されています。
 
@@ -144,7 +144,7 @@ SQLite データベースでは、エンティティ プロパティの `[Timest
 
 プロジェクトをビルドします。 
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * PMC で次のコマンドを実行します。
 
@@ -152,7 +152,7 @@ SQLite データベースでは、エンティティ プロパティの `[Timest
   Add-Migration RowVersion
   ```
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * 端末で次のコマンドを実行します。
 
@@ -169,7 +169,7 @@ SQLite データベースでは、エンティティ プロパティの `[Timest
 
   [!code-csharp[](intro/samples/cu30/Migrations/SchoolContextModelSnapshot.cs?name=snippet_Department&highlight=15-17)]
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * PMC で次のコマンドを実行します。
 
@@ -177,13 +177,13 @@ SQLite データベースでは、エンティティ プロパティの `[Timest
   Update-Database
   ```
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * `Migrations/<timestamp>_RowVersion.cs` ファイルを開き、強調表示されているコードを追加します。
 
   [!code-csharp[](intro/samples/cu30/MigrationsSQLite/20190722151951_RowVersion.cs?highlight=16-42)]
 
-  上のコードでは以下の操作が行われます。
+  上記のコードでは次の操作が行われます。
 
   * ランダムな BLOB 値を使用して既存の行を更新します。
   * 行が更新されるたびに RowVersion 列をランダムな BLOB 値に設定するデータベース トリガーを追加します。
@@ -200,7 +200,7 @@ SQLite データベースでは、エンティティ プロパティの `[Timest
 
 ## <a name="scaffold-department-pages"></a>Department ページをスキャフォールディングする
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 次の例外を除き、「[Student ページをスキャフォールディングする](xref:data/ef-rp/intro#scaffold-student-pages)」の指示に従います。
 
@@ -208,7 +208,7 @@ SQLite データベースでは、エンティティ プロパティの `[Timest
 * モデル クラスに `Department` を使用します。
   * 新しいコンテキスト クラスを作成するのではなく、既存のコンテキスト クラスを使用します。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * *Pages/Departments* フォルダーを作成します。
 
@@ -280,7 +280,7 @@ SQLite データベースでは、エンティティ プロパティの `[Timest
 
 [!code-html[](intro/samples/cu30/Pages/Departments/Edit.cshtml?highlight=1,14,16-17,37-39)]
 
-上のコードでは以下の操作が行われます。
+上記のコードでは次の操作が行われます。
 
 * `page` ディレクティブを `@page` から `@page "{id:int}"` に更新します。
 * 非表示の行バージョンが追加されます。 ポストバックが値をバインドするように、`RowVersion` を追加する必要があります。
@@ -363,7 +363,7 @@ Index ページが、値が変更され、rowVersion インジケーターが更
 
 * [コンカレンシー トークン](/ef/core/modeling/concurrency)
 * [EF Core のコンカレンシーの処理](/ef/core/saving/concurrency)
-* [ASP.NET Core 2.x ソースのデバッグ](https://github.com/aspnet/AspNetCore.Docs/issues/4155)
+* [ASP.NET Core 2.x ソースのデバッグ](https://github.com/dotnet/AspNetCore.Docs/issues/4155)
 
 ## <a name="next-steps"></a>次の手順
 
@@ -376,7 +376,7 @@ Index ページが、値が変更され、rowVersion インジケーターが更
 
 ::: moniker range="< aspnetcore-3.0"
 
-このチュートリアルでは、複数のユーザーがエンティティをコンカレントに更新するときの競合の処理方法について説明します。 解決できない問題が発生した場合は、[完成したアプリをダウンロードまたは表示](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)してください。 [ダウンロードの方法はこちらをご覧ください。](xref:index#how-to-download-a-sample)
+このチュートリアルでは、複数のユーザーがエンティティをコンカレントに更新するときの競合の処理方法について説明します。 解決できない問題が発生した場合は、[完成したアプリをダウンロードまたは表示](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)してください。 [ダウンロードの方法はこちらをご覧ください。](xref:index#how-to-download-a-sample)
 
 ## <a name="concurrency-conflicts"></a>コンカレンシーの競合
 
@@ -512,11 +512,11 @@ dotnet ef database update
 
 ## <a name="scaffold-the-departments-model"></a>部署モデルのスキャフォールディング
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio) 
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio) 
 
 「[Student モデルをスキャホールディングする](xref:data/ef-rp/intro#scaffold-student-pages)」の手順に従い、モデル クラスの `Department` を使用します。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
  次のコマンドを実行します。
 
