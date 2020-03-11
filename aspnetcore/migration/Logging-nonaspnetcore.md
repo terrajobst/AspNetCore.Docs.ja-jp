@@ -1,27 +1,27 @@
 ---
-title: Microsoft.Extensions.Logging 2.1 から 2.2 へまたは 3.0 からの移行します。
+title: 2\.1 から2.2 または3.0 への移行
 author: pakrym
-description: 2.1 から 2.2 または 3.0 に Microsoft.Extensions.Logging を使用する ASP.NET Core アプリケーションを移行する方法について説明します。
+description: 2\.1 から2.2 または3.0 を使用する non-ASP.NET Core アプリケーションを移行する方法について説明します。
 ms.author: pakrym
 ms.custom: mvc
 ms.date: 01/04/2019
 uid: migration/logging-nonaspnetcore
 ms.openlocfilehash: 2519ddc02cee5978483bcaef4341a52aad3ba2a6
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64892459"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78651878"
 ---
-# <a name="migrate-from-microsoftextensionslogging-21-to-22-or-30"></a><span data-ttu-id="a734e-103">Microsoft.Extensions.Logging 2.1 から 2.2 へまたは 3.0 からの移行します。</span><span class="sxs-lookup"><span data-stu-id="a734e-103">Migrate from Microsoft.Extensions.Logging 2.1 to 2.2 or 3.0</span></span>
+# <a name="migrate-from-microsoftextensionslogging-21-to-22-or-30"></a><span data-ttu-id="c9534-103">2\.1 から2.2 または3.0 への移行</span><span class="sxs-lookup"><span data-stu-id="c9534-103">Migrate from Microsoft.Extensions.Logging 2.1 to 2.2 or 3.0</span></span>
 
-<span data-ttu-id="a734e-104">この記事では、一般的な手順を使用する ASP.NET Core アプリケーションを移行するため`Microsoft.Extensions.Logging`2.1、2.2 または 3.0 から。</span><span class="sxs-lookup"><span data-stu-id="a734e-104">This article outlines the common steps for migrating a non-ASP.NET Core application that uses `Microsoft.Extensions.Logging` from 2.1 to 2.2 or 3.0.</span></span>
+<span data-ttu-id="c9534-104">この記事では、2.1 から2.2 または3.0 の `Microsoft.Extensions.Logging` を使用する non-ASP.NET Core アプリケーションを移行するための一般的な手順について説明します。</span><span class="sxs-lookup"><span data-stu-id="c9534-104">This article outlines the common steps for migrating a non-ASP.NET Core application that uses `Microsoft.Extensions.Logging` from 2.1 to 2.2 or 3.0.</span></span>
 
-## <a name="21-to-22"></a><span data-ttu-id="a734e-105">2.1 から 2.2</span><span class="sxs-lookup"><span data-stu-id="a734e-105">2.1 to 2.2</span></span>
+## <a name="21-to-22"></a><span data-ttu-id="c9534-105">2.1 から 2.2</span><span class="sxs-lookup"><span data-stu-id="c9534-105">2.1 to 2.2</span></span>
 
-<span data-ttu-id="a734e-106">手動で作成`ServiceCollection`を呼び出すと`AddLogging`します。</span><span class="sxs-lookup"><span data-stu-id="a734e-106">Manually create `ServiceCollection` and call `AddLogging`.</span></span>
+<span data-ttu-id="c9534-106">手動で `ServiceCollection` を作成し、`AddLogging`を呼び出します。</span><span class="sxs-lookup"><span data-stu-id="c9534-106">Manually create `ServiceCollection` and call `AddLogging`.</span></span>
 
-<span data-ttu-id="a734e-107">2.1 の使用例:</span><span class="sxs-lookup"><span data-stu-id="a734e-107">2.1 example:</span></span>
+<span data-ttu-id="c9534-107">2.1 の例:</span><span class="sxs-lookup"><span data-stu-id="c9534-107">2.1 example:</span></span>
 
 ```csharp
 using (var loggerFactory = new LoggerFactory())
@@ -32,7 +32,7 @@ using (var loggerFactory = new LoggerFactory())
 }
 ```
 
-<span data-ttu-id="a734e-108">2.2 の例:</span><span class="sxs-lookup"><span data-stu-id="a734e-108">2.2 example:</span></span>
+<span data-ttu-id="c9534-108">2.2 の例:</span><span class="sxs-lookup"><span data-stu-id="c9534-108">2.2 example:</span></span>
 
 ```csharp
 var serviceCollection = new ServiceCollection();
@@ -45,11 +45,11 @@ using (var loggerFactory = serviceProvider.GetService<ILoggerFactory>())
 }
 ```
 
-## <a name="21-to-30"></a><span data-ttu-id="a734e-109">2.1 から 3.0 へ</span><span class="sxs-lookup"><span data-stu-id="a734e-109">2.1 to 3.0</span></span>
+## <a name="21-to-30"></a><span data-ttu-id="c9534-109">2.1 ~ 3.0</span><span class="sxs-lookup"><span data-stu-id="c9534-109">2.1 to 3.0</span></span>
 
-<span data-ttu-id="a734e-110">3.0 では、次のように使用します。`LoggingFactory.Create`します。</span><span class="sxs-lookup"><span data-stu-id="a734e-110">In 3.0, use `LoggingFactory.Create`.</span></span>
+<span data-ttu-id="c9534-110">3\.0 では、`LoggingFactory.Create`を使用します。</span><span class="sxs-lookup"><span data-stu-id="c9534-110">In 3.0, use `LoggingFactory.Create`.</span></span>
 
-<span data-ttu-id="a734e-111">2.1 の使用例:</span><span class="sxs-lookup"><span data-stu-id="a734e-111">2.1 example:</span></span>
+<span data-ttu-id="c9534-111">2.1 の例:</span><span class="sxs-lookup"><span data-stu-id="c9534-111">2.1 example:</span></span>
 
 ```csharp
 using (var loggerFactory = new LoggerFactory())
@@ -60,7 +60,7 @@ using (var loggerFactory = new LoggerFactory())
 }
 ```
 
-<span data-ttu-id="a734e-112">3.0 の使用例:</span><span class="sxs-lookup"><span data-stu-id="a734e-112">3.0 example:</span></span>
+<span data-ttu-id="c9534-112">3.0 の例:</span><span class="sxs-lookup"><span data-stu-id="c9534-112">3.0 example:</span></span>
 
 ```csharp
 using (var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole()))
@@ -69,6 +69,6 @@ using (var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole())
 }
 ```
 
-## <a name="additional-resources"></a><span data-ttu-id="a734e-113">その他の技術情報</span><span class="sxs-lookup"><span data-stu-id="a734e-113">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="c9534-113">その他のリソース</span><span class="sxs-lookup"><span data-stu-id="c9534-113">Additional resources</span></span>
 
 <xref:fundamentals/logging/index>
