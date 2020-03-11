@@ -8,19 +8,19 @@ ms.custom: mvc
 ms.date: 12/03/2019
 uid: fundamentals/httpcontext
 ms.openlocfilehash: 8a7ee180380c42ea745c91b8e6a18c1baa820220
-ms.sourcegitcommit: 5974e3e66dab3398ecf2324fbb82a9c5636f70de
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74778740"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78647012"
 ---
-# <a name="access-httpcontext-in-aspnet-core"></a><span data-ttu-id="b1315-103">ASP.NET Core で HttpContext にアクセスする</span><span class="sxs-lookup"><span data-stu-id="b1315-103">Access HttpContext in ASP.NET Core</span></span>
+# <a name="access-httpcontext-in-aspnet-core"></a><span data-ttu-id="beb11-103">ASP.NET Core で HttpContext にアクセスする</span><span class="sxs-lookup"><span data-stu-id="beb11-103">Access HttpContext in ASP.NET Core</span></span>
 
-<span data-ttu-id="b1315-104">ASP.NET Core アプリでは、<xref:Microsoft.AspNetCore.Http.IHttpContextAccessor> インターフェイスと、その既定の実装 <xref:Microsoft.AspNetCore.Http.HttpContextAccessor> を介して `HttpContext` にアクセスします。</span><span class="sxs-lookup"><span data-stu-id="b1315-104">ASP.NET Core apps access `HttpContext` through the <xref:Microsoft.AspNetCore.Http.IHttpContextAccessor> interface and its default implementation <xref:Microsoft.AspNetCore.Http.HttpContextAccessor>.</span></span> <span data-ttu-id="b1315-105">`IHttpContextAccessor` を使用する必要があるのは、サービス内の `HttpContext` にアクセスする必要がある場合のみです。</span><span class="sxs-lookup"><span data-stu-id="b1315-105">It's only necessary to use `IHttpContextAccessor` when you need access to the `HttpContext` inside a service.</span></span>
+<span data-ttu-id="beb11-104">ASP.NET Core アプリでは、<xref:Microsoft.AspNetCore.Http.IHttpContextAccessor> インターフェイスと、その既定の実装 <xref:Microsoft.AspNetCore.Http.HttpContextAccessor> を介して `HttpContext` にアクセスします。</span><span class="sxs-lookup"><span data-stu-id="beb11-104">ASP.NET Core apps access `HttpContext` through the <xref:Microsoft.AspNetCore.Http.IHttpContextAccessor> interface and its default implementation <xref:Microsoft.AspNetCore.Http.HttpContextAccessor>.</span></span> <span data-ttu-id="beb11-105">`IHttpContextAccessor` を使用する必要があるのは、サービス内の `HttpContext` にアクセスする必要がある場合のみです。</span><span class="sxs-lookup"><span data-stu-id="beb11-105">It's only necessary to use `IHttpContextAccessor` when you need access to the `HttpContext` inside a service.</span></span>
 
-## <a name="use-httpcontext-from-razor-pages"></a><span data-ttu-id="b1315-106">Razor Pages から HttpContext を使用する</span><span class="sxs-lookup"><span data-stu-id="b1315-106">Use HttpContext from Razor Pages</span></span>
+## <a name="use-httpcontext-from-razor-pages"></a><span data-ttu-id="beb11-106">Razor Pages から HttpContext を使用する</span><span class="sxs-lookup"><span data-stu-id="beb11-106">Use HttpContext from Razor Pages</span></span>
 
-<span data-ttu-id="b1315-107">Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> では、<xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel.HttpContext> プロパティが公開されます。</span><span class="sxs-lookup"><span data-stu-id="b1315-107">The Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> exposes the <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel.HttpContext> property:</span></span>
+<span data-ttu-id="beb11-107">Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> では、<xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel.HttpContext> プロパティが公開されます。</span><span class="sxs-lookup"><span data-stu-id="beb11-107">The Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> exposes the <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel.HttpContext> property:</span></span>
 
 ```csharp
 public class AboutModel : PageModel
@@ -34,9 +34,9 @@ public class AboutModel : PageModel
 }
 ```
 
-## <a name="use-httpcontext-from-a-razor-view"></a><span data-ttu-id="b1315-108">Razor ビューから HttpContext を使用する</span><span class="sxs-lookup"><span data-stu-id="b1315-108">Use HttpContext from a Razor view</span></span>
+## <a name="use-httpcontext-from-a-razor-view"></a><span data-ttu-id="beb11-108">Razor ビューから HttpContext を使用する</span><span class="sxs-lookup"><span data-stu-id="beb11-108">Use HttpContext from a Razor view</span></span>
 
-<span data-ttu-id="b1315-109">Razor ビューでは、[RazorPage.Context](xref:Microsoft.AspNetCore.Mvc.Razor.RazorPage.Context) プロパティを使用して、ビューに直接 `HttpContext` が公開されます。</span><span class="sxs-lookup"><span data-stu-id="b1315-109">Razor views expose the `HttpContext` directly via a [RazorPage.Context](xref:Microsoft.AspNetCore.Mvc.Razor.RazorPage.Context) property on the view.</span></span> <span data-ttu-id="b1315-110">次の例では、Windows 認証を使用して、イントラネット アプリで現在のユーザー名を取得します。</span><span class="sxs-lookup"><span data-stu-id="b1315-110">The following example retrieves the current username in an intranet app using Windows Authentication:</span></span>
+<span data-ttu-id="beb11-109">Razor ビューでは、[RazorPage.Context](xref:Microsoft.AspNetCore.Mvc.Razor.RazorPage.Context) プロパティを使用して、ビューに直接 `HttpContext` が公開されます。</span><span class="sxs-lookup"><span data-stu-id="beb11-109">Razor views expose the `HttpContext` directly via a [RazorPage.Context](xref:Microsoft.AspNetCore.Mvc.Razor.RazorPage.Context) property on the view.</span></span> <span data-ttu-id="beb11-110">次の例では、Windows 認証を使用して、イントラネット アプリで現在のユーザー名を取得します。</span><span class="sxs-lookup"><span data-stu-id="beb11-110">The following example retrieves the current username in an intranet app using Windows Authentication:</span></span>
 
 ```cshtml
 @{
@@ -46,9 +46,9 @@ public class AboutModel : PageModel
 }
 ```
 
-## <a name="use-httpcontext-from-a-controller"></a><span data-ttu-id="b1315-111">コントローラーから HttpContext を使用する</span><span class="sxs-lookup"><span data-stu-id="b1315-111">Use HttpContext from a controller</span></span>
+## <a name="use-httpcontext-from-a-controller"></a><span data-ttu-id="beb11-111">コントローラーから HttpContext を使用する</span><span class="sxs-lookup"><span data-stu-id="beb11-111">Use HttpContext from a controller</span></span>
 
-<span data-ttu-id="b1315-112">コントローラーでは [ControllerBase.HttpContext](xref:Microsoft.AspNetCore.Mvc.ControllerBase.HttpContext) プロパティが公開されます。</span><span class="sxs-lookup"><span data-stu-id="b1315-112">Controllers expose the [ControllerBase.HttpContext](xref:Microsoft.AspNetCore.Mvc.ControllerBase.HttpContext) property:</span></span>
+<span data-ttu-id="beb11-112">コントローラーでは [ControllerBase.HttpContext](xref:Microsoft.AspNetCore.Mvc.ControllerBase.HttpContext) プロパティが公開されます。</span><span class="sxs-lookup"><span data-stu-id="beb11-112">Controllers expose the [ControllerBase.HttpContext](xref:Microsoft.AspNetCore.Mvc.ControllerBase.HttpContext) property:</span></span>
 
 ```csharp
 public class HomeController : Controller
@@ -64,9 +64,9 @@ public class HomeController : Controller
 }
 ```
 
-## <a name="use-httpcontext-from-middleware"></a><span data-ttu-id="b1315-113">ミドルウェアから HttpContext を使用する</span><span class="sxs-lookup"><span data-stu-id="b1315-113">Use HttpContext from middleware</span></span>
+## <a name="use-httpcontext-from-middleware"></a><span data-ttu-id="beb11-113">ミドルウェアから HttpContext を使用する</span><span class="sxs-lookup"><span data-stu-id="beb11-113">Use HttpContext from middleware</span></span>
 
-<span data-ttu-id="b1315-114">カスタム ミドルウェア コンポーネントを使用する場合、`HttpContext` は `Invoke` メソッドまたは `InvokeAsync` メソッドに渡され、ミドルウェアを構成する際にアクセスできます。</span><span class="sxs-lookup"><span data-stu-id="b1315-114">When working with custom middleware components, `HttpContext` is passed into the `Invoke` or `InvokeAsync` method and can be accessed when the middleware is configured:</span></span>
+<span data-ttu-id="beb11-114">カスタム ミドルウェア コンポーネントを使用する場合、`HttpContext` は `Invoke` メソッドまたは `InvokeAsync` メソッドに渡され、ミドルウェアを構成する際にアクセスできます。</span><span class="sxs-lookup"><span data-stu-id="beb11-114">When working with custom middleware components, `HttpContext` is passed into the `Invoke` or `InvokeAsync` method and can be accessed when the middleware is configured:</span></span>
 
 ```csharp
 public class MyCustomMiddleware
@@ -78,9 +78,9 @@ public class MyCustomMiddleware
 }
 ```
 
-## <a name="use-httpcontext-from-custom-components"></a><span data-ttu-id="b1315-115">カスタム コンポーネントから HttpContext を使用する</span><span class="sxs-lookup"><span data-stu-id="b1315-115">Use HttpContext from custom components</span></span>
+## <a name="use-httpcontext-from-custom-components"></a><span data-ttu-id="beb11-115">カスタム コンポーネントから HttpContext を使用する</span><span class="sxs-lookup"><span data-stu-id="beb11-115">Use HttpContext from custom components</span></span>
 
-<span data-ttu-id="b1315-116">`HttpContext` へのアクセスを必要とするその他のフレームワークおよびカスタム コンポーネントに対して推奨される方法は、組み込みの[依存関係の挿入](xref:fundamentals/dependency-injection)コンテナーを使用して依存関係を登録することです。</span><span class="sxs-lookup"><span data-stu-id="b1315-116">For other framework and custom components that require access to `HttpContext`, the recommended approach is to register a dependency using the built-in [dependency injection](xref:fundamentals/dependency-injection) container.</span></span> <span data-ttu-id="b1315-117">依存関係の挿入コンテナーは、それぞれのコンストラクター内で `IHttpContextAccessor` を依存関係として宣言するすべてのクラスに、これを提供します。</span><span class="sxs-lookup"><span data-stu-id="b1315-117">The dependency injection container supplies the `IHttpContextAccessor` to any classes that declare it as a dependency in their constructors:</span></span>
+<span data-ttu-id="beb11-116">`HttpContext` へのアクセスを必要とするその他のフレームワークおよびカスタム コンポーネントに対して推奨される方法は、組み込みの[依存関係の挿入](xref:fundamentals/dependency-injection)コンテナーを使用して依存関係を登録することです。</span><span class="sxs-lookup"><span data-stu-id="beb11-116">For other framework and custom components that require access to `HttpContext`, the recommended approach is to register a dependency using the built-in [dependency injection](xref:fundamentals/dependency-injection) container.</span></span> <span data-ttu-id="beb11-117">依存関係の挿入コンテナーは、それぞれのコンストラクター内で `IHttpContextAccessor` を依存関係として宣言するすべてのクラスに、これを提供します。</span><span class="sxs-lookup"><span data-stu-id="beb11-117">The dependency injection container supplies the `IHttpContextAccessor` to any classes that declare it as a dependency in their constructors:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -109,10 +109,10 @@ public void ConfigureServices(IServiceCollection services)
 
 ::: moniker-end
 
-<span data-ttu-id="b1315-118">次に例を示します。</span><span class="sxs-lookup"><span data-stu-id="b1315-118">In the following example:</span></span>
+<span data-ttu-id="beb11-118">次に例を示します。</span><span class="sxs-lookup"><span data-stu-id="beb11-118">In the following example:</span></span>
 
-* <span data-ttu-id="b1315-119">`UserRepository` は `IHttpContextAccessor` に対する依存関係を宣言します。</span><span class="sxs-lookup"><span data-stu-id="b1315-119">`UserRepository` declares its dependency on `IHttpContextAccessor`.</span></span>
-* <span data-ttu-id="b1315-120">依存関係の挿入で依存関係のチェーンが解決され、`UserRepository` のインスタンスが作成されると、依存関係が提供されます。</span><span class="sxs-lookup"><span data-stu-id="b1315-120">The dependency is supplied when dependency injection resolves the dependency chain and creates an instance of `UserRepository`.</span></span>
+* <span data-ttu-id="beb11-119">`UserRepository` は `IHttpContextAccessor` に対する依存関係を宣言します。</span><span class="sxs-lookup"><span data-stu-id="beb11-119">`UserRepository` declares its dependency on `IHttpContextAccessor`.</span></span>
+* <span data-ttu-id="beb11-120">依存関係の挿入で依存関係のチェーンが解決され、`UserRepository` のインスタンスが作成されると、依存関係が提供されます。</span><span class="sxs-lookup"><span data-stu-id="beb11-120">The dependency is supplied when dependency injection resolves the dependency chain and creates an instance of `UserRepository`.</span></span>
 
 ```csharp
 public class UserRepository : IUserRepository
@@ -132,19 +132,19 @@ public class UserRepository : IUserRepository
 }
 ```
 
-## <a name="httpcontext-access-from-a-background-thread"></a><span data-ttu-id="b1315-121">バックグラウンド スレッドから HttpContext にアクセスする</span><span class="sxs-lookup"><span data-stu-id="b1315-121">HttpContext access from a background thread</span></span>
+## <a name="httpcontext-access-from-a-background-thread"></a><span data-ttu-id="beb11-121">バックグラウンド スレッドから HttpContext にアクセスする</span><span class="sxs-lookup"><span data-stu-id="beb11-121">HttpContext access from a background thread</span></span>
 
-<span data-ttu-id="b1315-122">`HttpContext` はスレッド セーフではありません。</span><span class="sxs-lookup"><span data-stu-id="b1315-122">`HttpContext` isn't thread-safe.</span></span> <span data-ttu-id="b1315-123">要求の処理以外で `HttpContext` のプロパティを読み書きすると、結果的に <xref:System.NullReferenceException> になることがあります。</span><span class="sxs-lookup"><span data-stu-id="b1315-123">Reading or writing properties of the `HttpContext` outside of processing a request can result in a <xref:System.NullReferenceException>.</span></span>
+<span data-ttu-id="beb11-122">`HttpContext` はスレッド セーフではありません。</span><span class="sxs-lookup"><span data-stu-id="beb11-122">`HttpContext` isn't thread-safe.</span></span> <span data-ttu-id="beb11-123">要求の処理以外で `HttpContext` のプロパティを読み書きすると、結果的に <xref:System.NullReferenceException> になることがあります。</span><span class="sxs-lookup"><span data-stu-id="beb11-123">Reading or writing properties of the `HttpContext` outside of processing a request can result in a <xref:System.NullReferenceException>.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="b1315-124">アプリで `NullReferenceException` エラーが散発的に生成される場合、コードの中で、バックグラウンド処理を開始する部分や要求完了後に処理を続行する部分を見直してください。</span><span class="sxs-lookup"><span data-stu-id="b1315-124">If your app generates sporadic `NullReferenceException` errors, review parts of the code that start background processing or that continue processing after a request completes.</span></span> <span data-ttu-id="b1315-125">コントローラー メソッドを `async void` として定義するなどの間違いを探します。</span><span class="sxs-lookup"><span data-stu-id="b1315-125">Look for mistakes, such as defining a controller method as `async void`.</span></span>
+> <span data-ttu-id="beb11-124">アプリで `NullReferenceException` エラーが散発的に生成される場合、コードの中で、バックグラウンド処理を開始する部分や要求完了後に処理を続行する部分を見直してください。</span><span class="sxs-lookup"><span data-stu-id="beb11-124">If your app generates sporadic `NullReferenceException` errors, review parts of the code that start background processing or that continue processing after a request completes.</span></span> <span data-ttu-id="beb11-125">コントローラー メソッドを `async void` として定義するなどの間違いを探します。</span><span class="sxs-lookup"><span data-stu-id="beb11-125">Look for mistakes, such as defining a controller method as `async void`.</span></span>
 
-<span data-ttu-id="b1315-126">`HttpContext` データでバックグラウンド作業を安全に実行するには:</span><span class="sxs-lookup"><span data-stu-id="b1315-126">To safely perform background work with `HttpContext` data:</span></span>
+<span data-ttu-id="beb11-126">`HttpContext` データでバックグラウンド作業を安全に実行するには:</span><span class="sxs-lookup"><span data-stu-id="beb11-126">To safely perform background work with `HttpContext` data:</span></span>
 
-* <span data-ttu-id="b1315-127">要求処理中に必要なデータをコピーします。</span><span class="sxs-lookup"><span data-stu-id="b1315-127">Copy the required data during request processing.</span></span>
-* <span data-ttu-id="b1315-128">コピーしたデータをバックグラウンド タスクに渡します。</span><span class="sxs-lookup"><span data-stu-id="b1315-128">Pass the copied data to a background task.</span></span>
+* <span data-ttu-id="beb11-127">要求処理中に必要なデータをコピーします。</span><span class="sxs-lookup"><span data-stu-id="beb11-127">Copy the required data during request processing.</span></span>
+* <span data-ttu-id="beb11-128">コピーしたデータをバックグラウンド タスクに渡します。</span><span class="sxs-lookup"><span data-stu-id="beb11-128">Pass the copied data to a background task.</span></span>
 
-<span data-ttu-id="b1315-129">アンセーフ コードを避けるために、バックグラウンド処理を実行しないメソッドには `HttpContext` を決して渡さないでください。</span><span class="sxs-lookup"><span data-stu-id="b1315-129">To avoid unsafe code, never pass the `HttpContext` into a method that performs background work.</span></span> <span data-ttu-id="b1315-130">代わりに必要なデータを渡してください。</span><span class="sxs-lookup"><span data-stu-id="b1315-130">Pass the required data instead.</span></span> <span data-ttu-id="b1315-131">次の例では、電子メールの送信を開始するために `SendEmailCore` が呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="b1315-131">In the following example, `SendEmailCore` is called to start sending an email.</span></span> <span data-ttu-id="b1315-132">`correlationId` は、`HttpContext` ではなく `SendEmailCore` に渡されます。</span><span class="sxs-lookup"><span data-stu-id="b1315-132">The `correlationId` is passed to `SendEmailCore`, not the `HttpContext`.</span></span> <span data-ttu-id="b1315-133">コードの実行では、`SendEmailCore` が完了するのを待機しません。</span><span class="sxs-lookup"><span data-stu-id="b1315-133">Code execution doesn't wait for `SendEmailCore` to complete:</span></span>
+<span data-ttu-id="beb11-129">アンセーフ コードを避けるために、バックグラウンド処理を実行しないメソッドには `HttpContext` を決して渡さないでください。</span><span class="sxs-lookup"><span data-stu-id="beb11-129">To avoid unsafe code, never pass the `HttpContext` into a method that performs background work.</span></span> <span data-ttu-id="beb11-130">代わりに必要なデータを渡してください。</span><span class="sxs-lookup"><span data-stu-id="beb11-130">Pass the required data instead.</span></span> <span data-ttu-id="beb11-131">次の例では、電子メールの送信を開始するために `SendEmailCore` が呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="beb11-131">In the following example, `SendEmailCore` is called to start sending an email.</span></span> <span data-ttu-id="beb11-132">`correlationId` は、`HttpContext` ではなく `SendEmailCore` に渡されます。</span><span class="sxs-lookup"><span data-stu-id="beb11-132">The `correlationId` is passed to `SendEmailCore`, not the `HttpContext`.</span></span> <span data-ttu-id="beb11-133">コードの実行では、`SendEmailCore` が完了するのを待機しません。</span><span class="sxs-lookup"><span data-stu-id="beb11-133">Code execution doesn't wait for `SendEmailCore` to complete:</span></span>
 
 ```csharp
 public class EmailController : Controller

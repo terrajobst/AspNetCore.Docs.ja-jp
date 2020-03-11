@@ -1,1 +1,1 @@
-<span data-ttu-id="a5f09-101">このフォルダーのコードは Razor ページから取得した、ある時点のスナップショットです</span><span class="sxs-lookup"><span data-stu-id="a5f09-101">The code in this folder is snapshots in time from the Razor Pages series.</span></span>
+<span data-ttu-id="a2c15-101">このフォルダーのコードは Razor ページから取得した、ある時点のスナップショットです</span><span class="sxs-lookup"><span data-stu-id="a2c15-101">The code in this folder is snapshots in time from the Razor Pages series.</span></span>

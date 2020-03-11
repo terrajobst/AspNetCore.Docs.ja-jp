@@ -6,68 +6,68 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 01/17/2020
 uid: tutorials/get-started-with-swashbuckle
-ms.openlocfilehash: 16583cde2f4a6deaabc2fc965a5b9484ca94c2fd
-ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
+ms.openlocfilehash: da848ef9c5fa85f5186d1b6f0a6111d8c8d069c4
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/18/2020
-ms.locfileid: "76268722"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78648236"
 ---
-# <a name="get-started-with-swashbuckle-and-aspnet-core"></a><span data-ttu-id="0491b-103">Swashbuckle と ASP.NET Core の概要</span><span class="sxs-lookup"><span data-stu-id="0491b-103">Get started with Swashbuckle and ASP.NET Core</span></span>
+# <a name="get-started-with-swashbuckle-and-aspnet-core"></a><span data-ttu-id="24836-103">Swashbuckle と ASP.NET Core の概要</span><span class="sxs-lookup"><span data-stu-id="24836-103">Get started with Swashbuckle and ASP.NET Core</span></span>
 
-<span data-ttu-id="0491b-104">[Shayne Boyer](https://twitter.com/spboyer) および [Scott Addie](https://twitter.com/Scott_Addie) 著</span><span class="sxs-lookup"><span data-stu-id="0491b-104">By [Shayne Boyer](https://twitter.com/spboyer) and [Scott Addie](https://twitter.com/Scott_Addie)</span></span>
+<span data-ttu-id="24836-104">[Shayne Boyer](https://twitter.com/spboyer) および [Scott Addie](https://twitter.com/Scott_Addie) 著</span><span class="sxs-lookup"><span data-stu-id="24836-104">By [Shayne Boyer](https://twitter.com/spboyer) and [Scott Addie](https://twitter.com/Scott_Addie)</span></span>
 
-<span data-ttu-id="0491b-105">[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/web-api-help-pages-using-swagger/samples/)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。</span><span class="sxs-lookup"><span data-stu-id="0491b-105">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/web-api-help-pages-using-swagger/samples/) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+<span data-ttu-id="24836-105">[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/web-api-help-pages-using-swagger/samples/)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。</span><span class="sxs-lookup"><span data-stu-id="24836-105">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/web-api-help-pages-using-swagger/samples/) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-<span data-ttu-id="0491b-106">Swashbuckle には 3 つの主要なコンポーネントがあります。</span><span class="sxs-lookup"><span data-stu-id="0491b-106">There are three main components to Swashbuckle:</span></span>
+<span data-ttu-id="24836-106">Swashbuckle には 3 つの主要なコンポーネントがあります。</span><span class="sxs-lookup"><span data-stu-id="24836-106">There are three main components to Swashbuckle:</span></span>
 
-* <span data-ttu-id="0491b-107">[Swashbuckle.AspNetCore.Swagger](https://www.nuget.org/packages/Swashbuckle.AspNetCore.Swagger/): `SwaggerDocument` オブジェクトを JSON エンドポイントとして公開するための Swagger オブジェクト モデルとミドルウェア。</span><span class="sxs-lookup"><span data-stu-id="0491b-107">[Swashbuckle.AspNetCore.Swagger](https://www.nuget.org/packages/Swashbuckle.AspNetCore.Swagger/): a Swagger object model and middleware to expose `SwaggerDocument` objects as JSON endpoints.</span></span>
+* <span data-ttu-id="24836-107">[Swashbuckle.AspNetCore.Swagger](https://www.nuget.org/packages/Swashbuckle.AspNetCore.Swagger/): `SwaggerDocument` オブジェクトを JSON エンドポイントとして公開するための Swagger オブジェクト モデルとミドルウェア。</span><span class="sxs-lookup"><span data-stu-id="24836-107">[Swashbuckle.AspNetCore.Swagger](https://www.nuget.org/packages/Swashbuckle.AspNetCore.Swagger/): a Swagger object model and middleware to expose `SwaggerDocument` objects as JSON endpoints.</span></span>
 
-* <span data-ttu-id="0491b-108">[Swashbuckle.AspNetCore.SwaggerGen](https://www.nuget.org/packages/Swashbuckle.AspNetCore.SwaggerGen/): ルート、コントローラー、モデルから直接 `SwaggerDocument` オブジェクトを構築する Swagger ジェネレーター。</span><span class="sxs-lookup"><span data-stu-id="0491b-108">[Swashbuckle.AspNetCore.SwaggerGen](https://www.nuget.org/packages/Swashbuckle.AspNetCore.SwaggerGen/): a Swagger generator that builds `SwaggerDocument` objects directly from your routes, controllers, and models.</span></span> <span data-ttu-id="0491b-109">通常、Swagger エンドポイント ミドルウェアと組み合わせて Swagger JSON を自動的に公開します。</span><span class="sxs-lookup"><span data-stu-id="0491b-109">It's typically combined with the Swagger endpoint middleware to automatically expose Swagger JSON.</span></span>
+* <span data-ttu-id="24836-108">[Swashbuckle.AspNetCore.SwaggerGen](https://www.nuget.org/packages/Swashbuckle.AspNetCore.SwaggerGen/): ルート、コントローラー、モデルから直接 `SwaggerDocument` オブジェクトを構築する Swagger ジェネレーター。</span><span class="sxs-lookup"><span data-stu-id="24836-108">[Swashbuckle.AspNetCore.SwaggerGen](https://www.nuget.org/packages/Swashbuckle.AspNetCore.SwaggerGen/): a Swagger generator that builds `SwaggerDocument` objects directly from your routes, controllers, and models.</span></span> <span data-ttu-id="24836-109">通常、Swagger エンドポイント ミドルウェアと組み合わせて Swagger JSON を自動的に公開します。</span><span class="sxs-lookup"><span data-stu-id="24836-109">It's typically combined with the Swagger endpoint middleware to automatically expose Swagger JSON.</span></span>
 
-* <span data-ttu-id="0491b-110">[Swashbuckle.AspNetCore.SwaggerUI](https://www.nuget.org/packages/Swashbuckle.AspNetCore.SwaggerUI/): Swagger UI ツールの埋め込みバージョン。</span><span class="sxs-lookup"><span data-stu-id="0491b-110">[Swashbuckle.AspNetCore.SwaggerUI](https://www.nuget.org/packages/Swashbuckle.AspNetCore.SwaggerUI/): an embedded version of the Swagger UI tool.</span></span> <span data-ttu-id="0491b-111">Swagger JSON を解釈して、Web API の機能を説明するカスタマイズ可能な機能豊富なエクスペリエンスを構築します。</span><span class="sxs-lookup"><span data-stu-id="0491b-111">It interprets Swagger JSON to build a rich, customizable experience for describing the web API functionality.</span></span> <span data-ttu-id="0491b-112">これには、パブリック メソッド用の組み込みのテスト ハーネスが含まれます。</span><span class="sxs-lookup"><span data-stu-id="0491b-112">It includes built-in test harnesses for the public methods.</span></span>
+* <span data-ttu-id="24836-110">[Swashbuckle.AspNetCore.SwaggerUI](https://www.nuget.org/packages/Swashbuckle.AspNetCore.SwaggerUI/): Swagger UI ツールの埋め込みバージョン。</span><span class="sxs-lookup"><span data-stu-id="24836-110">[Swashbuckle.AspNetCore.SwaggerUI](https://www.nuget.org/packages/Swashbuckle.AspNetCore.SwaggerUI/): an embedded version of the Swagger UI tool.</span></span> <span data-ttu-id="24836-111">Swagger JSON を解釈して、Web API の機能を説明するカスタマイズ可能な機能豊富なエクスペリエンスを構築します。</span><span class="sxs-lookup"><span data-stu-id="24836-111">It interprets Swagger JSON to build a rich, customizable experience for describing the web API functionality.</span></span> <span data-ttu-id="24836-112">これには、パブリック メソッド用の組み込みのテスト ハーネスが含まれます。</span><span class="sxs-lookup"><span data-stu-id="24836-112">It includes built-in test harnesses for the public methods.</span></span>
 
-## <a name="package-installation"></a><span data-ttu-id="0491b-113">パッケージ インストール</span><span class="sxs-lookup"><span data-stu-id="0491b-113">Package installation</span></span>
+## <a name="package-installation"></a><span data-ttu-id="24836-113">パッケージ インストール</span><span class="sxs-lookup"><span data-stu-id="24836-113">Package installation</span></span>
 
-<span data-ttu-id="0491b-114">Swashbuckle は、次の方法で追加できます。</span><span class="sxs-lookup"><span data-stu-id="0491b-114">Swashbuckle can be added with the following approaches:</span></span>
+<span data-ttu-id="24836-114">Swashbuckle は、次の方法で追加できます。</span><span class="sxs-lookup"><span data-stu-id="24836-114">Swashbuckle can be added with the following approaches:</span></span>
 
-### <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="0491b-115">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="0491b-115">Visual Studio</span></span>](#tab/visual-studio)
+### <a name="visual-studio"></a>[<span data-ttu-id="24836-115">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="24836-115">Visual Studio</span></span>](#tab/visual-studio)
 
-* <span data-ttu-id="0491b-116">**[パッケージ マネージャー コンソール]** ウィンドウから:</span><span class="sxs-lookup"><span data-stu-id="0491b-116">From the **Package Manager Console** window:</span></span>
-  * <span data-ttu-id="0491b-117">**[ビュー]**  >  **[Other Windows]** \(その他の Windows\) >  **[パッケージ マネージャー コンソール]** に移動します。</span><span class="sxs-lookup"><span data-stu-id="0491b-117">Go to **View** > **Other Windows** > **Package Manager Console**</span></span>
-  * <span data-ttu-id="0491b-118">*TodoApi.csproj* ファイルが存在するディレクトリに移動します。</span><span class="sxs-lookup"><span data-stu-id="0491b-118">Navigate to the directory in which the *TodoApi.csproj* file exists</span></span>
-  * <span data-ttu-id="0491b-119">次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="0491b-119">Execute the following command:</span></span>
+* <span data-ttu-id="24836-116">**[パッケージ マネージャー コンソール]** ウィンドウから:</span><span class="sxs-lookup"><span data-stu-id="24836-116">From the **Package Manager Console** window:</span></span>
+  * <span data-ttu-id="24836-117">**[ビュー]**  >  **[Other Windows]** \(その他の Windows\) >  **[パッケージ マネージャー コンソール]** に移動します。</span><span class="sxs-lookup"><span data-stu-id="24836-117">Go to **View** > **Other Windows** > **Package Manager Console**</span></span>
+  * <span data-ttu-id="24836-118">*TodoApi.csproj* ファイルが存在するディレクトリに移動します。</span><span class="sxs-lookup"><span data-stu-id="24836-118">Navigate to the directory in which the *TodoApi.csproj* file exists</span></span>
+  * <span data-ttu-id="24836-119">次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="24836-119">Execute the following command:</span></span>
 
     ```powershell
     Install-Package Swashbuckle.AspNetCore -Version 5.0.0
     ```
 
-* <span data-ttu-id="0491b-120">**[NuGet パッケージの管理]** ダイアログ ボックスから:</span><span class="sxs-lookup"><span data-stu-id="0491b-120">From the **Manage NuGet Packages** dialog:</span></span>
-  * <span data-ttu-id="0491b-121">**[ソリューション エクスプローラー]**  >  **[NuGet パッケージの管理]** でプロジェクトを右クリックします。</span><span class="sxs-lookup"><span data-stu-id="0491b-121">Right-click the project in **Solution Explorer** > **Manage NuGet Packages**</span></span>
-  * <span data-ttu-id="0491b-122">**パッケージ ソース**を "nuget.org" に設定します。</span><span class="sxs-lookup"><span data-stu-id="0491b-122">Set the **Package source** to "nuget.org"</span></span>
-  * <span data-ttu-id="0491b-123">[プレリリースを含める] オプションが有効になっていることを確認します</span><span class="sxs-lookup"><span data-stu-id="0491b-123">Ensure the "Include prerelease" option is enabled</span></span>
-  * <span data-ttu-id="0491b-124">検索ボックスに「Swashbuckle.AspNetCore」と入力します。</span><span class="sxs-lookup"><span data-stu-id="0491b-124">Enter "Swashbuckle.AspNetCore" in the search box</span></span>
-  * <span data-ttu-id="0491b-125">**[参照]** タブから最新の "Swashbuckle.AspNetCore"パッケージを選択して、 **[インストール]** をクリックします</span><span class="sxs-lookup"><span data-stu-id="0491b-125">Select the latest "Swashbuckle.AspNetCore" package from the **Browse** tab and click **Install**</span></span>
+* <span data-ttu-id="24836-120">**[NuGet パッケージの管理]** ダイアログ ボックスから:</span><span class="sxs-lookup"><span data-stu-id="24836-120">From the **Manage NuGet Packages** dialog:</span></span>
+  * <span data-ttu-id="24836-121">**[ソリューション エクスプローラー]**  >  **[NuGet パッケージの管理]** でプロジェクトを右クリックします。</span><span class="sxs-lookup"><span data-stu-id="24836-121">Right-click the project in **Solution Explorer** > **Manage NuGet Packages**</span></span>
+  * <span data-ttu-id="24836-122">**パッケージ ソース**を "nuget.org" に設定します。</span><span class="sxs-lookup"><span data-stu-id="24836-122">Set the **Package source** to "nuget.org"</span></span>
+  * <span data-ttu-id="24836-123">[プレリリースを含める] オプションが有効になっていることを確認します</span><span class="sxs-lookup"><span data-stu-id="24836-123">Ensure the "Include prerelease" option is enabled</span></span>
+  * <span data-ttu-id="24836-124">検索ボックスに「Swashbuckle.AspNetCore」と入力します。</span><span class="sxs-lookup"><span data-stu-id="24836-124">Enter "Swashbuckle.AspNetCore" in the search box</span></span>
+  * <span data-ttu-id="24836-125">**[参照]** タブから最新の "Swashbuckle.AspNetCore"パッケージを選択して、 **[インストール]** をクリックします</span><span class="sxs-lookup"><span data-stu-id="24836-125">Select the latest "Swashbuckle.AspNetCore" package from the **Browse** tab and click **Install**</span></span>
 
-### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="0491b-126">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="0491b-126">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+### <a name="visual-studio-for-mac"></a>[<span data-ttu-id="24836-126">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="24836-126">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-* <span data-ttu-id="0491b-127">**[Solution Pad]**  >  **[パッケージを追加]** で [*パッケージ*] フォルダーを右クリックします。</span><span class="sxs-lookup"><span data-stu-id="0491b-127">Right-click the *Packages* folder in **Solution Pad** > **Add Packages...**</span></span>
-* <span data-ttu-id="0491b-128">**[パッケージを追加]** ウィンドウの **[ソース]** ドロップダウンを "nuget.org" に設定します。</span><span class="sxs-lookup"><span data-stu-id="0491b-128">Set the **Add Packages** window's **Source** drop-down to "nuget.org"</span></span>
-* <span data-ttu-id="0491b-129">[プレリリースパッケージを表示する] オプションが有効になっていることを確認します</span><span class="sxs-lookup"><span data-stu-id="0491b-129">Ensure the "Show pre-release packages" option is enabled</span></span>
-* <span data-ttu-id="0491b-130">検索ボックスに「Swashbuckle.AspNetCore」と入力します。</span><span class="sxs-lookup"><span data-stu-id="0491b-130">Enter "Swashbuckle.AspNetCore" in the search box</span></span>
-* <span data-ttu-id="0491b-131">結果ウィンドウから最新の Swashbuckle.AspNetCore パッケージを選択し、 **[パッケージを追加]** をクリックします</span><span class="sxs-lookup"><span data-stu-id="0491b-131">Select the latest "Swashbuckle.AspNetCore" package from the results pane and click **Add Package**</span></span>
+* <span data-ttu-id="24836-127">**[Solution Pad]**  >  **[パッケージを追加]** で [*パッケージ*] フォルダーを右クリックします。</span><span class="sxs-lookup"><span data-stu-id="24836-127">Right-click the *Packages* folder in **Solution Pad** > **Add Packages...**</span></span>
+* <span data-ttu-id="24836-128">**[パッケージを追加]** ウィンドウの **[ソース]** ドロップダウンを "nuget.org" に設定します。</span><span class="sxs-lookup"><span data-stu-id="24836-128">Set the **Add Packages** window's **Source** drop-down to "nuget.org"</span></span>
+* <span data-ttu-id="24836-129">[プレリリースパッケージを表示する] オプションが有効になっていることを確認します</span><span class="sxs-lookup"><span data-stu-id="24836-129">Ensure the "Show pre-release packages" option is enabled</span></span>
+* <span data-ttu-id="24836-130">検索ボックスに「Swashbuckle.AspNetCore」と入力します。</span><span class="sxs-lookup"><span data-stu-id="24836-130">Enter "Swashbuckle.AspNetCore" in the search box</span></span>
+* <span data-ttu-id="24836-131">結果ウィンドウから最新の Swashbuckle.AspNetCore パッケージを選択し、 **[パッケージを追加]** をクリックします</span><span class="sxs-lookup"><span data-stu-id="24836-131">Select the latest "Swashbuckle.AspNetCore" package from the results pane and click **Add Package**</span></span>
 
-### <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="0491b-132">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="0491b-132">Visual Studio Code</span></span>](#tab/visual-studio-code)
+### <a name="visual-studio-code"></a>[<span data-ttu-id="24836-132">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="24836-132">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-<span data-ttu-id="0491b-133">**統合ターミナル**からから次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="0491b-133">Run the following command from the **Integrated Terminal**:</span></span>
+<span data-ttu-id="24836-133">**統合ターミナル**からから次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="24836-133">Run the following command from the **Integrated Terminal**:</span></span>
 
 ```dotnetcli
 dotnet add TodoApi.csproj package Swashbuckle.AspNetCore -v 5.0.0
 ```
 
-### <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="0491b-134">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="0491b-134">.NET Core CLI</span></span>](#tab/netcore-cli)
+### <a name="net-core-cli"></a>[<span data-ttu-id="24836-134">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="24836-134">.NET Core CLI</span></span>](#tab/netcore-cli)
 
-<span data-ttu-id="0491b-135">次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="0491b-135">Run the following command:</span></span>
+<span data-ttu-id="24836-135">次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="24836-135">Run the following command:</span></span>
 
 ```dotnetcli
 dotnet add TodoApi.csproj package Swashbuckle.AspNetCore -v 5.0.0
@@ -75,13 +75,13 @@ dotnet add TodoApi.csproj package Swashbuckle.AspNetCore -v 5.0.0
 
 ---
 
-## <a name="add-and-configure-swagger-middleware"></a><span data-ttu-id="0491b-136">Swagger ミドルウェアを追加して構成する</span><span class="sxs-lookup"><span data-stu-id="0491b-136">Add and configure Swagger middleware</span></span>
+## <a name="add-and-configure-swagger-middleware"></a><span data-ttu-id="24836-136">Swagger ミドルウェアを追加して構成する</span><span class="sxs-lookup"><span data-stu-id="24836-136">Add and configure Swagger middleware</span></span>
 
-<span data-ttu-id="0491b-137">`Startup` クラスで、次の名前空間をインポートし、`OpenApiInfo` クラスを使用します。</span><span class="sxs-lookup"><span data-stu-id="0491b-137">In the `Startup` class, import the following namespace to use the `OpenApiInfo` class:</span></span>
+<span data-ttu-id="24836-137">`Startup` クラスで、次の名前空間をインポートし、`OpenApiInfo` クラスを使用します。</span><span class="sxs-lookup"><span data-stu-id="24836-137">In the `Startup` class, import the following namespace to use the `OpenApiInfo` class:</span></span>
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.Swashbuckle/Startup2.cs?name=snippet_InfoClassNamespace)]
 
-<span data-ttu-id="0491b-138">`Startup.ConfigureServices` メソッドで Swagger ジェネレーターをサービス コレクションに追加します。</span><span class="sxs-lookup"><span data-stu-id="0491b-138">Add the Swagger generator to the services collection in the `Startup.ConfigureServices` method:</span></span>
+<span data-ttu-id="24836-138">`Startup.ConfigureServices` メソッドで Swagger ジェネレーターをサービス コレクションに追加します。</span><span class="sxs-lookup"><span data-stu-id="24836-138">Add the Swagger generator to the services collection in the `Startup.ConfigureServices` method:</span></span>
 
 ::: moniker range="<= aspnetcore-2.0"
 
@@ -101,7 +101,7 @@ dotnet add TodoApi.csproj package Swashbuckle.AspNetCore -v 5.0.0
 
 ::: moniker-end
 
-<span data-ttu-id="0491b-139">`Startup.Configure` メソッドで、生成された JSON ドキュメントと Swagger UI 対応のミドルウェアを有効にします。</span><span class="sxs-lookup"><span data-stu-id="0491b-139">In the `Startup.Configure` method, enable the middleware for serving the generated JSON document and the Swagger UI:</span></span>
+<span data-ttu-id="24836-139">`Startup.Configure` メソッドで、生成された JSON ドキュメントと Swagger UI 対応のミドルウェアを有効にします。</span><span class="sxs-lookup"><span data-stu-id="24836-139">In the `Startup.Configure` method, enable the middleware for serving the generated JSON document and the Swagger UI:</span></span>
 
 ::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
 
@@ -115,24 +115,24 @@ dotnet add TodoApi.csproj package Swashbuckle.AspNetCore -v 5.0.0
 
 ::: moniker-end
 
-<span data-ttu-id="0491b-140">前述の `UseSwaggerUI` メソッド呼び出しにより、[静的ファイル ミドルウェア](xref:fundamentals/static-files)が有効になります。</span><span class="sxs-lookup"><span data-stu-id="0491b-140">The preceding `UseSwaggerUI` method call enables the [Static File Middleware](xref:fundamentals/static-files).</span></span> <span data-ttu-id="0491b-141">.NET Framework または .NET Core 1.x を対象とする場合は、[Microsoft.AspNetCore.StaticFiles](https://www.nuget.org/packages/Microsoft.AspNetCore.StaticFiles/) NuGet パッケージをプロジェクトに追加します。</span><span class="sxs-lookup"><span data-stu-id="0491b-141">If targeting .NET Framework or .NET Core 1.x, add the [Microsoft.AspNetCore.StaticFiles](https://www.nuget.org/packages/Microsoft.AspNetCore.StaticFiles/) NuGet package to the project.</span></span>
+<span data-ttu-id="24836-140">前述の `UseSwaggerUI` メソッド呼び出しにより、[静的ファイル ミドルウェア](xref:fundamentals/static-files)が有効になります。</span><span class="sxs-lookup"><span data-stu-id="24836-140">The preceding `UseSwaggerUI` method call enables the [Static File Middleware](xref:fundamentals/static-files).</span></span> <span data-ttu-id="24836-141">.NET Framework または .NET Core 1.x を対象とする場合は、[Microsoft.AspNetCore.StaticFiles](https://www.nuget.org/packages/Microsoft.AspNetCore.StaticFiles/) NuGet パッケージをプロジェクトに追加します。</span><span class="sxs-lookup"><span data-stu-id="24836-141">If targeting .NET Framework or .NET Core 1.x, add the [Microsoft.AspNetCore.StaticFiles](https://www.nuget.org/packages/Microsoft.AspNetCore.StaticFiles/) NuGet package to the project.</span></span>
 
-<span data-ttu-id="0491b-142">アプリを起動し、`http://localhost:<port>/swagger/v1/swagger.json` に移動します。</span><span class="sxs-lookup"><span data-stu-id="0491b-142">Launch the app, and navigate to `http://localhost:<port>/swagger/v1/swagger.json`.</span></span> <span data-ttu-id="0491b-143">[Swagger 仕様 (swagger.json)](xref:tutorials/web-api-help-pages-using-swagger#swagger-specification-swaggerjson) に基づき、エンドポイントについて説明するドキュメントが生成され、表示されます。</span><span class="sxs-lookup"><span data-stu-id="0491b-143">The generated document describing the endpoints appears as shown in [Swagger specification (swagger.json)](xref:tutorials/web-api-help-pages-using-swagger#swagger-specification-swaggerjson).</span></span>
+<span data-ttu-id="24836-142">アプリを起動し、`http://localhost:<port>/swagger/v1/swagger.json` に移動します。</span><span class="sxs-lookup"><span data-stu-id="24836-142">Launch the app, and navigate to `http://localhost:<port>/swagger/v1/swagger.json`.</span></span> <span data-ttu-id="24836-143">[Swagger 仕様 (swagger.json)](xref:tutorials/web-api-help-pages-using-swagger#swagger-specification-swaggerjson) に基づき、エンドポイントについて説明するドキュメントが生成され、表示されます。</span><span class="sxs-lookup"><span data-stu-id="24836-143">The generated document describing the endpoints appears as shown in [Swagger specification (swagger.json)](xref:tutorials/web-api-help-pages-using-swagger#swagger-specification-swaggerjson).</span></span>
 
-<span data-ttu-id="0491b-144">Swagger UI は `http://localhost:<port>/swagger` にあります。</span><span class="sxs-lookup"><span data-stu-id="0491b-144">The Swagger UI can be found at `http://localhost:<port>/swagger`.</span></span> <span data-ttu-id="0491b-145">Swagger UI から API を探し、他のプログラムに組み込みます。</span><span class="sxs-lookup"><span data-stu-id="0491b-145">Explore the API via Swagger UI and incorporate it in other programs.</span></span>
+<span data-ttu-id="24836-144">Swagger UI は `http://localhost:<port>/swagger` にあります。</span><span class="sxs-lookup"><span data-stu-id="24836-144">The Swagger UI can be found at `http://localhost:<port>/swagger`.</span></span> <span data-ttu-id="24836-145">Swagger UI から API を探し、他のプログラムに組み込みます。</span><span class="sxs-lookup"><span data-stu-id="24836-145">Explore the API via Swagger UI and incorporate it in other programs.</span></span>
 
 > [!TIP]
-> <span data-ttu-id="0491b-146">アプリのルート (`http://localhost:<port>/`) で Swagger UI にサービスを提供するには、`RoutePrefix` プロパティを空の文字列に設定します。</span><span class="sxs-lookup"><span data-stu-id="0491b-146">To serve the Swagger UI at the app's root (`http://localhost:<port>/`), set the `RoutePrefix` property to an empty string:</span></span>
+> <span data-ttu-id="24836-146">アプリのルート (`http://localhost:<port>/`) で Swagger UI にサービスを提供するには、`RoutePrefix` プロパティを空の文字列に設定します。</span><span class="sxs-lookup"><span data-stu-id="24836-146">To serve the Swagger UI at the app's root (`http://localhost:<port>/`), set the `RoutePrefix` property to an empty string:</span></span>
 >
 > [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.Swashbuckle/Startup3.cs?name=snippet_UseSwaggerUI&highlight=4)]
 
-<span data-ttu-id="0491b-147">IIS やリバース プロキシを使用するディレクトリを使用している場合は、`./` プレフィックスを使用して Swagger のエンドポイントを相対パスに設定します。</span><span class="sxs-lookup"><span data-stu-id="0491b-147">If using directories with IIS or a reverse proxy, set the Swagger endpoint to a relative path using the `./` prefix.</span></span> <span data-ttu-id="0491b-148">たとえば、`./swagger/v1/swagger.json` のようにします。</span><span class="sxs-lookup"><span data-stu-id="0491b-148">For example, `./swagger/v1/swagger.json`.</span></span> <span data-ttu-id="0491b-149">`/swagger/v1/swagger.json` を使用することで、アプリが URL の真のルート (使用されている場合は、これに加えてルート プレフィックス) にある JSON ファイルを検索するように指示されます。</span><span class="sxs-lookup"><span data-stu-id="0491b-149">Using `/swagger/v1/swagger.json` instructs the app to look for the JSON file at the true root of the URL (plus the route prefix, if used).</span></span> <span data-ttu-id="0491b-150">たとえば、`http://localhost:<port>/<virtual_directory>/<route_prefix>/swagger/v1/swagger.json` の代わりに `http://localhost:<port>/<route_prefix>/swagger/v1/swagger.json` を使用します。</span><span class="sxs-lookup"><span data-stu-id="0491b-150">For example, use `http://localhost:<port>/<route_prefix>/swagger/v1/swagger.json` instead of `http://localhost:<port>/<virtual_directory>/<route_prefix>/swagger/v1/swagger.json`.</span></span>
+<span data-ttu-id="24836-147">IIS やリバース プロキシを使用するディレクトリを使用している場合は、`./` プレフィックスを使用して Swagger のエンドポイントを相対パスに設定します。</span><span class="sxs-lookup"><span data-stu-id="24836-147">If using directories with IIS or a reverse proxy, set the Swagger endpoint to a relative path using the `./` prefix.</span></span> <span data-ttu-id="24836-148">たとえば、`./swagger/v1/swagger.json` のようにします。</span><span class="sxs-lookup"><span data-stu-id="24836-148">For example, `./swagger/v1/swagger.json`.</span></span> <span data-ttu-id="24836-149">`/swagger/v1/swagger.json` を使用することで、アプリが URL の真のルート (使用されている場合は、これに加えてルート プレフィックス) にある JSON ファイルを検索するように指示されます。</span><span class="sxs-lookup"><span data-stu-id="24836-149">Using `/swagger/v1/swagger.json` instructs the app to look for the JSON file at the true root of the URL (plus the route prefix, if used).</span></span> <span data-ttu-id="24836-150">たとえば、`http://localhost:<port>/<virtual_directory>/<route_prefix>/swagger/v1/swagger.json` の代わりに `http://localhost:<port>/<route_prefix>/swagger/v1/swagger.json` を使用します。</span><span class="sxs-lookup"><span data-stu-id="24836-150">For example, use `http://localhost:<port>/<route_prefix>/swagger/v1/swagger.json` instead of `http://localhost:<port>/<virtual_directory>/<route_prefix>/swagger/v1/swagger.json`.</span></span>
 
-## <a name="customize-and-extend"></a><span data-ttu-id="0491b-151">カスタマイズと拡張</span><span class="sxs-lookup"><span data-stu-id="0491b-151">Customize and extend</span></span>
+## <a name="customize-and-extend"></a><span data-ttu-id="24836-151">カスタマイズと拡張</span><span class="sxs-lookup"><span data-stu-id="24836-151">Customize and extend</span></span>
 
-<span data-ttu-id="0491b-152">Swagger は、テーマに合わせてオブジェクト モデルを文書化して、UI をカスタマイズするオプションを提供します。</span><span class="sxs-lookup"><span data-stu-id="0491b-152">Swagger provides options for documenting the object model and customizing the UI to match your theme.</span></span>
+<span data-ttu-id="24836-152">Swagger は、テーマに合わせてオブジェクト モデルを文書化して、UI をカスタマイズするオプションを提供します。</span><span class="sxs-lookup"><span data-stu-id="24836-152">Swagger provides options for documenting the object model and customizing the UI to match your theme.</span></span>
 
-<span data-ttu-id="0491b-153">`Startup` クラスに、次の名前空間を追加します。</span><span class="sxs-lookup"><span data-stu-id="0491b-153">In the `Startup` class, add the following namespaces:</span></span>
+<span data-ttu-id="24836-153">`Startup` クラスに、次の名前空間を追加します。</span><span class="sxs-lookup"><span data-stu-id="24836-153">In the `Startup` class, add the following namespaces:</span></span>
 
 ```csharp
 using System;
@@ -140,26 +140,26 @@ using System.Reflection;
 using System.IO;
 ```
 
-### <a name="api-info-and-description"></a><span data-ttu-id="0491b-154">API 情報と説明</span><span class="sxs-lookup"><span data-stu-id="0491b-154">API info and description</span></span>
+### <a name="api-info-and-description"></a><span data-ttu-id="24836-154">API 情報と説明</span><span class="sxs-lookup"><span data-stu-id="24836-154">API info and description</span></span>
 
-<span data-ttu-id="0491b-155">`AddSwaggerGen` メソッドに渡された構成アクションによって、作成者、ライセンス、説明などの情報が追加されます。</span><span class="sxs-lookup"><span data-stu-id="0491b-155">The configuration action passed to the `AddSwaggerGen` method adds information such as the author, license, and description:</span></span>
+<span data-ttu-id="24836-155">`AddSwaggerGen` メソッドに渡された構成アクションによって、作成者、ライセンス、説明などの情報が追加されます。</span><span class="sxs-lookup"><span data-stu-id="24836-155">The configuration action passed to the `AddSwaggerGen` method adds information such as the author, license, and description:</span></span>
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.Swashbuckle/Startup4.cs?name=snippet_AddSwaggerGen)]
 
-<span data-ttu-id="0491b-156">Swagger UI には、バージョンの情報が表示されます。</span><span class="sxs-lookup"><span data-stu-id="0491b-156">The Swagger UI displays the version's information:</span></span>
+<span data-ttu-id="24836-156">Swagger UI には、バージョンの情報が表示されます。</span><span class="sxs-lookup"><span data-stu-id="24836-156">The Swagger UI displays the version's information:</span></span>
 
 ![バージョン情報を含む Swagger UI: 説明、作成者、およびその他のリンクの表示](web-api-help-pages-using-swagger/_static/custom-info.png)
 
-### <a name="xml-comments"></a><span data-ttu-id="0491b-158">XML コメント</span><span class="sxs-lookup"><span data-stu-id="0491b-158">XML comments</span></span>
+### <a name="xml-comments"></a><span data-ttu-id="24836-158">XML コメント</span><span class="sxs-lookup"><span data-stu-id="24836-158">XML comments</span></span>
 
-<span data-ttu-id="0491b-159">XML コメントは、次の方法で有効にすることができます。</span><span class="sxs-lookup"><span data-stu-id="0491b-159">XML comments can be enabled with the following approaches:</span></span>
+<span data-ttu-id="24836-159">XML コメントは、次の方法で有効にすることができます。</span><span class="sxs-lookup"><span data-stu-id="24836-159">XML comments can be enabled with the following approaches:</span></span>
 
-#### <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="0491b-160">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="0491b-160">Visual Studio</span></span>](#tab/visual-studio)
+#### <a name="visual-studio"></a>[<span data-ttu-id="24836-160">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="24836-160">Visual Studio</span></span>](#tab/visual-studio)
 
 ::: moniker range=">= aspnetcore-2.0"
 
-* <span data-ttu-id="0491b-161">**ソリューション エクスプローラー**でプロジェクトを右クリックし、 **[<project_name>.csproj の編集]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="0491b-161">Right-click the project in **Solution Explorer** and select **Edit <project_name>.csproj**.</span></span>
-* <span data-ttu-id="0491b-162">強調表示された行を手動で *.csproj* ファイルに追加します。</span><span class="sxs-lookup"><span data-stu-id="0491b-162">Manually add the highlighted lines to the *.csproj* file:</span></span>
+* <span data-ttu-id="24836-161">**ソリューション エクスプローラー**でプロジェクトを右クリックし、 **[<project_name>.csproj の編集]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="24836-161">Right-click the project in **Solution Explorer** and select **Edit <project_name>.csproj**.</span></span>
+* <span data-ttu-id="24836-162">強調表示された行を手動で *.csproj* ファイルに追加します。</span><span class="sxs-lookup"><span data-stu-id="24836-162">Manually add the highlighted lines to the *.csproj* file:</span></span>
 
 [!code-xml[](../tutorials/web-api-help-pages-using-swagger/samples/2.1/TodoApi.Swashbuckle/TodoApi.csproj?name=snippet_SuppressWarnings&highlight=1-2,4)]
 
@@ -167,17 +167,17 @@ using System.IO;
 
 ::: moniker range="<= aspnetcore-1.1"
 
-* <span data-ttu-id="0491b-163">**ソリューション エクスプローラー**でプロジェクトを右クリックして、 **[プロパティ]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="0491b-163">Right-click the project in **Solution Explorer** and select **Properties**.</span></span>
-* <span data-ttu-id="0491b-164">**[ビルド]** タブの **[出力]** セクションの下にある **[XML ドキュメント ファイル]** チェック ボックスをオンにします。</span><span class="sxs-lookup"><span data-stu-id="0491b-164">Check the **XML documentation file** box under the **Output** section of the **Build** tab.</span></span>
+* <span data-ttu-id="24836-163">**ソリューション エクスプローラー**でプロジェクトを右クリックして、 **[プロパティ]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="24836-163">Right-click the project in **Solution Explorer** and select **Properties**.</span></span>
+* <span data-ttu-id="24836-164">**[ビルド]** タブの **[出力]** セクションの下にある **[XML ドキュメント ファイル]** チェック ボックスをオンにします。</span><span class="sxs-lookup"><span data-stu-id="24836-164">Check the **XML documentation file** box under the **Output** section of the **Build** tab.</span></span>
 
 ::: moniker-end
 
-#### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="0491b-165">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="0491b-165">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+#### <a name="visual-studio-for-mac"></a>[<span data-ttu-id="24836-165">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="24836-165">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
 ::: moniker range=">= aspnetcore-2.0"
 
-* <span data-ttu-id="0491b-166">*Solution Pad* から **Ctrl** キーを押しながらプロジェクト名をクリックします。</span><span class="sxs-lookup"><span data-stu-id="0491b-166">From the *Solution Pad*, press **control** and click the project name.</span></span> <span data-ttu-id="0491b-167">**[ツール]**  >  **[ファイルの編集]** に移動します。</span><span class="sxs-lookup"><span data-stu-id="0491b-167">Navigate to **Tools** > **Edit File**.</span></span>
-* <span data-ttu-id="0491b-168">強調表示された行を手動で *.csproj* ファイルに追加します。</span><span class="sxs-lookup"><span data-stu-id="0491b-168">Manually add the highlighted lines to the *.csproj* file:</span></span>
+* <span data-ttu-id="24836-166">*Solution Pad* から **Ctrl** キーを押しながらプロジェクト名をクリックします。</span><span class="sxs-lookup"><span data-stu-id="24836-166">From the *Solution Pad*, press **control** and click the project name.</span></span> <span data-ttu-id="24836-167">**[ツール]**  >  **[ファイルの編集]** に移動します。</span><span class="sxs-lookup"><span data-stu-id="24836-167">Navigate to **Tools** > **Edit File**.</span></span>
+* <span data-ttu-id="24836-168">強調表示された行を手動で *.csproj* ファイルに追加します。</span><span class="sxs-lookup"><span data-stu-id="24836-168">Manually add the highlighted lines to the *.csproj* file:</span></span>
 
 [!code-xml[](../tutorials/web-api-help-pages-using-swagger/samples/2.1/TodoApi.Swashbuckle/TodoApi.csproj?name=snippet_SuppressWarnings&highlight=1-2,4)]
 
@@ -185,14 +185,14 @@ using System.IO;
 
 ::: moniker range="<= aspnetcore-1.1"
 
-* <span data-ttu-id="0491b-169">**[プロジェクト オプション]** ダイアログ > **[ビルド]** > **[コンパイラ]** を開きます。</span><span class="sxs-lookup"><span data-stu-id="0491b-169">Open the **Project Options** dialog > **Build** > **Compiler**</span></span>
-* <span data-ttu-id="0491b-170">**[全般オプション]** セクションの下にある **[XML ドキュメントを生成する]** チェック ボックスをオンにします。</span><span class="sxs-lookup"><span data-stu-id="0491b-170">Check the **Generate xml documentation** box under the **General Options** section</span></span>
+* <span data-ttu-id="24836-169">**[プロジェクト オプション]** ダイアログ > **[ビルド]** > **[コンパイラ]** を開きます。</span><span class="sxs-lookup"><span data-stu-id="24836-169">Open the **Project Options** dialog > **Build** > **Compiler**</span></span>
+* <span data-ttu-id="24836-170">**[全般オプション]** セクションの下にある **[XML ドキュメントを生成する]** チェック ボックスをオンにします。</span><span class="sxs-lookup"><span data-stu-id="24836-170">Check the **Generate xml documentation** box under the **General Options** section</span></span>
 
 ::: moniker-end
 
-#### <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="0491b-171">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="0491b-171">Visual Studio Code</span></span>](#tab/visual-studio-code)
+#### <a name="visual-studio-code"></a>[<span data-ttu-id="24836-171">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="24836-171">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-<span data-ttu-id="0491b-172">強調表示された行を手動で *.csproj* ファイルに追加します。</span><span class="sxs-lookup"><span data-stu-id="0491b-172">Manually add the highlighted lines to the *.csproj* file:</span></span>
+<span data-ttu-id="24836-172">強調表示された行を手動で *.csproj* ファイルに追加します。</span><span class="sxs-lookup"><span data-stu-id="24836-172">Manually add the highlighted lines to the *.csproj* file:</span></span>
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -206,9 +206,9 @@ using System.IO;
 
 ::: moniker-end
 
-#### <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="0491b-173">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="0491b-173">.NET Core CLI</span></span>](#tab/netcore-cli)
+#### <a name="net-core-cli"></a>[<span data-ttu-id="24836-173">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="24836-173">.NET Core CLI</span></span>](#tab/netcore-cli)
 
-<span data-ttu-id="0491b-174">強調表示された行を手動で *.csproj* ファイルに追加します。</span><span class="sxs-lookup"><span data-stu-id="0491b-174">Manually add the highlighted lines to the *.csproj* file:</span></span>
+<span data-ttu-id="24836-174">強調表示された行を手動で *.csproj* ファイルに追加します。</span><span class="sxs-lookup"><span data-stu-id="24836-174">Manually add the highlighted lines to the *.csproj* file:</span></span>
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -224,13 +224,13 @@ using System.IO;
 
 ---
 
-<span data-ttu-id="0491b-175">XML コメントを有効にすると、ドキュメントに未記載のパブリック型とメンバーのデバッグ情報を提供することができます。</span><span class="sxs-lookup"><span data-stu-id="0491b-175">Enabling XML comments provides debug information for undocumented public types and members.</span></span> <span data-ttu-id="0491b-176">文書化されない型とメンバーは警告メッセージで示されます。</span><span class="sxs-lookup"><span data-stu-id="0491b-176">Undocumented types and members are indicated by the warning message.</span></span> <span data-ttu-id="0491b-177">たとえば、次のメッセージは警告コード 1591 の違反を示します。</span><span class="sxs-lookup"><span data-stu-id="0491b-177">For example, the following message indicates a violation of warning code 1591:</span></span>
+<span data-ttu-id="24836-175">XML コメントを有効にすると、ドキュメントに未記載のパブリック型とメンバーのデバッグ情報を提供することができます。</span><span class="sxs-lookup"><span data-stu-id="24836-175">Enabling XML comments provides debug information for undocumented public types and members.</span></span> <span data-ttu-id="24836-176">文書化されない型とメンバーは警告メッセージで示されます。</span><span class="sxs-lookup"><span data-stu-id="24836-176">Undocumented types and members are indicated by the warning message.</span></span> <span data-ttu-id="24836-177">たとえば、次のメッセージは警告コード 1591 の違反を示します。</span><span class="sxs-lookup"><span data-stu-id="24836-177">For example, the following message indicates a violation of warning code 1591:</span></span>
 
 ```text
 warning CS1591: Missing XML comment for publicly visible type or member 'TodoController.GetAll()'
 ```
 
-<span data-ttu-id="0491b-178">プロジェクト全体で警告を非表示にするには、プロジェクト ファイルで無視する警告コードの一覧をセミコロン区切りで定義します。</span><span class="sxs-lookup"><span data-stu-id="0491b-178">To suppress warnings project-wide, define a semicolon-delimited list of warning codes to ignore in the project file.</span></span> <span data-ttu-id="0491b-179">警告コードを `$(NoWarn);` に追加すると、[C# の既定値](https://github.com/dotnet/sdk/blob/2eb6c546931b5bcb92cd3128b93932a980553ea1/src/Tasks/Microsoft.NET.Build.Tasks/targets/Microsoft.NET.Sdk.CSharp.props#L16)も適用されます。</span><span class="sxs-lookup"><span data-stu-id="0491b-179">Appending the warning codes to `$(NoWarn);` applies the [C# default values](https://github.com/dotnet/sdk/blob/2eb6c546931b5bcb92cd3128b93932a980553ea1/src/Tasks/Microsoft.NET.Build.Tasks/targets/Microsoft.NET.Sdk.CSharp.props#L16) too.</span></span>
+<span data-ttu-id="24836-178">プロジェクト全体で警告を非表示にするには、プロジェクト ファイルで無視する警告コードの一覧をセミコロン区切りで定義します。</span><span class="sxs-lookup"><span data-stu-id="24836-178">To suppress warnings project-wide, define a semicolon-delimited list of warning codes to ignore in the project file.</span></span> <span data-ttu-id="24836-179">警告コードを `$(NoWarn);` に追加すると、[C# の既定値](https://github.com/dotnet/sdk/blob/2eb6c546931b5bcb92cd3128b93932a980553ea1/src/Tasks/Microsoft.NET.Build.Tasks/targets/Microsoft.NET.Sdk.CSharp.props#L16)も適用されます。</span><span class="sxs-lookup"><span data-stu-id="24836-179">Appending the warning codes to `$(NoWarn);` applies the [C# default values](https://github.com/dotnet/sdk/blob/2eb6c546931b5bcb92cd3128b93932a980553ea1/src/Tasks/Microsoft.NET.Build.Tasks/targets/Microsoft.NET.Sdk.CSharp.props#L16) too.</span></span>
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -244,7 +244,7 @@ warning CS1591: Missing XML comment for publicly visible type or member 'TodoCon
 
 ::: moniker-end
 
-<span data-ttu-id="0491b-180">特定のメンバーに向けた警告のみを非表示にするには、コードを [#pragma warning](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-pragma-warning) プリプロセッサ ディレクティブで囲みます。</span><span class="sxs-lookup"><span data-stu-id="0491b-180">To suppress warnings only for specific members, enclose the code in [#pragma warning](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-pragma-warning) preprocessor directives.</span></span> <span data-ttu-id="0491b-181">この方法は、API ドキュメント経由で公開すべきではないコードの場合に役立ちます。次の例では、警告コード CS1591 が `Program` クラス全体で無視されます。</span><span class="sxs-lookup"><span data-stu-id="0491b-181">This approach is useful for code that shouldn't be exposed via the API docs. In the following example, warning code CS1591 is ignored for the entire `Program` class.</span></span> <span data-ttu-id="0491b-182">警告コードの強制は、クラス定義の終了時に復元されます。</span><span class="sxs-lookup"><span data-stu-id="0491b-182">Enforcement of the warning code is restored at the close of the class definition.</span></span> <span data-ttu-id="0491b-183">コンマ区切りのリストで複数の警告コードを指定します。</span><span class="sxs-lookup"><span data-stu-id="0491b-183">Specify multiple warning codes with a comma-delimited list.</span></span>
+<span data-ttu-id="24836-180">特定のメンバーに向けた警告のみを非表示にするには、コードを [#pragma warning](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-pragma-warning) プリプロセッサ ディレクティブで囲みます。</span><span class="sxs-lookup"><span data-stu-id="24836-180">To suppress warnings only for specific members, enclose the code in [#pragma warning](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-pragma-warning) preprocessor directives.</span></span> <span data-ttu-id="24836-181">この方法は、API ドキュメント経由で公開すべきではないコードの場合に役立ちます。次の例では、警告コード CS1591 が `Program` クラス全体で無視されます。</span><span class="sxs-lookup"><span data-stu-id="24836-181">This approach is useful for code that shouldn't be exposed via the API docs. In the following example, warning code CS1591 is ignored for the entire `Program` class.</span></span> <span data-ttu-id="24836-182">警告コードの強制は、クラス定義の終了時に復元されます。</span><span class="sxs-lookup"><span data-stu-id="24836-182">Enforcement of the warning code is restored at the close of the class definition.</span></span> <span data-ttu-id="24836-183">コンマ区切りのリストで複数の警告コードを指定します。</span><span class="sxs-lookup"><span data-stu-id="24836-183">Specify multiple warning codes with a comma-delimited list.</span></span>
 
 ```csharp
 namespace TodoApi
@@ -264,7 +264,7 @@ namespace TodoApi
 }
 ```
 
-<span data-ttu-id="0491b-184">上記の手順で生成される XML ファイルを使用するように、Swagger を構成します。</span><span class="sxs-lookup"><span data-stu-id="0491b-184">Configure Swagger to use the XML file that's generated with the preceding instructions.</span></span> <span data-ttu-id="0491b-185">Linux または Windows 以外のオペレーティング システムでは、ファイル名やパスで大文字小文字が区別されます。</span><span class="sxs-lookup"><span data-stu-id="0491b-185">For Linux or non-Windows operating systems, file names and paths can be case-sensitive.</span></span> <span data-ttu-id="0491b-186">たとえば、*TodoApi.XML* ファイルは Windows では有効ですが、CentOS では無効です。</span><span class="sxs-lookup"><span data-stu-id="0491b-186">For example, a *TodoApi.XML* file is valid on Windows but not CentOS.</span></span>
+<span data-ttu-id="24836-184">上記の手順で生成される XML ファイルを使用するように、Swagger を構成します。</span><span class="sxs-lookup"><span data-stu-id="24836-184">Configure Swagger to use the XML file that's generated with the preceding instructions.</span></span> <span data-ttu-id="24836-185">Linux または Windows 以外のオペレーティング システムでは、ファイル名やパスで大文字小文字が区別されます。</span><span class="sxs-lookup"><span data-stu-id="24836-185">For Linux or non-Windows operating systems, file names and paths can be case-sensitive.</span></span> <span data-ttu-id="24836-186">たとえば、*TodoApi.XML* ファイルは Windows では有効ですが、CentOS では無効です。</span><span class="sxs-lookup"><span data-stu-id="24836-186">For example, a *TodoApi.XML* file is valid on Windows but not CentOS.</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -290,17 +290,17 @@ namespace TodoApi
 
 ::: moniker-end
 
-<span data-ttu-id="0491b-187">前述のコードでは、[Reflection](/dotnet/csharp/programming-guide/concepts/reflection) を使用し、Web API プロジェクトの名前に一致する XML ファイル名が構築されます。</span><span class="sxs-lookup"><span data-stu-id="0491b-187">In the preceding code, [Reflection](/dotnet/csharp/programming-guide/concepts/reflection) is used to build an XML file name matching that of the web API project.</span></span> <span data-ttu-id="0491b-188">[AppContext.BaseDirectory](xref:System.AppContext.BaseDirectory*) プロパティは、XML ファイルのパス構築に使用されます。</span><span class="sxs-lookup"><span data-stu-id="0491b-188">The [AppContext.BaseDirectory](xref:System.AppContext.BaseDirectory*) property is used to construct a path to the XML file.</span></span> <span data-ttu-id="0491b-189">Swagger の一部の機能 (たとえば、入力パラメーターや HTTP メソッドのスキーマ、それぞれの属性からの応答コード) は、XML ドキュメント ファイルを使わなくても動作します。</span><span class="sxs-lookup"><span data-stu-id="0491b-189">Some Swagger features (for example, schemata of input parameters or HTTP methods and response codes from the respective attributes) work without the use of an XML documentation file.</span></span> <span data-ttu-id="0491b-190">メソッドのサマリーや、パラメーターと応答コードの記述など、ほとんどの機能には、XML ファイルの使用が必須です。</span><span class="sxs-lookup"><span data-stu-id="0491b-190">For most features, namely method summaries and the descriptions of parameters and response codes, the use of an XML file is mandatory.</span></span>
+<span data-ttu-id="24836-187">前述のコードでは、[Reflection](/dotnet/csharp/programming-guide/concepts/reflection) を使用し、Web API プロジェクトの名前に一致する XML ファイル名が構築されます。</span><span class="sxs-lookup"><span data-stu-id="24836-187">In the preceding code, [Reflection](/dotnet/csharp/programming-guide/concepts/reflection) is used to build an XML file name matching that of the web API project.</span></span> <span data-ttu-id="24836-188">[AppContext.BaseDirectory](xref:System.AppContext.BaseDirectory*) プロパティは、XML ファイルのパス構築に使用されます。</span><span class="sxs-lookup"><span data-stu-id="24836-188">The [AppContext.BaseDirectory](xref:System.AppContext.BaseDirectory*) property is used to construct a path to the XML file.</span></span> <span data-ttu-id="24836-189">Swagger の一部の機能 (たとえば、入力パラメーターや HTTP メソッドのスキーマ、それぞれの属性からの応答コード) は、XML ドキュメント ファイルを使わなくても動作します。</span><span class="sxs-lookup"><span data-stu-id="24836-189">Some Swagger features (for example, schemata of input parameters or HTTP methods and response codes from the respective attributes) work without the use of an XML documentation file.</span></span> <span data-ttu-id="24836-190">メソッドのサマリーや、パラメーターと応答コードの記述など、ほとんどの機能には、XML ファイルの使用が必須です。</span><span class="sxs-lookup"><span data-stu-id="24836-190">For most features, namely method summaries and the descriptions of parameters and response codes, the use of an XML file is mandatory.</span></span>
 
-<span data-ttu-id="0491b-191">アクションにトリプル スラッシュのコメントを追加すると、セクション ヘッダーに説明が追加され、Swagger UI が向上します。</span><span class="sxs-lookup"><span data-stu-id="0491b-191">Adding triple-slash comments to an action enhances the Swagger UI by adding the description to the section header.</span></span> <span data-ttu-id="0491b-192">`Delete` アクションの上に [\<summary>](/dotnet/csharp/programming-guide/xmldoc/summary) 要素を追加します。</span><span class="sxs-lookup"><span data-stu-id="0491b-192">Add a [\<summary>](/dotnet/csharp/programming-guide/xmldoc/summary) element above the `Delete` action:</span></span>
+<span data-ttu-id="24836-191">アクションにトリプル スラッシュのコメントを追加すると、セクション ヘッダーに説明が追加され、Swagger UI が向上します。</span><span class="sxs-lookup"><span data-stu-id="24836-191">Adding triple-slash comments to an action enhances the Swagger UI by adding the description to the section header.</span></span> <span data-ttu-id="24836-192">`Delete` アクションの上に [\<summary>](/dotnet/csharp/programming-guide/xmldoc/summary) 要素を追加します。</span><span class="sxs-lookup"><span data-stu-id="24836-192">Add a [\<summary>](/dotnet/csharp/programming-guide/xmldoc/summary) element above the `Delete` action:</span></span>
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.Swashbuckle/Controllers/TodoController.cs?name=snippet_Delete&highlight=1-3)]
 
-<span data-ttu-id="0491b-193">Swagger UI には、前述のコードの `<summary>` 要素の内部テキストが表示されます。</span><span class="sxs-lookup"><span data-stu-id="0491b-193">The Swagger UI displays the inner text of the preceding code's `<summary>` element:</span></span>
+<span data-ttu-id="24836-193">Swagger UI には、前述のコードの `<summary>` 要素の内部テキストが表示されます。</span><span class="sxs-lookup"><span data-stu-id="24836-193">The Swagger UI displays the inner text of the preceding code's `<summary>` element:</span></span>
 
 ![DELETE メソッドの XML コメント 'Deletes a specific TodoItem.' を](web-api-help-pages-using-swagger/_static/triple-slash-comments.png)
 
-<span data-ttu-id="0491b-196">UI は、生成された JSON スキーマによって決まります。</span><span class="sxs-lookup"><span data-stu-id="0491b-196">The UI is driven by the generated JSON schema:</span></span>
+<span data-ttu-id="24836-196">UI は、生成された JSON スキーマによって決まります。</span><span class="sxs-lookup"><span data-stu-id="24836-196">The UI is driven by the generated JSON schema:</span></span>
 
 ```json
 "delete": {
@@ -329,7 +329,7 @@ namespace TodoApi
 }
 ```
 
-<span data-ttu-id="0491b-197">[\<remarks>](/dotnet/csharp/programming-guide/xmldoc/remarks) 要素を `Create` アクション メソッドのドキュメントに追加します。</span><span class="sxs-lookup"><span data-stu-id="0491b-197">Add a [\<remarks>](/dotnet/csharp/programming-guide/xmldoc/remarks) element to the `Create` action method documentation.</span></span> <span data-ttu-id="0491b-198">これは、`<summary>` 要素で指定された情報を補足し、Swagger UI をより堅牢にします。</span><span class="sxs-lookup"><span data-stu-id="0491b-198">It supplements information specified in the `<summary>` element and provides a more robust Swagger UI.</span></span> <span data-ttu-id="0491b-199">`<remarks>` 要素の内容は、テキスト、JSON、または XML で構成されます。</span><span class="sxs-lookup"><span data-stu-id="0491b-199">The `<remarks>` element content can consist of text, JSON, or XML.</span></span>
+<span data-ttu-id="24836-197">[\<remarks>](/dotnet/csharp/programming-guide/xmldoc/remarks) 要素を `Create` アクション メソッドのドキュメントに追加します。</span><span class="sxs-lookup"><span data-stu-id="24836-197">Add a [\<remarks>](/dotnet/csharp/programming-guide/xmldoc/remarks) element to the `Create` action method documentation.</span></span> <span data-ttu-id="24836-198">これは、`<summary>` 要素で指定された情報を補足し、Swagger UI をより堅牢にします。</span><span class="sxs-lookup"><span data-stu-id="24836-198">It supplements information specified in the `<summary>` element and provides a more robust Swagger UI.</span></span> <span data-ttu-id="24836-199">`<remarks>` 要素の内容は、テキスト、JSON、または XML で構成されます。</span><span class="sxs-lookup"><span data-stu-id="24836-199">The `<remarks>` element content can consist of text, JSON, or XML.</span></span>
 
 ::: moniker range="<= aspnetcore-2.0"
 
@@ -349,19 +349,19 @@ namespace TodoApi
 
 ::: moniker-end
 
-<span data-ttu-id="0491b-200">追加コメントで UI が向上している点にご注目ください。</span><span class="sxs-lookup"><span data-stu-id="0491b-200">Notice the UI enhancements with these additional comments:</span></span>
+<span data-ttu-id="24836-200">追加コメントで UI が向上している点にご注目ください。</span><span class="sxs-lookup"><span data-stu-id="24836-200">Notice the UI enhancements with these additional comments:</span></span>
 
 ![追加のコメントが表示された Swagger UI](web-api-help-pages-using-swagger/_static/xml-comments-extended.png)
 
-### <a name="data-annotations"></a><span data-ttu-id="0491b-202">データの注釈</span><span class="sxs-lookup"><span data-stu-id="0491b-202">Data annotations</span></span>
+### <a name="data-annotations"></a><span data-ttu-id="24836-202">データの注釈</span><span class="sxs-lookup"><span data-stu-id="24836-202">Data annotations</span></span>
 
-<span data-ttu-id="0491b-203">[System.ComponentModel.DataAnnotations](/dotnet/api/system.componentmodel.dataannotations) 名前空間にある属性でモデルをマークし、Swagger UI コンポーネントの向上に役立てます。</span><span class="sxs-lookup"><span data-stu-id="0491b-203">Mark the model with attributes, found in the [System.ComponentModel.DataAnnotations](/dotnet/api/system.componentmodel.dataannotations) namespace, to help drive the Swagger UI components.</span></span>
+<span data-ttu-id="24836-203">[System.ComponentModel.DataAnnotations](/dotnet/api/system.componentmodel.dataannotations) 名前空間にある属性でモデルをマークし、Swagger UI コンポーネントの向上に役立てます。</span><span class="sxs-lookup"><span data-stu-id="24836-203">Mark the model with attributes, found in the [System.ComponentModel.DataAnnotations](/dotnet/api/system.componentmodel.dataannotations) namespace, to help drive the Swagger UI components.</span></span>
 
-<span data-ttu-id="0491b-204">`[Required]` 属性を `TodoItem` クラスの `Name` プロパティに追加します。</span><span class="sxs-lookup"><span data-stu-id="0491b-204">Add the `[Required]` attribute to the `Name` property of the `TodoItem` class:</span></span>
+<span data-ttu-id="24836-204">`[Required]` 属性を `TodoItem` クラスの `Name` プロパティに追加します。</span><span class="sxs-lookup"><span data-stu-id="24836-204">Add the `[Required]` attribute to the `Name` property of the `TodoItem` class:</span></span>
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.Swashbuckle/Models/TodoItem.cs?highlight=10)]
 
-<span data-ttu-id="0491b-205">この属性の有無は、UI 動作を変更し、基になる JSON スキーマを変更します。</span><span class="sxs-lookup"><span data-stu-id="0491b-205">The presence of this attribute changes the UI behavior and alters the underlying JSON schema:</span></span>
+<span data-ttu-id="24836-205">この属性の有無は、UI 動作を変更し、基になる JSON スキーマを変更します。</span><span class="sxs-lookup"><span data-stu-id="24836-205">The presence of this attribute changes the UI behavior and alters the underlying JSON schema:</span></span>
 
 ```json
 "definitions": {
@@ -387,7 +387,7 @@ namespace TodoApi
 },
 ```
 
-<span data-ttu-id="0491b-206">API コントローラーに `[Produces("application/json")]` 属性を追加します。</span><span class="sxs-lookup"><span data-stu-id="0491b-206">Add the `[Produces("application/json")]` attribute to the API controller.</span></span> <span data-ttu-id="0491b-207">その目的は、コントローラーのアクションが *application/json* の応答コンテンツ タイプをサポートすることを宣言することです。</span><span class="sxs-lookup"><span data-stu-id="0491b-207">Its purpose is to declare that the controller's actions support a response content type of *application/json*:</span></span>
+<span data-ttu-id="24836-206">API コントローラーに `[Produces("application/json")]` 属性を追加します。</span><span class="sxs-lookup"><span data-stu-id="24836-206">Add the `[Produces("application/json")]` attribute to the API controller.</span></span> <span data-ttu-id="24836-207">その目的は、コントローラーのアクションが *application/json* の応答コンテンツ タイプをサポートすることを宣言することです。</span><span class="sxs-lookup"><span data-stu-id="24836-207">Its purpose is to declare that the controller's actions support a response content type of *application/json*:</span></span>
 
 ::: moniker range="<= aspnetcore-2.0"
 
@@ -407,17 +407,17 @@ namespace TodoApi
 
 ::: moniker-end
 
-<span data-ttu-id="0491b-208">**[応答コンテンツ タイプ]** ドロップダウンがコント ローラーの GET 操作の既定値としてこのコンテンツ タイプを選択します。</span><span class="sxs-lookup"><span data-stu-id="0491b-208">The **Response Content Type** drop-down selects this content type as the default for the controller's GET actions:</span></span>
+<span data-ttu-id="24836-208">**[応答コンテンツ タイプ]** ドロップダウンがコント ローラーの GET 操作の既定値としてこのコンテンツ タイプを選択します。</span><span class="sxs-lookup"><span data-stu-id="24836-208">The **Response Content Type** drop-down selects this content type as the default for the controller's GET actions:</span></span>
 
 ![既定の応答のコンテンツ タイプを持つ Swagger UI](web-api-help-pages-using-swagger/_static/json-response-content-type.png)
 
-<span data-ttu-id="0491b-210">Web API のデータの注釈の使用量が多いほど、UI と API のヘルプ ページはわかりやすく便利になります。</span><span class="sxs-lookup"><span data-stu-id="0491b-210">As the usage of data annotations in the web API increases, the UI and API help pages become more descriptive and useful.</span></span>
+<span data-ttu-id="24836-210">Web API のデータの注釈の使用量が多いほど、UI と API のヘルプ ページはわかりやすく便利になります。</span><span class="sxs-lookup"><span data-stu-id="24836-210">As the usage of data annotations in the web API increases, the UI and API help pages become more descriptive and useful.</span></span>
 
-### <a name="describe-response-types"></a><span data-ttu-id="0491b-211">応答の種類の説明</span><span class="sxs-lookup"><span data-stu-id="0491b-211">Describe response types</span></span>
+### <a name="describe-response-types"></a><span data-ttu-id="24836-211">応答の種類の説明</span><span class="sxs-lookup"><span data-stu-id="24836-211">Describe response types</span></span>
 
-<span data-ttu-id="0491b-212">Web API を使用する開発者は、何が返されるかを最も考慮します&mdash;具体的には、応答の種類とエラー コードです (標準以外の場合)。</span><span class="sxs-lookup"><span data-stu-id="0491b-212">Developers consuming a web API are most concerned with what's returned&mdash;specifically response types and error codes (if not standard).</span></span> <span data-ttu-id="0491b-213">応答の種類とエラー コードは、XML コメントとデータ注釈に示されます。</span><span class="sxs-lookup"><span data-stu-id="0491b-213">The response types and error codes are denoted in the XML comments and data annotations.</span></span>
+<span data-ttu-id="24836-212">Web API を使用する開発者は、何が返されるかを最も考慮します&mdash;具体的には、応答の種類とエラー コードです (標準以外の場合)。</span><span class="sxs-lookup"><span data-stu-id="24836-212">Developers consuming a web API are most concerned with what's returned&mdash;specifically response types and error codes (if not standard).</span></span> <span data-ttu-id="24836-213">応答の種類とエラー コードは、XML コメントとデータ注釈に示されます。</span><span class="sxs-lookup"><span data-stu-id="24836-213">The response types and error codes are denoted in the XML comments and data annotations.</span></span>
 
-<span data-ttu-id="0491b-214">`Create` アクションでは、成功すると HTTP 201 状態コードが返されます。</span><span class="sxs-lookup"><span data-stu-id="0491b-214">The `Create` action returns an HTTP 201 status code on success.</span></span> <span data-ttu-id="0491b-215">HTTP 400 状態コードは、投稿された要求本文が null のときに返されます。</span><span class="sxs-lookup"><span data-stu-id="0491b-215">An HTTP 400 status code is returned when the posted request body is null.</span></span> <span data-ttu-id="0491b-216">Swagger UI に適切なドキュメントがないと、利用者にはこれらの予期される結果の知識がありません。</span><span class="sxs-lookup"><span data-stu-id="0491b-216">Without proper documentation in the Swagger UI, the consumer lacks knowledge of these expected outcomes.</span></span> <span data-ttu-id="0491b-217">その問題を解決するために、次の例では強調表示された行を追加しています。</span><span class="sxs-lookup"><span data-stu-id="0491b-217">Fix that problem by adding the highlighted lines in the following example:</span></span>
+<span data-ttu-id="24836-214">`Create` アクションでは、成功すると HTTP 201 状態コードが返されます。</span><span class="sxs-lookup"><span data-stu-id="24836-214">The `Create` action returns an HTTP 201 status code on success.</span></span> <span data-ttu-id="24836-215">HTTP 400 状態コードは、投稿された要求本文が null のときに返されます。</span><span class="sxs-lookup"><span data-stu-id="24836-215">An HTTP 400 status code is returned when the posted request body is null.</span></span> <span data-ttu-id="24836-216">Swagger UI に適切なドキュメントがないと、利用者にはこれらの予期される結果の知識がありません。</span><span class="sxs-lookup"><span data-stu-id="24836-216">Without proper documentation in the Swagger UI, the consumer lacks knowledge of these expected outcomes.</span></span> <span data-ttu-id="24836-217">その問題を解決するために、次の例では強調表示された行を追加しています。</span><span class="sxs-lookup"><span data-stu-id="24836-217">Fix that problem by adding the highlighted lines in the following example:</span></span>
 
 ::: moniker range="<= aspnetcore-2.0"
 
@@ -437,29 +437,29 @@ namespace TodoApi
 
 ::: moniker-end
 
-<span data-ttu-id="0491b-218">Swagger UI は、予期される HTTP 応答コードを明確に記述するようになりました。</span><span class="sxs-lookup"><span data-stu-id="0491b-218">The Swagger UI now clearly documents the expected HTTP response codes:</span></span>
+<span data-ttu-id="24836-218">Swagger UI は、予期される HTTP 応答コードを明確に記述するようになりました。</span><span class="sxs-lookup"><span data-stu-id="24836-218">The Swagger UI now clearly documents the expected HTTP response codes:</span></span>
 
 ![ステータスコードの POST 応答クラスの説明 'Returns the newly created Todo item' and '400 - If the item is null' および応答メッセージの下に理由を示す Swagger UI](web-api-help-pages-using-swagger/_static/data-annotations-response-types.png)
 
 ::: moniker range=">= aspnetcore-2.2"
 
-<span data-ttu-id="0491b-220">ASP.NET Core 2.2 以降では、明示的に個別のアクションを `[ProducesResponseType]` で装飾する代わりに、規約を使用できます。</span><span class="sxs-lookup"><span data-stu-id="0491b-220">In ASP.NET Core 2.2 or later, conventions can be used as an alternative to explicitly decorating individual actions with `[ProducesResponseType]`.</span></span> <span data-ttu-id="0491b-221">詳細については、「<xref:web-api/advanced/conventions>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="0491b-221">For more information, see <xref:web-api/advanced/conventions>.</span></span>
+<span data-ttu-id="24836-220">ASP.NET Core 2.2 以降では、明示的に個別のアクションを `[ProducesResponseType]` で装飾する代わりに、規約を使用できます。</span><span class="sxs-lookup"><span data-stu-id="24836-220">In ASP.NET Core 2.2 or later, conventions can be used as an alternative to explicitly decorating individual actions with `[ProducesResponseType]`.</span></span> <span data-ttu-id="24836-221">詳細については、「<xref:web-api/advanced/conventions>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="24836-221">For more information, see <xref:web-api/advanced/conventions>.</span></span>
 
 ::: moniker-end
 
-### <a name="customize-the-ui"></a><span data-ttu-id="0491b-222">UI をカスタマイズする</span><span class="sxs-lookup"><span data-stu-id="0491b-222">Customize the UI</span></span>
+### <a name="customize-the-ui"></a><span data-ttu-id="24836-222">UI をカスタマイズする</span><span class="sxs-lookup"><span data-stu-id="24836-222">Customize the UI</span></span>
 
-<span data-ttu-id="0491b-223">ストック UI は機能も見栄えも優れています。</span><span class="sxs-lookup"><span data-stu-id="0491b-223">The stock UI is both functional and presentable.</span></span> <span data-ttu-id="0491b-224">しかしながら、API ドキュメント ページでブランドやテーマを表す必要があります。</span><span class="sxs-lookup"><span data-stu-id="0491b-224">However, API documentation pages should represent your brand or theme.</span></span> <span data-ttu-id="0491b-225">Swashbuckle コンポーネントをブランド化するには、静的ファイルにサービスを提供するリソースを追加し、それらのファイルをホストするフォルダー構造を構築する必要があります。</span><span class="sxs-lookup"><span data-stu-id="0491b-225">Branding the Swashbuckle components requires adding the resources to serve static files and building the folder structure to host those files.</span></span>
+<span data-ttu-id="24836-223">ストック UI は機能も見栄えも優れています。</span><span class="sxs-lookup"><span data-stu-id="24836-223">The stock UI is both functional and presentable.</span></span> <span data-ttu-id="24836-224">しかしながら、API ドキュメント ページでブランドやテーマを表す必要があります。</span><span class="sxs-lookup"><span data-stu-id="24836-224">However, API documentation pages should represent your brand or theme.</span></span> <span data-ttu-id="24836-225">Swashbuckle コンポーネントをブランド化するには、静的ファイルにサービスを提供するリソースを追加し、それらのファイルをホストするフォルダー構造を構築する必要があります。</span><span class="sxs-lookup"><span data-stu-id="24836-225">Branding the Swashbuckle components requires adding the resources to serve static files and building the folder structure to host those files.</span></span>
 
-<span data-ttu-id="0491b-226">.NET Framework または .NET Core 1.x を対象としている場合、プロジェクトに [Microsoft.AspNetCore.StaticFiles](https://www.nuget.org/packages/Microsoft.AspNetCore.StaticFiles) NuGet パッケージを追加します。</span><span class="sxs-lookup"><span data-stu-id="0491b-226">If targeting .NET Framework or .NET Core 1.x, add the [Microsoft.AspNetCore.StaticFiles](https://www.nuget.org/packages/Microsoft.AspNetCore.StaticFiles) NuGet package to the project:</span></span>
+<span data-ttu-id="24836-226">.NET Framework または .NET Core 1.x を対象としている場合、プロジェクトに [Microsoft.AspNetCore.StaticFiles](https://www.nuget.org/packages/Microsoft.AspNetCore.StaticFiles) NuGet パッケージを追加します。</span><span class="sxs-lookup"><span data-stu-id="24836-226">If targeting .NET Framework or .NET Core 1.x, add the [Microsoft.AspNetCore.StaticFiles](https://www.nuget.org/packages/Microsoft.AspNetCore.StaticFiles) NuGet package to the project:</span></span>
 
 ```xml
 <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.0" />
 ```
 
-<span data-ttu-id="0491b-227">.NET Core 2.x を対象とし、[メタパッケージ](xref:fundamentals/metapackage)を使用している場合、前述の NuGet パッケージが既にインストールされています。</span><span class="sxs-lookup"><span data-stu-id="0491b-227">The preceding NuGet package is already installed if targeting .NET Core 2.x and using the [metapackage](xref:fundamentals/metapackage).</span></span>
+<span data-ttu-id="24836-227">.NET Core 2.x を対象とし、[メタパッケージ](xref:fundamentals/metapackage)を使用している場合、前述の NuGet パッケージが既にインストールされています。</span><span class="sxs-lookup"><span data-stu-id="24836-227">The preceding NuGet package is already installed if targeting .NET Core 2.x and using the [metapackage](xref:fundamentals/metapackage).</span></span>
 
-<span data-ttu-id="0491b-228">静的ファイル ミドルウェアの有効化:</span><span class="sxs-lookup"><span data-stu-id="0491b-228">Enable Static File Middleware:</span></span>
+<span data-ttu-id="24836-228">静的ファイル ミドルウェアの有効化:</span><span class="sxs-lookup"><span data-stu-id="24836-228">Enable Static File Middleware:</span></span>
 
 ::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
 
@@ -473,20 +473,20 @@ namespace TodoApi
 
 ::: moniker-end
 
-<span data-ttu-id="0491b-229">[Swagger UI GitHub リポジトリ](https://github.com/swagger-api/swagger-ui/tree/master/dist)から *dist* フォルダーの内容を取得します。</span><span class="sxs-lookup"><span data-stu-id="0491b-229">Acquire the contents of the *dist* folder from the [Swagger UI GitHub repository](https://github.com/swagger-api/swagger-ui/tree/master/dist).</span></span> <span data-ttu-id="0491b-230">このフォルダーには、Swagger UI ページに必要なアセットが含まれています。</span><span class="sxs-lookup"><span data-stu-id="0491b-230">This folder contains the necessary assets for the Swagger UI page.</span></span>
+<span data-ttu-id="24836-229">[Swagger UI GitHub リポジトリ](https://github.com/swagger-api/swagger-ui/tree/master/dist)から *dist* フォルダーの内容を取得します。</span><span class="sxs-lookup"><span data-stu-id="24836-229">Acquire the contents of the *dist* folder from the [Swagger UI GitHub repository](https://github.com/swagger-api/swagger-ui/tree/master/dist).</span></span> <span data-ttu-id="24836-230">このフォルダーには、Swagger UI ページに必要なアセットが含まれています。</span><span class="sxs-lookup"><span data-stu-id="24836-230">This folder contains the necessary assets for the Swagger UI page.</span></span>
 
-<span data-ttu-id="0491b-231">*wwwroot/swagger/ui* フォルダーを作成し、それに *dist* フォルダーのコンテンツをコピーします。</span><span class="sxs-lookup"><span data-stu-id="0491b-231">Create a *wwwroot/swagger/ui* folder, and copy into it the contents of the *dist* folder.</span></span>
+<span data-ttu-id="24836-231">*wwwroot/swagger/ui* フォルダーを作成し、それに *dist* フォルダーのコンテンツをコピーします。</span><span class="sxs-lookup"><span data-stu-id="24836-231">Create a *wwwroot/swagger/ui* folder, and copy into it the contents of the *dist* folder.</span></span>
 
-<span data-ttu-id="0491b-232">*wwwroot/swagger/ui* で *custom.css* ファイルを作成し、次の CSS でページ ヘッダーをカスタマイズします。</span><span class="sxs-lookup"><span data-stu-id="0491b-232">Create a *custom.css* file, in *wwwroot/swagger/ui*, with the following CSS to customize the page header:</span></span>
+<span data-ttu-id="24836-232">*wwwroot/swagger/ui* で *custom.css* ファイルを作成し、次の CSS でページ ヘッダーをカスタマイズします。</span><span class="sxs-lookup"><span data-stu-id="24836-232">Create a *custom.css* file, in *wwwroot/swagger/ui*, with the following CSS to customize the page header:</span></span>
 
 [!code-css[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.Swashbuckle/wwwroot/swagger/ui/custom.css)]
 
-<span data-ttu-id="0491b-233">他に CSS ファイルがあればその後で ui フォルダー内で *index.html* ファイルの *custom.css* を参照します。</span><span class="sxs-lookup"><span data-stu-id="0491b-233">Reference *custom.css* in the *index.html* file inside ui folder, after any other CSS files:</span></span>
+<span data-ttu-id="24836-233">他に CSS ファイルがあればその後で ui フォルダー内で *index.html* ファイルの *custom.css* を参照します。</span><span class="sxs-lookup"><span data-stu-id="24836-233">Reference *custom.css* in the *index.html* file inside ui folder, after any other CSS files:</span></span>
 
 [!code-html[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.Swashbuckle/wwwroot/swagger/ui/index.html?name=snippet_SwaggerUiCss&highlight=3)]
 
-<span data-ttu-id="0491b-234">`http://localhost:<port>/swagger/ui/index.html` で *index.html* ページを参照します。</span><span class="sxs-lookup"><span data-stu-id="0491b-234">Browse to the *index.html* page at `http://localhost:<port>/swagger/ui/index.html`.</span></span> <span data-ttu-id="0491b-235">ヘッダーのテキスト ボックスに「`https://localhost:<port>/swagger/v1/swagger.json`」を入力し、 **[探索]** ボタンをクリックします。</span><span class="sxs-lookup"><span data-stu-id="0491b-235">Enter `https://localhost:<port>/swagger/v1/swagger.json` in the header's textbox, and click the **Explore** button.</span></span> <span data-ttu-id="0491b-236">結果のページは次のようになります。</span><span class="sxs-lookup"><span data-stu-id="0491b-236">The resulting page looks as follows:</span></span>
+<span data-ttu-id="24836-234">`http://localhost:<port>/swagger/ui/index.html` で *index.html* ページを参照します。</span><span class="sxs-lookup"><span data-stu-id="24836-234">Browse to the *index.html* page at `http://localhost:<port>/swagger/ui/index.html`.</span></span> <span data-ttu-id="24836-235">ヘッダーのテキスト ボックスに「`https://localhost:<port>/swagger/v1/swagger.json`」を入力し、 **[探索]** ボタンをクリックします。</span><span class="sxs-lookup"><span data-stu-id="24836-235">Enter `https://localhost:<port>/swagger/v1/swagger.json` in the header's textbox, and click the **Explore** button.</span></span> <span data-ttu-id="24836-236">結果のページは次のようになります。</span><span class="sxs-lookup"><span data-stu-id="24836-236">The resulting page looks as follows:</span></span>
 
 ![カスタム ヘッダーのタイトルを含む Swagger UI](web-api-help-pages-using-swagger/_static/custom-header.png)
 
-<span data-ttu-id="0491b-238">このページでできることはたくさんあります。</span><span class="sxs-lookup"><span data-stu-id="0491b-238">There's much more you can do with the page.</span></span> <span data-ttu-id="0491b-239">[Swagger UI GitHub リポジトリ](https://github.com/swagger-api/swagger-ui)で UI リソースの完全な機能を参照してください。</span><span class="sxs-lookup"><span data-stu-id="0491b-239">See the full capabilities for the UI resources at the [Swagger UI GitHub repository](https://github.com/swagger-api/swagger-ui).</span></span>
+<span data-ttu-id="24836-238">このページでできることはたくさんあります。</span><span class="sxs-lookup"><span data-stu-id="24836-238">There's much more you can do with the page.</span></span> <span data-ttu-id="24836-239">[Swagger UI GitHub リポジトリ](https://github.com/swagger-api/swagger-ui)で UI リソースの完全な機能を参照してください。</span><span class="sxs-lookup"><span data-stu-id="24836-239">See the full capabilities for the UI resources at the [Swagger UI GitHub repository](https://github.com/swagger-api/swagger-ui).</span></span>
