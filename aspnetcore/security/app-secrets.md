@@ -6,18 +6,18 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: security/app-secrets
-ms.openlocfilehash: 9b36ae64fbe277cd81ed22ba7b21b0a035082dbd
-ms.sourcegitcommit: c815a9465e7b1bab44ce1643ec345b33e6cf1598
+ms.openlocfilehash: c3f165164f3c95e8c0aab773f3731429ae224bd9
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/02/2020
-ms.locfileid: "75606793"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654692"
 ---
 # <a name="safe-storage-of-app-secrets-in-development-in-aspnet-core"></a>ASP.NET Core での開発におけるアプリシークレットの安全な保存
 
 [Rick Anderson](https://twitter.com/RickAndMSFT)、 [Daniel Roth](https://github.com/danroth27)、 [Scott addie](https://github.com/scottaddie)
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/app-secrets/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/app-secrets/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 このドキュメントでは、開発用コンピューターでの ASP.NET Core アプリの開発時に機密データを格納および取得する方法について説明します。 パスワードやその他の機密データをソースコードに格納しないでください。 運用環境のシークレットは、開発またはテストには使用しないでください。 シークレットはアプリと一緒にデプロイしないでください。 代わりに、環境変数、Azure Key Vault などの制御された方法を使用して、運用環境でシークレットを使用できるようにする必要があります。[Azure Key Vault 構成プロバイダー](xref:security/key-vault-configuration)を使用して、Azure テストおよび運用シークレットを格納し、保護することができます。
 
@@ -51,13 +51,13 @@ Secret Manager ツールは、ASP.NET Core プロジェクトの開発中に機�
 
 Secret Manager ツールは、値の格納場所や方法などの実装の詳細を抽象化します。 このツールは、実装の詳細を把握していなくても使用できます。 値は、ローカルコンピューター上のシステムで保護されたユーザープロファイルフォルダー内の JSON 構成ファイルに格納されます。
 
-# <a name="windowstabwindows"></a>[Windows](#tab/windows)
+# <a name="windows"></a>[Windows](#tab/windows)
 
 ファイルシステムのパス:
 
 `%APPDATA%\Microsoft\UserSecrets\<user_secrets_id>\secrets.json`
 
-# <a name="linux--macostablinuxmacos"></a>[Linux/macOS](#tab/linux+macos)
+# <a name="linux--macos"></a>[Linux/macOS](#tab/linux+macos)
 
 ファイルシステムのパス:
 
@@ -84,7 +84,7 @@ Secret Manager ツールは、.NET Core SDK 2.1.300 以降の .NET Core CLI に�
 The tool 'Microsoft.Extensions.SecretManager.Tools' is now included in the .NET Core SDK. Information on resolving this warning is available at (https://aka.ms/dotnetclitools-in-box).
 ```
 
-ASP.NET Core プロジェクトに[Microsoft.Extensions.SecretManager.Tools](https://www.nuget.org/packages/Microsoft.Extensions.SecretManager.Tools/) NuGet パッケージをインストールします。 例:
+ASP.NET Core プロジェクトに[SecretManager](https://www.nuget.org/packages/Microsoft.Extensions.SecretManager.Tools/) NuGet パッケージをインストールします。 例 :
 
 [!code-xml[](app-secrets/samples/1.x/UserSecrets/UserSecrets.csproj?name=snippet_CsprojFile&highlight=15-16)]
 
@@ -168,7 +168,7 @@ dotnet user-secrets set "Movies:ServiceApiKey" "12345"
 
 前の例では、コロンは、`Movies` が `ServiceApiKey` プロパティを持つオブジェクトリテラルであることを示しています。
 
-シークレットマネージャーツールは、他のディレクトリからも使用できます。 `--project` オプションを使用して、 *.csproj*ファイルが存在するファイルシステムパスを指定します。 例:
+シークレットマネージャーツールは、他のディレクトリからも使用できます。 `--project` オプションを使用して、 *.csproj*ファイルが存在するファイルシステムパスを指定します。 例 :
 
 ```dotnetcli
 dotnet user-secrets set "Movies:ServiceApiKey" "12345" --project "C:\apps\WebApp1\src\WebApp1"
@@ -176,7 +176,7 @@ dotnet user-secrets set "Movies:ServiceApiKey" "12345" --project "C:\apps\WebApp
 
 ### <a name="json-structure-flattening-in-visual-studio"></a>Visual Studio での JSON 構造のフラット化
 
-Visual Studio の **[ユーザーシークレットの管理]** ジェスチャは、テキストエディターで*シークレットの json*ファイルを開きます。 *シークレット*の内容を、格納されるキーと値のペアで置き換えます。 例:
+Visual Studio の **[ユーザーシークレットの管理]** ジェスチャは、テキストエディターで*シークレットの json*ファイルを開きます。 *シークレット*の内容を、格納されるキーと値のペアで置き換えます。 例 :
 
 ```json
 {
@@ -199,7 +199,7 @@ JSON 構造体は、`dotnet user-secrets remove` または `dotnet user-secrets 
 
 シークレットのバッチは、JSON を `set` コマンドにパイプすることによって設定できます。 次の例では、*入力の json*ファイルの内容をパイプ処理して `set` コマンドを実行します。
 
-# <a name="windowstabwindows"></a>[Windows](#tab/windows)
+# <a name="windows"></a>[Windows](#tab/windows)
 
 コマンドシェルを開き、次のコマンドを実行します。
 
@@ -207,7 +207,7 @@ JSON 構造体は、`dotnet user-secrets remove` または `dotnet user-secrets 
   type .\input.json | dotnet user-secrets set
   ```
 
-# <a name="linux--macostablinuxmacos"></a>[Linux/macOS](#tab/linux+macos)
+# <a name="linux--macos"></a>[Linux/macOS](#tab/linux+macos)
 
 コマンドシェルを開き、次のコマンドを実行します。
 
@@ -223,7 +223,7 @@ JSON 構造体は、`dotnet user-secrets remove` または `dotnet user-secrets 
 
 ::: moniker range=">= aspnetcore-2.0 <= aspnetcore-2.2"
 
-プロジェクトが .NET Framework 対象である場合は、 [Microsoft.Extensions.Configuration.UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) NuGet パッケージをインストールします。
+プロジェクトが .NET Framework 対象である場合は、 [Microsoft. Extensions. UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) NuGet パッケージをインストールします。
 
 ::: moniker-end
 
@@ -265,7 +265,7 @@ ASP.NET Core 2.0 以降では、プロジェクトが <xref:Microsoft.AspNetCore
 
 ::: moniker range="<= aspnetcore-1.1"
 
-[Microsoft.Extensions.Configuration.UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) NuGet パッケージをインストールします。
+[Microsoft. extension. Configuration. UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) NuGet パッケージをインストールします。
 
 `Startup` コンストラクターで <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A> の呼び出しを使用して、ユーザーシークレット構成ソースを追加します。
 
@@ -317,13 +317,13 @@ ASP.NET Core 2.0 以降では、プロジェクトが <xref:Microsoft.AspNetCore
 
 [!code-json[](app-secrets/samples/2.x/UserSecrets/appsettings-unsecure.json?highlight=3)]
 
-より安全な方法は、パスワードをシークレットとして保存することです。 例:
+より安全な方法は、パスワードをシークレットとして保存することです。 例 :
 
 ```dotnetcli
 dotnet user-secrets set "DbPassword" "pass123"
 ```
 
-`Password` キーと値のペアを、 *appsettings*の接続文字列から削除します。 例:
+`Password` キーと値のペアを、 *appsettings*の接続文字列から削除します。 例 :
 
 [!code-json[](app-secrets/samples/2.x/UserSecrets/appsettings.json?highlight=3)]
 
@@ -351,7 +351,7 @@ dotnet user-secrets set "DbPassword" "pass123"
 dotnet user-secrets list
 ```
 
-次の出力が表示されます。
+次のような出力が表示されます。
 
 ```console
 Movies:ConnectionString = Server=(localdb)\mssqllocaldb;Database=Movie-1;Trusted_Connection=True;MultipleActiveResultSets=true
@@ -408,8 +408,8 @@ dotnet user-secrets clear
 No secrets configured for this application.
 ```
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
-* IIS からシークレットマネージャーにアクセスする方法については、[この問題](https://github.com/aspnet/AspNetCore.Docs/issues/16328)を参照してください。
+* IIS からシークレットマネージャーにアクセスする方法については、[この問題](https://github.com/dotnet/AspNetCore.Docs/issues/16328)を参照してください。
 * <xref:fundamentals/configuration/index>
 * <xref:security/key-vault-configuration>

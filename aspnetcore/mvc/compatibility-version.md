@@ -8,11 +8,11 @@ ms.custom: mvc
 ms.date: 9/25/2019
 uid: mvc/compatibility-version
 ms.openlocfilehash: b29e2ee49aaf0f557f1acd0cf03e9e82d5ea0105
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
-ms.translationtype: HT
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75357732"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654806"
 ---
 # <a name="compatibility-version-for-aspnet-core-mvc"></a>ASP.NET Core MVC の互換バージョン
 
@@ -20,10 +20,10 @@ ms.locfileid: "75357732"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*> メソッドは ASP.NET Core 3.0 アプリでは何も行いません。 つまり、<xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion> のどの値で `SetCompatibilityVersion` を呼び出してもアプリケーションに影響しません。
+<xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*> メソッドは ASP.NET Core 3.0 アプリでは何も行いません。 つまり、`SetCompatibilityVersion` のどの値で <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion> を呼び出してもアプリケーションに影響しません。
 
 * ASP.NET Core の次のマイナー バージョンでは新しい `CompatibilityVersion` 値が提供される可能性があります。
-* `Version_2_0` から `Version_2_2`までの `CompatibilityVersion` 値は `[Obsolete(...)]` とマークされます。
+* `CompatibilityVersion` から `Version_2_0`までの `Version_2_2` 値は `[Obsolete(...)]` とマークされます。
 * 「[偽造防止、CORS、診断、MVC、ルーティングにおける API の重大な変更](https://github.com/aspnet/Announcements/issues/387)」を参照してください。 この一覧には、互換性スイッチの重大な変更が含まれています。
 
 `SetCompatibilityVersion` が ASP.NET Core 2.x アプリでどのように機能するかを確認するには、[この記事の ASP.NET Core 2.2 バージョン](https://docs.microsoft.com/aspnet/core/mvc/compatibility-version?view=aspnetcore-2.2)を選択します。
@@ -45,7 +45,7 @@ ASP.NET Core 2.x アプリで <xref:Microsoft.Extensions.DependencyInjection.Mvc
 * 2\.1 以降のすべての変更には該当しません。これは、MVC サブシステムの ASP.NET Core ランタイムの互換性に影響する可能性のある重大な変更のみを対象としています。
 * ASP.NET Core 3.0 には拡張されません。
 
-`SetCompatibilityVersion` を呼び出さ**ない** ASP.NET Core 2.1 および 2.2 アプリの既定の互換性は、2.0 の互換性です。 つまり、`SetCompatibilityVersion` を呼び出さないことは、`SetCompatibilityVersion(CompatibilityVersion.Version_2_0)` を呼び出すことと同じです。
+**を呼び出さ**ない`SetCompatibilityVersion` ASP.NET Core 2.1 および 2.2 アプリの既定の互換性は、2.0 の互換性です。 つまり、`SetCompatibilityVersion` を呼び出さないことは、`SetCompatibilityVersion(CompatibilityVersion.Version_2_0)` を呼び出すことと同じです。
 
 次のコードでは、以下の動作を除き、互換性モードを ASP.NET Core 2.2 に設定します。
 

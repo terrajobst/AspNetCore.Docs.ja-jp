@@ -1,5 +1,5 @@
-# <a name="aspnet-core-distributed-cache-sample"></a>ASP.NET Core の分散キャッシュのサンプル
+# <a name="aspnet-core-distributed-cache-sample"></a>分散キャッシュサンプルの ASP.NET Core
 
-このサンプルでは、分散キャッシュの使用を示します。 このサンプルで説明するシナリオ、[で ASP.NET Core での分散キャッシュ操作](https://docs.microsoft.com/aspnet/core/performance/caching/distributed)トピック。
+このサンプルでは、分散キャッシュの使用方法を示します。 このサンプルでは、 [ASP.NET Core トピックの「分散キャッシュの使用](https://docs.microsoft.com/aspnet/core/performance/caching/distributed)」で説明されているシナリオを示します。
 
-運用環境では、サンプル アプリを構成して、SQL Server の分散キャッシュを使用します。 分散の Redis cache を使用するアプリを再構成するには、変更、プリプロセッサ ディレクティブの上部にある、 *Startup.cs* Redis を使用するファイル (`#define Redis // SQLServer`)。 詳細については、次を参照してください。[サンプル コードでプリプロセッサ ディレクティブ](https://docs.microsoft.com/aspnet/core/#preprocessor-directives-in-sample-code)します。
+運用環境では、サンプルアプリは分散 SQL Server キャッシュを使用するように構成されています。 分散 Redis cache を使用するようにアプリを再構成するには、 *Startup.cs*ファイルの先頭にあるプリプロセッサディレクティブを変更して redis (`#define Redis // SQLServer`) を使用するようにします。 詳細については、[サンプルコードの「プリプロセッサディレクティブ](https://docs.microsoft.com/aspnet/core/#preprocessor-directives-in-sample-code)」を参照してください。

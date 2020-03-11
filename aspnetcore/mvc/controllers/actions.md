@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 12/05/2019
 uid: mvc/controllers/actions
 ms.openlocfilehash: 715a73863513870d1cbd522e75013d41830da1e7
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
-ms.translationtype: HT
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74881105"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653348"
 ---
 # <a name="handle-requests-with-controllers-in-aspnet-core-mvc"></a>ASP.NET Core MVC でコントローラーで要求を処理する
 
@@ -43,7 +43,7 @@ ms.locfileid: "74881105"
 
 コントローラーは *UI レベル*の抽象化です。 その役目は、要求データの有効性を確保することと返すビュー (あるいは、API の結果) を選択することです。 要素が十分に考慮されたアプリの場合、データ アクセスやビジネス ロジックは直接含まれません。 そうではなく、コントローラーはサービスにそのような役目を委任します。
 
-## <a name="defining-actions"></a>アクションを定義する
+## <a name="defining-actions"></a>アクションの定義
 
 `[NonAction]` 属性が設定されているものを除き、コントローラーのパブリック メソッドはアクションです。 アクションのパラメーターは要求データにバインドされ、[モデル バインド](xref:mvc/models/model-binding)により検証されます。 モデル検証は、モデル バインドされているすべてに実行されます。 プロパティ値 `ModelState.IsValid` は、モデルのバインドと検証に成功したかどうかを示します。
 
@@ -55,11 +55,11 @@ ms.locfileid: "74881105"
 
 コントローラーは通常、[コントローラー](/dotnet/api/microsoft.aspnetcore.mvc.controller)から継承します。ただし、これは必須ではありません。 `Controller` から派生することで、次の 3 つのカテゴリのヘルパー メソッドにアクセスできます。
 
-#### <a name="1-methods-resulting-in-an-empty-response-body"></a>1.応答の本文が空になるメソッド
+#### <a name="1-methods-resulting-in-an-empty-response-body"></a>1. 空の応答本文が生成されたメソッド
 
 `Content-Type` HTTP 応答ヘッダーが含まれません。応答の本文に記述するコンテンツがないためです。
 
-このカテゴリ内には 2 種類の結果があります:リダイレクトと HTTP 状態コードです。
+このカテゴリの中に、リダイレクトと HTTP 状態コードという 2 つの種類の結果があります。
 
 * **HTTP 状態コード**
 
@@ -71,11 +71,11 @@ ms.locfileid: "74881105"
 
     リダイレクトの結果の種類は HTTP ステータス コードの種類とは、`Location` HTTP 応答ヘッダーを追加するという点で主に異なります。
 
-#### <a name="2-methods-resulting-in-a-non-empty-response-body-with-a-predefined-content-type"></a>2.空ではない応答本文と事前定義のコンテンツの種類が生成されるメソッド
+#### <a name="2-methods-resulting-in-a-non-empty-response-body-with-a-predefined-content-type"></a>2. 定義済みのコンテンツタイプを持つ空でない応答本文が生成されるメソッド
 
 このカテゴリのヘルパー メソッドの多くには `ContentType` プロパティが含まれ、`Content-Type` 応答ヘッダーを設定し、応答本文を記述できます。
 
-このカテゴリ内には 2 種類の結果があります:[ビュー](xref:mvc/views/overview)と[書式設定された応答](xref:web-api/advanced/formatting)です。
+このカテゴリには 2 種類の結果があります。[ビュー](xref:mvc/views/overview)と[書式設定された応答](xref:web-api/advanced/formatting)です。
 
 * **表示**
 
@@ -87,7 +87,7 @@ ms.locfileid: "74881105"
     
     この種類の一般的なメソッドには他に `File`、`PhysicalFile` などがあります。 たとえば、`return PhysicalFile(customerFilePath, "text/xml");` は [PhysicalFileResult](/dotnet/api/microsoft.aspnetcore.mvc.physicalfileresult) を返します。
 
-#### <a name="3-methods-resulting-in-a-non-empty-response-body-formatted-in-a-content-type-negotiated-with-the-client"></a>3.クライアントとネゴシエーションしたコンテンツの種類で書式設定された空ではない応答本文を生成するメソッド
+#### <a name="3-methods-resulting-in-a-non-empty-response-body-formatted-in-a-content-type-negotiated-with-the-client"></a>3. クライアントとネゴシエートされるコンテンツの種類で書式設定された、空でない応答本文が生成されるメソッド
 
 このカテゴリは、**コンテンツ ネゴシエーション**として知られています。 [コンテンツ ネゴシエーション](xref:web-api/advanced/formatting#content-negotiation)は、アクションが [ObjectResult](/dotnet/api/microsoft.aspnetcore.mvc.objectresult) 型を返すか、[IActionResult](/dotnet/api/microsoft.aspnetcore.mvc.iactionresult) 実装以外の何かを返すときに適用されます。 非 `IActionResult` の実装 (`object` など) を返すアクションは、書式設定された応答も返します。
 
@@ -100,7 +100,7 @@ ms.locfileid: "74881105"
 `[Authorize]` など、フィルター属性の多くは、求められる詳細度に基づき、コントローラーまたはアクション レベルで適用できます。
 
 エラー処理と応答キャッシュは多くの場合、横断的な問題です。
-* [エラーの処理](xref:mvc/controllers/filters#exception-filters)
+* [エラーを処理する](xref:mvc/controllers/filters#exception-filters)
 * [応答キャッシュ](xref:performance/caching/response)
 
 横断的な問題の多くはフィルターやカスタム [ミドルウェア](xref:fundamentals/middleware/index)の利用で処理できます。

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/02/2020
 uid: performance/caching/memory
-ms.openlocfilehash: 23acc17c861c203a87b1c113940e7bf42b51e810
-ms.sourcegitcommit: 990a4c2e623c202a27f60bdf3902f250359c13be
+ms.openlocfilehash: e01e4a139893297a71aabb1af11b25cf0deb85a9
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/03/2020
-ms.locfileid: "76972016"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653450"
 ---
 # <a name="cache-in-memory-in-aspnet-core"></a>ASP.NET Core 内のメモリ内のキャッシュ
 
@@ -19,7 +19,7 @@ ms.locfileid: "76972016"
 
 [Rick Anderson](https://twitter.com/RickAndMSFT)、 [John luo](https://github.com/JunTaoLuo)、および[上田 Smith](https://ardalis.com/)
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/memory/3.0sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/memory/3.0sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="caching-basics"></a>キャッシュの基本
 
@@ -39,7 +39,7 @@ Web ファームの固定されていないセッションでは、キャッシ�
 * .NET Standard 2.0 以降を対象とするすべての[.net 実装](/dotnet/standard/net-standard#net-implementation-support)。 たとえば、2.0 以降の ASP.NET Core ます。
 * .NET Framework 4.5 以降。
 
-[Microsoft.Extensions.Caching.Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)/`IMemoryCache` (この記事で説明しています) は、ASP.NET Core により良く統合されているため `System.Runtime.Caching`/`MemoryCache` よりも推奨されます。 たとえば、`IMemoryCache` は ASP.NET Core [依存関係の挿入](xref:fundamentals/dependency-injection) とネイティブで動作します。
+この記事で説明されている/`IMemoryCache` (この記事で説明しています) は、`MemoryCache` に統合[し](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)た方がよいため `System.Runtime.Caching`/の ASP.NET Core よりも推奨されます。 たとえば、`IMemoryCache` は ASP.NET Core[依存関係の挿入](xref:fundamentals/dependency-injection)とネイティブで動作します。
 
 ASP.NET 4.x から ASP.NET Core にコードを移植するときに、互換性ブリッジとして `MemoryCache` /`System.Runtime.Caching`を使用します。
 
@@ -110,7 +110,7 @@ ASP.NET 4.x から ASP.NET Core にコードを移植するときに、互換性
 
 `MemoryCache` インスタンスでは、必要に応じてサイズ制限を指定して適用できます。 キャッシュには、エントリのサイズを測定する機構がないため、キャッシュサイズの制限には定義済みの測定単位がありません。 キャッシュサイズの制限が設定されている場合、すべてのエントリでサイズを指定する必要があります。 ASP.NET Core ランタイムでは、メモリ負荷に基づいてキャッシュサイズが制限されません。 キャッシュサイズを制限するのは開発者だけです。 指定されたサイズは、開発者が選択した単位で示されます。
 
-例:
+例 :
 
 * Web アプリが主に文字列をキャッシュしている場合は、各キャッシュエントリのサイズを文字列の長さにすることができます。
 * アプリでは、すべてのエントリのサイズを1と指定することができ、サイズ制限はエントリの数です。
@@ -164,7 +164,7 @@ ASP.NET 4.x から ASP.NET Core にコードを移植するときに、互換性
 
 <xref:System.Threading.CancellationTokenSource> を使用すると、複数のキャッシュエントリを1つのグループとして削除できます。 上記のコードの `using` パターンでは、`using` ブロック内に作成されたキャッシュエントリによって、トリガーと有効期限の設定が継承されます。
 
-## <a name="additional-notes"></a>補足メモ
+## <a name="additional-notes"></a>その他のメモ
 
 * 有効期限はバックグラウンドでは発生しません。 期限切れの項目のキャッシュをアクティブにスキャンするタイマーはありません。 キャッシュ上のすべてのアクティビティ (`Get`、`Set`、`Remove`) は、期限切れの項目に対してバックグラウンドスキャンをトリガーできます。 `CancellationTokenSource` (<xref:System.Threading.CancellationTokenSource.CancelAfter*>) のタイマーによって、エントリも削除され、期限切れの項目のスキャンがトリガーされます。 次の例では、登録されたトークンに[CancellationTokenSource (TimeSpan)](/dotnet/api/system.threading.cancellationtokensource.-ctor)を使用します。 このトークンが起動すると、エントリが直ちに削除され、削除コールバックが発生します。
 
@@ -180,7 +180,7 @@ ASP.NET 4.x から ASP.NET Core にコードを移植するときに、互換性
 * キャッシュからキャッシュエントリが削除された後に起動されるコールバックを設定するには、<xref:Microsoft.Extensions.Caching.Memory.ICacheEntry.PostEvictionCallbacks> を使用します。
 * ほとんどのアプリでは、`IMemoryCache` が有効になっています。 たとえば、`AddMvc`、`AddControllersWithViews`、`AddRazorPages`、`AddMvcCore().AddRazorViewEngine`、およびその他の多くの `Add{Service}` メソッドを `ConfigureServices`に呼び出すと、`IMemoryCache`が有効になります。 上記の `Add{Service}` メソッドのいずれかを呼び出さないアプリの場合、`ConfigureServices`で <xref:Microsoft.Extensions.DependencyInjection.MemoryCacheServiceCollectionExtensions.AddMemoryCache*> を呼び出すことが必要になる場合があります。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * <xref:performance/caching/distributed>
 * <xref:fundamentals/change-tokens>
@@ -196,7 +196,7 @@ ASP.NET 4.x から ASP.NET Core にコードを移植するときに、互換性
 <!-- This is the 2.1 version -->
 [Rick Anderson](https://twitter.com/RickAndMSFT)、 [John luo](https://github.com/JunTaoLuo)、および[上田 Smith](https://ardalis.com/)
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/memory/sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/memory/sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="caching-basics"></a>キャッシュの基本
 
@@ -216,7 +216,7 @@ Web ファームの固定されていないセッションでは、キャッシ�
 * .NET Standard 2.0 以降を対象とするすべての[.net 実装](/dotnet/standard/net-standard#net-implementation-support)。 たとえば、2.0 以降の ASP.NET Core ます。
 * .NET Framework 4.5 以降。
 
-[Microsoft.Extensions.Caching.Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)/`IMemoryCache` (この記事で説明しています) は、ASP.NET Core により良く統合されているため `System.Runtime.Caching`/`MemoryCache` よりも推奨されます。 たとえば、`IMemoryCache` は ASP.NET Core [依存関係の挿入](xref:fundamentals/dependency-injection) とネイティブで動作します。
+この記事で説明されている/`IMemoryCache` (この記事で説明しています) は、`MemoryCache` に統合[し](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)た方がよいため `System.Runtime.Caching`/の ASP.NET Core よりも推奨されます。 たとえば、`IMemoryCache` は ASP.NET Core[依存関係の挿入](xref:fundamentals/dependency-injection)とネイティブで動作します。
 
 ASP.NET 4.x から ASP.NET Core にコードを移植するときに、互換性ブリッジとして `MemoryCache` /`System.Runtime.Caching`を使用します。
 
@@ -242,7 +242,7 @@ ASP.NET 4.x から ASP.NET Core にコードを移植するときに、互換性
 
 [!code-csharp[](memory/sample/WebCache/Controllers/HomeController.cs?name=snippet_ctor)]
 
-`IMemoryCache` には NuGet パッケージ [Microsoft.Extensions.Caching.Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/) が必要です。これは、[Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)で利用可能です。
+`IMemoryCache` には NuGet[パッケージ](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)AspNetCore が必要です。これは、[メタパッケージ](xref:fundamentals/metapackage-app)で入手できます。
 
 次のコードでは、 [TryGetValue](/dotnet/api/microsoft.extensions.caching.memory.imemorycache.trygetvalue?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_IMemoryCache_TryGetValue_System_Object_System_Object__)を使用して、時間がキャッシュ内にあるかどうかを確認します。 時間がキャッシュされていない場合は、新しいエントリが作成され、が[設定](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.set?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_CacheExtensions_Set__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object___0_Microsoft_Extensions_Caching_Memory_MemoryCacheEntryOptions_)されたキャッシュに追加されます。
 
@@ -282,7 +282,7 @@ ASP.NET 4.x から ASP.NET Core にコードを移植するときに、互換性
 
 `MemoryCache` インスタンスでは、必要に応じてサイズ制限を指定して適用できます。 キャッシュには、エントリのサイズを測定する機構がないため、キャッシュサイズの制限には定義済みの測定単位がありません。 キャッシュサイズの制限が設定されている場合、すべてのエントリでサイズを指定する必要があります。 ASP.NET Core ランタイムでは、メモリ負荷に基づいてキャッシュサイズが制限されません。 キャッシュサイズを制限するのは開発者だけです。 指定されたサイズは、開発者が選択した単位で示されます。
 
-例:
+例 :
 
 * Web アプリが主に文字列をキャッシュしている場合は、各キャッシュエントリのサイズを文字列の長さにすることができます。
 * アプリでは、すべてのエントリのサイズを1と指定することができ、サイズ制限はエントリの数です。
@@ -336,7 +336,7 @@ ASP.NET 4.x から ASP.NET Core にコードを移植するときに、互換性
 
 `CancellationTokenSource` を使用すると、複数のキャッシュエントリを1つのグループとして削除できます。 上記のコードの `using` パターンでは、`using` ブロック内に作成されたキャッシュエントリによって、トリガーと有効期限の設定が継承されます。
 
-## <a name="additional-notes"></a>補足メモ
+## <a name="additional-notes"></a>その他のメモ
 
 * コールバックを使用してキャッシュ項目を再作成する場合:
 
@@ -347,7 +347,7 @@ ASP.NET 4.x から ASP.NET Core にコードを移植するときに、互換性
 
 * キャッシュからキャッシュエントリが削除された後に起動されるコールバックを設定するには、 [PostEvictionCallbacks](/dotnet/api/microsoft.extensions.caching.memory.icacheentry.postevictioncallbacks#Microsoft_Extensions_Caching_Memory_ICacheEntry_PostEvictionCallbacks)を使用します。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * <xref:performance/caching/distributed>
 * <xref:fundamentals/change-tokens>

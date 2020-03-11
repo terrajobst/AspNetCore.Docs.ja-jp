@@ -8,15 +8,15 @@ ms.custom: mvc
 ms.date: 09/05/2019
 uid: web-api/advanced/analyzers
 ms.openlocfilehash: 7b6a7328deb8718a2a1c67c104cec359a4f13497
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
-ms.translationtype: HT
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082522"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653054"
 ---
 # <a name="use-web-api-analyzers"></a>Web API アナライザーを使用する
 
-ASP.NET Core 2.2 以降には、Web API プロジェクトでの使用を目的とした MVC アナライザー パッケージが用意されています。 アナライザーは、[Web API 規約](xref:web-api/advanced/conventions)の設定中に <xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute> の注釈が付けられたコントローラーで動作します。
+ASP.NET Core 2.2 以降には、Web API プロジェクトでの使用を目的とした MVC アナライザー パッケージが用意されています。 アナライザーは、<xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute>Web API 規約[の設定中に ](xref:web-api/advanced/conventions) の注釈が付けられたコントローラーで動作します。
 
 アナライザー パッケージでは、次のようなコントローラーのアクションが通知されます。
 
@@ -45,25 +45,25 @@ ASP.NET Core 3.0 以降、アナライザーは .NET Core SDK に含まれてい
 
 次のいずれかの方法を使用して、[Microsoft.AspNetCore.Mvc.Api.Analyzers](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Api.Analyzers) NuGet パッケージをインストールします。
 
-### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 **[パッケージ マネージャー コンソール]** ウィンドウから:
-  * **[表示]** >  **[その他のウィンドウ]** > **[パッケージ マネージャー コンソール]** に移動します。
+  * [**他の Windows** >**パッケージマネージャーコンソール**を**表示**>] にアクセスします。
   * *ApiConventions.csproj* ファイルが存在するディレクトリに移動します。
-  * 次のコマンドを実行します。
+  * たとえば、次のコマンドを実行します。
 
     ```powershell
     Install-Package Microsoft.AspNetCore.Mvc.Api.Analyzers
     ```
 
-### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+### <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-* **[Solution Pad]** > **[パッケージを追加]** で *[パッケージ]* フォルダーを右クリックします。
+* **Solution Pad**の [*パッケージ*] フォルダーを右クリックし、 **[パッケージの追加]** > ます。
 * **[パッケージを追加]** ウィンドウの **[ソース]** ドロップダウンを "nuget.org" に設定します。
 * 検索ボックスに「Microsoft.AspNetCore.Mvc.Api.Analyzers」と入力します。
 * 結果ウィンドウから "Microsoft.AspNetCore.Mvc.Api.Analyzers" パッケージを選択して、 **[パッケージを追加]** をクリックします。
 
-### <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+### <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 **統合端末**からから次のコマンドを実行します。
 
@@ -71,7 +71,7 @@ ASP.NET Core 3.0 以降、アナライザーは .NET Core SDK に含まれてい
 dotnet add ApiConventions.csproj package Microsoft.AspNetCore.Mvc.Api.Analyzers
 ```
 
-### <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+### <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 次のコマンドを実行します。
 
@@ -87,7 +87,7 @@ dotnet add ApiConventions.csproj package Microsoft.AspNetCore.Mvc.Api.Analyzers
 
 OpenAPI ドキュメントには、アクションによって返される可能性のある状態コードと応答の種類が含まれます。 ASP.NET Core MVC では、<xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute> や <xref:Microsoft.AspNetCore.Mvc.ProducesAttribute> などの属性がアクションの文書化に使用されます。 Web API の文書化の詳細については、<xref:tutorials/web-api-help-pages-using-swagger> を参照してください。
 
-パッケージのいずれかのアナライザーが、<xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute> の注釈が付けられたコントローラーを検査し、応答全体を文書化していないアクションを特定します。 次に例を示します。
+パッケージのいずれかのアナライザーが、<xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute> の注釈が付けられたコントローラーを検査し、応答全体を文書化していないアクションを特定します。 次の例を確認してください。
 
 [!code-csharp[](conventions/sample/Controllers/ContactsController.cs?name=missing404docs&highlight=10)]
 
@@ -95,7 +95,7 @@ OpenAPI ドキュメントには、アクションによって返される可能
 
 ![警告を報告するアナライザー](conventions/_static/Analyzer.gif)
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * <xref:web-api/advanced/conventions>
 * <xref:tutorials/web-api-help-pages-using-swagger>

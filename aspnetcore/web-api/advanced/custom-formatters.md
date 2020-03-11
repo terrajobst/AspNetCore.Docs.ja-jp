@@ -5,12 +5,12 @@ description: ASP.NET Core で Web API のカスタム フォーマッタを作�
 ms.author: riande
 ms.date: 02/08/2017
 uid: web-api/advanced/custom-formatters
-ms.openlocfilehash: 122edfd4ccd06ed62e071691f421d2aeef8002b4
-ms.sourcegitcommit: 488cc779fc71377d9371e7a14356113e9c7eff17
-ms.translationtype: HT
+ms.openlocfilehash: dd25cda460ba758cd07de094eaadd1f2d8c28657
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/11/2019
-ms.locfileid: "70913511"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654956"
 ---
 # <a name="custom-formatters-in-aspnet-core-web-api"></a>ASP.NET Core Web API のカスタム フォーマッタ
 
@@ -22,7 +22,7 @@ ASP.NET Core MVC は、入力と出力のフォーマッタを使用した Web A
 
 この記事では、カスタム フォーマッタを作成して、追加形式のサポートを追加する方法を示します。 プレーン テキスト用のカスタムの入力フォーマッタの例については、GitHub の [TextPlainInputFormatter](https://github.com/aspnet/Entropy/blob/master/samples/Mvc.Formatters/TextPlainInputFormatter.cs) を参照してください。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="when-to-use-custom-formatters"></a>カスタム フォーマッタを使用するタイミング
 
@@ -36,7 +36,7 @@ ASP.NET Core MVC は、入力と出力のフォーマッタを使用した Web A
 
 * クライアントに送信するデータをシリアル化する場合は、出力フォーマッタ クラスを作成します。
 * クライアントから受信したデータを逆シリアル化する場合は、入力フォーマッタ クラスを作成します。
-* フォーマッタのインスタンスを [MvcOptions](/dotnet/api/microsoft.aspnetcore.mvc.mvcoptions) の `InputFormatters` および `OutputFormatters` コレクションに追加します。
+* フォーマッタのインスタンスを `InputFormatters`MvcOptions`OutputFormatters` の [ および ](/dotnet/api/microsoft.aspnetcore.mvc.mvcoptions) コレクションに追加します。
 
 次のセクションでは、これらの各手順のガイダンスとコード例を提供します。
 
@@ -55,7 +55,7 @@ ASP.NET Core MVC は、入力と出力のフォーマッタを使用した Web A
 
 [!code-csharp[](custom-formatters/sample/Formatters/VcardOutputFormatter.cs?name=classdef)]
 
-入力フォーマッタの例として、「[サンプル アプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample)」を参照してください。
+入力フォーマッタの例として、「[サンプル アプリ](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample)」を参照してください。
 
 種類がバイナリである場合は、[InputFormatter](/dotnet/api/microsoft.aspnetcore.mvc.formatters.inputformatter) または [OutputFormatter](/dotnet/api/microsoft.aspnetcore.mvc.formatters.outputformatter) 基底クラスから派生させます。
 
@@ -65,7 +65,7 @@ ASP.NET Core MVC は、入力と出力のフォーマッタを使用した Web A
 
 [!code-csharp[](custom-formatters/sample/Formatters/VcardOutputFormatter.cs?name=ctor&highlight=3,5-6)]
 
-入力フォーマッタの例として、「[サンプル アプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample)」を参照してください。
+入力フォーマッタの例として、「[サンプル アプリ](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample)」を参照してください。
 
 > [!NOTE]
 > フォーマッタ クラスでコンストラクターの依存関係の挿入を行うことはできません。 たとえば、コンストラクターにロガー パラメーターを追加して、ロガーを取得することはできません。 サービスにアクセスするには、メソッドに渡されるコンテキスト オブジェクトを使用する必要があります。 [以下](#read-write)のコード例でこの方法を示します。
@@ -76,17 +76,17 @@ ASP.NET Core MVC は、入力と出力のフォーマッタを使用した Web A
 
 [!code-csharp[](custom-formatters/sample/Formatters/VcardOutputFormatter.cs?name=canwritetype)]
 
-入力フォーマッタの例として、「[サンプル アプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample)」を参照してください。
+入力フォーマッタの例として、「[サンプル アプリ](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample)」を参照してください。
 
 #### <a name="the-canwriteresult-method"></a>CanWriteResult メソッド
 
-一部のシナリオでは、`CanWriteType` の代わりに `CanWriteResult` をオーバーライドする必要があります。 次のすべての条件が満たされている場合は、`CanWriteResult` を使用します。
+一部のシナリオでは、`CanWriteResult` の代わりに `CanWriteType` をオーバーライドする必要があります。 次のすべての条件が満たされている場合は、`CanWriteResult` を使用します。
 
 * アクション メソッドはモデル クラスを返します。
 * 実行時に返される可能性がある派生クラスがあります。
 * アクションが返した派生クラスを実行時に把握する必要があります。
 
-たとえば、アクション メソッド シグネチャが `Person` の種類を返したとします。ただし、この場合、`Person` から派生した `Student` または `Instructor` の種類を返す可能性があります。 フォーマッタで `Student` オブジェクトのみを処理する場合は、`CanWriteResult` メソッドに提供されたコンテキスト オブジェクトで [Object](/dotnet/api/microsoft.aspnetcore.mvc.formatters.outputformattercanwritecontext.object#Microsoft_AspNetCore_Mvc_Formatters_OutputFormatterCanWriteContext_Object) の種類を確認します。 アクション メソッドが `IActionResult` を返す場合は、`CanWriteResult` を使用する必要がないことに注意してください。この場合、`CanWriteType` メソッドはランタイム型を受け取ります。
+たとえば、アクション メソッド シグネチャが `Person` の種類を返したとします。ただし、この場合、`Student` から派生した `Instructor` または `Person` の種類を返す可能性があります。 フォーマッタで `Student` オブジェクトのみを処理する場合は、[ メソッドに提供されたコンテキスト オブジェクトで ](/dotnet/api/microsoft.aspnetcore.mvc.formatters.outputformattercanwritecontext.object#Microsoft_AspNetCore_Mvc_Formatters_OutputFormatterCanWriteContext_Object)Object`CanWriteResult` の種類を確認します。 アクション メソッドが `CanWriteResult` を返す場合は、`IActionResult` を使用する必要がないことに注意してください。この場合、`CanWriteType` メソッドはランタイム型を受け取ります。
 
 <a id="read-write"></a>
 
@@ -96,7 +96,7 @@ ASP.NET Core MVC は、入力と出力のフォーマッタを使用した Web A
 
 [!code-csharp[](custom-formatters/sample/Formatters/VcardOutputFormatter.cs?name=writeresponse&highlight=3-4)]
 
-入力フォーマッタの例として、「[サンプル アプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample)」を参照してください。
+入力フォーマッタの例として、「[サンプル アプリ](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample)」を参照してください。
 
 ## <a name="how-to-configure-mvc-to-use-a-custom-formatter"></a>カスタム フォーマッタを使用するように MVC を構成する方法
 
@@ -106,9 +106,9 @@ ASP.NET Core MVC は、入力と出力のフォーマッタを使用した Web A
 
 フォーマッタは、挿入した順序で評価されます。 最初のものが優先されます。
 
-## <a name="next-steps"></a>次の手順
+## <a name="next-steps"></a>次のステップ:
 
-* [このドキュメント用のサンプル アプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample)。このアプリを使用して、シンプルな vCard の入力と出力フォーマッタを実装します。 アプリでは、次の例のように vCard の読み取りと書き込みを行います。
+* [このドキュメント用のサンプル アプリ](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample)。このアプリを使用して、シンプルな vCard の入力と出力フォーマッタを実装します。 アプリでは、次の例のように vCard の読み取りと書き込みを行います。
 
 ```
 BEGIN:VCARD
