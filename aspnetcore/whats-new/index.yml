@@ -5,18 +5,20 @@ metadata:
   title: ASP.NET Core ドキュメント - 新機能
   description: ASP.NET Core ドキュメントの新しいコンテンツと更新されたコンテンツについて説明します。
   ms.topic: landing-page
-  ms.date: 01/17/2020
-  ms.openlocfilehash: c7656fc51e8e8724c1505aecb5b583abbd216928
-  ms.sourcegitcommit: cb6015f737b6a93127016ab0f21b58e34b624ff3
+  ms.date: 03/02/2020
+  ms.openlocfilehash: dd10c004215718e372a43afacdef117aab7ef05a
+  ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
   ms.translationtype: HT
   ms.contentlocale: ja-JP
-  ms.lasthandoff: 02/04/2020
-  ms.locfileid: "77004332"
+  ms.lasthandoff: 03/06/2020
+  ms.locfileid: "78644522"
 landingContent:
 - title: ASP.NET Core ドキュメントの更新内容の検索
   linkLists:
   - linkListType: whats-new
     links:
+    - text: 2020 年 2 月
+      url: 2020-02.md
     - text: 2020 年 1 月
       url: 2020-01.md
     - text: 2019 年 12 月
@@ -32,7 +34,7 @@ landingContent:
   - linkListType: overview
     links:
     - text: ASP.NET Core ドキュメントのリポジトリ
-      url: https://github.com/aspnet/AspNetCore.Docs/blob/master/README.md
+      url: https://github.com/dotnet/AspNetCore.Docs/blob/master/README.md
     - text: プロジェクト構造と、イシューとプル要求のラベル
       url: https://github.com/dotnet/docs/blob/master/styleguide/labels-projects.md
   - linkListType: concept
@@ -40,9 +42,9 @@ landingContent:
     - text: Microsoft ドキュメント共同作成者ガイド
       url: https://docs.microsoft.com/contribute
     - text: ASP.NET Core ドキュメント共同作成者ガイド
-      url: https://github.com/aspnet/AspNetCore.Docs/blob/master/CONTRIBUTING.md
+      url: https://github.com/dotnet/AspNetCore.Docs/blob/master/CONTRIBUTING.md
     - text: ASP.NET Core API リファレンス ドキュメント共同作成者ガイド
-      url: https://github.com/aspnet/ApiDocs/blob/master/CONTRIBUTING.md
+      url: https://github.com/dotnet/AspNetApiDocs/blob/master/CONTRIBUTING.md
 - title: 関連する新機能のページ
   linkLists:
   - linkListType: whats-new
