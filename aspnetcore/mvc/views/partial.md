@@ -6,18 +6,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/12/2019
 uid: mvc/views/partial
-ms.openlocfilehash: 50c4f41d5d3099184aa3992ed7e176b74c488d2a
-ms.sourcegitcommit: 805f625d16d74e77f02f5f37326e5aceafcb78e3
-ms.translationtype: HT
+ms.openlocfilehash: 04b6d6e620f34ac7154728b1b3048195e87c5860
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2019
-ms.locfileid: "70985572"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653462"
 ---
 # <a name="partial-views-in-aspnet-core"></a>ASP.NET Core の部分ビュー
 
-作成者: [Steve Smith](https://ardalis.com/)、[Luke Latham](https://github.com/guardrex)、[Maher JENDOUBI](https://twitter.com/maherjend)、[Rick Anderson](https://twitter.com/RickAndMSFT)、および [Scott Sauber](https://twitter.com/scottsauber)
+作成者: [Steve Smith](https://ardalis.com/)、[Maher JENDOUBI](https://twitter.com/maherjend)、[Rick Anderson](https://twitter.com/RickAndMSFT)、[Scott Sauber](https://twitter.com/scottsauber)
 
-部分ビューとは、別のマークアップ ファイルの出力表示の "*中に*"、HTML をレンダリングする [Razor](xref:mvc/views/razor) マークアップ ファイル ( *.cshtml*) です。
+部分ビューとは、別のマークアップ ファイルの出力表示の "[中に](xref:mvc/views/razor)"、HTML をレンダリングする *Razor* マークアップ ファイル ( *.cshtml*) です。
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -25,7 +25,7 @@ ms.locfileid: "70985572"
 
 ::: moniker-end
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/partial/sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/partial/sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="when-to-use-partial-views"></a>部分ビューを使用する状況
 
@@ -163,7 +163,7 @@ ASP.NET Core 2.2 以降では、別の方法としてハンドラー メソッ�
 
 ### <a name="asynchronous-html-helper"></a>非同期の HTML ヘルパー
 
-HTML ヘルパーを使用している場合、ベスト プラクティスは <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.PartialAsync*> を使用することです。 `PartialAsync` は、<xref:System.Threading.Tasks.Task%601> でラップされた <xref:Microsoft.AspNetCore.Html.IHtmlContent> 型を返します。 待機中の呼び出しの前に `@` 文字を付与することで、メソッドが参照されます。
+HTML ヘルパーを使用している場合、ベスト プラクティスは <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.PartialAsync*> を使用することです。 `PartialAsync` は、<xref:Microsoft.AspNetCore.Html.IHtmlContent> でラップされた <xref:System.Threading.Tasks.Task%601> 型を返します。 待機中の呼び出しの前に `@` 文字を付与することで、メソッドが参照されます。
 
 ```cshtml
 @await Html.PartialAsync("_PartialName")
@@ -266,11 +266,11 @@ HTML ヘルパーを使用している場合、ベスト プラクティスは <
 * 部分ビューは "*チェーン*" になることがある &mdash; 呼び出しによって循環参照が形成されない場合、部分ビューが別の部分ビューを呼び出す場合があります。 相対パスは常に、ファイルのルートや親ではなく、現在のファイルを基準とします。
 
 > [!NOTE]
-> 部分ビューで定義されている [Razor](xref:mvc/views/razor) の `section` は、親のマークアップ ファイルには表示されません。 `section` は定義されている部分ビューにのみ表示されます。
+> 部分ビューで定義されている[Razor](xref:mvc/views/razor) `section` は、親マークアップファイルからは見えません。 `section` は定義されている部分ビューにのみ表示されます。
 
 ## <a name="access-data-from-partial-views"></a>部分ビューからデータにアクセスする
 
-部分ビューがインスタンス化されると、親の `ViewData` ディクショナリの*コピー*を取得します。 親ビュー内のデータに対して行われた更新は、親ビューでは保持されません。 部分ビューで変更された `ViewData` は、部分ビューから返されるときに失われます。
+部分ビューがインスタンス化されると、親の  *ディクショナリの*コピー`ViewData`を取得します。 親ビュー内のデータに対して行われた更新は、親ビューでは保持されません。 部分ビューで変更された `ViewData` は、部分ビューから返されるときに失われます。
 
 次の例に、[ViewDataDictionary](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.viewdatadictionary) のインスタンスを部分ビューに渡す方法を示します。
 
@@ -337,7 +337,7 @@ HTML ヘルパーを使用している場合、ベスト プラクティスは <
 >
 > しかし、広義では、我々が献身することはできない...
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 ::: moniker range=">= aspnetcore-2.1"
 

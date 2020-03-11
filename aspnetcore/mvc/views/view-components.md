@@ -6,18 +6,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/18/2019
 uid: mvc/views/view-components
-ms.openlocfilehash: 8df070b580b6125db6616b33a81f3ffebad69f3a
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
-ms.translationtype: HT
+ms.openlocfilehash: 910fffbf360ed0f62f7fe20bc8bfdf5be8198876
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828920"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652316"
 ---
 # <a name="view-components-in-aspnet-core"></a>ASP.NET Core のビュー コンポーネント
 
 作成者: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/view-components/sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/view-components/sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="view-components"></a>ビュー コンポーネント
 
@@ -42,7 +42,7 @@ ms.locfileid: "75828920"
 
 ビュー コンポーネントは、次の 2 つのパーツで構成されます。クラス (通常、[ViewComponent](/dotnet/api/microsoft.aspnetcore.mvc.viewcomponent) から派生) と、クラスで返される結果 (通常はビュー) です。 コントローラーと同様に、ビュー コンポーネントは POCO の場合がありますが、ほとんどの開発者は `ViewComponent` から派生させて、利用できるメソッドとプロパティを活用する必要があります。
 
-ビュー コンポーネントが、アプリの仕様を満たしているかどうかを検討する場合は、代わりに Razor コンポーネントを使用することを検討してください。 Razor コンポーネントもまた、C# コードとマークアップを組み合わせて、再利用可能な UI ユニットを生成します。 Razor コンポーネントは、クライアント側の UI ロジックとコンポジションを提供する場合の開発者の生産性のために設計されています。 詳細については、「<xref:blazor/components>」を参照してください。
+ビュー コンポーネントが、アプリの仕様を満たしているかどうかを検討する場合は、代わりに Razor コンポーネントを使用することを検討してください。 Razor コンポーネントもまた、C# コードとマークアップを組み合わせて、再利用可能な UI ユニットを生成します。 Razor コンポーネントは、クライアント側の UI ロジックとコンポジションを提供する場合の開発者の生産性のために設計されています。 詳細については、<xref:blazor/components> を参照してください。
 
 ## <a name="creating-a-view-component"></a>ビューのコンポーネントを作成する
 
@@ -66,9 +66,9 @@ ms.locfileid: "75828920"
 
 ### <a name="view-component-methods"></a>ビュー コンポーネント メソッド
 
-ビュー コンポーネントでは、`Task<IViewComponentResult>` を返す `InvokeAsync` メソッドまたは `IViewComponentResult` を返す同期 `Invoke` メソッドでロジックを定義します。 パラメーターは、モデル バインドではなく、ビュー コンポーネントから直接取得します。 ビュー コンポーネントが要求を直接処理することはありません。 通常、ビュー コンポーネントは、モデルを初期化し、`View` メソッドを呼び出してビューに渡します。 要約すると、ビュー コンポーネント メソッドの特徴は次のとおりです。
+ビュー コンポーネントでは、`InvokeAsync` を返す `Task<IViewComponentResult>` メソッドまたは `Invoke` を返す同期 `IViewComponentResult` メソッドでロジックを定義します。 パラメーターは、モデル バインドではなく、ビュー コンポーネントから直接取得します。 ビュー コンポーネントが要求を直接処理することはありません。 通常、ビュー コンポーネントは、モデルを初期化し、`View` メソッドを呼び出してビューに渡します。 要約すると、ビュー コンポーネント メソッドの特徴は次のとおりです。
 
-* `Task<IViewComponentResult>` を返す `InvokeAsync` メソッドまたは `IViewComponentResult` を返す同期 `Invoke` メソッドを定義します。
+* `InvokeAsync` を返す `Task<IViewComponentResult>` メソッドまたは `Invoke` を返す同期 `IViewComponentResult` メソッドを定義します。
 * 通常、モデルを初期化し、`ViewComponent` `View` メソッドを呼び出してビューに渡します。
 * パラメーターは HTTP ではなく、呼び出し元のメソッドから取得されます。 モデル バインドはありません。
 * HTTP エンドポイントとして直接到達することはできません。 (通常はビュー内で) コードから呼び出されます。 ビュー コンポーネントでは要求が処理されません。
@@ -155,7 +155,7 @@ ASP.NET Core 1.1 以降の場合は、[タグ ヘルパー](xref:mvc/views/tag-h
 
 ## <a name="walkthrough-creating-a-simple-view-component"></a>チュートリアル: 単純なビュー コンポーネントの作成
 
-スタート コードを[ダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/view-components/sample)、ビルド、およびテストします。 これは、 *[ToDo]* 項目のリストを表示する `ToDo` コントローラーを備えた、単純なプロジェクトです。
+スタート コードを[ダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/view-components/sample)、ビルド、およびテストします。 これは、`ToDo`[ToDo]*項目のリストを表示する* コントローラーを備えた、単純なプロジェクトです。
 
 ![[ToDo] のリスト](view-components/_static/2dos.png)
 
@@ -179,11 +179,11 @@ ASP.NET Core 1.1 以降の場合は、[タグ ヘルパー](xref:mvc/views/tag-h
 * 上述の `[ViewComponent]` 属性は、ビュー コンポーネント セレクターに、コンポーネントに関連付けられたビューを探す場合は `PriorityList` という名前を使用し、ビューからクラス コンポーネントを参照する場合は文字列 "PriorityList" を使用するように指示します。 これについては、後で詳しく説明します。
 * コンポーネントでは、[依存性の注入](../../fundamentals/dependency-injection.md)を使用して、データ コンテキストを利用できるようにします。
 * `InvokeAsync` ではビューから呼び出すことができるメソッドを表示し、任意の数の引数を取得できます。
-* `InvokeAsync` メソッドでは、`isDone` と `maxPriority` パラメーターを満たす `ToDo` 項目のセットを返します。
+* `InvokeAsync` メソッドでは、`ToDo` と `isDone` パラメーターを満たす `maxPriority` 項目のセットを返します。
 
 ### <a name="create-the-view-component-razor-view"></a>ビュー コンポーネントの Razor ビューの作成
 
-* *Views/Shared/Components* フォルダーを作成します。 このフォルダーは、*Components* という名前にする**必要があります**。
+* *Views/Shared/Components* フォルダーを作成します。 このフォルダーは、**Components** という名前にする*必要があります*。
 
 * *Views/Shared/Components/PriorityList* フォルダーを作成します。 このフォルダー名は、ビュー コンポーネント クラスの名前、または (規則に従い、クラス名に *ViewComponent* サフィックスを使用した場合は) サフィックスを差し引いたクラスの名前に一致する必要があります。 `ViewComponent` 属性を使用した場合は、クラス名は属性の指定に一致する必要があります。
 
@@ -214,7 +214,7 @@ ASP.NET Core 1.1 以降の場合は、[タグ ヘルパー](xref:mvc/views/tag-h
 
 ### <a name="specifying-a-view-name"></a>ビュー名を指定する
 
-複雑なビュー コンポーネントでは、いくつかの条件下で、既定以外のビューを指定する必要がある場合があります。 次のコードでは、`InvokeAsync` メソッドから "PVC" ビューを指定する方法を示しています。 `PriorityListViewComponent` クラスで `InvokeAsync` メソッドを更新します。
+複雑なビュー コンポーネントでは、いくつかの条件下で、既定以外のビューを指定する必要がある場合があります。 次のコードでは、`InvokeAsync` メソッドから "PVC" ビューを指定する方法を示しています。 `InvokeAsync` クラスで `PriorityListViewComponent` メソッドを更新します。
 
 [!code-csharp[](../../mvc/views/view-components/sample/ViewCompFinal/ViewComponents/PriorityListViewComponentFinal.cs?highlight=4,5,6,7,8,9&range=28-39)]
 
@@ -306,7 +306,7 @@ public class PriorityList : ViewComponent
 
 ::: moniker range="< aspnetcore-1.1"
 
-<xref:Microsoft.AspNetCore.Mvc.IViewComponentHelper> を使用して、Razor ファイルでビュー コンポーネントが呼び出されます (たとえば、*Views/Home/Index.cshtml*)。
+*を使用して、Razor ファイルでビュー コンポーネントが呼び出されます (たとえば、* Views/Home/Index.cshtml<xref:Microsoft.AspNetCore.Mvc.IViewComponentHelper>)。
 
 `Component.InvokeAsync` を呼び出します。
 
@@ -343,6 +343,6 @@ Razor マークアップ ファイルでビュー コンポーネントのタグ
 * ViewComponent がマークアップをレンダリングしません。
 * エラーがスローされません。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * [ビューへの依存性の注入](xref:mvc/views/dependency-injection)

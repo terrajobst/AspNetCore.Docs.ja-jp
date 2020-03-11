@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 04/06/2019
 uid: mvc/views/tag-helpers/builtin-th/image-tag-helper
 ms.openlocfilehash: 964072ad276f7e3e411ee41cb03a2efb9d05c585
-ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
-ms.translationtype: HT
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/12/2019
-ms.locfileid: "67856112"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653774"
 ---
 # <a name="image-tag-helper-in-aspnet-core"></a>ASP.NET Core のイメージ タグ ヘルパー
 
@@ -32,7 +32,7 @@ ms.locfileid: "67856112"
 
 ### <a name="src"></a>src
 
-イメージ タグ ヘルパーをアクティブにするには、`<img>` 要素に `src` 属性が必要です。
+イメージ タグ ヘルパーをアクティブにするには、`src` 要素に `<img>` 属性が必要です。
 
 イメージ ソース (`src`) は、サーバー上の物理静的ファイルをポイントしている必要があります。 `src` がリモート URI の場合は、キャッシュ バスティング クエリ文字列パラメーターは生成されません。
 
@@ -58,6 +58,6 @@ ms.locfileid: "67856112"
 
 イメージ タグ ヘルパーはローカル Web サーバーでキャッシュ プロバイダーを使用して、特定のファイルの計算された `Sha512` ハッシュを格納します。 ファイルが複数回要求された場合、ハッシュは再計算されません。 キャッシュは、ファイルの `Sha512` ハッシュが計算されたときにファイルにアタッチされるファイル ウォッチャーによって無効になります。 ディスク上のファイルが変更されると、新しいハッシュが計算されてキャッシュされます。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * <xref:performance/caching/memory>

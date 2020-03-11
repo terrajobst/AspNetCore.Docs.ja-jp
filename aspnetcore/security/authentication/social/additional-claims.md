@@ -1,41 +1,39 @@
 ---
 title: ASP.NET Core で外部プロバイダーからの追加の要求とトークンを保持する
-author: guardrex
+author: rick-anderson
 description: 外部プロバイダーから追加の要求とトークンを確立する方法について説明します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/15/2019
 uid: security/authentication/social/additional-claims
-ms.openlocfilehash: 44b3e72085e6265319b53b548f7f7ddde2adbd14
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 9dfe5745125e34ed813d078529471a0ba2a53ab0
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828582"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654662"
 ---
 # <a name="persist-additional-claims-and-tokens-from-external-providers-in-aspnet-core"></a>ASP.NET Core で外部プロバイダーからの追加の要求とトークンを保持する
-
-作成者: [Luke Latham](https://github.com/guardrex)
 
 ::: moniker range=">= aspnetcore-3.0"
 
 ASP.NET Core アプリは、Facebook、Google、Microsoft、Twitter などの外部認証プロバイダーからの追加の要求とトークンを確立できます。 各プロバイダーは、プラットフォーム上のユーザーに関するさまざまな情報を明らかにしますが、ユーザーデータを受け取って追加の要求に変換するパターンは同じです。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/social/additional-claims/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/social/additional-claims/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
-## <a name="prerequisites"></a>[前提条件]
+## <a name="prerequisites"></a>前提条件
 
-アプリでサポートする外部認証プロバイダーを決定します。 各プロバイダーについて、アプリを登録し、クライアント ID とクライアントシークレットを取得します。 詳細については、「<xref:security/authentication/social/index>」を参照してください。 このサンプルアプリでは、 [Google 認証プロバイダー](xref:security/authentication/google-logins)を使用します。
+アプリでサポートする外部認証プロバイダーを決定します。 各プロバイダーについて、アプリを登録し、クライアント ID とクライアントシークレットを取得します。 詳細については、<xref:security/authentication/social/index> を参照してください。 このサンプルアプリでは、 [Google 認証プロバイダー](xref:security/authentication/google-logins)を使用します。
 
 ## <a name="set-the-client-id-and-client-secret"></a>クライアント ID とクライアントシークレットを設定する
 
 OAuth 認証プロバイダーは、クライアント ID とクライアントシークレットを使用して、アプリとの信頼関係を確立します。 アプリがプロバイダーに登録されるときに、外部認証プロバイダーによってアプリのクライアント ID とクライアントシークレットの値が作成されます。 アプリが使用する各外部プロバイダーは、プロバイダーのクライアント ID とクライアントシークレットとは別に構成する必要があります。 詳細については、シナリオに当てはまる外部認証プロバイダーのトピックを参照してください。
 
-* [Facebook での認証](xref:security/authentication/facebook-logins)
-* [Google での認証](xref:security/authentication/google-logins)
+* [Facebook 認証](xref:security/authentication/facebook-logins)
+* [Google 認証](xref:security/authentication/google-logins)
 * [Microsoft での認証](xref:security/authentication/microsoft-logins)
-* [Twitter での認証](xref:security/authentication/twitter-logins)
+* [Twitter 認証](xref:security/authentication/twitter-logins)
 * [他の認証プロバイダー](xref:security/authentication/otherlogins)
 * [OpenIdConnect](https://github.com/Azure-Samples/active-directory-aspnetcore-webapp-openidconnect-v2)
 
@@ -47,7 +45,7 @@ OAuth 認証プロバイダーは、クライアント ID とクライアント�
 
 <xref:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.Scope*>を指定して、プロバイダーから取得するアクセス許可の一覧を指定します。 共通外部プロバイダーの認証スコープは、次の表に表示されます。
 
-| プロバイダー  | [スコープ]                                                            |
+| プロバイダー  | スコープ                                                            |
 | --------- | ---------------------------------------------------------------- |
 | Facebook  | `https://www.facebook.com/dialog/oauth`                          |
 | Google    | `https://www.googleapis.com/auth/userinfo.profile`               |
@@ -110,7 +108,7 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 
 ユーザーは、<xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction> から派生させ、抽象 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.Run*> メソッドを実装することによって、カスタムアクションを定義できます。
 
-詳細については、「<xref:Microsoft.AspNetCore.Authentication.OAuth.Claims>」を参照してください。
+詳細については、<xref:Microsoft.AspNetCore.Authentication.OAuth.Claims> を参照してください。
 
 ## <a name="removal-of-claim-actions-and-claims"></a>要求アクションと要求の削除
 
@@ -162,20 +160,20 @@ Authentication Properties
 
 ASP.NET Core アプリは、Facebook、Google、Microsoft、Twitter などの外部認証プロバイダーからの追加の要求とトークンを確立できます。 各プロバイダーは、プラットフォーム上のユーザーに関するさまざまな情報を明らかにしますが、ユーザーデータを受け取って追加の要求に変換するパターンは同じです。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/social/additional-claims/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/social/additional-claims/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
-## <a name="prerequisites"></a>[前提条件]
+## <a name="prerequisites"></a>前提条件
 
-アプリでサポートする外部認証プロバイダーを決定します。 各プロバイダーについて、アプリを登録し、クライアント ID とクライアントシークレットを取得します。 詳細については、「<xref:security/authentication/social/index>」を参照してください。 このサンプルアプリでは、 [Google 認証プロバイダー](xref:security/authentication/google-logins)を使用します。
+アプリでサポートする外部認証プロバイダーを決定します。 各プロバイダーについて、アプリを登録し、クライアント ID とクライアントシークレットを取得します。 詳細については、<xref:security/authentication/social/index> を参照してください。 このサンプルアプリでは、 [Google 認証プロバイダー](xref:security/authentication/google-logins)を使用します。
 
 ## <a name="set-the-client-id-and-client-secret"></a>クライアント ID とクライアントシークレットを設定する
 
 OAuth 認証プロバイダーは、クライアント ID とクライアントシークレットを使用して、アプリとの信頼関係を確立します。 アプリがプロバイダーに登録されるときに、外部認証プロバイダーによってアプリのクライアント ID とクライアントシークレットの値が作成されます。 アプリが使用する各外部プロバイダーは、プロバイダーのクライアント ID とクライアントシークレットとは別に構成する必要があります。 詳細については、シナリオに当てはまる外部認証プロバイダーのトピックを参照してください。
 
-* [Facebook での認証](xref:security/authentication/facebook-logins)
-* [Google での認証](xref:security/authentication/google-logins)
+* [Facebook 認証](xref:security/authentication/facebook-logins)
+* [Google 認証](xref:security/authentication/google-logins)
 * [Microsoft での認証](xref:security/authentication/microsoft-logins)
-* [Twitter での認証](xref:security/authentication/twitter-logins)
+* [Twitter 認証](xref:security/authentication/twitter-logins)
 * [他の認証プロバイダー](xref:security/authentication/otherlogins)
 * [OpenIdConnect](https://github.com/Azure-Samples/active-directory-aspnetcore-webapp-openidconnect-v2)
 
@@ -187,7 +185,7 @@ OAuth 認証プロバイダーは、クライアント ID とクライアント�
 
 <xref:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.Scope*>を指定して、プロバイダーから取得するアクセス許可の一覧を指定します。 共通外部プロバイダーの認証スコープは、次の表に表示されます。
 
-| プロバイダー  | [スコープ]                                                            |
+| プロバイダー  | スコープ                                                            |
 | --------- | ---------------------------------------------------------------- |
 | Facebook  | `https://www.facebook.com/dialog/oauth`                          |
 | Google    | `https://www.googleapis.com/auth/userinfo.profile`               |
@@ -250,7 +248,7 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 
 ユーザーは、<xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction> から派生させ、抽象 <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.Run*> メソッドを実装することによって、カスタムアクションを定義できます。
 
-詳細については、「<xref:Microsoft.AspNetCore.Authentication.OAuth.Claims>」を参照してください。
+詳細については、<xref:Microsoft.AspNetCore.Authentication.OAuth.Claims> を参照してください。
 
 ## <a name="removal-of-claim-actions-and-claims"></a>要求アクションと要求の削除
 
@@ -298,6 +296,6 @@ Authentication Properties
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * [dotnet/AspNetCore engineering サンプルアプリ](https://github.com/dotnet/AspNetCore/tree/master/src/Security/Authentication/samples/SocialSample)は、リンクされたサンプルアプリ &ndash;、 [Dotnet/AspNetCore GitHub リポジトリの](https://github.com/dotnet/AspNetCore)`master` エンジニアリング分岐にあります。 `master` 分岐には、ASP.NET Core の次のリリースでアクティブな開発のコードが含まれています。 リリースされたバージョンの ASP.NET Core 用のサンプルアプリのバージョンを表示するには、 **[ブランチ]** ドロップダウンリストを使用してリリースブランチを選択します (`release/{X.Y}`など)。

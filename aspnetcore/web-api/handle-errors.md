@@ -7,18 +7,18 @@ ms.author: prkrishn
 ms.custom: mvc
 ms.date: 12/10/2019
 uid: web-api/handle-errors
-ms.openlocfilehash: c2dbc47b4495b7187aefbc62eb6d2f0c9683c2da
-ms.sourcegitcommit: 29ace642ca0e1f0b48a18d66de266d8811df2b83
-ms.translationtype: HT
+ms.openlocfilehash: e445fb3d50973643c9cea60395d1ed02c2f5f675
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/10/2019
-ms.locfileid: "74987833"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652394"
 ---
 # <a name="handle-errors-in-aspnet-core-web-apis"></a>ASP.NET Core Web API のエラーを処理する
 
 この記事では、ASP.NET Core Web API を使用したエラーの処理方法とエラー処理のカスタマイズ方法について説明します。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/handle-errors/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/handle-errors/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="developer-exception-page"></a>開発者例外ページ
 
@@ -34,7 +34,7 @@ curl -i https://localhost:5001/weatherforecast/chicago
 
 ::: moniker range=">= aspnetcore-3.0"
 
-ASP.NET Core 3.0 以降では、クライアントにより HTML 形式の出力が要求されない場合、開発者例外ページにはテキスト形式の応答が表示されます。 次の出力が表示されます。
+ASP.NET Core 3.0 以降では、クライアントにより HTML 形式の出力が要求されない場合、開発者例外ページにはテキスト形式の応答が表示されます。 次のような出力が表示されます。
 
 ```console
 HTTP/1.1 500 Internal Server Error
@@ -68,7 +68,7 @@ Host: localhost:44312
 User-Agent: curl/7.55.1
 ```
 
-代わりに HTML 形式の応答を表示するには、`Accept` HTTP 要求ヘッダーを `text/html` のメディアの種類に設定します。 次に例を示します。
+代わりに HTML 形式の応答を表示するには、`Accept` HTTP 要求ヘッダーを `text/html` のメディアの種類に設定します。 例 :
 
 ```bash
 curl -i -H "Accept: text/html" https://localhost:5001/weatherforecast/chicago
@@ -244,7 +244,7 @@ HTML 形式の応答は、Postman などのツールを使用してテストす�
 
 ## <a name="validation-failure-error-response"></a>検証失敗のエラー応答
 
-Web API コントローラーでは、モデルの検証が失敗すると、MVC が <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails> という応答の種類で応答します。 MVC は <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.InvalidModelStateResponseFactory> の結果を使用して、検証失敗に対するエラー応答を作成します。 次の例では、`Startup.ConfigureServices` で、ファクトリを使用して応答の既定の種類を <xref:Microsoft.AspNetCore.Mvc.SerializableError> に変更します。
+Web API コントローラーでは、モデルの検証が失敗すると、MVC が <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails> という応答の種類で応答します。 MVC は <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.InvalidModelStateResponseFactory> の結果を使用して、検証失敗に対するエラー応答を作成します。 次の例では、<xref:Microsoft.AspNetCore.Mvc.SerializableError> で、ファクトリを使用して応答の既定の種類を `Startup.ConfigureServices` に変更します。
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -286,7 +286,7 @@ Web API コントローラーでは、モデルの検証が失敗すると、MVC
 
 MVC は、`Microsoft.AspNetCore.Mvc.ProblemDetailsFactory` を使用して、<xref:Microsoft.AspNetCore.Mvc.ProblemDetails> と <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails> のすべてのインスタンスを生成します。 これには、クライアント エラー応答および検証失敗エラー応答と、`Microsoft.AspNetCore.Mvc.ControllerBase.Problem` および <xref:Microsoft.AspNetCore.Mvc.ControllerBase.ValidationProblem> ヘルパー メソッドが含まれます。
 
-問題の詳しい応答をカスタマイズするには、`Startup.ConfigureServices`で `ProblemDetailsFactory` のカスタム実装を登録します。
+問題の詳しい応答をカスタマイズするには、`ProblemDetailsFactory`で `Startup.ConfigureServices` のカスタム実装を登録します。
 
 ```csharp
 public void ConfigureServices(IServiceCollection serviceCollection)
@@ -308,7 +308,7 @@ public void ConfigureServices(IServiceCollection serviceCollection)
 
 ### <a name="use-apibehavioroptionsclienterrormapping"></a>ApiBehaviorOptions.ClientErrorMapping の使用
 
-`ProblemDetails` の応答の内容を構成するには、<xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.ClientErrorMapping%2A> プロパティを使用します。 たとえば、`Startup.ConfigureServices`の次のコードにより、404 応答の `type` プロパティが更新されます。
+<xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.ClientErrorMapping%2A> の応答の内容を構成するには、`ProblemDetails` プロパティを使用します。 たとえば、`Startup.ConfigureServices`の次のコードにより、404 応答の `type` プロパティが更新されます。
 
 ::: moniker-end
 

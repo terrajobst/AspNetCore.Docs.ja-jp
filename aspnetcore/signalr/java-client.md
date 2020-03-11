@@ -9,12 +9,12 @@ ms.date: 11/12/2019
 no-loc:
 - SignalR
 uid: signalr/java-client
-ms.openlocfilehash: d7143b2c22ecdc4e68f484aa4c244e1c520beae0
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 6919eabf454f16887e012161a454a4848c45002b
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963792"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652214"
 ---
 # <a name="aspnet-core-opno-locsignalr-java-client"></a>ASP.NET Core SignalR Java クライアント
 
@@ -24,7 +24,7 @@ Java クライアントを使用すると、Android アプリを含む Java コ�
 
 この記事で参照されているサンプルの Java コンソールアプリは、SignalR Java クライアントを使用します。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/java-client/sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/java-client/sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="install-the-opno-locsignalr-java-client-package"></a>SignalR Java クライアントパッケージをインストールする
 
@@ -40,13 +40,13 @@ Maven を使用する場合は、次の行を*pom*ファイルの `<dependencies
 
 [!code-xml[pom.xml dependency element](java-client/sample/pom.xml?name=snippet_dependencyElement)]
 
-## <a name="connect-to-a-hub"></a>ハブへの接続
+## <a name="connect-to-a-hub"></a>ハブへの接続します。
 
 `HubConnection`を確立するには、`HubConnectionBuilder` を使用する必要があります。 ハブの URL とログレベルは、接続の作成時に構成できます。 `build`する前に、`HubConnectionBuilder` のメソッドのいずれかを呼び出して必要なオプションを構成します。 `start`との接続を開始します。
 
 [!code-java[Build hub connection](java-client/sample/src/main/java/Chat.java?range=16-17)]
 
-## <a name="call-hub-methods-from-client"></a>クライアントからのハブメソッドの呼び出し
+## <a name="call-hub-methods-from-client"></a>クライアントからのハブ メソッドの呼び出し
 
 `send` を呼び出すと、ハブメソッドが呼び出されます。 ハブメソッドの名前と、ハブメソッドで定義されているすべての引数を `send`に渡します。
 
@@ -55,7 +55,7 @@ Maven を使用する場合は、次の行を*pom*ファイルの `<dependencies
 > [!NOTE]
 > *サーバーレスモード*で Azure SignalR サービスを使用している場合は、クライアントからハブメソッドを呼び出すことはできません。 詳細については、 [SignalR サービスのドキュメント](/azure/azure-signalr/signalr-concept-serverless-development-config)を参照してください。
 
-## <a name="call-client-methods-from-hub"></a>ハブからクライアントメソッドを呼び出す
+## <a name="call-client-methods-from-hub"></a>ハブからのクライアント メソッドを呼び出す
 
 `hubConnection.on` を使用して、ハブが呼び出すことができるクライアント上のメソッドを定義します。 ビルドの後、接続を開始する前に、メソッドを定義します。
 
@@ -115,7 +115,7 @@ HubConnection hubConnection = HubConnectionBuilder.create("YOUR HUB URL HERE")
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * [Java API リファレンス](/java/api/com.microsoft.signalr?view=aspnet-signalr-java)
 * <xref:signalr/hubs>

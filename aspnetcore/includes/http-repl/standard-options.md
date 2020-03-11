@@ -11,15 +11,15 @@
 
 * `--response`
 
-  HTTP 応答全体 (ヘッダーと本文を含む) を書き込むファイルを指定します。 たとえば、`--response "C:\response.txt"` のようにします。 ファイルが存在しない場合は作成されます。
+  HTTP 応答全体 (ヘッダーと本文を含む) を書き込むファイルを指定します。 たとえば、「 `--response "C:\response.txt"` 」のように入力します。 ファイルが存在しない場合は作成されます。
 
 * `--response:body`
 
-  HTTP 応答の本文を書き込むファイルを指定します。 たとえば、`--response:body "C:\response.json"` のようにします。 ファイルが存在しない場合は作成されます。
+  HTTP 応答の本文を書き込むファイルを指定します。 たとえば、「 `--response:body "C:\response.json"` 」のように入力します。 ファイルが存在しない場合は作成されます。
 
 * `--response:headers`
 
-  HTTP 応答のヘッダーを書き込むファイルを指定します。 たとえば、`--response:headers "C:\response.txt"` のようにします。 ファイルが存在しない場合は作成されます。
+  HTTP 応答のヘッダーを書き込むファイルを指定します。 たとえば、「 `--response:headers "C:\response.txt"` 」のように入力します。 ファイルが存在しない場合は作成されます。
 
 * `-s|--streaming`
 

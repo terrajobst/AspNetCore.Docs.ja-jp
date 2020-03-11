@@ -6,16 +6,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/10/2018
 uid: mvc/views/tag-helpers/builtin-th/cache-tag-helper
-ms.openlocfilehash: 0273a9805dd5db5450f57dcf3fd4d952308df074
-ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
-ms.translationtype: HT
+ms.openlocfilehash: db9e1a968588410f11e5f137dfdd4542df505ebc
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/12/2019
-ms.locfileid: "67856205"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653306"
 ---
 # <a name="cache-tag-helper-in-aspnet-core-mvc"></a>ASP.NET Core MVC のキャッシュ タグ ヘルパー
 
-作成者: [Peter Kellner](https://peterkellner.net)、[Luke Latham](https://github.com/guardrex) 
+著者: [Peter Kellner](https://peterkellner.net)
 
 キャッシュ タグ ヘルパーは、ASP.NET Core アプリの内容を内部 ASP.NET Core キャッシュ プロバイダーにキャッシュすることによって、アプリのパフォーマンスを改善する機能を提供します。
 
@@ -33,11 +33,11 @@ ms.locfileid: "67856205"
 
 ### <a name="enabled"></a>enabled
 
-| 属性の型  | 使用例        | 既定値 |
+| 属性の種類  | 例        | 既定値 |
 | --------------- | --------------- | ------- |
-| ブール型         | `true`、 `false` | `true`  |
+| Boolean         | `true`, `false` | `true`  |
 
-`enabled` によってキャッシュ タグ ヘルパーで囲まれた内容をキャッシュするかどうかが決定されます。 既定値は、`true` です。 `false` に設定すると、作成された出力はキャッシュ**されません**。
+`enabled` によってキャッシュ タグ ヘルパーで囲まれた内容をキャッシュするかどうかが決定されます。 既定では、 `true`です。 `false` に設定すると、作成された出力はキャッシュ**されません**。
 
 例:
 
@@ -49,7 +49,7 @@ ms.locfileid: "67856205"
 
 ### <a name="expires-on"></a>expires-on
 
-| 属性の型   | 例                            |
+| 属性の種類   | 例                            |
 | ---------------- | ---------------------------------- |
 | `DateTimeOffset` | `@new DateTime(2025,1,29,17,02,0)` |
 
@@ -65,7 +65,7 @@ ms.locfileid: "67856205"
 
 ### <a name="expires-after"></a>expires-after
 
-| 属性の型 | 例                      | 既定値    |
+| 属性の種類 | 例                      | 既定値    |
 | -------------- | ---------------------------- | ---------- |
 | `TimeSpan`     | `@TimeSpan.FromSeconds(120)` | 20 分 |
 
@@ -83,7 +83,7 @@ Razor ビュー エンジンでは、`expires-after` の規定値が 20 分に�
 
 ### <a name="expires-sliding"></a>expires-sliding
 
-| 属性の型 | 例                     |
+| 属性の種類 | 例                     |
 | -------------- | --------------------------- |
 | `TimeSpan`     | `@TimeSpan.FromSeconds(60)` |
 
@@ -99,9 +99,9 @@ Razor ビュー エンジンでは、`expires-after` の規定値が 20 分に�
 
 ### <a name="vary-by-header"></a>vary-by-header
 
-| 属性の型 | 使用例                                    |
+| 属性の種類 | 例                                    |
 | -------------- | ------------------------------------------- |
-| String         | `User-Agent`、 `User-Agent,content-encoding` |
+| String         | `User-Agent`, `User-Agent,content-encoding` |
 
 `vary-by-header` には、変化したときにキャッシュの更新をトリガーする、コンマで区切ったヘッダー値のリストを指定します。
 
@@ -115,11 +115,11 @@ Razor ビュー エンジンでは、`expires-after` の規定値が 20 分に�
 
 ### <a name="vary-by-query"></a>vary-by-query
 
-| 属性の型 | 使用例             |
+| 属性の種類 | 例             |
 | -------------- | -------------------- |
-| String         | `Make`、 `Make,Model` |
+| String         | `Make`, `Make,Model` |
 
-`vary-by-query` には、リストのいずれかのキーの値が変化したときにキャッシュの更新をトリガーする、クエリ文字列 (<xref:Microsoft.AspNetCore.Http.HttpRequest.Query*>) の <xref:Microsoft.AspNetCore.Http.IQueryCollection.Keys*> のコンマ区切り値リストを指定します。
+`vary-by-query` には、リストのいずれかのキーの値が変化したときにキャッシュの更新をトリガーする、クエリ文字列 (<xref:Microsoft.AspNetCore.Http.IQueryCollection.Keys*>) の <xref:Microsoft.AspNetCore.Http.HttpRequest.Query*> のコンマ区切り値リストを指定します。
 
 次の例では、`Make` と `Model` の値を監視します。 この例は、Web サーバーに提示されるすべての異なる `Make` と `Model` の内容をキャッシュします。
 
@@ -131,9 +131,9 @@ Razor ビュー エンジンでは、`expires-after` の規定値が 20 分に�
 
 ### <a name="vary-by-route"></a>vary-by-route
 
-| 属性の型 | 使用例             |
+| 属性の種類 | 例             |
 | -------------- | -------------------- |
-| String         | `Make`、 `Make,Model` |
+| String         | `Make`, `Make,Model` |
 
 `vary-by-route` には、ルート データのパラメーター値が変化したときにキャッシュの更新をトリガーする、コンマで区切ったルート パラメーター名のリストを指定します。
 
@@ -157,9 +157,9 @@ routes.MapRoute(
 
 ### <a name="vary-by-cookie"></a>vary-by-cookie
 
-| 属性の型 | 使用例                                                                         |
+| 属性の種類 | 例                                                                         |
 | -------------- | -------------------------------------------------------------------------------- |
-| String         | `.AspNetCore.Identity.Application`、 `.AspNetCore.Identity.Application,HairColor` |
+| String         | `.AspNetCore.Identity.Application`, `.AspNetCore.Identity.Application,HairColor` |
 
 `vary-by-cookie` には、Cookie 値が変化したときにキャッシュの更新をトリガーする、コンマで区切った Cookie 名のリストを指定します。
 
@@ -173,9 +173,9 @@ routes.MapRoute(
 
 ### <a name="vary-by-user"></a>vary-by-user
 
-| 属性の型  | 使用例        | 既定値 |
+| 属性の種類  | 例        | 既定値 |
 | --------------- | --------------- | ------- |
-| ブール型         | `true`、 `false` | `true`  |
+| Boolean         | `true`, `false` | `true`  |
 
 `vary-by-user` では、サインインしているユーザー (またはコンテキストのプリンシパル) が変化したときにキャッシュをリセットするかどうかを指定します。 現在のユーザーは要求コンテキストのプリンシパルとも呼ばれ、`@User.Identity.Name` を参照することにより Razor ビューで表示できます。
 
@@ -191,7 +191,7 @@ routes.MapRoute(
 
 ### <a name="vary-by"></a>vary-by
 
-| 属性の型 | 例  |
+| 属性の種類 | 例  |
 | -------------- | -------- |
 | String         | `@Model` |
 
@@ -222,9 +222,9 @@ public IActionResult Index(string myParam1, string myParam2, string myParam3)
 
 ### <a name="priority"></a>priority
 
-| 属性の型      | 使用例                               | 既定値  |
+| 属性の種類      | 例                               | 既定値  |
 | ------------------- | -------------------------------------- | -------- |
-| `CacheItemPriority` | `High`, `Low`, `NeverRemove`, `Normal` | `Normal` |
+| `CacheItemPriority` | `High`、`Low`、`NeverRemove`, `Normal` | `Normal` |
 
 `priority` により、組み込みのキャッシュ プロバイダーにキャッシュ削除ガイダンスを提供します。 Web サーバーは、メモリ不足になると、`Low` キャッシュ エントリを最初に削除します。
 
@@ -240,7 +240,7 @@ public IActionResult Index(string myParam1, string myParam2, string myParam3)
 
 キャッシュ タグ ヘルパーは、[メモリ キャッシュ サービス](xref:performance/caching/memory)に依存します。 サービスが追加されていない場合、キャッシュ タグ ヘルパーによってサービスが追加されます。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * <xref:performance/caching/memory>
 * <xref:security/authentication/identity>

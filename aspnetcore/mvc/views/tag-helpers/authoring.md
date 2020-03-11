@@ -6,18 +6,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: mvc/views/tag-helpers/authoring
-ms.openlocfilehash: e8b62d795f6444e6dd79e27ace687d5db4db86de
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
-ms.translationtype: HT
+ms.openlocfilehash: 43bd4eccfc06d27ade5de0e3387247a753609336
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74881000"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653180"
 ---
 # <a name="author-tag-helpers-in-aspnet-core"></a>ASP.NET Core のタグ ヘルパー作成
 
 作成者: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/authoring/sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/authoring/sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="get-started-with-tag-helpers"></a>タグ ヘルパーの概要
 
@@ -31,7 +31,7 @@ ms.locfileid: "74881000"
 
 ## <a name="a-minimal-tag-helper"></a>最小のタグ ヘルパー
 
-このセクションでは、電子メール タグを更新するタグ ヘルパーを記述します。 次に例を示します。
+このセクションでは、電子メール タグを更新するタグ ヘルパーを記述します。 例 :
 
 ```html
 <email>Support</email>
@@ -69,7 +69,7 @@ ms.locfileid: "74881000"
 
    [!code-cshtml[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/_ViewImportsCopyEmail.cshtml?highlight=2,3)]
 
-   上記のコードでは、ワイルドカードの構文を使用して、アセンブリ内のすべてのタグ ヘルパーが使用可能になるように指定しています。 `@addTagHelper` の後の最初の文字列は、読み込むタグ ヘルパーを指定します (すべてのタグ ヘルパーを指定するには、"*" を使用します)。2 番目の文字列 "AuthoringTagHelpers" は、タグ ヘルパーが存在するアセンブリを指定します。 また、2 行目で、ワイルドカードの構文を使用して ASP.NET Core MVC タグ ヘルパーを取り込むことに注目してください (これらのヘルパーについては、[タグ ヘルパーの概要](intro.md)に関するページで説明されています)。Razor ビューでタグ ヘルパーを使用可能にするのが、`@addTagHelper` ディレクティブです。 または、次に示すように、タグ ヘルパーの完全修飾名 (FQN) を指定することもできます。
+   上記のコードでは、ワイルドカードの構文を使用して、アセンブリ内のすべてのタグ ヘルパーが使用可能になるように指定しています。 `@addTagHelper` の後の最初の文字列は、読み込むタグ ヘルパーを指定します (すべてのタグ ヘルパーを指定するには、"*" を使用します)。2 番目の文字列 "AuthoringTagHelpers" は、タグ ヘルパーが存在するアセンブリを指定します。 また、2番目の行は、ワイルドカード構文を使用して ASP.NET Core MVC タグヘルパーを取り込むことに注意してください (これらのヘルパーについては、「[タグヘルパーの概要](intro.md)」で説明されています)。これは、Razor ビューでタグヘルパーを使用できるようにするための `@addTagHelper` ディレクティブです。 または、次に示すように、タグ ヘルパーの完全修飾名 (FQN) を指定することもできます。
 
 ```csharp
 @using AuthoringTagHelpers
@@ -133,7 +133,7 @@ FQN を使用してタグ ヘルパーをビューに追加するには、最初
 
    **注:**
 
-   * このバージョンでは、非同期の `ProcessAsync` メソッドを使用します。 非同期の `GetChildContentAsync` は `TagHelperContent` を含む `Task` を返します。
+   * このバージョンでは、非同期の `ProcessAsync` メソッドを使用します。 非同期の `GetChildContentAsync` は `Task` を含む `TagHelperContent` を返します。
 
    * `output` パラメーターを使用して、HTML 要素のコンテンツを取得します。
 
@@ -151,13 +151,13 @@ FQN を使用してタグ ヘルパーをビューに追加するには、最初
 
    * `[HtmlTargetElement]` 属性は、"bold" という名前の HTML 属性を含むすべての HTML 要素を照合することを指定する属性パラメーターを渡し、クラス内で `Process` オーバーライド メソッドが実行されます。 このサンプルでは、`Process` メソッドによって "bold" 属性が削除され、中にあるマークアップが `<strong></strong>` で囲まれます。
 
-   * 既存のタグ コンテンツは置き換えたくないので、`PreContent.SetHtmlContent` メソッドを使用して開始タグ `<strong>` を記述し、`PostContent.SetHtmlContent` メソッドを使用して終了タグ `</strong>` を記述する必要があります。
+   * 既存のタグ コンテンツは置き換えたくないので、`<strong>` メソッドを使用して開始タグ `PreContent.SetHtmlContent` を記述し、`</strong>` メソッドを使用して終了タグ `PostContent.SetHtmlContent` を記述する必要があります。
 
-1. `bold` 属性値を含めるように *About.cshtml* ビューを変更します。 完成したコードを以下に示します。
+1. *属性値を含めるように*About.cshtml`bold` ビューを変更します。 完成したコードを以下に示します。
 
    [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/AboutBoldOnly.cshtml?highlight=7)]
 
-1. アプリを実行します。 お好みのブラウザーを使用して、ソースを検査し、マークアップを確認できます。
+1. アプリケーションを実行します。 お好みのブラウザーを使用して、ソースを検査し、マークアップを確認できます。
 
    上記の `[HtmlTargetElement]` 属性は、"bold" という属性名を提供する HTML マークアップのみをターゲットにしています。 `<bold>` 要素は、タグ ヘルパーによって変更されませんでした。
 
@@ -245,7 +245,7 @@ FQN を使用してタグ ヘルパーをビューに追加するには、最初
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/Index.cshtml)]
 
-1. `Home` コントローラーの `Index` メソッドを次のコードで置き換えます。
+1. `Index` コントローラーの `Home` メソッドを次のコードで置き換えます。
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Controllers/HomeController.cs?range=9-18)]
 
@@ -281,7 +281,7 @@ FQN を使用してタグ ヘルパーをビューに追加するには、最初
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/z1AutoLinker.cs?highlight=15-34&range=7-34)]
 
-1. アプリを実行します。 www テキストはリンクとしてレンダリングされていますが、HTTP テキストはそのようになっていないことに注目してください。 両方のクラスにブレークポイントを配置すると、HTTP タグ ヘルパー クラスが最初に実行されることがわかります。 問題は、タグ ヘルパーの出力がキャッシュされ、WWW タグ ヘルパーを実行するときに、WWW タグ ヘルパーが HTTP タグ ヘルパーからのキャッシュされた出力を上書きすることです。 タグ ヘルパーの実行順序を制御する方法については、このチュートリアルで後ほど説明します。 コードを次のように修正します。
+1. アプリケーションを実行します。 www テキストはリンクとしてレンダリングされていますが、HTTP テキストはそのようになっていないことに注目してください。 両方のクラスにブレークポイントを配置すると、HTTP タグ ヘルパー クラスが最初に実行されることがわかります。 問題は、タグ ヘルパーの出力がキャッシュされ、WWW タグ ヘルパーを実行するときに、WWW タグ ヘルパーが HTTP タグ ヘルパーからのキャッシュされた出力を上書きすることです。 タグ ヘルパーの実行順序を制御する方法については、このチュートリアルで後ほど説明します。 コードを次のように修正します。
 
    [!code-csharp[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/z1AutoLinkerCopy.cs?highlight=5,6,10,21,22,26&range=8-37)]
 
@@ -290,7 +290,7 @@ FQN を使用してタグ ヘルパーをビューに追加するには、最初
    >
    > [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/z1AutoLinker.cs?range=12)]
    >
-   > つまり、`ProcessAsync` メソッドに渡された `TagHelperOutput` を使用して `GetChildContentAsync` を呼び出します。 前述したように、出力はキャッシュされるため、最後に実行されたタグ ヘルパーによって上書きされます。 次のコードを使用してこの問題を修正しました。
+   > つまり、`GetChildContentAsync` メソッドに渡された `TagHelperOutput` を使用して `ProcessAsync` を呼び出します。 前述したように、出力はキャッシュされるため、最後に実行されたタグ ヘルパーによって上書きされます。 次のコードを使用してこの問題を修正しました。
    >
    > [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/z2AutoLinkerCopy.cs?range=34-35)]
    >
@@ -307,7 +307,7 @@ FQN を使用してタグ ヘルパーをビューに追加するには、最初
 タグ ヘルパーには、コンテンツを取得するための複数のプロパティが用意されています。
 
 * `GetChildContentAsync` の結果を `output.Content` に付加できます。
-* `GetContent` を使用して `GetChildContentAsync` の結果を検査できます。
+* `GetChildContentAsync` を使用して `GetContent` の結果を検査できます。
 * `output.Content` を変更すると、この自動リンカー サンプルのように、`GetChildContentAsync` を呼び出すまで、TagHelper ボディは実行またはレンダリングされません。
 
 [!code-csharp[](../../views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/z1AutoLinkerCopy.cs?highlight=5,6,10&range=8-21)]

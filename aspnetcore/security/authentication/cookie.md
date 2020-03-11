@@ -6,22 +6,22 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 02/11/2020
 uid: security/authentication/cookie
-ms.openlocfilehash: 62a3d247dade6c83156a8378407d5e3891713fd1
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: 64f881441a7a7f9a5529cb6ee5ce81142ccd69e6
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172116"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653420"
 ---
 # <a name="use-cookie-authentication-without-aspnet-core-identity"></a>ASP.NET Core Id を指定せずに cookie 認証を使用する
 
-By [Rick Anderson](https://twitter.com/RickAndMSFT)と[Luke latham](https://github.com/guardrex)
+作成者: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range=">= aspnetcore-3.0"
 
-ASP.NET Core Id は、ログインを作成および管理するための完全な機能を備えた完全な認証プロバイダーです。 ただし、ASP.NET Core Id のない cookie ベースの認証プロバイダーを使用することもできます。 詳細については、「 <xref:security/authentication/identity>」を参照してください。
+ASP.NET Core Id は、ログインを作成および管理するための完全な機能を備えた完全な認証プロバイダーです。 ただし、ASP.NET Core Id のない cookie ベースの認証プロバイダーを使用することもできます。 詳細については、<xref:security/authentication/identity> を参照してください。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/cookie/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/cookie/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 サンプルアプリでのデモンストレーションのために、架空のユーザーであるマリア Rodriguez のユーザーアカウントは、アプリにハードコードされています。 **電子メール**アドレス `maria.rodriguez@contoso.com` とパスワードを使用して、ユーザーにサインインします。 ユーザーは、 *Pages/Account/Login. cshtml. .cs*ファイルの `AuthenticateUser` メソッドで認証されます。 実際の例では、ユーザーはデータベースに対して認証されます。
 
@@ -37,7 +37,7 @@ ASP.NET Core Id は、ログインを作成および管理するための完全�
 
 アプリの認証方式は、アプリの cookie 認証スキームとは異なります。 <xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*>に cookie 認証スキームが指定されていない場合、`CookieAuthenticationDefaults.AuthenticationScheme` ("Cookie") が使用されます。
 
-認証 cookie の <xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential> プロパティは、既定では `true` に設定されています。 サイトビジターがデータコレクションに同意していない場合は、認証 cookie が許可されます。 詳細については、「 <xref:security/gdpr#essential-cookies>」を参照してください。
+認証 cookie の <xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential> プロパティは、既定では `true` に設定されています。 サイトビジターがデータコレクションに同意していない場合は、認証 cookie が許可されます。 詳細については、<xref:security/gdpr#essential-cookies> を参照してください。
 
 `Startup.Configure`で `UseAuthentication` と `UseAuthorization` を呼び出して `HttpContext.User` プロパティを設定し、要求の承認ミドルウェアを実行します。 `UseEndpoints`を呼び出す前に、`UseAuthentication` および `UseAuthorization` メソッドを呼び出します。
 
@@ -94,7 +94,7 @@ var cookiePolicyOptions = new CookiePolicyOptions
 
 暗号化には ASP.NET Core の[データ保護](xref:security/data-protection/using-data-protection)システムが使用されます。 複数のコンピューターでホストされているアプリの場合、アプリ間で負荷を分散する場合、または web ファームを使用する場合は、同じキーリングとアプリ識別子を使用するように[データ保護を構成](xref:security/data-protection/configuration/overview)します。
 
-## <a name="sign-out"></a>サインアウト
+## <a name="sign-out"></a>サインアウトする
 
 現在のユーザーをサインアウトして cookie を削除するには、<xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync*>を呼び出します。
 
@@ -236,9 +236,9 @@ await HttpContext.SignInAsync(
 
 ::: moniker range="< aspnetcore-3.0"
 
-ASP.NET Core Id は、ログインを作成および管理するための完全な機能を備えた完全な認証プロバイダーです。 ただし、ASP.NET Core Id のない cookie ベースの認証認証プロバイダーを使用できます。 詳細については、「 <xref:security/authentication/identity>」を参照してください。
+ASP.NET Core Id は、ログインを作成および管理するための完全な機能を備えた完全な認証プロバイダーです。 ただし、ASP.NET Core Id のない cookie ベースの認証認証プロバイダーを使用できます。 詳細については、<xref:security/authentication/identity> を参照してください。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/cookie/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/cookie/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 サンプルアプリでのデモンストレーションのために、架空のユーザーであるマリア Rodriguez のユーザーアカウントは、アプリにハードコードされています。 **電子メール**アドレス `maria.rodriguez@contoso.com` とパスワードを使用して、ユーザーにサインインします。 ユーザーは、 *Pages/Account/Login. cshtml. .cs*ファイルの `AuthenticateUser` メソッドで認証されます。 実際の例では、ユーザーはデータベースに対して認証されます。
 
@@ -254,7 +254,7 @@ ASP.NET Core Id は、ログインを作成および管理するための完全�
 
 アプリの認証方式は、アプリの cookie 認証スキームとは異なります。 <xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*>に cookie 認証スキームが指定されていない場合、`CookieAuthenticationDefaults.AuthenticationScheme` ("Cookie") が使用されます。
 
-認証 cookie の <xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential> プロパティは、既定では `true` に設定されています。 サイトビジターがデータコレクションに同意していない場合は、認証 cookie が許可されます。 詳細については、「 <xref:security/gdpr#essential-cookies>」を参照してください。
+認証 cookie の <xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential> プロパティは、既定では `true` に設定されています。 サイトビジターがデータコレクションに同意していない場合は、認証 cookie が許可されます。 詳細については、<xref:security/gdpr#essential-cookies> を参照してください。
 
 `Startup.Configure` メソッドで、`UseAuthentication` メソッドを呼び出して、`HttpContext.User` プロパティを設定する認証ミドルウェアを呼び出します。 `UseMvcWithDefaultRoute` または `UseMvc`を呼び出す前に、`UseAuthentication` メソッドを呼び出します。
 
@@ -311,7 +311,7 @@ var cookiePolicyOptions = new CookiePolicyOptions
 
 暗号化には ASP.NET Core の[データ保護](xref:security/data-protection/using-data-protection)システムが使用されます。 複数のコンピューターでホストされているアプリの場合、アプリ間で負荷を分散する場合、または web ファームを使用する場合は、同じキーリングとアプリ識別子を使用するように[データ保護を構成](xref:security/data-protection/configuration/overview)します。
 
-## <a name="sign-out"></a>サインアウト
+## <a name="sign-out"></a>サインアウトする
 
 現在のユーザーをサインアウトして cookie を削除するには、<xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync*>を呼び出します。
 

@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: scaddie
 ms.date: 06/12/2019
 uid: mvc/views/tag-helpers/th-components
-ms.openlocfilehash: 070cc3aae08664c13d8eb793a066766d0a5569ee
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
-ms.translationtype: HT
+ms.openlocfilehash: 5e2eb2d4322068c5864fbe49acaa6d0859bd319a
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880975"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652370"
 ---
 # <a name="tag-helper-components-in-aspnet-core"></a>ASP.NET Core のタグ ヘルパー コンポーネント
 
@@ -21,7 +21,7 @@ ms.locfileid: "74880975"
 
 ASP.NET Core には、組み込みのタグ ヘルパー コンポーネントが 2 つ (`head` と `body`) 含まれています。 これらは <xref:Microsoft.AspNetCore.Mvc.Razor.TagHelpers> 名前空間に配置され、MVC と Razor Pages の両方で使用できます。 タグ ヘルパー コンポーネントには、 *_ViewImports.cshtml* でのアプリへの登録は必要ありません。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/th-components/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/th-components/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="use-cases"></a>ユース ケース
 
@@ -34,7 +34,7 @@ ASP.NET Core には、組み込みのタグ ヘルパー コンポーネント�
 
 ### <a name="inject-into-html-head-element"></a>HTML の head 要素の挿入
 
-HTML `<head>` 要素内で、CSS ファイルは HTML `<link>` 要素でよくインポートされます。 次のコードでは、`head` タグ ヘルパー コンポーネントを使用して `<link>` 要素が `<head>` 要素に挿入されます。
+HTML `<head>` 要素内で、CSS ファイルは HTML `<link>` 要素でよくインポートされます。 次のコードでは、`<link>` タグ ヘルパー コンポーネントを使用して `<head>` 要素が `head` 要素に挿入されます。
 
 [!code-csharp[](th-components/samples/RazorPagesSample/TagHelpers/AddressStyleTagHelperComponent.cs)]
 
@@ -56,7 +56,7 @@ HTML `<head>` 要素内で、CSS ファイルは HTML `<link>` 要素でよく�
 
 [!code-html[](th-components/samples/RazorPagesSample/TagHelpers/Templates/AddressToolTipScript.html)]
 
-上のコードでは、[ブートストラップ ヒント ウィジェット](https://getbootstrap.com/docs/3.3/javascript/#tooltips)を `printable` 属性を含む任意の `<address>` 要素にバインドします。 要素の上にマウス ポインターが移動したときに、効果が表示されます。
+上のコードでは、[ブートストラップ ヒント ウィジェット](https://getbootstrap.com/docs/3.3/javascript/#tooltips)を `<address>` 属性を含む任意の `printable` 要素にバインドします。 要素の上にマウス ポインターが移動したときに、効果が表示されます。
 
 ## <a name="register-a-component"></a>コンポーネントの登録
 
@@ -68,7 +68,7 @@ HTML `<head>` 要素内で、CSS ファイルは HTML `<link>` 要素でよく�
 
 ### <a name="registration-via-services-container"></a>サービス コンテナーによる登録
 
-タグ ヘルパー コンポーネント クラスが <xref:Microsoft.AspNetCore.Mvc.Razor.TagHelpers.ITagHelperComponentManager> で管理されていない場合、[依存関係挿入 (DI)](xref:fundamentals/dependency-injection) システムで登録する必要があります。 次の `Startup.ConfigureServices` コードでは、[一時的な有効期間](xref:fundamentals/dependency-injection#lifetime-and-registration-options)で `AddressStyleTagHelperComponent` クラスと `AddressScriptTagHelperComponent` クラスを登録します。
+タグ ヘルパー コンポーネント クラスが <xref:Microsoft.AspNetCore.Mvc.Razor.TagHelpers.ITagHelperComponentManager> で管理されていない場合、[依存関係挿入 (DI)](xref:fundamentals/dependency-injection) システムで登録する必要があります。 次の `Startup.ConfigureServices` コードでは、`AddressStyleTagHelperComponent`一時的な有効期間`AddressScriptTagHelperComponent`で [ クラスと ](xref:fundamentals/dependency-injection#lifetime-and-registration-options) クラスを登録します。
 
 [!code-csharp[](th-components/samples/RazorPagesSample/Startup.cs?name=snippet_ConfigureServices&highlight=12-15)]
 
@@ -112,7 +112,7 @@ HTML `<head>` 要素内で、CSS ファイルは HTML `<link>` 要素でよく�
 
 * <xref:Microsoft.AspNetCore.Mvc.Razor.TagHelpers.TagHelperComponentTagHelper> から派生するパブリック クラスを作成します。
 * クラスに [`[HtmlTargetElement]`](xref:Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute) 属性を適用します。 ターゲット HTML 要素の名前を指定します。
-* *省略可能*:IntelliSense で型を表示しないようにするには、[`[EditorBrowsable(EditorBrowsableState.Never)]`](xref:System.ComponentModel.EditorBrowsableAttribute) 属性をクラスに適用します。
+* *省略可能*: [`[EditorBrowsable(EditorBrowsableState.Never)]`](xref:System.ComponentModel.EditorBrowsableAttribute)属性をクラスに適用して、IntelliSense での型の表示を抑制します。
 
 次のコードでは、`<address>` HTML 要素をターゲットとするカスタムのタグ ヘルパー コンポーネントが作成されます。
 
@@ -151,11 +151,11 @@ public class AddressTagHelperComponent : TagHelperComponent
 * 実行コンテキストの `TagName` プロパティ値が `address` と等しい場合。
 * 対応する `<address>` 要素に `printable` 属性がある場合。
 
-たとえば、次の `<address>` 要素を処理しているときに、`if` ステートメントの評価の結果が true になります。
+たとえば、次の `if` 要素を処理しているときに、`<address>` ステートメントの評価の結果が true になります。
 
 [!code-cshtml[](th-components/samples/RazorPagesSample/Pages/Contact.cshtml?name=snippet_AddressPrintable)]
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * <xref:fundamentals/dependency-injection>
 * <xref:mvc/views/dependency-injection>

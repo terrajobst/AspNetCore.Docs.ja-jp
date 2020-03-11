@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 12/05/2019
 uid: mvc/controllers/application-model
 ms.openlocfilehash: 4b6c978e5752eb320412a1c204df8e3d288fe4a1
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
-ms.translationtype: HT
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74881091"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654554"
 ---
 # <a name="work-with-the-application-model-in-aspnet-core"></a>ASP.NET Core のアプリケーション モデルの使用
 
@@ -38,7 +38,7 @@ ASP.NET Core MVC アプリケーション モデルの構造は、次のとお�
 
 ASP.NET Core MVC は、[IApplicationModelProvider](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.iapplicationmodelprovider) インターフェイスによって定義されるプロバイダー パターンを使用して、アプリケーション モデルを読み込みます。 このセクションでは、このプロバイダーがどのように機能するかについての、いくつかの内部実装に関する詳細を説明します。 これは高度なトピックです。アプリケーション モデルを活用するアプリのほとんどでは、規則を使用してアプリケーション モデルを活用する必要があります。
 
-`IApplicationModelProvider` インターフェイスの実装は、その `Order` プロパティに応じて、昇順で `OnProvidersExecuting` を呼び出して互いを "ラップ" します。 次いで、`OnProvidersExecuted` メソッドが逆順で呼び出されます。 このフレームワークでは、次のいくつかのプロバイダーが定義されます。
+`IApplicationModelProvider` インターフェイスの実装は、その `OnProvidersExecuting` プロパティに応じて、昇順で `Order` を呼び出して互いを "ラップ" します。 次いで、`OnProvidersExecuted` メソッドが逆順で呼び出されます。 このフレームワークでは、次のいくつかのプロバイダーが定義されます。
 
 1 番目 (`Order=-1000`):
 
@@ -63,13 +63,13 @@ ASP.NET Core MVC は、[IApplicationModelProvider](/dotnet/api/microsoft.aspnetc
 * コンテキストにアクション メソッド パラメーターを追加する
 * ルートおよびその他の属性を適用する
 
-いくつかの組み込みの動作は、`DefaultApplicationModelProvider` によって実装されます。 このプロバイダーは、[`ActionModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.actionmodel)、[`PropertyModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.propertymodel)、および [`ParameterModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.parametermodel) インスタンスを代わりに参照する、[`ControllerModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.controllermodel) を構築する役割があります。 `DefaultApplicationModelProvider` クラスは、今後変更する可能性がある変更される、内部フレームワークの実装についての詳細です。 
+いくつかの組み込みの動作は、`DefaultApplicationModelProvider` によって実装されます。 このプロバイダーは、[`ControllerModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.controllermodel)、[`ActionModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.actionmodel)、および [`PropertyModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.propertymodel) インスタンスを代わりに参照する、[`ParameterModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.parametermodel) を構築する役割があります。 `DefaultApplicationModelProvider` クラスは、今後変更する可能性がある変更される、内部フレームワークの実装についての詳細です。 
 
 `AuthorizationApplicationModelProvider` は、`AuthorizeFilter` 属性および `AllowAnonymousFilter` 属性に関連付けられた動作を適用します。 [これらの属性については、こちらを参照してください](xref:security/authorization/simple)。
 
 `CorsApplicationModelProvider` は、`IEnableCorsAttribute` および `IDisableCorsAttribute` および `DisableCorsAuthorizationFilter` に関連付けられた動作を実装します。 [CORS の詳細については、こちらを参照してください](xref:security/cors).
 
-## <a name="conventions"></a>規約
+## <a name="conventions"></a>規則
 
 このアプリケーション モデルでは、モデルまたはプロバイダー全体をオーバーライドするよりも簡単に、モデルの動作をカスタマイズできる、規則の抽象化を定義できます。 これらの抽象化は、アプリの動作の変更に推奨されます。 規則では、動的にカスタマイズすることが可能なコードを記述することができます。 [フィルター](xref:mvc/controllers/filters)では、フレームワークの動作を変更できるのに対して、カスタマイズではアプリ全体がどのように連携するかを制御できます。
 
@@ -82,13 +82,13 @@ ASP.NET Core MVC は、[IApplicationModelProvider](/dotnet/api/microsoft.aspnetc
 
 規則は、規則を MVC オプションを追加したり、`Attribute` を実装してそれらをコントローラー、アクション、またはアクション パラメーターに適用したりすることによって適用します ([`Filters`](xref:mvc/controllers/filters) と類似しています)。 フィルターとは異なり、規則は、各要求の一部としてではなく、アプリの起動時にのみ実行されます。
 
-### <a name="sample-modifying-the-applicationmodel"></a>サンプル:ApplicationModel を変更する
+### <a name="sample-modifying-the-applicationmodel"></a>サンプル: ApplicationModel を変更する
 
 次の規則は、アプリケーション モデルにプロパティを追加するために使用します。 
 
 [!code-csharp[](./application-model/sample/src/AppModelSample/Conventions/ApplicationDescription.cs)]
 
-アプリケーション モデルの規則は、MVC が `Startup` の `ConfigureServices` に追加されるときに、オプションとしてが適用されます。
+アプリケーション モデルの規則は、MVC が `ConfigureServices` の `Startup` に追加されるときに、オプションとしてが適用されます。
 
 [!code-csharp[](./application-model/sample/src/AppModelSample/Startup.cs?name=ConfigureServices&highlight=5)]
 
@@ -96,7 +96,7 @@ ASP.NET Core MVC は、[IApplicationModelProvider](/dotnet/api/microsoft.aspnetc
 
 [!code-csharp[](./application-model/sample/src/AppModelSample/Controllers/AppModelController.cs?name=AppModelController)]
 
-### <a name="sample-modifying-the-controllermodel-description"></a>サンプル:ControllerModel の説明を変更する
+### <a name="sample-modifying-the-controllermodel-description"></a>サンプル: ControllerModel の説明を変更する
 
 前の例のように、コントローラー モデルを変更して、カスタム プロパティを含めることもできます。 これらは、アプリケーション モデルで指定した同じ名前の既存のプロパティをオーバーライドします。 次の規則属性では、コントローラー レベルで説明が追加されます。
 
@@ -108,7 +108,7 @@ ASP.NET Core MVC は、[IApplicationModelProvider](/dotnet/api/microsoft.aspnetc
 
 "description" プロパティは、前の例と同じ方法でアクセスされます。
 
-### <a name="sample-modifying-the-actionmodel-description"></a>サンプル:ActionModel の説明を変更する
+### <a name="sample-modifying-the-actionmodel-description"></a>サンプル: ActionModel の説明を変更する
 
 既にアプリケーションまたはコントローラー レベルに適用されている動作をオーバーライドして、個別のアクションに別の属性規則を適用することができます。
 
@@ -118,7 +118,7 @@ ASP.NET Core MVC は、[IApplicationModelProvider](/dotnet/api/microsoft.aspnetc
 
 [!code-csharp[](./application-model/sample/src/AppModelSample/Controllers/DescriptionAttributesController.cs?name=DescriptionAttributesController&highlight=9)]
 
-### <a name="sample-modifying-the-parametermodel"></a>サンプル:ParameterModel を変更する
+### <a name="sample-modifying-the-parametermodel"></a>例: ParameterModel を変更する
 
 次の規則をアクション パラメーターに適用して、`BindingInfo` を変更することができます。 次の規則では、パラメーターはルート パラメーターである必要があります。その他のバインディング ソースとなる可能性のあるものは (クエリ文字列の値など) 無視されます。
 
@@ -128,7 +128,7 @@ ASP.NET Core MVC は、[IApplicationModelProvider](/dotnet/api/microsoft.aspnetc
 
 [!code-csharp[](./application-model/sample/src/AppModelSample/Controllers/ParameterModelController.cs?name=ParameterModelController&highlight=5)]
 
-### <a name="sample-modifying-the-actionmodel-name"></a>サンプル:ActionModel 名を変更する
+### <a name="sample-modifying-the-actionmodel-name"></a>Sample: ActionModel 名を変更する
 
 次の規則は、`ActionModel` が適用されるアクションの*名前*を更新してそれを変更します。 この新しい名前は、属性にパラメーターとして提供されます。 この新しい名前はルーティングによって使用されるので、このアクション メソッドに到達するのに使用されるルートに影響します。
 
@@ -143,7 +143,7 @@ ASP.NET Core MVC は、[IApplicationModelProvider](/dotnet/api/microsoft.aspnetc
 > [!NOTE]
 > この例は、基本的に、組み込みの [ActionName](/dotnet/api/microsoft.aspnetcore.mvc.actionnameattribute) 属性を使用するのと同じです。
 
-### <a name="sample-custom-routing-convention"></a>サンプル:カスタム ルーティング規則
+### <a name="sample-custom-routing-convention"></a>サンプル: カスタム ルーティング規則
 
 `IApplicationModelConvention` を使用して、ルーティングの動作をカスタマイズできます。 たとえば、次の規則は、名前空間の `.` をルートの `/` に置き換えてコントローラーの名前空間をそのルートに組み込みます。
 
@@ -154,7 +154,7 @@ ASP.NET Core MVC は、[IApplicationModelProvider](/dotnet/api/microsoft.aspnetc
 [!code-csharp[](./application-model/sample/src/AppModelSample/Startup.cs?name=ConfigureServices&highlight=6)]
 
 > [!TIP]
-> `services.Configure<MvcOptions>(c => c.Conventions.Add(YOURCONVENTION));` を使用し、`MvcOptions` にアクセスして、[ミドルウェア](xref:fundamentals/middleware/index)に規則を追加できます。
+> [ を使用し、](xref:fundamentals/middleware/index) にアクセスして、`MvcOptions`ミドルウェア`services.Configure<MvcOptions>(c => c.Conventions.Add(YOURCONVENTION));`に規則を追加できます。
 
 このサンプルでは、コントローラー名に "Namespace" が含まれる、属性のルーティングを使用していないルートにこの規則は適用されます。 この規則は、次のコントローラーによって使用されます。
 
@@ -167,7 +167,7 @@ ASP.NET Core MVC と ASP.NET Web API 2 とでは使用する規則のセット�
 > [!NOTE]
 > [ASP.NET Web API からの移行](xref:migration/webapi)に関するページをご覧ください。
 
-Web API Compatibility Shim を使用するには、プロジェクトにパッケージを追加し、`Startup` の `AddWebApiConventions` を呼び出して MVC に規則を追加する必要があります。
+Web API Compatibility Shim を使用するには、プロジェクトにパッケージを追加し、`AddWebApiConventions` の `Startup` を呼び出して MVC に規則を追加する必要があります。
 
 ```csharp
 services.AddMvc().AddWebApiConventions();

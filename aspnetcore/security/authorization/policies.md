@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 10/05/2019
 uid: security/authorization/policies
 ms.openlocfilehash: eeb5ddd63ef8177325b35e5a666aa5e9ab047057
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828959"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652976"
 ---
 # <a name="policy-based-authorization-in-aspnet-core"></a>ASP.NET Core でのポリシーベースの承認
 
@@ -111,13 +111,13 @@ public void ConfigureServices(IServiceCollection services)
 
 Razor Pages を使用している場合は、このドキュメントの「 [Razor Pages にポリシーを適用する](#applying-policies-to-razor-pages)」を参照してください。
 
-ポリシーは、ポリシー名と共に `[Authorize]` 属性を使用して、コントローラーに適用されます。 例:
+ポリシーは、ポリシー名と共に `[Authorize]` 属性を使用して、コントローラーに適用されます。 例 :
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Controllers/AlcoholPurchaseController.cs?name=snippet_AlcoholPurchaseControllerClass&highlight=4)]
 
 ## <a name="applying-policies-to-razor-pages"></a>Razor Pages にポリシーを適用する
 
-ポリシーは、`[Authorize]` 属性をポリシー名と共に使用して、Razor Pages に適用されます。 例:
+ポリシーは、`[Authorize]` 属性をポリシー名と共に使用して、Razor Pages に適用されます。 例 :
 
 [!code-csharp[](policies/samples/PoliciesAuthApp2/Pages/AlcoholPurchase.cshtml.cs?name=snippet_AlcoholPurchaseModelClass&highlight=4)]
 
@@ -164,7 +164,7 @@ Razor Pages を使用している場合は、このドキュメントの「 [Raz
 
 ### <a name="handler-registration"></a>ハンドラーの登録
 
-ハンドラーは、構成中にサービスコレクションに登録されます。 例:
+ハンドラーは、構成中にサービスコレクションに登録されます。 例 :
 
 [!code-csharp[](policies/samples/3.0PoliciesAuthApp1/Startup.cs?range=31-32,39-40,42-45, 53-55, 58)]
 
@@ -328,13 +328,13 @@ public void ConfigureServices(IServiceCollection services)
 
 Razor Pages を使用している場合は、このドキュメントの「 [Razor Pages にポリシーを適用する](#applying-policies-to-razor-pages)」を参照してください。
 
-ポリシーは、ポリシー名と共に `[Authorize]` 属性を使用して、コントローラーに適用されます。 例:
+ポリシーは、ポリシー名と共に `[Authorize]` 属性を使用して、コントローラーに適用されます。 例 :
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Controllers/AlcoholPurchaseController.cs?name=snippet_AlcoholPurchaseControllerClass&highlight=4)]
 
 ## <a name="applying-policies-to-razor-pages"></a>Razor Pages にポリシーを適用する
 
-ポリシーは、`[Authorize]` 属性をポリシー名と共に使用して、Razor Pages に適用されます。 例:
+ポリシーは、`[Authorize]` 属性をポリシー名と共に使用して、Razor Pages に適用されます。 例 :
 
 [!code-csharp[](policies/samples/PoliciesAuthApp2/Pages/AlcoholPurchase.cshtml.cs?name=snippet_AlcoholPurchaseModelClass&highlight=4)]
 
@@ -381,7 +381,7 @@ Razor Pages を使用している場合は、このドキュメントの「 [Raz
 
 ### <a name="handler-registration"></a>ハンドラーの登録
 
-ハンドラーは、構成中にサービスコレクションに登録されます。 例:
+ハンドラーは、構成中にサービスコレクションに登録されます。 例 :
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Startup.cs?range=32-33,48-53,61,62-63,66)]
 

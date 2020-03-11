@@ -5,16 +5,16 @@ description: Web ページにサーバー ベースのコードを埋め込む�
 ms.author: riande
 ms.date: 02/12/2020
 uid: mvc/views/razor
-ms.openlocfilehash: 0b1eed2816329d62fca4bdb5719825a4197af353
-ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
-ms.translationtype: HT
+ms.openlocfilehash: e9d2e42ba3c36bc1661739f3b105ec8efe03de48
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/19/2020
-ms.locfileid: "77447179"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78651728"
 ---
 # <a name="razor-syntax-reference-for-aspnet-core"></a>ASP.NET Core の Razor 構文リファレンス
 
-作成者: [Rick Anderson](https://twitter.com/RickAndMSFT)、[Luke Latham](https://github.com/guardrex)、[Taylor Mullen](https://twitter.com/ntaylormullen)、[Dan Vicarel](https://github.com/Rabadash8820)
+[Rick Anderson](https://twitter.com/RickAndMSFT)、 [Taylor Mullen](https://twitter.com/ntaylormullen)、 [Dan Vicarel](https://github.com/Rabadash8820)
 
 Razor は、Web ページにサーバー ベースのコードを埋め込むためのマークアップ構文です。 Razor 構文は、Razor マークアップ、C#、HTML で構成されます。 通常、Razor を含むファイルのファイル拡張子は *.cshtml* です。 Razor は [Razor コンポーネント](xref:blazor/components) ファイル ( *.razor*) にもあります。
 
@@ -61,7 +61,7 @@ C# の `await` キーワードを除き、暗黙的な式にスペースを含�
 <p>@await DoSomething("hello", "world")</p>
 ```
 
-暗黙的な式では、山かっこ (`<>`) の内側の文字は HTML タグとして解釈されるため、C# ジェネリックを含めることは**できません**。 次のコードは有効では**ありません**。
+暗黙的な式では、山かっこ ( **) の内側の文字は HTML タグとして解釈されるため、C# ジェネリックを含めることは**できません`<>`。 次のコードは有効では**ありません**。
 
 ```cshtml
 <p>@GenericMethod<int>()</p>
@@ -360,7 +360,7 @@ else
 
 ### <a name="compound-using"></a>複合 \@using
 
-C# では、オブジェクトを確実に破棄するために `using` オブジェクトが使われています。 Razor では、同じメカニズムが、追加コンテンツを含む HTML ヘルパーを作成するために使われています。 次のコードの HTML ヘルパーは、`@using` ステートメントを含む `<form>` タグをレンダリングします。
+C# では、オブジェクトを確実に破棄するために `using` オブジェクトが使われています。 Razor では、同じメカニズムが、追加コンテンツを含む HTML ヘルパーを作成するために使われています。 次のコードの HTML ヘルパーは、`<form>` ステートメントを含む `@using` タグをレンダリングします。
 
 ```cshtml
 @using (Html.BeginForm())
@@ -483,11 +483,11 @@ Razor コンポーネントの場合、`@code` は [`@functions`](#functions) �
 
 ::: moniker range=">= aspnetcore-3.0"
 
-[Razor コンポーネント](xref:blazor/components)では、`@functions` ではなく `@code` を使用して C# メンバーを追加します。
+[Razor コンポーネント](xref:blazor/components)では、`@code` ではなく `@functions` を使用して C# メンバーを追加します。
 
 ::: moniker-end
 
-次に例を示します。
+例 :
 
 [!code-cshtml[](razor/sample/Views/Home/Contact6.cshtml)]
 
@@ -530,7 +530,7 @@ Razor コンポーネントの場合、`@code` は [`@functions`](#functions) �
 
 `@implements` ディレクティブでは、生成されたクラスのインターフェイスが実装されます。
 
-次の例では、<xref:System.IDisposable.Dispose*> メソッドを呼び出せるように、<xref:System.IDisposable?displayProperty=fullName> が実装されます。
+次の例では、<xref:System.IDisposable?displayProperty=fullName> メソッドを呼び出せるように、<xref:System.IDisposable.Dispose*> が実装されます。
 
 ```cshtml
 @implements IDisposable
@@ -601,7 +601,7 @@ Razor コンポーネントの場合、`@code` は [`@functions`](#functions) �
 
 "*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "
 
-`@layout` ディレクティブにより、Razor コンポーネントのレイアウトが指定されます。 レイアウト コンポーネントは、コードの重複や不整合を回避するために使用されます。 詳細については、「<xref:blazor/layouts>」を参照してください。
+`@layout` ディレクティブにより、Razor コンポーネントのレイアウトが指定されます。 レイアウト コンポーネントは、コードの重複や不整合を回避するために使用されます。 詳細については、<xref:blazor/layouts> を参照してください。
 
 ::: moniker-end
 
@@ -677,13 +677,13 @@ Razor では、ビューに渡されるモデルにアクセスするための `
 `@page` ディレクティブには、それが表示されるファイルの型によって、さまざまな効果があります。 ディレクティブ:
 
 * *.cshtml* ファイルでは、ファイルが Razor Page であることを示します。 詳細については、「[カスタム ルート](xref:razor-pages/index#custom-routes)」と「<xref:razor-pages/index>」を参照してください。
-* Razor コンポーネントで要求を直接処理することを指定します。 詳細については、「<xref:blazor/routing>」を参照してください。
+* Razor コンポーネントで要求を直接処理することを指定します。 詳細については、<xref:blazor/routing> を参照してください。
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-*.cshtml* ファイルの最初の行にある `@page` ディレクティブは、ファイルが Razor Page であることを示します。 詳細については、「<xref:razor-pages/index>」を参照してください。
+`@page`.cshtml*ファイルの最初の行にある* ディレクティブは、ファイルが Razor Page であることを示します。 詳細については、<xref:razor-pages/index> を参照してください。
 
 ::: moniker-end
 
@@ -691,7 +691,7 @@ Razor では、ビューに渡されるモデルにアクセスするための `
 
 "*このシナリオは、MVC ビューと Razor Pages (.cshtml) にのみ適用されます。* "
 
-`@section` ディレクティブを [MVC および Razor Pages レイアウト](xref:mvc/views/layout)と組み合わせて使用すると、HTML ページのさまざまな部分のコンテンツをビューやページでレンダリングできます。 詳細については、「<xref:mvc/views/layout>」を参照してください。
+`@section` ディレクティブを [MVC および Razor Pages レイアウト](xref:mvc/views/layout)と組み合わせて使用すると、HTML ページのさまざまな部分のコンテンツをビューやページでレンダリングできます。 詳細については、<xref:mvc/views/layout> を参照してください。
 
 ### <a name="using"></a>\@using
 
@@ -713,19 +713,19 @@ Razor では、ビューに渡されるモデルにアクセスするための `
 
 "*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "
 
-`@attributes` では、非宣言属性のレンダリングがコンポーネントに許可されます。 詳細については、「<xref:blazor/components#attribute-splatting-and-arbitrary-parameters>」を参照してください。
+`@attributes` では、非宣言属性のレンダリングがコンポーネントに許可されます。 詳細については、<xref:blazor/components#attribute-splatting-and-arbitrary-parameters> を参照してください。
 
 ### <a name="bind"></a>\@bind
 
 "*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "
 
-コンポーネントのデータ バインドは、`@bind` 属性によって実現されます。 詳細については、「<xref:blazor/data-binding>」を参照してください。
+コンポーネントのデータ バインドは、`@bind` 属性によって実現されます。 詳細については、<xref:blazor/data-binding> を参照してください。
 
 ### <a name="onevent"></a>\@on{EVENT}
 
 "*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "
 
-Razor からは、コンポーネントのイベント処理機能が提供されます。 詳細については、「<xref:blazor/event-handling>」を参照してください。
+Razor からは、コンポーネントのイベント処理機能が提供されます。 詳細については、<xref:blazor/event-handling> を参照してください。
 
 ::: moniker-end
 
@@ -751,19 +751,19 @@ Razor からは、コンポーネントのイベント処理機能が提供さ�
 
 "*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "
 
-`@key` ディレクティブ属性により、コンポーネントの比較アルゴリズムは、キーの値に基づいて要素またはコンポーネントの保存を保証します。 詳細については、「<xref:blazor/components#use-key-to-control-the-preservation-of-elements-and-components>」を参照してください。
+`@key` ディレクティブ属性により、コンポーネントの比較アルゴリズムは、キーの値に基づいて要素またはコンポーネントの保存を保証します。 詳細については、<xref:blazor/components#use-key-to-control-the-preservation-of-elements-and-components> を参照してください。
 
 ### <a name="ref"></a>\@ref
 
 "*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "
 
-コンポーネント参照 (`@ref`) からは、コンポーネント インスタンスにコマンドを発行できるように、そのインスタンスを参照する方法が与えられます。 詳細については、「<xref:blazor/components#capture-references-to-components>」を参照してください。
+コンポーネント参照 (`@ref`) からは、コンポーネント インスタンスにコマンドを発行できるように、そのインスタンスを参照する方法が与えられます。 詳細については、<xref:blazor/components#capture-references-to-components> を参照してください。
 
 ### <a name="typeparam"></a>\@typeparam
 
 "*このシナリオは、Razor コンポーネント (.razor) にのみ適用されます。* "
 
-`@typeparam` ディレクティブによって、生成されるコンポーネント クラスのジェネリック型パラメーターを宣言します。 詳細については、「<xref:blazor/templated-components#generic-typed-components>」を参照してください。
+`@typeparam` ディレクティブによって、生成されるコンポーネント クラスのジェネリック型パラメーターを宣言します。 詳細については、<xref:blazor/templated-components#generic-typed-components> を参照してください。
 
 ::: moniker-end
 
@@ -775,7 +775,7 @@ Razor テンプレートを使用すると、次の形式で UI スニペット�
 @<tag>...</tag>
 ```
 
-次の例では、テンプレート化された Razor デリゲートを <xref:System.Func%602> として指定する方法を示します。 デリゲートによってカプセル化されるメソッドのパラメーターに対しては、[dynamic 型](/dotnet/csharp/programming-guide/types/using-type-dynamic)を指定します。 デリゲートの戻り値としては、[object 型](/dotnet/csharp/language-reference/keywords/object)を指定します。 テンプレートは、`Name` プロパティを持つ `Pet` の <xref:System.Collections.Generic.List%601> で使用されます。
+次の例では、テンプレート化された Razor デリゲートを <xref:System.Func%602> として指定する方法を示します。 デリゲートによってカプセル化されるメソッドのパラメーターに対しては、[dynamic 型](/dotnet/csharp/programming-guide/types/using-type-dynamic)を指定します。 デリゲートの戻り値としては、[object 型](/dotnet/csharp/language-reference/keywords/object)を指定します。 テンプレートは、<xref:System.Collections.Generic.List%601> プロパティを持つ `Pet` の `Name` で使用されます。
 
 ```csharp
 public class Pet
@@ -797,7 +797,7 @@ public class Pet
 }
 ```
 
-テンプレートは、`foreach` ステートメントによって提供される `pets` で表示されます。
+テンプレートは、`pets` ステートメントによって提供される `foreach` で表示されます。
 
 ```cshtml
 @foreach (var pet in pets)
@@ -872,7 +872,7 @@ public class Pet
 
 [タグ ヘルパー](xref:mvc/views/tag-helpers/intro)に関する 3 つのディレクティブがあります。
 
-| ディレクティブ | 関数 |
+| Directive | 関数 |
 | --------- | -------- |
 | [`@addTagHelper`](xref:mvc/views/tag-helpers/intro#add-helper-label) | ビューでタグ ヘルパーを使えるようにします。 |
 | [`@removeTagHelper`](xref:mvc/views/tag-helpers/intro#remove-razor-directives-label) | 前に追加したタグ ヘルパーをビューから削除します。 |
@@ -884,7 +884,7 @@ public class Pet
 
 * page (ASP.NET Core 2.1 以降を必要とします)
 * namespace
-* 関数
+* functions
 * 継承
 * モデル
 * section
@@ -897,16 +897,16 @@ Razor のキーワードは、`@(Razor Keyword)` でエスケープします (�
 * case
 * do
 * default
-* for
+* を [実行アカウント] に選択します。
 * foreach
 * if
 * else
-* lock
-* switch
-* try
+* ロック (lock)
+* スイッチ
+* 試す
 * catch
 * finally
-* 使用
+* using
 * while
 
 C# Razor のキーワードは、`@(@C# Razor Keyword)` で二重にエスケープする必要があります (例: `@(@case)`)。 最初の `@` は、Razor パーサーをエスケープします。 2 番目の `@` は、C# パーサーをエスケープします。
@@ -967,7 +967,7 @@ C# Razor のキーワードは、`@(@C# Razor Keyword)` で二重にエスケー
 
 [!code-csharp[](razor/sample/Startup.cs?highlight=4&range=10-14)]
 
-`CustomTemplateEngine` の `return csharpDocument;` ステートメントにブレークポイントを設定します。 プログラムの実行がブレークポイントで停止したら、`generatedCode` の値を表示します。
+`return csharpDocument;` の `CustomTemplateEngine` ステートメントにブレークポイントを設定します。 プログラムの実行がブレークポイントで停止したら、`generatedCode` の値を表示します。
 
 ![generatedCode のテキスト ビジュアライザーの表示](razor/_static/tvr.png)
 
@@ -980,7 +980,7 @@ Razor ビュー エンジンによるビューの参照では、大文字と小�
 * ファイル ベースのソース:
   * 大文字と小文字が区別されないファイル システムを使っているオペレーティング システム (Windows など) では、物理的なファイル プロバイダーの参照は大文字と小文字を区別しません。 たとえば、`return View("Test")` は、 */Views/Home/Test.cshtml*、 */Views/home/test.cshtml*、その他のすべての大文字と小文字のバリエーションと一致します。
   * 大文字と小文字が区別されるファイル システム (たとえば、Linux、OSX、および `EmbeddedFileProvider`) では、参照は大文字と小文字を区別します。 たとえば、`return View("Test")` は */Views/Home/Test.cshtml* だけと一致します。
-* プリコンパイル済みのビュー:ASP.NET Core 2.0 以降では、プリコンパイル済みのビューの参照は、すべてのオペレーティング システムで大文字と小文字を区別しません。 動作は、Windows での物理ファイル プロバイダーの動作と同じです。 2 つのプリコンパイル済みビューの相違点が大文字と小文字の使い分けだけの場合、参照の結果はどちらになるかわかりません。
+* プリコンパイル済みのビュー: ASP.NET Core 2.0 以降では、プリコンパイル済みのビューの参照は、すべてのオペレーティング システムで大文字と小文字を区別しません。 動作は、Windows での物理ファイル プロバイダーの動作と同じです。 2 つのプリコンパイル済みビューの相違点が大文字と小文字の使い分けだけの場合、参照の結果はどちらになるかわかりません。
 
 開発者には、ファイル名とディレクトリ名の大文字/小文字の使い分けを、次のものと一致させることをお勧めします。
 

@@ -7,17 +7,17 @@ ms.custom: mvc
 ms.date: 12/05/2019
 uid: performance/memory
 ms.openlocfilehash: 0ae367e954e21e2f696a3b292fa64f1d2dba98ec
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829024"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654722"
 ---
 # <a name="memory-management-and-garbage-collection-gc-in-aspnet-core"></a>ASP.NET Core のメモリ管理とガベージコレクション (GC)
 
 [Sébastien Ros](https://github.com/sebastienros)と[Rick Anderson](https://twitter.com/RickAndMSFT)
 
-メモリ管理は、.NET などのマネージフレームワークでも複雑です。 メモリの問題を分析して理解することは困難な場合があります。 この記事の内容:
+メモリ管理は、.NET などのマネージフレームワークでも複雑です。 メモリの問題を分析して理解することは困難な場合があります。 この記事の内容は次のとおりです。
 
 * 多くの*メモリリークが発生*し、GC が動作して*いない*問題が発生しました。 これらの問題のほとんどは、.NET Core でのメモリ消費のしくみを理解していないか、測定方法を理解していないことによって発生しました。
 * 問題のあるメモリ使用方法を示し、別のアプローチを提案します。
@@ -139,7 +139,7 @@ GC モードは、プロジェクトファイルまたは発行されたアプ�
 
 プロジェクトファイルの `ServerGarbageCollection` を変更するには、アプリを再構築する必要があります。
 
-**注:** サーバーのガベージコレクションは、コアが1つのマシンでは使用でき**ません**。 詳細については、「<xref:System.Runtime.GCSettings.IsServerGC>」を参照してください。
+**注:** サーバーのガベージコレクションは、コアが1つのマシンでは使用でき**ません**。 詳細については、<xref:System.Runtime.GCSettings.IsServerGC> を参照してください。
 
 次の図は、ワークステーション GC を使用した 5K RPS のメモリプロファイルを示しています。
 
@@ -171,7 +171,7 @@ public ActionResult<string> GetStaticString()
 }
 ```
 
-上のコードでは以下の操作が行われます。
+上記のコードでは次の操作が行われます。
 
 * は、一般的なメモリリークの例です。
 * 頻繁な呼び出しでは、プロセスがクラッシュして `OutOfMemory` 例外が発生するまで、アプリのメモリが増加します。
@@ -192,7 +192,7 @@ public ActionResult<string> GetStaticString()
 
 .NET には、開発者がネイティブメモリを解放できるようにするための <xref:System.IDisposable> インターフェイスが用意されています。 <xref:System.IDisposable.Dispose*> が呼び出されていない場合でも、[ファイナライザー](/dotnet/csharp/programming-guide/classes-and-structs/destructors)の実行時に、正しく実装されたクラス呼び出し `Dispose` ます。
 
-次のコードがあるとします。
+次のコードについて考えてみましょう。
 
 ```csharp
 [HttpGet("fileprovider")]
@@ -275,7 +275,7 @@ public int GetLOH1(int size)
 * [ResponseCaching/Streams/StreamUtilities .cs](https://github.com/dotnet/AspNetCore/blob/v3.0.0/src/Middleware/ResponseCaching/src/Streams/StreamUtilities.cs#L16)
 * [ResponseCaching/MemoryResponseCache](https://github.com/aspnet/ResponseCaching/blob/c1cb7576a0b86e32aec990c22df29c780af29ca5/src/Microsoft.AspNetCore.ResponseCaching/Internal/MemoryResponseCache.cs#L55)
 
-詳細については、次のトピックを参照してください。
+詳細については、次を参照してください。
 
 * [大きなオブジェクトヒープが漏れています](https://devblogs.microsoft.com/dotnet/large-object-heap-uncovered-from-an-old-msdn-article/)
 * [大きなオブジェクトヒープ](/dotnet/standard/garbage-collection/large-object-heap)
@@ -426,7 +426,7 @@ public byte[] GetPooledArray(int size)
 
 主な違いは、バイトが割り当てられ、その結果、ジェネレーション0のコレクションがはるかに少ないことです。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * [ガベージ コレクション](/dotnet/standard/garbage-collection/)
 * [同時実行ビジュアライザーを使用したさまざまな GC モードについて](https://blogs.msdn.microsoft.com/seteplia/2017/01/05/understanding-different-gc-modes-with-concurrency-visualizer/)

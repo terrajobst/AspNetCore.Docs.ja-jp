@@ -1,28 +1,26 @@
 ---
 title: ASP.NET Core での応答圧縮
-author: guardrex
+author: rick-anderson
 description: 応答圧縮と ASP.NET Core アプリで応答圧縮ミドルウェアを使用する方法について説明します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 uid: performance/response-compression
-ms.openlocfilehash: d37b05edd55ac0d3910855563b819114cf815b43
-ms.sourcegitcommit: 235623b6e5a5d1841139c82a11ac2b4b3f31a7a9
+ms.openlocfilehash: aae0b8d74fc424cc81c046e9042279856865bf6a
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/10/2020
-ms.locfileid: "77114810"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654344"
 ---
 # <a name="response-compression-in-aspnet-core"></a>ASP.NET Core での応答圧縮
-
-作成者: [Luke Latham](https://github.com/guardrex)
 
 ::: moniker range=">= aspnetcore-3.0"
 
 ネットワーク帯域幅はリソースが限られています。 通常、応答のサイズを小さくすると、アプリの応答性が大幅に向上します。 ペイロードサイズを減らす方法の1つは、アプリの応答を圧縮することです。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="when-to-use-response-compression-middleware"></a>応答圧縮ミドルウェアを使用する場合
 
@@ -44,7 +42,7 @@ IIS、Apache、または Nginx のサーバーベースの応答圧縮テクノ�
 
 クライアントは、圧縮されたコンテンツを処理できる場合、要求と共に `Accept-Encoding` ヘッダーを送信することによって、その機能をサーバーに通知する必要があります。 サーバーは、圧縮されたコンテンツを送信するときに、圧縮された応答のエンコード方法に関する情報を `Content-Encoding` ヘッダーに含める必要があります。 次の表に、ミドルウェアでサポートされているコンテンツエンコードの表記を示します。
 
-| ヘッダー値の `Accept-Encoding` | サポートされているミドルウェア | [説明] |
+| ヘッダー値の `Accept-Encoding` | サポートされているミドルウェア | 説明 |
 | ------------------------------- | :------------------: | ----------- |
 | `br`                            | 可 (既定)        | [Brotli 圧縮データ形式](https://tools.ietf.org/html/rfc7932) |
 | `deflate`                       | いいえ                   | [圧縮データ形式の DEFLATE](https://tools.ietf.org/html/rfc1951) |
@@ -64,7 +62,7 @@ IIS、Apache、または Nginx のサーバーベースの応答圧縮テクノ�
 
 次の表では、圧縮されたコンテンツの要求、送信、キャッシュ、および受信に関連するヘッダーについて説明します。
 
-| ヘッダー             | Role |
+| ヘッダー             | 役割 |
 | ------------------ | ---- |
 | `Accept-Encoding`  | クライアントからサーバーに送信され、クライアントが使用できるコンテンツエンコーディングスキームを示します。 |
 | `Content-Encoding` | ペイロード内のコンテンツのエンコードを示すために、サーバーからクライアントに送信されます。 |
@@ -73,12 +71,12 @@ IIS、Apache、または Nginx のサーバーベースの応答圧縮テクノ�
 | `Content-Type`     | コンテンツの MIME の種類を指定します。 すべての応答は、その `Content-Type`を指定する必要があります。 ミドルウェアは、この値をチェックして、応答を圧縮する必要があるかどうかを判断します。 ミドルウェアはエンコードできる既定の[mime の種類](#mime-types)のセットを指定しますが、mime の種類を置き換えたり追加したりすることができます。 |
 | `Vary`             | `Accept-Encoding` の値を持つサーバーからクライアントとプロキシに送信された場合、`Vary` ヘッダーは、要求の `Accept-Encoding` ヘッダーの値に基づいて応答をキャッシュ (変更) する必要があることをクライアントまたはプロキシに示します。 `Vary: Accept-Encoding` ヘッダーを使用してコンテンツを返すと、圧縮された応答と圧縮されていない応答の両方が個別にキャッシュされることになります。 |
 
-[サンプルアプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples)を使用して、応答圧縮ミドルウェアの機能を検証します。 このサンプルでは、次のことを示します。
+[サンプルアプリ](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples)を使用して、応答圧縮ミドルウェアの機能を検証します。 このサンプルでは、次のことを示します。
 
 * Gzip およびカスタム圧縮プロバイダーを使用したアプリ応答の圧縮。
 * 圧縮する mime の種類の既定の一覧に MIME の種類を追加する方法について説明します。
 
-## <a name="package"></a>Package
+## <a name="package"></a>[パッケージ]
 
 応答圧縮ミドルウェアは、AspNetCore アプリ ASP.NET Core に暗黙的に含まれる[ResponseCompression](https://www.nuget.org/packages/Microsoft.AspNetCore.ResponseCompression/)パッケージによって提供されます。
 
@@ -138,7 +136,7 @@ public void ConfigureServices(IServiceCollection services)
 
 圧縮レベルを <xref:Microsoft.AspNetCore.ResponseCompression.BrotliCompressionProviderOptions>に設定します。 Brotli 圧縮プロバイダーは、既定で最も高速な圧縮レベル ([CompressionLevel](xref:System.IO.Compression.CompressionLevel)) に設定されています。これにより、圧縮率が最も高くなる可能性があります。 最も効率的な圧縮が必要な場合は、最適な圧縮のためにミドルウェアを構成します。
 
-| Compression Level | [説明] |
+| Compression Level | 説明 |
 | ----------------- | ----------- |
 | [CompressionLevel](xref:System.IO.Compression.CompressionLevel) | 圧縮は、結果の出力が最適に圧縮されない場合でも、できるだけ早く完了する必要があります。 |
 | [CompressionLevel](xref:System.IO.Compression.CompressionLevel) | 圧縮は実行されません。 |
@@ -178,7 +176,7 @@ public void ConfigureServices(IServiceCollection services)
 
 圧縮レベルを <xref:Microsoft.AspNetCore.ResponseCompression.GzipCompressionProviderOptions>に設定します。 Gzip 圧縮プロバイダーは、既定で最も高速な圧縮レベル ([CompressionLevel](xref:System.IO.Compression.CompressionLevel)) に設定されています。これにより、圧縮率が最も高くなる可能性があります。 最も効率的な圧縮が必要な場合は、最適な圧縮のためにミドルウェアを構成します。
 
-| Compression Level | [説明] |
+| Compression Level | 説明 |
 | ----------------- | ----------- |
 | [CompressionLevel](xref:System.IO.Compression.CompressionLevel) | 圧縮は、結果の出力が最適に圧縮されない場合でも、できるだけ早く完了する必要があります。 |
 | [CompressionLevel](xref:System.IO.Compression.CompressionLevel) | 圧縮は実行されません。 |
@@ -268,7 +266,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ネットワーク帯域幅はリソースが限られています。 通常、応答のサイズを小さくすると、アプリの応答性が大幅に向上します。 ペイロードサイズを減らす方法の1つは、アプリの応答を圧縮することです。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="when-to-use-response-compression-middleware"></a>応答圧縮ミドルウェアを使用する場合
 
@@ -290,7 +288,7 @@ IIS、Apache、または Nginx のサーバーベースの応答圧縮テクノ�
 
 クライアントは、圧縮されたコンテンツを処理できる場合、要求と共に `Accept-Encoding` ヘッダーを送信することによって、その機能をサーバーに通知する必要があります。 サーバーは、圧縮されたコンテンツを送信するときに、圧縮された応答のエンコード方法に関する情報を `Content-Encoding` ヘッダーに含める必要があります。 次の表に、ミドルウェアでサポートされているコンテンツエンコードの表記を示します。
 
-| ヘッダー値の `Accept-Encoding` | サポートされているミドルウェア | [説明] |
+| ヘッダー値の `Accept-Encoding` | サポートされているミドルウェア | 説明 |
 | ------------------------------- | :------------------: | ----------- |
 | `br`                            | 可 (既定)        | [Brotli 圧縮データ形式](https://tools.ietf.org/html/rfc7932) |
 | `deflate`                       | いいえ                   | [圧縮データ形式の DEFLATE](https://tools.ietf.org/html/rfc1951) |
@@ -310,7 +308,7 @@ IIS、Apache、または Nginx のサーバーベースの応答圧縮テクノ�
 
 次の表では、圧縮されたコンテンツの要求、送信、キャッシュ、および受信に関連するヘッダーについて説明します。
 
-| ヘッダー             | Role |
+| ヘッダー             | 役割 |
 | ------------------ | ---- |
 | `Accept-Encoding`  | クライアントからサーバーに送信され、クライアントが使用できるコンテンツエンコーディングスキームを示します。 |
 | `Content-Encoding` | ペイロード内のコンテンツのエンコードを示すために、サーバーからクライアントに送信されます。 |
@@ -319,12 +317,12 @@ IIS、Apache、または Nginx のサーバーベースの応答圧縮テクノ�
 | `Content-Type`     | コンテンツの MIME の種類を指定します。 すべての応答は、その `Content-Type`を指定する必要があります。 ミドルウェアは、この値をチェックして、応答を圧縮する必要があるかどうかを判断します。 ミドルウェアはエンコードできる既定の[mime の種類](#mime-types)のセットを指定しますが、mime の種類を置き換えたり追加したりすることができます。 |
 | `Vary`             | `Accept-Encoding` の値を持つサーバーからクライアントとプロキシに送信された場合、`Vary` ヘッダーは、要求の `Accept-Encoding` ヘッダーの値に基づいて応答をキャッシュ (変更) する必要があることをクライアントまたはプロキシに示します。 `Vary: Accept-Encoding` ヘッダーを使用してコンテンツを返すと、圧縮された応答と圧縮されていない応答の両方が個別にキャッシュされることになります。 |
 
-[サンプルアプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples)を使用して、応答圧縮ミドルウェアの機能を検証します。 このサンプルでは、次のことを示します。
+[サンプルアプリ](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples)を使用して、応答圧縮ミドルウェアの機能を検証します。 このサンプルでは、次のことを示します。
 
 * Gzip およびカスタム圧縮プロバイダーを使用したアプリ応答の圧縮。
 * 圧縮する mime の種類の既定の一覧に MIME の種類を追加する方法について説明します。
 
-## <a name="package"></a>Package
+## <a name="package"></a>[パッケージ]
 
 ミドルウェアをプロジェクトに含めるには、 [AspNetCore メタパッケージ](xref:fundamentals/metapackage-app)への参照を追加します。これには、 [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.ResponseCompression/)パッケージが含まれています。
 
@@ -384,7 +382,7 @@ public void ConfigureServices(IServiceCollection services)
 
 圧縮レベルを <xref:Microsoft.AspNetCore.ResponseCompression.BrotliCompressionProviderOptions>に設定します。 Brotli 圧縮プロバイダーは、既定で最も高速な圧縮レベル ([CompressionLevel](xref:System.IO.Compression.CompressionLevel)) に設定されています。これにより、圧縮率が最も高くなる可能性があります。 最も効率的な圧縮が必要な場合は、最適な圧縮のためにミドルウェアを構成します。
 
-| Compression Level | [説明] |
+| Compression Level | 説明 |
 | ----------------- | ----------- |
 | [CompressionLevel](xref:System.IO.Compression.CompressionLevel) | 圧縮は、結果の出力が最適に圧縮されない場合でも、できるだけ早く完了する必要があります。 |
 | [CompressionLevel](xref:System.IO.Compression.CompressionLevel) | 圧縮は実行されません。 |
@@ -424,7 +422,7 @@ public void ConfigureServices(IServiceCollection services)
 
 圧縮レベルを <xref:Microsoft.AspNetCore.ResponseCompression.GzipCompressionProviderOptions>に設定します。 Gzip 圧縮プロバイダーは、既定で最も高速な圧縮レベル ([CompressionLevel](xref:System.IO.Compression.CompressionLevel)) に設定されています。これにより、圧縮率が最も高くなる可能性があります。 最も効率的な圧縮が必要な場合は、最適な圧縮のためにミドルウェアを構成します。
 
-| Compression Level | [説明] |
+| Compression Level | 説明 |
 | ----------------- | ----------- |
 | [CompressionLevel](xref:System.IO.Compression.CompressionLevel) | 圧縮は、結果の出力が最適に圧縮されない場合でも、できるだけ早く完了する必要があります。 |
 | [CompressionLevel](xref:System.IO.Compression.CompressionLevel) | 圧縮は実行されません。 |
@@ -513,7 +511,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ネットワーク帯域幅はリソースが限られています。 通常、応答のサイズを小さくすると、アプリの応答性が大幅に向上します。 ペイロードサイズを減らす方法の1つは、アプリの応答を圧縮することです。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="when-to-use-response-compression-middleware"></a>応答圧縮ミドルウェアを使用する場合
 
@@ -535,7 +533,7 @@ IIS、Apache、または Nginx のサーバーベースの応答圧縮テクノ�
 
 クライアントは、圧縮されたコンテンツを処理できる場合、要求と共に `Accept-Encoding` ヘッダーを送信することによって、その機能をサーバーに通知する必要があります。 サーバーは、圧縮されたコンテンツを送信するときに、圧縮された応答のエンコード方法に関する情報を `Content-Encoding` ヘッダーに含める必要があります。 次の表に、ミドルウェアでサポートされているコンテンツエンコードの表記を示します。
 
-| ヘッダー値の `Accept-Encoding` | サポートされているミドルウェア | [説明] |
+| ヘッダー値の `Accept-Encoding` | サポートされているミドルウェア | 説明 |
 | ------------------------------- | :------------------: | ----------- |
 | `br`                            | いいえ                   | [Brotli 圧縮データ形式](https://tools.ietf.org/html/rfc7932) |
 | `deflate`                       | いいえ                   | [圧縮データ形式の DEFLATE](https://tools.ietf.org/html/rfc1951) |
@@ -555,7 +553,7 @@ IIS、Apache、または Nginx のサーバーベースの応答圧縮テクノ�
 
 次の表では、圧縮されたコンテンツの要求、送信、キャッシュ、および受信に関連するヘッダーについて説明します。
 
-| ヘッダー             | Role |
+| ヘッダー             | 役割 |
 | ------------------ | ---- |
 | `Accept-Encoding`  | クライアントからサーバーに送信され、クライアントが使用できるコンテンツエンコーディングスキームを示します。 |
 | `Content-Encoding` | ペイロード内のコンテンツのエンコードを示すために、サーバーからクライアントに送信されます。 |
@@ -564,12 +562,12 @@ IIS、Apache、または Nginx のサーバーベースの応答圧縮テクノ�
 | `Content-Type`     | コンテンツの MIME の種類を指定します。 すべての応答は、その `Content-Type`を指定する必要があります。 ミドルウェアは、この値をチェックして、応答を圧縮する必要があるかどうかを判断します。 ミドルウェアはエンコードできる既定の[mime の種類](#mime-types)のセットを指定しますが、mime の種類を置き換えたり追加したりすることができます。 |
 | `Vary`             | `Accept-Encoding` の値を持つサーバーからクライアントとプロキシに送信された場合、`Vary` ヘッダーは、要求の `Accept-Encoding` ヘッダーの値に基づいて応答をキャッシュ (変更) する必要があることをクライアントまたはプロキシに示します。 `Vary: Accept-Encoding` ヘッダーを使用してコンテンツを返すと、圧縮された応答と圧縮されていない応答の両方が個別にキャッシュされることになります。 |
 
-[サンプルアプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples)を使用して、応答圧縮ミドルウェアの機能を検証します。 このサンプルでは、次のことを示します。
+[サンプルアプリ](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples)を使用して、応答圧縮ミドルウェアの機能を検証します。 このサンプルでは、次のことを示します。
 
 * Gzip およびカスタム圧縮プロバイダーを使用したアプリ応答の圧縮。
 * 圧縮する mime の種類の既定の一覧に MIME の種類を追加する方法について説明します。
 
-## <a name="package"></a>Package
+## <a name="package"></a>[パッケージ]
 
 ミドルウェアをプロジェクトに含めるには、 [AspNetCore メタパッケージ](xref:fundamentals/metapackage-app)への参照を追加します。これには、 [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.ResponseCompression/)パッケージが含まれています。
 
@@ -629,7 +627,7 @@ public void ConfigureServices(IServiceCollection services)
 
 圧縮レベルを <xref:Microsoft.AspNetCore.ResponseCompression.GzipCompressionProviderOptions>に設定します。 Gzip 圧縮プロバイダーは、既定で最も高速な圧縮レベル ([CompressionLevel](xref:System.IO.Compression.CompressionLevel)) に設定されています。これにより、圧縮率が最も高くなる可能性があります。 最も効率的な圧縮が必要な場合は、最適な圧縮のためにミドルウェアを構成します。
 
-| Compression Level | [説明] |
+| Compression Level | 説明 |
 | ----------------- | ----------- |
 | [CompressionLevel](xref:System.IO.Compression.CompressionLevel) | 圧縮は、結果の出力が最適に圧縮されない場合でも、できるだけ早く完了する必要があります。 |
 | [CompressionLevel](xref:System.IO.Compression.CompressionLevel) | 圧縮は実行されません。 |

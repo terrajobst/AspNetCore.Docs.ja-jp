@@ -5,12 +5,12 @@ description: この記事では ASP.NET Core 1.x 認証と Id を ASP.NET Core 2
 ms.author: scaddie
 ms.date: 06/21/2019
 uid: migration/1x-to-2x/identity-2x
-ms.openlocfilehash: f3817fa1808c331f7e167618e3bb00d68ad08571
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: af905f1127d504839f66d9e0e1ca1dfc27e32772
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75355176"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654944"
 ---
 # <a name="migrate-authentication-and-identity-to-aspnet-core-20"></a>認証と Id を ASP.NET Core 2.0 に移行する
 
@@ -177,7 +177,7 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
     });
     ```
     
-### <a name="facebook-authentication"></a>Facebook での認証
+### <a name="facebook-authentication"></a>Facebook 認証
 
 *Startup.cs*で次の変更を行います。
 - `Configure` メソッドの `UseFacebookAuthentication` メソッドの呼び出しを `UseAuthentication`に置き換えます。
@@ -197,7 +197,7 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
             });
     ```
 
-### <a name="google-authentication"></a>Google での認証
+### <a name="google-authentication"></a>Google 認証
 
 *Startup.cs*で次の変更を行います。
 - `Configure` メソッドの `UseGoogleAuthentication` メソッドの呼び出しを `UseAuthentication`に置き換えます。
@@ -219,7 +219,7 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
 
 ### <a name="microsoft-account-authentication"></a>Microsoft アカウント認証
 
-Microsoft アカウント認証の詳細については、 [GitHub の問題](https://github.com/aspnet/AspNetCore.Docs/issues/14455)を参照してください。
+Microsoft アカウント認証の詳細については、 [GitHub の問題](https://github.com/dotnet/AspNetCore.Docs/issues/14455)を参照してください。
 
 *Startup.cs*で次の変更を行います。
 - `Configure` メソッドの `UseMicrosoftAccountAuthentication` メソッドの呼び出しを `UseAuthentication`に置き換えます。
@@ -239,7 +239,7 @@ Microsoft アカウント認証の詳細については、 [GitHub の問題](ht
             });
     ```
 
-### <a name="twitter-authentication"></a>Twitter での認証
+### <a name="twitter-authentication"></a>Twitter 認証
 
 *Startup.cs*で次の変更を行います。
 - `Configure` メソッドの `UseTwitterAuthentication` メソッドの呼び出しを `UseAuthentication`に置き換えます。
@@ -330,7 +330,7 @@ Windows 認証には、次の2つのバリエーションがあります。
 
   > `System.InvalidOperationException`: authenticationScheme が指定されておらず、DefaultChallengeScheme が見つかりませんでした。
 
-詳細については、「 <xref:security/authentication/windowsauth>」を参照してください。
+詳細については、<xref:security/authentication/windowsauth> を参照してください。
 
 <a name="identity-cookie-options"></a>
 
@@ -448,6 +448,6 @@ protected override void OnModelCreating(ModelBuilder builder)
 
 <a name="additional-resources"></a>
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 詳細については、GitHub で[の Auth 2.0 の問題の説明](https://github.com/aspnet/Security/issues/1338)を参照してください。

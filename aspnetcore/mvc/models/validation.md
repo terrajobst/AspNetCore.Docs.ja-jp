@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/15/2019
 uid: mvc/models/validation
-ms.openlocfilehash: a39eeead10849d11349688c42fe814ede9e8a847
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
-ms.translationtype: HT
+ms.openlocfilehash: cf6b77de78f2c5dda48ffcd8ac1f9ed2f8d28bd7
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172500"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652514"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>ASP.NET Core MVC および Razor Pages でのモデルの検証
 
@@ -21,7 +21,7 @@ ms.locfileid: "77172500"
 
 この記事では、ASP.NET Core MVC アプリまたは Razor Pages アプリでユーザー入力を検証する方法について説明します。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/validation/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/validation/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="model-state"></a>モデルの状態
 
@@ -31,7 +31,7 @@ ms.locfileid: "77172500"
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Pages/Movies/Create.cshtml.cs?name=snippet_OnPostAsync&highlight=3-6)]
 
-Web API コントローラーでは、`[ApiController]` 属性が設定されている場合は、`ModelState.IsValid` を確認する必要はありません。 その場合、モデルが無効な状態のときは、エラーの詳細を含む HTTP 400 応答が自動的に返されます。 詳細については、「[自動的な HTTP 400 応答](xref:web-api/index#automatic-http-400-responses)」を参照してください。
+Web API コントローラーでは、`ModelState.IsValid` 属性が設定されている場合は、`[ApiController]` を確認する必要はありません。 その場合、モデルが無効な状態のときは、エラーの詳細を含む HTTP 400 応答が自動的に返されます。 詳細については、「[自動的な HTTP 400 応答](xref:web-api/index#automatic-http-400-responses)」を参照してください。
 
 ## <a name="rerun-validation"></a>検証を再実行する
 
@@ -49,28 +49,28 @@ Web API コントローラーでは、`[ApiController]` 属性が設定されて
 
 組み込み検証属性の一部を次に示します。
 
-* `[CreditCard]`:プロパティがクレジット カード形式であることを検証します。
-* `[Compare]`:モデルの 2 つのプロパティが一致することを検証します。
-* `[EmailAddress]`:プロパティが電子メール形式であることを検証します。
-* `[Phone]`:プロパティが電話番号の形式であることを検証します。
-* `[Range]`:プロパティの値が指定した範囲内であることを検証します。
-* `[RegularExpression]`:プロパティの値が指定した正規表現と一致することを検証します。
-* `[Required]`:フィールドが null ではないことを検証します。 この属性の動作について詳しくは、「[`[Required]` 属性](#required-attribute)」をご覧ください。
-* `[StringLength]`:文字列プロパティの値が指定した長さ制限を超えていないことを検証します。
-* `[Url]`:プロパティが URL 形式であることを検証します。
-* `[Remote]`:サーバーでアクション メソッドを呼び出すことによって、クライアントでの入力を検証します。 この属性の動作について詳しくは、「[`[Remote]` 属性](#remote-attribute)」をご覧ください。
+* `[CreditCard]`: プロパティにクレジットカード形式があるかどうかを検証します。
+* `[Compare]`: モデル内の2つのプロパティが一致することを検証します。
+* `[EmailAddress]`: プロパティに電子メール形式があるかどうかを検証します。
+* `[Phone]`: プロパティに電話番号の書式が設定されているかどうかを検証します。
+* `[Range]`: プロパティ値が指定された範囲内に収まるかどうかを検証します。
+* `[RegularExpression]`: プロパティ値が指定した正規表現に一致するかどうかを検証します。
+* `[Required]`: フィールドが null でないことを検証します。 この属性の動作について詳しくは、「[`[Required]` 属性](#required-attribute)」をご覧ください。
+* `[StringLength]`: 文字列プロパティの値が、指定された長さの制限を超えていないことを検証します。
+* `[Url]`: プロパティに URL 形式があるかどうかを検証します。
+* `[Remote]`: サーバーでアクションメソッドを呼び出すことによって、クライアントの入力を検証します。 この属性の動作について詳しくは、「[`[Remote]` 属性](#remote-attribute)」をご覧ください。
 
 検証属性の完全な一覧については、[System.ComponentModel.DataAnnotations](xref:System.ComponentModel.DataAnnotations) 名前空間で確認できます。
 
 ### <a name="error-messages"></a>エラー メッセージ
 
-検証属性では、無効な入力に対して表示されるエラー メッセージを指定できます。 次に例を示します。
+検証属性では、無効な入力に対して表示されるエラー メッセージを指定できます。 例 :
 
 ```csharp
 [StringLength(8, ErrorMessage = "Name length can't be more than 8.")]
 ```
 
-内部的には、属性ではフィールド名のプレースホルダーを指定して `String.Format` が呼び出され、場合によっては追加のプレースホルダーが指定されます。 次に例を示します。
+内部的には、属性ではフィールド名のプレースホルダーを指定して `String.Format` が呼び出され、場合によっては追加のプレースホルダーが指定されます。 例 :
 
 ```csharp
 [StringLength(8, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 6)]
@@ -82,7 +82,7 @@ Web API コントローラーでは、`[ApiController]` 属性が設定されて
 
 ## <a name="required-attribute"></a>[Required] 属性
 
-.NET Core 3.0 以降の検証システムでは null 非許容型のパラメーターまたはバインド プロパティは `[Required]` 属性を持つものとして処理されます。 `decimal` や `int` などの[値の型](/dotnet/csharp/language-reference/keywords/value-types)は null 非許容型です。 `Startup.ConfigureServices` で <xref:Microsoft.AspNetCore.Mvc.MvcOptions.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes> を次のように構成することで、この動作を無効にできます。
+.NET Core 3.0 以降の検証システムでは null 非許容型のパラメーターまたはバインド プロパティは `[Required]` 属性を持つものとして処理されます。 [ や ](/dotnet/csharp/language-reference/keywords/value-types) などの`decimal`値の型`int`は null 非許容型です。 <xref:Microsoft.AspNetCore.Mvc.MvcOptions.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes> で `Startup.ConfigureServices` を次のように構成することで、この動作を無効にできます。
 
 ```csharp
 services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
@@ -94,7 +94,7 @@ services.AddControllers(options => options.SuppressImplicitRequiredAttributeForN
 
 ただし、null 非許容型プロパティに対するモデル バインドは失敗する場合があり、`The value '' is invalid` などのエラー メッセージが表示されます。 null 非許容型のサーバー側検証に対してカスタム エラー メッセージを指定するには、次のオプションがあります。
 
-* フィールドを null 許容型にします (たとえば、`decimal` の代わりに `decimal?` を使用)。 [Nullable\<T>](/dotnet/csharp/programming-guide/nullable-types/) 値の型は、標準の null 許容型と同様に扱われます。
+* フィールドを null 許容型にします (たとえば、`decimal?` の代わりに `decimal` を使用)。 [Nullable\<T>](/dotnet/csharp/programming-guide/nullable-types/) 値の型は、標準の null 許容型と同様に扱われます。
 * 次の例に示すように、モデル バインドで使用される既定のエラー メッセージを指定します。
 
   [!code-csharp[](validation/samples/3.x/ValidationSample/Startup.cs?name=snippet_Configuration&highlight=5-6)]
@@ -134,7 +134,7 @@ services.AddControllers(options => options.SuppressImplicitRequiredAttributeForN
    
 ### <a name="additional-fields"></a>追加フィールド
 
-`[Remote]` 属性の `AdditionalFields` プロパティでは、サーバー上のデータに対してフィールドの組み合わせを検証できます。 たとえば、`User` モデルに `FirstName` プロパティと `LastName` プロパティがある場合、その名前のペアを使用する既存ユーザーがいないことを確認したいことがあります。 `AdditionalFields` を使用する方法を次の例に示します。
+`AdditionalFields` 属性の `[Remote]` プロパティでは、サーバー上のデータに対してフィールドの組み合わせを検証できます。 たとえば、`User` モデルに `FirstName` プロパティと `LastName` プロパティがある場合、その名前のペアを使用する既存ユーザーがいないことを確認したいことがあります。 `AdditionalFields` を使用する方法を次の例に示します。
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Models/User.cs?name=snippet_Name&highlight=1,5)]
 
@@ -265,7 +265,7 @@ HTML 出力の `data-` 属性が、`Movie.ReleaseDate` プロパティの検証�
 
 ## <a name="unobtrusive-validation"></a>控えめな検証
 
-控えめな検証については、[こちらの GitHub のイシュー](https://github.com/aspnet/AspNetCore.Docs/issues/1111)をご覧ください。
+控えめな検証については、[こちらの GitHub のイシュー](https://github.com/dotnet/AspNetCore.Docs/issues/1111)をご覧ください。
 
 ### <a name="add-validation-to-dynamic-forms"></a>動的なフォームに検証を追加する
 
@@ -325,7 +325,7 @@ $.get({
 * 検証規則名とエラー メッセージ テキストを示します (例: `data-val-rulename="Error message."`)。
 * 検証コントロールで必要なその他のパラメーターを提供します (例: `data-val-rulename-param1="value"`)。
 
-次の例では、サンプル アプリの `ClassicMovie` 属性に対する `data-` 属性を示します。
+次の例では、サンプル アプリの `data-` 属性に対する `ClassicMovie` 属性を示します。
 
 ```html
 <input class="form-control" type="date"
@@ -339,13 +339,13 @@ $.get({
 前に説明したように、[タグ ヘルパー](xref:mvc/views/tag-helpers/intro)と [HTML ヘルパー](xref:mvc/views/overview)では、検証属性からの情報を使用して `data-` 属性がレンダリングされます。 カスタム `data-` HTML 属性が作成されるようになるコードを記述するには、2 つのオプションがあります。
 
 * `AttributeAdapterBase<TAttribute>` から派生するクラスと `IValidationAttributeAdapterProvider` を実装するクラスを作成し、属性とそのアダプターを DI に登録します。 この方法では[単一責任の原則](https://wikipedia.org/wiki/Single_responsibility_principle)に従って、サーバー関連の検証コードとクライアント関連の検証コードは別のクラスになります。 アダプターには、DI に登録されるため、必要な場合に DI 内の他のサービスがそれを使用できるという利点もあります。
-* `ValidationAttribute` クラスで `IClientModelValidator` を実装します。 この方法は、属性でサーバー側の検証が何も行われず、DI からのサービスが必要ない場合に、適している可能性があります。
+* `IClientModelValidator` クラスで `ValidationAttribute` を実装します。 この方法は、属性でサーバー側の検証が何も行われず、DI からのサービスが必要ない場合に、適している可能性があります。
 
 ### <a name="attributeadapter-for-client-side-validation"></a>クライアント側検証用の AttributeAdapter
 
 HTML に `data-` 属性をレンダリングするこの方法は、サンプル アプリの `ClassicMovie` 属性で使用されています。 この方法を使用してクライアント検証を追加するには、次のようにします。
 
-1. カスタム検証属性の属性アダプター クラスを作成します。 [AttributeAdapterBase\<T>](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.attributeadapterbase-1?view=aspnetcore-2.2) からクラスを派生します。 次の例で示すように、レンダリングされた出力に `data-` 属性を追加する `AddValidation` メソッドを作成します。
+1. カスタム検証属性の属性アダプター クラスを作成します。 [AttributeAdapterBase\<T>](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.attributeadapterbase-1?view=aspnetcore-2.2) からクラスを派生します。 次の例で示すように、レンダリングされた出力に `AddValidation` 属性を追加する `data-` メソッドを作成します。
 
    [!code-csharp[](validation/samples/3.x/ValidationSample/Validation/ClassicMovieAttributeAdapter.cs?name=snippet_Class)]
 
@@ -373,12 +373,12 @@ HTML に `data-` 属性をレンダリングするこの方法は、サンプル
 
 クライアント側検証を無効にするその他のオプション:
 
-* すべての *.cshtml* ファイル内の `_ValidationScriptsPartial` への参照をコメントアウトします。
+* すべての `_ValidationScriptsPartial`.cshtml*ファイル内の* への参照をコメントアウトします。
 * *Pages\Shared\_ValidationScriptsPartial.cshtml* ファイルの内容を削除します。
 
-上記の方法では、ASP.NET Core Identity Razor クラス ライブラリのクライアント側の検証は阻止されません。 詳細については、「<xref:security/authentication/scaffold-identity>」を参照してください。
+上記の方法では、ASP.NET Core Identity Razor クラス ライブラリのクライアント側の検証は阻止されません。 詳細については、<xref:security/authentication/scaffold-identity> を参照してください。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * [System.ComponentModel.DataAnnotations 名前空間](xref:System.ComponentModel.DataAnnotations)
 * [モデル バインド](model-binding.md)
@@ -389,7 +389,7 @@ HTML に `data-` 属性をレンダリングするこの方法は、サンプル
 
 この記事では、ASP.NET Core MVC アプリまたは Razor Pages アプリでユーザー入力を検証する方法について説明します。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/validation/sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/validation/sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="model-state"></a>モデルの状態
 
@@ -399,7 +399,7 @@ HTML に `data-` 属性をレンダリングするこの方法は、サンプル
 
 [!code-csharp[](validation/samples_snapshot/2.x/Create.cshtml.cs?name=snippet&highlight=3-6)]
 
-Web API コントローラーでは、`[ApiController]` 属性が設定されている場合は、`ModelState.IsValid` を確認する必要はありません。 その場合、モデルが無効な状態のときは、エラーの詳細を含む HTTP 400 応答が自動的に返されます。 詳細については、「[自動的な HTTP 400 応答](xref:web-api/index#automatic-http-400-responses)」を参照してください。
+Web API コントローラーでは、`ModelState.IsValid` 属性が設定されている場合は、`[ApiController]` を確認する必要はありません。 その場合、モデルが無効な状態のときは、エラーの詳細を含む HTTP 400 応答が自動的に返されます。 詳細については、「[自動的な HTTP 400 応答](xref:web-api/index#automatic-http-400-responses)」を参照してください。
 
 ## <a name="rerun-validation"></a>検証を再実行する
 
@@ -409,7 +409,7 @@ Web API コントローラーでは、`[ApiController]` 属性が設定されて
 
 ## <a name="validation-attributes"></a>検証属性
 
-検証属性を使用して、モデルのプロパティの検証規則を指定できます。 [サンプル アプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/validation/sample)の次の例では、検証属性で注釈されたモデル クラスが示されています。 `[ClassicMovie]` 属性はカスタム検証属性であり、その他は組み込み属性です。 `[ClassicMovie2]` は示されていませんが、カスタム属性を実装するもう 1 つの方法を示します。
+検証属性を使用して、モデルのプロパティの検証規則を指定できます。 [サンプル アプリ](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/validation/sample)の次の例では、検証属性で注釈されたモデル クラスが示されています。 `[ClassicMovie]` 属性はカスタム検証属性であり、その他は組み込み属性です。 `[ClassicMovie2]` は示されていませんが、カスタム属性を実装するもう 1 つの方法を示します。
 
 [!code-csharp[](validation/samples/2.x/ValidationSample/Models/Movie.cs?name=snippet_ModelClass)]
 
@@ -417,30 +417,30 @@ Web API コントローラーでは、`[ApiController]` 属性が設定されて
 
 組み込みの検証属性には次のものがあります。
 
-* `[CreditCard]`:プロパティがクレジット カード形式であることを検証します。
-* `[Compare]`:モデルの 2 つのプロパティが一致することを検証します。 たとえば、*Register.cshtml.cs* ファイルは `[Compare]` を使用して、入力された 2 つのパスワードが一致していることを検証します。 [ID をスキャフォールディング](xref:security/authentication/scaffold-identity)して、レジスタ コードを確認します。
-* `[EmailAddress]`:プロパティが電子メール形式であることを検証します。
-* `[Phone]`:プロパティが電話番号の形式であることを検証します。
-* `[Range]`:プロパティの値が指定した範囲内であることを検証します。
-* `[RegularExpression]`:プロパティの値が指定した正規表現と一致することを検証します。
-* `[Required]`:フィールドが null ではないことを検証します。 この属性の動作について詳しくは、「[`[Required]` 属性](#required-attribute)」をご覧ください。
-* `[StringLength]`:文字列プロパティの値が指定した長さ制限を超えていないことを検証します。
-* `[Url]`:プロパティが URL 形式であることを検証します。
-* `[Remote]`:サーバーでアクション メソッドを呼び出すことによって、クライアントでの入力を検証します。 この属性の動作について詳しくは、「[`[Remote]` 属性](#remote-attribute)」をご覧ください。
+* `[CreditCard]`: プロパティにクレジットカード形式があるかどうかを検証します。
+* `[Compare]`: モデル内の2つのプロパティが一致することを検証します。 たとえば、*Register.cshtml.cs* ファイルは `[Compare]` を使用して、入力された 2 つのパスワードが一致していることを検証します。 [ID をスキャフォールディング](xref:security/authentication/scaffold-identity)して、レジスタ コードを確認します。
+* `[EmailAddress]`: プロパティに電子メール形式があるかどうかを検証します。
+* `[Phone]`: プロパティに電話番号の書式が設定されているかどうかを検証します。
+* `[Range]`: プロパティ値が指定された範囲内に収まるかどうかを検証します。
+* `[RegularExpression]`: プロパティ値が指定した正規表現に一致するかどうかを検証します。
+* `[Required]`: フィールドが null でないことを検証します。 この属性の動作について詳しくは、「[`[Required]` 属性](#required-attribute)」をご覧ください。
+* `[StringLength]`: 文字列プロパティの値が、指定された長さの制限を超えていないことを検証します。
+* `[Url]`: プロパティに URL 形式があるかどうかを検証します。
+* `[Remote]`: サーバーでアクションメソッドを呼び出すことによって、クライアントの入力を検証します。 この属性の動作について詳しくは、「[`[Remote]` 属性](#remote-attribute)」をご覧ください。
 
-クライアント側の検証で `[RegularExpression]` 属性を使用する場合、regex はクライアントの JavaScript で実行されます。 これは、[ECMAScript](/dotnet/standard/base-types/regular-expression-options#ecmascript-matching-behavior) 一致の動作が使用されることを意味します。 詳細については、次を参照してください。[この GitHub の問題](https://github.com/dotnet/corefx/issues/42487)します。
+クライアント側の検証で `[RegularExpression]` 属性を使用する場合、regex はクライアントの JavaScript で実行されます。 これは、[ECMAScript](/dotnet/standard/base-types/regular-expression-options#ecmascript-matching-behavior) 一致の動作が使用されることを意味します。 詳細については、[こちらの GitHub の問題](https://github.com/dotnet/corefx/issues/42487)のページを参照してください。
 
 検証属性の完全な一覧については、[System.ComponentModel.DataAnnotations](xref:System.ComponentModel.DataAnnotations) 名前空間で確認できます。
 
 ### <a name="error-messages"></a>エラー メッセージ
 
-検証属性では、無効な入力に対して表示されるエラー メッセージを指定できます。 次に例を示します。
+検証属性では、無効な入力に対して表示されるエラー メッセージを指定できます。 例 :
 
 ```csharp
 [StringLength(8, ErrorMessage = "Name length can't be more than 8.")]
 ```
 
-内部的には、属性ではフィールド名のプレースホルダーを指定して `String.Format` が呼び出され、場合によっては追加のプレースホルダーが指定されます。 次に例を示します。
+内部的には、属性ではフィールド名のプレースホルダーを指定して `String.Format` が呼び出され、場合によっては追加のプレースホルダーが指定されます。 例 :
 
 ```csharp
 [StringLength(8, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 6)]
@@ -452,7 +452,7 @@ Web API コントローラーでは、`[ApiController]` 属性が設定されて
 
 ## <a name="required-attribute"></a>[Required] 属性
 
-既定では、検証システムでは null 非許容型のパラメーターまたはプロパティは `[Required]` 属性を持つものとして処理されます。 `decimal` や `int` などの[値の型](/dotnet/csharp/language-reference/keywords/value-types)は null 非許容型です。
+既定では、検証システムでは null 非許容型のパラメーターまたはプロパティは `[Required]` 属性を持つものとして処理されます。 [ や ](/dotnet/csharp/language-reference/keywords/value-types) などの`decimal`値の型`int`は null 非許容型です。
 
 ### <a name="required-validation-on-the-server"></a>サーバーでの [Required] の検証
 
@@ -460,7 +460,7 @@ Web API コントローラーでは、`[ApiController]` 属性が設定されて
 
 ただし、null 非許容型プロパティに対するモデル バインドは失敗する場合があり、`The value '' is invalid` などのエラー メッセージが表示されます。 null 非許容型のサーバー側検証に対してカスタム エラー メッセージを指定するには、次のオプションがあります。
 
-* フィールドを null 許容型にします (たとえば、`decimal` の代わりに `decimal?` を使用)。 [Nullable\<T>](/dotnet/csharp/programming-guide/nullable-types/) 値の型は、標準の null 許容型と同様に扱われます。
+* フィールドを null 許容型にします (たとえば、`decimal?` の代わりに `decimal` を使用)。 [Nullable\<T>](/dotnet/csharp/programming-guide/nullable-types/) 値の型は、標準の null 許容型と同様に扱われます。
 * 次の例に示すように、モデル バインドで使用される既定のエラー メッセージを指定します。
 
   [!code-csharp[](validation/samples/2.x/ValidationSample/Startup.cs?name=snippet_MaxModelValidationErrors&highlight=4-5)]
@@ -496,11 +496,11 @@ Web API コントローラーでは、`[ApiController]` 属性が設定されて
 
    [!code-csharp[](validation/samples/2.x/ValidationSample/Models/User.cs?name=snippet_UserEmailProperty)]
  
-   `[Remote]` 属性は `Microsoft.AspNetCore.Mvc` 名前空間にあります。 `Microsoft.AspNetCore.App` または `Microsoft.AspNetCore.All` メタパッケージを使用していない場合は、[Microsoft.AspNetCore.Mvc.ViewFeatures](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.ViewFeatures) NuGet パッケージをインストールします。
+   `[Remote]` 属性は `Microsoft.AspNetCore.Mvc` 名前空間にあります。 [ または ](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.ViewFeatures) メタパッケージを使用していない場合は、`Microsoft.AspNetCore.App`Microsoft.AspNetCore.Mvc.ViewFeatures`Microsoft.AspNetCore.All` NuGet パッケージをインストールします。
    
 ### <a name="additional-fields"></a>追加フィールド
 
-`[Remote]` 属性の `AdditionalFields` プロパティでは、サーバー上のデータに対してフィールドの組み合わせを検証できます。 たとえば、`User` モデルに `FirstName` プロパティと `LastName` プロパティがある場合、その名前のペアを使用する既存ユーザーがいないことを確認したいことがあります。 `AdditionalFields` を使用する方法を次の例に示します。
+`AdditionalFields` 属性の `[Remote]` プロパティでは、サーバー上のデータに対してフィールドの組み合わせを検証できます。 たとえば、`User` モデルに `FirstName` プロパティと `LastName` プロパティがある場合、その名前のペアを使用する既存ユーザーがいないことを確認したいことがあります。 `AdditionalFields` を使用する方法を次の例に示します。
 
 [!code-csharp[](validation/samples/2.x/ValidationSample/Models/User.cs?name=snippet_UserNameProperties)]
 
@@ -567,7 +567,7 @@ public string MiddleName { get; set; }
 
 [年齢確認] ページの 2 番目のフォームでは、要求本文で `Age` 値が送信され、検証は不合格となります。 `age` パラメーターはクエリ文字列で渡される必要があるため、バインドが失敗します。
 
-`CompatibilityVersion.Version_2_1` 以降で実行すると、最上位ノードの検証が既定で有効になります。 それ以外の場合、最上位ノードの検証は無効です。 次に示すように、`Startup.ConfigureServices` で <xref:Microsoft.AspNetCore.Mvc.MvcOptions.AllowValidatingTopLevelNodes*> プロパティを設定することにより、既定のオプションをオーバーライドできます。
+`CompatibilityVersion.Version_2_1` 以降で実行すると、最上位ノードの検証が既定で有効になります。 それ以外の場合、最上位ノードの検証は無効です。 次に示すように、<xref:Microsoft.AspNetCore.Mvc.MvcOptions.AllowValidatingTopLevelNodes*> で `Startup.ConfigureServices` プロパティを設定することにより、既定のオプションをオーバーライドできます。
 
 [!code-csharp[](validation/samples_snapshot/2.x/Startup.cs?name=snippet_AddMvc&highlight=4)]
 
@@ -579,7 +579,7 @@ public string MiddleName { get; set; }
 
 ## <a name="maximum-recursion"></a>最大再帰
 
-<xref:Microsoft.AspNetCore.Mvc.ModelBinding.Validation.ValidationVisitor> では、検証対象のモデルのオブジェクト グラフが走査されます。 非常に深いモデルまたは無限に再帰するモデルでは、検証でスタック オーバーフローが発生する可能性があります。 [MvcOptions.MaxValidationDepth](xref:Microsoft.AspNetCore.Mvc.MvcOptions.MaxValidationDepth) では、ビジターの再帰が構成されている深さを超えた場合、早い段階で検証を停止する方法が提供されています。 `CompatibilityVersion.Version_2_2` 以降で実行したときの `MvcOptions.MaxValidationDepth` の既定値は 32 です。 それより前のバージョンでは、値は null であり、深さの制約がないことを意味します。
+<xref:Microsoft.AspNetCore.Mvc.ModelBinding.Validation.ValidationVisitor> では、検証対象のモデルのオブジェクト グラフが走査されます。 非常に深いモデルまたは無限に再帰するモデルでは、検証でスタック オーバーフローが発生する可能性があります。 [MvcOptions.MaxValidationDepth](xref:Microsoft.AspNetCore.Mvc.MvcOptions.MaxValidationDepth) では、ビジターの再帰が構成されている深さを超えた場合、早い段階で検証を停止する方法が提供されています。 `MvcOptions.MaxValidationDepth` 以降で実行したときの `CompatibilityVersion.Version_2_2` の既定値は 32 です。 それより前のバージョンでは、値は null であり、深さの制約がないことを意味します。
 
 ## <a name="automatic-short-circuit"></a>自動省略
 
@@ -696,7 +696,7 @@ $.get({
 * 検証規則名とエラー メッセージ テキストを示します (例: `data-val-rulename="Error message."`)。
 * 検証コントロールで必要なその他のパラメーターを提供します (例: `data-val-rulename-parm1="value"`)。
 
-次の例では、サンプル アプリの `ClassicMovie` 属性に対する `data-` 属性を示します。
+次の例では、サンプル アプリの `data-` 属性に対する `ClassicMovie` 属性を示します。
 
 ```html
 <input class="form-control" type="datetime"
@@ -710,13 +710,13 @@ $.get({
 前に説明したように、[タグ ヘルパー](xref:mvc/views/tag-helpers/intro)と [HTML ヘルパー](xref:mvc/views/overview)では、検証属性からの情報を使用して `data-` 属性がレンダリングされます。 カスタム `data-` HTML 属性が作成されるようになるコードを記述するには、2 つのオプションがあります。
 
 * `AttributeAdapterBase<TAttribute>` から派生するクラスと `IValidationAttributeAdapterProvider` を実装するクラスを作成し、属性とそのアダプターを DI に登録します。 この方法では[単一責任の原則](https://wikipedia.org/wiki/Single_responsibility_principle)に従って、サーバー関連の検証コードとクライアント関連の検証コードは別のクラスになります。 アダプターには、DI に登録されるため、必要な場合に DI 内の他のサービスがそれを使用できるという利点もあります。
-* `ValidationAttribute` クラスで `IClientModelValidator` を実装します。 この方法は、属性でサーバー側の検証が何も行われず、DI からのサービスが必要ない場合に、適している可能性があります。
+* `IClientModelValidator` クラスで `ValidationAttribute` を実装します。 この方法は、属性でサーバー側の検証が何も行われず、DI からのサービスが必要ない場合に、適している可能性があります。
 
 ### <a name="attributeadapter-for-client-side-validation"></a>クライアント側検証用の AttributeAdapter
 
 HTML に `data-` 属性をレンダリングするこの方法は、サンプル アプリの `ClassicMovie` 属性で使用されています。 この方法を使用してクライアント検証を追加するには、次のようにします。
 
-1. カスタム検証属性の属性アダプター クラスを作成します。 [AttributeAdapterBase\<T>](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.attributeadapterbase-1?view=aspnetcore-2.2) からクラスを派生します。 次の例で示すように、レンダリングされた出力に `data-` 属性を追加する `AddValidation` メソッドを作成します。
+1. カスタム検証属性の属性アダプター クラスを作成します。 [AttributeAdapterBase\<T>](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.attributeadapterbase-1?view=aspnetcore-2.2) からクラスを派生します。 次の例で示すように、レンダリングされた出力に `AddValidation` 属性を追加する `data-` メソッドを作成します。
 
    [!code-csharp[](validation/samples/2.x/ValidationSample/Attributes/ClassicMovieAttributeAdapter.cs?name=snippet_ClassicMovieAttributeAdapter)]
 
@@ -746,9 +746,9 @@ HTML に `data-` 属性をレンダリングするこの方法は、サンプル
 
 [!code-csharp[](validation/samples_snapshot/2.x/Startup3.cs?name=snippet_DisableClientValidation)]
 
-クライアント検証を無効にするもう 1 つのオプションは、 *.cshtml* ファイルで `_ValidationScriptsPartial` への参照をコメントにすることです。
+クライアント検証を無効にするもう 1 つのオプションは、`_ValidationScriptsPartial`.cshtml*ファイルで* への参照をコメントにすることです。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * [System.ComponentModel.DataAnnotations 名前空間](xref:System.ComponentModel.DataAnnotations)
 * [モデル バインド](model-binding.md)

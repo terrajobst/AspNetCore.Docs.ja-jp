@@ -5,12 +5,12 @@ description: コントローラー、ビュー、Razor Pages などを ASP.NET C
 ms.author: riande
 ms.date: 11/11/2019
 uid: mvc/extensibility/app-parts
-ms.openlocfilehash: a95c344410db0651b9f8f1c1eb7551029f084c25
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
-ms.translationtype: HT
+ms.openlocfilehash: 0156c94bc6d0b83d0e14b8ef49468cfdf106d7e6
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829076"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654812"
 ---
 # <a name="share-controllers-views-razor-pages-and-more-with-application-parts"></a>コントローラー、ビュー、Razor Pages などをアプリケーション パーツと共有する
 
@@ -18,7 +18,7 @@ ms.locfileid: "75829076"
 
 作成者: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 "*アプリケーション パーツ*" は、アプリのリソースを抽象化したものです。 ASP.NET Core は、アプリケーション パーツを利用して、コントローラー、ビュー コンポーネント、タグ ヘルパー、Razor Pages、Razor コンパイル ソースなどを検出できます。 <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.AssemblyPart> はアプリケーション パーツです。 `AssemblyPart` はアセンブリ参照をカプセル化して、型とコンパイル参照を公開します。
 
@@ -32,11 +32,11 @@ ASP.NET Core アプリは <xref:System.Web.WebPages.ApplicationPart> から機�
 
 [!code-csharp[](./app-parts/3.0sample1/WebAppParts/Startup.cs?name=snippet)]
 
-次のコードは、`AssemblyPart` を使用して `ApplicationPartManager` を構成する別の方法を示しています。
+次のコードは、`ApplicationPartManager` を使用して `AssemblyPart` を構成する別の方法を示しています。
 
 [!code-csharp[](./app-parts/3.0sample1/WebAppParts/Startup2.cs?name=snippet)]
 
-上記 2 つのコード サンプルでは、アセンブリから `SharedController` が読み込まれます。 `SharedController` は、アプリのプロジェクト内にありません。 [WebAppParts ソリューション](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts/3.0sample1/WebAppParts)のサンプル ダウンロードを参照してください。
+上記 2 つのコード サンプルでは、アセンブリから `SharedController` が読み込まれます。 `SharedController` は、アプリのプロジェクト内にありません。 [WebAppParts ソリューション](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts/3.0sample1/WebAppParts)のサンプル ダウンロードを参照してください。
 
 ### <a name="include-views"></a>ビューを含める
 
@@ -44,15 +44,15 @@ ASP.NET Core アプリは <xref:System.Web.WebPages.ApplicationPart> から機�
 
 ### <a name="prevent-loading-resources"></a>リソースの読み込みを防ぐ
 
-アプリケーション パーツを使用して、特定のアセンブリまたは場所にあるソースの読み込みを "*回避*" することができます。 <xref:Microsoft.AspNetCore.Mvc.ApplicationParts> コレクションのメンバーを追加または削除して、リソースを非表示にしたり使用可能にしたりします。 `ApplicationParts` コレクションでのエントリの順序は重要ではありません。 `ApplicationPartManager` を構成してから、コンテナーでサービスを構成するために使用します。 たとえば、`AddControllersAsServices` を呼び出す前に `ApplicationPartManager` を構成します。 リソースを削除するには、`ApplicationParts` コレクションに対して `Remove` を呼び出します。
+アプリケーション パーツを使用して、特定のアセンブリまたは場所にあるソースの読み込みを "*回避*" することができます。 <xref:Microsoft.AspNetCore.Mvc.ApplicationParts> コレクションのメンバーを追加または削除して、リソースを非表示にしたり使用可能にしたりします。 `ApplicationParts` コレクションでのエントリの順序は重要ではありません。 `ApplicationPartManager` を構成してから、コンテナーでサービスを構成するために使用します。 たとえば、`ApplicationPartManager` を呼び出す前に `AddControllersAsServices` を構成します。 リソースを削除するには、`Remove` コレクションに対して `ApplicationParts` を呼び出します。
 
 `ApplicationPartManager` には次のパーツが含まれています。
 
 * アプリのアセンブリおよび依存アセンブリ。
 * `Microsoft.AspNetCore.Mvc.ApplicationParts.CompiledRazorAssemblyPart`
 * `Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation`
-* `Microsoft.AspNetCore.Mvc.TagHelpers`。
-* `Microsoft.AspNetCore.Mvc.Razor`。
+* [https://login.microsoftonline.com/consumers/](`Microsoft.AspNetCore.Mvc.TagHelpers`)
+* [https://login.microsoftonline.com/consumers/](`Microsoft.AspNetCore.Mvc.Razor`)
 
 <a name="fp"></a>
 
@@ -70,11 +70,11 @@ ASP.NET Core アプリは <xref:System.Web.WebPages.ApplicationPart> から機�
 
 ### <a name="display-available-features"></a>使用可能な機能の表示
 
-アプリで使用できる機能を列挙するには、[依存関係の挿入](../../fundamentals/dependency-injection.md)によって `ApplicationPartManager` を要求します。
+アプリで使用できる機能を列挙するには、`ApplicationPartManager`依存関係の挿入[によって ](../../fundamentals/dependency-injection.md) を要求します。
 
 [!code-csharp[](./app-parts/sample2/AppPartsSample/Controllers/FeaturesController.cs?highlight=16,25-27)]
 
-[ダウンロード サンプル](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts/sample2)では、前のコードを使用してアプリの機能を表示します。
+[ダウンロード サンプル](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts/sample2)では、前のコードを使用してアプリの機能を表示します。
 
 ```text
 Controllers:
@@ -108,7 +108,7 @@ View Components:
 
 作成者: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 "*アプリケーション パーツ*" は、アプリのリソースを抽象化したものです。 ASP.NET Core は、アプリケーション パーツを利用して、コントローラー、ビュー コンポーネント、タグ ヘルパー、Razor Pages、Razor コンパイル ソースなどを検出できます。 [AssemblyPart](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.assemblypart#Microsoft_AspNetCore_Mvc_ApplicationParts_AssemblyPart) はアプリケーション パーツです。 `AssemblyPart` はアセンブリ参照をカプセル化して、型とコンパイル参照を公開します。
 
@@ -122,11 +122,11 @@ ASP.NET Core アプリは <xref:System.Web.WebPages.ApplicationPart> から機�
 
 [!code-csharp[](./app-parts/sample1/WebAppParts/Startup.cs?name=snippet)]
 
-次のコードは、`AssemblyPart` を使用して `ApplicationPartManager` を構成する別の方法を示しています。
+次のコードは、`ApplicationPartManager` を使用して `AssemblyPart` を構成する別の方法を示しています。
 
 [!code-csharp[](./app-parts/sample1/WebAppParts/Startup2.cs?name=snippet)]
 
-上記 2 つのコード サンプルでは、アセンブリから `SharedController` が読み込まれます。 `SharedController` は、アプリケーションのプロジェクト内にありません。 [WebAppParts ソリューション](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts/sample1/WebAppParts)のサンプル ダウンロードを参照してください。
+上記 2 つのコード サンプルでは、アセンブリから `SharedController` が読み込まれます。 `SharedController` は、アプリケーションのプロジェクト内にありません。 [WebAppParts ソリューション](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts/sample1/WebAppParts)のサンプル ダウンロードを参照してください。
 
 ### <a name="include-views"></a>ビューを含める
 
@@ -134,15 +134,15 @@ ASP.NET Core アプリは <xref:System.Web.WebPages.ApplicationPart> から機�
 
 ### <a name="prevent-loading-resources"></a>リソースの読み込みを防ぐ
 
-アプリケーション パーツを使用して、特定のアセンブリまたは場所にあるソースの読み込みを "*回避*" することができます。 <xref:Microsoft.AspNetCore.Mvc.ApplicationParts> コレクションのメンバーを追加または削除して、リソースを非表示にしたり使用可能にしたりします。 `ApplicationParts` コレクションでのエントリの順序は重要ではありません。 `ApplicationPartManager` を構成してから、コンテナーでサービスを構成するために使用します。 たとえば、`AddControllersAsServices` を呼び出す前に `ApplicationPartManager` を構成します。 リソースを削除するには、`ApplicationParts` コレクションに対して `Remove` を呼び出します。
+アプリケーション パーツを使用して、特定のアセンブリまたは場所にあるソースの読み込みを "*回避*" することができます。 <xref:Microsoft.AspNetCore.Mvc.ApplicationParts> コレクションのメンバーを追加または削除して、リソースを非表示にしたり使用可能にしたりします。 `ApplicationParts` コレクションでのエントリの順序は重要ではありません。 `ApplicationPartManager` を構成してから、コンテナーでサービスを構成するために使用します。 たとえば、`ApplicationPartManager` を呼び出す前に `AddControllersAsServices` を構成します。 リソースを削除するには、`Remove` コレクションに対して `ApplicationParts` を呼び出します。
 
 次のコードでは、<xref:Microsoft.AspNetCore.Mvc.ApplicationParts> を使用してアプリから `MyDependentLibrary` を削除します。[!code-csharp[](./app-parts/sample1/WebAppParts/StartupRm.cs?name=snippet)]
 
 `ApplicationPartManager` には次のパーツが含まれています。
 
 * アプリのアセンブリおよび依存アセンブリ。
-* `Microsoft.AspNetCore.Mvc.TagHelpers`。
-* `Microsoft.AspNetCore.Mvc.Razor`。
+* [https://login.microsoftonline.com/consumers/](`Microsoft.AspNetCore.Mvc.TagHelpers`)
+* [https://login.microsoftonline.com/consumers/](`Microsoft.AspNetCore.Mvc.Razor`)
 
 ## <a name="application-feature-providers"></a>アプリケーション機能プロバイダー
 
@@ -156,11 +156,11 @@ ASP.NET Core アプリは <xref:System.Web.WebPages.ApplicationPart> から機�
 
 ### <a name="display-available-features"></a>使用可能な機能の表示
 
-アプリで使用できる機能を列挙するには、[依存関係の挿入](../../fundamentals/dependency-injection.md)によって `ApplicationPartManager` を要求します。
+アプリで使用できる機能を列挙するには、`ApplicationPartManager`依存関係の挿入[によって ](../../fundamentals/dependency-injection.md) を要求します。
 
 [!code-csharp[](./app-parts/sample2/AppPartsSample/Controllers/FeaturesController.cs?highlight=16,25-27)]
 
-[ダウンロード サンプル](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts/sample2)では、前のコードを使用してアプリの機能を表示します。
+[ダウンロード サンプル](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts/sample2)では、前のコードを使用してアプリの機能を表示します。
 
 ```text
 Controllers:

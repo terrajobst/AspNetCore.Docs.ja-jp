@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 12/11/2019
 uid: security/authentication/individual
 ms.openlocfilehash: 7ef0d5eabded61d04fb9fe7be384a663ad7ea5f4
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828712"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78651956"
 ---
 # <a name="articles-based-on-aspnet-core-projects-created-with-individual-user-accounts"></a>個々のユーザーアカウントで作成された ASP.NET Core プロジェクトに基づくアーティクル
 
@@ -40,7 +40,7 @@ Web API 認証については、[この GitHub の問題](https://github.com/dot
 
 <a name="no"></a>
 
-## <a name="no-authentication"></a>認証なし
+## <a name="no-authentication"></a>[認証なし]
 
 認証は、.NET Core CLI で `-au` オプションと共に指定されます。 Visual Studio では、新しい web アプリケーションで **[認証の変更]** ダイアログを使用できます。 Visual Studio での新しい web アプリの既定値は、認証され**ません**。
 
@@ -63,12 +63,12 @@ Web API 認証については、[この GitHub の問題](https://github.com/dot
 
 | オプション | 認証の種類 | 詳細情報のリンク |
  | ----------------- | ------------ | ---------- |
-| [なし]            |  認証しない | | 
+| なし            |  認証なし | | 
 | 個人      |  個々の認証 | <xref:security/authentication/identity>
 | IndividualB2C   |  Azure AD B2C を使用したクラウドホストの個々の認証 | [Azure AD B2C](/azure/active-directory-b2c/) |
 | SingleOrg       |  単一テナントの組織認証 | [Azure AD](/azure/active-directory/develop/quickstart-v2-aspnet-core-webapp) |
 | MultiOrg        |  複数のテナントの組織認証 | [Azure AD](/azure/active-directory/develop/quickstart-v2-aspnet-core-webapp) |
-| Windows         |  Windows 認証 | [Windows 認証](xref:security/authentication/windowsauth)
+| Windows         |  Windows 認証 | [[Windows 認証]](xref:security/authentication/windowsauth)
 
 ## <a name="visual-studio-new-webapp-authentication-options"></a>Visual Studio の新しい webapp 認証オプション
 
@@ -76,14 +76,14 @@ Web API 認証については、[この GitHub の問題](https://github.com/dot
 
 | オプション | 認証の種類 | 詳細情報のリンク |
  | ----------------- | ------------ | ---------- |
-| [なし]            |  認証しない | | 
+| なし            |  認証なし | | 
 | 個々のユーザーアカウント/アプリ内のユーザーアカウントを格納する |  個々の認証 | <xref:security/authentication/identity> |
 | 個々のユーザーアカウント/クラウド内の既存のユーザーストアに接続する |  Azure AD B2C を使用したクラウドホストの個々の認証 | [Azure AD B2C](/azure/active-directory-b2c/) |
 | 職場または学校のクラウド/単一組織  |  単一テナントの組織認証 | [Azure AD](/azure/active-directory/develop/quickstart-v2-aspnet-core-webapp) |
 | 職場または学校のクラウド/複数の組織 |  複数のテナントの組織認証 | [Azure AD](/azure/active-directory/develop/quickstart-v2-aspnet-core-webapp) |
-| Windows         |  Windows 認証 | [Windows 認証](xref:security/authentication/windowsauth)
+| Windows         |  Windows 認証 | [[Windows 認証]](xref:security/authentication/windowsauth)
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 次の記事では、個々のユーザーアカウントを使用する ASP.NET Core テンプレートで生成されたコードを使用する方法について説明します。
 

@@ -6,12 +6,12 @@ ms.author: riande
 ms.date: 12/18/2018
 ms.custom: mvc, seodec18
 uid: security/authorization/secure-data
-ms.openlocfilehash: 65c72d4dd457f85451796c5713bedebafec7a7de
-ms.sourcegitcommit: 8157e5a351f49aeef3769f7d38b787b4386aad5f
+ms.openlocfilehash: 7710a8965771db02e601dafb7da752906bcd43e5
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/20/2019
-ms.locfileid: "74239834"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78651920"
 ---
 # <a name="create-an-aspnet-core-app-with-user-data-protected-by-authorization"></a>承認によって保護されたユーザー データと ASP.NET Core アプリを作成します。
 
@@ -19,7 +19,7 @@ ms.locfileid: "74239834"
 
 ::: moniker range="<= aspnetcore-1.1"
 
-ASP.NET Core MVC バージョンについては、[この PDF](https://webpifeed.blob.core.windows.net/webpifeed/Partners/asp.net_repo_pdf_1-16-18.pdf)を参照してください。 このチュートリアルの ASP.NET Core 1.1 バージョンは、[この](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data)フォルダーにあります。 1\.1 ASP.NET Core サンプルは、「」[のサンプルに](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/final2)含まれています。
+ASP.NET Core MVC バージョンについては、[この PDF](https://webpifeed.blob.core.windows.net/webpifeed/Partners/asp.net_repo_pdf_1-16-18.pdf)を参照してください。 このチュートリアルの ASP.NET Core 1.1 バージョンは、[この](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data)フォルダーにあります。 1\.1 ASP.NET Core サンプルは、「」[のサンプルに](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/final2)含まれています。
 
 ::: moniker-end
 
@@ -81,11 +81,11 @@ ASP.NET Core MVC バージョンについては、[この PDF](https://webpifeed
 
 ## <a name="the-starter-and-completed-app"></a>Starter および完成したアプリ
 
-完成し[た](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples)アプリを[ダウンロード](xref:index#how-to-download-a-sample)します。 完成したアプリを[テスト](#test-the-completed-app)して、セキュリティ機能に慣れるようにします。
+完成し[た](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples)アプリを[ダウンロード](xref:index#how-to-download-a-sample)します。 完成したアプリを[テスト](#test-the-completed-app)して、セキュリティ機能に慣れるようにします。
 
 ### <a name="the-starter-app"></a>スターター アプリ
 
-[スターター](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/)アプリを[ダウンロード](xref:index#how-to-download-a-sample)します。
+[スターター](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/)アプリを[ダウンロード](xref:index#how-to-download-a-sample)します。
 
 アプリを実行し、 **[Contactmanager]** リンクをタップして、連絡先を作成、編集、および削除できることを確認します。
 
@@ -201,7 +201,7 @@ Entity Framework Core を使用するサービスは、 [Addscoped](/dotnet/api/
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/DI_BasePageModel.cs)]
 
-上のコードでは以下の操作が行われます。
+上記のコードでは次の操作が行われます。
 
 * 承認ハンドラーにアクセスするための `IAuthorizationService` サービスを追加します。
 * Id `UserManager` サービスを追加します。
@@ -267,7 +267,7 @@ Create page model コンストラクターを更新して、`DI_BasePageModel` �
 
 ## <a name="add-or-remove-a-user-to-a-role"></a>追加またはロールにユーザーを削除します。
 
-次の情報については、[この問題](https://github.com/aspnet/AspNetCore.Docs/issues/8502)を参照してください。
+次の情報については、[この問題](https://github.com/dotnet/AspNetCore.Docs/issues/8502)を参照してください。
 
 * ユーザーから権限を削除しています。 たとえば、チャットアプリでユーザーのミュートを行います。
 * ユーザーに特権を追加します。
@@ -308,7 +308,7 @@ Create page model コンストラクターを更新して、`DI_BasePageModel` �
 * 管理者では、連絡先データの承認または却下をします。 `Details` ビューには、 **[承認]** ボタンと **[却下]** ボタンが表示されます。
 * 管理者承認または却下して編集/削除のすべてのデータ。
 
-| ユーザー                | アプリによってシード処理 | オプション                                  |
+| User                | アプリによってシード処理 | オプション                                  |
 | ------------------- | :---------------: | ---------------------------------------- |
 | test@example.com    | いいえ                | 独自のデータを編集/削除します。                |
 | manager@contoso.com | はい               | 承認または却下と編集/削除は、データを所有します。 |
@@ -355,7 +355,7 @@ dotnet ef database update
 
 ### <a name="seed-the-database"></a>データベースのシード
 
-[SeedData](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter3/Data/SeedData.cs)クラスを*Data*フォルダーに追加します。
+[SeedData](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter3/Data/SeedData.cs)クラスを*Data*フォルダーに追加します。
 
 [!code-csharp[](secure-data/samples/starter3/Data/SeedData.cs)]
 
@@ -417,11 +417,11 @@ dotnet ef database update
 
 ## <a name="the-starter-and-completed-app"></a>Starter および完成したアプリ
 
-完成し[た](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples)アプリを[ダウンロード](xref:index#how-to-download-a-sample)します。 完成したアプリを[テスト](#test-the-completed-app)して、セキュリティ機能に慣れるようにします。
+完成し[た](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples)アプリを[ダウンロード](xref:index#how-to-download-a-sample)します。 完成したアプリを[テスト](#test-the-completed-app)して、セキュリティ機能に慣れるようにします。
 
 ### <a name="the-starter-app"></a>スターター アプリ
 
-[スターター](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/)アプリを[ダウンロード](xref:index#how-to-download-a-sample)します。
+[スターター](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/)アプリを[ダウンロード](xref:index#how-to-download-a-sample)します。
 
 アプリを実行し、 **[Contactmanager]** リンクをタップして、連絡先を作成、編集、および削除できることを確認します。
 
@@ -537,7 +537,7 @@ Entity Framework Core を使用するサービスは、 [Addscoped](/dotnet/api/
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Contacts/DI_BasePageModel.cs)]
 
-上のコードでは以下の操作が行われます。
+上記のコードでは次の操作が行われます。
 
 * 承認ハンドラーにアクセスするための `IAuthorizationService` サービスを追加します。
 * Id `UserManager` サービスを追加します。
@@ -603,7 +603,7 @@ Create page model コンストラクターを更新して、`DI_BasePageModel` �
 
 ## <a name="add-or-remove-a-user-to-a-role"></a>追加またはロールにユーザーを削除します。
 
-次の情報については、[この問題](https://github.com/aspnet/AspNetCore.Docs/issues/8502)を参照してください。
+次の情報については、[この問題](https://github.com/dotnet/AspNetCore.Docs/issues/8502)を参照してください。
 
 * ユーザーから権限を削除しています。 たとえば、チャットアプリでユーザーのミュートを行います。
 * ユーザーに特権を追加します。
@@ -635,7 +635,7 @@ Create page model コンストラクターを更新して、`DI_BasePageModel` �
 * 管理者では、連絡先データの承認または却下をします。 `Details` ビューには、 **[承認]** ボタンと **[却下]** ボタンが表示されます。
 * 管理者承認または却下して編集/削除のすべてのデータ。
 
-| ユーザー                | アプリによってシード処理 | オプション                                  |
+| User                | アプリによってシード処理 | オプション                                  |
 | ------------------- | :---------------: | ---------------------------------------- |
 | test@example.com    | いいえ                | 独自のデータを編集/削除します。                |
 | manager@contoso.com | はい               | 承認または却下と編集/削除は、データを所有します。 |
@@ -678,7 +678,7 @@ Create page model コンストラクターを更新して、`DI_BasePageModel` �
 
 ### <a name="seed-the-database"></a>データベースのシード
 
-[SeedData](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter2.1/Data/SeedData.cs)クラスを*Data*フォルダーに追加します。
+[SeedData](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter2.1/Data/SeedData.cs)クラスを*Data*フォルダーに追加します。
 
 `Main`から `SeedData.Initialize` を呼び出します。
 

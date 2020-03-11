@@ -1,28 +1,28 @@
 ---
-title: 目的の階層と ASP.NET Core でのマルチ テナント
+title: ASP.NET Core の目的階層とマルチテナント
 author: rick-anderson
-description: ASP.NET Core データ保護 Api に関連する、目的の文字列の階層とマルチ テナント機能について説明します。
+description: ASP.NET Core データ保護 Api に関連する、目的の文字列階層とマルチテナントについて説明します。
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/data-protection/consumer-apis/purpose-strings-multitenancy
 ms.openlocfilehash: 1133d40e7b325d58b3f70e7387494dae36ff8ac9
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64896799"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654020"
 ---
-# <a name="purpose-hierarchy-and-multi-tenancy-in-aspnet-core"></a>目的の階層と ASP.NET Core でのマルチ テナント
+# <a name="purpose-hierarchy-and-multi-tenancy-in-aspnet-core"></a>ASP.NET Core の目的階層とマルチテナント
 
-以降、`IDataProtector`は暗黙的にも、`IDataProtectionProvider`目的を連結することができます。 この意味で`provider.CreateProtector([ "purpose1", "purpose2" ])`と等価`provider.CreateProtector("purpose1").CreateProtector("purpose2")`します。
+`IDataProtector` も暗黙的に `IDataProtectionProvider`であるため、目的を連結することができます。 この意味では、`provider.CreateProtector([ "purpose1", "purpose2" ])` は `provider.CreateProtector("purpose1").CreateProtector("purpose2")`と同じです。
 
-これにより、データ保護システムを通じていくつか興味深い階層リレーションシップ。 前の例で[Contoso.Messaging.SecureMessage](xref:security/data-protection/consumer-apis/purpose-strings#data-protection-contoso-purpose)、SecureMessage コンポーネントを呼び出すことができます`provider.CreateProtector("Contoso.Messaging.SecureMessage")`1 回前払いプライベートに結果をキャッシュおよび`_myProvider`フィールド。 今後の保護機能への呼び出しを使用して作成できます`_myProvider.CreateProtector("User: username")`、されこれらの保護機能は、個々 のメッセージを保護するために使用されます。
+これにより、データ保護システムを通じて、いくつかの興味深い階層関係を実現できます。 前の例の[Contoso. Messaging. securemessage](xref:security/data-protection/consumer-apis/purpose-strings#data-protection-contoso-purpose)コンポーネントでは、`provider.CreateProtector("Contoso.Messaging.SecureMessage")` を呼び出して、その結果をプライベート `_myProvider` フィールドにキャッシュできます。 その後、`_myProvider.CreateProtector("User: username")`の呼び出しを使用して保護を作成できます。これらのプロテクターは、個々のメッセージをセキュリティで保護するために使用されます。
 
-これを反転もできます。 どのホストに独自の認証と状態管理システムで構成できます (妥当なは、CMS よう) 複数のテナントとテナントごとの 1 つの論理アプリケーションを検討してください。 包括的なアプリケーションが 1 つのマスター プロバイダーと呼び出す`provider.CreateProtector("Tenant 1")`と`provider.CreateProtector("Tenant 2")`各テナントに独自の分離スライスのデータ保護システムを提供します。 テナントが独自のニーズに基づいて個々 の保護機能が独自派生させることしますが、どの程度難しいしようとすると関係なくことはできませんを作成するプロテクターが競合する、他のテナントで、システムで。 視覚的に、これは次のようです。
+これを反転させることもできます。 複数のテナントをホストする単一の論理アプリケーションがあるとします (CMS は妥当と思われます)。各テナントは独自の認証および状態管理システムを使用して構成できます。 包括的なアプリケーションには1つのマスタープロバイダーがあり、`provider.CreateProtector("Tenant 1")` `provider.CreateProtector("Tenant 2")` を呼び出して、各テナントにデータ保護システムの個別の分離されたスライスを提供します。 その後、テナントは独自のプロテクターを独自のニーズに基づいて派生させることができますが、システム内の他のテナントと競合するプロテクターを作成するのがいかに難しいかは関係ありません。 グラフィックでは、次のように表されます。
 
-![マルチ テナント機能の目的](purpose-strings-multitenancy/_static/purposes-multi-tenancy.png)
+![マルチテナントの目的](purpose-strings-multitenancy/_static/purposes-multi-tenancy.png)
 
 >[!WARNING]
-> 包括的なアプリケーション制御を個々 のテナント Api で利用およびテナントが、サーバー上の任意のコードを実行できないことを前提です。 かどうか、テナントが任意のコードを実行できる、分離の保証を中断するプライベート リフレクションを実行する可能性がありますまたはマスター_キー生成情報を直接読み取るし、どのようなサブキーの派生する可能性がありますがだけが必要です。
+> これは、包括アプリケーションが個々のテナントに使用できる Api を制御し、テナントがサーバー上で任意のコードを実行できないことを前提としています。 テナントが任意のコードを実行できる場合は、プライベートリフレクションを実行して分離の保証を解除するか、マスターキーマテリアルを直接読み取り、任意のサブキーを派生させることができます。
 
-データ保護システムは、実際には既定のボックスの構成でのマルチ テナント機能の一種を使用します。 既定では、マスター_キー生成情報は、ワーカー プロセス アカウントのユーザー プロファイル フォルダー (または、IIS アプリケーション プール id のレジストリ) に格納されます。 実際には、単一のアカウントを使用して、複数のアプリケーションを実行する非常に一般的ないて、これらすべてのアプリケーションがマスター_キー生成情報を共有しまうためです。 これを解決するには、データ保護システムは自動的に、全体的な目的のチェーンの最初の要素として、アプリケーションあたり一意の識別子を挿入します。 この暗黙的な目的では[個々 のアプリケーションの分離](xref:security/data-protection/configuration/overview#per-application-isolation)から、システム、および保護機能の作成プロセス内で一意のテナントは、上の図と同じ外観と各アプリケーションを効果的に扱うことにより別です。
+データ保護システムでは、既定の設定ではなく、既定の構成でマルチテナントの一種が使用されます。 既定では、マスターキー生成情報は、ワーカープロセスアカウントのユーザープロファイルフォルダー (または、IIS アプリケーションプール id の場合はレジストリ) に格納されます。 しかし、1つのアカウントを使用して複数のアプリケーションを実行することは、実際には非常に一般的です。そのため、これらすべてのアプリケーションは、マスターキー生成情報を共有することになります。 これを解決するには、データ保護システムによって、一意のアプリケーションごとの識別子が、全体的な目的のチェーンの最初の要素として自動的に挿入されます。 この暗黙的な目的は、各アプリケーションをシステム内の一意のテナントとして効果的に扱うことによって、[個々のアプリケーション](xref:security/data-protection/configuration/overview#per-application-isolation)を相互に分離するためのものであり、保護機能の作成プロセスは上記のイメージと同じです。

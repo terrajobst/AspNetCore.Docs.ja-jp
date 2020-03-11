@@ -10,20 +10,20 @@ no-loc:
 - SignalR
 uid: signalr/publish-to-azure-web-app
 ms.openlocfilehash: d03a007ca883b3d0391b848e3e92c90469ee640a
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963934"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652652"
 ---
-# <a name="publish-an-aspnet-core-opno-locsignalr-app-to-azure-app-service"></a>ASP.NET Core SignalR アプリを Azure App Service に発行する
+# <a name="publish-an-aspnet-core-signalr-app-to-azure-app-service"></a>ASP.NET Core SignalR アプリを Azure App Service に発行する
 
 [Brady](https://twitter.com/bradygaster)による
 
 [Azure App Service](/azure/app-service/app-service-web-overview)は、web アプリ (ASP.NET Core を含む) をホストするための[Microsoft クラウドコンピューティング](https://azure.microsoft.com/)プラットフォームサービスです。
 
 > [!NOTE]
-> この記事では、Visual Studio から ASP.NET Core SignalR アプリを発行する方法について説明します。 詳細については、「 [Azure のSignalR サービス](https://azure.microsoft.com/services/signalr-service)」を参照してください。
+> この記事では、Visual Studio から ASP.NET Core SignalR アプリを発行する方法について説明します。 詳細については、「 [SignalR service For Azure](https://azure.microsoft.com/services/signalr-service)」を参照してください。
 
 ## <a name="publish-the-app"></a>アプリの発行
 
@@ -39,14 +39,14 @@ ms.locfileid: "73963934"
 
    | アイテム               | 説明 |
    | ------------------ | ----------- |
-   | **Name**           | アプリの一意の名前。 |
+   | **名前**           | アプリの一意の名前。 |
    | **サブスクリプション**   | アプリが使用する Azure サブスクリプション。 |
-   | **リソースグループ** | アプリが所属する関連リソースのグループ。 |
-   | **ホスティングプラン**   | Web アプリの料金プラン。 |
+   | **リソース グループ** | アプリが所属する関連リソースのグループ。 |
+   | **ホスティング プラン**   | Web アプリの料金プラン。 |
 
 1. [**依存関係** > **追加**] ドロップダウンリストで**Azure SignalR サービス**を選択します。
 
-   ![Azure の選択を示す [依存関係] 領域 [!ファンド.[追加] ドロップダウンリストの [NO LOC (SignalR)] サービス](publish-to-azure-web-app/_static/signalr-service-dependency.png)
+   [追加] ドロップダウンリストで Azure SignalR サービスの選択内容を示す ![依存関係領域](publish-to-azure-web-app/_static/signalr-service-dependency.png)
 
 1. [ **Azure SignalR サービス**] ダイアログで、[**新しい azure SignalR サービスインスタンスの作成**] を選択します。
 
@@ -84,7 +84,7 @@ Azure SignalR サービスを使用せずにホストされているアプリの
 
 Web ソケットとその他のトランスポートは、選択した App Service プランに基づいて制限されます。 詳細については、azure[サブスクリプションとサービスの制限、クォータ、制約](/azure/azure-subscription-service-limits#app-service-limits)に関する記事の*azure Cloud Services の制限*と*App Service の制限事項*に関するセクションを参照してください。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * [Azure SignalR サービスとは](/azure/azure-signalr/signalr-overview)
 * <xref:signalr/introduction>

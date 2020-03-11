@@ -1,26 +1,26 @@
 ---
-title: ASP.NET Core での要件ハンドラーで依存関係の挿入
+title: ASP.NET Core の要件ハンドラーでの依存関係の挿入
 author: rick-anderson
-description: 依存関係の挿入を使用して ASP.NET Core アプリを承認要件ハンドラーを挿入する方法について説明します。
+description: 依存関係の挿入を使用して ASP.NET Core アプリに承認要件ハンドラーを挿入する方法について説明します。
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/authorization/dependencyinjection
 ms.openlocfilehash: 71d563e11d308a95c08e6d012d3a071f4697d2de
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64896369"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654362"
 ---
-# <a name="dependency-injection-in-requirement-handlers-in-aspnet-core"></a>ASP.NET Core での要件ハンドラーで依存関係の挿入
+# <a name="dependency-injection-in-requirement-handlers-in-aspnet-core"></a>ASP.NET Core の要件ハンドラーでの依存関係の挿入
 
 <a name="security-authorization-di"></a>
 
-構成の中にあるサービスコレクションで、[承認ハンドラーを登録する必要があります](xref:security/authorization/policies#handler-registration) (これには[依存関係の注入](xref:fundamentals/dependency-injection)を使用します)。
+[承認ハンドラーは](xref:security/authorization/policies#handler-registration)、構成中に ([依存関係の挿入](xref:fundamentals/dependency-injection)を使用して) サービスコレクションに登録する必要があります。
 
 認可ハンドラー内に評価するルールのリポジトリがあり、そのリポジトリがサービスコレクションに登録されているとします。 承認はそれを解決してコンストラクターに挿入します。
 
-たとえば、ASP.NETのログ記録インフラストラクチャを使用する場合は、`ILoggerFactory`をハンドラーに挿入します。 ハンドラーは次のようになります。
+たとえば、ASP を使用する場合を考えてみます。`ILoggerFactory` をハンドラーに挿入する NET のログインフラストラクチャ。 ハンドラーは次のようになります。
 
 ```csharp
 public class LoggingAuthorizationHandler : AuthorizationHandler<MyRequirement>
@@ -41,13 +41,13 @@ public class LoggingAuthorizationHandler : AuthorizationHandler<MyRequirement>
    }
    ```
 
-`services.AddSingleton()` を使ってハンドラーを登録します:
+`services.AddSingleton()`にハンドラーを登録します。
 
 ```csharp
 services.AddSingleton<IAuthorizationHandler, LoggingAuthorizationHandler>();
 ```
 
-アプリケーションの起動時にハンドラーのインスタンスが作成され、DIは登録された `ILoggerFactory`をコンストラクターに挿入します。
+アプリケーションの起動時にハンドラーのインスタンスが作成され、DI によって、登録された `ILoggerFactory` がコンストラクターに挿入されます。
 
 > [!NOTE]
 > Entity Framework を使用したハンドラーは、シングルトンとして登録することはできません。

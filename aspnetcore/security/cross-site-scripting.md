@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 10/02/2018
 uid: security/cross-site-scripting
 ms.openlocfilehash: 1d6f605dc336d8768b8a47e4995f119d198a61af
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172631"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78655076"
 ---
 # <a name="prevent-cross-site-scripting-xss-in-aspnet-core"></a>ASP.NET Core でのクロスサイトスクリプティング (XSS) の防止
 
@@ -57,7 +57,7 @@ MVC で使われている Razor のエンジンは、自身でそうするのを
 
 ## <a name="javascript-encoding-using-razor"></a>Razor を使用した JavaScript のエンコード
 
-ビューで処理するのに Javascript に値を代入したい場合があるとします。 これには、2 つの方法があります。 値を代入するのに最も安全な方法は、タグのデータ属性の中に値を配置して JavaScript で読み取ることです。 例 :
+ビューで処理するのに Javascript に値を代入したい場合があるとします。 2 つの方法があります。 値を代入するのに最も安全な方法は、タグのデータ属性の中に値を配置して JavaScript で読み取ることです。 例 :
 
 ```cshtml
 @{
@@ -166,7 +166,7 @@ public class HomeController : Controller
 
 ## <a name="encoding-url-parameters"></a>エンコード URL パラメーター
 
-信頼できない入力の URL クエリ文字列を値として作成する場合は、`UrlEncoder` を使用して値をエンコードします。 次に例を示します。
+信頼できない入力の URL クエリ文字列を値として作成する場合は、`UrlEncoder` を使用して値をエンコードします。 たとえば、次のように入力します。
 
 ```csharp
 var example = "\"Quoted Value with spaces and &\"";

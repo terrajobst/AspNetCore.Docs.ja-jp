@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 12/07/2016
 uid: migration/http-modules
 ms.openlocfilehash: bdf27ccb742d4bc05bac71e6c96d71c38dcb4b62
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975491"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78651998"
 ---
 # <a name="migrate-http-handlers-and-modules-to-aspnet-core-middleware"></a>HTTP ハンドラーとモジュールを ASP.NET Core ミドルウェアに移行する
 
@@ -44,7 +44,7 @@ ms.locfileid: "69975491"
 
 **受信要求を処理するモジュールの順序は、次のように決定されます。**
 
-1. [アプリケーションライフサイクル](https://msdn.microsoft.com/library/ms227673.aspx)は、ASP.NET によって発生するシリーズイベントです。[BeginRequest](/dotnet/api/system.web.httpapplication.beginrequest)、 [AuthenticateRequest](/dotnet/api/system.web.httpapplication.authenticaterequest)、その他各モジュールは、1つまたは複数のイベントのハンドラーを作成できます。
+1. [アプリケーションライフサイクル](https://msdn.microsoft.com/library/ms227673.aspx)。 ASP.NET: [BeginRequest](/dotnet/api/system.web.httpapplication.beginrequest)、 [AuthenticateRequest](/dotnet/api/system.web.httpapplication.authenticaterequest)などによって起動されるシリーズイベントです。各モジュールは、1つまたは複数のイベントのハンドラーを作成できます。
 
 2. 同じイベントについて、web.config で構成されている*順序。*
 
@@ -88,7 +88,7 @@ ms.locfileid: "69975491"
 
 [!code-csharp[](../migration/http-modules/sample/Asp.Net4/Asp.Net4/Modules/MyModule.cs?highlight=6,8,24,31)]
 
-[ミドルウェア](xref:fundamentals/middleware/index)ページに示されているように、ASP.NET Core ミドルウェアは、を取得`Invoke` `HttpContext`してを`Task`返すメソッドを公開するクラスです。 新しいミドルウェアは次のようになります。
+[ミドルウェア](xref:fundamentals/middleware/index)ページに示されているように、ASP.NET Core ミドルウェアは `HttpContext` を取得して `Task`を返す `Invoke` メソッドを公開するクラスです。 新しいミドルウェアは次のようになります。
 
 <a name="http-modules-usemiddleware"></a>
 
@@ -96,7 +96,7 @@ ms.locfileid: "69975491"
 
 前のミドルウェアテンプレートは、[ミドルウェアの作成](xref:fundamentals/middleware/write)に関するセクションから取得されました。
 
-*MyMiddlewareExtensions* helper クラスを使用すると、 `Startup`クラスでミドルウェアを簡単に構成できます。 メソッド`UseMyMiddleware`は、要求パイプラインにミドルウェアクラスを追加します。 ミドルウェアが必要とするサービスは、ミドルウェアのコンストラクターに挿入されます。
+*MyMiddlewareExtensions* helper クラスを使用すると、`Startup` クラスでミドルウェアを簡単に構成できます。 `UseMyMiddleware` メソッドは、要求パイプラインにミドルウェアクラスを追加します。 ミドルウェアが必要とするサービスは、ミドルウェアのコンストラクターに挿入されます。
 
 <a name="http-modules-shortcircuiting-middleware"></a>
 
@@ -104,11 +104,11 @@ ms.locfileid: "69975491"
 
 [!code-csharp[](../migration/http-modules/sample/Asp.Net4/Asp.Net4/Modules/MyTerminatingModule.cs?highlight=9,10,11,12,13&name=snippet_Terminate)]
 
-ミドルウェアは、パイプラインの次の`Invoke`ミドルウェアでを呼び出さずにこの処理を行います。 これは、要求を完全に終了しないことに注意してください。これは、応答がパイプラインを通過するときに前のミドルウェアが呼び出されるためです。
+ミドルウェアは、パイプラインの次のミドルウェアで `Invoke` を呼び出さずにこの処理を行います。 これは、要求を完全に終了しないことに注意してください。これは、応答がパイプラインを通過するときに前のミドルウェアが呼び出されるためです。
 
 [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Middleware/MyTerminatingMiddleware.cs?highlight=7,8&name=snippet_Terminate)]
 
-モジュールの機能を新しいミドルウェアに移行するときに、 `HttpContext`クラスが ASP.NET Core で大幅に変更されているため、コードがコンパイルされないことがあります。 [後](#migrating-to-the-new-httpcontext)で、新しい ASP.NET Core HttpContext に移行する方法について説明します。
+モジュールの機能を新しいミドルウェアに移行するときに、`HttpContext` クラスが ASP.NET Core で大幅に変更されているため、コードがコンパイルされないことがあります。 [後](#migrating-to-the-new-httpcontext)で、新しい ASP.NET Core HttpContext に移行する方法について説明します。
 
 ## <a name="migrating-module-insertion-into-the-request-pipeline"></a>要求パイプラインへのモジュール挿入の移行
 
@@ -116,11 +116,11 @@ HTTP モジュールは通常、web.config を使用して要求パイプライ�
 
 [!code-xml[](../migration/http-modules/sample/Asp.Net4/Asp.Net4/Web.config?highlight=6&range=1-3,32-33,36,43,50,101)]
 
-`Startup`クラスの要求パイプラインに[新しいミドルウェアを追加](xref:fundamentals/middleware/index#create-a-middleware-pipeline-with-iapplicationbuilder)して、これを変換します。
+[新しいミドルウェア](xref:fundamentals/middleware/index#create-a-middleware-pipeline-with-iapplicationbuilder)を `Startup` クラスの要求パイプラインに追加して、これを変換します。
 
 [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Startup.cs?name=snippet_Configure&highlight=16)]
 
-新しいミドルウェアを挿入するパイプライン内の正確な位置は、モジュール (`BeginRequest`、 `EndRequest`など) として処理されたイベントと、web.config 内のモジュールの一覧での順序によって異なります。
+新しいミドルウェアを挿入するパイプライン内の正確な位置は、モジュール (`BeginRequest`、`EndRequest`など) として処理されたイベントと、 *web.config 内の*モジュールの一覧での順序によって異なります。
 
 前述のように、ASP.NET Core にはアプリケーションのライフサイクルがなく、ミドルウェアによって応答が処理される順序は、モジュールで使用される順序とは異なります。 これにより、順序を決定することが困難になる可能性があります。
 
@@ -136,7 +136,7 @@ ASP.NET Core プロジェクトでは、これを次のようなミドルウェ�
 
 [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Middleware/ReportHandlerMiddleware.cs?highlight=7,9,13,20,21,22,23,40,42,44)]
 
-このミドルウェアは、モジュールに対応するミドルウェアと非常によく似ています。 実際の違いは、ここではへ`_next.Invoke(context)`の呼び出しがないことです。 これは、ハンドラーが要求パイプラインの最後にあるため、次に呼び出すミドルウェアが存在しないため、意味があります。
+このミドルウェアは、モジュールに対応するミドルウェアと非常によく似ています。 実際の違いは、ここでは `_next.Invoke(context)`の呼び出しがないことです。 これは、ハンドラーが要求パイプラインの最後にあるため、次に呼び出すミドルウェアが存在しないため、意味があります。
 
 ## <a name="migrating-handler-insertion-into-the-request-pipeline"></a>要求パイプラインへのハンドラー挿入の移行
 
@@ -144,17 +144,17 @@ HTTP ハンドラーの構成は web.config で行われ、次のように*な�
 
 [!code-xml[](../migration/http-modules/sample/Asp.Net4/Asp.Net4/Web.config?highlight=6&range=1-3,32,46-48,50,101)]
 
-これを変換するには、新しいハンドラーミドルウェアを`Startup`クラスの要求パイプラインに追加します。これは、モジュールから変換されたミドルウェアに似ています。 この方法の問題は、すべての要求を新しいハンドラーミドルウェアに送信することです。 ただし、特定の拡張機能を持つ要求のみがミドルウェアに到着するようにします。 これにより、HTTP ハンドラーと同じ機能が提供されます。
+これを変換するには、新しいハンドラーミドルウェアを `Startup` クラスの要求パイプラインに追加します。これは、モジュールから変換されたミドルウェアに似ています。 この方法の問題は、すべての要求を新しいハンドラーミドルウェアに送信することです。 ただし、特定の拡張機能を持つ要求のみがミドルウェアに到着するようにします。 これにより、HTTP ハンドラーと同じ機能が提供されます。
 
-1つの解決策は、 `MapWhen`拡張メソッドを使用して、特定の拡張機能を持つ要求に対してパイプラインを分岐することです。 これは、もう一方の`Configure`ミドルウェアを追加するのと同じ方法で行います。
+1つの解決策は、`MapWhen` 拡張メソッドを使用して、特定の拡張機能を持つ要求に対してパイプラインを分岐することです。 これは、もう一方のミドルウェアを追加するのと同じ `Configure` 方法で行います。
 
 [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Startup.cs?name=snippet_Configure&highlight=27-34)]
 
-`MapWhen`次のパラメーターを取得します。
+`MapWhen` は、次のパラメーターを受け取ります。
 
-1. を受け取る`HttpContext`ラムダ。要求が分岐`true`を下位に移動する必要がある場合は、を返します。 これは、拡張機能だけでなく、要求ヘッダー、クエリ文字列パラメーターなどにもブランチ要求を分岐できることを意味します。
+1. `HttpContext` を受け取るラムダ。要求が分岐を下に移動する必要がある場合は `true` を返します。 これは、拡張機能だけでなく、要求ヘッダー、クエリ文字列パラメーターなどにもブランチ要求を分岐できることを意味します。
 
-2. を受け取り`IApplicationBuilder` 、分岐のすべてのミドルウェアを追加するラムダ。 これは、ハンドラーミドルウェアの前に分岐にミドルウェアを追加できることを意味します。
+2. `IApplicationBuilder` を受け取り、分岐のすべてのミドルウェアを追加するラムダ。 これは、ハンドラーミドルウェアの前に分岐にミドルウェアを追加できることを意味します。
 
 ブランチがすべての要求で呼び出される前に、ミドルウェアがパイプラインに追加されました。ブランチには影響がありません。
 
@@ -182,11 +182,11 @@ HTTP ハンドラーの構成は web.config で行われ、次のように*な�
 
 3. オプションの値を options クラスに関連付ける
 
-    オプションのパターンでは ASP.NET Core の依存関係挿入フレームワークを使用して`MyMiddlewareOptions`、オプションの種類 (など) を実際のオプションを持つ`MyMiddlewareOptions`オブジェクトに関連付けます。
+    オプションのパターンでは ASP.NET Core の依存関係挿入フレームワークを使用して、オプションの種類 (`MyMiddlewareOptions`など) を実際のオプションを持つ `MyMiddlewareOptions` オブジェクトに関連付けます。
 
-    クラスを`Startup`更新します。
+    `Startup` クラスを更新します。
 
-   1. *Appsettings*を使用している場合は、 `Startup`コンストラクターの構成ビルダーに追加します。
+   1. Appsettings を使用している場合は、`Startup` コンストラクターの構成ビルダーに追加し*ます*。
 
       [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Startup.cs?name=snippet_Ctor&highlight=5-6)]
 
@@ -202,9 +202,9 @@ HTTP ハンドラーの構成は web.config で行われ、次のように*な�
 
    [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Middleware/MyMiddlewareWithParams.cs?name=snippet_MiddlewareWithParams&highlight=4,7,10,15-16)]
 
-   にミドルウェアを`IApplicationBuilder`追加する [UseMiddleware](#http-modules-usemiddleware) 拡張メソッドは、依存関係の挿入を行います。
+   `IApplicationBuilder` にミドルウェアを追加する[UseMiddleware](#http-modules-usemiddleware)拡張メソッドによって、依存関係の挿入が行われます。
 
-   これはオブジェクトに`IOptions`限定されません。 ミドルウェアが必要とするその他のオブジェクトは、この方法で挿入できます。
+   これは `IOptions` のオブジェクトに限定されません。 ミドルウェアが必要とするその他のオブジェクトは、この方法で挿入できます。
 
 ## <a name="loading-middleware-options-through-direct-injection"></a>直接挿入によるミドルウェアオプションの読み込み
 
@@ -212,7 +212,7 @@ HTTP ハンドラーの構成は web.config で行われ、次のように*な�
 
 これは、異なるオプションを使用して同じミドルウェアを2回使用する場合には、このようになります。 たとえば、異なるブランチで使用される承認ミドルウェアは、さまざまなロールを許可します。 2つの異なる options オブジェクトを1つの options クラスに関連付けることはできません。
 
-ソリューションでは、オプションオブジェクトを`Startup`クラスの実際のオプション値で取得し、ミドルウェアの各インスタンスに直接渡すことができます。
+解決策は、オプションオブジェクトを `Startup` クラスの実際のオプション値で取得し、ミドルウェアの各インスタンスに直接渡すことです。
 
 1. *Appsettings*に2番目のキーを追加する
 
@@ -220,25 +220,25 @@ HTTP ハンドラーの構成は web.config で行われ、次のように*な�
 
    [!code-json[](http-modules/sample/Asp.Net.Core/appsettings.json?range=1,10-18&highlight=2-5)]
 
-2. オプションの値を取得し、ミドルウェアに渡します。 (ミドルウェアをパイプラインに追加する)拡張メソッドは、オプション値を渡す論理的な場所です。`Use...` 
+2. オプションの値を取得し、ミドルウェアに渡します。 `Use...` 拡張メソッド (ミドルウェアをパイプラインに追加する) は、オプション値を渡す論理的な場所です。 
 
    [!code-csharp[](http-modules/sample/Asp.Net.Core/Startup.cs?name=snippet_Configure&highlight=20-23)]
 
-3. ミドルウェアがオプションパラメーターを受け取ることができるようにします。 `Use...`拡張メソッド (options パラメーターを受け取り、に`UseMiddleware`渡す) のオーバーロードを指定します。 パラメーター `UseMiddleware`を使用してを呼び出すと、ミドルウェアオブジェクトをインスタンス化するときに、ミドルウェアコンストラクターにパラメーターが渡されます。
+3. ミドルウェアがオプションパラメーターを受け取ることができるようにします。 `Use...` 拡張メソッド (options パラメーターを受け取り、`UseMiddleware`に渡す) のオーバーロードを指定します。 パラメーターを使用して `UseMiddleware` を呼び出すと、ミドルウェアオブジェクトをインスタンス化するときに、ミドルウェアコンストラクターにパラメーターが渡されます。
 
    [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Middleware/MyMiddlewareWithParams.cs?name=snippet_Extensions&highlight=9-14)]
 
-   これにより、 `OptionsWrapper`オブジェクトの options オブジェクトがどのようにラップされるかに注目してください。 これは`IOptions`、ミドルウェアコンストラクターによって想定されているとおりにを実装します。
+   これにより、`OptionsWrapper` オブジェクト内の options オブジェクトがどのようにラップされるかに注目してください。 これは、ミドルウェアコンストラクターによって想定される `IOptions`を実装します。
 
 ## <a name="migrating-to-the-new-httpcontext"></a>新しい HttpContext への移行
 
-前に、ミドルウェア内`Invoke`のメソッドが型`HttpContext`のパラメーターを受け取ることを確認しました。
+前に、ミドルウェアの `Invoke` メソッドが `HttpContext`型のパラメーターを受け取ることを確認しました。
 
 ```csharp
 public async Task Invoke(HttpContext context)
 ```
 
-`HttpContext`は ASP.NET Core で大幅に変更されました。 このセクションでは、 [system.web](/dotnet/api/system.web.httpcontext)の最もよく使用されるプロパティを新しい`Microsoft.AspNetCore.Http.HttpContext`に変換する方法について説明します。
+`HttpContext` は ASP.NET Core で大幅に変更されました。 このセクションでは、 [system.web](/dotnet/api/system.web.httpcontext)の最もよく使用されるプロパティを新しい `Microsoft.AspNetCore.Http.HttpContext`に変換する方法について説明します。
 
 ### <a name="httpcontext"></a>HttpContext
 
@@ -278,7 +278,7 @@ HttpContext は次のように変換さ**れます。**
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Cookies)]
 
-**HttpContext.Request.RequestContext.RouteData** translates to:
+**Httpcontext.current**は次のように変換されます。
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Route)]
 
@@ -334,17 +334,17 @@ HttpContext は次のように変換さ**れます。**
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Output)]
 
-**HttpContext.Response.TransmitFile**
+**TransmitFile**
 
 ファイルの提供については、[こちら](../fundamentals/request-features.md#middleware-and-request-features)を参照してください。
 
-**HttpContext.Response.Headers**
+**HttpContext. 応答ヘッダー**
 
 応答ヘッダーの送信は、応答本文に何かが書き込まれた後に設定した場合、送信されないという事実により複雑になります。
 
-解決策として、応答の書き込みが開始される前に、右に呼び出されるコールバックメソッドを設定します。 これは、ミドルウェアの`Invoke`メソッドの開始時に実行することをお勧めします。 応答ヘッダーを設定するコールバックメソッドです。
+解決策として、応答の書き込みが開始される前に、右に呼び出されるコールバックメソッドを設定します。 これは、ミドルウェアの `Invoke` メソッドの開始時に実行することをお勧めします。 応答ヘッダーを設定するコールバックメソッドです。
 
-次のコードは、という`SetHeaders`コールバックメソッドを設定します。
+次のコードは、`SetHeaders`というコールバックメソッドを設定します。
 
 ```csharp
 public async Task Invoke(HttpContext httpContext)
@@ -353,11 +353,11 @@ public async Task Invoke(HttpContext httpContext)
     httpContext.Response.OnStarting(SetHeaders, state: httpContext);
 ```
 
-コール`SetHeaders`バックメソッドは次のようになります。
+`SetHeaders` のコールバックメソッドは次のようになります。
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_SetHeaders)]
 
-**HttpContext.Response.Cookies**
+**HttpContext。クッキー**
 
 Cookie は、cookie の*セットクッキー*応答ヘッダーでブラウザーに移動します。 そのため、cookie を送信するには、応答ヘッダーの送信に使用するのと同じコールバックが必要です。
 
@@ -369,11 +369,11 @@ public async Task Invoke(HttpContext httpContext)
     httpContext.Response.OnStarting(SetHeaders, state: httpContext);
 ```
 
-コール`SetCookies`バックメソッドは次のようになります。
+`SetCookies` のコールバックメソッドは次のようになります。
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_SetCookies)]
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * [HTTP ハンドラーと HTTP モジュールの概要](/iis/configuration/system.webserver/)
 * [構成](xref:fundamentals/configuration/index)

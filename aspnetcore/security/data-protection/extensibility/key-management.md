@@ -7,23 +7,23 @@ ms.custom: mvc, seodec18
 ms.date: 10/24/2018
 uid: security/data-protection/extensibility/key-management
 ms.openlocfilehash: 28932cbef1cc797338980f3e0de8b09caee324c0
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64896909"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654260"
 ---
 # <a name="key-management-extensibility-in-aspnet-core"></a>ASP.NET Core でのキー管理の拡張性
 
 > [!TIP]
-> 読み取り、[キー管理](xref:security/data-protection/implementation/key-management#data-protection-implementation-key-management)これらの Api の背後にある基本的な概念の一部について説明します、このセクションを読む前にセクション。
+> このセクションを読む前に、「[キー管理](xref:security/data-protection/implementation/key-management#data-protection-implementation-key-management)」セクションをお読みください。このセクションでは、これらの api の基本的な概念について説明します。
 
 > [!WARNING]
 > 次のインターフェイスのいずれかを実装する型がスレッド セーフにする必要があります複数の呼び出し元の。
 
-## <a name="key"></a>キー
+## <a name="key"></a>Key
 
-`IKey`インターフェイスは基本的なキー暗号方式で表したものです。 用語のキーは、「暗号化キー マテリアル」の文字どおりの意味ではなく、抽象という意味では、ここに使用されます。 キーには、次のプロパティがあります。
+`IKey` インターフェイスは、cryptosystem のキーの基本的な表現です。 用語のキーは、「暗号化キー マテリアル」の文字どおりの意味ではなく、抽象という意味では、ここに使用されます。 キーには、次のプロパティがあります。
 
 * アクティブ化、作成、および有効期限の日付
 
@@ -33,22 +33,22 @@ ms.locfileid: "64896909"
 
 ::: moniker range=">= aspnetcore-2.0"
 
-さらに、`IKey`公開、`CreateEncryptor`メソッドを作成するために使用できる、 [IAuthenticatedEncryptor](xref:security/data-protection/extensibility/core-crypto#data-protection-extensibility-core-crypto-iauthenticatedencryptor)インスタンスは、このキーに関連付けられています。
+さらに、`IKey` は、このキーに関連付けられている[I認証 Ated暗号化](xref:security/data-protection/extensibility/core-crypto#data-protection-extensibility-core-crypto-iauthenticatedencryptor)インスタンスを作成するために使用できる `CreateEncryptor` メソッドを公開します。
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-2.0"
 
-さらに、`IKey`公開、`CreateEncryptorInstance`メソッドを作成するために使用できる、 [IAuthenticatedEncryptor](xref:security/data-protection/extensibility/core-crypto#data-protection-extensibility-core-crypto-iauthenticatedencryptor)インスタンスは、このキーに関連付けられています。
+さらに、`IKey` は、このキーに関連付けられている[I認証 Ated暗号化](xref:security/data-protection/extensibility/core-crypto#data-protection-extensibility-core-crypto-iauthenticatedencryptor)インスタンスを作成するために使用できる `CreateEncryptorInstance` メソッドを公開します。
 
 ::: moniker-end
 
 > [!NOTE]
-> 生の暗号化マテリアルを取得する API はありません、`IKey`インスタンス。
+> `IKey` インスタンスから未加工の暗号化マテリアルを取得する API はありません。
 
 ## <a name="ikeymanager"></a>IKeyManager
 
-`IKeyManager`インターフェイスは、一般的なキーの格納、取得、および操作を担当するオブジェクトを表します。 次の 3 つの高度な操作が公開しています。
+`IKeyManager` インターフェイスは、一般的なキーの格納、取得、および操作を行うオブジェクトを表します。 次の 3 つの高度な操作が公開しています。
 
 * 新しいキーを作成し、ストレージに保存します。
 
@@ -57,37 +57,37 @@ ms.locfileid: "64896909"
 * 1 つまたは複数のキーを取り消すし、記憶域に失効情報を保持します。
 
 >[!WARNING]
-> 書き込み、`IKeyManager`非常に高度なタスクは、開発者の大部分が試行しないでください。 代わりに、ほとんどの開発者がによって提供される機能の利点を実行する必要があります、 [XmlKeyManager](#xmlkeymanager)クラス。
+> `IKeyManager` の作成は非常に高度なタスクであり、ほとんどの開発者はこれを試みることはできません。 代わりに、ほとんどの開発者は、 [Xmlkeymanager](#xmlkeymanager)クラスによって提供される機能を活用する必要があります。
 
 ## <a name="xmlkeymanager"></a>XmlKeyManager
 
-`XmlKeyManager`型がボックス内の具象実装の`IKeyManager`します。 キー エスクローおよび保存時のキーの暗号化を含むいくつかの便利な機能を提供します。 このシステム内のキーは XML 要素として表されます (具体的には、 [XElement](/dotnet/csharp/programming-guide/concepts/linq/xelement-class-overview))。
+`XmlKeyManager` 型は、`IKeyManager`のインボックスの具象実装です。 キー エスクローおよび保存時のキーの暗号化を含むいくつかの便利な機能を提供します。 このシステムのキーは、XML 要素 (具体的には[XElement](/dotnet/csharp/programming-guide/concepts/linq/xelement-class-overview)) として表されます。
 
-`XmlKeyManager` そのタスクを実行する過程でその他のいくつかのコンポーネントに依存します。
+`XmlKeyManager` は、タスクを実行する過程で、他のいくつかのコンポーネントに依存します。
 
 ::: moniker range=">= aspnetcore-2.0"
 
-* `AlgorithmConfiguration`を新しいキーで使用されるアルゴリズムを決定します。
+* `AlgorithmConfiguration`、新しいキーによって使用されるアルゴリズムを指定します。
 
-* `IXmlRepository`、ストレージ キーが永続化するコントロール。
+* `IXmlRepository`は、ストレージ内でのキーの保存場所を制御します。
 
-* `IXmlEncryptor` [オプション]、保存時のキーを暗号化することができます。
+* `IXmlEncryptor` [省略可能]。保存時にキーを暗号化できます。
 
-* `IKeyEscrowSink` [オプション]、キー エスクローのサービスを提供します。
+* `IKeyEscrowSink` [省略可能]。キーエスクローサービスを提供します。
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-2.0"
 
-* `IXmlRepository`、ストレージ キーが永続化するコントロール。
+* `IXmlRepository`は、ストレージ内でのキーの保存場所を制御します。
 
-* `IXmlEncryptor` [オプション]、保存時のキーを暗号化することができます。
+* `IXmlEncryptor` [省略可能]。保存時にキーを暗号化できます。
 
-* `IKeyEscrowSink` [オプション]、キー エスクローのサービスを提供します。
+* `IKeyEscrowSink` [省略可能]。キーエスクローサービスを提供します。
 
 ::: moniker-end
 
-内でこれらのコンポーネントをまとめてワイヤードは方法を示す高度な図を次に示します`XmlKeyManager`します。
+これらのコンポーネントが `XmlKeyManager`内でどのように結線されるかを示す概略図を次に示します。
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -95,7 +95,7 @@ ms.locfileid: "64896909"
 
 *キーの作成/CreateNewKey*
 
-実装で`CreateNewKey`、`AlgorithmConfiguration`コンポーネントの作成に使用する一意`IAuthenticatedEncryptorDescriptor`が XML としてシリアル化し、先。 キー エスクロー シンクが存在する場合は、長期的なストレージ、未処理の XML を (暗号化されていない) が、シンクに提供されます。 暗号化されていない XML 実行し、 `IXmlEncryptor` (必要な) 場合、暗号化された XML ドキュメントを生成します。 この暗号化されたドキュメントが使用して長期的なストレージに永続化、`IXmlRepository`します。 (ない場合は`IXmlEncryptor`が構成されている場合、暗号化されていないドキュメントに保存、 `IXmlRepository`)。
+`CreateNewKey`の実装では、`AlgorithmConfiguration` コンポーネントを使用して一意の `IAuthenticatedEncryptorDescriptor`が作成され、その後 XML としてシリアル化されます。 キー エスクロー シンクが存在する場合は、長期的なストレージ、未処理の XML を (暗号化されていない) が、シンクに提供されます。 暗号化されていない XML は、(必要に応じて) `IXmlEncryptor` を通じて実行され、暗号化された XML ドキュメントを生成します。 この暗号化されたドキュメントは、`IXmlRepository`を使用して長期的なストレージに保存されます。 (`IXmlEncryptor` が構成されていない場合は、暗号化されていないドキュメントが `IXmlRepository`に保持されます)。
 
 ![キーの取得](key-management/_static/keyretrieval2.png)
 
@@ -107,7 +107,7 @@ ms.locfileid: "64896909"
 
 *キーの作成/CreateNewKey*
 
-実装で`CreateNewKey`、`IAuthenticatedEncryptorConfiguration`コンポーネントの作成に使用する一意`IAuthenticatedEncryptorDescriptor`が XML としてシリアル化し、先。 キー エスクロー シンクが存在する場合は、長期的なストレージ、未処理の XML を (暗号化されていない) が、シンクに提供されます。 暗号化されていない XML 実行し、 `IXmlEncryptor` (必要な) 場合、暗号化された XML ドキュメントを生成します。 この暗号化されたドキュメントが使用して長期的なストレージに永続化、`IXmlRepository`します。 (ない場合は`IXmlEncryptor`が構成されている場合、暗号化されていないドキュメントに保存、 `IXmlRepository`)。
+`CreateNewKey`の実装では、`IAuthenticatedEncryptorConfiguration` コンポーネントを使用して一意の `IAuthenticatedEncryptorDescriptor`が作成され、その後 XML としてシリアル化されます。 キー エスクロー シンクが存在する場合は、長期的なストレージ、未処理の XML を (暗号化されていない) が、シンクに提供されます。 暗号化されていない XML は、(必要に応じて) `IXmlEncryptor` を通じて実行され、暗号化された XML ドキュメントを生成します。 この暗号化されたドキュメントは、`IXmlRepository`を使用して長期的なストレージに保存されます。 (`IXmlEncryptor` が構成されていない場合は、暗号化されていないドキュメントが `IXmlRepository`に保持されます)。
 
 ![キーの取得](key-management/_static/keyretrieval1.png)
 
@@ -115,27 +115,27 @@ ms.locfileid: "64896909"
 
 *キーの取得/GetAllKeys*
 
-実装で`GetAllKeys`、XML ドキュメントのキーを表すおよび失効は、基になるから読み取られる`IXmlRepository`します。 これらのドキュメントが暗号化されている場合、システムは自動的に復号化します。 `XmlKeyManager` 適切な作成`IAuthenticatedEncryptorDescriptorDeserializer`にドキュメントを逆シリアル化するインスタンスが再度`IAuthenticatedEncryptorDescriptor`インスタンスで、個々 にラップし、`IKey`インスタンス。 このコレクションの`IKey`のインスタンスが、呼び出し元に返されます。
+`GetAllKeys`の実装では、キーと失効を表す XML ドキュメントが、基になる `IXmlRepository`から読み取られます。 これらのドキュメントが暗号化されている場合、システムは自動的に復号化します。 `XmlKeyManager` は、ドキュメントを逆シリアル化するための適切な `IAuthenticatedEncryptorDescriptorDeserializer` インスタンスを `IAuthenticatedEncryptorDescriptor` インスタンスに作成してから、個々の `IKey` インスタンスにラップします。 この `IKey` インスタンスのコレクションが呼び出し元に返されます。
 
-特定の XML 要素の詳細についてで参照できる、[キー記憶域形式のドキュメント](xref:security/data-protection/implementation/key-storage-format#data-protection-implementation-key-storage-format)します。
+特定の XML 要素の詳細については、「[キーストレージ形式」ドキュメント](xref:security/data-protection/implementation/key-storage-format#data-protection-implementation-key-storage-format)を参照してください。
 
 ## <a name="ixmlrepository"></a>IXmlRepository
 
-`IXmlRepository`インターフェイスは、XML を永続化および XML をバッキング ストアから取得できる型を表します。 2 つの Api が公開しています。
+`IXmlRepository` インターフェイスは、バッキングストアに対して XML を永続化したり、XML を取得したりできる型を表します。 2 つの Api が公開しています。
 
-* `GetAllElements` :`IReadOnlyCollection<XElement>`
+* `GetAllElements`:`IReadOnlyCollection<XElement>`
 
 * `StoreElement(XElement element, string friendlyName)`
 
-実装`IXmlRepository`通過して XML を解析する必要はありません。 上位のレイヤーを生成して、ドキュメントの解析について心配を不透明として XML ドキュメントを処理させている必要があります。
+`IXmlRepository` の実装では、それらを渡す XML を解析する必要はありません。 上位のレイヤーを生成して、ドキュメントの解析について心配を不透明として XML ドキュメントを処理させている必要があります。
 
-実装している 4 つの組み込み具象型がある`IXmlRepository`:
+`IXmlRepository`を実装する具象型には、次の4つが組み込まれています。
 
 ::: moniker range=">= aspnetcore-2.2"
 
 * [FileSystemXmlRepository](/dotnet/api/microsoft.aspnetcore.dataprotection.repositories.filesystemxmlrepository)
 * [RegistryXmlRepository](/dotnet/api/microsoft.aspnetcore.dataprotection.repositories.registryxmlrepository)
-* [AzureStorage.AzureBlobXmlRepository](/dotnet/api/microsoft.aspnetcore.dataprotection.azurestorage.azureblobxmlrepository)
+* [AzureStorage. AzureBlobXmlRepository](/dotnet/api/microsoft.aspnetcore.dataprotection.azurestorage.azureblobxmlrepository)
 * [RedisXmlRepository](/dotnet/api/microsoft.aspnetcore.dataprotection.stackexchangeredis.redisxmlrepository)
 
 ::: moniker-end
@@ -144,16 +144,16 @@ ms.locfileid: "64896909"
 
 * [FileSystemXmlRepository](/dotnet/api/microsoft.aspnetcore.dataprotection.repositories.filesystemxmlrepository)
 * [RegistryXmlRepository](/dotnet/api/microsoft.aspnetcore.dataprotection.repositories.registryxmlrepository)
-* [AzureStorage.AzureBlobXmlRepository](/dotnet/api/microsoft.aspnetcore.dataprotection.azurestorage.azureblobxmlrepository)
+* [AzureStorage. AzureBlobXmlRepository](/dotnet/api/microsoft.aspnetcore.dataprotection.azurestorage.azureblobxmlrepository)
 * [RedisXmlRepository](/dotnet/api/microsoft.aspnetcore.dataprotection.redisxmlrepository)
 
 ::: moniker-end
 
-参照してください、[キー記憶域プロバイダーのドキュメント](xref:security/data-protection/implementation/key-storage-providers)詳細についてはします。
+詳細については、「[キー記憶域プロバイダー」ドキュメント](xref:security/data-protection/implementation/key-storage-providers)を参照してください。
 
-カスタムの登録`IXmlRepository`さまざまなバッキング ストア (たとえば、Azure テーブル ストレージ) を使用する場合に適しています。
+別のバッキングストア (たとえば、Azure Table Storage) を使用する場合は、カスタム `IXmlRepository` を登録するのが適切です。
 
-アプリケーション全体の既定のリポジトリを変更するには、登録、カスタム`IXmlRepository`インスタンス。
+既定のリポジトリアプリケーション全体を変更するには、カスタム `IXmlRepository` インスタンスを登録します。
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -173,22 +173,22 @@ services.AddSingleton<IXmlRepository>(new MyCustomXmlRepository());
 
 ## <a name="ixmlencryptor"></a>IXmlEncryptor
 
-`IXmlEncryptor`インターフェイスは、プレーン テキストの XML 要素を暗号化する型を表します。 1 つの API を公開しています。
+`IXmlEncryptor` インターフェイスは、プレーンテキストの XML 要素を暗号化できる型を表します。 1 つの API を公開しています。
 
-* Encrypt(XElement plaintextElement) :EncryptedXmlInfo
+* (XElement plaintextElement) の暗号化: EncryptedXmlInfo
 
-場合、シリアル化された`IAuthenticatedEncryptorDescriptor`し、「暗号化を必要とする」としてマークされているすべての要素が含まれています`XmlKeyManager`経由、構成されたこれらの要素で実行される`IXmlEncryptor`の`Encrypt`メソッドをおよびそれにしたり、要素を保持ではなく、プレーン テキスト要素を`IXmlRepository`します。 出力、`Encrypt`メソッドは、`EncryptedXmlInfo`オブジェクト。 このオブジェクトはしたり、両方の結果を含むラッパー`XElement`と型を表す、`IXmlDecryptor`の対応する要素を復号化に使用できます。
+シリアル化された `IAuthenticatedEncryptorDescriptor` に "encryption が必要" とマークされている要素が含まれている場合、`XmlKeyManager` は、構成された `IXmlEncryptor`の `Encrypt` メソッドを使用してこれらの要素を実行します。これにより、プレーンテキスト要素ではなく、読んだり要素が `IXmlRepository`に保持されます。 `Encrypt` メソッドの出力は、`EncryptedXmlInfo` オブジェクトです。 このオブジェクトは、結果の読んだり `XElement` と、対応する要素の暗号を解除するために使用できる `IXmlDecryptor` を表す型の両方を含むラッパーです。
 
-実装している 4 つの組み込み具象型がある`IXmlEncryptor`:
+`IXmlEncryptor`を実装する具象型には、次の4つが組み込まれています。
 
 * [CertificateXmlEncryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.certificatexmlencryptor)
 * [DpapiNGXmlEncryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.dpapingxmlencryptor)
 * [DpapiXmlEncryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.dpapixmlencryptor)
-* [NullXmlEncryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.nullxmlencryptor)
+* [NullXmlEncryptor 機能](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.nullxmlencryptor)
 
-参照してください、 [rest のドキュメントでキーの暗号化](xref:security/data-protection/implementation/key-encryption-at-rest)詳細についてはします。
+詳細については、保存[時のキーの暗号化](xref:security/data-protection/implementation/key-encryption-at-rest)に関するドキュメントを参照してください。
 
-既定の保存にキーの暗号化メカニズム アプリケーション全体を変更するに登録するカスタム`IXmlEncryptor`インスタンス。
+既定のキー暗号化メカニズムのアプリケーション全体を変更するには、カスタム `IXmlEncryptor` インスタンスを登録します。
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -208,35 +208,35 @@ services.AddSingleton<IXmlEncryptor>(new MyCustomXmlEncryptor());
 
 ## <a name="ixmldecryptor"></a>IXmlDecryptor
 
-`IXmlDecryptor`インターフェイスは、暗号化を解除する方法を認識する型を表す、`XElement`がしたりを使用して、`IXmlEncryptor`します。 1 つの API を公開しています。
+`IXmlDecryptor` インターフェイスは、`IXmlEncryptor`によって読んだりされた `XElement` の暗号化を解除する方法を認識している型を表します。 1 つの API を公開しています。
 
-* (XElement encryptedElement) の暗号化を解除します。XElement
+* (XElement encryptedElement) を暗号化解除: XElement
 
-`Decrypt`メソッドによって実行された暗号化を元に戻します`IXmlEncryptor.Encrypt`します。 一般に、各具象`IXmlEncryptor`対応する具体的な実装が必要があります`IXmlDecryptor`実装します。
+`Decrypt` メソッドは、`IXmlEncryptor.Encrypt`によって実行される暗号化を元に戻します。 一般に、各具象 `IXmlEncryptor` 実装には、対応する具象 `IXmlDecryptor` 実装があります。
 
-実装する型`IXmlDecryptor`次の 2 つのパブリック コンストラクターのいずれかである必要があります。
+`IXmlDecryptor` を実装する型には、次の2つのパブリックコンストラクターのいずれかが必要です。
 
 * .ctor(IServiceProvider)
 * .ctor()
 
 > [!NOTE]
-> `IServiceProvider`に渡されるコンストラクターを null にすることがあります。
+> コンストラクターに渡される `IServiceProvider` は null でもかまいません。
 
 ## <a name="ikeyescrowsink"></a>IKeyEscrowSink
 
-`IKeyEscrowSink`インターフェイスは、機密情報のエスクローを実行できる型を表します。 シリアル化された記述子は、(暗号化マテリアルの場合) などの機密情報を含む可能性があります、これは、導入に至った経緯を思い出してください、 [IXmlEncryptor](#ixmlencryptor)最初に入力します。 ただし、事故が発生して、キー リングが削除できるは、または破損します。
+`IKeyEscrowSink` インターフェイスは、機密情報のエスクローを実行できる型を表します。 シリアル化された記述子に機密情報 (暗号化マテリアルなど) が含まれている可能性があることを思い出してください。これは、 [IXmlEncryptor](#ixmlencryptor)型が最初に導入されたものです。 ただし、事故が発生して、キー リングが削除できるは、または破損します。
 
-エスクロー インターフェイスを使用する、いずれかの構成によって変換される前に、生のシリアル化された XML へのアクセスを許可、緊急のエスケープ ハッチ[IXmlEncryptor](#ixmlencryptor)します。 インターフェイスは、1 つの API を公開します。
+エスクローエスケープハッチを使用すると、構成済みの[IXmlEncryptor](#ixmlencryptor)によって変換される前に、未処理のシリアル化された XML にアクセスできます。 インターフェイスは、1 つの API を公開します。
 
 * ストア (Guid keyId、XElement 要素)
 
-`IKeyEscrowSink`ビジネス ポリシーを使用して一貫性のある安全な方法で、指定した要素を処理するために実装します。 場所は、証明書の秘密キーはエスクローされました。 既知の企業 X.509 証明書を使用して XML 要素を暗号化するエスクロー シンクの 1 つの考えられる実装可能性があります。`CertificateXmlEncryptor`型がこれを支援するためです。 `IKeyEscrowSink`実装は、指定した要素を適切に永続化することもできます。
+ビジネスポリシーと一貫性のあるセキュリティで保護された方法で提供される要素を処理するには、`IKeyEscrowSink` の実装が必要です。 可能な実装の1つとして、エスクローシンクが、証明書の秘密キーがエスクローされている既知の企業の x.509 証明書を使用して XML 要素を暗号化することが考えられます。`CertificateXmlEncryptor` の種類は、これを支援することができます。 `IKeyEscrowSink` 実装は、指定された要素を適切に永続化する役割も担います。
 
-既定ではエスクロー メカニズムが有効でない、サーバー管理者は、[これをグローバルに構成](xref:security/data-protection/configuration/machine-wide-policy)します。 構成することもプログラムを使用して、`IDataProtectionBuilder.AddKeyEscrowSink`メソッドを次の例で示すようにします。 `AddKeyEscrowSink`メソッドのオーバー ロードのミラー、`IServiceCollection.AddSingleton`と`IServiceCollection.AddInstance`オーバー ロードとして`IKeyEscrowSink`インスタンスはシングルトンとして意図されています。 複数`IKeyEscrowSink`インスタンスが登録されて、キーを同時に複数のメカニズムをエスクローできるようにそのそれぞれがキーの生成中に呼び出されます。
+既定では、エスクローメカニズムは有効になっていませんが、サーバー管理者は[グローバルに構成](xref:security/data-protection/configuration/machine-wide-policy)することができます。 また、次のサンプルに示すように、`IDataProtectionBuilder.AddKeyEscrowSink` メソッドを使用してプログラムで構成することもできます。 `AddKeyEscrowSink` メソッドのオーバーロードでは、`IKeyEscrowSink` インスタンスはシングルトンとして使用されるため、`IServiceCollection.AddSingleton` と `IServiceCollection.AddInstance` のオーバーロードがミラー化されます。 複数の `IKeyEscrowSink` インスタンスが登録されている場合は、キーの生成時にそれぞれが呼び出されます。そのため、キーを複数のメカニズムに同時にエスクローことができます。
 
-API から情報を読み取るにはありません、`IKeyEscrowSink`インスタンス。 これはエスクロー メカニズムの設計理論と一致します。 キー マテリアルを信頼された証明機関にアクセスできるように意図したものと独自 escrowed マテリアルへのアクセスを必要はありません、アプリケーション自体がない信頼された証明機関であるためです。
+`IKeyEscrowSink` インスタンスからマテリアルを読み取る API はありません。 これはエスクロー メカニズムの設計理論と一致します。 キー マテリアルを信頼された証明機関にアクセスできるように意図したものと独自 escrowed マテリアルへのアクセスを必要はありません、アプリケーション自体がない信頼された証明機関であるためです。
 
-次のサンプル コードを示しますの作成と登録、 `IKeyEscrowSink` "CONTOSODomain Admins"のメンバーだけが回復できるようにキーをエスクローする場所。
+次のサンプルコードは、"CONTOSODomain Admins" のメンバーだけが回復できるように、キーがエスクローされている `IKeyEscrowSink` を作成して登録する方法を示しています。
 
 > [!NOTE]
 > このサンプルを実行する Windows 8 のドメインに参加していることが必要]、[Windows Server 2012 マシン、およびドメイン コント ローラーが Windows Server 2012 またはそれ以降にする必要があります。

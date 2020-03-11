@@ -9,22 +9,22 @@ ms.date: 01/16/2020
 no-loc:
 - SignalR
 uid: signalr/security
-ms.openlocfilehash: 4b27d9abb36938ed8161ff0d3535204e3fa68765
-ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
+ms.openlocfilehash: f92b56132d0fa55665568416d0760430cb698f8b
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/21/2020
-ms.locfileid: "76294712"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78655154"
 ---
 # <a name="security-considerations-in-aspnet-core-opno-locsignalr"></a>ASP.NET Core SignalR でのセキュリティに関する考慮事項
 
-作成者: [Andrew Stanton-Nurse](https://twitter.com/anurse)
+By [Andrew Stanton-看護師](https://twitter.com/anurse)
 
 この記事では、SignalRのセキュリティ保護について説明します。
 
 ## <a name="cross-origin-resource-sharing"></a>クロス オリジン リソース共有
 
-[クロスオリジンリソース共有 (CORS)](https://www.w3.org/TR/cors/)を使用して、ブラウザーでのクロスオリジン SignalR 接続を許可することができます。 JavaScript コードが SignalR アプリとは別のドメインでホストされている場合、JavaScript が SignalR アプリに接続できるようにするには、 [CORS ミドルウェア](xref:security/cors)を有効にする必要があります。 信頼または制御するドメインからのクロスオリジン要求を許可します。 例:
+[クロスオリジンリソース共有 (CORS)](https://www.w3.org/TR/cors/)を使用して、ブラウザーでのクロスオリジン SignalR 接続を許可することができます。 JavaScript コードが SignalR アプリとは別のドメインでホストされている場合、JavaScript が SignalR アプリに接続できるようにするには、 [CORS ミドルウェア](xref:security/cors)を有効にする必要があります。 信頼または制御するドメインからのクロスオリジン要求を許可します。 例 :
 
 * サイトは `http://www.example.com` でホストされています
 * SignalR アプリは `http://signalr.example.com` でホストされています
@@ -42,7 +42,7 @@ CORS の構成の詳細については、「[クロスオリジン要求 (cors) 
 However, in 5.0 we have provided an option in the TypeScript client to not use credentials.
 The not to use credentials option should only be used when you know 100% that credentials like Cookies are not needed in your app (cookies are used by azure app service when using multiple servers)
 
-For more info, see https://github.com/aspnet/AspNetCore.Docs/issues/16003
+For more info, see https://github.com/dotnet/AspNetCore.Docs/issues/16003
 .-->
 
 たとえば、次の CORS ポリシーを使用すると、`https://example.com` でホストされている SignalR ブラウザークライアントは、`https://signalr.example.com`でホストされている SignalR アプリにアクセスできます。
@@ -118,7 +118,7 @@ ASP.NET Core 2.1 以降では、 **`UseSignalR`前に**配置されたカスタ�
 
 ## <a name="access-token-logging"></a>アクセストークンのログ記録
 
-Websocket またはサーバー送信イベントを使用する場合、ブラウザークライアントはクエリ文字列にアクセストークンを送信します。 一般に、クエリ文字列を使用したアクセストークンの受信は、標準の `Authorization` ヘッダーを使用する場合と同じように行われます。 クライアントとサーバー間のセキュリティで保護されたエンドツーエンド接続を確保するには、常に HTTPS を使用します。 多くの web サーバーでは、クエリ文字列を含め、各要求の URL がログに記録されます。 Url をログに記録すると、アクセストークンがログに記録される場合があります。 では、各要求の URL が既定でログに記録されます。これには、クエリ文字列が含まれます。 ASP.NET Core 例:
+Websocket またはサーバー送信イベントを使用する場合、ブラウザークライアントはクエリ文字列にアクセストークンを送信します。 一般に、クエリ文字列を使用したアクセストークンの受信は、標準の `Authorization` ヘッダーを使用する場合と同じように行われます。 クライアントとサーバー間のセキュリティで保護されたエンドツーエンド接続を確保するには、常に HTTPS を使用します。 多くの web サーバーでは、クエリ文字列を含め、各要求の URL がログに記録されます。 Url をログに記録すると、アクセストークンがログに記録される場合があります。 では、各要求の URL が既定でログに記録されます。これには、クエリ文字列が含まれます。 ASP.NET Core 例 :
 
 ```
 info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]

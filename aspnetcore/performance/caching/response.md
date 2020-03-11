@@ -6,18 +6,18 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 11/04/2019
 uid: performance/caching/response
-ms.openlocfilehash: ab5d1414ae72edade81ab55aef6b0fa5af30f0f4
-ms.sourcegitcommit: 990a4c2e623c202a27f60bdf3902f250359c13be
+ms.openlocfilehash: 91358e2553d09c5e7366ba7a2301a798ad921d69
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/03/2020
-ms.locfileid: "76971970"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78651398"
 ---
 # <a name="response-caching-in-aspnet-core"></a>ASP.NET Core での応答のキャッシュ
 
-By [John Luo](https://github.com/JunTaoLuo)、 [Rick Anderson](https://twitter.com/RickAndMSFT)、[上田 Smith](https://ardalis.com/)、および[Luke latham](https://github.com/guardrex)
+By [John Luo](https://github.com/JunTaoLuo)、 [Rick Anderson](https://twitter.com/RickAndMSFT)、および[上田 Smith](https://ardalis.com/)
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/response/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/response/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 応答キャッシュを使用すると、クライアントまたはプロキシが web サーバーに対して行う要求の数を減らすことができます。 応答キャッシュを使用すると、web サーバーが応答を生成するために実行する作業量も少なくなります。 応答のキャッシュは、クライアント、プロキシ、およびミドルウェアが応答をキャッシュする方法を指定するヘッダーによって制御されます。
 
@@ -31,19 +31,19 @@ HTTP 1.1 キャッシュ仕様に従ったサーバー側キャッシュの場�
 
 共通 `Cache-Control` ディレクティブを次の表に示します。
 
-| Directive                                                       | 動作 |
+| Directive                                                       | 操作 |
 | --------------------------------------------------------------- | ------ |
 | [public](https://tools.ietf.org/html/rfc7234#section-5.2.2.5)   | キャッシュは応答を格納できます。 |
 | [private](https://tools.ietf.org/html/rfc7234#section-5.2.2.6)  | 応答は、共有キャッシュによって格納されていない必要があります。 プライベートキャッシュは、応答を格納して再利用できます。 |
-| [max-age](https://tools.ietf.org/html/rfc7234#section-5.2.1.1)  | クライアントは、指定された秒数よりも有効期間が長い応答を受け入れません。 例: `max-age=60` (60 秒)、`max-age=2592000` (1 か月) |
-| [no-cache](https://tools.ietf.org/html/rfc7234#section-5.2.1.4) | **要求時**: キャッシュは、要求を満たすために格納された応答を使用することはできません。 配信元サーバーはクライアントの応答を再生成し、ミドルウェアはキャッシュに格納されている応答を更新します。<br><br>**応答時**: 配信元サーバーで検証を行わずに、後続の要求に応答を使用することはできません。 |
-| [no-store](https://tools.ietf.org/html/rfc7234#section-5.2.1.5) | **要求時**: キャッシュは要求を格納できません。<br><br>**応答**の場合: キャッシュは、応答の一部を格納することはできません。 |
+| [最長有効期間](https://tools.ietf.org/html/rfc7234#section-5.2.1.1)  | クライアントは、指定された秒数よりも有効期間が長い応答を受け入れません。 例: `max-age=60` (60 秒)、`max-age=2592000` (1 か月) |
+| [キャッシュなし](https://tools.ietf.org/html/rfc7234#section-5.2.1.4) | **要求時**: キャッシュは、要求を満たすために格納された応答を使用することはできません。 配信元サーバーはクライアントの応答を再生成し、ミドルウェアはキャッシュに格納されている応答を更新します。<br><br>**応答時**: 配信元サーバーで検証を行わずに、後続の要求に応答を使用することはできません。 |
+| [ストアなし](https://tools.ietf.org/html/rfc7234#section-5.2.1.5) | **要求時**: キャッシュは要求を格納できません。<br><br>**応答**の場合: キャッシュは、応答の一部を格納することはできません。 |
 
 キャッシュでロールを果たすその他のキャッシュヘッダーを次の表に示します。
 
-| Header                                                     | 関数 |
+| ヘッダー                                                     | 関数 |
 | ---------------------------------------------------------- | -------- |
-| [変更](https://tools.ietf.org/html/rfc7234#section-5.1)     | 配信元サーバーで応答が生成または正常に検証されてからの、秒単位の推定時間。 |
+| [Age](https://tools.ietf.org/html/rfc7234#section-5.1)     | 配信元サーバーで応答が生成または正常に検証されてからの、秒単位の推定時間。 |
 | [経過](https://tools.ietf.org/html/rfc7234#section-5.3) | 応答が古くなったと見なされるまでの時間。 |
 | [Unmanaged](https://tools.ietf.org/html/rfc7234#section-5.4)  | `no-cache` の動作を設定するために HTTP/1.0 キャッシュとの下位互換性を維持するために存在します。 `Cache-Control` ヘッダーが存在する場合、`Pragma` ヘッダーは無視されます。 |
 | [要因](https://tools.ietf.org/html/rfc7231#section-7.1.4)  | キャッシュされた応答の元の要求と新しい要求の両方ですべての `Vary` ヘッダーフィールドが一致する場合を除き、キャッシュされた応答を送信しないように指定します。 |
@@ -62,25 +62,25 @@ HTTP キャッシュの目的を検討している場合、クライアント `C
 
 インメモリキャッシュは、キャッシュされたデータを格納するためにサーバーメモリを使用します。 この種のキャッシュは、1台のサーバーまたは*固定セッション*を使用している複数のサーバーに適しています。 固定セッションとは、クライアントからの要求が常に同じサーバーにルーティングされて処理されることを意味します。
 
-詳細については、「 <xref:performance/caching/memory>」を参照してください。
+詳細については、<xref:performance/caching/memory> を参照してください。
 
 ### <a name="distributed-cache"></a>分散キャッシュ
 
 アプリがクラウドまたはサーバーファームでホストされている場合は、分散キャッシュを使用してデータをメモリに格納します。 キャッシュは、要求を処理するサーバー間で共有されます。 クライアントのキャッシュデータが使用可能な場合、クライアントは、グループ内の任意のサーバーによって処理される要求を送信できます。 ASP.NET Core は、SQL Server、 [Redis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis)、および[ncache](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/)分散キャッシュと連動します。
 
-詳細については、「 <xref:performance/caching/distributed>」を参照してください。
+詳細については、<xref:performance/caching/distributed> を参照してください。
 
 ### <a name="cache-tag-helper"></a>キャッシュタグヘルパー
 
 キャッシュタグヘルパーを使用して、MVC ビューまたは Razor ページからコンテンツをキャッシュします。 キャッシュタグヘルパーは、メモリ内キャッシュを使用してデータを格納します。
 
-詳細については、「 <xref:mvc/views/tag-helpers/builtin-th/cache-tag-helper>」を参照してください。
+詳細については、<xref:mvc/views/tag-helpers/builtin-th/cache-tag-helper> を参照してください。
 
 ### <a name="distributed-cache-tag-helper"></a>分散キャッシュ タグ ヘルパー
 
 分散キャッシュタグヘルパーを使用して、分散型クラウドまたは web ファームのシナリオで、MVC ビューまたは Razor ページからコンテンツをキャッシュします。 分散キャッシュタグヘルパーは、SQL Server、 [Redis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis)、または[ncache](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/)を使用してデータを格納します。
 
-詳細については、「 <xref:mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper>」を参照してください。
+詳細については、<xref:mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper> を参照してください。
 
 ## <a name="responsecache-attribute"></a>ResponseCache 属性
 
@@ -124,8 +124,8 @@ Vary: User-Agent
 
 他のプロパティの大部分は、<xref:Microsoft.AspNetCore.Mvc.CacheProfile.NoStore> によってオーバーライドされます。 このプロパティが `true`に設定されている場合、`Cache-Control` ヘッダーは `no-store`に設定されます。 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> が `None`に設定されている場合:
 
-* `Cache-Control` が `no-store,no-cache` に設定されます。
-* `Pragma` が `no-cache` に設定されます。
+* `Cache-Control` は `no-store,no-cache` に設定されます。
+* `Pragma` は `no-cache` に設定されます。
 
 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.NoStore> が `false`、<xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> が `None`の場合は、`Cache-Control`、および `Pragma` が `no-cache`に設定されます。
 
@@ -186,10 +186,10 @@ Cache-Control: public,max-age=10
 Cache-Control: public,max-age=30
 ```
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * [キャッシュへの応答の格納](https://tools.ietf.org/html/rfc7234#section-3)
-* [Cache-Control](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9)
+* [Cache-control](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9)
 * <xref:performance/caching/memory>
 * <xref:performance/caching/distributed>
 * <xref:fundamentals/change-tokens>

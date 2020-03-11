@@ -8,11 +8,11 @@ no-loc:
 - SignalR
 uid: security/data-protection/using-data-protection
 ms.openlocfilehash: 8c3f3c7fb21434cf335591c41741f0ce868df33e
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963858"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653834"
 ---
 # <a name="get-started-with-the-data-protection-apis-in-aspnet-core"></a>ASP.NET Core でのデータ保護 Api の概要
 

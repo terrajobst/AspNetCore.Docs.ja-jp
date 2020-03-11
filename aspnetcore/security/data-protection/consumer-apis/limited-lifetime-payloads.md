@@ -1,58 +1,58 @@
 ---
-title: ASP.NET Core で保護されたペイロードの有効期間を制限します。
+title: 保護されたペイロードの有効期間を制限する ASP.NET Core
 author: rick-anderson
-description: ASP.NET Core データ保護 Api を使用して保護されたペイロードの有効期間を制限する方法について説明します。
+description: ASP.NET Core データ保護 Api を使用して、保護されたペイロードの有効期間を制限する方法について説明します。
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/data-protection/consumer-apis/limited-lifetime-payloads
 ms.openlocfilehash: 8dc3b856ec67477ec8ae777749c9bf3107eb4eda
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64897119"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78651440"
 ---
-# <a name="limit-the-lifetime-of-protected-payloads-in-aspnet-core"></a>ASP.NET Core で保護されたペイロードの有効期間を制限します。
+# <a name="limit-the-lifetime-of-protected-payloads-in-aspnet-core"></a>保護されたペイロードの有効期間を制限する ASP.NET Core
 
-一定期間の後に期限切れになる保護されているペイロードを作成するアプリケーション開発者が必要があるシナリオがあります。 たとえば、保護されたペイロードは、必ず有効な 1 時間分のパスワード リセット トークンを表すことができます。 確かに、埋め込みの有効期限日を含む独自のペイロード形式を作成する開発者可能性がありますと高度な開発者はとにかく、そうことができますが、大多数の開発者のこれらの有効期限の管理を拡張できる面倒です。
+アプリケーション開発者が、一定の時間が経過すると期限切れになる保護されたペイロードを作成しようとするシナリオがあります。 たとえば、保護されたペイロードは、1時間だけ有効なパスワードリセットトークンを表す場合があります。 開発者は、埋め込み有効期限を含む独自のペイロード形式を作成できますが、上級開発者はこれを行うことをお勧めしますが、このような有効期限を管理する開発者の大部分は煩雑になります。
 
-マイクロソフト開発者向け、パッケージを簡単に確認する[Microsoft.AspNetCore.DataProtection.Extensions](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Extensions/)一定期間の後に自動的に期限切れのペイロードを作成するためのユーティリティ Api が含まれています。 これらの Api がオフのハング、`ITimeLimitedDataProtector`型。
+これを開発者にとって簡単にするために、パッケージ[AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Extensions/)には、設定した時間が経過すると自動的に期限切れになるペイロードを作成するためのユーティリティ api が含まれています。 これらの Api は `ITimeLimitedDataProtector` の種類から切断されます。
 
-## <a name="api-usage"></a>API の使用方法
+## <a name="api-usage"></a>API の使用
 
-`ITimeLimitedDataProtector`インターフェイスは、主要なインターフェイスの保護と時間制限付き/期限切れ間近自己のペイロードの保護を解除します。 インスタンスを作成する、 `ITimeLimitedDataProtector`、通常のインスタンスを必要がありますまず[IDataProtector](xref:security/data-protection/consumer-apis/overview)特定の目的で構築します。 1 回、`IDataProtector`インスタンスが使用可能な呼び出し、`IDataProtector.ToTimeLimitedDataProtector`有効期限の組み込み機能を備えたのプロテクターを取得する拡張メソッド。
+`ITimeLimitedDataProtector` インターフェイスは、時間制限のある、または有効期限が切れたペイロードを保護および復号化するためのコアインターフェイスです。 `ITimeLimitedDataProtector`のインスタンスを作成するには、まず、特定の目的で構築された通常の[IDataProtector](xref:security/data-protection/consumer-apis/overview)のインスタンスが必要です。 `IDataProtector` インスタンスが使用可能になったら、`IDataProtector.ToTimeLimitedDataProtector` 拡張メソッドを呼び出して、組み込みの有効期限があるプロテクターを取得します。
 
-`ITimeLimitedDataProtector` 次の API サーフェスと拡張機能メソッドを公開します。
+`ITimeLimitedDataProtector` は、次の API サーフェイスと拡張メソッドを公開します。
 
-* CreateProtector(string purpose) :ITimeLimitedDataProtector - この API は、既存のような`IDataProtectionProvider.CreateProtector`を作成するために使用できる点で[チェーンを目的](xref:security/data-protection/consumer-apis/purpose-strings)ルート期間限定の保護機能からです。
+* CreateProtector (文字列の目的): ITimeLimitedDataProtector-この API は、ルートの時間限定プロテクターから[目的のチェーン](xref:security/data-protection/consumer-apis/purpose-strings)を作成するために使用できるという点で、既存の `IDataProtectionProvider.CreateProtector` に似ています。
 
-* Protect(byte[] plaintext, DateTimeOffset expiration) : byte[]
+* Protect (byte [] plaintext, DateTimeOffset 有効期限): byte []
 
 * Protect(byte[] plaintext, TimeSpan lifetime) : byte[]
 
 * Protect(byte[] plaintext) : byte[]
 
-* (文字列プレーン テキスト、DateTimeOffset の有効期限) の保護: 文字列
+* Protect (文字列プレーンテキスト、DateTimeOffset 有効期限): 文字列
 
-* Protect(string plaintext, TimeSpan lifetime) : string
+* Protect (文字列プレーンテキスト、TimeSpan 有効期間): 文字列
 
-* Protect(string plaintext) : string
+* Protect (文字列プレーンテキスト): 文字列
 
-コアだけでなく`Protect`プレーン テキストのみを実行するメソッドが、ペイロードの有効期限の日付を指定することは新しいオーバー ロードがあります。 有効期限の日付を検証する絶対的日付として指定できます (を使用して、 `DateTimeOffset`) または相対時刻として (現在のシステムからを使用して、後で、 `TimeSpan`)。 有効期限を受け取りません。 指定できるオーバー ロードを呼び出すと、ペイロードが決して期限切れになると見なされます。
+プレーンテキストのみを受け取る中核的な `Protect` メソッドに加えて、ペイロードの有効期限を指定できる新しいオーバーロードがあります。 有効期限は、(`DateTimeOffset`を使用して) 絶対日付として指定することも、(現在のシステム時刻から `TimeSpan`を介して) 相対時刻として指定することもできます。 有効期限がないオーバーロードが呼び出された場合、ペイロードは期限切れにならないと見なされます。
 
-* (Byte protectedData、DateTimeOffset の有効期限を) の保護を解除: byte[]
+* 保護解除 (byte [] protectedData、out DateTimeOffset 有効期限): byte []
 
 * Unprotect(byte[] protectedData) : byte[]
 
-* (DateTimeOffset の有効期限を文字列 protectedData) 保護の解除: 文字列
+* 保護解除 (文字列 protectedData、out DateTimeOffset 有効期限): 文字列
 
-* Unprotect(string protectedData) : string
+* 保護解除 (string protectedData): 文字列
 
-`Unprotect`メソッドは、元の保護されていないデータを返します。 ペイロードがまだ失効しておらず、絶対有効期限が省略可能な出力元の保護されていないデータと共にパラメーターとして返されます。 ペイロードが有効期限が切れて Unprotect メソッドのすべてのオーバー ロードは CryptographicException をスローします。
+`Unprotect` メソッドは、保護されていない元のデータを返します。 ペイロードの有効期限がまだ切れていない場合、絶対有効期限は、元の保護されていないデータと共にオプションの out パラメーターとして返されます。 ペイロードの有効期限が切れた場合、保護を解除するメソッドのすべてのオーバーロードは、System.security.cryptography.cryptographicexception> をスローします。
 
 >[!WARNING]
-> これらの Api を使用して、長期間または無期限の永続化を必要とするペイロードを保護することをお勧めはできません。 「ことを許容できる 1 か月後にある回復可能な完全に保護されたペイロードのでしょうか。」 目安; として使用できます。場合、答えは、開発者検討してくださいない代替の Api。
+> 長期間または永続的な永続化を必要とするペイロードを保護するために、これらの Api を使用することは推奨されません。 "保護されたペイロードを1か月後に完全に回復できないようにすることはできますか。" 優れた目安として機能します。答えが「いいえ」の場合、開発者は別の Api を検討する必要があります。
 
-使用して次のサンプル、 [DI 以外のコード パス](xref:security/data-protection/configuration/non-di-scenarios)データ保護システムをインスタンス化するためです。 このサンプルを実行するには、まず Microsoft.AspNetCore.DataProtection.Extensions パッケージへの参照を追加したことを確認します。
+次のサンプルでは、[非 DI コードパス](xref:security/data-protection/configuration/non-di-scenarios)を使用して、データ保護システムをインスタンス化しています。 このサンプルを実行するには、最初に AspNetCore パッケージへの参照を追加したことを確認します。
 
 [!code-csharp[](limited-lifetime-payloads/samples/limitedlifetimepayloads.cs)]

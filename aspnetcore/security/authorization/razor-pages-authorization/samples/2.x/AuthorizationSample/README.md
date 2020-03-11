@@ -1,16 +1,16 @@
-# <a name="aspnet-core-authorization-sample"></a>ASP.NET Core の承認例
+# <a name="aspnet-core-authorization-sample"></a>ASP.NET Core 承認のサンプル
 
-このサンプルでは、規則での Razor ページの承認の使用を示しています。 このサンプルで説明する機能、 [Razor ページの承認規則](https://docs.microsoft.com/aspnet/core/security/authorization/razor-pages-authorization)トピック。
+このサンプルでは、規約による Razor Pages 承認の使用方法を示します。 このサンプルでは、 [Razor Pages の承認規則](https://docs.microsoft.com/aspnet/core/security/authorization/razor-pages-authorization)に関するトピックで説明されている機能を示します。
 
-このサンプルでは、ユーザーの承認機能の説明で、cookie 認証を使用して、 [ASP.NET Core Identity なしの cookie 認証を使用して](https://docs.microsoft.com/aspnet/core/security/authentication/cookie)トピック。 概念とこのトピックで示す例については、ASP.NET Core Identity を使用するアプリに等しく適用されます。 ASP.NET Core Identity を使用する方法の詳細については、次を参照してください。[の ASP.NET core Identity の概要](https://docs.microsoft.com/aspnet/core/security/authentication/identity)します。
+このサンプルのユーザー承認では、 [ASP.NET Core id を使用しない cookie 認証の使用](https://docs.microsoft.com/aspnet/core/security/authentication/cookie)に関するトピックで説明されている cookie 認証機能を使用します。 このトピックで示す概念と例は、ASP.NET Core Id を使用するアプリにも同様に適用されます。 ASP.NET Core Id の使用の詳細については、「 [ASP.NET Core の id の概要](https://docs.microsoft.com/aspnet/core/security/authentication/identity)」を参照してください。
 
-電子メール アドレスを使用して、 **maria.rodriguez@contoso.com**他のパスワードとユーザーを認証します。 における、ユーザーの認証、`AuthenticateUser`メソッドで、 *Pages/Account/Login.cshtml.cs*ファイル。 実際の例では、ユーザーは、データベースに対して認証は。
+電子メールアドレス **maria.rodriguez@contoso.com** を使用して、任意のパスワードを使用してユーザーを認証します。 ユーザーは、 *Pages/Account/Login. cshtml. .cs*ファイルの `AuthenticateUser` メソッドで認証されます。 実際の例では、ユーザーはデータベースに対して認証されます。
 
 ## <a name="examples-in-this-sample"></a>このサンプルの例
 
 | 機能 | 説明 |
 | --- | --- |
-| [AuthorizePage](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.pageconventioncollectionextensions.authorizepage) | 追加、 [AuthorizeFilter](https://docs.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.authorization.authorizefilter)ページ、指定したパスにします。 |
-| [AuthorizeFolder](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.pageconventioncollectionextensions.authorizefolder) | 追加、 [AuthorizeFilter](https://docs.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.authorization.authorizefilter)指定したパスのフォルダー内のページのすべてにします。 |
-| [AllowAnonymousToPage](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.pageconventioncollectionextensions.allowanonymoustopage) | 追加、 [AllowAnonymousFilter](https://docs.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.authorization.allowanonymousfilter)ページ、指定したパスにします。 |
-| [AllowAnonymousToFolder](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.pageconventioncollectionextensions.allowanonymoustofolder) | 追加、 [AllowAnonymousFilter](https://docs.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.authorization.allowanonymousfilter)指定したパスのフォルダー内のページのすべてにします。 |
+| [[AuthorizePage]](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.pageconventioncollectionextensions.authorizepage) | 指定されたパスのページに[Authorizefilter](https://docs.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.authorization.authorizefilter)を追加します。 |
+| [AuthorizeFolder](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.pageconventioncollectionextensions.authorizefolder) | 指定されたパスを持つフォルダー内のすべてのページに、 [Authorizefilter](https://docs.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.authorization.authorizefilter)を追加します。 |
+| [AllowAnonymousToPage](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.pageconventioncollectionextensions.allowanonymoustopage) | 指定されたパスのページに[AllowAnonymousFilter](https://docs.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.authorization.allowanonymousfilter)を追加します。 |
+| [AllowAnonymousToFolder](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.pageconventioncollectionextensions.allowanonymoustofolder) | 指定されたパスを持つフォルダー内のすべてのページに[AllowAnonymousFilter](https://docs.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.authorization.allowanonymousfilter)を追加します。 |

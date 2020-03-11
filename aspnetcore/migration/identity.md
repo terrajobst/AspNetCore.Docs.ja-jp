@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 10/14/2016
 uid: migration/identity
 ms.openlocfilehash: f821930dbd36de18db31104cddf34c563009a506
-ms.sourcegitcommit: 476ea5ad86a680b7b017c6f32098acd3414c0f6c
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/14/2019
-ms.locfileid: "69022268"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653012"
 ---
 # <a name="migrate-authentication-and-identity-to-aspnet-core"></a>認証と Id を ASP.NET Core に移行する
 
@@ -20,11 +20,11 @@ ms.locfileid: "69022268"
 
 ## <a name="configure-identity-and-membership"></a>Id とメンバーシップを構成する
 
-ASP.NET MVC では、 *Startup.Auth.cs*および*IdentityConfig.cs*の*App_Start*フォルダーにある ASP.NET Identity を使用して、認証と id の機能が構成されます。 ASP.NET Core MVC では、これらの機能は*Startup.cs*で構成されています。
+ASP.NET MVC では、 *App_Start*フォルダーにある*Startup.Auth.cs*と*IdentityConfig.cs*の ASP.NET Identity を使用して認証と id の機能が構成されます。 ASP.NET Core MVC では、これらの機能は*Startup.cs*で構成されています。
 
-`Microsoft.AspNetCore.Identity.EntityFrameworkCore` および`Microsoft.AspNetCore.Authentication.Cookies` NuGet パッケージをインストールします。
+`Microsoft.AspNetCore.Identity.EntityFrameworkCore` と `Microsoft.AspNetCore.Authentication.Cookies` NuGet パッケージをインストールします。
 
-次に、 *Startup.cs*を開き、 `Startup.ConfigureServices` Entity Framework および id サービスを使用するようにメソッドを更新します。
+次に、 *Startup.cs*を開き、Entity Framework と id サービスを使用するように `Startup.ConfigureServices` メソッドを更新します。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -41,7 +41,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-この時点で、上記のコードでは`ApplicationDbContext` 、 `ApplicationUser`ASP.NET MVC プロジェクトからまだ移行していない2つの型が参照されています。 ASP.NET Core プロジェクトに新しい*モデル*フォルダーを作成し、これらの型に対応する2つのクラスを追加します。 これらのクラスの ASP.NET MVC バージョンは */Models/IdentityModels.cs*にありますが、移行されたプロジェクトのクラスごとに1つのファイルを使用します。これはより明確であるためです。
+この時点で、上記のコードで参照されている2つの型は、ASP.NET MVC プロジェクトからまだ移行していません。 `ApplicationDbContext` と `ApplicationUser`です。 ASP.NET Core プロジェクトに新しい*モデル*フォルダーを作成し、これらの型に対応する2つのクラスを追加します。 これらのクラスの ASP.NET MVC バージョンは */Models/IdentityModels.cs*にありますが、移行されたプロジェクトのクラスごとに1つのファイルを使用します。これはより明確であるためです。
 
 *ApplicationUser.cs*:
 
@@ -82,9 +82,9 @@ namespace NewMvcProject.Models
 }
 ```
 
-ASP.NET Core MVC Starter Web プロジェクトには、ユーザーまたは`ApplicationDbContext`の多くのカスタマイズが含まれていません。 実際のアプリを移行する場合は、アプリのユーザーと`DbContext`クラスのすべてのカスタムプロパティとメソッド、およびアプリが使用するその他のモデルクラスも移行する必要があります。 たとえば、に`DbContext` `DbSet<Album>`がある場合は、 `Album`クラスを移行する必要があります。
+ASP.NET Core MVC Starter Web プロジェクトには、ユーザーの多くのカスタマイズや `ApplicationDbContext`は含まれていません。 実際のアプリを移行する場合は、アプリのユーザーと `DbContext` クラスのすべてのカスタムプロパティとメソッド、およびアプリが使用するその他のモデルクラスも移行する必要があります。 たとえば、`DbContext` に `DbSet<Album>`がある場合、`Album` クラスを移行する必要があります。
 
-これらのファイルを配置したら 、 `using`ステートメントを更新して、Startup.cs ファイルをコンパイルすることができます。
+これらのファイルが配置されているので、`using` ステートメントを更新することにより、 *Startup.cs*ファイルをコンパイルできるようになります。
 
 ```csharp
 using Microsoft.AspNetCore.Builder;
@@ -99,9 +99,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 ## <a name="migrate-registration-and-login-logic"></a>登録とログインのロジックを移行する
 
-Entity Framework と SQL Server を使用して構成されたアプリとデータアクセス用に Id サービスが構成されているので、登録とアプリへのログインのサポートを追加する準備ができました。 [移行プロセスでは、前の手順](xref:migration/mvc#migrate-the-layout-file)で説明したように、( *_B*) の*loginpartial*への参照をコメントアウトしています。 次に、そのコードに戻り、コメントを解除し、ログイン機能をサポートするために必要なコントローラーとビューを追加します。
+Entity Framework と SQL Server を使用して構成されたアプリとデータアクセス用に Id サービスが構成されているので、登録とアプリへのログインのサポートを追加する準備ができました。 [移行プロセスの前半](xref:migration/mvc#migrate-the-layout-file)で、 *_Layout*の *_LoginPartial*への参照がコメントアウトされていることを思い出してください。 次に、そのコードに戻り、コメントを解除し、ログイン機能をサポートするために必要なコントローラーとビューを追加します。
 
-レイアウト内`@Html.Partial`の行のコメントを解除します *(_s)* :
+_Layout の `@Html.Partial` 行のコメントを解除*します*。
 
 ```cshtml
       <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
@@ -111,9 +111,9 @@ Entity Framework と SQL Server を使用して構成されたアプリとデー
 </div>
 ```
 
-ここで、 *Views/Shared*フォルダーに*loginpartial*という名前の新しい Razor ビューを追加します。
+ここで、 *_LoginPartial*という名前の新しい Razor ビューを*ビュー/共有*フォルダーに追加します。
 
-次のコードを使用して*Loginpartial*を更新します (すべての内容を置き換えます)。
+次のコードを使用して _LoginPartial を更新*します*(すべての内容を置き換えます)。
 
 ```cshtml
 @inject SignInManager<ApplicationUser> SignInManager
@@ -143,6 +143,6 @@ else
 
 この時点で、ブラウザーでサイトを最新の状態に更新できるようになります。
 
-## <a name="summary"></a>まとめ
+## <a name="summary"></a>要約
 
 ASP.NET Core では、ASP.NET Identity 機能の変更について説明します。 この記事では、ASP.NET Identity の認証およびユーザー管理機能を ASP.NET Core に移行する方法について説明しました。

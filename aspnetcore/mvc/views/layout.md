@@ -5,24 +5,24 @@ description: 共通レイアウトの使用方法、ディレクティブの共�
 ms.author: riande
 ms.date: 07/30/2019
 uid: mvc/views/layout
-ms.openlocfilehash: 3ba2f459ca2b04a3001e261acab26880b6582500
-ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
-ms.translationtype: HT
+ms.openlocfilehash: db8c6c30397593c1a8375ebc800c1c0e34d241cb
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/21/2019
-ms.locfileid: "74288996"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78655046"
 ---
 # <a name="layout-in-aspnet-core"></a>ASP.NET Core でのレイアウト
 
 作成者: [Steve Smith](https://ardalis.com/)、[Dave Brock](https://twitter.com/daveabrock)
 
-ページやビューは、多くの場合、ビジュアルおよびプログラムの要素を共有します。 この記事では、次の方法を示します。
+ページやビューは、多くの場合、ビジュアルおよびプログラムの要素を共有します。 この記事では、次の方法について説明します。
 
 * 共通のレイアウトを使用する。
 * ディレクティブを共有する。
 * ページまたはビューを表示する前に、共通のコードを実行する。
 
-このドキュメントでは、ASP.NET Core MVC に対する 2 つの異なるアプローチに向けたレイアウトについて説明します:Razor Pages と、ビューを含むコントローラーです。 このトピックでは、違いは最小限です。
+このドキュメントでは、ASP.NET Core MVC に対するアプローチとして、Razor Pages とビューを含むコントローラーの 2 種類のレイアウトについて説明します。 このトピックでは、違いは最小限です。
 
 * Razor Pages は、*Pages* フォルダーにあります。
 * ビューを含むコントローラーでは、*Views* フォルダーをビューに使用します。
@@ -37,11 +37,11 @@ ms.locfileid: "74288996"
 
 規則により、ASP.NET Core アプリの既定のレイアウトには *_Layout.cshtml* という名前が付けられます。 テンプレートを使用すると、次のような新しい ASP.NET Core プロジェクトのレイアウト ファイルが作成されます。
 
-* Razor Pages:*Pages/Shared/_Layout.cshtml*
+* Razor Pages: *Pages/Shared/_Layout.cshtml*
 
   ![ソリューション エクスプローラーの Pages フォルダー](layout/_static/rp-web-project-views.png)
 
-* ビューを含むコントローラー:*Views/Shared/_Layout.cshtml*
+* ビューを含むコントローラー: *Views/Shared/_Layout.cshtml*
 
   ![ソリューション エクスプローラーの Views フォルダー](layout/_static/mvc-web-project-views.png)
 
@@ -65,7 +65,7 @@ Razor ビューには `Layout` プロパティがあります。 個々のビュ
 <!-- https://stackoverflow.com/questions/23327578 -->
 ### <a name="sections"></a>セクション
 
-レイアウトは、必要に応じて `RenderSection` を呼び出すことで、1 つ以上の*セクション*を参照することができます。 セクションは、特定のページ要素の配置場所を整理する方法を提供します。 `RenderSection` の呼び出しごとに、そのセクションを必須またはオプションにするかどうかを指定できます。
+レイアウトは、必要に応じて  *を呼び出すことで、1 つ以上の*セクション`RenderSection`を参照することができます。 セクションは、特定のページ要素の配置場所を整理する方法を提供します。 `RenderSection` の呼び出しごとに、そのセクションを必須またはオプションにするかどうかを指定できます。
 
 ```html
 <script type="text/javascript" src="~/scripts/global.js"></script>
@@ -109,7 +109,7 @@ Razor ページ内の本文とすべてのセクションは、レンダリン�
 
 ## <a name="importing-shared-directives"></a>共有ディレクティブのインポート
 
-ビューやページでは、Razor ディレクティブを使用して名前空間をインポートし、[依存関係の挿入](dependency-injection.md)を使用できます。 多くのビューで共有されるディレクティブは、共通の *_ViewImports.cshtml* ファイルで指定できます。 `_ViewImports` ファイルは、次のディレクティブをサポートします。
+ビューおよびページでは、Razor ディレクティブを使用して名前空間をインポートし、[依存関係の挿入](dependency-injection.md)を使用できます。 多くのビューで共有されるディレクティブは、共通の *_ViewImports.cshtml* ファイルで指定できます。 `_ViewImports` ファイルは、次のディレクティブをサポートします。
 
 * `@addTagHelper`
 * `@removeTagHelper`
@@ -155,4 +155,4 @@ ASP.NET Core MVC アプリの *_ViewImports.cshtml* ファイルは、通常、*
 
 上記のファイルは、すべてのビューで *_Layout.cshtml* レイアウトを使用することを指定します。
 
-通常、 *_ViewStart.cshtml* および *_ViewImports.cshtml* は、 */Pages/Shared* (または */Views/Shared*) フォルダーには配置**されません**。 これらのファイルのアプリ レベルのバージョンは、 */Pages* (または */Views*) フォルダーに直接配置する必要があります。
+通常、 *_ViewStart.cshtml* および *_ViewImports.cshtml* は、 **/Pages/Shared** (または */Views/Shared*) フォルダーには配置*されません*。 これらのファイルのアプリ レベルのバージョンは、 */Pages* (または */Views*) フォルダーに直接配置する必要があります。

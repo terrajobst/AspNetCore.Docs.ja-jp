@@ -9,26 +9,26 @@ ms.date: 01/14/2020
 no-loc:
 - SignalR
 uid: signalr/dotnet-client
-ms.openlocfilehash: 39d9eccdb1e0457b177e75e6f94f3dd185b0093d
-ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
+ms.openlocfilehash: a9583c9d6df52ff81a402df03e663ccc3847e51f
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76146317"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652130"
 ---
-# <a name="aspnet-core-opno-locsignalr-net-client"></a>ASP.NET Core SignalR .NET クライアント
+# <a name="aspnet-core-signalr-net-client"></a>ASP.NET Core SignalR .NET クライアント
 
-ASP.NET Core SignalR .NET クライアントライブラリを使用すると、.NET アプリから SignalR ハブと通信できます。
+ASP.NET Core SignalR .NET クライアントライブラリを使用すると、.NET アプリから SignalR hub と通信できます。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/dotnet-client/sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/dotnet-client/sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
-この記事のコードサンプルは、.NET クライアント SignalR ASP.NET Core を使用する WPF アプリです。
+この記事のコードサンプルは、ASP.NET Core SignalR .NET クライアントを使用する WPF アプリです。
 
-## <a name="install-the-opno-locsignalr-net-client-package"></a>SignalR .NET クライアントパッケージをインストールする
+## <a name="install-the-signalr-net-client-package"></a>SignalR .NET クライアントパッケージをインストールする
 
-[SignalRAspNetCore です。](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client).Net クライアントが SignalR hub に接続するには、クライアントパッケージが必要です。
+.NET クライアントが SignalR hub に接続するには、 [SignalR](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client)パッケージが必要です。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 クライアントライブラリをインストールするには、**パッケージマネージャーコンソール**ウィンドウで次のコマンドを実行します。
 
@@ -36,7 +36,7 @@ ASP.NET Core SignalR .NET クライアントライブラリを使用すると、
 Install-Package Microsoft.AspNetCore.SignalR.Client
 ```
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 クライアントライブラリをインストールするには、コマンドシェルで次のコマンドを実行します。
 
@@ -256,7 +256,7 @@ Try-catch ステートメントを使用してエラーを処理します。 `Ex
 
 [!code-csharp[Logging](dotnet-client/sample/signalrchatclient/MainWindow.xaml.cs?name=snippet_ErrorHandling)]
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * [ハブ](xref:signalr/hubs)
 * [JavaScript クライアント](xref:signalr/javascript-client)

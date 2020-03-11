@@ -5,12 +5,12 @@ description: ASP.NET Core MVC を使用してネイティブ モバイル アプ
 ms.author: riande
 ms.date: 12/05/2019
 uid: mobile/native-mobile-backend
-ms.openlocfilehash: 38ac69bfe9d99d6d61f96fde92d86fd752ebbb6b
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
-ms.translationtype: HT
+ms.openlocfilehash: dcd0a29af197ff0ca210c17bdff62b802219fb2d
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74881161"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653948"
 ---
 # <a name="create-backend-services-for-native-mobile-apps-with-aspnet-core"></a>ASP.NET Core を使用してネイティブ モバイル アプリのバックエンド サービスを作成する
 
@@ -18,7 +18,7 @@ ms.locfileid: "74881161"
 
 モバイル アプリは、ASP.NET Core バックエンド サービスと通信できます。 iOS シミュレーターと Android エミュレーターからローカル Web サービスに接続する手順については、「[Connect to Local Web Services from iOS Simulators and Android Emulators](/xamarin/cross-platform/deploy-test/connect-to-local-web-services)」 (iOS シミュレーターと Android エミュレーターからローカル Web サービスに接続する) を参照してください。
 
-[サンプル バックエンド サービス コードの表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mobile/native-mobile-backend/sample)
+[サンプル バックエンド サービス コードの表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mobile/native-mobile-backend/sample)
 
 ## <a name="the-sample-native-mobile-app"></a>サンプル ネイティブ モバイル アプリ
 
@@ -26,7 +26,7 @@ ms.locfileid: "74881161"
 
 ![Android スマートフォン上で動作する To Do Rest アプリケーション](native-mobile-backend/_static/todo-android.png)
 
-### <a name="features"></a>フィーチャー
+### <a name="features"></a>[機能]
 
 この ToDoRest アプリは、To-Do 項目の一覧表示、追加、削除、更新をサポートしています。 各項目には、ID、名前、メモ、完了したかどうかを示すプロパティがあります。
 
@@ -56,7 +56,7 @@ Visual Studio で新しい ASP.NET Core Web アプリケーションを作成し
 
 ![Web API プロジェクト テンプレートが選択されている [新しい ASP.NET Core Web アプリケーション] ダイアログ](native-mobile-backend/_static/web-api-template.png)
 
-アプリケーションは、ポート 5000 に対して行われたすべての要求に応答する必要があります。 これを達成するために、`.UseUrls("http://*:5000")` を含むように *Program.cs* を更新します。
+アプリケーションは、ポート 5000 に対して行われたすべての要求に応答する必要があります。 これを達成するために、*を含むように*Program.cs`.UseUrls("http://*:5000")` を更新します。
 
 [!code-csharp[](native-mobile-backend/sample/ToDoApi/src/ToDoApi/Program.cs?range=10-16&highlight=3)]
 
@@ -86,7 +86,7 @@ API メソッドには、データを操作する何らかの方法が必要で�
 
 ## <a name="creating-the-controller"></a>コントローラーの作成
 
-*ToDoItemsController* プロジェクトに新しいコントローラーを追加します。 Microsoft.AspNetCore.Mvc.Controller から継承する必要があります。 `api/todoitems` で始まるパスに対する要求をコントローラーが処理することを示す `Route` 属性を追加します。 ルート内の `[controller]` トークンはコントローラーの名前に置き換えられます (`Controller` サフィックスは省略されます)。これは特にグローバル ルートの場合に役立ちます。 詳細については、[ルーティング](../fundamentals/routing.md)に関するページを参照してください。
+*ToDoItemsController* プロジェクトに新しいコントローラーを追加します。 Microsoft.AspNetCore.Mvc.Controller から継承する必要があります。 `Route` で始まるパスに対する要求をコントローラーが処理することを示す `api/todoitems` 属性を追加します。 ルート内の `[controller]` トークンはコントローラーの名前に置き換えられます (`Controller` サフィックスは省略されます)。これは特にグローバル ルートの場合に役立ちます。 詳細については、[ルーティング](../fundamentals/routing.md)に関するページを参照してください。
 
 コントローラーを使用するには `IToDoRepository` が機能する必要があります。コントローラーのコンストラクターを介してこの種類のインスタンスを要求します。 実行時に、[依存関係の挿入](../fundamentals/dependency-injection.md)用のフレームワークのサポートを使用して、このインスタンスが提供されます。
 
@@ -96,7 +96,7 @@ API メソッドには、データを操作する何らかの方法が必要で�
 
 ### <a name="reading-items"></a>項目の読み取り
 
-項目一覧の要求は、`List` メソッドに対する GET 要求で行われます。 `List` メソッドの `[HttpGet]` 属性は、このアクションが GET 要求のみを処理する必要があることを示します。 このアクションのルートは、コントローラーで指定されたルートです。 ルートの一部としてアクション名を使用する必要はありません。 各アクションに一意で明確なルートを持たせる必要があります。 ルーティング属性をコントローラー レベルとメソッド レベルの両方で適用して、特定のルートを構築することができます。
+項目一覧の要求は、`List` メソッドに対する GET 要求で行われます。 `[HttpGet]` メソッドの `List` 属性は、このアクションが GET 要求のみを処理する必要があることを示します。 このアクションのルートは、コントローラーで指定されたルートです。 ルートの一部としてアクション名を使用する必要はありません。 各アクションに一意で明確なルートを持たせる必要があります。 ルーティング属性をコントローラー レベルとメソッド レベルの両方で適用して、特定のルートを構築することができます。
 
 [!code-csharp[](native-mobile-backend/sample/ToDoApi/src/ToDoApi/Controllers/ToDoItemsController.cs?range=19-23)]
 
@@ -118,7 +118,7 @@ API メソッドには、データを操作する何らかの方法が必要で�
 
 [!code-csharp[](native-mobile-backend/sample/ToDoApi/src/ToDoApi/Controllers/ToDoItemsController.cs?range=91-99)]
 
-Postman を使用して新しい項目の追加をテストします。このときに、要求の本文で JSON 形式の新しいオブジェクトを提供する POST 動詞を選択します。 また、`application/json` の `Content-Type` を指定する要求ヘッダーも追加する必要があります。
+Postman を使用して新しい項目の追加をテストします。このときに、要求の本文で JSON 形式の新しいオブジェクトを提供する POST 動詞を選択します。 また、`Content-Type` の `application/json` を指定する要求ヘッダーも追加する必要があります。
 
 ![POST と応答が表示される Postman コンソール](native-mobile-backend/_static/postman-post.png)
 
@@ -136,7 +136,7 @@ Postman を使用してテストするには、動詞を PUT に変更します�
 
 このメソッドが成功した場合は、既存の API との整合性を保つために、`NoContent` (204) 応答が返されます。
 
-### <a name="deleting-items"></a>項目の削除
+### <a name="deleting-items"></a>アイテムを削除する
 
 レコードを削除するには、サービスに対して DELETE 要求を実行し、削除する項目の ID を渡します。 更新と同様に、存在しない項目に対する要求は `NotFound` 応答を受け取ります。 それ以外の成功した要求は `NoContent` (204) 応答を受け取ります。
 
@@ -148,10 +148,10 @@ Postman を使用してテストするには、動詞を PUT に変更します�
 
 ## <a name="common-web-api-conventions"></a>一般的な Web API 規約
 
-アプリのバックエンド サービスを開発する場合は、横断的な懸案事項を処理するための一連の規約やポリシーが必要になります。 たとえば、前述のサービスでは、見つからなかった特定のレコードに対する要求は、`BadRequest` 応答ではなく `NotFound` 応答を受け取りました。 同様に、モデルにバインドされた種類で渡されたこのサービスに対するコマンドは、常に `ModelState.IsValid` を確認し、無効なモデルの種類の場合に `BadRequest` を返していました。
+アプリのバックエンド サービスを開発する場合は、横断的な懸案事項を処理するための一連の規約やポリシーが必要になります。 たとえば、前述のサービスでは、見つからなかった特定のレコードに対する要求は、`NotFound` 応答ではなく `BadRequest` 応答を受け取りました。 同様に、モデルにバインドされた種類で渡されたこのサービスに対するコマンドは、常に `ModelState.IsValid` を確認し、無効なモデルの種類の場合に `BadRequest` を返していました。
 
 API の共通ポリシーを特定した場合、通常はそのポリシーを[フィルター](../mvc/controllers/filters.md)にカプセル化できます。 詳細については、[ASP.NET Core MVC アプリケーションで一般的な API ポリシーをカプセル化する方法](https://msdn.microsoft.com/magazine/mt767699.aspx)に関するページを参照してください。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * [認証と承認](/xamarin/xamarin-forms/enterprise-application-patterns/authentication-and-authorization)

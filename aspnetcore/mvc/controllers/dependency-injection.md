@@ -5,12 +5,12 @@ description: ASP.NET Core の MVC コントローラーが、ASP.NET Core でそ
 ms.author: riande
 ms.date: 02/24/2019
 uid: mvc/controllers/dependency-injection
-ms.openlocfilehash: 6b08c321f4cae1f4efd8ea40300eaf4dfc2f63a1
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
-ms.translationtype: HT
+ms.openlocfilehash: 202b62d4b30c5c61c407abdc8509a2a75e181cb6
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64890937"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652154"
 ---
 # <a name="dependency-injection-into-controllers-in-aspnet-core"></a>ASP.NET Core でのコントローラーへの依存関係の挿入
 
@@ -20,7 +20,7 @@ ms.locfileid: "64890937"
 
 ASP.NET Core の MVC コントローラーは、コンストラクターを使用して明示的に依存関係を要求します。 ASP.NET Core には、[依存関係の挿入 (DI)](xref:fundamentals/dependency-injection) の組み込みのサポートがあります。 DI を利用すれば、アプリのテストと保守管理が簡単になります。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/dependency-injection/sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/dependency-injection/sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="constructor-injection"></a>コンストラクターの挿入
 
@@ -52,9 +52,9 @@ ASP.NET Core の MVC コントローラーは、コンストラクターを使�
 
 ## <a name="access-settings-from-a-controller"></a>コントローラーから設定にアクセスする
 
-コントローラー内からアプリまたは構成の設定にアクセスするのが一般的なパターンです。 <xref:fundamentals/configuration/options> で説明されている*オプション パターン*が設定の管理手法として推奨されています。 通常はコントローラーに <xref:Microsoft.Extensions.Configuration.IConfiguration> を直接挿入しないでください。
+コントローラー内からアプリまたは構成の設定にアクセスするのが一般的なパターンです。 *で説明されている*オプション パターン<xref:fundamentals/configuration/options>が設定の管理手法として推奨されています。 通常はコントローラーに <xref:Microsoft.Extensions.Configuration.IConfiguration> を直接挿入しないでください。
 
-オプションを表すクラスを作成します。 次に例を示します。
+オプションを表すクラスを作成します。 例 :
 
 [!code-csharp[](dependency-injection/sample/ControllerDI/Models/SampleWebSettings.cs?name=snippet)]
 
@@ -70,7 +70,7 @@ JSON 形式ファイルから設定を読み込むようにアプリを構成し
 
 [!code-csharp[](dependency-injection/sample/ControllerDI/Controllers/SettingsController.cs?name=snippet)]
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * コントローラーで依存関係を明示的に要求することによってコードをテストしやすくする方法については、「<xref:mvc/controllers/testing>」を参照してください。
 

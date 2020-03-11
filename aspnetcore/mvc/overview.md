@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 02/12/2020
 uid: mvc/overview
 ms.openlocfilehash: 2911399f6ed4e14345171c908c4306b9c3e33805
-ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
-ms.translationtype: HT
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/19/2020
-ms.locfileid: "77447413"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78651668"
 ---
 # <a name="overview-of-aspnet-core-mvc"></a>ASP.NET Core MVC の概要
 
@@ -20,7 +20,7 @@ ASP.NET Core MVC は、モデル ビュー コントローラー デザイン �
 
 ## <a name="what-is-the-mvc-pattern"></a>MVC パターンとは何ですか?
 
-モデル ビュー コントローラー (MVC) アーキテクチャ パターンでは、アプリケーションを 3 つの主要なコンポーネントのグループに分けます:モデル、ビュー、コントローラーです。 このパターンは、[関心の分離](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns)を実現するのに役立ちます。 このパターンを使用すると、ユーザーの要求が、ユーザーの操作を実行したり、クエリの結果を取得したりするためにモデルを操作する役割がある、コントローラーにルーティングされます。 コントローラーでは、ユーザーに表示するビューを選び、必要なモデル データと共に提供します。
+モデル ビュー コントローラー (MVC) アーキテクチャ パターンでは、アプリケーションをモデル、ビュー、コントローラーという 3 つの主要なコンポーネントのグループに分けます。 このパターンは、[関心の分離](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns)を実現するのに役立ちます。 このパターンを使用すると、ユーザーの要求が、ユーザーの操作を実行したり、クエリの結果を取得したりするためにモデルを操作する役割がある、コントローラーにルーティングされます。 コントローラーでは、ユーザーに表示するビューを選び、必要なモデル データと共に提供します。
 
 次の図は、3 つの主要なコンポーネントと、どのコンポーネントがどのコンポーネントを参照するかを示しています。
 
@@ -41,7 +41,7 @@ MVC アプリケーションのモデルは、アプリケーションの状態�
 
 ### <a name="controller-responsibilities"></a>コントローラーの責任
 
-コントローラーは、ユーザーの操作を処理し、モデルを操作し、最終的にレンダリングするビューを選択するコンポーネントです。 MVC アプリケーションでは、ビューは情報のみを表示し、コントローラーがユーザーの入力と操作を処理して応答します。 MVC パターンでは、コントローラーは最初のエントリ ポイントであり、処理するモデルの型およびレンダリングするビューを選択する役割があります (そのため、このような名前で呼ばれており、アプリが指定した要求に応答する方法を制御します)。
+コントローラーは、ユーザーの操作を処理し、モデルを操作し、最終的にレンダリングするビューを選択するコンポーネントです。 MVC アプリケーションでは、ビューは情報を表示するだけです。ユーザー入力やユーザーとの対話を処理し、それらに応答するのは、コントローラーです。 MVC パターンでは、コントローラーは最初のエントリ ポイントであり、処理するモデルの型およびレンダリングするビューを選択する役割があります (そのため、このような名前で呼ばれており、アプリが指定した要求に応答する方法を制御します)。
 
 > [!NOTE]
 > コントローラーは責任が非常に多いので、過度に複雑にしないでください。 コントローラー ロジックが過度に複雑にならないように、ビジネス ロジックをコントローラーから排除し、ドメイン モデルに含めます。
@@ -55,7 +55,7 @@ ASP.NET Core MVC フレームワークは、ASP.NET Core と共に使用する�
 
 ASP.NET Core MVC では、明確な関心の分離を可能にする動的な Web サイトをビルドするためのパターン ベースの方法を提供します。 ここでは、マークアップのフル コントロールが提供され、TDD 向けの開発をサポートし、最新の Web 標準を使用することができます。
 
-## <a name="features"></a>フィーチャー
+## <a name="features"></a>[機能]
 
 ASP.NET Core MVC には、以下が含まれます。
 
@@ -145,7 +145,7 @@ public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = 
 
 ASP.NET Core には、[依存関係の挿入 (DI)](../fundamentals/dependency-injection.md) の組み込みのサポートがあります。 ASP.NET Core MVC では、[コントローラー](controllers/dependency-injection.md)は、[明示的な依存関係の原則](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies)に従うことを許可して、コンストラクターを介して必要なサービスを要求できます。
 
-また、自分のアプリで、`@inject` ディレクティブを使用して、[ビュー ファイルに依存関係の挿入](views/dependency-injection.md)を使用することもできます。
+また、自分のアプリで、[ ディレクティブを使用して、](views/dependency-injection.md)ビュー ファイルに依存関係の挿入`@inject`を使用することもできます。
 
 ```cshtml
 @inject SomeService ServiceName
@@ -170,9 +170,9 @@ ASP.NET Core には、[依存関係の挿入 (DI)](../fundamentals/dependency-in
 public class AccountController : Controller
 ```
 
-### <a name="areas"></a>Areas
+### <a name="areas"></a>領域
 
-[区分](controllers/areas.md)は、大きな ASP.NET Core MVC Web アプリを小さな機能グループに分割するための方法を提供します。 区分は、アプリケーション内の MVC 構造体となります。 MVC プロジェクトでは、モデル、コント ローラー、ビューなどの論理コンポーネントが異なるフォルダーに保持され、MVC では名前付け規則を使用して、これらのコンポーネントの関係を作成します。 大きなアプリでは、アプリを機能の個別の高レベル区分に分割すると便利な場合があります。 たとえば、チェックアウト、請求、検索などの複数のビジネス ユニットを持つ e コマース アプリの場合です。これらのユニットにはそれぞれ独自の論理コンポーネント ビュー、コントローラー、およびモデルがあります。
+[区分](controllers/areas.md)は、大きな ASP.NET Core MVC Web アプリを小さな機能グループに分割するための方法を提供します。 区分は、アプリケーション内の MVC 構造体となります。 MVC プロジェクトでは、モデル、コント ローラー、ビューなどの論理コンポーネントが異なるフォルダーに保持され、MVC では名前付け規則を使用して、これらのコンポーネント間のリレーションシップを作成します。 大きなアプリでは、アプリを機能の個別の高レベル区分に分割すると便利な場合があります。 たとえば、チェックアウト、請求、検索などの複数のビジネスユニットを含む e コマースアプリです。これらの各ユニットには、それぞれ独自の論理コンポーネントビュー、コントローラー、およびモデルがあります。
 
 ### <a name="web-apis"></a>Web API
 
@@ -182,7 +182,7 @@ Web サイトのビルドに最適なプラットフォームというだけで�
 
 リンクの生成を使って、ハイパーメディアのサポートを有効にします。 自分の Web API を複数の Web アプリケーションで共有できるように、[クロス オリジン リソース共有 (CORS)](https://www.w3.org/TR/cors/) のサポートを簡単に有効にできます。
 
-### <a name="testability"></a>テストの容易性
+### <a name="testability"></a>Testability
 
 フレームワークでインターフェイスと依存関係の挿入を使用して、単体テストに適するようにします。また、フレームワークには、[統合テスト](xref:test/integration-tests)もすばやく簡単にする機能 (Entity Framework の TestHost と InMemory プロバイダーなど) が含まれます。 詳細については、[コントローラー ロジックのテスト方法](controllers/testing.md)に関するページを参照してください。
 
@@ -220,7 +220,7 @@ MVC の Razor ビューは、モデルを基にして厳密に型指定できま
 
 [タグ ヘルパー](views/tag-helpers/intro.md)を使うと、Razor ファイルでの HTML 要素の作成とレンダリングに、サーバー側コードを組み込むことができます。 タグ ヘルパーを使って、カスタム タグ (例: `<environment>`) を定義したり、既存のタグ (例: `<label>`) の動作を変更したりすることができます。 タグ ヘルパーは、要素名とその属性に基づいて特定の要素をバインドします。 タグ ヘルパーでは、HTML の編集操作を保持しながら、サーバー側のレンダリングの利点を提供します。
 
-フォームやリンクの作成、資産の読み込みなど、一般的なタスクに対する組み込みのタグ ヘルパーは数多く存在します。パブリック GitHub リポジトリで NuGet パッケージとして使用することもできます。 タグ ヘルパーは C# で作成され、要素名、属性名、または親タグに基づく HTML 要素をターゲットとします。 たとえば、組み込みの LinkTagHelper を使用して、`AccountsController` の `Login` へのリンクを作成することができます。
+フォームやリンクの作成、資産の読み込みなど、一般的なタスクに対する組み込みのタグ ヘルパーは数多く存在します。パブリック GitHub リポジトリで NuGet パッケージとして使用することもできます。 タグ ヘルパーは C# で作成され、要素名、属性名、または親タグに基づいて HTML 要素をターゲットとします。 たとえば、組み込みの LinkTagHelper を使用して、`Login` の `AccountsController` へのリンクを作成することができます。
 
 ```cshtml
 <p>
@@ -253,9 +253,9 @@ MVC の Razor ビューは、モデルを基にして厳密に型指定できま
 
 <xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*> メソッドを使用すると、ASP.NET Core MVC 2.1 以降に導入されている、互換性に影響する重大な変更をオプトインまたはオプトアウトすることができます。
 
-詳細については、「<xref:mvc/compatibility-version>」を参照してください。
+詳細については、<xref:mvc/compatibility-version> を参照してください。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * [MyTested.AspNetCore.Mvc - ASP.NET Core MVC 用の Fluent テスト ライブラリ](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) &ndash; MVC と Web API アプリをテストするための fluent インターフェイスを提供する厳密に型指定された単体テスト ライブラリ。 ("*Microsoft では保守管理もサポートも行っていません。* ")
 * <xref:blazor/integrate-components>

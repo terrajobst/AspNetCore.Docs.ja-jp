@@ -9,18 +9,18 @@ ms.date: 12/05/2019
 no-loc:
 - SignalR
 uid: signalr/authn-and-authz
-ms.openlocfilehash: 091cc9b2adc1f6a8fac79519884695d1c1725d2a
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 3b7216bb064ba06a4c909016e1efd4242a64a7ad
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880415"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652016"
 ---
 # <a name="authentication-and-authorization-in-aspnet-core-opno-locsignalr"></a>ASP.NET Core SignalR での認証と承認
 
-作成者: [Andrew Stanton-Nurse](https://twitter.com/anurse)
+By [Andrew Stanton-看護師](https://twitter.com/anurse)
 
-[サンプル コードの表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/authn-and-authz/sample/) [(ダウンロードする方法)](xref:index#how-to-download-a-sample)
+[サンプルコードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/authn-and-authz/sample/)[する (ダウンロードする方法)](xref:index#how-to-download-a-sample)
 
 ## <a name="authenticate-users-connecting-to-a-opno-locsignalr-hub"></a>SignalR hub に接続しているユーザーを認証する
 
@@ -125,16 +125,16 @@ Cookie は、ブラウザーに固有のものです。 他の種類のクライ
 
 アプリで[Windows 認証](xref:security/authentication/windowsauth)が構成されている場合、SignalR はその id を使用してハブをセキュリティで保護することができます。 ただし、個々のユーザーにメッセージを送信するには、カスタム ユーザー ID プロバイダーを追加する必要があります。 Windows 認証システムは、"Name Identifier" クレームを提供しません。 SignalR は、要求を使用してユーザー名を決定します。
 
-`IUserIdProvider` を実装する新しいクラスを追加し、識別子として使用するクレームの 1 つをユーザーから取得します。 たとえば、"Name" クレーム (フォーム `[Domain]\[Username]` の Windows ユーザー名) を使用するには、次のクラスを作成します。
+`IUserIdProvider` を実装する新しいクラスを追加し、識別子として使用する要求の1つをユーザーから取得します。 たとえば、"Name" 要求 (フォーム `[Domain]\[Username]`の Windows ユーザー名) を使用するには、次のクラスを作成します。
 
 [!code-csharp[Name based provider](authn-and-authz/sample/nameuseridprovider.cs?name=NameUserIdProvider)]
 
-`ClaimTypes.Name` ではなく、`User` の任意の値 (Windows SID 識別子など) を使用できます。
+`ClaimTypes.Name`ではなく、`User` の任意の値 (Windows SID 識別子など) を使用できます。
 
 > [!NOTE]
 > 選択する値は、システム内のすべてのユーザーの間で一意である必要があります。 そうしないと、1人のユーザーを対象としたメッセージが別のユーザーに送信される可能性があります。
 
-`Startup.ConfigureServices` メソッド内でこのコンポーネントを登録します。
+`Startup.ConfigureServices` メソッドにこのコンポーネントを登録します。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -174,7 +174,7 @@ Windows 認証は、Microsoft Internet Explorer または Microsoft Edge を使�
 
 [!code-csharp[Adding the email to the ASP.NET identity claims](authn-and-authz/sample/pages/account/Register.cshtml.cs?name=AddEmailClaim)]
 
-`Startup.ConfigureServices` 内でこのコンポーネントを登録します。
+`Startup.ConfigureServices`にこのコンポーネントを登録します。
 
 ```csharp
 services.AddSingleton<IUserIdProvider, EmailBasedUserIdProvider>();
@@ -266,7 +266,7 @@ public class DomainRestrictedRequirement :
 }
 ```
 
-`Startup.ConfigureServices` 内で、新しいポリシーを追加し、`DomainRestrictedRequirement` ポリシーを作成するためのパラメーターとしてカスタム `DomainRestricted` 要件を指定します。
+`Startup.ConfigureServices`で、新しいポリシーを追加し、`DomainRestricted` ポリシーを作成するためのパラメーターとしてカスタム `DomainRestrictedRequirement` 要件を指定します。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -288,7 +288,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * [ASP.NET Core でのベアラートークン認証](https://blogs.msdn.microsoft.com/webdev/2016/10/27/bearer-token-authentication-in-asp-net-core/)
 * [リソースベースの承認](xref:security/authorization/resourcebased)

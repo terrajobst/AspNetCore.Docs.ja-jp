@@ -5,12 +5,12 @@ description: ASP.NET MVC プロジェクトから ASP.NET Core MVC プロジェ�
 ms.author: riande
 ms.date: 10/14/2016
 uid: migration/configuration
-ms.openlocfilehash: 455e66b94dd69ee6aab88768b64c525d56b8bbcf
-ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
+ms.openlocfilehash: 2c50ea768a42aa38d14c55d8c403fea4176b3650
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/29/2019
-ms.locfileid: "73033902"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78651884"
 ---
 # <a name="migrate-configuration-to-aspnet-core"></a>構成を ASP.NET Core に移行する
 
@@ -18,7 +18,7 @@ ms.locfileid: "73033902"
 
 前の記事では、 [ASP.NET mvc プロジェクトの ASP.NET CORE mvc への移行](xref:migration/mvc)を開始しました。 この記事では、構成を移行します。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/migration/configuration/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/migration/configuration/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="setup-configuration"></a>セットアップの構成
 
@@ -46,8 +46,8 @@ ASP.NET MVC プロジェクトでは、必要なデータベース接続文字�
 
 [!code-json[](../migration/configuration/samples/WebApp1/src/WebApp1/appsettings.json?highlight=4)]
 
-上の強調表示された行で、データベースの名前をデータベースの**名前に変更**します。
+上の強調表示された行で、データベースの名前を **_CHANGE_ME**からデータベースの名前に変更します。
 
-## <a name="summary"></a>まとめ
+## <a name="summary"></a>要約
 
 ASP.NET Core によって、アプリケーションのすべてのスタートアップロジックが1つのファイルに配置されます。このファイルで、必要なサービスと依存関係を定義して構成することができます。 *Web.config ファイルは*、JSON などのさまざまなファイル形式や環境変数を利用できる柔軟な構成機能に置き換えられています。

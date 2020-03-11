@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 10/14/2016
 uid: security/authorization/roles
 ms.openlocfilehash: 28aa3df6aa661d0b762df78fe611cd827af43f75
-ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73660046"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78651638"
 ---
 # <a name="role-based-authorization-in-aspnet-core"></a>ASP.NET Core でのロールベースの承認
 
@@ -165,7 +165,7 @@ options.AddPolicy("ElevatedRights", policy =>
 
 この例では、`Administrator`、`PowerUser` または `BackupAdministrator` ロールに属しているユーザーを承認します。
 
-### <a name="add-role-services-to-identity"></a>Id への役割サービスの追加
+### <a name="add-role-services-to-identity"></a>役割サービスの Id を追加します。
 
 役割サービスを追加するには、 [Addroles](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1)を追加します。
 

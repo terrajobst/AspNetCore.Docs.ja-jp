@@ -1,22 +1,22 @@
 ---
 title: ASP.NET Core の構成プロバイダーの Azure Key Vault
-author: guardrex
+author: rick-anderson
 description: Azure Key Vault 構成プロバイダーを使用して、実行時に読み込まれる名前と値のペアを使用してアプリを構成する方法について説明します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 uid: security/key-vault-configuration
-ms.openlocfilehash: 7eb8cf5dcd6b9f112a2ef30e694b6223a7d1f2fe
-ms.sourcegitcommit: 235623b6e5a5d1841139c82a11ac2b4b3f31a7a9
+ms.openlocfilehash: d617627154e3125a6a59d082fd401fc69c25fcb3
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/10/2020
-ms.locfileid: "77114875"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652178"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>ASP.NET Core の構成プロバイダーの Azure Key Vault
 
-[Luke Latham](https://github.com/guardrex)および[Andrew Stanton-看護師](https://github.com/anurse)
+By [Andrew Stanton-看護師](https://github.com/anurse)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -25,7 +25,7 @@ ms.locfileid: "77114875"
 * 機密性の高い構成データへのアクセスを制御する。
 * 構成データを格納するときに、FIPS 140-2 Level 2 で検証されたハードウェアセキュリティモジュール (HSM) の要件を満たしている。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/key-vault-configuration/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/key-vault-configuration/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="packages"></a>パッケージ
 
@@ -213,7 +213,7 @@ config.AddAzureKeyVault(
     });
 ```
 
-| プロパティ         | [説明] |
+| プロパティ         | 説明 |
 | ---------------- | ----------- |
 | `Client`         | 値を取得するために使用する <xref:Microsoft.Azure.KeyVault.KeyVaultClient>。 |
 | `Manager`        | シークレットの読み込みを制御するために使用される <xref:Microsoft.Extensions.Configuration.AzureKeyVault.IKeyVaultSecretManager> インスタンス。 |
@@ -289,7 +289,7 @@ config.AddAzureKeyVault(
 
 プロバイダーは、POCO 配列にバインドするために、配列に構成値を読み取ることができます。
 
-キーがコロン (`:`) 区切り記号を含むように構成ソースから読み取る場合、配列を構成するキー (`:0:`、`:1:`、... を区別するために、数値キーセグメントが使用されます。 `:{n}:`)。 詳細については、「[構成: 配列をクラスにバインドする](xref:fundamentals/configuration/index#bind-an-array-to-a-class)」を参照してください。
+キーがコロン (`:`) 区切り記号を含むように構成ソースから読み取る場合、配列を構成するキー (`:0:`、`:1:`、&hellip; `:{n}:`) を区別するために、数値キーセグメントが使用されます。 詳細については、「[構成: 配列をクラスにバインドする](xref:fundamentals/configuration/index#bind-an-array-to-a-class)」を参照してください。
 
 Azure Key Vault キーでは、区切り記号としてコロンを使用することはできません。 このトピックで説明する方法では、階層値 (セクション) の区切り記号として二重ダッシュ (`--`) を使用します。 配列キーは、二重ダッシュと数値キーセグメント (`--0--`、`--1--`、&hellip; `--{n}--`) を使用して Azure Key Vault に格納されます。
 
@@ -339,7 +339,7 @@ Configuration.Reload();
 
 無効で期限切れのシークレットは、<xref:Microsoft.Azure.KeyVault.Models.KeyVaultErrorException>をスローします。 アプリがスローされないようにするには、別の構成プロバイダーを使用して構成を提供するか、無効または期限切れのシークレットを更新してください。
 
-## <a name="troubleshoot"></a>[トラブルシューティング]
+## <a name="troubleshoot"></a>トラブルシューティング
 
 アプリがプロバイダーを使用した構成の読み込みに失敗すると、エラーメッセージが[ASP.NET Core ログ記録インフラストラクチャ](xref:fundamentals/logging/index)に書き込まれます。 次の状況では、構成を読み込むことができません。
 
@@ -371,7 +371,7 @@ Configuration.Reload();
 * 機密性の高い構成データへのアクセスを制御する。
 * 構成データを格納するときに、FIPS 140-2 Level 2 で検証されたハードウェアセキュリティモジュール (HSM) の要件を満たしている。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/key-vault-configuration/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/key-vault-configuration/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="packages"></a>パッケージ
 
@@ -616,7 +616,7 @@ Key vault 名の例の値: `contosovault`
 
 プロバイダーは、POCO 配列にバインドするために、配列に構成値を読み取ることができます。
 
-キーがコロン (`:`) 区切り記号を含むように構成ソースから読み取る場合、配列を構成するキー (`:0:`、`:1:`、... を区別するために、数値キーセグメントが使用されます。 `:{n}:`)。 詳細については、「[構成: 配列をクラスにバインドする](xref:fundamentals/configuration/index#bind-an-array-to-a-class)」を参照してください。
+キーがコロン (`:`) 区切り記号を含むように構成ソースから読み取る場合、配列を構成するキー (`:0:`、`:1:`、&hellip; `:{n}:`) を区別するために、数値キーセグメントが使用されます。 詳細については、「[構成: 配列をクラスにバインドする](xref:fundamentals/configuration/index#bind-an-array-to-a-class)」を参照してください。
 
 Azure Key Vault キーでは、区切り記号としてコロンを使用することはできません。 このトピックで説明する方法では、階層値 (セクション) の区切り記号として二重ダッシュ (`--`) を使用します。 配列キーは、二重ダッシュと数値キーセグメント (`--0--`、`--1--`、&hellip; `--{n}--`) を使用して Azure Key Vault に格納されます。
 
@@ -666,7 +666,7 @@ Configuration.Reload();
 
 無効で期限切れのシークレットは、<xref:Microsoft.Azure.KeyVault.Models.KeyVaultErrorException>をスローします。 アプリがスローされないようにするには、別の構成プロバイダーを使用して構成を提供するか、無効または期限切れのシークレットを更新してください。
 
-## <a name="troubleshoot"></a>[トラブルシューティング]
+## <a name="troubleshoot"></a>トラブルシューティング
 
 アプリがプロバイダーを使用した構成の読み込みに失敗すると、エラーメッセージが[ASP.NET Core ログ記録インフラストラクチャ](xref:fundamentals/logging/index)に書き込まれます。 次の状況では、構成を読み込むことができません。
 

@@ -5,12 +5,12 @@ description: ASP.NET Core アプリで Id を使用します。 パスワード�
 ms.author: riande
 ms.date: 01/15/2020
 uid: security/authentication/identity
-ms.openlocfilehash: 164ba10c1d1e2a73ebeb8240293a58f158055699
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: 2e0723d34a09109a034f3375c4e94aedab2a5427
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172529"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653156"
 ---
 # <a name="introduction-to-identity-on-aspnet-core"></a>ASP.NET Core Identity の概要
 
@@ -38,7 +38,7 @@ Id は、通常、ユーザー名、パスワード、およびプロファイ�
 
 [!INCLUDE[](~/includes/IdentityServer4.md)]
 
-サンプルコード ([ダウンロード方法)](xref:index#how-to-download-a-sample)を[表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity/sample)します。
+サンプルコード ([ダウンロード方法)](xref:index#how-to-download-a-sample)を[表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity/sample)します。
 
 <a name="adi"></a>
 
@@ -46,14 +46,14 @@ Id は、通常、ユーザー名、パスワード、およびプロファイ�
 
 個別のユーザー アカウントを使って、ASP.NET Core Web アプリケーション プロジェクトを作成します。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * [**ファイル**>**新しい**>**プロジェクト**] を選択します。
 * **[ASP.NET Core Web アプリケーション]** を選択します。 プロジェクトに**WebApp1**という名前を付け、プロジェクトのダウンロードと同じ名前空間にします。 **[OK]** をクリックすると、
 * ASP.NET Core **Web アプリケーション**を選択し、 **[認証の変更]** を選択します。
 * **個々のユーザーアカウント**を選択し、[ **OK]** をクリックします。
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 ```dotnetcli
 dotnet new webapp --auth Individual -o WebApp1
@@ -77,13 +77,13 @@ dotnet new webapp --auth Individual -uld -o WebApp1
 
 移行を適用してデータベースを初期化します。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 パッケージマネージャーコンソール (PMC) で次のコマンドを実行します。
 
 `PM> Update-Database`
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 SQLite を使用する場合、この手順で移行する必要はありません。 LocalDB の場合は、次のコマンドを実行します。
 
@@ -119,11 +119,11 @@ Id は <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentica
 
 ## <a name="scaffold-register-login-and-logout"></a>スキャフォールディング Register、Login、および LogOut
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Register、Login、LogOut のファイルを追加します。 スキャフォールディング id に従って、このセクションに示されているコードを生成するための[承認命令を含む Razor プロジェクトに](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-razor-project-with-authorization)従います。
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 **WebApp1**という名前のプロジェクトを作成した場合は、次のコマンドを実行します。 それ以外の場合は、`ApplicationDbContext`に適切な名前空間を使用します。
 
@@ -159,7 +159,7 @@ PowerShell では、コマンドの区切り記号としてセミコロンを使
 
 [!code-csharp[](identity/sample/WebApp3/Areas/Identity/Pages/Account/Login.cshtml.cs?name=snippet&highlight=10-11)]
 
-基本 `Controller` クラスは、コントローラーメソッドからアクセスできる `User` プロパティを公開します。 たとえば、`User.Claims` を列挙し、承認の決定を行うことができます。 詳細については、「 <xref:security/authorization/introduction>」を参照してください。
+基本 `Controller` クラスは、コントローラーメソッドからアクセスできる `User` プロパティを公開します。 たとえば、`User.Claims` を列挙し、承認の決定を行うことができます。 詳細については、<xref:security/authorization/introduction> を参照してください。
 
 ### <a name="log-out"></a>ログアウト
 
@@ -232,7 +232,7 @@ Id のプライマリパッケージは[AspNetCore](https://www.nuget.org/packag
 
 ## <a name="next-steps"></a>次の手順
 
-* SQLite を使用して Id を構成する方法については、 [GitHub の問題](https://github.com/aspnet/AspNetCore.Docs/issues/5131)を参照してください。
+* SQLite を使用して Id を構成する方法については、 [GitHub の問題](https://github.com/dotnet/AspNetCore.Docs/issues/5131)を参照してください。
 * [Identity の構成](xref:security/authentication/identity-configuration)
 * <xref:security/authorization/secure-data>
 * <xref:security/authentication/add-user-data>
@@ -252,7 +252,7 @@ ASP.NET Core Id は、ASP.NET Core アプリにログイン機能を追加する
 
 Id は、SQL Server データベースを使用して、ユーザー名、パスワード、およびプロファイルデータを格納するように構成できます。 別の永続ストアを使用することもできます (たとえば、Azure Table Storage)。
 
-サンプルコード ([ダウンロード方法)](xref:index#how-to-download-a-sample)を[表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity/sample/src/ASPNETCore-IdentityDemoComplete/)します。
+サンプルコード ([ダウンロード方法)](xref:index#how-to-download-a-sample)を[表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity/sample/src/ASPNETCore-IdentityDemoComplete/)します。
 
 このトピックでは、Identity を使用してユーザーを登録、ログイン、ログアウトする方法について説明します。 Id を使用するアプリを作成する方法の詳細については、この記事の最後にある「次のステップ」を参照してください。
 
@@ -272,14 +272,14 @@ Id は、SQL Server データベースを使用して、ユーザー名、パス
 
 個別のユーザー アカウントを使って、ASP.NET Core Web アプリケーション プロジェクトを作成します。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * [**ファイル**>**新しい**>**プロジェクト**] を選択します。
 * **[ASP.NET Core Web アプリケーション]** を選択します。 プロジェクトに**WebApp1**という名前を付け、プロジェクトのダウンロードと同じ名前空間にします。 **[OK]** をクリックすると、
 * ASP.NET Core **Web アプリケーション**を選択し、 **[認証の変更]** を選択します。
 * **個々のユーザーアカウント**を選択し、[ **OK]** をクリックします。
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 ```dotnetcli
 dotnet new webapp --auth Individual -o WebApp1
@@ -297,7 +297,7 @@ dotnet new webapp --auth Individual -o WebApp1
 
 移行を適用してデータベースを初期化します。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 パッケージマネージャーコンソール (PMC) で次のコマンドを実行します。
 
@@ -305,7 +305,7 @@ dotnet new webapp --auth Individual -o WebApp1
 Update-Database
 ```
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 ```dotnetcli
 dotnet ef database update
@@ -339,11 +339,11 @@ Id は、 [Useauthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbu
 
 スキャフォールディング id に従って、このセクションに示されているコードを生成するための[承認命令を含む Razor プロジェクトに](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-razor-project-with-authorization)従います。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Register、Login、LogOut のファイルを追加します。
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 **WebApp1**という名前のプロジェクトを作成した場合は、次のコマンドを実行します。 それ以外の場合は、`ApplicationDbContext`に適切な名前空間を使用します。
 
@@ -377,7 +377,7 @@ PowerShell では、コマンドの区切り記号としてセミコロンを使
 
 [!code-csharp[](identity/sample/WebApp1/Areas/Identity/Pages/Account/Login.cshtml.cs?name=snippet&highlight=10-11)]
 
-基本 `Controller` クラスは、コントローラーメソッドからアクセスできる `User` プロパティを公開します。 たとえば、`User.Claims` を列挙し、承認の決定を行うことができます。 詳細については、「 <xref:security/authorization/introduction>」を参照してください。
+基本 `Controller` クラスは、コントローラーメソッドからアクセスできる `User` プロパティを公開します。 たとえば、`User.Claims` を列挙し、承認の決定を行うことができます。 詳細については、<xref:security/authorization/introduction> を参照してください。
 
 ### <a name="log-out"></a>ログアウト
 
@@ -422,7 +422,7 @@ Id のプライマリパッケージは[AspNetCore](https://www.nuget.org/packag
 
 ## <a name="next-steps"></a>次の手順
 
-* SQLite を使用して Id を構成する方法については、 [GitHub の問題](https://github.com/aspnet/AspNetCore.Docs/issues/5131)を参照してください。
+* SQLite を使用して Id を構成する方法については、 [GitHub の問題](https://github.com/dotnet/AspNetCore.Docs/issues/5131)を参照してください。
 * [Identity の構成](xref:security/authentication/identity-configuration)
 * <xref:security/authorization/secure-data>
 * <xref:security/authentication/add-user-data>

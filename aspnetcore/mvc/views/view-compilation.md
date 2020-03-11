@@ -8,11 +8,11 @@ ms.custom: mvc
 ms.date: 12/05/2019
 uid: mvc/views/view-compilation
 ms.openlocfilehash: cd096bba5eb580c0a606699a2bf7c36442fb56f7
-ms.sourcegitcommit: b5ceb0a46d0254cc3425578116e2290142eec0f0
-ms.translationtype: HT
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/28/2020
-ms.locfileid: "76809069"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652496"
 ---
 # <a name="razor-file-compilation-in-aspnet-core"></a>ASP.NET Core での Razor ファイルのコンパイル
 
@@ -88,7 +88,7 @@ ASP.NET Core 2.x プロジェクト テンプレートは既定で、暗黙的�
 
 ::: moniker range="<= aspnetcore-2.0"
 
-[.NET Core CLI publish コマンド](/dotnet/core/tools/dotnet-publish)を使用して、[フレームワークに依存する展開](/dotnet/core/deploying/#framework-dependent-deployments-fdd)用にアプリを準備します。 たとえば、プロジェクト ルートで、次のコマンドを実行します。
+[.NET Core CLI publish コマンド](/dotnet/core/deploying/#framework-dependent-deployments-fdd)を使用して、[フレームワークに依存する展開](/dotnet/core/tools/dotnet-publish)用にアプリを準備します。 たとえば、プロジェクト ルートで、次のコマンドを実行します。
 
 ```dotnetcli
 dotnet publish -c Release
@@ -127,7 +127,7 @@ dotnet publish -c Release
 
 1. [Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/) NuGet パッケージをインストールします。
 
-1. プロジェクトの `Startup.ConfigureServices` メソッドを更新して、`AddRazorRuntimeCompilation` の呼び出しを含めます。 次に例を示します。
+1. プロジェクトの `Startup.ConfigureServices` メソッドを更新して、`AddRazorRuntimeCompilation` の呼び出しを含めます。 例 :
 
     ```csharp
     public void ConfigureServices(IServiceCollection services)
@@ -149,13 +149,13 @@ dotnet publish -c Release
 
 環境や構成モードに基づく実行時コンパイルを有効にするには、次のようにします。
 
-1. アクティブな `Configuration` 値に基づいて、[Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/) パッケージを条件付きで参照します。
+1. アクティブな [ 値に基づいて、](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/)Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation`Configuration` パッケージを条件付きで参照します。
 
     ```xml
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.0" Condition="'$(Configuration)' == 'Debug'" />
     ```
 
-1. プロジェクトの `Startup.ConfigureServices` メソッドを更新して、`AddRazorRuntimeCompilation` の呼び出しを含めます。 `ASPNETCORE_ENVIRONMENT` 変数が `Development` に設定されている場合にのみ Debug モードで実行されるように、条件付きで `AddRazorRuntimeCompilation` を実行します。
+1. プロジェクトの `Startup.ConfigureServices` メソッドを更新して、`AddRazorRuntimeCompilation` の呼び出しを含めます。 `AddRazorRuntimeCompilation` 変数が `ASPNETCORE_ENVIRONMENT` に設定されている場合にのみ Debug モードで実行されるように、条件付きで `Development` を実行します。
 
     ```csharp
     public IWebHostEnvironment Env { get; set; }
@@ -177,7 +177,7 @@ dotnet publish -c Release
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 ::: moniker range="= aspnetcore-1.1"
 

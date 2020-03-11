@@ -8,11 +8,11 @@ ms.date: 12/4/2019
 monikerRange: '>= aspnetcore-3.0'
 uid: security/authentication/microsoft-logins
 ms.openlocfilehash: ddaae1a25a1dcf167ffae0f24b480e2cde6aca5b
-ms.sourcegitcommit: f4cd3828e26e6d549ba8d0c36a17be35ad9e5a51
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74825460"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652070"
 ---
 # <a name="microsoft-account-external-login-setup-with-aspnet-core"></a>ASP.NET Core を使用した Microsoft アカウントの外部ログインセットアップ
 
@@ -30,7 +30,7 @@ Microsoft アカウントがない場合は、 **[作成]** を選択します�
 * **[新規登録]** を選択します
 * **[名前]** を入力します。
 * **サポートされているアカウントの種類**のオプションを選択します。  <!-- Accounts for any org work with MS domain accounts. Most folks probably want the last option, personal MS accounts -->
-* **[リダイレクト URI]** に、`/signin-microsoft` 追加された開発 URL を入力します。 たとえば、`https://localhost:5001/signin-microsoft` のようにします。 このサンプルの後半で構成されている Microsoft 認証スキームは、OAuth フローを実装するために `/signin-microsoft` ルートで要求を自動的に処理します。
+* **[リダイレクト URI]** に、`/signin-microsoft` 追加された開発 URL を入力します。 たとえば、「 `https://localhost:5001/signin-microsoft` 」のように入力します。 このサンプルの後半で構成されている Microsoft 認証スキームは、OAuth フローを実装するために `/signin-microsoft` ルートで要求を自動的に処理します。
 * **[登録]** を選択します
 
 ### <a name="create-client-secret"></a>クライアント シークレットを作成する
@@ -87,12 +87,12 @@ Microsoft アカウント認証でサポートされる構成オプションの�
 
   エラーメッセージは Microsoft 認証に問題があることを示していますが、最も一般的な原因は、アプリケーション Uri が**Web**プラットフォームに指定されている**リダイレクト uri**と一致していないことです。
 * `ConfigureServices`で `services.AddIdentity` を呼び出すことによって Id が構成されていない場合、認証を試みると ArgumentException が返され*ます。 ' SignInScheme ' オプションを指定する必要があり*ます。 このサンプルで使用するプロジェクトテンプレートにより、この処理が確実に行われます。
-* 最初の移行を適用することで、サイト データベースが作成されていない場合になります*要求の処理中にデータベース操作が失敗しました*エラー。 タップ**適用移行**データベースを作成し、エラーを引き続き更新します。
+* 初期移行を適用してサイトデータベースが作成されていない場合は、*要求エラーの処理中にデータベース操作が失敗*します。 **[移行の適用]** をタップしてデータベースを作成し、更新してエラーを続行します。
 
 ## <a name="next-steps"></a>次のステップ:
 
-* この記事では、Microsoft で認証する方法について説明しました。 記載されているその他のプロバイダーで認証する同様のアプローチを利用できる、[前のページ](xref:security/authentication/social/index)します。
+* この記事では、Microsoft で認証する方法について説明しました。 同様のアプローチに従って、[前のページ](xref:security/authentication/social/index)に一覧表示されている他のプロバイダーとの認証を行うことができます。
 
 * Web サイトを Azure web アプリに発行したら、Microsoft 開発者ポータルで新しいクライアントシークレットを作成します。
 
-* 設定、`Authentication:Microsoft:ClientId`と`Authentication:Microsoft:ClientSecret`として、Azure portal でアプリケーションの設定。 構成システムは、環境変数からキーの読み取りを設定します。
+* Azure portal で、`Authentication:Microsoft:ClientId` と `Authentication:Microsoft:ClientSecret` をアプリケーション設定として設定します。 構成システムは、環境変数からキーの読み取りを設定します。

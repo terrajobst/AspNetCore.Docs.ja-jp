@@ -1,12 +1,12 @@
-# <a name="additional-claims-sample-app"></a>その他の要求のサンプル アプリ
+# <a name="additional-claims-sample-app"></a>追加の要求のサンプルアプリ
 
-サンプル アプリについて説明する方法。
+サンプルアプリでは、次の方法を示しています。
 
-* ユーザーの指定した名前と姓を Google から取得し、Google から提供される値を持つ名前クレームを格納します。
-* ユーザーの Google アクセス トークンは保存`AuthenticationProperties`します。
+* Google からユーザーの名前と姓を取得し、Google から提供された値を使用して名前クレームを格納します。
+* Google アクセストークンをユーザーの `AuthenticationProperties`に格納します。
 
-サンプル アプリを使用します。
+サンプルアプリを使用するには:
 
-1. アプリを登録し、有効なクライアント ID と Google 認証用のクライアント シークレットを取得します。 詳細については、次を参照してください。 [Google 外部ログイン セットアップ](https://docs.microsoft.com/aspnet/core/security/authentication/social/google-logins)します。
-1. クライアント ID とクライアント シークレットをアプリに提供、 [GoogleOptions](https://docs.microsoft.com/dotnet/api/microsoft.aspnetcore.authentication.google.googleoptions)の`Startup.ConfigureServices`します。
-1. アプリを実行し、My 要求ページを要求します。 ユーザーが署名されていないときに、アプリを Google にリダイレクトします。 Google でサインインします。 Google は、アプリにユーザーをリダイレクト (`/MyClaims`)。 ユーザーが認証されると、および My 要求ページが読み込まれます。 指定された名前と姓のクレームが存在**ユーザーの信頼性情報**Google から提供される値を使用します。 下に表示されるアクセス トークン**認証プロパティ**します。
+1. アプリを登録し、Google 認証用の有効なクライアント ID とクライアントシークレットを取得します。 詳細については、「 [Google external login setup](https://docs.microsoft.com/aspnet/core/security/authentication/social/google-logins)」を参照してください。
+1. `Startup.ConfigureServices`の[GoogleOptions](https://docs.microsoft.com/dotnet/api/microsoft.aspnetcore.authentication.google.googleoptions)で、クライアント ID とクライアントシークレットをアプリに提供します。
+1. アプリを実行し、[要求] ページを要求します。 ユーザーがサインインしていない場合、アプリは Google にリダイレクトします。 Google でサインインします。 Google は、ユーザーをアプリにリダイレクトします (`/MyClaims`)。 ユーザーが認証され、[自分の要求] ページが読み込まれます。 指定された名前と姓の要求は、Google によって指定された値を持つ**ユーザー要求**の下に存在します。 アクセストークンは **[認証プロパティ]** の下に表示されます。

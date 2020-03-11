@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: web-api/advanced/conventions
-ms.openlocfilehash: 2c7e33da24322504fc5e1be83c0b814710186687
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
-ms.translationtype: HT
+ms.openlocfilehash: d49b51d11d3f14d0c3edbe1765d74fd63e3ac061
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74881319"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78651524"
 ---
 # <a name="use-web-api-conventions"></a>Web API 規約を使用する
 
@@ -25,17 +25,17 @@ ASP.NET Core 2.2 以降では、一般的な [API ドキュメント](xref:tutor
 * 特定の型のアクションから返される最も一般的な戻り値の型と状態コードを定義する
 * 定義済みの標準から外れるアクションを識別する
 
-ASP.NET Core MVC 2.2 以降には、一連の既定の規約 <xref:Microsoft.AspNetCore.Mvc.DefaultApiConventions?displayProperty=fullName> が含まれています。 この規約は、ASP.NET Core **API** プロジェクト テンプレートで提供されるコントローラー (*ValuesController.cs*) に基づいています。 アクションがテンプレートのパターンに従う場合は、既定の規約を使用すると成功します。 既定の規約がニーズに合わない場合は、「[Web API 規約を作成する](#create-web-api-conventions)」を参照してください。
+ASP.NET Core MVC 2.2 以降には、一連の既定の規約 <xref:Microsoft.AspNetCore.Mvc.DefaultApiConventions?displayProperty=fullName> が含まれています。 この規約は、ASP.NET Core *API* プロジェクト テンプレートで提供されるコントローラー (**ValuesController.cs**) に基づいています。 アクションがテンプレートのパターンに従う場合は、既定の規約を使用すると成功します。 既定の規約がニーズに合わない場合は、「[Web API 規約を作成する](#create-web-api-conventions)」を参照してください。
 
 実行時に、<xref:Microsoft.AspNetCore.Mvc.ApiExplorer> は規約を理解します。 `ApiExplorer` は [OpenAPI](https://www.openapis.org/) (Swagger とも呼ばれている) ドキュメントのジェネレーターと通信するために MVC を抽象化したものです。 適用された規約の属性はアクションと関連付けられており、アクションの OpenAPI ドキュメントに含まれます。 [API アナライザー](xref:web-api/advanced/analyzers)でも、規約を理解します。 従来とは異なるアクションである場合 (適用されている規約で文書化されていない状態コードを返す場合など)、警告で状態コードの文書化が促されます。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/conventions/sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/conventions/sample)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="apply-web-api-conventions"></a>Web API 規約を適用する
 
 規約では作成は行われません。各アクションを 1 つの規約だけに関連付けることができます。 より具体的な規約の方が一般的な規約より優先されます。 優先順位が同じである 2 つ以上の規約が 1 つのアクションに適用されていると、選択は不明確になります。 次のオプションは、規約をアクションに適用するためにあります。より具体的なものから並んでいます。
 
-1. `Microsoft.AspNetCore.Mvc.ApiConventionMethodAttribute` &mdash; 個々のアクションに適用され、適用される規約の種類と規約のメソッドが指定されます。
+1. `Microsoft.AspNetCore.Mvc.ApiConventionMethodAttribute` &mdash; は個々のアクションに適用され、規則の種類と適用される規則の方法を指定します。
 
     次の例では、既定の規約の種類の `Microsoft.AspNetCore.Mvc.DefaultApiConventions.Put` 規約のメソッドが、`Update` アクションに適用されます。
 
@@ -73,7 +73,7 @@ ASP.NET Core MVC 2.2 以降には、一連の既定の規約 <xref:Microsoft.Asp
 
 ### <a name="response-types"></a>応答の種類
 
-これらのメソッドには `[ProducesResponseType]` または `[ProducesDefaultResponseType]` 属性の注釈が付けられています。 次に例を示します。
+これらのメソッドには `[ProducesResponseType]` または `[ProducesDefaultResponseType]` 属性の注釈が付けられています。 例 :
 
 ```csharp
 public static class MyAppConventions
@@ -91,9 +91,9 @@ public static class MyAppConventions
 * 規約のメソッドは、`Find` という名前のアクションに適用されます。
 * `id` という名前のパラメーターは、`Find` アクションに存在します。
 
-### <a name="naming-requirements"></a>名前付けの要件
+### <a name="naming-requirements"></a>名前付けに関する要件
 
-`[ApiConventionNameMatch]` 属性と `[ApiConventionTypeMatch]` 属性は、適用されるアクションを決定する規約のメソッドに適用することができます。 次に例を示します。
+`[ApiConventionNameMatch]` 属性と `[ApiConventionTypeMatch]` 属性は、適用されるアクションを決定する規約のメソッドに適用することができます。 例 :
 
 ```csharp
 [ProducesResponseType(StatusCodes.Status200OK)]
@@ -110,7 +110,7 @@ public static void Find(
 * メソッドに適用された `Microsoft.AspNetCore.Mvc.ApiExplorer.ApiConventionNameMatchBehavior.Prefix` オプションは、規約が "Find" というプレフィックスがあるアクションに一致することを示します。 `Find`、`FindPet`、および `FindById` を含む照合アクションの例。
 * パラメーターに適用された `Microsoft.AspNetCore.Mvc.ApiExplorer.ApiConventionNameMatchBehavior.Suffix` は、規約がサフィックス識別子で終わる 1 つのパラメーターが含まれるメソッドと一致することを示します。 例には、`id` や `petId` などのパラメーターが含まれます。 `ApiConventionTypeMatch` も同様に型に適用して、パラメーターの型に制約を設けることができます。 `params[]` の引数では、明示的に一致する必要がない残りのパラメーターを示します。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * <xref:web-api/advanced/analyzers>
 * <xref:tutorials/web-api-help-pages-using-swagger>

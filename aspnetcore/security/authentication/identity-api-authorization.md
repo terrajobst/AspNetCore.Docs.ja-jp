@@ -8,17 +8,17 @@ ms.custom: mvc
 ms.date: 11/08/2019
 uid: security/authentication/identity/spa
 ms.openlocfilehash: 623f739b17c0bed3ce929f562c9581ab26ecf5bc
-ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/01/2020
-ms.locfileid: "76928558"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652700"
 ---
 # <a name="authentication-and-authorization-for-spas"></a>SPAs の認証と承認
 
-ASP.NET Core 3.0 以降では、API 承認のサポートを使用して、シングルページアプリ (spa) で認証を提供します。 ユーザーを認証および格納するための ASP.NET Core Id は、Open ID Connect を実装するために、ユーザーと [IdentityServer](https://identityserver.io/) を組み合わせて使用されます。
+ASP.NET Core 3.0 以降では、API 承認のサポートを使用して、シングルページアプリ (spa) で認証を提供します。 ユーザーを認証および格納するための ASP.NET Core Id は、Open ID Connect を実装する[ために、ユーザーと組み合わせ](https://identityserver.io/)て使用されます。
 
-**Angular** プロジェクトテンプレートと **React** プロジェクトテンプレートに、**Webアプリケーション(Model-View-Controller)** (MVC)と **Web アプリケーション**(Razor Pages)プロジェクトテンプレートの認証パラメータに似た認証パラメータが追加されました。 使用できるパラメータ値は、**None** および **Individual** です。 現時点では、 **React.js および Redux** プロジェクトテンプレートは認証パラメータをサポートしていません。
+認証パラメーターが、 **Web アプリケーション (モデルビューコントローラー)** (MVC) および**web アプリケーション**(Razor Pages) プロジェクトテンプレートの認証パラメーターに似た**角度**で、**応答**するプロジェクトテンプレートに追加されました。 許可されるパラメーター値は、 **None**および**個人**です。 この時点では、対応する **.js および Redux**プロジェクトテンプレートで認証パラメーターがサポートされていません。
 
 ## <a name="create-an-app-with-api-authorization-support"></a>API authorization サポートを使用してアプリを作成する
 
@@ -42,7 +42,7 @@ dotnet new react -o <output_directory_name> -au Individual
 
 次のセクションでは、認証のサポートが含まれている場合のプロジェクトへの追加について説明します。
 
-### <a name="startup-class"></a>Startup クラス
+### <a name="startup-class"></a>スタートアップ クラス
 
 `Startup` クラスには、次の追加機能があります。
 
@@ -123,7 +123,7 @@ dotnet new react -o <output_directory_name> -au Individual
 
 ### <a name="appsettingsdevelopmentjson"></a>appsettings.Development.json
 
-プロジェクトルートの*appsettings.Development.json*ファイルには、トークンの署名に使用されるキーについて説明する `IdentityServer` セクションがあります。 運用環境にデプロイする場合は、「[運用環境にデプロイする](#deploy-to-production)」セクションで説明されているように、アプリと共にキーをプロビジョニングしてデプロイする必要があります。
+Appsettings で *。プロジェクトルートの開発用 json*ファイルには、トークンの署名に使用されるキーについて説明する `IdentityServer` セクションがあります。 運用環境にデプロイする場合は、「[運用環境にデプロイする](#deploy-to-production)」セクションで説明されているように、アプリと共にキーをプロビジョニングしてデプロイする必要があります。
 
 ```json
 "IdentityServer": {
@@ -135,7 +135,7 @@ dotnet new react -o <output_directory_name> -au Individual
 
 ## <a name="general-description-of-the-angular-app"></a>角度アプリの一般的な説明
 
-Angular テンプレートでの認証と API 承認のサポートは、*ClientApp\src\api-authorization* ディレクトリの、独自の Angular モジュールに存在します。 モジュールは、次の要素で構成されています。
+角度テンプレートでの認証と API 承認のサポートは、独自の角度モジュールの*Clientapp-authorization*ディレクトリに存在します。 モジュールは、次の要素で構成されています。
 
 * 3個のコンポーネント:
   * *login. component. ts*: アプリのログインフローを処理します。
@@ -185,7 +185,7 @@ services.Configure<JwtBearerOptions>(
 
 API の JWT ハンドラーは、`JwtBearerEvents`を使用して認証プロセスを制御できるようにするイベントを発生させます。 API 認証のサポートを提供するために、`AddIdentityServerJwt` 独自のイベントハンドラーを登録します。
 
-イベントの処理をカスタマイズするには、必要に応じて追加のロジックを使用して既存のイベントハンドラーをラップします。 例:
+イベントの処理をカスタマイズするには、必要に応じて追加のロジックを使用して既存のイベントハンドラーをラップします。 例 :
 
 ```csharp
 services.Configure<JwtBearerOptions>(
@@ -239,7 +239,7 @@ RouterModule.forRoot([
 
 ## <a name="authenticate-api-requests-react"></a>API 要求の認証 (応答)
 
-React を含む要求の認証は、最初に `AuthorizeService`から `authService` インスタンスをインポートすることによって行われます。 次に示すように、アクセストークンは `authService` から取得され、要求にアタッチされます。 コンポーネントの処理では、通常、この作業は `componentDidMount` ライフサイクルメソッドで実行されるか、一部のユーザー操作の結果として行われます。
+応答を含む要求の認証は、最初に `AuthorizeService`から `authService` インスタンスをインポートすることによって行われます。 次に示すように、アクセストークンは `authService` から取得され、要求にアタッチされます。 コンポーネントの処理では、通常、この作業は `componentDidMount` ライフサイクルメソッドで実行されるか、一部のユーザー操作の結果として行われます。
 
 ### <a name="import-the-authservice-into-your-component"></a>コンポーネントに authService をインポートする
 
@@ -260,7 +260,7 @@ async populateWeatherData() {
 }
 ```
 
-## <a name="deploy-to-production"></a>運用環境へのデプロイ
+## <a name="deploy-to-production"></a>運用環境への配置
 
 アプリを運用環境にデプロイするには、次のリソースをプロビジョニングする必要があります。
 
@@ -369,7 +369,7 @@ AddApiAuthorization<ApplicationUser, ApplicationDbContext>(options =>
 });
 ```
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * <xref:spa/angular>
 * <xref:spa/react>

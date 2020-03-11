@@ -9,12 +9,12 @@ ms.date: 11/12/2019
 no-loc:
 - SignalR
 uid: signalr/streaming
-ms.openlocfilehash: 7825beba55cefb6236fd8d8e332d030a7e4fc6df
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 21dd8180fe168f81ed68b01f02b81a6264d6e5a6
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963885"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654974"
 ---
 # <a name="use-streaming-in-aspnet-core-opno-locsignalr"></a>ASP.NET Core SignalR でのストリーミングの使用
 
@@ -32,7 +32,7 @@ ASP.NET Core SignalR では、サーバーメソッドのストリーミング�
 
 ::: moniker-end
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/signalr/streaming/samples/)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/live/aspnetcore/signalr/streaming/samples/)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="set-up-a-hub-for-streaming"></a>ストリーミング用のハブを設定する
 
@@ -258,7 +258,7 @@ channel.Writer.Complete();
 
 JavaScript クライアントは、`connection.stream`を使用してハブでサーバーからクライアントへのストリーミングメソッドを呼び出します。 `stream` メソッドは、次の2つの引数を受け取ります。
 
-* ハブメソッドの名前。 次の例では、ハブメソッド名は `Counter`です。
+* ハブ メソッドの名前。 次の例では、ハブメソッド名は `Counter`です。
 * ハブメソッドで定義されている引数。 次の例では、引数は、受信するストリーム項目数とストリーム項目間の遅延をカウントします。
 
 `connection.stream` は、`subscribe` メソッドを含む `IStreamResult`を返します。 `subscribe` に `IStreamSubscriber` を渡し、`next`、`error`、および `complete` のコールバックを設定して、`stream` 呼び出しからの通知を受信します。
@@ -298,7 +298,7 @@ JavaScript クライアントは、呼び出されたハブメソッドに応じ
 SignalR Java クライアントは、`stream` メソッドを使用してストリーミングメソッドを呼び出します。 `stream` は、次の3つ以上の引数を受け取ります。
 
 * ストリーム項目の予期される型。
-* ハブメソッドの名前。
+* ハブ メソッドの名前。
 * ハブメソッドで定義されている引数。
 
 ```java
@@ -313,7 +313,7 @@ hubConnection.stream(String.class, "ExampleStreamingHubMethod", "Arg1")
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * [ハブ](xref:signalr/hubs)
 * [.NET クライアント](xref:signalr/dotnet-client)

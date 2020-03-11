@@ -1,3 +1,3 @@
-# <a name="aspnet-core-response-cache-sample"></a>ASP.NET Core の応答のキャッシュのサンプル
+# <a name="aspnet-core-response-cache-sample"></a>ASP.NET Core Response Cache サンプル
 
-このサンプルは、応答のキャッシュに付属する ASP.NET Core での使用方法を示します[ASP.NET Core で応答のキャッシュ](https://docs.microsoft.com/aspnet/core/performance/caching/response)します。
+このサンプルでは、 [ASP.NET Core で応答キャッシュ](https://docs.microsoft.com/aspnet/core/performance/caching/response)に付随する ASP.NET Core での応答キャッシュの使用方法を示します。

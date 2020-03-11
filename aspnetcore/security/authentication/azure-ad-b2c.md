@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 01/21/2019
 uid: security/authentication/azure-ad-b2c
 ms.openlocfilehash: 136fa47788456492a9a7fe6d9d9e5996c13e8c20
-ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/24/2020
-ms.locfileid: "76727276"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653618"
 ---
 # <a name="cloud-authentication-with-azure-active-directory-b2c-in-aspnet-core"></a>ASP.NET Core の Azure Active Directory B2C を使用したクラウド認証
 
@@ -47,9 +47,9 @@ ms.locfileid: "76727276"
 
 次の値を使用します。
 
-| 設定                       | [値]                     | メモ                                                                                                                                                                                              |
+| 設定                       | 値                     | 説明                                                                                                                                                                                              |
 |-------------------------------|---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Name**                      | *&lt;アプリケーション名&gt;*        | アプリをコンシューマーに説明するアプリの**名前**を入力します。                                                                                                                                 |
+| **名前**                      | *&lt;アプリケーション名&gt;*        | アプリをコンシューマーに説明するアプリの**名前**を入力します。                                                                                                                                 |
 | **Web アプリ/Web API を含める** | はい                       |                                                                                                                                                                                                    |
 | **暗黙的フローを許可する**       | はい                       |                                                                                                                                                                                                    |
 | **応答 URL**                 | `https://localhost:44300/signin-oidc` | 応答 URL は、アプリが要求したトークンを Azure AD B2C が返すエンドポイントです。 Visual Studio には、使用する応答 URL が用意されています。 ここでは、`https://localhost:44300/signin-oidc` 入力してフォームを完成させます。 |
@@ -67,7 +67,7 @@ ms.locfileid: "76727276"
 
 認証に Azure AD B2C テナントを使用する Visual Studio Web アプリケーション テンプレートを構成できます。
 
-Visual Studio:
+Visual Studio で次の操作を行います。
 
 1. 新しい ASP.NET Core Web アプリケーションを作成します。 
 2. テンプレートの一覧から **[Web アプリケーション]** を選択します。
@@ -81,7 +81,7 @@ Visual Studio:
 
 5. 次の値をフォームに入力します。
     
-    | 設定                       | [値]                                                 |
+    | 設定                       | 値                                                 |
     |-------------------------------|-------------------------------------------------------|
     | **ドメイン名**               | *B2C テナントのドメイン名を &lt;&gt;*          |
     | **アプリケーション ID**            | *&lt;クリップボードからアプリケーション ID を貼り付け&gt;* |
@@ -144,9 +144,9 @@ Visual Studio で、 **F5**キーを押してアプリをビルドして実行�
 
 ![成功](./azure-ad-b2c/_static/success.png)
 
-## <a name="next-steps"></a>次の手順
+## <a name="next-steps"></a>次のステップ:
 
-このチュートリアルでは、次の作業を行う方法を学びました。
+このチュートリアルでは、以下の内容を学習しました。
 
 > [!div class="checklist"]
 > * Azure Active Directory B2C テナントの作成

@@ -8,11 +8,11 @@ ms.custom: mvc
 ms.date: 01/15/2020
 uid: security/authentication/scaffold-identity
 ms.openlocfilehash: b3e077aeac11e62d9e992884100476f7be35b59a
-ms.sourcegitcommit: 990a4c2e623c202a27f60bdf3902f250359c13be
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/03/2020
-ms.locfileid: "76972042"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78653714"
 ---
 # <a name="scaffold-identity-in-aspnet-core-projects"></a>ASP.NET Core プロジェクトにおけるIdentityのスキャフォールディング
 
@@ -83,7 +83,7 @@ Id は、 *Areas/identity/IdentityHostingStartup*で構成されます。 詳細
 
 <a name="useauthentication"></a>
 
-### <a name="enable-authentication"></a>認証の有効化
+### <a name="enable-authentication"></a>認証を有効にする
 
 次のようなコードを使用して、`Startup` クラスを更新します。
 
@@ -195,7 +195,7 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 
 ユーザー登録を無効にするには:
 
-* スキャフォールディング Id。 Account、Account. Login、および Account. RegisterConfirmation を含めます。 例:
+* スキャフォールディング Id。 Account、Account. Login、および Account. RegisterConfirmation を含めます。 例 :
 
   ```dotnetcli
    dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.RegisterConfirmation"
@@ -261,7 +261,7 @@ Web アプリの外部にユーザーを追加するためのメカニズムを�
 
 静的な ID 資産が Web ルートに公開されないようにするには、<xref:security/authentication/identity#prevent-publish-of-static-identity-assets> を参照してください。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * [ASP.NET Core 2.1 以降に認証コードが変更された](xref:migration/20_21#changes-to-authentication-code)
 
@@ -325,7 +325,7 @@ Id は、 *Areas/identity/IdentityHostingStartup*で構成されます。 詳細
 
 <a name="useauthentication"></a>
 
-### <a name="enable-authentication"></a>認証の有効化
+### <a name="enable-authentication"></a>認証を有効にする
 
 `Startup` クラスの `Configure` メソッドで、`UseStaticFiles`後に[Useauthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication?view=aspnetcore-2.0#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_)を呼び出します。
 
@@ -439,7 +439,7 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 
 ユーザー登録を無効にするには:
 
-* スキャフォールディング Id。 Account、Account. Login、および Account. RegisterConfirmation を含めます。 例:
+* スキャフォールディング Id。 Account、Account. Login、および Account. RegisterConfirmation を含めます。 例 :
 
   ```dotnetcli
    dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.RegisterConfirmation"
@@ -501,7 +501,7 @@ Web アプリの外部にユーザーを追加するためのメカニズムを�
 
 同様の方法で、運用環境のシナリオにも対応できます。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * [ASP.NET Core 2.1 以降に認証コードが変更された](xref:migration/20_21#changes-to-authentication-code)
 

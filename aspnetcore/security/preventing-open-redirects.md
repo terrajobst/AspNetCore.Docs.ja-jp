@@ -1,16 +1,16 @@
 ---
 title: ASP.NET Core でのオープンリダイレクト攻撃の防止
 author: ardalis
-description: ASP.NET Core アプリに対するオープン リダイレクト攻撃を防ぐ方法を示しています。
+description: ASP.NET Core アプリに対するオープンリダイレクト攻撃を防ぐ方法を示します。
 ms.author: riande
 ms.date: 07/07/2017
 uid: security/preventing-open-redirects
 ms.openlocfilehash: 9d8cac8708fe9aeadba5af1287362a20df7f6bfe
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815497"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78652220"
 ---
 # <a name="prevent-open-redirect-attacks-in-aspnet-core"></a>ASP.NET Core でのオープンリダイレクト攻撃の防止
 
@@ -20,24 +20,24 @@ ms.locfileid: "67815497"
 
 ## <a name="what-is-an-open-redirect-attack"></a>オープンリダイレクト攻撃とは何か
 
-Web アプリは認証が必要なリソースにアクセスするときに、ユーザーをログインページへリダイレクトすることが多いです。 リダイレクトは、一般的にクエリ文字列のパラメーター `returnUrl` が含まれており、 ログイン成功後にもともと要求した URL に遷移します。 ユーザーは認証の成功後、もともと要求された URL にリダイレクトされます。
+Web アプリは認証が必要なリソースにアクセスするときに、ユーザーをログインページへリダイレクトすることが多いです。 通常、リダイレクトには、ユーザーが正常にログインした後に最初に要求された URL にユーザーを返すことができるように、`returnUrl` querystring パラメーターが含まれています。 ユーザーは認証の成功後、もともと要求された URL にリダイレクトされます。
 
 送信先の URL はクエリ文字列で指定されているので、悪意のあるユーザーはクエリ文字列を改ざんする可能性があります。 改ざんされたクエリ文字列によって、サイトはユーザーを外部の悪意あるサイトにリダイレクトできるようになります。 この手法は、オープンリダイレクト（または open redirection）攻撃と呼ばれます。
 
 ### <a name="an-example-attack"></a>攻撃の例
 
-悪意のあるユーザーは、攻撃を受けるユーザーの資格情報や機密情報にアクセスできるような攻撃を開発する可能性があります。 攻撃するために、 `returnUrl` クエリ文字列の値に URL を追加したままサイトのログインページのリンクをクリックするよう誘導します。 例として、`http://contoso.com/Account/LogOn?returnUrl=/Home/About` というログインページを持つ `contoso.com` のアプリを考えてみましょう。 攻撃は次のステップです:
+悪意のあるユーザーは、攻撃を受けるユーザーの資格情報や機密情報にアクセスできるような攻撃を開発する可能性があります。 攻撃を開始するために、悪意のあるユーザーは、`returnUrl` querystring 値が URL に追加されたサイトのログインページへのリンクをクリックすることをユーザーに仕向けるます。 たとえば、`http://contoso.com/Account/LogOn?returnUrl=/Home/About`にログインページを含む `contoso.com` のアプリを考えてみます。 攻撃は次のステップです:
 
-1. ユーザーは、悪意のある `http://contoso.com/Account/LogOn?returnUrl=http://contoso1.com/Account/LogOn` へのリンクをクリックします（2つ目の URL は "contoso**1**.com" であり、"contoso.com" ではありません）。
+1. ユーザーが悪意のあるリンクをクリックして `http://contoso.com/Account/LogOn?returnUrl=http://contoso1.com/Account/LogOn` します (2 番目の URL は "contoso.com" ではなく "contoso**1**.com" です)。
 2. ユーザーは、正常にログインします。
-3. ユーザーは、サイトによって `http://contoso1.com/Account/LogOn`（実際のサイトと全く同じように見える悪意のあるサイト）へリダイレクトされます。
+3. ユーザーは (サイトによって) `http://contoso1.com/Account/LogOn` にリダイレクトされます (実際のサイトとまったく同じように見える悪意のあるサイト)。
 4. ユーザーは、再度ログインし（悪意のあるサイトに資格情報を与えて）、実際のサイトへリダイレクトされます。
 
 ほとんどのユーザーは、最初のログインに失敗し2度目で成功したと思うでしょう。 多くのユーザーが、自身の資格情報が侵害されたことに気付かないままでしょう。
 
-![オープン リダイレクト攻撃のプロセス](preventing-open-redirects/_static/open-redirection-attack-process.png)
+![オープンリダイレクト攻撃プロセス](preventing-open-redirects/_static/open-redirection-attack-process.png)
 
-ログインページに加え、リダイレクトのページやエンドポイントを提供しているサイトはいくつもあります。 アプリに、`/Home/Redirect` というオープンリダイレクトを持つページがあるとします。 例えば、攻撃者は Eメールの中で `[yoursite]/Home/Redirect?url=http://phishingsite.com/Home/Login` にアクセスするリンクを作成する可能性があります。 多くのユーザーは URL を見て、それがアクセスしたいサイト名で始まっていることを確認します。 それを信頼してリンクをクリックするでしょう。 そして、オープンリダイレクトによってユーザーはフィッシングサイトへ送られ、ユーザーは実際のサイトだと信じてログインするでしょう。
+ログインページに加え、リダイレクトのページやエンドポイントを提供しているサイトはいくつもあります。 たとえば、開いているリダイレクトがあるページがアプリにあるとします。 `/Home/Redirect`します。 攻撃者は、たとえば、電子メールのリンクを作成して `[yoursite]/Home/Redirect?url=http://phishingsite.com/Home/Login`にすることができます。 多くのユーザーは URL を見て、それがアクセスしたいサイト名で始まっていることを確認します。 それを信頼してリンクをクリックするでしょう。 そして、オープンリダイレクトによってユーザーはフィッシングサイトへ送られ、ユーザーは実際のサイトだと信じてログインするでしょう。
 
 ## <a name="protecting-against-open-redirect-attacks"></a>オープンリダイレクト攻撃からの保護
 
@@ -45,7 +45,7 @@ Web アプリを開発するときは、ユーザーが入力したデータは�
 
 ### <a name="localredirect"></a>LocalRedirect
 
-ベースの `Controller` クラスから `LocalRedirect` ヘルパーメソッドを使用します:
+基本 `Controller` クラスの `LocalRedirect` ヘルパーメソッドを使用します。
 
 ```csharp
 public IActionResult SomeAction(string redirectUrl)
@@ -54,11 +54,11 @@ public IActionResult SomeAction(string redirectUrl)
 }
 ```
 
-`LocalRedirect` は、ローカルではない URL を指定した場合、例外をスローします。 それ以外の場合、`Redirect` メソッドと同様の振る舞いをします。
+ローカル以外の URL が指定されている場合、`LocalRedirect` は例外をスローします。 それ以外の場合は、`Redirect` メソッドと同じように動作します。
 
 ### <a name="islocalurl"></a>IsLocalUrl
 
-[IsLocalUrl](/dotnet/api/Microsoft.AspNetCore.Mvc.IUrlHelper.islocalurl#Microsoft_AspNetCore_Mvc_IUrlHelper_IsLocalUrl_System_String_) メソッドを使用して、リダイレクト前に URL をテストします。
+リダイレクトする前に Url をテストするには、 [Islocalurl](/dotnet/api/Microsoft.AspNetCore.Mvc.IUrlHelper.islocalurl#Microsoft_AspNetCore_Mvc_IUrlHelper_IsLocalUrl_System_String_)メソッドを使用します。
 
 次の例は、リダイレクトする前に URL がローカルかどうかを確認する方法です:
 
@@ -76,4 +76,4 @@ private IActionResult RedirectToLocal(string returnUrl)
 }
 ```
 
-`IsLocalUrl`メソッドは、ユーザーが不意に悪意のあるサイトへリダイレクトされることを防ぎます。 ローカルの URL が見込まれる状況でローカルではない URL が指定されたときはログに記録できます。 リダイレクトの URL をログに記録することでリダイレクト攻撃の診断に役立ちます。
+`IsLocalUrl` 方法では、ユーザーが誤って悪意のあるサイトにリダイレクトされるのを防ぐことができます。 ローカルの URL が見込まれる状況でローカルではない URL が指定されたときはログに記録できます。 リダイレクトの URL をログに記録することでリダイレクト攻撃の診断に役立ちます。

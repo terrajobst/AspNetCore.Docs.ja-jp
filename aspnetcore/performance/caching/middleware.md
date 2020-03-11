@@ -1,28 +1,28 @@
 ---
 title: ASP.NET Core での応答キャッシュミドルウェア
-author: guardrex
+author: rick-anderson
 description: ASP.NET Core で応答キャッシュ ミドルウェアを構成し、使用する方法について説明します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 uid: performance/caching/middleware
-ms.openlocfilehash: 61fa42161560ce2b512a73f1d7e32d11cd9bcb2c
-ms.sourcegitcommit: 235623b6e5a5d1841139c82a11ac2b4b3f31a7a9
+ms.openlocfilehash: 4deac15538d4607bd611c4e072daae39447681c1
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/10/2020
-ms.locfileid: "77114797"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78651404"
 ---
 # <a name="response-caching-middleware-in-aspnet-core"></a>ASP.NET Core での応答キャッシュミドルウェア
 
-[Luke Latham](https://github.com/guardrex)および[John luo](https://github.com/JunTaoLuo)
+作成者: [John Luo](https://github.com/JunTaoLuo)
 
 ::: moniker range=">= aspnetcore-3.0"
 
 この記事では、ASP.NET Core アプリで応答キャッシュミドルウェアを構成する方法について説明します。 ミドルウェアは、応答をキャッシュ可能にするタイミングを決定し、応答を格納して、キャッシュからの応答を提供します。 HTTP キャッシュと[`[ResponseCache]`](xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute)属性の概要については、「[応答キャッシュ](xref:performance/caching/response)」を参照してください。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/middleware/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/middleware/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="configuration"></a>構成
 
@@ -52,7 +52,7 @@ ms.locfileid: "77114797"
 
 応答キャッシュのオプションを次の表に示します。
 
-| オプション | [説明] |
+| オプション | 説明 |
 | ------ | ----------- |
 | <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.MaximumBodySize> | 応答本文の最大キャッシュ可能サイズ (バイト単位)。 既定値は `64 * 1024 * 1024` (64 MB) です。 |
 | <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.SizeLimit> | 応答キャッシュミドルウェアのサイズ制限 (バイト単位)。 既定値は `100 * 1024 * 1024` (100 MB) です。 |
@@ -95,7 +95,7 @@ if (responseCachingFeature != null)
 | ヘッダー | 詳細 |
 | ------ | ------- |
 | `Authorization` | ヘッダーが存在する場合、応答はキャッシュされません。 |
-| `Cache-Control` | ミドルウェアは、`public` cache ディレクティブでマークされたキャッシュ応答のみを考慮します。 次のパラメーターを使用してキャッシュを制御します。<ul><li>max-age</li><li>max-stale&#8224;</li><li>最小-新規</li><li>must-revalidate</li><li>no-cache</li><li>ストアなし</li><li>-if-キャッシュ済み</li><li>プライベート</li><li>public</li><li>s-maxage</li><li>proxy-revalidate&#8225;</li></ul>&#8224;`max-stale`に制限が指定されていない場合、ミドルウェアは何も実行しません。<br>&#8225;`proxy-revalidate` は `must-revalidate`と同じ効果があります。<br><br>詳細については、「 [RFC 7231: Request Cache-control ディレクティブ](https://tools.ietf.org/html/rfc7234#section-5.2.1)」を参照してください。 |
+| `Cache-Control` | ミドルウェアは、`public` cache ディレクティブでマークされたキャッシュ応答のみを考慮します。 次のパラメーターを使用してキャッシュを制御します。<ul><li>max-age</li><li>max-stale&#8224;</li><li>最小-新規</li><li>must-revalidate</li><li>no-cache</li><li>ストアなし</li><li>-if-キャッシュ済み</li><li>private</li><li>public</li><li>s-maxage</li><li>proxy-revalidate&#8225;</li></ul>&#8224;`max-stale`に制限が指定されていない場合、ミドルウェアは何も実行しません。<br>&#8225;`proxy-revalidate` は `must-revalidate`と同じ効果があります。<br><br>詳細については、「 [RFC 7231: Request Cache-control ディレクティブ](https://tools.ietf.org/html/rfc7234#section-5.2.1)」を参照してください。 |
 | `Pragma` | 要求内の `Pragma: no-cache` ヘッダーでは、`Cache-Control: no-cache`と同じ効果が得られます。 このヘッダーは、`Cache-Control` ヘッダー内の関連するディレクティブによってオーバーライドされます (存在する場合)。 HTTP/1.0 との下位互換性のために考慮されます。 |
 | `Set-Cookie` | ヘッダーが存在する場合、応答はキャッシュされません。 1つ以上の cookie を設定する要求処理パイプライン内のミドルウェアは、応答キャッシュミドルウェアが応答をキャッシュしないようにします ( [cookie ベースの TempData プロバイダー](xref:fundamentals/app-state#tempdata)など)。  |
 | `Vary` | キャッシュされた応答を別のヘッダーによって変更するには、`Vary` ヘッダーを使用します。 たとえば、`Vary: Accept-Encoding` ヘッダーを含めることにより、エンコードによって応答をキャッシュします。これにより、ヘッダー `Accept-Encoding: gzip` と `Accept-Encoding: text/plain` 個別に要求に対する応答がキャッシュされます。 ヘッダー値が `*` の応答は格納されません。 |
@@ -110,7 +110,7 @@ if (responseCachingFeature != null)
 
 ミドルウェアは、 [HTTP 1.1 キャッシュ仕様](https://tools.ietf.org/html/rfc7234#section-5.2)の規則を尊重します。 規則では、クライアントによって送信された有効な `Cache-Control` ヘッダーを受け入れるためにキャッシュが必要です。 この仕様では、クライアントは `no-cache` ヘッダー値を使用して要求を行い、すべての要求に対してサーバーに新しい応答を強制的に生成させることができます。 現時点では、ミドルウェアが公式のキャッシュ仕様に準拠しているため、ミドルウェアを使用する場合、このキャッシュ動作を開発者が制御することはありません。
 
-キャッシュの動作を詳細に制御するには、ASP.NET Core の他のキャッシュ機能を調べます。 次のトピックを参照してください。
+キャッシュの動作を詳細に制御するには、ASP.NET Core の他のキャッシュ機能を調べます。 以下のトピックを参照してください。
 
 * <xref:performance/caching/memory>
 * <xref:performance/caching/distributed>
@@ -162,7 +162,7 @@ if (responseCachingFeature != null)
 
 この記事では、ASP.NET Core アプリで応答キャッシュミドルウェアを構成する方法について説明します。 ミドルウェアは、応答をキャッシュ可能にするタイミングを決定し、応答を格納して、キャッシュからの応答を提供します。 HTTP キャッシュと[`[ResponseCache]`](xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute)属性の概要については、「[応答キャッシュ](xref:performance/caching/response)」を参照してください。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/middleware/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/middleware/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="configuration"></a>構成
 
@@ -192,7 +192,7 @@ if (responseCachingFeature != null)
 
 応答キャッシュのオプションを次の表に示します。
 
-| オプション | [説明] |
+| オプション | 説明 |
 | ------ | ----------- |
 | <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.MaximumBodySize> | 応答本文の最大キャッシュ可能サイズ (バイト単位)。 既定値は `64 * 1024 * 1024` (64 MB) です。 |
 | <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.SizeLimit> | 応答キャッシュミドルウェアのサイズ制限 (バイト単位)。 既定値は `100 * 1024 * 1024` (100 MB) です。 |
@@ -235,7 +235,7 @@ if (responseCachingFeature != null)
 | ヘッダー | 詳細 |
 | ------ | ------- |
 | `Authorization` | ヘッダーが存在する場合、応答はキャッシュされません。 |
-| `Cache-Control` | ミドルウェアは、`public` cache ディレクティブでマークされたキャッシュ応答のみを考慮します。 次のパラメーターを使用してキャッシュを制御します。<ul><li>max-age</li><li>max-stale&#8224;</li><li>最小-新規</li><li>must-revalidate</li><li>no-cache</li><li>ストアなし</li><li>-if-キャッシュ済み</li><li>プライベート</li><li>public</li><li>s-maxage</li><li>proxy-revalidate&#8225;</li></ul>&#8224;`max-stale`に制限が指定されていない場合、ミドルウェアは何も実行しません。<br>&#8225;`proxy-revalidate` は `must-revalidate`と同じ効果があります。<br><br>詳細については、「 [RFC 7231: Request Cache-control ディレクティブ](https://tools.ietf.org/html/rfc7234#section-5.2.1)」を参照してください。 |
+| `Cache-Control` | ミドルウェアは、`public` cache ディレクティブでマークされたキャッシュ応答のみを考慮します。 次のパラメーターを使用してキャッシュを制御します。<ul><li>max-age</li><li>max-stale&#8224;</li><li>最小-新規</li><li>must-revalidate</li><li>no-cache</li><li>ストアなし</li><li>-if-キャッシュ済み</li><li>private</li><li>public</li><li>s-maxage</li><li>proxy-revalidate&#8225;</li></ul>&#8224;`max-stale`に制限が指定されていない場合、ミドルウェアは何も実行しません。<br>&#8225;`proxy-revalidate` は `must-revalidate`と同じ効果があります。<br><br>詳細については、「 [RFC 7231: Request Cache-control ディレクティブ](https://tools.ietf.org/html/rfc7234#section-5.2.1)」を参照してください。 |
 | `Pragma` | 要求内の `Pragma: no-cache` ヘッダーでは、`Cache-Control: no-cache`と同じ効果が得られます。 このヘッダーは、`Cache-Control` ヘッダー内の関連するディレクティブによってオーバーライドされます (存在する場合)。 HTTP/1.0 との下位互換性のために考慮されます。 |
 | `Set-Cookie` | ヘッダーが存在する場合、応答はキャッシュされません。 1つ以上の cookie を設定する要求処理パイプライン内のミドルウェアは、応答キャッシュミドルウェアが応答をキャッシュしないようにします ( [cookie ベースの TempData プロバイダー](xref:fundamentals/app-state#tempdata)など)。  |
 | `Vary` | キャッシュされた応答を別のヘッダーによって変更するには、`Vary` ヘッダーを使用します。 たとえば、`Vary: Accept-Encoding` ヘッダーを含めることにより、エンコードによって応答をキャッシュします。これにより、ヘッダー `Accept-Encoding: gzip` と `Accept-Encoding: text/plain` 個別に要求に対する応答がキャッシュされます。 ヘッダー値が `*` の応答は格納されません。 |
@@ -250,7 +250,7 @@ if (responseCachingFeature != null)
 
 ミドルウェアは、 [HTTP 1.1 キャッシュ仕様](https://tools.ietf.org/html/rfc7234#section-5.2)の規則を尊重します。 規則では、クライアントによって送信された有効な `Cache-Control` ヘッダーを受け入れるためにキャッシュが必要です。 この仕様では、クライアントは `no-cache` ヘッダー値を使用して要求を行い、すべての要求に対してサーバーに新しい応答を強制的に生成させることができます。 現時点では、ミドルウェアが公式のキャッシュ仕様に準拠しているため、ミドルウェアを使用する場合、このキャッシュ動作を開発者が制御することはありません。
 
-キャッシュの動作を詳細に制御するには、ASP.NET Core の他のキャッシュ機能を調べます。 次のトピックを参照してください。
+キャッシュの動作を詳細に制御するには、ASP.NET Core の他のキャッシュ機能を調べます。 以下のトピックを参照してください。
 
 * <xref:performance/caching/memory>
 * <xref:performance/caching/distributed>

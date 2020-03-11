@@ -9,23 +9,23 @@ ms.date: 11/12/2019
 no-loc:
 - SignalR
 uid: signalr/background-services
-ms.openlocfilehash: 324592759af79d1229eb147fb4551e97c678ef64
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: 86319cc93febab18c29e2fb6366cef0d025943ba
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75358679"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78651584"
 ---
 # <a name="host-aspnet-core-opno-locsignalr-in-background-services"></a>バックグラウンドサービスでのホスト ASP.NET Core SignalR
 
-作成者: [Brady Gaster](https://twitter.com/bradygaster)
+[Brady](https://twitter.com/bradygaster)による
 
 この記事では、次のガイダンスを提供します。
 
 * ASP.NET Core でホストされているバックグラウンドワーカープロセスを使用して SignalR ハブをホストする。
 * .NET Core [Backgroundservice](xref:Microsoft.Extensions.Hosting.BackgroundService)内から接続されたクライアントにメッセージを送信する。
 
-[サンプル コードの表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/background-service/sample/) [(ダウンロードする方法)](xref:index#how-to-download-a-sample)
+[サンプルコードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/background-service/sample/)[する (ダウンロードする方法)](xref:index#how-to-download-a-sample)
 
 ## <a name="enable-opno-locsignalr-in-startup"></a>起動時に SignalR を有効にする
 
@@ -119,7 +119,7 @@ public partial class ClockHubClient : IClock, IHostedService
 
 [!code-csharp[StopAsync method](background-service/sample/Clients.ConsoleTwo/ClockHubClient.cs?name=StopAsync)]
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * [開始するには](xref:tutorials/signalr)
 * [ハブ](xref:signalr/hubs)

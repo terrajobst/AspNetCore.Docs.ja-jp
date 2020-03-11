@@ -1,55 +1,55 @@
 ---
-title: ASP.NET core コンシューマー Api の概要
+title: ASP.NET Core のコンシューマー Api の概要
 author: rick-anderson
-description: さまざまなコンシューマーの ASP.NET Core データ保護のライブラリ内で使用可能な Api の概要が表示されます。
+description: ASP.NET Core データ保護ライブラリ内で使用できるさまざまなコンシューマー Api の簡単な概要を説明します。
 ms.author: riande
 ms.date: 06/11/2019
 uid: security/data-protection/consumer-apis/overview
 ms.openlocfilehash: ff9badb55813cae0aa72d3a95dc53792332f109b
-ms.sourcegitcommit: 1bb3f3f1905b4e7d4ca1b314f2ce6ee5dd8be75f
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/11/2019
-ms.locfileid: "66837380"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78654584"
 ---
-# <a name="consumer-apis-overview-for-aspnet-core"></a>ASP.NET core コンシューマー Api の概要
+# <a name="consumer-apis-overview-for-aspnet-core"></a>ASP.NET Core のコンシューマー Api の概要
 
-`IDataProtectionProvider`と`IDataProtector`インターフェイスは、コンシューマーを使用するには、データ保護システムを使用して基本的なインターフェイスです。 ファイルに配置している、 [Microsoft.AspNetCore.DataProtection.Abstractions](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Abstractions/)パッケージ。
+`IDataProtectionProvider` インターフェイスと `IDataProtector` インターフェイスは、コンシューマーがデータ保護システムを使用するための基本的なインターフェイスです。 これらは、 [AspNetCore](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Abstractions/)パッケージに格納されています。
 
 ## <a name="idataprotectionprovider"></a>IDataProtectionProvider
 
-プロバイダーのインターフェイスは、データ保護システムのルートを表します。 保護またはデータを保護解除を直接使用できません。 代わりに、コンシューマーがへの参照を取得する必要があります、`IDataProtector`呼び出して`IDataProtectionProvider.CreateProtector(purpose)`目的は、目的のコンシューマーのユース ケースを説明する文字列です。 参照してください[目的文字列](xref:security/data-protection/consumer-apis/purpose-strings)のこのパラメーターは、適切な値を選択する方法の目的に関する詳細な情報。
+プロバイダーインターフェイスは、データ保護システムのルートを表します。 データの保護または保護解除に直接使用することはできません。 代わりに、コンシューマーは `IDataProtectionProvider.CreateProtector(purpose)`を呼び出すことによって `IDataProtector` への参照を取得する必要があります。ここで、目的は、目的のコンシューマーユースケースを説明する文字列です。 このパラメーターの目的と適切な値を選択する方法の詳細については、「[目的の文字列](xref:security/data-protection/consumer-apis/purpose-strings)」を参照してください。
 
 ## <a name="idataprotector"></a>IDataProtector
 
-プロテクター インターフェイスがへの呼び出しによって返される`CreateProtector`とそのコンシューマーは、実行に使用できるこのインターフェイスは、保護し、操作の保護を解除します。
+プロテクターインターフェイスは `CreateProtector`への呼び出しによって返されます。このインターフェイスは、コンシューマーが保護と保護解除の操作を実行するために使用できるインターフェイスです。
 
-データの一部を保護するデータを渡す、`Protect`メソッド。 どの変換 byte[] byte]-> [メソッドを定義する基本的なインターフェイスがある文字列に変換する (拡張メソッドとして提供) オーバー ロードが文字列を -> もします。 2 つの方法で提供されるセキュリティは同じです。開発者は、どちらのオーバー ロードは、お客様のユース ケースに最適な選択する必要があります。 アプリケーションを使用すると、信頼されていないクライアントに送信できますおよび選択すると、オーバー ロードの保護によって返される値に関係なく (したり、改ざんされ使用可能なメソッドは保護ようになりました。
+データを保護するには、`Protect` メソッドにデータを渡します。 基本インターフェイスは byte []-> byte [] を変換するメソッドを定義しますが、文字列 > 文字列を変換するオーバーロード (拡張メソッドとして提供される) もあります。 2つのメソッドによって提供されるセキュリティは同じです。開発者は、ユースケースに最も便利なオーバーロードのいずれかを選択する必要があります。 選択されたオーバーロードに関係なく、Protect メソッドによって返される値は保護されるようになりました (読んだりと校正)。アプリケーションは信頼されていないクライアントに送信できます。
 
-データの保護されていた一部の保護を解除する保護されたデータを渡す、`Unprotect`メソッド。 (Byte[] がある-開発者にとって利便性に基づいており、文字列ベースのオーバー ロードします)。保護されたペイロードは、事前に呼び出したによって生成された場合`Protect`この同じ`IDataProtector`、`Unprotect`メソッドは、元の保護されていないペイロードを返します。 保護されたペイロードが改ざんされたかどうか、または別で生成された`IDataProtector`、 `Unprotect` CryptographicException をメソッドがスローされます。
+以前に保護されていたデータの一部を保護解除するには、保護されたデータを `Unprotect` メソッドに渡します。 (開発者の便宜のために、byte [] ベースのオーバーロードと文字列ベースのオーバーロードがあります)。この同じ `IDataProtector`に対して以前に `Protect` を呼び出したときに保護されたペイロードが生成された場合、`Unprotect` メソッドは元の保護されていないペイロードを返します。 保護されたペイロードが改ざんされている場合、または別の `IDataProtector`によって生成された場合、`Unprotect` メソッドは System.security.cryptography.cryptographicexception> をスローします。
 
-異なると同じ概念`IDataProtector`ties が目的の概念をバックアップします。 2 つの場合`IDataProtector`インスタンスが同じルートから生成された`IDataProtectionProvider`への呼び出しで異なる目的の文字列を使用したが、`IDataProtectionProvider.CreateProtector`がいると見なされます[異なるプロテクター](xref:security/data-protection/consumer-apis/purpose-strings)、して保護を解除する 1 つはできません他のによって生成されるペイロードです。
+同一および異なる `IDataProtector` の概念は、目的の概念に結び付けています。 2つの `IDataProtector` インスタンスが同じルート `IDataProtectionProvider` から生成されたものの、`IDataProtectionProvider.CreateProtector`の呼び出しで別の目的の文字列を使用して生成された場合、それらは[異なるプロテクター](xref:security/data-protection/consumer-apis/purpose-strings)と見なされ、もう一方のインスタンスによって生成されたペイロードの保護を解除することはできません。
 
-## <a name="consuming-these-interfaces"></a>これらのインターフェイスを使用
+## <a name="consuming-these-interfaces"></a>これらのインターフェイスの使用
 
-DI に対応したコンポーネントでは、使用目的は、コンポーネントが受け取る、`IDataProtectionProvider`コンス トラクターにパラメーターと、コンポーネントがインスタンス化されるとき、DI システムがそのこのサービスを自動的に提供します。
+DI 対応のコンポーネントの場合、使用目的は、コンポーネントがコンストラクター内で `IDataProtectionProvider` パラメーターを受け取り、コンポーネントがインスタンス化されるときに DI システムが自動的にこのサービスを提供することです。
 
 > [!NOTE]
-> 一部のアプリケーション (コンソール アプリケーション、ASP.NET 4.x アプリケーションなど) があります DI に対応したため、ここで説明されているメカニズムを使用することはできません。 これらのシナリオを参照してください、[非 DI 対応シナリオ](xref:security/data-protection/configuration/non-di-scenarios)ドキュメントのインスタンスの取得の詳細については、 `IDataProtection` DI を経由せずプロバイダー。
+> 一部のアプリケーション (コンソールアプリケーションや ASP.NET 4.x アプリケーションなど) が DI に対応していない可能性があるため、ここで説明するメカニズムを使用することはできません。 これらのシナリオでは、DI を使用せずに `IDataProtection` プロバイダーのインスタンスを取得する方法の詳細については、 [Di 非対応のシナリオ](xref:security/data-protection/configuration/non-di-scenarios)に関するドキュメントを参照してください。
 
-次の例では、3 つの概念を示しています。
+次の例では、3つの概念を示します。
 
-1. [データ保護システムを追加](xref:security/data-protection/configuration/overview)サービス コンテナーにする
+1. [データ保護システム](xref:security/data-protection/configuration/overview)をサービスコンテナーに追加します。
 
-2. インスタンスを受信する DI を使用して、`IDataProtectionProvider`と
+2. DI を使用して `IDataProtectionProvider`のインスタンスを受信する
 
-3. 作成、`IDataProtector`から、`IDataProtectionProvider`保護およびデータの保護を解除するために使用するとします。
+3. `IDataProtectionProvider` から `IDataProtector` を作成し、それを使用してデータを保護および保護解除します。
 
 [!code-csharp[](../using-data-protection/samples/protectunprotect.cs?highlight=26,34,35,36,37,38,39,40)]
 
-Microsoft.AspNetCore.DataProtection.Abstractions パッケージには、拡張メソッドが含まれています。`IServiceProvider.GetDataProtector`開発者にとっての利便性として。 単一の操作として取得の両方をカプセル化が、`IDataProtectionProvider`サービス プロバイダーと呼び出しから`IDataProtectionProvider.CreateProtector`します。 次の例では、その使用法を示します。
+AspNetCore パッケージには、開発者の便宜として拡張メソッド `IServiceProvider.GetDataProtector` が含まれています。 サービスプロバイダーから `IDataProtectionProvider` を取得し、`IDataProtectionProvider.CreateProtector`を呼び出すことによって、単一の操作としてカプセル化します。 次の例では、その使用方法を示します。
 
 [!code-csharp[](./overview/samples/getdataprotector.cs?highlight=15)]
 
 >[!TIP]
-> インスタンス`IDataProtectionProvider`と`IDataProtector`は複数の呼び出し元のスレッド セーフです。 意図したものをコンポーネントへの参照を取得したら、`IDataProtector`呼び出しに`CreateProtector`、複数の呼び出しの参照が使用されます`Protect`と`Unprotect`します。 呼び出し`Unprotect`CryptographicException 保護されたペイロードの検証または解読できない場合がスローされます。 一部のコンポーネントがエラーを無視することが中に保護を解除します。認証 cookie を読み取るコンポーネント可能性がありますこのエラーを処理しがなかった cookie すべての場合と、要求を処理ではなくも、最初からの要求は失敗します。 この動作をするコンポーネントは、すべての例外の飲み込みではなく CryptographicException を明示的にキャッチする必要があります。
+> `IDataProtectionProvider` と `IDataProtector` のインスタンスは、複数の呼び出し元に対してスレッドセーフです。 コンポーネントが `CreateProtector`の呼び出しによって `IDataProtector` への参照を取得すると、その参照を使用して `Protect` と `Unprotect`の複数の呼び出しに使用されることを意図しています。 保護されたペイロードを検証または解読できない場合、`Unprotect` を呼び出すと System.security.cryptography.cryptographicexception> がスローされます。 コンポーネントによっては、保護解除操作中のエラーを無視することが必要になる場合があります。認証クッキーを読み取るコンポーネントは、このエラーを処理し、要求を完全に失敗させるのではなく、cookie がまったくないかのように要求を処理することがあります。 この動作を必要とするコンポーネントは、すべての例外を飲み込みするのではなく、System.security.cryptography.cryptographicexception> を明示的にキャッチする必要があります。

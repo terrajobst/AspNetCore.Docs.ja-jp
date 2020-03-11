@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 04/06/2019
 uid: mvc/views/tag-helpers/builtin-th/partial-tag-helper
-ms.openlocfilehash: 508f91cdcd93c149602223250520eecb73625b24
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
-ms.translationtype: HT
+ms.openlocfilehash: 269be9ece674b39d03cb50720f4fb182c565a639
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880987"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78651968"
 ---
 # <a name="partial-tag-helper-in-aspnet-core"></a>ASP.NET Core の部分タグ ヘルパー
 
@@ -20,7 +20,7 @@ ms.locfileid: "74880987"
 
 タグ ヘルパーの概要については、「<xref:mvc/views/tag-helpers/intro>」をご覧ください。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/built-in/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/built-in/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="overview"></a>概要
 
@@ -47,15 +47,15 @@ ms.locfileid: "74880987"
 
 `name` 属性は必須です。 レンダリングする部分ビューの名前またはパスを示します。 部分ビュー名が指定されると、[ビューの検出](xref:mvc/views/overview#view-discovery)プロセスが開始します。 明示的なパスが指定されているとき、このプロセスは回避されます。 許容されるすべての `name` 値については、「[部分ビューの検出](xref:mvc/views/partial#partial-view-discovery)」を参照してください。
 
-次のマークアップでは明示的なパスが使用されており、*_ProductPartial.cshtml* が *Shared* フォルダーから読み込まれることを示しています。 [for](#for) 属性を使用し、バインディングのために部分ビューにモデルが渡されます。
+次のマークアップでは明示的なパスが使用されており、 *_ProductPartial.cshtml* が *Shared* フォルダーから読み込まれることを示しています。 [for](#for) 属性を使用し、バインディングのために部分ビューにモデルが渡されます。
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Pages/Product.cshtml?name=snippet_Name)]
 
-## <a name="for"></a>for
+## <a name="for"></a>を [実行アカウント] に選択します。
 
 `for` 属性によって、現在のモデルに対して評価する [ModelExpression](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.modelexpression) が割り当てられます。 `ModelExpression` によって `@Model.` 構文が推論されます。 たとえば、`for="Product"` の代わりに `for="@Model.Product"` を使用できます。 この既定の推論動作は、`@` シンボルを使用してインライン式を定義することでオーバーライドされます。
 
-次のマークアップでは、*_ProductPartial.cshtml* が読み込まれます。
+次のマークアップでは、 *_ProductPartial.cshtml* が読み込まれます。
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Pages/Product.cshtml?name=snippet_For)]
 
@@ -85,7 +85,7 @@ ms.locfileid: "74880987"
 
 ## <a name="migrate-from-an-html-helper"></a>HTML ヘルパーから移行する
 
-次のような非同期の HTML ヘルパーの例を考えてみてください。 製品のコレクションが反復処理され、表示されます。 `PartialAsync` メソッドの最初のパラメーターごとに、*_ProductPartial.cshtml* の部分ビューが読み込まれます。 `Product` モデルのインスタンスが、バインディングのために部分ビューに渡されます。
+次のような非同期の HTML ヘルパーの例を考えてみてください。 製品のコレクションが反復処理され、表示されます。 `PartialAsync` メソッドの最初のパラメーターごとに、 *_ProductPartial.cshtml* の部分ビューが読み込まれます。 `Product` モデルのインスタンスが、バインディングのために部分ビューに渡されます。
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Pages/Products.cshtml?name=snippet_HtmlHelper&highlight=3)]
 
@@ -93,7 +93,7 @@ ms.locfileid: "74880987"
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Pages/Products.cshtml?name=snippet_TagHelper&highlight=3)]
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * <xref:mvc/views/partial>
 * <xref:mvc/views/overview#weakly-typed-data-viewdata-viewdata-attribute-and-viewbag>
