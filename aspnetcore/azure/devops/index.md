@@ -7,11 +7,11 @@ ms.date: 08/07/2018
 ms.custom: mvc, seodec18
 uid: azure/devops/index
 ms.openlocfilehash: f45bb2a5dd4b3d1a820085ede7ce3219045ed80b
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64881957"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78644246"
 ---
 # <a name="devops-with-aspnet-core-and-azure"></a>ASP.NET Core および Azure を使用した DevOps
 
@@ -37,23 +37,23 @@ ms.locfileid: "64881957"
 
 ## <a name="whats-in-this-guide"></a>このガイドの内容
 
-### <a name="tools-and-downloadsxrefazuredevopstools-and-downloads"></a>[ツールとダウンロード](xref:azure/devops/tools-and-downloads)
+### <a name="tools-and-downloads"></a>[ツールとダウンロード](xref:azure/devops/tools-and-downloads)
 
 このガイドで使用するツールを取得できる場所について説明します。
 
-### <a name="deploy-to-app-servicexrefazuredevopsdeploy-to-app-service"></a>[App Service にデプロイする](xref:azure/devops/deploy-to-app-service)
+### <a name="deploy-to-app-service"></a>[App Service にデプロイする](xref:azure/devops/deploy-to-app-service)
 
 Azure App Service に ASP.NET Core アプリをデプロイするためのさまざまな方法について説明します。
 
-### <a name="continuous-integration-and-deploymentxrefazuredevopscicd"></a>[継続的インテグレーションと継続的デプロイ](xref:azure/devops/cicd)
+### <a name="continuous-integration-and-deployment"></a>[継続的インテグレーションと継続的デプロイ](xref:azure/devops/cicd)
 
 GitHub、Azure DevOps Services、Azure で自分の ASP.NET Core アプリにエンドツーエンドの継続的インテグレーションと継続的デプロイ ソリューションを構築します。
 
-### <a name="monitor-and-debugxrefazuredevopsmonitor"></a>[監視とデバッグ](xref:azure/devops/monitor)
+### <a name="monitor-and-debug"></a>[監視とデバッグ](xref:azure/devops/monitor)
 
 Azure のツールを使用して、アプリケーションの監視、トラブルシューティング、調整を行います。
 
-### <a name="next-stepsxrefazuredevopsnext-steps"></a>[次の手順](xref:azure/devops/next-steps)
+### <a name="next-steps"></a>[次の手順](xref:azure/devops/next-steps)
 
 Azure を学習する ASP.NET Core 開発者向けのその他のラーニング パス。
 

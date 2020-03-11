@@ -9,12 +9,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: index
-ms.openlocfilehash: 3e41b329feb359c006258b8ed558496dfcbbf3b0
-ms.sourcegitcommit: 57b85708f4cded99b8f008a69830cb104cd8e879
+ms.openlocfilehash: f6e4a624186ccf0d7f6475819df7da9ef99f9bcc
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/13/2020
-ms.locfileid: "75914220"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78644372"
 ---
 # <a name="introduction-to-aspnet-core"></a>ASP.NET Core の概要
 
@@ -110,7 +110,7 @@ ASP.NET アプリを ASP.NET Core に移行するためのリファレンス ガ
 
 多くの記事やチュートリアルにサンプル コードへのリンクが含まれています。
 
-1. [ASP.NET リポジトリの zip ファイルをダウンロード](https://codeload.github.com/aspnet/AspNetCore.Docs/zip/master)します。
+1. [ASP.NET リポジトリの zip ファイルをダウンロード](https://codeload.github.com/dotnet/AspNetCore.Docs/zip/master)します。
 1. *Docs-master.zip* ファイルを解凍します。
 1. サンプル リンクの URL を使って、サンプル ディレクトリに移動します。
 
@@ -156,7 +156,7 @@ Host.CreateDefaultBuilder(args)
 
 コードを囲む `#region` と `#endregion` のディレクティブは安全に無視 (または削除) することができます。 トピックで説明されているサンプル シナリオを実行する予定がある場合は、これらのディレクティブ内のコードを変更しないでください。 他のシナリオを試す場合は、自由にコードを変更できます。
 
-詳細については、「[Contribute to the ASP.NET documentation: Code snippets (ASP.NET に貢献する: コード スニペット)](https://github.com/aspnet/AspNetCore.Docs/blob/master/CONTRIBUTING.md#code-snippets)」を参照してください。
+詳細については、「[Contribute to the ASP.NET documentation: Code snippets (ASP.NET に貢献する: コード スニペット)](https://github.com/dotnet/AspNetCore.Docs/blob/master/CONTRIBUTING.md#code-snippets)」を参照してください。
 
 ## <a name="next-steps"></a>次の手順
 

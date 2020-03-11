@@ -1,18 +1,18 @@
 ---
 title: ASP.NET Core のホストと展開
-author: guardrex
+author: rick-anderson
 description: ホスティング環境を設定し、ASP.NET Core アプリを展開する方法を学習します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 uid: host-and-deploy/index
-ms.openlocfilehash: 173fcfe6d9368a1892d82b32d7b8f5e3cc71fc65
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: 464d19bd63e1f0f06bd7d218e7644afde04a5672
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172361"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78644150"
 ---
 # <a name="host-and-deploy-aspnet-core"></a>ASP.NET Core のホストと展開
 
