@@ -6,12 +6,12 @@ ms.author: riserrad
 ms.custom: mvc
 ms.date: 07/10/2019
 uid: tutorials/publish-to-azure-webapp-using-vscode
-ms.openlocfilehash: 90ba130f13903cd45eca062c0eca8945eff2e0fa
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: eaf9cca61b21d04d127ff15a579f3d8da794f7d9
+ms.sourcegitcommit: 40dc9b00131985abcd99bd567647420d798e798a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78647180"
+ms.lasthandoff: 03/09/2020
+ms.locfileid: "78935422"
 ---
 # <a name="publish-an-aspnet-core-app-to-azure-with-visual-studio-code"></a>Visual Studio Code で ASP.NET Core アプリを Azure に公開する
 
@@ -30,7 +30,7 @@ App Service の配置に関する問題を解決するには、「<xref:test/tro
 - Azure アカウントをお持ちでない場合は、[Azure 無料アカウント](https://azure.microsoft.com/free/dotnet/)を作成します。
 - [.NET Core SDK](https://dotnet.microsoft.com/download) をインストールします
 - [Visual Studio Code](https://code.visualstudio.com/Download) をインストールします
-  - Visual Studio Code の [C# 拡張機能](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)をインストールします
+  - Visual Studio Code の [C# 拡張機能](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)をインストールします
   - Visual Studio Code に [Azure App Service 拡張機能](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azureappservice)をインストールし、これを構成してから先に進みます
 
 ## <a name="create-an-aspnet-core-mvc-project"></a>ASP.NET Core MVC プロジェクトを作成する
