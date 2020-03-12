@@ -5,14 +5,16 @@ description: ASP.NET Core Id を使用しない Facebook、Google、Twitter な�
 ms.author: riande
 ms.date: 12/10/2019
 uid: security/authentication/social/social-without-identity
-ms.openlocfilehash: 612964ec9ed4975cdc81780dda3bac6cce96037f
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: b30ce7055b35b721c7fb83b61a328200d6a136b1
+ms.sourcegitcommit: 3ca4a2235a8129def9e480d0a6ad54cc856920ec
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75359059"
+ms.lasthandoff: 03/10/2020
+ms.locfileid: "79025395"
 ---
 # <a name="use-social-sign-in-provider-authentication-without-aspnet-core-identity"></a>ASP.NET Core Id なしでソーシャルサインインプロバイダー認証を使用する
+
+[Kirk Larkin](https://twitter.com/serpent5)と[Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -22,12 +24,12 @@ ms.locfileid: "75359059"
 
 このサンプルでは、ユーザーの認証に[Google 認証](xref:security/authentication/google-logins)を使用します。 Google 認証を使用すると、サインインプロセスを管理するための多くの複雑な作業が Google に移ります。 別の外部認証プロバイダーと統合するには、次のトピックを参照してください。
 
-* [Facebook での認証](xref:security/authentication/facebook-logins)
+* [Facebook 認証](xref:security/authentication/facebook-logins)
 * [Microsoft での認証](xref:security/authentication/microsoft-logins)
-* [Twitter での認証](xref:security/authentication/twitter-logins)
+* [Twitter 認証](xref:security/authentication/twitter-logins)
 * [その他のプロバイダー](xref:security/authentication/otherlogins)
 
-## <a name="configuration"></a>の構成
+## <a name="configuration"></a>構成
 
 `ConfigureServices` メソッドで、<xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*>、<xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*>、および <xref:Microsoft.Extensions.DependencyInjection.GoogleExtensions.AddGoogle*> の各メソッドを使用して、アプリの認証スキームを構成します。
 
@@ -55,7 +57,7 @@ ms.locfileid: "75359059"
 
 [!code-csharp[](social-without-identity/samples_snapshot/3.x/Pages/Privacy.cshtml.cs?name=snippet&highlight=1)]
 
-## <a name="sign-out"></a>サインアウト
+## <a name="sign-out"></a>サインアウトする
 
 現在のユーザーをサインアウトして cookie を削除するには、 [Signoutasync](xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync*)呼び出します。 次のコードでは、*インデックス*ページに `Logout` ページハンドラーを追加します。
 
@@ -63,7 +65,7 @@ ms.locfileid: "75359059"
 
 `SignOutAsync` の呼び出しで認証スキームが指定されていないことに注意してください。 アプリの `CookieAuthenticationDefaults.AuthenticationScheme` の `DefaultScheme` はフォールバックとして使用されます。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * <xref:security/authorization/simple>
 * <xref:security/authentication/social/additional-claims>
@@ -77,12 +79,12 @@ ms.locfileid: "75359059"
 
 このサンプルでは、ユーザーの認証に[Google 認証](xref:security/authentication/google-logins)を使用します。 Google 認証を使用すると、サインインプロセスを管理するための多くの複雑な作業が Google に移ります。 別の外部認証プロバイダーと統合するには、次のトピックを参照してください。
 
-* [Facebook での認証](xref:security/authentication/facebook-logins)
+* [Facebook 認証](xref:security/authentication/facebook-logins)
 * [Microsoft での認証](xref:security/authentication/microsoft-logins)
-* [Twitter での認証](xref:security/authentication/twitter-logins)
+* [Twitter 認証](xref:security/authentication/twitter-logins)
 * [その他のプロバイダー](xref:security/authentication/otherlogins)
 
-## <a name="configuration"></a>の構成
+## <a name="configuration"></a>構成
 
 `ConfigureServices` メソッドで、`AddAuthentication`、`AddCookie`、および `AddGoogle` の各メソッドを使用して、アプリの認証スキームを構成します。
 
@@ -110,7 +112,7 @@ ms.locfileid: "75359059"
 
 [!code-csharp[](social-without-identity/samples_snapshot/2.x/Pages/Privacy.cshtml.cs?name=snippet&highlight=1)]
 
-## <a name="sign-out"></a>サインアウト
+## <a name="sign-out"></a>サインアウトする
 
 現在のユーザーをサインアウトして cookie を削除するには、 [Signoutasync](xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync*)呼び出します。 次のコードでは、*インデックス*ページに `Logout` ページハンドラーを追加します。
 
@@ -118,7 +120,7 @@ ms.locfileid: "75359059"
 
 `SignOutAsync` の呼び出しで認証スキームが指定されていないことに注意してください。 アプリの `CookieAuthenticationDefaults.AuthenticationScheme` の `DefaultScheme` はフォールバックとして使用されます。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * <xref:security/authorization/simple>
 * <xref:security/authentication/social/additional-claims>
