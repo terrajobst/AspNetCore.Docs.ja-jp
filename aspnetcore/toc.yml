@@ -315,8 +315,10 @@
           uid: blazor/dependency-injection
         - name: ルーティング
           uid: blazor/routing
-        - name: JavaScript 相互運用
-          uid: blazor/javascript-interop
+        - name: .NET から JavaScript を呼び出す
+          uid: blazor/call-javascript-from-dotnet
+        - name: JavaScript から .NET を呼び出す
+          uid: blazor/call-dotnet-from-javascript
         - name: ホスティング モデルの構成
           uid: blazor/hosting-model-configuration
         - name: コンポーネント ライブラリ
@@ -325,8 +327,30 @@
           items:
             - name: 概要
               uid: security/blazor/index
+            - name: Blazor WebAssembly
+              items:
+                - name: 概要
+                  uid: security/blazor/webassembly/index
+                - name: 認証ライブラリによるスタンドアロン
+                  uid: security/blazor/webassembly/standalone-with-authentication-library
+                - name: Microsoft アカウントによるスタンドアロン
+                  uid: security/blazor/webassembly/standalone-with-microsoft-accounts
+                - name: AAD によるスタンドアロン
+                  uid: security/blazor/webassembly/standalone-with-azure-active-directory
+                - name: AAD B2C によるスタンドアロン
+                  uid: security/blazor/webassembly/standalone-with-azure-active-directory-b2c
+                - name: Identity Server によるホスティング
+                  uid: security/blazor/webassembly/hosted-with-identity-server
+                - name: AAD によるホスティング
+                  uid: security/blazor/webassembly/hosted-with-azure-active-directory
+                - name: AAD B2C によるホスティング
+                  uid: security/blazor/webassembly/hosted-with-azure-active-directory-b2c
+                - name: その他のシナリオ
+                  uid: security/blazor/webassembly/additional-scenarios
             - name: Blazor サーバー
               uid: security/blazor/server
+            - name: コンテンツのセキュリティ ポリシー
+              uid: security/blazor/content-security-policy
         - name: 状態管理
           uid: blazor/state-management
         - name: エラーの処理
@@ -335,6 +359,8 @@
           uid: blazor/debug
         - name: Web API を呼び出す
           uid: blazor/call-web-api
+        - name: プログレッシブ Web アプリケーション
+          uid: blazor/progressive-web-app
         - name: ホストと配置
           items:
             - name: 概要
@@ -373,7 +399,7 @@
           uid: client-side/bundling-and-minification
         - name: ブラウザー リンク
           uid: client-side/using-browserlink
-    - name: セッションとアプリの状態
+    - name: セッションと状態の管理
       uid: fundamentals/app-state
     - name: レイアウト
       uid: mvc/views/layout
@@ -1066,6 +1092,14 @@
       uid: security/cookie-sharing
     - name: SameSite Cookie
       uid: security/samesite
+    - name: SameSite のサンプル
+      items:
+        - name: Razor Pages 2.1 SameSite Cookie のサンプル
+          uid: security/samesite/rp21
+        - name: Razor Pages 3.1 SameSite Cookie のサンプル
+          uid: security/samesite/rp31
+        - name: MVC SameSite Cookie のサンプル
+          uid: security/samesite/mvc21
     - name: IP セーフリスト
       uid: security/ip-safelist
     - name: アプリケーションのセキュリティ - OWASP
@@ -1074,8 +1108,30 @@
       items:
         - name: 概要
           uid: security/blazor/index
+        - name: Blazor WebAssembly
+          items:
+            - name: 概要
+              uid: security/blazor/webassembly/index
+            - name: 認証ライブラリによるスタンドアロン
+              uid: security/blazor/webassembly/standalone-with-authentication-library
+            - name: Microsoft アカウントによるスタンドアロン
+              uid: security/blazor/webassembly/standalone-with-microsoft-accounts
+            - name: AAD によるスタンドアロン
+              uid: security/blazor/webassembly/standalone-with-azure-active-directory
+            - name: AAD B2C によるスタンドアロン
+              uid: security/blazor/webassembly/standalone-with-azure-active-directory-b2c
+            - name: Identity Server によるホスティング
+              uid: security/blazor/webassembly/hosted-with-identity-server
+            - name: AAD によるホスティング
+              uid: security/blazor/webassembly/hosted-with-azure-active-directory
+            - name: AAD B2C によるホスティング
+              uid: security/blazor/webassembly/hosted-with-azure-active-directory-b2c
+            - name: その他のシナリオ
+              uid: security/blazor/webassembly/additional-scenarios
         - name: Blazor サーバー
           uid: security/blazor/server
+        - name: コンテンツのセキュリティ ポリシー
+          uid: security/blazor/content-security-policy
 - name: パフォーマンス
   items:
     - name: 概要
@@ -1203,4 +1259,4 @@
 - name: API リファレンス
   href: /dotnet/api/?view=aspnetcore-2.2
 - name: 投稿
-  href: 'https://github.com/aspnet/AspNetCore.Docs/blob/master/CONTRIBUTING.md'
+  href: 'https://github.com/dotnet/AspNetCore.Docs/blob/master/CONTRIBUTING.md'
