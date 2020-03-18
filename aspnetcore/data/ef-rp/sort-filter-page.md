@@ -1,17 +1,17 @@
 ---
 title: ASP.NET Core の Razor Pages と EF Core - 並べ替え、フィルター、ページング - 3/8
-author: tdykstra
+author: rick-anderson
 description: このチュートリアルでは、ASP.NET Core および Entity Framework Core を使用して並べ替え、フィルター、ページング機能を Razor ページに追加します。
 ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 uid: data/ef-rp/sort-filter-page
-ms.openlocfilehash: b4cef98f3ad4973878c5fa65a47c0b86cdfc8686
-ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
+ms.openlocfilehash: 9563f3ef52ce429eb0a58b468acb8e9cd7b276e2
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/19/2019
-ms.locfileid: "69583520"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78645494"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---sort-filter-paging---3-of-8"></a>ASP.NET Core の Razor Pages と EF Core - 並べ替え、フィルター、ページング - 3/8
 
@@ -33,7 +33,7 @@ ms.locfileid: "69583520"
 
 [!code-csharp[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index1.cshtml.cs?name=snippet_All&highlight=21-24,26,28-52)]
 
-上のコードでは以下の操作が行われます。
+上記のコードでは次の操作が行われます。
 
 * プロパティを追加して、並べ替えパラメーターを含めます。
 * `Student` プロパティの名前を `Students` に変更します。
@@ -76,7 +76,7 @@ ms.locfileid: "69583520"
 
 [!code-cshtml[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index1.cshtml?highlight=5,8,17-19,22,25-27,33)]
 
-上のコードでは以下の操作が行われます。
+上記のコードでは次の操作が行われます。
 
 * `LastName` と `EnrollmentDate` 列見出しにハイパーリンクを追加します。
 * この情報を `NameSort` および `DateSort` で使用して、現在の並べ替えの値を含むハイパーリンクを設定します。
@@ -101,7 +101,7 @@ Students インデックス ページにフィルターを追加するには
 
 [!code-csharp[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index2.cshtml.cs?name=snippet_All&highlight=28,33,37-41)]
 
-上のコードでは以下の操作が行われます。
+上記のコードでは次の操作が行われます。
 
 * `searchString` パラメーターを `OnGetAsync` メソッドに追加し、`CurrentFilter` プロパティのパラメーター値を保存します。 次のセクションで追加されるテキスト ボックスから検索する文字列値を受け取ります。
 * LINQ ステートメントに `Where` 句を追加します。 `Where` 句は、名または姓に検索文字列が含まれている学生のみを選択します。 検索する値がある場合にのみ LINQ ステートメントを実行します。
@@ -172,7 +172,7 @@ https://localhost:<port>/Students?SearchString=an
 
 [!code-csharp[Main](intro/samples/cu30/Pages/Students/Index.cshtml.cs?name=snippet_All&highlight=26,28-29,31,34-41,68-70)]
 
-上のコードでは以下の操作が行われます。
+上記のコードでは次の操作が行われます。
 
 * `Students` プロパティの型を `IList<Student>` から `PaginatedList<Student>` に変更します。
 * ページ インデックス、現在の `sortOrder`、`currentFilter` を `OnGetAsync` メソッド シグネチャに追加します。
@@ -275,11 +275,11 @@ LINQ ステートメントは、登録日で受講者エンティティをグル
 
 ![Students インデックス ページ](sort-filter-page/_static/paging.png)
 
-解決できない問題が発生した場合は、[完成したアプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)をダウンロードしてください。
+解決できない問題が発生した場合は、[完成したアプリ](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)をダウンロードしてください。
 
 ## <a name="add-sorting-to-the-index-page"></a>インデックス ページに並べ替えを追加する
 
-*Students/Index.cshtml.cs* `PageModel` に文字列を追加し並べ替えのパラメーターを格納します。
+*Students/Index.cshtml.cs* `PageModel` に文字列を追加し、並べ替えのパラメーターを格納します。
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet1&highlight=10-13)]
 
@@ -331,7 +331,7 @@ LINQ ステートメントは、登録日で受講者エンティティをグル
 
 [!code-html[](intro/samples/cu21/Pages/Students/Index2.cshtml?highlight=17-19,25-27)]
 
-上のコードでは以下の操作が行われます。
+上記のコードでは次の操作が行われます。
 
 * `LastName` と `EnrollmentDate` 列見出しにハイパーリンクを追加します。
 * この情報を `NameSort` および `DateSort` で使用して、現在の並べ替えの値を含むハイパーリンクを設定します。
@@ -363,7 +363,7 @@ Students インデックス ページにフィルターを追加するには
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet_SortFilter&highlight=1,5,9-13)]
 
-上のコードでは以下の操作が行われます。
+上記のコードでは次の操作が行われます。
 
 * `searchString` パラメーターを `OnGetAsync` メソッドに追加します。 次のセクションで追加されるテキスト ボックスから検索する文字列値を受け取ります。
 * LINQ ステートメントに `Where` 句を追加します。 `Where` 句は、名または姓に検索文字列が含まれている学生のみを選択します。 検索する値がある場合にのみ LINQ ステートメントを実行します。
@@ -521,13 +521,13 @@ LINQ ステートメントは、登録日で受講者エンティティをグル
 
 アプリを実行して [About] ページに移動します。 登録の日付ごとの学生の数が、テーブルに表示されます。
 
-解決できない問題が発生した場合は、[このステージの完成したアプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/StageSnapShots/cu-part3-sorting)をダウンロードしてください。
+解決できない問題が発生した場合は、[このステージの完成したアプリ](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/StageSnapShots/cu-part3-sorting)をダウンロードしてください。
 
 ![About ページ](sort-filter-page/_static/about.png)
 
 ## <a name="additional-resources"></a>その他の技術情報
 
-* [ASP.NET Core 2.x ソースのデバッグ](https://github.com/aspnet/AspNetCore.Docs/issues/4155)
+* [ASP.NET Core 2.x ソースのデバッグ](https://github.com/dotnet/AspNetCore.Docs/issues/4155)
 * [このチュートリアルの YouTube バージョン](https://www.youtube.com/watch?v=MDs7PFpoMqI)
 
 次のチュートリアルでは、アプリは移行を使用してデータ モデルを更新します。

@@ -1,10 +1,10 @@
 # <a name="aspnet-core-docs"></a>ASP.NET Core ドキュメント
 
-このリポジトリには、[docs.microsoft.com/aspnet/core](https://docs.microsoft.com/aspnet/core) でホストされている、ASP.NET Core の概念に関するドキュメントが含まれています。 ご協力いただける場合は、[寄稿に関するガイド](CONTRIBUTING.md)と[懸案事項リスト](https://github.com/aspnet/Docs/issues)に関するページをご覧ください。
+このリポジトリには、[docs.microsoft.com/aspnet/core](https://docs.microsoft.com/aspnet/core) でホストされている、ASP.NET Core の概念に関するドキュメントが含まれています。 ご協力いただける場合は、[寄稿に関するガイド](CONTRIBUTING.md)と[懸案事項リスト](https://github.com/dotnet/AspNetCore.Docs/issues)に関するページをご覧ください。
 
-API ドキュメントの変更は、[ApiDocs リポジトリ](https://github.com/aspnet/ApiDocs)で、トリプル スラッシュ `///` コメントに対して行われます。
+API ドキュメントの変更は、[AspNetApiDocs リポジトリ](https://github.com/dotnet/AspNetApiDocs)で、トリプル スラッシュ `///` コメントに対して行われます。
 
-ASP.NET 4.x ドキュメントの変更は、[aspnet/AspNetDocs リポジトリ](https://github.com/aspnet/AspNetDocs)で行われます。
+ASP.NET 4.x ドキュメントの変更は、[dotnet/AspNetDocs リポジトリ](https://github.com/dotnet/AspNetDocs)で行われます。
 
 ## <a name="microsoft-open-source-code-of-conduct"></a>Microsoft オープン ソース倫理規定
 

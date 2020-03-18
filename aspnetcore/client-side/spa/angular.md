@@ -7,12 +7,12 @@ ms.author: stevesa
 ms.custom: mvc
 ms.date: 02/06/2020
 uid: spa/angular
-ms.openlocfilehash: 11ad5d4c7cadcc582b3e288a331569f62f0b98ac
-ms.sourcegitcommit: bd896935e91236e03241f75e6534ad6debcecbbf
-ms.translationtype: MT
+ms.openlocfilehash: fee872ff237e14cbe491efed9b320809df4c5654
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/06/2020
-ms.locfileid: "77044855"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78646460"
 ---
 # <a name="use-the-angular-project-template-with-aspnet-core"></a>ASP.NET Core で Angular プロジェクト テンプレートを使用する
 
@@ -33,15 +33,15 @@ cd my-new-app
 
 Visual Studio または .NET Core CLI からアプリを実行します。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio/)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio/)
 
 生成された *.csproj* ファイルを開き、そこから通常の方法でアプリを実行します。
 
 ビルド プロセスは、初回の実行で npm の依存関係を復元します。これには数分かかる可能性があります。 以降のビルドは非常に高速になります。
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
 
-値が `ASPNETCORE_Environment` である `Development` という名前の環境変数があることを確認します。 Windows では (PowerShell ではないプロンプトで) `SET ASPNETCORE_Environment=Development` を実行します。 Linux または macOS では、`export ASPNETCORE_Environment=Development` を実行します。
+値が `Development` である `ASPNETCORE_Environment` という名前の環境変数があることを確認します。 Windows では、PowerShell 以外のプロンプトで `SET ASPNETCORE_Environment=Development` を実行します。 Linux または macOS では、`export ASPNETCORE_Environment=Development` を実行します。
 
 [dotnet build](/dotnet/core/tools/dotnet-build) を実行して、アプリが正しくビルドされていることを確認します。 ビルド プロセスは、初回の実行で npm の依存関係を復元します。これには数分かかる可能性があります。 以降のビルドは非常に高速になります。
 
@@ -53,7 +53,8 @@ Now listening on: http://localhost:<port>
 
 ブラウザーでこの URL に移動します。
 
-アプリは、Angular CLI サーバーのインスタンスをバックグラウンドで開始します。 次のようなメッセージがログに記録されます。*NG Live Development Server is listening on localhost:&lt;otherport&gt;, open your browser on http://localhost:&lt;otherport&gt;/* 。 このメッセージは無視してください。それは、結合された ASP.NET Core と Angular CLI アプリの URLでは&mdash;ありません **。
+> [!WARNING]
+> アプリは、Angular CLI サーバーのインスタンスをバックグラウンドで開始します。 次のようなメッセージがログに記録されます。*NG Live Development Server is listening on localhost:&lt;otherport&gt;, open a browser to http://localhost:&lt ;otherport&gt;/* (NG Live 開発サーバーは localhost:&lt; otherport&gt; をリッスンしています。 http://localhost:&lt;otherport&gt;/* へのブラウザーを開きます)。 このメッセージは無視してください。それは、結合された ASP.NET Core と Angular CLI アプリの URLでは**ありません**。
 
 ---
 
@@ -79,7 +80,7 @@ cd ClientApp
 
 ## <a name="install-npm-packages"></a>npm パッケージをインストールする
 
-サードパーティ製の npm パッケージをインストールするには、*ClientApp* サブディレクトリでコマンド プロンプトを使用します。 例 :
+サードパーティ製の npm パッケージをインストールするには、*ClientApp* サブディレクトリでコマンド プロンプトを使用します。 次に例を示します。
 
 ```console
 cd ClientApp
@@ -90,7 +91,7 @@ npm install --save <package_name>
 
 開発中、アプリは、開発者に便利なように最適化されたモードで実行されます。 たとえば、JavaScript バンドルには、ソース マップが含まれます (デバッグ時に元の TypeScript コードを確認できるようにするためです)。 アプリは、ディスク上の TypeScript、HTML および CSS ファイルの変更を監視し、これらのファイルの変更が発生した場合は、再コンパイルと再読み込みを自動的に実行します。
 
-運用時は、パフォーマンスが最適化されたバージョンのアプリが提供されます。 これは、自動的に実行されるように構成されています。 発行すると、ビルド構成によって、クライアント側コードの縮小された Ahead Of Time (AoT) コンパイルが行われたビルドが生成されます。 開発ビルドとは異なり、運用ビルドでは、サーバーに node.js をインストールする必要はありません (サーバー側レンダリング (SSR) を有効にしている場合を除く)。
+運用時は、パフォーマンスが最適化されたバージョンのアプリが提供されます。 これは、自動的に実行されるように構成されています。 発行すると、ビルド構成によって、クライアント側コードの縮小された Ahead Of Time (AoT) コンパイルが行われたビルドが生成されます。 開発ビルドとは異なり、運用ビルドは、サーバーへの Node.js のインストールを必要としません (サーバー側のレンダリングを有効にしている場合は除きます (SSR))。
 
 標準的な [ASP.NET Core のホストと展開方法](xref:host-and-deploy/index)を使用できます。
 
@@ -108,7 +109,7 @@ ASP.NET Core アプリが開発モードで起動された場合、プロジェ�
     ```
 
     > [!IMPORTANT]
-    > Angular CLI 開発サーバーを起動するには、`npm start` ではなく `ng serve` を使用して、*package.json* の構成が使用されるようにします。 Angular CLI サーバーに追加パラメーターを渡すには、`scripts`package.json*ファイルの関連する* 行にそれらを追加します。
+    > Angular CLI 開発サーバーを起動するには、`ng serve` ではなく `npm start` を使用して、*package.json* の構成が使用されるようにします。 Angular CLI サーバーに追加パラメーターを渡すには、*package.json* ファイルの関連する `scripts` 行にそれらを追加します。
 
 2. 独自のインスタンスを起動する代わりに外部の Angular CLI インスタンスを使用するように ASP.NET Core アプリケーションを変更します。 *Startup* クラスで、`spa.UseAngularCliServer` の呼び出しを以下に置き換えます。
 
@@ -148,6 +149,6 @@ options.SupplyData = (context, data) =>
     }
     ```
 
-## <a name="additional-resources"></a>その他のリソース
+## <a name="additional-resources"></a>その他の技術情報
 
 * <xref:security/authentication/identity/spa>

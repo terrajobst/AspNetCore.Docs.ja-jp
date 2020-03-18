@@ -1,27 +1,25 @@
 ---
 title: ASP.NET Core で変更トークンを使用して変更を検出する
-author: guardrex
+author: rick-anderson
 description: 変更トークンを使用して変更を追跡する方法を説明します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 10/07/2019
 uid: fundamentals/change-tokens
-ms.openlocfilehash: bb30d7a4c7dc82200821c60a49c314b246562111
-ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
+ms.openlocfilehash: 70451e219f1295b854e2f84aac55f0cfd1786b19
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/07/2019
-ms.locfileid: "72007212"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78645398"
 ---
 # <a name="detect-changes-with-change-tokens-in-aspnet-core"></a>ASP.NET Core で変更トークンを使用して変更を検出する
-
-作成者: [Luke Latham](https://github.com/guardrex)
 
 ::: moniker range=">= aspnetcore-3.0"
 
 "*変更トークン*" は、状態の変更を追跡するために使用される汎用の低レベル構成ブロックです。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/change-tokens/samples/)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/change-tokens/samples/)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="ichangetoken-interface"></a>IChangeToken インターフェイス
 
@@ -115,7 +113,7 @@ config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
 
 `config.GetReloadToken()` はトークンを提供します。 `InvokeChanged` はコールバック メソッドです。 このインスタンスの `state` は、監視の状態にアクセスするために使用される `IConfigurationMonitor` インスタンスへの参照です。 次の 2 つのプロパティが使用されます。
 
-* `MonitoringEnabled` &ndash; コールバックでカスタム コードを実行する必要があるかどうかを示します。
+* `MonitoringEnabled` &ndash; コールバックでそのカスタム コードを実行する必要があるかどうかを示します。
 * `CurrentState` &ndash; UI で使用するための現在の監視状態を説明します。
 
 `InvokeChanged` メソッドは、次の点を除けば、前の方法に似ています。
@@ -219,7 +217,7 @@ var compositeChangeToken =
 
 "*変更トークン*" は、状態の変更を追跡するために使用される汎用の低レベル構成ブロックです。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/change-tokens/samples/)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/change-tokens/samples/)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="ichangetoken-interface"></a>IChangeToken インターフェイス
 
@@ -313,7 +311,7 @@ config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
 
 `config.GetReloadToken()` はトークンを提供します。 `InvokeChanged` はコールバック メソッドです。 このインスタンスの `state` は、監視の状態にアクセスするために使用される `IConfigurationMonitor` インスタンスへの参照です。 次の 2 つのプロパティが使用されます。
 
-* `MonitoringEnabled` &ndash; コールバックでカスタム コードを実行する必要があるかどうかを示します。
+* `MonitoringEnabled` &ndash; コールバックでそのカスタム コードを実行する必要があるかどうかを示します。
 * `CurrentState` &ndash; UI で使用するための現在の監視状態を説明します。
 
 `InvokeChanged` メソッドは、次の点を除けば、前の方法に似ています。

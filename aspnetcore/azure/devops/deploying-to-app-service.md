@@ -1,41 +1,41 @@
 ---
-title: App Service - ASP.NET Core および Azure を使用した DevOps へアプリをデプロイします。
+title: アプリを App Service にデプロイする - ASP.NET Core および Azure を使用した DevOps
 author: CamSoper
-description: ASP.NET Core アプリのデプロイを Azure App Service に ASP.NET Core および Azure を使用した DevOps の最初の手順。
+description: ASP.NET Core および Azure を使用した DevOps の最初のステップとして、ASP.NET Core アプリを Azure App Service にデプロイします。
 ms.author: casoper
 ms.custom: mvc, seodec18
 ms.date: 10/24/2018
 uid: azure/devops/deploy-to-app-service
 ms.openlocfilehash: df41f296e9c4e1eff6e31d45b29ec30ee1e20cf4
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
-ms.translationtype: MT
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080436"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78646556"
 ---
-# <a name="deploy-an-app-to-app-service"></a>App Service にアプリをデプロイします。
+# <a name="deploy-an-app-to-app-service"></a>App Service にアプリをデプロイする
 
-[Azure App Service](/azure/app-service/)は Azure の web ホスティング プラットフォーム。 手動または自動のプロセスによって、web アプリを Azure App Service にデプロイを実行できます。 このガイドのこのセクションでは、手動か、コマンドラインを使用してスクリプトをトリガーできるまたは Visual Studio を使用して手動でトリガーされた配置方法について説明します。
+[Azure App Service](/azure/app-service/) は、Azure の Web ホスティング プラットフォームです。 Azure App Service への Web アプリのデプロイは、手動または自動プロセスで行うことができます。 ガイドのこのセクションでは、手動で、コマンド ラインを使用してスクリプトで、または Visual Studio を使用して手動でトリガーできる、デプロイ方法について説明します。
 
 このセクションでは、次のタスクを実行します。
 
-* ダウンロードして、サンプル アプリをビルドします。
+* サンプル アプリをダウンロードしてビルドします。
 * Azure Cloud Shell を使用して Azure App Service Web アプリを作成します。
-* Git を使用して Azure にサンプル アプリをデプロイします。
-* Visual Studio を使用してアプリに変更をデプロイします。
-* Web アプリには、ステージング スロットを追加します。
-* ステージング スロットに更新プログラムを展開します。
-* ステージングと運用スロットをスワップします。
+* Git を使用してサンプル アプリを Azure にデプロイします。
+* Visual Studio を使用して変更をアプリにデプロイします。
+* ステージング スロットを Web アプリに追加します。
+* 更新プログラムをステージング スロットにデプロイします。
+* ステージング スロットと運用スロットをスワップします。
 
-## <a name="download-and-test-the-app"></a>ダウンロードして、アプリをテストします。
+## <a name="download-and-test-the-app"></a>アプリをダウンロードしてテストする
 
-このガイドで使用されるアプリは、構築済みの ASP.NET Core アプリ[単純なフィード リーダー](https://github.com/Azure-Samples/simple-feed-reader/)します。 使用する Razor ページ アプリは、 `Microsoft.SyndicationFeed.ReaderWriter` API を RSS フィードおよび Atom フィードを取得し、ニュース項目を一覧表示します。
+このガイドで使用するアプリは、ビルド済みの ASP.NET Core アプリである [Simple Feed Reader](https://github.com/Azure-Samples/simple-feed-reader/) です。 これは、`Microsoft.SyndicationFeed.ReaderWriter` API を使用して RSS/Atom フィードを取得し、ニュース項目を一覧で表示する Razor Pages アプリです。
 
-自由に、コードのレビューがこのアプリに関する特別なものを理解することが重要です。 説明の目的で、簡単な ASP.NET Core アプリだけです。
+コードを自由に確認してかまいませんが、このアプリに関して特別なことは何もないことを理解しておくことが重要です。 例示だけを目的とするシンプルな ASP.NET Core アプリです。
 
-コマンド シェルからコードをダウンロードしてプロジェクトをビルドして、次のように実行します。
+次のようにコマンド シェルからコードをダウンロードし、プロジェクトをビルドして、実行します。
 
-> *注:Linux/macOS ユーザーは、パスに対して適切な変更を行う必要があり`/`ます。たとえば、スラッシュ (`\`) ではなくスラッシュ () を使用します。*
+> *注:Linux/macOS ユーザーは、パスを適切に変更する必要があります。たとえば、バック スラッシュ (`\`) ではなくスラッシュ (`/`) を使用します。*
 
 1. ローカル コンピューター上のフォルダーにコードを複製します。
 
@@ -43,7 +43,7 @@ ms.locfileid: "71080436"
     git clone https://github.com/Azure-Samples/simple-feed-reader/
     ```
 
-2. 作業フォルダーの変更、*単純なフィード-リーダー*が作成されたフォルダーです。
+2. 作業フォルダーを、作成された *simple-feed-reader* フォルダーに変更します。
 
     ```console
     cd .\simple-feed-reader\SimpleFeedReader
@@ -61,186 +61,186 @@ ms.locfileid: "71080436"
     dotnet run
     ```
 
-    ![Dotnet run コマンドが正常に完了](./media/deploying-to-app-service/dotnet-run.png)
+    ![dotnet run コマンドが成功する](./media/deploying-to-app-service/dotnet-run.png)
 
-5. ブラウザーを開きに移動します`http://localhost:5000`します。 アプリでは、入力するか、配信フィードの URL を貼り付けることができ、ニュース アイテムの一覧を表示します。
+5. ブラウザーを開き、 `http://localhost:5000` に移動します。 アプリでは、配信フィード URL を入力するか貼り付けて、ニュース項目の一覧を表示することができます。
 
-     ![RSS フィードの内容を表示するアプリ](./media/deploying-to-app-service/app-in-browser.png)
+     ![RSS フィードのコンテンツが表示されているアプリ](./media/deploying-to-app-service/app-in-browser.png)
 
-6. アプリが正常に動作がなければ、キーを押してシャット ダウン**Ctrl**+**C**コマンド シェルでします。
+6. アプリが正常に動作していることを確認したら、コマンド シェルで **Ctrl** + **C** キーを押してシャットダウンします。
 
-## <a name="create-the-azure-app-service-web-app"></a>Azure App Service Web アプリを作成します。
+## <a name="create-the-azure-app-service-web-app"></a>Azure App Service Web アプリを作成する
 
-アプリを展開するには、アプリ サービスを作成する必要があります[Web アプリ](/azure/app-service/app-service-web-overview)します。 Web アプリの作成後は、Git を使用して、ローカル コンピューターからをデプロイします。
+アプリをデプロイするには、App Service [Web アプリ](/azure/app-service/app-service-web-overview)を作成する必要があります。 Web アプリを作成した後、Git を使用してローカル コンピューターからそれをデプロイします。
 
-1. サインイン、 [Azure Cloud Shell](https://shell.azure.com/bash)します。 メモ:初めてサインインするときに、構成ファイル用のストレージアカウントを作成するように Cloud Shell プロンプトが表示されます。 既定値を受け入れるか、一意の名前を指定します。
+1. [Azure Cloud Shell](https://shell.azure.com/bash) にサインインします。 メモ:初めてサインインすると、構成ファイル用のストレージ アカウントの作成を求めるメッセージが Cloud Shell に表示されます。 既定値をそのまま使用するか、一意の名前を指定します。
 
-2. 次の手順については、Cloud Shell を使用します。
+2. 以下の手順では Cloud Shell を使用します。
 
-    a. Web アプリの名前を格納する変数を宣言します。 名前は、既定の URL で使用される一意である必要があります。 使用して、`$RANDOM`名前を作成する Bash 関数は、一意性を保証しの形式で結果`webappname99999`します。
+    a. Web アプリの名前を格納する変数を宣言します。 既定の URL で使用するには、名前が一意である必要があります。 `$RANDOM` Bash 関数を使用して名前を作成すると、一意性が保証され、`webappname99999` の形式になります。
 
     ```console
     webappname=mywebapp$RANDOM
     ```
 
-    b. リソース グループを作成します。 リソース グループは、グループとして管理する Azure リソースを集計するための手段を提供します。
+    b. リソース グループを作成します。 リソース グループを使用すると、管理対象の Azure リソースをグループとして集約させることができます。
 
     ```azure-cli
     az group create --location centralus --name AzureTutorial
     ```
 
-    `az`コマンドを呼び出す、 [Azure CLI](/cli/azure/)します。 CLI をローカルで実行することができますが、Cloud Shell で使用する時間と構成を保存します。
+    `az` コマンドでは [Azure CLI](/cli/azure/) が呼び出されます。 CLI はローカル環境でも実行できますが、Cloud Shell で使用すると、時間と構成が節約されます。
 
-    c. S1 レベルでは、App Service プランを作成します。 App Service プランは、同じ価格レベルを共有する web アプリのグループです。 S1 レベルが無料ではありませんが、ステージング スロットの機能は必要です。
+    c. S1 レベルで App Service プランを作成します。 App Service プランは、同じ価格レベルを共有する Web アプリをグループ化したものです。 S1 レベルは無料ではありませんが、ステージング スロット機能に必要です。
 
     ```azure-cli
     az appservice plan create --name $webappname --resource-group AzureTutorial --sku S1
     ```
 
-    d. 同じリソース グループで、App Service プランを使用して web アプリのリソースを作成します。
+    d. App Service プランを使用して、同じリソース グループ内に Web アプリ リソースを作成します。
 
     ```azure-cli
     az webapp create --name $webappname --resource-group AzureTutorial --plan $webappname
     ```
 
-    e. デプロイ資格情報を設定します。 これらのデプロイ資格情報は、サブスクリプション内のすべての web アプリに適用されます。 ユーザー名に特殊文字を使用しないでください。
+    e. デプロイの資格情報を設定します。 これらのデプロイ資格情報は、サブスクリプション内のすべての Web アプリに適用されます。 ユーザー名では特殊文字を使用しないでください。
 
     ```azure-cli
     az webapp deployment user set --user-name REPLACE_WITH_USER_NAME --password REPLACE_WITH_PASSWORD
     ```
 
-    f. ローカルの Git および表示から展開を受け入れるように web アプリの構成、 *Git デプロイメント URL*します。 **後で参照に対して、この URL に注意してください**します。
+    f. ローカル環境の Git からデプロイを受け入れるように Web アプリを構成し、"*Git デプロイ URL*" を表示します。 **後で参照するので、この URL を記録しておきます**。
 
     ```azure-cli
     echo Git deployment URL: $(az webapp deployment source config-local-git --name $webappname --resource-group AzureTutorial --query url --output tsv)
     ```
 
-    g. 表示、 *web アプリの URL*します。 空の web アプリを確認するには、この URL に移動します。 **後で参照に対して、この URL に注意してください**します。
+    g. "*Web アプリの URL*" を表示します。 この URL を参照すると、空の Web アプリが表示されます。 **後で参照するので、この URL を記録しておきます**。
 
     ```console
     echo Web app URL: http://$webappname.azurewebsites.net
     ```
 
-3. コマンド シェルを使用して、ローカル コンピューターで web アプリのプロジェクト フォルダーに移動します (たとえば、 `.\simple-feed-reader\SimpleFeedReader`)。 デプロイの URL にプッシュする Git のセットアップには、次のコマンドを実行します。
+3. ローカル コンピューターでコマンド シェルを使用して、Web アプリのプロジェクト フォルダー (`.\simple-feed-reader\SimpleFeedReader` など) に移動します。 次のコマンドを実行し、デプロイ URL にプッシュするように Git を設定します。
 
-    a. ローカル リポジトリには、リモートの URL を追加します。
+    a. ローカル リポジトリにリモート URL を追加します。
 
     ```console
     git remote add azure-prod GIT_DEPLOYMENT_URL
     ```
 
-    b. ローカルをプッシュ*マスター*に分岐、 *azure prod*リモートの*マスター*分岐します。
+    b. ローカルの *master* ブランチを、*azure-prod* リモートの *master* ブランチにプッシュします。
 
     ```console
     git push azure-prod master
     ```
 
-    先ほど作成したデプロイ資格情報を求め。 コマンド シェルに出力を確認します。 Azure では、ASP.NET Core アプリをリモートでビルドします。
+    前に作成したデプロイ資格情報の入力を求められます。 コマンド シェルで出力を確認します。 Azure によって、ASP.NET Core アプリがリモートでビルドされます。
 
-4. ブラウザーに移動します。、 *Web アプリの URL*と、アプリがビルドおよびデプロイされたに注意してください。 追加の変更がローカル Git リポジトリにコミットできる`git commit`します。 これらの変更は、上記の Azure にプッシュされる`git push`コマンド。
+4. ブラウザーで "*Web アプリ URL*" に移動し、アプリがビルドおよびデプロイされたことを確認します。 `git commit` を使用して、追加の変更をローカル Git リポジトリにコミットできます。 前の `git push` コマンドを使用すると、これらの変更が Azure にプッシュされます。
 
 ## <a name="deployment-with-visual-studio"></a>Visual Studio でのデプロイ
 
-> *注:このセクションは、Windows のみに適用されます。Linux および macOS ユーザーには、次のステップ 2 で説明されている変更を加える必要があります。ファイルを保存しをローカル リポジトリに変更をコミット`git commit`します。最後に、変更をプッシュ`git push`最初のセクションのようにします。*
+> *注:このセクションは Windows のみに適用されます。Linux と macOS のユーザーは、下のステップ 2 で説明されている変更を行う必要があります。ファイルを保存し、`git commit` を使用してローカル リポジトリに変更をコミットします。最後に、最初のセクションと同様に、`git push` を使用して変更をプッシュします。*
 
-コマンド シェルから、アプリは既に展開されています。 Visual Studio の統合ツールを使用して、アプリに更新プログラムをデプロイしましょう。 バック グラウンドでは、Visual Studio には、Visual Studio の使い慣れた UI 内でコマンド ライン ツールと同じことが実現されます。
+アプリはコマンド シェルから既にデプロイされています。 Visual Studio の統合ツールを使用して、アプリに更新プログラムをデプロイしてみましょう。 Visual Studio の使い慣れた UI では、バックグラウンドで、コマンド ライン ツールと同じことが実行されています。
 
-1. 開いている*SimpleFeedReader.sln* Visual Studio でします。
-2. ソリューション エクスプ ローラーで開く*Pages\Index.cshtml*します。 変更`<h2>Simple Feed Reader</h2>`に`<h2>Simple Feed Reader - V2</h2>`します。
-3. キーを押して**Ctrl**+**Shift**+**B**アプリをビルドします。
-4. ソリューション エクスプ ローラーでプロジェクトを右クリックし、をクリックして**発行**します。
+1. Visual Studio で *SimpleFeedReader.sln* を開きます。
+2. ソリューション エクスプローラーで *Pages\Index.cshtml* を開きます。 `<h2>Simple Feed Reader</h2>` を `<h2>Simple Feed Reader - V2</h2>` に変更します。
+3. **Ctrl** + **Shift** + **B** キーを押して、アプリをビルドします。
+4. ソリューション エクスプローラーでプロジェクトを右クリックし、 **[発行]** をクリックします。
 
-    ![右クリックし、発行を示すスクリーン ショット](./media/deploying-to-app-service/publish.png)
-5. Visual Studio は、新しい App Service リソースを作成できますが、この更新プログラムは、既存のデプロイで公開されます。 **発行先を選択**ダイアログ ボックスで、 **App Service** 、左側のリストから選び**既存の**。 **[発行]** をクリックします。
-6. **App Service**ダイアログ ボックスで、Microsoft または組織アカウントを Azure サブスクリプションを作成するために使用が右上に表示されることを確認します。 ない場合、ドロップダウン リストをクリックし、追加します。
-7. いることを確認、適切な Azure**サブスクリプション**が選択されています。 **ビュー**、**リソース グループ**します。 展開、 **azure チュートリアル**リソース グループと、既存の web アプリを選択します。 **[OK]** をクリックします。
+    ![右クリックの [発行] を示すスクリーンショット](./media/deploying-to-app-service/publish.png)
+5. Visual Studio で新しい App Service リソースを作成できますが、この更新プログラムは既存のデプロイに対して発行されます。 **[発行先を選択]** ダイアログで、左側の一覧から **[App Service]** を選択し、 **[既存のものを選択]** を選択します。 **[発行]** をクリックします。
+6. **[App Service]** ダイアログで、Azure サブスクリプションの作成に使用した Microsoft アカウントまたは組織アカウントが右上に表示されていることを確認します。 そうでない場合は、ドロップダウンをクリックして追加します。
+7. 正しい Azure **サブスクリプション**が選択されていることを確認します。 **[表示]** で、 **[リソース グループ]** を選択します。 **AzureTutorial** リソース グループを展開し、既存の Web アプリを選択します。 **[OK]** をクリックします。
 
-    ![App Service の発行 ダイアログのスクリーン ショット](./media/deploying-to-app-service/publish-dialog.png)
+    ![App Service への発行ダイアログを示すスクリーンショット](./media/deploying-to-app-service/publish-dialog.png)
 
-Visual Studio がビルドされ、アプリを Azure にデプロイします。 Web アプリの URL に移動します。 いることを確認、`<h2>`要素の変更がライブです。
+Visual Studio によってアプリがビルドされ、Azure にデプロイされます。 Web アプリの URL を参照します。 `<h2>` 要素の変更が有効であることを確認します。
 
-![変更されたタイトルとアプリ](./media/deploying-to-app-service/app-v2.png)
+![タイトルが変更されたアプリ](./media/deploying-to-app-service/app-v2.png)
 
 ## <a name="deployment-slots"></a>デプロイ スロット
 
-デプロイ スロットでは、実稼働環境で実行されているアプリに影響を与えることがなく変更のステージングをサポートします。 ステージングされたバージョンのアプリの品質保証チームによって検証されると、運用スロットとステージング スロットをスワップすることができます。 ステージング環境でのアプリは、この方法で運用環境に昇格されます。 次の手順は、ステージング スロットを作成、いくつかの変更に配置し、検証後の本番環境とステージング スロットをスワップします。
+デプロイ スロットは、運用環境で実行されているアプリに影響を与えることなく、変更のステージングがサポートされます。 アプリのステージング バージョンが品質保証チームによって検証されると、運用スロットとステージング スロットを入れ替えることができます。 ステージング中のアプリは、この方法で運用環境にレベル上げされます。 次の手順では、ステージング スロットを作成し、変更をそこにデプロイして、検証後にステージング スロットと運用環境を入れ替えます。
 
-1. サインイン、 [Azure Cloud Shell](https://shell.azure.com/bash)署名されていない場合は、します。
+1. まだサインインしていない場合は、[Azure Cloud Shell](https://shell.azure.com/bash) にサインインします。
 2. ステージング スロットを作成します。
 
-    a. デプロイ スロットを作成、名前を持つ*ステージング*します。
+    a. *staging* という名前でデプロイ スロットを作成します。
 
     ```azure-cli
     az webapp deployment slot create --name $webappname --resource-group AzureTutorial --slot staging
     ```
 
-    b. ローカルの Git および get からのデプロイを使用するステージング スロットの構成、**ステージング**デプロイの URL。 **後で参照に対して、この URL に注意してください**します。
+    b. ローカル環境の Git からのデプロイを使用するようにステージング スロットを構成し、**ステージング** デプロイ URL を取得します。 **後で参照するので、この URL を記録しておきます**。
 
     ```azure-cli
     echo Git deployment URL for staging: $(az webapp deployment source config-local-git --name $webappname --resource-group AzureTutorial --slot staging --query url --output tsv)
     ```
 
-    c. ステージング スロットの URL を表示します。 空のステージング スロットを表示する URL に移動します。 **後で参照に対して、この URL に注意してください**します。
+    c. ステージング スロットの URL を表示します。 URL を参照して、空のステージン グスロットを表示します。 **後で参照するので、この URL を記録しておきます**。
 
     ```console
     echo Staging web app URL: http://$webappname-staging.azurewebsites.net
     ```
 
-3. テキスト エディターまたは Visual Studio では、次のように変更します。 *Pages/Index.cshtml*もう一度ように、`<h2>`要素を読み取ります`<h2>Simple Feed Reader - V3</h2>`ファイルを保存します。
+3. テキスト エディターまたは Visual Studio で、`<h2>` 要素が `<h2>Simple Feed Reader - V3</h2>` を読み取り、ファイルを保存するように、*Pages/Index.cshtml* をもう一度変更します。
 
-4. いずれかを使用して、ローカルの Git リポジトリにファイルをコミット、**変更**Visual studio のページ*チーム エクスプ ローラー*  タブで、または入力して、次を使用して、ローカル コンピューターのコマンド シェル。
+4. Visual Studio の *[チーム エクスプローラー]* タブの **[変更]** ページを使用するか、ローカル コンピューターのコマンド シェルを使用して次のように入力し、ファイルをローカル Git リポジトリにコミットします。
 
     ```console
     git commit -a -m "upgraded to V3"
     ```
 
-5. ローカル コンピューターのコマンド シェルを使用してでは、Git リモートとしてステージング配置の URL を追加し、コミットされた変更をプッシュします。
+5. ローカル コンピューターのコマンド シェルを使用して、ステージング デプロイ URL を Git リモートとして追加し、コミットされた変更をプッシュします。
 
-    a. ローカルの Git リポジトリには、ステージング用のリモート URL を追加します。
+    a. ステージング用のリモート URL をローカル Git リポジトリに追加します。
 
     ```console
     git remote add azure-staging <Git_staging_deployment_URL>
     ```
 
-    b. ローカルをプッシュ*マスター*に分岐、 *azure ステージング*リモートの*マスター*分岐します。
+    b. ローカルの *master* ブランチを、*azure-staging* リモートの *master* ブランチにプッシュします。
 
     ```console
     git push azure-staging master
     ```
 
-    Azure の構築し、アプリの配置中には、待機します。
+    Azure によってアプリがビルドされてデプロイされるまで待ちます。
 
-6. V3 がステージング スロットにデプロイされていることを確認するには、2 つのブラウザー ウィンドウを開きます。 1 つのウィンドウでは、元の web アプリの URL に移動します。 その他のウィンドウでは、ステージング web アプリの URL に移動します。 運用環境の URL では、アプリの V2 は機能します。 ステージング URL では、アプリの V3 は機能します。
+6. V3 がステージング スロットにデプロイされたことを確認するため、2 つのブラウザー ウィンドウを開きます。 1 つのウィンドウで、元の Web アプリの URL に移動します。 もう 1 つのウィンドウで、ステージング Web アプリの URL に移動します。 運用 URL では、アプリの V2 が提供されています。 ステージング URL では、アプリの V3 が提供されています。
 
-    ![ブラウザー ウィンドウを比較するスクリーン ショット](./media/deploying-to-app-service/ready-to-swap.png)
+    ![ブラウザー ウィンドウの比較のスクリーンショット](./media/deploying-to-app-service/ready-to-swap.png)
 
-7. Cloud Shell では、運用環境に検証/ウォーム アップのステージング スロットをスワップします。
+7. Cloud Shell で、検証済みのウォームアップされたステージング スロットを運用環境にスワップします。
 
     ```azure-cli
     az webapp deployment slot swap --name $webappname --resource-group AzureTutorial --slot staging
     ```
 
-8. 2 つのブラウザー ウィンドウを更新することで、スワップが発生したことを確認します。
+8. 2 つのブラウザー ウィンドウを更新して、スワップが発生したことを確認します。
 
-    ![スワップ後にブラウザー ウィンドウを比較します。](./media/deploying-to-app-service/swapped.png)
+    ![スワップ後のブラウザー ウィンドウの比較](./media/deploying-to-app-service/swapped.png)
 
 ## <a name="summary"></a>まとめ
 
-このセクションで、次のタスクを完了しました。
+このセクションでは、次のタスクを完了しました。
 
-* ダウンロードして、サンプル アプリをビルドします。
-* Azure Cloud Shell を使用して Azure App Service Web アプリを作成します。
-* サンプル アプリを Git を使用して Azure にデプロイします。
-* Visual Studio を使用してアプリに変更をデプロイします。
-* Web アプリには、ステージング スロットを追加します。
-* ステージング スロットに更新プログラムを展開します。
-* ステージングと運用スロットをスワップします。
+* サンプル アプリをダウンロードしてビルドしました。
+* Azure Cloud Shell を使用して Azure App Service Web アプリを作成しました。
+* Git を使用してサンプル アプリを Azure にデプロイしました。
+* Visual Studio を使用して変更をアプリにデプロイしました。
+* ステージング スロットを Web アプリに追加しました。
+* 更新プログラムをステージング スロットにデプロイしました。
+* ステージング スロットと運用スロットをスワップしました。
 
-次のセクションでは、Azure のパイプラインを使用した DevOps パイプラインを構築する方法を学習します。
+次のセクションでは、Azure Pipelines を使用して DevOps パイプラインを構築する方法について説明します。
 
 ## <a name="additional-reading"></a>その他の参考資料
 
 * [Web Apps の概要](/azure/app-service/app-service-web-overview)
-* [Azure App Service で .NET Core および SQL Database web アプリを構築します。](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb)
-* [Azure App Service のデプロイ資格情報を構成します。](/azure/app-service/app-service-deployment-credentials)
-* [Azure App Service でステージング環境を設定します。](/azure/app-service/web-sites-staged-publishing)
+* [Azure App Service で .NET Core および SQL Database のアプリを作成する](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb)
+* [Azure App Service のデプロイ資格情報の構成](/azure/app-service/app-service-deployment-credentials)
+* [Azure App Service でステージング環境を設定する](/azure/app-service/web-sites-staged-publishing)

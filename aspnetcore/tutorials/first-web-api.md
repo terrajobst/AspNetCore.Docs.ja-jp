@@ -4,18 +4,18 @@ author: rick-anderson
 description: ASP.NET Core で Web API をビルドする方法を学習します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 2/25/2020
 uid: tutorials/first-web-api
-ms.openlocfilehash: 73e547b014d78dcbcbf1c887ebec16e0743d10b9
-ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
+ms.openlocfilehash: 55dfc05b5c96f7fa060d537745bac969e92daa9b
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/21/2020
-ms.locfileid: "76294746"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78644966"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>チュートリアル: ASP.NET Core で Web API を作成する
 
-作成者: [Rick Anderson](https://twitter.com/RickAndMSFT) と [Mike Wasson](https://github.com/mikewasson)
+作成者: [Rick Anderson](https://twitter.com/RickAndMSFT)、[Kirk Larkin](https://twitter.com/serpent5)、[Mike Wasson](https://github.com/mikewasson)
 
 このチュートリアルでは、ASP.NET Core で Web API をビルドする方法の基本について説明します。
 
@@ -50,15 +50,15 @@ ms.locfileid: "76294746"
 
 ## <a name="prerequisites"></a>必須コンポーネント
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vs-3.1.md)]
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vsc-3.1.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/net-core-prereqs-mac-3.1.md)]
 
@@ -66,7 +66,7 @@ ms.locfileid: "76294746"
 
 ## <a name="create-a-web-project"></a>Web プロジェクトの作成
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * **[ファイル]** メニューで、 **[新規作成]** > **[プロジェクト]** の順に選択します。
 * **[ASP.NET Core Web アプリケーション]** テンプレートを選択して、 **[次へ]** をクリックします。
@@ -75,7 +75,7 @@ ms.locfileid: "76294746"
 
 ![VS の [新しいプロジェクト] ダイアログ](first-web-api/_static/vs3.png)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * [統合ターミナル](https://code.visualstudio.com/docs/editor/integrated-terminal)を開きます。
 * ディレクトリ (`cd`) を、プロジェクト フォルダーを格納するフォルダーに変更します。
@@ -96,7 +96,7 @@ ms.locfileid: "76294746"
   * 新しい Web API プロジェクトを作成し、Visual Studio Code で開きます。
   * 次のセクションで必要な NuGet パッケージを追加します。
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * **[ファイル]** > **[新しいソリューション]** の順に選択します。
 
@@ -127,17 +127,17 @@ ms.locfileid: "76294746"
 
 プロジェクト テンプレートによって `WeatherForecast` API が作成されます。 ブラウザーから `Get` メソッドを呼び出して、アプリをテストします。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Ctrl キーを押しながら F5 キーを押して、アプリを実行します。 Visual Studio でブラウザーが起動し、`https://localhost:<port>/WeatherForecast` にアクセスします。ここで、`<port>` はランダムに選択されたポート番号になります。
 
 IIS Express 証明書を信頼するかどうかを確認するダイアログ ボックスが表示された場合は、 **[はい]** を選択します。 次に表示される **[セキュリティ警告]** ダイアログ ボックスで、 **[はい]** を選択します。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Ctrl キーを押しながら F5 キーを押して、アプリを実行します。 ブラウザーで、次の URL に移動します: [https://localhost:5001/WeatherForecast](https://localhost:5001/WeatherForecast)。
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 **[実行]**  >  **[デバッグの開始]** の順に選択してアプリを起動します。 Visual Studio for Mac でブラウザーが起動し、`https://localhost:<port>` にアクセスします。ここで、`<port>` はランダムに選択されたポート番号になります。 HTTP 404 (Not Found) エラーが返されます。 URL に `/WeatherForecast` を追加します (URL を `https://localhost:<port>/WeatherForecast` に変更します)。
 
@@ -184,7 +184,7 @@ Ctrl キーを押しながら F5 キーを押して、アプリを実行しま�
 
 *モデル*は、アプリが管理するデータを表すクラスのセットです。 このアプリのモデルは、単一の `TodoItem` クラスです。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * **ソリューション エクスプローラー**で、プロジェクトを右クリックします。 **[追加]**  >  **[新しいフォルダー]** の順に選択します。 フォルダーに「*Models*」という名前を付けます。
 
@@ -192,13 +192,13 @@ Ctrl キーを押しながら F5 キーを押して、アプリを実行しま�
 
 * テンプレート コードを次のコードに置き換えます。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * *Models* という名前のフォルダーを追加します。
 
 * 次のコードを使用して、`TodoItem` クラスを *Models* フォルダーに追加します。
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * プロジェクトを右クリックします。 **[追加]**  >  **[新しいフォルダー]** の順に選択します。 フォルダーに「*Models*」という名前を付けます。
 
@@ -212,7 +212,7 @@ Ctrl キーを押しながら F5 キーを押して、アプリを実行しま�
 
 ---
 
-  [!code-csharp[](first-web-api/samples/3.0/TodoApi/Models/TodoItem.cs)]
+  [!code-csharp[](first-web-api/samples/3.0/TodoApi/Models/TodoItem.cs?name=snippet)]
 
 `Id` プロパティは、リレーショナル データベース内の一意のキーとして機能します。
 
@@ -222,7 +222,7 @@ Ctrl キーを押しながら F5 キーを押して、アプリを実行しま�
 
 *データベース コンテキスト*は、データ モデルに対して Entity Framework 機能を調整するメイン クラスです。 このクラスは `Microsoft.EntityFrameworkCore.DbContext` クラスから派生させて作成します。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 ### <a name="add-microsoftentityframeworkcoresqlserver"></a>Microsoft.EntityFrameworkCore.SqlServer を追加する
 
@@ -238,7 +238,7 @@ Ctrl キーを押しながら F5 キーを押して、アプリを実行しま�
 
 * *Models* フォルダーを右クリックし、 **[追加]**  >  **[クラス]** の順にクリックします。 クラスに「*TodoContext*」という名前を付け、 **[追加]** をクリックします。
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 * *Models* フォルダーに `TodoContext` クラスを追加します。
 
@@ -264,7 +264,7 @@ ASP.NET Core で、サービス (DB コンテキストなど) を[依存関係�
 
 ## <a name="scaffold-a-controller"></a>コントローラーのスキャフォールディング
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * *Controllers* フォルダーを右クリックします。
 * **[追加]** > **[スキャフォールディングされた新しい項目]** を選択します。
@@ -275,7 +275,7 @@ ASP.NET Core で、サービス (DB コンテキストなど) を[依存関係�
   * **データ コンテキスト クラス**で **[TodoContext (TodoApi.Models)]** を選択します。
   * **[追加]** を選びます。
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 次のコマンドを実行します。
 
@@ -298,6 +298,13 @@ dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m 
 
 * クラスを [`[ApiController]`](/dotnet/api/microsoft.aspnetcore.mvc.apicontrollerattribute) 属性でマークします。 この属性は、コントローラーが Web API 要求に応答することを示します。 属性によって有効化される特定の動作については、「<xref:web-api/index>」 を参照してください。
 * DI を使用して、データベース コンテキスト (`TodoContext`) をコントローラーに挿入します。 データベース コンテキストは、コントローラーの各 [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) メソッドで使用されます。
+
+ASP.NET Core テンプレートの対象は次のとおりです。
+
+* ビューを含むコントローラーには、ルート テンプレートの `[action]` が含まれます。
+* API コントローラーには、ルート テンプレートの `[action]` が含まれません。
+
+`[action]` トークンがルート テンプレート内にない場合、[アクション](xref:mvc/controllers/routing#action)名はルートから除外されます。 つまり、アクションの関連付けられたメソッド名は一致するルートでは使用されません。
 
 ## <a name="examine-the-posttodoitem-create-method"></a>PostTodoItem 作成メソッドの確認
 
@@ -458,6 +465,37 @@ Postman を使用して、To Do アイテムを削除します。
 * 削除するオブジェクトの URI (たとえば、`https://localhost:5001/api/TodoItems/1`) を設定します。
 * **[Send]** を選択します。
 
+<a name="over-post"></a>
+
+## <a name="prevent-over-posting"></a>過剰な投稿を防止する
+
+現在、サンプル アプリでは `TodoItem` オブジェクト全体が公開されています。 通常、運用環境のアプリでは、モデルのサブセットを使用して入力されるデータおよび返されるデータが制限されています。 その背景には複数の理由があり、セキュリティは主なものです。 モデルのサブセットは、通常、データ転送オブジェクト (DTO)、入力モデル、またはビュー モデルと呼ばれます。 この記事では **DTO** を使用しています。
+
+DTO は次の目的で使用できます。
+
+* 過剰な投稿を防止する。
+* クライアントが表示しないことになっているプロパティを非表示にする。
+* ペイロード サイズを減らすために、いくつかのプロパティを省略する。
+* 入れ子になったオブジェクトを含むオブジェクト グラフをフラット化する。 フラット化されたオブジェクト グラフは、クライアントにとってより便利になる可能性があります。
+
+DTO のアプローチを実演するために、`TodoItem` クラスを更新して、シークレット フィールドを含めます。
+
+[!code-csharp[](first-web-api/samples/3.0/TodoApiDTO/Models/TodoItem.cs?name=snippet&highlight=6)]
+
+シークレット フィールドは、このアプリでは非表示にする必要がありますが、管理アプリの場合は公開することを選択できます。
+
+シークレット フィールドを投稿および取得できることを確認します。
+
+次のように DTO モデルを作成します。
+
+[!code-csharp[](first-web-api/samples/3.0/TodoApiDTO/Models/TodoItemDTO.cs?name=snippet)]
+
+`TodoItemDTO` を使用するように `TodoItemsController` を更新します。
+
+[!code-csharp[](first-web-api/samples/3.0/TodoApiDTO/Controllers/TodoItemsController.cs?name=snippet)]
+
+シークレット フィールドを投稿または取得できないことを確認します。
+
 ## <a name="call-the-web-api-with-javascript"></a>JavaScript を使用した Web API の呼び出し
 
 「[チュートリアル:JavaScript を使用して ASP.NET Core Web API を呼び出す](xref:tutorials/web-api-javascript)」を参照してください。
@@ -498,15 +536,15 @@ Postman を使用して、To Do アイテムを削除します。
 
 ## <a name="prerequisites"></a>必須コンポーネント
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vs2019-2.2.md)]
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vsc-2.2.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/net-core-prereqs-mac-2.2.md)]
 
@@ -514,7 +552,7 @@ Postman を使用して、To Do アイテムを削除します。
 
 ## <a name="create-a-web-project"></a>Web プロジェクトの作成
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * **[ファイル]** メニューで、 **[新規作成]** > **[プロジェクト]** の順に選択します。
 * **[ASP.NET Core Web アプリケーション]** テンプレートを選択して、 **[次へ]** をクリックします。
@@ -523,7 +561,7 @@ Postman を使用して、To Do アイテムを削除します。
 
 ![VS の [新しいプロジェクト] ダイアログ](first-web-api/_static/vs.png)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * [統合ターミナル](https://code.visualstudio.com/docs/editor/integrated-terminal)を開きます。
 * ディレクトリ (`cd`) を、プロジェクト フォルダーを格納するフォルダーに変更します。
@@ -538,7 +576,7 @@ Postman を使用して、To Do アイテムを削除します。
 
 * ダイアログ ボックスで、プロジェクトに必要な資産を追加するかどうかを確認されたら、 **[はい]** を選択します。
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * **[ファイル]** > **[新しいソリューション]** の順に選択します。
 
@@ -560,17 +598,17 @@ Postman を使用して、To Do アイテムを削除します。
 
 プロジェクト テンプレートによって `values` API が作成されます。 ブラウザーから `Get` メソッドを呼び出して、アプリをテストします。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Ctrl キーを押しながら F5 キーを押して、アプリを実行します。 Visual Studio でブラウザーが起動し、`https://localhost:<port>/api/values` にアクセスします。ここで、`<port>` はランダムに選択されたポート番号になります。
 
 IIS Express 証明書を信頼するかどうかを確認するダイアログ ボックスが表示された場合は、 **[はい]** を選択します。 次に表示される **[セキュリティ警告]** ダイアログ ボックスで、 **[はい]** を選択します。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Ctrl キーを押しながら F5 キーを押して、アプリを実行します。 ブラウザーで、次の URL に移動します: [https://localhost:5001/api/values](https://localhost:5001/api/values)。
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 **[実行]**  >  **[デバッグの開始]** の順に選択してアプリを起動します。 Visual Studio for Mac でブラウザーが起動し、`https://localhost:<port>` にアクセスします。ここで、`<port>` はランダムに選択されたポート番号になります。 HTTP 404 (Not Found) エラーが返されます。 URL に `/api/values` を追加します (URL を `https://localhost:<port>/api/values` に変更します)。
 
@@ -586,7 +624,7 @@ Ctrl キーを押しながら F5 キーを押して、アプリを実行しま�
 
 *モデル*は、アプリが管理するデータを表すクラスのセットです。 このアプリのモデルは、単一の `TodoItem` クラスです。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * **ソリューション エクスプローラー**で、プロジェクトを右クリックします。 **[追加]**  >  **[新しいフォルダー]** の順に選択します。 フォルダーに「*Models*」という名前を付けます。
 
@@ -594,13 +632,13 @@ Ctrl キーを押しながら F5 キーを押して、アプリを実行しま�
 
 * テンプレート コードを次のコードに置き換えます。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * *Models* という名前のフォルダーを追加します。
 
 * 次のコードを使用して、`TodoItem` クラスを *Models* フォルダーに追加します。
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * プロジェクトを右クリックします。 **[追加]**  >  **[新しいフォルダー]** の順に選択します。 フォルダーに「*Models*」という名前を付けます。
 
@@ -624,11 +662,11 @@ Ctrl キーを押しながら F5 キーを押して、アプリを実行しま�
 
 *データベース コンテキスト*は、データ モデルに対して Entity Framework 機能を調整するメイン クラスです。 このクラスは `Microsoft.EntityFrameworkCore.DbContext` クラスから派生させて作成します。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * *Models* フォルダーを右クリックし、 **[追加]**  >  **[クラス]** の順にクリックします。 クラスに「*TodoContext*」という名前を付け、 **[追加]** をクリックします。
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 * *Models* フォルダーに `TodoContext` クラスを追加します。
 
@@ -654,7 +692,7 @@ ASP.NET Core で、サービス (DB コンテキストなど) を[依存関係�
 
 ## <a name="add-a-controller"></a>コントローラーの追加
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * *Controllers* フォルダーを右クリックします。
 * **[追加]** > **[新しい項目]** の順に選択します。
@@ -663,7 +701,7 @@ ASP.NET Core で、サービス (DB コンテキストなど) を[依存関係�
 
   ![[新しい項目の追加] ダイアログ。検索ボックスに「controller」と入力されています。Web API コントローラーが選択されています。](first-web-api/_static/new_controller.png)
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 * *Controllers* フォルダーで、「`TodoController`」という名前のクラスを作成します。
 
@@ -743,11 +781,11 @@ To Do アイテムを取得する API を指定するには、`TodoController` �
 * Postman を起動します。
 * **[SSL 証明書の確認]** を無効にします。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * **[ファイル]** > **[設定]** ( **[全般]** タブ) で、 **[SSL 証明書の確認]** を無効にします。
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 * **[Postman]**  >  **[ユーザー設定]** ( **[全般]** タブ) で、**SSL 証明書の検証**を無効にします。 あるいは、レンチを選択し、 **[設定]** を選択して、SSL 証明書の検証を無効にします。
 
@@ -918,7 +956,7 @@ To Do アイテムを削除するには、`DELETE` への AJAX 呼び出しで `
 
 ## <a name="additional-resources"></a>その他の技術情報
 
-[このチュートリアルのサンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-web-api/samples)します。 [ダウンロード方法](xref:index#how-to-download-a-sample)に関するページを参照してください。
+[このチュートリアルのサンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-web-api/samples)します。 [ダウンロード方法](xref:index#how-to-download-a-sample)に関するページを参照してください。
 
 詳細については、次のリソースを参照してください。
 

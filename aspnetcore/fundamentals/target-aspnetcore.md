@@ -9,11 +9,11 @@ no-loc:
 - Blazor
 uid: fundamentals/target-aspnetcore
 ms.openlocfilehash: 72096fc2f03033dfe8325b5129e074913a2fbd1f
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75463134"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78646688"
 ---
 # <a name="use-aspnet-core-apis-in-a-class-library"></a>クラス ライブラリで ASP.NET Core API を使用する
 
@@ -42,19 +42,19 @@ ASP.NET Core を参照するには、次の `<FrameworkReference>` 要素をプ�
 
 ASP.NET Core を参照するためのこの方法は、.NET Core 3.x を対象とするプロジェクトでのみサポートされます。
 
-## <a name="include-opno-locblazor-extensibility"></a>Blazor 拡張機能を含める
+## <a name="include-blazor-extensibility"></a>Blazor 拡張機能を組み込む
 
-Blazor は、WebAssembly (WASM) [ホスティング モデル](xref:blazor/hosting-models)と Server ホスティング モデルをサポートします。 特別な理由がない限り、[Razor コンポーネント](xref:blazor/components)は両方のホスティング モデルをサポートする必要があります。 Razor コンポーネント ライブラリは、[Microsoft.NET.Sdk.Razor SDK](xref:razor-pages/sdk) を使用する必要があります。
+Blazor では、WebAssembly (WASM) とサーバーの[ホスティング モデル](xref:blazor/hosting-models)がサポートされます。 特別な理由がない限り、[Razor コンポーネント](xref:blazor/components)は両方のホスティング モデルをサポートする必要があります。 Razor コンポーネント ライブラリは、[Microsoft.NET.Sdk.Razor SDK](xref:razor-pages/sdk) を使用する必要があります。
 
 ### <a name="support-both-hosting-models"></a>両方のホスティング モデルをサポートする
 
-[BlazorServer](xref:blazor/hosting-models#blazor-server) プロジェクトと [Blazor WASM](xref:blazor/hosting-models#blazor-webassembly)プロジェクトの両方で Razor コンポーネントの使用をサポートするには、ご使用のエディターに応じて次の手順を使用します。
+[Blazor サーバー](xref:blazor/hosting-models#blazor-server) プロジェクトと [Blazor WASM](xref:blazor/hosting-models#blazor-webassembly) プロジェクトの両方で Razor コンポーネントの使用をサポートするには、エディターに応じて次の手順を使用します。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 **Razor クラス ライブラリ** プロジェクト テンプレートを使用します。 このテンプレートの **[Support pages and views]\(ページとビューのサポート\)** チェックボックスの選択を解除する必要があります。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 統合ターミナルで次のコマンドを実行します。
 
@@ -62,7 +62,7 @@ Blazor は、WebAssembly (WASM) [ホスティング モデル](xref:blazor/hosti
 dotnet new razorclasslib
 ```
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 **Razor クラス ライブラリ** プロジェクト テンプレートを使用します。
 
@@ -82,7 +82,7 @@ dotnet new razorclasslib
 
 ### <a name="support-a-specific-hosting-model"></a>特定のホスティング モデルをサポートする
 
-1 つの Blazor ホスティング モデルだけをサポートするのは、あまり一般的ではありません。 たとえば、[Blazor Server](xref:blazor/hosting-models#blazor-server) プロジェクトでのみ Razor コンポーネントの使用をサポートするには、次の操作を行います。
+1 つの Blazor ホスティング モデルだけをサポートするのは、あまり一般的ではありません。 たとえば、[Blazor サーバー](xref:blazor/hosting-models#blazor-server) プロジェクトでのみ Razor コンポーネントの使用をサポートするには、次のようにします。
 
 * .NET Core 3.x を対象とします。
 * 共有フレームワークの `<FrameworkReference>` 要素を追加します。
@@ -114,11 +114,11 @@ Razor コンポーネントを含むライブラリの詳細については、�
 
 **Razor クラス ライブラリ** プロジェクト テンプレートは、.NET Core 3.x を対象とするプロジェクトについて、前述の要件を満たしています。 ご使用のエディターに応じて、次の手順を使用します。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 **Razor クラス ライブラリ** プロジェクト テンプレートを使用します。 このテンプレートの **[Support pages and views]\(ページとビューのサポート\)** チェックボックスをオンにする必要があります。
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 統合ターミナルで次のコマンドを実行します。
 
@@ -126,7 +126,7 @@ Razor コンポーネントを含むライブラリの詳細については、�
 dotnet new razorclasslib -s
 ```
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 現時点では、サポートされているプロジェクト テンプレートはありません。
 

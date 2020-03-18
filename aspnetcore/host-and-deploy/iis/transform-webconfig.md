@@ -1,22 +1,22 @@
 ---
 title: web.config を変換する
-author: guardrex
+author: rick-anderson
 description: ASP.NET Core アプリを発行するときに web.config ファイルを変換する方法について説明します。
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
 ms.date: 01/13/2020
 uid: host-and-deploy/iis/transform-webconfig
-ms.openlocfilehash: ef627de70c6aea44962d2187c4d401baab6557ae
-ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
+ms.openlocfilehash: 069b9bb516644a1a722235b33d4916460488ebf2
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/14/2020
-ms.locfileid: "75952039"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78646658"
 ---
 # <a name="transform-webconfig"></a>web.config を変換する
 
-作成者: [Vijay Ramakrishnan](https://github.com/vijayrkn)、[Luke Latham](https://github.com/guardrex)
+作成者: [Vijay Ramakrishnan](https://github.com/vijayrkn)
 
 次のものに基づいてアプリを発行する場合、*web.config* ファイルに対する変換を自動的に適用することができます。
 
