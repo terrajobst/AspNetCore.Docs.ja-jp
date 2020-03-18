@@ -5,12 +5,12 @@ description: 電子メールの確認とパスワードのリセットを使用�
 ms.author: riande
 ms.date: 03/11/2019
 uid: security/authentication/accconfirm
-ms.openlocfilehash: 49d3d214fd64edc5b17df2df929ddc3c2af47ede
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 3a6b0501d507929c9929207a7bb871b3b81b7cb8
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78654224"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511627"
 ---
 # <a name="account-confirmation-and-password-recovery-in-aspnet-core"></a>ASP.NET Core でのアカウントの確認とパスワードの回復
 
@@ -63,7 +63,7 @@ dotnet run
 
 #### <a name="configure-sendgrid-user-secrets"></a>SendGrid ユーザーシークレットの構成
 
-[シークレットマネージャーツール](xref:security/app-secrets)を使用して、`SendGridUser` と `SendGridKey` を設定します。 例 :
+[シークレットマネージャーツール](xref:security/app-secrets)を使用して、`SendGridUser` と `SendGridKey` を設定します。 次に例を示します。
 
 ```dotnetcli
 dotnet user-secrets set SendGridUser RickAndMSFT
@@ -219,7 +219,7 @@ Web アプリを実行し、アカウントの確認とパスワードの回復�
 
 ## <a name="prerequisites"></a>前提条件
 
-[.NET Core 2.2 SDK 以降](https://www.microsoft.com/net/download/all)
+[.NET Core 2.2 SDK 以降](https://dotnet.microsoft.com/download/dotnet-core)
 
 ## <a name="create-a-web--app-and-scaffold-identity"></a>Web アプリとスキャフォールディング Id を作成する
 
@@ -271,7 +271,7 @@ dotnet run
 
 #### <a name="configure-sendgrid-user-secrets"></a>SendGrid ユーザーシークレットの構成
 
-[シークレットマネージャーツール](xref:security/app-secrets)を使用して、`SendGridUser` と `SendGridKey` を設定します。 例 :
+[シークレットマネージャーツール](xref:security/app-secrets)を使用して、`SendGridUser` と `SendGridKey` を設定します。 次に例を示します。
 
 ```console
 C:/WebAppl>dotnet user-secrets set SendGridUser RickAndMSFT

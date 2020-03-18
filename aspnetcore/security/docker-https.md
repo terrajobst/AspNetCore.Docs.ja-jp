@@ -9,12 +9,12 @@ ms.date: 07/05/2019
 no-loc:
 - Let's Encrypt
 uid: security/docker-https
-ms.openlocfilehash: 2f338e8883ca926c0f9a7ab339f58b088151cc87
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: f2a615093e7b1190962bd1c6ecbcc63f65bfbe7e
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78653828"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511588"
 ---
 # <a name="hosting-aspnet-core-images-with-docker-over-https"></a>HTTPS 経由で Docker を使用して ASP.NET Core イメージをホストする
 
@@ -30,7 +30,7 @@ ms.locfileid: "78653828"
 
 ## <a name="prerequisites"></a>前提条件
 
-このドキュメントの一部の手順では、 [.Net Core 2.2 SDK](https://www.microsoft.com/net/download)以降が必要です。
+このドキュメントの一部の手順では、 [.Net Core 2.2 SDK](https://dotnet.microsoft.com/download)以降が必要です。
 
 ## <a name="certificates"></a>証明書
 

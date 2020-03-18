@@ -5,12 +5,12 @@ description: ASP.NET Core リポジトリの認証サンプルへのリンクを
 ms.author: riande
 ms.date: 01/31/2019
 uid: security/authentication/samples
-ms.openlocfilehash: 3d7e28f6e501bd8bd3908ca4b314a63cee52ebe3
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: b013d02a65e752bbb61a87a0bf502785125378a2
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78651656"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511614"
 ---
 # <a name="authentication-samples-for-aspnet-core"></a>ASP.NET Core の認証サンプル
 
@@ -32,7 +32,7 @@ ms.locfileid: "78651656"
 
 * [ブランチ](https://github.com/dotnet/AspNetCore)を選択してください。 たとえば、`Tag:v3.0.0` のように指定します。
 * [ASP.NET Core リポジトリ](https://github.com/dotnet/AspNetCore)を複製またはダウンロードします。
-* ASP.NET Core リポジトリの複製に一致する[.NET Core SDK](https://www.microsoft.com/net/download/all)バージョンがインストールされていることを確認します。
+* ASP.NET Core リポジトリの複製に一致する[.NET Core SDK](https://dotnet.microsoft.com/download/dotnet-core)バージョンがインストールされていることを確認します。
 * *AspNetCore/src/Security/samples*のサンプルに移動し、`dotnet run`でサンプルを実行します。
 
 ::: moniker-end
@@ -53,7 +53,7 @@ ms.locfileid: "78651656"
 
 * [ブランチ](https://github.com/dotnet/AspNetCore)を選択してください。 たとえば、`release/2.2` のように指定します。
 * [ASP.NET Core リポジトリ](https://github.com/dotnet/AspNetCore)を複製またはダウンロードします。
-* ASP.NET Core リポジトリの複製に一致する[.NET Core SDK](https://www.microsoft.com/net/download/all)バージョンがインストールされていることを確認します。
+* ASP.NET Core リポジトリの複製に一致する[.NET Core SDK](https://dotnet.microsoft.com/download/dotnet-core)バージョンがインストールされていることを確認します。
 * *AspNetCore/src/Security/samples*のサンプルに移動し、`dotnet run`でサンプルを実行します。
 
 ::: moniker-end
