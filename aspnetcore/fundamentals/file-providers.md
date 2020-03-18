@@ -1,22 +1,22 @@
 ---
 title: ASP.NET Core でのファイル プロバイダー
-author: guardrex
+author: rick-anderson
 description: ASP.NET Core がファイル プロバイダーを使用してファイル システムへのアクセスを抽象化する方法について説明します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 11/07/2019
 uid: fundamentals/file-providers
-ms.openlocfilehash: a454ca394546184968222ca2ca44d7159b19a12a
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: 34a48bbcf9ffb20bb61f89c80adedc1cc4783988
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944309"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78647048"
 ---
 # <a name="file-providers-in-aspnet-core"></a>ASP.NET Core でのファイル プロバイダー
 
-作成者: [Steve Smith](https://ardalis.com/)、[Luke Latham](https://github.com/guardrex)
+作成者: [Steve Smith](https://ardalis.com/)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -27,7 +27,7 @@ ASP.NET Core は、ファイル プロバイダーを使用してファイル �
 * [Razor](xref:mvc/views/razor) では、ファイル プロバイダーを使用してページとビューを見つけます。
 * .NET Core Tooling では、ファイル プロバイダーと glob パターンを使用して、公開するファイルを指定します。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/file-providers/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/file-providers/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="file-provider-interfaces"></a>ファイル プロバイダーのインターフェイス
 
@@ -163,7 +163,7 @@ Docker コンテナーやネットワーク共有など、一部のファイル 
 *directory* フォルダーのちょうど 1 つ下のレベルにあるディレクトリ内のすべての `appsettings.json` ファイルを照合します。
 
 **`directory/**/*.txt`**  
-*directory* フォルダーの下の任意の場所にある、*.txt* 拡張子を持つすべてのファイルを照合します。
+*directory* フォルダーの下の任意の場所にある、 *.txt* 拡張子を持つすべてのファイルを照合します。
 
 ::: moniker-end
 
@@ -176,7 +176,7 @@ ASP.NET Core は、ファイル プロバイダーを使用してファイル �
 * [Razor](xref:mvc/views/razor) では、ファイル プロバイダーを使用してページとビューを見つけます。
 * .NET Core Tooling では、ファイル プロバイダーと glob パターンを使用して、公開するファイルを指定します。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/file-providers/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/file-providers/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="file-provider-interfaces"></a>ファイル プロバイダーのインターフェイス
 
@@ -310,6 +310,6 @@ Docker コンテナーやネットワーク共有など、一部のファイル 
 *directory* フォルダーのちょうど 1 つ下のレベルにあるディレクトリ内のすべての `appsettings.json` ファイルを照合します。
 
 **`directory/**/*.txt`**  
-*directory* フォルダーの下の任意の場所にある、*.txt* 拡張子を持つすべてのファイルを照合します。
+*directory* フォルダーの下の任意の場所にある、 *.txt* 拡張子を持つすべてのファイルを照合します。
 
 ::: moniker-end

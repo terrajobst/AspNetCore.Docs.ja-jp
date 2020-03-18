@@ -1,7 +1,7 @@
 ---
-title: ASP.NET Core Blazor ホスティングモデルの構成
+title: ASP.NET Core Blazor ホスティング モデルの構成
 author: guardrex
-description: Razor コンポーネントを Razor Pages および MVC アプリに統合する方法など、Blazor ホスティングモデルの構成について説明します。
+description: Razor コンポーネントを Razor Pages および MVC アプリに統合する方法など、Blazor ホスティング モデルの構成について説明します。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
@@ -11,19 +11,19 @@ no-loc:
 - SignalR
 uid: blazor/hosting-model-configuration
 ms.openlocfilehash: bd44643877e45c5b48b0972bcc2f637fbc5d98f2
-ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
-ms.translationtype: MT
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/19/2020
-ms.locfileid: "77447036"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78646790"
 ---
-# <a name="aspnet-core-blazor-hosting-model-configuration"></a>ASP.NET Core Blazor ホスティングモデルの構成
+# <a name="aspnet-core-blazor-hosting-model-configuration"></a>ASP.NET Core Blazor ホスティング モデルの構成
 
-[Daniel Roth](https://github.com/danroth27)
+作成者: [Daniel Roth](https://github.com/danroth27)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-この記事では、ホスティングモデルの構成について説明します。
+この記事では、ホスティング モデルの構成について説明します。
 
 <!-- For future use:
 
@@ -33,11 +33,11 @@ ms.locfileid: "77447036"
 
 ## <a name="blazor-server"></a>Blazor サーバー
 
-### <a name="reflect-the-connection-state-in-the-ui"></a>UI の接続状態を反映します。
+### <a name="reflect-the-connection-state-in-the-ui"></a>UI に接続状態を反映する
 
-クライアントが接続が失われたことを検出すると、クライアントが再接続しようとしているときに、既定の UI がユーザーに表示されます。 再接続に失敗した場合、ユーザーには再試行のオプションが表示されます。
+接続が失われたことがクライアントで検出されると、クライアントによって再接続が試行される間、ユーザーに対して既定の UI が表示されます。 再接続に失敗した場合、ユーザーには再試行のオプションが表示されます。
 
-UI をカスタマイズするには、 *_Host*の `<body>` の `components-reconnect-modal` の `id` を持つ要素を定義します。
+UI をカスタマイズするには、 *_Host.cshtml* Razor ページの `<body>` に、`components-reconnect-modal` の `id` を持つ要素を定義します。
 
 ```cshtml
 <div id="components-reconnect-modal">
@@ -47,16 +47,16 @@ UI をカスタマイズするには、 *_Host*の `<body>` の `components-reco
 
 次の表では、`components-reconnect-modal` 要素に適用される CSS クラスについて説明します。
 
-| CSS クラス                       | &hellip; を示します。 |
+| CSS クラス                       | 示す内容&hellip; |
 | ------------------------------- | ----------------- |
-| `components-reconnect-show`     | 失われた接続。 クライアントが再接続しようとしています。 モーダルを表示します。 |
+| `components-reconnect-show`     | 接続が失われました。 クライアントによって再接続が試行されています。 モーダルを表示します。 |
 | `components-reconnect-hide`     | サーバーへのアクティブな接続が再確立されます。 モーダルを非表示にします。 |
-| `components-reconnect-failed`   | 再接続に失敗しました。ネットワーク障害が原因である可能性があります。 再接続を試みるには、`window.Blazor.reconnect()`を呼び出します。 |
-| `components-reconnect-rejected` | 再接続は拒否されました。 サーバーに到達したが接続を拒否したため、サーバー上のユーザーの状態が失われています。 アプリを再度読み込むには、`location.reload()`を呼び出します。 この接続状態は、次の場合に発生する可能性があります。<ul><li>サーバー側回線でクラッシュが発生した場合。</li><li>サーバーがユーザーの状態を削除するのに十分な時間、クライアントが接続されていません。 ユーザーが対話しているコンポーネントのインスタンスは破棄されます。</li><li>サーバーが再起動されたか、アプリのワーカープロセスがリサイクルされています。</li></ul> |
+| `components-reconnect-failed`   | 再接続に失敗しました。ネットワーク障害が原因である可能性があります。 再接続を試みるには、`window.Blazor.reconnect()` を呼び出します。 |
+| `components-reconnect-rejected` | 再接続が拒否されました。 サーバーに到達したが接続が拒否されたため、サーバー上のユーザーの状態が失われました。 アプリを再度読み込むには、`location.reload()` を呼び出します。 この接続状態は、次の場合に発生する可能性があります。<ul><li>サーバー側回線でクラッシュが発生した場合。</li><li>クライアントが長時間切断されているため、サーバーでユーザーの状態が削除された場合。 ユーザーが対話しているコンポーネントのインスタンスは破棄されます。</li><li>サーバーが再起動されたか、アプリのワーカー プロセスがリサイクルされた場合。</li></ul> |
 
 ### <a name="render-mode"></a>表示モード
 
-Blazor サーバーアプリは、サーバーへのクライアント接続が確立される前に、サーバー上の UI を事前に作成するために既定で設定されます。 これは *_Host. cshtml* Razor ページで設定されます。
+Blazor サーバー アプリは、サーバーへのクライアント接続が確立される前に、サーバー上の UI をプリレンダリングするよう既定で設定されます。 これは、 *_Host.cshtml* Razor ページで設定されます。
 
 ```cshtml
 <body>
@@ -68,30 +68,30 @@ Blazor サーバーアプリは、サーバーへのクライアント接続が�
 </body>
 ```
 
-コンポーネントの `RenderMode` を構成します。
+`RenderMode` により、コンポーネントに対して次の構成が行われます。
 
-* ページに prerendered ます。
-* は、ページに静的 HTML として表示されるか、ユーザーエージェントから Blazor アプリをブートストラップするために必要な情報が含まれている場合に表示されます。
+* ページにプリレンダリングするかどうか。
+* ページに静的 HTML としてレンダリングするかどうか。または、ユーザー エージェントから Blazor アプリをブートストラップするために必要な情報を含めるかどうか。
 
 | `RenderMode`        | 説明 |
 | ------------------- | ----------- |
-| `ServerPrerendered` | コンポーネントを静的 HTML にレンダリングし、Blazor サーバーアプリのマーカーを含めます。 ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。 |
-| `Server`            | Blazor サーバーアプリのマーカーをレンダリングします。 コンポーネントからの出力は含まれていません。 ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。 |
+| `ServerPrerendered` | コンポーネントを静的 HTML にレンダリングし、Blazor サーバー アプリのマーカーを含めます。 ユーザー エージェントの起動時に、Blazor アプリをブートストラップするためにこのマーカーが使用されます。 |
+| `Server`            | Blazor サーバー アプリのマーカーをレンダリングします。 コンポーネントからの出力は含まれません。 ユーザー エージェントの起動時に、Blazor アプリをブートストラップするためにこのマーカーが使用されます。 |
 | `Static`            | コンポーネントを静的 HTML にレンダリングします。 |
 
-静的な HTML ページからのサーバーコンポーネントのレンダリングはサポートされていません。
+静的 HTML ページからのサーバー コンポーネントのレンダリングはサポートされていません。
 
-### <a name="render-stateful-interactive-components-from-razor-pages-and-views"></a>Razor ページとビューからのステートフル対話型コンポーネントのレンダリング
+### <a name="render-stateful-interactive-components-from-razor-pages-and-views"></a>Razor ページおよびビューからステートフル対話型コンポーネントをレンダリングする
 
-ステートフル対話型コンポーネントは、Razor ページまたはビューに追加できます。
+Razor ページまたはビューには、ステートフル対話型コンポーネントを追加できます。
 
-ページまたはビューが表示される場合:
+ページまたはビューがレンダリングされると、次の処理が行われます。
 
-* コンポーネントは、ページまたはビューと prerendered ます。
-* プリレンダリングに使用される初期コンポーネントの状態は失われます。
-* SignalR 接続が確立されると、新しいコンポーネントの状態が作成されます。
+* ページまたはビューと共にコンポーネントがプリレンダリングされます。
+* プリレンダリングに使用された初期のコンポーネント状態は失われます。
+* SignalR 接続が確立されると、新しいコンポーネント状態が作成されます。
 
-次の Razor ページでは、`Counter` コンポーネントがレンダリングされます。
+次の Razor ページには、`Counter` コンポーネントがレンダリングされます。
 
 ```cshtml
 <h1>My Razor Page</h1>
@@ -105,9 +105,9 @@ Blazor サーバーアプリは、サーバーへのクライアント接続が�
 }
 ```
 
-### <a name="render-noninteractive-components-from-razor-pages-and-views"></a>Razor ページとビューからの非対話型コンポーネントのレンダリング
+### <a name="render-noninteractive-components-from-razor-pages-and-views"></a>Razor ページおよびビューから非対話型コンポーネントをレンダリングする
 
-次の Razor ページでは、フォームを使用して指定された初期値を使用して、`Counter` コンポーネントが静的にレンダリングされます。
+次の Razor ページには、フォームを使用して指定された初期値を使用して、`Counter` コンポーネントが静的にレンダリングされます。
 
 ```cshtml
 <h1>My Razor Page</h1>
@@ -126,13 +126,13 @@ Blazor サーバーアプリは、サーバーへのクライアント接続が�
 }
 ```
 
-`MyComponent` は静的にレンダリングされるため、コンポーネントを対話形式にすることはできません。
+`MyComponent` が静的にレンダリングされるため、コンポーネントを対話型にすることはできません。
 
-### <a name="configure-the-opno-locsignalr-client-for-opno-locblazor-server-apps"></a>Blazor Server アプリ用に SignalR クライアントを構成する
+### <a name="configure-the-opno-locsignalr-client-for-opno-locblazor-server-apps"></a>Blazor サーバー アプリ用に SignalR クライアントを構成する
 
-場合によっては、Blazor サーバーアプリによって使用される SignalR クライアントを構成する必要があります。 たとえば、接続の問題を診断するために SignalR クライアントのログ記録を構成することができます。
+場合によっては、Blazor サーバー アプリによって使用される SignalR クライアントを構成する必要があります。 たとえば、接続の問題を診断するために SignalR クライアントのログ記録を構成できます。
 
-*Pages/_Host cshtml*ファイルで SignalR クライアントを構成するには、次のようにします。
+*Pages/_Host* ファイルで SignalR クライアントを構成するには、次の手順に従います。
 
 * `blazor.server.js` スクリプトの `<script>` タグに `autostart="false"` 属性を追加します。
 * `Blazor.start` を呼び出し、SignalR ビルダーを指定する構成オブジェクトを渡します。

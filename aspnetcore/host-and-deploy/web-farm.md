@@ -1,22 +1,22 @@
 ---
 title: Web ファームでの ASP.NET Core のホスト
-author: guardrex
+author: rick-anderson
 description: Web ファーム環境での共有リソースを使用して、ASP.NET Core アプリのインスタンスを複数ホストする方法について説明します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 01/13/2020
 uid: host-and-deploy/web-farm
-ms.openlocfilehash: 5c13e9bc4c514f9b42871d55a430265c8ec2da23
-ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
+ms.openlocfilehash: 316c87e5f49593c05991a94cbe5e55d175a49bb3
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/14/2020
-ms.locfileid: "75951827"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78647342"
 ---
 # <a name="host-aspnet-core-in-a-web-farm"></a>Web ファームでの ASP.NET Core のホスト
 
-著者: [Luke Latham](https://github.com/guardrex)、[Chris Ross](https://github.com/Tratcher)
+作成者: [Chris Ross](https://github.com/Tratcher)
 
 "*Web ファーム*" とは、アプリのインスタンスを複数ホストする、2 つ以上の Web サーバー (または "*ノード*") のグループのことです。 ユーザーからの要求が Web ファームに到着すると、"*ロード バランサー*" が要求を Web ファームのノードに分散します。 Web ファームの利点は次のとおりです。
 
@@ -62,8 +62,8 @@ Web ファーム環境におけるキャッシュのメカニズムでは、Web 
 | -------- | ------------------- |
 | 認証 | データ保護 (<xref:security/data-protection/configuration/overview> を参照)。<br><br>詳細については、次のトピックを参照してください。 <xref:security/authentication/cookie> および <xref:security/cookie-sharing> |
 | Identity | 認証とデータベースの構成。<br><br>詳細については、「<xref:security/authentication/identity>」を参照してください。 |
-| セッション | データ保護 (暗号化された Cookie) (<xref:security/data-protection/configuration/overview> を参照) とキャッシュ (<xref:performance/caching/distributed> を参照)。<br><br>詳細については、[セッションとアプリの状態に関するページの「セッション状態」](xref:fundamentals/app-state#session-state)を参照してください。 |
-| TempData | データ保護 (暗号化された Cookie) (<xref:security/data-protection/configuration/overview> を参照) またはセッション ([セッションとアプリの状態に関する記事の「セッション状態」](xref:fundamentals/app-state#session-state)を参照)。<br><br>詳細については、[セッションとアプリの状態に関するページの「TempData」](xref:fundamentals/app-state#tempdata)を参照してください。 |
+| セッション | データ保護 (暗号化された Cookie) (<xref:security/data-protection/configuration/overview> を参照) とキャッシュ (<xref:performance/caching/distributed> を参照)。<br><br>詳細については、[セッションと状態の管理に関するページの「セッション状態」](xref:fundamentals/app-state#session-state)を参照してください。 |
+| TempData | データ保護 (暗号化された Cookie) (<xref:security/data-protection/configuration/overview> を参照) またはセッション ([セッションと状態の管理に関するページの「セッション状態」](xref:fundamentals/app-state#session-state)を参照)。<br><br>詳細については、[セッションと状態の管理に関するページの「TempData」](xref:fundamentals/app-state#tempdata)を参照してください。 |
 | 偽造防止 | データ保護 (<xref:security/data-protection/configuration/overview> を参照)。<br><br>詳細については、「<xref:security/anti-request-forgery>」を参照してください。 |
 
 ## <a name="troubleshoot"></a>トラブルシューティング
@@ -93,3 +93,4 @@ Web ファーム アプリが要求に応答できる場合は、ターミナル
 
 * [Windows でのカスタムのスクリプト拡張機能](/azure/virtual-machines/extensions/custom-script-windows) &ndash; Azure 仮想マシンにスクリプトをダウンロードして実行します。これは、デプロイ後の構成とソフトウェアのインストールに役立ちます。
 * <xref:host-and-deploy/proxy-load-balancer>
+ 

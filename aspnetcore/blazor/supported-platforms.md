@@ -1,7 +1,7 @@
 ---
-title: ASP.NET Core Blazor サポートされているプラットフォーム
+title: ASP.NET Core Blazor でサポートされているプラットフォーム
 author: guardrex
-description: ASP.NET Core Blazorでサポートされているプラットフォームについて説明します。
+description: ASP.NET Core Blazor でサポートされているプラットフォームについて学習します。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
@@ -11,13 +11,13 @@ no-loc:
 - SignalR
 uid: blazor/supported-platforms
 ms.openlocfilehash: 505974280b5c96ec2bcae42c6e076ab67a15bb07
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
-ms.translationtype: MT
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76160133"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78647108"
 ---
-# <a name="aspnet-core-opno-locblazor-supported-platforms"></a>ASP.NET Core Blazor サポートされているプラットフォーム
+# <a name="aspnet-core-blazor-supported-platforms"></a>ASP.NET Core Blazor でサポートされているプラットフォーム
 
 作成者: [Luke Latham](https://github.com/guardrex)
 
@@ -25,9 +25,9 @@ ms.locfileid: "76160133"
 
 ## <a name="browser-requirements"></a>ブラウザー要件
 
-### <a name="opno-locblazor-webassembly"></a>Blazor WebAssembly
+### <a name="blazor-webassembly"></a>Blazor WebAssembly
 
-| ブラウザー                          | Version               |
+| ブラウザー                          | バージョン               |
 | -------------------------------- | :-------------------: |
 | Microsoft Edge                   | [現在]               |
 | Mozilla Firefox                  | [現在]               |
@@ -35,11 +35,11 @@ ms.locfileid: "76160133"
 | Safari (iOS を含む)            | [現在]               |
 | Microsoft Internet Explorer      | サポートされていません&dagger; |
 
-&dagger;Microsoft Internet Explorer では、 [Webassembly](https://webassembly.org)サポートされていません。
+&dagger;Microsoft Internet Explorer は [WebAssembly](https://webassembly.org) をサポートしていません。
 
-### <a name="opno-locblazor-server"></a>Blazor サーバー
+### <a name="blazor-server"></a>Blazor サーバー
 
-| ブラウザー                          | Version    |
+| ブラウザー                          | バージョン    |
 | -------------------------------- | :--------: |
 | Microsoft Edge                   | [現在]    |
 | Mozilla Firefox                  | [現在]    |
@@ -47,7 +47,7 @@ ms.locfileid: "76160133"
 | Safari (iOS を含む)            | [現在]    |
 | Microsoft Internet Explorer      | 11&dagger; |
 
-&dagger;追加の polyfills が必要です (たとえば、 [Polyfill.io](https://polyfill.io/v3/)バンドルを使用して追加することができます)。
+&dagger;追加のポリフィルが必要です (たとえば、[Polyfill.io](https://polyfill.io/v3/) バンドルによって Promise を追加できます)。
 
 ## <a name="additional-resources"></a>その他の技術情報
 
