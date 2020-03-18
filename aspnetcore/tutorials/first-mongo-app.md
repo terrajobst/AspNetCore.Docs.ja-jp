@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc, seodec18
 ms.date: 08/17/2019
 uid: tutorials/first-mongo-app
-ms.openlocfilehash: 1425abbfc7bce6bdc445f4e41d9e004405c96e13
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 0e7881aa93953866c7a90eb62de64c4c000a866c
+ms.sourcegitcommit: 40dc9b00131985abcd99bd567647420d798e798a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880335"
+ms.lasthandoff: 03/09/2020
+ms.locfileid: "78935450"
 ---
 # <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>ASP.NET Core と MongoDB で Web API を作成する
 
@@ -31,24 +31,24 @@ ms.locfileid: "74880335"
 > * Web API から MongoDB CRUD 操作を実行する
 > * JSON のシリアル化のカスタマイズ
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-mongo-app/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-mongo-app/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="prerequisites"></a>必須コンポーネント
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * [.NET Core SDK 3.0 以降](https://www.microsoft.com/net/download/all)
 * [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) と **ASP.NET と Web 開発**ワークロード
 * [MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * [.NET Core SDK 3.0 以降](https://www.microsoft.com/net/download/all)
 * [Visual Studio Code](https://code.visualstudio.com/download)
-* [Visual Studio Code 用 C#](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
+* [Visual Studio Code 用 C#](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
 * [MongoDB](https://docs.mongodb.com/manual/administration/install-community/)
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * [.NET Core SDK 3.0 以降](https://www.microsoft.com/net/download/all)
 * [Visual Studio for Mac バージョン 7.7 以降](https://visualstudio.microsoft.com/downloads/)
@@ -147,9 +147,9 @@ Windows を使用する場合、MongoDB は既定では *C:\\Program Files\\Mong
 
 ## <a name="create-the-aspnet-core-web-api-project"></a>ASP.NET Core Web API プロジェクトを作成する
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-1. **[ファイル]** > **[新規]** > **[プロジェクト]** の順に移動します。
+1. **[ファイル]** > **[新規作成]** > **[プロジェクト]** の順にクリックします。
 1. **[ASP.NET Core Web アプリケーション]** プロジェクトの種類を選択し、 **[次へ]** を選択します。
 1. プロジェクトに *BooksApi* という名前を付けて、 **[作成]** を選択します。
 1. **[.NET Core]** ターゲット フレームワークと **[ASP.NET Core 3.0]** を選択します。 **[API]** プロジェクト テンプレートを選択し、 **[作成]** を選択します。
@@ -159,7 +159,7 @@ Windows を使用する場合、MongoDB は既定では *C:\\Program Files\\Mong
    Install-Package MongoDB.Driver -Version {VERSION}
    ```
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 1. コマンド シェルで次のコマンドを実行します。
 
@@ -177,9 +177,9 @@ Windows を使用する場合、MongoDB は既定では *C:\\Program Files\\Mong
    dotnet add BooksApi.csproj package MongoDB.Driver -v {VERSION}
    ```
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-1. **[ファイル]** > **[新しいソリューション]** > **[.NET Core]** > **[アプリ]** の順に移動します。
+1. **[ファイル]** > **[新しいソリューション]** > **[.NET Core]** > **[アプリ]** の順にクリックします。
 1. **[ASP.NET Core Web API]** C# プロジェクト テンプレートを選択し、 **[次へ]** を選択します。
 1. **[ターゲット フレームワーク]** ドロップダウン リストで **[.NET Core 3.0]** を選択し、 **[次へ]** を選択します。
 1. **[プロジェクト名]** に「*BooksApi*」と入力し、 **[作成]** を選択します。
@@ -240,7 +240,7 @@ Windows を使用する場合、MongoDB は既定では *C:\\Program Files\\Mong
 
 1. 次の強調表示されたコードを `Startup.ConfigureServices` に追加します。
 
-   [!code-csharp[](first-mongo-app/samples_snapshot/3.x/SampleApp/Startup.ConfigureServices.AddDbSettings.cs?highlight=3-7)]
+   [!code-csharp[](first-mongo-app/samples_snapshot/3.x/SampleApp/Startup.ConfigureServices.AddDbSettings.cs?highlight=3-8)]
 
    上のコードでは以下の操作が行われます。
 
@@ -348,7 +348,7 @@ Windows を使用する場合、MongoDB は既定では *C:\\Program Files\\Mong
 
 1. JSON.NET は ASP.NET 共有フレームワークから削除されています。 [Microsoft.AspNetCore.Mvc.NewtonsoftJson](https://nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson) へのパッケージ参照を追加します。
 
-1. `Startup.ConfigureServices` で、次の強調表示されたコードを `AddMvc` メソッド呼び出しにチェーンします。
+1. `Startup.ConfigureServices` で、次の強調表示されたコードを `AddControllers` メソッド呼び出しにチェーンします。
 
    [!code-csharp[](first-mongo-app/samples/3.x/SampleApp/Startup.cs?name=snippet_ConfigureServices&highlight=12)]
 
@@ -381,24 +381,24 @@ Windows を使用する場合、MongoDB は既定では *C:\\Program Files\\Mong
 > * Web API から MongoDB CRUD 操作を実行する
 > * JSON のシリアル化のカスタマイズ
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-mongo-app/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-mongo-app/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="prerequisites"></a>必須コンポーネント
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * [.NET Core SDK 2.2](https://www.microsoft.com/net/download/all)
 * [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) と **ASP.NET と Web 開発**ワークロード
 * [MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * [.NET Core SDK 2.2](https://www.microsoft.com/net/download/all)
 * [Visual Studio Code](https://code.visualstudio.com/download)
-* [Visual Studio Code 用 C#](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
+* [Visual Studio Code 用 C#](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
 * [MongoDB](https://docs.mongodb.com/manual/administration/install-community/)
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * [.NET Core SDK 2.2](https://www.microsoft.com/net/download/all)
 * [Visual Studio for Mac バージョン 7.7 以降](https://visualstudio.microsoft.com/downloads/)
@@ -497,9 +497,9 @@ Windows を使用する場合、MongoDB は既定では *C:\\Program Files\\Mong
 
 ## <a name="create-the-aspnet-core-web-api-project"></a>ASP.NET Core Web API プロジェクトを作成する
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-1. **[ファイル]** > **[新規]** > **[プロジェクト]** の順に移動します。
+1. **[ファイル]** > **[新規作成]** > **[プロジェクト]** の順にクリックします。
 1. **[ASP.NET Core Web アプリケーション]** プロジェクトの種類を選択し、 **[次へ]** を選択します。
 1. プロジェクトに *BooksApi* という名前を付けて、 **[作成]** を選択します。
 1. **[.NET Core]** ターゲット フレームワークと **[ASP.NET Core 2.2]** を選択します。 **[API]** プロジェクト テンプレートを選択し、 **[作成]** を選択します。
@@ -509,7 +509,7 @@ Windows を使用する場合、MongoDB は既定では *C:\\Program Files\\Mong
    Install-Package MongoDB.Driver -Version {VERSION}
    ```
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 1. コマンド シェルで次のコマンドを実行します。
 
@@ -527,9 +527,9 @@ Windows を使用する場合、MongoDB は既定では *C:\\Program Files\\Mong
    dotnet add BooksApi.csproj package MongoDB.Driver -v {VERSION}
    ```
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
-1. **[ファイル]** > **[新しいソリューション]** > **[.NET Core]** > **[アプリ]** の順に移動します。
+1. **[ファイル]** > **[新しいソリューション]** > **[.NET Core]** > **[アプリ]** の順にクリックします。
 1. **[ASP.NET Core Web API]** C# プロジェクト テンプレートを選択し、 **[次へ]** を選択します。
 1. **[ターゲット フレームワーク]** ドロップダウン リストで **[.NET Core 2.2]** を選択し、 **[次へ]** を選択します。
 1. **[プロジェクト名]** に「*BooksApi*」と入力し、 **[作成]** を選択します。

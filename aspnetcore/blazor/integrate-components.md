@@ -1,7 +1,7 @@
 ---
 title: ASP.NET Core Razor コンポーネントを Razor Pages と MVC アプリに統合する
 author: guardrex
-description: Blazor アプリのコンポーネントと DOM 要素のデータバインディングのシナリオについて説明します。
+description: Blazor アプリのコンポーネントと DOM 要素のデータ バインディングのシナリオについて説明します。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
@@ -11,23 +11,23 @@ no-loc:
 - SignalR
 uid: blazor/integrate-components
 ms.openlocfilehash: de1a37ffd9456c956e3d84fcc69431ecb794513c
-ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
-ms.translationtype: MT
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/19/2020
-ms.locfileid: "77453212"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78649082"
 ---
 # <a name="integrate-aspnet-core-razor-components-into-razor-pages-and-mvc-apps"></a>ASP.NET Core Razor コンポーネントを Razor Pages と MVC アプリに統合する
 
-[Luke Latham](https://github.com/guardrex)および[Daniel Roth](https://github.com/danroth27)
+作成者: [Luke Latham](https://github.com/guardrex)、[Daniel Roth](https://github.com/danroth27)
 
-Razor コンポーネントは Razor Pages と MVC アプリに統合できます。 ページまたはビューが表示されると、コンポーネントを同時に prerendered することができます。
+Razor コンポーネントは、Razor Pages と MVC アプリに統合できます。 ページまたはビューがレンダリングされるときには、コンポーネントを同時に事前レンダリングすることができます。
 
-## <a name="prepare-the-app-to-use-components-in-pages-and-views"></a>ページおよびビューでコンポーネントを使用するようにアプリを準備する
+## <a name="prepare-the-app-to-use-components-in-pages-and-views"></a>ページとビューでコンポーネントを使用するためにアプリを準備する
 
-既存の Razor Pages または MVC アプリでは、Razor コンポーネントをページとビューに統合できます。
+既存の Razor Pages や MVC アプリでは、Razor コンポーネントをページとビューに統合できます。
 
-1. アプリのレイアウトファイル ( *_Layout*) で、次のようにします。
+1. アプリのレイアウト ファイル ( *_Layout.cshtml*) で次のことを行います。
 
    * 次の `<base>` タグを `<head>` 要素に追加します。
 
@@ -35,19 +35,19 @@ Razor コンポーネントは Razor Pages と MVC アプリに統合できま�
      <base href="~/" />
      ```
 
-     前の例の `href` 値 (*アプリのベースパス*) は、アプリがルート URL パス (`/`) に存在することを前提としています。 アプリがサブアプリケーションである場合は、<xref:host-and-deploy/blazor/index#app-base-path> に関する記事の「*アプリの基本パス*」セクションのガイダンスに従ってください。
+     前の例の `href` 値 (*アプリ ベースのパス*) は、アプリがルート URL パス (`/`) に置かれていることを前提としています。 アプリがサブアプリケーションになっている場合は、記事 <xref:host-and-deploy/blazor/index#app-base-path> の「*アプリのベース パス*」セクションのガイダンスに従ってください。
 
-     *_Layout*のファイルは、MVC アプリの Razor Pages アプリまたは*Views/shared*フォルダー内の*Pages/shared*フォルダーにあります。
+     *_Layout.cshtml* ファイルは、Razor Pages アプリの *Pages/Shared* フォルダーまたは MVC アプリの *Views/Shared* フォルダーにあります。
 
-   * Blazor スクリプトの `<script>` タグを、終了 `</body>` タグの直前に追加*し*ます。
+   * *blazor.server.js* スクリプトの `<script>` タグを、終了 `</body>` タグの直前に追加します。
 
      ```html
      <script src="_framework/blazor.server.js"></script>
      ```
 
-     フレームワークによって、 *blazor*スクリプトがアプリに追加されます。 アプリにスクリプトを手動で追加する必要はありません。
+     フレームワークによって *blazor.server.js* スクリプトがアプリに追加されます。 手動でアプリにスクリプトを追加する必要はありません。
 
-1. 次の内容を使用して、プロジェクトのルートフォルダーに *_Imports razor*ファイルを追加します (最後の名前空間、`MyAppNamespace`をアプリの名前空間に変更します)。
+1. 次の内容を含む *_Imports.razor* ファイルをプロジェクトのルート フォルダーに追加します (最後の名前空間 `MyAppNamespace` をアプリの名前空間に変更します)。
 
    ```razor
    @using System.Net.Http
@@ -60,29 +60,29 @@ Razor コンポーネントは Razor Pages と MVC アプリに統合できま�
    @using MyAppNamespace
    ```
 
-1. `Startup.ConfigureServices`で、Blazor Server サービスを登録します。
+1. `Startup.ConfigureServices` で、Blazor Server サービスを登録します。
 
    ```csharp
    services.AddServerSideBlazor();
    ```
 
-1. `Startup.Configure`で、`app.UseEndpoints`に Blazor Hub エンドポイントを追加します。
+1. `Startup.Configure` で、Blazor Hub エンドポイントを `app.UseEndpoints` に追加します。
 
    ```csharp
    endpoints.MapBlazorHub();
    ```
 
-1. コンポーネントを任意のページまたはビューに統合します。 詳細については、「[ページまたはビューからのコンポーネントのレンダリング](#render-components-from-a-page-or-view)」を参照してください。
+1. コンポーネントを任意のページまたはビューに統合します。 詳細については、「[ページまたはビューからコンポーネントをレンダリングする](#render-components-from-a-page-or-view)」セクションを参照してください。
 
 ## <a name="use-routable-components-in-a-razor-pages-app"></a>Razor Pages アプリでルーティング可能なコンポーネントを使用する
 
-*このセクションでは、ユーザー要求から直接ルーティング可能なコンポーネントを追加する方法について説明します。*
+*ここは、ユーザー要求から直接ルーティング可能なコンポーネントを追加することに関係のあるセクションです。*
 
-Razor Pages アプリでルーティング可能な Razor コンポーネントをサポートするには:
+Razor Pages アプリでルーティング可能な Razor コンポーネントをサポートするには、次のようにします。
 
-1. 「[ページとビューでコンポーネントを使用するようにアプリを準備する](#prepare-the-app-to-use-components-in-pages-and-views)」セクションのガイダンスに従ってください。
+1. 「[ページとビューでコンポーネントを使用するためにアプリを準備する](#prepare-the-app-to-use-components-in-pages-and-views)」セクションのガイダンスに従ってください。
 
-1. 次のコンテンツを使用して、プロジェクトルートに*アプリケーションの razor*ファイルを追加します。
+1. 次の内容の *App.razor* ファイルをプロジェクト ルートに追加します。
 
    ```razor
    @using Microsoft.AspNetCore.Components.Routing
@@ -98,7 +98,7 @@ Razor Pages アプリでルーティング可能な Razor コンポーネント�
    </Router>
    ```
 
-1. 次の内容を含む *_Host*ファイルを*Pages*フォルダーに追加します。
+1. 次の内容の *_Host.cshtml* ファイルを *Pages* フォルダーに追加します。
 
    ```cshtml
    @page "/blazor"
@@ -111,9 +111,9 @@ Razor Pages アプリでルーティング可能な Razor コンポーネント�
    </app>
    ```
 
-   コンポーネントは、そのレイアウトのために共有 *_Layout*ファイルを使用します。
+   コンポーネントは、そのレイアウトで共有される *_Layout.cshtml* ファイルを使用します。
 
-1. `Startup.Configure`のエンドポイント構成に *_Host*の、次のように低優先度のルートを追加します。
+1. *_Host.cshtml* ページの優先度が低いルートを、`Startup.Configure` 内のエンドポイント構成に追加します。
 
    ```csharp
    app.UseEndpoints(endpoints =>
@@ -134,17 +134,17 @@ Razor Pages アプリでルーティング可能な Razor コンポーネント�
    ...
    ```
 
-   名前空間の詳細については、「[コンポーネントの名前空間](#component-namespaces)」を参照してください。
+   名前空間の詳細については、「[コンポーネントの名前空間](#component-namespaces)」セクションを参照してください。
 
 ## <a name="use-routable-components-in-an-mvc-app"></a>MVC アプリでルーティング可能なコンポーネントを使用する
 
-*このセクションでは、ユーザー要求から直接ルーティング可能なコンポーネントを追加する方法について説明します。*
+*ここは、ユーザー要求から直接ルーティング可能なコンポーネントを追加することに関係のあるセクションです。*
 
 MVC アプリでルーティング可能な Razor コンポーネントをサポートするには、次のようにします。
 
-1. 「[ページとビューでコンポーネントを使用するようにアプリを準備する](#prepare-the-app-to-use-components-in-pages-and-views)」セクションのガイダンスに従ってください。
+1. 「[ページとビューでコンポーネントを使用するためにアプリを準備する](#prepare-the-app-to-use-components-in-pages-and-views)」セクションのガイダンスに従ってください。
 
-1. 次の内容を含むプロジェクトのルートに、*アプリケーションの razor*ファイルを追加します。
+1. 次の内容の *App.razor* ファイルを、プロジェクトのルートに追加します。
 
    ```razor
    @using Microsoft.AspNetCore.Components.Routing
@@ -160,7 +160,7 @@ MVC アプリでルーティング可能な Razor コンポーネントをサポ
    </Router>
    ```
 
-1. 次の内容を含む *_Host*ファイルを*Views/Home*フォルダーに追加します。
+1. 次の内容の *_Host.cshtml* ファイルを *Views/Home* フォルダーに追加します。
 
    ```cshtml
    @{
@@ -172,7 +172,7 @@ MVC アプリでルーティング可能な Razor コンポーネントをサポ
    </app>
    ```
 
-   コンポーネントは、そのレイアウトのために共有 *_Layout*ファイルを使用します。
+   コンポーネントは、そのレイアウトで共有される *_Layout.cshtml* ファイルを使用します。
 
 1. Home コントローラーにアクションを追加します。
 
@@ -183,7 +183,7 @@ MVC アプリでルーティング可能な Razor コンポーネントをサポ
    }
    ```
 
-1. `Startup.Configure`のエンドポイント構成に *_Host*のビューを返すコントローラーアクションの優先度の低いルートを追加します。
+1. `Startup.Configure` 内のエンドポイント構成に *_Host.cshtml* ビューを返すコントローラー アクションのために、優先度が低いルートを追加します。
 
    ```csharp
    app.UseEndpoints(endpoints =>
@@ -194,7 +194,7 @@ MVC アプリでルーティング可能な Razor コンポーネントをサポ
    });
    ```
 
-1. *ページ*フォルダーを作成し、ルーティング可能なコンポーネントをアプリに追加します。 次に例を示します。
+1. *Pages* フォルダーを作成し、アプリにルーティング可能なコンポーネントを追加します。 次に例を示します。
 
    ```razor
    @page "/counter"
@@ -204,52 +204,52 @@ MVC アプリでルーティング可能な Razor コンポーネントをサポ
    ...
    ```
 
-   名前空間の詳細については、「[コンポーネントの名前空間](#component-namespaces)」を参照してください。
+   名前空間の詳細については、「[コンポーネントの名前空間](#component-namespaces)」セクションを参照してください。
 
 ## <a name="component-namespaces"></a>コンポーネントの名前空間
 
-カスタムフォルダーを使用してアプリのコンポーネントを保持する場合は、フォルダーを表す名前空間をページ/ビューまたは *_ViewImports*ファイルに追加します。 次の例では
+カスタム フォルダーを使用してアプリのコンポーネントを保持する場合は、フォルダーを表す名前空間を、ページまたはビューのいずれかに追加するか、 *_ViewImports.cshtml* ファイルに追加します。 次に例を示します。
 
 * `MyAppNamespace` をアプリの名前空間に変更します。
-* *コンポーネントという名前*のフォルダーを使用してコンポーネントを保持していない場合は、コンポーネントが存在するフォルダーに `Components` を変更します。
+* コンポーネントを保持するために *Components* という名前のフォルダーを使用していない場合は、`Components` を、コンポーネントが置かれているフォルダーに変更します。
 
 ```cshtml
 @using MyAppNamespace.Components
 ```
 
-*_ViewImports*のファイルは、Razor Pages アプリの*Pages*フォルダーまたは MVC アプリの*Views*フォルダーにあります。
+*_ViewImports.cshtml* ファイルは、Razor Pages アプリの *Pages* フォルダーまたは MVC アプリの *Views* フォルダーにあります。
 
-詳細については、<xref:blazor/components#import-components> を参照してください。
+詳細については、「<xref:blazor/components#import-components>」を参照してください。
 
-## <a name="render-components-from-a-page-or-view"></a>ページまたはビューからのコンポーネントのレンダリング
+## <a name="render-components-from-a-page-or-view"></a>ページまたはビューからコンポーネントをレンダリングする
 
-*このセクションでは、コンポーネントをユーザー要求から直接ルーティングできないページまたはビューに追加する方法について説明します。*
+*これは、コンポーネントをユーザー要求から直接ルーティングできないページまたはビューにコンポーネントを追加することに関係するセクションです。*
 
-ページまたはビューからコンポーネントを表示するには、`Component` タグヘルパーを使用します。
+ページまたはビューからコンポーネントをレンダリングするには、`Component` タグ ヘルパーを使用します。
 
 ```cshtml
 <component type="typeof(Counter)" render-mode="ServerPrerendered" 
     param-IncrementAmount="10" />
 ```
 
-パラメーターの型は、JSON シリアル化可能である必要があります。これは通常、型が既定のコンストラクターと設定可能なプロパティを持つ必要があることを意味します。 たとえば、`IncrementAmount` の型は `int`であるため、`IncrementAmount` の値を指定できます。これは、JSON シリアライザーによってサポートされるプリミティブ型です。
+パラメーターは、JSON のシリアル化可能な型である必要があります。これは通常、その型に既定のコンストラクターと設定できるプロパティがある必要があることを意味します。 たとえば、`IncrementAmount` の型は `int`であるため、`IncrementAmount` の値を指定できます。これは、JSON シリアライザーによってサポートされているプリミティブ型です。
 
-コンポーネントの `RenderMode` を構成します。
+`RenderMode` によって、コンポーネントに対して以下の構成が行われます。
 
-* ページに prerendered ます。
-* は、ページに静的 HTML として表示されるか、ユーザーエージェントから Blazor アプリをブートストラップするために必要な情報が含まれている場合に表示されます。
+* ページに事前レンダリングするかどうか。
+* ページに静的 HTML としてレンダリングするかどうか。または、ユーザー エージェントから Blazor アプリをブートストラップするために必要な情報が含まれているかどうか。
 
-| `RenderMode`        | Description |
+| `RenderMode`        | 説明 |
 | ------------------- | ----------- |
-| `ServerPrerendered` | コンポーネントを静的 HTML にレンダリングし、Blazor サーバーアプリのマーカーを含めます。 ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。 |
-| `Server`            | Blazor サーバーアプリのマーカーをレンダリングします。 コンポーネントからの出力は含まれていません。 ユーザーエージェントが起動すると、このマーカーは Blazor アプリをブートストラップするために使用されます。 |
+| `ServerPrerendered` | コンポーネントを静的 HTML にレンダリングし、Blazor Server アプリのマーカーを含めます。 このマーカーは、ユーザー エージェントの起動時に Blazor アプリをブートストラップするために使用されます。 |
+| `Server`            | Blazor Server アプリのマーカーをレンダリングします。 コンポーネントからの出力は含められません。 このマーカーは、ユーザー エージェントの起動時に Blazor アプリをブートストラップするために使用されます。 |
 | `Static`            | コンポーネントを静的 HTML にレンダリングします。 |
 
-ページとビューはコンポーネントを使用できますが、逆の場合は真実ではありません。 コンポーネントでは、ビューおよびページ固有のシナリオ (部分ビューやセクションなど) を使用できません。 コンポーネントの部分ビューからロジックを使用するには、部分ビューのロジックをコンポーネントにします。
+ページとビューはコンポーネントを使用できますが、逆のことはできません。 コンポーネントでは、ビュー固有のシナリオやページ固有のシナリオ (部分ビューや部分セクションなど) を使用できません。 コンポーネントの部分ビューにあるロジックを使用するには、部分ビューのロジックを要素としてコンポーネントに取り入れます。
 
-静的な HTML ページからのサーバーコンポーネントのレンダリングはサポートされていません。
+静的 HTML ページからのサーバー コンポーネントのレンダリングは、サポートされていません。
 
-コンポーネントのレンダリング方法、コンポーネントの状態、および `Component` タグヘルパーの詳細については、次の記事を参照してください。
+コンポーネントがどのようにレンダリングされるか、コンポーネントの状態、および `Component` タグ ヘルパーの詳細については、以下の記事を参照してください。
 
 * <xref:blazor/hosting-models>
 * <xref:blazor/hosting-model-configuration>

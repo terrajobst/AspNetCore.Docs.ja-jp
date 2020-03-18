@@ -1,22 +1,22 @@
 ---
 title: ASP.NET Core の URL リライト ミドルウェア
-author: guardrex
+author: rick-anderson
 description: ASP.NET Core アプリケーションの URL リライト ミドルウェアを使用した URL の書き換えとリダイレクトについて説明します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 08/16/2019
 uid: fundamentals/url-rewriting
-ms.openlocfilehash: e284d2172af723bb80a7be9f6e6f1a87ebe5208e
-ms.sourcegitcommit: 41f2c1a6b316e6e368a4fd27a8b18d157cef91e1
+ms.openlocfilehash: 7d63cf381f1d8a19ed4fb789348e36f94304ad63
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/21/2019
-ms.locfileid: "69886504"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78650474"
 ---
 # <a name="url-rewriting-middleware-in-aspnet-core"></a>ASP.NET Core の URL リライト ミドルウェア
 
-作成者: [Luke Latham](https://github.com/guardrex) および [Mikael Mengistu](https://github.com/mikaelm12)
+作成者: [Mikael Mengistu](https://github.com/mikaelm12)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -35,7 +35,7 @@ URL の書き換えは、1 つまたは複数の事前定義された規則に�
 > [!NOTE]
 > URL の書き換えによってアプリのパフォーマンスが低下することがあります。 可能であれば、ルールの複雑さと数を制限します。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/url-rewriting/samples/)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/url-rewriting/samples/)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="url-redirect-and-url-rewrite"></a>URL リダイレクトと URL 書き換え
 
@@ -65,7 +65,7 @@ URL の書き換えは、1 つまたは複数の事前定義された規則に�
 
 ## <a name="url-rewriting-sample-app"></a>URL リライト サンプル アプリ
 
-[サンプル アプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/url-rewriting/samples/)を使用して、URL リライト ミドルウェアの機能を調べることができます。 そのアプリは、リダイレクトと書き換えのルールを適用し、複数のシナリオについて、リダイレクトされた URL または書き換えられた URL を表示します。
+[サンプル アプリ](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/url-rewriting/samples/)を使用して、URL リライト ミドルウェアの機能を調べることができます。 そのアプリは、リダイレクトと書き換えのルールを適用し、複数のシナリオについて、リダイレクトされた URL または書き換えられた URL を表示します。
 
 ## <a name="when-to-use-url-rewriting-middleware"></a>URL リライト ミドルウェアを使用する状況
 
@@ -197,7 +197,7 @@ URL 書き換えのルールを作成するには、<xref:Microsoft.AspNetCore.R
 | パス                              | 一致したもの |
 | --------------------------------- | :---: |
 | `/rewrite-rule/1234/5678`         | はい   |
-| `/my-cool-rewrite-rule/1234/5678` | ×    |
+| `/my-cool-rewrite-rule/1234/5678` | いいえ    |
 | `/anotherrewrite-rule/1234/5678`  | いいえ    |
 
 式の `^rewrite-rule/` に続く部分に、2 つのキャプチャ グループ `(\d+)/(\d+)` があります。 `\d` は、*1 桁 (数字) に一致する*ことを示します。 プラス記号 (`+`) は、*直前の 1 つ以上の文字に一致する*ことを意味します。 そのため、URL は、数字とその後に続くスラッシュ、さらにその後に続く別の数字を含んでいる必要があります。 これらのキャプチャ グループが `$1` および `$2` として書き換えられた URL に挿入されます。 書き換えルールの置換文字列は、クエリ文字列にキャプチャされたグループを配置します。 `/rewrite-rule/1234/5678` の要求されたパスは、`/rewritten?var1=1234&var2=5678` でリソースを取得するように書き換えられます。 クエリ文字列が元の要求に存在する場合、URL が書き換えられるときに保持されます。
@@ -387,7 +387,7 @@ URL の書き換えは、1 つまたは複数の事前定義された規則に�
 > [!NOTE]
 > URL の書き換えによってアプリのパフォーマンスが低下することがあります。 可能であれば、ルールの複雑さと数を制限します。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/url-rewriting/samples/)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/url-rewriting/samples/)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="url-redirect-and-url-rewrite"></a>URL リダイレクトと URL 書き換え
 
@@ -417,7 +417,7 @@ URL の書き換えは、1 つまたは複数の事前定義された規則に�
 
 ## <a name="url-rewriting-sample-app"></a>URL リライト サンプル アプリ
 
-[サンプル アプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/url-rewriting/samples/)を使用して、URL リライト ミドルウェアの機能を調べることができます。 そのアプリは、リダイレクトと書き換えのルールを適用し、複数のシナリオについて、リダイレクトされた URL または書き換えられた URL を表示します。
+[サンプル アプリ](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/url-rewriting/samples/)を使用して、URL リライト ミドルウェアの機能を調べることができます。 そのアプリは、リダイレクトと書き換えのルールを適用し、複数のシナリオについて、リダイレクトされた URL または書き換えられた URL を表示します。
 
 ## <a name="when-to-use-url-rewriting-middleware"></a>URL リライト ミドルウェアを使用する状況
 
@@ -551,7 +551,7 @@ URL 書き換えのルールを作成するには、<xref:Microsoft.AspNetCore.R
 | パス                              | 一致したもの |
 | --------------------------------- | :---: |
 | `/rewrite-rule/1234/5678`         | はい   |
-| `/my-cool-rewrite-rule/1234/5678` | ×    |
+| `/my-cool-rewrite-rule/1234/5678` | いいえ    |
 | `/anotherrewrite-rule/1234/5678`  | いいえ    |
 
 式の `^rewrite-rule/` に続く部分に、2 つのキャプチャ グループ `(\d+)/(\d+)` があります。 `\d` は、*1 桁 (数字) に一致する*ことを示します。 プラス記号 (`+`) は、*直前の 1 つ以上の文字に一致する*ことを意味します。 そのため、URL は、数字とその後に続くスラッシュ、さらにその後に続く別の数字を含んでいる必要があります。 これらのキャプチャ グループが `$1` および `$2` として書き換えられた URL に挿入されます。 書き換えルールの置換文字列は、クエリ文字列にキャプチャされたグループを配置します。 `/rewrite-rule/1234/5678` の要求されたパスは、`/rewritten?var1=1234&var2=5678` でリソースを取得するように書き換えられます。 クエリ文字列が元の要求に存在する場合、URL が書き換えられるときに保持されます。

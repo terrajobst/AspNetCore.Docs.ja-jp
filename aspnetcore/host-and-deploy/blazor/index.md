@@ -5,17 +5,17 @@ description: Blazor アプリをホストおよび展開する方法を説明し
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 03/11/2020
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/index
-ms.openlocfilehash: 238e7fc8f8d64c7847dc8847fb66e22442a3c8e0
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: ddf70da29a82d462422c1bdf74ff45b92bb10b56
+ms.sourcegitcommit: 5bdc54162d7dea8d9fa54ac3055678db23586af1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78644708"
+ms.lasthandoff: 03/17/2020
+ms.locfileid: "79434266"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor"></a>ASP.NET Core Blazor のホストと展開
 
@@ -45,7 +45,12 @@ dotnet publish -c Release
 
 アプリを発行すると、プロジェクトの依存関係の[復元](/dotnet/core/tools/dotnet-restore)がトリガーされ、展開されるアセットを作成する前にプロジェクトが[ビルド](/dotnet/core/tools/dotnet-build)されます。 ビルド プロセスの一環として、アプリのダウンロード サイズを縮小し読み込み時間を短縮するため、未使用のメソッドおよびアセンブリが削除されます。
 
-Blazor WebAssembly アプリは、 */bin/Release/{ターゲット フレームワーク}/publish/{アセンブリ名}/dist* フォルダーに発行されます。 Blazor サーバー アプリは、 */bin/Release/{ターゲット フレームワーク}/publish* フォルダーに発行されます。
+発行場所:
+
+* Blazor WebAssembly
+  * スタンドアロン &ndash; アプリは " */bin/Release/{ターゲット フレームワーク}/publish/wwwroot*" フォルダーに発行されます。 アプリを静的サイトとして展開するには、*wwwroot* フォルダーの内容を静的サイトのホストにコピーします。
+  * ホステッド &ndash; クライアント Blazor WebAssembly アプリは、サーバ ーアプリの他の静的な Web アセットと共に、サーバー アプリの " */bin/Release/{ターゲット フレームワーク}/publish/wwwroot*" フォルダーに発行されます。 *publish* フォルダーの内容をホストに展開します。
+* Blazor サーバー &ndash; アプリは " */bin/Release/{ターゲット フレームワーク}/publish*" フォルダーに発行されます。 *publish* フォルダーの内容をホストに展開します。
 
 フォルダー内のアセットは、Web サーバーに展開されます。 展開のプロセスが手動であるか自動であるかは、ご使用の展開ツールによって異なります。
 

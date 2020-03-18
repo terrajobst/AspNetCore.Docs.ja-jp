@@ -9,11 +9,11 @@ products:
 - vs
 urlFragment: aspnetcore-webapi-mongodb
 ms.openlocfilehash: 01f9cf237dcf2a9b95c181c2cb87ef9f59102244
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74881168"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78649142"
 ---
 # <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>ASP.NET Core と MongoDB で Web API を作成する
 
@@ -124,7 +124,7 @@ Windows を使用する場合、MongoDB は既定では *C:\\Program Files\\Mong
 
 ## <a name="create-the-aspnet-core-web-api-project"></a>ASP.NET Core Web API プロジェクトを作成する
 
-1. **[ファイル]**  >  **[新規作成]**  >  **[プロジェクト]** に移動します。
+1. **[ファイル]**  >  **[新規]**  >  **[プロジェクト]** の順に移動します。
 1. **[ASP.NET Core Web アプリケーション]** プロジェクトの種類を選択し、 **[次へ]** を選択します。
 1. プロジェクトに *BooksApi* という名前を付けて、 **[作成]** を選択します。
 1. **[.NET Core]** ターゲット フレームワークと **[ASP.NET Core 3.0]** を選択します。 **[API]** プロジェクト テンプレートを選択し、 **[作成]** を選択します。

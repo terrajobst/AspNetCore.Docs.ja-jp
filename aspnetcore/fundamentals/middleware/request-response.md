@@ -7,12 +7,12 @@ ms.author: jukotali
 ms.custom: mvc
 ms.date: 08/29/2019
 uid: fundamentals/middleware/request-response
-ms.openlocfilehash: 5e531c0ce0ed48097054fd81ddc3655a66cc7c5f
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: b473fa02e1d23f02bc5d2e15fa54ab7b1dbbb17c
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081680"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78650834"
 ---
 # <a name="request-and-response-operations-in-aspnet-core"></a>ASP.NET Core での要求と応答の操作
 
@@ -22,7 +22,7 @@ ms.locfileid: "71081680"
 
 要求と応答の本文には 2 つの抽象化があります: <xref:System.IO.Stream> と <xref:System.IO.Pipelines.Pipe> です。 要求の読み取りでは、[HttpRequest.Body](xref:Microsoft.AspNetCore.Http.HttpRequest.Body) は <xref:System.IO.Stream> に、`HttpRequest.BodyReader` は <xref:System.IO.Pipelines.PipeReader> になります。 応答の書き込みでは、[HttpResponse.Body](xref:Microsoft.AspNetCore.Http.HttpResponse.Body) は <xref:System.IO.Stream>、`HttpResponse.BodyWriter` は <xref:System.IO.Pipelines.PipeWriter> になります。
 
-パイプラインは、ストリームよりも推奨されます。 一部の単純な操作ではストリームの方が使いやすい場合がありますが、パイプラインの方がパフォーマンスに優れていて、ほとんどのシナリオでより簡単に使えます。 ASP.NET Core では、内部的にストリームではなくパイプラインが使われ始めています。 その例は次のとおりです。
+[パイプライン](/dotnet/standard/io/pipelines)は、ストリームよりも推奨されます。 一部の単純な操作ではストリームの方が使いやすい場合がありますが、パイプラインの方がパフォーマンスに優れていて、ほとんどのシナリオでより簡単に使えます。 ASP.NET Core では、内部的にストリームではなくパイプラインが使われ始めています。 その例は次のとおりです。
 
 * `FormReader`
 * `TextReader`
@@ -36,6 +36,7 @@ ms.locfileid: "71081680"
 要求本文全体を、改行で分割した文字列のリストとして読み取るミドルウェアを作成したいとします。 単純なストリームの実装は、次の例のようになります。
 
 [!code-csharp[](request-response/samples/3.x/RequestResponseSample/Startup.cs?name=GetListOfStringsFromStream)]
+[!INCLUDE[about the series](~/includes/code-comments-loc.md)]
 
 このコードで動作しますが、いくつか問題があります。
 

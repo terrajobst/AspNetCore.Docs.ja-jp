@@ -1,22 +1,20 @@
 ---
 title: ASP.NET Core での Razor ページのルートとアプリの規則
-author: guardrex
+author: rick-anderson
 description: ルートとアプリ モデル プロバイダーの規則が、ページのルーティング、検出、および処理の制御にどのように役立つかについて確認します。
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 uid: razor-pages/razor-pages-conventions
-ms.openlocfilehash: d8377c0a0b8a29fe4b6a7fa67beeff84927c8b74
-ms.sourcegitcommit: 235623b6e5a5d1841139c82a11ac2b4b3f31a7a9
-ms.translationtype: MT
+ms.openlocfilehash: f45e327051aba54d1cab67148eb540fb1a5cc149
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/10/2020
-ms.locfileid: "77114771"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78651110"
 ---
 # <a name="razor-pages-route-and-app-conventions-in-aspnet-core"></a>ASP.NET Core での Razor ページのルートとアプリの規則
-
-作成者: [Luke Latham](https://github.com/guardrex)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -24,11 +22,11 @@ ms.locfileid: "77114771"
 
 個別のページにカスタムのページ ルートを構成する必要がある場合、このトピックで後述される「[AddPageRoute convention](#configure-a-page-route)」で、ページへのルーティングを構成します。
 
-ページルートを指定したり、ルートセグメントを追加したり、ルートにパラメーターを追加したりするには、ページの `@page` ディレクティブを使用します。 詳細については、「[カスタムルート](xref:razor-pages/index#custom-routes)」を参照してください。
+ページ ルートの指定、ルート セグメントの追加、ルートへのパラメーターの追加を行うには、ページの `@page` ディレクティブを使用します。 詳しくは、「[カスタム ルート](xref:razor-pages/index#custom-routes)」をご覧ください。
 
-ルートセグメントまたはパラメーター名として使用できない予約語があります。 詳細については、「[ルーティング: 予約済みルーティング名](xref:fundamentals/routing#reserved-routing-names)」を参照してください。
+ルート セグメントやパラメーター名として使用できない予約語がいくつかあります。 詳しくは、[ルーティング: ルーティングの予約名](xref:fundamentals/routing#reserved-routing-names)に関するページをご覧ください。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 | シナリオ | このサンプルでは、次のデモを実行します。 |
 | -------- | --------------------------- |
@@ -36,7 +34,7 @@ ms.locfileid: "77114771"
 | [ページ ルート アクション規則](#page-route-action-conventions)<ul><li>AddFolderRouteModelConvention</li><li>AddPageRouteModelConvention</li><li>AddPageRoute</li></ul> | ルート テンプレートをフォルダー内のページおよび単一ページに追加します。 |
 | [ページ モデル アクション規則](#page-model-action-conventions)<ul><li>AddFolderApplicationModelConvention</li><li>AddPageApplicationModelConvention</li><li>ConfigureFilter (フィルター クラス、ラムダ式、またはフィルター ファクトリ)</li></ul> | ヘッダーをフォルダー内のページに追加し、ヘッダーを単一ページに追加し、ヘッダーをアプリのページに追加するように[フィルター ファクトリ](xref:mvc/controllers/filters#ifilterfactory)を構成します。 |
 
-Razor Pages 規則は、<xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> 拡張メソッドを使用して追加および構成され、`Startup` クラスのサービスコレクションで <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddMvc*> します。 次の規則の例は、このトピックで後述されます。
+Razor ページの規則を追加および構成するには、`Startup` クラス内のサービス コレクションの <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddMvc*> に <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> 拡張メソッドを使用します。 次の規則の例は、このトピックで後述されます。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -61,47 +59,47 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-## <a name="route-order"></a>ルートの順序
+## <a name="route-order"></a>ルートの順番
 
-ルートは、処理 (ルート一致) の <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> を指定します。
+ルートは、処理 (ルートの照合) に使われる順番 (<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*>) を指定します。
 
-| Order            | 動作 |
+| 順番            | 動作 |
 | :--------------: | -------- |
 | -1               | ルートは、他のルートが処理される前に処理されます。 |
-| 0                | 順序が指定されていません (既定値)。 `Order` (`Order = null`) が割り当てられていない場合、ルートは処理のために 0 (ゼロ) に `Order` ます。 |
+| 0                | 順番が指定されていません (既定値)。 `Order` を割り当てない (`Order = null`) 場合、処理に使われるルートの `Order` は既定で 0 (ゼロ) になります。 |
 | 1、2、&hellip; n | ルートの処理順序を指定します。 |
 
-ルート処理は規約によって確立されます。
+ルートの処理は、次の規則で定められています。
 
-* ルートは順番に処理されます (-1、0、1、2、&hellip; n)。
-* ルートの `Order`が同じである場合は、最も具体的なルートが最初に照合され、その後に特定のルートがより少なくなります。
-* 同じ `Order` で同じ数のパラメーターが要求 URL と一致する場合、ルートは、<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection>に追加された順序で処理されます。
+* ルートは並んだ順番に処理されます (-1、0、1、2、&hellip; n)。
+* ルートの `Order` が同じ場合は、最初に最も明確なルートが照合され、続けて次に明確なルートが照合されます。
+* `Order` とパラメーター数が同じルートが 1 つの要求 URL と一致した場合、ルートは <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection> に追加された順番で処理されます。
 
-可能な場合は、確立されたルート処理順序に依存しないようにしてください。 通常、ルーティングでは、URL が一致する正しいルートが選択されます。 要求を正しくルーティングするようにルート `Order` のプロパティを設定する必要がある場合、アプリケーションのルーティングスキームは、クライアントが混乱し、保守が脆弱になることがあります。 アプリのルーティングスキームを簡略化するためにシークします。 このサンプルアプリでは、単一のアプリを使用した複数のルーティングシナリオを示すために、明示的なルート処理を行う必要があります。 ただし、運用環境のアプリでルート `Order` を設定する方法を避けるようにしてください。
+可能であれば、定められたルートの処理順序に依存しないようにしてください。 通常は、ルーティングによって、URL が一致する正しいルートが選択されます。 要求が正しくルーティングされるようにルートの `Order` プロパティを設定する必要がある場合、アプリのルーティング方式がクライアントにとって紛らわしいものとなり、保守が脆弱になる可能性があります。 アプリのルーティング方式を簡略化するよう努めてください。 サンプル アプリでは、1 つのアプリで複数のルーティング シナリオを示すために、ルートの明示的な処理順序が必要です。 ただし、運用環境のアプリでルートの `Order` を設定するやり方は避けるようにしてください。
 
-Razor Pages ルーティングと MVC コントローラー ルーティングは、実装を共有します。 MVC のトピックに記載されている情報については、 [「コントローラーアクションへのルーティング: 属性ルートの順序付け](xref:mvc/controllers/routing#ordering-attribute-routes)」を参照してください。
+Razor Pages ルーティングと MVC コントローラー ルーティングは、実装を共有します。 MVC のトピックに記載されているルートの順番については、[コントローラー アクションへのルーティング: 属性ルートの順序の指定](xref:mvc/controllers/routing#ordering-attribute-routes)に関するページをご覧ください。
 
 ## <a name="model-conventions"></a>モデルの規則
 
-Razor Pages に適用されるモデルの[規則](xref:mvc/controllers/application-model#conventions)を追加するには、<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> のデリゲートを追加します。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> の委任を追加すると、Razor ページに適用される[モデルの規則](xref:mvc/controllers/application-model#conventions)を追加できます。
 
-### <a name="add-a-route-model-convention-to-all-pages"></a>ルートモデルの規則をすべてのページに追加する
+### <a name="add-a-route-model-convention-to-all-pages"></a>すべてのページにルート モデル規則を追加する
 
-<xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> を使用して、ページルートモデルの構築時に適用される <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> インスタンスのコレクションに <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelConvention> を作成して追加します。
+<xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> を使用すると、<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelConvention> を作成して、ページ ルート モデルの構築中に適用される <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> インスタンスのコレクションに追加できます。
 
 サンプル アプリでは、`{globalTemplate?}` ルート テンプレートをアプリ内のすべてのページに追加します。
 
 [!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Conventions/GlobalTemplatePageRouteModelConvention.cs?name=snippet1)]
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> の <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> プロパティに `1` が設定されます。 これにより、サンプルアプリで次のルート一致動作が保証されます。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> の <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> プロパティに `1` が設定されます。 これにより、サンプル アプリで次のルートの照合動作が保証されます。
 
-* `TheContactPage/{text?}` のルートテンプレートは、このトピックの後半で追加します。 連絡先ページのルートには `null` (`Order = 0`) の既定の順序があるため、`{globalTemplate?}` ルートテンプレートの前に一致します。
-* `{aboutTemplate?}` ルートテンプレートは、このトピックの後半で追加します。 `{aboutTemplate?}` テンプレートの `Order` には `2` が指定されます。 [About] ページが `/About/RouteDataValue` で要求されると、"RouteDataValue" は `RouteData.Values["globalTemplate"]` (`Order = 1`) に読み込まれ、`RouteData.Values["aboutTemplate"]` プロパティが設定されるため `Order = 2` (`Order`) には読み込まれません。
-* `{otherPagesTemplate?}` ルートテンプレートは、このトピックの後半で追加します。 `{otherPagesTemplate?}` テンプレートの `Order` には `2` が指定されます。 *Pages/otherpages*フォルダー内のいずれかのページがルートパラメーター (`/OtherPages/Page1/RouteDataValue`など) で要求された場合、"RouteDataValue" は `RouteData.Values["globalTemplate"]` (`Order = 1`) に読み込まれ、`Order = 2`プロパティの設定によって `RouteData.Values["otherPagesTemplate"]` (`Order`) は読み込まれません。
+* `TheContactPage/{text?}` のルート テンプレートは、このトピックの後半で追加されます。 連絡先ページのルートには既定の順番 `null` (`Order = 0`) が設定されているため、`{globalTemplate?}` ルート テンプレートの前に一致します。
+* `{aboutTemplate?}` ルート テンプレートは、このトピックの後半で追加されます。 `{aboutTemplate?}` テンプレートの `Order` には `2` が指定されます。 [About] ページが `/About/RouteDataValue` で要求されると、"RouteDataValue" は `RouteData.Values["globalTemplate"]` (`Order = 1`) に読み込まれ、`Order` プロパティが設定されるため `RouteData.Values["aboutTemplate"]` (`Order = 2`) には読み込まれません。
+* `{otherPagesTemplate?}` ルート テンプレートは、このトピックの後半で追加されます。 `{otherPagesTemplate?}` テンプレートの `Order` には `2` が指定されます。 ルート パラメーター (`/OtherPages/Page1/RouteDataValue` など) を使用して *Pages/OtherPages* フォルダー内のいずれかのページが要求されると、`Order` プロパティが設定されているため、"RouteDataValue" が `RouteData.Values["otherPagesTemplate"]` (`Order = 2`) ではなく `RouteData.Values["globalTemplate"]` (`Order = 1`) に読み込まれます。
 
-可能な限り、`Order`を設定しないでください。これにより `Order = 0`になります。 正しいルートを選択するには、ルーティングに依存します。
+可能な限り、`Order` を設定しないでください。これにより、`Order = 0` が生じます。 正しいルートの選択には、ルーティングを使用してください。
 
-MVC が `Startup.ConfigureServices`のサービスコレクションに追加されると、<xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions>の追加などの Razor Pages オプションが追加されます。 例については、[サンプル アプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/)を参照してください。
+Razor Pages のオプション (<xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> の追加など) は、MVC が `Startup.ConfigureServices` のサービス コレクションに追加されたときに追加されます。 例については、[サンプル アプリ](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/)を参照してください。
 
 [!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Startup.cs?name=snippet1)]
 
@@ -109,9 +107,9 @@ MVC が `Startup.ConfigureServices`のサービスコレクションに追加さ
 
 ![[About] ページは、GlobalRouteValue のルート セグメントで要求されます。 レンダリングされたページは、ルート データの値がページの OnGet メソッドでキャプチャされたことを示しています。](razor-pages-conventions/_static/about-page-global-template.png)
 
-### <a name="add-an-app-model-convention-to-all-pages"></a>すべてのページにアプリモデル規則を追加する
+### <a name="add-an-app-model-convention-to-all-pages"></a>すべてのページにアプリ モデル規則を追加する
 
-<xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> を使用して、ページアプリモデルの構築時に適用される <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> インスタンスのコレクションに <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelConvention> を作成して追加します。
+<xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> を使用すると、<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelConvention> を作成して、ページ アプリ モデルの構築中に適用される <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> インスタンスのコレクションに追加できます。
 
 この規則やこのトピックで後述されるその他の規則のデモを実行するには、サンプル アプリに `AddHeaderAttribute` クラスを含めます。 クラス コンストラクターは、`name` 文字列と `values` 文字列配列を受け入れます。 これらの値は、応答ヘッダーを設定するために、その `OnResultExecuting` メソッド内で使用されます。 完全クラスは、このトピックで後述される「[ページ モデル アクション規則](#page-model-action-conventions)」セクションで示されます。
 
@@ -127,9 +125,9 @@ MVC が `Startup.ConfigureServices`のサービスコレクションに追加さ
 
 ![[About] ページの応答ヘッダーは、GlobalHeader が追加されたことを示しています。](razor-pages-conventions/_static/about-page-global-header.png)
 
-### <a name="add-a-handler-model-convention-to-all-pages"></a>すべてのページにハンドラーモデル規則を追加する
+### <a name="add-a-handler-model-convention-to-all-pages"></a>すべてのページにハンドラー モデル規則を追加する
 
-<xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> を使用して、ページハンドラーモデルの構築時に適用される <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> インスタンスのコレクションに <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageHandlerModelConvention> を作成して追加します。
+<xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> を使用すると、<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageHandlerModelConvention> を作成して、ページ ハンドラー モデルの構築中に適用される <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> インスタンスのコレクションに追加できます。
 
 [!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Conventions/GlobalPageHandlerModelConvention.cs?name=snippet1)]
 
@@ -139,49 +137,49 @@ MVC が `Startup.ConfigureServices`のサービスコレクションに追加さ
 
 ## <a name="page-route-action-conventions"></a>ページ ルート アクション規則
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelProvider> から派生する既定のルートモデルプロバイダーは、ページルートを構成するための機能拡張ポイントを提供するように設計された規則を呼び出します。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelProvider> から派生する既定のルート モデル プロバイダーは、ページ ルートを構成するための拡張ポイントを提供するようにデザインされた規則を呼び出します。
 
-### <a name="folder-route-model-convention"></a>フォルダールートモデルの規則
+### <a name="folder-route-model-convention"></a>フォルダー ルート モデル規則
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddFolderRouteModelConvention*> を使用すると、指定したフォルダーの下にあるすべてのページについて <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageRouteModel> に対してアクションを呼び出す <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelConvention> を作成して追加できます。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddFolderRouteModelConvention*> を使用すると、指定したフォルダーの下にあるすべてのページを対象に <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageRouteModel> へのアクションを呼び出す <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelConvention> を作成して追加できます。
 
 サンプル アプリでは <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddFolderRouteModelConvention*> を使用して、`{otherPagesTemplate?}` ルート テンプレートを *OtherPages* フォルダーのページに追加します。
 
 [!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Startup.cs?name=snippet3)]
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> の <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> プロパティに `2` が設定されます。 これにより、単一のルート値が指定された場合に、`{globalTemplate?}` のテンプレート (前のトピックの「`1`」を参照) が優先されるようになります。 *Pages/otherpages*フォルダー内のページがルートパラメーター値 (`/OtherPages/Page1/RouteDataValue`など) で要求されている場合、"RouteDataValue" は、`Order = 2`プロパティの設定によって `RouteData.Values["otherPagesTemplate"]` (`Order`) ではなく `RouteData.Values["globalTemplate"]` (`Order = 1`) に読み込まれます。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> の <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> プロパティに `2` が設定されます。 この設定により、1 つのルート値が指定されたときに、(このトピックの前半で `1` に設定した) `{globalTemplate?}` のテンプレートが優先的に最初のルート データ値の位置に指定されます。 ルート パラメーター値 (`/OtherPages/Page1/RouteDataValue` など) を使用して *Pages/OtherPages* フォルダー内のページが要求されると、`Order` プロパティが設定されているため、"RouteDataValue" が `RouteData.Values["otherPagesTemplate"]` (`Order = 2`) ではなく `RouteData.Values["globalTemplate"]` (`Order = 1`) に読み込まれます。
 
-可能な限り、`Order`を設定しないでください。これにより `Order = 0`になります。 正しいルートを選択するには、ルーティングに依存します。
+可能な限り、`Order` を設定しないでください。これにより、`Order = 0` が生じます。 正しいルートの選択には、ルーティングを使用してください。
 
 `localhost:5000/OtherPages/Page1/GlobalRouteValue/OtherPagesRouteValue` でサンプルの Page1 ページを要求し、その結果を調べます。
 
 ![OtherPages フォルダーの Page1 は、GlobalRouteValue と OtherPagesRouteValue のルート セグメントで要求されます。 レンダリングされたページは、ルート データの値がページの OnGet メソッドでキャプチャされたことを示しています。](razor-pages-conventions/_static/otherpages-page1-global-and-otherpages-templates.png)
 
-### <a name="page-route-model-convention"></a>ページルートモデルの規則
+### <a name="page-route-model-convention"></a>ページ ルート モデル規則
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddPageRouteModelConvention*> を使用して、指定した名前のページの <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageRouteModel> に対してアクションを呼び出す <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelConvention> を作成して追加します。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddPageRouteModelConvention*> を使用すると、指定した名前のページを対象に <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageRouteModel> へのアクションを呼び出す <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelConvention> を作成して追加できます。
 
 サンプル アプリでは `AddPageRouteModelConvention` を使用して、`{aboutTemplate?}` ルート テンプレートを [About] ページに追加します。
 
 [!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Startup.cs?name=snippet4)]
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> の <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> プロパティに `2` が設定されます。 これにより、単一のルート値が指定された場合に、`{globalTemplate?}` のテンプレート (前のトピックの「`1`」を参照) が優先されるようになります。 `/About/RouteDataValue`でルートパラメーター値を使用して About ページが要求された場合、"RouteDataValue" は `RouteData.Values["globalTemplate"]` (`Order = 1`) に読み込まれ、`Order = 2`プロパティの設定によって `RouteData.Values["aboutTemplate"]` (`Order`) ではなくなります。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> の <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> プロパティに `2` が設定されます。 この設定により、1 つのルート値が指定されたときに、(このトピックの前半で `1` に設定した) `{globalTemplate?}` のテンプレートが優先的に最初のルート データ値の位置に指定されます。 [About] ページが `/About/RouteDataValue` にあるルート パラメーター値で要求されると、`Order` プロパティが設定されているため、"RouteDataValue" は `RouteData.Values["aboutTemplate"]` (`Order = 2`) ではなく `RouteData.Values["globalTemplate"]` (`Order = 1`) に読み込まれます。
 
-可能な限り、`Order`を設定しないでください。これにより `Order = 0`になります。 正しいルートを選択するには、ルーティングに依存します。
+可能な限り、`Order` を設定しないでください。これにより、`Order = 0` が生じます。 正しいルートの選択には、ルーティングを使用してください。
 
 `localhost:5000/About/GlobalRouteValue/AboutRouteValue` でサンプルの [About] ページを要求し、その結果を調べます。
 
 ![[About] ページは、GlobalRouteValue と AboutRouteValue のルート セグメントで要求されます。 レンダリングされたページは、ルート データの値がページの OnGet メソッドでキャプチャされたことを示しています。](razor-pages-conventions/_static/about-page-global-and-about-templates.png)
 
-## <a name="use-a-parameter-transformer-to-customize-page-routes"></a>パラメータートランスフォーマーを使用してページルートをカスタマイズする
+## <a name="use-a-parameter-transformer-to-customize-page-routes"></a>パラメーター トランスフォーマーを使用してページ ルートをカスタマイズする
 
-ASP.NET Core によって生成されたページルートは、パラメータートランスフォーマーを使用してカスタマイズできます。 パラメーター トランスフォーマーは `IOutboundParameterTransformer` を実装し、パラメーターの値を変換します。 たとえば、`SlugifyParameterTransformer` パラメーター トランスフォーマーでは、`SubscriptionManagement` のルート値が `subscription-management` に変更されます。
+ASP.NET Core によって生成されたページ ルートは、パラメーター トランスフォーマーを使用してカスタマイズできます。 パラメーター トランスフォーマーは `IOutboundParameterTransformer` を実装し、パラメーターの値を変換します。 たとえば、`SlugifyParameterTransformer` パラメーター トランスフォーマーでは、`SubscriptionManagement` のルート値が `subscription-management` に変更されます。
 
-`PageRouteTransformerConvention` ページルートモデル規則では、アプリで自動的に生成されたページルートのフォルダーとファイル名のセグメントにパラメータートランスフォーマーを適用します。 たとえば、 *//* //の Razor Pages ファイルでは、ルートが `/SubscriptionManagement/ViewAll` から `/subscription-management/view-all`に書き直されます。
+`PageRouteTransformerConvention` ページ ルート モデル規則では、アプリで自動的に生成されたページ ルートのフォルダー名とファイル名のセグメントにパラメーター トランスフォーマーを適用します。 たとえば、 */Pages/SubscriptionManagement/ViewAll.cshtml* にある Razor ページ ファイルのルートは `/SubscriptionManagement/ViewAll` から `/subscription-management/view-all` に書き換えられます。
 
-`PageRouteTransformerConvention` は、Razor Pages フォルダーとファイル名から取得された、自動的に生成されたページルートのセグメントのみを変換します。 `@page` ディレクティブを使用して追加されたルートセグメントは変換されません。 この規則では、<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AddPageRoute*>によって追加されたルートを変換することもできません。
+`PageRouteTransformerConvention` では、Razor ページのフォルダー名とファイル名に由来する、自動的に生成されたページ ルートのセグメントのみを変換します。 `@page` ディレクティブを使用して追加したルート セグメントは変換されません。 この規則では、<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AddPageRoute*> で追加したルートも変換されません。
 
-`PageRouteTransformerConvention` は `Startup.ConfigureServices`のオプションとして登録されます。
+`PageRouteTransformerConvention` は、`Startup.ConfigureServices` でオプションとして登録されます。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -209,15 +207,15 @@ public class SlugifyParameterTransformer : IOutboundParameterTransformer
 
 ## <a name="configure-a-page-route"></a>ページ ルートの構成
 
-指定したページパスにあるページへのルートを構成するには、<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AddPageRoute*> を使用します。 そのページに対して生成されたリンクでは、指定したルートを使用します。 `AddPageRoute` では、`AddPageRouteModelConvention` を使用してルートを確立します。
+<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AddPageRoute*> を使用すると、指定したページ パスにあるページへのルートを構成できます。 そのページに対して生成されたリンクでは、指定したルートを使用します。 `AddPageRoute` では、`AddPageRouteModelConvention` を使用してルートを確立します。
 
-サンプル アプリでは、`/TheContactPage`Contact.cshtml*の* へのルートを作成します。
+サンプル アプリでは、*Contact.cshtml* の `/TheContactPage` へのルートを作成します。
 
 [!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Startup.cs?name=snippet5)]
 
 [Contact] ページには、既定のルート経由の `/Contact` でアクセスすることもできます。
 
-サンプル アプリの [Contact] ページに対するカスタム ルートでは、省略可能な `text` ルート セグメント (`{text?}`) を許可します。 また、訪問者が `@page` ルートでページにアクセスする場合、ページの `/Contact` ディレクティブにはこの省略可能なセグメントも含まれます。
+サンプル アプリの [Contact] ページに対するカスタム ルートでは、省略可能な `text` ルート セグメント (`{text?}`) を許可します。 また、訪問者が `/Contact` ルートでページにアクセスする場合、ページの `@page` ディレクティブにはこの省略可能なセグメントも含まれます。
 
 [!code-cshtml[](razor-pages-conventions/samples/3.x/SampleApp/Pages/Contact.cshtml?highlight=1)]
 
@@ -233,9 +231,9 @@ public class SlugifyParameterTransformer : IOutboundParameterTransformer
 
 ## <a name="page-model-action-conventions"></a>ページ モデル アクション規則
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelProvider> を実装する既定のページモデルプロバイダーは、ページモデルを構成するための機能拡張ポイントを提供するように設計された規則を呼び出します。 これらの規則は、ページ検出をビルドおよび変更したり、シナリオを処理したりするときに便利です。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelProvider> を実装する既定のページ モデル プロバイダーは、ページ モデルを構成するための拡張ポイントを提供するようにデザインされた規則を呼び出します。 これらの規則は、ページ検出をビルドおよび変更したり、シナリオを処理したりするときに便利です。
 
-このセクションの例では、サンプルアプリで <xref:Microsoft.AspNetCore.Mvc.Filters.ResultFilterAttribute>である `AddHeaderAttribute` クラスを使用して、応答ヘッダーを適用します。
+このセクションの例の場合、サンプル アプリでは、応答ヘッダーを適用する <xref:Microsoft.AspNetCore.Mvc.Filters.ResultFilterAttribute> である、`AddHeaderAttribute` クラスを使用します。
 
 [!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Filters/AddHeader.cs?name=snippet1)]
 
@@ -243,9 +241,9 @@ public class SlugifyParameterTransformer : IOutboundParameterTransformer
 
 **フォルダー アプリ モデル規則**
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddFolderApplicationModelConvention*> を使用すると、指定したフォルダーの下にあるすべてのページの <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageApplicationModel> インスタンスでアクションを呼び出す <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelConvention> を作成して追加できます。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddFolderApplicationModelConvention*> を使用すると、指定したフォルダーの下にあるすべてのページを対象に <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageApplicationModel> インスタンスへのアクションを呼び出す <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelConvention> を作成して追加できます。
 
-このサンプルでは、ヘッダー (`AddFolderApplicationModelConvention`) をアプリの `OtherPagesHeader`OtherPages *フォルダー内にあるページに追加して、* を使用するデモを実行します。
+このサンプルでは、ヘッダー (`OtherPagesHeader`) をアプリの *OtherPages* フォルダー内にあるページに追加して、`AddFolderApplicationModelConvention` を使用するデモを実行します。
 
 [!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Startup.cs?name=snippet6)]
 
@@ -255,9 +253,9 @@ public class SlugifyParameterTransformer : IOutboundParameterTransformer
 
 **ページ アプリ モデル規則**
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddPageApplicationModelConvention*> を使用して、指定した名前のページの <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageApplicationModel> に対してアクションを呼び出す <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelConvention> を作成して追加します。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddPageApplicationModelConvention*> を使用すると、指定した名前のページを対象に <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageApplicationModel> へのアクションを呼び出す <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelConvention> を作成して追加できます。
 
-サンプルでは、ヘッダー (`AddPageApplicationModelConvention`) を [About] ページに追加して、`AboutHeader` を使用するデモを実行します。
+サンプルでは、ヘッダー (`AboutHeader`) を [About] ページに追加して、`AddPageApplicationModelConvention` を使用するデモを実行します。
 
 [!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Startup.cs?name=snippet7)]
 
@@ -267,13 +265,13 @@ public class SlugifyParameterTransformer : IOutboundParameterTransformer
 
 **フィルターの構成**
 
-指定したフィルターを適用するように <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.ConfigureFilter*> 構成します。 フィルター クラスを実装できますが、サンプル アプリでは、ラムダ式でフィルターを実装する方法を示しています。これは、フィルターを返すファクトリとしてバックグラウンドで実装されます。
+<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.ConfigureFilter*> では、指定したフィルターを適用するように構成します。 フィルター クラスを実装できますが、サンプル アプリでは、ラムダ式でフィルターを実装する方法を示しています。これは、フィルターを返すファクトリとしてバックグラウンドで実装されます。
 
 [!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Startup.cs?name=snippet8)]
 
 ページ アプリ モデルは、*OtherPages* フォルダーの Page2 ページにつながるセグメントの相対パスを確認するために使用されます。 条件を満たすと、ヘッダーが追加されます。 満たさない場合は、`EmptyFilter` が適用されます。
 
-`EmptyFilter` は[アクション フィルター](xref:mvc/controllers/filters#action-filters)です。 アクションフィルターは Razor Pages によって無視されるため、パスに `OtherPages/Page2`が含まれていない場合、`EmptyFilter` は意図したとおりには効果がありません。
+`EmptyFilter` は[アクション フィルター](xref:mvc/controllers/filters#action-filters)です。 アクション フィルターは Razor ページによって無視されるため、パスに `OtherPages/Page2` が含まれない場合、`EmptyFilter` には意図されたような効果はありません。
 
 `localhost:5000/OtherPages/Page2` でサンプルの Page2 ページを要求し、そのヘッダーを調べて結果を確認します。
 
@@ -281,9 +279,9 @@ public class SlugifyParameterTransformer : IOutboundParameterTransformer
 
 **フィルター ファクトリの構成**
 
-指定したファクトリを、すべての Razor Pages に[フィルター](xref:mvc/controllers/filters)を適用するように構成 <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.ConfigureFilter*> ます。
+<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.ConfigureFilter*> では、すべての Razor ページに[フィルター](xref:mvc/controllers/filters)を適用するように、指定したファクトリを構成します。
 
-サンプル アプリでは、アプリのページに対する 2 つの値と共にヘッダー ([) を追加して、](xref:mvc/controllers/filters#ifilterfactory)フィルター ファクトリ`FilterFactoryHeader`を使用する例を提供します。
+サンプル アプリでは、アプリのページに対する 2 つの値と共にヘッダー (`FilterFactoryHeader`) を追加して、[フィルター ファクトリ](xref:mvc/controllers/filters#ifilterfactory)を使用する例を提供します。
 
 [!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Startup.cs?name=snippet9)]
 
@@ -297,11 +295,11 @@ public class SlugifyParameterTransformer : IOutboundParameterTransformer
 
 ## <a name="mvc-filters-and-the-page-filter-ipagefilter"></a>MVC フィルターとページ フィルター (IPageFilter)
 
-Razor ページはハンドラー メソッドを使用するため、MVC [アクション フィルター](xref:mvc/controllers/filters#action-filters)は Razor ページによって無視されます。 その他の型の MVC フィルターは、[承認](xref:mvc/controllers/filters#authorization-filters)、[例外](xref:mvc/controllers/filters#exception-filters)、[リソース](xref:mvc/controllers/filters#resource-filters)、および[結果](xref:mvc/controllers/filters#result-filters)を使用するために利用できます。 詳細については、「[フィルター](xref:mvc/controllers/filters)」トピックを参照してください。
+Razor ページはハンドラー メソッドを使用するため、MVC [アクション フィルター](xref:mvc/controllers/filters#action-filters)は Razor ページによって無視されます。 使用できるその他の種類の MVC フィルターは次のとおりです。[承認](xref:mvc/controllers/filters#authorization-filters)、[例外](xref:mvc/controllers/filters#exception-filters)、[リソース](xref:mvc/controllers/filters#resource-filters)、および[結果](xref:mvc/controllers/filters#result-filters)。 詳細については、「[フィルター](xref:mvc/controllers/filters)」トピックを参照してください。
 
-ページフィルター (<xref:Microsoft.AspNetCore.Mvc.Filters.IPageFilter>) は、Razor Pages に適用されるフィルターです。 詳細については、[Razor ページのフィルター メソッド](xref:razor-pages/filter)に関するページを参照してください。
+ページ フィルター (<xref:Microsoft.AspNetCore.Mvc.Filters.IPageFilter>) は、Razor ページに適用されるフィルターの 1 つです。 詳細については、[Razor ページのフィルター メソッド](xref:razor-pages/filter)に関するページを参照してください。
 
-## <a name="additional-resources"></a>その他のリソース
+## <a name="additional-resources"></a>その他の技術情報
 
 * <xref:security/authorization/razor-pages-authorization>
 * <xref:mvc/controllers/areas#areas-with-razor-pages>
@@ -314,11 +312,11 @@ Razor ページはハンドラー メソッドを使用するため、MVC [ア�
 
 個別のページにカスタムのページ ルートを構成する必要がある場合、このトピックで後述される「[AddPageRoute convention](#configure-a-page-route)」で、ページへのルーティングを構成します。
 
-ページルートを指定したり、ルートセグメントを追加したり、ルートにパラメーターを追加したりするには、ページの `@page` ディレクティブを使用します。 詳細については、「[カスタムルート](xref:razor-pages/index#custom-routes)」を参照してください。
+ページ ルートの指定、ルート セグメントの追加、ルートへのパラメーターの追加を行うには、ページの `@page` ディレクティブを使用します。 詳しくは、「[カスタム ルート](xref:razor-pages/index#custom-routes)」をご覧ください。
 
-ルートセグメントまたはパラメーター名として使用できない予約語があります。 詳細については、「[ルーティング: 予約済みルーティング名](xref:fundamentals/routing#reserved-routing-names)」を参照してください。
+ルート セグメントやパラメーター名として使用できない予約語がいくつかあります。 詳しくは、[ルーティング: ルーティングの予約名](xref:fundamentals/routing#reserved-routing-names)に関するページをご覧ください。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 | シナリオ | このサンプルでは、次のデモを実行します。 |
 | -------- | --------------------------- |
@@ -326,7 +324,7 @@ Razor ページはハンドラー メソッドを使用するため、MVC [ア�
 | [ページ ルート アクション規則](#page-route-action-conventions)<ul><li>AddFolderRouteModelConvention</li><li>AddPageRouteModelConvention</li><li>AddPageRoute</li></ul> | ルート テンプレートをフォルダー内のページおよび単一ページに追加します。 |
 | [ページ モデル アクション規則](#page-model-action-conventions)<ul><li>AddFolderApplicationModelConvention</li><li>AddPageApplicationModelConvention</li><li>ConfigureFilter (フィルター クラス、ラムダ式、またはフィルター ファクトリ)</li></ul> | ヘッダーをフォルダー内のページに追加し、ヘッダーを単一ページに追加し、ヘッダーをアプリのページに追加するように[フィルター ファクトリ](xref:mvc/controllers/filters#ifilterfactory)を構成します。 |
 
-Razor Pages 規則は、<xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> 拡張メソッドを使用して追加および構成され、`Startup` クラスのサービスコレクションで <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddMvc*> します。 次の規則の例は、このトピックで後述されます。
+Razor ページの規則を追加および構成するには、`Startup` クラス内のサービス コレクションの <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddMvc*> に <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> 拡張メソッドを使用します。 次の規則の例は、このトピックで後述されます。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -351,47 +349,47 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-## <a name="route-order"></a>ルートの順序
+## <a name="route-order"></a>ルートの順番
 
-ルートは、処理 (ルート一致) の <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> を指定します。
+ルートは、処理 (ルートの照合) に使われる順番 (<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*>) を指定します。
 
-| Order            | 動作 |
+| 順番            | 動作 |
 | :--------------: | -------- |
 | -1               | ルートは、他のルートが処理される前に処理されます。 |
-| 0                | 順序が指定されていません (既定値)。 `Order` (`Order = null`) が割り当てられていない場合、ルートは処理のために 0 (ゼロ) に `Order` ます。 |
+| 0                | 順番が指定されていません (既定値)。 `Order` を割り当てない (`Order = null`) 場合、処理に使われるルートの `Order` は既定で 0 (ゼロ) になります。 |
 | 1、2、&hellip; n | ルートの処理順序を指定します。 |
 
-ルート処理は規約によって確立されます。
+ルートの処理は、次の規則で定められています。
 
-* ルートは順番に処理されます (-1、0、1、2、&hellip; n)。
-* ルートの `Order`が同じである場合は、最も具体的なルートが最初に照合され、その後に特定のルートがより少なくなります。
-* 同じ `Order` で同じ数のパラメーターが要求 URL と一致する場合、ルートは、<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection>に追加された順序で処理されます。
+* ルートは並んだ順番に処理されます (-1、0、1、2、&hellip; n)。
+* ルートの `Order` が同じ場合は、最初に最も明確なルートが照合され、続けて次に明確なルートが照合されます。
+* `Order` とパラメーター数が同じルートが 1 つの要求 URL と一致した場合、ルートは <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection> に追加された順番で処理されます。
 
-可能な場合は、確立されたルート処理順序に依存しないようにしてください。 通常、ルーティングでは、URL が一致する正しいルートが選択されます。 要求を正しくルーティングするようにルート `Order` のプロパティを設定する必要がある場合、アプリケーションのルーティングスキームは、クライアントが混乱し、保守が脆弱になることがあります。 アプリのルーティングスキームを簡略化するためにシークします。 このサンプルアプリでは、単一のアプリを使用した複数のルーティングシナリオを示すために、明示的なルート処理を行う必要があります。 ただし、運用環境のアプリでルート `Order` を設定する方法を避けるようにしてください。
+可能であれば、定められたルートの処理順序に依存しないようにしてください。 通常は、ルーティングによって、URL が一致する正しいルートが選択されます。 要求が正しくルーティングされるようにルートの `Order` プロパティを設定する必要がある場合、アプリのルーティング方式がクライアントにとって紛らわしいものとなり、保守が脆弱になる可能性があります。 アプリのルーティング方式を簡略化するよう努めてください。 サンプル アプリでは、1 つのアプリで複数のルーティング シナリオを示すために、ルートの明示的な処理順序が必要です。 ただし、運用環境のアプリでルートの `Order` を設定するやり方は避けるようにしてください。
 
-Razor Pages ルーティングと MVC コントローラー ルーティングは、実装を共有します。 MVC のトピックに記載されている情報については、 [「コントローラーアクションへのルーティング: 属性ルートの順序付け](xref:mvc/controllers/routing#ordering-attribute-routes)」を参照してください。
+Razor Pages ルーティングと MVC コントローラー ルーティングは、実装を共有します。 MVC のトピックに記載されているルートの順番については、[コントローラー アクションへのルーティング: 属性ルートの順序の指定](xref:mvc/controllers/routing#ordering-attribute-routes)に関するページをご覧ください。
 
 ## <a name="model-conventions"></a>モデルの規則
 
-Razor Pages に適用されるモデルの[規則](xref:mvc/controllers/application-model#conventions)を追加するには、<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> のデリゲートを追加します。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> の委任を追加すると、Razor ページに適用される[モデルの規則](xref:mvc/controllers/application-model#conventions)を追加できます。
 
-### <a name="add-a-route-model-convention-to-all-pages"></a>ルートモデルの規則をすべてのページに追加する
+### <a name="add-a-route-model-convention-to-all-pages"></a>すべてのページにルート モデル規則を追加する
 
-<xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> を使用して、ページルートモデルの構築時に適用される <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> インスタンスのコレクションに <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelConvention> を作成して追加します。
+<xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> を使用すると、<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelConvention> を作成して、ページ ルート モデルの構築中に適用される <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> インスタンスのコレクションに追加できます。
 
 サンプル アプリでは、`{globalTemplate?}` ルート テンプレートをアプリ内のすべてのページに追加します。
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Conventions/GlobalTemplatePageRouteModelConvention.cs?name=snippet1)]
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> の <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> プロパティに `1` が設定されます。 これにより、サンプルアプリで次のルート一致動作が保証されます。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> の <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> プロパティに `1` が設定されます。 これにより、サンプル アプリで次のルートの照合動作が保証されます。
 
-* `TheContactPage/{text?}` のルートテンプレートは、このトピックの後半で追加します。 連絡先ページのルートには `null` (`Order = 0`) の既定の順序があるため、`{globalTemplate?}` ルートテンプレートの前に一致します。
-* `{aboutTemplate?}` ルートテンプレートは、このトピックの後半で追加します。 `{aboutTemplate?}` テンプレートの `Order` には `2` が指定されます。 [About] ページが `/About/RouteDataValue` で要求されると、"RouteDataValue" は `RouteData.Values["globalTemplate"]` (`Order = 1`) に読み込まれ、`RouteData.Values["aboutTemplate"]` プロパティが設定されるため `Order = 2` (`Order`) には読み込まれません。
-* `{otherPagesTemplate?}` ルートテンプレートは、このトピックの後半で追加します。 `{otherPagesTemplate?}` テンプレートの `Order` には `2` が指定されます。 *Pages/otherpages*フォルダー内のいずれかのページがルートパラメーター (`/OtherPages/Page1/RouteDataValue`など) で要求された場合、"RouteDataValue" は `RouteData.Values["globalTemplate"]` (`Order = 1`) に読み込まれ、`Order = 2`プロパティの設定によって `RouteData.Values["otherPagesTemplate"]` (`Order`) は読み込まれません。
+* `TheContactPage/{text?}` のルート テンプレートは、このトピックの後半で追加されます。 連絡先ページのルートには既定の順番 `null` (`Order = 0`) が設定されているため、`{globalTemplate?}` ルート テンプレートの前に一致します。
+* `{aboutTemplate?}` ルート テンプレートは、このトピックの後半で追加されます。 `{aboutTemplate?}` テンプレートの `Order` には `2` が指定されます。 [About] ページが `/About/RouteDataValue` で要求されると、"RouteDataValue" は `RouteData.Values["globalTemplate"]` (`Order = 1`) に読み込まれ、`Order` プロパティが設定されるため `RouteData.Values["aboutTemplate"]` (`Order = 2`) には読み込まれません。
+* `{otherPagesTemplate?}` ルート テンプレートは、このトピックの後半で追加されます。 `{otherPagesTemplate?}` テンプレートの `Order` には `2` が指定されます。 ルート パラメーター (`/OtherPages/Page1/RouteDataValue` など) を使用して *Pages/OtherPages* フォルダー内のいずれかのページが要求されると、`Order` プロパティが設定されているため、"RouteDataValue" が `RouteData.Values["otherPagesTemplate"]` (`Order = 2`) ではなく `RouteData.Values["globalTemplate"]` (`Order = 1`) に読み込まれます。
 
-可能な限り、`Order`を設定しないでください。これにより `Order = 0`になります。 正しいルートを選択するには、ルーティングに依存します。
+可能な限り、`Order` を設定しないでください。これにより、`Order = 0` が生じます。 正しいルートの選択には、ルーティングを使用してください。
 
-MVC が `Startup.ConfigureServices`のサービスコレクションに追加されると、<xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions>の追加などの Razor Pages オプションが追加されます。 例については、[サンプル アプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/)を参照してください。
+Razor Pages のオプション (<xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> の追加など) は、MVC が `Startup.ConfigureServices` のサービス コレクションに追加されたときに追加されます。 例については、[サンプル アプリ](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/)を参照してください。
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet1)]
 
@@ -399,9 +397,9 @@ MVC が `Startup.ConfigureServices`のサービスコレクションに追加さ
 
 ![[About] ページは、GlobalRouteValue のルート セグメントで要求されます。 レンダリングされたページは、ルート データの値がページの OnGet メソッドでキャプチャされたことを示しています。](razor-pages-conventions/_static/about-page-global-template.png)
 
-### <a name="add-an-app-model-convention-to-all-pages"></a>すべてのページにアプリモデル規則を追加する
+### <a name="add-an-app-model-convention-to-all-pages"></a>すべてのページにアプリ モデル規則を追加する
 
-<xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> を使用して、ページアプリモデルの構築時に適用される <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> インスタンスのコレクションに <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelConvention> を作成して追加します。
+<xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> を使用すると、<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelConvention> を作成して、ページ アプリ モデルの構築中に適用される <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> インスタンスのコレクションに追加できます。
 
 この規則やこのトピックで後述されるその他の規則のデモを実行するには、サンプル アプリに `AddHeaderAttribute` クラスを含めます。 クラス コンストラクターは、`name` 文字列と `values` 文字列配列を受け入れます。 これらの値は、応答ヘッダーを設定するために、その `OnResultExecuting` メソッド内で使用されます。 完全クラスは、このトピックで後述される「[ページ モデル アクション規則](#page-model-action-conventions)」セクションで示されます。
 
@@ -417,9 +415,9 @@ MVC が `Startup.ConfigureServices`のサービスコレクションに追加さ
 
 ![[About] ページの応答ヘッダーは、GlobalHeader が追加されたことを示しています。](razor-pages-conventions/_static/about-page-global-header.png)
 
-### <a name="add-a-handler-model-convention-to-all-pages"></a>すべてのページにハンドラーモデル規則を追加する
+### <a name="add-a-handler-model-convention-to-all-pages"></a>すべてのページにハンドラー モデル規則を追加する
 
-<xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> を使用して、ページハンドラーモデルの構築時に適用される <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> インスタンスのコレクションに <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageHandlerModelConvention> を作成して追加します。
+<xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> を使用すると、<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageHandlerModelConvention> を作成して、ページ ハンドラー モデルの構築中に適用される <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> インスタンスのコレクションに追加できます。
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Conventions/GlobalPageHandlerModelConvention.cs?name=snippet1)]
 
@@ -429,49 +427,49 @@ MVC が `Startup.ConfigureServices`のサービスコレクションに追加さ
 
 ## <a name="page-route-action-conventions"></a>ページ ルート アクション規則
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelProvider> から派生する既定のルートモデルプロバイダーは、ページルートを構成するための機能拡張ポイントを提供するように設計された規則を呼び出します。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelProvider> から派生する既定のルート モデル プロバイダーは、ページ ルートを構成するための拡張ポイントを提供するようにデザインされた規則を呼び出します。
 
-### <a name="folder-route-model-convention"></a>フォルダールートモデルの規則
+### <a name="folder-route-model-convention"></a>フォルダー ルート モデル規則
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddFolderRouteModelConvention*> を使用すると、指定したフォルダーの下にあるすべてのページについて <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageRouteModel> に対してアクションを呼び出す <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelConvention> を作成して追加できます。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddFolderRouteModelConvention*> を使用すると、指定したフォルダーの下にあるすべてのページを対象に <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageRouteModel> へのアクションを呼び出す <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelConvention> を作成して追加できます。
 
 サンプル アプリでは <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddFolderRouteModelConvention*> を使用して、`{otherPagesTemplate?}` ルート テンプレートを *OtherPages* フォルダーのページに追加します。
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet3)]
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> の <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> プロパティに `2` が設定されます。 これにより、単一のルート値が指定された場合に、`{globalTemplate?}` のテンプレート (前のトピックの「`1`」を参照) が優先されるようになります。 *Pages/otherpages*フォルダー内のページがルートパラメーター値 (`/OtherPages/Page1/RouteDataValue`など) で要求されている場合、"RouteDataValue" は、`Order = 2`プロパティの設定によって `RouteData.Values["otherPagesTemplate"]` (`Order`) ではなく `RouteData.Values["globalTemplate"]` (`Order = 1`) に読み込まれます。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> の <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> プロパティに `2` が設定されます。 この設定により、1 つのルート値が指定されたときに、(このトピックの前半で `1` に設定した) `{globalTemplate?}` のテンプレートが優先的に最初のルート データ値の位置に指定されます。 ルート パラメーター値 (`/OtherPages/Page1/RouteDataValue` など) を使用して *Pages/OtherPages* フォルダー内のページが要求されると、`Order` プロパティが設定されているため、"RouteDataValue" が `RouteData.Values["otherPagesTemplate"]` (`Order = 2`) ではなく `RouteData.Values["globalTemplate"]` (`Order = 1`) に読み込まれます。
 
-可能な限り、`Order`を設定しないでください。これにより `Order = 0`になります。 正しいルートを選択するには、ルーティングに依存します。
+可能な限り、`Order` を設定しないでください。これにより、`Order = 0` が生じます。 正しいルートの選択には、ルーティングを使用してください。
 
 `localhost:5000/OtherPages/Page1/GlobalRouteValue/OtherPagesRouteValue` でサンプルの Page1 ページを要求し、その結果を調べます。
 
 ![OtherPages フォルダーの Page1 は、GlobalRouteValue と OtherPagesRouteValue のルート セグメントで要求されます。 レンダリングされたページは、ルート データの値がページの OnGet メソッドでキャプチャされたことを示しています。](razor-pages-conventions/_static/otherpages-page1-global-and-otherpages-templates.png)
 
-### <a name="page-route-model-convention"></a>ページルートモデルの規則
+### <a name="page-route-model-convention"></a>ページ ルート モデル規則
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddPageRouteModelConvention*> を使用して、指定した名前のページの <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageRouteModel> に対してアクションを呼び出す <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelConvention> を作成して追加します。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddPageRouteModelConvention*> を使用すると、指定した名前のページを対象に <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageRouteModel> へのアクションを呼び出す <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelConvention> を作成して追加できます。
 
 サンプル アプリでは `AddPageRouteModelConvention` を使用して、`{aboutTemplate?}` ルート テンプレートを [About] ページに追加します。
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet4)]
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> の <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> プロパティに `2` が設定されます。 これにより、単一のルート値が指定された場合に、`{globalTemplate?}` のテンプレート (前のトピックの「`1`」を参照) が優先されるようになります。 `/About/RouteDataValue`でルートパラメーター値を使用して About ページが要求された場合、"RouteDataValue" は `RouteData.Values["globalTemplate"]` (`Order = 1`) に読み込まれ、`Order = 2`プロパティの設定によって `RouteData.Values["aboutTemplate"]` (`Order`) ではなくなります。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> の <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> プロパティに `2` が設定されます。 この設定により、1 つのルート値が指定されたときに、(このトピックの前半で `1` に設定した) `{globalTemplate?}` のテンプレートが優先的に最初のルート データ値の位置に指定されます。 [About] ページが `/About/RouteDataValue` にあるルート パラメーター値で要求されると、`Order` プロパティが設定されているため、"RouteDataValue" は `RouteData.Values["aboutTemplate"]` (`Order = 2`) ではなく `RouteData.Values["globalTemplate"]` (`Order = 1`) に読み込まれます。
 
-可能な限り、`Order`を設定しないでください。これにより `Order = 0`になります。 正しいルートを選択するには、ルーティングに依存します。
+可能な限り、`Order` を設定しないでください。これにより、`Order = 0` が生じます。 正しいルートの選択には、ルーティングを使用してください。
 
 `localhost:5000/About/GlobalRouteValue/AboutRouteValue` でサンプルの [About] ページを要求し、その結果を調べます。
 
 ![[About] ページは、GlobalRouteValue と AboutRouteValue のルート セグメントで要求されます。 レンダリングされたページは、ルート データの値がページの OnGet メソッドでキャプチャされたことを示しています。](razor-pages-conventions/_static/about-page-global-and-about-templates.png)
 
-## <a name="use-a-parameter-transformer-to-customize-page-routes"></a>パラメータートランスフォーマーを使用してページルートをカスタマイズする
+## <a name="use-a-parameter-transformer-to-customize-page-routes"></a>パラメーター トランスフォーマーを使用してページ ルートをカスタマイズする
 
-ASP.NET Core によって生成されたページルートは、パラメータートランスフォーマーを使用してカスタマイズできます。 パラメーター トランスフォーマーは `IOutboundParameterTransformer` を実装し、パラメーターの値を変換します。 たとえば、`SlugifyParameterTransformer` パラメーター トランスフォーマーでは、`SubscriptionManagement` のルート値が `subscription-management` に変更されます。
+ASP.NET Core によって生成されたページ ルートは、パラメーター トランスフォーマーを使用してカスタマイズできます。 パラメーター トランスフォーマーは `IOutboundParameterTransformer` を実装し、パラメーターの値を変換します。 たとえば、`SlugifyParameterTransformer` パラメーター トランスフォーマーでは、`SubscriptionManagement` のルート値が `subscription-management` に変更されます。
 
-`PageRouteTransformerConvention` ページルートモデル規則では、アプリで自動的に生成されたページルートのフォルダーとファイル名のセグメントにパラメータートランスフォーマーを適用します。 たとえば、 *//* //の Razor Pages ファイルでは、ルートが `/SubscriptionManagement/ViewAll` から `/subscription-management/view-all`に書き直されます。
+`PageRouteTransformerConvention` ページ ルート モデル規則では、アプリで自動的に生成されたページ ルートのフォルダー名とファイル名のセグメントにパラメーター トランスフォーマーを適用します。 たとえば、 */Pages/SubscriptionManagement/ViewAll.cshtml* にある Razor ページ ファイルのルートは `/SubscriptionManagement/ViewAll` から `/subscription-management/view-all` に書き換えられます。
 
-`PageRouteTransformerConvention` は、Razor Pages フォルダーとファイル名から取得された、自動的に生成されたページルートのセグメントのみを変換します。 `@page` ディレクティブを使用して追加されたルートセグメントは変換されません。 この規則では、<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AddPageRoute*>によって追加されたルートを変換することもできません。
+`PageRouteTransformerConvention` では、Razor ページのフォルダー名とファイル名に由来する、自動的に生成されたページ ルートのセグメントのみを変換します。 `@page` ディレクティブを使用して追加したルート セグメントは変換されません。 この規則では、<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AddPageRoute*> で追加したルートも変換されません。
 
-`PageRouteTransformerConvention` は `Startup.ConfigureServices`のオプションとして登録されます。
+`PageRouteTransformerConvention` は、`Startup.ConfigureServices` でオプションとして登録されます。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -499,15 +497,15 @@ public class SlugifyParameterTransformer : IOutboundParameterTransformer
 
 ## <a name="configure-a-page-route"></a>ページ ルートの構成
 
-指定したページパスにあるページへのルートを構成するには、<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AddPageRoute*> を使用します。 そのページに対して生成されたリンクでは、指定したルートを使用します。 `AddPageRoute` では、`AddPageRouteModelConvention` を使用してルートを確立します。
+<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AddPageRoute*> を使用すると、指定したページ パスにあるページへのルートを構成できます。 そのページに対して生成されたリンクでは、指定したルートを使用します。 `AddPageRoute` では、`AddPageRouteModelConvention` を使用してルートを確立します。
 
-サンプル アプリでは、`/TheContactPage`Contact.cshtml*の* へのルートを作成します。
+サンプル アプリでは、*Contact.cshtml* の `/TheContactPage` へのルートを作成します。
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet5)]
 
 [Contact] ページには、既定のルート経由の `/Contact` でアクセスすることもできます。
 
-サンプル アプリの [Contact] ページに対するカスタム ルートでは、省略可能な `text` ルート セグメント (`{text?}`) を許可します。 また、訪問者が `@page` ルートでページにアクセスする場合、ページの `/Contact` ディレクティブにはこの省略可能なセグメントも含まれます。
+サンプル アプリの [Contact] ページに対するカスタム ルートでは、省略可能な `text` ルート セグメント (`{text?}`) を許可します。 また、訪問者が `/Contact` ルートでページにアクセスする場合、ページの `@page` ディレクティブにはこの省略可能なセグメントも含まれます。
 
 [!code-cshtml[](razor-pages-conventions/samples/2.x/SampleApp/Pages/Contact.cshtml?highlight=1)]
 
@@ -523,9 +521,9 @@ public class SlugifyParameterTransformer : IOutboundParameterTransformer
 
 ## <a name="page-model-action-conventions"></a>ページ モデル アクション規則
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelProvider> を実装する既定のページモデルプロバイダーは、ページモデルを構成するための機能拡張ポイントを提供するように設計された規則を呼び出します。 これらの規則は、ページ検出をビルドおよび変更したり、シナリオを処理したりするときに便利です。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelProvider> を実装する既定のページ モデル プロバイダーは、ページ モデルを構成するための拡張ポイントを提供するようにデザインされた規則を呼び出します。 これらの規則は、ページ検出をビルドおよび変更したり、シナリオを処理したりするときに便利です。
 
-このセクションの例では、サンプルアプリで <xref:Microsoft.AspNetCore.Mvc.Filters.ResultFilterAttribute>である `AddHeaderAttribute` クラスを使用して、応答ヘッダーを適用します。
+このセクションの例の場合、サンプル アプリでは、応答ヘッダーを適用する <xref:Microsoft.AspNetCore.Mvc.Filters.ResultFilterAttribute> である、`AddHeaderAttribute` クラスを使用します。
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Filters/AddHeader.cs?name=snippet1)]
 
@@ -533,9 +531,9 @@ public class SlugifyParameterTransformer : IOutboundParameterTransformer
 
 **フォルダー アプリ モデル規則**
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddFolderApplicationModelConvention*> を使用すると、指定したフォルダーの下にあるすべてのページの <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageApplicationModel> インスタンスでアクションを呼び出す <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelConvention> を作成して追加できます。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddFolderApplicationModelConvention*> を使用すると、指定したフォルダーの下にあるすべてのページを対象に <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageApplicationModel> インスタンスへのアクションを呼び出す <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelConvention> を作成して追加できます。
 
-このサンプルでは、ヘッダー (`AddFolderApplicationModelConvention`) をアプリの `OtherPagesHeader`OtherPages *フォルダー内にあるページに追加して、* を使用するデモを実行します。
+このサンプルでは、ヘッダー (`OtherPagesHeader`) をアプリの *OtherPages* フォルダー内にあるページに追加して、`AddFolderApplicationModelConvention` を使用するデモを実行します。
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet6)]
 
@@ -545,9 +543,9 @@ public class SlugifyParameterTransformer : IOutboundParameterTransformer
 
 **ページ アプリ モデル規則**
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddPageApplicationModelConvention*> を使用して、指定した名前のページの <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageApplicationModel> に対してアクションを呼び出す <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelConvention> を作成して追加します。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddPageApplicationModelConvention*> を使用すると、指定した名前のページを対象に <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageApplicationModel> へのアクションを呼び出す <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelConvention> を作成して追加できます。
 
-サンプルでは、ヘッダー (`AddPageApplicationModelConvention`) を [About] ページに追加して、`AboutHeader` を使用するデモを実行します。
+サンプルでは、ヘッダー (`AboutHeader`) を [About] ページに追加して、`AddPageApplicationModelConvention` を使用するデモを実行します。
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet7)]
 
@@ -557,13 +555,13 @@ public class SlugifyParameterTransformer : IOutboundParameterTransformer
 
 **フィルターの構成**
 
-指定したフィルターを適用するように <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.ConfigureFilter*> 構成します。 フィルター クラスを実装できますが、サンプル アプリでは、ラムダ式でフィルターを実装する方法を示しています。これは、フィルターを返すファクトリとしてバックグラウンドで実装されます。
+<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.ConfigureFilter*> では、指定したフィルターを適用するように構成します。 フィルター クラスを実装できますが、サンプル アプリでは、ラムダ式でフィルターを実装する方法を示しています。これは、フィルターを返すファクトリとしてバックグラウンドで実装されます。
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet8)]
 
 ページ アプリ モデルは、*OtherPages* フォルダーの Page2 ページにつながるセグメントの相対パスを確認するために使用されます。 条件を満たすと、ヘッダーが追加されます。 満たさない場合は、`EmptyFilter` が適用されます。
 
-`EmptyFilter` は[アクション フィルター](xref:mvc/controllers/filters#action-filters)です。 アクションフィルターは Razor Pages によって無視されるため、パスに `OtherPages/Page2`が含まれていない場合、`EmptyFilter` は意図したとおりには効果がありません。
+`EmptyFilter` は[アクション フィルター](xref:mvc/controllers/filters#action-filters)です。 アクション フィルターは Razor ページによって無視されるため、パスに `OtherPages/Page2` が含まれない場合、`EmptyFilter` には意図されたような効果はありません。
 
 `localhost:5000/OtherPages/Page2` でサンプルの Page2 ページを要求し、そのヘッダーを調べて結果を確認します。
 
@@ -571,9 +569,9 @@ public class SlugifyParameterTransformer : IOutboundParameterTransformer
 
 **フィルター ファクトリの構成**
 
-指定したファクトリを、すべての Razor Pages に[フィルター](xref:mvc/controllers/filters)を適用するように構成 <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.ConfigureFilter*> ます。
+<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.ConfigureFilter*> では、すべての Razor ページに[フィルター](xref:mvc/controllers/filters)を適用するように、指定したファクトリを構成します。
 
-サンプル アプリでは、アプリのページに対する 2 つの値と共にヘッダー ([) を追加して、](xref:mvc/controllers/filters#ifilterfactory)フィルター ファクトリ`FilterFactoryHeader`を使用する例を提供します。
+サンプル アプリでは、アプリのページに対する 2 つの値と共にヘッダー (`FilterFactoryHeader`) を追加して、[フィルター ファクトリ](xref:mvc/controllers/filters#ifilterfactory)を使用する例を提供します。
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet9)]
 
@@ -587,11 +585,11 @@ public class SlugifyParameterTransformer : IOutboundParameterTransformer
 
 ## <a name="mvc-filters-and-the-page-filter-ipagefilter"></a>MVC フィルターとページ フィルター (IPageFilter)
 
-Razor ページはハンドラー メソッドを使用するため、MVC [アクション フィルター](xref:mvc/controllers/filters#action-filters)は Razor ページによって無視されます。 その他の型の MVC フィルターは、[承認](xref:mvc/controllers/filters#authorization-filters)、[例外](xref:mvc/controllers/filters#exception-filters)、[リソース](xref:mvc/controllers/filters#resource-filters)、および[結果](xref:mvc/controllers/filters#result-filters)を使用するために利用できます。 詳細については、「[フィルター](xref:mvc/controllers/filters)」トピックを参照してください。
+Razor ページはハンドラー メソッドを使用するため、MVC [アクション フィルター](xref:mvc/controllers/filters#action-filters)は Razor ページによって無視されます。 使用できるその他の種類の MVC フィルターは次のとおりです。[承認](xref:mvc/controllers/filters#authorization-filters)、[例外](xref:mvc/controllers/filters#exception-filters)、[リソース](xref:mvc/controllers/filters#resource-filters)、および[結果](xref:mvc/controllers/filters#result-filters)。 詳細については、「[フィルター](xref:mvc/controllers/filters)」トピックを参照してください。
 
-ページフィルター (<xref:Microsoft.AspNetCore.Mvc.Filters.IPageFilter>) は、Razor Pages に適用されるフィルターです。 詳細については、[Razor ページのフィルター メソッド](xref:razor-pages/filter)に関するページを参照してください。
+ページ フィルター (<xref:Microsoft.AspNetCore.Mvc.Filters.IPageFilter>) は、Razor ページに適用されるフィルターの 1 つです。 詳細については、[Razor ページのフィルター メソッド](xref:razor-pages/filter)に関するページを参照してください。
 
-## <a name="additional-resources"></a>その他のリソース
+## <a name="additional-resources"></a>その他の技術情報
 
 * <xref:security/authorization/razor-pages-authorization>
 * <xref:mvc/controllers/areas#areas-with-razor-pages>
@@ -604,11 +602,11 @@ Razor ページはハンドラー メソッドを使用するため、MVC [ア�
 
 個別のページにカスタムのページ ルートを構成する必要がある場合、このトピックで後述される「[AddPageRoute convention](#configure-a-page-route)」で、ページへのルーティングを構成します。
 
-ページルートを指定したり、ルートセグメントを追加したり、ルートにパラメーターを追加したりするには、ページの `@page` ディレクティブを使用します。 詳細については、「[カスタムルート](xref:razor-pages/index#custom-routes)」を参照してください。
+ページ ルートの指定、ルート セグメントの追加、ルートへのパラメーターの追加を行うには、ページの `@page` ディレクティブを使用します。 詳しくは、「[カスタム ルート](xref:razor-pages/index#custom-routes)」をご覧ください。
 
-ルートセグメントまたはパラメーター名として使用できない予約語があります。 詳細については、「[ルーティング: 予約済みルーティング名](xref:fundamentals/routing#reserved-routing-names)」を参照してください。
+ルート セグメントやパラメーター名として使用できない予約語がいくつかあります。 詳しくは、[ルーティング: ルーティングの予約名](xref:fundamentals/routing#reserved-routing-names)に関するページをご覧ください。
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 | シナリオ | このサンプルでは、次のデモを実行します。 |
 | -------- | --------------------------- |
@@ -616,7 +614,7 @@ Razor ページはハンドラー メソッドを使用するため、MVC [ア�
 | [ページ ルート アクション規則](#page-route-action-conventions)<ul><li>AddFolderRouteModelConvention</li><li>AddPageRouteModelConvention</li><li>AddPageRoute</li></ul> | ルート テンプレートをフォルダー内のページおよび単一ページに追加します。 |
 | [ページ モデル アクション規則](#page-model-action-conventions)<ul><li>AddFolderApplicationModelConvention</li><li>AddPageApplicationModelConvention</li><li>ConfigureFilter (フィルター クラス、ラムダ式、またはフィルター ファクトリ)</li></ul> | ヘッダーをフォルダー内のページに追加し、ヘッダーを単一ページに追加し、ヘッダーをアプリのページに追加するように[フィルター ファクトリ](xref:mvc/controllers/filters#ifilterfactory)を構成します。 |
 
-Razor Pages 規則は、<xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> 拡張メソッドを使用して追加および構成され、`Startup` クラスのサービスコレクションで <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddMvc*> します。 次の規則の例は、このトピックで後述されます。
+Razor ページの規則を追加および構成するには、`Startup` クラス内のサービス コレクションの <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddMvc*> に <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> 拡張メソッドを使用します。 次の規則の例は、このトピックで後述されます。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -641,47 +639,47 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-## <a name="route-order"></a>ルートの順序
+## <a name="route-order"></a>ルートの順番
 
-ルートは、処理 (ルート一致) の <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> を指定します。
+ルートは、処理 (ルートの照合) に使われる順番 (<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*>) を指定します。
 
-| Order            | 動作 |
+| 順番            | 動作 |
 | :--------------: | -------- |
 | -1               | ルートは、他のルートが処理される前に処理されます。 |
-| 0                | 順序が指定されていません (既定値)。 `Order` (`Order = null`) が割り当てられていない場合、ルートは処理のために 0 (ゼロ) に `Order` ます。 |
+| 0                | 順番が指定されていません (既定値)。 `Order` を割り当てない (`Order = null`) 場合、処理に使われるルートの `Order` は既定で 0 (ゼロ) になります。 |
 | 1、2、&hellip; n | ルートの処理順序を指定します。 |
 
-ルート処理は規約によって確立されます。
+ルートの処理は、次の規則で定められています。
 
-* ルートは順番に処理されます (-1、0、1、2、&hellip; n)。
-* ルートの `Order`が同じである場合は、最も具体的なルートが最初に照合され、その後に特定のルートがより少なくなります。
-* 同じ `Order` で同じ数のパラメーターが要求 URL と一致する場合、ルートは、<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection>に追加された順序で処理されます。
+* ルートは並んだ順番に処理されます (-1、0、1、2、&hellip; n)。
+* ルートの `Order` が同じ場合は、最初に最も明確なルートが照合され、続けて次に明確なルートが照合されます。
+* `Order` とパラメーター数が同じルートが 1 つの要求 URL と一致した場合、ルートは <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection> に追加された順番で処理されます。
 
-可能な場合は、確立されたルート処理順序に依存しないようにしてください。 通常、ルーティングでは、URL が一致する正しいルートが選択されます。 要求を正しくルーティングするようにルート `Order` のプロパティを設定する必要がある場合、アプリケーションのルーティングスキームは、クライアントが混乱し、保守が脆弱になることがあります。 アプリのルーティングスキームを簡略化するためにシークします。 このサンプルアプリでは、単一のアプリを使用した複数のルーティングシナリオを示すために、明示的なルート処理を行う必要があります。 ただし、運用環境のアプリでルート `Order` を設定する方法を避けるようにしてください。
+可能であれば、定められたルートの処理順序に依存しないようにしてください。 通常は、ルーティングによって、URL が一致する正しいルートが選択されます。 要求が正しくルーティングされるようにルートの `Order` プロパティを設定する必要がある場合、アプリのルーティング方式がクライアントにとって紛らわしいものとなり、保守が脆弱になる可能性があります。 アプリのルーティング方式を簡略化するよう努めてください。 サンプル アプリでは、1 つのアプリで複数のルーティング シナリオを示すために、ルートの明示的な処理順序が必要です。 ただし、運用環境のアプリでルートの `Order` を設定するやり方は避けるようにしてください。
 
-Razor Pages ルーティングと MVC コントローラー ルーティングは、実装を共有します。 MVC のトピックに記載されている情報については、 [「コントローラーアクションへのルーティング: 属性ルートの順序付け](xref:mvc/controllers/routing#ordering-attribute-routes)」を参照してください。
+Razor Pages ルーティングと MVC コントローラー ルーティングは、実装を共有します。 MVC のトピックに記載されているルートの順番については、[コントローラー アクションへのルーティング: 属性ルートの順序の指定](xref:mvc/controllers/routing#ordering-attribute-routes)に関するページをご覧ください。
 
 ## <a name="model-conventions"></a>モデルの規則
 
-Razor Pages に適用されるモデルの[規則](xref:mvc/controllers/application-model#conventions)を追加するには、<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> のデリゲートを追加します。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> の委任を追加すると、Razor ページに適用される[モデルの規則](xref:mvc/controllers/application-model#conventions)を追加できます。
 
-### <a name="add-a-route-model-convention-to-all-pages"></a>ルートモデルの規則をすべてのページに追加する
+### <a name="add-a-route-model-convention-to-all-pages"></a>すべてのページにルート モデル規則を追加する
 
-<xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> を使用して、ページルートモデルの構築時に適用される <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> インスタンスのコレクションに <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelConvention> を作成して追加します。
+<xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> を使用すると、<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelConvention> を作成して、ページ ルート モデルの構築中に適用される <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> インスタンスのコレクションに追加できます。
 
 サンプル アプリでは、`{globalTemplate?}` ルート テンプレートをアプリ内のすべてのページに追加します。
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Conventions/GlobalTemplatePageRouteModelConvention.cs?name=snippet1)]
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> の <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> プロパティに `1` が設定されます。 これにより、サンプルアプリで次のルート一致動作が保証されます。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> の <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> プロパティに `1` が設定されます。 これにより、サンプル アプリで次のルートの照合動作が保証されます。
 
-* `TheContactPage/{text?}` のルートテンプレートは、このトピックの後半で追加します。 連絡先ページのルートには `null` (`Order = 0`) の既定の順序があるため、`{globalTemplate?}` ルートテンプレートの前に一致します。
-* `{aboutTemplate?}` ルートテンプレートは、このトピックの後半で追加します。 `{aboutTemplate?}` テンプレートの `Order` には `2` が指定されます。 [About] ページが `/About/RouteDataValue` で要求されると、"RouteDataValue" は `RouteData.Values["globalTemplate"]` (`Order = 1`) に読み込まれ、`RouteData.Values["aboutTemplate"]` プロパティが設定されるため `Order = 2` (`Order`) には読み込まれません。
-* `{otherPagesTemplate?}` ルートテンプレートは、このトピックの後半で追加します。 `{otherPagesTemplate?}` テンプレートの `Order` には `2` が指定されます。 *Pages/otherpages*フォルダー内のいずれかのページがルートパラメーター (`/OtherPages/Page1/RouteDataValue`など) で要求された場合、"RouteDataValue" は `RouteData.Values["globalTemplate"]` (`Order = 1`) に読み込まれ、`Order = 2`プロパティの設定によって `RouteData.Values["otherPagesTemplate"]` (`Order`) は読み込まれません。
+* `TheContactPage/{text?}` のルート テンプレートは、このトピックの後半で追加されます。 連絡先ページのルートには既定の順番 `null` (`Order = 0`) が設定されているため、`{globalTemplate?}` ルート テンプレートの前に一致します。
+* `{aboutTemplate?}` ルート テンプレートは、このトピックの後半で追加されます。 `{aboutTemplate?}` テンプレートの `Order` には `2` が指定されます。 [About] ページが `/About/RouteDataValue` で要求されると、"RouteDataValue" は `RouteData.Values["globalTemplate"]` (`Order = 1`) に読み込まれ、`Order` プロパティが設定されるため `RouteData.Values["aboutTemplate"]` (`Order = 2`) には読み込まれません。
+* `{otherPagesTemplate?}` ルート テンプレートは、このトピックの後半で追加されます。 `{otherPagesTemplate?}` テンプレートの `Order` には `2` が指定されます。 ルート パラメーター (`/OtherPages/Page1/RouteDataValue` など) を使用して *Pages/OtherPages* フォルダー内のいずれかのページが要求されると、`Order` プロパティが設定されているため、"RouteDataValue" が `RouteData.Values["otherPagesTemplate"]` (`Order = 2`) ではなく `RouteData.Values["globalTemplate"]` (`Order = 1`) に読み込まれます。
 
-可能な限り、`Order`を設定しないでください。これにより `Order = 0`になります。 正しいルートを選択するには、ルーティングに依存します。
+可能な限り、`Order` を設定しないでください。これにより、`Order = 0` が生じます。 正しいルートの選択には、ルーティングを使用してください。
 
-MVC が `Startup.ConfigureServices`のサービスコレクションに追加されると、<xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions>の追加などの Razor Pages オプションが追加されます。 例については、[サンプル アプリ](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/)を参照してください。
+Razor Pages のオプション (<xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> の追加など) は、MVC が `Startup.ConfigureServices` のサービス コレクションに追加されたときに追加されます。 例については、[サンプル アプリ](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/)を参照してください。
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet1)]
 
@@ -689,9 +687,9 @@ MVC が `Startup.ConfigureServices`のサービスコレクションに追加さ
 
 ![[About] ページは、GlobalRouteValue のルート セグメントで要求されます。 レンダリングされたページは、ルート データの値がページの OnGet メソッドでキャプチャされたことを示しています。](razor-pages-conventions/_static/about-page-global-template.png)
 
-### <a name="add-an-app-model-convention-to-all-pages"></a>すべてのページにアプリモデル規則を追加する
+### <a name="add-an-app-model-convention-to-all-pages"></a>すべてのページにアプリ モデル規則を追加する
 
-<xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> を使用して、ページアプリモデルの構築時に適用される <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> インスタンスのコレクションに <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelConvention> を作成して追加します。
+<xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> を使用すると、<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelConvention> を作成して、ページ アプリ モデルの構築中に適用される <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> インスタンスのコレクションに追加できます。
 
 この規則やこのトピックで後述されるその他の規則のデモを実行するには、サンプル アプリに `AddHeaderAttribute` クラスを含めます。 クラス コンストラクターは、`name` 文字列と `values` 文字列配列を受け入れます。 これらの値は、応答ヘッダーを設定するために、その `OnResultExecuting` メソッド内で使用されます。 完全クラスは、このトピックで後述される「[ページ モデル アクション規則](#page-model-action-conventions)」セクションで示されます。
 
@@ -707,9 +705,9 @@ MVC が `Startup.ConfigureServices`のサービスコレクションに追加さ
 
 ![[About] ページの応答ヘッダーは、GlobalHeader が追加されたことを示しています。](razor-pages-conventions/_static/about-page-global-header.png)
 
-### <a name="add-a-handler-model-convention-to-all-pages"></a>すべてのページにハンドラーモデル規則を追加する
+### <a name="add-a-handler-model-convention-to-all-pages"></a>すべてのページにハンドラー モデル規則を追加する
 
-<xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> を使用して、ページハンドラーモデルの構築時に適用される <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> インスタンスのコレクションに <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageHandlerModelConvention> を作成して追加します。
+<xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> を使用すると、<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageHandlerModelConvention> を作成して、ページ ハンドラー モデルの構築中に適用される <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> インスタンスのコレクションに追加できます。
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Conventions/GlobalPageHandlerModelConvention.cs?name=snippet1)]
 
@@ -719,35 +717,35 @@ MVC が `Startup.ConfigureServices`のサービスコレクションに追加さ
 
 ## <a name="page-route-action-conventions"></a>ページ ルート アクション規則
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelProvider> から派生する既定のルートモデルプロバイダーは、ページルートを構成するための機能拡張ポイントを提供するように設計された規則を呼び出します。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelProvider> から派生する既定のルート モデル プロバイダーは、ページ ルートを構成するための拡張ポイントを提供するようにデザインされた規則を呼び出します。
 
-### <a name="folder-route-model-convention"></a>フォルダールートモデルの規則
+### <a name="folder-route-model-convention"></a>フォルダー ルート モデル規則
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddFolderRouteModelConvention*> を使用すると、指定したフォルダーの下にあるすべてのページについて <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageRouteModel> に対してアクションを呼び出す <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelConvention> を作成して追加できます。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddFolderRouteModelConvention*> を使用すると、指定したフォルダーの下にあるすべてのページを対象に <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageRouteModel> へのアクションを呼び出す <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelConvention> を作成して追加できます。
 
 サンプル アプリでは <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddFolderRouteModelConvention*> を使用して、`{otherPagesTemplate?}` ルート テンプレートを *OtherPages* フォルダーのページに追加します。
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet3)]
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> の <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> プロパティに `2` が設定されます。 これにより、単一のルート値が指定された場合に、`{globalTemplate?}` のテンプレート (前のトピックの「`1`」を参照) が優先されるようになります。 *Pages/otherpages*フォルダー内のページがルートパラメーター値 (`/OtherPages/Page1/RouteDataValue`など) で要求されている場合、"RouteDataValue" は、`Order = 2`プロパティの設定によって `RouteData.Values["otherPagesTemplate"]` (`Order`) ではなく `RouteData.Values["globalTemplate"]` (`Order = 1`) に読み込まれます。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> の <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> プロパティに `2` が設定されます。 この設定により、1 つのルート値が指定されたときに、(このトピックの前半で `1` に設定した) `{globalTemplate?}` のテンプレートが優先的に最初のルート データ値の位置に指定されます。 ルート パラメーター値 (`/OtherPages/Page1/RouteDataValue` など) を使用して *Pages/OtherPages* フォルダー内のページが要求されると、`Order` プロパティが設定されているため、"RouteDataValue" が `RouteData.Values["otherPagesTemplate"]` (`Order = 2`) ではなく `RouteData.Values["globalTemplate"]` (`Order = 1`) に読み込まれます。
 
-可能な限り、`Order`を設定しないでください。これにより `Order = 0`になります。 正しいルートを選択するには、ルーティングに依存します。
+可能な限り、`Order` を設定しないでください。これにより、`Order = 0` が生じます。 正しいルートの選択には、ルーティングを使用してください。
 
 `localhost:5000/OtherPages/Page1/GlobalRouteValue/OtherPagesRouteValue` でサンプルの Page1 ページを要求し、その結果を調べます。
 
 ![OtherPages フォルダーの Page1 は、GlobalRouteValue と OtherPagesRouteValue のルート セグメントで要求されます。 レンダリングされたページは、ルート データの値がページの OnGet メソッドでキャプチャされたことを示しています。](razor-pages-conventions/_static/otherpages-page1-global-and-otherpages-templates.png)
 
-### <a name="page-route-model-convention"></a>ページルートモデルの規則
+### <a name="page-route-model-convention"></a>ページ ルート モデル規則
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddPageRouteModelConvention*> を使用して、指定した名前のページの <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageRouteModel> に対してアクションを呼び出す <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelConvention> を作成して追加します。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddPageRouteModelConvention*> を使用すると、指定した名前のページを対象に <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageRouteModel> へのアクションを呼び出す <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelConvention> を作成して追加できます。
 
 サンプル アプリでは `AddPageRouteModelConvention` を使用して、`{aboutTemplate?}` ルート テンプレートを [About] ページに追加します。
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet4)]
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> の <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> プロパティに `2` が設定されます。 これにより、単一のルート値が指定された場合に、`{globalTemplate?}` のテンプレート (前のトピックの「`1`」を参照) が優先されるようになります。 `/About/RouteDataValue`でルートパラメーター値を使用して About ページが要求された場合、"RouteDataValue" は `RouteData.Values["globalTemplate"]` (`Order = 1`) に読み込まれ、`Order = 2`プロパティの設定によって `RouteData.Values["aboutTemplate"]` (`Order`) ではなくなります。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> の <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> プロパティに `2` が設定されます。 この設定により、1 つのルート値が指定されたときに、(このトピックの前半で `1` に設定した) `{globalTemplate?}` のテンプレートが優先的に最初のルート データ値の位置に指定されます。 [About] ページが `/About/RouteDataValue` にあるルート パラメーター値で要求されると、`Order` プロパティが設定されているため、"RouteDataValue" は `RouteData.Values["aboutTemplate"]` (`Order = 2`) ではなく `RouteData.Values["globalTemplate"]` (`Order = 1`) に読み込まれます。
 
-可能な限り、`Order`を設定しないでください。これにより `Order = 0`になります。 正しいルートを選択するには、ルーティングに依存します。
+可能な限り、`Order` を設定しないでください。これにより、`Order = 0` が生じます。 正しいルートの選択には、ルーティングを使用してください。
 
 `localhost:5000/About/GlobalRouteValue/AboutRouteValue` でサンプルの [About] ページを要求し、その結果を調べます。
 
@@ -755,15 +753,15 @@ MVC が `Startup.ConfigureServices`のサービスコレクションに追加さ
 
 ## <a name="configure-a-page-route"></a>ページ ルートの構成
 
-指定したページパスにあるページへのルートを構成するには、<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AddPageRoute*> を使用します。 そのページに対して生成されたリンクでは、指定したルートを使用します。 `AddPageRoute` では、`AddPageRouteModelConvention` を使用してルートを確立します。
+<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AddPageRoute*> を使用すると、指定したページ パスにあるページへのルートを構成できます。 そのページに対して生成されたリンクでは、指定したルートを使用します。 `AddPageRoute` では、`AddPageRouteModelConvention` を使用してルートを確立します。
 
-サンプル アプリでは、`/TheContactPage`Contact.cshtml*の* へのルートを作成します。
+サンプル アプリでは、*Contact.cshtml* の `/TheContactPage` へのルートを作成します。
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet5)]
 
 [Contact] ページには、既定のルート経由の `/Contact` でアクセスすることもできます。
 
-サンプル アプリの [Contact] ページに対するカスタム ルートでは、省略可能な `text` ルート セグメント (`{text?}`) を許可します。 また、訪問者が `@page` ルートでページにアクセスする場合、ページの `/Contact` ディレクティブにはこの省略可能なセグメントも含まれます。
+サンプル アプリの [Contact] ページに対するカスタム ルートでは、省略可能な `text` ルート セグメント (`{text?}`) を許可します。 また、訪問者が `/Contact` ルートでページにアクセスする場合、ページの `@page` ディレクティブにはこの省略可能なセグメントも含まれます。
 
 [!code-cshtml[](razor-pages-conventions/samples/2.x/SampleApp/Pages/Contact.cshtml?highlight=1)]
 
@@ -779,9 +777,9 @@ MVC が `Startup.ConfigureServices`のサービスコレクションに追加さ
 
 ## <a name="page-model-action-conventions"></a>ページ モデル アクション規則
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelProvider> を実装する既定のページモデルプロバイダーは、ページモデルを構成するための機能拡張ポイントを提供するように設計された規則を呼び出します。 これらの規則は、ページ検出をビルドおよび変更したり、シナリオを処理したりするときに便利です。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelProvider> を実装する既定のページ モデル プロバイダーは、ページ モデルを構成するための拡張ポイントを提供するようにデザインされた規則を呼び出します。 これらの規則は、ページ検出をビルドおよび変更したり、シナリオを処理したりするときに便利です。
 
-このセクションの例では、サンプルアプリで <xref:Microsoft.AspNetCore.Mvc.Filters.ResultFilterAttribute>である `AddHeaderAttribute` クラスを使用して、応答ヘッダーを適用します。
+このセクションの例の場合、サンプル アプリでは、応答ヘッダーを適用する <xref:Microsoft.AspNetCore.Mvc.Filters.ResultFilterAttribute> である、`AddHeaderAttribute` クラスを使用します。
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Filters/AddHeader.cs?name=snippet1)]
 
@@ -789,9 +787,9 @@ MVC が `Startup.ConfigureServices`のサービスコレクションに追加さ
 
 **フォルダー アプリ モデル規則**
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddFolderApplicationModelConvention*> を使用すると、指定したフォルダーの下にあるすべてのページの <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageApplicationModel> インスタンスでアクションを呼び出す <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelConvention> を作成して追加できます。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddFolderApplicationModelConvention*> を使用すると、指定したフォルダーの下にあるすべてのページを対象に <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageApplicationModel> インスタンスへのアクションを呼び出す <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelConvention> を作成して追加できます。
 
-このサンプルでは、ヘッダー (`AddFolderApplicationModelConvention`) をアプリの `OtherPagesHeader`OtherPages *フォルダー内にあるページに追加して、* を使用するデモを実行します。
+このサンプルでは、ヘッダー (`OtherPagesHeader`) をアプリの *OtherPages* フォルダー内にあるページに追加して、`AddFolderApplicationModelConvention` を使用するデモを実行します。
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet6)]
 
@@ -801,9 +799,9 @@ MVC が `Startup.ConfigureServices`のサービスコレクションに追加さ
 
 **ページ アプリ モデル規則**
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddPageApplicationModelConvention*> を使用して、指定した名前のページの <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageApplicationModel> に対してアクションを呼び出す <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelConvention> を作成して追加します。
+<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddPageApplicationModelConvention*> を使用すると、指定した名前のページを対象に <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageApplicationModel> へのアクションを呼び出す <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelConvention> を作成して追加できます。
 
-サンプルでは、ヘッダー (`AddPageApplicationModelConvention`) を [About] ページに追加して、`AboutHeader` を使用するデモを実行します。
+サンプルでは、ヘッダー (`AboutHeader`) を [About] ページに追加して、`AddPageApplicationModelConvention` を使用するデモを実行します。
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet7)]
 
@@ -813,13 +811,13 @@ MVC が `Startup.ConfigureServices`のサービスコレクションに追加さ
 
 **フィルターの構成**
 
-指定したフィルターを適用するように <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.ConfigureFilter*> 構成します。 フィルター クラスを実装できますが、サンプル アプリでは、ラムダ式でフィルターを実装する方法を示しています。これは、フィルターを返すファクトリとしてバックグラウンドで実装されます。
+<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.ConfigureFilter*> では、指定したフィルターを適用するように構成します。 フィルター クラスを実装できますが、サンプル アプリでは、ラムダ式でフィルターを実装する方法を示しています。これは、フィルターを返すファクトリとしてバックグラウンドで実装されます。
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet8)]
 
 ページ アプリ モデルは、*OtherPages* フォルダーの Page2 ページにつながるセグメントの相対パスを確認するために使用されます。 条件を満たすと、ヘッダーが追加されます。 満たさない場合は、`EmptyFilter` が適用されます。
 
-`EmptyFilter` は[アクション フィルター](xref:mvc/controllers/filters#action-filters)です。 アクションフィルターは Razor Pages によって無視されるため、パスに `OtherPages/Page2`が含まれていない場合、`EmptyFilter` は意図したとおりには効果がありません。
+`EmptyFilter` は[アクション フィルター](xref:mvc/controllers/filters#action-filters)です。 アクション フィルターは Razor ページによって無視されるため、パスに `OtherPages/Page2` が含まれない場合、`EmptyFilter` には意図されたような効果はありません。
 
 `localhost:5000/OtherPages/Page2` でサンプルの Page2 ページを要求し、そのヘッダーを調べて結果を確認します。
 
@@ -827,9 +825,9 @@ MVC が `Startup.ConfigureServices`のサービスコレクションに追加さ
 
 **フィルター ファクトリの構成**
 
-指定したファクトリを、すべての Razor Pages に[フィルター](xref:mvc/controllers/filters)を適用するように構成 <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.ConfigureFilter*> ます。
+<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.ConfigureFilter*> では、すべての Razor ページに[フィルター](xref:mvc/controllers/filters)を適用するように、指定したファクトリを構成します。
 
-サンプル アプリでは、アプリのページに対する 2 つの値と共にヘッダー ([) を追加して、](xref:mvc/controllers/filters#ifilterfactory)フィルター ファクトリ`FilterFactoryHeader`を使用する例を提供します。
+サンプル アプリでは、アプリのページに対する 2 つの値と共にヘッダー (`FilterFactoryHeader`) を追加して、[フィルター ファクトリ](xref:mvc/controllers/filters#ifilterfactory)を使用する例を提供します。
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet9)]
 
@@ -843,11 +841,11 @@ MVC が `Startup.ConfigureServices`のサービスコレクションに追加さ
 
 ## <a name="mvc-filters-and-the-page-filter-ipagefilter"></a>MVC フィルターとページ フィルター (IPageFilter)
 
-Razor ページはハンドラー メソッドを使用するため、MVC [アクション フィルター](xref:mvc/controllers/filters#action-filters)は Razor ページによって無視されます。 その他の型の MVC フィルターは、[承認](xref:mvc/controllers/filters#authorization-filters)、[例外](xref:mvc/controllers/filters#exception-filters)、[リソース](xref:mvc/controllers/filters#resource-filters)、および[結果](xref:mvc/controllers/filters#result-filters)を使用するために利用できます。 詳細については、「[フィルター](xref:mvc/controllers/filters)」トピックを参照してください。
+Razor ページはハンドラー メソッドを使用するため、MVC [アクション フィルター](xref:mvc/controllers/filters#action-filters)は Razor ページによって無視されます。 使用できるその他の種類の MVC フィルターは次のとおりです。[承認](xref:mvc/controllers/filters#authorization-filters)、[例外](xref:mvc/controllers/filters#exception-filters)、[リソース](xref:mvc/controllers/filters#resource-filters)、および[結果](xref:mvc/controllers/filters#result-filters)。 詳細については、「[フィルター](xref:mvc/controllers/filters)」トピックを参照してください。
 
-ページフィルター (<xref:Microsoft.AspNetCore.Mvc.Filters.IPageFilter>) は、Razor Pages に適用されるフィルターです。 詳細については、[Razor ページのフィルター メソッド](xref:razor-pages/filter)に関するページを参照してください。
+ページ フィルター (<xref:Microsoft.AspNetCore.Mvc.Filters.IPageFilter>) は、Razor ページに適用されるフィルターの 1 つです。 詳細については、[Razor ページのフィルター メソッド](xref:razor-pages/filter)に関するページを参照してください。
 
-## <a name="additional-resources"></a>その他のリソース
+## <a name="additional-resources"></a>その他の技術情報
 
 * <xref:security/authorization/razor-pages-authorization>
 * <xref:mvc/controllers/areas#areas-with-razor-pages>

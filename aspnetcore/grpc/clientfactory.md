@@ -1,7 +1,7 @@
 ---
-title: .NET Core での gRPC クライアントファクトリの統合
+title: .NET Core での gRPC クライアント ファクトリの統合
 author: jamesnk
-description: クライアントファクトリを使用して gRPC クライアントを作成する方法について説明します。
+description: クライアント ファクトリを使用して gRPC クライアントを作成する方法について説明します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 11/12/2019
@@ -9,25 +9,25 @@ no-loc:
 - SignalR
 uid: grpc/clientfactory
 ms.openlocfilehash: 3042bb61367f8b9a9f3142217ad329270ab2cca5
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
-ms.translationtype: MT
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963679"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78650798"
 ---
-# <a name="grpc-client-factory-integration-in-net-core"></a>.NET Core での gRPC クライアントファクトリの統合
+# <a name="grpc-client-factory-integration-in-net-core"></a>.NET Core での gRPC クライアント ファクトリの統合
 
-gRPC と `HttpClientFactory` の統合には、gRPC クライアントを一元的に作成する方法が用意されています。 [スタンドアロンの gRPC クライアントインスタンスを構成](xref:grpc/client)する代わりに使用することもできます。 ファクトリ統合は、 [Grpc.Net.ClientFactory](https://www.nuget.org/packages/Grpc.Net.ClientFactory) NuGet パッケージで使用できます。
+gRPC と `HttpClientFactory` の統合により、gRPC クライアントを一元的に作成する方法が提供されています。 これは、[スタンドアロンの gRPC クライアント インスタンスを構成する](xref:grpc/client)ための代替手段として使用できます。 ファクトリの統合は、[Grpc.Net.ClientFactory](https://www.nuget.org/packages/Grpc.Net.ClientFactory) NuGet パッケージで提供されています。
 
-ファクトリには、次のような利点があります。
+ファクトリには以下のような利点があります。
 
-* 論理 gRPC クライアントインスタンスを構成するための一元的な場所を提供します
-* 基になる `HttpClientMessageHandler` の有効期間を管理します
-* ASP.NET Core gRPC サービスでの期限とキャンセルの自動伝達
+* 論理 gRPC クライアント インスタンスの構成を一元管理する場所となります
+* 基になる `HttpClientMessageHandler` の存続期間を管理します
+* ASP.NET Core gRPC サービスで期限とキャンセルを自動伝達
 
-## <a name="register-grpc-clients"></a>GRPC クライアントの登録
+## <a name="register-grpc-clients"></a>gRPC クライアントを登録する
 
-GRPC クライアントを登録するには、`Startup.ConfigureServices`内で汎用 `AddGrpcClient` 拡張メソッドを使用し、gRPC で型指定されたクライアントクラスとサービスアドレスを指定します。
+gRPC クライアントを登録するには、ジェネリック `AddGrpcClient` 拡張メソッドを `Startup.ConfigureServices` 内で使用して、gRPC の型指定されたクライアント クラスとサービス アドレスを指定します。
 
 ```csharp
 services.AddGrpcClient<Greeter.GreeterClient>(o =>
@@ -36,7 +36,7 @@ services.AddGrpcClient<Greeter.GreeterClient>(o =>
 });
 ```
 
-GRPC クライアントの種類は、依存関係の注入 (DI) と共に一時的に登録されます。 これで、クライアントを DI によって作成された型に直接挿入して使用できるようになりました。 ASP.NET Core MVC コントローラー、SignalR ハブ、および gRPC サービスは、gRPC クライアントが自動的に挿入される場所です。
+GRPC クライアントの種類は、依存関係の挿入 (DI) がある一時的なものとして登録されます。 これで、DI によって作成される種類でクライアントを直接挿入し、使用できるようになります。 ASP.NET Core MVC コントローラー、SignalR ハブ、および gRPC サービスは、gRPC クライアントを自動的に挿入できる場所です。
 
 ```csharp
 public class AggregatorService : Aggregator.AggregatorBase
@@ -63,9 +63,9 @@ public class AggregatorService : Aggregator.AggregatorBase
 }
 ```
 
-## <a name="configure-httpclient"></a>HttpClient の構成
+## <a name="configure-httpclient"></a>HttpClient を構成する
 
-`HttpClientFactory` は、gRPC クライアントによって使用される `HttpClient` を作成します。 標準 `HttpClientFactory` メソッドを使用して、発信要求ミドルウェアを追加したり、`HttpClient`の基になる `HttpClientHandler` を構成したりすることができます。
+`HttpClientFactory` では、gRPC クライアントによって使用される `HttpClient` が作成されます。 標準の `HttpClientFactory` メソッドを使用して、送信要求ミドルウェアを追加したり、`HttpClient` の基になる `HttpClientHandler` を構成したりすることができます。
 
 ```csharp
 services
@@ -81,14 +81,14 @@ services
     });
 ```
 
-詳細については、「 [IHttpClientFactory を使用して HTTP 要求を作成する](xref:fundamentals/http-requests)」を参照してください。
+詳細については、[IHttpClientFactory を使用した HTTP 要求の作成](xref:fundamentals/http-requests)に関するページを参照してください。
 
-## <a name="configure-channel-and-interceptors"></a>チャネルとインターセプターの構成
+## <a name="configure-channel-and-interceptors"></a>チャネルとインターセプターを構成する
 
-gRPC 固有のメソッドは、次の目的で使用できます。
+gRPC 固有のメソッドは、以下のために使用できます。
 
-* GRPC クライアントの基になるチャネルを構成します。
-* GRPC 呼び出しを行うときにクライアントが使用する `Interceptor` インスタンスを追加します。
+* gRPC クライアントの基になるチャネルを構成します。
+* gRPC 呼び出しを行うときにクライアントが使用する `Interceptor` インスタンスを追加します。
 
 ```csharp
 services
@@ -103,11 +103,11 @@ services
     });
 ```
 
-## <a name="deadline-and-cancellation-propagation"></a>期限と取り消しの反映
+## <a name="deadline-and-cancellation-propagation"></a>期限とキャンセルの伝達
 
-gRPC サービスでファクトリによって作成された gRPC クライアントは、期限とキャンセルトークンを子呼び出しに自動的に反映するように `EnableCallContextPropagation()` を使用して構成できます。 `EnableCallContextPropagation()` の拡張メソッドは、 [Grpc.AspNetCore.Server.ClientFactory](https://www.nuget.org/packages/Grpc.AspNetCore.Server.ClientFactory) NuGet パッケージで使用できますが、
+gRPC サービスでファクトリによって作成された gRPC クライアントは、`EnableCallContextPropagation()` を使用して、期限とキャンセル トークンが子の呼び出しに自動伝達されるように構成できます。 `EnableCallContextPropagation()` 拡張メソッドは [Grpc.AspNetCore.Server.ClientFactory](https://www.nuget.org/packages/Grpc.AspNetCore.Server.ClientFactory) NuGet パッケージで提供されています。
 
-呼び出しコンテキストの伝達は、現在の gRPC 要求コンテキストから期限とキャンセルトークンを読み取り、gRPC クライアントによって行われた発信呼び出しに自動的に伝達することによって機能します。 呼び出しコンテキストの伝達は、複雑で入れ子になった gRPC のシナリオが常に期限とキャンセルを伝達することを保証する優れた方法です。
+呼び出しコンテキストの伝達は、現在の gRPC 要求コンテキストから期限とキャンセル トークンを読み取り、それらを、gRPC クライアントによって行われた送信呼び出しに自動的に伝達することによって機能します。 呼び出しコンテキストの伝達は、複雑で入れ子になった gRPC のシナリオで、常に期限とキャンセルが確実に伝達されるようにする優れた方法です。
 
 ```csharp
 services
@@ -118,7 +118,7 @@ services
     .EnableCallContextPropagation();
 ```
 
-期限と RPC のキャンセルの詳細については、「 [rpc ライフサイクル](https://www.grpc.io/docs/guides/concepts/#rpc-life-cycle)」を参照してください。
+期限と RPC のキャンセルの詳細については、「[RPC ライフサイクル](https://www.grpc.io/docs/guides/concepts/#rpc-life-cycle)」を参照してください。
 
 ## <a name="additional-resources"></a>その他の技術情報
 

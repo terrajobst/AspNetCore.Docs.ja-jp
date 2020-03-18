@@ -1,7 +1,7 @@
 ---
-title: Razor コンポーネントクラスライブラリの ASP.NET Core
+title: ASP.NET Core Razor コンポーネント クラス ライブラリ
 author: guardrex
-description: コンポーネントを外部コンポーネントライブラリから Blazor アプリに組み込む方法について説明します。
+description: 外部コンポーネント ライブラリから、コンポーネントを Blazor アプリに含める方法について説明します。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
@@ -11,44 +11,44 @@ no-loc:
 - SignalR
 uid: blazor/class-libraries
 ms.openlocfilehash: 32088b43f91174596f6b9251d36782e806f966b9
-ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
-ms.translationtype: MT
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/14/2020
-ms.locfileid: "77213250"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78647990"
 ---
-# <a name="aspnet-core-razor-components-class-libraries"></a>Razor コンポーネントクラスライブラリの ASP.NET Core
+# <a name="aspnet-core-razor-components-class-libraries"></a>ASP.NET Core Razor コンポーネント クラス ライブラリ
 
-[Simon Timms](https://github.com/stimms)
+作成者: [Simon Timms](https://github.com/stimms)
 
-コンポーネントは、プロジェクト間で[Razor クラスライブラリ (RCL)](xref:razor-pages/ui-class)で共有できます。 *Razor コンポーネントクラスライブラリ*は、次のものからインクルードできます。
+コンポーネントは、[Razor クラス ライブラリ (RCL)](xref:razor-pages/ui-class) 内でプロジェクト間で共有できます。 *Razor コンポーネント クラス ライブラリ*は、次から含めることができます。
 
-* ソリューション内の別のプロジェクト。
+* ソリューションの別のプロジェクト。
 * NuGet パッケージ。
-* 参照された .NET ライブラリです。
+* 参照されている .NET ライブラリ。
 
 コンポーネントが通常の .NET 型であるのと同様に、RCL によって提供されるコンポーネントは通常の .NET アセンブリです。
 
 ## <a name="create-an-rcl"></a>RCL を作成する
 
-<xref:blazor/get-started> の記事のガイダンスに従って、Blazor 用に環境を構成します。
+<xref:blazor/get-started> の記事のガイダンスに従って、Blazor 用の環境を構成します。
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 1. 新しいプロジェクトを作成します。
-1. **[Razor クラスライブラリ]** を選択します。 **[次へ]** を選択します。
-1. **[新しい Razor クラスライブラリを作成]** します ダイアログで、 **[作成]** を選択します。
-1. **[プロジェクト名]** フィールドにプロジェクト名を入力するか、既定のプロジェクト名をそのまま使用します。 このトピックの例では、`MyComponentLib1`プロジェクト名を使用します。 **[作成]** を選択します。
+1. **[Razor クラス ライブラリ]** を選択します。 **[次へ]** を選択します。
+1. **[Create a new Razor class library]** (新しい Razor クラスライブラリの作成) ダイアログで、 **[作成]** を選択します。
+1. **[プロジェクト名]** フィールドにプロジェクト名を入力するか、既定のプロジェクト名をそのまま使用します。 このトピックの例では、プロジェクト名 `MyComponentLib1` を使用します。 **[作成]** を選択します。
 1. RCL をソリューションに追加します。
    1. ソリューションを右クリックします。 **[追加]**  >  **[既存のプロジェクト]** を選択します。
-   1. RCL のプロジェクトファイルに移動します。
-   1. RCL のプロジェクトファイル ( *.csproj*) を選択します。
+   1. RCL のプロジェクト ファイルに移動します。
+   1. RCL のプロジェクト ファイル ( *.csproj*) を選択します。
 1. アプリから RCL の参照を追加します。
-   1. アプリプロジェクトを右クリックします。 [ > **参照**の**追加**] を選択します。
+   1. アプリ プロジェクトを右クリックします。 **[追加]**  >  **[参照]** の順に選択します。
    1. RCL プロジェクトを選択します。 **[OK]** を選択します。
 
 > [!NOTE]
-> テンプレートから RCL を生成するときに **[サポートページとビュー]** チェックボックスがオンになっている場合は、次の内容を使用して、生成されたプロジェクトのルートに *_Imports razor*ファイルを追加して、razor コンポーネントの作成を有効にします。
+> テンプレートから RCL を生成するときに **[ページとビューのサポート]** チェック ボックスがオンになっている場合は、次のコンテンツで生成されたプロジェクトのルートに、 *_Imports.razor* ファイルも追加して、Razor コンポーネントの作成を有効にします。
 >
 > ```razor
 > @using Microsoft.AspNetCore.Components.Web
@@ -56,16 +56,16 @@ ms.locfileid: "77213250"
 >
 > 生成されたプロジェクトのルートにファイルを手動で追加します。
 
-# <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-1. コマンドシェルで[dotnet new](/dotnet/core/tools/dotnet-new)コマンドを使用して、 **Razor クラスライブラリ**テンプレート (`razorclasslib`) を使用します。 次の例では、`MyComponentLib1`という名前の RCL が作成されます。 コマンドの実行時に、`MyComponentLib1` を保持するフォルダーが自動的に作成されます。
+1. コマンド シェルで [dotnet new](/dotnet/core/tools/dotnet-new) コマンドを使用して、**Razor クラス ライブラリ** テンプレート (`razorclasslib`) を使用します。 次の例では、`MyComponentLib1` という名前の RCL が作成されます。 コマンドの実行時に、`MyComponentLib1` を保持するフォルダーが自動的に作成されます。
 
    ```dotnetcli
    dotnet new razorclasslib -o MyComponentLib1
    ```
 
    > [!NOTE]
-   > テンプレートから RCL を生成するときに `-s|--support-pages-and-views` スイッチが使用されている場合は、次の内容を使用して、生成されたプロジェクトのルートに *_Imports razor*ファイルを追加して、razor コンポーネントの作成を有効にします。
+   > テンプレートから RCL を生成するときに、`-s|--support-pages-and-views` スイッチが使用されている場合、次のコンテンツで生成されたプロジェクトのルートに、 *_Imports.razor* ファイルも追加して、Razor コンポーネントの作成を有効にします。
    >
    > ```razor
    > @using Microsoft.AspNetCore.Components.Web
@@ -73,7 +73,7 @@ ms.locfileid: "77213250"
    >
    > 生成されたプロジェクトのルートにファイルを手動で追加します。
 
-1. 既存のプロジェクトにライブラリを追加するには、コマンドシェルで dotnet の [[参照の追加](/dotnet/core/tools/dotnet-add-reference)] コマンドを使用します。 次の例では、RCL がアプリに追加されています。 ライブラリへのパスを使用して、アプリのプロジェクトフォルダーから次のコマンドを実行します。
+1. 既存のプロジェクトにライブラリを追加するには、コマンド シェルで [dotnet add reference](/dotnet/core/tools/dotnet-add-reference) コマンドを使用します。 次の例では、RCL がアプリに追加されています。 ライブラリへのパスを使用して、アプリのプロジェクト フォルダーから次のコマンドを実行します。
 
    ```dotnetcli
    dotnet add reference {PATH TO LIBRARY}
@@ -81,16 +81,16 @@ ms.locfileid: "77213250"
 
 ---
 
-## <a name="consume-a-library-component"></a>ライブラリコンポーネントの使用
+## <a name="consume-a-library-component"></a>ライブラリ コンポーネントの使用
 
-別のプロジェクトのライブラリで定義されているコンポーネントを使用するには、次のいずれかの方法を使用します。
+別のプロジェクトのライブラリに定義されているコンポーネントを使用するには、次のいずれかの方法を使用します。
 
-* 名前空間で完全な型名を使用します。
-* Razor の[\@using ディレクティブを](xref:mvc/views/razor#using)使用します。 個々のコンポーネントを名前で追加することができます。
+* 名前空間と完全な型名を使用します。
+* Razor の [\@using](xref:mvc/views/razor#using) ディレクティブを使用します。 個々のコンポーネントを名前で追加することができます。
 
-次の例では、`MyComponentLib1` は `SalesReport` コンポーネントを含むコンポーネントライブラリです。
+次の例で、`MyComponentLib1` は `SalesReport` コンポーネントを含むコンポーネント ライブラリです。
 
-名前空間を持つ完全な型名を使用して、`SalesReport` コンポーネントを参照できます。
+名前空間と完全な型名を使用して、`SalesReport` コンポーネントを参照できます。
 
 ```razor
 <h1>Hello, world!</h1>
@@ -100,7 +100,7 @@ Welcome to your new app.
 <MyComponentLib1.SalesReport />
 ```
 
-また、ライブラリが `@using` ディレクティブを使用してスコープ内にある場合は、このコンポーネントを参照することもできます。
+また、ライブラリが `@using` ディレクティブを使用して、スコープ内に取り込まれている場合も、このコンポーネントを参照できます。
 
 ```razor
 @using MyComponentLib1
@@ -112,22 +112,22 @@ Welcome to your new app.
 <SalesReport />
 ```
 
-ライブラリのコンポーネントをプロジェクト全体で使用できるようにするには、トップレベルの *_Import razor*ファイルに `@using MyComponentLib1` ディレクティブを含めます。 ディレクティブを任意のレベルの *_Import の razor*ファイルに追加して、名前空間をフォルダー内の1つのページまたは一連のページに適用します。
+プロジェクト全体でライブラリのコンポーネントを使用できるようにするには、最上位の *_Import.razor* ファイルに `@using MyComponentLib1` ディレクティブを含めます。 ディレクティブを任意のレベルの *_Import.razor* ファイルに追加して、名前空間をフォルダー内の 1 つまたは複数のページに適用します。
 
-## <a name="build-pack-and-ship-to-nuget"></a>NuGet のビルド、パック、出荷
+## <a name="build-pack-and-ship-to-nuget"></a>ビルド、パック、NuGet への配布
 
-コンポーネントライブラリは標準の .NET ライブラリであるため、パッケージを NuGet にパッケージ化して配布することは、ライブラリをパッケージ化して NuGet に配布する場合と変わりはありません。 パッケージ化は、コマンドシェルで[dotnet pack](/dotnet/core/tools/dotnet-pack)コマンドを使用して実行されます。
+コンポーネント ライブラリは標準 .NET ライブラリであるため、それらをパッケージ化して NuGet に配布することは、ライブラリをパッケージ化して NuGet に配布する場合と変わりはありません。 パッケージ化は、コマンド シェルで [dotnet pack](/dotnet/core/tools/dotnet-pack) コマンドを使用して実行します。
 
 ```dotnetcli
 dotnet pack
 ```
 
-コマンドシェルで[dotnet nuget push](/dotnet/core/tools/dotnet-nuget-push)コマンドを使用して、パッケージを nuget にアップロードします。
+コマンド シェルで [dotnet nuget push](/dotnet/core/tools/dotnet-nuget-push) コマンドを使用して、パッケージを NuGet にアップロードします。
 
-## <a name="create-a-razor-components-class-library-with-static-assets"></a>静的なアセットを含む Razor コンポーネントクラスライブラリを作成する
+## <a name="create-a-razor-components-class-library-with-static-assets"></a>静的アセットを含む Razor コンポーネント クラスライブラリを作成する
 
-RCL には、静的なアセットを含めることができます。 この静的アセットは、ライブラリを使用するすべてのアプリで使用できます。 詳細については、<xref:razor-pages/ui-class#create-an-rcl-with-static-assets> を参照してください。
+RCL には、静的アセットを含めることができます。 静的アセットは、ライブラリを使用するすべてのアプリで使用できます。 詳細については、「<xref:razor-pages/ui-class#create-an-rcl-with-static-assets>」を参照してください。
 
-## <a name="additional-resources"></a>その他のリソース
+## <a name="additional-resources"></a>その他の技術情報
 
 * <xref:razor-pages/ui-class>

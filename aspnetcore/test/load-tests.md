@@ -1,41 +1,41 @@
 ---
-title: ASP.NET Core の負荷/ストレステスト
+title: ASP.NET Core のロード テスト/ストレス テスト
 author: Jeremy-Meng
-description: ロードテストと ASP.NET Core アプリのストレステストを行うための、いくつかの注目すべきツールとアプローチについて説明します。
+description: ASP.NET Core アプリのロード テストとストレス テストを行うために、いくつかの注目すべきツールとアプローチについて説明します。
 ms.author: riande
 ms.custom: mvc
 ms.date: 4/05/2019
 uid: test/loadtests
 ms.openlocfilehash: 1fd77a767fb53b9276081dd712e13108094a0382
-ms.sourcegitcommit: cb6015f737b6a93127016ab0f21b58e34b624ff3
-ms.translationtype: MT
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/04/2020
-ms.locfileid: "77004293"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78649640"
 ---
-# <a name="aspnet-core-loadstress-testing"></a>ASP.NET Core の負荷/ストレステスト
+# <a name="aspnet-core-loadstress-testing"></a>ASP.NET Core のロード テスト/ストレス テスト
 
-ロードテストとストレステストは、web アプリのパフォーマンスと拡張性を確保するために重要です。 これらの目標は、よく似たテストを共有している場合でも異なります。
+ロード テストとストレス テストは、Web アプリのパフォーマンスと拡張性を確保するために重要です。 これらの目標は、よく似たテストを共有する場合でも異なります。
 
-**ロードテスト** – 応答の目標値を満たしながら、特定のシナリオでアプリが指定された負荷のユーザーを処理できるかどうかをテストします。 アプリは通常の状態で実行します。
+**ロード テスト** &ndash; アプリが応答の目標を満たしつつ、特定のシナリオで特定のユーザーの負荷を処理することができるかをテストします。 アプリは通常の状態で実行されます。
 
-**ストレステスト** &ndash; 多くの場合、長時間、極端な条件下でアプリの安定性をテストします。 テストでは、アプリの負荷を急増させたり徐々に増加させるようにユーザーの負荷を高くします。または、アプリのコンピューティングリソースを制限します。
+**ストレス テスト** &ndash; 極端な条件でのアプリの安定性をテストします。多くの場合は、長い時間にわたるテストを行います。 このテストでは、急激な負荷または徐々に増加する負荷によって、アプリに高いユーザー負荷をかけます。または、アプリのコンピューティング リソースを制限します。
 
-ストレステストは、ストレスのかかったアプリが障害から回復し、正常に期待通りの動作に戻ることができるかどうかを判断します。 ストレスがかかったアプリは、通常の状態で実行されません。
+ストレス テストでは、負荷がかかっているアプリが障害から復旧し、期待される動作に適切に戻ることができるかどうかを判断します。 ストレスをかけるアプリは、通常の状況では実行されません。
 
-Visual studio 2019 は、ロードテスト機能を備えた最新バージョンの Visual Studio です。 今後ロードテストツールが必要なお客様には、Apache JMeter、Akamai CloudTest、BlazeMeter などの別のツールをお勧めします。 詳細については、「 [Visual Studio 2019 リリースノート](/visualstudio/releases/2019/release-notes-v16.0#test-tools)」を参照してください。
+Visual Studio 2019 は、ロード テスト機能を備えた最後のバージョンの Visual Studio です。 今後、ロード テスト ツールを必要とするお客様には、Apache JMeter、Akamai CloudTest、BlazeMeter などの代替のツールを推奨します。 詳細については、「[Visual Studio 2019 リリース ノート](/visualstudio/releases/2019/release-notes-v16.0#test-tools)」を参照してください。
 
 ## <a name="visual-studio-tools"></a>Visual Studio ツール
 
-ユーザーは Visual Studio を使用して、web パフォーマンステストとロードテストを作成、開発、およびデバッグすることができます。 Web ブラウザーでアクションを記録することによって、テストを作成するためのオプションを使用できます。
+ユーザーは、Visual Studio を使用して Web パフォーマンス テストおよびロード テストを作成、開発、およびデバッグできます。 Web ブラウザーでアクションを記録してテストを作成するオプションを使用できます。
 
-Visual Studio 2017 を使用してロードテストプロジェクトを作成、構成、および実行する方法については、「[クイックスタート: ロードテストプロジェクトを作成](/visualstudio/test/quickstart-create-a-load-test-project?view=vs-2017)する」を参照してください。
+Visual Studio 2017 を使用してロード テスト プロジェクトを作成、構成、および実行する方法については、「[クイックスタート: ロード テスト プロジェクトを作成する](/visualstudio/test/quickstart-create-a-load-test-project?view=vs-2017)」を参照してください。
 
-ロードテストは、オンプレミスで実行するように構成することも、Azure DevOps を使用してクラウドで実行するように構成することもできます。
+ロード テストは、オンプレミスで実行するように構成することも、Azure DevOps を使用してクラウドで実行するように構成することもできます。
 
 ## <a name="third-party-tools"></a>サードパーティ製のツール
 
-次の一覧には、さまざまな機能セットを備えたサードパーティの web パフォーマンスツールが含まれています。
+次の一覧には、さまざまな機能セットを備えたサードパーティ製の Web パフォーマンス ツールが含まれています。
 
 * [Apache JMeter](https://jmeter.apache.org/)
 * [ApacheBench (ab)](https://httpd.apache.org/docs/2.4/programs/ab.html)

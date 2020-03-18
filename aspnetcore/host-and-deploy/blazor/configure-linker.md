@@ -11,19 +11,19 @@ no-loc:
 - SignalR
 uid: host-and-deploy/blazor/configure-linker
 ms.openlocfilehash: 263b85a3213c1da233e4c96095faaf39d0a8e13f
-ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/24/2020
-ms.locfileid: "76726766"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78648608"
 ---
-# <a name="configure-the-linker-for-aspnet-core-opno-locblazor"></a>ASP.NET Core [!OP.NO-LOC(Blazor)] 用のリンカーを構成する
+# <a name="configure-the-linker-for-aspnet-core-blazor"></a>ASP.NET Core Blazor 用のリンカーを構成する
 
 作成者: [Luke Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-[!OP.NO-LOC(Blazor)] では、ビルド中に[中間言語 (IL)](/dotnet/standard/managed-code#intermediate-language--execution) のリンクが実行されて、アプリの出力アセンブリから不要な IL が削除されます。
+Blazor では、ビルド中に[中間言語 (IL)](/dotnet/standard/managed-code#intermediate-language--execution) のリンクが実行されて、アプリの出力アセンブリから不要な IL が削除されます。
 
 次の方法のいずれかを使って、アセンブリのリンクを制御します。
 
@@ -55,7 +55,7 @@ XML の構成ファイルを用意してそのファイルをプロジェクト 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-  This file specifies which parts of the BCL or [!OP.NO-LOC(Blazor)] packages must not be
+  This file specifies which parts of the BCL or Blazor packages must not be
   stripped by the IL Linker even if they aren't referenced by user code.
 -->
 <linker>
@@ -86,7 +86,7 @@ XML の構成ファイルを用意してそのファイルをプロジェクト 
 
 ### <a name="configure-the-linker-for-internationalization"></a>国際化用にリンカーを構成する
 
-既定では、[!OP.NO-LOC(Blazor)] WebAssembly に対する [!OP.NO-LOC(Blazor)] のリンカー構成により、明示的に要求されたロケールを除き、国際化情報は除去されます。 これらのアセンブリを削除すると、アプリのサイズが最小限に抑えられます。
+既定では、WebAssembly アプリに対する Blazor のリンカー構成により、明示的に要求されたロケールを除き、国際化情報が除去されます。 これらのアセンブリを削除すると、アプリのサイズが最小限に抑えられます。
 
 保持される I18N アセンブリを制御するには、プロジェクト ファイルで MSBuild のプロパティ `<MonoLinkerI18NAssemblies>` を設定します。
 

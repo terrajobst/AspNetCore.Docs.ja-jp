@@ -5,12 +5,12 @@ description: ASP.NET Core がコンテンツをさまざまな言語と文化に
 ms.author: riande
 ms.date: 11/30/2019
 uid: fundamentals/localization
-ms.openlocfilehash: 645f680436336acbe1d5c2854a242527c9b4b9cb
-ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
+ms.openlocfilehash: b175354220a8a71c029e005f27443d5a72749a11
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74717404"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78648434"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>ASP.NET Core のグローバリゼーションおよびローカリゼーション
 
@@ -30,7 +30,7 @@ ASP.NET Core で多言語の Web サイトを作成すると、より幅広い�
 
 3. 要求ごとに言語/カルチャを選択するための戦略を実装する
 
-[サンプル コードを表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/localization/sample/Localization)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/localization/sample/Localization)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
 ## <a name="make-the-apps-content-localizable"></a>アプリのコンテンツをローカライズできるようにする
 
@@ -74,7 +74,7 @@ HTML を格納しているリソースには、`IHtmlLocalizer<T>` の実装を�
 
 フランス語のリソース ファイルには次の値が含まれます。
 
-| キー | [値] |
+| Key | [値] |
 | ----- | ------ |
 | `<i>Hello</i> <b>{0}!</b>` | `<i>Bonjour</i> <b>{0} !</b>` |
 
@@ -218,13 +218,14 @@ Visual Studio で、ファイル名にカルチャを指定せずにリソース
 
 * `AddViewLocalization` ローカライズされたビュー ファイルのサポートを追加します。 このサンプル ビューでは、ローカリゼーションは、ビュー ファイルのサフィックスに基づいています。 たとえば、*Index.fr.cshtml* ファイルの "fr" です。
 
-* `AddDataAnnotationsLocalization` `IStringLocalizer` 抽象化を介してローカライズされた `DataAnnotations` 検証メッセージのサポートを追加します。
+* `AddDataAnnotationsLocalization``IStringLocalizer` 抽象化を介してローカライズされた `DataAnnotations` 検証メッセージのサポートを追加します。
 
 ### <a name="localization-middleware"></a>ローカリゼーション ミドルウェア
 
 要求時に現在のカルチャが、ローカリゼーション [ミドルウェア](xref:fundamentals/middleware/index)で設定されます。 ローカリゼーション ミドルウェアは、`Startup.Configure` メソッドで有効になります。 要求のカルチャをチェックする可能性があるすべてのミドルウェア (たとえば `app.UseMvcWithDefaultRoute()`) の前に、ローカリゼーション ミドルウェアを構成する必要があります。
 
 [!code-csharp[](localization/sample/Localization/Startup.cs?name=snippet2)]
+[!INCLUDE[about the series](~/includes/code-comments-loc.md)]
 
 `UseRequestLocalization` は `RequestLocalizationOptions` オブジェクトを初期化します。 すべての要求で、`RequestLocalizationOptions` の `RequestCultureProvider` のリストが列挙され、要求のカルチャを正常に決定できる最初のプロバイダーが使用されます。 既定のプロバイダーは `RequestLocalizationOptions` クラスから派生します。
 
@@ -276,7 +277,7 @@ Cookie の形式は `c=%LANGCODE%|uic=%LANGCODE%` です。ここで、`c` は `
 
 6. 言語をタップして、 **[上へ移動]** をタップします。
 
-::: moniker range=">= aspnetcore-3.1"
+::: moniker range="> aspnetcore-3.1"
 ### <a name="the-content-language-http-header"></a>Content-Language HTTP ヘッダー
 
 [Content-Language](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Language) エンティティ ヘッダーは、

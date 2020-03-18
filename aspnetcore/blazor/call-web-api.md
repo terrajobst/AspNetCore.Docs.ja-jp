@@ -1,7 +1,7 @@
 ---
-title: ASP.NET Core Blazor から web API を呼び出す
+title: ASP.NET Core Blazor から Web API を呼び出す
 author: guardrex
-description: クロスオリジンリソース共有 (CORS) 要求の作成など、JSON ヘルパーを使用して Blazor アプリから web API を呼び出す方法について説明します。
+description: クロス オリジン リソース共有 (CORS) 要求の作成など、JSON ヘルパーを使用して Blazor アプリから web API を呼び出す方法について説明します。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
@@ -10,56 +10,56 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/call-web-api
-ms.openlocfilehash: 345fb6962e3376c22551eb7914c70c89cb7100d5
-ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
-ms.translationtype: MT
+ms.openlocfilehash: e6996f0e6731b05038d0a9329152b8afd5f6796d
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/14/2020
-ms.locfileid: "77213276"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78647732"
 ---
-# <a name="call-a-web-api-from-aspnet-core-opno-locblazor"></a>ASP.NET Core Blazor から web API を呼び出す
+# <a name="call-a-web-api-from-aspnet-core-opno-locblazor"></a>ASP.NET Core Blazor から Web API を呼び出す
 
-[Luke Latham](https://github.com/guardrex)、 [Daniel Roth](https://github.com/danroth27)、[フアン De la クルス](https://github.com/juandelacruz23)
+作成者: [Luke Latham](https://github.com/guardrex)、[Daniel Roth](https://github.com/danroth27)、[Juan De la Cruz](https://github.com/juandelacruz23)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-[Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly)は、構成済みの `HttpClient` サービスを使用して web api を呼び出します。 要求を作成します。これには、Blazor JSON ヘルパーまたは <xref:System.Net.Http.HttpRequestMessage>を使用した JavaScript [FETCH API](https://developer.mozilla.org/docs/Web/API/Fetch_API)オプションを含めることができます。 Blazor Webasのアプリの `HttpClient` サービスは、配信元のサーバーに要求を戻すことに重点を置いています。 このトピックのガイダンスは Blazor Webasapps アプリにのみ関連しています。
+[Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) アプリは、事前に構成された `HttpClient` サービスを使用して Web API を呼び出します。 JavaScript [Fetch API](https://developer.mozilla.org/docs/Web/API/Fetch_API) オプションを含めることができる要求は、Blazor JSON ヘルパーまたは <xref:System.Net.Http.HttpRequestMessage> を使用して作成ます。 Blazor WebAssembly アプリの `HttpClient` サービスは、発行元のサーバーに要求を戻すことに重点を置いています。 このトピックのガイダンスは、Blazor WebAssembly アプリにのみ関連します。
 
-[Blazor サーバー](xref:blazor/hosting-models#blazor-server)アプリは <xref:System.Net.Http.HttpClient> インスタンスを使用して web api を呼び出します。通常は <xref:System.Net.Http.IHttpClientFactory>を使用して作成されます。 このトピックのガイダンスは Blazor サーバーアプリには関係しません。 Blazor サーバーアプリを開発するときは、<xref:fundamentals/http-requests>のガイダンスに従ってください。
+[Blazor Server](xref:blazor/hosting-models#blazor-server) アプリは、<xref:System.Net.Http.HttpClient> インスタンスを使用して Web API を呼び出します。これは通常、<xref:System.Net.Http.IHttpClientFactory> を使用して作成されます。 このトピックのガイダンスは、Blazor Server アプリには関係しません。 Blazor Server アプリの開発時には、<xref:fundamentals/http-requests> のガイダンスに従ってください。
 
-*BlazorWebAssemblySample*アプリを選択 &ndash; には、サンプルコード ([ダウンロード方法](xref:index#how-to-download-a-sample)) を[表示またはダウンロード](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)します。
+[サンプルコードを表示またはダウンロードする](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ([ダウンロードの方法](xref:index#how-to-download-a-sample)) &ndash;*BlazorWebAssemblySample* アプリを選択します。
 
-*BlazorWebAssemblySample*サンプルアプリの次のコンポーネントを参照してください。
+*BlazorWebAssemblySample* サンプル アプリ内の以下のコンポーネントを参照します。
 
-* Web API の呼び出し (*Pages/CallWebAPI*)
-* HTTP 要求テスター (*Components/HTTPRequestTester*)
+* Web API の呼び出し (*Pages/CallWebAPI.razor*)
+* HTTP 要求テスター (*Components/HTTPRequestTester.razor*)
 
 ## <a name="packages"></a>パッケージ
 
-AspNetCore*を参照*します。 [プロジェクトファイル内の BlazorHttpClient](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.HttpClient/) NuGet パッケージ。 `Microsoft.AspNetCore.Blazor.HttpClient` は `HttpClient` と system.string に基づいて[います。](https://www.nuget.org/packages/System.Text.Json/)
+プロジェクト ファイル内の*実験用の* [Microsoft.AspNetCore.Blazor.HttpClient](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.HttpClient/) NuGet パッケージを参照します。 `Microsoft.AspNetCore.Blazor.HttpClient` は、`HttpClient` と [System.Text.Json](https://www.nuget.org/packages/System.Text.Json/) に基づいています。
 
-安定した API を使用するには、 [WebApi](https://www.nuget.org/packages/Microsoft.AspNet.WebApi.Client/)パッケージを使用します。このパッケージは[Json.NET/](https://www.newtonsoft.com/json/help/html/Introduction.htm)[を使用し](https://www.nuget.org/packages/Newtonsoft.Json/)ます。 `Microsoft.AspNet.WebApi.Client` で安定した API を使用しても、このトピックで説明する JSON ヘルパーは提供されません。これは、実験的な `Microsoft.AspNetCore.Blazor.HttpClient` パッケージに固有のものです。
+安定版の API を使用するには、[Microsoft.AspNet.WebApi.Client](https://www.nuget.org/packages/Microsoft.AspNet.WebApi.Client/) パッケージを使用します。このパッケージでは、[Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json/)/[Json.NET](https://www.newtonsoft.com/json/help/html/Introduction.htm) が使用されます。 `Microsoft.AspNet.WebApi.Client` で安定版の API を使用する場合、このトピックで説明する JSON ヘルパーは提供されません。これは、実験用の `Microsoft.AspNetCore.Blazor.HttpClient` パッケージに固有のものです。
 
-## <a name="httpclient-and-json-helpers"></a>HttpClient と JSON のヘルパー
+## <a name="httpclient-and-json-helpers"></a>HttpClient と JSON ヘルパー
 
-Blazor WebAssembly では、 [Httpclient](xref:fundamentals/http-requests)は、要求を配信元サーバーに返すための事前に構成されたサービスとして利用できます。
+Blazor WebAssembly アプリでは、[HttpClient](xref:fundamentals/http-requests) は、要求を要求元のサーバーに返すための構成済みのサービスとして利用できます。
 
-Blazor サーバーアプリには、既定では `HttpClient` サービスが含まれていません。 [Httpclient ファクトリインフラストラクチャ](xref:fundamentals/http-requests)を使用して、アプリに `HttpClient` を提供します。
+Blazor Server アプリには、既定では `HttpClient` サービスが含まれません。 [HttpClient ファクトリ インフラストラクチャ](xref:fundamentals/http-requests)を使用して、アプリに `HttpClient` を提供します。
 
-`HttpClient` と JSON ヘルパーは、サードパーティの web API エンドポイントを呼び出すためにも使用されます。 `HttpClient` は、ブラウザーの[FETCH API](https://developer.mozilla.org/docs/Web/API/Fetch_API)を使用して実装され、同じオリジンポリシーの適用などの制限が適用されます。
+`HttpClient` と JSON のヘルパーは、サード パーティの Web API エンドポイントを呼び出すためにも使用されます。 `HttpClient` は、ブラウザーの [Fetch API](https://developer.mozilla.org/docs/Web/API/Fetch_API) を使用して実装されており、同一生成元ポリシーの適用を含め、その制限に従います。
 
-クライアントのベースアドレスは、元のサーバーのアドレスに設定されます。 `@inject` ディレクティブを使用して `HttpClient` インスタンスを挿入します。
+クライアントのベース アドレスは、生成元のサーバーのアドレスに設定されます。 `HttpClient` インスタンスは `@inject` ディレクティブを使用して挿入します。
 
 ```razor
 @using System.Net.Http
 @inject HttpClient Http
 ```
 
-次の例では、Todo web API が作成、読み取り、更新、および削除 (CRUD) の各操作を処理します。 この例は、を格納する `TodoItem` クラスに基づいています。
+以降の例では、Todo Web API によって、(CRUD) 操作の作成、読み取り、更新、および削除が処理されます。 これらの例は、以下を格納する `TodoItem` クラスに基づいています。
 
-* ID (`Id`、`long`) &ndash; アイテムの一意の ID。
-* 項目の名前 (`Name`、`string`) &ndash; 名前。
-* [状態] (`IsComplete`、`bool`) &ndash; Todo 項目が終了したかどうかを示します。
+* ID (`Id`、`long`) &ndash; 項目の一意の ID。
+* 名前 (`Name`、`string`) &ndash; 項目の名前。
+* 状態 (`IsComplete`、`bool`) &ndash; Todo 項目が終了したかどうかを示します。
 
 ```csharp
 private class TodoItem
@@ -70,11 +70,11 @@ private class TodoItem
 }
 ```
 
-JSON ヘルパーメソッドは、要求を URI (次の例では web API) に送信し、応答を処理します。
+JSON のヘルパー メソッドは、要求を URI (次の例では Web API) に送信し、応答を処理します。
 
-* `GetJsonAsync` &ndash; は HTTP GET 要求を送信し、JSON 応答本文を解析してオブジェクトを作成します。
+* `GetJsonAsync` &ndash; HTTP GET 要求を送信し、JSON 応答本文を解析してオブジェクトを作成します。
 
-  次のコードでは、`_todoItems` がコンポーネントによって表示されます。 `GetTodoItems` メソッドは、コンポーネントのレンダリングが終了したときにトリガーされます ([Oninitializer Edasync](xref:blazor/lifecycle#component-initialization-methods))。 完全な例については、サンプルアプリを参照してください。
+  次のコードでは、コンポーネントによって `_todoItems` が表示されます。 `GetTodoItems` メソッドは、コンポーネントのレンダリングが終了したとき ([OnInitializedAsync](xref:blazor/lifecycle#component-initialization-methods)) にトリガーされます。 完全な例についてはサンプル アプリを参照してください。
 
   ```razor
   @using System.Net.Http
@@ -88,9 +88,9 @@ JSON ヘルパーメソッドは、要求を URI (次の例では web API) に�
   }
   ```
 
-* `PostJsonAsync` &ndash; は、JSON でエンコードされたコンテンツを含む HTTP POST 要求を送信し、JSON 応答本文を解析してオブジェクトを作成します。
+* `PostJsonAsync` &ndash; JSON でエンコードされたコンテンツを含め、HTTP POST 要求を送信し、JSON 応答本文を解析してオブジェクトを作成します。
 
-  次のコードでは、コンポーネントのバインドされた要素によって `_newItemName` が提供されています。 `AddItem` メソッドは、`<button>` 要素を選択することによってトリガーされます。 完全な例については、サンプルアプリを参照してください。
+  次のコードでは、コンポーネントのバインドされた要素によって `_newItemName` が提供されています。 `AddItem` メソッドは、`<button>` 要素を選択することにでトリガーされます。 完全な例についてはサンプル アプリを参照してください。
 
   ```razor
   @using System.Net.Http
@@ -110,9 +110,9 @@ JSON ヘルパーメソッドは、要求を URI (次の例では web API) に�
   }
   ```
 
-* `PutJsonAsync` &ndash; は、JSON でエンコードされたコンテンツを含む HTTP PUT 要求を送信します。
+* `PutJsonAsync` &ndash; JSON でエンコードされたコンテンツを含め、HTTP PUT 要求を送信します。
 
-  次のコードでは、`Name` と `IsCompleted` の `_editItem` 値が、コンポーネントのバインドされた要素によって提供されています。 項目の `Id` は、UI の別の部分で項目が選択され、`EditItem` が呼び出されたときに設定されます。 `SaveItem` メソッドは、Save `<button>` 要素を選択することによってトリガーされます。 完全な例については、サンプルアプリを参照してください。
+  次のコードでは、`Name` および `IsCompleted` の `_editItem` 値が、コンポーネントのバインドされた要素によって提供されています。 項目の `Id` は、UI の別の部分で項目が選択され、`EditItem` が呼び出されたときに設定されます。 `SaveItem` メソッドは、Save `<button>` 要素を選択することでトリガーされます。 完全な例についてはサンプル アプリを参照してください。
 
   ```razor
   @using System.Net.Http
@@ -137,9 +137,9 @@ JSON ヘルパーメソッドは、要求を URI (次の例では web API) に�
   }
   ```
 
-<xref:System.Net.Http> には、HTTP 要求を送信して HTTP 応答を受信するための拡張メソッドが追加されています。 [Httpclient。 DeleteAsync](xref:System.Net.Http.HttpClient.DeleteAsync*)は、HTTP DELETE 要求を web API に送信するために使用されます。
+<xref:System.Net.Http> には、HTTP 要求を送信し、HTTP 応答を受信するための追加の拡張メソッドが含まれています。 [HttpClient.DeleteAsync](xref:System.Net.Http.HttpClient.DeleteAsync*) は、HTTP DELETE 要求を Web API に送信するために使用します。
 
-次のコードでは、Delete `<button>` 要素は `DeleteItem` メソッドを呼び出します。 バインドされた `<input>` 要素は、削除する項目の `id` を提供します。 完全な例については、サンプルアプリを参照してください。
+次のコードでは、Delete `<button>` 要素で `DeleteItem` メソッドを呼び出しています。 バインドされた `<input>` 要素では、削除する項目の `id` が提供されます。 完全な例についてはサンプル アプリを参照してください。
 
 ```razor
 @using System.Net.Http
@@ -158,15 +158,15 @@ JSON ヘルパーメソッドは、要求を URI (次の例では web API) に�
 
 ## <a name="cross-origin-resource-sharing-cors"></a>クロスオリジン リソース共有 (CORS)
 
-ブラウザーのセキュリティでは、web ページが web ページを提供したものとは異なるドメインに要求を作成できないようにします。 この制限は、*同一オリジン ポリシー*と呼ばれます。 同一オリジン ポリシーは、悪意のあるサイトが別のサイトから機密データを読み取ることを防ぎます。 ブラウザーから別のオリジンのエンドポイントへの要求を行うには、*エンドポイント*が[クロスオリジンリソース共有 (CORS)](https://www.w3.org/TR/cors/)を有効にする必要があります。
+Web ページでは、ブラウザーのセキュリティにより、その Web ページを提供したドメインと異なるドメインに対して要求を行うことはできません。 この制限は、*同一オリジン ポリシー*と呼ばれます。 同一オリジン ポリシーにより、悪意のあるサイトが別のサイトから機密データを読み取れないようになっています。 オリジンが異なるエンドポイントへの要求をブラウザーから行うには、*エンドポイント*で[クロス オリジン リソース共有 (CORS)](https://www.w3.org/TR/cors/) を有効にする必要があります。
 
-[Blazor WebAssembly サンプルアプリ ()](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/)は、呼び出し Web API コンポーネント (*Pages/CALLWEBAPI*) で CORS を使用する方法を示しています。
+[Blazor WebAssembly サンプル アプリ (BlazorWebAssemblySample)](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) は、呼び出し Web API コンポーネント (*Pages/CallWebAPI.razor*) で CORS を使用する具体的な方法を示しています。
 
-他のサイトがアプリに対してクロスオリジンリソース共有 (CORS) 要求を行うことができるようにするには、「<xref:security/cors>」を参照してください。
+他のサイトがアプリに対してクロス オリジン リソース共有 (CORS) 要求を行えるようにするには、「<xref:security/cors>」を参照してください。
 
-## <a name="httpclient-and-httprequestmessage-with-fetch-api-request-options"></a>HttpClient と HttpRequestMessage with Fetch API 要求オプション
+## <a name="httpclient-and-httprequestmessage-with-fetch-api-request-options"></a>Fetch API 要求オプションを使用する HttpClient と HttpRequestMessage
 
-Blazor webassembly で Webasで実行する場合は、 [Httpclient](xref:fundamentals/http-requests)と <xref:System.Net.Http.HttpRequestMessage> を使用して要求をカスタマイズします。 たとえば、要求 URI、HTTP メソッド、および必要な要求ヘッダーを指定できます。
+Blazor WebAssembly アプリで WebAssembly を実行するときには、[HttpClient](xref:fundamentals/http-requests) および <xref:System.Net.Http.HttpRequestMessage> を使用して要求をカスタマイズします。 たとえば、要求 URI、HTTP メソッド、および必要なすべての要求ヘッダーを指定できます。
 
 ```razor
 @using System.Net.Http
@@ -202,16 +202,16 @@ Blazor webassembly で Webasで実行する場合は、 [Httpclient](xref:fundam
 }
 ```
 
-Fetch API オプションの詳細については、[MDN の web ドキュメントを参照してください。WindowOrWorkerGlobalScope ():P arameters](https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)。
+Fetch API オプションの詳細については、[MDN の Web ドキュメント、WindowOrWorkerGlobalScope.fetch():Parameters](https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters) を参照してください。
 
-CORS 要求で資格情報 (承認 cookie/ヘッダー) を送信する場合、CORS ポリシーで `Authorization` ヘッダーが許可されている必要があります。
+CORS 要求で資格情報 (承認 cookie/ヘッダー) を送信するときには、CORS ポリシーで `Authorization` ヘッダーが許可されている必要があります。
 
-次のポリシーには、の構成が含まれています。
+次のポリシーには、以下についての構成が含まれています。
 
-* 要求オリジン (`http://localhost:5000`、`https://localhost:5001`)。
+* 要求元 (`http://localhost:5000`、`https://localhost:5001`)。
 * 任意のメソッド (動詞)。
-* ヘッダーを `Content-Type` して `Authorization` します。 カスタムヘッダー (`x-custom-header`など) を許可するには、<xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithHeaders*>を呼び出すときにヘッダーの一覧を表示します。
-* クライアント側の JavaScript コードによって設定される資格情報 (`credentials` プロパティが `include`に設定されます)。
+* `Content-Type` ヘッダーと `Authorization` ヘッダー。 カスタム ヘッダー (`x-custom-header`など) を許可するには、<xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithHeaders*> の呼び出し時にヘッダーを一覧表示します。
+* クライアント側の JavaScript コードによって設定された資格情報 (`credentials` プロパティが `include`に設定されています)。
 
 ```csharp
 app.UseCors(policy => 
@@ -221,11 +221,11 @@ app.UseCors(policy =>
     .AllowCredentials());
 ```
 
-詳細については、「<xref:security/cors>」およびサンプルアプリの HTTP 要求テスターコンポーネント (*Components/HTTPRequestTester*) を参照してください。
+詳細については、「<xref:security/cors>」と、サンプル アプリの HTTP 要求テスター コンポーネント (*Components/HTTPRequestTester.razor*) を参照してください。
 
 ## <a name="additional-resources"></a>その他の技術情報
 
 * <xref:fundamentals/http-requests>
 * <xref:security/enforcing-ssl>
 * [Kestrel HTTPS エンドポイントの構成](xref:fundamentals/servers/kestrel#endpoint-configuration)
-* [W3C でのクロスオリジンリソース共有 (CORS)](https://www.w3.org/TR/cors/)
+* [W3C におけるクロスオリジン リソース共有 (CORS)](https://www.w3.org/TR/cors/)

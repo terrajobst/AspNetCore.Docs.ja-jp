@@ -1,7 +1,7 @@
 ---
-title: フォームと検証の Blazor の ASP.NET Core
+title: ASP.NET Core Blazor のフォームと検証
 author: guardrex
-description: Blazorでフォームとフィールドの検証シナリオを使用する方法について説明します。
+description: Blazor でフォームとフィールドの検証シナリオを使用する方法について説明します。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
@@ -11,17 +11,17 @@ no-loc:
 - SignalR
 uid: blazor/forms-validation
 ms.openlocfilehash: 2758bcbbc76c8a59716fe224dd2deb4ca8c06929
-ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
-ms.translationtype: MT
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/24/2020
-ms.locfileid: "76726884"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78648452"
 ---
-# <a name="aspnet-core-opno-locblazor-forms-and-validation"></a>フォームと検証の [!OP.NO-LOC(Blazor)] の ASP.NET Core
+# <a name="aspnet-core-blazor-forms-and-validation"></a>ASP.NET Core Blazor のフォームと検証
 
 作成者: [Daniel Roth](https://github.com/danroth27)、[Luke Latham](https://github.com/guardrex)
 
-[データ注釈](xref:mvc/models/validation)を使用した [!OP.NO-LOC(Blazor)] では、フォームおよび検証がサポートされています。
+フォームと検証は、Blazor で[データ注釈](xref:mvc/models/validation)を使用してサポートされています。
 
 次の `ExampleModel` 型は、データ注釈を使用して検証ロジックを定義します。
 
@@ -36,7 +36,7 @@ public class ExampleModel
 }
 ```
 
-フォームは、`EditForm` コンポーネントを使用して定義されます。 次のフォームは、一般的な要素、コンポーネント、および Razor コードを示しています。
+フォームは、`EditForm` コンポーネントを使用して定義されます。 次のフォームでは、一般的な要素、コンポーネント、および Razor コードを示しています。
 
 ```razor
 <EditForm Model="@_exampleModel" OnValidSubmit="HandleValidSubmit">
@@ -60,17 +60,17 @@ public class ExampleModel
 
 前の例の場合:
 
-* フォームは、`ExampleModel` の種類で定義されている検証を使用して、`name` フィールドのユーザー入力を検証します。 モデルはコンポーネントの `@code` ブロック内に作成され、プライベートフィールド (`_exampleModel`) に保持されます。 フィールドは、`<EditForm>` 要素の `Model` 属性に割り当てられます。
-* `InputText` コンポーネントの `@bind-Value` は次のようにバインドされます。
-  * `InputText` コンポーネントの `Value` プロパティへのモデルプロパティ (`_exampleModel.Name`)。
-  * `InputText` コンポーネントの `ValueChanged` プロパティに対する変更イベントデリゲート。
+* フォームは、`ExampleModel` 型で定義されている検証を使用して、`name` フィールドのユーザー入力を検証します。 モデルはコンポーネントの `@code` ブロック内に作成され、プライベート フィールド (`_exampleModel`) に保持されます。 フィールドは、`<EditForm>` 要素の `Model` 属性に割り当てられます。
+* `InputText` コンポーネントの `@bind-Value` は次のようにバインドします。
+  * モデル プロパティ (`_exampleModel.Name`) を `InputText` コンポーネントの `Value` プロパティへ。
+  * 変更イベント デリゲートを `InputText` コンポーネントの `ValueChanged` プロパティへ。
 * `DataAnnotationsValidator` コンポーネントは、データ注釈を使用して検証サポートをアタッチします。
 * `ValidationSummary` コンポーネントは、検証メッセージの概要を示します。
-* フォームが正常に送信されると (検証に合格)、`HandleValidSubmit` がトリガーされます。
+* `HandleValidSubmit` は、フォームが正常に送信される (検証に合格する) とトリガーされます。
 
-ユーザー入力の受信と検証には、一連の組み込みの入力コンポーネントを使用できます。 入力は、変更されたときとフォームが送信されたときに検証されます。 次の表に、使用できる入力コンポーネントを示します。
+一連の組み込みの入力コンポーネントを、ユーザー入力の受信と検証に使用できます。 入力は、それらが変更されたときとフォームが送信されたときに検証されます。 次の表に、使用できる入力コンポーネントを示しています。
 
-| 入力コンポーネント | &hellip; としてレンダリング       |
+| 入力コンポーネント | &hellip; とレンダリング       |
 | --------------- | ------------------------- |
 | `InputText`     | `<input>`                 |
 | `InputTextArea` | `<textarea>`              |
@@ -79,11 +79,11 @@ public class ExampleModel
 | `InputCheckbox` | `<input type="checkbox">` |
 | `InputDate`     | `<input type="date">`     |
 
-すべての入力コンポーネント (`EditForm`を含む) では、任意の属性がサポートされます。 コンポーネントパラメーターに一致しない属性は、表示される HTML 要素に追加されます。
+すべての入力コンポーネント (`EditForm` を含む) で、任意の属性がサポートされています。 コンポーネント パラメーターに一致しない属性は、レンダリングされる HTML 要素に追加されます。
 
-入力コンポーネントは、編集時に検証を行い、フィールドの状態を反映するように CSS クラスを変更するための既定の動作を提供します。 一部のコンポーネントには、役に立つ解析ロジックが含まれています。 たとえば、`InputDate` と `InputNumber` では、解析不能な値を検証エラーとして登録することによって適切に処理します。 Null 値を受け入れることができる型では、対象フィールドの null 値の許容もサポートされます (たとえば、`int?`)。
+入力コンポーネントは、編集時に検証し、フィールドの状態を反映するように CSS クラスを変更するための既定の動作を提供します。 一部のコンポーネントには、便利な解析ロジックが含まれます。 たとえば、`InputDate` と `InputNumber` では、解析不能な値を検証エラーとして登録することによって、それらを適切に処理します。 NULL 値を受け入れることができる型では、ターゲット フィールドの NULL 値の許容もサポートしています (`int?` など)。
 
-次の `Starship` 型では、以前の `ExampleModel`よりも大きなプロパティとデータ注釈を使用して検証ロジックを定義しています。
+次の `Starship` 型では、以前の `ExampleModel` よりも大きなプロパティとデータ注釈のセットを使用して検証ロジックを定義しています。
 
 ```csharp
 using System;
@@ -189,14 +189,14 @@ public class Starship
 }
 ```
 
-`EditForm` は、変更されたフィールドと現在の検証メッセージを含む、編集プロセスに関するメタデータを追跡する[カスケード値](xref:blazor/components#cascading-values-and-parameters)として `EditContext` を作成します。 `EditForm` は、有効かつ無効な送信 (`OnValidSubmit`、`OnInvalidSubmit`) にも便利なイベントを提供します。 または、`OnSubmit` を使用して、カスタム検証コードで検証フィールドとチェックフィールドの値をトリガーします。
+`EditForm` では、変更されたフィールドと現在の検証メッセージを含む、編集プロセスに関するメタデータを追跡する[カスケード値](xref:blazor/components#cascading-values-and-parameters) として `EditContext` を作成します。 `EditForm` では、有効な送信と無効な送信用の便利なイベント (`OnValidSubmit`、`OnInvalidSubmit`) も提供しています。 または、`OnSubmit` を使用して、カスタム検証コードで検証をトリガーし、フィールド値をチェックします。
 
 次に例を示します。
 
-* `HandleSubmit` メソッドは、 **[送信]** ボタンを選択したときに実行されます。
-* フォームは、フォームの `EditContext`を使用して検証されます。
-* このフォームは、サーバー上で web API エンドポイントを呼び出す `ServerValidate` メソッドに `EditContext` を渡すことによってさらに検証されます (*表示されません*)。
-* `isValid`をチェックすることによって、クライアント側とサーバー側の検証の結果に応じて、追加のコードが実行されます。
+* **[送信]** ボタンが選択されると、`HandleSubmit` メソッドが実行されます。
+* フォームの `EditContext` を使用して、フォームが検証されます。
+* このフォームをさらに検証するには、サーバーで Web API エンドポイントを呼び出す `ServerValidate` メソッドに `EditContext` を渡します (*示されていません*)。
+* `isValid` をチェックすることによって、クライアント側とサーバー側の検証の結果に応じて、追加のコードが実行されます。
 
 ```razor
 <EditForm EditContext="@_editContext" OnSubmit="@HandleSubmit">
@@ -241,9 +241,9 @@ public class Starship
 
 ## <a name="inputtext-based-on-the-input-event"></a>入力イベントに基づく InputText
 
-`change` イベントではなく、`input` イベントを使用するカスタムコンポーネントを作成するには、`InputText` コンポーネントを使用します。
+`change` イベントではなく、`input` イベントを使用するカスタム コンポーネントを作成するには、`InputText` コンポーネントを使用します。
 
-次のマークアップを使用してコンポーネントを作成し、`InputText` が使用される場合と同様に、コンポーネントを使用します。
+次のマークアップでコンポーネントを作成し、`InputText` を使用する場合と同様に、コンポーネントを使用します。
 
 ```razor
 @inherits InputText
@@ -256,12 +256,12 @@ public class Starship
         this, __value => CurrentValueAsString = __value, CurrentValueAsString)" />
 ```
 
-## <a name="work-with-radio-buttons"></a>ラジオボタンの操作
+## <a name="work-with-radio-buttons"></a>オプション ボタンの操作
 
-フォームでオプションボタンを使用する場合、オプションボタンはグループとして評価されるため、データバインディングは他の要素とは異なる方法で処理されます。 各オプションボタンの値は固定されていますが、ラジオボタングループの値は、選択したラジオボタンの値です。 以下の例では、次のことを行っています。
+フォームでオプション ボタンを使用する場合、オプション ボタンはグループとして評価されるため、データ バインディングが他の要素と異なる方法で処理されます。 各オプション ボタンの値は固定ですが、オプション ボタン グループの値は、選択されたオプション ボタンの値です。 以下の例では、次のことを行っています。
 
-* ラジオボタングループのデータバインディングを処理します。
-* カスタム `InputRadio` コンポーネントを使用した検証をサポートします。
+* オプション ボタン グループのデータバインディングを処理する。
+* カスタム `InputRadio` コンポーネントを使用した検証をサポートする。
 
 ```razor
 @using System.Globalization
@@ -303,7 +303,7 @@ public class Starship
 }
 ```
 
-次の `EditForm` では、前の `InputRadio` コンポーネントを使用して、ユーザーから評価を取得して検証します。
+次の `EditForm` では、前の `InputRadio` コンポーネントを使用して、ユーザーから評価を取得して検証しています。
 
 ```razor
 @page "/RadioButtonExample"
@@ -346,16 +346,16 @@ public class Starship
 
 ## <a name="validation-support"></a>検証のサポート
 
-`DataAnnotationsValidator` コンポーネントは、データ注釈を使用した検証サポートをカスケード `EditContext`にアタッチします。 データ注釈を使用した検証のサポートを有効にするには、この明示的なジェスチャが必要です。 データ注釈とは異なる検証システムを使用するには、`DataAnnotationsValidator` をカスタム実装に置き換えます。 ASP.NET Core の実装は、参照ソース: [Data注釈](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/DataAnnotationsValidator.cs)を検証するために、 [adddata注釈](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/EditContextDataAnnotationsExtensions.cs)を使用して/ます。
+`DataAnnotationsValidator` コンポーネントは、データ注釈を使用した検証サポートをカスケードされた `EditContext` にアタッチします。 データ注釈を使用した検証のサポートを有効にするには、この明示的なジェスチャが必要です。 データ注釈と異なる検証システムを使用するには、`DataAnnotationsValidator` をカスタム実装に置き換えます。 参照ソースでの検査に、ASP.NET Core 実装を使用できます。[DataAnnotationsValidator](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/DataAnnotationsValidator.cs)/[AddDataAnnotationsValidation](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/EditContextDataAnnotationsExtensions.cs).
 
-Blazor は、次の2種類の検証を実行します。
+Blazor は 2 種類の検証を実行します。
 
-* フィールドの*検証*は、ユーザーがフィールドからタブを取り出したときに実行されます。 フィールドの検証中に、`DataAnnotationsValidator` コンポーネントによって、報告されたすべての検証結果がフィールドに関連付けられます。
-* *モデルの検証*は、ユーザーがフォームを送信したときに実行されます。 `DataAnnotationsValidator` コンポーネントは、モデルの検証中に、検証結果によって報告されたメンバー名に基づいてフィールドを決定しようとします。 個々のメンバーに関連付けられていない検証結果は、フィールドではなくモデルに関連付けられます。
+* *フィールド検証* は、ユーザーがタブでフィールドを離れたときに実行されます。 フィールドの検証時に、`DataAnnotationsValidator` コンポーネントによって、報告されたすべての検証結果がフィールドに関連付けられます。
+* *モデル検証*は、ユーザーがフォームを送信したときに実行されます。 モデルの検証時に、`DataAnnotationsValidator` コンポーネントは、検証結果で報告されたメンバー名に基づいてフィールドを判断しようとします。 個々のメンバーに関連付けられていない検証結果は、フィールドではなくモデルに関連付けられます。
 
-### <a name="validation-summary-and-validation-message-components"></a>検証の概要および検証メッセージコンポーネント
+### <a name="validation-summary-and-validation-message-components"></a>検証概要コンポーネントと検証メッセージ コンポーネント
 
-`ValidationSummary` コンポーネントは、検証[概要タグヘルパー](xref:mvc/views/working-with-forms#the-validation-summary-tag-helper)に似たすべての検証メッセージを要約します。
+`ValidationSummary` コンポーネントは、すべての検証メッセージを要約します。これは[検証概要タグヘルパー](xref:mvc/views/working-with-forms#the-validation-summary-tag-helper)と似ています。
 
 ```razor
 <ValidationSummary />
@@ -367,17 +367,17 @@ Blazor は、次の2種類の検証を実行します。
 <ValidationSummary Model="@_starship" />
 ```
 
-`ValidationMessage` コンポーネントには、[検証メッセージタグヘルパー](xref:mvc/views/working-with-forms#the-validation-message-tag-helper)に似た、特定のフィールドの検証メッセージが表示されます。 `For` 属性と、モデルプロパティに名前を付けるラムダ式を使用して、検証用のフィールドを指定します。
+`ValidationMessage` コンポーネントは、特定のフィールドの検証メッセージを表示します。これは、[検証メッセージ タグ ヘルパー](xref:mvc/views/working-with-forms#the-validation-message-tag-helper)に似ています。 `For` 属性と、モデル プロパティに名前を付けるラムダ式で、検証するフィールドを指定します。
 
 ```razor
 <ValidationMessage For="@(() => _starship.MaximumAccommodation)" />
 ```
 
-`ValidationMessage` コンポーネントと `ValidationSummary` コンポーネントでは、任意の属性がサポートされています。 コンポーネントパラメーターと一致しない属性は、生成された `<div>` 要素または `<ul>` 要素に追加されます。
+`ValidationMessage` コンポーネントと `ValidationSummary` コンポーネントでは、任意の属性をサポートしています。 コンポーネント パラメーターに一致しない属性は、生成された `<div>` 要素または `<ul>` 要素に追加されます。
 
 ### <a name="custom-validation-attributes"></a>カスタム検証属性
 
-[カスタム検証属性](xref:mvc/models/validation#custom-attributes)を使用するときに検証結果がフィールドに正しく関連付けられるようにするには、<xref:System.ComponentModel.DataAnnotations.ValidationResult>を作成するときに検証コンテキストの <xref:System.ComponentModel.DataAnnotations.ValidationContext.MemberName> を渡します。
+[カスタム検証属性](xref:mvc/models/validation#custom-attributes)を使用するときに、検証結果がフィールドに正しく関連付けられるようにするには、<xref:System.ComponentModel.DataAnnotations.ValidationResult> の作成時に検証コンテキストの <xref:System.ComponentModel.DataAnnotations.ValidationContext.MemberName> を渡します。
 
 ```csharp
 using System;
@@ -396,19 +396,19 @@ private class MyCustomValidator : ValidationAttribute
 }
 ```
 
-### <a name="opno-locblazor-data-annotations-validation-package"></a>データ注釈検証パッケージの Blazor
+### <a name="opno-locblazor-data-annotations-validation-package"></a>Blazor データ注釈検証パッケージ
 
-[BlazorAspNetCore です。DataAnnotations。検証](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation)は、`DataAnnotationsValidator` コンポーネントを使用して検証エクスペリエンスのギャップを埋めるパッケージです。 パッケージは現在*試験段階*です。
+[Microsoft.AspNetCore.Blazor.DataAnnotations.Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation) は、`DataAnnotationsValidator` コンポーネントを使用して、検証エクスペリエンスのギャップを埋めるパッケージです。 パッケージは現在、*試験段階*です。
 
 ### <a name="compareproperty-attribute"></a>[CompareProperty] 属性
 
-<xref:System.ComponentModel.DataAnnotations.CompareAttribute> は、検証結果と特定のメンバーを関連付けないため、`DataAnnotationsValidator` コンポーネントでは正しく機能しません。 これにより、フィールドレベルの検証と、送信時にモデル全体が検証されるときの動作に一貫性がなくなる可能性があります。 [BlazorAspNetCore です。DataAnnotations。検証](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation)の*実験的*なパッケージでは、これらの制限を回避する追加の検証属性 `ComparePropertyAttribute`が導入されています。 Blazor アプリでは、`[CompareProperty]` は `[Compare]` 属性の直接置換です。
+<xref:System.ComponentModel.DataAnnotations.CompareAttribute> は、検証結果を特定のメンバーに関連付けないため、`DataAnnotationsValidator` コンポーネントで正しく機能しません。 これにより、フィールドレベルの検証と、送信時のモデル全体が検証されたときの動作に一貫性がなくなることがあります。 [Microsoft.AspNetCore.Blazor.DataAnnotations.Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation) *試験的*パッケージでは、これらの制限を回避する追加の検証属性 `ComparePropertyAttribute` が導入されています。 Blazor アプリでは、`[CompareProperty]` は `[Compare]` 属性の直接の代わりとなるものです。
 
 ### <a name="nested-models-collection-types-and-complex-types"></a>入れ子になったモデル、コレクション型、および複合型
 
-Blazor は、組み込みの `DataAnnotationsValidator`でデータ注釈を使用してフォーム入力を検証する機能をサポートしています。 ただし、`DataAnnotationsValidator` は、コレクションまたは複合型のプロパティではないフォームにバインドされているモデルの最上位レベルのプロパティのみを検証します。
+Blazor では、組み込みの `DataAnnotationsValidator` によるデータ注釈を使用したフォーム入力の検証をサポートしています。 ただし、`DataAnnotationsValidator`で は、コレクション型または複合型のプロパティではないフォームにバインドされているモデルの最上位レベルのプロパティのみが検証されます。
 
-コレクションと複合型のプロパティを含む、バインドされたモデルのオブジェクトグラフ全体を検証するには、*実験的*な[BlazorAspNetCore によって提供される `ObjectGraphDataAnnotationsValidator` を使用します。DataAnnotations。検証](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation)パッケージ:
+コレクション型と複合型のプロパティを含む、バインドされたモデルのオブジェクト グラフ全体を検証するには、*試験的* [Microsoft.AspNetCore.Blazor.DataAnnotations.Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation) パッケージによって提供される `ObjectGraphDataAnnotationsValidator` を使用します。
 
 ```razor
 <EditForm Model="@_model" OnValidSubmit="HandleValidSubmit">
@@ -417,7 +417,7 @@ Blazor は、組み込みの `DataAnnotationsValidator`でデータ注釈を使�
 </EditForm>
 ```
 
-`[ValidateComplexType]`でモデルのプロパティに注釈を付けます。 次のモデルクラスでは、`ShipDescription` クラスに、モデルがフォームにバインドされたときに検証する追加のデータ注釈が含まれています。
+`[ValidateComplexType]` でモデルのプロパティに注釈を付けます。 次のモデル クラスでは、`ShipDescription` クラスに、モデルがフォームにバインドされたときに検証する追加のデータ注釈が含まれています。
 
 *Starship.cs*:
 
@@ -454,12 +454,12 @@ public class ShipDescription
 }
 ```
 
-### <a name="enable-the-submit-button-based-on-form-validation"></a>フォームの検証に基づいて [送信] ボタンを有効にする
+### <a name="enable-the-submit-button-based-on-form-validation"></a>フォームの検証に基づいて送信ボタンを有効にする
 
-フォームの検証に基づいて [送信] ボタンを有効または無効にするには:
+フォームの検証に基づいて送信ボタンを有効または無効にするには:
 
 * コンポーネントを初期化するときに、フォームの `EditContext` を使用してモデルを割り当てます。
-* コンテキストの `OnFieldChanged` コールバックでフォームを検証して、[送信] ボタンを有効または無効にします。
+* コンテキストの `OnFieldChanged` コールバックでフォームを検証して、送信ボタンを有効または無効にします。
 
 ```razor
 <EditForm EditContext="@_editContext">
@@ -492,12 +492,12 @@ public class ShipDescription
 前の例では、次の場合に `_formInvalid` を `false` に設定します。
 
 * フォームには、有効な既定値が事前に読み込まれています。
-* フォームが読み込まれるときに [送信] ボタンを有効にします。
+* フォームが読み込まれるときに、送信ボタンを有効にしたいと考えます。
 
-上記の方法の副作用として、ユーザーが1つのフィールドを操作した後に、`ValidationSummary` コンポーネントに無効なフィールドが設定されていることが挙げられます。 このシナリオは、次のいずれかの方法で対処できます。
+上記の方法の副作用として、ユーザーがいずれかのフィールドを操作した後に、`ValidationSummary` コンポーネントに無効なフィールドが設定されます。 このシナリオは、次のいずれかの方法で対処できます。
 
-* フォームで `ValidationSummary` コンポーネントを使用しないでください。
-* [送信] ボタンが選択されているとき (たとえば、`HandleValidSubmit` メソッドなど) に `ValidationSummary` コンポーネントを表示します。
+* フォームでは `ValidationSummary` コンポーネントを使用しないでください。
+* 送信ボタンが選択された (たとえば、`HandleValidSubmit` メソッドで) ときに `ValidationSummary` コンポーネントを表示します。
 
 ```razor
 <EditForm EditContext="@_editContext" OnValidSubmit="HandleValidSubmit">

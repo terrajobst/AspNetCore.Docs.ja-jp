@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/03/2020
 uid: security/authentication/index
-ms.openlocfilehash: 24113fd4f090cf76746a7b077212fdab012f82c1
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 404904ecfa30d1fe7e47f0daaa423ddd6f1b06e8
+ms.sourcegitcommit: 5bdc54162d7dea8d9fa54ac3055678db23586af1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78644360"
+ms.lasthandoff: 03/17/2020
+ms.locfileid: "79434331"
 ---
 # <a name="overview-of-aspnet-core-authentication"></a>ASP.NET Core の認証の概要
 
@@ -110,6 +110,18 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 * [運用リソースハンドラーを使用したチャレンジと禁止](xref:security/authorization/resourcebased#challenge-and-forbid-with-an-operational-resource-handler)。
 * [チャレンジと禁止の違い](xref:security/authorization/secure-data#challenge)。
+
+## <a name="authentication-providers-per-tenant"></a>テナントごとの認証プロバイダー
+
+ASP.NET Core フレームワークには、マルチテナント認証用の組み込みソリューションは用意されていません。
+お客様がこれを、組み込みの機能を使用して独自に作成することは確かに可能ですが、Microsoft ではこの目的のために [Orchard Core](https://www.orchardcore.net/) を検討することをお勧めします。
+
+Orchard Core とは:
+
+* ASP.NET Core を使用して構築された、オープンソースの、モジュール形式かつマルチテナントのアプリ フレームワークです。
+* そのアプリ フレームワークの上に構築されたコンテンツ管理システム (CMS) です。
+
+テナントごとの認証プロバイダーの例については、[Orchard Core](https://github.com/OrchardCMS/OrchardCore) のソースを参照してください。
 
 ## <a name="additional-resources"></a>その他の技術情報
 

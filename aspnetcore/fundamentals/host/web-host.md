@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/07/2019
 uid: fundamentals/host/web-host
-ms.openlocfilehash: bc18b5490d232758b796d33a62cd8d1a7dd7289f
-ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
+ms.openlocfilehash: e02d6efcb3aec1329469b8654e66ba845870421a
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/07/2019
-ms.locfileid: "72007111"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78650582"
 ---
 # <a name="aspnet-core-web-host"></a>ASP.NET Core の Web ホスト
 
@@ -128,7 +128,7 @@ public class Program
 > [!NOTE]
 > 静的な `CreateDefaultBuilder` メソッドを使用する代わりに、[WebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilder) からホストを作成する方法が ASP.NET Core 2.x でサポートされています。
 
-ホストの構成時に、[Configure](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilderextensions.configure) および [ConfigureServices](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilder.configureservices) メソッドを指摘することができます。 `Startup` クラスが指定されている場合は、`Configure` メソッドを定義する必要があります。 詳細については、<xref:fundamentals/startup> を参照してください。 `ConfigureServices` の複数回の呼び出しでは、互いに追加されます。 `WebHostBuilder` での `Configure` または `UseStartup` の複数回の呼び出しでは、以前の設定が置き換えられます。
+ホストの構成時に、[Configure](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilderextensions.configure) および [ConfigureServices](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilder.configureservices) メソッドを指摘することができます。 `Startup` クラスが指定されている場合は、`Configure` メソッドを定義する必要があります。 詳細については、「<xref:fundamentals/startup>」を参照してください。 `ConfigureServices` の複数回の呼び出しでは、互いに追加されます。 `WebHostBuilder` での `Configure` または `UseStartup` の複数回の呼び出しでは、以前の設定が置き換えられます。
 
 ## <a name="host-configuration-values"></a>ホストの構成値
 
@@ -171,7 +171,7 @@ WebHost.CreateDefaultBuilder(args)
 
 **キー**: captureStartupErrors  
 **型**: *ブール* (`true` または `1`)  
-**既定値**:アプリが IIS の背後で Kestrel を使用して実行されている場合 (既定値は `true`) を除き、既定では `false` に設定されます。  
+**既定**:アプリが IIS の背後で Kestrel を使用して実行されている場合 (既定値は `true`) を除き、既定では `false` に設定されます。  
 **次を使用して設定**: `CaptureStartupErrors`  
 **環境変数**: `ASPNETCORE_CAPTURESTARTUPERRORS`
 
@@ -188,7 +188,7 @@ WebHost.CreateDefaultBuilder(args)
 
 **キー**: contentRoot  
 **型**: *文字列*  
-**既定値**:既定でアプリ アセンブリが存在するフォルダーに設定されます。  
+**既定**:既定でアプリ アセンブリが存在するフォルダーに設定されます。  
 **次を使用して設定**: `UseContentRoot`  
 **環境変数**: `ASPNETCORE_CONTENTROOT`
 
@@ -227,11 +227,11 @@ WebHost.CreateDefaultBuilder(args)
 
 **キー**: 環境  
 **型**: *文字列*  
-**既定値**:実稼働  
+**既定**:実稼働  
 **次を使用して設定**: `UseEnvironment`  
 **環境変数**: `ASPNETCORE_ENVIRONMENT`
 
-環境は任意の値に設定することができます。 フレームワークで定義された値には `Development`、`Staging`、`Production` が含まれます。 値は大文字と小文字が区別されません。 既定では、*環境*は `ASPNETCORE_ENVIRONMENT` 環境変数から読み取られます。 [Visual Studio](https://visualstudio.microsoft.com) を使用する場合、環境変数は *launchSettings.json* ファイルで設定できます。 詳細については、<xref:fundamentals/environments> を参照してください。
+環境は任意の値に設定することができます。 フレームワークで定義された値には `Development`、`Staging`、`Production` が含まれます。 値は大文字と小文字が区別されません。 既定では、*環境*は `ASPNETCORE_ENVIRONMENT` 環境変数から読み取られます。 [Visual Studio](https://visualstudio.microsoft.com) を使用する場合、環境変数は *launchSettings.json* ファイルで設定できます。 詳細については、「<xref:fundamentals/environments>」を参照してください。
 
 ```csharp
 WebHost.CreateDefaultBuilder(args)
@@ -244,7 +244,7 @@ WebHost.CreateDefaultBuilder(args)
 
 **キー**: hostingStartupAssemblies  
 **型**: *文字列*  
-**既定値**:空の文字列  
+**既定**:空の文字列  
 **次を使用して設定**: `UseSetting`  
 **環境変数**: `ASPNETCORE_HOSTINGSTARTUPASSEMBLIES`
 
@@ -277,7 +277,7 @@ WebHost.CreateDefaultBuilder(args)
 
 **キー**: hostingStartupExcludeAssemblies  
 **型**: *文字列*  
-**既定値**:空の文字列  
+**既定**:空の文字列  
 **次を使用して設定**: `UseSetting`  
 **環境変数**: `ASPNETCORE_HOSTINGSTARTUPEXCLUDEASSEMBLIES`
 
@@ -303,7 +303,7 @@ WebHost.CreateDefaultBuilder(args)
 
 ### <a name="prevent-hosting-startup"></a>ホスティング スタートアップを回避する
 
-アプリのアセンブリで構成されているホスティング スタートアップ アセンブリを含む、ホスティング スタートアップ アセンブリの自動読み込みを回避します。 詳細については、<xref:fundamentals/configuration/platform-specific-configuration> を参照してください。
+アプリのアセンブリで構成されているホスティング スタートアップ アセンブリを含む、ホスティング スタートアップ アセンブリの自動読み込みを回避します。 詳細については、「<xref:fundamentals/configuration/platform-specific-configuration>」を参照してください。
 
 **キー**: preventHostingStartup  
 **型**: *ブール* (`true` または `1`)  
@@ -333,7 +333,7 @@ WebHost.CreateDefaultBuilder(args)
     .UseUrls("http://*:5000;http://localhost:5001;https://hostname:5002")
 ```
 
-Kestrel には独自のエンドポイント構成 API があります。 詳細については、<xref:fundamentals/servers/kestrel#endpoint-configuration> を参照してください。
+Kestrel には独自のエンドポイント構成 API があります。 詳細については、「<xref:fundamentals/servers/kestrel#endpoint-configuration>」を参照してください。
 
 ### <a name="shutdown-timeout"></a>シャットダウン タイムアウト
 
@@ -341,7 +341,7 @@ Web ホストがシャットダウンするまで待機する時間を指定し�
 
 **キー**: shutdownTimeoutSeconds  
 **型**: *int*  
-**既定値**:5  
+**既定**:5  
 **次を使用して設定**: `UseShutdownTimeout`  
 **環境変数**: `ASPNETCORE_SHUTDOWNTIMEOUTSECONDS`
 
@@ -365,7 +365,7 @@ WebHost.CreateDefaultBuilder(args)
 
 **キー**: startupAssembly  
 **型**: *文字列*  
-**既定値**:アプリのアセンブリ  
+**既定**:アプリのアセンブリ  
 **次を使用して設定**: `UseStartup`  
 **環境変数**: `ASPNETCORE_STARTUPASSEMBLY`
 
@@ -444,9 +444,7 @@ public class Program
 ```
 
 > [!NOTE]
-> [UseConfiguration](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.useconfiguration) 拡張メソッドでは、現在、`GetSection` (たとえば、`.UseConfiguration(Configuration.GetSection("section"))` によって返される構成セクションを解析することはできません。 `GetSection` メソッドは要求されたセクションに対する構成キーをフィルター処理しますが、キーのセクション名はそのままになります (たとえば、`section:urls`、`section:environment`)。 `UseConfiguration` メソッドは `WebHostBuilder` と一致するキーを予測します (たとえば、`urls`、`environment`)。 キーにセクション名があると、セクションの値でホストを構成できなくなります。 この問題は、将来のリリースで対処される予定です。 詳細と回避策については、「[Passing configuration section into WebHostBuilder.UseConfiguration uses full keys](https://github.com/aspnet/Hosting/issues/839)」 (WebHostBuilder.UseConfiguration に構成セクションを渡すときにフル キーを使用する) を参照してください。
->
-> `UseConfiguration` は、指定された `IConfiguration` からホスト ビルダーの構成へのキーのみをコピーします。 そのため、JSON、INI、XML 設定のファイルに `reloadOnChange: true` を設定しても影響はありません。
+> [UseConfiguration](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.useconfiguration) は、指定された `IConfiguration` からホスト ビルダーの構成へのキーのみをコピーします。 そのため、JSON、INI、XML 設定のファイルに `reloadOnChange: true` を設定しても影響はありません。
 
 特定の URL でホストを実行するように指定する場合、[dotnet run](/dotnet/core/tools/dotnet-run) の実行時にコマンド プロンプトから必要な値を渡すことができます。 コマンドライン引数は *hostsettings.json* ファイルからの `urls` 値をオーバーライドし、サーバーはポート 8080 でリッスンします。
 
@@ -678,7 +676,7 @@ public class Startup
 ```
 
 > [!NOTE]
-> `IsDevelopment` 拡張メソッドに加え、`IWebHostEnvironment` は `IsStaging`、`IsProduction`、`IsEnvironment(string environmentName)` メソッドを提供します。 詳細については、<xref:fundamentals/environments> を参照してください。
+> `IsDevelopment` 拡張メソッドに加え、`IWebHostEnvironment` は `IsStaging`、`IsProduction`、`IsEnvironment(string environmentName)` メソッドを提供します。 詳細については、「<xref:fundamentals/environments>」を参照してください。
 
 処理パイプラインを設定するために、次のように `IWebHostEnvironment` サービスを `Configure` メソッドに直接挿入することもできます。
 
@@ -773,7 +771,7 @@ public class Startup
 ```
 
 > [!NOTE]
-> `IsDevelopment` 拡張メソッドに加え、`IHostingEnvironment` は `IsStaging`、`IsProduction`、`IsEnvironment(string environmentName)` メソッドを提供します。 詳細については、<xref:fundamentals/environments> を参照してください。
+> `IsDevelopment` 拡張メソッドに加え、`IHostingEnvironment` は `IsStaging`、`IsProduction`、`IsEnvironment(string environmentName)` メソッドを提供します。 詳細については、「<xref:fundamentals/environments>」を参照してください。
 
 処理パイプラインを設定するために、次のように `IHostingEnvironment` サービスを `Configure` メソッドに直接挿入することもできます。
 
