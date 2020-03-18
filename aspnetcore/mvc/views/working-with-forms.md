@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: mvc/views/working-with-forms
-ms.openlocfilehash: 1c7652c909432b25ae373873cd593afd879cfa00
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
-ms.translationtype: HT
+ms.openlocfilehash: 5af532db35b858d157f61a6aca30f55d15e9ff1e
+ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
+ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172563"
+ms.lasthandoff: 03/16/2020
+ms.locfileid: "79416198"
 ---
 # <a name="tag-helpers-in-forms-in-aspnet-core"></a>ASP.NET Core のフォームのタグ ヘルパー
 
@@ -31,7 +31,7 @@ ms.locfileid: "77172563"
 
 * クロスサイト リクエスト フォージェリを防ぐために、非表示の[要求検証トークン](/aspnet/mvc/overview/security/xsrfcsrf-prevention-in-aspnet-mvc-and-web-pages)を生成します (HTTP POST アクション メソッドで `[ValidateAntiForgeryToken]` 属性と共に使用する場合)
 
-* `asp-route-<Parameter Name>` 属性を提供します (`<Parameter Name>` がルート値に追加される場合)。 `Html.BeginForm` および `Html.BeginRouteForm` に `routeValues` パラメーターを指定すると、同様の機能が提供されます。
+* `asp-route-<Parameter Name>` 属性を提供します (`<Parameter Name>` がルート値に追加される場合)。 `routeValues` および `Html.BeginForm` に `Html.BeginRouteForm` パラメーターを指定すると、同様の機能が提供されます。
 
 * HTML ヘルパーの代替の `Html.BeginForm` と `Html.BeginRouteForm` があります
 
@@ -48,11 +48,11 @@ ms.locfileid: "77172563"
 </form>
 ```
 
-MVC ランタイムで、フォーム タグ ヘルパーの属性 `asp-controller` と `asp-action` から `action` 属性値が生成されます。 また、フォーム タグ ヘルパーも、クロスサイト リクエスト フォージェリを防ぐために、非表示の[要求検証トークン](/aspnet/mvc/overview/security/xsrfcsrf-prevention-in-aspnet-mvc-and-web-pages)を生成します (HTTP POST アクション メソッドで `[ValidateAntiForgeryToken]` 属性と共に使用する場合)。 純粋な HTML フォームをクロスサイト リクエスト フォージェリから保護することは難しいため、フォーム タグ ヘルパーが提供するサービスを利用してください。
+MVC ランタイムで、フォーム タグ ヘルパーの属性 `action` と `asp-controller` から `asp-action` 属性値が生成されます。 また、フォーム タグ ヘルパーも、クロスサイト リクエスト フォージェリを防ぐために、非表示の[要求検証トークン](/aspnet/mvc/overview/security/xsrfcsrf-prevention-in-aspnet-mvc-and-web-pages)を生成します (HTTP POST アクション メソッドで `[ValidateAntiForgeryToken]` 属性と共に使用する場合)。 純粋な HTML フォームをクロスサイト リクエスト フォージェリから保護することは難しいため、フォーム タグ ヘルパーが提供するサービスを利用してください。
 
 ### <a name="using-a-named-route"></a>名前付きのルートの使用
 
-`asp-route` タグ ヘルパー属性で、HTML `action` 属性のマークアップを生成することもできます。 `register` という名前の[ルート](../../fundamentals/routing.md)を持つアプリケーションは、登録ページに次のマークアップを使用できます。
+`asp-route` タグ ヘルパー属性で、HTML `action` 属性のマークアップを生成することもできます。 [ という名前の](../../fundamentals/routing.md)ルート`register`を持つアプリケーションは、登録ページに次のマークアップを使用できます。
 
 [!code-HTML[](../../mvc/views/working-with-forms/sample/final/Views/Demo/RegisterRoute.cshtml)]
 
@@ -69,25 +69,25 @@ MVC ランタイムで、フォーム タグ ヘルパーの属性 `asp-controll
 
 ## <a name="the-form-action-tag-helper"></a>フォーム アクション タグ ヘルパー
 
-フォーム アクション タグ ヘルパーにより、生成された`<button ...>` または `<input type="image" ...>` タグ上に `formaction` 属性が生成されます。 `formaction` 属性では、フォームがそのデータを送信する場所を制御します。 これは、種類が `image` の [\<input>](https://www.w3.org/wiki/HTML/Elements/input) 要素と、[\<button>](https://www.w3.org/wiki/HTML/Elements/button) 要素にバインドされます。 フォーム アクション タグ ヘルパーにより、[AnchorTagHelper](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) の `asp-` 属性を複数使うことが可能になり、対応する要素に向けて何の `formaction` リンクが生成されるかを制御できます。
+フォーム アクション タグ ヘルパーにより、生成された`formaction` または `<button ...>` タグ上に `<input type="image" ...>` 属性が生成されます。 `formaction` 属性では、フォームがそのデータを送信する場所を制御します。 これは、種類が [ の \<](https://www.w3.org/wiki/HTML/Elements/input)input>`image` 要素と、[\<button>](https://www.w3.org/wiki/HTML/Elements/button) 要素にバインドされます。 フォーム アクション タグ ヘルパーにより、[AnchorTagHelper](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) の `asp-` 属性を複数使うことが可能になり、対応する要素に向けて何の `formaction` リンクが生成されるかを制御できます。
 
-`formaction` の値を制御するためにサポートされている [AnchorTagHelper](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) 属性:
+[ の値を制御するためにサポートされている ](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)AnchorTagHelper`formaction` 属性:
 
-|属性|説明|
+|Attribute|Description|
 |---|---|
-|[asp-controller](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-controller)|コントローラーの名前です。|
-|[asp-action](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-action)|アクション メソッドの名前です。|
-|[asp-area](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-area)|領域の名前です。|
+|[asp-controller](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-controller)|コントローラーの名前。|
+|[asp-action](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-action)|アクション メソッドの名前。|
+|[asp-area](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-area)|領域の名前。|
 |[asp-page](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page)|Razor ページの名前です。|
 |[asp-page-handler](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page-handler)|Razor ページ ハンドラーの名前です。|
-|[asp-route](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route)|ルートの名前です。|
-|[asp-route-{value}](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route-value)|単一の URL ルート値です。 たとえば、`asp-route-id="1234"` のようにします。|
+|[asp-route](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route)|ルートの名前。|
+|[asp-route-{value}](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route-value)|単一の URL ルート値です。 たとえば、「 `asp-route-id="1234"` 」のように入力します。|
 |[asp-all-route-data](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-all-route-data)|すべてのルート値です。|
 |[asp-fragment](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-fragment)|URL フラグメントです。|
 
 ### <a name="submit-to-controller-example"></a>コントローラーに送信する例
 
-次のマークアップでは、入力またはボタンが選択されたときに、`HomeController` の `Index` アクションにフォームを送信します。
+次のマークアップでは、入力またはボタンが選択されたときに、`Index` の `HomeController` アクションにフォームを送信します。
 
 ```cshtml
 <form method="post">
@@ -171,13 +171,13 @@ public class HomeController : Controller
 
 入力タグ ヘルパー:
 
-* `asp-for` 属性で指定された式の名前の `id` および `name` HTML 属性を生成します。 `asp-for="Property1.Property2"` は `m => m.Property1.Property2` と同じです。 式の名前は、`asp-for` 属性値に使用されるものです。 詳細については、「[式の名前](#expression-names)」セクションを参照してください。
+* `id` 属性で指定された式の名前の `name` および `asp-for` HTML 属性を生成します。 `asp-for="Property1.Property2"` は `m => m.Property1.Property2` に相当します。 式の名前は、`asp-for` 属性値に使用されるものです。 詳細については、「[式の名前](#expression-names)」セクションを参照してください。
 
-* モデル プロパティに適用されているモデル型と[データ注釈](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.iattributeadapter)に基づいて HTML `type` 属性値を設定します
+* モデル プロパティに適用されているモデル型と`type`データ注釈[に基づいて HTML ](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.iattributeadapter) 属性値を設定します
 
 * HTML `type` 属性値が指定されている場合は、上書きしません
 
-* モデル プロパティに適用された[データ注釈](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.iattributeadapter)属性から [HTML5](https://developer.mozilla.org/docs/Web/Guide/HTML/HTML5) 検証属性を生成します
+* モデル プロパティに適用された[データ注釈](https://developer.mozilla.org/docs/Web/Guide/HTML/HTML5)属性から [HTML5](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.iattributeadapter) 検証属性を生成します
 
 * `Html.TextBoxFor` および `Html.EditorFor` と重複する HTML ヘルパー機能があります。 詳細については、「**入力タグ ヘルパーの代替となる HTML ヘルパー**」セクションを参照してください。
 
@@ -196,18 +196,18 @@ Type expected
 
 `Input` タグ ヘルパーは、.NET 型に基づいて HTML `type` 属性を設定します。 次の表は、一般的な.NET 型と生成される HTML 型の一部をまとめたものです (すべての .NET 型を網羅した一覧ではありません)。
 
-|.NET 型|入力の型|
+|.NET の種類|入力タイプ|
 |---|---|
 |Bool|type="checkbox"|
 |String|type="text"|
 |DateTime|type=["datetime-local"](https://developer.mozilla.org/docs/Web/HTML/Element/input/datetime-local)|
 |Byte|type="number"|
-|Int|type="number"|
+|int|type="number"|
 |Single、Double|type="number"|
 
 次の表は、入力タグ ヘルパーが特定の入力の型にマップする一般的な[データ注釈](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.iattributeadapter)属性の一部をまとめたものです (すべての検証属性を網羅した一覧ではありません)。
 
-|属性|入力の型|
+|Attribute|入力タイプ|
 |---|---|
 |[EmailAddress]|type="email"|
 |[Url]|type="url"|
@@ -241,7 +241,7 @@ Type expected
    </form>
 ```
 
-`Email` および `Password` プロパティに適用されたデータ注釈によって、モデルに関するメタデータが生成されます。 入力タグ ヘルパーはモデルのメタデータを使用し、[HTML5](https://developer.mozilla.org/docs/Web/Guide/HTML/HTML5) の `data-val-*` 属性を生成します ([モデルの検証](../models/validation.md)に関するページを参照してください)。 これらの属性に、入力フィールドにアタッチする検証コントロールを記述します。 これで、控えめな HTML5 と [jQuery](https://jquery.com/) の検証機能を提供します。 控えめな属性の形式は `data-val-rule="Error Message"` です。この rule は検証ルールの名前です (`data-val-required`、`data-val-email`、`data-val-maxlength` など)。属性にエラー メッセージが指定されている場合は、`data-val-rule` 属性の値として表示されます。 `data-val-maxlength-max="1024"` など、ルールに関する追加の詳細情報を提供するフォームの属性 `data-val-ruleName-argumentName="argumentValue"` もあります。
+`Email` および `Password` プロパティに適用されたデータ注釈によって、モデルに関するメタデータが生成されます。 入力タグ ヘルパーはモデルのメタデータを使用し、[HTML5](https://developer.mozilla.org/docs/Web/Guide/HTML/HTML5) の `data-val-*` 属性を生成します ([モデルの検証](../models/validation.md)に関するページを参照してください)。 これらの属性に、入力フィールドにアタッチする検証コントロールを記述します。 これで、控えめな HTML5 と [jQuery](https://jquery.com/) の検証機能を提供します。 控えめな属性の形式は `data-val-rule="Error Message"`です。ここで、rule は検証規則の名前 (`data-val-required`、`data-val-email`、`data-val-maxlength`など) です。属性でエラーメッセージが指定されている場合は、`data-val-rule` 属性の値として表示されます。 `data-val-ruleName-argumentName="argumentValue"` など、ルールに関する追加の詳細情報を提供するフォームの属性 `data-val-maxlength-max="1024"` もあります。
 
 ### <a name="html-helper-alternatives-to-input-tag-helper"></a>入力タグ ヘルパーの代替となる HTML ヘルパー
 
@@ -249,7 +249,7 @@ Type expected
 
 ### <a name="htmlattributes"></a>HtmlAttributes
 
-`@Html.Editor()` と `@Html.EditorFor()` は、既定のテンプレートを実行するときに `htmlAttributes` という名前の特殊な `ViewDataDictionary` エントリを使用します。 この動作は、必要に応じて `additionalViewData` パラメーターを使用して拡張されます。 キー "htmlAttributes" は大文字と小文字が区別されません。 キー "htmlAttributes" は、`htmlAttributes` のような入力ヘルパーに渡される `@Html.TextBox()` オブジェクトと同様に処理されます。
+`@Html.Editor()` と `@Html.EditorFor()` は、既定のテンプレートを実行するときに `ViewDataDictionary` という名前の特殊な `htmlAttributes` エントリを使用します。 この動作は、必要に応じて `additionalViewData` パラメーターを使用して拡張されます。 キー "htmlAttributes" は大文字と小文字が区別されません。 キー "htmlAttributes" は、`htmlAttributes` のような入力ヘルパーに渡される `@Html.TextBox()` オブジェクトと同様に処理されます。
 
 ```cshtml
 @Html.EditorFor(model => model.YourProperty, 
@@ -274,7 +274,7 @@ Type expected
 <input type="text" id="joe" name="joe" value="Joe">
 ```
 
-`i` の値が `23` の場合、`asp-for="CollectionProperty[23].Member"` はコレクションのプロパティを使用して、`asp-for="CollectionProperty[i].Member"` と同じ名前を生成します。
+`asp-for="CollectionProperty[23].Member"` の値が `asp-for="CollectionProperty[i].Member"` の場合、`i` はコレクションのプロパティを使用して、`23` と同じ名前を生成します。
 
 ASP.NET Core MVC で `ModelExpression` の値が計算されるとき、`ModelState` を含む、いくつかのソースが検査されます。 `<input type="text" asp-for="@Name">` を検討します。 計算された `value` 属性は、次のうちの最初の非 null 値です。
 
@@ -335,7 +335,7 @@ public IActionResult Edit(int id, int colorIndex)
 
 [!code-HTML[](working-with-forms/sample/final/Views/Shared/EditorTemplates/ToDoItem.cshtml)]
 
-値を `asp-for` または `Html.DisplayFor` と同じコンテキストで使用する場合は、可能であれば `foreach` を使用する必要があります。 一般に、反復子を割り当てる必要がないため、(使用可能なシナリオでは) `for` の方が `foreach` よりも優れています。ただし、LINQ 式内でのインデクサーの評価はコストが高くなる可能性があるため、最小限に抑える必要があります。
+値を `foreach` または `asp-for` と同じコンテキストで使用する場合は、可能であれば `Html.DisplayFor` を使用する必要があります。 一般に、反復子を割り当てる必要がないため、(使用可能なシナリオでは) `for` の方が `foreach` よりも優れています。ただし、LINQ 式内でのインデクサーの評価はコストが高くなる可能性があるため、最小限に抑える必要があります。
 
 &nbsp;
 
@@ -346,7 +346,7 @@ public IActionResult Edit(int id, int colorIndex)
 
 `Textarea Tag Helper` タグ ヘルパーは、入力タグ ヘルパーと似ています。
 
-* [\<textarea>](https://www.w3.org/wiki/HTML/Elements/textarea) 要素のモデルから `id` および `name` 属性と、データ検証属性を生成します。
+* `id``name`textarea>[ 要素のモデルから \< および ](https://www.w3.org/wiki/HTML/Elements/textarea) 属性と、データ検証属性を生成します。
 
 * 厳密な型指定を提供します。
 
@@ -376,7 +376,7 @@ public IActionResult Edit(int id, int colorIndex)
 
 ## <a name="the-label-tag-helper"></a>ラベル タグ ヘルパー
 
-* 式の名前の [\<label>](https://www.w3.org/wiki/HTML/Elements/label) 要素に対してラベルのキャプションと `for` 属性を生成します。
+* 式の名前の `for`[label>\< 要素に対してラベルのキャプションと ](https://www.w3.org/wiki/HTML/Elements/label) 属性を生成します。
 
 * HTML ヘルパーの代替: `Html.LabelFor`。
 
@@ -414,7 +414,7 @@ public IActionResult Edit(int id, int colorIndex)
 
 * HTML ヘルパーの代替: `Html.ValidationMessageFor`
 
-`Validation Message Tag Helper` は、HTML の [span](https://developer.mozilla.org/docs/Web/HTML/Element/span) 要素で `asp-validation-for` 属性と共に使用されます。
+`Validation Message Tag Helper` は、HTML の `asp-validation-for`span[ 要素で ](https://developer.mozilla.org/docs/Web/HTML/Element/span) 属性と共に使用されます。
 
 ```cshtml
 <span asp-validation-for="Email"></span>
@@ -428,7 +428,7 @@ public IActionResult Edit(int id, int colorIndex)
   data-valmsg-replace="true"></span>
 ```
 
-一般的に、同じプロパティの場合は、`Input` タグ ヘルパーの後に `Validation Message Tag Helper` を使用します。 こうすることで、エラーの原因となった入力の近くで検証エラー メッセージが表示されます。
+一般的に、同じプロパティの場合は、`Validation Message Tag Helper` タグ ヘルパーの後に `Input` を使用します。 こうすることで、エラーの原因となった入力の近くで検証エラー メッセージが表示されます。
 
 > [!NOTE]
 > クライアント側の検証のために、正しい JavaScript および [jQuery](https://jquery.com/) のスクリプト参照を使用したビューを用意する必要があります。 詳細については、[モデルの検証](../models/validation.md)に関するページを参照してください。
@@ -444,7 +444,7 @@ public IActionResult Edit(int id, int colorIndex)
 
 ### <a name="the-validation-summary-tag-helper"></a>検証概要タグ ヘルパー
 
-* `asp-validation-summary` 属性を持つ `<div>` 要素をターゲットとします
+* `<div>` 属性を持つ `asp-validation-summary` 要素をターゲットとします
 
 * HTML ヘルパーの代替: `@Html.ValidationSummary`
 
@@ -454,7 +454,7 @@ public IActionResult Edit(int id, int colorIndex)
 |--- |--- |
 |ValidationSummary.All|プロパティとモデル レベル|
 |ValidationSummary.ModelOnly|モデル|
-|ValidationSummary.None|None|
+|ValidationSummary.None|なし|
 
 ### <a name="sample"></a>サンプル
 
@@ -528,13 +528,13 @@ HTTP POST `Index` メソッドによって選択内容が表示されます。
 > [!NOTE]
 > 選択タグ ヘルパーで `ViewBag` または `ViewData` を使用することはお勧めしません。 ビュー モデルは、MVC メタデータを提供する場合に堅牢性が高くなり、一般的にあまり問題にはなりません。
 
-`asp-for` 属性値は特殊なケースであり、(`asp-items` などの) 他のタグ ヘルパー属性とは異なり、`Model` プレフィックスは必須ではありません
+`asp-for` 属性値は特殊なケースであり、(`Model` などの) 他のタグ ヘルパー属性とは異なり、`asp-items` プレフィックスは必須ではありません
 
 [!code-HTML[](working-with-forms/sample/final/Views/Home/Index.cshtml?range=4)]
 
 ### <a name="enum-binding"></a>Enum バインディング
 
-`<select>` を `enum` プロパティと組み合わせて使用し、`enum` 値から `SelectListItem` 要素を生成すると便利な場合がよくあります。
+`<select>` を `enum` プロパティと組み合わせて使用し、`SelectListItem` 値から `enum` 要素を生成すると便利な場合がよくあります。
 
 サンプル:
 
@@ -603,7 +603,7 @@ HTML の [\<optgroup>](https://www.w3.org/wiki/HTML/Elements/optgroup) 要素は
 
 ### <a name="multiple-select"></a>複数選択
 
-`asp-for` 属性に指定されているプロパティが `IEnumerable` の場合、選択タグ ヘルパーは [multiple = "multiple"](https://w3c.github.io/html-reference/select.html) 属性を自動的に生成します。 たとえば、次のようなモデルがあるとします。
+[ 属性に指定されているプロパティが ](https://w3c.github.io/html-reference/select.html) の場合、選択タグ ヘルパーは `asp-for`multiple = "multiple"`IEnumerable` 属性を自動的に生成します。 たとえば、次のようなモデルがあるとします。
 
 [!code-csharp[](../../mvc/views/working-with-forms/sample/final/ViewModels/CountryViewModelIEnumerable.cs?highlight=6)]
 
@@ -629,7 +629,7 @@ HTML の [\<optgroup>](https://www.w3.org/wiki/HTML/Elements/optgroup) 要素は
 </form>
 ```
 
-### <a name="no-selection"></a>選択なし
+### <a name="no-selection"></a>選択しない
 
 複数のページで "未指定" オプションを使用しているとわかった場合は、テンプレートを作成して HTML の繰り返しを除去することができます。
 
@@ -645,7 +645,7 @@ HTML の [\<option>](https://www.w3.org/wiki/HTML/Elements/option) 要素の追�
 
 [!code-HTML[](working-with-forms/sample/final/Views/Home/IndexOption.cshtml)]
 
-現在の `Country` 値に応じて、(`selected="selected"` 属性を含む) 正しい `<option>` 要素が選択されます。
+現在の `<option>` 値に応じて、(`selected="selected"` 属性を含む) 正しい `Country` 要素が選択されます。
 
 [!code-csharp[](working-with-forms/sample/final/Controllers/HomeController.cs?range=114-119)]
 
@@ -662,7 +662,7 @@ HTML の [\<option>](https://www.w3.org/wiki/HTML/Elements/option) 要素の追�
  </form>
  ```
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * <xref:mvc/views/tag-helpers/intro>
 * [HTML の Form 要素](https://www.w3.org/TR/html401/interact/forms.html)
@@ -670,4 +670,4 @@ HTML の [\<option>](https://www.w3.org/wiki/HTML/Elements/option) 要素の追�
 * <xref:mvc/models/model-binding>
 * <xref:mvc/models/validation>
 * [IAttributeAdapter インターフェイス](/dotnet/api/Microsoft.AspNetCore.Mvc.DataAnnotations.IAttributeAdapter)
-* [このドキュメントのコード スニペット](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/working-with-forms/sample/final)
+* [このドキュメントのコード スニペット](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/working-with-forms/sample/final)

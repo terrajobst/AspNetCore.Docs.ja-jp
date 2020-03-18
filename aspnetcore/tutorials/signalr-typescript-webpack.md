@@ -8,12 +8,12 @@ ms.date: 02/10/2020
 no-loc:
 - SignalR
 uid: tutorials/signalr-typescript-webpack
-ms.openlocfilehash: e1ab02077abc8f8b3315a52eb29a3d571af43fa0
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: e6dd200367278b1697ef232f5d79dfbd138bb82b
+ms.sourcegitcommit: 40dc9b00131985abcd99bd567647420d798e798a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78647642"
+ms.lasthandoff: 03/09/2020
+ms.locfileid: "78935488"
 ---
 # <a name="use-aspnet-core-signalr-with-typescript-and-webpack"></a>TypeScript と Webpack で ASP.NET Core SignalR を使用する
 
@@ -46,7 +46,7 @@ ms.locfileid: "78647642"
 
 * [Visual Studio Code](https://code.visualstudio.com/download)
 * [.NET Core SDK 3.0 以降](https://www.microsoft.com/net/download/all)
-* [C# for Visual Studio Code バージョン 1.17.1 またはそれ以降](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
+* [C# for Visual Studio Code バージョン 1.17.1 またはそれ以降](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
 * [Node.js](https://nodejs.org/) ([npm](https://www.npmjs.com/) 使用)
 
 ---
@@ -93,7 +93,7 @@ code -r SignalRWebPack
 dotnet add package Microsoft.TypeScript.MSBuild
 ```
 
-上記のコマンドにより、(Microsoft.TypeScript.MSBuild) [https://www.nuget.org/packages/Microsoft.TypeScript.MSBuild/ ] パッケージが追加され、プロジェクトでの TypeScript コンパイルが可能になります。
+上記のコマンドにより、[Microsoft.TypeScript.MSBuild](https://www.nuget.org/packages/Microsoft.TypeScript.MSBuild/) パッケージが追加され、プロジェクトでの TypeScript コンパイルが可能になります。
 
 ---
 
@@ -303,7 +303,7 @@ dotnet add package Microsoft.TypeScript.MSBuild
 
 * [Visual Studio Code](https://code.visualstudio.com/download)
 * [.NET Core SDK 2.2 以降](https://www.microsoft.com/net/download/all)
-* [C# for Visual Studio Code バージョン 1.17.1 またはそれ以降](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
+* [C# for Visual Studio Code バージョン 1.17.1 またはそれ以降](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
 * [Node.js](https://nodejs.org/) ([npm](https://www.npmjs.com/) 使用)
 
 ---

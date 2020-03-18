@@ -6,4 +6,4 @@
 
 Forwarded Headers Middleware を使用して、アプリが要求を処理する際に元の要求情報を利用できるようにします。
 
-詳細については、<xref:host-and-deploy/proxy-load-balancer> を参照してください。
+詳細については、「<xref:host-and-deploy/proxy-load-balancer>」を参照してください。
