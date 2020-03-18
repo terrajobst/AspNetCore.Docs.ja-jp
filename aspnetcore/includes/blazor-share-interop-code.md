@@ -1,0 +1,9 @@
+## <a name="share-interop-code-in-a-class-library"></a><span data-ttu-id="d1c19-101">クラス ライブラリで相互運用コードを共有する</span><span class="sxs-lookup"><span data-stu-id="d1c19-101">Share interop code in a class library</span></span>
+
+<span data-ttu-id="d1c19-102">JS 相互運用コードは、クラス ライブラリに含めて NuGet パッケージ内でコードを共有することができます。</span><span class="sxs-lookup"><span data-stu-id="d1c19-102">JS interop code can be included in a class library, which allows you to share the code in a NuGet package.</span></span>
+
+<span data-ttu-id="d1c19-103">クラス ライブラリは、ビルドされたアセンブリでの JavaScript リソースの埋め込みを処理します。</span><span class="sxs-lookup"><span data-stu-id="d1c19-103">The class library handles embedding JavaScript resources in the built assembly.</span></span> <span data-ttu-id="d1c19-104">JavaScript ファイルは、*wwwroot* フォルダーに配置されます。</span><span class="sxs-lookup"><span data-stu-id="d1c19-104">The JavaScript files are placed in the *wwwroot* folder.</span></span> <span data-ttu-id="d1c19-105">ライブラリのビルド時にツールがリソースの埋め込みを行います。</span><span class="sxs-lookup"><span data-stu-id="d1c19-105">The tooling takes care of embedding the resources when the library is built.</span></span>
+
+<span data-ttu-id="d1c19-106">ビルド済みの NuGet パッケージは、NuGet パッケージの参照と同じ方法で、アプリのプロジェクト ファイルで参照されます。</span><span class="sxs-lookup"><span data-stu-id="d1c19-106">The built NuGet package is referenced in the app's project file the same way that any NuGet package is referenced.</span></span> <span data-ttu-id="d1c19-107">パッケージが復元されたら、アプリ コードを C# と同じように JavaScript に呼び出すことができます。</span><span class="sxs-lookup"><span data-stu-id="d1c19-107">After the package is restored, app code can call into JavaScript as if it were C#.</span></span>
+
+<span data-ttu-id="d1c19-108">詳細については、「<xref:blazor/class-libraries>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="d1c19-108">For more information, see <xref:blazor/class-libraries>.</span></span>
