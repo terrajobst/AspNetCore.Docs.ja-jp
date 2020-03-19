@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 10/14/2016
 uid: fundamentals/request-features
 ms.openlocfilehash: d0f3ae521d1f314dd04cb581d9a921da4719273d
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
-ms.translationtype: MT
+ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
+ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78651992"
+ms.lasthandoff: 03/16/2020
+ms.locfileid: "79416174"
 ---
 # <a name="request-features-in-aspnet-core"></a>ASP.NET Core での要求機能
 
@@ -53,7 +53,7 @@ ASP.NET Core には、サーバーがサポートする機能を識別するた�
 
 ## <a name="feature-collections"></a>機能のコレクション
 
-`Features` の `HttpContext` プロパティは、現在の要求で利用可能な HTTP 機能を取得および設定するためのインターフェイスです。 機能のコレクションは要求のコンテキスト内でも変更可能であるため、コレクションの変更と、その他の機能のサポートの追加にはミドルウェアを使用できます。
+`HttpContext` の `Features` プロパティは、現在の要求で利用可能な HTTP 機能を取得および設定するためのインターフェイスです。 機能のコレクションは要求のコンテキスト内でも変更可能であるため、コレクションの変更と、その他の機能のサポートの追加にはミドルウェアを使用できます。
 
 ## <a name="middleware-and-request-features"></a>ミドルウェアおよび要求機能
 
@@ -67,7 +67,7 @@ ASP.NET Core には、サーバーがサポートする機能を識別するた�
 
 機能インターフェイスは、特定の要求がサポートする可能性がある特定の HTTP 機能を定義します。 サーバーでは、機能のコレクションとそのサーバーによってサポートされる機能の初期セットを定義しますが、ミドルウェアは、これらの機能を強化するために使用できます。
 
-## <a name="additional-resources"></a>その他のリソース
+## <a name="additional-resources"></a>その他の技術情報
 
 * [サーバー](xref:fundamentals/servers/index)
 * [ミドルウェア](xref:fundamentals/middleware/index)

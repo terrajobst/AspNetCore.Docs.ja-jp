@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 09/24/2019
 uid: fundamentals/metapackage-app
-ms.openlocfilehash: 3ce74bc7329a88ffc6f77baf6b8a311c02951318
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: b30c90116f5a53ba487f88544514f36e388233d3
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78648956"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511380"
 ---
 # <a name="microsoftaspnetcoreapp-for-aspnet-core"></a>ASP.NET Core 用の Microsoft.AspNetCore.App
 
@@ -107,8 +107,8 @@ ASP.NET Core 用の [Microsoft.AspNetCore.App](https://www.nuget.org/packages/Mi
 
 ASP.NET Core を更新するには:
 
-* 開発用コンピューターおよびビルド サーバーの場合:[.NET Core SDK](https://www.microsoft.com/net/download) をダウンロードしてインストールします。
-* 配置サーバーの場合:[.NET Core ランタイム](https://www.microsoft.com/net/download)をダウンロードしてインストールします。
+* 開発用コンピューターおよびビルド サーバーの場合:[.NET Core SDK](https://dotnet.microsoft.com/download) をダウンロードしてインストールします。
+* 配置サーバーの場合:[.NET Core ランタイム](https://dotnet.microsoft.com/download)をダウンロードしてインストールします。
 
  アプリケーションは、アプリケーションの再起動時にインストールされている最新バージョンにロールフォワードされます。 プロジェクト ファイル内で `Microsoft.AspNetCore.App` バージョン番号を更新する必要はありません。 詳細については、「[フレームワーク依存のアプリをロールフォワードする](/dotnet/core/versions/selection#framework-dependent-apps-roll-forward)」を参照してください。
 

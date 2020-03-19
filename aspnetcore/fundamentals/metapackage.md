@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/25/2018
 uid: fundamentals/metapackage
-ms.openlocfilehash: e47f583d0fa75bdeb26b669303747a70619117c1
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: cc00c075909da5c17a4aa2fd252c9e662e5a0fc9
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78648962"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511068"
 ---
 # <a name="microsoftaspnetcoreall-metapackage-for-aspnet-core-20"></a>ASP.NET Core 2.0 用の Microsoft.AspNetCore.All メタパッケージ
 
@@ -94,6 +94,6 @@ ASP.NET Core 2.1 以降では、バージョンなしで `Microsoft.AspNetCore.A
 
 2\.1 以降用の `Microsoft.AspNetCore.App` メタパッケージに移行することをお勧めします。 `Microsoft.AspNetCore.All` メタパッケージを引き続き使用し、最新のバージョンの修正プログラムが配置されていることを確認するには、次のようにします。
 
-* 開発用コンピューターおよびビルド サーバーの場合:最新の [.NET Core SDK](https://www.microsoft.com/net/download) をインストールします。
-* 配置サーバーの場合:最新の [.NET Core ランタイム](https://www.microsoft.com/net/download)をインストールします。
+* 開発用コンピューターおよびビルド サーバーの場合:最新の [.NET Core SDK](https://dotnet.microsoft.com/download) をインストールします。
+* 配置サーバーの場合:最新の [.NET Core ランタイム](https://dotnet.microsoft.com/download)をインストールします。
  ご利用のアプリは、アプリケーションの再起動時にインストールされている最新バージョンにロールフォワードされます。

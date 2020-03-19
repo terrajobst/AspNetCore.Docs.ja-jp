@@ -5,17 +5,17 @@ description: Blazor アプリを構築するときに、中間言語 (IL) リン
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 03/10/2020
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/configure-linker
-ms.openlocfilehash: 263b85a3213c1da233e4c96095faaf39d0a8e13f
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: b08ec26fb8d139223c57774600bc3cb19a56ac49
+ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78648608"
+ms.lasthandoff: 03/11/2020
+ms.locfileid: "79083291"
 ---
 # <a name="configure-the-linker-for-aspnet-core-blazor"></a>ASP.NET Core Blazor 用のリンカーを構成する
 
@@ -23,20 +23,24 @@ ms.locfileid: "78648608"
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-Blazor では、ビルド中に[中間言語 (IL)](/dotnet/standard/managed-code#intermediate-language--execution) のリンクが実行されて、アプリの出力アセンブリから不要な IL が削除されます。
+Blazor WebAssembly では、ビルド中に[中間言語 (IL)](/dotnet/standard/managed-code#intermediate-language--execution) のリンクが実行されて、アプリの出力アセンブリから不要な IL がトリミングされます。 デバッグ構成でビルドすると、リンカーは無効になります。 リンカーを有効にするには、アプリをリリース構成でビルドする必要があります。 Blazor WebAssembly アプリを配置する場合は、リリースでビルドすることをお勧めします。 
 
-次の方法のいずれかを使って、アセンブリのリンクを制御します。
+アプリをリンクするとサイズが最適化されますが、悪影響を及ぼす可能性があります。 リフレクションや関連する動的機能を使用するアプリは、トリミングされたときに中断する可能性があります。リンカーがこの動的な動作を認識せず、通常は実行時にリフレクションに必要な型を特定できないためです。 そのようなアプリをトリミングするには、コードと、アプリが依存しているパッケージまたはフレームワークのリフレクションで必要なすべての型を、リンカーに通知する必要があります。 
 
-* [MSBuild プロパティ](#disable-linking-with-a-msbuild-property)を使ってリンクをグローバルに無効にする。
+トリミングされたアプリが配置後に正しく動作するには、開発中にアプリのリリース ビルドを頻繁にテストすることが重要です。
+
+Blazor アプリのリンクは、次の MSBuild 機能を使用して構成できます。
+
+* [MSBuild プロパティ](#control-linking-with-an-msbuild-property)を使ってリンクをグローバルに構成する。
 * [構成ファイル](#control-linking-with-a-configuration-file)を使ってアセンブリごとにリンクを制御する。
 
-## <a name="disable-linking-with-a-msbuild-property"></a>MSBuild プロパティを使ってリンクを無効にする
+## <a name="control-linking-with-an-msbuild-property"></a>MSBuild プロパティを使ってリンクを制御する
 
-アプリをビルドするときは既定でリンクが有効になり、これには発行が含まれます。 すべてのアセンブリに対してリンクを無効にするには、プロジェクト ファイルで MSBuild プロパティ `BlazorLinkOnBuild` を `false` に設定します。
+リンクは、アプリが `Release` 構成でビルドされると有効になります。 これを変更するには、プロジェクト ファイルで `BlazorWebAssemblyEnableLinking` の MSBuild プロパティを構成します。
 
 ```xml
 <PropertyGroup>
-  <BlazorLinkOnBuild>false</BlazorLinkOnBuild>
+  <BlazorWebAssemblyEnableLinking>false</BlazorWebAssemblyEnableLinking>
 </PropertyGroup>
 ```
 

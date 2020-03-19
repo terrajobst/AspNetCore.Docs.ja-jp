@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/10/2019
 uid: test/troubleshoot
-ms.openlocfilehash: 042e1c84a7226cb4bf56bcc0ff4e576b67e68e1b
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 345967f08cf99ef5f18d0c9bcd59ab29c74454f1
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78644858"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511510"
 ---
 # <a name="troubleshoot-and-debug-aspnet-core-projects"></a>ASP.NET Core プロジェクトのトラブルシューティングとデバッグ
 
@@ -32,7 +32,7 @@ ASP.NET Core の **[新しいプロジェクト]** ダイアログに、次の�
 
 > 32 ビットと 64 ビットの両方のバージョンの .NET Core SDK がインストールされています。 'C:\\Program Files\\dotnet\\sdk\\' にインストールされている 64 ビット バージョンのテンプレートのみ表示されます。
 
-この警告は、32 ビット (x86) と 64 ビット (x64) の両方のバージョンの [.NET Core SDK](https://www.microsoft.com/net/download/all) がインストールされている場合に表示されます。 両方のバージョンがインストールされる可能性のある一般的な理由は次のとおりです。
+この警告は、32 ビット (x86) と 64 ビット (x64) の両方のバージョンの [.NET Core SDK](https://dotnet.microsoft.com/download/dotnet-core) がインストールされている場合に表示されます。 両方のバージョンがインストールされる可能性のある一般的な理由は次のとおりです。
 
 * 最初は、32 ビットのコンピューターを使用して .NET Core SDK インストーラーをダウンロードした後、それを 64 ビットのコンピューターにコピーしてインストールしました。
 * 32 ビットの .NET Core SDK が別のアプリケーションによってインストールされました。

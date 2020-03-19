@@ -5,17 +5,17 @@ description: 希望のツールで Blazor アプリを構築することで、Bl
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/28/2019
+ms.date: 03/10/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/get-started
-ms.openlocfilehash: bd33d874b3d6122f2ab820e9b147b0e62ba03a58
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 89c7529d2b8ec97db731f7c7268e19937c398115
+ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78648632"
+ms.lasthandoff: 03/11/2020
+ms.locfileid: "79083244"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>ASP.NET Core Blazor の概要
 
@@ -28,12 +28,15 @@ Blazor の使用を開始します。
 1. [.NET Core 3.1 SDK をインストールします](https://dotnet.microsoft.com/download/dotnet-core/3.1)。
 
 1. オプションで、[Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) テンプレートをインストールします。
-   * [.NET Core 3.1 以降 (プレビュー) SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1) をインストールします。
-   * コマンド シェルで次のコマンドを実行します。 Blazor WebAssembly がプレビュー段階にある間、[Microsoft.AspNetCore.Blazor.Templates](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.Templates/) パッケージにはプレビュー バージョンが用意されています。
+   * [.NET Core 3.1 102 以降 (Preview) SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1) をインストールします。
+   * コマンド シェルで次のコマンドを実行します。 Blazor WebAssembly がプレビュー段階にある間、[Microsoft.AspNetCore.Components.WebAssembly.Templates](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Templates/) パッケージにはプレビュー バージョンが用意されています。
 
    ```dotnetcli
-   dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.2.0-preview1.20073.1
+   dotnet new -i Microsoft.AspNetCore.Components.WebAssembly.Templates::3.2.0-preview2.20160.5
    ```
+
+   > [!NOTE]
+   > 3\.2 Preview 2 Blazor WebAssembly テンプレートを使用するには、.NET Core SDK バージョン 3.1.102 以降が**必要です**。 コマンド シェルで `dotnet --version` を実行して、インストールされている .NET Core SDK バージョンを確認します。
 
 1. 使用するツールに向けたガイダンスに従ってください。
 
@@ -47,7 +50,7 @@ Blazor の使用を開始します。
 
    4\. **[プロジェクト名]** フィールドにプロジェクト名を入力するか、既定のプロジェクト名をそのまま使用します。 **[場所]** エントリが正しいことを確認します。または、プロジェクトの場所を指定します。 **[作成]** を選択します。
 
-   5\. Blazor WebAssembly エクスペリエンスについては、 **[Blazor WebAssembly アプリ]** テンプレートを選択します。 Blazor Server エクスペリエンスについては、 **[Blazor Server App] (Blazor Server アプリ)** テンプレートを選択します。 **[作成]** を選択します。 2つの Blazor ホスティング モデル、*Blazor Server*、*Blazor WebAssembly* については、「<xref:blazor/hosting-models>」を参照してください。
+   5\. Blazor WebAssembly エクスペリエンスについては、 **[Blazor WebAssembly アプリ]** テンプレートを選択します。 Blazor Server エクスペリエンスについては、 **[Blazor Server App] (Blazor Server アプリ)** テンプレートを選択します。 **[作成]** を選択します。 2つの Blazor ホスティング モデル、*Blazor Server*、*Blazor WebAssembly* については、「<xref:blazor/hosting-models>」を参照してください。 Blazor WebAssembly テンプレートが存在しない場合は、前のステップに戻り、テンプレートを再インストールします。
 
    6\. **Ctrl**+**F5** キーを押してアプリを実行します。
 
@@ -58,7 +61,7 @@ Blazor の使用を開始します。
 
    1\. [Visual Studio Code](https://code.visualstudio.com/) のインストール。
 
-   2\. 最新の [C# for Visual Studio Code 拡張機能](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)をインストールします。
+   2\. 最新の [C# for Visual Studio Code 拡張機能](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)をインストールします。
 
    3\. Blazor WebAssembly エクスペリエンスについては、コマンド シェルで次のコマンドを実行します。
 
