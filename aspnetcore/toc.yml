@@ -969,6 +969,8 @@
           uid: security/authentication/individual
         - name: 証明書認証の構成
           uid: security/authentication/certauth
+        - name: 多要素認証
+          uid: security/authentication/mfa
     - name: 承認
       items:
         - name: 概要
