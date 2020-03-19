@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: c2ca867e3eebdc3fcf512cc5d457ff3c1967f9b1
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: e4da57001ad369a8df87c7e0887772e3d75c032d
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78644198"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511224"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>IIS を使用した Windows での ASP.NET Core のホスト
 
@@ -243,14 +243,14 @@ Web SDK ファイルの変換を無効にすると、 *processPath*と*引数*�
 
 次のリンクを使用してインストーラーをダウンロードします。
 
-[現在の .NET Core ホスティング バンドルのインストーラー (直接ダウンロード)](https://www.microsoft.com/net/permalink/dotnetcore-current-windows-runtime-bundle-installer)
+[現在の .NET Core ホスティング バンドルのインストーラー (直接ダウンロード)](https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer)
 
 ### <a name="earlier-versions-of-the-installer"></a>以前のバージョンのインストーラー
 
 以前のバージョンのインストーラーを入手するには:
 
-1. [.NET のダウンロードのアーカイブ](https://www.microsoft.com/net/download/archives)に移動します。
-1. **[.NET Core]** の下で、.NET Core のバージョンを選択します。
+1. 「[.NET Core のダウンロード](https://dotnet.microsoft.com/download/dotnet-core)」ページに移動します。
+1. 目的の .NET Core のバージョンをクリックします。
 1. **[Run apps - Runtime]\(アプリの実行 - ランタイム\)** 列から、目的の .NET Core ランタイム バージョンの行を探します。
 1. **[Runtime & Hosting Bundle]\(ランタイム & ホスティング バンドル\)** のリンクを使用してインストーラーをダウンロードします。
 
@@ -850,14 +850,14 @@ Web SDK ファイルの変換を無効にすると、 *processPath*と*引数*�
 
 次のリンクを使用してインストーラーをダウンロードします。
 
-[現在の .NET Core ホスティング バンドルのインストーラー (直接ダウンロード)](https://www.microsoft.com/net/permalink/dotnetcore-current-windows-runtime-bundle-installer)
+[現在の .NET Core ホスティング バンドルのインストーラー (直接ダウンロード)](https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer)
 
 ### <a name="earlier-versions-of-the-installer"></a>以前のバージョンのインストーラー
 
 以前のバージョンのインストーラーを入手するには:
 
-1. [.NET のダウンロードのアーカイブ](https://www.microsoft.com/net/download/archives)に移動します。
-1. **[.NET Core]** の下で、.NET Core のバージョンを選択します。
+1. 「[.NET Core のダウンロード](https://dotnet.microsoft.com/download/dotnet-core)」ページに移動します。
+1. 目的の .NET Core のバージョンをクリックします。
 1. **[Run apps - Runtime]\(アプリの実行 - ランタイム\)** 列から、目的の .NET Core ランタイム バージョンの行を探します。
 1. **[Runtime & Hosting Bundle]\(ランタイム & ホスティング バンドル\)** のリンクを使用してインストーラーをダウンロードします。
 
@@ -1426,14 +1426,14 @@ Web SDK ファイルの変換を無効にすると、 *processPath*と*引数*�
 
 次のリンクを使用してインストーラーをダウンロードします。
 
-[現在の .NET Core ホスティング バンドルのインストーラー (直接ダウンロード)](https://www.microsoft.com/net/permalink/dotnetcore-current-windows-runtime-bundle-installer)
+[現在の .NET Core ホスティング バンドルのインストーラー (直接ダウンロード)](https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer)
 
 ### <a name="earlier-versions-of-the-installer"></a>以前のバージョンのインストーラー
 
 以前のバージョンのインストーラーを入手するには:
 
-1. [.NET のダウンロードのアーカイブ](https://www.microsoft.com/net/download/archives)に移動します。
-1. **[.NET Core]** の下で、.NET Core のバージョンを選択します。
+1. 「[.NET Core のダウンロード](https://dotnet.microsoft.com/download/dotnet-core)」ページに移動します。
+1. 目的の .NET Core のバージョンをクリックします。
 1. **[Run apps - Runtime]\(アプリの実行 - ランタイム\)** 列から、目的の .NET Core ランタイム バージョンの行を探します。
 1. **[Runtime & Hosting Bundle]\(ランタイム & ホスティング バンドル\)** のリンクを使用してインストーラーをダウンロードします。
 
