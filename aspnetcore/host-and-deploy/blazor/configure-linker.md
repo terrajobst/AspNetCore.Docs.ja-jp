@@ -5,44 +5,48 @@ description: Blazor アプリを構築するときに、中間言語 (IL) リン
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 03/10/2020
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/configure-linker
-ms.openlocfilehash: 263b85a3213c1da233e4c96095faaf39d0a8e13f
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: b08ec26fb8d139223c57774600bc3cb19a56ac49
+ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78648608"
+ms.lasthandoff: 03/11/2020
+ms.locfileid: "79083291"
 ---
-# <a name="configure-the-linker-for-aspnet-core-blazor"></a><span data-ttu-id="92543-103">ASP.NET Core Blazor 用のリンカーを構成する</span><span class="sxs-lookup"><span data-stu-id="92543-103">Configure the Linker for ASP.NET Core Blazor</span></span>
+# <a name="configure-the-linker-for-aspnet-core-blazor"></a><span data-ttu-id="ce7fc-103">ASP.NET Core Blazor 用のリンカーを構成する</span><span class="sxs-lookup"><span data-stu-id="ce7fc-103">Configure the Linker for ASP.NET Core Blazor</span></span>
 
-<span data-ttu-id="92543-104">作成者: [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="92543-104">By [Luke Latham](https://github.com/guardrex)</span></span>
+<span data-ttu-id="ce7fc-104">作成者: [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="ce7fc-104">By [Luke Latham](https://github.com/guardrex)</span></span>
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-<span data-ttu-id="92543-105">Blazor では、ビルド中に[中間言語 (IL)](/dotnet/standard/managed-code#intermediate-language--execution) のリンクが実行されて、アプリの出力アセンブリから不要な IL が削除されます。</span><span class="sxs-lookup"><span data-stu-id="92543-105">Blazor performs [Intermediate Language (IL)](/dotnet/standard/managed-code#intermediate-language--execution) linking during a build to remove unnecessary IL from the app's output assemblies.</span></span>
+<span data-ttu-id="ce7fc-105">Blazor WebAssembly では、ビルド中に[中間言語 (IL)](/dotnet/standard/managed-code#intermediate-language--execution) のリンクが実行されて、アプリの出力アセンブリから不要な IL がトリミングされます。</span><span class="sxs-lookup"><span data-stu-id="ce7fc-105">Blazor WebAssembly performs [Intermediate Language (IL)](/dotnet/standard/managed-code#intermediate-language--execution) linking during a build to trim unnecessary IL from the app's output assemblies.</span></span> <span data-ttu-id="ce7fc-106">デバッグ構成でビルドすると、リンカーは無効になります。</span><span class="sxs-lookup"><span data-stu-id="ce7fc-106">The linker is disabled when building in Debug configuration.</span></span> <span data-ttu-id="ce7fc-107">リンカーを有効にするには、アプリをリリース構成でビルドする必要があります。</span><span class="sxs-lookup"><span data-stu-id="ce7fc-107">Apps must build in Release configuration to enable the linker.</span></span> <span data-ttu-id="ce7fc-108">Blazor WebAssembly アプリを配置する場合は、リリースでビルドすることをお勧めします。</span><span class="sxs-lookup"><span data-stu-id="ce7fc-108">We recommend building in Release when deploying your Blazor WebAssembly apps.</span></span> 
 
-<span data-ttu-id="92543-106">次の方法のいずれかを使って、アセンブリのリンクを制御します。</span><span class="sxs-lookup"><span data-stu-id="92543-106">Control assembly linking using either of the following approaches:</span></span>
+<span data-ttu-id="ce7fc-109">アプリをリンクするとサイズが最適化されますが、悪影響を及ぼす可能性があります。</span><span class="sxs-lookup"><span data-stu-id="ce7fc-109">Linking an app optimizes for size but may have detrimental effects.</span></span> <span data-ttu-id="ce7fc-110">リフレクションや関連する動的機能を使用するアプリは、トリミングされたときに中断する可能性があります。リンカーがこの動的な動作を認識せず、通常は実行時にリフレクションに必要な型を特定できないためです。</span><span class="sxs-lookup"><span data-stu-id="ce7fc-110">Apps that use reflection or related dynamic features may break when trimmed because the linker doesn't know about this dynamic behavior and can't determine in general which types are required for reflection at runtime.</span></span> <span data-ttu-id="ce7fc-111">そのようなアプリをトリミングするには、コードと、アプリが依存しているパッケージまたはフレームワークのリフレクションで必要なすべての型を、リンカーに通知する必要があります。</span><span class="sxs-lookup"><span data-stu-id="ce7fc-111">To trim such apps, the linker must be informed about any types required by reflection in the code and in packages or frameworks that the app depends on.</span></span> 
 
-* <span data-ttu-id="92543-107">[MSBuild プロパティ](#disable-linking-with-a-msbuild-property)を使ってリンクをグローバルに無効にする。</span><span class="sxs-lookup"><span data-stu-id="92543-107">Disable linking globally with a [MSBuild property](#disable-linking-with-a-msbuild-property).</span></span>
-* <span data-ttu-id="92543-108">[構成ファイル](#control-linking-with-a-configuration-file)を使ってアセンブリごとにリンクを制御する。</span><span class="sxs-lookup"><span data-stu-id="92543-108">Control linking on a per-assembly basis with a [configuration file](#control-linking-with-a-configuration-file).</span></span>
+<span data-ttu-id="ce7fc-112">トリミングされたアプリが配置後に正しく動作するには、開発中にアプリのリリース ビルドを頻繁にテストすることが重要です。</span><span class="sxs-lookup"><span data-stu-id="ce7fc-112">To ensure the trimmed app works correctly once deployed, it's important to test Release builds of the app frequently while developing.</span></span>
 
-## <a name="disable-linking-with-a-msbuild-property"></a><span data-ttu-id="92543-109">MSBuild プロパティを使ってリンクを無効にする</span><span class="sxs-lookup"><span data-stu-id="92543-109">Disable linking with a MSBuild property</span></span>
+<span data-ttu-id="ce7fc-113">Blazor アプリのリンクは、次の MSBuild 機能を使用して構成できます。</span><span class="sxs-lookup"><span data-stu-id="ce7fc-113">Linking for Blazor apps can be configured using these MSBuild features:</span></span>
 
-<span data-ttu-id="92543-110">アプリをビルドするときは既定でリンクが有効になり、これには発行が含まれます。</span><span class="sxs-lookup"><span data-stu-id="92543-110">Linking is enabled by default when an app is built, which includes publishing.</span></span> <span data-ttu-id="92543-111">すべてのアセンブリに対してリンクを無効にするには、プロジェクト ファイルで MSBuild プロパティ `BlazorLinkOnBuild` を `false` に設定します。</span><span class="sxs-lookup"><span data-stu-id="92543-111">To disable linking for all assemblies, set the `BlazorLinkOnBuild` MSBuild property to `false` in the project file:</span></span>
+* <span data-ttu-id="ce7fc-114">[MSBuild プロパティ](#control-linking-with-an-msbuild-property)を使ってリンクをグローバルに構成する。</span><span class="sxs-lookup"><span data-stu-id="ce7fc-114">Configure linking globally with a [MSBuild property](#control-linking-with-an-msbuild-property).</span></span>
+* <span data-ttu-id="ce7fc-115">[構成ファイル](#control-linking-with-a-configuration-file)を使ってアセンブリごとにリンクを制御する。</span><span class="sxs-lookup"><span data-stu-id="ce7fc-115">Control linking on a per-assembly basis with a [configuration file](#control-linking-with-a-configuration-file).</span></span>
+
+## <a name="control-linking-with-an-msbuild-property"></a><span data-ttu-id="ce7fc-116">MSBuild プロパティを使ってリンクを制御する</span><span class="sxs-lookup"><span data-stu-id="ce7fc-116">Control linking with an MSBuild property</span></span>
+
+<span data-ttu-id="ce7fc-117">リンクは、アプリが `Release` 構成でビルドされると有効になります。</span><span class="sxs-lookup"><span data-stu-id="ce7fc-117">Linking is enabled when an app is built in `Release` configuation.</span></span> <span data-ttu-id="ce7fc-118">これを変更するには、プロジェクト ファイルで `BlazorWebAssemblyEnableLinking` の MSBuild プロパティを構成します。</span><span class="sxs-lookup"><span data-stu-id="ce7fc-118">To change this, configure the `BlazorWebAssemblyEnableLinking` MSBuild property in the project file:</span></span>
 
 ```xml
 <PropertyGroup>
-  <BlazorLinkOnBuild>false</BlazorLinkOnBuild>
+  <BlazorWebAssemblyEnableLinking>false</BlazorWebAssemblyEnableLinking>
 </PropertyGroup>
 ```
 
-## <a name="control-linking-with-a-configuration-file"></a><span data-ttu-id="92543-112">構成ファイルを使ってリンクを制御する</span><span class="sxs-lookup"><span data-stu-id="92543-112">Control linking with a configuration file</span></span>
+## <a name="control-linking-with-a-configuration-file"></a><span data-ttu-id="ce7fc-119">構成ファイルを使ってリンクを制御する</span><span class="sxs-lookup"><span data-stu-id="ce7fc-119">Control linking with a configuration file</span></span>
 
-<span data-ttu-id="92543-113">XML の構成ファイルを用意してそのファイルをプロジェクト ファイル内で MSBuild 項目として指定することで、アセンブリごとにリンクを制御します。</span><span class="sxs-lookup"><span data-stu-id="92543-113">Control linking on a per-assembly basis by providing an XML configuration file and specifying the file as a MSBuild item in the project file:</span></span>
+<span data-ttu-id="ce7fc-120">XML の構成ファイルを用意してそのファイルをプロジェクト ファイル内で MSBuild 項目として指定することで、アセンブリごとにリンクを制御します。</span><span class="sxs-lookup"><span data-stu-id="ce7fc-120">Control linking on a per-assembly basis by providing an XML configuration file and specifying the file as a MSBuild item in the project file:</span></span>
 
 ```xml
 <ItemGroup>
@@ -50,7 +54,7 @@ ms.locfileid: "78648608"
 </ItemGroup>
 ```
 
-<span data-ttu-id="92543-114">*Linker.xml*:</span><span class="sxs-lookup"><span data-stu-id="92543-114">*Linker.xml*:</span></span>
+<span data-ttu-id="ce7fc-121">*Linker.xml*:</span><span class="sxs-lookup"><span data-stu-id="ce7fc-121">*Linker.xml*:</span></span>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -82,13 +86,13 @@ ms.locfileid: "78648608"
 </linker>
 ```
 
-<span data-ttu-id="92543-115">詳細については、[IL リンカー:xml 記述子の構文](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor)に関するページをご覧ください。</span><span class="sxs-lookup"><span data-stu-id="92543-115">For more information, see [IL Linker: Syntax of xml descriptor](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor).</span></span>
+<span data-ttu-id="ce7fc-122">詳細については、[IL リンカー:xml 記述子の構文](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor)に関するページをご覧ください。</span><span class="sxs-lookup"><span data-stu-id="ce7fc-122">For more information, see [IL Linker: Syntax of xml descriptor](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor).</span></span>
 
-### <a name="configure-the-linker-for-internationalization"></a><span data-ttu-id="92543-116">国際化用にリンカーを構成する</span><span class="sxs-lookup"><span data-stu-id="92543-116">Configure the linker for internationalization</span></span>
+### <a name="configure-the-linker-for-internationalization"></a><span data-ttu-id="ce7fc-123">国際化用にリンカーを構成する</span><span class="sxs-lookup"><span data-stu-id="ce7fc-123">Configure the linker for internationalization</span></span>
 
-<span data-ttu-id="92543-117">既定では、WebAssembly アプリに対する Blazor のリンカー構成により、明示的に要求されたロケールを除き、国際化情報が除去されます。</span><span class="sxs-lookup"><span data-stu-id="92543-117">By default, Blazor's linker configuration for Blazor WebAssembly apps strips out internationalization information except for locales explicitly requested.</span></span> <span data-ttu-id="92543-118">これらのアセンブリを削除すると、アプリのサイズが最小限に抑えられます。</span><span class="sxs-lookup"><span data-stu-id="92543-118">Removing these assemblies minimizes the app's size.</span></span>
+<span data-ttu-id="ce7fc-124">既定では、WebAssembly アプリに対する Blazor のリンカー構成により、明示的に要求されたロケールを除き、国際化情報が除去されます。</span><span class="sxs-lookup"><span data-stu-id="ce7fc-124">By default, Blazor's linker configuration for Blazor WebAssembly apps strips out internationalization information except for locales explicitly requested.</span></span> <span data-ttu-id="ce7fc-125">これらのアセンブリを削除すると、アプリのサイズが最小限に抑えられます。</span><span class="sxs-lookup"><span data-stu-id="ce7fc-125">Removing these assemblies minimizes the app's size.</span></span>
 
-<span data-ttu-id="92543-119">保持される I18N アセンブリを制御するには、プロジェクト ファイルで MSBuild のプロパティ `<MonoLinkerI18NAssemblies>` を設定します。</span><span class="sxs-lookup"><span data-stu-id="92543-119">To control which I18N assemblies are retained, set the `<MonoLinkerI18NAssemblies>` MSBuild property in the project file:</span></span>
+<span data-ttu-id="ce7fc-126">保持される I18N アセンブリを制御するには、プロジェクト ファイルで MSBuild のプロパティ `<MonoLinkerI18NAssemblies>` を設定します。</span><span class="sxs-lookup"><span data-stu-id="ce7fc-126">To control which I18N assemblies are retained, set the `<MonoLinkerI18NAssemblies>` MSBuild property in the project file:</span></span>
 
 ```xml
 <PropertyGroup>
@@ -96,16 +100,16 @@ ms.locfileid: "78648608"
 </PropertyGroup>
 ```
 
-| <span data-ttu-id="92543-120">リージョンの値</span><span class="sxs-lookup"><span data-stu-id="92543-120">Region Value</span></span>     | <span data-ttu-id="92543-121">Mono のリージョン アセンブリ</span><span class="sxs-lookup"><span data-stu-id="92543-121">Mono region assembly</span></span>    |
+| <span data-ttu-id="ce7fc-127">リージョンの値</span><span class="sxs-lookup"><span data-stu-id="ce7fc-127">Region Value</span></span>     | <span data-ttu-id="ce7fc-128">Mono のリージョン アセンブリ</span><span class="sxs-lookup"><span data-stu-id="ce7fc-128">Mono region assembly</span></span>    |
 | ---------------- | ----------------------- |
-| `all`            | <span data-ttu-id="92543-122">すべてのアセンブリが含まれます</span><span class="sxs-lookup"><span data-stu-id="92543-122">All assemblies included</span></span> |
-| `cjk`            | <span data-ttu-id="92543-123">*I18N.CJK.dll*</span><span class="sxs-lookup"><span data-stu-id="92543-123">*I18N.CJK.dll*</span></span>          |
-| `mideast`        | <span data-ttu-id="92543-124">*I18N.MidEast.dll*</span><span class="sxs-lookup"><span data-stu-id="92543-124">*I18N.MidEast.dll*</span></span>      |
-| <span data-ttu-id="92543-125">`none` (既定値)</span><span class="sxs-lookup"><span data-stu-id="92543-125">`none` (default)</span></span> | <span data-ttu-id="92543-126">None</span><span class="sxs-lookup"><span data-stu-id="92543-126">None</span></span>                    |
-| `other`          | <span data-ttu-id="92543-127">*I18N.Other.dll*</span><span class="sxs-lookup"><span data-stu-id="92543-127">*I18N.Other.dll*</span></span>        |
-| `rare`           | <span data-ttu-id="92543-128">*I18N.Rare.dll*</span><span class="sxs-lookup"><span data-stu-id="92543-128">*I18N.Rare.dll*</span></span>         |
-| `west`           | <span data-ttu-id="92543-129">*I18N.West.dll*</span><span class="sxs-lookup"><span data-stu-id="92543-129">*I18N.West.dll*</span></span>         |
+| `all`            | <span data-ttu-id="ce7fc-129">すべてのアセンブリが含まれます</span><span class="sxs-lookup"><span data-stu-id="ce7fc-129">All assemblies included</span></span> |
+| `cjk`            | <span data-ttu-id="ce7fc-130">*I18N.CJK.dll*</span><span class="sxs-lookup"><span data-stu-id="ce7fc-130">*I18N.CJK.dll*</span></span>          |
+| `mideast`        | <span data-ttu-id="ce7fc-131">*I18N.MidEast.dll*</span><span class="sxs-lookup"><span data-stu-id="ce7fc-131">*I18N.MidEast.dll*</span></span>      |
+| <span data-ttu-id="ce7fc-132">`none` (既定値)</span><span class="sxs-lookup"><span data-stu-id="ce7fc-132">`none` (default)</span></span> | <span data-ttu-id="ce7fc-133">None</span><span class="sxs-lookup"><span data-stu-id="ce7fc-133">None</span></span>                    |
+| `other`          | <span data-ttu-id="ce7fc-134">*I18N.Other.dll*</span><span class="sxs-lookup"><span data-stu-id="ce7fc-134">*I18N.Other.dll*</span></span>        |
+| `rare`           | <span data-ttu-id="ce7fc-135">*I18N.Rare.dll*</span><span class="sxs-lookup"><span data-stu-id="ce7fc-135">*I18N.Rare.dll*</span></span>         |
+| `west`           | <span data-ttu-id="ce7fc-136">*I18N.West.dll*</span><span class="sxs-lookup"><span data-stu-id="ce7fc-136">*I18N.West.dll*</span></span>         |
 
-<span data-ttu-id="92543-130">複数の値を区切るにはコンマを使用します (例: `mideast,west`)。</span><span class="sxs-lookup"><span data-stu-id="92543-130">Use a comma to separate multiple values (for example, `mideast,west`).</span></span>
+<span data-ttu-id="ce7fc-137">複数の値を区切るにはコンマを使用します (例: `mideast,west`)。</span><span class="sxs-lookup"><span data-stu-id="ce7fc-137">Use a comma to separate multiple values (for example, `mideast,west`).</span></span>
 
-<span data-ttu-id="92543-131">詳しくは、「[I18N: Pnetlib 国際化フレームワーク ライブラリ (mono/mono GitHub リポジトリ)](https://github.com/mono/mono/tree/master/mcs/class/I18N)」をご覧ください。</span><span class="sxs-lookup"><span data-stu-id="92543-131">For more information, see [I18N: Pnetlib Internationalization Framework Library (mono/mono GitHub repository)](https://github.com/mono/mono/tree/master/mcs/class/I18N).</span></span>
+<span data-ttu-id="ce7fc-138">詳しくは、「[I18N: Pnetlib 国際化フレームワーク ライブラリ (mono/mono GitHub リポジトリ)](https://github.com/mono/mono/tree/master/mcs/class/I18N)」をご覧ください。</span><span class="sxs-lookup"><span data-stu-id="ce7fc-138">For more information, see [I18N: Pnetlib Internationalization Framework Library (mono/mono GitHub repository)](https://github.com/mono/mono/tree/master/mcs/class/I18N).</span></span>
