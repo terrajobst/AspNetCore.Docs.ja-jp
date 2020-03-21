@@ -5,17 +5,17 @@ description: ''
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/09/2020
+ms.date: 03/19/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/webassembly/additional-scenarios
-ms.openlocfilehash: fe87ce76d8e181de788188b021616f2a09833585
-ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
+ms.openlocfilehash: ccb512392341e3eea33f4ab45740b7900f7b63f9
+ms.sourcegitcommit: 9b6e7f421c243963d5e419bdcfc5c4bde71499aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/11/2020
-ms.locfileid: "79083693"
+ms.lasthandoff: 03/21/2020
+ms.locfileid: "79989456"
 ---
 # <a name="aspnet-core-blazor-webassembly-additional-security-scenarios"></a>ASP.NET Core Blazor Webasの追加のセキュリティシナリオ
 
@@ -27,7 +27,7 @@ ms.locfileid: "79083693"
 
 ## <a name="handle-token-request-errors"></a>トークン要求エラーを処理する
 
-シングルページアプリ (SPA) が Open ID Connect (OIDC) を使用してユーザーを認証すると、認証状態は SPA 内および Id プロバイダー (IP) 内でローカルに保持され、ユーザーが資格情報を入力したときに設定されるセッション cookie の形式になります。
+シングルページアプリケーション (SPA) が Open ID Connect (OIDC) を使用してユーザーを認証すると、認証状態は SPA 内および Id プロバイダー (IP) 内でローカルに保持されます。これは、ユーザーが入力したセッションクッキーの形式で、認証.
 
 通常、ユーザーに対して IP が生成するトークンは短時間、通常は1時間にわたって有効であるため、クライアントアプリは定期的に新しいトークンを取得する必要があります。 そうしないと、許可されたトークンの有効期限が切れると、ユーザーはログアウトされます。 ほとんどの場合、OIDC クライアントは、認証状態または IP 内に保持される "セッション" によってユーザーの認証を再度要求することなく、新しいトークンをプロビジョニングできます。
 
@@ -260,14 +260,14 @@ UI を別のページに分割することもできます。
 
 `RemoteAuthenticatorView` には、次の表に示す認証ルートごとに使用できる1つのフラグメントがあります。
 
-| ルート                            | フラグメント             |
-| -------------------------------- | -------------------- |
-| `authentication/login`           | `<LoggingIn>`        |
-| `authentication/login-callback`  | `<CompletingLogIn>`  |
-| `authentication/login-failed`    | `<LogInFailed>`      |
-| `authentication/logout`          | `<LoggingOut>`       |
-| `authentication/logout-callback` | `<CompletingLogOut>` |
-| `authentication/logout-failed`   | `<LogOutFailed>`     |
-| `authentication/logged-out`      | `<LogOutSucceeded>`  |
-| `authentication/profile`         | `<UserProfile>`      |
-| `authentication/register`        | `<Registering>`      |
+| ルート                            | Fragment                |
+| -------------------------------- | ----------------------- |
+| `authentication/login`           | `<LoggingIn>`           |
+| `authentication/login-callback`  | `<CompletingLoggingIn>` |
+| `authentication/login-failed`    | `<LogInFailed>`         |
+| `authentication/logout`          | `<LogOut>`              |
+| `authentication/logout-callback` | `<CompletingLogOut>`    |
+| `authentication/logout-failed`   | `<LogOutFailed>`        |
+| `authentication/logged-out`      | `<LogOutSucceeded>`     |
+| `authentication/profile`         | `<UserProfile>`         |
+| `authentication/register`        | `<Registering>`         |

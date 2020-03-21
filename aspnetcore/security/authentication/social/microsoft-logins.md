@@ -4,15 +4,15 @@ author: rick-anderson
 description: このサンプルでは、Microsoft アカウントユーザー認証を既存の ASP.NET Core アプリに統合する方法を示します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/4/2019
+ms.date: 03/19/2020
 monikerRange: '>= aspnetcore-3.0'
 uid: security/authentication/microsoft-logins
-ms.openlocfilehash: ddaae1a25a1dcf167ffae0f24b480e2cde6aca5b
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: bd75efb1d7ce08538d1a67be74d2f40f3964614f
+ms.sourcegitcommit: 9b6e7f421c243963d5e419bdcfc5c4bde71499aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78652070"
+ms.lasthandoff: 03/21/2020
+ms.locfileid: "79989760"
 ---
 # <a name="microsoft-account-external-login-setup-with-aspnet-core"></a>ASP.NET Core を使用した Microsoft アカウントの外部ログインセットアップ
 
@@ -46,16 +46,17 @@ Microsoft アカウントがない場合は、 **[作成]** を選択します�
 > [!NOTE]
 > URI セグメント `/signin-microsoft` は、Microsoft 認証プロバイダーの既定のコールバックとして設定されます。 [MicrosoftAccountOptions](/dotnet/api/microsoft.aspnetcore.authentication.microsoftaccount.microsoftaccountoptions)クラスの [継承された[remoteauthenticationoptions]](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath)プロパティを使用して Microsoft 認証ミドルウェアを構成するときに、既定のコールバック URI を変更できます。
 
-## <a name="store-the-microsoft-client-id-and-client-secret"></a>Microsoft クライアント ID とクライアントシークレットを保存する
+## <a name="store-the-microsoft-client-id-and-secret"></a>Microsoft クライアント ID とシークレットを保存する
 
-次のコマンドを実行して、[シークレットマネージャー](xref:security/app-secrets)を使用して `ClientId` と `ClientSecret` を安全に格納します。
+Microsoft のクライアント ID やシークレットの値など、機微な設定を[シークレットマネージャー](xref:security/app-secrets)に保存します。 このサンプルでは、次の手順を使用します。
 
-```dotnetcli
-dotnet user-secrets set Authentication:Microsoft:ClientId <Client-Id>
-dotnet user-secrets set Authentication:Microsoft:ClientSecret <Client-Secret>
-```
+1. 「[シークレットストレージを有効にする](xref:security/app-secrets#enable-secret-storage)」の手順に従って、シークレットストレージのプロジェクトを初期化します。
+1. 秘密キー `Authentication:Microsoft:ClientId` と `Authentication:Microsoft:ClientSecret`を使用して、ローカルシークレットストアに機密設定を格納します。
 
-[シークレットマネージャー](xref:security/app-secrets)を使用して、Microsoft `ClientId` や `ClientSecret` などの機密性の高い設定をアプリケーション構成にリンクします。 このサンプルでは、トークンに `Authentication:Microsoft:ClientId` と `Authentication:Microsoft:ClientSecret`という名前を指定します。
+    ```dotnetcli
+    dotnet user-secrets set "Authentication:Microsoft:ClientId" "<client-id>"
+    dotnet user-secrets set "Authentication:Microsoft:ClientSecret" "<client-secret>"
+    ```
 
 [!INCLUDE[](~/includes/environmentVarableColon.md)]
 

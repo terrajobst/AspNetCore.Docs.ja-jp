@@ -4,15 +4,15 @@ author: rick-anderson
 description: Facebook アカウントのユーザー認証を既存の ASP.NET Core アプリに統合する方法を示すコード例を紹介したチュートリアルです。
 ms.author: riande
 ms.custom: seoapril2019, mvc, seodec18
-ms.date: 12/02/2019
+ms.date: 03/19/2020
 monikerRange: '>= aspnetcore-3.0'
 uid: security/authentication/facebook-logins
-ms.openlocfilehash: 2e4cc04c6e7ff8e5f5701cc7f9ede73dbc1b4685
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: bb26a27f026e744c7d4925aa2281bf0625fff8a2
+ms.sourcegitcommit: 9b6e7f421c243963d5e419bdcfc5c4bde71499aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78654884"
+ms.lasthandoff: 03/21/2020
+ms.locfileid: "79989781"
 ---
 # <a name="facebook-external-login-setup-in-aspnet-core"></a>ASP.NET Core での Facebook 外部ログインのセットアップ
 
@@ -59,18 +59,19 @@ ms.locfileid: "78654884"
 
 * サイトをデプロイするときに、 **Facebook ログイン**のセットアップページを再表示し、新しいパブリック URI を登録する必要があります。
 
-## <a name="store-facebook-app-id-and-app-secret"></a>Facebook アプリケーションの ID とアプリ シークレットを格納します。
+## <a name="store-the-facebook-app-id-and-secret"></a>Facebook アプリ ID とシークレットを保存する
 
-[Secret Manager](xref:security/app-secrets)を使用して、Facebook `App ID` や `App Secret` などの機密性の高い設定をアプリケーション構成にリンクします。 このチュートリアルでは、トークンに `Authentication:Facebook:AppId` と `Authentication:Facebook:AppSecret`という名前を指定します。
+Facebook アプリ ID やシークレット値などの機微な設定を[Secret Manager](xref:security/app-secrets)に保存します。 このサンプルでは、次の手順を使用します。
+
+1. 「[シークレットストレージを有効にする](xref:security/app-secrets#enable-secret-storage)」の手順に従って、シークレットストレージのプロジェクトを初期化します。
+1. 秘密キー `Authentication:Facebook:AppId` と `Authentication:Facebook:AppSecret`を使用して、ローカルシークレットストアに機密設定を格納します。
+
+    ```dotnetcli
+    dotnet user-secrets set "Authentication:Facebook:AppId" "<app-id>"
+    dotnet user-secrets set "Authentication:Facebook:AppSecret" "<app-secret>"
+    ```
 
 [!INCLUDE[](~/includes/environmentVarableColon.md)]
-
-次のコマンドを実行して、シークレットマネージャーを使用して `App ID` と `App Secret` を安全に格納します。
-
-```dotnetcli
-dotnet user-secrets set Authentication:Facebook:AppId <app-id>
-dotnet user-secrets set Authentication:Facebook:AppSecret <app-secret>
-```
 
 ## <a name="configure-facebook-authentication"></a>Facebook 認証を構成します。
 

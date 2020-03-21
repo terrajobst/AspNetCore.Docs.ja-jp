@@ -4,14 +4,14 @@ author: rick-anderson
 description: このチュートリアルでは、既存の ASP.NET Core アプリに Google アカウントのユーザー認証の統合について説明します。
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 10/30/2019
+ms.date: 03/19/2020
 uid: security/authentication/google-logins
-ms.openlocfilehash: 83f45143eca1be43410880bfd875a3fce1d2e9c9
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: a114d23c25201c9fe31ad0397efaf99fe98a312a
+ms.sourcegitcommit: 9b6e7f421c243963d5e419bdcfc5c4bde71499aa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78654920"
+ms.lasthandoff: 03/21/2020
+ms.locfileid: "79989768"
 ---
 # <a name="google-external-login-setup-in-aspnet-core"></a>ASP.NET Core での Google 外部ログインのセットアップ
 
@@ -28,14 +28,17 @@ ms.locfileid: "78654920"
 * **クライアント ID**と**クライアントシークレット**を保存します。
 * サイトをデプロイするときに、新しいパブリック url を**Google コンソール**から登録します。
 
-## <a name="store-google-clientid-and-clientsecret"></a>ストア Google ClientID と ClientSecret
+## <a name="store-the-google-client-id-and-secret"></a>Google クライアント ID とシークレットを保存する
 
-Google `Client ID` や `Client Secret` などの機微な設定を[シークレットマネージャー](xref:security/app-secrets)に保存します。 このチュートリアルでは、トークンに `Authentication:Google:ClientId` と `Authentication:Google:ClientSecret`を指定します。
+Google クライアント ID やシークレット値などの機微な設定を[Secret Manager](xref:security/app-secrets)に保存します。 このサンプルでは、次の手順を使用します。
 
-```dotnetcli
-dotnet user-secrets set "Authentication:Google:ClientId" "<client id>"
-dotnet user-secrets set "Authentication:Google:ClientSecret" "<client secret>"
-```
+1. 「[シークレットストレージを有効にする](xref:security/app-secrets#enable-secret-storage)」の手順に従って、シークレットストレージのプロジェクトを初期化します。
+1. 秘密キー `Authentication:Google:ClientId` と `Authentication:Google:ClientSecret`を使用して、ローカルシークレットストアに機密設定を格納します。
+
+    ```dotnetcli
+    dotnet user-secrets set "Authentication:Google:ClientId" "<client-id>"
+    dotnet user-secrets set "Authentication:Google:ClientSecret" "<client-secret>"
+    ```
 
 [!INCLUDE[](~/includes/environmentVarableColon.md)]
 
