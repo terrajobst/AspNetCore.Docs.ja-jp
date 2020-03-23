@@ -1,27 +1,29 @@
 ---
 title: ASP.NET Core Blazor データ バインディング
 author: guardrex
-description: Blazor アプリのコンポーネントと DOM 要素のデータ バインディングのシナリオについて説明します。
+description: Blazor アプリのコンポーネントと DOM 要素のデータ バインディング機能について説明します。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/24/2020
+ms.date: 03/16/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/data-binding
-ms.openlocfilehash: 92377730b9d353a507ffd384710fb979affe7265
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 5b49d2598a451ee607e034913bd1aeaa03f941c6
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78648224"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511198"
 ---
 # <a name="aspnet-core-opno-locblazor-data-binding"></a>ASP.NET Core Blazor データ バインディング
 
 作成者: [Luke Latham](https://github.com/guardrex)、[Daniel Roth](https://github.com/danroth27)
 
-コンポーネントと DOM 要素の両方に対するデータ バインディングは、[`@bind`](xref:mvc/views/razor#bind) 属性を使用して実現されます。 次の例では、`CurrentValue` プロパティをテキスト ボックスの値にバインドします。
+Razor コンポーネントはフィールド、プロパティ、Razor 式の値が含まれる "[`@bind`](xref:mvc/views/razor#bind)" という名前の HTML 要素属性を使用してデータ バインディング機能を提供します。
+
+次の例では、`CurrentValue` プロパティをテキスト ボックスの値にバインドします。
 
 ```razor
 <input @bind="CurrentValue" />
@@ -78,6 +80,8 @@ ms.locfileid: "78648224"
     private string _paragraphStyle = "color:red";
 }
 ```
+
+属性バインディングでは大文字と小文字が区別されます。 たとえば、`@bind` は有効で、`@Bind` は無効です。
 
 ## <a name="unparsable-values"></a>解析不可能値
 

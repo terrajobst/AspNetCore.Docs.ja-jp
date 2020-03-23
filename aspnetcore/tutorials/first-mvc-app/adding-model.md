@@ -5,12 +5,12 @@ description: 単純な ASP.NET Core アプリケーションにモデルを追�
 ms.author: riande
 ms.date: 01/13/2020
 uid: tutorials/first-mvc-app/adding-model
-ms.openlocfilehash: d044ae4416c4528791755506314fc81275474f79
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: e7fc0496438734e13cfafcecf432da4a94737897
+ms.sourcegitcommit: 5bdc54162d7dea8d9fa54ac3055678db23586af1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78647810"
+ms.lasthandoff: 03/17/2020
+ms.locfileid: "79434513"
 ---
 # <a name="add-a-model-to-an-aspnet-core-mvc-app"></a>ASP.NET Core MVC アプリへのモデルの追加
 
@@ -48,7 +48,7 @@ ms.locfileid: "78647810"
 
 `Movie` クラスには、データベースで主キー用に必要となる `Id` フィールドが含まれています。
 
-`ReleaseDate` の [DataType](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.internal.datatypeattributeadapter) 属性により、データの型 (`Date`) が指定されます。 この属性を使用する場合:
+`ReleaseDate` の <xref:System.ComponentModel.DataAnnotations.DataType> 属性により、データの型 (`Date`) が指定されます。 この属性を使用する場合:
 
 * ユーザーは日付フィールドに時刻の情報を入力する必要はありません。
 * 日付のみが表示され、時刻の情報は表示されません。

@@ -1,27 +1,27 @@
 ---
 title: ASP.NET Core Blazor のイベント処理
 author: guardrex
-description: イベント引数の型、イベントのコールバック、既定のブラウザー イベントの管理など、Blazor のイベント処理シナリオについて説明します。
+description: イベント引数の型、イベントのコールバック、既定のブラウザー イベントの管理など、Blazor のイベント処理機能について説明します。
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/12/2020
+ms.date: 03/16/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/event-handling
-ms.openlocfilehash: 25844ef39aee849072d16f3d73eda0a1c20ee788
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: c144841805e07a136f153c25a78c7f9af7c5801b
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78648332"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511367"
 ---
 # <a name="aspnet-core-blazor-event-handling"></a>ASP.NET Core Blazor のイベント処理
 
 作成者: [Luke Latham](https://github.com/guardrex)、[Daniel Roth](https://github.com/danroth27)
 
-Razor コンポーネントでは、イベント処理機能が提供されます。 `on{EVENT}` という名前の HTML 要素属性 (`onclick`、`onsubmit` など) でデリゲート型の値がある場合、Razor コンポーネントでは、属性の値がイベント ハンドラーとして扱われます。 属性の名前は常に [`@on{EVENT}`](xref:mvc/views/razor#onevent) という形式になります。
+Razor コンポーネントでは、イベント処理機能が提供されます。 [`@on{EVENT}`](xref:mvc/views/razor#onevent) という名前の HTML 要素属性 (`@onclick` など) でデリゲート型の値がある場合、Razor コンポーネントでは、属性の値がイベント ハンドラーとして扱われます。
 
 次のコードでは、UI でボタンが選択されたときに `UpdateHeading` メソッドを呼び出します。
 

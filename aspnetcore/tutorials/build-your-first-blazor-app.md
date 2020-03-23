@@ -5,16 +5,16 @@ description: Blazor アプリを段階的に構築します。
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/13/2020
+ms.date: 03/13/2020
 no-loc:
 - Blazor
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: 8830dcf26b58b5f5fdd36b60298e7b365f99bdd9
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 8b3802a6ffe3613e5d4ca65c57fafc3f404c8329
+ms.sourcegitcommit: 5bdc54162d7dea8d9fa54ac3055678db23586af1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78644864"
+ms.lasthandoff: 03/17/2020
+ms.locfileid: "79434500"
 ---
 # <a name="build-your-first-opno-locblazor-app"></a>最初の Blazor アプリをビルドする
 
@@ -24,9 +24,9 @@ ms.locfileid: "78644864"
 
 このチュートリアルでは、Blazor アプリをビルドして変更する方法を示します。
 
-<xref:blazor/get-started> の記事にあるガイダンスに従って、このチュートリアルの Blazor プロジェクトを作成します。 プロジェクトに *ToDoList* という名前を付けます。
-
 ## <a name="build-components"></a>コンポーネントを構築する
+
+1. <xref:blazor/get-started> の記事にあるガイダンスに従って、このチュートリアルの Blazor プロジェクトを作成します。 プロジェクトに *ToDoList* という名前を付けます。
 
 1. *Pages* フォルダー内にあるアプリの 3 つのページそれぞれを参照します。ホーム、カウンター、データのフェッチです。 これらのページは Razor コンポーネント ファイル *Index.razor*、*Counter.razor*、および *FetchData.razor* によって実装されています。
 
@@ -133,14 +133,14 @@ Blazor WebAssembly アプリを使用する場合、*wwwroot/sample-data* フォ
 
 シンプルな ToDo リストを実装したアプリに新しいコンポーネントを追加します。
 
-1. *Pages* フォルダー内のアプリに、*Todo.razor* という名前の空のファイルを追加します。
+1. 新しい `Todo` Razor コンポーネントを、"*Pages*" フォルダー内のアプリに追加します。 Visual Studio で **Pages** フォルダーを右クリックし、 **[Add]**  >  **[新しい項目]**  >  **[Razor コンポーネント]** の順に選択します。 コンポーネントのファイルに "*Todo.razor*" という名前を指定します。 その他の開発環境では、"*Todo.razor*" という名前の **Pages** フォルダーに空のファイルを追加します。
 
 1. コンポーネントに最初のマークアップを指定します。
 
    ```razor
    @page "/todo"
 
-   <h1>Todo</h1>
+   <h3>Todo</h3>
    ```
 
 1. ナビゲーション バーに `Todo` コンポーネントを追加します。

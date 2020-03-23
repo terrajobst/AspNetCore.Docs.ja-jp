@@ -9,12 +9,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: aspnetcore-3.0
-ms.openlocfilehash: 35accdd2f65ac5430525be88cc621094e37d3e40
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 1a4efcd4e9e3296e9c208f1419bc86734951b0c1
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78650852"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511523"
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>ASP.NET Core 3.0 の新機能
 
@@ -517,7 +517,7 @@ ASP.NET Core 3.0 には、メモリ使用量を減らしてスループットを
 
 ## <a name="aspnet-core-30-only-runs-on-net-core-30"></a>.NET Core 3.0 のみで実行する ASP.NET Core 3.0
 
-ASP.NET Core 3.0 以降、.NET Framework はサポートされるターゲット フレームワークではなくなりました。 .NET Framework をターゲットとするプロジェクトは、[.NET Core 2.1 LTS リリース](https://www.microsoft.com/net/download/dotnet-core/2.1)を使用して完全にサポートされた状態で続行できます。 ほとんどの ASP.NET Core 2.1.x 関連パッケージは、.NET Core 2.1 の 3 年の LTS 期間が終わっても無期限にサポートされます。
+ASP.NET Core 3.0 以降、.NET Framework はサポートされるターゲット フレームワークではなくなりました。 .NET Framework をターゲットとするプロジェクトは、[.NET Core 2.1 LTS リリース](https://dotnet.microsoft.com/download/dotnet-core/2.1)を使用して完全にサポートされた状態で続行できます。 ほとんどの ASP.NET Core 2.1.x 関連パッケージは、.NET Core 2.1 の 3 年の LTS 期間が終わっても無期限にサポートされます。
 
 移行の詳細については、「[.NET Framework から .NET Core にコードを移植する](/dotnet/core/porting/)」を参照してください。
 
@@ -542,3 +542,4 @@ ASP.NET Core 3.0 共有フレームワークから削除された重要なアセ
 ## Additional information
 For the complete list of changes, see the [ASP.NET Core 3.0 Release Notes](WHERE IS THIS????).
 -->
+ 

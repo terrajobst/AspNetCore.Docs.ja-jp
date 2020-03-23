@@ -5,17 +5,17 @@ description: ASP.NET Core、Content Delivery Networks (CDN)、ファイル サ�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/19/2020
+ms.date: 03/16/2020
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/webassembly
-ms.openlocfilehash: eae12b266e91a30a47daf63ac77ba082c25225aa
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: ea2c625f424447209a362cdc58bdb18be061e47f
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78649346"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511354"
 ---
 # <a name="host-and-deploy-aspnet-core-opno-locblazor-webassembly"></a>ASP.NET Core Blazor WebAssembly をホストしてデプロイする
 
@@ -59,7 +59,7 @@ IIS サーバーに展開する場合は、アプリの発行される *web.conf
 
 "*ホストされたデプロイ*" により、Blazor WebAssembly アプリが、Web サーバー上で実行されている [ASP.NET Core アプリ](xref:index)からブラウザーに提供されます。
 
-Blazor アプリは、発行された出力に ASP.NET Core アプリと共に含まれているため、2 つのアプリを一緒にデプロイすることができます。 ASP.NET Core アプリをホストできる Web サーバーが必要です。 ホストされているデプロイの場合、Visual Studio には **Blazor WebAssembly App** プロジェクト テンプレートが含まれており ([dotnet new](/dotnet/core/tools/dotnet-new) コマンドを使用する場合は `blazorwasm` テンプレート)、 **[ホスト]** オプションが選択されています。
+クライアント Blazor WebAssembly アプリは、サーバー アプリの他の静的な Web アセットと共に、サーバー アプリの " */bin/Release/{ターゲット フレームワーク}/publish/wwwroot*" フォルダーに発行されます。 2 つのアプリが一緒に展開されます。 ASP.NET Core アプリをホストできる Web サーバーが必要です。 ホストされている展開の場合、Visual Studio には **Blazor WebAssembly アプリ** プロジェクト テンプレートが含まれており ([dotnet new](/dotnet/core/tools/dotnet-new) コマンドを使用する場合は `blazorwasm` テンプレート)、 **[ホスト]** オプションが選択されています (`dotnet new` コマンドを使用する場合は `-ho|--hosted`)。
 
 ASP.NET Core アプリでのホストと展開の詳細については、「<xref:host-and-deploy/index>」を参照してください。
 
@@ -69,7 +69,7 @@ Azure App Service の展開については、「<xref:tutorials/publish-to-azure
 
 "*スタンドアロン デプロイ*" により、Blazor WebAssembly アプリが、クライアントによって直接要求される静的ファイルのセットとして提供されます。 任意の静的ファイル サーバーで Blazor アプリを提供できます。
 
-スタンドアロン展開の資産は *bin/Release/{TARGET FRAMEWORK}/publish/{ASSEMBLY NAME}/dist* フォルダーに発行されます。
+スタンドアロン展開のアセットは " */bin/Release/{TARGET FRAMEWORK}/publish/wwwroot*" フォルダーに発行されます。
 
 ### <a name="iis"></a>IIS
 
@@ -91,8 +91,8 @@ Blazor プロジェクトが発行されると、*web.config* ファイルが以
   * `application/octet-stream`
   * `application/wasm`
 * URL Rewrite Module のルールが確立されます。
-  * アプリの静的なアセットが存在するサブディレクトリ ( *<アセンブリ名>/dist/<要求されたパス>* ) が提供されます。
-  * ファイル以外のアセットの要求が、アプリの静的アセット フォルダー内の既定のドキュメント ( *<アセンブリ名>/dist/index.html*) にリダイレクトされるように、SPA フォールバック ルーティングが作成されます。
+  * アプリの静的なアセットが存在するサブディレクトリ ("*wwwroot/{要求されたパス}* ") が提供されます。
+  * ファイル以外のアセットの要求が、アプリの静的アセット フォルダー内の既定のドキュメント ("*wwwroot/index.html*") にリダイレクトされるように、SPA フォールバック ルーティングが作成されます。
 
 #### <a name="install-the-url-rewrite-module"></a>URL リライト モジュールをインストールする
 
@@ -318,4 +318,4 @@ URL の書き換えを処理するために、*404.html* ファイルを、要�
 
 ## <a name="configure-the-linker"></a>リンカーを構成する
 
-Blazor では、出力アセンブリから不要な中間言語 (IL) を削除するために、IL リンク設定が各ビルド上で実行されます。 アセンブリのリンクはビルドで制御できます。 詳細については、「<xref:host-and-deploy/blazor/configure-linker>」を参照してください。
+Blazor では、出力アセンブリから不要な中間言語 (IL) を削除するために、IL リンク設定が各リリース ビルド上で実行されます。 詳細については、「<xref:host-and-deploy/blazor/configure-linker>」を参照してください。
