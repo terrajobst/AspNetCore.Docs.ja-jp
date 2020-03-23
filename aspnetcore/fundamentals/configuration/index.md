@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/29/2020
 uid: fundamentals/configuration/index
-ms.openlocfilehash: e1237db2625a127bfa5c31ac29b4394be6941b2f
-ms.sourcegitcommit: 9e2b3aaccc9a41291eb23bf4561159e79cf6bc9d
+ms.openlocfilehash: b4fa082c5a53bc9ecb3c7b8ddcbf243ef0d94ba7
+ms.sourcegitcommit: 9b6e7f421c243963d5e419bdcfc5c4bde71499aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/19/2020
-ms.locfileid: "79546342"
+ms.lasthandoff: 03/21/2020
+ms.locfileid: "79989691"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core の構成
 
@@ -152,7 +152,7 @@ ASP.NET Core の構成は、1つまたは複数の[構成プロバイダー](#cp
 * Windows で[ 上記の例 ](#appsettingsjson)の環境キーと値を設定します。
 * [サンプル ダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)を使用する際に、設定をテストします。 `dotnet run` コマンドは、プロジェクト ディレクトリで実行する必要があります。
 
-```cmd
+```dotnetcli
 set MyKey="My key from Environment"
 set Position__Title=Environment_Editor
 set Position__Name=Environment_Rick
@@ -172,7 +172,7 @@ setx Position__Title Setx_Environment_Editor /M
 setx Position__Name Environment_Rick /M
 ```
 
-上記のコマンドが *apsettings.json* と *appsettings.* `Environment` *.json* をオーバーライドすることをテストするには:
+上記のコマンドが *appsettings.json* と *appsettings.* `Environment` *.json* をオーバーライドすることをテストするには:
 
 * Visual Studio の場合:Visual Studio を終了して再起動します。
 * CLI の場合:新しいコマンド ウィンドウを起動し、`dotnet run` を入力します。
@@ -190,7 +190,7 @@ setx Position__Name Environment_Rick /M
 
 次のコマンドは、カスタム プレフィックスをテストします：
 
-```cmd
+```dotnetcli
 set MyCustomPrefix_MyKey="My key with MyCustomPrefix_ Environment"
 set MyCustomPrefix_Position__Title=Editor_with_customPrefix
 set MyCustomPrefix_Position__Name=Environment_Rick_cp
