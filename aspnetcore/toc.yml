@@ -424,6 +424,8 @@
               uid: mvc/views/tag-helpers/builtin-th/anchor-tag-helper
             - name: キャッシュ
               uid: mvc/views/tag-helpers/builtin-th/cache-tag-helper
+            - name: コンポーネント
+              uid: mvc/views/tag-helpers/builtin-th/component-tag-helper
             - name: 分散キャッシュ
               uid: mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper
             - name: 環境
