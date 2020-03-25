@@ -3,14 +3,14 @@ title: 認証と Id を ASP.NET Core に移行する
 author: ardalis
 description: ASP.NET MVC プロジェクトから ASP.NET Core MVC プロジェクトに認証と id を移行する方法について説明します。
 ms.author: riande
-ms.date: 10/14/2016
+ms.date: 3/22/2020
 uid: migration/identity
-ms.openlocfilehash: f821930dbd36de18db31104cddf34c563009a506
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: c5727c974e455144d04e66fe14ea591e160cb963
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78653012"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80219195"
 ---
 # <a name="migrate-authentication-and-identity-to-aspnet-core"></a>認証と Id を ASP.NET Core に移行する
 
@@ -22,9 +22,13 @@ ms.locfileid: "78653012"
 
 ASP.NET MVC では、 *App_Start*フォルダーにある*Startup.Auth.cs*と*IdentityConfig.cs*の ASP.NET Identity を使用して認証と id の機能が構成されます。 ASP.NET Core MVC では、これらの機能は*Startup.cs*で構成されています。
 
-`Microsoft.AspNetCore.Identity.EntityFrameworkCore` と `Microsoft.AspNetCore.Authentication.Cookies` NuGet パッケージをインストールします。
+次の NuGet パッケージをインストールします。
 
-次に、 *Startup.cs*を開き、Entity Framework と id サービスを使用するように `Startup.ConfigureServices` メソッドを更新します。
+* `Microsoft.AspNetCore.Identity.EntityFrameworkCore`
+* `Microsoft.AspNetCore.Authentication.Cookies`
+* `Microsoft.EntityFrameworkCore.SqlServer`
+
+*Startup.cs*で、Entity Framework と id サービスを使用するように `Startup.ConfigureServices` メソッドを更新します。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)

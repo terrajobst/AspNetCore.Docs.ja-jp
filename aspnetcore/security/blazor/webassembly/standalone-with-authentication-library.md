@@ -5,17 +5,17 @@ description: ''
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/09/2020
+ms.date: 03/19/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/webassembly/standalone-with-authentication-library
-ms.openlocfilehash: f9cc2884dcd94c729c45a056ae4327a2c75d34be
-ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
+ms.openlocfilehash: ea50d94835b044f9c3d6a0561868f081d32cb62a
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/11/2020
-ms.locfileid: "79083591"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80219007"
 ---
 # <a name="secure-an-aspnet-core-opno-locblazor-webassembly-standalone-app-with-the-authentication-library"></a>認証ライブラリを使用して、ASP.NET Core Blazor Webasスタンドアロンアプリをセキュリティで保護する
 
@@ -24,6 +24,8 @@ ms.locfileid: "79083591"
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
 [!INCLUDE[](~/includes/blazorwasm-3.2-template-article-notice.md)]
+
+*Azure Active Directory (AAD) と Azure Active Directory B2C (AAD B2C) については、このトピックのガイダンスに従ってください。この目次ノードの AAD と AAD B2C のトピックを参照してください。*
 
 `Microsoft.AspNetCore.Components.WebAssembly.Authentication` ライブラリを使用する Blazor WebAssembly スタンドアロンアプリを作成するには、コマンドシェルで次のコマンドを実行します。
 
@@ -63,11 +65,11 @@ builder.Services.AddOidcAuthentication(options =>
 });
 ```
 
-スタンドアロンアプリの認証サポートは、Open ID Connect (OIDC) を使用して提供されます。 `AddOidcAuthentication` メソッドは、OIDC を使用してアプリを認証するために必要なパラメーターを構成するためのコールバックを受け入れます。 アプリの構成に必要な値は、Google、Microsoft、その他の OIDC に準拠しているプロバイダーなどの IP から取得できます。 アプリを登録するときに値を取得します。これは通常、オンラインポータルで実行されます。
+スタンドアロンアプリの認証サポートは、Open ID Connect (OIDC) を使用して提供されます。 `AddOidcAuthentication` メソッドは、OIDC を使用してアプリを認証するために必要なパラメーターを構成するためのコールバックを受け入れます。 アプリの構成に必要な値は、OIDC に準拠している IP から取得できます。 アプリを登録するときに値を取得します。これは通常、オンラインポータルで実行されます。
 
 ## <a name="index-page"></a>Index ページ
 
-[!INCLUDE[](~/includes/blazor-security/index-page.md)]
+[!INCLUDE[](~/includes/blazor-security/index-page-authentication.md)]
 
 ## <a name="app-component"></a>アプリコンポーネント
 
