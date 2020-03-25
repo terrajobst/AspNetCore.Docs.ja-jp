@@ -1219,6 +1219,9 @@
       uid: fundamentals/middleware/extensibility-third-party-container
 - name: 移行
   items:
+    - name: 3.1 から 5.0
+      displayName: 'migrate, migration'
+      uid: migration/31-to-50
     - name: 3.0 から 3.1 へ
       displayName: 'migrate, migration'
       uid: migration/30-to-31
