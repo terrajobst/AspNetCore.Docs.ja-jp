@@ -54,7 +54,7 @@ Now listening on: http://localhost:<port>
 ブラウザーでこの URL に移動します。
 
 > [!WARNING]
-> アプリは、Angular CLI サーバーのインスタンスをバックグラウンドで開始します。 次のようなメッセージがログに記録されます。*NG Live Development Server is listening on localhost:&lt;otherport&gt;, open a browser to http://localhost:&lt ;otherport&gt;/* (NG Live 開発サーバーは localhost:&lt; otherport&gt; をリッスンしています。 http://localhost:&lt;otherport&gt;/* へのブラウザーを開きます)。 このメッセージは無視してください。それは、結合された ASP.NET Core と Angular CLI アプリの URLでは**ありません**。
+> アプリは、Angular CLI サーバーのインスタンスをバックグラウンドで開始します。 次のようなメッセージがログに記録されます。*NG ライブ開発サーバーが localhost でリッスンしています。他のポート&gt;&lt;ブラウザーを開いて http://localhost:&lt し、その他のポート&gt;/* 。 このメッセージは無視してください。それは、結合された ASP.NET Core と Angular CLI アプリの URLでは**ありません**。
 
 ---
 
