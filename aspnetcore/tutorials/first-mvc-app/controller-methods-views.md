@@ -5,12 +5,12 @@ description: ASP.NET Core でコントローラー メソッド、ビュー、Da
 ms.author: riande
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/controller-methods-views
-ms.openlocfilehash: 2c442060872ab1d2d79a2e355ae257fdf1005914
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 87b3cb2f4429157123d30274d1f12cd589c1cc99
+ms.sourcegitcommit: 99e71ae03319ab386baf2ebde956fc2d511df8b8
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78649148"
+ms.lasthandoff: 03/25/2020
+ms.locfileid: "80242511"
 ---
 # <a name="controller-methods-and-views-in-aspnet-core"></a>ASP.NET Core のコントローラーのメソッドとビュー
 
@@ -53,6 +53,8 @@ ms.locfileid: "78649148"
 ASP.NET Core は、`https://localhost:5001/Movies/Edit/4` を、`Movies` コントローラーの `Edit` アクション メソッドへの要求に変換し、パラメーター `Id` には 4 を設定します (コントローラー メソッドはアクション メソッドとも呼ばれます)。
 
 [タグ ヘルパー](xref:mvc/views/tag-helpers/intro)は、ASP.NET Core で最もよく使われる新機能の 1 つです。 詳細については、「[その他の技術情報](#additional-resources)」を参照してください。
+
+<a name="get-post"></a>
 
 `Movies` コントローラーを開き、2 つの `Edit` アクション メソッドを調べます。 次に示すコードの `HTTP GET Edit` メソッドは、ムービーをフェッチし、*Edit.cshtml* Razor ファイルによって生成される編集フォームを設定します。
 

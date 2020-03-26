@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/15/2020
 uid: fundamentals/index
-ms.openlocfilehash: a16a2fbb4ad2a79f96b6646ffdc359619d361a25
-ms.sourcegitcommit: 5bdc54162d7dea8d9fa54ac3055678db23586af1
+ms.openlocfilehash: 7533242140c31a937f32cc9082d760103347ce25
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/17/2020
-ms.locfileid: "79434318"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80219182"
 ---
 # <a name="aspnet-core-fundamentals"></a>ASP.NET Core の基礎
 
@@ -119,7 +119,7 @@ ASP.NET Core は、*Kestrel* クロスプラットフォーム サーバーの�
 
 ## <a name="configuration"></a>構成
 
-ASP.NET Core は、構成プロバイダーの順序付けされたセットから、名前と値のペアの設定を取得する構成フレームワークとなります。 *.json* ファイル、 *.xml* ファイル、環境変数、コマンドライン引数など、さまざまなソース用に構成プロバイダーが組み込まれています。 独自のカスタム構成プロバイダーを記述することもできます。
+ASP.NET Core は、構成プロバイダーの順序付けされたセットから、名前と値のペアの設定を取得する構成フレームワークとなります。 *.json* ファイル、*.xml* ファイル、環境変数、コマンドライン引数など、さまざまなソース用に構成プロバイダーが組み込まれています。 独自のカスタム構成プロバイダーを記述することもできます。
 
 たとえば、構成は *appsettings.json* と環境変数から取得したものであると指定できます。 このとき *ConnectionString* 値が要求されると、フレームワークはまず *appsettings.json* ファイルを参照します。 値がそこにあり、しかし環境変数にもある場合、環境変数の値が優先されます。
 
@@ -209,12 +209,12 @@ ASP.NET Core には、次などのエラー処理用の機能が組み込まれ�
 
 コンテンツ ルートは、以下に対する基本パスです。
 
-* アプリをホストしている実行可能ファイル ( *.exe*)。
-* アプリを構成するコンパイル済みアセンブリ ( *.dll*)。
+* アプリをホストしている実行可能ファイル (*.exe*)。
+* アプリを構成するコンパイル済みアセンブリ (*.dll*)。
 * 次のような、アプリで使用される非コード コンテンツ ファイル。
-  * Razor ファイル ( *.cshtml*、 *.razor*)
-  * 構成ファイル ( *.json*、 *.xml*)
-  * データ ファイル ( *.db*)
+  * Razor ファイル (*.cshtml*、*.razor*)
+  * 構成ファイル (*.json*、*.xml*)
+  * データ ファイル (*.db*)
 * [Web ルート](#web-root) (通常、発行された *wwwroot* フォルダー)。
 
 開発中:
@@ -230,13 +230,13 @@ ASP.NET Core には、次などのエラー処理用の機能が組み込まれ�
 
 Web ルートは、次のような、パブリックで非コードの静的なリソース ファイルへの基本パスです。
 
-* スタイルシート ( *.css*)
-* JavaScript ( *.js*)
-* 画像 ( *.png*、*jpg*)
+* スタイルシート (*.css*)
+* JavaScript (*.js*)
+* 画像 (*.png*、*jpg*)
 
 既定で、静的ファイルは Web ルート ディレクトリ (とサブディレクトリ) からのみ提供されます。
 
-Web ルートのパスの既定値は、" *{コンテンツ ルート}/wwwroot*" ですが、[ホストの構築](#host)時に別の Web ルートを指定することも可能です。 詳細については、「<xref:fundamentals/host/generic-host#webroot>」を参照してください。
+Web ルートのパスの既定値は、"*{コンテンツ ルート}/wwwroot*" ですが、[ホストの構築](#host)時に別の Web ルートを指定することも可能です。 詳細については、「<xref:fundamentals/host/generic-host#webroot>」を参照してください。
 
 プロジェクト ファイル内の [\<コンテンツ > プロジェクト項目](/visualstudio/msbuild/common-msbuild-project-items#content) を使用して *wwwroot* にファイルを発行できないようにします。 次の例では、*wwwroot/local* ディレクトリおよびサブディレクトリにコンテンツを公開しないようにします。
 
@@ -248,7 +248,7 @@ Web ルートのパスの既定値は、" *{コンテンツ ルート}/wwwroot*"
 
 静的な ID 資産が Web ルートに公開されないようにするには、<xref:security/authentication/identity#prevent-publish-of-static-identity-assets> を参照してください。
 
-Razor ( *.cshtml*) ファイルの場合、チルダとスラッシュ (`~/`) が Web ルートを指します。 `~/` で始まるパスは、"*仮想パス*" と呼ばれます。
+Razor (*.cshtml*) ファイルの場合、チルダとスラッシュ (`~/`) が Web ルートを指します。 `~/` で始まるパスは、"*仮想パス*" と呼ばれます。
 
 詳細については、「<xref:fundamentals/static-files>」を参照してください。
 
@@ -386,7 +386,7 @@ ASP.NET Core は、*Kestrel* クロスプラットフォーム サーバーの�
 
 ## <a name="configuration"></a>構成
 
-ASP.NET Core は、構成プロバイダーの順序付けされたセットから、名前と値のペアの設定を取得する構成フレームワークとなります。 *.json* ファイル、 *.xml* ファイル、環境変数、コマンドライン引数など、さまざまなソース用に構成プロバイダーが組み込まれています。 独自のカスタム構成プロバイダーを記述することもできます。
+ASP.NET Core は、構成プロバイダーの順序付けされたセットから、名前と値のペアの設定を取得する構成フレームワークとなります。 *.json* ファイル、*.xml* ファイル、環境変数、コマンドライン引数など、さまざまなソース用に構成プロバイダーが組み込まれています。 独自のカスタム構成プロバイダーを記述することもできます。
 
 たとえば、構成は *appsettings.json* と環境変数から取得したものであると指定できます。 このとき *ConnectionString* 値が要求されると、フレームワークはまず *appsettings.json* ファイルを参照します。 値がそこにあり、しかし環境変数にもある場合、環境変数の値が優先されます。
 
@@ -476,12 +476,12 @@ ASP.NET Core には、次などのエラー処理用の機能が組み込まれ�
 
 コンテンツ ルートは、以下に対する基本パスです。
 
-* アプリをホストしている実行可能ファイル ( *.exe*)。
-* アプリを構成するコンパイル済みアセンブリ ( *.dll*)。
+* アプリをホストしている実行可能ファイル (*.exe*)。
+* アプリを構成するコンパイル済みアセンブリ (*.dll*)。
 * 次のような、アプリで使用される非コード コンテンツ ファイル。
-  * Razor ファイル ( *.cshtml*、 *.razor*)
-  * 構成ファイル ( *.json*、 *.xml*)
-  * データ ファイル ( *.db*)
+  * Razor ファイル (*.cshtml*、*.razor*)
+  * 構成ファイル (*.json*、*.xml*)
+  * データ ファイル (*.db*)
 * [Web ルート](#web-root) (通常、発行された *wwwroot* フォルダー)。
 
 開発中:
@@ -497,13 +497,13 @@ ASP.NET Core には、次などのエラー処理用の機能が組み込まれ�
 
 Web ルートは、次のような、パブリックで非コードの静的なリソース ファイルへの基本パスです。
 
-* スタイルシート ( *.css*)
-* JavaScript ( *.js*)
-* 画像 ( *.png*、*jpg*)
+* スタイルシート (*.css*)
+* JavaScript (*.js*)
+* 画像 (*.png*、*jpg*)
 
 既定で、静的ファイルは Web ルート ディレクトリ (とサブディレクトリ) からのみ提供されます。
 
-Web ルートのパスの既定値は、" *{コンテンツ ルート}/wwwroot*" ですが、[ホストの構築](#host)時に別の Web ルートを指定することも可能です。 詳細については、「[Web ルート](xref:fundamentals/host/web-host#web-root)」を参照してください。
+Web ルートのパスの既定値は、"*{コンテンツ ルート}/wwwroot*" ですが、[ホストの構築](#host)時に別の Web ルートを指定することも可能です。 詳細については、「[Web ルート](xref:fundamentals/host/web-host#web-root)」を参照してください。
 
 プロジェクト ファイル内の [\<コンテンツ > プロジェクト項目](/visualstudio/msbuild/common-msbuild-project-items#content) を使用して *wwwroot* にファイルを発行できないようにします。 次の例では、*wwwroot/local* ディレクトリおよびサブディレクトリにコンテンツを公開しないようにします。
 
@@ -513,7 +513,7 @@ Web ルートのパスの既定値は、" *{コンテンツ ルート}/wwwroot*"
 </ItemGroup>
 ```
 
-Razor ( *.cshtml*) ファイルの場合、チルダとスラッシュ (`~/`) が Web ルートを指します。 `~/` で始まるパスは、"*仮想パス*" と呼ばれます。
+Razor (*.cshtml*) ファイルの場合、チルダとスラッシュ (`~/`) が Web ルートを指します。 `~/` で始まるパスは、"*仮想パス*" と呼ばれます。
 
 詳細については、「<xref:fundamentals/static-files>」を参照してください。
 

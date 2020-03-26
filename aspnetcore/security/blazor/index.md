@@ -5,17 +5,17 @@ description: Blazor の認証と承認のシナリオについて説明します
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/13/2020
+ms.date: 02/21/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/index
-ms.openlocfilehash: ba00c0370094df4e0ae0479aeb23eceea6ef04f0
-ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
+ms.openlocfilehash: f7ffb4c3d5a05cb916b4f00cdfaf5898634a1a6d
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/11/2020
-ms.locfileid: "79083348"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80219026"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor の認証と承認
 
@@ -32,6 +32,8 @@ Blazor サーバー アプリと Blazor WebAssembly アプリのセキュリテ�
 
 Blazor WebAssembly アプリはクライアント上で動作します。 承認は、表示する UI オプションを決定するために "*のみ*" 使用されます。 クライアント側のチェックはユーザーによって変更またはバイパスされる可能性があるため、Blazor WebAssembly アプリでは承認アクセス規則を適用できません。
 
+[Razor Pages の承認規則](xref:security/authorization/razor-pages-authorization)は、ルーティング可能な Razor コンポーネントには適用されません。 ルーティング不可能な Razor コンポーネントが[ページに埋め込まれている](xref:blazor/integrate-components#render-components-from-a-page-or-view)場合、ページの承認規則は、Razor コンポーネントと、ページのコンテンツの残りの部分に間接的に影響します。
+
 ## <a name="authentication"></a>認証
 
 Blazor は、既存の ASP.NET Core 認証メカニズムを使用してユーザーの ID を証明します。 詳細なメカニズムは、Blazor アプリのホスティング方法、Blazor サーバーか Blazor WebAssembly かによって異なります。
@@ -46,7 +48,7 @@ Blazor サーバー アプリは、SignalR を使用して作成されたリア�
 
 認証メカニズムを使用して新しい Blazor サーバー プロジェクトを作成するには、<xref:blazor/get-started> の記事の Visual Studio のガイダンスに従ってください。
 
-**[新しい ASP.NET Core Web アプリケーションを作成する]** ダイアログで **[Blazor サーバー アプリ]** テンプレートを選択した後、 **[認証]** の下の **[変更]** を選択します。
+**[新しい ASP.NET Core Web アプリケーションを作成する]** ダイアログで **[Blazor サーバー アプリ]** テンプレートを選択した後、**[認証]** の下の **[変更]** を選択します。
 
 ダイアログが開き、他の ASP.NET Core プロジェクトで使用できるものと同じ一連の認証メカニズムが表示されます。
 
@@ -522,7 +524,7 @@ Blazor WebAssembly アプリでは、すべてのクライアント側コード�
 
 * **承認には、型 Task\<AuthenticationState> のカスケード パラメーターが必要です。これを実行するには CascadingAuthenticationState の使用を検討します。**
 
-* `authenticationStateTask` **に対して**`null` 値を受け取ります
+* `authenticationStateTask`** に対して**`null` 値を受け取ります
 
 認証が有効な Blazor サーバー テンプレートを使用してプロジェクトが作成されなかった可能性があります。 次のように、*App.razor* などの UI ツリーの一部に `<CascadingAuthenticationState>` をラップします。
 

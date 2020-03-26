@@ -5,14 +5,14 @@ description: 発行された ASP.NET Core アプリのディレクトリ構造�
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/07/2020
+ms.date: 03/20/2020
 uid: host-and-deploy/directory-structure
-ms.openlocfilehash: f7d6feec9961b7f6720d30d457fae5dcb6b34d6c
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 0e7bf40520385b7719cb37120709e0a3fd2442e3
+ms.sourcegitcommit: 9b6e7f421c243963d5e419bdcfc5c4bde71499aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78649352"
+ms.lasthandoff: 03/21/2020
+ms.locfileid: "79989725"
 ---
 # <a name="aspnet-core-directory-structure"></a>ASP.NET Core のディレクトリ構造
 
@@ -58,9 +58,9 @@ ms.locfileid: "78649352"
 
 | アプリの種類 | ディレクトリの構造 |
 | -------- | ------------------- |
-| [フレームワークに依存する実行可能ファイル (FDE)](/dotnet/core/deploying/#framework-dependent-executables-fde) | <ul><li>publish&dagger;<ul><li>Views&dagger; MVC アプリ、ビューがプリコンパイルされていない場合</li><li>Pages&dagger; MVC または Razor Pages アプリ、ページがプリコンパイルされていない場合</li><li>wwwroot&dagger;</li><li>*.dll ファイル</li><li>{ASSEMBLY NAME}.deps.json</li><li>{ASSEMBLY NAME}.dll</li><li>Windows 上の {ASSEMBLY NAME}{.EXTENSION} *.exe* 拡張機能、macOS または Linux 上は拡張機能なし</li><li>{ASSEMBLY NAME}.pdb</li><li>{ASSEMBLY NAME}.Views.dll</li><li>{ASSEMBLY NAME}.Views.pdb</li><li>{ASSEMBLY NAME}.runtimeconfig.json</li><li>web.config (IIS 展開)</li><li>createdump ([Linux createdump ユーティリティ](https://github.com/dotnet/coreclr/blob/master/Documentation/botr/xplat-minidump-generation.md#configurationpolicy))</li><li>* .so (Linux 共有オブジェクト ライブラリ)</li><li>*.a (macOS アーカイブ)</li><li>* .dylib (macOS ダイナミック ライブラリ)</li></ul></li></ul> |
-| [自己完結型の展開 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) | <ul><li>publish&dagger;<ul><li>Views&dagger; MVC アプリ、ビューがプリコンパイルされていない場合</li><li>Pages&dagger; MVC または Razor Pages アプリ、ページがプリコンパイルされていない場合</li><li>wwwroot&dagger;</li><li>*.dll ファイル</li><li>{ASSEMBLY NAME}.deps.json</li><li>{ASSEMBLY NAME}.dll</li><li>{ASSEMBLY NAME}.exe</li><li>{ASSEMBLY NAME}.pdb</li><li>{ASSEMBLY NAME}.Views.dll</li><li>{ASSEMBLY NAME}.Views.pdb</li><li>{ASSEMBLY NAME}.runtimeconfig.json</li><li>web.config (IIS 展開)</li></ul></li></ul> |
-
+| [フレームワークに依存する実行可能ファイル (FDE)](/dotnet/core/deploying/#framework-dependent-executables-fde) | <ul><li>publish&dagger;<ul><li>Views&dagger; MVC アプリ、ビューがプリコンパイルされていない場合</li><li>Pages&dagger; MVC または Razor Pages アプリ、ページがプリコンパイルされていない場合</li><li>wwwroot&dagger;</li><li>\*.dll ファイル</li><li>{ASSEMBLY NAME}.deps.json</li><li>{ASSEMBLY NAME}.dll</li><li>Windows では {ASSEMBLY NAME}{.EXTENSION} *.exe* 拡張子、macOS または Linux では拡張子なし</li><li>{ASSEMBLY NAME}.pdb</li><li>{ASSEMBLY NAME}.Views.dll</li><li>{ASSEMBLY NAME}.Views.pdb</li><li>{ASSEMBLY NAME}.runtimeconfig.json</li><li>web.config (IIS 展開)</li><li>createdump ([Linux createdump ユーティリティ](https://github.com/dotnet/coreclr/blob/master/Documentation/botr/xplat-minidump-generation.md#configurationpolicy))</li><li>\*.so (Linux 共有オブジェクト ライブラリ)</li><li>\*.a (macOS アーカイブ)</li><li>\*.dylib (macOS ダイナミック ライブラリ)</li></ul></li></ul> |
+| [自己完結型の展開 (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) | <ul><li>publish&dagger;<ul><li>Views&dagger; MVC アプリ、ビューがプリコンパイルされていない場合</li><li>Pages&dagger; MVC または Razor Pages アプリ、ページがプリコンパイルされていない場合</li><li>wwwroot&dagger;</li><li>\*.dll ファイル</li><li>{ASSEMBLY NAME}.deps.json</li><li>{ASSEMBLY NAME}.dll</li><li>{ASSEMBLY NAME}.exe</li><li>{ASSEMBLY NAME}.pdb</li><li>{ASSEMBLY NAME}.Views.dll</li><li>{ASSEMBLY NAME}.Views.pdb</li><li>{ASSEMBLY NAME}.runtimeconfig.json</li><li>web.config (IIS 展開)</li></ul></li></ul> |
+-
 &dagger; ディレクトリを示します
 
 *publish* ディレクトリは、展開の "*コンテンツ ルート パス*" ("*アプリケーション ベース パス*" とも呼ばれます) を表します。 サーバー上で展開されたアプリの *publish* ディレクトリにどのような名前が指定されても、その場所がホストされたアプリへのサーバーの物理パスとして機能します。
