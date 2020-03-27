@@ -355,7 +355,7 @@
           uid: blazor/state-management
         - name: エラーの処理
           uid: blazor/handle-errors
-        - name: デバッグ
+        - name: WebAssembly のデバッグ
           uid: blazor/debug
         - name: Web API を呼び出す
           uid: blazor/call-web-api
