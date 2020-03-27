@@ -5,12 +5,12 @@ description: ASP.NET Core MVC でルーティング ミドルウェアを使っ�
 ms.author: riande
 ms.date: 3/25/2020
 uid: mvc/controllers/routing
-ms.openlocfilehash: be7da9eeaf64c2f52c095b5179ccc22db43d57c3
-ms.sourcegitcommit: 99e71ae03319ab386baf2ebde956fc2d511df8b8
+ms.openlocfilehash: c1c0d978714718af1de0f627e50a54f66ed391ed
+ms.sourcegitcommit: 4b166b49ec557a03f99f872dd069ca5e56faa524
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/25/2020
-ms.locfileid: "80242577"
+ms.lasthandoff: 03/27/2020
+ms.locfileid: "80362645"
 ---
 # <a name="routing-to-controller-actions-in-aspnet-core"></a>ASP.NET Core でのコントローラー アクションへのルーティング
 
@@ -206,7 +206,7 @@ ASP.NET Core 3.0 以降でのエンドポイントのルーティング:
 * 最適な候補を選択します。
 * 例外をスローします。
 
-次に例を示します。
+例 :
 
 [!code-csharp[](routing/samples/3.x/main/Controllers/ProductsController.cs?name=snippet9)]
 
@@ -264,7 +264,7 @@ REST Api では、属性ルーティングを使用して、アプリの機能�
 
 前のコードでは、属性ルーティングコントローラーをマップするために、`UseEndpoints` 内部で <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllers*> が呼び出されます。
 
-次の例では
+たとえば、行が次のように表示されているとします。
 
 * 上記の `Configure` メソッドが使用されます。
 * `HomeController` は、既定の従来のルート `{controller=Home}/{action=Index}/{id?}` 一致と同様の Url のセットと一致します。
@@ -416,11 +416,11 @@ REST Api では、属性ルーティングを使用して、アプリの機能�
 
 次の表では、上記のコードの `[Route]` の属性について説明します。
 
-| Attribute               | `[Route("Home")]` と結合します | ルートテンプレートを定義します |
+| 属性               | `[Route("Home")]` と結合します | ルートテンプレートを定義します |
 | ----------------- | ------------ | --------- |
 | `[Route("")]` | はい | `"Home"` |
 | `[Route("Index")]` | はい | `"Home/Index"` |
-| `[Route("/")]` | **いいえ** | `""` |
+| `[Route("/")]` | **No** | `""` |
 | `[Route("About")]` | はい | `"Home/About"` |
 
 <a name="routing-ordering-ref-label"></a>
@@ -607,7 +607,7 @@ Razor Pages を使用したルートの順序については[、Razor Pages ル�
 
 [!code-csharp[](routing/samples/3.x/nsrc/Controllers/ManagersController.cs?name=snippet&highlight=1)]
 
-`NamespaceRoutingConvention.Apply` メソッドは、以下の操作を行います。
+`NamespaceRoutingConvention.Apply` メソッド:
 
 * コントローラーが属性ルーティングされている場合は、何も実行しません。
 * `namespace`に基づいてコントローラーテンプレートを設定し、ベース `namespace` 削除します。
@@ -712,7 +712,7 @@ result: /UrlGeneration/Destination
 
 既定のルート `{controller}/{action}/{id?}`では、この問題が発生する可能性があります。 `Url.Action` は常に `controller` と `action` 値を明示的に指定するため、この問題はほとんどありません。
 
-Url のいくつかのオーバーロードでは、ルート値オブジェクトを使用して、`controller` と `action`以外のルートパラメーターの値を指定し[ます。](xref:Microsoft.AspNetCore.Mvc.IUrlHelper.Action*) ルート値オブジェクトは、`id`と共によく使用されます。 たとえば、「 `Url.Action("Buy", "Products", new { id = 17 })` 」のように入力します。 ルート値オブジェクト:
+Url のいくつかのオーバーロードでは、ルート値オブジェクトを使用して、`controller` と `action`以外のルートパラメーターの値を指定し[ます。](xref:Microsoft.AspNetCore.Mvc.IUrlHelper.Action*) ルート値オブジェクトは、`id`と共によく使用されます。 たとえば、`Url.Action("Buy", "Products", new { id = 17 })` のようにします。 ルート値オブジェクト:
 
 * 慣例により、通常は匿名型のオブジェクトです。
 * には、`IDictionary<>` または[POCO](https://wikipedia.org/wiki/Plain_old_CLR_object)) を指定できます。
@@ -846,6 +846,8 @@ TagHelper は、`form` TagHelper と `<a>` TagHelper を使って URL を生成�
 
  * [Mydisplayrouteinfo](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/routing/samples/3.x/main/Extensions/ControllerContextExtensions.cs)メソッドは[サンプルダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/routing/samples/3.x)に含まれており、ルーティング情報を表示するために使用されます。
 * [サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/routing/samples/3.x)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+
+[!INCLUDE[](~/includes/dbg-route.md)]
 
 ::: moniker-end
 
@@ -998,7 +1000,7 @@ app.UseMvc(routes =>
 
 ### <a name="disambiguating-actions"></a>アクションの明確化
 
-2 つのアクションがルーティングで一致する場合、MVC はあいまいさを解消して "最善の" 候補を選ぶか、または例外をスローする必要があります。 次に例を示します。
+2 つのアクションがルーティングで一致する場合、MVC はあいまいさを解消して "最善の" 候補を選ぶか、または例外をスローする必要があります。 例 :
 
 ```csharp
 public class ProductsController : Controller
