@@ -1,5 +1,5 @@
 - name: ASP.NET Core ドキュメント
-  href: '/aspnet/#pivot=core'
+  href: index.yml
 - name: ASP.NET Core ドキュメントの新機能
   href: whats-new/index.yml
 - name: 概要
