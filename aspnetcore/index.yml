@@ -1,0 +1,359 @@
+### YamlMime:Hub
+title: ASP.NET ドキュメント
+summary: ASP.NET Core を使用して、高速、安全、クロスプラットフォーム、クラウドベースの Web アプリとサービスを作成する方法について説明します。 チュートリアル、サンプル コード、基本事項、API リファレンスなどを参照できます。
+brand: aspnet
+metadata:
+  title: ASP.NET ドキュメント
+  description: ASP.NET Core を使用して、高速、安全、クロスプラットフォーム、クラウドベースの Web アプリとサービスを作成する方法について説明します。 チュートリアル、サンプル コード、基本事項、API リファレンスなどを参照できます。
+  ms.product: aspnet
+  ms.topic: hub-page
+  author: WadePickett
+  ms.author: wpickett
+  ms.date: 03/27/2020
+  ms.openlocfilehash: fb6d03616560649a336df8a624e7fb59006a7ea8
+  ms.sourcegitcommit: 4b166b49ec557a03f99f872dd069ca5e56faa524
+  ms.translationtype: HT
+  ms.contentlocale: ja-JP
+  ms.lasthandoff: 03/27/2020
+  ms.locfileid: "80366638"
+highlightedContent:
+  items:
+  - title: 任意のプラットフォームに 5 分で ASP.NET Core アプリを作成する
+    itemType: get-started
+    url: getting-started/index.md
+  - title: ASP.NET Core の概要
+    itemType: overview
+    url: introduction-to-aspnet-core.md
+  - title: ASP.NET Core のビデオ チュートリアル
+    itemType: video
+    url: https://www.youtube.com/playlist?list=PLdo4fOcmZ0oW8nviYduHq7bmKode-p8Wy
+  - title: ASP.NET Core ドキュメントの新機能
+    itemType: whats-new
+    url: whats-new/index.yml
+  - title: 最初の Web UI を作成する
+    itemType: get-started
+    url: tutorials/build-your-first-blazor-app.md
+  - title: 最初の Web API を作成する
+    itemType: get-started
+    url: tutorials/first-web-api.md
+  - title: 最初のリアルタイム Web アプリを作成する
+    itemType: get-started
+    url: tutorials/signalr.md
+  - title: 最初のデータドリブン MVC Web アプリを作成する
+    itemType: get-started
+    url: tutorials/first-mvc-app/index.md
+conceptualContent:
+  title: ASP.NET Core MVC アプリの開発
+  summary: 対話型 Web アプリ、Web API、MVC パターンのアプリ、リアルタイム アプリなどを選択してください
+  items:
+  - title: 対話型のクライアント側 Blazor アプリ
+    summary: WebAssembly を活用する再利用可能な UI コンポーネントを使用した開発で、ほぼネイティブなパフォーマンスを実現します
+    links:
+    - url: blazor/index.md
+      itemType: overview
+      text: 概要
+    - url: blazor/get-started.md
+      itemType: get-started
+      text: 最初の Blazor アプリを作成する
+    - url: tutorials/build-your-first-blazor-app.md
+      itemType: get-started
+      text: 再利用可能なコンポーネントを使用して最初の Blazor アプリを構築する
+    - url: blazor/hosting-models.md
+      itemType: concept
+      text: Blazor のホスティング モデル
+  - title: RESTful Web API アプリ
+    summary: ASP.NET Core Web API を使用して RESTful HTTP サービスを開発します
+    links:
+    - url: tutorials/first-web-api.md
+      itemType: get-started
+      text: ASP.NET Core で Web API を作成する
+    - url: https://docs.microsoft.com/learn/modules/build-web-api-net-core/
+      itemType: learn
+      text: ASP.NET Core を使って Web API を作成する
+    - url: tutorials/web-api-help-pages-using-swagger.md
+      itemType: tutorial
+      text: Swagger/OpenAPI を使用する Web API のヘルプ ページを生成する
+    - url: web-api/action-return-types.md
+      itemType: concept
+      text: コントローラー アクションの戻り値の型
+    - url: web-api/advanced/formatting.md
+      itemType: concept
+      text: 応答データの書式設定
+    - url: web-api/handle-errors.md
+      itemType: concept
+      text: エラーの処理
+    - url: tutorials/web-api-javascript.md
+      itemType: tutorial
+      text: JavaScript を使用して ASP.NET Core Web API を呼び出す
+  - title: Razor Pages を使用するページに重点を置いた Web UI
+    summary: 関心の分離が明確な、ページに重点を置いた Web アプリを開発します
+    links:
+    - url: tutorials/razor-pages/razor-pages-start.md
+      itemType: get-started
+      text: 最初の Razor Pages Web アプリを作成する
+    - url: https://docs.microsoft.com/learn/modules/create-razor-pages-aspnet-core/
+      itemType: tutorial
+      text: Web API を使用するページに重点を置いた Web UI を作成する
+    - url: mvc/views/razor.md
+      itemType: concept
+      text: Razor の構文
+    - url: razor-pages/filter.md
+      itemType: concept
+      text: フィルター
+    - url: razor-pages/razor-pages-conventions.md
+      itemType: concept
+      text: ルーティング
+  - title: MVC を使用したページに重点を置いた Web UI
+    summary: Model-View-Controller 設計パターンを使用して Web アプリを開発します
+    links:
+    - url: mvc/overview.md
+      itemType: overview
+      text: 概要
+    - url: tutorials/first-mvc-app/index.md
+      itemType: get-started
+      text: 最初の ASP.NET Core MVC アプリを作成する
+    - url: mvc/views/overview.md
+      itemType: concept
+      text: Views
+    - url: mvc/views/partial.md
+      itemType: concept
+      text: 部分ビュー
+    - url: mvc/controllers/actions.md
+      itemType: concept
+      text: Controllers
+    - url: mvc/controllers/routing.md
+      itemType: concept
+      text: コントローラー アクションへのルーティング
+    - url: mvc/controllers/testing.md
+      itemType: concept
+      text: 単体テスト
+  - title: SignalR によるリアルタイム Web アプリ
+    summary: Web アプリにリアルタイム機能を追加し、サーバー側のコードでコンテンツをすぐにプッシュできるようにします
+    links:
+    - url: signalr/introduction.md
+      itemType: overview
+      text: 概要
+    - url: signalr/introduction.md
+      itemType: get-started
+      text: 最初の SignalR アプリを作成する
+    - url: tutorials/signalr-blazor-webassembly.md
+      itemType: tutorial
+      text: Blazor WebAssembly による SignalR
+    - url: tutorials/signalr-typescript-webpack.md
+      itemType: tutorial
+      text: TypeScript による SignalR
+    - url: https://github.com/aspnet/SignalR-samples
+      itemType: sample
+      text: サンプル
+    - url: signalr/hubs.md
+      itemType: concept
+      text: ハブ
+    - url: signalr/client-features.md
+      itemType: concept
+      text: SignalR クライアントの機能
+    - url: signalr/scale.md
+      itemType: concept
+      text: ホストとスケール
+  - title: リモート プロシージャ コール (RPC) アプリ - gRPC サービス
+    summary: ASP.NET Core で gRPC を使用して、コントラクト優先の高パフォーマンス サービスを開発します
+    links:
+    - url: grpc/index.md
+      itemType: overview
+      text: 概要
+    - url: tutorials/grpc/grpc-start.md
+      itemType: get-started
+      text: gRPC のクライアントとサーバーを作成する
+    - url: grpc/basics.md
+      itemType: concept
+      text: C# の gRPC サービスの概念
+    - url: https://github.com/grpc/grpc-dotnet/tree/master/examples
+      itemType: sample
+      text: サンプル
+    - url: grpc/comparison.md
+      itemType: concept
+      text: HTTP API を使用した gRPC サービスの比較
+    - url: grpc/aspnetcore.md
+      itemType: tutorial
+      text: ASP.NET Core アプリに gRPC サービスを追加する
+    - url: grpc/client.md
+      itemType: tutorial
+      text: .NET クライアントを使用して gRPC サービスを呼び出す
+    - url: grpc/browser.md
+      itemType: tutorial
+      text: ブラウザー アプリでの gRPC の使用
+  - title: データドリブンの Web アプリ
+    summary: ASP.NET Core でデータドリブンの Web アプリを作成します
+    links:
+    - url: tutorials/first-mvc-app/working-with-sql.md
+      itemType: tutorial
+      text: ASP.NET Core による SQL
+    - url: blazor/data-binding.md
+      itemType: concept
+      text: ASP.NET Core Blazor でのデータ バインディング
+    - url: tutorials/razor-pages/sql.md
+      itemType: tutorial
+      text: SQL Server Express と Razor Pages
+    - url: data/ef-rp/intro.md
+      itemType: tutorial
+      text: Razor Pages での Entity Framework Core
+    - url: data/ef-rp/intro.md
+      itemType: tutorial
+      text: ASP.NET Core MVC での Entity Framework Core
+    - url: https://docs.microsoft.com/visualstudio/azure/vs-azure-tools-connected-services-storage?view=vs-2019&viewFallbackFrom=aspnetcore-3.1
+      itemType: tutorial
+      text: Azure ストレージ
+    - url: https://docs.microsoft.com/azure/visual-studio/vs-storage-aspnet5-getting-started-blobs?toc=%2Faspnet%2Fcore%2Ftoc.json&bc=%2Faspnet%2Fcore%2Fbreadcrumb%2Ftoc.json&view=aspnetcore-3.1
+      itemType: tutorial
+      text: Blob Storage
+    - url: https://docs.microsoft.com/azure/visual-studio/vs-storage-aspnet5-getting-started-tables?toc=%2Faspnet%2Fcore%2Ftoc.json&bc=%2Faspnet%2Fcore%2Fbreadcrumb%2Ftoc.json&view=aspnetcore-3.1
+      itemType: concept
+      text: Azure Table Storage
+  - title: 以前のバージョンの ASP.NET フレームワーク
+    summary: 以前のバージョンの ASP.NET フレームワークの概要、チュートリアル、基本的な概念、アーキテクチャ、API リファレンスについて説明します
+    links:
+    - url: https://docs.microsoft.com/aspnet/overview
+      itemType: concept
+      text: ASP.NET 4.x
+additionalContent:
+  sections:
+  - title: 概念と機能
+    items:
+    - title: ASP.NET Core の API リファレンス
+      links:
+      - url: https://docs.microsoft.com/dotnet/api/?view=aspnetcore-3.1
+        text: .NET API ブラウザー
+    - title: ホストと配置
+      links:
+      - url: host-and-deploy/index.md
+        text: 概要
+      - url: host-and-deploy/azure-apps/index.md
+        text: Azure App Service に配置する
+      - url: azure/devops/index.md
+        text: ASP.NET Core および Azure を使用した DevOps
+      - url: host-and-deploy/linux-apache.md
+        text: Apache を使用した Linux
+      - url: host-and-deploy/linux-nginx.md
+        text: Nginx を使用した Linux
+      - url: fundamentals/servers/kestrel.md
+        text: Kestrel
+      - url: host-and-deploy/iis/index.md
+        text: IIS
+      - url: host-and-deploy/docker/index.md
+        text: Docker
+    - title: セキュリティと ID
+      links:
+      - url: security/index.md
+        text: 概要
+      - url: security/authentication/index.md
+        text: 認証
+      - url: security/authorization/introduction.md
+        text: 承認
+      - url: https://docs.microsoft.com/learn/modules/secure-aspnet-core-identity/
+        text: 'コース: ID フレームワークを使った ASP.NET Core Web アプリのセキュリティ保護'
+      - url: security/data-protection/introduction.md
+        text: データの保護
+      - url: security/app-secrets.md
+        text: シークレットの管理
+      - url: security/enforcing-ssl.md
+        text: HTTPS の適用
+      - url: security/docker-https.md
+        text: HTTPS を使用した Docker のホスト
+    - title: グローバリゼーションとローカリゼーション
+      links:
+      - url: fundamentals/localization.md
+        text: 概要
+      - url: fundamentals/portable-object-localization.md
+        text: Portable Object のローカライズ
+      - url: fundamentals/localization-extensibility.md
+        text: ローカライズの拡張性
+      - url: fundamentals/troubleshoot-aspnet-core-localization.md
+        text: トラブルシューティング
+    - title: テスト、デバッグ、およびトラブルシューティング
+      links:
+      - url: test/razor-pages-tests.md
+        text: Razor Pages の単体テスト
+      - url: https://docs.microsoft.com/visualstudio/debugger/remote-debugging-azure?view=vs-2019&viewFallbackFrom=aspnetcore-3.1
+        text: リモート デバッグ
+      - url: https://docs.microsoft.com/azure/azure-monitor/app/snapshot-debugger?toc=%2Faspnet%2Fcore%2Ftoc.json&bc=%2Faspnet%2Fcore%2Fbreadcrumb%2Ftoc.json&view=aspnetcore-3.1
+        text: スナップショットのデバッグ
+      - url: test/integration-tests.md
+        text: 統合テスト
+      - url: test/load-tests.md
+        text: ロード テストおよびストレス テスト
+      - url: test/troubleshoot.md
+        text: トラブルシューティングとデバッグ
+      - url: fundamentals/logging/index.md
+        text: ログの記録
+      - url: https://docs.microsoft.com/learn/modules/load-test-web-app-azure-devops/
+        text: Azure DevOps を使用した Azure Web アプリのロード テスト
+    - title: Azure と ASP.NET Core
+      links:
+      - url: https://docs.microsoft.com/azure/app-service/app-service-web-get-started-dotnet
+        text: ASP.NET Web アプリをデプロイする
+      - url: https://docs.microsoft.com/visualstudio/containers/container-tools?view=vs-2019.md
+        text: ASP.NET Core と Docker
+      - url: https://docs.microsoft.com/learn/modules/host-a-web-app-with-azure-app-service/
+        text: Azure App Service で Web アプリケーションをホストする
+      - url: https://docs.microsoft.com/azure/app-service/app-service-web-tutorial-dotnet-sqldatabase
+        text: App Service と Azure SQL Database
+      - url: https://docs.microsoft.com/azure/app-service/app-service-web-tutorial-connect-msi
+        text: ASP.NET と Azure SQL Database を使用したマネージド ID
+      - url: https://docs.microsoft.com/azure/app-service/app-service-web-tutorial-rest-api
+        text: Azure App Service の CORS を使用した Web API
+      - url: https://docs.microsoft.com/learn/modules/capture-application-logs-app-service/
+        text: App Service 診断ログを使用して Web アプリケーション ログをキャプチャする
+    - title: パフォーマンス
+      links:
+      - url: performance/performance-best-practices.md
+        text: 概要
+      - url: performance/memory.md
+        text: メモリとガベージ コレクション
+      - url: performance/caching/response.md
+        text: 応答キャッシュ
+      - url: performance/response-compression.md
+        text: 応答圧縮
+      - url: performance/diagnostic-tools.md
+        text: 診断ツール
+      - url: test/load-tests.md
+        text: ロード テストおよびストレス テスト
+    - title: 高度な機能
+      links:
+      - url: mvc/models/model-binding.md
+        text: モデル バインド
+      - url: mvc/models/validation.md
+        text: モデルの検証
+      - url: fundamentals/middleware.md
+        text: ミドルウェアの作成
+      - url: fundamentals/middleware/request-response.md
+        text: 要求と応答の操作
+      - url: fundamentals/url-rewriting.md
+        text: URL リライト
+    - title: 移行
+      links:
+      - url: migration/31-to-50.md
+        text: ASP.NET Core 3.1 から 5.0 へ
+      - url: migration/30-to-31.md
+        text: ASP.NET Core 3.0 から 3.1 へ
+      - url: migration/22-to-30.md
+        text: ASP.NET Core 2.2 から 3.0 へ
+      - url: migration/21-to-22.md
+        text: ASP.NET Core 2.1 から 2.2 へ
+      - url: migration/20_21.md
+        text: ASP.NET Core 2.0 から 2.1 へ
+      - url: migration/1x-to-2x/index.md
+        text: ASP.NET Core 1.x から 2.0 へ
+      - url: migration/proper-to-2x/index.md
+        text: ASP.NET から ASP.NET Core へ
+    - title: アーキテクチャ
+      links:
+      - url: https://docs.microsoft.com/dotnet/architecture/modern-web-apps-azure/choose-between-traditional-web-and-single-page-apps
+        text: 従来の Web アプリケーションかシングル ページ アプリケーション (SPA) を選択する
+      - url: https://docs.microsoft.com/dotnet/architecture/modern-web-apps-azure/architectural-principles
+        text: アーキテクチャの原則
+      - url: https://docs.microsoft.com/dotnet/architecture/modern-web-apps-azure/common-web-application-architectures
+        text: 一般的な Web アプリケーション アーキテクチャ
+      - url: https://docs.microsoft.com/dotnet/architecture/modern-web-apps-azure/common-client-side-web-technologies
+        text: 一般的なクライアント側の Web テクノロジ
+      - url: https://docs.microsoft.com/dotnet/architecture/modern-web-apps-azure/development-process-for-azure
+        text: Azure の開発プロセス
+  footer: ASP.NET ドキュメントに投稿してください。[共同作成者ガイド](https://github.com/aspnet/AspNetCore.Docs/blob/master/CONTRIBUTING.md)をお読みください。
