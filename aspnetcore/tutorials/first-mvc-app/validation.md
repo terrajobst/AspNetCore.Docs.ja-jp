@@ -5,12 +5,12 @@ description: ASP.NET Core アプリに検証を追加する方法
 ms.author: riande
 ms.date: 04/13/2017
 uid: tutorials/first-mvc-app/validation
-ms.openlocfilehash: 2bb4ed173d154e3b7457ce3f8009f0f9406e36c4
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: ecf3d011b38347eb32020df00e44d93ca789443a
+ms.sourcegitcommit: 99e71ae03319ab386baf2ebde956fc2d511df8b8
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78648356"
+ms.lasthandoff: 03/25/2020
+ms.locfileid: "80242537"
 ---
 # <a name="add-validation-to-an-aspnet-core-mvc-app"></a>ASP.NET Core MVC アプリへの検証の追加
 
@@ -55,7 +55,7 @@ MVC と Entity Framework Core Code First が提供している検証のサポー
 
 `[HttpPost] Create` メソッドにブレークポイントを設定し、メソッドが呼び出されないことを確認できます。検証エラーが検出された場合、クライアント側の検証はフォームのデータを送信しません。 ブラウザーで JavaScript を無効にすると、エラーのあるフォームが送信され、ブレークポイントがヒットします。 JavaScript がなくても完全な検証が行われます。 
 
-次の図では、FireFox ブラウザーで JavaScript を無効にする方法を示します。
+次の図では、Firefox ブラウザーで JavaScript を無効にする方法を示します。
 
 ![Firefox: [オプション] の [コンテンツ] タブで、[JavaScript を有効にする] チェック ボックスをオフにします。](~/tutorials/first-mvc-app/validation/_static/ff.png)
 

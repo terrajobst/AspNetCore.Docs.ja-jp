@@ -5,17 +5,17 @@ description: ASP.NET Core Blazor アプリで Razor コンポーネント ライ
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 03/17/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/lifecycle
-ms.openlocfilehash: ecacd0a9728cbefd716e9dc7cd8a8c62f3df6e0d
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 831f575afa6ce11d06c016d43ecd1bb59d09eab6
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78647582"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80218909"
 ---
 # <a name="aspnet-core-opno-locblazor-lifecycle"></a>ASP.NET Core Blazor ライフサイクル
 
@@ -56,6 +56,8 @@ protected override async Task OnInitializedAsync()
 
 Blazor サーバー アプリをプリレンダリングしている間、ブラウザーとの接続が確立されていないため、JavaScript への呼び出しなどの特定のアクションは実行できません。 コンポーネントは、プリレンダリング時に異なるレンダリングが必要になる場合があります。 詳細については、「[アプリがプリレンダリングされていることを検出する](#detect-when-the-app-is-prerendering)」セクションを参照してください。
 
+イベント ハンドラーが設定されている場合は、破棄時にそれらをアンフックします。 詳細については、「[IDisposable を使用したコンポーネントの破棄](#component-disposal-with-idisposable)」セクションを参照してください。
+
 ### <a name="before-parameters-are-set"></a>パラメーターが設定される前
 
 <xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync*> は、レンダリング ツリーのコンポーネントの親によって指定されたパラメーターを設定します。
@@ -74,6 +76,8 @@ public override async Task SetParametersAsync(ParameterView parameters)
 `SetParametersAsync` の既定の実装では、対応する値が `ParameterView` 内にある `[Parameter]` または `[CascadingParameter]` 属性を使用して、各プロパティの値を設定します。 対応する値が `ParameterView` 内にないパラメーターは、変更されないままになります。
 
 `base.SetParametersAync` が呼び出されない場合、カスタム コードでは、必要に応じて受信パラメーター値を解釈できます。 たとえば、受信したパラメーターをクラスのプロパティに割り当てる必要はありません。
+
+イベント ハンドラーが設定されている場合は、破棄時にそれらをアンフックします。 詳細については、「[IDisposable を使用したコンポーネントの破棄](#component-disposal-with-idisposable)」セクションを参照してください。
 
 ### <a name="after-parameters-are-set"></a>パラメーターが設定された後
 
@@ -100,6 +104,8 @@ protected override void OnParametersSet()
     ...
 }
 ```
+
+イベント ハンドラーが設定されている場合は、破棄時にそれらをアンフックします。 詳細については、「[IDisposable を使用したコンポーネントの破棄](#component-disposal-with-idisposable)」セクションを参照してください。
 
 ### <a name="after-component-render"></a>コンポーネントのレンダリング後
 
@@ -136,6 +142,8 @@ protected override void OnAfterRender(bool firstRender)
 ```
 
 `OnAfterRender` と `OnAfterRenderAsync` は、"*サーバー上でプリレンダリングするときには呼び出されません。* "
+
+イベント ハンドラーが設定されている場合は、破棄時にそれらをアンフックします。 詳細については、「[IDisposable を使用したコンポーネントの破棄](#component-disposal-with-idisposable)」セクションを参照してください。
 
 ### <a name="suppress-ui-refreshing"></a>UI 更新の抑制
 
@@ -188,6 +196,16 @@ Blazor サーバー テンプレート内の *Pages/FetchData.razor*:
 
 > [!NOTE]
 > `Dispose` では、<xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged*> の呼び出しはサポートされていません。 `StateHasChanged` は、レンダラーの破棄の一部として呼び出されることがあるため、その時点での UI 更新の要求はサポートされていません。
+
+.NET イベントからイベント ハンドラーのサブスクライブを解除します。 次の [Blazor フォーム](xref:blazor/forms-validation)の例は、`Dispose` メソッドでイベント ハンドラーをアンフックする方法を示しています。
+
+* プライベート フィールドとラムダのアプローチ
+
+  [!code-razor[](lifecycle/samples_snapshot/3.x/event-handler-disposal-1.razor?highlight=23,28)]
+
+* プライベート メソッドのアプローチ
+
+  [!code-razor[](lifecycle/samples_snapshot/3.x/event-handler-disposal-2.razor?highlight=16,26)]
 
 ## <a name="handle-errors"></a>エラーの処理
 

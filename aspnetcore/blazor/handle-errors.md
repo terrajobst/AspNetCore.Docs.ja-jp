@@ -5,17 +5,17 @@ description: ASP.NET Core Blazor で、ハンドルされない例外を Blazor 
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/19/2020
+ms.date: 03/17/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/handle-errors
-ms.openlocfilehash: d8098db3977b7515f2665e4230c2d6d3e415dc58
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 2177edb9c3197588a9335f3d14495b86d5d53f65
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78648308"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80218922"
 ---
 # <a name="handle-errors-in-aspnet-core-opno-locblazor-apps"></a>ASP.NET Core Blazor アプリのエラーを処理する
 
@@ -195,7 +195,7 @@ Blazor によってコンポーネントのインスタンスが作成される�
 
 ### <a name="opno-locblazor-server-prerendering"></a>Blazor Server の事前レンダリング
 
-レンダリングされた HTML マークアップがユーザーの初期 HTTP 要求の一部として返されるように、`Component` タグ ヘルパーを使用して Blazor コンポーネントを事前レンダリングすることができます。 これは以下によって機能します。
+レンダリングされた HTML マークアップがユーザーの初期 HTTP 要求の一部として返されるように、[コンポーネント タグ ヘルパー](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper)を使用して Blazor コンポーネントを事前レンダリングすることができます。 これは以下によって機能します。
 
 * 同じページに含まれるすべての事前レンダリング コンポーネントに対する新しい回線を作成する。
 * 初期 HTML を生成する。

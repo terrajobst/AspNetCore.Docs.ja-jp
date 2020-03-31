@@ -5,17 +5,17 @@ description: Blazor アプリのコンポーネントと DOM 要素のデータ 
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/12/2020
+ms.date: 03/17/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/integrate-components
-ms.openlocfilehash: de1a37ffd9456c956e3d84fcc69431ecb794513c
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: cf6056e0985d5433bddecac8dd183ca3f4c2af5b
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78649082"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80218935"
 ---
 # <a name="integrate-aspnet-core-razor-components-into-razor-pages-and-mvc-apps"></a>ASP.NET Core Razor コンポーネントを Razor Pages と MVC アプリに統合する
 
@@ -225,31 +225,10 @@ MVC アプリでルーティング可能な Razor コンポーネントをサポ
 
 *これは、コンポーネントをユーザー要求から直接ルーティングできないページまたはビューにコンポーネントを追加することに関係するセクションです。*
 
-ページまたはビューからコンポーネントをレンダリングするには、`Component` タグ ヘルパーを使用します。
-
-```cshtml
-<component type="typeof(Counter)" render-mode="ServerPrerendered" 
-    param-IncrementAmount="10" />
-```
-
-パラメーターは、JSON のシリアル化可能な型である必要があります。これは通常、その型に既定のコンストラクターと設定できるプロパティがある必要があることを意味します。 たとえば、`IncrementAmount` の型は `int`であるため、`IncrementAmount` の値を指定できます。これは、JSON シリアライザーによってサポートされているプリミティブ型です。
-
-`RenderMode` によって、コンポーネントに対して以下の構成が行われます。
-
-* ページに事前レンダリングするかどうか。
-* ページに静的 HTML としてレンダリングするかどうか。または、ユーザー エージェントから Blazor アプリをブートストラップするために必要な情報が含まれているかどうか。
-
-| `RenderMode`        | 説明 |
-| ------------------- | ----------- |
-| `ServerPrerendered` | コンポーネントを静的 HTML にレンダリングし、Blazor Server アプリのマーカーを含めます。 このマーカーは、ユーザー エージェントの起動時に Blazor アプリをブートストラップするために使用されます。 |
-| `Server`            | Blazor Server アプリのマーカーをレンダリングします。 コンポーネントからの出力は含められません。 このマーカーは、ユーザー エージェントの起動時に Blazor アプリをブートストラップするために使用されます。 |
-| `Static`            | コンポーネントを静的 HTML にレンダリングします。 |
-
-ページとビューはコンポーネントを使用できますが、逆のことはできません。 コンポーネントでは、ビュー固有のシナリオやページ固有のシナリオ (部分ビューや部分セクションなど) を使用できません。 コンポーネントの部分ビューにあるロジックを使用するには、部分ビューのロジックを要素としてコンポーネントに取り入れます。
-
-静的 HTML ページからのサーバー コンポーネントのレンダリングは、サポートされていません。
+ページまたはビューからコンポーネントをレンダリングするには、[コンポーネント タグ ヘルパー](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper)を使用します。
 
 コンポーネントがどのようにレンダリングされるか、コンポーネントの状態、および `Component` タグ ヘルパーの詳細については、以下の記事を参照してください。
 
 * <xref:blazor/hosting-models>
 * <xref:blazor/hosting-model-configuration>
+* <xref:mvc/views/tag-helpers/builtin-th/component-tag-helper>

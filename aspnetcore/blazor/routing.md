@@ -5,17 +5,17 @@ description: アプリで要求をルーティングする方法と、NavLink �
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 03/17/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/routing
-ms.openlocfilehash: 32459f9f42220b01ce04e6444a9bb4a9592ee2da
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 87579c88a37e0258921e199db2b5d8c7627f5499
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78649238"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80218896"
 ---
 # <a name="aspnet-core-blazor-routing"></a>ASP.NET Core Blazor のルーティング
 
@@ -198,16 +198,16 @@ Blazor サーバー アプリでは、 *_Host.cshtml* の既定のルートは `
 
 ## <a name="uri-and-navigation-state-helpers"></a>URI およびナビゲーション状態ヘルパー
 
-C# コード内の URI とナビゲーションを操作するには、`Microsoft.AspNetCore.Components.NavigationManager` を使用します。 `NavigationManager` には、次の表に示すイベントとメソッドがあります。
+C# コード内の URI とナビゲーションを操作するには、<xref:Microsoft.AspNetCore.Components.NavigationManager> を使用します。 `NavigationManager` には、次の表に示すイベントとメソッドがあります。
 
 | メンバー | 説明 |
 | ------ | ----------- |
-| `Uri` | 現在の絶対 URI を取得します。 |
-| `BaseUri` | 絶対 URI を生成するために、相対 URI パスの前に付加できるベース URI (末尾のスラッシュを含む) を取得します。 通常、`BaseUri` は *wwwroot/index.html* (Blazor WebAssembly)、または *Pages/_Host.cshtml* (Blazor サーバー) 内のドキュメントの `<base>` 要素の `href` 属性に対応します。 |
-| `NavigateTo` | 指定された URI に移動します。 `forceLoad` が `true` の場合:<ul><li>クライアント側のルーティングはバイパスされます。</li><li>URI が通常クライアント側ルーターによって処理されるかどうかにかかわらず、ブラウザーでは、強制的にサーバーから新しいページが読み込まれます。</li></ul> |
-| `LocationChanged` | ナビゲーションの場所が変更されたときに発生するイベントです。 |
-| `ToAbsoluteUri` | 相対 URI を絶対 URI に変換します。 |
-| `ToBaseRelativePath` | ベース URI (たとえば、`GetBaseUri` によって以前に返された URI) が与えられると、絶対 URI を、ベース URI プレフィックスに相対的な URI に変換します。 |
+| URI | 現在の絶対 URI を取得します。 |
+| BaseUri | 絶対 URI を生成するために、相対 URI パスの前に付加できるベース URI (末尾のスラッシュを含む) を取得します。 通常、`BaseUri` は *wwwroot/index.html* (Blazor WebAssembly)、または *Pages/_Host.cshtml* (Blazor サーバー) 内のドキュメントの `<base>` 要素の `href` 属性に対応します。 |
+| NavigateTo | 指定された URI に移動します。 `forceLoad` が `true` の場合:<ul><li>クライアント側のルーティングはバイパスされます。</li><li>URI が通常クライアント側ルーターによって処理されるかどうかにかかわらず、ブラウザーでは、強制的にサーバーから新しいページが読み込まれます。</li></ul> |
+| LocationChanged | ナビゲーションの場所が変更されたときに発生するイベントです。 |
+| ToAbsoluteUri | 相対 URI を絶対 URI に変換します。 |
+| <span style="word-break:normal;word-wrap:normal">ToBaseRelativePath</span> | ベース URI (たとえば、`GetBaseUri` によって以前に返された URI) が与えられると、絶対 URI を、ベース URI プレフィックスに相対的な URI に変換します。 |
 
 次のコンポーネントは、ボタンが選択されたときに、アプリの `Counter` コンポーネントに移動します。
 
@@ -228,3 +228,34 @@ C# コード内の URI とナビゲーションを操作するには、`Microsof
     }
 }
 ```
+
+次のコンポーネントは、場所の変更イベントを処理します。 `HandleLocationChanged` メソッドは、`Dispose` がフレームワークによって呼び出されると、アンフックになります。 このメソッドをアンフックすることで、コンポーネントのガベージ コレクションが許可されます。
+
+```razor
+@implement IDisposable
+@inject NavigationManager NavigationManager
+
+...
+
+protected override void OnInitialized()
+{
+    NavigationManager.LocationChanged += HandleLocationChanged;
+}
+
+private void HandleLocationChanged(object sender, LocationChangedEventArgs e)
+{
+    ...
+}
+
+public void Dispose()
+{
+    NavigationManager.LocationChanged -= HandleLocationChanged;
+}
+```
+
+<xref:Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs> は、イベントに関する次の情報を提供します。
+
+* <xref:Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs.Location> &ndash; 新しい場所の URL。
+* <xref:Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs.IsNavigationIntercepted> &ndash; `true` の場合、Blazor によってブラウザーからナビゲーションがインターセプトされました。 `false` の場合、[NavigationManager.NavigateTo](xref:Microsoft.AspNetCore.Components.NavigationManager.NavigateTo%2A) によってナビゲーションが発生しました。
+
+コンポーネントの破棄の詳細については、「<xref:blazor/lifecycle#component-disposal-with-idisposable>」を参照してください。

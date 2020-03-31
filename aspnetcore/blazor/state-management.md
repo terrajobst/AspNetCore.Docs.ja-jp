@@ -5,17 +5,17 @@ description: Blazor Server アプリで状態を維持する方法について�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 03/17/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/state-management
-ms.openlocfilehash: 990d392b0e1658774256626eb277701e40287b79
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: e8a1959a8fc05ea59362bb5824181a9d2e418811
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78646526"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80218870"
 ---
 # <a name="aspnet-core-opno-locblazor-state-management"></a>ASP.NET Core Blazor 状態管理
 
@@ -242,7 +242,7 @@ else
 
 このエラーを解決する方法の 1 つは、プリレンダリングを無効にすることです。 これは通常、ブラウザーベースのストレージがアプリで頻繁に使用される場合、最良の選択肢となります。 プリレンダリングによってさらに複雑になり、アプリにとっては良いことがありません。アプリでは `localStorage` または `sessionStorage` が利用できなければ、役に立つコンテンツをプリレンダリングできないからです。
 
-プリレンダリングを無効にするには、*Pages/_Host.cshtml* ファイルを開き、`Component` Tag Helper の `render-mode` の呼び出しを `Server` に変更します。
+プリレンダリングを無効にするには、*Pages/_Host cshtml* ファイルを開き、[コンポーネント タグ ヘルパー](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper)の `render-mode` を <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> に変更します。
 
 プリレンダリングは、`localStorage` や `sessionStorage` を使用しない他のページでは役に立つかもしれません。 プリレンダリングを有効にしておくには、ブラウザーが回線に接続されるまで読み込み操作を延期します。 次はカウンター値を格納する例です。
 

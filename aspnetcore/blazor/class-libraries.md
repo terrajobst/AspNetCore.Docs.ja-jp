@@ -5,17 +5,17 @@ description: 外部コンポーネント ライブラリから、コンポーネ
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/23/2020
+ms.date: 03/23/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/class-libraries
-ms.openlocfilehash: 32088b43f91174596f6b9251d36782e806f966b9
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: f2cc57638922bd1f6ab036adb2ed37209d14c5b0
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78647990"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80218767"
 ---
 # <a name="aspnet-core-razor-components-class-libraries"></a>ASP.NET Core Razor コンポーネント クラス ライブラリ
 
@@ -114,6 +114,10 @@ Welcome to your new app.
 
 プロジェクト全体でライブラリのコンポーネントを使用できるようにするには、最上位の *_Import.razor* ファイルに `@using MyComponentLib1` ディレクティブを含めます。 ディレクティブを任意のレベルの *_Import.razor* ファイルに追加して、名前空間をフォルダー内の 1 つまたは複数のページに適用します。
 
+## <a name="create-a-razor-components-class-library-with-static-assets"></a>静的アセットを含む Razor コンポーネント クラスライブラリを作成する
+
+RCL には、静的アセットを含めることができます。 静的アセットは、ライブラリを使用するすべてのアプリで使用できます。 詳細については、「<xref:razor-pages/ui-class#create-an-rcl-with-static-assets>」を参照してください。
+
 ## <a name="build-pack-and-ship-to-nuget"></a>ビルド、パック、NuGet への配布
 
 コンポーネント ライブラリは標準 .NET ライブラリであるため、それらをパッケージ化して NuGet に配布することは、ライブラリをパッケージ化して NuGet に配布する場合と変わりはありません。 パッケージ化は、コマンド シェルで [dotnet pack](/dotnet/core/tools/dotnet-pack) コマンドを使用して実行します。
@@ -124,10 +128,7 @@ dotnet pack
 
 コマンド シェルで [dotnet nuget push](/dotnet/core/tools/dotnet-nuget-push) コマンドを使用して、パッケージを NuGet にアップロードします。
 
-## <a name="create-a-razor-components-class-library-with-static-assets"></a>静的アセットを含む Razor コンポーネント クラスライブラリを作成する
-
-RCL には、静的アセットを含めることができます。 静的アセットは、ライブラリを使用するすべてのアプリで使用できます。 詳細については、「<xref:razor-pages/ui-class#create-an-rcl-with-static-assets>」を参照してください。
-
 ## <a name="additional-resources"></a>その他の技術情報
 
 * <xref:razor-pages/ui-class>
+* [XML リンカー構成ファイルをライブラリに追加する](xref:host-and-deploy/blazor/configure-linker#add-an-xml-linker-configuration-file-to-a-library)

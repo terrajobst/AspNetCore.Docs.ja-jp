@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/10/2020
 uid: fundamentals/servers/kestrel
-ms.openlocfilehash: 8d96118800c47b2c551726342bf4cfba9671a09e
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: e9b4b57ee70e4050f9399b90a6e34e8cc9cca78d
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78650930"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80218831"
 ---
 # <a name="kestrel-web-server-implementation-in-aspnet-core"></a>ASP.NET Core への Kestrel Web サーバーの実装
 
@@ -392,7 +392,7 @@ Kestrel のその他のオプションと制限については、以下をご覧
 
 `UseUrls`、`--urls` コマンドライン引数、`urls` ホスト構成キー、`ASPNETCORE_URLS` 環境変数も機能しますが、このセクションで後述する制限があります (既定の証明書が、HTTPS エンドポイントの構成に使用できる必要があります)。
 
-`KestrelServerOptions` 構成: 
+`KestrelServerOptions` 構成:
 
 ### <a name="configureendpointdefaultsactionlistenoptions"></a>ConfigureEndpointDefaults(Action\<ListenOptions>)
 
@@ -483,7 +483,7 @@ Kestrel は、`http://localhost:5000` と `https://localhost:5001` (既定の証
 以下の *appsettings.json* の例では、次のことが行われています。
 
 * **AllowInvalid** を `true` に設定し、の無効な証明書 (自己署名証明書など) の使用を許可します。
-* 証明書 (後の例では **HttpsDefaultCert**) が指定されていないすべての HTTPS エンドポイントは、**[証明書]**>**[既定]** または開発証明書で定義されている証明書にフォールバックします。
+* 証明書 (後の例では **HttpsDefaultCert**) が指定されていないすべての HTTPS エンドポイントは、 **[証明書]** > **[既定]** または開発証明書で定義されている証明書にフォールバックします。
 
 ```json
 {
@@ -529,7 +529,7 @@ Kestrel は、`http://localhost:5000` と `https://localhost:5001` (既定の証
 }
 ```
 
-証明書ノードの **Path** と **Password** を使用する代わりの方法は、証明書ストアのフィールドを使って証明書を指定することです。 たとえば、**[証明書]** > **[既定]** の証明書は次のように指定できます。
+証明書ノードの **Path** と **Password** を使用する代わりの方法は、証明書ストアのフィールドを使って証明書を指定することです。 たとえば、 **[証明書]**  >  **[既定]** の証明書は次のように指定できます。
 
 ```json
 "Default": {
@@ -1373,7 +1373,7 @@ Kestrel のその他のオプションと制限については、以下をご覧
 
 `UseUrls`、`--urls` コマンドライン引数、`urls` ホスト構成キー、`ASPNETCORE_URLS` 環境変数も機能しますが、このセクションで後述する制限があります (既定の証明書が、HTTPS エンドポイントの構成に使用できる必要があります)。
 
-`KestrelServerOptions` 構成: 
+`KestrelServerOptions` 構成:
 
 ### <a name="configureendpointdefaultsactionlistenoptions"></a>ConfigureEndpointDefaults(Action\<ListenOptions>)
 
@@ -1471,7 +1471,7 @@ Kestrel は、`http://localhost:5000` と `https://localhost:5001` (既定の証
 以下の *appsettings.json* の例では、次のことが行われています。
 
 * **AllowInvalid** を `true` に設定し、の無効な証明書 (自己署名証明書など) の使用を許可します。
-* 証明書 (後の例では **HttpsDefaultCert**) が指定されていないすべての HTTPS エンドポイントは、**[証明書]**>**[既定]** または開発証明書で定義されている証明書にフォールバックします。
+* 証明書 (後の例では **HttpsDefaultCert**) が指定されていないすべての HTTPS エンドポイントは、 **[証明書]** > **[既定]** または開発証明書で定義されている証明書にフォールバックします。
 
 ```json
 {
@@ -1521,7 +1521,7 @@ Kestrel は、`http://localhost:5000` と `https://localhost:5001` (既定の証
 }
 ```
 
-証明書ノードの **Path** と **Password** を使用する代わりの方法は、証明書ストアのフィールドを使って証明書を指定することです。 たとえば、**[証明書]** > **[既定]** の証明書は次のように指定できます。
+証明書ノードの **Path** と **Password** を使用する代わりの方法は、証明書ストアのフィールドを使って証明書を指定することです。 たとえば、 **[証明書]**  >  **[既定]** の証明書は次のように指定できます。
 
 ```json
 "Default": {
@@ -2238,7 +2238,7 @@ Kestrel のその他のオプションと制限については、以下をご覧
 
 `UseUrls`、`--urls` コマンドライン引数、`urls` ホスト構成キー、`ASPNETCORE_URLS` 環境変数も機能しますが、このセクションで後述する制限があります (既定の証明書が、HTTPS エンドポイントの構成に使用できる必要があります)。
 
-`KestrelServerOptions` 構成: 
+`KestrelServerOptions` 構成:
 
 ### <a name="configureendpointdefaultsactionlistenoptions"></a>ConfigureEndpointDefaults(Action\<ListenOptions>)
 
@@ -2335,7 +2335,7 @@ Kestrel は、`http://localhost:5000` と `https://localhost:5001` (既定の証
 以下の *appsettings.json* の例では、次のことが行われています。
 
 * **AllowInvalid** を `true` に設定し、の無効な証明書 (自己署名証明書など) の使用を許可します。
-* 証明書 (後の例では **HttpsDefaultCert**) が指定されていないすべての HTTPS エンドポイントは、**[証明書]**>**[既定]** または開発証明書で定義されている証明書にフォールバックします。
+* 証明書 (後の例では **HttpsDefaultCert**) が指定されていないすべての HTTPS エンドポイントは、 **[証明書]** > **[既定]** または開発証明書で定義されている証明書にフォールバックします。
 
 ```json
 {
@@ -2385,7 +2385,7 @@ Kestrel は、`http://localhost:5000` と `https://localhost:5001` (既定の証
 }
 ```
 
-証明書ノードの **Path** と **Password** を使用する代わりの方法は、証明書ストアのフィールドを使って証明書を指定することです。 たとえば、**[証明書]** > **[既定]** の証明書は次のように指定できます。
+証明書ノードの **Path** と **Password** を使用する代わりの方法は、証明書ストアのフィールドを使って証明書を指定することです。 たとえば、 **[証明書]**  >  **[既定]** の証明書は次のように指定できます。
 
 ```json
 "Default": {
