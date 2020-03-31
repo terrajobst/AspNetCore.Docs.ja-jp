@@ -5,31 +5,31 @@ description: ASP.NET Core Blazor アプリで Razor コンポーネント ライ
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 03/17/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/lifecycle
-ms.openlocfilehash: ecacd0a9728cbefd716e9dc7cd8a8c62f3df6e0d
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 831f575afa6ce11d06c016d43ecd1bb59d09eab6
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78647582"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80218909"
 ---
-# <a name="aspnet-core-opno-locblazor-lifecycle"></a><span data-ttu-id="03f46-103">ASP.NET Core Blazor ライフサイクル</span><span class="sxs-lookup"><span data-stu-id="03f46-103">ASP.NET Core Blazor lifecycle</span></span>
+# <a name="aspnet-core-opno-locblazor-lifecycle"></a><span data-ttu-id="eea29-103">ASP.NET Core Blazor ライフサイクル</span><span class="sxs-lookup"><span data-stu-id="eea29-103">ASP.NET Core Blazor lifecycle</span></span>
 
-<span data-ttu-id="03f46-104">著者: [Luke Latham](https://github.com/guardrex)、[Daniel Roth](https://github.com/danroth27)</span><span class="sxs-lookup"><span data-stu-id="03f46-104">By [Luke Latham](https://github.com/guardrex) and [Daniel Roth](https://github.com/danroth27)</span></span>
+<span data-ttu-id="eea29-104">著者: [Luke Latham](https://github.com/guardrex)、[Daniel Roth](https://github.com/danroth27)</span><span class="sxs-lookup"><span data-stu-id="eea29-104">By [Luke Latham](https://github.com/guardrex) and [Daniel Roth](https://github.com/danroth27)</span></span>
 
-<span data-ttu-id="03f46-105">Blazor フレームワークには、同期と非同期のライフサイクル メソッドが含まれています。</span><span class="sxs-lookup"><span data-stu-id="03f46-105">The Blazor framework includes synchronous and asynchronous lifecycle methods.</span></span> <span data-ttu-id="03f46-106">コンポーネントの初期化およびレンダリング中にコンポーネントで追加の操作を実行するには、ライフサイクル メソッドをオーバーライドします。</span><span class="sxs-lookup"><span data-stu-id="03f46-106">Override lifecycle methods to perform additional operations on components during component initialization and rendering.</span></span>
+<span data-ttu-id="eea29-105">Blazor フレームワークには、同期と非同期のライフサイクル メソッドが含まれています。</span><span class="sxs-lookup"><span data-stu-id="eea29-105">The Blazor framework includes synchronous and asynchronous lifecycle methods.</span></span> <span data-ttu-id="eea29-106">コンポーネントの初期化およびレンダリング中にコンポーネントで追加の操作を実行するには、ライフサイクル メソッドをオーバーライドします。</span><span class="sxs-lookup"><span data-stu-id="eea29-106">Override lifecycle methods to perform additional operations on components during component initialization and rendering.</span></span>
 
-## <a name="lifecycle-methods"></a><span data-ttu-id="03f46-107">ライフサイクル メソッド</span><span class="sxs-lookup"><span data-stu-id="03f46-107">Lifecycle methods</span></span>
+## <a name="lifecycle-methods"></a><span data-ttu-id="eea29-107">ライフサイクル メソッド</span><span class="sxs-lookup"><span data-stu-id="eea29-107">Lifecycle methods</span></span>
 
-### <a name="component-initialization-methods"></a><span data-ttu-id="03f46-108">コンポーネントの初期化メソッド</span><span class="sxs-lookup"><span data-stu-id="03f46-108">Component initialization methods</span></span>
+### <a name="component-initialization-methods"></a><span data-ttu-id="eea29-108">コンポーネントの初期化メソッド</span><span class="sxs-lookup"><span data-stu-id="eea29-108">Component initialization methods</span></span>
 
-<span data-ttu-id="03f46-109"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync*> および <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized*> は、コンポーネントが、その親コンポーネントから初期パラメーターを受け取った後で初期化されるときに呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="03f46-109"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync*> and <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized*> are invoked when the component is initialized after having received its initial parameters from its parent component.</span></span> <span data-ttu-id="03f46-110">コンポーネントが非同期操作を実行し、操作の完了時に更新する必要がある場合は、`OnInitializedAsync` を使用します。</span><span class="sxs-lookup"><span data-stu-id="03f46-110">Use `OnInitializedAsync` when the component performs an asynchronous operation and should refresh when the operation is completed.</span></span>
+<span data-ttu-id="eea29-109"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync*> および <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized*> は、コンポーネントが、その親コンポーネントから初期パラメーターを受け取った後で初期化されるときに呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="eea29-109"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync*> and <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized*> are invoked when the component is initialized after having received its initial parameters from its parent component.</span></span> <span data-ttu-id="eea29-110">コンポーネントが非同期操作を実行し、操作の完了時に更新する必要がある場合は、`OnInitializedAsync` を使用します。</span><span class="sxs-lookup"><span data-stu-id="eea29-110">Use `OnInitializedAsync` when the component performs an asynchronous operation and should refresh when the operation is completed.</span></span>
 
-<span data-ttu-id="03f46-111">同期操作の場合は、`OnInitialized` をオーバーライドします。</span><span class="sxs-lookup"><span data-stu-id="03f46-111">For a synchronous operation, override `OnInitialized`:</span></span>
+<span data-ttu-id="eea29-111">同期操作の場合は、`OnInitialized` をオーバーライドします。</span><span class="sxs-lookup"><span data-stu-id="eea29-111">For a synchronous operation, override `OnInitialized`:</span></span>
 
 ```csharp
 protected override void OnInitialized()
@@ -38,7 +38,7 @@ protected override void OnInitialized()
 }
 ```
 
-<span data-ttu-id="03f46-112">非同期操作を実行するには、`OnInitializedAsync` をオーバーライドし、操作で `await` キーワードを使用します。</span><span class="sxs-lookup"><span data-stu-id="03f46-112">To perform an asynchronous operation, override `OnInitializedAsync` and use the `await` keyword on the operation:</span></span>
+<span data-ttu-id="eea29-112">非同期操作を実行するには、`OnInitializedAsync` をオーバーライドし、操作で `await` キーワードを使用します。</span><span class="sxs-lookup"><span data-stu-id="eea29-112">To perform an asynchronous operation, override `OnInitializedAsync` and use the `await` keyword on the operation:</span></span>
 
 ```csharp
 protected override async Task OnInitializedAsync()
@@ -47,18 +47,20 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
-<span data-ttu-id="03f46-113">[コンテンツをプリレンダリングする ](xref:blazor/hosting-model-configuration#render-mode)Blazor サーバー アプリは、`OnInitializedAsync` を " **_2 回_** " 呼び出します。</span><span class="sxs-lookup"><span data-stu-id="03f46-113">Blazor Server apps that [prerender their content](xref:blazor/hosting-model-configuration#render-mode) call `OnInitializedAsync` **_twice_**:</span></span>
+<span data-ttu-id="eea29-113">[コンテンツをプリレンダリングする ](xref:blazor/hosting-model-configuration#render-mode)Blazor サーバー アプリは、`OnInitializedAsync` を " **_2 回_** " 呼び出します。</span><span class="sxs-lookup"><span data-stu-id="eea29-113">Blazor Server apps that [prerender their content](xref:blazor/hosting-model-configuration#render-mode) call `OnInitializedAsync` **_twice_**:</span></span>
 
-* <span data-ttu-id="03f46-114">コンポーネントが最初にページの一部として静的にレンダリングされるときに 1 回。</span><span class="sxs-lookup"><span data-stu-id="03f46-114">Once when the component is initially rendered statically as part of the page.</span></span>
-* <span data-ttu-id="03f46-115">ブラウザーがサーバーへの接続を確立するときに 2 回目。</span><span class="sxs-lookup"><span data-stu-id="03f46-115">A second time when the browser establishes a connection back to the server.</span></span>
+* <span data-ttu-id="eea29-114">コンポーネントが最初にページの一部として静的にレンダリングされるときに 1 回。</span><span class="sxs-lookup"><span data-stu-id="eea29-114">Once when the component is initially rendered statically as part of the page.</span></span>
+* <span data-ttu-id="eea29-115">ブラウザーがサーバーへの接続を確立するときに 2 回目。</span><span class="sxs-lookup"><span data-stu-id="eea29-115">A second time when the browser establishes a connection back to the server.</span></span>
 
-<span data-ttu-id="03f46-116">`OnInitializedAsync` 内で開発者コードが 2 回実行されないようにするには、「[プリレンダリング後のステートフル再接続](#stateful-reconnection-after-prerendering)」セクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="03f46-116">To prevent developer code in `OnInitializedAsync` from running twice, see the [Stateful reconnection after prerendering](#stateful-reconnection-after-prerendering) section.</span></span>
+<span data-ttu-id="eea29-116">`OnInitializedAsync` 内で開発者コードが 2 回実行されないようにするには、「[プリレンダリング後のステートフル再接続](#stateful-reconnection-after-prerendering)」セクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="eea29-116">To prevent developer code in `OnInitializedAsync` from running twice, see the [Stateful reconnection after prerendering](#stateful-reconnection-after-prerendering) section.</span></span>
 
-<span data-ttu-id="03f46-117">Blazor サーバー アプリをプリレンダリングしている間、ブラウザーとの接続が確立されていないため、JavaScript への呼び出しなどの特定のアクションは実行できません。</span><span class="sxs-lookup"><span data-stu-id="03f46-117">While a Blazor Server app is prerendering, certain actions, such as calling into JavaScript, aren't possible because a connection with the browser hasn't been established.</span></span> <span data-ttu-id="03f46-118">コンポーネントは、プリレンダリング時に異なるレンダリングが必要になる場合があります。</span><span class="sxs-lookup"><span data-stu-id="03f46-118">Components may need to render differently when prerendered.</span></span> <span data-ttu-id="03f46-119">詳細については、「[アプリがプリレンダリングされていることを検出する](#detect-when-the-app-is-prerendering)」セクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="03f46-119">For more information, see the [Detect when the app is prerendering](#detect-when-the-app-is-prerendering) section.</span></span>
+<span data-ttu-id="eea29-117">Blazor サーバー アプリをプリレンダリングしている間、ブラウザーとの接続が確立されていないため、JavaScript への呼び出しなどの特定のアクションは実行できません。</span><span class="sxs-lookup"><span data-stu-id="eea29-117">While a Blazor Server app is prerendering, certain actions, such as calling into JavaScript, aren't possible because a connection with the browser hasn't been established.</span></span> <span data-ttu-id="eea29-118">コンポーネントは、プリレンダリング時に異なるレンダリングが必要になる場合があります。</span><span class="sxs-lookup"><span data-stu-id="eea29-118">Components may need to render differently when prerendered.</span></span> <span data-ttu-id="eea29-119">詳細については、「[アプリがプリレンダリングされていることを検出する](#detect-when-the-app-is-prerendering)」セクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="eea29-119">For more information, see the [Detect when the app is prerendering](#detect-when-the-app-is-prerendering) section.</span></span>
 
-### <a name="before-parameters-are-set"></a><span data-ttu-id="03f46-120">パラメーターが設定される前</span><span class="sxs-lookup"><span data-stu-id="03f46-120">Before parameters are set</span></span>
+<span data-ttu-id="eea29-120">イベント ハンドラーが設定されている場合は、破棄時にそれらをアンフックします。</span><span class="sxs-lookup"><span data-stu-id="eea29-120">If any event handlers are set up, unhook them on disposal.</span></span> <span data-ttu-id="eea29-121">詳細については、「[IDisposable を使用したコンポーネントの破棄](#component-disposal-with-idisposable)」セクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="eea29-121">For more information, see the [Component disposal with IDisposable](#component-disposal-with-idisposable) section.</span></span>
 
-<span data-ttu-id="03f46-121"><xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync*> は、レンダリング ツリーのコンポーネントの親によって指定されたパラメーターを設定します。</span><span class="sxs-lookup"><span data-stu-id="03f46-121"><xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync*> sets parameters supplied by the component's parent in the render tree:</span></span>
+### <a name="before-parameters-are-set"></a><span data-ttu-id="eea29-122">パラメーターが設定される前</span><span class="sxs-lookup"><span data-stu-id="eea29-122">Before parameters are set</span></span>
+
+<span data-ttu-id="eea29-123"><xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync*> は、レンダリング ツリーのコンポーネントの親によって指定されたパラメーターを設定します。</span><span class="sxs-lookup"><span data-stu-id="eea29-123"><xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync*> sets parameters supplied by the component's parent in the render tree:</span></span>
 
 ```csharp
 public override async Task SetParametersAsync(ParameterView parameters)
@@ -69,20 +71,22 @@ public override async Task SetParametersAsync(ParameterView parameters)
 }
 ```
 
-<span data-ttu-id="03f46-122"><xref:Microsoft.AspNetCore.Components.ParameterView> には、`SetParametersAsync` が呼び出されるたびに、パラメーター値のセット全体が含まれます。</span><span class="sxs-lookup"><span data-stu-id="03f46-122"><xref:Microsoft.AspNetCore.Components.ParameterView> contains the entire set of parameter values each time `SetParametersAsync` is called.</span></span>
+<span data-ttu-id="eea29-124"><xref:Microsoft.AspNetCore.Components.ParameterView> には、`SetParametersAsync` が呼び出されるたびに、パラメーター値のセット全体が含まれます。</span><span class="sxs-lookup"><span data-stu-id="eea29-124"><xref:Microsoft.AspNetCore.Components.ParameterView> contains the entire set of parameter values each time `SetParametersAsync` is called.</span></span>
 
-<span data-ttu-id="03f46-123">`SetParametersAsync` の既定の実装では、対応する値が `ParameterView` 内にある `[Parameter]` または `[CascadingParameter]` 属性を使用して、各プロパティの値を設定します。</span><span class="sxs-lookup"><span data-stu-id="03f46-123">The default implementation of `SetParametersAsync` sets the value of each property with the `[Parameter]` or `[CascadingParameter]` attribute that has a corresponding value in the `ParameterView`.</span></span> <span data-ttu-id="03f46-124">対応する値が `ParameterView` 内にないパラメーターは、変更されないままになります。</span><span class="sxs-lookup"><span data-stu-id="03f46-124">Parameters that don't have a corresponding value in `ParameterView` are left unchanged.</span></span>
+<span data-ttu-id="eea29-125">`SetParametersAsync` の既定の実装では、対応する値が `ParameterView` 内にある `[Parameter]` または `[CascadingParameter]` 属性を使用して、各プロパティの値を設定します。</span><span class="sxs-lookup"><span data-stu-id="eea29-125">The default implementation of `SetParametersAsync` sets the value of each property with the `[Parameter]` or `[CascadingParameter]` attribute that has a corresponding value in the `ParameterView`.</span></span> <span data-ttu-id="eea29-126">対応する値が `ParameterView` 内にないパラメーターは、変更されないままになります。</span><span class="sxs-lookup"><span data-stu-id="eea29-126">Parameters that don't have a corresponding value in `ParameterView` are left unchanged.</span></span>
 
-<span data-ttu-id="03f46-125">`base.SetParametersAync` が呼び出されない場合、カスタム コードでは、必要に応じて受信パラメーター値を解釈できます。</span><span class="sxs-lookup"><span data-stu-id="03f46-125">If `base.SetParametersAync` isn't invoked, the custom code can interpret the incoming parameters value in any way required.</span></span> <span data-ttu-id="03f46-126">たとえば、受信したパラメーターをクラスのプロパティに割り当てる必要はありません。</span><span class="sxs-lookup"><span data-stu-id="03f46-126">For example, there's no requirement to assign the incoming parameters to the properties on the class.</span></span>
+<span data-ttu-id="eea29-127">`base.SetParametersAync` が呼び出されない場合、カスタム コードでは、必要に応じて受信パラメーター値を解釈できます。</span><span class="sxs-lookup"><span data-stu-id="eea29-127">If `base.SetParametersAync` isn't invoked, the custom code can interpret the incoming parameters value in any way required.</span></span> <span data-ttu-id="eea29-128">たとえば、受信したパラメーターをクラスのプロパティに割り当てる必要はありません。</span><span class="sxs-lookup"><span data-stu-id="eea29-128">For example, there's no requirement to assign the incoming parameters to the properties on the class.</span></span>
 
-### <a name="after-parameters-are-set"></a><span data-ttu-id="03f46-127">パラメーターが設定された後</span><span class="sxs-lookup"><span data-stu-id="03f46-127">After parameters are set</span></span>
+<span data-ttu-id="eea29-129">イベント ハンドラーが設定されている場合は、破棄時にそれらをアンフックします。</span><span class="sxs-lookup"><span data-stu-id="eea29-129">If any event handlers are set up, unhook them on disposal.</span></span> <span data-ttu-id="eea29-130">詳細については、「[IDisposable を使用したコンポーネントの破棄](#component-disposal-with-idisposable)」セクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="eea29-130">For more information, see the [Component disposal with IDisposable](#component-disposal-with-idisposable) section.</span></span>
 
-<span data-ttu-id="03f46-128"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync*> と <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSet*> が呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="03f46-128"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync*> and <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSet*> are called:</span></span>
+### <a name="after-parameters-are-set"></a><span data-ttu-id="eea29-131">パラメーターが設定された後</span><span class="sxs-lookup"><span data-stu-id="eea29-131">After parameters are set</span></span>
 
-* <span data-ttu-id="03f46-129">コンポーネントが初期化され、その親コンポーネントからパラメーターの最初のセットを受け取ったとき。</span><span class="sxs-lookup"><span data-stu-id="03f46-129">When the component is initialized and has received its first set of parameters from its parent component.</span></span>
-* <span data-ttu-id="03f46-130">親コンポーネントが再レンダリングし、次のものを提供するとき:</span><span class="sxs-lookup"><span data-stu-id="03f46-130">When the parent component re-renders and supplies:</span></span>
-  * <span data-ttu-id="03f46-131">少なくとも 1 つのパラメーターが変更された既知のプリミティブ不変型のみ。</span><span class="sxs-lookup"><span data-stu-id="03f46-131">Only known primitive immutable types of which at least one parameter has changed.</span></span>
-  * <span data-ttu-id="03f46-132">任意の複合型のパラメーター。</span><span class="sxs-lookup"><span data-stu-id="03f46-132">Any complex-typed parameters.</span></span> <span data-ttu-id="03f46-133">フレームワークは、複合型のパラメーターの値が内部で変更されているかどうかを認識できないため、パラメーター セットは変更済みとして扱われます。</span><span class="sxs-lookup"><span data-stu-id="03f46-133">The framework can't know whether the values of a complex-typed parameter have mutated internally, so it treats the parameter set as changed.</span></span>
+<span data-ttu-id="eea29-132"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync*> と <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSet*> が呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="eea29-132"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync*> and <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSet*> are called:</span></span>
+
+* <span data-ttu-id="eea29-133">コンポーネントが初期化され、その親コンポーネントからパラメーターの最初のセットを受け取ったとき。</span><span class="sxs-lookup"><span data-stu-id="eea29-133">When the component is initialized and has received its first set of parameters from its parent component.</span></span>
+* <span data-ttu-id="eea29-134">親コンポーネントが再レンダリングし、次のものを提供するとき:</span><span class="sxs-lookup"><span data-stu-id="eea29-134">When the parent component re-renders and supplies:</span></span>
+  * <span data-ttu-id="eea29-135">少なくとも 1 つのパラメーターが変更された既知のプリミティブ不変型のみ。</span><span class="sxs-lookup"><span data-stu-id="eea29-135">Only known primitive immutable types of which at least one parameter has changed.</span></span>
+  * <span data-ttu-id="eea29-136">任意の複合型のパラメーター。</span><span class="sxs-lookup"><span data-stu-id="eea29-136">Any complex-typed parameters.</span></span> <span data-ttu-id="eea29-137">フレームワークは、複合型のパラメーターの値が内部で変更されているかどうかを認識できないため、パラメーター セットは変更済みとして扱われます。</span><span class="sxs-lookup"><span data-stu-id="eea29-137">The framework can't know whether the values of a complex-typed parameter have mutated internally, so it treats the parameter set as changed.</span></span>
 
 ```csharp
 protected override async Task OnParametersSetAsync()
@@ -92,7 +96,7 @@ protected override async Task OnParametersSetAsync()
 ```
 
 > [!NOTE]
-> <span data-ttu-id="03f46-134">パラメーターとプロパティ値を適用するときの非同期処理は、`OnParametersSetAsync` ライフサイクル イベント中に発生する必要があります。</span><span class="sxs-lookup"><span data-stu-id="03f46-134">Asynchronous work when applying parameters and property values must occur during the `OnParametersSetAsync` lifecycle event.</span></span>
+> <span data-ttu-id="eea29-138">パラメーターとプロパティ値を適用するときの非同期処理は、`OnParametersSetAsync` ライフサイクル イベント中に発生する必要があります。</span><span class="sxs-lookup"><span data-stu-id="eea29-138">Asynchronous work when applying parameters and property values must occur during the `OnParametersSetAsync` lifecycle event.</span></span>
 
 ```csharp
 protected override void OnParametersSet()
@@ -101,14 +105,16 @@ protected override void OnParametersSet()
 }
 ```
 
-### <a name="after-component-render"></a><span data-ttu-id="03f46-135">コンポーネントのレンダリング後</span><span class="sxs-lookup"><span data-stu-id="03f46-135">After component render</span></span>
+<span data-ttu-id="eea29-139">イベント ハンドラーが設定されている場合は、破棄時にそれらをアンフックします。</span><span class="sxs-lookup"><span data-stu-id="eea29-139">If any event handlers are set up, unhook them on disposal.</span></span> <span data-ttu-id="eea29-140">詳細については、「[IDisposable を使用したコンポーネントの破棄](#component-disposal-with-idisposable)」セクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="eea29-140">For more information, see the [Component disposal with IDisposable](#component-disposal-with-idisposable) section.</span></span>
 
-<span data-ttu-id="03f46-136"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync*> および <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender*> は、コンポーネントのレンダリングが完了した後に呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="03f46-136"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync*> and <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender*> are called after a component has finished rendering.</span></span> <span data-ttu-id="03f46-137">この時点で、要素およびコンポーネント参照が設定されます。</span><span class="sxs-lookup"><span data-stu-id="03f46-137">Element and component references are populated at this point.</span></span> <span data-ttu-id="03f46-138">レンダリングされた DOM 要素を操作するサードパーティ製の JavaScript ライブラリをアクティブ化するなど、レンダリングされたコンテンツを使用して追加の初期化手順を行うには、この段階を使用します。</span><span class="sxs-lookup"><span data-stu-id="03f46-138">Use this stage to perform additional initialization steps using the rendered content, such as activating third-party JavaScript libraries that operate on the rendered DOM elements.</span></span>
+### <a name="after-component-render"></a><span data-ttu-id="eea29-141">コンポーネントのレンダリング後</span><span class="sxs-lookup"><span data-stu-id="eea29-141">After component render</span></span>
 
-<span data-ttu-id="03f46-139">`OnAfterRenderAsync` と `OnAfterRender` の `firstRender` パラメーター:</span><span class="sxs-lookup"><span data-stu-id="03f46-139">The `firstRender` parameter for `OnAfterRenderAsync` and `OnAfterRender`:</span></span>
+<span data-ttu-id="eea29-142"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync*> および <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender*> は、コンポーネントのレンダリングが完了した後に呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="eea29-142"><xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync*> and <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender*> are called after a component has finished rendering.</span></span> <span data-ttu-id="eea29-143">この時点で、要素およびコンポーネント参照が設定されます。</span><span class="sxs-lookup"><span data-stu-id="eea29-143">Element and component references are populated at this point.</span></span> <span data-ttu-id="eea29-144">レンダリングされた DOM 要素を操作するサードパーティ製の JavaScript ライブラリをアクティブ化するなど、レンダリングされたコンテンツを使用して追加の初期化手順を行うには、この段階を使用します。</span><span class="sxs-lookup"><span data-stu-id="eea29-144">Use this stage to perform additional initialization steps using the rendered content, such as activating third-party JavaScript libraries that operate on the rendered DOM elements.</span></span>
 
-* <span data-ttu-id="03f46-140">コンポーネント インスタンスを初めて表示するときに `true` に設定されます。</span><span class="sxs-lookup"><span data-stu-id="03f46-140">Is set to `true` the first time that the component instance is rendered.</span></span>
-* <span data-ttu-id="03f46-141">初期化作業が確実に 1 回だけ実行されるように使用できます。</span><span class="sxs-lookup"><span data-stu-id="03f46-141">Can be used to ensure that initialization work is only performed once.</span></span>
+<span data-ttu-id="eea29-145">`OnAfterRenderAsync` と `OnAfterRender` の `firstRender` パラメーター:</span><span class="sxs-lookup"><span data-stu-id="eea29-145">The `firstRender` parameter for `OnAfterRenderAsync` and `OnAfterRender`:</span></span>
+
+* <span data-ttu-id="eea29-146">コンポーネント インスタンスを初めて表示するときに `true` に設定されます。</span><span class="sxs-lookup"><span data-stu-id="eea29-146">Is set to `true` the first time that the component instance is rendered.</span></span>
+* <span data-ttu-id="eea29-147">初期化作業が確実に 1 回だけ実行されるように使用できます。</span><span class="sxs-lookup"><span data-stu-id="eea29-147">Can be used to ensure that initialization work is only performed once.</span></span>
 
 ```csharp
 protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -121,9 +127,9 @@ protected override async Task OnAfterRenderAsync(bool firstRender)
 ```
 
 > [!NOTE]
-> <span data-ttu-id="03f46-142">`OnAfterRenderAsync` ライフサイクル イベント中に、レンダリング直後の非同期作業が発生する必要があります。</span><span class="sxs-lookup"><span data-stu-id="03f46-142">Asynchronous work immediately after rendering must occur during the `OnAfterRenderAsync` lifecycle event.</span></span>
+> <span data-ttu-id="eea29-148">`OnAfterRenderAsync` ライフサイクル イベント中に、レンダリング直後の非同期作業が発生する必要があります。</span><span class="sxs-lookup"><span data-stu-id="eea29-148">Asynchronous work immediately after rendering must occur during the `OnAfterRenderAsync` lifecycle event.</span></span>
 >
-> <span data-ttu-id="03f46-143">`OnAfterRenderAsync` から <xref:System.Threading.Tasks.Task> を返した場合でも、フレームワークでは、そのタスクが完了しても、コンポーネントに対してさらにレンダリング サイクルがスケジュールされることはありません。</span><span class="sxs-lookup"><span data-stu-id="03f46-143">Even if you return a <xref:System.Threading.Tasks.Task> from `OnAfterRenderAsync`, the framework doesn't schedule a further render cycle for your component once that task completes.</span></span> <span data-ttu-id="03f46-144">これは、無限のレンダリング ループを回避するためです。</span><span class="sxs-lookup"><span data-stu-id="03f46-144">This is to avoid an infinite render loop.</span></span> <span data-ttu-id="03f46-145">返されたタスクが完了すると、さらにレンダリング サイクルをスケジュールする他のライフサイクル メソッドとは異なります。</span><span class="sxs-lookup"><span data-stu-id="03f46-145">It's different from the other lifecycle methods, which schedule a further render cycle once the returned task completes.</span></span>
+> <span data-ttu-id="eea29-149">`OnAfterRenderAsync` から <xref:System.Threading.Tasks.Task> を返した場合でも、フレームワークでは、そのタスクが完了しても、コンポーネントに対してさらにレンダリング サイクルがスケジュールされることはありません。</span><span class="sxs-lookup"><span data-stu-id="eea29-149">Even if you return a <xref:System.Threading.Tasks.Task> from `OnAfterRenderAsync`, the framework doesn't schedule a further render cycle for your component once that task completes.</span></span> <span data-ttu-id="eea29-150">これは、無限のレンダリング ループを回避するためです。</span><span class="sxs-lookup"><span data-stu-id="eea29-150">This is to avoid an infinite render loop.</span></span> <span data-ttu-id="eea29-151">返されたタスクが完了すると、さらにレンダリング サイクルをスケジュールする他のライフサイクル メソッドとは異なります。</span><span class="sxs-lookup"><span data-stu-id="eea29-151">It's different from the other lifecycle methods, which schedule a further render cycle once the returned task completes.</span></span>
 
 ```csharp
 protected override void OnAfterRender(bool firstRender)
@@ -135,11 +141,13 @@ protected override void OnAfterRender(bool firstRender)
 }
 ```
 
-<span data-ttu-id="03f46-146">`OnAfterRender` と `OnAfterRenderAsync` は、"*サーバー上でプリレンダリングするときには呼び出されません。* "</span><span class="sxs-lookup"><span data-stu-id="03f46-146">`OnAfterRender` and `OnAfterRenderAsync` *aren't called when prerendering on the server.*</span></span>
+<span data-ttu-id="eea29-152">`OnAfterRender` と `OnAfterRenderAsync` は、"*サーバー上でプリレンダリングするときには呼び出されません。* "</span><span class="sxs-lookup"><span data-stu-id="eea29-152">`OnAfterRender` and `OnAfterRenderAsync` *aren't called when prerendering on the server.*</span></span>
 
-### <a name="suppress-ui-refreshing"></a><span data-ttu-id="03f46-147">UI 更新の抑制</span><span class="sxs-lookup"><span data-stu-id="03f46-147">Suppress UI refreshing</span></span>
+<span data-ttu-id="eea29-153">イベント ハンドラーが設定されている場合は、破棄時にそれらをアンフックします。</span><span class="sxs-lookup"><span data-stu-id="eea29-153">If any event handlers are set up, unhook them on disposal.</span></span> <span data-ttu-id="eea29-154">詳細については、「[IDisposable を使用したコンポーネントの破棄](#component-disposal-with-idisposable)」セクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="eea29-154">For more information, see the [Component disposal with IDisposable](#component-disposal-with-idisposable) section.</span></span>
 
-<span data-ttu-id="03f46-148"><xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender*> をオーバーライドして、UI の更新を抑制します。</span><span class="sxs-lookup"><span data-stu-id="03f46-148">Override <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender*> to suppress UI refreshing.</span></span> <span data-ttu-id="03f46-149">実装によって `true` が返された場合は、UI が更新されます。</span><span class="sxs-lookup"><span data-stu-id="03f46-149">If the implementation returns `true`, the UI is refreshed:</span></span>
+### <a name="suppress-ui-refreshing"></a><span data-ttu-id="eea29-155">UI 更新の抑制</span><span class="sxs-lookup"><span data-stu-id="eea29-155">Suppress UI refreshing</span></span>
+
+<span data-ttu-id="eea29-156"><xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender*> をオーバーライドして、UI の更新を抑制します。</span><span class="sxs-lookup"><span data-stu-id="eea29-156">Override <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender*> to suppress UI refreshing.</span></span> <span data-ttu-id="eea29-157">実装によって `true` が返された場合は、UI が更新されます。</span><span class="sxs-lookup"><span data-stu-id="eea29-157">If the implementation returns `true`, the UI is refreshed:</span></span>
 
 ```csharp
 protected override bool ShouldRender()
@@ -150,27 +158,27 @@ protected override bool ShouldRender()
 }
 ```
 
-<span data-ttu-id="03f46-150">`ShouldRender` は、コンポーネントがレンダリングされるたびに呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="03f46-150">`ShouldRender` is called each time the component is rendered.</span></span>
+<span data-ttu-id="eea29-158">`ShouldRender` は、コンポーネントがレンダリングされるたびに呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="eea29-158">`ShouldRender` is called each time the component is rendered.</span></span>
 
-<span data-ttu-id="03f46-151">`ShouldRender` がオーバーライドされる場合でも、コンポーネントは常に最初にレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="03f46-151">Even if `ShouldRender` is overridden, the component is always initially rendered.</span></span>
+<span data-ttu-id="eea29-159">`ShouldRender` がオーバーライドされる場合でも、コンポーネントは常に最初にレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="eea29-159">Even if `ShouldRender` is overridden, the component is always initially rendered.</span></span>
 
-## <a name="state-changes"></a><span data-ttu-id="03f46-152">状態変更</span><span class="sxs-lookup"><span data-stu-id="03f46-152">State changes</span></span>
+## <a name="state-changes"></a><span data-ttu-id="eea29-160">状態変更</span><span class="sxs-lookup"><span data-stu-id="eea29-160">State changes</span></span>
 
-<span data-ttu-id="03f46-153"><xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged*> は、状態が変更されたことをコンポーネントに通知します。</span><span class="sxs-lookup"><span data-stu-id="03f46-153"><xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged*> notifies the component that its state has changed.</span></span> <span data-ttu-id="03f46-154">必要に応じて、`StateHasChanged` を呼び出すと、コンポーネントが再レンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="03f46-154">When applicable, calling `StateHasChanged` causes the component to be rerendered.</span></span>
+<span data-ttu-id="eea29-161"><xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged*> は、状態が変更されたことをコンポーネントに通知します。</span><span class="sxs-lookup"><span data-stu-id="eea29-161"><xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged*> notifies the component that its state has changed.</span></span> <span data-ttu-id="eea29-162">必要に応じて、`StateHasChanged` を呼び出すと、コンポーネントが再レンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="eea29-162">When applicable, calling `StateHasChanged` causes the component to be rerendered.</span></span>
 
-## <a name="handle-incomplete-async-actions-at-render"></a><span data-ttu-id="03f46-155">レンダリング時の不完全な非同期アクションを処理する</span><span class="sxs-lookup"><span data-stu-id="03f46-155">Handle incomplete async actions at render</span></span>
+## <a name="handle-incomplete-async-actions-at-render"></a><span data-ttu-id="eea29-163">レンダリング時の不完全な非同期アクションを処理する</span><span class="sxs-lookup"><span data-stu-id="eea29-163">Handle incomplete async actions at render</span></span>
 
-<span data-ttu-id="03f46-156">ライフサイクル イベントで実行される非同期アクションは、コンポーネントがレンダリングされる前に完了していない可能性があります。</span><span class="sxs-lookup"><span data-stu-id="03f46-156">Asynchronous actions performed in lifecycle events might not have completed before the component is rendered.</span></span> <span data-ttu-id="03f46-157">ライフサイクル メソッドの実行中に、オブジェクトが `null` またはデータが不完全に設定されている可能性があります。</span><span class="sxs-lookup"><span data-stu-id="03f46-157">Objects might be `null` or incompletely populated with data while the lifecycle method is executing.</span></span> <span data-ttu-id="03f46-158">オブジェクトが初期化されていることを確認するレンダリング ロジックを提供します。</span><span class="sxs-lookup"><span data-stu-id="03f46-158">Provide rendering logic to confirm that objects are initialized.</span></span> <span data-ttu-id="03f46-159">オブジェクトが `null` の間、プレースホルダー UI 要素 (読み込みメッセージなど) をレンダリングします。</span><span class="sxs-lookup"><span data-stu-id="03f46-159">Render placeholder UI elements (for example, a loading message) while objects are `null`.</span></span>
+<span data-ttu-id="eea29-164">ライフサイクル イベントで実行される非同期アクションは、コンポーネントがレンダリングされる前に完了していない可能性があります。</span><span class="sxs-lookup"><span data-stu-id="eea29-164">Asynchronous actions performed in lifecycle events might not have completed before the component is rendered.</span></span> <span data-ttu-id="eea29-165">ライフサイクル メソッドの実行中に、オブジェクトが `null` またはデータが不完全に設定されている可能性があります。</span><span class="sxs-lookup"><span data-stu-id="eea29-165">Objects might be `null` or incompletely populated with data while the lifecycle method is executing.</span></span> <span data-ttu-id="eea29-166">オブジェクトが初期化されていることを確認するレンダリング ロジックを提供します。</span><span class="sxs-lookup"><span data-stu-id="eea29-166">Provide rendering logic to confirm that objects are initialized.</span></span> <span data-ttu-id="eea29-167">オブジェクトが `null` の間、プレースホルダー UI 要素 (読み込みメッセージなど) をレンダリングします。</span><span class="sxs-lookup"><span data-stu-id="eea29-167">Render placeholder UI elements (for example, a loading message) while objects are `null`.</span></span>
 
-<span data-ttu-id="03f46-160">Blazor テンプレートの `FetchData` コンポーネントでは、`OnInitializedAsync` はオーバーライドされ、予測データを非同期に受信します (`forecasts`)。</span><span class="sxs-lookup"><span data-stu-id="03f46-160">In the `FetchData` component of the Blazor templates, `OnInitializedAsync` is overridden to asychronously receive forecast data (`forecasts`).</span></span> <span data-ttu-id="03f46-161">`forecasts` が `null` の場合、読み込みメッセージがユーザーに表示されます。</span><span class="sxs-lookup"><span data-stu-id="03f46-161">When `forecasts` is `null`, a loading message is displayed to the user.</span></span> <span data-ttu-id="03f46-162">`OnInitializedAsync` によって返された `Task` が完了すると、コンポーネントは更新された状態で再レンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="03f46-162">After the `Task` returned by `OnInitializedAsync` completes, the component is rerendered with the updated state.</span></span>
+<span data-ttu-id="eea29-168">Blazor テンプレートの `FetchData` コンポーネントでは、`OnInitializedAsync` はオーバーライドされ、予測データを非同期に受信します (`forecasts`)。</span><span class="sxs-lookup"><span data-stu-id="eea29-168">In the `FetchData` component of the Blazor templates, `OnInitializedAsync` is overridden to asychronously receive forecast data (`forecasts`).</span></span> <span data-ttu-id="eea29-169">`forecasts` が `null` の場合、読み込みメッセージがユーザーに表示されます。</span><span class="sxs-lookup"><span data-stu-id="eea29-169">When `forecasts` is `null`, a loading message is displayed to the user.</span></span> <span data-ttu-id="eea29-170">`OnInitializedAsync` によって返された `Task` が完了すると、コンポーネントは更新された状態で再レンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="eea29-170">After the `Task` returned by `OnInitializedAsync` completes, the component is rerendered with the updated state.</span></span>
 
-<span data-ttu-id="03f46-163">Blazor サーバー テンプレート内の *Pages/FetchData.razor*:</span><span class="sxs-lookup"><span data-stu-id="03f46-163">*Pages/FetchData.razor* in the Blazor Server template:</span></span>
+<span data-ttu-id="eea29-171">Blazor サーバー テンプレート内の *Pages/FetchData.razor*:</span><span class="sxs-lookup"><span data-stu-id="eea29-171">*Pages/FetchData.razor* in the Blazor Server template:</span></span>
 
 [!code-razor[](lifecycle/samples_snapshot/3.x/FetchData.razor?highlight=9,21,25)]
 
-## <a name="component-disposal-with-idisposable"></a><span data-ttu-id="03f46-164">IDisposable を使用したコンポーネントの破棄</span><span class="sxs-lookup"><span data-stu-id="03f46-164">Component disposal with IDisposable</span></span>
+## <a name="component-disposal-with-idisposable"></a><span data-ttu-id="eea29-172">IDisposable を使用したコンポーネントの破棄</span><span class="sxs-lookup"><span data-stu-id="eea29-172">Component disposal with IDisposable</span></span>
 
-<span data-ttu-id="03f46-165">コンポーネントが <xref:System.IDisposable> を実装している場合は、コンポーネントが UI から削除されると、[Dispose メソッド](/dotnet/standard/garbage-collection/implementing-dispose)が呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="03f46-165">If a component implements <xref:System.IDisposable>, the [Dispose method](/dotnet/standard/garbage-collection/implementing-dispose) is called when the component is removed from the UI.</span></span> <span data-ttu-id="03f46-166">次のコンポーネントでは、`@implements IDisposable` および `Dispose` メソッドが使用されます。</span><span class="sxs-lookup"><span data-stu-id="03f46-166">The following component uses `@implements IDisposable` and the `Dispose` method:</span></span>
+<span data-ttu-id="eea29-173">コンポーネントが <xref:System.IDisposable> を実装している場合は、コンポーネントが UI から削除されると、[Dispose メソッド](/dotnet/standard/garbage-collection/implementing-dispose)が呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="eea29-173">If a component implements <xref:System.IDisposable>, the [Dispose method](/dotnet/standard/garbage-collection/implementing-dispose) is called when the component is removed from the UI.</span></span> <span data-ttu-id="eea29-174">次のコンポーネントでは、`@implements IDisposable` および `Dispose` メソッドが使用されます。</span><span class="sxs-lookup"><span data-stu-id="eea29-174">The following component uses `@implements IDisposable` and the `Dispose` method:</span></span>
 
 ```razor
 @using System
@@ -187,28 +195,38 @@ protected override bool ShouldRender()
 ```
 
 > [!NOTE]
-> <span data-ttu-id="03f46-167">`Dispose` では、<xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged*> の呼び出しはサポートされていません。</span><span class="sxs-lookup"><span data-stu-id="03f46-167">Calling <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged*> in `Dispose` isn't supported.</span></span> <span data-ttu-id="03f46-168">`StateHasChanged` は、レンダラーの破棄の一部として呼び出されることがあるため、その時点での UI 更新の要求はサポートされていません。</span><span class="sxs-lookup"><span data-stu-id="03f46-168">`StateHasChanged` might be invoked as part of tearing down the renderer, so requesting UI updates at that point isn't supported.</span></span>
+> <span data-ttu-id="eea29-175">`Dispose` では、<xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged*> の呼び出しはサポートされていません。</span><span class="sxs-lookup"><span data-stu-id="eea29-175">Calling <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged*> in `Dispose` isn't supported.</span></span> <span data-ttu-id="eea29-176">`StateHasChanged` は、レンダラーの破棄の一部として呼び出されることがあるため、その時点での UI 更新の要求はサポートされていません。</span><span class="sxs-lookup"><span data-stu-id="eea29-176">`StateHasChanged` might be invoked as part of tearing down the renderer, so requesting UI updates at that point isn't supported.</span></span>
 
-## <a name="handle-errors"></a><span data-ttu-id="03f46-169">エラーの処理</span><span class="sxs-lookup"><span data-stu-id="03f46-169">Handle errors</span></span>
+<span data-ttu-id="eea29-177">.NET イベントからイベント ハンドラーのサブスクライブを解除します。</span><span class="sxs-lookup"><span data-stu-id="eea29-177">Unsubscribe event handlers from .NET events.</span></span> <span data-ttu-id="eea29-178">次の [Blazor フォーム](xref:blazor/forms-validation)の例は、`Dispose` メソッドでイベント ハンドラーをアンフックする方法を示しています。</span><span class="sxs-lookup"><span data-stu-id="eea29-178">The following [Blazor form](xref:blazor/forms-validation) examples show how to unhook an event handler in the `Dispose` method:</span></span>
 
-<span data-ttu-id="03f46-170">ライフサイクル メソッド実行中のエラー処理の詳細については、「<xref:blazor/handle-errors#lifecycle-methods>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="03f46-170">For information on handling errors during lifecycle method execution, see <xref:blazor/handle-errors#lifecycle-methods>.</span></span>
+* <span data-ttu-id="eea29-179">プライベート フィールドとラムダのアプローチ</span><span class="sxs-lookup"><span data-stu-id="eea29-179">Private field and lambda approach</span></span>
 
-## <a name="stateful-reconnection-after-prerendering"></a><span data-ttu-id="03f46-171">プリレンダリング後のステートフル再接続</span><span class="sxs-lookup"><span data-stu-id="03f46-171">Stateful reconnection after prerendering</span></span>
+  [!code-razor[](lifecycle/samples_snapshot/3.x/event-handler-disposal-1.razor?highlight=23,28)]
 
-<span data-ttu-id="03f46-172">Blazor サーバー アプリで `RenderMode` が `ServerPrerendered` の場合、コンポーネントは最初にページの一部として静的にレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="03f46-172">In a Blazor Server app when `RenderMode` is `ServerPrerendered`, the component is initially rendered statically as part of the page.</span></span> <span data-ttu-id="03f46-173">ブラウザーがサーバーへの接続を確立すると、コンポーネントが "*再度*" レンダリングされ、コンポーネントがやりとりできるようになります。</span><span class="sxs-lookup"><span data-stu-id="03f46-173">Once the browser establishes a connection back to the server, the component is rendered *again*, and the component is now interactive.</span></span> <span data-ttu-id="03f46-174">コンポーネントを初期化するための [OnInitialized{Async}](xref:blazor/lifecycle#component-initialization-methods) ライフサイクル メソッドが存在する場合、メソッドは "*2 回*" 実行されます。</span><span class="sxs-lookup"><span data-stu-id="03f46-174">If the [OnInitialized{Async}](xref:blazor/lifecycle#component-initialization-methods) lifecycle method for initializing the component is present, the method is executed *twice*:</span></span>
+* <span data-ttu-id="eea29-180">プライベート メソッドのアプローチ</span><span class="sxs-lookup"><span data-stu-id="eea29-180">Private method approach</span></span>
 
-* <span data-ttu-id="03f46-175">コンポーネントが静的にプリレンダリングされたとき。</span><span class="sxs-lookup"><span data-stu-id="03f46-175">When the component is prerendered statically.</span></span>
-* <span data-ttu-id="03f46-176">サーバー接続が確立された後。</span><span class="sxs-lookup"><span data-stu-id="03f46-176">After the server connection has been established.</span></span>
+  [!code-razor[](lifecycle/samples_snapshot/3.x/event-handler-disposal-2.razor?highlight=16,26)]
 
-<span data-ttu-id="03f46-177">これにより、コンポーネントが最終的にレンダリングされるときに、UI に表示されるデータが大幅に変わる可能性があります。</span><span class="sxs-lookup"><span data-stu-id="03f46-177">This can result in a noticeable change in the data displayed in the UI when the component is finally rendered.</span></span>
+## <a name="handle-errors"></a><span data-ttu-id="eea29-181">エラーの処理</span><span class="sxs-lookup"><span data-stu-id="eea29-181">Handle errors</span></span>
 
-<span data-ttu-id="03f46-178">Blazor サーバー アプリ内の二重レンダリングのシナリオを回避するには、次の手順を行います。</span><span class="sxs-lookup"><span data-stu-id="03f46-178">To avoid the double-rendering scenario in a Blazor Server app:</span></span>
+<span data-ttu-id="eea29-182">ライフサイクル メソッド実行中のエラー処理の詳細については、「<xref:blazor/handle-errors#lifecycle-methods>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="eea29-182">For information on handling errors during lifecycle method execution, see <xref:blazor/handle-errors#lifecycle-methods>.</span></span>
 
-* <span data-ttu-id="03f46-179">プリレンダリング中に状態をキャッシュし、アプリの再起動後に状態を取得するために使用できる識別子を渡します。</span><span class="sxs-lookup"><span data-stu-id="03f46-179">Pass in an identifier that can be used to cache the state during prerendering and to retrieve the state after the app restarts.</span></span>
-* <span data-ttu-id="03f46-180">識別子をプリレンダリング中に使用して、コンポーネントの状態を保存します。</span><span class="sxs-lookup"><span data-stu-id="03f46-180">Use the identifier during prerendering to save component state.</span></span>
-* <span data-ttu-id="03f46-181">識別子をプリレンダリング後に使用して、キャッシュされた状態を取得します。</span><span class="sxs-lookup"><span data-stu-id="03f46-181">Use the identifier after prerendering to retrieve the cached state.</span></span>
+## <a name="stateful-reconnection-after-prerendering"></a><span data-ttu-id="eea29-183">プリレンダリング後のステートフル再接続</span><span class="sxs-lookup"><span data-stu-id="eea29-183">Stateful reconnection after prerendering</span></span>
 
-<span data-ttu-id="03f46-182">次のコードは、二重レンダリングを回避するテンプレートベースの Blazor サーバー アプリ内で更新される `WeatherForecastService` を示しています。</span><span class="sxs-lookup"><span data-stu-id="03f46-182">The following code demonstrates an updated `WeatherForecastService` in a template-based Blazor Server app that avoids the double rendering:</span></span>
+<span data-ttu-id="eea29-184">Blazor サーバー アプリで `RenderMode` が `ServerPrerendered` の場合、コンポーネントは最初にページの一部として静的にレンダリングされます。</span><span class="sxs-lookup"><span data-stu-id="eea29-184">In a Blazor Server app when `RenderMode` is `ServerPrerendered`, the component is initially rendered statically as part of the page.</span></span> <span data-ttu-id="eea29-185">ブラウザーがサーバーへの接続を確立すると、コンポーネントが "*再度*" レンダリングされ、コンポーネントがやりとりできるようになります。</span><span class="sxs-lookup"><span data-stu-id="eea29-185">Once the browser establishes a connection back to the server, the component is rendered *again*, and the component is now interactive.</span></span> <span data-ttu-id="eea29-186">コンポーネントを初期化するための [OnInitialized{Async}](xref:blazor/lifecycle#component-initialization-methods) ライフサイクル メソッドが存在する場合、メソッドは "*2 回*" 実行されます。</span><span class="sxs-lookup"><span data-stu-id="eea29-186">If the [OnInitialized{Async}](xref:blazor/lifecycle#component-initialization-methods) lifecycle method for initializing the component is present, the method is executed *twice*:</span></span>
+
+* <span data-ttu-id="eea29-187">コンポーネントが静的にプリレンダリングされたとき。</span><span class="sxs-lookup"><span data-stu-id="eea29-187">When the component is prerendered statically.</span></span>
+* <span data-ttu-id="eea29-188">サーバー接続が確立された後。</span><span class="sxs-lookup"><span data-stu-id="eea29-188">After the server connection has been established.</span></span>
+
+<span data-ttu-id="eea29-189">これにより、コンポーネントが最終的にレンダリングされるときに、UI に表示されるデータが大幅に変わる可能性があります。</span><span class="sxs-lookup"><span data-stu-id="eea29-189">This can result in a noticeable change in the data displayed in the UI when the component is finally rendered.</span></span>
+
+<span data-ttu-id="eea29-190">Blazor サーバー アプリ内の二重レンダリングのシナリオを回避するには、次の手順を行います。</span><span class="sxs-lookup"><span data-stu-id="eea29-190">To avoid the double-rendering scenario in a Blazor Server app:</span></span>
+
+* <span data-ttu-id="eea29-191">プリレンダリング中に状態をキャッシュし、アプリの再起動後に状態を取得するために使用できる識別子を渡します。</span><span class="sxs-lookup"><span data-stu-id="eea29-191">Pass in an identifier that can be used to cache the state during prerendering and to retrieve the state after the app restarts.</span></span>
+* <span data-ttu-id="eea29-192">識別子をプリレンダリング中に使用して、コンポーネントの状態を保存します。</span><span class="sxs-lookup"><span data-stu-id="eea29-192">Use the identifier during prerendering to save component state.</span></span>
+* <span data-ttu-id="eea29-193">識別子をプリレンダリング後に使用して、キャッシュされた状態を取得します。</span><span class="sxs-lookup"><span data-stu-id="eea29-193">Use the identifier after prerendering to retrieve the cached state.</span></span>
+
+<span data-ttu-id="eea29-194">次のコードは、二重レンダリングを回避するテンプレートベースの Blazor サーバー アプリ内で更新される `WeatherForecastService` を示しています。</span><span class="sxs-lookup"><span data-stu-id="eea29-194">The following code demonstrates an updated `WeatherForecastService` in a template-based Blazor Server app that avoids the double rendering:</span></span>
 
 ```csharp
 public class WeatherForecastService
@@ -251,8 +269,8 @@ public class WeatherForecastService
 }
 ```
 
-<span data-ttu-id="03f46-183">`RenderMode` の詳細については、「<xref:blazor/hosting-model-configuration#render-mode>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="03f46-183">For more information on the `RenderMode`, see <xref:blazor/hosting-model-configuration#render-mode>.</span></span>
+<span data-ttu-id="eea29-195">`RenderMode` の詳細については、「<xref:blazor/hosting-model-configuration#render-mode>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="eea29-195">For more information on the `RenderMode`, see <xref:blazor/hosting-model-configuration#render-mode>.</span></span>
 
-## <a name="detect-when-the-app-is-prerendering"></a><span data-ttu-id="03f46-184">アプリがプリレンダリングされていることを検出する</span><span class="sxs-lookup"><span data-stu-id="03f46-184">Detect when the app is prerendering</span></span>
+## <a name="detect-when-the-app-is-prerendering"></a><span data-ttu-id="eea29-196">アプリがプリレンダリングされていることを検出する</span><span class="sxs-lookup"><span data-stu-id="eea29-196">Detect when the app is prerendering</span></span>
 
 [!INCLUDE[](~/includes/blazor-prerendering.md)]
