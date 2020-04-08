@@ -6,43 +6,43 @@ ms.author: riande
 ms.date: 12/20/2018
 uid: tutorials/razor-pages/da1
 ms.openlocfilehash: 0f6535462fe2d308825bf7289c10d2b0690cebd4
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78650426"
 ---
-# <a name="update-the-generated-pages-in-an-aspnet-core-app"></a><span data-ttu-id="83c6e-103">ASP.NET Core アプリで生成済みページを更新する</span><span class="sxs-lookup"><span data-stu-id="83c6e-103">Update the generated pages in an ASP.NET Core app</span></span>
+# <a name="update-the-generated-pages-in-an-aspnet-core-app"></a><span data-ttu-id="3c504-103">ASP.NET Core アプリで生成済みページを更新する</span><span class="sxs-lookup"><span data-stu-id="3c504-103">Update the generated pages in an ASP.NET Core app</span></span>
 
-<span data-ttu-id="83c6e-104">作成者: [Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="83c6e-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
+<span data-ttu-id="3c504-104">作成者: [Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="3c504-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="83c6e-105">スキャフォールディングされたムービー アプリは上々の滑り出しでしたが、表示が理想的ではありません。</span><span class="sxs-lookup"><span data-stu-id="83c6e-105">The scaffolded movie app has a good start, but the presentation isn't ideal.</span></span> <span data-ttu-id="83c6e-106">**ReleaseDate** は **Release Date** (2 つの単語) にする必要があります。</span><span class="sxs-lookup"><span data-stu-id="83c6e-106">**ReleaseDate** should be **Release Date** (two words).</span></span>
+<span data-ttu-id="3c504-105">スキャフォールディングされたムービー アプリは上々の滑り出しでしたが、表示が理想的ではありません。</span><span class="sxs-lookup"><span data-stu-id="3c504-105">The scaffolded movie app has a good start, but the presentation isn't ideal.</span></span> <span data-ttu-id="3c504-106">**ReleaseDate** は **Release Date** (2 つの単語) にする必要があります。</span><span class="sxs-lookup"><span data-stu-id="3c504-106">**ReleaseDate** should be **Release Date** (two words).</span></span>
 
 ![Chrome で開かれているムービー アプリケーション](sql/_static/m55.png)
 
-## <a name="update-the-generated-code"></a><span data-ttu-id="83c6e-108">生成されたコードの更新</span><span class="sxs-lookup"><span data-stu-id="83c6e-108">Update the generated code</span></span>
+## <a name="update-the-generated-code"></a><span data-ttu-id="3c504-108">生成されたコードの更新</span><span class="sxs-lookup"><span data-stu-id="3c504-108">Update the generated code</span></span>
 
-<span data-ttu-id="83c6e-109">*Models/Movie.cs* ファイルを開き、下のコードで強調表示されている行を追加します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-109">Open the *Models/Movie.cs* file and add the highlighted lines shown in the following code:</span></span>
+<span data-ttu-id="3c504-109">*Models/Movie.cs* ファイルを開き、下のコードで強調表示されている行を追加します。</span><span class="sxs-lookup"><span data-stu-id="3c504-109">Open the *Models/Movie.cs* file and add the highlighted lines shown in the following code:</span></span>
 
 [!code-csharp[Main](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Models/MovieDateFixed.cs?name=snippet_1&highlight=3,12,17)]
 
-<span data-ttu-id="83c6e-110">`[Column(TypeName = "decimal(18, 2)")]` データ注釈により、Entity Framework Core でデータベースの通貨と `Price` が正しくマッピングできるようになります。</span><span class="sxs-lookup"><span data-stu-id="83c6e-110">The `[Column(TypeName = "decimal(18, 2)")]` data annotation enables Entity Framework Core to correctly map `Price` to currency in the database.</span></span> <span data-ttu-id="83c6e-111">詳細については、「[Data Types](/ef/core/modeling/relational/data-types)」(データ型) を参照してください。</span><span class="sxs-lookup"><span data-stu-id="83c6e-111">For more information, see [Data Types](/ef/core/modeling/relational/data-types).</span></span>
+<span data-ttu-id="3c504-110">`[Column(TypeName = "decimal(18, 2)")]` データ注釈により、Entity Framework Core でデータベースの通貨と `Price` が正しくマッピングできるようになります。</span><span class="sxs-lookup"><span data-stu-id="3c504-110">The `[Column(TypeName = "decimal(18, 2)")]` data annotation enables Entity Framework Core to correctly map `Price` to currency in the database.</span></span> <span data-ttu-id="3c504-111">詳細については、「[Data Types](/ef/core/modeling/relational/data-types)」(データ型) を参照してください。</span><span class="sxs-lookup"><span data-stu-id="3c504-111">For more information, see [Data Types](/ef/core/modeling/relational/data-types).</span></span>
 
-<span data-ttu-id="83c6e-112">[DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) については、次のチュートリアルで説明します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-112">[DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) is covered in the next tutorial.</span></span> <span data-ttu-id="83c6e-113">[Display](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.metadata.displaymetadata) 属性は、フィールドの名前として表示する内容 (ここでは、"ReleaseDate" ではなく、"Release Date") を指定します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-113">The [Display](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.metadata.displaymetadata) attribute specifies what to display for the name of a field (in this case "Release Date" instead of "ReleaseDate").</span></span> <span data-ttu-id="83c6e-114">[DataType](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.internal.datatypeattributeadapter) 属性はデータ型 (Date) を指定するため、フィールドに格納される時刻情報は表示されません。</span><span class="sxs-lookup"><span data-stu-id="83c6e-114">The [DataType](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.internal.datatypeattributeadapter) attribute specifies the type of the data (Date), so the time information stored in the field isn't displayed.</span></span>
+<span data-ttu-id="3c504-112">[DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) については、次のチュートリアルで説明します。</span><span class="sxs-lookup"><span data-stu-id="3c504-112">[DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) is covered in the next tutorial.</span></span> <span data-ttu-id="3c504-113">[Display](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.metadata.displaymetadata) 属性は、フィールドの名前として表示する内容 (ここでは、"ReleaseDate" ではなく、"Release Date") を指定します。</span><span class="sxs-lookup"><span data-stu-id="3c504-113">The [Display](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.metadata.displaymetadata) attribute specifies what to display for the name of a field (in this case "Release Date" instead of "ReleaseDate").</span></span> <span data-ttu-id="3c504-114">[DataType](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.internal.datatypeattributeadapter) 属性はデータ型 (Date) を指定するため、フィールドに格納される時刻情報は表示されません。</span><span class="sxs-lookup"><span data-stu-id="3c504-114">The [DataType](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.internal.datatypeattributeadapter) attribute specifies the type of the data (Date), so the time information stored in the field isn't displayed.</span></span>
 
-<span data-ttu-id="83c6e-115">Pages/Movies を参照し、 **[編集]** リンクをポイントしてターゲット URL を確認します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-115">Browse to Pages/Movies and  hover over an **Edit** link to see the target URL.</span></span>
+<span data-ttu-id="3c504-115">Pages/Movies を参照し、 **[編集]** リンクをポイントしてターゲット URL を確認します。</span><span class="sxs-lookup"><span data-stu-id="3c504-115">Browse to Pages/Movies and  hover over an **Edit** link to see the target URL.</span></span>
 
 ![[編集] リンクがマウスでポイントされ、リンク URL として http://localhost:1234/Movies/Edit/5 が表示されている状態のブラウザー ウィンドウ](~/tutorials/razor-pages/da1/edit7.png)
 
-<span data-ttu-id="83c6e-117">**[編集]** 、 **[詳細]** 、および **[削除]** の各リンクは、*Pages/Movies/Index.cshtml* ファイルで[アンカー タグ ヘルパー](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)によって生成されます。</span><span class="sxs-lookup"><span data-stu-id="83c6e-117">The **Edit**, **Details**, and **Delete** links are generated by the [Anchor Tag Helper](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) in the *Pages/Movies/Index.cshtml* file.</span></span>
+<span data-ttu-id="3c504-117">**[編集]** 、 **[詳細]** 、および **[削除]** の各リンクは、[Pages/Movies/Index.cshtml](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) ファイルで*アンカー タグ ヘルパー*によって生成されます。</span><span class="sxs-lookup"><span data-stu-id="3c504-117">The **Edit**, **Details**, and **Delete** links are generated by the [Anchor Tag Helper](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) in the *Pages/Movies/Index.cshtml* file.</span></span>
 
 [!code-cshtml[](~/tutorials/razor-pages/razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Index.cshtml?highlight=16-18&range=32-)]
 
-<span data-ttu-id="83c6e-118">[タグ ヘルパー](xref:mvc/views/tag-helpers/intro)を使うと、Razor ファイルでの HTML 要素の作成とレンダリングに、サーバー側コードを組み込むことができます。</span><span class="sxs-lookup"><span data-stu-id="83c6e-118">[Tag Helpers](xref:mvc/views/tag-helpers/intro) enable server-side code to participate in creating and rendering HTML elements in Razor files.</span></span> <span data-ttu-id="83c6e-119">上のコードでは、`AnchorTagHelper` は動的に Razor ページからの HTML `href` 属性値 (ルートは相対)、`asp-page`、およびルート ID (`asp-route-id`) を生成します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-119">In the preceding code, the `AnchorTagHelper` dynamically generates the HTML `href` attribute value from the Razor Page (the route is relative), the `asp-page`,  and the route id (`asp-route-id`).</span></span> <span data-ttu-id="83c6e-120">詳細については、「[ページの URL の生成](xref:razor-pages/index#url-generation-for-pages)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="83c6e-120">See [URL generation for Pages](xref:razor-pages/index#url-generation-for-pages) for more information.</span></span>
+<span data-ttu-id="3c504-118">[タグ ヘルパー](xref:mvc/views/tag-helpers/intro)を使うと、Razor ファイルでの HTML 要素の作成とレンダリングに、サーバー側コードを組み込むことができます。</span><span class="sxs-lookup"><span data-stu-id="3c504-118">[Tag Helpers](xref:mvc/views/tag-helpers/intro) enable server-side code to participate in creating and rendering HTML elements in Razor files.</span></span> <span data-ttu-id="3c504-119">上のコードでは、`AnchorTagHelper` は動的に Razor ページからの HTML `href` 属性値 (ルートは相対)、`asp-page`、およびルート ID (`asp-route-id`) を生成します。</span><span class="sxs-lookup"><span data-stu-id="3c504-119">In the preceding code, the `AnchorTagHelper` dynamically generates the HTML `href` attribute value from the Razor Page (the route is relative), the `asp-page`,  and the route id (`asp-route-id`).</span></span> <span data-ttu-id="3c504-120">詳細については、「[ページの URL の生成](xref:razor-pages/index#url-generation-for-pages)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="3c504-120">See [URL generation for Pages](xref:razor-pages/index#url-generation-for-pages) for more information.</span></span>
 
-<span data-ttu-id="83c6e-121">お好みのブラウザーから **[ソースの表示]** を使用して、生成されたマークアップを確認します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-121">Use **View Source** from your favorite browser to examine the generated markup.</span></span> <span data-ttu-id="83c6e-122">生成された HTML の部分を以下に示します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-122">A portion of the generated HTML is shown below:</span></span>
+<span data-ttu-id="3c504-121">お好みのブラウザーから **[ソースの表示]** を使用して、生成されたマークアップを確認します。</span><span class="sxs-lookup"><span data-stu-id="3c504-121">Use **View Source** from your favorite browser to examine the generated markup.</span></span> <span data-ttu-id="3c504-122">生成された HTML の部分を以下に示します。</span><span class="sxs-lookup"><span data-stu-id="3c504-122">A portion of the generated HTML is shown below:</span></span>
 
 ```html
 <td>
@@ -52,11 +52,11 @@ ms.locfileid: "78650426"
 </td>
 ```
 
-<span data-ttu-id="83c6e-123">動的に生成されたリンクは、クエリ文字列を含むムービー ID を渡します (例: `https://localhost:5001/Movies/Details?id=1` の `?id=1`)。</span><span class="sxs-lookup"><span data-stu-id="83c6e-123">The dynamically-generated links pass the movie ID with a query string (for example, the `?id=1` in  `https://localhost:5001/Movies/Details?id=1`).</span></span>
+<span data-ttu-id="3c504-123">動的に生成されたリンクは、クエリ文字列を含むムービー ID を渡します (例: `?id=1` の `https://localhost:5001/Movies/Details?id=1`)。</span><span class="sxs-lookup"><span data-stu-id="3c504-123">The dynamically-generated links pass the movie ID with a query string (for example, the `?id=1` in  `https://localhost:5001/Movies/Details?id=1`).</span></span>
 
-### <a name="add-route-template"></a><span data-ttu-id="83c6e-124">ルート テンプレートの追加</span><span class="sxs-lookup"><span data-stu-id="83c6e-124">Add route template</span></span>
+### <a name="add-route-template"></a><span data-ttu-id="3c504-124">ルート テンプレートの追加</span><span class="sxs-lookup"><span data-stu-id="3c504-124">Add route template</span></span>
 
-<span data-ttu-id="83c6e-125">"{id:int}" ルート テンプレートを使用するには、[編集]、[詳細]、および [削除] Razor ページを更新します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-125">Update the Edit, Details, and Delete Razor Pages to use the "{id:int}" route template.</span></span> <span data-ttu-id="83c6e-126">これらの各ページのページ ディレクティブを `@page` から `@page "{id:int}"` に変更します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-126">Change the page directive for each of these pages from `@page` to `@page "{id:int}"`.</span></span> <span data-ttu-id="83c6e-127">アプリを実行してから、ソースを表示します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-127">Run the app and then view source.</span></span> <span data-ttu-id="83c6e-128">生成される HTML では、次のように URL のパス部分に ID を追加します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-128">The generated HTML adds the ID to the path portion of the URL:</span></span>
+<span data-ttu-id="3c504-125">"{id:int}" ルート テンプレートを使用するには、[編集]、[詳細]、および [削除] Razor ページを更新します。</span><span class="sxs-lookup"><span data-stu-id="3c504-125">Update the Edit, Details, and Delete Razor Pages to use the "{id:int}" route template.</span></span> <span data-ttu-id="3c504-126">これらの各ページのページ ディレクティブを `@page` から `@page "{id:int}"` に変更します。</span><span class="sxs-lookup"><span data-stu-id="3c504-126">Change the page directive for each of these pages from `@page` to `@page "{id:int}"`.</span></span> <span data-ttu-id="3c504-127">アプリを実行してから、ソースを表示します。</span><span class="sxs-lookup"><span data-stu-id="3c504-127">Run the app and then view source.</span></span> <span data-ttu-id="3c504-128">生成される HTML では、次のように URL のパス部分に ID を追加します。</span><span class="sxs-lookup"><span data-stu-id="3c504-128">The generated HTML adds the ID to the path portion of the URL:</span></span>
 
 ```html
 <td>
@@ -66,99 +66,99 @@ ms.locfileid: "78650426"
 </td>
 ```
 
-<span data-ttu-id="83c6e-129">整数を**含まない**、"{id:int}" ルート テンプレートを使用するページへの要求では、HTTP 404 (見つかりません) エラーが返されます。</span><span class="sxs-lookup"><span data-stu-id="83c6e-129">A request to the page with the "{id:int}" route template that does **not** include the integer will return an HTTP 404 (not found) error.</span></span> <span data-ttu-id="83c6e-130">たとえば、`http://localhost:5000/Movies/Details` の場合は 404 エラーが返されます。</span><span class="sxs-lookup"><span data-stu-id="83c6e-130">For example, `http://localhost:5000/Movies/Details` will return a 404 error.</span></span> <span data-ttu-id="83c6e-131">ID を省略するには、次のように `?` をルート制約に追加します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-131">To make the ID optional, append `?` to the route constraint:</span></span>
+<span data-ttu-id="3c504-129">整数を**含まない**、"{id:int}" ルート テンプレートを使用するページへの要求では、HTTP 404 (見つかりません) エラーが返されます。</span><span class="sxs-lookup"><span data-stu-id="3c504-129">A request to the page with the "{id:int}" route template that does **not** include the integer will return an HTTP 404 (not found) error.</span></span> <span data-ttu-id="3c504-130">たとえば、`http://localhost:5000/Movies/Details` の場合は 404 エラーが返されます。</span><span class="sxs-lookup"><span data-stu-id="3c504-130">For example, `http://localhost:5000/Movies/Details` will return a 404 error.</span></span> <span data-ttu-id="3c504-131">ID を省略するには、次のように `?` をルート制約に追加します。</span><span class="sxs-lookup"><span data-stu-id="3c504-131">To make the ID optional, append `?` to the route constraint:</span></span>
 
  ```cshtml
 @page "{id:int?}"
 ```
 
-<span data-ttu-id="83c6e-132">`@page "{id:int?}"` の動作をテストするには</span><span class="sxs-lookup"><span data-stu-id="83c6e-132">To test the behavior of `@page "{id:int?}"`:</span></span>
+<span data-ttu-id="3c504-132">`@page "{id:int?}"` の動作をテストするには</span><span class="sxs-lookup"><span data-stu-id="3c504-132">To test the behavior of `@page "{id:int?}"`:</span></span>
 
-* <span data-ttu-id="83c6e-133">*Pages/Movies/Details.cshtml* の page ディレクティブを `@page "{id:int?}"` に設定します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-133">Set the page directive in *Pages/Movies/Details.cshtml* to `@page "{id:int?}"`.</span></span>
-* <span data-ttu-id="83c6e-134">`public async Task<IActionResult> OnGetAsync(int? id)` (*Pages/Movies/Details.cshtml.cs* で) にブレークポイントを設定します</span><span class="sxs-lookup"><span data-stu-id="83c6e-134">Set a break point in `public async Task<IActionResult> OnGetAsync(int? id)` (in *Pages/Movies/Details.cshtml.cs*).</span></span>
-* <span data-ttu-id="83c6e-135">`https://localhost:5001/Movies/Details/` に移動します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-135">Navigate to `https://localhost:5001/Movies/Details/`.</span></span>
+* <span data-ttu-id="3c504-133">*Pages/Movies/Details.cshtml* の page ディレクティブを `@page "{id:int?}"` に設定します。</span><span class="sxs-lookup"><span data-stu-id="3c504-133">Set the page directive in *Pages/Movies/Details.cshtml* to `@page "{id:int?}"`.</span></span>
+* <span data-ttu-id="3c504-134">`public async Task<IActionResult> OnGetAsync(int? id)` (*Pages/Movies/Details.cshtml.cs* で) にブレークポイントを設定します</span><span class="sxs-lookup"><span data-stu-id="3c504-134">Set a break point in `public async Task<IActionResult> OnGetAsync(int? id)` (in *Pages/Movies/Details.cshtml.cs*).</span></span>
+* <span data-ttu-id="3c504-135">`https://localhost:5001/Movies/Details/` に移動します。</span><span class="sxs-lookup"><span data-stu-id="3c504-135">Navigate to `https://localhost:5001/Movies/Details/`.</span></span>
 
-<span data-ttu-id="83c6e-136">`@page "{id:int}"` ディレクティブでは、ブレークポイントがヒットすることはありません。</span><span class="sxs-lookup"><span data-stu-id="83c6e-136">With the `@page "{id:int}"` directive, the break point is never hit.</span></span> <span data-ttu-id="83c6e-137">ルーティング エンジンは、HTTP 404 を返します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-137">The routing engine returns HTTP 404.</span></span> <span data-ttu-id="83c6e-138">`@page "{id:int?}"` を使用すると、`OnGetAsync` メソッドは `NotFound` (HTTP 404) を返します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-138">Using `@page "{id:int?}"`, the `OnGetAsync` method returns `NotFound` (HTTP 404).</span></span>
+<span data-ttu-id="3c504-136">`@page "{id:int}"` ディレクティブでは、ブレークポイントがヒットすることはありません。</span><span class="sxs-lookup"><span data-stu-id="3c504-136">With the `@page "{id:int}"` directive, the break point is never hit.</span></span> <span data-ttu-id="3c504-137">ルーティング エンジンは、HTTP 404 を返します。</span><span class="sxs-lookup"><span data-stu-id="3c504-137">The routing engine returns HTTP 404.</span></span> <span data-ttu-id="3c504-138">`@page "{id:int?}"` を使用すると、`OnGetAsync` メソッドは `NotFound` (HTTP 404) を返します。</span><span class="sxs-lookup"><span data-stu-id="3c504-138">Using `@page "{id:int?}"`, the `OnGetAsync` method returns `NotFound` (HTTP 404).</span></span>
 
-### <a name="review-concurrency-exception-handling"></a><span data-ttu-id="83c6e-139">コンカレンシーの例外処理の確認</span><span class="sxs-lookup"><span data-stu-id="83c6e-139">Review concurrency exception handling</span></span>
+### <a name="review-concurrency-exception-handling"></a><span data-ttu-id="3c504-139">コンカレンシーの例外処理の確認</span><span class="sxs-lookup"><span data-stu-id="3c504-139">Review concurrency exception handling</span></span>
 
-<span data-ttu-id="83c6e-140">*Pages/Movies/Edit.cshtml.cs* ファイルで `OnPostAsync` メソッドを確認します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-140">Review the `OnPostAsync` method in the *Pages/Movies/Edit.cshtml.cs* file:</span></span>
+<span data-ttu-id="3c504-140">`OnPostAsync`Pages/Movies/Edit.cshtml.cs*ファイルで* メソッドを確認します。</span><span class="sxs-lookup"><span data-stu-id="3c504-140">Review the `OnPostAsync` method in the *Pages/Movies/Edit.cshtml.cs* file:</span></span>
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Edit.cshtml.cs?name=snippet)]
 
-<span data-ttu-id="83c6e-141">上のコードでは、一方のクライアントがムービーを削除し、もう一方のクライアントがムービーに変更を投稿した場合に、コンカレンシーの例外を検出します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-141">The previous code detects concurrency exceptions when the one client deletes the movie and the other client posts changes to the movie.</span></span>
+<span data-ttu-id="3c504-141">上のコードでは、一方のクライアントがムービーを削除し、もう一方のクライアントがムービーに変更を投稿した場合に、コンカレンシーの例外を検出します。</span><span class="sxs-lookup"><span data-stu-id="3c504-141">The previous code detects concurrency exceptions when the one client deletes the movie and the other client posts changes to the movie.</span></span>
 
-<span data-ttu-id="83c6e-142">`catch` ブロックをテストするには、次の操作を行います。</span><span class="sxs-lookup"><span data-stu-id="83c6e-142">To test the `catch` block:</span></span>
+<span data-ttu-id="3c504-142">`catch` ブロックをテストするには、次の操作を行います。</span><span class="sxs-lookup"><span data-stu-id="3c504-142">To test the `catch` block:</span></span>
 
-* <span data-ttu-id="83c6e-143">`catch (DbUpdateConcurrencyException)` へのブレークポイントの設定</span><span class="sxs-lookup"><span data-stu-id="83c6e-143">Set a breakpoint on `catch (DbUpdateConcurrencyException)`</span></span>
-* <span data-ttu-id="83c6e-144">ムービーの **[編集]** を選択し、変更を行います。ただし、 **[保存]** はしないでください。</span><span class="sxs-lookup"><span data-stu-id="83c6e-144">Select **Edit** for a movie, make changes, but don't enter **Save**.</span></span>
-* <span data-ttu-id="83c6e-145">別のブラウザー ウィンドウで、同じムービーの **[削除]** リンクを選択してから、ムービーを削除します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-145">In another browser window, select the **Delete** link for the same movie, and then delete the movie.</span></span>
-* <span data-ttu-id="83c6e-146">前のブラウザー ウィンドウで、ムービーに変更を投稿します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-146">In the previous browser window, post changes to the movie.</span></span>
+* <span data-ttu-id="3c504-143">`catch (DbUpdateConcurrencyException)` へのブレークポイントの設定</span><span class="sxs-lookup"><span data-stu-id="3c504-143">Set a breakpoint on `catch (DbUpdateConcurrencyException)`</span></span>
+* <span data-ttu-id="3c504-144">ムービーの **[編集]** を選択し、変更を行います。ただし、 **[保存]** はしないでください。</span><span class="sxs-lookup"><span data-stu-id="3c504-144">Select **Edit** for a movie, make changes, but don't enter **Save**.</span></span>
+* <span data-ttu-id="3c504-145">別のブラウザー ウィンドウで、同じムービーの **[削除]** リンクを選択してから、ムービーを削除します。</span><span class="sxs-lookup"><span data-stu-id="3c504-145">In another browser window, select the **Delete** link for the same movie, and then delete the movie.</span></span>
+* <span data-ttu-id="3c504-146">前のブラウザー ウィンドウで、ムービーに変更を投稿します。</span><span class="sxs-lookup"><span data-stu-id="3c504-146">In the previous browser window, post changes to the movie.</span></span>
 
-<span data-ttu-id="83c6e-147">実稼働環境のコードが、コンカレンシーの競合を検出する可能性があります。</span><span class="sxs-lookup"><span data-stu-id="83c6e-147">Production code may want to detect concurrency conflicts.</span></span> <span data-ttu-id="83c6e-148">詳細については、[コンカレンシーの競合の処理](xref:data/ef-rp/concurrency)に関するページを参照してください。</span><span class="sxs-lookup"><span data-stu-id="83c6e-148">See [Handle concurrency conflicts](xref:data/ef-rp/concurrency) for more information.</span></span>
+<span data-ttu-id="3c504-147">実稼働環境のコードが、コンカレンシーの競合を検出する可能性があります。</span><span class="sxs-lookup"><span data-stu-id="3c504-147">Production code may want to detect concurrency conflicts.</span></span> <span data-ttu-id="3c504-148">詳細については、[コンカレンシーの競合の処理](xref:data/ef-rp/concurrency)に関するページを参照してください。</span><span class="sxs-lookup"><span data-stu-id="3c504-148">See [Handle concurrency conflicts](xref:data/ef-rp/concurrency) for more information.</span></span>
 
-### <a name="posting-and-binding-review"></a><span data-ttu-id="83c6e-149">レビューの投稿とバインディング</span><span class="sxs-lookup"><span data-stu-id="83c6e-149">Posting and binding review</span></span>
+### <a name="posting-and-binding-review"></a><span data-ttu-id="3c504-149">レビューの投稿とバインディング</span><span class="sxs-lookup"><span data-stu-id="3c504-149">Posting and binding review</span></span>
 
-<span data-ttu-id="83c6e-150">*Pages/Movies/Edit.cshtml.cs* ファイルを確認します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-150">Examine the *Pages/Movies/Edit.cshtml.cs* file:</span></span>
+<span data-ttu-id="3c504-150">*Pages/Movies/Edit.cshtml.cs* ファイルを確認します。</span><span class="sxs-lookup"><span data-stu-id="3c504-150">Examine the *Pages/Movies/Edit.cshtml.cs* file:</span></span>
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/SnapShots/Edit.cshtml.cs?name=snippet2)]
 
-<span data-ttu-id="83c6e-151">HTTP GET 要求が Movies/Edit ページに対して行われた場合 (例: `http://localhost:5000/Movies/Edit/2`):</span><span class="sxs-lookup"><span data-stu-id="83c6e-151">When an HTTP GET request is made to the Movies/Edit page (for example, `http://localhost:5000/Movies/Edit/2`):</span></span>
+<span data-ttu-id="3c504-151">HTTP GET 要求が Movies/Edit ページに対して行われた場合 (例: `http://localhost:5000/Movies/Edit/2`):</span><span class="sxs-lookup"><span data-stu-id="3c504-151">When an HTTP GET request is made to the Movies/Edit page (for example, `http://localhost:5000/Movies/Edit/2`):</span></span>
 
-* <span data-ttu-id="83c6e-152">`OnGetAsync` メソッドはデータベースからムービーをフェッチし、`Page` メソッドを返します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-152">The `OnGetAsync` method fetches the movie from the database and returns the `Page` method.</span></span>
-* <span data-ttu-id="83c6e-153">`Page` メソッドは *Pages/Movies/Edit.cshtml* Razor ページをレンダリングします。</span><span class="sxs-lookup"><span data-stu-id="83c6e-153">The `Page` method renders the *Pages/Movies/Edit.cshtml* Razor Page.</span></span> <span data-ttu-id="83c6e-154">*Pages/Movies/Edit.cshtml* ファイルにはモデルのディレクティブ (`@model RazorPagesMovie.Pages.Movies.EditModel`) が含まれています。これにより、ページでムービー モデルが使用可能になります。</span><span class="sxs-lookup"><span data-stu-id="83c6e-154">The *Pages/Movies/Edit.cshtml* file contains the model directive (`@model RazorPagesMovie.Pages.Movies.EditModel`), which makes the movie model available on the page.</span></span>
-* <span data-ttu-id="83c6e-155">[編集] フォームには、ムービーからの値が表示されます。</span><span class="sxs-lookup"><span data-stu-id="83c6e-155">The Edit form is displayed with the values from the movie.</span></span>
+* <span data-ttu-id="3c504-152">`OnGetAsync` メソッドはデータベースからムービーをフェッチし、`Page` メソッドを返します。</span><span class="sxs-lookup"><span data-stu-id="3c504-152">The `OnGetAsync` method fetches the movie from the database and returns the `Page` method.</span></span>
+* <span data-ttu-id="3c504-153">`Page` メソッドは *Pages/Movies/Edit.cshtml* Razor ページをレンダリングします。</span><span class="sxs-lookup"><span data-stu-id="3c504-153">The `Page` method renders the *Pages/Movies/Edit.cshtml* Razor Page.</span></span> <span data-ttu-id="3c504-154">*Pages/Movies/Edit.cshtml* ファイルにはモデルのディレクティブ (`@model RazorPagesMovie.Pages.Movies.EditModel`) が含まれています。これにより、ページでムービー モデルが使用可能になります。</span><span class="sxs-lookup"><span data-stu-id="3c504-154">The *Pages/Movies/Edit.cshtml* file contains the model directive (`@model RazorPagesMovie.Pages.Movies.EditModel`), which makes the movie model available on the page.</span></span>
+* <span data-ttu-id="3c504-155">[編集] フォームには、ムービーからの値が表示されます。</span><span class="sxs-lookup"><span data-stu-id="3c504-155">The Edit form is displayed with the values from the movie.</span></span>
 
-<span data-ttu-id="83c6e-156">Movies/Edit ページが投稿された場合:</span><span class="sxs-lookup"><span data-stu-id="83c6e-156">When the Movies/Edit page is posted:</span></span>
+<span data-ttu-id="3c504-156">Movies/Edit ページが投稿された場合:</span><span class="sxs-lookup"><span data-stu-id="3c504-156">When the Movies/Edit page is posted:</span></span>
 
-* <span data-ttu-id="83c6e-157">ページのフォーム値は `Movie` プロパティにバインドされます。</span><span class="sxs-lookup"><span data-stu-id="83c6e-157">The form values on the page are bound to the `Movie` property.</span></span> <span data-ttu-id="83c6e-158">`[BindProperty]` 属性により、[モデル バインド](xref:mvc/models/model-binding)が有効になります。</span><span class="sxs-lookup"><span data-stu-id="83c6e-158">The `[BindProperty]` attribute enables [Model binding](xref:mvc/models/model-binding).</span></span>
+* <span data-ttu-id="3c504-157">ページのフォーム値は `Movie` プロパティにバインドされます。</span><span class="sxs-lookup"><span data-stu-id="3c504-157">The form values on the page are bound to the `Movie` property.</span></span> <span data-ttu-id="3c504-158">`[BindProperty]` 属性により、[モデル バインド](xref:mvc/models/model-binding)が有効になります。</span><span class="sxs-lookup"><span data-stu-id="3c504-158">The `[BindProperty]` attribute enables [Model binding](xref:mvc/models/model-binding).</span></span>
 
   ```csharp
   [BindProperty]
   public Movie Movie { get; set; }
   ```
 
-* <span data-ttu-id="83c6e-159">モデルの状態にエラーがある (たとえば、`ReleaseDate` を日付に変換できない) 場合、送信された値を含むフォームが再表示されます。</span><span class="sxs-lookup"><span data-stu-id="83c6e-159">If there are errors in the model state (for example, `ReleaseDate` cannot be converted to a date), the form is redisplayed with the submitted values.</span></span>
-* <span data-ttu-id="83c6e-160">モデル エラーがない場合、ムービーは保存されます。</span><span class="sxs-lookup"><span data-stu-id="83c6e-160">If there are no model errors, the movie is saved.</span></span>
+* <span data-ttu-id="3c504-159">モデルの状態にエラーがある (たとえば、`ReleaseDate` を日付に変換できない) 場合、送信された値を含むフォームが再表示されます。</span><span class="sxs-lookup"><span data-stu-id="3c504-159">If there are errors in the model state (for example, `ReleaseDate` cannot be converted to a date), the form is redisplayed with the submitted values.</span></span>
+* <span data-ttu-id="3c504-160">モデル エラーがない場合、ムービーは保存されます。</span><span class="sxs-lookup"><span data-stu-id="3c504-160">If there are no model errors, the movie is saved.</span></span>
 
-<span data-ttu-id="83c6e-161">[インデックス]、[作成]、および [削除] Razor ページの HTTP GET メソッドも同様のパターンに従います。</span><span class="sxs-lookup"><span data-stu-id="83c6e-161">The HTTP GET methods in the Index, Create, and Delete Razor pages follow a similar pattern.</span></span> <span data-ttu-id="83c6e-162">[作成] Razor ページの HTTP POST `OnPostAsync` メソッドも [編集] Razor ページの `OnPostAsync` メソッドと同様のパターンに従います。</span><span class="sxs-lookup"><span data-stu-id="83c6e-162">The HTTP POST `OnPostAsync` method in the Create Razor Page follows a similar pattern to the `OnPostAsync` method in the Edit Razor Page.</span></span>
+<span data-ttu-id="3c504-161">[インデックス]、[作成]、および [削除] Razor ページの HTTP GET メソッドも同様のパターンに従います。</span><span class="sxs-lookup"><span data-stu-id="3c504-161">The HTTP GET methods in the Index, Create, and Delete Razor pages follow a similar pattern.</span></span> <span data-ttu-id="3c504-162">[作成] Razor ページの HTTP POST `OnPostAsync` メソッドも [編集] Razor ページの `OnPostAsync` メソッドと同様のパターンに従います。</span><span class="sxs-lookup"><span data-stu-id="3c504-162">The HTTP POST `OnPostAsync` method in the Create Razor Page follows a similar pattern to the `OnPostAsync` method in the Edit Razor Page.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="83c6e-163">その他の技術情報</span><span class="sxs-lookup"><span data-stu-id="83c6e-163">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="3c504-163">その他の技術情報</span><span class="sxs-lookup"><span data-stu-id="3c504-163">Additional resources</span></span>
 
 > [!div class="step-by-step"]
-> <span data-ttu-id="83c6e-164">[前へ:データベースの操作](xref:tutorials/razor-pages/sql)
-> [次: 検索の追加](xref:tutorials/razor-pages/search)</span><span class="sxs-lookup"><span data-stu-id="83c6e-164">[Previous: Working with a database](xref:tutorials/razor-pages/sql)
+> <span data-ttu-id="3c504-164">[前 - データベースの操作](xref:tutorials/razor-pages/sql)
+> [次 - 検索の追加](xref:tutorials/razor-pages/search)</span><span class="sxs-lookup"><span data-stu-id="3c504-164">[Previous: Working with a database](xref:tutorials/razor-pages/sql)
 [Next: Add search](xref:tutorials/razor-pages/search)</span></span>
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-<span data-ttu-id="83c6e-165">スキャフォールディングされたムービー アプリは上々の滑り出しでしたが、表示が理想的ではありません。</span><span class="sxs-lookup"><span data-stu-id="83c6e-165">The scaffolded movie app has a good start, but the presentation isn't ideal.</span></span> <span data-ttu-id="83c6e-166">**ReleaseDate** は **Release Date** (2 つの単語) にする必要があります。</span><span class="sxs-lookup"><span data-stu-id="83c6e-166">**ReleaseDate** should be **Release Date** (two words).</span></span>
+<span data-ttu-id="3c504-165">スキャフォールディングされたムービー アプリは上々の滑り出しでしたが、表示が理想的ではありません。</span><span class="sxs-lookup"><span data-stu-id="3c504-165">The scaffolded movie app has a good start, but the presentation isn't ideal.</span></span> <span data-ttu-id="3c504-166">**ReleaseDate** は **Release Date** (2 つの単語) にする必要があります。</span><span class="sxs-lookup"><span data-stu-id="3c504-166">**ReleaseDate** should be **Release Date** (two words).</span></span>
 
 ![Chrome で開かれているムービー アプリケーション](sql/_static/m55.png)
 
-## <a name="update-the-generated-code"></a><span data-ttu-id="83c6e-168">生成されたコードの更新</span><span class="sxs-lookup"><span data-stu-id="83c6e-168">Update the generated code</span></span>
+## <a name="update-the-generated-code"></a><span data-ttu-id="3c504-168">生成されたコードの更新</span><span class="sxs-lookup"><span data-stu-id="3c504-168">Update the generated code</span></span>
 
-<span data-ttu-id="83c6e-169">*Models/Movie.cs* ファイルを開き、下のコードで強調表示されている行を追加します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-169">Open the *Models/Movie.cs* file and add the highlighted lines shown in the following code:</span></span>
+<span data-ttu-id="3c504-169">*Models/Movie.cs* ファイルを開き、下のコードで強調表示されている行を追加します。</span><span class="sxs-lookup"><span data-stu-id="3c504-169">Open the *Models/Movie.cs* file and add the highlighted lines shown in the following code:</span></span>
 
 [!code-csharp[Main](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Models/MovieDateFixed.cs?name=snippet_1&highlight=3,12,17)]
 
-<span data-ttu-id="83c6e-170">`[Column(TypeName = "decimal(18, 2)")]` データ注釈により、Entity Framework Core でデータベースの通貨と `Price` が正しくマッピングできるようになります。</span><span class="sxs-lookup"><span data-stu-id="83c6e-170">The `[Column(TypeName = "decimal(18, 2)")]` data annotation enables Entity Framework Core to correctly map `Price` to currency in the database.</span></span> <span data-ttu-id="83c6e-171">詳細については、「[Data Types](/ef/core/modeling/relational/data-types)」(データ型) を参照してください。</span><span class="sxs-lookup"><span data-stu-id="83c6e-171">For more information, see [Data Types](/ef/core/modeling/relational/data-types).</span></span>
+<span data-ttu-id="3c504-170">`[Column(TypeName = "decimal(18, 2)")]` データ注釈により、Entity Framework Core でデータベースの通貨と `Price` が正しくマッピングできるようになります。</span><span class="sxs-lookup"><span data-stu-id="3c504-170">The `[Column(TypeName = "decimal(18, 2)")]` data annotation enables Entity Framework Core to correctly map `Price` to currency in the database.</span></span> <span data-ttu-id="3c504-171">詳細については、「[Data Types](/ef/core/modeling/relational/data-types)」(データ型) を参照してください。</span><span class="sxs-lookup"><span data-stu-id="3c504-171">For more information, see [Data Types](/ef/core/modeling/relational/data-types).</span></span>
 
-<span data-ttu-id="83c6e-172">[DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) については、次のチュートリアルで説明します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-172">[DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) is covered in the next tutorial.</span></span> <span data-ttu-id="83c6e-173">[Display](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.metadata.displaymetadata) 属性は、フィールドの名前として表示する内容 (ここでは、"ReleaseDate" ではなく、"Release Date") を指定します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-173">The [Display](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.metadata.displaymetadata) attribute specifies what to display for the name of a field (in this case "Release Date" instead of "ReleaseDate").</span></span> <span data-ttu-id="83c6e-174">[DataType](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.internal.datatypeattributeadapter) 属性はデータ型 (Date) を指定するため、フィールドに格納される時刻情報は表示されません。</span><span class="sxs-lookup"><span data-stu-id="83c6e-174">The [DataType](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.internal.datatypeattributeadapter) attribute specifies the type of the data (Date), so the time information stored in the field isn't displayed.</span></span>
+<span data-ttu-id="3c504-172">[DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) については、次のチュートリアルで説明します。</span><span class="sxs-lookup"><span data-stu-id="3c504-172">[DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) is covered in the next tutorial.</span></span> <span data-ttu-id="3c504-173">[Display](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.metadata.displaymetadata) 属性は、フィールドの名前として表示する内容 (ここでは、"ReleaseDate" ではなく、"Release Date") を指定します。</span><span class="sxs-lookup"><span data-stu-id="3c504-173">The [Display](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.metadata.displaymetadata) attribute specifies what to display for the name of a field (in this case "Release Date" instead of "ReleaseDate").</span></span> <span data-ttu-id="3c504-174">[DataType](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.internal.datatypeattributeadapter) 属性はデータ型 (Date) を指定するため、フィールドに格納される時刻情報は表示されません。</span><span class="sxs-lookup"><span data-stu-id="3c504-174">The [DataType](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.internal.datatypeattributeadapter) attribute specifies the type of the data (Date), so the time information stored in the field isn't displayed.</span></span>
 
-<span data-ttu-id="83c6e-175">Pages/Movies を参照し、 **[編集]** リンクをポイントしてターゲット URL を確認します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-175">Browse to Pages/Movies and  hover over an **Edit** link to see the target URL.</span></span>
+<span data-ttu-id="3c504-175">Pages/Movies を参照し、 **[編集]** リンクをポイントしてターゲット URL を確認します。</span><span class="sxs-lookup"><span data-stu-id="3c504-175">Browse to Pages/Movies and  hover over an **Edit** link to see the target URL.</span></span>
 
 ![[編集] リンクがマウスでポイントされ、リンク URL として http://localhost:1234/Movies/Edit/5 が表示されている状態のブラウザー ウィンドウ](~/tutorials/razor-pages/da1/edit7.png)
 
-<span data-ttu-id="83c6e-177">**[編集]** 、 **[詳細]** 、および **[削除]** の各リンクは、*Pages/Movies/Index.cshtml* ファイルで[アンカー タグ ヘルパー](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)によって生成されます。</span><span class="sxs-lookup"><span data-stu-id="83c6e-177">The **Edit**, **Details**, and **Delete** links are generated by the [Anchor Tag Helper](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) in the *Pages/Movies/Index.cshtml* file.</span></span>
+<span data-ttu-id="3c504-177">**[編集]** 、 **[詳細]** 、および **[削除]** の各リンクは、[Pages/Movies/Index.cshtml](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) ファイルで*アンカー タグ ヘルパー*によって生成されます。</span><span class="sxs-lookup"><span data-stu-id="3c504-177">The **Edit**, **Details**, and **Delete** links are generated by the [Anchor Tag Helper](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) in the *Pages/Movies/Index.cshtml* file.</span></span>
 
 [!code-cshtml[](~/tutorials/razor-pages/razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Index.cshtml?highlight=16-18&range=32-)]
 
-<span data-ttu-id="83c6e-178">[タグ ヘルパー](xref:mvc/views/tag-helpers/intro)を使うと、Razor ファイルでの HTML 要素の作成とレンダリングに、サーバー側コードを組み込むことができます。</span><span class="sxs-lookup"><span data-stu-id="83c6e-178">[Tag Helpers](xref:mvc/views/tag-helpers/intro) enable server-side code to participate in creating and rendering HTML elements in Razor files.</span></span> <span data-ttu-id="83c6e-179">上のコードでは、`AnchorTagHelper` は動的に Razor ページからの HTML `href` 属性値 (ルートは相対)、`asp-page`、およびルート ID (`asp-route-id`) を生成します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-179">In the preceding code, the `AnchorTagHelper` dynamically generates the HTML `href` attribute value from the Razor Page (the route is relative), the `asp-page`,  and the route id (`asp-route-id`).</span></span> <span data-ttu-id="83c6e-180">詳細については、「[ページの URL の生成](xref:razor-pages/index#url-generation-for-pages)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="83c6e-180">See [URL generation for Pages](xref:razor-pages/index#url-generation-for-pages) for more information.</span></span>
+<span data-ttu-id="3c504-178">[タグ ヘルパー](xref:mvc/views/tag-helpers/intro)を使うと、Razor ファイルでの HTML 要素の作成とレンダリングに、サーバー側コードを組み込むことができます。</span><span class="sxs-lookup"><span data-stu-id="3c504-178">[Tag Helpers](xref:mvc/views/tag-helpers/intro) enable server-side code to participate in creating and rendering HTML elements in Razor files.</span></span> <span data-ttu-id="3c504-179">上のコードでは、`AnchorTagHelper` は動的に Razor ページからの HTML `href` 属性値 (ルートは相対)、`asp-page`、およびルート ID (`asp-route-id`) を生成します。</span><span class="sxs-lookup"><span data-stu-id="3c504-179">In the preceding code, the `AnchorTagHelper` dynamically generates the HTML `href` attribute value from the Razor Page (the route is relative), the `asp-page`,  and the route id (`asp-route-id`).</span></span> <span data-ttu-id="3c504-180">詳細については、「[ページの URL の生成](xref:razor-pages/index#url-generation-for-pages)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="3c504-180">See [URL generation for Pages](xref:razor-pages/index#url-generation-for-pages) for more information.</span></span>
 
-<span data-ttu-id="83c6e-181">お好みのブラウザーから **[ソースの表示]** を使用して、生成されたマークアップを確認します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-181">Use **View Source** from your favorite browser to examine the generated markup.</span></span> <span data-ttu-id="83c6e-182">生成された HTML の部分を以下に示します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-182">A portion of the generated HTML is shown below:</span></span>
+<span data-ttu-id="3c504-181">お好みのブラウザーから **[ソースの表示]** を使用して、生成されたマークアップを確認します。</span><span class="sxs-lookup"><span data-stu-id="3c504-181">Use **View Source** from your favorite browser to examine the generated markup.</span></span> <span data-ttu-id="3c504-182">生成された HTML の部分を以下に示します。</span><span class="sxs-lookup"><span data-stu-id="3c504-182">A portion of the generated HTML is shown below:</span></span>
 
 ```html
 <td>
@@ -168,9 +168,9 @@ ms.locfileid: "78650426"
 </td>
 ```
 
-<span data-ttu-id="83c6e-183">動的に生成されたリンクは、クエリ文字列を含むムービー ID を渡します (例: `https://localhost:5001/Movies/Details?id=1` の `?id=1`)。</span><span class="sxs-lookup"><span data-stu-id="83c6e-183">The dynamically-generated links pass the movie ID with a query string (for example, the `?id=1` in  `https://localhost:5001/Movies/Details?id=1`).</span></span>
+<span data-ttu-id="3c504-183">動的に生成されたリンクは、クエリ文字列を含むムービー ID を渡します (例: `?id=1` の `https://localhost:5001/Movies/Details?id=1`)。</span><span class="sxs-lookup"><span data-stu-id="3c504-183">The dynamically-generated links pass the movie ID with a query string (for example, the `?id=1` in  `https://localhost:5001/Movies/Details?id=1`).</span></span>
 
-<span data-ttu-id="83c6e-184">"{id:int}" ルート テンプレートを使用するには、[編集]、[詳細]、および [削除] Razor ページを更新します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-184">Update the Edit, Details, and Delete Razor Pages to use the "{id:int}" route template.</span></span> <span data-ttu-id="83c6e-185">これらの各ページのページ ディレクティブを `@page` から `@page "{id:int}"` に変更します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-185">Change the page directive for each of these pages from `@page` to `@page "{id:int}"`.</span></span> <span data-ttu-id="83c6e-186">アプリを実行してから、ソースを表示します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-186">Run the app and then view source.</span></span> <span data-ttu-id="83c6e-187">生成される HTML では、次のように URL のパス部分に ID を追加します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-187">The generated HTML adds the ID to the path portion of the URL:</span></span>
+<span data-ttu-id="3c504-184">"{id:int}" ルート テンプレートを使用するには、[編集]、[詳細]、および [削除] Razor ページを更新します。</span><span class="sxs-lookup"><span data-stu-id="3c504-184">Update the Edit, Details, and Delete Razor Pages to use the "{id:int}" route template.</span></span> <span data-ttu-id="3c504-185">これらの各ページのページ ディレクティブを `@page` から `@page "{id:int}"` に変更します。</span><span class="sxs-lookup"><span data-stu-id="3c504-185">Change the page directive for each of these pages from `@page` to `@page "{id:int}"`.</span></span> <span data-ttu-id="3c504-186">アプリを実行してから、ソースを表示します。</span><span class="sxs-lookup"><span data-stu-id="3c504-186">Run the app and then view source.</span></span> <span data-ttu-id="3c504-187">生成される HTML では、次のように URL のパス部分に ID を追加します。</span><span class="sxs-lookup"><span data-stu-id="3c504-187">The generated HTML adds the ID to the path portion of the URL:</span></span>
 
 ```html
 <td>
@@ -180,72 +180,72 @@ ms.locfileid: "78650426"
 </td>
 ```
 
-<span data-ttu-id="83c6e-188">整数を**含まない**、"{id:int}" ルート テンプレートを使用するページへの要求では、HTTP 404 (見つかりません) エラーが返されます。</span><span class="sxs-lookup"><span data-stu-id="83c6e-188">A request to the page with the "{id:int}" route template that does **not** include the integer will return an HTTP 404 (not found) error.</span></span> <span data-ttu-id="83c6e-189">たとえば、`http://localhost:5000/Movies/Details` の場合は 404 エラーが返されます。</span><span class="sxs-lookup"><span data-stu-id="83c6e-189">For example, `http://localhost:5000/Movies/Details` will return a 404 error.</span></span> <span data-ttu-id="83c6e-190">ID を省略するには、次のように `?` をルート制約に追加します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-190">To make the ID optional, append `?` to the route constraint:</span></span>
+<span data-ttu-id="3c504-188">整数を**含まない**、"{id:int}" ルート テンプレートを使用するページへの要求では、HTTP 404 (見つかりません) エラーが返されます。</span><span class="sxs-lookup"><span data-stu-id="3c504-188">A request to the page with the "{id:int}" route template that does **not** include the integer will return an HTTP 404 (not found) error.</span></span> <span data-ttu-id="3c504-189">たとえば、`http://localhost:5000/Movies/Details` の場合は 404 エラーが返されます。</span><span class="sxs-lookup"><span data-stu-id="3c504-189">For example, `http://localhost:5000/Movies/Details` will return a 404 error.</span></span> <span data-ttu-id="3c504-190">ID を省略するには、次のように `?` をルート制約に追加します。</span><span class="sxs-lookup"><span data-stu-id="3c504-190">To make the ID optional, append `?` to the route constraint:</span></span>
 
  ```cshtml
 @page "{id:int?}"
 ```
 
-<span data-ttu-id="83c6e-191">`@page "{id:int?}"` の動作をテストするには</span><span class="sxs-lookup"><span data-stu-id="83c6e-191">To test the behavior of `@page "{id:int?}"`:</span></span>
+<span data-ttu-id="3c504-191">`@page "{id:int?}"` の動作をテストするには</span><span class="sxs-lookup"><span data-stu-id="3c504-191">To test the behavior of `@page "{id:int?}"`:</span></span>
 
-* <span data-ttu-id="83c6e-192">*Pages/Movies/Details.cshtml* の page ディレクティブを `@page "{id:int?}"` に設定します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-192">Set the page directive in *Pages/Movies/Details.cshtml* to `@page "{id:int?}"`.</span></span>
-* <span data-ttu-id="83c6e-193">`public async Task<IActionResult> OnGetAsync(int? id)` (*Pages/Movies/Details.cshtml.cs* で) にブレークポイントを設定します</span><span class="sxs-lookup"><span data-stu-id="83c6e-193">Set a break point in `public async Task<IActionResult> OnGetAsync(int? id)` (in *Pages/Movies/Details.cshtml.cs*).</span></span>
-* <span data-ttu-id="83c6e-194">`https://localhost:5001/Movies/Details/` に移動します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-194">Navigate to `https://localhost:5001/Movies/Details/`.</span></span>
+* <span data-ttu-id="3c504-192">*Pages/Movies/Details.cshtml* の page ディレクティブを `@page "{id:int?}"` に設定します。</span><span class="sxs-lookup"><span data-stu-id="3c504-192">Set the page directive in *Pages/Movies/Details.cshtml* to `@page "{id:int?}"`.</span></span>
+* <span data-ttu-id="3c504-193">`public async Task<IActionResult> OnGetAsync(int? id)` (*Pages/Movies/Details.cshtml.cs* で) にブレークポイントを設定します</span><span class="sxs-lookup"><span data-stu-id="3c504-193">Set a break point in `public async Task<IActionResult> OnGetAsync(int? id)` (in *Pages/Movies/Details.cshtml.cs*).</span></span>
+* <span data-ttu-id="3c504-194">`https://localhost:5001/Movies/Details/` に移動します。</span><span class="sxs-lookup"><span data-stu-id="3c504-194">Navigate to `https://localhost:5001/Movies/Details/`.</span></span>
 
-<span data-ttu-id="83c6e-195">`@page "{id:int}"` ディレクティブでは、ブレークポイントがヒットすることはありません。</span><span class="sxs-lookup"><span data-stu-id="83c6e-195">With the `@page "{id:int}"` directive, the break point is never hit.</span></span> <span data-ttu-id="83c6e-196">ルーティング エンジンは、HTTP 404 を返します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-196">The routing engine returns HTTP 404.</span></span> <span data-ttu-id="83c6e-197">`@page "{id:int?}"` を使用すると、`OnGetAsync` メソッドは `NotFound` (HTTP 404) を返します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-197">Using `@page "{id:int?}"`, the `OnGetAsync` method returns `NotFound` (HTTP 404).</span></span>
+<span data-ttu-id="3c504-195">`@page "{id:int}"` ディレクティブでは、ブレークポイントがヒットすることはありません。</span><span class="sxs-lookup"><span data-stu-id="3c504-195">With the `@page "{id:int}"` directive, the break point is never hit.</span></span> <span data-ttu-id="3c504-196">ルーティング エンジンは、HTTP 404 を返します。</span><span class="sxs-lookup"><span data-stu-id="3c504-196">The routing engine returns HTTP 404.</span></span> <span data-ttu-id="3c504-197">`@page "{id:int?}"` を使用すると、`OnGetAsync` メソッドは `NotFound` (HTTP 404) を返します。</span><span class="sxs-lookup"><span data-stu-id="3c504-197">Using `@page "{id:int?}"`, the `OnGetAsync` method returns `NotFound` (HTTP 404).</span></span>
 
-### <a name="review-concurrency-exception-handling"></a><span data-ttu-id="83c6e-198">コンカレンシーの例外処理の確認</span><span class="sxs-lookup"><span data-stu-id="83c6e-198">Review concurrency exception handling</span></span>
+### <a name="review-concurrency-exception-handling"></a><span data-ttu-id="3c504-198">コンカレンシーの例外処理の確認</span><span class="sxs-lookup"><span data-stu-id="3c504-198">Review concurrency exception handling</span></span>
 
-<span data-ttu-id="83c6e-199">*Pages/Movies/Edit.cshtml.cs* ファイルで `OnPostAsync` メソッドを確認します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-199">Review the `OnPostAsync` method in the *Pages/Movies/Edit.cshtml.cs* file:</span></span>
+<span data-ttu-id="3c504-199">`OnPostAsync`Pages/Movies/Edit.cshtml.cs*ファイルで* メソッドを確認します。</span><span class="sxs-lookup"><span data-stu-id="3c504-199">Review the `OnPostAsync` method in the *Pages/Movies/Edit.cshtml.cs* file:</span></span>
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Edit.cshtml.cs?name=snippet)]
 
-<span data-ttu-id="83c6e-200">上のコードでは、一方のクライアントがムービーを削除し、もう一方のクライアントがムービーに変更を投稿した場合に、コンカレンシーの例外を検出します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-200">The previous code detects concurrency exceptions when the one client deletes the movie and the other client posts changes to the movie.</span></span>
+<span data-ttu-id="3c504-200">上のコードでは、一方のクライアントがムービーを削除し、もう一方のクライアントがムービーに変更を投稿した場合に、コンカレンシーの例外を検出します。</span><span class="sxs-lookup"><span data-stu-id="3c504-200">The previous code detects concurrency exceptions when the one client deletes the movie and the other client posts changes to the movie.</span></span>
 
-<span data-ttu-id="83c6e-201">`catch` ブロックをテストするには、次の操作を行います。</span><span class="sxs-lookup"><span data-stu-id="83c6e-201">To test the `catch` block:</span></span>
+<span data-ttu-id="3c504-201">`catch` ブロックをテストするには、次の操作を行います。</span><span class="sxs-lookup"><span data-stu-id="3c504-201">To test the `catch` block:</span></span>
 
-* <span data-ttu-id="83c6e-202">`catch (DbUpdateConcurrencyException)` へのブレークポイントの設定</span><span class="sxs-lookup"><span data-stu-id="83c6e-202">Set a breakpoint on `catch (DbUpdateConcurrencyException)`</span></span>
-* <span data-ttu-id="83c6e-203">ムービーの **[編集]** を選択し、変更を行います。ただし、 **[保存]** はしないでください。</span><span class="sxs-lookup"><span data-stu-id="83c6e-203">Select **Edit** for a movie, make changes, but don't enter **Save**.</span></span>
-* <span data-ttu-id="83c6e-204">別のブラウザー ウィンドウで、同じムービーの **[削除]** リンクを選択してから、ムービーを削除します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-204">In another browser window, select the **Delete** link for the same movie, and then delete the movie.</span></span>
-* <span data-ttu-id="83c6e-205">前のブラウザー ウィンドウで、ムービーに変更を投稿します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-205">In the previous browser window, post changes to the movie.</span></span>
+* <span data-ttu-id="3c504-202">`catch (DbUpdateConcurrencyException)` へのブレークポイントの設定</span><span class="sxs-lookup"><span data-stu-id="3c504-202">Set a breakpoint on `catch (DbUpdateConcurrencyException)`</span></span>
+* <span data-ttu-id="3c504-203">ムービーの **[編集]** を選択し、変更を行います。ただし、 **[保存]** はしないでください。</span><span class="sxs-lookup"><span data-stu-id="3c504-203">Select **Edit** for a movie, make changes, but don't enter **Save**.</span></span>
+* <span data-ttu-id="3c504-204">別のブラウザー ウィンドウで、同じムービーの **[削除]** リンクを選択してから、ムービーを削除します。</span><span class="sxs-lookup"><span data-stu-id="3c504-204">In another browser window, select the **Delete** link for the same movie, and then delete the movie.</span></span>
+* <span data-ttu-id="3c504-205">前のブラウザー ウィンドウで、ムービーに変更を投稿します。</span><span class="sxs-lookup"><span data-stu-id="3c504-205">In the previous browser window, post changes to the movie.</span></span>
 
-<span data-ttu-id="83c6e-206">実稼働環境のコードが、コンカレンシーの競合を検出する可能性があります。</span><span class="sxs-lookup"><span data-stu-id="83c6e-206">Production code may want to detect concurrency conflicts.</span></span> <span data-ttu-id="83c6e-207">詳細については、[コンカレンシーの競合の処理](xref:data/ef-rp/concurrency)に関するページを参照してください。</span><span class="sxs-lookup"><span data-stu-id="83c6e-207">See [Handle concurrency conflicts](xref:data/ef-rp/concurrency) for more information.</span></span>
+<span data-ttu-id="3c504-206">実稼働環境のコードが、コンカレンシーの競合を検出する可能性があります。</span><span class="sxs-lookup"><span data-stu-id="3c504-206">Production code may want to detect concurrency conflicts.</span></span> <span data-ttu-id="3c504-207">詳細については、[コンカレンシーの競合の処理](xref:data/ef-rp/concurrency)に関するページを参照してください。</span><span class="sxs-lookup"><span data-stu-id="3c504-207">See [Handle concurrency conflicts](xref:data/ef-rp/concurrency) for more information.</span></span>
 
-### <a name="posting-and-binding-review"></a><span data-ttu-id="83c6e-208">レビューの投稿とバインディング</span><span class="sxs-lookup"><span data-stu-id="83c6e-208">Posting and binding review</span></span>
+### <a name="posting-and-binding-review"></a><span data-ttu-id="3c504-208">レビューの投稿とバインディング</span><span class="sxs-lookup"><span data-stu-id="3c504-208">Posting and binding review</span></span>
 
-<span data-ttu-id="83c6e-209">*Pages/Movies/Edit.cshtml.cs* ファイルを確認します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-209">Examine the *Pages/Movies/Edit.cshtml.cs* file:</span></span>
+<span data-ttu-id="3c504-209">*Pages/Movies/Edit.cshtml.cs* ファイルを確認します。</span><span class="sxs-lookup"><span data-stu-id="3c504-209">Examine the *Pages/Movies/Edit.cshtml.cs* file:</span></span>
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Edit21.cshtml.cs?name=snippet2)]
 
-<span data-ttu-id="83c6e-210">HTTP GET 要求が Movies/Edit ページに対して行われた場合 (例: `http://localhost:5000/Movies/Edit/2`):</span><span class="sxs-lookup"><span data-stu-id="83c6e-210">When an HTTP GET request is made to the Movies/Edit page (for example, `http://localhost:5000/Movies/Edit/2`):</span></span>
+<span data-ttu-id="3c504-210">HTTP GET 要求が Movies/Edit ページに対して行われた場合 (例: `http://localhost:5000/Movies/Edit/2`):</span><span class="sxs-lookup"><span data-stu-id="3c504-210">When an HTTP GET request is made to the Movies/Edit page (for example, `http://localhost:5000/Movies/Edit/2`):</span></span>
 
-* <span data-ttu-id="83c6e-211">`OnGetAsync` メソッドはデータベースからムービーをフェッチし、`Page` メソッドを返します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-211">The `OnGetAsync` method fetches the movie from the database and returns the `Page` method.</span></span> 
-* <span data-ttu-id="83c6e-212">`Page` メソッドは *Pages/Movies/Edit.cshtml* Razor ページをレンダリングします。</span><span class="sxs-lookup"><span data-stu-id="83c6e-212">The `Page` method renders the *Pages/Movies/Edit.cshtml* Razor Page.</span></span> <span data-ttu-id="83c6e-213">*Pages/Movies/Edit.cshtml* ファイルにはモデルのディレクティブ (`@model RazorPagesMovie.Pages.Movies.EditModel`) が含まれています。これにより、ページでムービー モデルが使用可能になります。</span><span class="sxs-lookup"><span data-stu-id="83c6e-213">The *Pages/Movies/Edit.cshtml* file contains the model directive (`@model RazorPagesMovie.Pages.Movies.EditModel`), which makes the movie model available on the page.</span></span>
-* <span data-ttu-id="83c6e-214">[編集] フォームには、ムービーからの値が表示されます。</span><span class="sxs-lookup"><span data-stu-id="83c6e-214">The Edit form is displayed with the values from the movie.</span></span>
+* <span data-ttu-id="3c504-211">`OnGetAsync` メソッドはデータベースからムービーをフェッチし、`Page` メソッドを返します。</span><span class="sxs-lookup"><span data-stu-id="3c504-211">The `OnGetAsync` method fetches the movie from the database and returns the `Page` method.</span></span> 
+* <span data-ttu-id="3c504-212">`Page` メソッドは *Pages/Movies/Edit.cshtml* Razor ページをレンダリングします。</span><span class="sxs-lookup"><span data-stu-id="3c504-212">The `Page` method renders the *Pages/Movies/Edit.cshtml* Razor Page.</span></span> <span data-ttu-id="3c504-213">*Pages/Movies/Edit.cshtml* ファイルにはモデルのディレクティブ (`@model RazorPagesMovie.Pages.Movies.EditModel`) が含まれています。これにより、ページでムービー モデルが使用可能になります。</span><span class="sxs-lookup"><span data-stu-id="3c504-213">The *Pages/Movies/Edit.cshtml* file contains the model directive (`@model RazorPagesMovie.Pages.Movies.EditModel`), which makes the movie model available on the page.</span></span>
+* <span data-ttu-id="3c504-214">[編集] フォームには、ムービーからの値が表示されます。</span><span class="sxs-lookup"><span data-stu-id="3c504-214">The Edit form is displayed with the values from the movie.</span></span>
 
-<span data-ttu-id="83c6e-215">Movies/Edit ページが投稿された場合:</span><span class="sxs-lookup"><span data-stu-id="83c6e-215">When the Movies/Edit page is posted:</span></span>
+<span data-ttu-id="3c504-215">Movies/Edit ページが投稿された場合:</span><span class="sxs-lookup"><span data-stu-id="3c504-215">When the Movies/Edit page is posted:</span></span>
 
-* <span data-ttu-id="83c6e-216">ページのフォーム値は `Movie` プロパティにバインドされます。</span><span class="sxs-lookup"><span data-stu-id="83c6e-216">The form values on the page are bound to the `Movie` property.</span></span> <span data-ttu-id="83c6e-217">`[BindProperty]` 属性により、[モデル バインド](xref:mvc/models/model-binding)が有効になります。</span><span class="sxs-lookup"><span data-stu-id="83c6e-217">The `[BindProperty]` attribute enables [Model binding](xref:mvc/models/model-binding).</span></span>
+* <span data-ttu-id="3c504-216">ページのフォーム値は `Movie` プロパティにバインドされます。</span><span class="sxs-lookup"><span data-stu-id="3c504-216">The form values on the page are bound to the `Movie` property.</span></span> <span data-ttu-id="3c504-217">`[BindProperty]` 属性により、[モデル バインド](xref:mvc/models/model-binding)が有効になります。</span><span class="sxs-lookup"><span data-stu-id="3c504-217">The `[BindProperty]` attribute enables [Model binding](xref:mvc/models/model-binding).</span></span>
 
   ```csharp
   [BindProperty]
   public Movie Movie { get; set; }
   ```
 
-* <span data-ttu-id="83c6e-218">モデル状態にエラーがある (たとえば、`ReleaseDate` を日付に変換できない) 場合、フォームは送信された値で表示されます。</span><span class="sxs-lookup"><span data-stu-id="83c6e-218">If there are errors in the model state (for example, `ReleaseDate` cannot be converted to a date), the form is displayed with the submitted values.</span></span>
-* <span data-ttu-id="83c6e-219">モデル エラーがない場合、ムービーは保存されます。</span><span class="sxs-lookup"><span data-stu-id="83c6e-219">If there are no model errors, the movie is saved.</span></span>
+* <span data-ttu-id="3c504-218">モデル状態にエラーがある (たとえば、`ReleaseDate` を日付に変換できない) 場合、フォームは送信された値で表示されます。</span><span class="sxs-lookup"><span data-stu-id="3c504-218">If there are errors in the model state (for example, `ReleaseDate` cannot be converted to a date), the form is displayed with the submitted values.</span></span>
+* <span data-ttu-id="3c504-219">モデル エラーがない場合、ムービーは保存されます。</span><span class="sxs-lookup"><span data-stu-id="3c504-219">If there are no model errors, the movie is saved.</span></span>
 
-<span data-ttu-id="83c6e-220">[インデックス]、[作成]、および [削除] Razor ページの HTTP GET メソッドも同様のパターンに従います。</span><span class="sxs-lookup"><span data-stu-id="83c6e-220">The HTTP GET methods in the Index, Create, and Delete Razor pages follow a similar pattern.</span></span> <span data-ttu-id="83c6e-221">[作成] Razor ページの HTTP POST `OnPostAsync` メソッドも [編集] Razor ページの `OnPostAsync` メソッドと同様のパターンに従います。</span><span class="sxs-lookup"><span data-stu-id="83c6e-221">The HTTP POST `OnPostAsync` method in the Create Razor Page follows a similar pattern to the `OnPostAsync` method in the Edit Razor Page.</span></span>
+<span data-ttu-id="3c504-220">[インデックス]、[作成]、および [削除] Razor ページの HTTP GET メソッドも同様のパターンに従います。</span><span class="sxs-lookup"><span data-stu-id="3c504-220">The HTTP GET methods in the Index, Create, and Delete Razor pages follow a similar pattern.</span></span> <span data-ttu-id="3c504-221">[作成] Razor ページの HTTP POST `OnPostAsync` メソッドも [編集] Razor ページの `OnPostAsync` メソッドと同様のパターンに従います。</span><span class="sxs-lookup"><span data-stu-id="3c504-221">The HTTP POST `OnPostAsync` method in the Create Razor Page follows a similar pattern to the `OnPostAsync` method in the Edit Razor Page.</span></span>
 
-<span data-ttu-id="83c6e-222">次のチュートリアルでは検索を追加します。</span><span class="sxs-lookup"><span data-stu-id="83c6e-222">Search is added in the next tutorial.</span></span>
+<span data-ttu-id="3c504-222">次のチュートリアルでは検索を追加します。</span><span class="sxs-lookup"><span data-stu-id="3c504-222">Search is added in the next tutorial.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="83c6e-223">その他の技術情報</span><span class="sxs-lookup"><span data-stu-id="83c6e-223">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="3c504-223">その他の技術情報</span><span class="sxs-lookup"><span data-stu-id="3c504-223">Additional resources</span></span>
 
-* [<span data-ttu-id="83c6e-224">このチュートリアルの YouTube バージョン</span><span class="sxs-lookup"><span data-stu-id="83c6e-224">YouTube version of this tutorial</span></span>](https://youtu.be/yLnnleREMtQ)
+* [<span data-ttu-id="3c504-224">このチュートリアルの YouTube バージョン</span><span class="sxs-lookup"><span data-stu-id="3c504-224">YouTube version of this tutorial</span></span>](https://youtu.be/yLnnleREMtQ)
 
 > [!div class="step-by-step"]
-> <span data-ttu-id="83c6e-225">[前へ:データベースの操作](xref:tutorials/razor-pages/sql)
-> [次: 検索の追加](xref:tutorials/razor-pages/search)</span><span class="sxs-lookup"><span data-stu-id="83c6e-225">[Previous: Working with a database](xref:tutorials/razor-pages/sql)
+> <span data-ttu-id="3c504-225">[前 - データベースの操作](xref:tutorials/razor-pages/sql)
+> [次 - 検索の追加](xref:tutorials/razor-pages/search)</span><span class="sxs-lookup"><span data-stu-id="3c504-225">[Previous: Working with a database](xref:tutorials/razor-pages/sql)
 [Next: Add search](xref:tutorials/razor-pages/search)</span></span>
 
 ::: moniker-end
