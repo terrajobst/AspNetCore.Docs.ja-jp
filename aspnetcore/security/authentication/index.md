@@ -7,10 +7,10 @@ ms.custom: mvc
 ms.date: 03/03/2020
 uid: security/authentication/index
 ms.openlocfilehash: 404904ecfa30d1fe7e47f0daaa423ddd6f1b06e8
-ms.sourcegitcommit: 5bdc54162d7dea8d9fa54ac3055678db23586af1
+ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/17/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "79434331"
 ---
 # <a name="overview-of-aspnet-core-authentication"></a>ASP.NET Core の認証の概要
@@ -43,7 +43,7 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 場合によっては、`AddAuthentication` の呼び出しが、他の拡張メソッドによって自動的に行われます。 たとえば、[ASP.NET Core の ID](xref:security/authentication/identity) を使用する場合、`AddAuthentication` が内部的に呼び出されます。
 
-認証ミドルウェアは、アプリの `IApplicationBuilder` の <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> 拡張メソッドを呼び出すことによって `Startup.Configure` に追加されます。 `UseAuthentication` を呼び出すと、以前に登録された認証スキームを使用するミドルウェアが登録されます。 認証されているユーザーに依存するすべてのミドルウェアの前に `UseAuthentication` を呼び出します。 エンドポイント ルーティングを使用する場合は、次のタイミングで `UseAuthentication` の呼び出しを行う必要があります。
+認証ミドルウェアは、アプリの `Startup.Configure` の <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> 拡張メソッドを呼び出すことによって `IApplicationBuilder` に追加されます。 `UseAuthentication` を呼び出すと、以前に登録された認証スキームを使用するミドルウェアが登録されます。 認証されているユーザーに依存するすべてのミドルウェアの前に `UseAuthentication` を呼び出します。 エンドポイント ルーティングを使用する場合は、次のタイミングで `UseAuthentication` の呼び出しを行う必要があります。
 
 * ルート情報が認証の決定に使用できるように、`UseRouting` の後。
 * エンドポイントにアクセスする前にユーザーが認証されるように、`UseEndpoints` の前。
@@ -80,14 +80,14 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 ### <a name="authenticate"></a>Authenticate
 
-認証スキームの認証アクションは、要求コンテキストに基づいてユーザーの ID を構築する役割を担います。 認証が成功したかどうかを示す <xref:Microsoft.AspNetCore.Authentication.AuthenticateResult> を返します。成功した場合は、認証チケットに含まれるユーザーの ID です。 以下を参照してください。<xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.AuthenticateAsync%2A> 認証の例を以下に示します。
+認証スキームの認証アクションは、要求コンテキストに基づいてユーザーの ID を構築する役割を担います。 認証が成功したかどうかを示す <xref:Microsoft.AspNetCore.Authentication.AuthenticateResult> を返します。成功した場合は、認証チケットに含まれるユーザーの ID です。 [https://docs.microsoft.com/azure/active-directory/develop/scenario-protected-web-api-overview](<xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.AuthenticateAsync%2A>) をご覧ください。 認証の例を以下に示します。
 
 * Cookie からユーザーの ID を構築する Cookie 認証スキーム。
 * ユーザーの ID を構築するための JWT ベアラー トークンを逆シリアル化し、検証する JWT ベアラー スキーム。
 
 ### <a name="challenge"></a>課題
 
-認証チャレンジは、認証されていないユーザーが認証を必要とするエンドポイントを要求したときに、認可によって呼び出されます。 認証チャレンジが発行されるのは、匿名ユーザーが制限されたリソースを要求した場合や、ログイン リンクをクリックした場合などです。 認可では、指定された認証スキームを使用してチャレンジが呼び出されます。何も指定されていない場合は、既定値が使用されます。 以下を参照してください。<xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.ChallengeAsync%2A> 認証チャレンジの例を次に示します。
+認証チャレンジは、認証されていないユーザーが認証を必要とするエンドポイントを要求したときに、認可によって呼び出されます。 認証チャレンジが発行されるのは、匿名ユーザーが制限されたリソースを要求した場合や、ログイン リンクをクリックした場合などです。 認可では、指定された認証スキームを使用してチャレンジが呼び出されます。何も指定されていない場合は、既定値が使用されます。 [https://docs.microsoft.com/azure/active-directory/develop/scenario-protected-web-api-overview](<xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.ChallengeAsync%2A>) をご覧ください。 認証チャレンジの例を次に示します。
 
 * ログイン ページにユーザーをリダイレクトする Cookie 認証スキーム。
 * `www-authenticate: bearer` ヘッダーを持つ 401 結果を返す JWT ベアラースキーム。
@@ -96,7 +96,7 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 ### <a name="forbid"></a>禁止
 
-認証されたユーザーがアクセスを許可されていないリソースにアクセスしようとすると、認可によって認証スキームの禁止アクションが呼び出されます。 以下を参照してください。<xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.ForbidAsync%2A> 認証の禁止の例を次に示します。
+認証されたユーザーがアクセスを許可されていないリソースにアクセスしようとすると、認可によって認証スキームの禁止アクションが呼び出されます。 [https://docs.microsoft.com/azure/active-directory/develop/scenario-protected-web-api-overview](<xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.ForbidAsync%2A>) をご覧ください。 認証の禁止の例を次に示します。
 * アクセスが禁止されていることを示すページにユーザーをリダイレクトする Cookie 認証スキーム。
 * 403 結果を返す JWT ベアラースキーム。
 * ユーザーがリソースへのアクセスを要求できるページにリダイレクトするカスタム認証スキーム。

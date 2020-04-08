@@ -9,10 +9,10 @@ no-loc:
 - SignalR
 uid: aspnetcore-2.1
 ms.openlocfilehash: af5807b782d4acec8c7d40111dc508dfa6127057
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78650972"
 ---
 # <a name="whats-new-in-aspnet-core-21"></a>ASP.NET Core 2.1 の新機能
@@ -51,7 +51,7 @@ ASP.NET Core 2.1 では、[ASP.NET Core Identity](xref:security/authentication/i
 
 ## <a name="https"></a>HTTPS
 
-セキュリティとプライバシーがより強化されたため、Web アプリの HTTPS を有効化することが重要です。 Web 上では、HTTPS の強制がますます厳しくなっています。 HTTPS を使用していないサイトは、安全でないと見なされます。 ブラウザー (Chromium、Mozilla) では、セキュリティで保護されたコンテキストから Web 機能を使用することを強制するようになってきています。 [GDPR](xref:security/gdpr) では、ユーザー プライバシーの保護に HTTPS を使用する必要があります。 運用環境では HTTPS の使用が非常に重要ですが、開発環境で HTTPS を使用すると、展開における問題 (セキュリティ保護されていないリンクなど) を防止するのに役立ちます。 ASP.NET Core 2.1 には、開発環境での HTTPS の使用と、運用環境での HTTPS の構成を容易にする多くの機能強化が含まれています。 詳細については、[HTTPS の適用](xref:security/enforcing-ssl)に関するページをご覧ください。
+セキュリティとプライバシーがより強化されたため、Web アプリの HTTPS を有効化することが重要です。 Web 上では、HTTPS の強制がますます厳しくなっています。 HTTPS を使用していないサイトは、安全でないと見なされます。 ブラウザー (Chromium、Mozilla) では、セキュリティで保護されたコンテキストから Web 機能を使用することを強制するようになってきています。 [GDPR](xref:security/gdpr) では、ユーザー プライバシーの保護に HTTPS を使用する必要があります。 運用環境では HTTPS の使用が非常に重要ですが、開発環境で HTTPS を使用すると、展開における問題 (セキュリティ保護されていないリンクなど) を防止するのに役立ちます。 ASP.NET Core 2.1 には、開発環境での HTTPS の使用と、運用環境での HTTPS の構成を容易にする多くの機能強化が含まれています。 詳細については、「[HTTPS の適用](xref:security/enforcing-ssl)」を参照してください。
 
 ### <a name="on-by-default"></a>既定でオン
 
@@ -72,7 +72,7 @@ ASP.NET Core 2.1 では、[ASP.NET Core Identity](xref:security/authentication/i
 
 運用環境では、HTTPS を明示的に構成する必要があります。 2\.1 では、Kestrel に HTTPS を構成するための既定の構成スキーマが追加されています。 以下を使用するようにアプリを構成できます。
 
-* URL を含む複数のエンドポイント。 詳細については、[Kestrel Web サーバーの実装:エンドポイントの構成](xref:fundamentals/servers/kestrel#endpoint-configuration)に関するセクションを参照してください。
+* URL を含む複数のエンドポイント。 詳細については、[Kestrel Web サーバーの実装: エンドポイントの構成](xref:fundamentals/servers/kestrel#endpoint-configuration)のセクションを参照してください。
 * ディスク上のファイルまたは証明書ストアから HTTPS に使用する証明書。
 
 ## <a name="gdpr"></a>GDPR
@@ -124,7 +124,7 @@ ASP.NET Core 2.1 では、クリーンでわかりやすい Web API のビルド
 
 ## <a name="ihttpclientfactory"></a>IHttpClientFactory
 
-ASP.NET Core 2.1 には、アプリでの `HttpClient` のインスタンスの構成と使用を容易にする新しい `IHttpClientFactory` サービスが含まれています。 `HttpClient` は既に、送信 HTTP 要求用にリンクできるハンドラーのデリゲートの概念を備えています。 ファクトリは次のことを行います。
+ASP.NET Core 2.1 には、アプリでの `IHttpClientFactory` のインスタンスの構成と使用を容易にする新しい `HttpClient` サービスが含まれています。 `HttpClient` は既に、送信 HTTP 要求用にリンクできるハンドラーのデリゲートの概念を備えています。 ファクトリは次のことを行います。
 
 * 名前付きクライアントごとの `HttpClient` のインスタンスの登録をより直観的にします。
 * Polly ポリシーを Retry、CircuitBreakers などに使用できるようにする Polly ハンドラーを実装します。
@@ -133,7 +133,7 @@ ASP.NET Core 2.1 には、アプリでの `HttpClient` のインスタンスの�
 
 ## <a name="kestrel-transport-configuration"></a>Kestrel トランスポート構成
 
-ASP.NET Core 2.1 のリリースにより、Kestrel の既定のトランスポートは、Libuv に基づかなくなり、代わりにマネージド ソケットに基づくようになりました。 詳細については、[Kestrel Web サーバーの実装:トランスポート構成](xref:fundamentals/servers/kestrel#transport-configuration)に関する記事をご覧ください。
+ASP.NET Core 2.1 のリリースにより、Kestrel の既定のトランスポートは、Libuv に基づかなくなり、代わりにマネージド ソケットに基づくようになりました。 詳細については、[Kestrel Web サーバーの実装: トランスポート構成](xref:fundamentals/servers/kestrel#transport-configuration)のセクションを参照してください。
 
 ## <a name="generic-host-builder"></a>汎用ホスト ビルダー
 

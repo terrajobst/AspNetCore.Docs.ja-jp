@@ -6,10 +6,10 @@ ms.author: riande
 ms.date: 04/13/2017
 uid: tutorials/first-mvc-app/validation
 ms.openlocfilehash: ecf3d011b38347eb32020df00e44d93ca789443a
-ms.sourcegitcommit: 99e71ae03319ab386baf2ebde956fc2d511df8b8
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/25/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "80242537"
 ---
 # <a name="add-validation-to-an-aspnet-core-mvc-app"></a>ASP.NET Core MVC アプリへの検証の追加
@@ -43,7 +43,7 @@ MVC と Entity Framework Core Code First が提供している検証のサポー
 
 重要な利点は、この検証 UI を有効にするために、`MoviesController` クラスまたは *Create.cshtml* ビューのコードを 1 行も変更する必要がないことです。 このチュートリアルで前に作成したコントローラーとビューにより、`Movie` モデル クラスのプロパティで検証属性を使って指定した検証規則が自動的に取得されます。 `Edit` アクション メソッドを使って検証をテストします。同じ検証が適用されます。
 
-クライアント側の検証エラーがなくなるまで、フォーム データはサーバーに送信されません。 このことは、[Fiddler ツール](https://www.telerik.com/fiddler) または [F12 開発者ツール](/microsoft-edge/devtools-guide)を使って `HTTP Post` メソッドにブレークポイントを設定することにより確認できます。
+クライアント側の検証エラーがなくなるまで、フォーム データはサーバーに送信されません。 このことは、`HTTP Post`Fiddler ツール[ または ](https://www.telerik.com/fiddler)F12 開発者ツール[を使って ](/microsoft-edge/devtools-guide) メソッドにブレークポイントを設定することにより確認できます。
 
 ## <a name="how-validation-works"></a>検証の動作方法
 
@@ -61,7 +61,7 @@ MVC と Entity Framework Core Code First が提供している検証のサポー
 
 次の図では、Chrome ブラウザーで JavaScript を無効にする方法を示します。
 
-![Google Chrome:[コンテンツの設定] の [JavaScript] セクションで、[Do not allow any site to run JavaScript]\(すべてのサイトで JavaScript の実行を許可しない\) をオンにします。](~/tutorials/first-mvc-app/validation/_static/chrome.png)
+![Google Chrome: [コンテンツの設定] の [Javascript] セクションで、[Do not allow any site to run JavaScript]\(すべてのサイトで JavaScript の実行を許可しない\) をオンにします。](~/tutorials/first-mvc-app/validation/_static/chrome.png)
 
 JavaScript を無効にした後、無効なデータを送信して、デバッガーをステップ実行します。
 
@@ -81,7 +81,7 @@ JavaScript を無効にした後、無効なデータを送信して、デバッ
 
 ## <a name="using-datatype-attributes"></a>DataType 属性の使用
 
-*Movie.cs* ファイルを開き、`Movie` クラスを調べます。 `System.ComponentModel.DataAnnotations` 名前空間には、組み込みの検証属性セットに加え、書式設定の属性もあります。 リリース日と価格のフィールドには、`DataType` 列挙値が既に適用されています。 次のコードでは、適切な `DataType` 属性が設定された `ReleaseDate` プロパティと `Price` プロパティを示します。
+*Movie.cs* ファイルを開き、`Movie` クラスを調べます。 `System.ComponentModel.DataAnnotations` 名前空間には、組み込みの検証属性セットに加え、書式設定の属性もあります。 リリース日と価格のフィールドには、`DataType` 列挙値が既に適用されています。 次のコードでは、適切な `ReleaseDate` 属性が設定された `Price` プロパティと `DataType` プロパティを示します。
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc//sample/MvcMovie/Models/MovieDateRatingDA.cs?highlight=2,6&name=snippet2)]
 
@@ -111,7 +111,7 @@ public DateTime ReleaseDate { get; set; }
 >
 > `[Range(typeof(DateTime), "1/1/1966", "1/1/2020")]`
 
-`DateTime` で `Range` 属性を使うには、jQuery の日付検証を無効にする必要があります。 一般的に、モデルに日付をハードコーディングしてコンパイルすることは推奨されません。そのため、`Range` 属性と `DateTime` の使用は推奨されません。
+`Range` で `DateTime` 属性を使うには、jQuery の日付検証を無効にする必要があります。 一般的に、モデルに日付をハードコーディングしてコンパイルすることは推奨されません。そのため、`Range` 属性と `DateTime` の使用は推奨されません。
 
 次のコードは、1 行で複数の属性を組み合わせる例です。
 

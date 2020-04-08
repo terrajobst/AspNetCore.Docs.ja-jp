@@ -11,10 +11,10 @@ no-loc:
 - SignalR
 uid: blazor/templated-components
 ms.openlocfilehash: b57e3fe186402723607e90b1628062f602c77632
-ms.sourcegitcommit: 9b6e7f421c243963d5e419bdcfc5c4bde71499aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/21/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "79989495"
 ---
 # <a name="aspnet-core-opno-locblazor-templated-components"></a>ASP.NET Core Blazor テンプレート コンポーネント

@@ -6,10 +6,10 @@ ms.author: riande
 ms.date: 10/26/2017
 uid: tutorials/first-mvc-app/index
 ms.openlocfilehash: 04ab19644d68428246c29a5dac980e8bb91867d0
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78644780"
 ---
 # <a name="create-a-web-app-with-aspnet-core-mvc"></a>ASP.NET Core MVC で Web アプリを作成する

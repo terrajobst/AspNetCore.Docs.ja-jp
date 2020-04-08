@@ -8,10 +8,10 @@ ms.custom: mvc
 ms.date: 02/09/2020
 uid: fundamentals/http-requests
 ms.openlocfilehash: 912be34ae0ee25837a94aab65443f15b17ab4556
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78648296"
 ---
 # <a name="make-http-requests-using-ihttpclientfactory-in-aspnet-core"></a>ASP.NET Core で IHttpClientFactory を使用して HTTP 要求を行う
@@ -20,9 +20,9 @@ ms.locfileid: "78648296"
 
 寄稿者: [Glenn Condron](https://github.com/glennc)、[Ryan Nowak](https://github.com/rynowak)、[Steve Gordon](https://github.com/stevejgordon)、[Rick Anderson](https://twitter.com/RickAndMSFT)、[Kirk Larkin](https://github.com/serpent5)
 
-アプリ内で <xref:System.Net.Http.HttpClient> インスタンスを構成して作成するために、<xref:System.Net.Http.IHttpClientFactory> を登録して使用できます。 `IHttpClientFactory` には次のような利点があります。
+アプリ内で <xref:System.Net.Http.IHttpClientFactory> インスタンスを構成して作成するために、<xref:System.Net.Http.HttpClient> を登録して使用できます。 `IHttpClientFactory` には次のような利点があります。
 
-* 論理 `HttpClient` インスタンスの名前付けと構成を一元化します。 たとえば、[GitHub](https://github.com/) にアクセスするために、*github* という名前のクライアントを登録して構成できます。 一般的なアクセスのために、既定のクライアントを登録できます。
+* 論理 `HttpClient` インスタンスの名前付けと構成を一元化します。 たとえば、*GitHub* にアクセスするために、[github](https://github.com/) という名前のクライアントを登録して構成できます。 一般的なアクセスのために、既定のクライアントを登録できます。
 * `HttpClient` でのハンドラーのデリゲートにより、送信ミドルウェアの概念が体系化されます。 `HttpClient` でのハンドラーのデリゲートを利用するために、Polly ベースのミドルウェアに対する拡張機能が提供されます。
 * 基になっている `HttpClientMessageHandler` インスタンスのプールと有効期間が管理されます。 自動管理により、`HttpClient` の有効期間を手動で管理するときの一般的な DNS (ドメイン ネーム システム) の問題が発生しなくなります。
 * ファクトリによって作成されたクライアントから送信されるすべての要求に対し、(`ILogger` によって) 構成可能なログ エクスペリエンスを追加します。
@@ -106,7 +106,7 @@ ms.locfileid: "78648296"
 
 `HttpClient` の機能を公開する API 固有のメソッドを作成できます。 たとえば、`GetAspNetDocsIssues` メソッドでは、未解決の問題を取得するためのコードがカプセル化されています。
 
-次のコードでは、`Startup.ConfigureServices` 内で <xref:Microsoft.Extensions.DependencyInjection.HttpClientFactoryServiceCollectionExtensions.AddHttpClient*> を呼び出して、型指定されたクライアント クラスを登録しています。
+次のコードでは、<xref:Microsoft.Extensions.DependencyInjection.HttpClientFactoryServiceCollectionExtensions.AddHttpClient*> 内で `Startup.ConfigureServices` を呼び出して、型指定されたクライアント クラスを登録しています。
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Startup.cs?name=snippet3)]
 
@@ -194,7 +194,7 @@ public class ValuesController : ControllerBase
   * ASP.NET Core での受信ミドルウェア パイプラインに似ています。
   * 次のような HTTP 要求に関する横断的な問題を管理するためのメカニズムが提供されます。
 
-    * キャッシュ
+    * caching
     * エラー処理
     * シリアル化
     * ログ
@@ -208,7 +208,7 @@ public class ValuesController : ControllerBase
 
 上記のコードでは、`X-API-KEY` ヘッダーが要求に含まれているかどうかが確認されます。 `X-API-KEY` がない場合は、<xref:System.Net.HttpStatusCode.BadRequest> が返されます。
 
-<xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.AddHttpMessageHandler*?displayProperty=fullName> を使用して `HttpClient` の構成に複数のハンドラーを追加できます。
+`HttpClient` を使用して <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.AddHttpMessageHandler*?displayProperty=fullName> の構成に複数のハンドラーを追加できます。
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Startup2.cs?name=snippet1)]
 
@@ -281,9 +281,9 @@ Polly のポリシーは入れ子にするのが一般的です。
 
 ## <a name="httpclient-and-lifetime-management"></a>HttpClient と有効期間の管理
 
-`IHttpClientFactory` で `CreateClient` を呼び出すたびに、`HttpClient` の新しいインスタンスが返されます。 <xref:System.Net.Http.HttpMessageHandler> は、名前付きクライアントごとに作成されます。 ファクトリによって `HttpMessageHandler` インスタンスの有効期間が管理されます。
+`HttpClient` で `CreateClient` を呼び出すたびに、`IHttpClientFactory` の新しいインスタンスが返されます。 <xref:System.Net.Http.HttpMessageHandler> は、名前付きクライアントごとに作成されます。 ファクトリによって `HttpMessageHandler` インスタンスの有効期間が管理されます。
 
-`IHttpClientFactory` は、リソースの消費量を減らすため、ファクトリによって作成された `HttpMessageHandler` のインスタンスをプールします。 新しい `HttpClient` インスタンスを作成するときに、プールの `HttpMessageHandler` インスタンスの有効期間が切れていない場合はそれを再利用する場合があります。
+`IHttpClientFactory` は、リソースの消費量を減らすため、ファクトリによって作成された `HttpMessageHandler` のインスタンスをプールします。 新しい `HttpMessageHandler` インスタンスを作成するときに、プールの `HttpClient` インスタンスの有効期間が切れていない場合はそれを再利用する場合があります。
 
 通常、各ハンドラーでは基になる HTTP 接続が独自に管理されるため、ハンドラーはプールすることが望まれます。 必要以上のハンドラーを作成すると、接続に遅延が発生する可能性があります。 また、一部のハンドラーでは接続が無期限に開かれており、DNS (ドメイン ネーム システム) の変更にハンドラーが対応できないことがあります。
 
@@ -291,9 +291,9 @@ Polly のポリシーは入れ子にするのが一般的です。
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Startup5.cs?name=snippet1)]
 
-通常、`HttpClient` インスタンスは、破棄する必要の**ない** .NET オブジェクトとして扱うことができます。 破棄すると送信要求がキャンセルされ、<xref:System.IDisposable.Dispose*> の呼び出し後には指定された `HttpClient` インスタンスを使用できなくなります。 `IHttpClientFactory` は、`HttpClient` インスタンスによって使用されたリソースの追跡と破棄を行います。
+通常、`HttpClient` インスタンスは、破棄する必要の**ない** .NET オブジェクトとして扱うことができます。 破棄すると送信要求がキャンセルされ、`HttpClient` の呼び出し後には指定された <xref:System.IDisposable.Dispose*> インスタンスを使用できなくなります。 `IHttpClientFactory` は、`HttpClient` インスタンスによって使用されたリソースの追跡と破棄を行います。
 
-`IHttpClientFactory` の登場以前は、1 つの `HttpClient` インスタンスを長い期間使い続けるパターンが一般的に使用されていました。 `IHttpClientFactory` に移行した後は、このパターンは不要になります。
+`HttpClient` の登場以前は、1 つの `IHttpClientFactory` インスタンスを長い期間使い続けるパターンが一般的に使用されていました。 `IHttpClientFactory` に移行した後は、このパターンは不要になります。
 
 ### <a name="alternatives-to-ihttpclientfactory"></a>IHttpClientFactory の代替手段
 
@@ -306,7 +306,7 @@ DI 対応のアプリ内で `IHttpClientFactory` を使用すれば、次のこ�
 
 - アプリの起動時に `SocketsHttpHandler` インスタンスを作成し、アプリの有効期間中、それを使用します。
 - DNS の更新時間に基づいて、<xref:System.Net.Http.SocketsHttpHandler.PooledConnectionLifetime> を適切な値に構成します。
-- 必要に応じて `new HttpClient(handler, disposeHandler: false)` を使用して `HttpClient` インスタンスを作成します。
+- 必要に応じて `HttpClient` を使用して `new HttpClient(handler, disposeHandler: false)` インスタンスを作成します。
 
 上記の方法を使用すると、`IHttpClientFactory` が同様の方法で解決するリソース管理の問題を解決できます。
 
@@ -364,7 +364,7 @@ DI 対応のアプリ内で `IHttpClientFactory` を使用すれば、次のこ�
 ヘッダー伝達は、受信要求から送信 HTTP クライアント要求に HTTP ヘッダーを伝達するための ASP.NET Core ミドルウェアです。 ヘッダー伝達を使用するには、次を行います。
 
 * [Microsoft.AspNetCore.HeaderPropagation](https://www.nuget.org/packages/Microsoft.AspNetCore.HeaderPropagation) パッケージを参照します。
-* `Startup` でミドルウェアと `HttpClient` を構成します。
+* `HttpClient` でミドルウェアと `Startup` を構成します。
 
   [!code-csharp[](http-requests/samples/3.x/Startup.cs?highlight=5-9,21&name=snippet)]
 
@@ -388,7 +388,7 @@ DI 対応のアプリ内で `IHttpClientFactory` を使用すれば、次のこ�
 
 寄稿者: [Glenn Condron](https://github.com/glennc)、[Ryan Nowak](https://github.com/rynowak)、[Steve Gordon](https://github.com/stevejgordon)
 
-アプリ内で <xref:System.Net.Http.HttpClient> インスタンスを構成して作成するために、<xref:System.Net.Http.IHttpClientFactory> を登録して使用できます。 次のような利点があります。
+アプリ内で <xref:System.Net.Http.IHttpClientFactory> インスタンスを構成して作成するために、<xref:System.Net.Http.HttpClient> を登録して使用できます。 次のような利点があります。
 
 * 論理 `HttpClient` インスタンスの名前付けと構成を一元化します。 たとえば、*github* クライアントを登録して、[GitHub](https://github.com/) にアクセスするように構成できます。 既定のクライアントは、他の目的に登録できます。
 * `HttpClient` でのハンドラーのデリゲートにより送信ミドルウェアの概念を体系化し、Polly ベースのミドルウェアでそれを利用するための拡張機能を提供します。
@@ -410,11 +410,11 @@ DI 対応のアプリ内で `IHttpClientFactory` を使用すれば、次のこ�
 
 ### <a name="basic-usage"></a>基本的な使用方法
 
-`IHttpClientFactory` は、`Startup.ConfigureServices` メソッドの内部で `IServiceCollection` の `AddHttpClient` 拡張メソッドを呼び出すことによって登録できます。
+`IHttpClientFactory` は、`AddHttpClient` メソッドの内部で `IServiceCollection` の `Startup.ConfigureServices` 拡張メソッドを呼び出すことによって登録できます。
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet1)]
 
-登録が済むと、コードは、[依存関係の挿入 (DI)](xref:fundamentals/dependency-injection) を使用してサービスを挿入できる任意の場所で、`IHttpClientFactory` を受け取ることができます。 `IHttpClientFactory` を使用して、`HttpClient` インスタンスを作成できます。
+登録が済むと、コードは、`IHttpClientFactory`依存関係の挿入 (DI)[ を使用してサービスを挿入できる任意の場所で、](xref:fundamentals/dependency-injection) を受け取ることができます。 `IHttpClientFactory` を使用して、`HttpClient` インスタンスを作成できます。
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Pages/BasicUsage.cshtml.cs?name=snippet1&highlight=9-12,21)]
 
@@ -426,7 +426,7 @@ DI 対応のアプリ内で `IHttpClientFactory` を使用すれば、次のこ�
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet2)]
 
-上記のコードでは、*github* という名前を指定して `AddHttpClient` を呼び出しています。 このクライアントには既定の構成がいくつか適用されています。つまり、GitHub API を使用するために必要なベース アドレスと 2 つのヘッダーです。
+上記のコードでは、`AddHttpClient`github*という名前を指定して* を呼び出しています。 このクライアントには既定の構成がいくつか適用されています。つまり、GitHub API を使用するために必要なベース アドレスと 2 つのヘッダーです。
 
 `CreateClient` を呼び出すたびに、`HttpClient` の新しいインスタンスが作成されて、構成アクションが呼び出されます。
 
@@ -599,19 +599,19 @@ Polly ポリシーを入れ子にして拡張機能を提供するのが一般�
 
 ## <a name="httpclient-and-lifetime-management"></a>HttpClient と有効期間の管理
 
-`IHttpClientFactory` で `CreateClient` を呼び出すたびに、`HttpClient` の新しいインスタンスが返されます。 名前付きクライアントごとに <xref:System.Net.Http.HttpMessageHandler> が存在します。 ファクトリによって `HttpMessageHandler` インスタンスの有効期間が管理されます。
+`HttpClient` で `CreateClient` を呼び出すたびに、`IHttpClientFactory` の新しいインスタンスが返されます。 名前付きクライアントごとに <xref:System.Net.Http.HttpMessageHandler> が存在します。 ファクトリによって `HttpMessageHandler` インスタンスの有効期間が管理されます。
 
-`IHttpClientFactory` は、リソースの消費量を減らすため、ファクトリによって作成された `HttpMessageHandler` のインスタンスをプールします。 新しい `HttpClient` インスタンスを作成するときに、プールの `HttpMessageHandler` インスタンスの有効期間が切れていない場合はそれを再利用する場合があります。
+`IHttpClientFactory` は、リソースの消費量を減らすため、ファクトリによって作成された `HttpMessageHandler` のインスタンスをプールします。 新しい `HttpMessageHandler` インスタンスを作成するときに、プールの `HttpClient` インスタンスの有効期間が切れていない場合はそれを再利用する場合があります。
 
 通常、各ハンドラーでは基になる HTTP 接続が独自に管理されるため、ハンドラーはプールすることが望まれます。 必要以上のハンドラーを作成すると、接続に遅延が発生する可能性があります。 また、一部のハンドラーは接続を無期限に開いており、DNS の変更にハンドラーが対応できないことがあります。
 
-ハンドラーの既定の有効期間は 2 分です。 名前付きクライアントごとに、既定値をオーバーライドすることができます。 オーバーライドするには、クライアント作成時に返された `IHttpClientBuilder` で <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.SetHandlerLifetime*> を呼び出します。
+ハンドラーの既定の有効期間は 2 分です。 名前付きクライアントごとに、既定値をオーバーライドすることができます。 オーバーライドするには、クライアント作成時に返された <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.SetHandlerLifetime*> で `IHttpClientBuilder` を呼び出します。
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet11)]
 
-クライアントを破棄する必要はありません。 破棄すると送信要求がキャンセルされ、<xref:System.IDisposable.Dispose*> の呼び出し後には指定された `HttpClient` インスタンスを使用できなくなります。 `IHttpClientFactory` は、`HttpClient` インスタンスによって使用されたリソースの追跡と破棄を行います。 通常、`HttpClient` インスタンスは、破棄を必要としない .NET オブジェクトとして扱うことができます。
+クライアントを破棄する必要はありません。 破棄すると送信要求がキャンセルされ、`HttpClient` の呼び出し後には指定された <xref:System.IDisposable.Dispose*> インスタンスを使用できなくなります。 `IHttpClientFactory` は、`HttpClient` インスタンスによって使用されたリソースの追跡と破棄を行います。 通常、`HttpClient` インスタンスは、破棄を必要としない .NET オブジェクトとして扱うことができます。
 
-`IHttpClientFactory` の登場以前は、1 つの `HttpClient` インスタンスを長い期間使い続けるパターンが一般的に使用されていました。 `IHttpClientFactory` に移行した後は、このパターンは不要になります。
+`HttpClient` の登場以前は、1 つの `IHttpClientFactory` インスタンスを長い期間使い続けるパターンが一般的に使用されていました。 `IHttpClientFactory` に移行した後は、このパターンは不要になります。
 
 ### <a name="alternatives-to-ihttpclientfactory"></a>IHttpClientFactory の代替手段
 
@@ -624,7 +624,7 @@ DI 対応のアプリ内で `IHttpClientFactory` を使用すれば、次のこ�
 
 - アプリの起動時に `SocketsHttpHandler` インスタンスを作成し、アプリの有効期間中、それを使用します。
 - DNS の更新時間に基づいて、<xref:System.Net.Http.SocketsHttpHandler.PooledConnectionLifetime> を適切な値に構成します。
-- 必要に応じて `new HttpClient(handler, disposeHandler: false)` を使用して `HttpClient` インスタンスを作成します。
+- 必要に応じて `HttpClient` を使用して `new HttpClient(handler, disposeHandler: false)` インスタンスを作成します。
 
 上記の方法を使用すると、`IHttpClientFactory` が同様の方法で解決するリソース管理の問題を解決できます。
 
@@ -689,7 +689,7 @@ DI 対応のアプリ内で `IHttpClientFactory` を使用すれば、次のこ�
 
 寄稿者: [Glenn Condron](https://github.com/glennc)、[Ryan Nowak](https://github.com/rynowak)、[Steve Gordon](https://github.com/stevejgordon)
 
-アプリ内で <xref:System.Net.Http.HttpClient> インスタンスを構成して作成するために、<xref:System.Net.Http.IHttpClientFactory> を登録して使用できます。 次のような利点があります。
+アプリ内で <xref:System.Net.Http.IHttpClientFactory> インスタンスを構成して作成するために、<xref:System.Net.Http.HttpClient> を登録して使用できます。 次のような利点があります。
 
 * 論理 `HttpClient` インスタンスの名前付けと構成を一元化します。 たとえば、*github* クライアントを登録して、[GitHub](https://github.com/) にアクセスするように構成できます。 既定のクライアントは、他の目的に登録できます。
 * `HttpClient` でのハンドラーのデリゲートにより送信ミドルウェアの概念を体系化し、Polly ベースのミドルウェアでそれを利用するための拡張機能を提供します。
@@ -698,7 +698,7 @@ DI 対応のアプリ内で `IHttpClientFactory` を使用すれば、次のこ�
 
 [サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/http-requests/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
-## <a name="prerequisites"></a>必須コンポーネント
+## <a name="prerequisites"></a>前提条件
 
 .NET Framework をターゲットとするプロジェクトでは、[Microsoft.Extensions.Http](https://www.nuget.org/packages/Microsoft.Extensions.Http/) NuGet パッケージのインストールが必要です。 .NET Core をターゲットとし、[Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)を参照するプロジェクトには、既に `Microsoft.Extensions.Http` パッケージが含まれています。
 
@@ -715,11 +715,11 @@ DI 対応のアプリ内で `IHttpClientFactory` を使用すれば、次のこ�
 
 ### <a name="basic-usage"></a>基本的な使用方法
 
-`IHttpClientFactory` は、`Startup.ConfigureServices` メソッドの内部で `IServiceCollection` の `AddHttpClient` 拡張メソッドを呼び出すことによって登録できます。
+`IHttpClientFactory` は、`AddHttpClient` メソッドの内部で `IServiceCollection` の `Startup.ConfigureServices` 拡張メソッドを呼び出すことによって登録できます。
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet1)]
 
-登録が済むと、コードは、[依存関係の挿入 (DI)](xref:fundamentals/dependency-injection) を使用してサービスを挿入できる任意の場所で、`IHttpClientFactory` を受け取ることができます。 `IHttpClientFactory` を使用して、`HttpClient` インスタンスを作成できます。
+登録が済むと、コードは、`IHttpClientFactory`依存関係の挿入 (DI)[ を使用してサービスを挿入できる任意の場所で、](xref:fundamentals/dependency-injection) を受け取ることができます。 `IHttpClientFactory` を使用して、`HttpClient` インスタンスを作成できます。
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Pages/BasicUsage.cshtml.cs?name=snippet1&highlight=9-12,21)]
 
@@ -731,7 +731,7 @@ DI 対応のアプリ内で `IHttpClientFactory` を使用すれば、次のこ�
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet2)]
 
-上記のコードでは、*github* という名前を指定して `AddHttpClient` を呼び出しています。 このクライアントには既定の構成がいくつか適用されています。つまり、GitHub API を使用するために必要なベース アドレスと 2 つのヘッダーです。
+上記のコードでは、`AddHttpClient`github*という名前を指定して* を呼び出しています。 このクライアントには既定の構成がいくつか適用されています。つまり、GitHub API を使用するために必要なベース アドレスと 2 つのヘッダーです。
 
 `CreateClient` を呼び出すたびに、`HttpClient` の新しいインスタンスが作成されて、構成アクションが呼び出されます。
 
@@ -907,19 +907,19 @@ Polly ポリシーを入れ子にして拡張機能を提供するのが一般�
 
 ## <a name="httpclient-and-lifetime-management"></a>HttpClient と有効期間の管理
 
-`IHttpClientFactory` で `CreateClient` を呼び出すたびに、`HttpClient` の新しいインスタンスが返されます。 名前付きクライアントごとに <xref:System.Net.Http.HttpMessageHandler> が存在します。 ファクトリによって `HttpMessageHandler` インスタンスの有効期間が管理されます。
+`HttpClient` で `CreateClient` を呼び出すたびに、`IHttpClientFactory` の新しいインスタンスが返されます。 名前付きクライアントごとに <xref:System.Net.Http.HttpMessageHandler> が存在します。 ファクトリによって `HttpMessageHandler` インスタンスの有効期間が管理されます。
 
-`IHttpClientFactory` は、リソースの消費量を減らすため、ファクトリによって作成された `HttpMessageHandler` のインスタンスをプールします。 新しい `HttpClient` インスタンスを作成するときに、プールの `HttpMessageHandler` インスタンスの有効期間が切れていない場合はそれを再利用する場合があります。
+`IHttpClientFactory` は、リソースの消費量を減らすため、ファクトリによって作成された `HttpMessageHandler` のインスタンスをプールします。 新しい `HttpMessageHandler` インスタンスを作成するときに、プールの `HttpClient` インスタンスの有効期間が切れていない場合はそれを再利用する場合があります。
 
 通常、各ハンドラーでは基になる HTTP 接続が独自に管理されるため、ハンドラーはプールすることが望まれます。 必要以上のハンドラーを作成すると、接続に遅延が発生する可能性があります。 また、一部のハンドラーは接続を無期限に開いており、DNS の変更にハンドラーが対応できないことがあります。
 
-ハンドラーの既定の有効期間は 2 分です。 名前付きクライアントごとに、既定値をオーバーライドすることができます。 オーバーライドするには、クライアント作成時に返された `IHttpClientBuilder` で <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.SetHandlerLifetime*> を呼び出します。
+ハンドラーの既定の有効期間は 2 分です。 名前付きクライアントごとに、既定値をオーバーライドすることができます。 オーバーライドするには、クライアント作成時に返された <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.SetHandlerLifetime*> で `IHttpClientBuilder` を呼び出します。
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet11)]
 
-クライアントを破棄する必要はありません。 破棄すると送信要求がキャンセルされ、<xref:System.IDisposable.Dispose*> の呼び出し後には指定された `HttpClient` インスタンスを使用できなくなります。 `IHttpClientFactory` は、`HttpClient` インスタンスによって使用されたリソースの追跡と破棄を行います。 通常、`HttpClient` インスタンスは、破棄を必要としない .NET オブジェクトとして扱うことができます。
+クライアントを破棄する必要はありません。 破棄すると送信要求がキャンセルされ、`HttpClient` の呼び出し後には指定された <xref:System.IDisposable.Dispose*> インスタンスを使用できなくなります。 `IHttpClientFactory` は、`HttpClient` インスタンスによって使用されたリソースの追跡と破棄を行います。 通常、`HttpClient` インスタンスは、破棄を必要としない .NET オブジェクトとして扱うことができます。
 
-`IHttpClientFactory` の登場以前は、1 つの `HttpClient` インスタンスを長い期間使い続けるパターンが一般的に使用されていました。 `IHttpClientFactory` に移行した後は、このパターンは不要になります。
+`HttpClient` の登場以前は、1 つの `IHttpClientFactory` インスタンスを長い期間使い続けるパターンが一般的に使用されていました。 `IHttpClientFactory` に移行した後は、このパターンは不要になります。
 
 ### <a name="alternatives-to-ihttpclientfactory"></a>IHttpClientFactory の代替手段
 
@@ -932,7 +932,7 @@ DI 対応のアプリ内で `IHttpClientFactory` を使用すれば、次のこ�
 
 - アプリの起動時に `SocketsHttpHandler` インスタンスを作成し、アプリの有効期間中、それを使用します。
 - DNS の更新時間に基づいて、<xref:System.Net.Http.SocketsHttpHandler.PooledConnectionLifetime> を適切な値に構成します。
-- 必要に応じて `new HttpClient(handler, disposeHandler: false)` を使用して `HttpClient` インスタンスを作成します。
+- 必要に応じて `HttpClient` を使用して `new HttpClient(handler, disposeHandler: false)` インスタンスを作成します。
 
 上記の方法を使用すると、`IHttpClientFactory` が同様の方法で解決するリソース管理の問題を解決できます。
 
@@ -991,7 +991,7 @@ DI 対応のアプリ内で `IHttpClientFactory` を使用すれば、次のこ�
 
 * パッケージ [HeaderPropagation](https://www.nuget.org/packages/HeaderPropagation) のコミュニティでサポートされているポートを参照します。 ASP.NET Core 3.1 以降では、[Microsoft.AspNetCore.HeaderPropagation](https://www.nuget.org/packages/Microsoft.AspNetCore.HeaderPropagation) がサポートされています。
 
-* `Startup` でミドルウェアと `HttpClient` を構成します。
+* `HttpClient` でミドルウェアと `Startup` を構成します。
 
   [!code-csharp[](http-requests/samples/2.x/Startup21.cs?highlight=5-9,25&name=snippet)]
 

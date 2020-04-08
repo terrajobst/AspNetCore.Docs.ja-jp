@@ -6,10 +6,10 @@ ms.author: riande
 ms.date: 7/22/2019
 uid: tutorials/razor-pages/sql
 ms.openlocfilehash: b5acb573f8fa39e5300ecdb359113d8697d78934
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78649514"
 ---
 # <a name="work-with-a-database-and-aspnet-core"></a>データベースと ASP.NET Core を使用する
@@ -20,13 +20,13 @@ ms.locfileid: "78649514"
 
 [!INCLUDE[](~/includes/rp/download.md)]
 
-`RazorPagesMovieContext` オブジェクトは、データベースへの接続と、データベース レコードへの `Movie` オブジェクトのマッピングのタスクを処理します。 データベース コンテキストは、*Startup.cs* の `ConfigureServices` メソッドで[依存性の注入](xref:fundamentals/dependency-injection)コンテナーに登録されます。
+`RazorPagesMovieContext` オブジェクトは、データベースへの接続と、データベース レコードへの `Movie` オブジェクトのマッピングのタスクを処理します。 データベース コンテキストは、[Startup.cs](xref:fundamentals/dependency-injection) の `ConfigureServices` メソッドで*依存性の注入*コンテナーに登録されます。
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Startup.cs?name=snippet_ConfigureServices&highlight=15-18)]
 
-# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code/Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 
@@ -40,7 +40,7 @@ ASP.NET Core の[構成](xref:fundamentals/configuration/index)システムは `
 
 [!code-json[](razor-pages-start/sample/RazorPagesMovie30/appsettings.json?highlight=10-12)]
 
-# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code/Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 [!code-json[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie/appsettings_SQLite.json?highlight=8-10)]
 
@@ -52,7 +52,7 @@ ASP.NET Core の[構成](xref:fundamentals/configuration/index)システムは `
 
 ## <a name="sql-server-express-localdb"></a>SQL Server Express LocalDB
 
-LocalDB は、プログラム開発を対象にした、SQL Server Express データベース エンジンの軽量版です。 LocalDB は要求時に開始され、ユーザー モードで実行されるため、複雑な構成はありません。 LocalDB データベースでは、既定で `C:\Users\<user>\` ディレクトリに `*.mdf` ファイルが作成されます。
+LocalDB は、プログラム開発を対象にした、SQL Server Express データベース エンジンの軽量版です。 LocalDB は要求時に開始され、ユーザー モードで実行されるため、複雑な構成はありません。 LocalDB データベースでは、既定で `*.mdf` ディレクトリに `C:\Users\<user>\` ファイルが作成されます。
 
 <a name="ssox"></a>
 * **[表示]** メニューの **[SQL Server オブジェクト エクスプローラー]** (SSOX) を開きます。
@@ -71,7 +71,7 @@ LocalDB は、プログラム開発を対象にした、SQL Server Express デ�
 
   ![開いた Movie テーブルにテーブル データが表示されています](sql/_static/vd22.png)
 
-# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code/Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 [!INCLUDE[](~/includes/rp/sqlite.md)]
 [!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
@@ -80,7 +80,7 @@ LocalDB は、プログラム開発を対象にした、SQL Server Express デ�
 
 ## <a name="seed-the-database"></a>データベースのシード
 
-次のコードを使用して、*Models* フォルダーに `SeedData` という名前の新しいクラスを作成します。
+次のコードを使用して、`SeedData`Models*フォルダーに* という名前の新しいクラスを作成します。
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Models/SeedData.cs?name=snippet_1)]
 
@@ -128,7 +128,7 @@ if (context.Movie.Any())
     * 非デバッグ モードで VS を実行していた場合は、F5 キーを押してデバッグ モードで実行します。
     * デバッグ モードで VS を実行していた場合は、デバッガーを停止して、F5 キーを押します。
 
-# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code/Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 DB 内のすべてのレコードを削除します (そのため Seed メソッドが実行されます)。 アプリを停止および起動して、データベースをシードします。
 
@@ -141,8 +141,8 @@ DB 内のすべてのレコードを削除します (そのため Seed メソッ
 ## <a name="additional-resources"></a>その他の技術情報
 
 > [!div class="step-by-step"]
-> [前へ:スキャフォールディングされた Razor Pages](xref:tutorials/razor-pages/page)
-> [次:ページの更新](xref:tutorials/razor-pages/da1)
+> [前: スキャフォールディングされた Razor ページ](xref:tutorials/razor-pages/page)
+> [次: ページの更新](xref:tutorials/razor-pages/da1)
 
 ::: moniker-end
 
@@ -150,13 +150,13 @@ DB 内のすべてのレコードを削除します (そのため Seed メソッ
 
 [!INCLUDE[](~/includes/rp/download.md)]
 
-`RazorPagesMovieContext` オブジェクトは、データベースへの接続と、データベース レコードへの `Movie` オブジェクトのマッピングのタスクを処理します。 データベース コンテキストは、*Startup.cs* の `ConfigureServices` メソッドで[依存性の注入](xref:fundamentals/dependency-injection)コンテナーに登録されます。
+`RazorPagesMovieContext` オブジェクトは、データベースへの接続と、データベース レコードへの `Movie` オブジェクトのマッピングのタスクを処理します。 データベース コンテキストは、[Startup.cs](xref:fundamentals/dependency-injection) の `ConfigureServices` メソッドで*依存性の注入*コンテナーに登録されます。
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Startup.cs?name=snippet_ConfigureServices&highlight=15-18)]
 
-# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code/Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 
@@ -164,7 +164,7 @@ DB 内のすべてのレコードを削除します (そのため Seed メソッ
 
 `ConfigureServices` で使用されているメソッドの詳細については、以下を参照してください。
 
-* [ASP.NET Core での `CookiePolicyOptions` 用の EU の一般データ保護規制 (GDPR) のサポート](xref:security/gdpr)
+* [ASP.NET Core での ](xref:security/gdpr) 用の EU の一般データ保護規制 (GDPR) のサポート`CookiePolicyOptions`
 * [SetCompatibilityVersion](xref:mvc/compatibility-version)
 
 ASP.NET Core の[構成](xref:fundamentals/configuration/index)システムは `ConnectionString` を読み取ります。 ローカルで開発する場合は、*appsettings.json* ファイルから接続文字列を取得します。
@@ -191,7 +191,7 @@ ASP.NET Core の[構成](xref:fundamentals/configuration/index)システムは `
 
 ## <a name="sql-server-express-localdb"></a>SQL Server Express LocalDB
 
-LocalDB は、プログラム開発を対象にした、SQL Server Express データベース エンジンの軽量版です。 LocalDB は要求時に開始され、ユーザー モードで実行されるため、複雑な構成はありません。 LocalDB データベースでは、既定で `C:/Users/<user/>` ディレクトリに `*.mdf` ファイルが作成されます。
+LocalDB は、プログラム開発を対象にした、SQL Server Express データベース エンジンの軽量版です。 LocalDB は要求時に開始され、ユーザー モードで実行されるため、複雑な構成はありません。 LocalDB データベースでは、既定で `*.mdf` ディレクトリに `C:/Users/<user/>` ファイルが作成されます。
 
 <a name="ssox"></a>
 * **[表示]** メニューの **[SQL Server オブジェクト エクスプローラー]** (SSOX) を開きます。
@@ -224,7 +224,7 @@ LocalDB は、プログラム開発を対象にした、SQL Server Express デ�
 
 ## <a name="seed-the-database"></a>データベースのシード
 
-次のコードを使用して、*Models* フォルダーに `SeedData` という名前の新しいクラスを作成します。
+次のコードを使用して、`SeedData`Models*フォルダーに* という名前の新しいクラスを作成します。
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Models/SeedData.cs?name=snippet_1)]
 
@@ -253,7 +253,7 @@ if (context.Movie.Any())
 
 運用アプリは `Database.Migrate` を呼び出しません。 これは、`Update-Database` が実行されていないとき、前述のコードに追加され、次の例外を阻止します。
 
-SqlException:Cannot open database "RazorPagesMovieContext-21" requested by the login. (SqlException: ログインで要求されている "RazorPagesMovieContext-21" データベースを開くことができませんでした。) The login failed.\(ログインに失敗しました。\)
+SqlException: Cannot open database "RazorPagesMovieContext-21" requested by the login.\(SqlException: ログインで要求されている "RazorPagesMovieContext-21" データベースを開くことができませんでした。\) The login failed.\(ログインに失敗しました。\)
 Login failed for user 'user name'.\(ユーザー 'ユーザー名' はログインできませんでした。\)
 
 ### <a name="test-the-app"></a>アプリのテスト
@@ -297,7 +297,7 @@ DB 内のすべてのレコードを削除します (そのため Seed メソッ
 * [このチュートリアルの YouTube バージョン](https://youtu.be/A_5ff11sDHY)
 
 > [!div class="step-by-step"]
-> [前へ:スキャフォールディングされた Razor Pages](xref:tutorials/razor-pages/page)
-> [次:ページの更新](xref:tutorials/razor-pages/da1)
+> [前: スキャフォールディングされた Razor ページ](xref:tutorials/razor-pages/page)
+> [次: ページの更新](xref:tutorials/razor-pages/da1)
 
 ::: moniker-end

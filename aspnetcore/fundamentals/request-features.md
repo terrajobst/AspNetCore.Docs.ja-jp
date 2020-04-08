@@ -6,10 +6,10 @@ ms.author: riande
 ms.date: 10/14/2016
 uid: fundamentals/request-features
 ms.openlocfilehash: d0f3ae521d1f314dd04cb581d9a921da4719273d
-ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/16/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "79416174"
 ---
 # <a name="request-features-in-aspnet-core"></a>ASP.NET Core での要求機能
@@ -53,7 +53,7 @@ ASP.NET Core には、サーバーがサポートする機能を識別するた�
 
 ## <a name="feature-collections"></a>機能のコレクション
 
-`HttpContext` の `Features` プロパティは、現在の要求で利用可能な HTTP 機能を取得および設定するためのインターフェイスです。 機能のコレクションは要求のコンテキスト内でも変更可能であるため、コレクションの変更と、その他の機能のサポートの追加にはミドルウェアを使用できます。
+`Features` の `HttpContext` プロパティは、現在の要求で利用可能な HTTP 機能を取得および設定するためのインターフェイスです。 機能のコレクションは要求のコンテキスト内でも変更可能であるため、コレクションの変更と、その他の機能のサポートの追加にはミドルウェアを使用できます。
 
 ## <a name="middleware-and-request-features"></a>ミドルウェアおよび要求機能
 

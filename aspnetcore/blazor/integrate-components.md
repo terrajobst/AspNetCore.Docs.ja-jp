@@ -11,10 +11,10 @@ no-loc:
 - SignalR
 uid: blazor/integrate-components
 ms.openlocfilehash: cf6056e0985d5433bddecac8dd183ca3f4c2af5b
-ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/24/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "80218935"
 ---
 # <a name="integrate-aspnet-core-razor-components-into-razor-pages-and-mvc-apps"></a>ASP.NET Core Razor コンポーネントを Razor Pages と MVC アプリに統合する
@@ -35,11 +35,11 @@ Razor コンポーネントは、Razor Pages と MVC アプリに統合できま
      <base href="~/" />
      ```
 
-     前の例の `href` 値 (*アプリ ベースのパス*) は、アプリがルート URL パス (`/`) に置かれていることを前提としています。 アプリがサブアプリケーションになっている場合は、記事 <xref:host-and-deploy/blazor/index#app-base-path> の「*アプリのベース パス*」セクションのガイダンスに従ってください。
+     前の例の `href` 値 (*アプリ ベースのパス*) は、アプリがルート URL パス (`/`) に置かれていることを前提としています。 アプリがサブアプリケーションになっている場合は、記事  *の「* アプリのベース パス<xref:host-and-deploy/blazor/index#app-base-path>」セクションのガイダンスに従ってください。
 
      *_Layout.cshtml* ファイルは、Razor Pages アプリの *Pages/Shared* フォルダーまたは MVC アプリの *Views/Shared* フォルダーにあります。
 
-   * *blazor.server.js* スクリプトの `<script>` タグを、終了 `</body>` タグの直前に追加します。
+   * `<script>`blazor.server.js*スクリプトの* タグを、終了 `</body>` タグの直前に追加します。
 
      ```html
      <script src="_framework/blazor.server.js"></script>
@@ -124,7 +124,7 @@ Razor Pages アプリでルーティング可能な Razor コンポーネント�
    });
    ```
 
-1. ルーティング可能なコンポーネントをアプリに追加します。 次に例を示します。
+1. ルーティング可能なコンポーネントをアプリに追加します。 (例:
 
    ```razor
    @page "/counter"
@@ -183,7 +183,7 @@ MVC アプリでルーティング可能な Razor コンポーネントをサポ
    }
    ```
 
-1. `Startup.Configure` 内のエンドポイント構成に *_Host.cshtml* ビューを返すコントローラー アクションのために、優先度が低いルートを追加します。
+1. *内のエンドポイント構成に*_Host.cshtml`Startup.Configure` ビューを返すコントローラー アクションのために、優先度が低いルートを追加します。
 
    ```csharp
    app.UseEndpoints(endpoints =>
@@ -194,7 +194,7 @@ MVC アプリでルーティング可能な Razor コンポーネントをサポ
    });
    ```
 
-1. *Pages* フォルダーを作成し、アプリにルーティング可能なコンポーネントを追加します。 次に例を示します。
+1. *Pages* フォルダーを作成し、アプリにルーティング可能なコンポーネントを追加します。 (例:
 
    ```razor
    @page "/counter"

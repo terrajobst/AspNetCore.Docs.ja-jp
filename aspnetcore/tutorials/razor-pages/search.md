@@ -6,10 +6,10 @@ ms.author: riande
 ms.date: 12/05/2019
 uid: tutorials/razor-pages/search
 ms.openlocfilehash: 8228207b0f37a6923b29891ac3115dd0be115501
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78651044"
 ---
 # <a name="add-search-to-aspnet-core-razor-pages"></a>ASP.NET Core Razor ページへの検索の追加
@@ -45,7 +45,7 @@ var movies = from m in _context.Movie
              select m;
 ```
 
-このクエリはこの時点では定義される*だけ*で、データベースに対して**実行されていません**。
+このクエリはこの時点で*のみ*定義されます。データベースに対して**実行されていません**。
 
 `SearchString` プロパティが null でも空でもない場合、検索文字列で絞り込むようにムービークエリが変更されます。
 
@@ -66,11 +66,11 @@ var movies = from m in _context.Movie
 @page "{searchString?}"
 ```
 
-先のルート制約では、クエリ文字列値の代わりに、ルート データ (URL セグメント) として題名を検索できます。  `"{searchString?}"` の `?` は、これが任意のルート パラメーターであることを意味します。
+先のルート制約では、クエリ文字列値の代わりに、ルート データ (URL セグメント) として題名を検索できます。  `?` の `"{searchString?}"` は、これが任意のルート パラメーターであることを意味します。
 
 ![ghost という単語が URL に追加された索引ビュー。Ghostbusters と Ghostbusters 2 という 2 本のムービーからなるムービーリストが返されています。](search/_static/g2.png)
 
-ASP.NET Core ランタイムでは[モデル バインド](xref:mvc/models/model-binding)を使用し、クエリ文字列 (`?searchString=Ghost`) またはルート データ (`https://localhost:5001/Movies/Ghost`) から `SearchString` プロパティの値が設定されます。 モデル バインドでは、大文字と小文字が区別されません。
+ASP.NET Core ランタイムでは[モデル バインド](xref:mvc/models/model-binding)を使用し、クエリ文字列 (`SearchString`) またはルート データ (`?searchString=Ghost`) から `https://localhost:5001/Movies/Ghost` プロパティの値が設定されます。 モデル バインドでは、大文字と小文字が区別されません。
 
 ただし、URL を変更してムービーを検索することをユーザーに求めることはできません。 この手順では、ムービーを絞り込むための UI を追加します。 ルート制約 `"{searchString?}"` を追加した場合、それを削除します。
 
@@ -114,7 +114,7 @@ HTML `<form>` タグでは、次の[タグ ヘルパー](xref:mvc/views/tag-help
 * [このチュートリアルの YouTube バージョン](https://youtu.be/4B6pHtdyo08)
 
 > [!div class="step-by-step"]
-> [前へ:ページの更新](xref:tutorials/razor-pages/da1)
+> [前: ページの更新](xref:tutorials/razor-pages/da1)
 > [次: 新しいフィールドの追加](xref:tutorials/razor-pages/new-field)
 
 ::: moniker-end
@@ -148,7 +148,7 @@ var movies = from m in _context.Movie
              select m;
 ```
 
-このクエリはこの時点では定義される*だけ*で、データベースに対して**実行されていません**。
+このクエリはこの時点で*のみ*定義されます。データベースに対して**実行されていません**。
 
 `SearchString` プロパティが null でも空でもない場合、検索文字列で絞り込むようにムービークエリが変更されます。
 
@@ -168,11 +168,11 @@ var movies = from m in _context.Movie
 @page "{searchString?}"
 ```
 
-先のルート制約では、クエリ文字列値の代わりに、ルート データ (URL セグメント) として題名を検索できます。  `"{searchString?}"` の `?` は、これが任意のルート パラメーターであることを意味します。
+先のルート制約では、クエリ文字列値の代わりに、ルート データ (URL セグメント) として題名を検索できます。  `?` の `"{searchString?}"` は、これが任意のルート パラメーターであることを意味します。
 
 ![ghost という単語が URL に追加された索引ビュー。Ghostbusters と Ghostbusters 2 という 2 本のムービーからなるムービーリストが返されています。](search/_static/g2.png)
 
-ASP.NET Core ランタイムでは[モデル バインド](xref:mvc/models/model-binding)を使用し、クエリ文字列 (`?searchString=Ghost`) またはルート データ (`https://localhost:5001/Movies/Ghost`) から `SearchString` プロパティの値が設定されます。 モデル バインドでは、大文字と小文字が区別されません。
+ASP.NET Core ランタイムでは[モデル バインド](xref:mvc/models/model-binding)を使用し、クエリ文字列 (`SearchString`) またはルート データ (`?searchString=Ghost`) から `https://localhost:5001/Movies/Ghost` プロパティの値が設定されます。 モデル バインドでは、大文字と小文字が区別されません。
 
 ただし、URL を変更してムービーを検索することをユーザーに求めることはできません。 この手順では、ムービーを絞り込むための UI を追加します。 ルート制約 `"{searchString?}"` を追加した場合、それを削除します。
 
@@ -217,7 +217,7 @@ HTML `<form>` タグでは、次の[タグ ヘルパー](xref:mvc/views/tag-help
 * [このチュートリアルの YouTube バージョン](https://youtu.be/4B6pHtdyo08)
 
 > [!div class="step-by-step"]
-> [前へ:ページの更新](xref:tutorials/razor-pages/da1)
+> [前: ページの更新](xref:tutorials/razor-pages/da1)
 > [次: 新しいフィールドの追加](xref:tutorials/razor-pages/new-field)
 
 ::: moniker-end

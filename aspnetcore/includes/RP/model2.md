@@ -26,14 +26,14 @@ RazorPagesMovie プロジェクトで、*Data* という名前の新しいフォ
 
 ### <a name="register-the-database-context"></a>データベース コンテキストの登録
 
-*Startup.cs* の先頭に次の `using` ステートメントを追加します。
+`using`Startup.cs*の先頭に次の* ステートメントを追加します。
 
 ```csharp
 using RazorPagesMovie.Data;
 using Microsoft.EntityFrameworkCore;
 ```
 
-`Startup.ConfigureServices` で[依存性の挿入](xref:fundamentals/dependency-injection)コンテナーを使用し、データベース コンテキストを登録します。
+[ で](xref:fundamentals/dependency-injection)依存性の挿入`Startup.ConfigureServices`コンテナーを使用し、データベース コンテキストを登録します。
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 
@@ -59,14 +59,14 @@ dotnet add package Microsoft.EntityFrameworkCore.Design
 
 ### <a name="register-the-database-context"></a>データベース コンテキストの登録
 
-*Startup.cs* の先頭に次の `using` ステートメントを追加します。
+`using`Startup.cs*の先頭に次の* ステートメントを追加します。
 
 ```csharp
 using RazorPagesMovie.Models;
 using Microsoft.EntityFrameworkCore;
 ```
 
-`Startup.ConfigureServices` で[依存性の挿入](xref:fundamentals/dependency-injection)コンテナーを使用し、データベース コンテキストを登録します。
+[ で](xref:fundamentals/dependency-injection)依存性の挿入`Startup.ConfigureServices`コンテナーを使用し、データベース コンテキストを登録します。
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 

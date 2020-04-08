@@ -7,10 +7,10 @@ ms.custom: mvc
 ms.date: 12/05/2019
 uid: migration/1x-to-2x/index
 ms.openlocfilehash: c46f50a418cf630980ac2ba94407e4370d36e7d5
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78644768"
 ---
 # <a name="migrate-from-aspnet-core-1x-to-20"></a>ASP.NET Core 1.x から 2.0 への移行
@@ -23,7 +23,7 @@ ms.locfileid: "78644768"
 
 <a name="prerequisites"></a>
 
-## <a name="prerequisites"></a>必須コンポーネント
+## <a name="prerequisites"></a>前提条件
 
 「[ASP.NET Core の概要](xref:getting-started)」を参照してください。
 
@@ -31,11 +31,11 @@ ms.locfileid: "78644768"
 
 ## <a name="update-target-framework-moniker-tfm"></a>ターゲット フレームワーク モニカー (TFM) の更新
 
-.NET Core をターゲットとするプロジェクトでは、.NET Core 2.0 以上のバージョンの [TFM](/dotnet/standard/frameworks) を使用する必要があります。 *.csproj* ファイルで `<TargetFramework>` ノードを探し、その内側のテキストを `netcoreapp2.0` に置き換えます。
+.NET Core をターゲットとするプロジェクトでは、.NET Core 2.0 以上のバージョンの [TFM](/dotnet/standard/frameworks) を使用する必要があります。 `<TargetFramework>`.csproj*ファイルで* ノードを探し、その内側のテキストを `netcoreapp2.0` に置き換えます。
 
 [!code-xml[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App.csproj?range=3)]
 
-.NET Framework をターゲットとするプロジェクトでは、.NET Framework 4.6.1 以上の TFM バージョンを使用する必要があります。 *.csproj* ファイルで `<TargetFramework>` ノードを探し、その内側のテキストを `net461` に置き換えます。
+.NET Framework をターゲットとするプロジェクトでは、.NET Framework 4.6.1 以上の TFM バージョンを使用する必要があります。 `<TargetFramework>`.csproj*ファイルで* ノードを探し、その内側のテキストを `net461` に置き換えます。
 
 [!code-xml[](../1x-to-2x/samples/AspNetCoreDotNetFx2.0App/AspNetCoreDotNetFx2.0App/AspNetCoreDotNetFx2.0App.csproj?range=4)]
 
@@ -58,13 +58,13 @@ ms.locfileid: "78644768"
 
 1\.x プロジェクト内の *.csproj* ファイルには、プロジェクトによって使用される各 NuGet パッケージの一覧があります。
 
-.NET Core 2.0 をターゲットとする ASP.NET Core 2.0 プロジェクトでは、 *.csproj* ファイル内の 1 つの[メタパッケージ](xref:fundamentals/metapackage)への参照によってパッケージのコレクションが置き換えられます。
+.NET Core 2.0 をターゲットとする ASP.NET Core 2.0 プロジェクトでは、[.csproj](xref:fundamentals/metapackage) ファイル内の 1 つの*メタパッケージ*への参照によってパッケージのコレクションが置き換えられます。
 
 [!code-xml[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App.csproj?range=8-10)]
 
 メタパッケージには、ASP.NET Core 2.0 および Entity Framework Core 2.0 のすべての機能が含まれます。
 
-.NET Framework をターゲットとする ASP.NET Core 2.0 プロジェクトは、個々の NuGet パッケージを参照し続ける必要があります。 各 `<PackageReference />` ノードの `Version` 属性を 2.0.0 に更新します。
+.NET Framework をターゲットとする ASP.NET Core 2.0 プロジェクトは、個々の NuGet パッケージを参照し続ける必要があります。 各 `Version` ノードの `<PackageReference />` 属性を 2.0.0 に更新します。
 
 たとえば、.NET Framework をターゲットとする一般的な ASP.NET Core 2.0 プロジェクトで使用される `<PackageReference />` ノードの一覧を次に示します。
 
@@ -74,7 +74,7 @@ ms.locfileid: "78644768"
 
 ## <a name="update-net-core-cli-tools"></a>.NET Core CLI ツールの更新
 
-*.csproj* ファイルで、`<DotNetCliToolReference />` ノードのそれぞれの `Version` 属性を 2.0.0 に更新します。
+*.csproj* ファイルで、`Version` ノードのそれぞれの `<DotNetCliToolReference />` 属性を 2.0.0 に更新します。
 
 たとえば、.NET Core 2.0 をターゲットとする一般的な ASP.NET Core 2.0 プロジェクトで使用される CLI ツールの一覧を次に示します。
 
@@ -96,11 +96,11 @@ ms.locfileid: "78644768"
 
 ## <a name="update-main-method-in-programcs"></a>Program.cs の Main メソッドの更新
 
-1\.x プロジェクトでは、*Program.cs* の `Main` メソッドは次のようでした。
+1\.x プロジェクトでは、`Main`Program.cs*の* メソッドは次のようでした。
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Program.cs?name=snippet_ProgramCs&highlight=8-19)]
 
-2\.0 プロジェクトでは、*Program.cs* の `Main` メソッドは次のように簡素化されました。
+2\.0 プロジェクトでは、`Main`Program.cs*の* メソッドは次のように簡素化されました。
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Program.cs?highlight=8-11)]
 
@@ -118,13 +118,13 @@ Unable to create an object of type '<Context>'. Add an implementation of 'IDesig
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Startup.cs?name=snippet_1xStartup)]
 
-前の例では、`IHostingEnvironment.EnvironmentName` プロパティに一致する、*appsettings.json* とすべての *appsettings.\<EnvironmentName\>.json* ファイルの構成設定の `Configuration` メンバーを読み込んでいます。 これらのファイルの場所は *Startup.cs* と同じパスです。
+前の例では、`Configuration` プロパティに一致する、*appsettings.json* とすべての *appsettings.\<EnvironmentName\>.json* ファイルの構成設定の `IHostingEnvironment.EnvironmentName` メンバーを読み込んでいます。 これらのファイルの場所は *Startup.cs* と同じパスです。
 
 2\.0 プロジェクトでは、1.x プロジェクトに固有の定型句による構成コードがバックグラウンドで実行されていました。 たとえば、環境変数とアプリの設定は起動時に読み込まれます。 同等の *Startup.cs* コードは、挿入されたインスタンスによって `IConfiguration` の初期化に削減されます。
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetFx2.0App/AspNetCoreDotNetFx2.0App/Startup.cs?name=snippet_2xStartup)]
 
-`WebHostBuilder.CreateDefaultBuilder` によって追加された既定のプロバイダーを削除するには、`ConfigureAppConfiguration` の内部の `IConfigurationBuilder.Sources` プロパティで `Clear` メソッドを呼び出します。 プロバイダーを戻すには、*Program.cs* の `ConfigureAppConfiguration` メソッドを利用します。
+`WebHostBuilder.CreateDefaultBuilder` によって追加された既定のプロバイダーを削除するには、`Clear` の内部の `IConfigurationBuilder.Sources` プロパティで `ConfigureAppConfiguration` メソッドを呼び出します。 プロバイダーを戻すには、`ConfigureAppConfiguration`Program.cs*の* メソッドを利用します。
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetFx2.0App/AspNetCoreDotNetFx2.0App/Program.cs?name=snippet_ProgramMainConfigProviders&highlight=9-14)]
 
@@ -144,15 +144,15 @@ EF Core 1.x を利用する 1.x プロジェクトで、`dotnet ef migrations ad
 
 EF Core 2.0 を使用する 2.0 プロジェクトでは、`Program.BuildWebHost` が呼び出され、アプリケーション サービスを取得します。 1\.x とは異なり、`Startup.Configure` を呼び出すという副作用が加わります。 1\.x アプリがその `Configure` メソッドでデータベース初期化コードを呼び出すと、予想外の問題が発生することがあります。 たとえば、データベースがまだ存在しない場合、EF Core 移行コマンド実行前にシード処理コードが実行されます。 この問題が原因で、データベースがまだ存在しない場合に `dotnet ef migrations list` コマンドが失敗します。
 
-*Startup.cs* の `Configure` メソッドで次の 1.x シード処理初期化コードを検討してください。
+`Configure`Startup.cs*の* メソッドで次の 1.x シード処理初期化コードを検討してください。
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Startup.cs?name=snippet_ConfigureSeedData&highlight=8)]
 
-2\.0 プロジェクトでは、*Program.cs* の `Main` メソッドに `SeedData.Initialize` 呼び出しを移動します。
+2\.0 プロジェクトでは、`SeedData.Initialize`Program.cs`Main` の *メソッドに* 呼び出しを移動します。
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Program2.cs?name=snippet_Main2Code&highlight=10)]
 
-2\.0 以降、`BuildWebHost` で Web ホストのビルドと構成以外を行うことは正しくない使用例となります。 アプリケーションの実行に関するあらゆることは `BuildWebHost` &mdash; の外側で、一般的には *Program.cs* の `Main` メソッドで処理する必要があります。
+2\.0 以降、`BuildWebHost` で Web ホストのビルドと構成以外を行うことは正しくない使用例となります。 アプリケーションの実行に関するあらゆることは `BuildWebHost` &mdash; の外側で、一般的には `Main`Program.cs*の* メソッドで処理する必要があります。
 
 <a name="view-compilation"></a>
 
@@ -162,7 +162,7 @@ EF Core 2.0 を使用する 2.0 プロジェクトでは、`Program.BuildWebHost
 
 `MvcRazorCompileOnPublish` プロパティを true に設定する必要がなくなりました。 ビューのコンパイルを無効にしている場合を除き、 *.csproj* ファイルからこのプロパティが削除されている場合があります。
 
-.NET Framework をターゲットとする場合、継続して *.csproj* ファイルの [Microsoft.AspNetCore.Mvc.Razor.ViewCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.ViewCompilation) NuGet パッケージを明示的に参照する必要があります。
+.NET Framework をターゲットとする場合、継続して [.csproj](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.ViewCompilation) ファイルの *Microsoft.AspNetCore.Mvc.Razor.ViewCompilation* NuGet パッケージを明示的に参照する必要があります。
 
 [!code-xml[](../1x-to-2x/samples/AspNetCoreDotNetFx2.0App/AspNetCoreDotNetFx2.0App/AspNetCoreDotNetFx2.0App.csproj?range=15)]
 
@@ -174,11 +174,11 @@ EF Core 2.0 を使用する 2.0 プロジェクトでは、`Program.BuildWebHost
 
 Visual Studio 2017 で作成された ASP.NET Core 1.1 プロジェクトには、既定で Application Insights が追加されています。 *Program.cs* と *Startup.cs* 外で、Application Insights SDK を直接使用していない場合、次の手順に従います。
 
-1. .NET Core をターゲットにする場合、 *.csproj* ファイルから次の `<PackageReference />` ノードを削除します。
+1. .NET Core をターゲットにする場合、`<PackageReference />`.csproj*ファイルから次の* ノードを削除します。
 
     [!code-xml[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App.csproj?range=10)]
 
-2. .NET Core をターゲットにする場合、*Program.cs* から `UseApplicationInsights` 拡張メソッド呼び出しを削除します。
+2. .NET Core をターゲットにする場合、`UseApplicationInsights`Program.cs*から* 拡張メソッド呼び出しを削除します。
 
     [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Program.cs?name=snippet_ProgramCsMain&highlight=8)]
 

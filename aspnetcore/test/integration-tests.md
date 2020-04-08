@@ -8,10 +8,10 @@ ms.custom: mvc
 ms.date: 01/06/2019
 uid: test/integration-tests
 ms.openlocfilehash: 414e47b9c5a1c843755bd79d313f503b554945db
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78649646"
 ---
 # <a name="integration-tests-in-aspnet-core"></a>ASP.NET Core での統合テスト
@@ -361,7 +361,7 @@ SUT は、次の特性を持つ Razor ページ メッセージ システムで�
 
 * アプリのインデックス ページ (*Pages/Index.cshtml* と *Pages/Index.cshtml.cs*) には、メッセージの追加、削除、および分析 (メッセージあたりの平均単語数) を制御する UI およびページ モデル メソッドが用意されています。
 * メッセージは、`Id` (キー) と `Text` (メッセージ) の 2 つのプロパティを持つ `Message` クラス (*Data/Message.cs*) によって記述されます。 `Text` プロパティは必須であり、200 文字までに制限されています。
-* メッセージは [Entity Framework のメモリ内データベース](/ef/core/providers/in-memory/) &#8224; を使用して格納されます。
+* メッセージは [Entity Framework のメモリ内データベース](/ef/core/providers/in-memory/)&#8224; を使用して格納されます。
 * アプリのデータベース コンテキスト クラスである `AppDbContext` (*Data/AppDbContext.cs*) には、データアクセス層 (DAL) が含まれています。
 * アプリの起動時にデータベースが空の場合、メッセージ ストアが 3 つのメッセージで初期化されます。
 * アプリには、認証されたユーザーのみがアクセスできる `/SecurePage` が含まれています。

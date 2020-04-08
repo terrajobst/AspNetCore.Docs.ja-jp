@@ -7,15 +7,15 @@ ms.custom: mvc, seodec18
 ms.date: 10/24/2018
 uid: azure/devops/next-steps
 ms.openlocfilehash: a775dc42551a43bcce72b5f9ca364ed00b1dc4e6
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78647432"
 ---
 # <a name="next-steps"></a>次の手順
 
-このガイドでは ASP.NET Core サンプル アプリ用の DevOps パイプラインを作成しました。 おめでとうございます! Azure App Service に ASP.NET Core Web アプリを発行し、変更の継続的インテグレーションを自動化する方法についてご理解いただけたと思います。
+このガイドでは ASP.NET Core サンプル アプリ用の DevOps パイプラインを作成しました。 お疲れさまでした。 Azure App Service に ASP.NET Core Web アプリを発行し、変更の継続的インテグレーションを自動化する方法についてご理解いただけたと思います。
 
 Web ホスティングと DevOps 以外にも、Azure には、ASP.NET Core の開発者に役立つ数多くのサービスとしてのプラットフォーム (PaaS) サービスがあります。 このセクションでは、いくつかの最も一般的に使用されるサービスの概要について説明します。
 

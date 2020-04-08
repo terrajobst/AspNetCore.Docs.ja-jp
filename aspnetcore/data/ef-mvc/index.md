@@ -6,10 +6,10 @@ ms.author: riande
 ms.date: 03/27/2017
 uid: data/ef-mvc/index
 ms.openlocfilehash: 9ff070022260aae597d71b2da8d342f41f0c976b
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78644132"
 ---
 # <a name="aspnet-core-mvc-with-ef-core---tutorial-series"></a>ASP.NET Core MVC と EF Core - チュートリアル シリーズ

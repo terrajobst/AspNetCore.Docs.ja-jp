@@ -7,10 +7,10 @@ ms.custom: H1Hack27Feb2017
 ms.date: 12/18/2018
 uid: fundamentals/owin
 ms.openlocfilehash: 14b23ba6d284413e20417bbd4142e19a656350ac
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78650564"
 ---
 # <a name="open-web-interface-for-net-owin-with-aspnet-core"></a>Open Web Interface for .NET (OWIN) と ASP.NET Core
@@ -35,7 +35,7 @@ OWIN には、さまざまなオブジェクト モデルを使用する 2 つ�
 
 ASP.NET Core の OWIN のサポートは、`Microsoft.AspNetCore.Owin` パッケージの一部として展開されます。 このパッケージをインストールすることで、OWIN のサポートをプロジェクトにインポートできます。
 
-OWIN ミドルウェアは、`Func<IDictionary<string, object>, Task>` インターフェイスと特定のキー (`owin.ResponseBody` など) の設定を必須とする [OWIN 仕様](https://owin.org/spec/spec/owin-1.0.0.html)に準拠しています。 次の単純な OWIN ミドルウェアを実行すると "Hello World" が表示されます。
+OWIN ミドルウェアは、[ インターフェイスと特定のキー (](https://owin.org/spec/spec/owin-1.0.0.html) など) の設定を必須とする `Func<IDictionary<string, object>, Task>`OWIN 仕様`owin.ResponseBody`に準拠しています。 次の単純な OWIN ミドルウェアを実行すると "Hello World" が表示されます。
 
 ```csharp
 public Task OwinHello(IDictionary<string, object> environment)
@@ -56,7 +56,7 @@ public Task OwinHello(IDictionary<string, object> environment)
 
 サンプル署名は `Task` を返し、OWIN で必要な場合に `IDictionary<string, object>` を受け取ります。
 
-次のコードは、`UseOwin` 拡張メソッドを使用して ASP.NET Core パイプラインに `OwinHello` ミドルウェア (上の図) を追加する方法を示しています。
+次のコードは、`OwinHello` 拡張メソッドを使用して ASP.NET Core パイプラインに `UseOwin` ミドルウェア (上の図) を追加する方法を示しています。
 
 ```csharp
 public void Configure(IApplicationBuilder app)
@@ -237,7 +237,7 @@ OWIN は、HTTP 要求/応答の交換を通じて情報を伝達するために
 
 ### <a name="request-data-owin-v100"></a>要求データ (OWIN v1.0.0)
 
-| Key               | 値 (型) | 説明 |
+| キー               | 値 (型) | 説明 |
 | ----------------- | ------------ | ----------- |
 | owin.RequestScheme | `String` |  |
 | owin.RequestMethod  | `String` | |    
@@ -250,13 +250,13 @@ OWIN は、HTTP 要求/応答の交換を通じて情報を伝達するために
 
 ### <a name="request-data-owin-v110"></a>要求データ (OWIN v1.1.0)
 
-| Key               | 値 (型) | 説明 |
+| キー               | 値 (型) | 説明 |
 | ----------------- | ------------ | ----------- |
 | owin.RequestId | `String` | Optional |
 
 ### <a name="response-data-owin-v100"></a>応答データ (OWIN v1.0.0)
 
-| Key               | 値 (型) | 説明 |
+| キー               | 値 (型) | 説明 |
 | ----------------- | ------------ | ----------- |
 | owin.ResponseStatusCode | `int` | Optional |
 | owin.ResponseReasonPhrase | `String` | Optional |
@@ -265,14 +265,14 @@ OWIN は、HTTP 要求/応答の交換を通じて情報を伝達するために
 
 ### <a name="other-data-owin-v100"></a>その他のデータ (OWIN v1.0.0)
 
-| Key               | 値 (型) | 説明 |
+| キー               | 値 (型) | 説明 |
 | ----------------- | ------------ | ----------- |
 | owin.CallCancelled | `CancellationToken` |  |
 | owin.Version  | `String` | |   
 
 ### <a name="common-keys"></a>共通キー
 
-| Key               | 値 (型) | 説明 |
+| キー               | 値 (型) | 説明 |
 | ----------------- | ------------ | ----------- |
 | ssl.ClientCertificate | `X509Certificate` |  |
 | ssl.LoadClientCertAsync  | `Func<Task>` | |    
@@ -285,13 +285,13 @@ OWIN は、HTTP 要求/応答の交換を通じて情報を伝達するために
 
 ### <a name="sendfiles-v030"></a>SendFiles v0.3.0
 
-| Key               | 値 (型) | 説明 |
+| キー               | 値 (型) | 説明 |
 | ----------------- | ------------ | ----------- |
 | sendfile.SendAsync | 「[Delegate Signature](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)」(デリゲート シグネチャ) を参照してください。 | 要求ごと |
 
 ### <a name="opaque-v030"></a>Opaque v0.3.0
 
-| Key               | 値 (型) | 説明 |
+| キー               | 値 (型) | 説明 |
 | ----------------- | ------------ | ----------- |
 | opaque.Version | `String` |  |
 | opaque.Upgrade | `OpaqueUpgrade` | 「[Delegate Signature](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)」(デリゲート シグネチャ) を参照してください。 |
@@ -300,7 +300,7 @@ OWIN は、HTTP 要求/応答の交換を通じて情報を伝達するために
 
 ### <a name="websocket-v030"></a>WebSocket v0.3.0
 
-| Key               | 値 (型) | 説明 |
+| キー               | 値 (型) | 説明 |
 | ----------------- | ------------ | ----------- |
 | websocket.Version | `String` |  |
 | websocket.Accept | `WebSocketAccept` | 「[Delegate Signature](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)」(デリゲート シグネチャ) を参照してください。 |

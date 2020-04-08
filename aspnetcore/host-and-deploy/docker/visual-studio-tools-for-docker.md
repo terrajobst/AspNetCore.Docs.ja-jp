@@ -7,10 +7,10 @@ ms.custom: mvc
 ms.date: 09/12/2018
 uid: host-and-deploy/docker/visual-studio-tools-for-docker
 ms.openlocfilehash: 0e6747a3de220b97cc7a84f9cd42b0da54b57ee9
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78649322"
 ---
 # <a name="visual-studio-container-tools-with-aspnet-core"></a>Visual Studio コンテナー ツールと ASP.NET Core
@@ -19,16 +19,16 @@ Visual Studio 2017 以降のバージョンでは、.NET Core をターゲット
 
 [サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/docker/visual-studio-tools-for-docker/samples)します ([ダウンロード方法](xref:index#how-to-download-a-sample))。
 
-## <a name="prerequisites"></a>必須コンポーネント
+## <a name="prerequisites"></a>前提条件
 
 * [Docker for Windows](https://docs.docker.com/docker-for-windows/install/)
 * [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) と **.NET Core クロスプラットフォームの開発**ワークロード
 
 ## <a name="installation-and-setup"></a>インストールとセットアップ
 
-Docker をインストールするには、まず、「[Docker for Windows:What to know before you install](https://docs.docker.com/docker-for-windows/install/#what-to-know-before-you-install)」 (Docker Desktop for Windows: インストール前に知っておくべきこと) の情報を確認します。 次に、[Docker for Windows](https://docs.docker.com/docker-for-windows/install/) をインストールします。
+Docker をインストールする場合は、まず、「[Docker for Windows: What to know before you install](https://docs.docker.com/docker-for-windows/install/#what-to-know-before-you-install)」 (Docker for Windows: インストール前に知っておくべきこと) の情報を確認します。 次に、[Docker for Windows](https://docs.docker.com/docker-for-windows/install/) をインストールします。
 
-ボリュームのマッピングとデバッグをサポートするように、Docker for Windows で **[共有ドライブ](https://docs.docker.com/docker-for-windows/#shared-drives)**  を構成する必要があります。 システム トレイの Docker アイコンを右クリックし、 **[設定]** 、 **[Shared Drives]\(共有ドライブ\)** の順に選択します。 Docker がファイルを保存するドライブを選択します。 **[適用]** をクリックします。
+ボリュームのマッピングとデバッグをサポートするように、Docker for Windows で **[共有ドライブ](https://docs.docker.com/docker-for-windows/#shared-drives)** を構成する必要があります。 システム トレイの Docker アイコンを右クリックし、 **[設定]** 、 **[Shared Drives]\(共有ドライブ\)** の順に選択します。 Docker がファイルを保存するドライブを選択します。 **[Apply]** をクリックします。
 
 ![コンテナーで共有するローカル C ドライブを選択するためのダイアログ](visual-studio-tools-for-docker/_static/settings-shared-drives-win.png)
 
@@ -84,7 +84,7 @@ Visual Studio コンテナー ツールでは、.NET Framework をターゲッ�
 
 Visual Studio 2017 バージョン 15.7 以前では、唯一のコンテナー オーケストレーション ソリューションとして、[Docker Compose](https://docs.docker.com/compose/overview/) がサポートされています。 Docker Compose の成果物は、 **[追加]**  >  **[Docker サポート]** を使用して追加されます。
 
-Visual Studio 2017 バージョン 15.8 以降では、指示された場合にのみ、オーケストレーション ソリューションが追加されます。 **ソリューション エクスプローラー**でプロジェクトを右クリックして、 **[追加]**  >  **[Container Orchestrator Support]\(コンテナー オーケストレーター サポート)** の順に選択します。 2 つの異なる選択肢が提示されます。[Docker Compose](#docker-compose) と [Service Fabric](#service-fabric) です。
+Visual Studio 2017 バージョン 15.8 以降では、指示された場合にのみ、オーケストレーション ソリューションが追加されます。 **ソリューション エクスプローラー**でプロジェクトを右クリックして、 **[追加]**  >  **[Container Orchestrator Support]\(コンテナー オーケストレーター サポート)** の順に選択します。 [Docker Compose](#docker-compose) と [Service Fabric](#service-fabric) という 2 つの異なる選択肢が提供されています。
 
 ### <a name="docker-compose"></a>Docker Compose
 
@@ -92,14 +92,14 @@ Visual Studio コンテナー ツールでは、ソリューションに *docker
 
 * *docker-compose.dcproj* &ndash; プロジェクトを表すファイル。 使用する OS を指定する `<DockerTargetOS>` 要素が含まれます。
 * *.dockerignore* &ndash; ビルド コンテキストを生成するときに除外するファイルとディレクトリのパターンが一覧表示されます。
-* *docker-compose.yml* &ndash; `docker-compose build` および `docker-compose run` を使用して、それぞれビルドおよび実行されるイメージのコレクションを定義するために使用される、基本の [Docker Compose](https://docs.docker.com/compose/overview/) ファイル。
+* *docker-compose.yml* &ndash; [ および ](https://docs.docker.com/compose/overview/) を使用して、それぞれビルドおよび実行されるイメージのコレクションを定義するために使用される、基本の `docker-compose build`Docker Compose`docker-compose run` ファイル。
 * *docker-compose.override.yml* &ndash; サービスの構成オーバーライドを含む、Docker Compose によって読み取られるオプション ファイル。 Visual Studio は `docker-compose -f "docker-compose.yml" -f "docker-compose.override.yml"` を実行してこれらのファイルをマージします。
 
 *docker-compose.yml* ファイルでは、プロジェクトの実行時に作成されたイメージの名前を参照します。
 
 [!code-yaml[](visual-studio-tools-for-docker/samples/2.0/docker-compose.yml?highlight=5)]
 
-上の例では、`image: hellodockertools` によって、アプリが**デバッグ** モードで実行されるときに、イメージ `hellodockertools:dev` が生成されます。 `hellodockertools:latest` イメージは、アプリが**リリース** モードで実行されるときに生成されます。
+上の例では、`image: hellodockertools` によって、アプリが`hellodockertools:dev`デバッグ**モードで実行されるときに、イメージ** が生成されます。 `hellodockertools:latest` イメージは、アプリが**リリース** モードで実行されるときに生成されます。
 
 イメージがレジストリにプッシュされる場合は、イメージ名の前に [Docker Hub](https://hub.docker.com/) のユーザー名を付けます (例: `dockerhubusername/hellodockertools`)。 または、構成に応じて、プライベート レジストリ URL を含めるようにイメージ名を変更します (例: `privateregistry.domain.com/hellodockertools`)。
 
@@ -145,7 +145,7 @@ Visual Studio コンテナーツールでは、次のタスクを実行します
 * アプリがコンテナーにコピーされます。
 * 動的に割り当てられたポートを使用して、デバッガーがコンテナーにアタッチされ、既定のブラウザーが起動します。
 
-アプリの結果の Docker イメージは、*dev* としてタグ付けされます。 イメージは、*microsoft/dotnet* 基本イメージの *2.1-aspnetcore-runtime* タグに基づいています。 **パッケージ マネージャー コンソール** (PMC) ウィンドウで `docker images` コマンドを実行します。 コンピューター上のイメージが表示されます。
+アプリの結果の Docker イメージは、*dev* としてタグ付けされます。 イメージは、*microsoft/dotnet* 基本イメージの *2.1-aspnetcore-runtime* タグに基づいています。 `docker images`パッケージ マネージャー コンソール **(PMC) ウィンドウで** コマンドを実行します。 コンピューター上のイメージが表示されます。
 
 ```console
 REPOSITORY        TAG                     IMAGE ID      CREATED         SIZE
@@ -163,7 +163,7 @@ microsoft/dotnet  2.1-aspnetcore-runtime  fcc3887985bb  6 days ago      255MB
 * アプリがコンテナーにコピーされます。
 * 動的に割り当てられたポートを使用して、デバッガーがコンテナーにアタッチされ、既定のブラウザーが起動します。
 
-アプリの結果の Docker イメージは、*dev* としてタグ付けされます。 イメージは、*microsoft/aspnetcore* 基本イメージに基づいています。 **パッケージ マネージャー コンソール** (PMC) ウィンドウで `docker images` コマンドを実行します。 コンピューター上のイメージが表示されます。
+アプリの結果の Docker イメージは、*dev* としてタグ付けされます。 イメージは、*microsoft/aspnetcore* 基本イメージに基づいています。 `docker images`パッケージ マネージャー コンソール **(PMC) ウィンドウで** コマンドを実行します。 コンピューター上のイメージが表示されます。
 
 ```console
 REPOSITORY            TAG  IMAGE ID      CREATED        SIZE
@@ -174,7 +174,7 @@ microsoft/aspnetcore  2.0  c69d39472da9  13 days ago    347MB
 ::: moniker-end
 
 > [!NOTE]
-> **デバッグ**構成では、反復にボリューム マウントを使用するため、*dev*イメージにはアプリのコンテンツはありません。 イメージをプッシュするには、**リリース**構成を使用します。
+> *デバッグ*構成では、反復にボリューム マウントを使用するため、**dev**イメージにはアプリのコンテンツはありません。 イメージをプッシュするには、**リリース**構成を使用します。
 
 PMC で `docker ps` コマンドを実行します。 アプリがコンテナーを使用して実行されていることがわかります。
 
@@ -234,7 +234,7 @@ microsoft/aspnetcore        2.0     c69d39472da9  13 days ago     347MB
 ## <a name="additional-resources"></a>その他の技術情報
 
 * [Visual Studio によるコンテナー開発](/visualstudio/containers)
-* [Azure Service Fabric:開発環境を準備する](/azure/service-fabric/service-fabric-get-started)
+* [Azure Service Fabric: 開発環境を準備する](/azure/service-fabric/service-fabric-get-started)
 * [Windows コンテナー内の .NET アプリケーションを Azure Service Fabric にデプロイする](/azure/service-fabric/service-fabric-host-app-in-a-container)
 * [Docker を使用した Visual Studio 開発のトラブルシューティング](/azure/vs-azure-tools-docker-troubleshooting-docker-errors)
 * [Visual Studio コンテナー ツールの GitHub リポジトリ](https://github.com/Microsoft/DockerTools)

@@ -11,15 +11,15 @@ no-loc:
 - SignalR
 uid: blazor/advanced-scenarios
 ms.openlocfilehash: 5edbbe36e8389bac0335594b1e4331aee1c02867
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78647414"
 ---
 # <a name="aspnet-core-blazor-advanced-scenarios"></a>ASP.NET Core Blazor の高度なシナリオ
 
-著者: [Luke Latham](https://github.com/guardrex)、[Daniel Roth](https://github.com/danroth27)
+作成者: [Luke Latham](https://github.com/guardrex)、[Daniel Roth](https://github.com/danroth27)
 
 ## <a name="blazor-server-circuit-handler"></a>Blazor サーバー回線ハンドラー
 
@@ -160,7 +160,7 @@ builder.AddContent(1, "Second");
 
 | シーケンス | 種類      | データ   |
 | :------: | --------- | :----: |
-| 0        | テキスト ノード | First  |
+| 0        | テキスト ノード | First (先頭へ)  |
 | 1        | テキスト ノード | Second |
 
 `someFlag` が `false` になり、マークアップが再びレンダリングされるとします。 今度は、ビルダーは以下を受け取ります。
@@ -192,7 +192,7 @@ builder.AddContent(seq++, "Second");
 
 | シーケンス | 種類      | データ   |
 | :------: | --------- | :----: |
-| 0        | テキスト ノード | First  |
+| 0        | テキスト ノード | First (先頭へ)  |
 | 1        | テキスト ノード | Second |
 
 この結果は前のケースと同じであるため、否定的な問題は存在しません。 `someFlag` は 2 番目のレンダリングでは `false` で、出力は次のようになります。
@@ -337,7 +337,7 @@ public class FileUploader : IDisposable
 * `ReceiveFile` メソッドは、JS 相互運用によるアップロードを処理するために使用されます。
   * ファイル サイズは、`_jsRuntime.InvokeAsync<FileInfo>('getFileSize', selector)` を使用した JS 相互運用を通じて、バイト単位で決定されます。
   * 受信するセグメントの数が計算され、`numberOfSegments` に格納されます。
-  * セグメントは、`_jsRuntime.InvokeAsync<string>('receiveSegment', i, selector)` を使用した JS 相互運用を通じて `for` ループで要求されます。 デコードする前のセグメントは、最後を除いてすべてが 8192 バイトである必要があります。 クライアントは、効率的な方法でデータを送信することを強制されます。
+  * セグメントは、`for` を使用した JS 相互運用を通じて `_jsRuntime.InvokeAsync<string>('receiveSegment', i, selector)` ループで要求されます。 デコードする前のセグメントは、最後を除いてすべてが 8192 バイトである必要があります。 クライアントは、効率的な方法でデータを送信することを強制されます。
   * 受信した各セグメントに対して、<xref:System.Convert.TryFromBase64String*> でデコードする前にチェックが実行されます。
   * アップロードが完了すると、データを含むストリームが新しい <xref:System.IO.Stream> (`SegmentedStream`) として返されます。
 

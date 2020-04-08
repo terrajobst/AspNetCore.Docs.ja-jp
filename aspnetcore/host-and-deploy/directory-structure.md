@@ -8,10 +8,10 @@ ms.custom: mvc
 ms.date: 03/20/2020
 uid: host-and-deploy/directory-structure
 ms.openlocfilehash: 0e7bf40520385b7719cb37120709e0a3fd2442e3
-ms.sourcegitcommit: 9b6e7f421c243963d5e419bdcfc5c4bde71499aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/21/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "79989725"
 ---
 # <a name="aspnet-core-directory-structure"></a>ASP.NET Core のディレクトリ構造
@@ -67,7 +67,7 @@ ms.locfileid: "79989725"
 
 *Wwwroot* ディレクトリが存在する場合は、静的資産のみが含まれます。
 
-[ASP.NET Core モジュールの強化されたデバッグ ログ](xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs)では、*Logs* フォルダーを作成すると便利です。 `<handlerSetting>` 値に提供されるパスのフォルダーがこのモジュールによって自動的に作成されることはありません。デバッグ ログの書き込みをモジュールに許可するには、フォルダーがデプロイに事前に存在する必要があります。
+*ASP.NET Core モジュールの強化されたデバッグ ログ*では、[Logs](xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs) フォルダーを作成すると便利です。 `<handlerSetting>` 値に提供されるパスのフォルダーがこのモジュールによって自動的に作成されることはありません。デバッグ ログの書き込みをモジュールに許可するには、フォルダーがデプロイに事前に存在する必要があります。
 
 *Logs* ディレクトリは、次の 2 つの方法のいずれかを使って展開用に作成できます。
 

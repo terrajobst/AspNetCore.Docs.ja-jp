@@ -7,17 +7,17 @@ ms.author: johluo
 ms.date: 09/03/2019
 uid: grpc/aspnetcore
 ms.openlocfilehash: 6107704a4b4d9c629a7abe907efd5b1932019130
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78651002"
 ---
 # <a name="grpc-services-with-aspnet-core"></a>ASP.NET Core を使用した gRPC サービス
 
 このドキュメントでは、ASP.NET Core を使用して gRPC サービスを開始する方法について説明します。
 
-## <a name="prerequisites"></a>必須コンポーネント
+## <a name="prerequisites"></a>前提条件
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -41,7 +41,7 @@ ms.locfileid: "78651002"
 
 gRPC プロジェクトを作成する詳細な手順については、[gRPC サービスの概要](xref:tutorials/grpc/grpc-start)に関するページをご覧ください。
 
-# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code/Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 コマンド ラインから `dotnet new grpc -o GrpcGreeter` を実行します。
 

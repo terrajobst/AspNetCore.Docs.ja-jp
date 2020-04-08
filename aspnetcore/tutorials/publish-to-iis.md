@@ -8,10 +8,10 @@ ms.custom: mvc
 ms.date: 10/03/2019
 uid: tutorials/publish-to-iis
 ms.openlocfilehash: 47f78ba78741a8e0175ce801c0c0e51f091273a8
-ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/18/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "79511393"
 ---
 # <a name="publish-an-aspnet-core-app-to-iis"></a>IIS に ASP.NET Core アプリを発行する
@@ -25,10 +25,10 @@ ms.locfileid: "79511393"
 > * IIS サイトを IIS マネージャーで作成します。
 > * ASP.NET Core アプリを展開します。
 
-## <a name="prerequisites"></a>必須コンポーネント
+## <a name="prerequisites"></a>前提条件
 
 * 開発用のコンピューターにインストールされている [.NET Core SDK](/dotnet/core/sdk)。
-* **Web Server (IIS)** サーバー ロールで構成された Windows Server。 IIS で Web サイトをホストするようにサーバーが構成されていない場合、<xref:host-and-deploy/iis/index#iis-configuration> 記事の「*IIS 構成*」セクションの指示に従い、その後、このチュートリアルに戻ってください。
+* **Web Server (IIS)** サーバー ロールで構成された Windows Server。 IIS で Web サイトをホストするようにサーバーが構成されていない場合、 *記事の「* IIS 構成<xref:host-and-deploy/iis/index#iis-configuration>」セクションの指示に従い、その後、このチュートリアルに戻ってください。
 
 > [!WARNING]
 > **IIS 構成と Web サイトのセキュリティには、このチュートリアルでは説明されていない概念が含まれています。** IIS で本稼働アプリをホストする前に、[Microsoft IIS ドキュメント](https://www.iis.net/)と [IIS でホストする方法に関する ASP.NET Core 記事](xref:host-and-deploy/iis/index)を参照してください。
@@ -76,7 +76,7 @@ ms.locfileid: "79511393"
 1. **[発行先を選択]** ダイアログで、 **[フォルダー]** 発行オプションを選択します。
 1. **フォルダーまたはファイル共有**パスを選択します。
    * ネットワーク共有として開発用のコンピューターで利用できる IIS サイトのフォルダーを作成した場合、共有へのパスを指定します。 現在のユーザーに、共有に発行するための書き込みアクセスを与える必要があります。
-   * IIS サーバー上の IIS サイト フォルダーに直接展開できない場合、リムーバブル メディア上のフォルダーに発行し、IIS マネージャーでサイトの**物理パス**である、サーバー上の IIS サイト フォルダーに発行済みのアプリを物理的に移動します。 IIS マネージャーでサイトの**物理パス**である、サーバー上の IIS サイト フォルダーに *bin/Release/{TARGET FRAMEWORK}/publish* フォルダーの内容を移動します。
+   * IIS サーバー上の IIS サイト フォルダーに直接展開できない場合、リムーバブル メディア上のフォルダーに発行し、IIS マネージャーでサイトの**物理パス**である、サーバー上の IIS サイト フォルダーに発行済みのアプリを物理的に移動します。 IIS マネージャーでサイトの*物理パス*である、サーバー上の IIS サイト フォルダーに **bin/Release/{TARGET FRAMEWORK}/publish** フォルダーの内容を移動します。
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
@@ -86,18 +86,18 @@ ms.locfileid: "79511393"
    dotnet publish --configuration Release
    ```
 
-1. IIS マネージャーでサイトの**物理パス**である、サーバー上の IIS サイト フォルダーに *bin/Release/{TARGET FRAMEWORK}/publish* フォルダーの内容を移動します。
+1. IIS マネージャーでサイトの*物理パス*である、サーバー上の IIS サイト フォルダーに **bin/Release/{TARGET FRAMEWORK}/publish** フォルダーの内容を移動します。
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 1. **[ソリューション]** でプロジェクトを右クリックし、 **[発行]**  >  **[フォルダーに発行]** の順に選択します。
 1. **[フォルダーを選択してください]** パスを設定します。
    * ネットワーク共有として開発用のコンピューターで利用できる IIS サイトのフォルダーを作成した場合、共有へのパスを指定します。 現在のユーザーに、共有に発行するための書き込みアクセスを与える必要があります。
-   * IIS サーバー上の IIS サイト フォルダーに直接展開できない場合、リムーバブル メディア上のフォルダーに発行し、IIS マネージャーでサイトの**物理パス**である、サーバー上の IIS サイト フォルダーに発行済みのアプリを物理的に移動します。 IIS マネージャーでサイトの**物理パス**である、サーバー上の IIS サイト フォルダーに *bin/Release/{TARGET FRAMEWORK}/publish* フォルダーの内容を移動します。
+   * IIS サーバー上の IIS サイト フォルダーに直接展開できない場合、リムーバブル メディア上のフォルダーに発行し、IIS マネージャーでサイトの**物理パス**である、サーバー上の IIS サイト フォルダーに発行済みのアプリを物理的に移動します。 IIS マネージャーでサイトの*物理パス*である、サーバー上の IIS サイト フォルダーに **bin/Release/{TARGET FRAMEWORK}/publish** フォルダーの内容を移動します。
 
 ---
 
-## <a name="browse-the-website"></a>Web サイトを閲覧する
+## <a name="browse-the-website"></a>Web サイトの閲覧
 
 アプリには、最初の要求の受信後、ブラウザーでアクセスできます。 サイトの IIS マネージャーで設定したエンドポイント バインドでアプリへの要求を行います。
 

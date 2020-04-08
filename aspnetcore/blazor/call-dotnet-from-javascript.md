@@ -11,10 +11,10 @@ no-loc:
 - SignalR
 uid: blazor/call-dotnet-from-javascript
 ms.openlocfilehash: dbf44fe7923998c65119e42d97c304890fa95523
-ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/24/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "80218792"
 ---
 # <a name="call-net-methods-from-javascript-functions-in-aspnet-core-opno-locblazor"></a>ASP.NET Core Blazor で JavaScript 関数から .NET メソッドを呼び出す
@@ -66,7 +66,7 @@ JavaScript から静的 .NET メソッドを呼び出すには、`DotNet.invokeM
 Array(4) [ 1, 2, 3, 4 ]
 ```
 
-4 番目の配列値は、`ReturnArrayAsync` によって返される配列 (`data.push(4);`) にプッシュされます。
+4 番目の配列値は、`data.push(4);` によって返される配列 (`ReturnArrayAsync`) にプッシュされます。
 
 既定では、メソッド識別子はメソッド名ですが、`JSInvokableAttribute` コンストラクターを使用して別の識別子を指定することもできます。
 
@@ -98,7 +98,7 @@ JavaScript から .NET インスタンス メソッドを呼び出すことも�
 
 * 参照渡しで .NET インスタンスを JavaScript に渡します。
   * 静的呼び出しを `DotNetObjectReference.Create` にします。
-  * インスタンスを `DotNetObjectReference` インスタンスにラップし、`DotNetObjectReference` インスタンスで `Create` を呼び出します。 `DotNetObjectReference` オブジェクトを破棄します (このセクションの後半で例を示します)。
+  * インスタンスを `DotNetObjectReference` インスタンスにラップし、`Create` インスタンスで `DotNetObjectReference` を呼び出します。 `DotNetObjectReference` オブジェクトを破棄します (このセクションの後半で例を示します)。
 * `invokeMethod` 関数または `invokeMethodAsync` 関数を使用して、インスタンスで .NET インスタンス メソッドを呼び出します。 .NET インスタンスは、JavaScript から他の .NET メソッドを呼び出すときに引数として渡すこともできます。
 
 > [!NOTE]
@@ -122,7 +122,7 @@ JavaScript から .NET インスタンス メソッドを呼び出すことも�
 }
 ```
 
-`CallHelloHelperSayHello` では、`HelloHelper` の新しいインスタンスを使用して JavaScript 関数 `sayHello` を呼び出します。
+`CallHelloHelperSayHello` では、`sayHello` の新しいインスタンスを使用して JavaScript 関数 `HelloHelper` を呼び出します。
 
 *JsInteropClasses/ExampleJsInterop.cs*:
 

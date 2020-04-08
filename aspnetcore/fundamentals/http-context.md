@@ -8,15 +8,15 @@ ms.custom: mvc
 ms.date: 12/03/2019
 uid: fundamentals/httpcontext
 ms.openlocfilehash: 8a7ee180380c42ea745c91b8e6a18c1baa820220
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78647012"
 ---
 # <a name="access-httpcontext-in-aspnet-core"></a>ASP.NET Core で HttpContext にアクセスする
 
-ASP.NET Core アプリでは、<xref:Microsoft.AspNetCore.Http.IHttpContextAccessor> インターフェイスと、その既定の実装 <xref:Microsoft.AspNetCore.Http.HttpContextAccessor> を介して `HttpContext` にアクセスします。 `IHttpContextAccessor` を使用する必要があるのは、サービス内の `HttpContext` にアクセスする必要がある場合のみです。
+ASP.NET Core アプリでは、`HttpContext` インターフェイスと、その既定の実装 <xref:Microsoft.AspNetCore.Http.IHttpContextAccessor> を介して <xref:Microsoft.AspNetCore.Http.HttpContextAccessor> にアクセスします。 `IHttpContextAccessor` を使用する必要があるのは、サービス内の `HttpContext` にアクセスする必要がある場合のみです。
 
 ## <a name="use-httpcontext-from-razor-pages"></a>Razor Pages から HttpContext を使用する
 
@@ -36,7 +36,7 @@ public class AboutModel : PageModel
 
 ## <a name="use-httpcontext-from-a-razor-view"></a>Razor ビューから HttpContext を使用する
 
-Razor ビューでは、[RazorPage.Context](xref:Microsoft.AspNetCore.Mvc.Razor.RazorPage.Context) プロパティを使用して、ビューに直接 `HttpContext` が公開されます。 次の例では、Windows 認証を使用して、イントラネット アプリで現在のユーザー名を取得します。
+Razor ビューでは、`HttpContext`RazorPage.Context[ プロパティを使用して、ビューに直接 ](xref:Microsoft.AspNetCore.Mvc.Razor.RazorPage.Context) が公開されます。 次の例では、Windows 認証を使用して、イントラネット アプリで現在のユーザー名を取得します。
 
 ```cshtml
 @{
@@ -144,7 +144,7 @@ public class UserRepository : IUserRepository
 * 要求処理中に必要なデータをコピーします。
 * コピーしたデータをバックグラウンド タスクに渡します。
 
-アンセーフ コードを避けるために、バックグラウンド処理を実行しないメソッドには `HttpContext` を決して渡さないでください。 代わりに必要なデータを渡してください。 次の例では、電子メールの送信を開始するために `SendEmailCore` が呼び出されます。 `correlationId` は、`HttpContext` ではなく `SendEmailCore` に渡されます。 コードの実行では、`SendEmailCore` が完了するのを待機しません。
+アンセーフ コードを避けるために、バックグラウンド処理を実行しないメソッドには `HttpContext` を決して渡さないでください。 代わりに必要なデータを渡してください。 次の例では、電子メールの送信を開始するために `SendEmailCore` が呼び出されます。 `correlationId` は、`SendEmailCore` ではなく `HttpContext` に渡されます。 コードの実行では、`SendEmailCore` が完了するのを待機しません。
 
 ```csharp
 public class EmailController : Controller

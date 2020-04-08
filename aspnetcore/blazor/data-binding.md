@@ -5,17 +5,17 @@ description: Blazor アプリのコンポーネントと DOM 要素のデータ 
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/16/2020
+ms.date: 03/26/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/data-binding
-ms.openlocfilehash: 5b49d2598a451ee607e034913bd1aeaa03f941c6
-ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
+ms.openlocfilehash: a7b3730dad48b5bbb6134dab181051da4e3651b4
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/18/2020
-ms.locfileid: "79511198"
+ms.lasthandoff: 04/06/2020
+ms.locfileid: "80320953"
 ---
 # <a name="aspnet-core-opno-locblazor-data-binding"></a>ASP.NET Core Blazor データ バインディング
 
@@ -37,7 +37,7 @@ Razor コンポーネントはフィールド、プロパティ、Razor 式の�
 
 テキスト ボックスは、プロパティの値の変更に対する応答としてではなく、コンポーネントがレンダリングされたときにのみ UI が更新されます。 コンポーネントはイベント ハンドラーのコードが実行された後に自身をレンダリングするため、*通常は*、イベント ハンドラーがトリガーされた直後に、プロパティの更新が UI に反映されます。
 
-`CurrentValue` プロパティで `@bind` を使用する (`<input @bind="CurrentValue" />`) ことは、本質的に次の内容と同じです。
+`@bind` プロパティで `CurrentValue` を使用する (`<input @bind="CurrentValue" />`) ことは、本質的に次の内容と同じです。
 
 ```razor
 <input value="@CurrentValue"
@@ -51,7 +51,7 @@ Razor コンポーネントはフィールド、プロパティ、Razor 式の�
 
 コンポーネントがレンダリングされると、入力要素の `value` は `CurrentValue` プロパティから取得されます。 ユーザーがテキスト ボックスに入力し、要素のフォーカスを変更すると、`onchange` イベントが発生し、`CurrentValue` プロパティが変更された値に設定されます。 実際には、`@bind` は型変換が行われるケースを扱うため、コード生成はより複雑になります。 原則として、`@bind` は、式の現在の値を `value` 属性と関連付け、登録されたハンドラーを使用して変更を処理します。
 
-他のイベントのプロパティまたはフィールドをバインドするには、`event` パラメーターを含めた `@bind:event` 属性を含めます。 次の例は、`CurrentValue` プロパティを `oninput` イベントにバインドします。
+他のイベントのプロパティまたはフィールドをバインドするには、`@bind:event` パラメーターを含めた `event` 属性を含めます。 次の例は、`CurrentValue` プロパティを `oninput` イベントにバインドします。
 
 ```razor
 <input @bind="CurrentValue" @bind:event="oninput" />
@@ -63,7 +63,7 @@ Razor コンポーネントはフィールド、プロパティ、Razor 式の�
 
 要素がフォーカスを失ったときに発生する `onchange`とは異なり、テキスト ボックスの値が変更されたときに `oninput` が発生します。
 
-`value` 以外の要素の属性をバインドするには、`@bind-{ATTRIBUTE}:event` 構文で `@bind-{ATTRIBUTE}` を使用します。 次の例では、`_paragraphStyle` の値が変更されると段落のスタイルが更新されます。
+`@bind-{ATTRIBUTE}` 以外の要素の属性をバインドするには、`@bind-{ATTRIBUTE}:event` 構文で `value` を使用します。 次の例では、`_paragraphStyle` の値が変更されると段落のスタイルが更新されます。
 
 ```razor
 @page "/binding-example"
@@ -89,7 +89,7 @@ Razor コンポーネントはフィールド、プロパティ、Razor 式の�
 
 次のシナリオについて検討してください。
 
-* `<input>` 要素は、初期値 `123` を持つ `int` 型にバインドされます。
+* `<input>` 要素は、初期値 `int` を持つ `123` 型にバインドされます。
 
   ```razor
   <input @bind="MyProperty" />
@@ -103,17 +103,17 @@ Razor コンポーネントはフィールド、プロパティ、Razor 式の�
 
 上のシナリオでは、要素の値が `123`に戻されます。 値 `123.45` が拒否されて元の値 `123` が設定された場合、ユーザーはその値が受け入れられなかったことを認識します。
 
-既定では、バインドは要素の `onchange` イベントに適用されます (`@bind="{PROPERTY OR FIELD}"`)。 別のイベントでバインドをトリガーするには、`@bind="{PROPERTY OR FIELD}" @bind:event={EVENT}` を使用します。 `oninput` イベント (`@bind:event="oninput"`) の場合、解析できない値が入力されたキーストロークの後に元に戻されます。 `int` にバインドされた型の `oninput` イベントを対象とする場合、ユーザーが `.` 文字を入力することはできません。 `.` 文字はすぐに削除されるので、ユーザーは整数のみが許可されるというフィードバックをすぐに受け取ることができます。 `oninput` イベントで値を元に戻すのが理想的ではないシナリオもあります。たとえば、ユーザーが解析できない `<input>` 値をクリアできる必要がある場合などです。 代替手段は次のとおりです。
+既定では、バインドは要素の `onchange` イベントに適用されます (`@bind="{PROPERTY OR FIELD}"`)。 別のイベントでバインドをトリガーするには、`@bind="{PROPERTY OR FIELD}" @bind:event={EVENT}` を使用します。 `oninput` イベント (`@bind:event="oninput"`) の場合、解析できない値が入力されたキーストロークの後に元に戻されます。 `oninput` にバインドされた型の `int` イベントを対象とする場合、ユーザーが `.` 文字を入力することはできません。 `.` 文字はすぐに削除されるので、ユーザーは整数のみが許可されるというフィードバックをすぐに受け取ることができます。 `oninput` イベントで値を元に戻すのが理想的ではないシナリオもあります。たとえば、ユーザーが解析できない `<input>` 値をクリアできる必要がある場合などです。 代替手段は次のとおりです。
 
 * `oninput` イベントは使用しません。 既定の `onchange` イベント (`@bind="{PROPERTY OR FIELD}"` のみを指定) を使用します。この場合、要素がフォーカスを失うまで無効な値は元に戻されません。
 * `int?` や `string` などの null 許容型にバインドし、無効なエントリを処理するカスタム ロジックを提供します。
-* `InputNumber` や `InputDate` などの[フォーム検証コンポーネント](xref:blazor/forms-validation)を使用します。 フォーム検証コンポーネントには、無効な入力を管理するためのサポートが組み込まれています。 フォーム検証コンポーネントを使うと、次のことができます。
+* [ や ](xref:blazor/forms-validation) などの`InputNumber`フォーム検証コンポーネント`InputDate`を使用します。 フォーム検証コンポーネントには、無効な入力を管理するためのサポートが組み込まれています。 フォーム検証コンポーネントを使うと、次のことができます。
   * ユーザーの無効な入力を許可し、関連付けられた `EditContext` で検証エラーを受信します。
   * ユーザーが追加の Web フォーム データを入力することを妨げることなく、UI に検証エラーを表示します。
 
 ## <a name="format-strings"></a>書式指定文字列
 
-データ バインディングは、[`@bind:format`](xref:mvc/views/razor#bind) を使用して <xref:System.DateTime> 書式指定文字列を処理します。 通貨形式や数値形式など、その他の書式指定式は現時点では使用できません。
+データ バインディングは、<xref:System.DateTime>[`@bind:format` を使用して ](xref:mvc/views/razor#bind) 書式指定文字列を処理します。 通貨形式や数値形式など、その他の書式指定式は現時点では使用できません。
 
 ```razor
 <input @bind="StartDate" @bind:format="yyyy-MM-dd" />
@@ -131,9 +131,9 @@ Razor コンポーネントはフィールド、プロパティ、Razor 式の�
 * <xref:System.DateTimeOffset?displayProperty=fullName>
 * <xref:System.DateTimeOffset?displayProperty=fullName>?
 
-`@bind:format` 属性には、`<input>` 要素の `value` に適用する日付形式を指定します。 この形式は、`onchange` イベントが発生したときに値を解析するためにも使用されます。
+`@bind:format` 属性には、`value` 要素の `<input>` に適用する日付形式を指定します。 この形式は、`onchange` イベントが発生したときに値を解析するためにも使用されます。
 
-Blazor には日付の書式を設定するためのサポートが組み込まれているため、`date` フィールド型の形式を指定することは推奨されません。 この推奨事項には反しますが、`date` フィールド型で形式を指定する場合は、`yyyy-MM-dd` 日付形式を使用してバインドしたのみ正しく動作します。
+`date` には日付の書式を設定するためのサポートが組み込まれているため、Blazor フィールド型の形式を指定することは推奨されません。 この推奨事項には反しますが、`yyyy-MM-dd` フィールド型で形式を指定する場合は、`date` 日付形式を使用してバインドしたのみ正しく動作します。
 
 ```razor
 <input type="date" @bind="StartDate" @bind:format="yyyy-MM-dd">
@@ -202,7 +202,7 @@ Blazor には日付の書式を設定するためのサポートが組み込ま�
 <p>Year: 1978</p>
 ```
 
-`ParentComponent` のボタンを選択して `ParentYear` プロパティの値を変更すると、`ChildComponent` の `Year` プロパティが更新されます。 `Year` の新しい値は、`ParentComponent` が再度レンダリングされたときに UI に表示されます。
+`ParentYear` のボタンを選択して `ParentComponent` プロパティの値を変更すると、`Year` の `ChildComponent` プロパティが更新されます。 `Year` の新しい値は、`ParentComponent` が再度レンダリングされたときに UI に表示されます。
 
 ```html
 <h1>Parent Component</h1>
@@ -214,7 +214,7 @@ Blazor には日付の書式を設定するためのサポートが組み込ま�
 <p>Year: 1986</p>
 ```
 
-`Year` パラメーターには、`Year` パラメーターの型と一致するコンパニオン `YearChanged` イベントがあるため、バインド可能です。
+`Year` パラメーターには、`YearChanged` パラメーターの型と一致するコンパニオン `Year` イベントがあるため、バインド可能です。
 
 慣例として、`<ChildComponent @bind-Year="ParentYear" />` は基本的に以下の書き込みと同じです。
 
@@ -236,12 +236,12 @@ Blazor には日付の書式を設定するためのサポートが組み込ま�
 
 次の `PasswordField` コンポーネント (*PasswordField.razor*) は、以下のことを行います。
 
-* `Password` プロパティに `<input>` 要素の値を設定します。
-* [EventCallback](xref:blazor/event-handling#eventcallback) を使用して、`Password` プロパティの変更を親コンポーネントに公開します。
+* `<input>` プロパティに `Password` 要素の値を設定します。
+* `Password`EventCallback[ を使用して、](xref:blazor/event-handling#eventcallback) プロパティの変更を親コンポーネントに公開します。
 * `onclick` イベントは、`ToggleShowPassword` メソッドをトリガーするために使用します。 詳細については、「<xref:blazor/event-handling>」を参照してください。
 
 ```razor
-<h1>Child Component</h2>
+<h1>Child Component</h1>
 
 Password: 
 
@@ -299,9 +299,7 @@ Password:
 次の例では、パスワードの値にスペースが使用されている場合、すぐにユーザーにフィードバックを提供します。
 
 ```razor
-@page "/ParentComponent"
-
-<h1>Parent Component</h1>
+<h1>Child Component</h1>
 
 Password: 
 

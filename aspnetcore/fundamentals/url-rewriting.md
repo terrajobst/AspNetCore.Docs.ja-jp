@@ -8,10 +8,10 @@ ms.custom: mvc
 ms.date: 08/16/2019
 uid: fundamentals/url-rewriting
 ms.openlocfilehash: 7d63cf381f1d8a19ed4fb789348e36f94304ad63
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78650474"
 ---
 # <a name="url-rewriting-middleware-in-aspnet-core"></a>ASP.NET Core の URL リライト ミドルウェア
@@ -43,7 +43,7 @@ URL の書き換えは、1 つまたは複数の事前定義された規則に�
 
 "*URL リダイレクト*" にはクライアント側の操作が関係しており、クライアントはもともと要求したものとは異なるアドレスにあるリソースにアクセスするよう指示されます。 これによりサーバーへのラウンドトリップが必要になります。 クライアントが、リソースの新しい要求を実行するときに、クライアントに返されたリダイレクト URL がブラウザーのアドレス バーに表示されます。
 
-`/resource` が `/different-resource` に "*リダイレクトされる*" 場合、サーバーからの応答では、クライアントが `/different-resource` にあるリソースを取得する必要があることと、リダイレクトが一時的または永続的のどちらかを示す状態コードが示されます。
+`/resource` が  *に "* リダイレクトされる`/different-resource`" 場合、サーバーからの応答では、クライアントが `/different-resource` にあるリソースを取得する必要があることと、リダイレクトが一時的または永続的のどちらかを示す状態コードが示されます。
 
 ![WebAPI サービス エンドポイントは、サーバー上でバージョン 1 (v1) からバージョン 2 (v2) に一時的に変更されました。 クライアントは、バージョン 1 パス /v1/api のサービスに対して要求を実行します。 サーバーは、バージョン 2/v2/api のサービスの新しい一時的なパスを使用して 302 (検出) 応答を返します。 クライアントは、リダイレクト URL のサービスに対して 2 回目の要求を実行します。 サーバーは、200 (OK) 状態コードで応答します。](url-rewriting/_static/url_redirect.png)
 
@@ -53,11 +53,11 @@ URL の書き換えは、1 つまたは複数の事前定義された規則に�
 
 * "*302 - 検出*" 状態コードは、リダイレクトが一時的である場合、または一般に変更される可能性がある場合に使用されます。 302 状態コードは、URL を保存して後で再利用しないようクライアントに指示します。
 
-状態コードの詳細については、[RFC 2616: 状態コードの定義](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html)に関するページを参照してください。
+状態コードについて詳しくは、「[RFC 2616: Status Code Definitions](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html)」(RFC 2616: 状態コードの定義) をご覧ください。
 
 "*URL 書き換え*" はサーバー側の操作であり、クライアントが要求したものとは異なるリソース アドレスからリソースが提供されます。 URL 書き換えでは、サーバーへのラウンドトリップは必要ありません。 書き換えられた URL は、クライアントに返されず、ブラウザーのアドレス バーに表示されません。
 
-`/resource` が `/different-resource` に "*書き換えられた*" 場合、サーバーは `/different-resource` にあるリソースを "*内部的に*" 取得して返します。
+`/resource` が  *に "* 書き換えられた`/different-resource`" 場合、サーバーは  *にあるリソースを "* 内部的に`/different-resource`" 取得して返します。
 
 クライアントは、書き換えられた URL にあるリソースを取得できる場合がありますが、クライアントは、その要求を実行して応答を受信したときに、書き換えられた URL にリソースが存在することは通知されません。
 
@@ -86,13 +86,13 @@ IIS、Apache、Nginx でサーバー ベースの URL 書き換えテクノロ�
 
   どちらのアプローチの方がパフォーマンスの低下が大きいか、またはパフォーマンスが低下した場合でもごくわずかかどうかを確実に知るには、ベンチマークが唯一の方法です。
 
-## <a name="package"></a>Package
+## <a name="package"></a>パッケージ
 
 URL リライト ミドルウェアは、[Microsoft.AspNetCore.Rewrite](https://www.nuget.org/packages/Microsoft.AspNetCore.Rewrite) パッケージによって提供されます。このパッケージは ASP.NET Core アプリに暗黙的に含まれています。
 
 ## <a name="extension-and-options"></a>拡張機能とオプション
 
-各書き換えルールに対する拡張メソッドを含む [RewriteOptions](xref:Microsoft.AspNetCore.Rewrite.RewriteOptions) クラスのインスタンスを作成することにより、URL 書き換えとリダイレクトのルールを設定します。 処理したい順序で複数のルールを連結します。 <xref:Microsoft.AspNetCore.Builder.RewriteBuilderExtensions.UseRewriter*> によって URL リライト ミドルウェアが要求パイプラインに追加されると、`RewriteOptions` が渡されます。
+各書き換えルールに対する拡張メソッドを含む [RewriteOptions](xref:Microsoft.AspNetCore.Rewrite.RewriteOptions) クラスのインスタンスを作成することにより、URL 書き換えとリダイレクトのルールを設定します。 処理したい順序で複数のルールを連結します。 `RewriteOptions` によって URL リライト ミドルウェアが要求パイプラインに追加されると、<xref:Microsoft.AspNetCore.Builder.RewriteBuilderExtensions.UseRewriter*> が渡されます。
 
 [!code-csharp[](url-rewriting/samples/3.x/SampleApp/Startup.cs?name=snippet1)]
 
@@ -188,15 +188,15 @@ URL 書き換えのルールを作成するには、<xref:Microsoft.AspNetCore.R
 
 | パス                               | 一致したもの |
 | ---------------------------------- | :---: |
-| `/redirect-rule/1234/5678`         | はい   |
-| `/my-cool-redirect-rule/1234/5678` | はい   |
-| `/anotherredirect-rule/1234/5678`  | はい   |
+| `/redirect-rule/1234/5678`         | [はい]   |
+| `/my-cool-redirect-rule/1234/5678` | [はい]   |
+| `/anotherredirect-rule/1234/5678`  | [はい]   |
 
 書き換えルール `^rewrite-rule/(\d+)/(\d+)` は、`rewrite-rule/` で始まる場合のみパスと一致します。 次の表では、一致の違いに注意してください。
 
 | パス                              | 一致したもの |
 | --------------------------------- | :---: |
-| `/rewrite-rule/1234/5678`         | はい   |
+| `/rewrite-rule/1234/5678`         | [はい]   |
 | `/my-cool-rewrite-rule/1234/5678` | いいえ    |
 | `/anotherrewrite-rule/1234/5678`  | いいえ    |
 
@@ -214,7 +214,7 @@ URL 書き換えのルールを作成するには、<xref:Microsoft.AspNetCore.R
 
 <xref:Microsoft.AspNetCore.Rewrite.ApacheModRewriteOptionsExtensions.AddApacheModRewrite*> を使用して Apache mod_rewrite ルールを適用します。 ルール ファイルがアプリと共に展開されていることを確認します。 mod_rewrite ルールの情報と例については、「[Apache mod_rewrite](https://httpd.apache.org/docs/2.4/rewrite/)」を参照してください。
 
-*ApacheModRewrite.txt* ルール ファイルからルールを読み取るには、<xref:System.IO.StreamReader> を使用します。
+<xref:System.IO.StreamReader>ApacheModRewrite.txt *ルール ファイルからルールを読み取るには、* を使用します。
 
 [!code-csharp[](url-rewriting/samples/3.x/SampleApp/Startup.cs?name=snippet1&highlight=3-4,12)]
 
@@ -262,7 +262,7 @@ URL 書き換えのルールを作成するには、<xref:Microsoft.AspNetCore.R
 
 IIS URL リライト モジュールに適用される同じルール セットを使用するには、<xref:Microsoft.AspNetCore.Rewrite.IISUrlRewriteOptionsExtensions.AddIISUrlRewrite*> を使用します。 ルール ファイルがアプリと共に展開されていることを確認します。 Windows Server IIS で実行されているときにミドルウェアでアプリの *web.config* ファイルを使用するように指定しないでください。 IIS を使用する場合、IIS リライト モジュールとの競合を避けるため、これらのルールをアプリの *web.config* の外部に保存する必要があります。 IIS URL リライト モジュールのルールの詳細と例については、「[Using Url Rewrite Module 2.0](/iis/extensions/url-rewrite-module/using-url-rewrite-module-20)」(URL リライト モジュール 2.0 の使用 ) と「[URL Rewrite Module Configuration Reference](/iis/extensions/url-rewrite-module/url-rewrite-module-configuration-reference)」(URL リライト モジュール構成リファレンス) を参照してください。
 
-*IISUrlRewrite.xml* ルール ファイルからルールを読み取るには、<xref:System.IO.StreamReader> を使用します。
+<xref:System.IO.StreamReader>IISUrlRewrite.xml *ルール ファイルからルールを読み取るには、* を使用します。
 
 [!code-csharp[](url-rewriting/samples/3.x/SampleApp/Startup.cs?name=snippet1&highlight=5-6,13)]
 
@@ -280,12 +280,12 @@ IIS URL リライト モジュールに適用される同じルール セット�
 
 ASP.NET Core 2.x でリリースされたミドルウェアは、次の IIS URL リライト モジュールの機能をサポートしていません。
 
-* 送信ルール
+* 送信の規則
 * カスタム サーバー変数
 * ワイルドカード
 * LogRewrittenUrl
 
-#### <a name="supported-server-variables"></a>サポートされるサーバー変数
+#### <a name="supported-server-variables"></a>サポートされているサーバー変数
 
 ミドルウェアは、次の IIS URL リライト モジュール サーバー変数をサポートします。
 
@@ -307,7 +307,7 @@ ASP.NET Core 2.x でリリースされたミドルウェアは、次の IIS URL 
 * REQUEST_URI
 
 > [!NOTE]
-> <xref:Microsoft.Extensions.FileProviders.PhysicalFileProvider> を介して <xref:Microsoft.Extensions.FileProviders.IFileProvider> を取得することもできます。 このアプローチは、書き換えルール ファイルの場所に関する大きな柔軟性を提供する場合があります。 書き換えルール ファイルを指定したパスでサーバーに導入されていることを確認してください。
+> <xref:Microsoft.Extensions.FileProviders.IFileProvider> を介して <xref:Microsoft.Extensions.FileProviders.PhysicalFileProvider> を取得することもできます。 このアプローチは、書き換えルール ファイルの場所に関する大きな柔軟性を提供する場合があります。 書き換えルール ファイルを指定したパスでサーバーに導入されていることを確認してください。
 >
 > ```csharp
 > PhysicalFileProvider fileProvider = new PhysicalFileProvider(Directory.GetCurrentDirectory());
@@ -317,7 +317,7 @@ ASP.NET Core 2.x でリリースされたミドルウェアは、次の IIS URL 
 
 メソッド内で独自のルール ロジックを実装するには、<xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> を使用します。 `Add` は <xref:Microsoft.AspNetCore.Rewrite.RewriteContext> を公開し、メソッドで <xref:Microsoft.AspNetCore.Http.HttpContext> を使用できるようにします。 [RewriteContext.Result](xref:Microsoft.AspNetCore.Rewrite.RewriteContext.Result*) は、追加のパイプライン処理の実行方法を決定します。 次の表で説明する <xref:Microsoft.AspNetCore.Rewrite.RuleResult> フィールドのいずれかに値を設定します。
 
-| `RewriteContext.Result`              | アクション                                                           |
+| `RewriteContext.Result`              | 操作                                                           |
 | ------------------------------------ | ---------------------------------------------------------------- |
 | `RuleResult.ContinueRules` (既定値) | ルールの適用を続けます。                                         |
 | `RuleResult.EndResponse`             | ルールの適用を停止し、応答を送信します。                       |
@@ -341,7 +341,7 @@ ASP.NET Core 2.x でリリースされたミドルウェアは、次の IIS URL 
 
 ### <a name="irule-based-rule"></a>IRule ベースのルール
 
-<xref:Microsoft.AspNetCore.Rewrite.IRule> インターフェイスを実装するクラス内のルール ロジックを使用するには、<xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> を使用します。 `IRule` では、メソッド ベースのルール アプローチを使用する場合より高い柔軟性が提供されます。 実装クラスには、<xref:Microsoft.AspNetCore.Rewrite.IRule.ApplyRule*> メソッドに対してパラメーターを渡すことができるコンストラクターを含めることができます。
+<xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> インターフェイスを実装するクラス内のルール ロジックを使用するには、<xref:Microsoft.AspNetCore.Rewrite.IRule> を使用します。 `IRule` では、メソッド ベースのルール アプローチを使用する場合より高い柔軟性が提供されます。 実装クラスには、<xref:Microsoft.AspNetCore.Rewrite.IRule.ApplyRule*> メソッドに対してパラメーターを渡すことができるコンストラクターを含めることができます。
 
 [!code-csharp[](url-rewriting/samples/3.x/SampleApp/Startup.cs?name=snippet1&highlight=16-17)]
 
@@ -395,7 +395,7 @@ URL の書き換えは、1 つまたは複数の事前定義された規則に�
 
 "*URL リダイレクト*" にはクライアント側の操作が関係しており、クライアントはもともと要求したものとは異なるアドレスにあるリソースにアクセスするよう指示されます。 これによりサーバーへのラウンドトリップが必要になります。 クライアントが、リソースの新しい要求を実行するときに、クライアントに返されたリダイレクト URL がブラウザーのアドレス バーに表示されます。
 
-`/resource` が `/different-resource` に "*リダイレクトされる*" 場合、サーバーからの応答では、クライアントが `/different-resource` にあるリソースを取得する必要があることと、リダイレクトが一時的または永続的のどちらかを示す状態コードが示されます。
+`/resource` が  *に "* リダイレクトされる`/different-resource`" 場合、サーバーからの応答では、クライアントが `/different-resource` にあるリソースを取得する必要があることと、リダイレクトが一時的または永続的のどちらかを示す状態コードが示されます。
 
 ![WebAPI サービス エンドポイントは、サーバー上でバージョン 1 (v1) からバージョン 2 (v2) に一時的に変更されました。 クライアントは、バージョン 1 パス /v1/api のサービスに対して要求を実行します。 サーバーは、バージョン 2/v2/api のサービスの新しい一時的なパスを使用して 302 (検出) 応答を返します。 クライアントは、リダイレクト URL のサービスに対して 2 回目の要求を実行します。 サーバーは、200 (OK) 状態コードで応答します。](url-rewriting/_static/url_redirect.png)
 
@@ -405,11 +405,11 @@ URL の書き換えは、1 つまたは複数の事前定義された規則に�
 
 * "*302 - 検出*" 状態コードは、リダイレクトが一時的である場合、または一般に変更される可能性がある場合に使用されます。 302 状態コードは、URL を保存して後で再利用しないようクライアントに指示します。
 
-状態コードの詳細については、[RFC 2616: 状態コードの定義](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html)に関するページを参照してください。
+状態コードについて詳しくは、「[RFC 2616: Status Code Definitions](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html)」(RFC 2616: 状態コードの定義) をご覧ください。
 
 "*URL 書き換え*" はサーバー側の操作であり、クライアントが要求したものとは異なるリソース アドレスからリソースが提供されます。 URL 書き換えでは、サーバーへのラウンドトリップは必要ありません。 書き換えられた URL は、クライアントに返されず、ブラウザーのアドレス バーに表示されません。
 
-`/resource` が `/different-resource` に "*書き換えられた*" 場合、サーバーは `/different-resource` にあるリソースを "*内部的に*" 取得して返します。
+`/resource` が  *に "* 書き換えられた`/different-resource`" 場合、サーバーは  *にあるリソースを "* 内部的に`/different-resource`" 取得して返します。
 
 クライアントは、書き換えられた URL にあるリソースを取得できる場合がありますが、クライアントは、その要求を実行して応答を受信したときに、書き換えられた URL にリソースが存在することは通知されません。
 
@@ -438,7 +438,7 @@ IIS、Apache、Nginx でサーバー ベースの URL 書き換えテクノロ�
 
   どちらのアプローチの方がパフォーマンスの低下が大きいか、またはパフォーマンスが低下した場合でもごくわずかかどうかを確実に知るには、ベンチマークが唯一の方法です。
 
-## <a name="package"></a>Package
+## <a name="package"></a>パッケージ
 
 ミドルウェアをプロジェクトに組み込むには、[Microsoft.AspNetCore.App メタパッケージ](xref:fundamentals/metapackage-app)へのパッケージ参照をプロジェクト ファイルに追加します。これには、[Microsoft.AspNetCore.Rewrite](https://www.nuget.org/packages/Microsoft.AspNetCore.Rewrite) パッケージが含まれます。
 
@@ -446,7 +446,7 @@ IIS、Apache、Nginx でサーバー ベースの URL 書き換えテクノロ�
 
 ## <a name="extension-and-options"></a>拡張機能とオプション
 
-各書き換えルールに対する拡張メソッドを含む [RewriteOptions](xref:Microsoft.AspNetCore.Rewrite.RewriteOptions) クラスのインスタンスを作成することにより、URL 書き換えとリダイレクトのルールを設定します。 処理したい順序で複数のルールを連結します。 <xref:Microsoft.AspNetCore.Builder.RewriteBuilderExtensions.UseRewriter*> によって URL リライト ミドルウェアが要求パイプラインに追加されると、`RewriteOptions` が渡されます。
+各書き換えルールに対する拡張メソッドを含む [RewriteOptions](xref:Microsoft.AspNetCore.Rewrite.RewriteOptions) クラスのインスタンスを作成することにより、URL 書き換えとリダイレクトのルールを設定します。 処理したい順序で複数のルールを連結します。 `RewriteOptions` によって URL リライト ミドルウェアが要求パイプラインに追加されると、<xref:Microsoft.AspNetCore.Builder.RewriteBuilderExtensions.UseRewriter*> が渡されます。
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1)]
 
@@ -542,15 +542,15 @@ URL 書き換えのルールを作成するには、<xref:Microsoft.AspNetCore.R
 
 | パス                               | 一致したもの |
 | ---------------------------------- | :---: |
-| `/redirect-rule/1234/5678`         | はい   |
-| `/my-cool-redirect-rule/1234/5678` | はい   |
-| `/anotherredirect-rule/1234/5678`  | はい   |
+| `/redirect-rule/1234/5678`         | [はい]   |
+| `/my-cool-redirect-rule/1234/5678` | [はい]   |
+| `/anotherredirect-rule/1234/5678`  | [はい]   |
 
 書き換えルール `^rewrite-rule/(\d+)/(\d+)` は、`rewrite-rule/` で始まる場合のみパスと一致します。 次の表では、一致の違いに注意してください。
 
 | パス                              | 一致したもの |
 | --------------------------------- | :---: |
-| `/rewrite-rule/1234/5678`         | はい   |
+| `/rewrite-rule/1234/5678`         | [はい]   |
 | `/my-cool-rewrite-rule/1234/5678` | いいえ    |
 | `/anotherrewrite-rule/1234/5678`  | いいえ    |
 
@@ -568,7 +568,7 @@ URL 書き換えのルールを作成するには、<xref:Microsoft.AspNetCore.R
 
 <xref:Microsoft.AspNetCore.Rewrite.ApacheModRewriteOptionsExtensions.AddApacheModRewrite*> を使用して Apache mod_rewrite ルールを適用します。 ルール ファイルがアプリと共に展開されていることを確認します。 mod_rewrite ルールの情報と例については、「[Apache mod_rewrite](https://httpd.apache.org/docs/2.4/rewrite/)」を参照してください。
 
-*ApacheModRewrite.txt* ルール ファイルからルールを読み取るには、<xref:System.IO.StreamReader> を使用します。
+<xref:System.IO.StreamReader>ApacheModRewrite.txt *ルール ファイルからルールを読み取るには、* を使用します。
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=3-4,12)]
 
@@ -616,7 +616,7 @@ URL 書き換えのルールを作成するには、<xref:Microsoft.AspNetCore.R
 
 IIS URL リライト モジュールに適用される同じルール セットを使用するには、<xref:Microsoft.AspNetCore.Rewrite.IISUrlRewriteOptionsExtensions.AddIISUrlRewrite*> を使用します。 ルール ファイルがアプリと共に展開されていることを確認します。 Windows Server IIS で実行されているときにミドルウェアでアプリの *web.config* ファイルを使用するように指定しないでください。 IIS を使用する場合、IIS リライト モジュールとの競合を避けるため、これらのルールをアプリの *web.config* の外部に保存する必要があります。 IIS URL リライト モジュールのルールの詳細と例については、「[Using Url Rewrite Module 2.0](/iis/extensions/url-rewrite-module/using-url-rewrite-module-20)」(URL リライト モジュール 2.0 の使用 ) と「[URL Rewrite Module Configuration Reference](/iis/extensions/url-rewrite-module/url-rewrite-module-configuration-reference)」(URL リライト モジュール構成リファレンス) を参照してください。
 
-*IISUrlRewrite.xml* ルール ファイルからルールを読み取るには、<xref:System.IO.StreamReader> を使用します。
+<xref:System.IO.StreamReader>IISUrlRewrite.xml *ルール ファイルからルールを読み取るには、* を使用します。
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=5-6,13)]
 
@@ -634,12 +634,12 @@ IIS URL リライト モジュールに適用される同じルール セット�
 
 ASP.NET Core 2.x でリリースされたミドルウェアは、次の IIS URL リライト モジュールの機能をサポートしていません。
 
-* 送信ルール
+* 送信の規則
 * カスタム サーバー変数
 * ワイルドカード
 * LogRewrittenUrl
 
-#### <a name="supported-server-variables"></a>サポートされるサーバー変数
+#### <a name="supported-server-variables"></a>サポートされているサーバー変数
 
 ミドルウェアは、次の IIS URL リライト モジュール サーバー変数をサポートします。
 
@@ -661,7 +661,7 @@ ASP.NET Core 2.x でリリースされたミドルウェアは、次の IIS URL 
 * REQUEST_URI
 
 > [!NOTE]
-> <xref:Microsoft.Extensions.FileProviders.PhysicalFileProvider> を介して <xref:Microsoft.Extensions.FileProviders.IFileProvider> を取得することもできます。 このアプローチは、書き換えルール ファイルの場所に関する大きな柔軟性を提供する場合があります。 書き換えルール ファイルを指定したパスでサーバーに導入されていることを確認してください。
+> <xref:Microsoft.Extensions.FileProviders.IFileProvider> を介して <xref:Microsoft.Extensions.FileProviders.PhysicalFileProvider> を取得することもできます。 このアプローチは、書き換えルール ファイルの場所に関する大きな柔軟性を提供する場合があります。 書き換えルール ファイルを指定したパスでサーバーに導入されていることを確認してください。
 >
 > ```csharp
 > PhysicalFileProvider fileProvider = new PhysicalFileProvider(Directory.GetCurrentDirectory());
@@ -671,7 +671,7 @@ ASP.NET Core 2.x でリリースされたミドルウェアは、次の IIS URL 
 
 メソッド内で独自のルール ロジックを実装するには、<xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> を使用します。 `Add` は <xref:Microsoft.AspNetCore.Rewrite.RewriteContext> を公開し、メソッドで <xref:Microsoft.AspNetCore.Http.HttpContext> を使用できるようにします。 [RewriteContext.Result](xref:Microsoft.AspNetCore.Rewrite.RewriteContext.Result*) は、追加のパイプライン処理の実行方法を決定します。 次の表で説明する <xref:Microsoft.AspNetCore.Rewrite.RuleResult> フィールドのいずれかに値を設定します。
 
-| `RewriteContext.Result`              | アクション                                                           |
+| `RewriteContext.Result`              | 操作                                                           |
 | ------------------------------------ | ---------------------------------------------------------------- |
 | `RuleResult.ContinueRules` (既定値) | ルールの適用を続けます。                                         |
 | `RuleResult.EndResponse`             | ルールの適用を停止し、応答を送信します。                       |
@@ -695,7 +695,7 @@ ASP.NET Core 2.x でリリースされたミドルウェアは、次の IIS URL 
 
 ### <a name="irule-based-rule"></a>IRule ベースのルール
 
-<xref:Microsoft.AspNetCore.Rewrite.IRule> インターフェイスを実装するクラス内のルール ロジックを使用するには、<xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> を使用します。 `IRule` では、メソッド ベースのルール アプローチを使用する場合より高い柔軟性が提供されます。 実装クラスには、<xref:Microsoft.AspNetCore.Rewrite.IRule.ApplyRule*> メソッドに対してパラメーターを渡すことができるコンストラクターを含めることができます。
+<xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> インターフェイスを実装するクラス内のルール ロジックを使用するには、<xref:Microsoft.AspNetCore.Rewrite.IRule> を使用します。 `IRule` では、メソッド ベースのルール アプローチを使用する場合より高い柔軟性が提供されます。 実装クラスには、<xref:Microsoft.AspNetCore.Rewrite.IRule.ApplyRule*> メソッドに対してパラメーターを渡すことができるコンストラクターを含めることができます。
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=16-17)]
 

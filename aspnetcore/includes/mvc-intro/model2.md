@@ -26,14 +26,14 @@
 
 ### <a name="register-the-database-context"></a>データベース コンテキストの登録
 
-*Startup.cs* の先頭に次の `using` ステートメントを追加します。
+`using`Startup.cs*の先頭に次の* ステートメントを追加します。
 
 ```csharp
 using MvcMovie.Data;
 using Microsoft.EntityFrameworkCore;
 ```
 
-`Startup.ConfigureServices` で[依存性の挿入](xref:fundamentals/dependency-injection)コンテナーを使用し、データベース コンテキストを登録します。
+[ で](xref:fundamentals/dependency-injection)依存性の挿入`Startup.ConfigureServices`コンテナーを使用し、データベース コンテキストを登録します。
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Startup.cs?name=snippet_UseSqlite&highlight=6-7)]
 
@@ -72,14 +72,14 @@ dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 
 ### <a name="register-the-database-context"></a>データベース コンテキストの登録
 
-*Startup.cs* の先頭に次の `using` ステートメントを追加します。
+`using`Startup.cs*の先頭に次の* ステートメントを追加します。
 
 ```csharp
 using MvcMovie.Models;
 using Microsoft.EntityFrameworkCore;
 ```
 
-`Startup.ConfigureServices` で[依存性の挿入](xref:fundamentals/dependency-injection)コンテナーを使用し、データベース コンテキストを登録します。
+[ で](xref:fundamentals/dependency-injection)依存性の挿入`Startup.ConfigureServices`コンテナーを使用し、データベース コンテキストを登録します。
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 

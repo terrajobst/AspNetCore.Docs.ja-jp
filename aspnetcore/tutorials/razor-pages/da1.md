@@ -6,10 +6,10 @@ ms.author: riande
 ms.date: 12/20/2018
 uid: tutorials/razor-pages/da1
 ms.openlocfilehash: 0f6535462fe2d308825bf7289c10d2b0690cebd4
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78650426"
 ---
 # <a name="update-the-generated-pages-in-an-aspnet-core-app"></a>ASP.NET Core アプリで生成済みページを更新する
@@ -36,7 +36,7 @@ Pages/Movies を参照し、 **[編集]** リンクをポイントしてター�
 
 ![[編集] リンクがマウスでポイントされ、リンク URL として http://localhost:1234/Movies/Edit/5 が表示されている状態のブラウザー ウィンドウ](~/tutorials/razor-pages/da1/edit7.png)
 
-**[編集]** 、 **[詳細]** 、および **[削除]** の各リンクは、*Pages/Movies/Index.cshtml* ファイルで[アンカー タグ ヘルパー](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)によって生成されます。
+**[編集]** 、 **[詳細]** 、および **[削除]** の各リンクは、[Pages/Movies/Index.cshtml](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) ファイルで*アンカー タグ ヘルパー*によって生成されます。
 
 [!code-cshtml[](~/tutorials/razor-pages/razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Index.cshtml?highlight=16-18&range=32-)]
 
@@ -52,7 +52,7 @@ Pages/Movies を参照し、 **[編集]** リンクをポイントしてター�
 </td>
 ```
 
-動的に生成されたリンクは、クエリ文字列を含むムービー ID を渡します (例: `https://localhost:5001/Movies/Details?id=1` の `?id=1`)。
+動的に生成されたリンクは、クエリ文字列を含むムービー ID を渡します (例: `?id=1` の `https://localhost:5001/Movies/Details?id=1`)。
 
 ### <a name="add-route-template"></a>ルート テンプレートの追加
 
@@ -82,7 +82,7 @@ Pages/Movies を参照し、 **[編集]** リンクをポイントしてター�
 
 ### <a name="review-concurrency-exception-handling"></a>コンカレンシーの例外処理の確認
 
-*Pages/Movies/Edit.cshtml.cs* ファイルで `OnPostAsync` メソッドを確認します。
+`OnPostAsync`Pages/Movies/Edit.cshtml.cs*ファイルで* メソッドを確認します。
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Edit.cshtml.cs?name=snippet)]
 
@@ -126,8 +126,8 @@ Movies/Edit ページが投稿された場合:
 ## <a name="additional-resources"></a>その他の技術情報
 
 > [!div class="step-by-step"]
-> [前へ:データベースの操作](xref:tutorials/razor-pages/sql)
-> [次: 検索の追加](xref:tutorials/razor-pages/search)
+> [前 - データベースの操作](xref:tutorials/razor-pages/sql)
+> [次 - 検索の追加](xref:tutorials/razor-pages/search)
 
 ::: moniker-end
 
@@ -151,7 +151,7 @@ Pages/Movies を参照し、 **[編集]** リンクをポイントしてター�
 
 ![[編集] リンクがマウスでポイントされ、リンク URL として http://localhost:1234/Movies/Edit/5 が表示されている状態のブラウザー ウィンドウ](~/tutorials/razor-pages/da1/edit7.png)
 
-**[編集]** 、 **[詳細]** 、および **[削除]** の各リンクは、*Pages/Movies/Index.cshtml* ファイルで[アンカー タグ ヘルパー](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)によって生成されます。
+**[編集]** 、 **[詳細]** 、および **[削除]** の各リンクは、[Pages/Movies/Index.cshtml](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) ファイルで*アンカー タグ ヘルパー*によって生成されます。
 
 [!code-cshtml[](~/tutorials/razor-pages/razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Index.cshtml?highlight=16-18&range=32-)]
 
@@ -167,7 +167,7 @@ Pages/Movies を参照し、 **[編集]** リンクをポイントしてター�
 </td>
 ```
 
-動的に生成されたリンクは、クエリ文字列を含むムービー ID を渡します (例: `https://localhost:5001/Movies/Details?id=1` の `?id=1`)。
+動的に生成されたリンクは、クエリ文字列を含むムービー ID を渡します (例: `?id=1` の `https://localhost:5001/Movies/Details?id=1`)。
 
 "{id:int}" ルート テンプレートを使用するには、[編集]、[詳細]、および [削除] Razor ページを更新します。 これらの各ページのページ ディレクティブを `@page` から `@page "{id:int}"` に変更します。 アプリを実行してから、ソースを表示します。 生成される HTML では、次のように URL のパス部分に ID を追加します。
 
@@ -195,7 +195,7 @@ Pages/Movies を参照し、 **[編集]** リンクをポイントしてター�
 
 ### <a name="review-concurrency-exception-handling"></a>コンカレンシーの例外処理の確認
 
-*Pages/Movies/Edit.cshtml.cs* ファイルで `OnPostAsync` メソッドを確認します。
+`OnPostAsync`Pages/Movies/Edit.cshtml.cs*ファイルで* メソッドを確認します。
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Edit.cshtml.cs?name=snippet)]
 
@@ -243,7 +243,7 @@ Movies/Edit ページが投稿された場合:
 * [このチュートリアルの YouTube バージョン](https://youtu.be/yLnnleREMtQ)
 
 > [!div class="step-by-step"]
-> [前へ:データベースの操作](xref:tutorials/razor-pages/sql)
-> [次: 検索の追加](xref:tutorials/razor-pages/search)
+> [前 - データベースの操作](xref:tutorials/razor-pages/sql)
+> [次 - 検索の追加](xref:tutorials/razor-pages/search)
 
 ::: moniker-end

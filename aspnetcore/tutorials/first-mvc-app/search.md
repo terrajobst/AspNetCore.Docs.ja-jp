@@ -6,10 +6,10 @@ ms.author: riande
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/search
 ms.openlocfilehash: 89f1fa84783430f160ca0b840bf7ae9699520cb7
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78648830"
 ---
 # <a name="add-search-to-an-aspnet-core-mvc-app"></a>ASP.NET Core MVC アプリへの検索の追加
@@ -18,7 +18,7 @@ ms.locfileid: "78648830"
 
 このセクションでは、検索機能を `Index` アクション メソッドに追加して、*ジャンル*または*名前*でムービーを検索できるようにします。
 
-次のコードを使用して、*Controllers/MoviesController.cs* 内で見つかった `Index` メソッドを更新します。
+次のコードを使用して、`Index`Controllers/MoviesController.cs*内で見つかった* メソッドを更新します。
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/MoviesController.cs?name=snippet_1stSearch)]
 
@@ -29,7 +29,7 @@ var movies = from m in _context.Movie
              select m;
 ```
 
-このクエリはこの時点では定義される*だけ*で、データベースに対して**実行されていません**。
+このクエリはこの時点で*のみ*定義されます。データベースに対して**実行されていません**。
 
 `searchString` パラメーターに文字列が含まれる場合、検索文字列の値でフィルターするようにムービー クエリが変更されます。
 
@@ -37,13 +37,13 @@ var movies = from m in _context.Movie
 
 上の `s => s.Title.Contains()` コードは[ラムダ式](/dotnet/csharp/programming-guide/statements-expressions-operators/lambda-expressions)です。 ラムダは、メソッド ベースの [LINQ](/dotnet/standard/using-linq) クエリで、[Where](/dotnet/api/system.linq.enumerable.where) メソッドや `Contains` (上のコードで使用されている) など、標準クエリ演算子メソッドの引数として使用されます。 LINQ クエリは、`Where`、`Contains`、`OrderBy` などのメソッドの呼び出しで定義または変更されたときには実行されません。 クエリ実行は先送りされます。  つまり、その具体値が実際に繰り返されるか、`ToListAsync` メソッドが呼び出されるまで、式の評価が延期されます。 クエリの遅延実行の詳細については、「[クエリの実行](/dotnet/framework/data/adonet/ef/language-reference/query-execution)」を参照してください。
 
-メモ:[Contains](/dotnet/api/system.data.objects.dataclasses.entitycollection-1.contains) メソッドは、上記の C# コードではなく、データベースで実行されます。 クエリの大文字と小文字の区別は、データベースや照合順序に依存します。 SQL Server では、[Contains](/dotnet/api/system.data.objects.dataclasses.entitycollection-1.contains) は大文字と小文字の区別がない [SQL LIKE](/sql/t-sql/language-elements/like-transact-sql) にマッピングされます。 SQLite では、既定の照合順序で、大文字と小文字が区別されます。
+注: [Contains](/dotnet/api/system.data.objects.dataclasses.entitycollection-1.contains) メソッドは、上記の C# コードではなく、データベースで実行されます。 クエリの大文字と小文字の区別は、データベースや照合順序に依存します。 SQL Server では、[Contains](/dotnet/api/system.data.objects.dataclasses.entitycollection-1.contains) は大文字と小文字の区別がない [SQL LIKE](/sql/t-sql/language-elements/like-transact-sql) にマッピングされます。 SQLite では、既定の照合順序で、大文字と小文字が区別されます。
 
 `/Movies/Index` に移動します。 `?searchString=Ghost` などのクエリ文字列を URL に追加します。 フィルターされたムービーが表示されます。
 
 ![インデックス ビュー](~/tutorials/first-mvc-app/search/_static/ghost.png)
 
-`id` という名前のパラメーターを使用するために `Index` メソッドの署名を変更すると、`id` パラメーターは、*Startup.cs* で設定されている既定ルートの省略可能な `{id}` プレースホルダーと一致するようになります。
+`Index` という名前のパラメーターを使用するために `id` メソッドの署名を変更すると、`id` パラメーターは、`{id}`Startup.cs*で設定されている既定ルートの省略可能な* プレースホルダーと一致するようになります。
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Startup.cs?highlight=5&name=snippet_1)]
 
@@ -53,7 +53,7 @@ var movies = from m in _context.Movie
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/MoviesController.cs?highlight=1,6,8&name=snippet_1stSearch)]
 
-`id` パラメーターで更新された `Index` メソッド:
+`Index` パラメーターで更新された `id` メソッド:
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/MoviesController.cs?highlight=1,6,8&name=snippet_SearchID)]
 
@@ -61,7 +61,7 @@ var movies = from m in _context.Movie
 
 ![ghost という単語が URL に追加された索引ビュー。Ghostbusters と Ghostbusters 2 という 2 本のムービーからなるムービーリストが返されています。](~/tutorials/first-mvc-app/search/_static/g2.png)
 
-ただし、ユーザーがムービーを検索するたびに URL の変更を求めることはできません。 そのため、ここでは UI 要素を追加して、ムービーをフィルターできるようにします。 ルート バインドされた `ID` パラメーターを渡す方法をテストするために `Index` メソッドの署名を変更した場合は、`searchString` という名前のパラメーターを受け取るように署名を元に戻します。
+ただし、ユーザーがムービーを検索するたびに URL の変更を求めることはできません。 そのため、ここでは UI 要素を追加して、ムービーをフィルターできるようにします。 ルート バインドされた `Index` パラメーターを渡す方法をテストするために `ID` メソッドの署名を変更した場合は、`searchString` という名前のパラメーターを受け取るように署名を元に戻します。
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/MoviesController.cs?highlight=1,6,8&name=snippet_1stSearch)]
 
@@ -73,7 +73,7 @@ HTML `<form>` タグでは[フォーム タグ ヘルパー](xref:mvc/views/work
 
 ![タイトル フィルター テキストボックスに ghost という単語が入力されたインデックス ビュー](~/tutorials/first-mvc-app/search/_static/filter.png)
 
-予想どおり、`Index` メソッドの `[HttpPost]` オーバーロードはありません。 メソッドではデータをフィルターするだけで、アプリの状態を変更しないため、オーバーロードは必要ありません。
+予想どおり、`[HttpPost]` メソッドの `Index` オーバーロードはありません。 メソッドではデータをフィルターするだけで、アプリの状態を変更しないため、オーバーロードは必要ありません。
 
 以下の `[HttpPost] Index` メソッドを追加できます。
 
@@ -91,11 +91,11 @@ HTML `<form>` タグでは[フォーム タグ ヘルパー](xref:mvc/views/work
 
 要求本文に検索パラメーターと [XSRF](xref:security/anti-request-forgery) トークンが表示されています。 前のチュートリアルで説明したように、[フォーム タグ ヘルパー](xref:mvc/views/working-with-forms)では [XSRF](xref:security/anti-request-forgery) 偽造防止トークンが生成されることに注意してください。 ここではデータを変更しないため、コントローラー メソッドでトークンを検証する必要はありません。
 
-検索パラメーターが URL ではなく、要求本文にあるため、その検索情報をキャプチャして、ブックマークしたり、他のユーザーと共有したりすることはできません。 この問題を解決するには、*Views/Movies/Index. cshtml* ファイルに存在する要求が `HTTP GET` であることを指定します。
+検索パラメーターが URL ではなく、要求本文にあるため、その検索情報をキャプチャして、ブックマークしたり、他のユーザーと共有したりすることはできません。 この問題を解決するには、`HTTP GET`Views/Movies/Index. cshtml*ファイルに存在する要求が* であることを指定します。
 
 [!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexGet.cshtml?highlight=12&range=1-23)]
 
-ここで検索を送信すると、URL に検索クエリ文字列が含まれます。 `HttpPost Index` メソッドがある場合でも、検索時には `HttpGet Index` アクション メソッドにも移動します。
+ここで検索を送信すると、URL に検索クエリ文字列が含まれます。 `HttpGet Index` メソッドがある場合でも、検索時には `HttpPost Index` アクション メソッドにも移動します。
 
 ![URL に searchString=ghost が表示されたブラウザー ウィンドウ。返された Ghostbusters および Ghostbusters 2 というムービーには ghost という単語が含まれています](~/tutorials/first-mvc-app/search/_static/search_get.png)
 
@@ -118,7 +118,7 @@ HTML `<form>` タグでは[フォーム タグ ヘルパー](xref:mvc/views/work
 * 選択されたジャンルを含む、`MovieGenre`。
 * ユーザーが検索テキスト ボックスに入力したテキストが含まれる `SearchString`。
 
-`MoviesController.cs` の `Index` メソッドを次のコードに置き換えます。
+`Index` の `MoviesController.cs` メソッドを次のコードに置き換えます。
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Controllers/MoviesController.cs?name=snippet_SearchGenre)]
 
@@ -132,7 +132,7 @@ HTML `<form>` タグでは[フォーム タグ ヘルパー](xref:mvc/views/work
 
 ## <a name="add-search-by-genre-to-the-index-view"></a>インデックス ビューへのジャンルによる検索の追加
 
-次のように、*Views/Movies/* で見つかった `Index.cshtml` を更新します。
+次のように、`Index.cshtml`Views/Movies/*で見つかった* を更新します。
 
 [!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexFormGenreNoRating.cshtml?highlight=1,15,16,17,19,28,31,34,37,43)]
 

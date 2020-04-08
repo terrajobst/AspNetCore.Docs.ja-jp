@@ -7,10 +7,10 @@ ms.author: riande
 ms.date: 02/12/2020
 uid: razor-pages/index
 ms.openlocfilehash: 42ffb0d4d2e49663dd53ffeee5d9fa2a931ee5b7
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78644750"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>ASP.NET Core での Razor ページの概要
@@ -25,7 +25,7 @@ Razor ページを利用することで、ページのコーディングに今�
 
 このドキュメントでは、Razor ページの概要について説明します。 手順を追って説明するチュートリアルではありません。 セクションの一部を理解できない場合は、「[Razor ページの概要](xref:tutorials/razor-pages/razor-pages-start)」を参照してください。 ASP.NET Core の概要については、「[ASP.NET Core の概要](xref:index)」を参照してください。
 
-## <a name="prerequisites"></a>必須コンポーネント
+## <a name="prerequisites"></a>前提条件
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -101,7 +101,7 @@ URL パスのページへの関連付けは、ファイル システム内のペ
 
 Razor ページは、アプリの構築時に Web ブラウザーで使用される一般的なパターンを実装しやすくするために設計されています。 [モデル バインド](xref:mvc/models/model-binding)、[タグ ヘルパー](xref:mvc/views/tag-helpers/intro)、および HTML ヘルパーはすべて、Razor ページ クラスで定義されたプロパティで*機能します*。 `Contact` モデルの基本的な "お問い合わせ" フォームを実装するページを考察します。
 
-このドキュメントのサンプルでは、[Startup.cs](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/razor-pages/index/3.0sample/RazorPagesContacts/Startup.cs#L23-L24) ファイルで `DbContext` が初期化されます。
+このドキュメントのサンプルでは、`DbContext`Startup.cs[ ファイルで ](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/razor-pages/index/3.0sample/RazorPagesContacts/Startup.cs#L23-L24) が初期化されます。
 
 [!code-cs[](index/3.0sample/RazorPagesContacts/Startup.cs?name=snippet)]
 
@@ -128,7 +128,7 @@ db コンテキスト:
 * [依存関係の挿入](xref:fundamentals/dependency-injection)によるページの依存関係の管理。
 * [単体テスト](xref:test/razor-pages-tests)
 
-このページには、(ユーザーがフォームを投稿したときに) `POST` 要求で実行される `OnPostAsync` "*ハンドラー メソッド*" があります。 任意の HTTP 動詞のハンドラー メソッドを追加できます。 最も一般的なハンドラーは次のとおりです。
+このページには、(ユーザーがフォームを投稿したときに) `OnPostAsync` 要求で実行される  *"* ハンドラー メソッド`POST`" があります。 任意の HTTP 動詞のハンドラー メソッドを追加できます。 最も一般的なハンドラーは次のとおりです。
 
 * ページに必要な状態を初期化するための `OnGet`。 前のコードでは、`OnGet` メソッドにより *CreateModel.cshtml* Razor ページが表示されます。
 * フォームの送信を処理するための `OnPost`。
@@ -227,9 +227,9 @@ db コンテキスト:
 HTML で削除ボタンがレンダリングされる場合、その [formaction](https://developer.mozilla.org/docs/Web/HTML/Element/button#attr-formaction) には次のパラメーターが含まれています。
 
 * `asp-route-id` 属性によって指定された顧客の連絡先 ID。
-* `asp-page-handler` 属性によって指定された `handler`。
+* `handler` 属性によって指定された `asp-page-handler`。
 
-ボタンが選択されると、フォームの `POST` 要求がサーバーに送信されます。 慣例により、ハンドラー メソッドの名前はスキーム `OnPost[handler]Async` に従った `handler` パラメーターの値に基づいて選択されます。
+ボタンが選択されると、フォームの `POST` 要求がサーバーに送信されます。 慣例により、ハンドラー メソッドの名前はスキーム `handler` に従った `OnPost[handler]Async` パラメーターの値に基づいて選択されます。
 
 この例では `handler` が `delete` であるため、`OnPostDeleteAsync` ハンドラー メソッドを使用して `POST` 要求が処理されます。 `asp-page-handler` が `remove` などの別の値に設定されている場合、名前が `OnPostRemoveAsync` のハンドラー メソッドが選択されます。
 
@@ -240,7 +240,7 @@ HTML で削除ボタンがレンダリングされる場合、その [formaction
 * クエリ文字列から `id` を取得します。
 * `FindAsync` を使用してデータベースから顧客の連絡先を照会します。
 * 顧客の連絡先が見つからない場合、それは削除されており、データベースが更新されています。
-* ルート インデックス ページ (`/Index`) にリダイレクトされるように、<xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel.RedirectToPage*> を呼び出します。
+* ルート インデックス ページ (<xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel.RedirectToPage*>) にリダイレクトされるように、`/Index` を呼び出します。
 
 ### <a name="the-editcshtml-file"></a>Edit.cshtml ファイル
 
@@ -326,11 +326,11 @@ HTML で削除ボタンがレンダリングされる場合、その [formaction
 
 `HEAD` 要求により、特定のリソースのヘッダーを取得できます。 `GET` 要求とは異なり、`HEAD` 要求から応答本文は返されません。
 
-通常、`HEAD` 要求に対して `OnHead` ハンドラーが作成され、呼び出されます。
+通常、`OnHead` 要求に対して `HEAD` ハンドラーが作成され、呼び出されます。
 
 [!code-cs[](index/3.0sample/RazorPagesContacts/Pages/Privacy.cshtml.cs?name=snippet)]
 
-`OnHead` ハンドラーが定義されていない場合、Razor Pages は `OnGet` ハンドラーの呼び出しにフォールバックします。
+`OnGet` ハンドラーが定義されていない場合、Razor Pages は `OnHead` ハンドラーの呼び出しにフォールバックします。
 
 <a name="xsrf"></a>
 
@@ -366,7 +366,7 @@ Razor Pages は、[偽造防止検証](xref:security/anti-request-forgery)によ
 
 レイアウト ファイルは *Pages/Shared* フォルダーに入ります。
 
-レイアウト ファイルを *Views/Shared* フォルダー内に配置**しない**ことをお勧めします。 *Views/Shared* は MVC ビュー パターンです。 Razor ページは、パス規則ではなく、フォルダー階層に依存することを意図しています。
+レイアウト ファイルを **Views/Shared** フォルダー内に配置*しない*ことをお勧めします。 *Views/Shared* は MVC ビュー パターンです。 Razor ページは、パス規則ではなく、フォルダー階層に依存することを意図しています。
 
 Razor ページからのビュー検索には、*Pages* フォルダーが含まれます。 MVC コントローラーで使用されているレイアウト、テンプレート、パーシャルと、従来の Razor ビューは*機能します*。
 
@@ -432,21 +432,21 @@ Razor ページからのビュー検索には、*Pages* フォルダーが含ま
     * *Edit.cshtml*
     * *Index.cshtml*
 
-成功すると、*Pages/Customers/Create.cshtml* ページと *Pages/Customers/Edit.cshtml* ページが *Pages/Customers/Index.cshtml* にリダイレクトされます。 文字列 `./Index` は、前のページにアクセスするために使用される相対ページ名です。 これは、*Pages/Customers/Index.cshtml* ページへの URI を生成するために使われます。 次に例を示します。
+成功すると、*Pages/Customers/Create.cshtml* ページと *Pages/Customers/Edit.cshtml* ページが *Pages/Customers/Index.cshtml* にリダイレクトされます。 文字列 `./Index` は、前のページにアクセスするために使用される相対ページ名です。 これは、*Pages/Customers/Index.cshtml* ページへの URI を生成するために使われます。 (例:
 
 * `Url.Page("./Index", ...)`
 * `<a asp-page="./Index">Customers Index Page</a>`
 * `RedirectToPage("./Index")`
 
-絶対ページ名 `/Index` は、*Pages/Index.cshtml* ページへの URL を生成するために使われます。 次に例を示します。
+絶対ページ名 `/Index` は、*Pages/Index.cshtml* ページへの URL を生成するために使われます。 (例:
 
 * `Url.Page("/Index", ...)`
 * `<a asp-page="/Index">Home Index Page</a>`
 * `RedirectToPage("/Index")`
 
-ページ名は、先頭の `/` を含む、ルート */Pages* フォルダーからページへのパスです (たとえば `/Index`)。 先述の URL 生成サンプルでは、URL のハードコーディングに関する拡張オプションと機能が提供されます。 URL の生成は[ルーティング](xref:mvc/controllers/routing)を使用し、ターゲット パスで定義されたルート方法に従って、パラメーターの生成とエンコードができます。
+ページ名は、先頭の *を含む、ルート*/Pages`/` フォルダーからページへのパスです (たとえば `/Index`)。 先述の URL 生成サンプルでは、URL のハードコーディングに関する拡張オプションと機能が提供されます。 URL の生成は[ルーティング](xref:mvc/controllers/routing)を使用し、ターゲット パスで定義されたルート方法に従って、パラメーターの生成とエンコードができます。
 
-ページの URL 生成は、相対名をサポートします。 次の表に、*Pages/Customers/Create.cshtml* の異なる `RedirectToPage` パラメーターで選択されたインデックス ページを示します。
+ページの URL 生成は、相対名をサポートします。 次の表に、`RedirectToPage`Pages/Customers/Create.cshtml*の異なる* パラメーターで選択されたインデックス ページを示します。
 
 | RedirectToPage(x)| ページ |
 | ----------------- | ------------ |
@@ -510,11 +510,11 @@ public class AboutModel : PageModel
 
 ASP.NET Core により <xref:Microsoft.AspNetCore.Mvc.Controller.TempData> が公開されます。 このプロパティは、読み取られるまでデータを格納します。 <xref:Microsoft.AspNetCore.Mvc.ViewFeatures.TempDataDictionary.Keep*> メソッドと <xref:Microsoft.AspNetCore.Mvc.ViewFeatures.TempDataDictionary.Peek*> メソッドは、削除せずにデータを確認するために使用できます。 `TempData` は、複数の要求に対してデータが必要な場合のリダイレクトに役立ちます。
 
-次のコードは、`TempData` を使用して `Message` の値を設定します。
+次のコードは、`Message` を使用して `TempData` の値を設定します。
 
 [!code-cs[](index/sample/RazorPagesContacts2/Pages/Customers/CreateDot.cshtml.cs?highlight=10-11,25&name=snippet_Temp)]
 
-*Pages/Customers/Index.cshtml* ファイル内の次のマークアップは、`TempData` を使用して `Message` の値を表示します。
+*Pages/Customers/Index.cshtml* ファイル内の次のマークアップは、`Message` を使用して `TempData` の値を表示します。
 
 ```cshtml
 <h3>Msg: @Model.Message</h3>
@@ -553,9 +553,9 @@ public string Message { get; set; }
 
 `@page` ディレクティブを次に使用します:
 
-* カスタム ルートをページに指定します。 たとえば、[バージョン情報] ページへのルートを `@page "/Some/Other/Path"` を使用して `/Some/Other/Path` に設定することができます。
+* カスタム ルートをページに指定します。 たとえば、[バージョン情報] ページへのルートを `/Some/Other/Path` を使用して `@page "/Some/Other/Path"` に設定することができます。
 * ページの既定のルートにセグメントを追加します。 たとえば、"item" セグメントを `@page "item"` を使用してページの既定のルートに追加することができます。
-* ページの既定のルートにパラメーターを追加します。 たとえば、`@page "{id}"` を含むページに ID パラメーター `id` を必須とすることができます。
+* ページの既定のルートにパラメーターを追加します。 たとえば、`id` を含むページに ID パラメーター `@page "{id}"` を必須とすることができます。
 
 パスの先頭のチルダ (`~`) によって指定されたルートの相対パスがサポートされます。 たとえば、`@page "~/Some/Other/Path"` は `@page "/Some/Other/Path"` と同じです。
 
@@ -565,7 +565,7 @@ URL 内のクエリ文字列 `?handler=JoinList` が気に入らない場合は�
 
 上記のコードを使用すると、`OnPostJoinListAsync` に送信される URL パスは `https://localhost:5001/Customers/CreateFATH/JoinList` になります。 `OnPostJoinListUCAsync` に送信される URL パスは `https://localhost:5001/Customers/CreateFATH/JoinListUC` です。
 
-`handler` の後の `?` は、ルート パラメーターが省略可能なことを意味します。
+`?` の後の `handler` は、ルート パラメーターが省略可能なことを意味します。
 
 ## <a name="advanced-configuration-and-settings"></a>詳細な構成と設定
 
@@ -617,7 +617,7 @@ Razor ページは、ページ コーディングに重点を置いたシナリ�
 
 このドキュメントでは、Razor ページの概要について説明します。 手順を追って説明するチュートリアルではありません。 セクションの一部を理解できない場合は、「[Razor ページの概要](xref:tutorials/razor-pages/razor-pages-start)」を参照してください。 ASP.NET Core の概要については、「[ASP.NET Core の概要](xref:index)」を参照してください。
 
-## <a name="prerequisites"></a>必須コンポーネント
+## <a name="prerequisites"></a>前提条件
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -693,7 +693,7 @@ URL パスのページへの関連付けは、ファイル システム内のペ
 
 Razor ページは、アプリの構築時に Web ブラウザーで使用される一般的なパターンを実装しやすくするために設計されています。 [モデル バインド](xref:mvc/models/model-binding)、[タグ ヘルパー](xref:mvc/views/tag-helpers/intro)、および HTML ヘルパーはすべて、Razor ページ クラスで定義されたプロパティで*機能します*。 `Contact` モデルの基本的な "お問い合わせ" フォームを実装するページを考察します。
 
-このドキュメントのサンプルでは、[Startup.cs](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/razor-pages/index/sample/RazorPagesContacts/Startup.cs#L15-L16) ファイルで `DbContext` が初期化されます。
+このドキュメントのサンプルでは、`DbContext`Startup.cs[ ファイルで ](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/razor-pages/index/sample/RazorPagesContacts/Startup.cs#L15-L16) が初期化されます。
 
 [!code-cs[](index/sample/RazorPagesContacts/Startup.cs?highlight=15-16)]
 
@@ -720,7 +720,7 @@ db コンテキスト:
 * [依存関係の挿入](xref:fundamentals/dependency-injection)によるページの依存関係の管理。
 * ページを[単体テスト](xref:test/razor-pages-tests)します。
 
-このページには、(ユーザーがフォームを投稿したときに) `POST` 要求で実行される `OnPostAsync` "*ハンドラー メソッド*" があります。 任意の HTTP 動詞のハンドラー メソッドを追加できます。 最も一般的なハンドラーは次のとおりです。
+このページには、(ユーザーがフォームを投稿したときに) `OnPostAsync` 要求で実行される  *"* ハンドラー メソッド`POST`" があります。 任意の HTTP 動詞のハンドラー メソッドを追加できます。 最も一般的なハンドラーは次のとおりです。
 
 * ページに必要な状態を初期化するための `OnGet`。 [OnGet](#OnGet) サンプル。
 * フォームの送信を処理するための `OnPost`。
@@ -790,7 +790,7 @@ db コンテキスト:
 HTML で削除ボタンがレンダリングされる場合、その `formaction` には次のパラメーターが含まれています。
 
 * `asp-route-id` 属性によって指定された顧客の連絡先 ID。
-* `asp-page-handler` 属性によって指定された `handler`。
+* `handler` 属性によって指定された `asp-page-handler`。
 
 顧客の連絡先 ID `1` でレンダリングされた削除ボタンの例を示します。
 
@@ -798,7 +798,7 @@ HTML で削除ボタンがレンダリングされる場合、その `formaction
 <button type="submit" formaction="/?id=1&amp;handler=delete">delete</button>
 ```
 
-ボタンが選択されると、フォームの `POST` 要求がサーバーに送信されます。 慣例により、ハンドラー メソッドの名前はスキーム `OnPost[handler]Async` に従った `handler` パラメーターの値に基づいて選択されます。
+ボタンが選択されると、フォームの `POST` 要求がサーバーに送信されます。 慣例により、ハンドラー メソッドの名前はスキーム `handler` に従った `OnPost[handler]Async` パラメーターの値に基づいて選択されます。
 
 この例では `handler` が `delete` であるため、`OnPostDeleteAsync` ハンドラー メソッドを使用して `POST` 要求が処理されます。 `asp-page-handler` が `remove` などの別の値に設定されている場合、名前が `OnPostRemoveAsync` のハンドラー メソッドが選択されます。 次のコードは、`OnPostDeleteAsync` ハンドラーを示しています。
 
@@ -809,7 +809,7 @@ HTML で削除ボタンがレンダリングされる場合、その `formaction
 * クエリ文字列から `id` を受け入れます。 *Index.cshtml* ページ ディレクティブにルーティング制約 `"{id:int?}"` が含まれていた場合、`id` はルート データから取得されることがあります。 `id` のルート データは `https://localhost:5001/Customers/2` のように URI で指定されます。
 * `FindAsync` を使用してデータベースから顧客の連絡先を照会します。
 * 顧客の連絡先が見つかった場合、その連絡先は顧客の連絡先の一覧から削除されています。 データベースが更新されます。
-* ルート インデックス ページ (`/Index`) にリダイレクトされるように、`RedirectToPage` を呼び出します。
+* ルート インデックス ページ (`RedirectToPage`) にリダイレクトされるように、`/Index` を呼び出します。
 
 ## <a name="mark-page-properties-as-required"></a>必要に応じてページのプロパティをマークする
 
@@ -823,7 +823,7 @@ HTML で削除ボタンがレンダリングされる場合、その `formaction
 
 `HEAD`HEAD 要求を使用すると、特定のリソースに対するヘッダーを取得できます。 `GET` 要求とは異なり、`HEAD` 要求から応答本文は返されません。
 
-通常、`HEAD` 要求に対して `OnHead` ハンドラーが作成され、呼び出されます。 
+通常、`OnHead` 要求に対して `HEAD` ハンドラーが作成され、呼び出されます。 
 
 ```csharp
 public void OnHead()
@@ -832,7 +832,7 @@ public void OnHead()
 }
 ```
 
-ASP.NET Core 2.1 以降では、`OnHead` ハンドラーが定義されていない場合、Razor Pages は `OnGet` ハンドラーの呼び出しにフォールバックします。 この動作は、`Startup.ConfigureServices` での [SetCompatibilityVersion](xref:mvc/compatibility-version) への呼び出しによって有効になります。
+ASP.NET Core 2.1 以降では、`OnGet` ハンドラーが定義されていない場合、Razor Pages は `OnHead` ハンドラーの呼び出しにフォールバックします。 この動作は、[ での ](xref:mvc/compatibility-version)SetCompatibilityVersion`Startup.ConfigureServices` への呼び出しによって有効になります。
 
 ```csharp
 services.AddMvc()
@@ -841,7 +841,7 @@ services.AddMvc()
 
 既定のテンプレートでは、ASP.NET Core 2.1 および 2.2 で `SetCompatibilityVersion` の呼び出しが生成されます。 `SetCompatibilityVersion` は実質的に Razor ページのオプション `AllowMappingHeadRequestsToGetHandler` を `true` に設定します。
 
-`SetCompatibilityVersion` とのすべての動作にオプトインするのではなく、明示的に*特定の*動作にオプトインすることもできます。 次のコードでは、`OnGet` ハンドラーに `HEAD` 要求をマップできるようにすることにオプトインしています。
+`SetCompatibilityVersion` とのすべての動作にオプトインするのではなく、明示的に*特定の*動作にオプトインすることもできます。 次のコードでは、`HEAD` ハンドラーに `OnGet` 要求をマップできるようにすることにオプトインしています。
 
 ```csharp
 services.AddMvc()
@@ -884,7 +884,7 @@ services.AddMvc()
 
 レイアウト ファイルは *Pages/Shared* フォルダーに入ります。
 
-レイアウト ファイルを *Views/Shared* フォルダー内に配置**しない**ことをお勧めします。 *Views/Shared* は MVC ビュー パターンです。 Razor ページは、パス規則ではなく、フォルダー階層に依存することを意図しています。
+レイアウト ファイルを **Views/Shared** フォルダー内に配置*しない*ことをお勧めします。 *Views/Shared* は MVC ビュー パターンです。 Razor ページは、パス規則ではなく、フォルダー階層に依存することを意図しています。
 
 Razor ページからのビュー検索には、*Pages* フォルダーが含まれます。 MVC コントローラーで使用しているレイアウト、テンプレート、およびパーシャルと、従来の Razor ビューは*機能します*。
 
@@ -947,15 +947,15 @@ Razor ページからのビュー検索には、*Pages* フォルダーが含ま
     * *Edit.cshtml*
     * *Index.cshtml*
 
-成功すると、*Pages/Customers/Create.cshtml* ページと *Pages/Customers/Edit.cshtml* ページが *Pages/Index.cshtml* にリダイレクトされます。 文字列 `/Index` は前のページにアクセスするための URI の一部です。 文字列 `/Index` は、*Pages/Index.cshtml* ページへの URI を生成するために使用できます。 次に例を示します。
+成功すると、*Pages/Customers/Create.cshtml* ページと *Pages/Customers/Edit.cshtml* ページが *Pages/Index.cshtml* にリダイレクトされます。 文字列 `/Index` は前のページにアクセスするための URI の一部です。 文字列 `/Index` は、*Pages/Index.cshtml* ページへの URI を生成するために使用できます。 (例:
 
 * `Url.Page("/Index", ...)`
 * `<a asp-page="/Index">My Index Page</a>`
 * `RedirectToPage("/Index")`
 
-ページ名は、先頭の `/` を含む、ルート */Pages* フォルダーからページへのパスです (たとえば `/Index`)。 先述の URL 生成サンプルでは、URL のハードコーディングに関する拡張オプションと機能が提供されます。 URL の生成は[ルーティング](xref:mvc/controllers/routing)を使用し、ターゲット パスで定義されたルート方法に従って、パラメーターの生成とエンコードができます。
+ページ名は、先頭の *を含む、ルート*/Pages`/` フォルダーからページへのパスです (たとえば `/Index`)。 先述の URL 生成サンプルでは、URL のハードコーディングに関する拡張オプションと機能が提供されます。 URL の生成は[ルーティング](xref:mvc/controllers/routing)を使用し、ターゲット パスで定義されたルート方法に従って、パラメーターの生成とエンコードができます。
 
-ページの URL 生成は、相対名をサポートします。 次の表に、*Pages/Customers/Create.cshtml* の異なる `RedirectToPage` パラメーターで選択されたインデックス ページを示します。
+ページの URL 生成は、相対名をサポートします。 次の表に、`RedirectToPage`Pages/Customers/Create.cshtml*の異なる* パラメーターで選択されたインデックス ページを示します。
 
 | RedirectToPage(x)| ページ |
 | ----------------- | ------------ |
@@ -980,7 +980,7 @@ RedirectToPage("/Index", new { area = "Services" });
 
 データは [ViewDataAttribute](/dotnet/api/microsoft.aspnetcore.mvc.viewdataattribute) とのページに渡すことができます。 `[ViewData]` 属性を持つコントローラーまたは Razor ページのモデルのプロパティの値は、[ViewDataDictionary](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.viewdatadictionary) に格納してそこから読み込むことができます。
 
-次の例では、`AboutModel` に `[ViewData]` でマークされた `Title` プロパティが含まれています。 `Title` プロパティは、[About] ページのタイトルに設定されます。
+次の例では、`AboutModel` に `Title` でマークされた `[ViewData]` プロパティが含まれています。 `Title` プロパティは、[About] ページのタイトルに設定されます。
 
 ```csharp
 public class AboutModel : PageModel
@@ -1012,13 +1012,13 @@ public class AboutModel : PageModel
 
 ## <a name="tempdata"></a>TempData
 
-ASP.NET Core は [コントローラー](/dotnet/api/microsoft.aspnetcore.mvc.controller)上で [TempData](/dotnet/api/microsoft.aspnetcore.mvc.controller.tempdata?view=aspnetcore-2.0#Microsoft_AspNetCore_Mvc_Controller_TempData) プロパティを公開します。 このプロパティは、読み取られるまでデータを格納します。 `Keep` メソッドと `Peek` メソッドは、削除せずにデータを確認するために使用できます。 `TempData` は、複数の要求にデータが必要な場合のリダイレクトに役立ちます。
+ASP.NET Core は [コントローラー](/dotnet/api/microsoft.aspnetcore.mvc.controller.tempdata?view=aspnetcore-2.0#Microsoft_AspNetCore_Mvc_Controller_TempData)上で [TempData](/dotnet/api/microsoft.aspnetcore.mvc.controller) プロパティを公開します。 このプロパティは、読み取られるまでデータを格納します。 `Keep` メソッドと `Peek` メソッドは、削除せずにデータを確認するために使用できます。 `TempData` は、複数の要求にデータが必要な場合のリダイレクトに役立ちます。
 
-次のコードは、`TempData` を使用して `Message` の値を設定します。
+次のコードは、`Message` を使用して `TempData` の値を設定します。
 
 [!code-cs[](index/sample/RazorPagesContacts2/Pages/Customers/CreateDot.cshtml.cs?highlight=10-11,25&name=snippet_Temp)]
 
-*Pages/Customers/Index.cshtml* ファイル内の次のマークアップは、`TempData` を使用して `Message` の値を表示します。
+*Pages/Customers/Index.cshtml* ファイル内の次のマークアップは、`Message` を使用して `TempData` の値を表示します。
 
 ```cshtml
 <h3>Msg: @Model.Message</h3>
@@ -1059,9 +1059,9 @@ public string Message { get; set; }
 
 `@page` ディレクティブを次に使用します:
 
-* カスタム ルートをページに指定します。 たとえば、[バージョン情報] ページへのルートを `@page "/Some/Other/Path"` を使用して `/Some/Other/Path` に設定することができます。
+* カスタム ルートをページに指定します。 たとえば、[バージョン情報] ページへのルートを `/Some/Other/Path` を使用して `@page "/Some/Other/Path"` に設定することができます。
 * ページの既定のルートにセグメントを追加します。 たとえば、"item" セグメントを `@page "item"` を使用してページの既定のルートに追加することができます。
-* ページの既定のルートにパラメーターを追加します。 たとえば、`@page "{id}"` を含むページに ID パラメーター `id` を必須とすることができます。
+* ページの既定のルートにパラメーターを追加します。 たとえば、`id` を含むページに ID パラメーター `@page "{id}"` を必須とすることができます。
 
 パスの先頭のチルダ (`~`) によって指定されたルートの相対パスがサポートされます。 たとえば、`@page "~/Some/Other/Path"` は `@page "/Some/Other/Path"` と同じです。
 
@@ -1071,7 +1071,7 @@ URL 内のクエリ文字列 `?handler=JoinList` が気に入らない場合は�
 
 上記のコードを使用すると、`OnPostJoinListAsync` に送信される URL パスは `https://localhost:5001/Customers/CreateFATH/JoinList` になります。 `OnPostJoinListUCAsync` に送信される URL パスは `https://localhost:5001/Customers/CreateFATH/JoinListUC` です。
 
-`handler` の後の `?` は、ルート パラメーターが省略可能なことを意味します。
+`?` の後の `handler` は、ルート パラメーターが省略可能なことを意味します。
 
 ## <a name="configuration-and-settings"></a>構成と設定
 

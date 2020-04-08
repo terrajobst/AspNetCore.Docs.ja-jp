@@ -7,10 +7,10 @@ ms.author: johluo
 ms.date: 09/20/2019
 uid: grpc/index
 ms.openlocfilehash: d97eea1da28424680a3cfa38102637b1e20ff661
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78644720"
 ---
 # <a name="introduction-to-grpc-on-net-core"></a>.NET Core の gRPC の概要
@@ -54,7 +54,7 @@ message HelloReply {
 サービス、クライアント、およびメッセージの .NET 型は、プロジェクトに *\*.proto* ファイルを含めることで自動的に生成されます。
 
 * [Grpc.Tools](https://www.nuget.org/packages/Grpc.Tools/) パッケージにパッケージ参照を追加します。
-* `<Protobuf>` 項目グループに *\*.proto* ファイルを追加します。
+* *項目グループに \** .proto`<Protobuf>` ファイルを追加します。
 
 ```xml
 <ItemGroup>
@@ -92,7 +92,7 @@ public class GreeterService : Greeter.GreeterBase
 }
 ```
 
-`GreeterService` は `GreeterBase` 型を継承します。これは *\*.proto* ファイル内の `Greeter` サービスから生成されます。 サービスは、*Startup.cs* 内でクライアントがアクセスできるようになります。
+`GreeterService` は `GreeterBase` 型を継承します。これは `Greeter` *.proto\* ファイル内の*  サービスから生成されます。 サービスは、*Startup.cs* 内でクライアントがアクセスできるようになります。
 
 ```csharp
 app.UseEndpoints(endpoints =>

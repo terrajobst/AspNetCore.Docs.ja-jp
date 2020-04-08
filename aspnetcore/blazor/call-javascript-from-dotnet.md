@@ -11,10 +11,10 @@ no-loc:
 - SignalR
 uid: blazor/call-javascript-from-dotnet
 ms.openlocfilehash: 7a27b6f1be2ef296d5b2b2a4f566e0cdedbe6480
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78647522"
 ---
 # <a name="call-javascript-functions-from-net-methods-in-aspnet-core-opno-locblazor"></a>ASP.NET Core Blazor で .NET メソッドから JavaScript 関数を呼び出す
@@ -35,7 +35,7 @@ Blazor サーバー アプリでプリレンダリングが有効になってい
 
 次の例は、JavaScript ベースのデコーダーである [TextDecoder](https://developer.mozilla.org/docs/Web/API/TextDecoder) に基づいています。 この例では、C# メソッドから JavaScript 関数を呼び出す方法を示します。 JavaScript 関数は、C# メソッドからバイト配列を受け取り、配列をデコードし、テキストをコンポーネントに返して表示できるようにします。
 
-*wwwroot/index.html* (Blazor WebAssembly) または *Pages/_Host.cshtml* (Blazor サーバー) の `<head>` 要素内で、`TextDecoder` を使用して、渡された配列をデコードし、デコードした値を返す JavaScript 関数を提供します。
+`<head>`wwwroot/index.html *(* WebAssembly) または BlazorPages/_Host.cshtml *(* サーバー) の Blazor 要素内で、`TextDecoder` を使用して、渡された配列をデコードし、デコードした値を返す JavaScript 関数を提供します。
 
 [!code-html[](call-javascript-from-dotnet/samples_snapshot/index-script-convertarray.html)]
 
@@ -47,7 +47,7 @@ JavaScript コードでは、前の例で示したコードのように、スク
 
 次のコンポーネント:
 
-* コンポーネント ボタン (**配列の変換**) が選択された場合、`JSRuntime` を使用して `convertArray` JavaScript 関数を呼び出します。
+* コンポーネント ボタン (`convertArray`配列の変換`JSRuntime`) が選択された場合、**を使用して** JavaScript 関数を呼び出します。
 * JavaScript 関数が呼び出されると、渡された配列が文字列に変換されます。 文字列は、表示できるようにコンポーネントに返されます。
 
 [!code-razor[](call-javascript-from-dotnet/samples_snapshot/call-js-example.razor?highlight=2,34-35)]
@@ -56,11 +56,11 @@ JavaScript コードでは、前の例で示したコードのように、スク
 
 `IJSRuntime` 抽象化を使用するには、次のいずれかの方法を採用します。
 
-* Razor コンポーネント ( *.razor*) に `IJSRuntime` 抽象化を挿入します。
+* Razor コンポーネント (`IJSRuntime`.razor *) に*  抽象化を挿入します。
 
   [!code-razor[](call-javascript-from-dotnet/samples_snapshot/inject-abstraction.razor?highlight=1)]
 
-  *wwwroot/index.html* (Blazor WebAssembly) または *Pages/_Host.cshtml* (Blazor サーバー) の `<head>` 要素内で、`handleTickerChanged` JavaScript 関数を提供します。 関数は `IJSRuntime.InvokeVoidAsync` を指定して呼び出され、値を返しません。
+  `<head>`wwwroot/index.html *(* WebAssembly) または BlazorPages/_Host.cshtml *(* サーバー) の Blazor 要素内で、`handleTickerChanged` JavaScript 関数を提供します。 関数は `IJSRuntime.InvokeVoidAsync` を指定して呼び出され、値を返しません。
 
   [!code-html[](call-javascript-from-dotnet/samples_snapshot/index-script-handleTickerChanged1.html)]
 
@@ -68,7 +68,7 @@ JavaScript コードでは、前の例で示したコードのように、スク
 
   [!code-csharp[](call-javascript-from-dotnet/samples_snapshot/inject-abstraction-class.cs?highlight=5)]
 
-  *wwwroot/index.html* (Blazor WebAssembly) または *Pages/_Host.cshtml* (Blazor サーバー) の `<head>` 要素内で、`handleTickerChanged` JavaScript 関数を提供します。 関数は `JSRuntime.InvokeAsync` を指定して呼び出され、値を返します。
+  `<head>`wwwroot/index.html *(* WebAssembly) または BlazorPages/_Host.cshtml *(* サーバー) の Blazor 要素内で、`handleTickerChanged` JavaScript 関数を提供します。 関数は `JSRuntime.InvokeAsync` を指定して呼び出され、次の値を返します。
 
   [!code-html[](call-javascript-from-dotnet/samples_snapshot/index-script-handleTickerChanged2.html)]
 
@@ -82,7 +82,7 @@ JavaScript コードでは、前の例で示したコードのように、スク
 このトピックに添付されているクライアント側のサンプル アプリでは、ユーザー入力を受け取り、ウェルカム メッセージを表示するために、DOM とやりとりする 2 つの JavaScript 関数をアプリで使用できます。
 
 * `showPrompt` &ndash; ユーザー入力 (ユーザーの名前) を受け入れるプロンプトを生成し、名前を呼び出し元に返します。
-* `displayWelcome` &ndash; `welcome` の `id` を持つ DOM オブジェクトに、呼び出し元からのウェルカム メッセージを割り当てます。
+* `displayWelcome` &ndash; `id` の `welcome` を持つ DOM オブジェクトに、呼び出し元からのウェルカム メッセージを割り当てます。
 
 *wwwroot/exampleJsInterop.js*:
 
@@ -100,7 +100,7 @@ JavaScript ファイルを参照する `<script>` タグを *wwwroot/index.html*
 
 `<script>` タグを動的に更新できないため、`<script>` タグをコンポーネント ファイル内に配置しないでください。
 
-.NET メソッドは、`IJSRuntime.InvokeAsync<T>` を呼び出して、*exampleJsInterop* ファイル内の JavaScript 関数と相互運用します。
+.NET メソッドは、 *を呼び出して、* exampleJsInterop`IJSRuntime.InvokeAsync<T>` ファイル内の JavaScript 関数と相互運用します。
 
 `IJSRuntime` 抽象化は、Blazor サーバーのシナリオを可能にするために非同期です。 アプリが Blazor WebAssembly アプリであり、JavaScript 関数を同期的に呼び出す必要がある場合は、`IJSInProcessRuntime` にダウンキャストし、代わりに `Invoke<T>` を呼び出します。 ほとんどの JS 相互運用ライブラリでは、確実にすべてのシナリオでライブラリを使用できるように、非同期 API を使用することをお勧めします。
 
@@ -141,7 +141,7 @@ JavaScript ファイルを参照する `<script>` タグを *wwwroot/index.html*
 }
 ```
 
-1. コンポーネントの **[Trigger JavaScript Prompt]** ボタンを選択して `TriggerJsPrompt` を実行すると、*wwwroot/exampleJsInterop.js* ファイル内に指定した JavaScript `showPrompt` 関数が呼び出されます。
+1. コンポーネントの `TriggerJsPrompt`[Trigger JavaScript Prompt]**ボタンを選択して** を実行すると、`showPrompt`wwwroot/exampleJsInterop.js*ファイル内に指定した JavaScript* 関数が呼び出されます。
 1. `showPrompt` 関数は、ユーザー入力 (ユーザーの名前) を受け取ります。これは、HTML エンコードされ、コンポーネントに返されます。 コンポーネントにより、ユーザーの名前がローカル変数 `name` に格納されます。
 1. `name` に格納された文字列は、ウェルカム メッセージに組み込まれます。このメッセージが JavaScript 関数 `displayWelcome` に渡され、ウェルカム メッセージが見出しタグにレンダリングされます。
 
@@ -160,7 +160,7 @@ JavaScript ファイルを参照する `<script>` タグを *wwwroot/index.html*
 次の方法を使用して、コンポーネント内の HTML 要素への参照をキャプチャします。
 
 * `@ref` 属性を HTML 要素に追加します。
-* 名前が `@ref` 属性の値に一致する `ElementReference` 型のフィールドを定義します。
+* 名前が `ElementReference` 属性の値に一致する `@ref` 型のフィールドを定義します。
 
 次の例は、`username` `<input>` 要素への参照をキャプチャする方法を示しています。
 
@@ -175,7 +175,7 @@ JavaScript ファイルを参照する `<script>` タグを *wwwroot/index.html*
 > [!WARNING]
 > Blazor とやりとりしない空の要素のコンテンツを変化させるには、要素参照のみを使用します。 このシナリオは、サードパーティの API が要素にコンテンツを提供する場合に便利です。 Blazor は要素とやりとりしないため、Blazor の要素表現と DOM との間に競合が発生する可能性がありません。
 >
-> 次の例では、Blazor が DOM とやりとりしてこの要素のリスト項目 (`<li>`) を設定するため、順序なしリスト (`ul`) のコンテンツを変化させるのは "*危険*" です。
+> 次の例では、 *が DOM とやりとりしてこの要素のリスト項目 (* ) を設定するため、順序なしリスト (`ul`) のコンテンツを変化させるのは "Blazor危険`<li>`" です。
 >
 > ```razor
 > <ul ref="MyList">
@@ -188,7 +188,7 @@ JavaScript ファイルを参照する `<script>` タグを *wwwroot/index.html*
 >
 > JS 相互運用により要素 `MyList` のコンテンツが変更され、Blazor でその要素に差分を適用しようとした場合、差分は DOM と一致しません。
 
-.NET コードに関しては、`ElementReference` は不透明なハンドルです。 `ElementReference` を使用して実行できるのは、JS 相互運用を介して JavaScript コードに渡すこと "*のみ*" です。 これを行うと、JavaScript 側のコードが `HTMLElement` インスタンスを受け取り、通常の DOM API で使用できます。
+.NET コードに関しては、`ElementReference` は不透明なハンドルです。 *を使用して実行できるのは、JS 相互運用を介して JavaScript コードに渡すこと "* のみ`ElementReference`" です。 これを行うと、JavaScript 側のコードが `HTMLElement` インスタンスを受け取り、通常の DOM API で使用できます。
 
 たとえば、次のコードでは、要素にフォーカスを設定できるようにする .NET 拡張メソッドを定義しています。
 
@@ -249,7 +249,7 @@ public static ValueTask<T> GenericMethod<T>(this ElementReference elementRef,
 
 次の Blazor WebAssembly の例は、この方法を示しています。
 
-*wwwroot/index.html* の `<head>` 内:
+`<head>`wwwroot/index.html*の* 内:
 
 ```html
 <style>
@@ -257,7 +257,7 @@ public static ValueTask<T> GenericMethod<T>(this ElementReference elementRef,
 </style>
 ```
 
-*wwwroot/index.html* の `<body>` 内:
+`<body>`wwwroot/index.html*の* 内:
 
 ```html
 <script>

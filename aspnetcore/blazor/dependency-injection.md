@@ -11,10 +11,10 @@ no-loc:
 - SignalR
 uid: blazor/dependency-injection
 ms.openlocfilehash: 4cdde9ee8c9fd9adf00894a067d32965b180e5ec
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78646694"
 ---
 # <a name="aspnet-core-blazor-dependency-injection"></a>ASP.NET Core Blazor 依存関係の挿入
@@ -46,7 +46,7 @@ DI は、中央の場所で構成されたサービスにアクセスするた�
 
 ### <a name="blazor-webassembly"></a>Blazor WebAssembly
 
-*Program.cs* の `Main` メソッドで、アプリのサービス コレクション用のサービスを構成します。 次の例では、`MyDependency` の実装が `IMyDependency` に登録されます。
+`Main`Program.cs*の* メソッドで、アプリのサービス コレクション用のサービスを構成します。 次の例では、`MyDependency` の実装が `IMyDependency` に登録されます。
 
 ```csharp
 public class Program
@@ -116,7 +116,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-`ConfigureServices` メソッドには、サービス記述子オブジェクト (<xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor>) のリストである <xref:Microsoft.Extensions.DependencyInjection.IServiceCollection> が渡されます。 サービスは、サービス コレクションにサービス記述子を提供することによって追加されます。 次の例では、`IDataAccess` インターフェイスとその具象実装 `DataAccess` での概念を示します。
+`ConfigureServices` メソッドには、サービス記述子オブジェクト (<xref:Microsoft.Extensions.DependencyInjection.IServiceCollection>) のリストである <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor> が渡されます。 サービスは、サービス コレクションにサービス記述子を提供することによって追加されます。 次の例では、`IDataAccess` インターフェイスとその具象実装 `DataAccess` での概念を示します。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -206,7 +206,7 @@ Blazor アプリでサービスの有効期間を制限するには、`OwningCom
 
 `OwningComponentBase` 型には、使用できるバージョンが 2 つあります。
 
-* `OwningComponentBase` は、`ComponentBase` 型の抽象的で破棄可能な子であり、`IServiceProvider`型の保護された `ScopedServices` プロパティがあります。 このプロバイダーを使用すると、コンポーネントの有効期間にスコープが設定されているサービスを解決できます。
+* `OwningComponentBase` は、`ComponentBase` 型の抽象的で破棄可能な子であり、`ScopedServices`型の保護された `IServiceProvider` プロパティがあります。 このプロバイダーを使用すると、コンポーネントの有効期間にスコープが設定されているサービスを解決できます。
 
   `@inject` または `InjectAttribute` (`[Inject]`) を使用してコンポーネントに挿入された DI サービスは、コンポーネントのスコープでは作成されません。 コンポーネントのスコープを使用するには、`ScopedServices.GetRequiredService` または `ScopedServices.GetService` を使用してサービスを解決する必要があります。 `ScopedServices` プロバイダーを使用して解決されたすべてのサービスには、同じスコープから提供される依存関係があります。
 
@@ -236,7 +236,7 @@ Blazor アプリでサービスの有効期間を制限するには、`OwningCom
   }
   ```
 
-* `OwningComponentBase` から派生する `OwningComponentBase<T>` では、スコープ DI プロバイダーから `T` のインスタンスを返すプロパティ `Service` が追加されます。 この型は、アプリで 1 つのプライマリ サービスをコンポーネントのスコープを使用して DI コンテナーに要求するときに、`IServiceProvider` のインスタンスを使用せずにスコープ サービスにアクセスするための便利な方法です。 `ScopedServices` プロパティを使用できるので、必要に応じて、アプリで他の型のサービスを取得できます。
+* `OwningComponentBase<T>` から派生する `OwningComponentBase` では、スコープ DI プロバイダーから `Service` のインスタンスを返すプロパティ `T` が追加されます。 この型は、アプリで 1 つのプライマリ サービスをコンポーネントのスコープを使用して DI コンテナーに要求するときに、`IServiceProvider` のインスタンスを使用せずにスコープ サービスにアクセスするための便利な方法です。 `ScopedServices` プロパティを使用できるので、必要に応じて、アプリで他の型のサービスを取得できます。
 
   ```razor
   @page "/users"
@@ -255,16 +255,16 @@ Blazor アプリでサービスの有効期間を制限するには、`OwningCom
 
 ## <a name="use-of-entity-framework-dbcontext-from-di"></a>DI からの Entity Framework の DbContext の使用
 
-Web アプリで DI から取得する一般的なサービスの型の 1 つは、Entity Framework (EF) の `DbContext` オブジェクトです。 `IServiceCollection.AddDbContext` を使用して EF サービスを登録すると、既定ではスコープ サービスとして `DbContext` が追加されます。 スコープ サービスとして登録すると、`DbContext` のインスタンスの有効期間が長くなり、アプリ全体で共有されるため、Blazor アプリで問題が発生する可能性があります。 `DbContext` はスレッドセーフではなく、同時に使用することはできません。
+Web アプリで DI から取得する一般的なサービスの型の 1 つは、Entity Framework (EF) の `DbContext` オブジェクトです。 `IServiceCollection.AddDbContext` を使用して EF サービスを登録すると、既定ではスコープ サービスとして `DbContext` が追加されます。 スコープ サービスとして登録すると、Blazor のインスタンスの有効期間が長くなり、アプリ全体で共有されるため、`DbContext` アプリで問題が発生する可能性があります。 `DbContext` はスレッドセーフではなく、同時に使用することはできません。
 
-アプリによっては、`OwningComponentBase` を使用して `DbContext` のスコープを 1 つのコンポーネントに限定することで、問題が解決する "*場合があります*"。 コンポーネントで `DbContext` が並列に使用されていない場合は、`OwningComponentBase` からコンポーネントを派生させ、`ScopedServices` から `DbContext` を取得すれば、次のことが保証されるため、他には何も必要ありません。
+アプリによっては、`OwningComponentBase` を使用して `DbContext` のスコープを 1 つのコンポーネントに限定することで、問題が解決する "*場合があります*"。 コンポーネントで `DbContext` が並列に使用されていない場合は、`OwningComponentBase` からコンポーネントを派生させ、`DbContext` から `ScopedServices` を取得すれば、次のことが保証されるため、他には何も必要ありません。
 
 * 個別のコンポーネントで `DbContext` が共有されません。
 * `DbContext` は、それに依存するコンポーネントと同じ期間だけ存在します。
 
 1 つのコンポーネントで `DbContext` が同時に使用される可能性がある場合は (たとえば、ユーザーがボタンを選択するたび)、`OwningComponentBase` を使用しても、EF の同時操作に関する問題を回避することはできません。 その場合は、論理 EF 操作ごとに別の `DbContext` を使用します。 次のいずれかの方法を使用します。
 
-* 引数として `DbContextOptions<TContext>` を使用して、`DbContext` を直接作成します。これは DI から取得でき、スレッドセーフです。
+* 引数として `DbContext` を使用して、`DbContextOptions<TContext>` を直接作成します。これは DI から取得でき、スレッドセーフです。
 
     ```razor
     @page "/example"
@@ -307,7 +307,7 @@ Web アプリで DI から取得する一般的なサービスの型の 1 つは
          ServiceLifetime.Transient);
     ```  
 
-  * 一時的な `DbContext` は、複数の EF 操作を並列に実行しないコンポーネントに、普通に (`@inject` を使用して) 挿入できます。 複数の EF 操作を同時に実行する可能性がある場合は、`IServiceProvider.GetRequiredService` を使用して、並列操作ごとに個別の `DbContext` オブジェクトを要求できます。
+  * 一時的な `DbContext` は、複数の EF 操作を並列に実行しないコンポーネントに、普通に (`@inject` を使用して) 挿入できます。 複数の EF 操作を同時に実行する可能性がある場合は、`DbContext` を使用して、並列操作ごとに個別の `IServiceProvider.GetRequiredService` オブジェクトを要求できます。
 
     ```razor
     @page "/example"

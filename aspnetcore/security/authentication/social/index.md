@@ -7,10 +7,10 @@ ms.custom: mvc
 ms.date: 01/23/2020
 uid: security/authentication/social/index
 ms.openlocfilehash: c698edbd85d665509366287b1dcad08e276e71cc
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78644816"
 ---
 # <a name="facebook-google-and-external-provider-authentication-in-aspnet-core"></a>Facebook、Google、ASP.NET Core での外部プロバイダーの認証
@@ -34,12 +34,12 @@ ms.locfileid: "78644816"
 
 * 新しいプロジェクトを作成します。
 * **[ASP.NET Core Web アプリケーション]** 、 **[次へ]** の順に選択します。
-* **[プロジェクト名]** を指定して、 **[場所]** を確認または変更します。 **[作成]** を選択します。
+* **[プロジェクト名]** を指定して、 **[場所]** を確認または変更します。 **作成** を選択します。
 * ドロップダウン (**ASP.NET Core {X.y}** ) で ASP.NET Core の最新バージョンを選択し、 **[Web アプリケーション]** を選択します。
 * **[認証]** の下で、 **[変更]** を選択して認証を **[個人のユーザー アカウント]** に設定します。 **[OK]** を選択します。
 * **[新しい ASP.NET Core Web アプリケーションを作成する]** ウィンドウで、 **[作成]** を選択します。
 
-# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code/Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 * ターミナルを開きます。  Visual Studio Code の場合は、[統合ターミナル](https://code.visualstudio.com/docs/editor/integrated-terminal)を開くことができます。
 

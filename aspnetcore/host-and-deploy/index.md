@@ -8,10 +8,10 @@ ms.custom: mvc
 ms.date: 02/07/2020
 uid: host-and-deploy/index
 ms.openlocfilehash: 464d19bd63e1f0f06bd7d218e7644afde04a5672
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78644150"
 ---
 # <a name="host-and-deploy-aspnet-core"></a>ASP.NET Core のホストと展開
@@ -69,7 +69,7 @@ Visual Studio を使って Azure にアプリを発行するための手順に�
 
 ## <a name="publish-with-msdeploy-on-windows"></a>Windows での MSDeploy を使用した発行
 
-Visual Studio 発行プロファイルを使って (Windows コマンド プロンプトからの [dotnet msbuild](/dotnet/core/tools/dotnet-msbuild) コマンドの使用を含む) アプリを発行する方法については、「<xref:host-and-deploy/visual-studio-publish-profiles>」をご覧ください。
+Visual Studio 発行プロファイルを使って (Windows コマンド プロンプトからの <xref:host-and-deploy/visual-studio-publish-profiles>dotnet msbuild[ コマンドの使用を含む) アプリを発行する方法については、「](/dotnet/core/tools/dotnet-msbuild)」をご覧ください。
 
 ## <a name="internet-information-services-iis"></a>インターネット インフォメーション サービス (IIS)
 
@@ -147,7 +147,7 @@ Visual Studio を使って Azure にアプリを発行するための手順に�
 
 ## <a name="publish-with-msdeploy-on-windows"></a>Windows での MSDeploy を使用した発行
 
-Visual Studio 発行プロファイルを使って (Windows コマンド プロンプトからの [dotnet msbuild](/dotnet/core/tools/dotnet-msbuild) コマンドの使用を含む) アプリを発行する方法については、「<xref:host-and-deploy/visual-studio-publish-profiles>」をご覧ください。
+Visual Studio 発行プロファイルを使って (Windows コマンド プロンプトからの <xref:host-and-deploy/visual-studio-publish-profiles>dotnet msbuild[ コマンドの使用を含む) アプリを発行する方法については、「](/dotnet/core/tools/dotnet-msbuild)」をご覧ください。
 
 ## <a name="internet-information-services-iis"></a>インターネット インフォメーション サービス (IIS)
 

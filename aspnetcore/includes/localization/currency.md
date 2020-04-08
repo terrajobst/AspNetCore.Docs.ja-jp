@@ -1,2 +1,2 @@
 > [!NOTE]
-> 小数フィールドに小数点のコンマを入力できない場合があります。 小数点にコンマ (",") を使い、英語 (米国) 以外の日付形式を使う英語以外のロケールの [jQuery 検証](https://jqueryvalidation.org/)をサポートするには、アプリをグローバル化する手順を行う必要があります。 小数点のコンマを追加する手順については、[こちらの GitHub イシュー 4076 を参照してください](https://github.com/dotnet/AspNetCore.Docs/issues/4076#issuecomment-326590420)。
+> 小数フィールドに小数点のコンマを入力できない場合があります。 小数点にコンマ (",") を使用し、英語 (米国) 以外の日付形式を使用する英語以外のロケールの [jQuery 検証](https://jqueryvalidation.org/)をサポートするには、アプリをグローバル化する手順を行う必要があります。 小数点のコンマを追加する手順については、[こちらの GitHub イシュー 4076 を参照してください](https://github.com/dotnet/AspNetCore.Docs/issues/4076#issuecomment-326590420)。

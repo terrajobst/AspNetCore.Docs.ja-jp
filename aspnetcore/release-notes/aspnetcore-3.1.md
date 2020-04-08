@@ -10,10 +10,10 @@ no-loc:
 - SignalR
 uid: aspnetcore-3.1
 ms.openlocfilehash: f375022ad3ebdea2990f626320ef295926f88c22
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78648770"
 ---
 # <a name="whats-new-in-aspnet-core-31"></a>ASP.NET Core 3.1 の新機能
@@ -36,7 +36,7 @@ HTML ヘルパーは ASP.NET Core 3.1 でも引き続きサポートされてい
 
 Blazor 初回のレンダリング時に、サーバーアプリで最上位レベルのコンポーネントにパラメーターを渡すことができるようになりました。 以前は、最上位レベルのコンポーネントにパラメーターを渡すには、[RenderMode.Static](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static) を使用するしかありませんでした。 このリリースでは、[RenderMode.Server](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server) と [RenderModel.ServerPrerendered](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered) の両方がサポートされています。 指定されたパラメーター値はすべて JSON としてシリアル化され、初回の応答に含まれます。
 
-たとえば、インクリメント量 (`IncrementAmount`) を使用して `Counter` コンポーネントを事前レンダリングする場合は、次のようになります。
+たとえば、インクリメント量 (`Counter`) を使用して `IncrementAmount` コンポーネントを事前レンダリングする場合は、次のようになります。
 
 ```cshtml
 <component type="typeof(Counter)" render-mode="ServerPrerendered" 

@@ -7,10 +7,10 @@ ms.custom: mvc, seodec18
 ms.date: 07/10/2019
 uid: azure/devops/monitor
 ms.openlocfilehash: 1d8ed99f4387dbc99929164c558cc2ce14bd9ea0
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78647456"
 ---
 # <a name="monitor-and-debug"></a>監視とデバッグ

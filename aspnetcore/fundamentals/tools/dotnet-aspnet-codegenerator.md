@@ -7,10 +7,10 @@ ms.author: riande
 ms.date: 07/04/2019
 uid: fundamentals/tools/dotnet-aspnet-codegenerator
 ms.openlocfilehash: 1043a578f66d5bb57f4a81e9fe21afa5e3c37cb8
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78649856"
 ---
 # <a name="dotnet-aspnet-codegenerator"></a>dotnet aspnet-codegenerator
@@ -52,7 +52,7 @@ dotnet aspnet-codegenerator [-h|--help]
 
 実行するコード ジェネレーター。 次のジェネレーターを使用できます。
 
-| Generator | 操作 |
+| ジェネレーター | 操作 |
 | ----------------- | ------------ | 
 | area      | [区分のスキャフォールディング](/aspnet/core/mvc/controllers/areas) |
   コントローラー| [コントローラーのスキャフォールディング](/aspnet/core/tutorials/first-mvc-app/adding-model) |
@@ -94,11 +94,11 @@ NuGet パッケージのディレクトリを指定します。
 
 以下のセクションでは、次のサポートされているジェネレーターで使用できるオプションについて詳しく説明します。
 
-* 区分
+* 領域
 * コントローラー
 * Identity  
 * Razorpage
-* View
+* 表示
 
 <a name="area"></a>
 
@@ -114,7 +114,7 @@ NuGet パッケージのディレクトリを指定します。
   * *AreaNameToGenerate*
     * *コントローラー*
     * *データ*
-    * *Models*
+    * *モデル*
     * *ビュー*
 
 <a name="ctl"></a>
@@ -135,13 +135,13 @@ NuGet パッケージのディレクトリを指定します。
 | --restWithNoViews または -api  | REST スタイルの API でコントローラーを生成します。 `noViews` を前提とし、ビュー関連のオプションはすべて無視されます。 |
 | --readWriteActions または -actions | モデルなしで読み取り/書き込みアクションを備えたコントローラーを生成します。 |
 
-`aspnet-codegenerator controller` コマンドに関するヘルプを取得するには、`-h` スイッチを使います。
+`-h` コマンドに関するヘルプを取得するには、`aspnet-codegenerator controller` スイッチを使います。
 
 ```dotnetcli
 dotnet aspnet-codegenerator controller -h
 ```
 
-`dotnet aspnet-codegenerator controller` の例については、[映画モデルのスキャフォールディング](/aspnet/core/tutorials/razor-pages/model)に関する記事をご覧ください。
+[ の例については、](/aspnet/core/tutorials/razor-pages/model)映画モデルのスキャフォールディング`dotnet aspnet-codegenerator controller`に関する記事をご覧ください。
 
 ### <a name="razorpage"></a>Razorpage
 
@@ -182,13 +182,13 @@ dotnet aspnet-codegenerator razorpage MyEdit Edit -m Movie -dc RazorPagesMovieCo
 | --partialView または -partial | 部分ビューを生成します。 これを指定した場合、レイアウトのオプション -l と -udl は無視されます。 |
 | --noPageModel または -npm | 空のテンプレートの PageModel クラスを生成しない動作に切り替えます |
 
-`aspnet-codegenerator razorpage` コマンドに関するヘルプを取得するには、`-h` スイッチを使います。
+`-h` コマンドに関するヘルプを取得するには、`aspnet-codegenerator razorpage` スイッチを使います。
 
 ```dotnetcli
 dotnet aspnet-codegenerator razorpage -h
 ```
 
-`dotnet aspnet-codegenerator razorpage` の例については、[映画モデルのスキャフォールディング](/aspnet/core/tutorials/razor-pages/model)に関する記事をご覧ください。
+[ の例については、](/aspnet/core/tutorials/razor-pages/model)映画モデルのスキャフォールディング`dotnet aspnet-codegenerator razorpage`に関する記事をご覧ください。
 
 ### <a name="identity"></a>Identity
 

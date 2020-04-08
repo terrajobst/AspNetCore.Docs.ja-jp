@@ -11,10 +11,10 @@ no-loc:
 - SignalR
 uid: blazor/class-libraries
 ms.openlocfilehash: f2cc57638922bd1f6ab036adb2ed37209d14c5b0
-ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/24/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "80218767"
 ---
 # <a name="aspnet-core-razor-components-class-libraries"></a>ASP.NET Core Razor コンポーネント クラス ライブラリ
@@ -38,7 +38,7 @@ ms.locfileid: "80218767"
 1. 新しいプロジェクトを作成します。
 1. **[Razor クラス ライブラリ]** を選択します。 **[次へ]** を選択します。
 1. **[Create a new Razor class library]** (新しい Razor クラスライブラリの作成) ダイアログで、 **[作成]** を選択します。
-1. **[プロジェクト名]** フィールドにプロジェクト名を入力するか、既定のプロジェクト名をそのまま使用します。 このトピックの例では、プロジェクト名 `MyComponentLib1` を使用します。 **[作成]** を選択します。
+1. **[プロジェクト名]** フィールドにプロジェクト名を入力するか、既定のプロジェクト名をそのまま使用します。 このトピックの例では、プロジェクト名 `MyComponentLib1` を使用します。 **作成** を選択します。
 1. RCL をソリューションに追加します。
    1. ソリューションを右クリックします。 **[追加]**  >  **[既存のプロジェクト]** を選択します。
    1. RCL のプロジェクト ファイルに移動します。
@@ -58,7 +58,7 @@ ms.locfileid: "80218767"
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-1. コマンド シェルで [dotnet new](/dotnet/core/tools/dotnet-new) コマンドを使用して、**Razor クラス ライブラリ** テンプレート (`razorclasslib`) を使用します。 次の例では、`MyComponentLib1` という名前の RCL が作成されます。 コマンドの実行時に、`MyComponentLib1` を保持するフォルダーが自動的に作成されます。
+1. コマンド シェルで **dotnet new** コマンドを使用して、`razorclasslib`Razor クラス ライブラリ[ テンプレート (](/dotnet/core/tools/dotnet-new)) を使用します。 次の例では、`MyComponentLib1` という名前の RCL が作成されます。 コマンドの実行時に、`MyComponentLib1` を保持するフォルダーが自動的に作成されます。
 
    ```dotnetcli
    dotnet new razorclasslib -o MyComponentLib1
@@ -112,7 +112,7 @@ Welcome to your new app.
 <SalesReport />
 ```
 
-プロジェクト全体でライブラリのコンポーネントを使用できるようにするには、最上位の *_Import.razor* ファイルに `@using MyComponentLib1` ディレクティブを含めます。 ディレクティブを任意のレベルの *_Import.razor* ファイルに追加して、名前空間をフォルダー内の 1 つまたは複数のページに適用します。
+プロジェクト全体でライブラリのコンポーネントを使用できるようにするには、最上位の `@using MyComponentLib1`_Import.razor*ファイルに* ディレクティブを含めます。 ディレクティブを任意のレベルの *_Import.razor* ファイルに追加して、名前空間をフォルダー内の 1 つまたは複数のページに適用します。
 
 ## <a name="create-a-razor-components-class-library-with-static-assets"></a>静的アセットを含む Razor コンポーネント クラスライブラリを作成する
 

@@ -8,10 +8,10 @@ ms.custom: H1Hack27Feb2017
 ms.date: 09/06/2019
 uid: client-side/spa-services
 ms.openlocfilehash: c0c73882afd579510ad9cdf5b485c1d6fbeadd1c
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78649220"
 ---
 # <a name="use-javascript-services-to-create-single-page-applications-in-aspnet-core"></a>ASP.NET Core で JavaScript サービスを使用してシングル ページ アプリケーションを作成する
@@ -107,13 +107,13 @@ npm i -S aspnet-prerendering
 
 [!code-javascript[](../client-side/spa-services/sample/SpaServicesSampleApp/webpack.config.js?range=53)]
 
-次の Angular の例では、*ClientApp/boot-server.ts* ファイルが `aspnet-prerendering` npm パッケージの `createServerRenderer` 関数と `RenderResult` 型を使用して Node.js によるサーバー レンダリングを構成しています。 サーバー側のレンダリング用の HTML マークアップは、resolve 関数呼び出しに渡されます。これは、厳密に型指定された JavaScript の `Promise` オブジェクトでラップされています。 `Promise` オブジェクトは、DOM のプレースホルダー要素に注入する HTML マークアップを非同期にページに渡すという重要な役割を果たしています。
+次の Angular の例では、*ClientApp/boot-server.ts* ファイルが `createServerRenderer` npm パッケージの `RenderResult` 関数と `aspnet-prerendering` 型を使用して Node.js によるサーバー レンダリングを構成しています。 サーバー側のレンダリング用の HTML マークアップは、resolve 関数呼び出しに渡されます。これは、厳密に型指定された JavaScript の `Promise` オブジェクトでラップされています。 `Promise` オブジェクトは、DOM のプレースホルダー要素に注入する HTML マークアップを非同期にページに渡すという重要な役割を果たしています。
 
 [!code-typescript[](../client-side/spa-services/sample/SpaServicesSampleApp/ClientApp/boot-server.ts?range=6,10-34,79-)]
 
 ### <a name="asp-prerender-data-tag-helper"></a>asp-prerender-data タグ ヘルパー
 
-`asp-prerender-data` タグ ヘルパーと `asp-prerender-module` タグ ヘルパーと組み合わせると、Razor ビューからサーバー側 JavaScript にコンテキスト情報を渡すことができます。 たとえば、次のマークアップは、ユーザー データを `main-server` モジュールに渡します。
+`asp-prerender-module` タグ ヘルパーと `asp-prerender-data` タグ ヘルパーと組み合わせると、Razor ビューからサーバー側 JavaScript にコンテキスト情報を渡すことができます。 たとえば、次のマークアップは、ユーザー データを `main-server` モジュールに渡します。
 
 [!code-cshtml[](../client-side/spa-services/sample/SpaServicesSampleApp/Views/Home/Index.cshtml?range=9-12)]
 
@@ -123,11 +123,11 @@ npm i -S aspnet-prerendering
 
 タグ ヘルパーで渡されるプロパティ名は、**パスカルケース**表記で表されます。 同じプロパティ名が**キャメルケース**で表される JavaScript とは対照的です。 既定の JSON シリアル化構成が、この違いに対応します。
 
-上のコード例を発展させると、サーバーからビューにデータを渡すことができます。そのためには、`resolve` 関数に渡す `globals` プロパティを設定します。
+上のコード例を発展させると、サーバーからビューにデータを渡すことができます。そのためには、`globals` 関数に渡す `resolve` プロパティを設定します。
 
 [!code-typescript[](../client-side/spa-services/sample/SpaServicesSampleApp/ClientApp/boot-server.ts?range=6,10-21,57-77,79-)]
 
-`globals` オブジェクト内で定義されている `postList` 配列は、ブラウザーのグローバル `window` オブジェクトにアタッチされます。 この変数はグローバル スコープに含められ、それによって作業の重複がなくなります。具体的に言えば、同じデータをサーバーで一度、クライアントで再度読み込むことがなくなるためです。
+`postList` オブジェクト内で定義されている `globals` 配列は、ブラウザーのグローバル `window` オブジェクトにアタッチされます。 この変数はグローバル スコープに含められ、それによって作業の重複がなくなります。具体的に言えば、同じデータをサーバーで一度、クライアントで再度読み込むことがなくなるためです。
 
 ![window オブジェクトにアタッチされたグローバル postList 変数](spa-services/_static/global_variable.png)
 
@@ -153,7 +153,7 @@ Webpack Dev ミドルウェアは、*Startup.cs* ファイルの `Configure` メ
 
 [!code-csharp[](../client-side/spa-services/sample/SpaServicesSampleApp/Startup.cs?name=snippet_WebpackMiddlewareRegistration&highlight=4)]
 
-`UseStaticFiles` 拡張メソッドを使用して[静的ファイル ホスティングを登録](xref:fundamentals/static-files)する前に、`UseWebpackDevMiddleware` 拡張メソッドを呼び出す必要があります。 セキュリティ上の理由から、アプリが開発モードで実行されている場合にのみ、ミドルウェアを登録してください。
+`UseWebpackDevMiddleware` 拡張メソッドを使用して[静的ファイル ホスティングを登録](xref:fundamentals/static-files)する前に、`UseStaticFiles` 拡張メソッドを呼び出す必要があります。 セキュリティ上の理由から、アプリが開発モードで実行されている場合にのみ、ミドルウェアを登録してください。
 
 *webpack.config.js* ファイルの `output.publicPath` プロパティは、`dist` フォルダーの変更を監視するようにミドルウェアに指示します。
 
@@ -207,7 +207,7 @@ npm i -S @angular/router
 
 ### <a name="routing-helpers-configuration"></a>ルーティング ヘルパーの構成
 
-`Configure` メソッドで `MapSpaFallbackRoute` という名前の拡張メソッドを使用します。
+`MapSpaFallbackRoute` メソッドで `Configure` という名前の拡張メソッドを使用します。
 
 [!code-csharp[](../client-side/spa-services/sample/SpaServicesSampleApp/Startup.cs?name=snippet_MvcRoutingTable&highlight=7-9)]
 
@@ -231,7 +231,7 @@ dotnet new --install Microsoft.AspNetCore.SpaTemplates::*
 | MVC ASP.NET Core with React.js            | react      | [C#]     | Web/MVC/SPA |
 | MVC ASP.NET Core with React.js and Redux  | reactredux | [C#]     | Web/MVC/SPA |
 
-SPA テンプレートの 1 つを使用して新しいプロジェクトを作成するには、[dotnet new](/dotnet/core/tools/dotnet-new) コマンドでテンプレートの**短い形式の名前**を指定します。 次のコマンドは、サーバー側用に構成された ASP.NET Core MVC を使用して、Angular アプリケーションを作成します。
+SPA テンプレートの 1 つを使用して新しいプロジェクトを作成するには、**dotnet new** コマンドでテンプレートの[短い形式の名前](/dotnet/core/tools/dotnet-new)を指定します。 次のコマンドは、サーバー側用に構成された ASP.NET Core MVC を使用して、Angular アプリケーションを作成します。
 
 ```dotnetcli
 dotnet new angular
@@ -244,7 +244,7 @@ dotnet new angular
 * **開発**:
   * デバッグを容易にするソース マップが含まれています。
   * パフォーマンス向上のためにクライアント側のコードを最適化することはしません。
-* **実稼働**:
+* **運用**:
   * ソース マップを除外します。
   * バンドルと縮小を使用して、クライアント側のコードを最適化します。
 
@@ -268,13 +268,13 @@ dotnet run
 
 ### <a name="run-with-visual-studio-2017"></a>Visual Studio 2017 で実行する
 
-[dotnet new](/dotnet/core/tools/dotnet-new) コマンドで生成された *.csproj* ファイルを開きます。 必要な NuGet および npm パッケージは、プロジェクトを開いたときに自動的に復元されます。 この復元プロセスには数分かかる場合があり、これが完了するとアプリケーションを実行する準備ができています。 緑色の実行ボタンをクリックするか `Ctrl + F5` キーを押すと、ブラウザーが開いてアプリケーションのランディング ページが表示されます。 アプリケーションは、[ランタイム構成モード](#set-the-runtime-configuration-mode)に従って、localhost で実行されます。
+*dotnet new* コマンドで生成された [.csproj](/dotnet/core/tools/dotnet-new) ファイルを開きます。 必要な NuGet および npm パッケージは、プロジェクトを開いたときに自動的に復元されます。 この復元プロセスには数分かかる場合があり、これが完了するとアプリケーションを実行する準備ができています。 緑色の実行ボタンをクリックするか `Ctrl + F5` キーを押すと、ブラウザーが開いてアプリケーションのランディング ページが表示されます。 アプリケーションは、[ランタイム構成モード](#set-the-runtime-configuration-mode)に従って、localhost で実行されます。
 
 ## <a name="test-the-app"></a>アプリのテスト
 
 SpaServices テンプレートは、[Karma](https://karma-runner.github.io/1.0/index.html) と [Jasmine](https://jasmine.github.io/) を使用してクライアント側のテストを実行するように事前構成されています。 Jasmine は JavaScript 用の一般的な単体テスト フレームワークであるのに対し、Karma はそれらのテストのテスト ランナーです。 Karma は [Webpack Dev ミドルウェア](#webpack-dev-middleware)と連携するように構成されています。これにより、開発者は、変更が行われるたびにテストを停止して実行する必要がなくなります。 テスト ケースまたはテスト ケース自体に対してコードが実行されているかどうかにかかわらず、テストは自動的に実行されます。
 
-例として、Angular アプリケーションを使用します。*counter.component.spec.ts* ファイルの `CounterComponent` に対し、2 つの Jasmine テスト ケースが既に提供されています。
+例として、Angular アプリケーションを使用します。`CounterComponent`counter.component.spec.ts*ファイルの* に対し、2 つの Jasmine テスト ケースが既に提供されています。
 
 [!code-typescript[](../client-side/spa-services/sample/SpaServicesSampleApp/ClientApp/app/components/counter/counter.component.spec.ts?range=15-28)]
 

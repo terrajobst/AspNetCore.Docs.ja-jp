@@ -8,5 +8,5 @@ ASP.NET 4.x ドキュメントの変更は、[dotnet/AspNetDocs リポジトリ]
 
 ## <a name="microsoft-open-source-code-of-conduct"></a>Microsoft オープン ソース倫理規定
 
-このプロジェクトでは、[Microsoft オープン ソース倫理規定](https://opensource.microsoft.com/codeofconduct/)が採用されています。
-詳細については「[Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/)」(倫理規定 FAQ) を参照してください。また、ご質問やご意見がある場合は [opencode@microsoft.com](mailto:opencode@microsoft.com) にお問い合わせください。
+このプロジェクトは、「[Microsoft のオープン ソースの倫理規定](https://opensource.microsoft.com/codeofconduct/)」を採用しています。
+詳細については、[倫理規定の FAQ](https://opensource.microsoft.com/codeofconduct/faq/) のページを参照してください。また、追加の質問やコメントがある場合は [opencode@microsoft.com](mailto:opencode@microsoft.com) にお問い合わせください。

@@ -8,10 +8,10 @@ ms.custom: mvc
 ms.date: 08/03/2019
 uid: fundamentals/localization-extensibility
 ms.openlocfilehash: dfa2efe78b2e1e118e6b3f09bfc41f3330e1d721
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78648416"
 ---
 # <a name="localization-extensibility"></a>ローカライズの拡張性
@@ -137,7 +137,7 @@ public class AppSettingsRequestCultureProvider : RequestCultureProvider
 
 ## <a name="localization-resources"></a>ローカライズ リソース
 
-ASP.NET Core ローカライズからは <xref:Microsoft.Extensions.Localization.ResourceManagerStringLocalizer> が与えられます。 <xref:Microsoft.Extensions.Localization.ResourceManagerStringLocalizer> は、`resx` を使用してローカライズ リソースを格納する <xref:Microsoft.Extensions.Localization.IStringLocalizer> の実装です。
+ASP.NET Core ローカライズからは <xref:Microsoft.Extensions.Localization.ResourceManagerStringLocalizer> が与えられます。 <xref:Microsoft.Extensions.Localization.ResourceManagerStringLocalizer> は、<xref:Microsoft.Extensions.Localization.IStringLocalizer> を使用してローカライズ リソースを格納する `resx` の実装です。
 
 `resx` ファイルの使用に限定されることはありません。 `IStringLocalized` を実装することで、あらゆるデータ ソースを使用できます。
 

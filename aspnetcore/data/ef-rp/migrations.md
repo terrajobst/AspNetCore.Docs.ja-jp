@@ -6,10 +6,10 @@ ms.author: riande
 ms.date: 07/22/2019
 uid: data/ef-rp/migrations
 ms.openlocfilehash: 86fd83c898fce8e121e4d259aaca12c59591e606
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78645554"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---migrations---4-of-8"></a>ASP.NET Core の Razor ページと EF Core - 移行 - 4/8
@@ -48,7 +48,7 @@ Drop-Database
   dotnet tool install --global dotnet-ef
   ```
 
-* コマンド プロンプトで、プロジェクト フォルダーに移動します。 プロジェクトフォルダーには、*ContosoUniversity.csproj* ファイルが含まれています。
+* コマンド プロンプトで、プロジェクト フォルダーに移動します。 プロジェクト フォルダーには、*ContosoUniversity.csproj* ファイルが含まれています。
 
 * *CU.db* ファイルを削除するか、次のコマンドを実行します。
 
@@ -82,7 +82,7 @@ dotnet ef database update
 
 ## <a name="up-and-down-methods"></a>Up メソッドと Down メソッド
 
-EF Core の `migrations add` コマンドでは、データベースを作成するコードが生成されました。 この移行コードは *Migrations\<timestamp>_InitialCreate.cs* ファイルにあります。 `InitialCreate` クラスの `Up` メソッドでは、データ モデルのエンティティ セットに対応するデータベース テーブルが作成されます。 次の例で示すように、`Down` メソッドは、それらを削除します。
+EF Core の `migrations add` コマンドでは、データベースを作成するコードが生成されました。 この移行コードは *Migrations\<timestamp>_InitialCreate.cs* ファイルにあります。 `Up` クラスの `InitialCreate` メソッドでは、データ モデルのエンティティ セットに対応するデータベース テーブルが作成されます。 次の例で示すように、`Down` メソッドは、それらを削除します。
 
 [!code-csharp[](intro/samples/cu30/Migrations/20190731193522_InitialCreate.cs)]
 
@@ -121,7 +121,7 @@ context.Database.EnsureCreated();
 
 ## <a name="applying-migrations-in-production"></a>運用環境で移行を適用する
 
-実稼働アプリでは、アプリケーションの起動時に [Database.Migrate](/dotnet/api/microsoft.entityframeworkcore.relationaldatabasefacadeextensions.migrate?view=efcore-2.0#Microsoft_EntityFrameworkCore_RelationalDatabaseFacadeExtensions_Migrate_Microsoft_EntityFrameworkCore_Infrastructure_DatabaseFacade_) を呼び出さ**ない**ことをお勧めします。 `Migrate` は、サーバー ファームに展開されているアプリから呼び出さないでください。 アプリが複数のサーバー インスタンスにスケールアウトされている場合は、確実にデータベース スキーマの更新が複数のサーバーから行われたり、読み取り/書き込みアクセスと競合したりしないようにするのは困難です。
+実稼働アプリでは、アプリケーションの起動時に **Database.Migrate** を呼び出さ[ない](/dotnet/api/microsoft.entityframeworkcore.relationaldatabasefacadeextensions.migrate?view=efcore-2.0#Microsoft_EntityFrameworkCore_RelationalDatabaseFacadeExtensions_Migrate_Microsoft_EntityFrameworkCore_Infrastructure_DatabaseFacade_)ことをお勧めします。 `Migrate` は、サーバー ファームに展開されているアプリから呼び出さないでください。 アプリが複数のサーバー インスタンスにスケールアウトされている場合は、確実にデータベース スキーマの更新が複数のサーバーから行われたり、読み取り/書き込みアクセスと競合したりしないようにするのは困難です。
 
 データベースの移行は、展開の一部として制御された方法で行う必要があります。 実稼働データベースの移行には次の方法があります。
 
@@ -220,7 +220,7 @@ dotnet ef database update
 
 ### <a name="examine-the-up-and-down-methods"></a>Up および Down メソッドを確認する
 
-EF Core コマンド `migrations add` で、DB の作成元のコードが生成されました。 この移行コードは *Migrations\<timestamp>_InitialCreate.cs* ファイルにあります。 `InitialCreate` クラスの `Up` メソッドは、データ モデルのエンティティ セットに対応するデータベース テーブルを作成します。 次の例で示すように、`Down` メソッドは、それらを削除します。
+EF Core コマンド `migrations add` で、DB の作成元のコードが生成されました。 この移行コードは *Migrations\<timestamp>_InitialCreate.cs* ファイルにあります。 `Up` クラスの `InitialCreate` メソッドは、データ モデルのエンティティ セットに対応するデータベース テーブルを作成します。 次の例で示すように、`Down` メソッドは、それらを削除します。
 
 [!code-csharp[](intro/samples/cu21/Migrations/20180626224812_InitialCreate.cs?range=7-24,77-88)]
 
@@ -284,7 +284,7 @@ context.Database.EnsureCreated();
 
 ## <a name="applying-migrations-in-production"></a>運用環境で移行を適用する
 
-実稼働アプリケーションでは、アプリケーションの起動時に [Database.Migrate](/dotnet/api/microsoft.entityframeworkcore.relationaldatabasefacadeextensions.migrate?view=efcore-2.0#Microsoft_EntityFrameworkCore_RelationalDatabaseFacadeExtensions_Migrate_Microsoft_EntityFrameworkCore_Infrastructure_DatabaseFacade_) を**呼び出さない**ことをお勧めします。 `Migrate` をサーバー ファームのアプリから呼び出すことはできません。 たとえば、アプリがスケールアウト (アプリの複数のインスタンスを実行する) を使用してクラウドに展開されている場合があります。
+実稼働アプリケーションでは、アプリケーションの起動時に **Database.Migrate** を[呼び出さない](/dotnet/api/microsoft.entityframeworkcore.relationaldatabasefacadeextensions.migrate?view=efcore-2.0#Microsoft_EntityFrameworkCore_RelationalDatabaseFacadeExtensions_Migrate_Microsoft_EntityFrameworkCore_Infrastructure_DatabaseFacade_)ことをお勧めします。 `Migrate` をサーバー ファームのアプリから呼び出すことはできません。 たとえば、アプリがスケールアウト (アプリの複数のインスタンスを実行する) を使用してクラウドに展開されている場合があります。
 
 データベースの移行は、展開の一部として制御された方法で行う必要があります。 実稼働データベースの移行には次の方法があります。
 
@@ -306,7 +306,7 @@ The login failed.
 Login failed for user 'user name'.
 ```
 
-解決方法 : `dotnet ef database update` を実行します。
+Solution: Run `dotnet ef database update`
 
 ### <a name="additional-resources"></a>その他の技術情報
 

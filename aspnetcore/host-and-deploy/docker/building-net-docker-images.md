@@ -6,18 +6,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/15/2020
 uid: host-and-deploy/docker/building-net-docker-images
-ms.openlocfilehash: b55235ffc44f0bacf44bd1644e45210b37f19607
-ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
+ms.openlocfilehash: 31161d6841986cb0bd8080468e5d523d59400490
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/18/2020
-ms.locfileid: "79511328"
+ms.lasthandoff: 04/06/2020
+ms.locfileid: "80405920"
 ---
 # <a name="docker-images-for-aspnet-core"></a>ASP.NET Core 向けの Docker イメージ
 
 このチュートリアルでは、Docker コンテナー内で ASP.NET Core アプリを実行する方法を示します。
 
-このチュートリアルでは、次の作業を行いました。
+このチュートリアルでは、次のことを行いました。
 > [!div class="checklist"]
 > * Microsoft .NET Core Docker イメージについて学習する
 > * ASP.NET Core サンプル アプリをダウンロードする
@@ -40,7 +40,7 @@ ms.locfileid: "79511328"
 
    サンプルでは、アプリを実行するためにこのイメージを使用します。 イメージには ASP.NET Core ランタイムとライブラリが含まれており、実稼働環境でアプリを実行するために最適化されています。 デプロイとアプリ起動の速度に対応した設計になっており、Docker レジストリから Docker ホストへのネットワーク パフォーマンスが最適化されていることから、イメージは比較的小さいです。 アプリの実行に必要なバイナリとコンテンツのみが、コンテナーにコピーされます。 コンテンツは実行できる状態になっており、`Docker run` からアプリの起動までを最速で行うことができます。 動的コード コンパイルは Docker モデルで必要ありません。
 
-## <a name="prerequisites"></a>必須コンポーネント
+## <a name="prerequisites"></a>前提条件
 ::: moniker range="< aspnetcore-3.0"
 
 * [.NET Core 2.2 SDK](https://dotnet.microsoft.com/download/dotnet-core)
@@ -178,7 +178,7 @@ Docker コンテナー内で手動で発行されたアプリケーションを�
 
 ::: moniker range="< aspnetcore-3.0"
 
-```console
+```dockerfile
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS runtime
 WORKDIR /app
 COPY published/aspnetapp.dll ./
@@ -187,7 +187,7 @@ ENTRYPOINT ["dotnet", "aspnetapp.dll"]
 
 ### <a name="the-dockerfile"></a>Dockerfile
 
-ここに示すのは、先ほど実行した `docker build` コマンドで使用された *Dockerfile* です。  このセクションで実行したときと同じ方法で `dotnet publish` を使用して、ビルドとデプロイを行います。  
+ここに示すのは、先ほど実行した *コマンドで使用された*Dockerfile`docker build` です。  このセクションで実行したときと同じ方法で `dotnet publish` を使用して、ビルドとデプロイを行います。  
 
 ```dockerfile
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
@@ -214,7 +214,7 @@ ENTRYPOINT ["dotnet", "aspnetapp.dll"]
 
 ::: moniker range=">= aspnetcore-3.0"
 
-```console
+```dockerfile
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.0 AS runtime
 WORKDIR /app
 COPY published/aspnetapp.dll ./
@@ -223,7 +223,7 @@ ENTRYPOINT ["dotnet", "aspnetapp.dll"]
 
 ### <a name="the-dockerfile"></a>Dockerfile
 
-ここに示すのは、先ほど実行した `docker build` コマンドで使用された *Dockerfile* です。  このセクションで実行したときと同じ方法で `dotnet publish` を使用して、ビルドとデプロイを行います。  
+ここに示すのは、先ほど実行した *コマンドで使用された*Dockerfile`docker build` です。  このセクションで実行したときと同じ方法で `dotnet publish` を使用して、ビルドとデプロイを行います。  
 
 ```dockerfile
 FROM mcr.microsoft.com/dotnet/core/sdk:3.0 AS build
@@ -248,7 +248,7 @@ ENTRYPOINT ["dotnet", "aspnetapp.dll"]
 
 ::: moniker-end
 
-```console
+```dockerfile
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.0 AS runtime
 WORKDIR /app
 COPY published/aspnetapp.dll ./

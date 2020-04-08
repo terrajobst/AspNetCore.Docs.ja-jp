@@ -6,10 +6,10 @@ ms.author: scaddie
 ms.date: 09/26/2017
 uid: fundamentals/portable-object-localization
 ms.openlocfilehash: 08002564eb68bc04eebaeafed560202d0d69958a
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78645332"
 ---
 # <a name="configure-portable-object-localization-in-aspnet-core"></a>ASP.NET Core で Portable Object のローカライズを構成する
@@ -49,15 +49,15 @@ msgstr[1] "Les adresses email sont \"{0}\""
 
 この例では、次の構文を使用します。
 
-- `#:`:翻訳される文字列のコンテキストを示すコメント。 同じ文字列でも、使用される場所によって翻訳が変わることがあります。
-- `msgid`:翻訳前の文字列。
-- `msgstr`:翻訳後の文字列。
+- `#:`: 翻訳される文字列のコンテキストを示すコメント。 同じ文字列でも、使用される場所によって翻訳が変わることがあります。
+- `msgid`: 翻訳前の文字列。
+- `msgstr`: 翻訳後の文字列。
 
 複数形化をサポートする場合は、その他のエントリも定義できます。
 
-- `msgid_plural`:翻訳前の文字列の複数形。
-- `msgstr[0]`:0 の場合の翻訳後の文字列。
-- `msgstr[N]`:N の場合の翻訳後の文字列。
+- `msgid_plural`: 翻訳前の文字列の複数形。
+- `msgstr[0]`: 0 の場合の翻訳後の文字列。
+- `msgstr[N]`: N の場合の翻訳後の文字列。
 
 PO ファイルの仕様については、[こちら](https://www.gnu.org/savannah-checkouts/gnu/gettext/manual/html_node/PO-Files.html)を参照してください。
 
@@ -75,11 +75,11 @@ PO ファイルの仕様については、[こちら](https://www.gnu.org/savann
 
 ### <a name="registering-the-service"></a>サービスの登録
 
-*Startup.cs* の `ConfigureServices` メソッドに必要なサービスを追加します。
+`ConfigureServices`Startup.cs*の* メソッドに必要なサービスを追加します。
 
 [!code-csharp[](localization/sample/POLocalization/Startup.cs?name=snippet_ConfigureServices&highlight=4-21)]
 
-*Startup.cs* の `Configure` メソッドに必要なミドルウェアを追加します。
+`Configure`Startup.cs*の* メソッドに必要なミドルウェアを追加します。
 
 [!code-csharp[](localization/sample/POLocalization/Startup.cs?name=snippet_Configure&highlight=15)]
 
@@ -95,7 +95,7 @@ PO ファイルの仕様については、[こちら](https://www.gnu.org/savann
 
 [!code-text[](localization/sample/POLocalization/fr.po)]
 
-このファイルには、翻訳する文字列とフランス語で翻訳された文字列の両方が格納されています。 必要に応じて、翻訳は元の親カルチャに戻されます。 この例では、要求されるカルチャが `fr-FR` または `fr-CA` の場合、*fr.po* ファイルが使用されます。
+このファイルには、翻訳する文字列とフランス語で翻訳された文字列の両方が格納されています。 必要に応じて、翻訳は元の親カルチャに戻されます。 この例では、要求されるカルチャが *または* の場合、`fr-FR`fr.po`fr-CA` ファイルが使用されます。
 
 ### <a name="testing-the-application"></a>アプリケーションのテスト
 
@@ -132,7 +132,7 @@ msgstr[1] "Il y a {0} éléments."
 
 [!code-text[](localization/sample/POLocalization/cs.po)]
 
-チェコ語のローカライズを引き受ける場合は、`ConfigureServices` メソッドでサポートされるカルチャのリストに `"cs"` を追加します。
+チェコ語のローカライズを引き受ける場合は、`"cs"` メソッドでサポートされるカルチャのリストに `ConfigureServices` を追加します。
 
 ```csharp
 var supportedCultures = new List<CultureInfo>
@@ -157,7 +157,7 @@ var supportedCultures = new List<CultureInfo>
 
 カルチャを切り替えると、次のように表示されます。
 
-`/Home/About`の場合:
+`/Home/About` の場合:
 
 ```html
 There is one item.
@@ -165,7 +165,7 @@ There are 2 items.
 There are 5 items.
 ```
 
-`/Home/About?culture=fr`の場合:
+`/Home/About?culture=fr` の場合:
 
 ```html
 Il y a un élément.
@@ -173,7 +173,7 @@ Il y a 2 éléments.
 Il y a 5 éléments.
 ```
 
-`/Home/About?culture=cs`の場合:
+`/Home/About?culture=cs` の場合:
 
 ```html
 Existuje jedna položka.

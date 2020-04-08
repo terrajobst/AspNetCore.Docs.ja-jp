@@ -7,10 +7,10 @@ ms.author: jamesnk
 ms.date: 01/09/2020
 uid: grpc/versioning
 ms.openlocfilehash: 9bd76009ba28a1abef25a98686afea6753d4a8f4
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78649358"
 ---
 # <a name="versioning-grpc-services"></a>gRPC サービスのバージョン管理
@@ -73,7 +73,7 @@ gRPC プロトコルは、時間の経過と共に変更されるサービスに
 
 サービスは、古いクライアントとの下位互換性を維持する必要があります。 最終的に、アプリに変更を加える場合は、破壊的変更が必要になることがあります。 古いクライアントを中断し、サービスと共に強制的に更新することは、優れたユーザー エクスペリエンスではありません。 破壊的変更を加えながら下位互換性を確保する場合、サービスの複数のバージョンを発行する方法があります。
 
-gRPC では、.NET 名前空間と同様に機能する、省略可能な [package](https://developers.google.com/protocol-buffers/docs/proto3#packages) 指定子がサポートされています。 実際には、 *.proto* ファイルで `option csharp_namespace` が設定されていない場合に、生成された .NET 型の .NET 名前空間として `package` が使用されます。 package を使用すると、サービスとそのメッセージのバージョン番号を指定できます。
+gRPC では、.NET 名前空間と同様に機能する、省略可能な [package](https://developers.google.com/protocol-buffers/docs/proto3#packages) 指定子がサポートされています。 実際には、`package`.proto`option csharp_namespace` ファイルで *が設定されていない場合に、生成された .NET 型の .NET 名前空間として* が使用されます。 package を使用すると、サービスとそのメッセージのバージョン番号を指定できます。
 
 [!code-protobuf[](versioning/sample/greet.v1.proto?highlight=3)]
 

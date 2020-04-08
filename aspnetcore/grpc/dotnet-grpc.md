@@ -7,10 +7,10 @@ ms.author: johluo
 ms.date: 10/17/2019
 uid: grpc/dotnet-grpc
 ms.openlocfilehash: 994597c854a95bb33de1686ab025cb3744cf6845
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78650900"
 ---
 # <a name="manage-protobuf-references-with-dotnet-grpc"></a>dotnet-grpc を使用して Protobuf 参照を管理する
@@ -50,7 +50,7 @@ Protobuf 参照は、C# クライアントやサーバーの資産を生成す�
 * 現在のディレクトリに対する相対パスでも絶対パスでもかまいません。
 * パターン ベースのファイル [glob](https://wikipedia.org/wiki/Glob_(programming)) のためにワイルド カードを含めることができます。
 
-いずれかのファイルがプロジェクト ディレクトリの外部にある場合、Visual Studio で `Protos` フォルダーの下にファイルを表示するために `Link` 要素が追加されます。
+いずれかのファイルがプロジェクト ディレクトリの外部にある場合、Visual Studio で `Link` フォルダーの下にファイルを表示するために `Protos` 要素が追加されます。
 
 ### <a name="usage"></a>使用方法
 
@@ -75,7 +75,7 @@ dotnet grpc add-file [options] <files>...
 
 ### <a name="add-url"></a>URL の追加
 
-`add-url` コマンドは、ソース URL で指定されたリモート ファイルを Protobuf 参照として追加するために使用します。 ファイル パスを指定して、リモート ファイルをダウンロードする場所を指定する必要があります。 ファイル パスは、現在のディレクトリに対する相対パスでも絶対パスでもかまいません。 ファイル パスがプロジェクト ディレクトリの外部にある場合、Visual Studio で `Protos` 仮想フォルダーの下にファイルを表示するために `Link` 要素が追加されます。
+`add-url` コマンドは、ソース URL で指定されたリモート ファイルを Protobuf 参照として追加するために使用します。 ファイル パスを指定して、リモート ファイルをダウンロードする場所を指定する必要があります。 ファイル パスは、現在のディレクトリに対する相対パスでも絶対パスでもかまいません。 ファイル パスがプロジェクト ディレクトリの外部にある場合、Visual Studio で `Link` 仮想フォルダーの下にファイルを表示するために `Protos` 要素が追加されます。
 
 ### <a name="usage"></a>使用方法
 
@@ -116,7 +116,7 @@ dotnet-grpc remove [options] <references>...
 
 | 引数 | 説明 |
 |-|-|
-| 参照 | 削除する protobuf 参照の URL またはファイル パス。 |
+| references | 削除する protobuf 参照の URL またはファイル パス。 |
 
 ### <a name="options"></a>オプション
 
@@ -126,7 +126,7 @@ dotnet-grpc remove [options] <references>...
 
 ## <a name="refresh"></a>最新の情報に更新
 
-`refresh` コマンドは、ソース URL の最新のコンテンツを使用してリモート参照を更新するために使用します。 ダウンロード ファイル パスとソース URL の両方を使用して、更新する参照を指定できます。 メモ:
+`refresh` コマンドは、ソース URL の最新のコンテンツを使用してリモート参照を更新するために使用します。 ダウンロード ファイル パスとソース URL の両方を使用して、更新する参照を指定できます。 注:
 
 * ローカル ファイルを更新する必要があるかどうかを特定するために、ファイル コンテンツのハッシュが比較されます。
 * タイムスタンプ情報は比較されません。
@@ -143,7 +143,7 @@ dotnet-grpc refresh [options] [<references>...]
 
 | 引数 | 説明 |
 |-|-|
-| 参照 | 更新する必要があるリモート protobuf 参照への URL またはファイル パス。 この引数を空のままにすると、すべてのリモート参照が更新されます。 |
+| references | 更新する必要があるリモート protobuf 参照への URL またはファイル パス。 この引数を空のままにすると、すべてのリモート参照が更新されます。 |
 
 ### <a name="options"></a>オプション
 

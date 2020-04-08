@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 09/23/2019
 uid: grpc/diagnostics
-ms.openlocfilehash: 17607b734e6d777de9516aa14e81c97f87b61023
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 131144bf7a2c637eb2c1a1d5c54990dd4d429502
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78650906"
+ms.lasthandoff: 04/06/2020
+ms.locfileid: "80417515"
 ---
 # <a name="logging-and-diagnostics-in-grpc-on-net"></a>.NET での gRPC のログ記録と診断
 
@@ -34,11 +34,11 @@ gRPC サービスと gRPC クライアントでは、[.NET Core ログ](xref:fun
 
 gRPC サービスは ASP.NET Core でホストされるため、ASP.NET Core ログ システムが使用されます。 既定の構成では、gRPC でログに記録される情報は非常に少量ですが、これは構成可能です。 ASP.NET Core ログの構成の詳細については、[ASP.NET Core ログ](xref:fundamentals/logging/index#configuration)に関するドキュメントを参照してください。
 
-gRPC では、`Grpc` カテゴリの下にログが追加されます。 gRPC からの詳細なログを有効にするには、`Logging` 内の `LogLevel` サブセクションに次の項目を追加して、*appsettings.json* ファイルの `Debug` レベルに `Grpc` プレフィックスを構成します。
+gRPC では、`Grpc` カテゴリの下にログが追加されます。 gRPC からの詳細なログを有効にするには、`Grpc` 内の `Debug` サブセクションに次の項目を追加して、*appsettings.json* ファイルの `LogLevel` レベルに `Logging` プレフィックスを構成します。
 
 [!code-json[](diagnostics/sample/logging-config.json?highlight=7)]
 
-これは、`ConfigureLogging` を使用して *Startup.cs* で構成することもできます。
+これは、*を使用して*Startup.cs`ConfigureLogging` で構成することもできます。
 
 [!code-csharp[](diagnostics/sample/logging-config-code.cs?highlight=5)]
 
@@ -46,7 +46,7 @@ JSON ベースの構成を使用していない場合は、構成システム内
 
 * `Logging:LogLevel:Grpc` = `Debug`
 
-構成システムのドキュメントを調べて、入れ子になった構成値を指定する方法を確認してください。 たとえば、環境変数の使用時には、`:` の代わりに 2 つの `_` 文字を使用します (例: `Logging__LogLevel__Grpc`)。
+構成システムのドキュメントを調べて、入れ子になった構成値を指定する方法を確認してください。 たとえば、環境変数の使用時には、`_` の代わりに 2 つの `:` 文字を使用します (例: `Logging__LogLevel__Grpc`)。
 
 アプリのより詳細な診断情報を収集する場合は、`Debug` レベルを使用することが推奨されます。 `Trace` レベルでは非常に低レベルの診断情報が生成されるため、アプリの問題を診断するために必要となることはまれです。
 
@@ -94,13 +94,13 @@ info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
 
 クライアント ログを有効にする別の方法として、[gRPC クライアント ファクトリ](xref:grpc/clientfactory) を使用してクライアントを作成する方法があります。 クライアント ファクトリに登録され、DI から解決された gRPC クライアントは、アプリの構成済みログを自動的に使用します。
 
-アプリが DI を使用していない場合は、[LoggerFactory.Create](xref:Microsoft.Extensions.Logging.LoggerFactory.Create*) を使用して新しい `ILoggerFactory` インスタンスを作成できます。 このメソッドにアクセスするには、アプリに [Microsoft.Extensions.Logging](https://www.nuget.org/packages/microsoft.extensions.logging/) パッケージを追加します。
+アプリが DI を使用していない場合は、`ILoggerFactory`LoggerFactory.Create[ を使用して新しい ](xref:Microsoft.Extensions.Logging.LoggerFactory.Create*) インスタンスを作成できます。 このメソッドにアクセスするには、アプリに [Microsoft.Extensions.Logging](https://www.nuget.org/packages/microsoft.extensions.logging/) パッケージを追加します。
 
 [!code-csharp[](diagnostics/sample/net-client-loggerfactory-create.cs?highlight=1,8)]
 
 #### <a name="grpc-client-log-scopes"></a>gRPC クライアント ログのスコープ
 
-gRPC クライアントは、gRPC 呼び出し中に作成されるログに[ログ スコープ](https://docs.microsoft.com/aspnet/core/fundamentals/logginglog-scopes) を追加します。 このスコープには、その gRPC 呼び出しに関連するメタデータが含まれています。
+gRPC クライアントは、gRPC 呼び出し中に作成されるログに[ログ スコープ](https://docs.microsoft.com/aspnet/core/fundamentals/logging#log-scopes) を追加します。 このスコープには、その gRPC 呼び出しに関連するメタデータが含まれています。
 
 * **GrpcMethodType** - gRPC メソッドの型。 ありえる値は、`Grpc.Core.MethodType` 列挙型の名前です (例: Unary)。
 * **GrpcUri** - gRPC メソッドの相対 URI (例: /greet.Greeter/SayHellos)
@@ -165,7 +165,7 @@ gRPC サービスは、受信 HTTP 要求に関するイベントを報告する
 
 gRPC サーバーのメトリックは、`Grpc.AspNetCore.Server` イベント ソースで報告されます。
 
-| 名前                      | 説明                   |
+| Name                      | 説明                   |
 | --------------------------|-------------------------------|
 | `total-calls`             | 合計呼び出し数                   |
 | `current-calls`           | 現在の呼び出し数                 |
@@ -181,7 +181,7 @@ ASP.NET Core では、`Microsoft.AspNetCore.Hosting` イベント ソースに�
 
 gRPC クライアントのメトリックは、`Grpc.Net.Client` イベント ソースで報告されます。
 
-| 名前                      | 説明                   |
+| Name                      | 説明                   |
 | --------------------------|-------------------------------|
 | `total-calls`             | 合計呼び出し数                   |
 | `current-calls`           | 現在の呼び出し数                 |

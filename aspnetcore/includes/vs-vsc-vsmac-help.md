@@ -12,7 +12,7 @@
 * [はじめに](https://code.visualstudio.com/docs)
 * [デバッグ](https://code.visualstudio.com/docs/editor/debugging)
 * [統合ターミナル](https://code.visualstudio.com/docs/editor/integrated-terminal)
-* [ショートカット キー](https://code.visualstudio.com/docs/getstarted/keybindings#_keyboard-shortcuts-reference)
+* [キーボード ショートカット](https://code.visualstudio.com/docs/getstarted/keybindings#_keyboard-shortcuts-reference)
 
   * [macOS ショートカット キー](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-macos.pdf)
   * [Linux ショートカット キー](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf)

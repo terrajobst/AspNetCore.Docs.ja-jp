@@ -11,10 +11,10 @@ no-loc:
 - SignalR
 uid: blazor/layouts
 ms.openlocfilehash: 5b6e1c7ceb4a6e41230e31bbe379bde1bb0a8286
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78647924"
 ---
 # <a name="aspnet-core-opno-locblazor-layouts"></a>ASP.NET Core Blazor レイアウト
@@ -27,7 +27,7 @@ ms.locfileid: "78647924"
 
 *コンポーネント*を*レイアウト*に変えるには、コンポーネントが:
 
-* レイアウト内のレンダリングされるコンテンツの `Body` プロパティを定義する `LayoutComponentBase` から継承している。
+* レイアウト内のレンダリングされるコンテンツの `LayoutComponentBase` プロパティを定義する `Body` から継承している。
 * Razor 構文 `@Body` を使用して、コンテンツがレンダリングされるレイアウト マークアップ内の場所を指定している。
 
 次のコード サンプルに、レイアウト コンポーネント *MainLayout.razor* の Razor テンプレートを示します。 レイアウトは `LayoutComponentBase` を継承し、ナビゲーション バーとフッターの間に `@Body` を設定します。
@@ -38,11 +38,11 @@ Blazor アプリ テンプレートのいずれかに基づくアプリでは、
 
 ## <a name="default-layout"></a>既定のレイアウト
 
-アプリの *App.razor* ファイル内の `Router` コンポーネントに、既定のアプリ レイアウトを指定します。 既定の Blazor テンプレートによって提供される次の `Router` コンポーネントは、既定のレイアウトを `MainLayout` コンポーネントに設定します。
+アプリの `Router`App.razor*ファイル内の* コンポーネントに、既定のアプリ レイアウトを指定します。 既定の `Router` テンプレートによって提供される次の Blazor コンポーネントは、既定のレイアウトを `MainLayout` コンポーネントに設定します。
 
 [!code-razor[](layouts/sample_snapshot/3.x/App1.razor?highlight=3)]
 
-`NotFound` コンテンツの既定のレイアウトを指定するには、`NotFound` コンテンツの `LayoutView` を指定します。
+`NotFound` コンテンツの既定のレイアウトを指定するには、`LayoutView` コンテンツの `NotFound` を指定します。
 
 [!code-razor[](layouts/sample_snapshot/3.x/App2.razor?highlight=6-9)]
 
@@ -54,19 +54,19 @@ Blazor アプリ テンプレートのいずれかに基づくアプリでは、
 
 コンポーネントにレイアウトを適用するには、Razor ディレクティブ `@layout` を使用します。 コンパイラでは `@layout` を `LayoutAttribute` に変換します。これはコンポーネント クラスに適用されます。
 
-次の `MasterList` コンポーネントのコンテンツは、`@Body` の位置にある `MasterLayout` に挿入されます。
+次の `MasterList` コンポーネントのコンテンツは、`MasterLayout` の位置にある `@Body` に挿入されます。
 
 [!code-razor[](layouts/sample_snapshot/3.x/MasterList.razor?highlight=1)]
 
-コンポーネントに直接レイアウトを指定すると、ルーターに設定された*既定のレイアウトまたは *_Imports.razor* からインポートされた `@layout` ディレクティブ*がオーバーライドされます。
+コンポーネントに直接レイアウトを指定すると、ルーターに設定された*既定のレイアウトまたは* _Imports.razor`@layout` からインポートされた  *ディレクティブ*がオーバーライドされます。
 
 ## <a name="centralized-layout-selection"></a>一元的なレイアウトの選択
 
-アプリのすべてのフォルダーには、必要に応じて、 *_Imports.razor* という名前のテンプレート ファイルを格納できます。 コンパイラにより、インポート ファイルに指定されたディレクティブが、同じフォルダー内とそのすべてのサブフォルダー内で再帰的にすべての Razor テンプレートに含まれます。 そのため、`@layout MyCoolLayout` を含む *_Imports.razor* ファイルにより、フォルダー内のすべてのコンポーネントで `MyCoolLayout` が確実に使用されます。 フォルダーおよびサブフォルダー内のすべての *.razor* ファイルに `@layout MyCoolLayout` を繰り返し追加する必要はありません。 `@using` ディレクティブは、同じようにコンポーネントにも適用されます。
+アプリのすべてのフォルダーには、必要に応じて、 *_Imports.razor* という名前のテンプレート ファイルを格納できます。 コンパイラにより、インポート ファイルに指定されたディレクティブが、同じフォルダー内とそのすべてのサブフォルダー内で再帰的にすべての Razor テンプレートに含まれます。 そのため、*を含む*_Imports.razor`@layout MyCoolLayout` ファイルにより、フォルダー内のすべてのコンポーネントで `MyCoolLayout` が確実に使用されます。 フォルダーおよびサブフォルダー内のすべての `@layout MyCoolLayout`.razor*ファイルに* を繰り返し追加する必要はありません。 `@using` ディレクティブは、同じようにコンポーネントにも適用されます。
 
 次の *_Imports.razor* ファイルでは、次のものをインポートします。
 
-* `MyCoolLayout`。
+* [https://login.microsoftonline.com/consumers/](`MyCoolLayout`)
 * 同じフォルダーおよびサブフォルダー内のすべての Razor コンポーネント。
 * `BlazorApp1.Data` 名前空間。
  
@@ -88,7 +88,7 @@ Blazor アプリ テンプレートのいずれかに基づくアプリでは、
 
 [!code-razor[](layouts/sample_snapshot/3.x/MasterListLayout.razor?highlight=1,9)]
 
-最後に、*MasterLayout.razor* 内の `MasterLayout` に、ヘッダー、メイン メニュー、フッターなどの最上位レイアウト要素が含まれます。 `EpisodesComponent` を含む `MasterListLayout` は、`@Body` が表示される場所にレンダリングされます。
+最後に、`MasterLayout`MasterLayout.razor*内の* に、ヘッダー、メイン メニュー、フッターなどの最上位レイアウト要素が含まれます。 `MasterListLayout` を含む `EpisodesComponent` は、`@Body` が表示される場所にレンダリングされます。
 
 [!code-razor[](layouts/sample_snapshot/3.x/MasterLayout.razor?highlight=6)]
 

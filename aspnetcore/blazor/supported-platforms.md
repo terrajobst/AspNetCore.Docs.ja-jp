@@ -11,10 +11,10 @@ no-loc:
 - SignalR
 uid: blazor/supported-platforms
 ms.openlocfilehash: 505974280b5c96ec2bcae42c6e076ab67a15bb07
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78647108"
 ---
 # <a name="aspnet-core-blazor-supported-platforms"></a>ASP.NET Core Blazor でサポートされているプラットフォーム
@@ -23,28 +23,28 @@ ms.locfileid: "78647108"
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-## <a name="browser-requirements"></a>ブラウザー要件
+## <a name="browser-requirements"></a>ブラウザーの要件
 
 ### <a name="blazor-webassembly"></a>Blazor WebAssembly
 
-| ブラウザー                          | バージョン               |
+| Browser                          | バージョン               |
 | -------------------------------- | :-------------------: |
-| Microsoft Edge                   | [現在]               |
-| Mozilla Firefox                  | [現在]               |
-| Google Chrome (Android を含む) | [現在]               |
-| Safari (iOS を含む)            | [現在]               |
+| Microsoft Edge                   | Current               |
+| Mozilla Firefox                  | Current               |
+| Google Chrome (Android を含む) | Current               |
+| Safari (iOS を含む)            | Current               |
 | Microsoft Internet Explorer      | サポートされていません&dagger; |
 
 &dagger;Microsoft Internet Explorer は [WebAssembly](https://webassembly.org) をサポートしていません。
 
 ### <a name="blazor-server"></a>Blazor サーバー
 
-| ブラウザー                          | バージョン    |
+| Browser                          | バージョン    |
 | -------------------------------- | :--------: |
-| Microsoft Edge                   | [現在]    |
-| Mozilla Firefox                  | [現在]    |
-| Google Chrome (Android を含む) | [現在]    |
-| Safari (iOS を含む)            | [現在]    |
+| Microsoft Edge                   | Current    |
+| Mozilla Firefox                  | Current    |
+| Google Chrome (Android を含む) | Current    |
+| Safari (iOS を含む)            | Current    |
 | Microsoft Internet Explorer      | 11&dagger; |
 
 &dagger;追加のポリフィルが必要です (たとえば、[Polyfill.io](https://polyfill.io/v3/) バンドルによって Promise を追加できます)。

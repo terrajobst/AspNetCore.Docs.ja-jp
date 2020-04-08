@@ -6,10 +6,10 @@ ms.author: riande
 ms.date: 11/30/2019
 uid: fundamentals/localization
 ms.openlocfilehash: b175354220a8a71c029e005f27443d5a72749a11
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78648434"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>ASP.NET Core のグローバリゼーションおよびローカリゼーション
@@ -46,7 +46,7 @@ HTML を格納しているリソースには、`IHtmlLocalizer<T>` の実装を�
 
 **注:** 一般的に、HTML ではなく、テキストのみをローカライズする必要があります。
 
-最下位のレベルでは、[依存関係の挿入](dependency-injection.md)から `IStringLocalizerFactory` を取得できます。
+最下位のレベルでは、`IStringLocalizerFactory`依存関係の挿入[から ](dependency-injection.md) を取得できます。
 
 [!code-csharp[](localization/sample/Localization/Controllers/TestController.cs?start=9&end=26&highlight=7-13)]
 
@@ -74,7 +74,7 @@ HTML を格納しているリソースには、`IHtmlLocalizer<T>` の実装を�
 
 フランス語のリソース ファイルには次の値が含まれます。
 
-| Key | [値] |
+| キー | 値 |
 | ----- | ------ |
 | `<i>Hello</i> <b>{0}!</b>` | `<i>Bonjour</i> <b>{0} !</b>` |
 
@@ -120,7 +120,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ### <a name="supportedcultures-and-supporteduicultures"></a>SupportedCultures と SupportedUICultures
 
-ASP.NET Core では、`SupportedCultures` と `SupportedUICultures` という 2 つのカルチャ値を指定できます。 日付、数値、および通貨の書式設定など、カルチャに依存する関数の結果は、`SupportedCultures` の [CultureInfo](/dotnet/api/system.globalization.cultureinfo) オブジェクトによって決まります。 テキストの並べ替え順序、大文字と小文字の表記規則、文字列比較も `SupportedCultures` によって決まります。 サーバーがカルチャを取得する方法の詳細については、「[CultureInfo.CurrentCulture](/dotnet/api/system.stringcomparer.currentculture#System_StringComparer_CurrentCulture)」を参照してください。 `SupportedUICultures` は、 *.resx* ファイルからのどの翻訳文字列が [ResourceManager](/dotnet/api/system.resources.resourcemanager) によって検索されるかを決定します。 `ResourceManager` は、`CurrentUICulture` によって決定されるカルチャ固有の文字列を単に検索します。 .NET のすべてのスレッドに `CurrentCulture` オブジェクトと `CurrentUICulture`オブジェクトがあります。 ASP.NET Core は、カルチャに依存する関数を表示するときに、これらの値を検査します。 たとえば、現在のスレッドのカルチャが "en-US" (英語、米国) に設定されている場合は、`DateTime.Now.ToLongDateString()` は、"Thursday, February 18, 2016" を表示しますが、`CurrentCulture` が "es-ES" (スペイン語、スペイン) に設定されている場合、出力は "jueves, 18 de febrero de 2016" になります。
+ASP.NET Core では、`SupportedCultures` と `SupportedUICultures` という 2 つのカルチャ値を指定できます。 日付、数値、および通貨の書式設定など、カルチャに依存する関数の結果は、[ の ](/dotnet/api/system.globalization.cultureinfo)CultureInfo`SupportedCultures` オブジェクトによって決まります。 テキストの並べ替え順序、大文字と小文字の表記規則、文字列比較も `SupportedCultures` によって決まります。 サーバーがカルチャを取得する方法の詳細については、「[CultureInfo.CurrentCulture](/dotnet/api/system.stringcomparer.currentculture#System_StringComparer_CurrentCulture)」を参照してください。 `SupportedUICultures` は、 *.resx* ファイルからのどの翻訳文字列が [ResourceManager](/dotnet/api/system.resources.resourcemanager) によって検索されるかを決定します。 `ResourceManager` は、`CurrentUICulture` によって決定されるカルチャ固有の文字列を単に検索します。 .NET のすべてのスレッドに `CurrentCulture` オブジェクトと `CurrentUICulture`オブジェクトがあります。 ASP.NET Core は、カルチャに依存する関数を表示するときに、これらの値を検査します。 たとえば、現在のスレッドのカルチャが "en-US" (英語、米国) に設定されている場合は、`DateTime.Now.ToLongDateString()` は、"Thursday, February 18, 2016" を表示しますが、`CurrentCulture` が "es-ES" (スペイン語、スペイン) に設定されている場合、出力は "jueves, 18 de febrero de 2016" になります。
 
 ## <a name="resource-files"></a>リソース ファイル
 
@@ -128,7 +128,7 @@ ASP.NET Core では、`SupportedCultures` と `SupportedUICultures` という 2 
 
 1. **ソリューション エクスプローラー**で、リソース ファイルが格納されているフォルダーを右クリックし、 **[追加]**  >  **[新しい項目]** を選択します。
 
-    ![入れ子になったコンテキスト メニュー:ソリューション エクスプローラーで、リソースのコンテキスト メニューが開かれます。 [追加] の 2 つ目のコンテキスト メニューが開き、[新しい項目] コマンドが強調表示されます。](localization/_static/newi.png)
+    ![入れ子になったコンテキスト メニュー: ソリューション エクスプローラーでリソースのコンテキスト メニューが開かれます。 [追加] の 2 つ目のコンテキスト メニューが開き、[新しい項目] コマンドが強調表示されます。](localization/_static/newi.png)
 
 2. **インストールされているテンプレートの検索**ボックスに、「resource」と入力し、ファイルに名前を付けます。
 
@@ -218,7 +218,7 @@ Visual Studio で、ファイル名にカルチャを指定せずにリソース
 
 * `AddViewLocalization` ローカライズされたビュー ファイルのサポートを追加します。 このサンプル ビューでは、ローカリゼーションは、ビュー ファイルのサフィックスに基づいています。 たとえば、*Index.fr.cshtml* ファイルの "fr" です。
 
-* `AddDataAnnotationsLocalization``IStringLocalizer` 抽象化を介してローカライズされた `DataAnnotations` 検証メッセージのサポートを追加します。
+* `AddDataAnnotationsLocalization``DataAnnotations` 抽象化を介してローカライズされた `IStringLocalizer` 検証メッセージのサポートを追加します。
 
 ### <a name="localization-middleware"></a>ローカリゼーション ミドルウェア
 
@@ -227,7 +227,7 @@ Visual Studio で、ファイル名にカルチャを指定せずにリソース
 [!code-csharp[](localization/sample/Localization/Startup.cs?name=snippet2)]
 [!INCLUDE[about the series](~/includes/code-comments-loc.md)]
 
-`UseRequestLocalization` は `RequestLocalizationOptions` オブジェクトを初期化します。 すべての要求で、`RequestLocalizationOptions` の `RequestCultureProvider` のリストが列挙され、要求のカルチャを正常に決定できる最初のプロバイダーが使用されます。 既定のプロバイダーは `RequestLocalizationOptions` クラスから派生します。
+`UseRequestLocalization` は `RequestLocalizationOptions` オブジェクトを初期化します。 すべての要求で、`RequestCultureProvider` の `RequestLocalizationOptions` のリストが列挙され、要求のカルチャを正常に決定できる最初のプロバイダーが使用されます。 既定のプロバイダーは `RequestLocalizationOptions` クラスから派生します。
 
 1. `QueryStringRequestCultureProvider`
 2. `CookieRequestCultureProvider`
@@ -287,11 +287,11 @@ Cookie の形式は `c=%LANGCODE%|uic=%LANGCODE%` です。ここで、`c` は `
 
 エンティティ ヘッダーは、HTTP 要求と応答の両方で使用されます。
 
-プロパティ `ApplyCurrentCultureToResponseHeaders` を設定することによって `Content-Language` ヘッダーを追加できます。
+プロパティ `Content-Language` を設定することによって `ApplyCurrentCultureToResponseHeaders` ヘッダーを追加できます。
 
 `Content-Language` ヘッダーを追加すると、
 
- - RequestLocalizationMiddleware で `CurrentUICulture` を使って `Content-Language` を設定できるようになります。
+ - RequestLocalizationMiddleware で `Content-Language` を使って `CurrentUICulture` を設定できるようになります。
  - 応答ヘッダーの `Content-Language` を明示的に設定する必要がなくなります。
 
 ```csharp
@@ -360,7 +360,7 @@ services.Configure<RequestLocalizationOptions>(options =>
 
 ### <a name="set-the-culture-programmatically"></a>プログラムでカルチャを設定する
 
-この [GitHub](https://github.com/aspnet/entropy) のサンプル **Localization.StarterWeb** プロジェクトには、`Culture` を設定するための UI が含まれています。 *Views/Shared/_SelectLanguagePartial.cshtml* ファイルを使用して、サポートされているカルチャの一覧からカルチャを選択することができます。
+この **GitHub** のサンプル [Localization.StarterWeb](https://github.com/aspnet/entropy) プロジェクトには、`Culture` を設定するための UI が含まれています。 *Views/Shared/_SelectLanguagePartial.cshtml* ファイルを使用して、サポートされているカルチャの一覧からカルチャを選択することができます。
 
 [!code-cshtml[](localization/sample/Localization/Views/Shared/_SelectLanguagePartial.cshtml)]
 
@@ -372,7 +372,7 @@ services.Configure<RequestLocalizationOptions>(options =>
 
 [!code-csharp[](localization/sample/Localization/Controllers/HomeController.cs?range=57-67)]
 
-*_SelectLanguagePartial.cshtml* をこのプロジェクトのサンプル コードに接続することはできません。 [GitHub](https://github.com/aspnet/entropy) の **Localization.StarterWeb** プロジェクトには、[依存関係の挿入](dependency-injection.md)コンテナーを介して Razor 部分に `RequestLocalizationOptions` を挿入するコードがあります。
+*_SelectLanguagePartial.cshtml* をこのプロジェクトのサンプル コードに接続することはできません。 **GitHub** の [Localization.StarterWeb](https://github.com/aspnet/entropy) プロジェクトには、`RequestLocalizationOptions`依存関係の挿入[コンテナーを介して Razor 部分に ](dependency-injection.md) を挿入するコードがあります。
 
 ## <a name="model-binding-route-data-and-query-strings"></a>モデル バインド ルート データとクエリ文字列
 
@@ -390,14 +390,14 @@ services.Configure<RequestLocalizationOptions>(options =>
 
 用語:
 
-* グローバリゼーション (G11N):アプリが別の言語と地域をサポートするようにするプロセス。
-* ローカリゼーション (L10N):特定の言語と地域向けにアプリをカスタマイズするプロセス。
-* 国際化 (I18N):グローバリゼーションとローカリゼーションの両方を示します。
-* カルチャ:言語および必要に応じて地域です。
-* ニュートラル カルチャ:指定した言語のみを含み、地域は含まないカルチャ。 (例: "en"、"es")。
-* 特定のカルチャ:指定した言語と地域を含むカルチャ。 (例: "en-US"、"en-GB"、"es-CL")。
-* 親カルチャ:特定のカルチャを含むニュートラル カルチャ。 (たとえば、"en" は "en-US" および "en-GB" の親カルチャです)。
-* ロケール:ロケールはカルチャと同じです。
+* グローバリゼーション (G11N): アプリが別の言語と地域をサポートするようにするプロセス。
+* ローカリゼーション (L10N): 特定の言語と地域向けにアプリをカスタマイズするプロセス。
+* 国際化 (I18N): グローバリゼーションとローカリゼーションの両方を示します。
+* カルチャ: 言語および必要に応じて地域です。
+* ニュートラル カルチャ: 指定した言語のみを含み、地域は含まないカルチャ (例: "en"、"es")。
+* 特定のカルチャ: 指定した言語と地域を含むカルチャ (例: "en-US"、"en-GB"、"es-CL")。
+* 親カルチャ: 特定のカルチャを含むニュートラル カルチャ (たとえば、"en" は "en-US" および "en-GB" の親カルチャです)。
+* ロケール: ロケールはカルチャと同じです。
 
 [!INCLUDE[](~/includes/localization/currency.md)]
 

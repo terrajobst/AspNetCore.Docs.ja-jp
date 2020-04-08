@@ -7,10 +7,10 @@ ms.author: jamesnk
 ms.date: 12/05/2019
 uid: grpc/authn-and-authz
 ms.openlocfilehash: c0312b186bbb35e3b802984484b7213016d8bf04
-ms.sourcegitcommit: 51c86c003ab5436598dbc42f26ea4a83a795fd6e
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/10/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78964443"
 ---
 # <a name="authentication-and-authorization-in-grpc-for-aspnet-core"></a>ASP.NET Core のための gRPC での認証と承認
@@ -41,7 +41,7 @@ public void Configure(IApplicationBuilder app)
 ```
 
 > [!NOTE]
-> ASP.NET Core 認証ミドルウェアを登録する順序が重要です。 必ず `UseRouting` の後に `UseAuthentication` と `UseAuthorization` を呼び出し、その後に `UseEndpoints` を呼び出します。
+> ASP.NET Core 認証ミドルウェアを登録する順序が重要です。 必ず `UseAuthentication` の後に `UseAuthorization` と `UseRouting` を呼び出し、その後に `UseEndpoints` を呼び出します。
 
 呼び出し時にアプリによって使用される認証メカニズムは、構成する必要があります。 認証の構成は、`Startup.ConfigureServices` に追加され、アプリで使用される認証メカニズムによって異なるものとなります。 ASP.NET Core アプリをセキュリティで保護する方法の例については、[認証サンプル](xref:security/authentication/samples)に関するページを参照してください。
 

@@ -8,10 +8,10 @@ ms.custom: mvc
 ms.date: 01/13/2020
 uid: host-and-deploy/iis/transform-webconfig
 ms.openlocfilehash: 069b9bb516644a1a722235b33d4916460488ebf2
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78646658"
 ---
 # <a name="transform-webconfig"></a>web.config を変換する
@@ -64,7 +64,7 @@ dotnet publish --configuration Release
 
 構成の MSBuild プロパティは `$(Configuration)` です。
 
-## <a name="profile"></a>Profile
+## <a name="profile"></a>プロファイル
 
 プロファイルの変換は、[ビルド構成](#build-configuration)の変換の後、2 番目に実行されます。
 

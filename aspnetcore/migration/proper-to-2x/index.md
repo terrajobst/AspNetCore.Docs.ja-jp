@@ -6,10 +6,10 @@ ms.author: scaddie
 ms.date: 10/18/2019
 uid: migration/proper-to-2x/index
 ms.openlocfilehash: 68a45dc50e00bead564500a12509b62a4a193ec4
-ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
+ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/18/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "79511092"
 ---
 # <a name="migrate-from-aspnet-to-aspnet-core"></a>ASP.NET から ASP.NET Core への移行
@@ -18,7 +18,7 @@ ms.locfileid: "79511092"
 
 この記事は、ASP.NET アプリを ASP.NET Core に移行するための参考ガイドです。
 
-## <a name="prerequisites"></a>必須コンポーネント
+## <a name="prerequisites"></a>前提条件
 
 [.NET Core SDK 2.2 以降](https://dotnet.microsoft.com/download)
 
@@ -80,11 +80,11 @@ ASP.NET Core は同様のアプローチを使いますが、エントリを処�
 
 ## <a name="store-configurations"></a>構成を保存する
 
-ASP.NET では保存の設定がサポートされています。 これらの設定は、たとえば、アプリケーションが展開された環境のサポートに使われます。 一般的な方法は、すべてのカスタム キー/値ペアを、*Web.config* ファイルの `<appSettings>` セクションに保存するというものでした。
+ASP.NET では保存の設定がサポートされています。 これらの設定は、たとえば、アプリケーションが展開された環境のサポートに使われます。 一般的な方法は、すべてのカスタム キー/値ペアを、`<appSettings>`Web.config*ファイルの* セクションに保存するというものでした。
 
 [!code-xml[](samples/webconfig-sample.xml)]
 
-アプリケーションでは、`System.Configuration` 名前空間内の `ConfigurationManager.AppSettings` コレクションを使ってこれらの設定を読み取ります。
+アプリケーションでは、`ConfigurationManager.AppSettings` 名前空間内の `System.Configuration` コレクションを使ってこれらの設定を読み取ります。
 
 [!code-csharp[](samples/read-webconfig.cs)]
 
@@ -116,7 +116,7 @@ services.Configure<AppConfiguration>(Configuration.GetSection("AppConfiguration"
 
 ASP.NET アプリでは、開発者はサードパーティのライブラリに依存して依存性の注入を実装します。 [Unity](https://github.com/unitycontainer/unity) はそのようなライブラリの 1 つであり、Microsoft Patterns & Practices によって提供されます。
 
-Unity で依存性の注入を設定する例は、`UnityContainer` をラップする `IDependencyResolver` の実装です。
+Unity で依存性の注入を設定する例は、`IDependencyResolver` をラップする `UnityContainer` の実装です。
 
 [!code-csharp[](samples/sample8.cs)]
 
@@ -128,7 +128,7 @@ Unity で依存性の注入を設定する例は、`UnityContainer` をラップ
 
 [!code-csharp[](samples/sample5.cs)]
 
-依存性の注入は ASP.NET Core の一部であるため、*Startup.cs* の `ConfigureServices` メソッドに独自のサービスを追加できます。
+依存性の注入は ASP.NET Core の一部であるため、`ConfigureServices`Startup.cs*の* メソッドに独自のサービスを追加できます。
 
 [!code-csharp[](samples/configure-services.cs)]
 
@@ -143,7 +143,7 @@ Web 開発の重要な部分は、静的なクライアント側アセットを�
 
 ASP.NET では、静的ファイルはさまざまなディレクトリに保存され、ビューで参照されます。
 
-ASP.NET Core では、構成が変更されていない限り、静的ファイルは "Web ルート" ( *&lt;コンテンツ ルート&gt;/wwwroot*) に保存されます。 ファイルは、`Startup.Configure` から `UseStaticFiles` 拡張メソッドを呼び出すことによって、要求パイプラインに読み込まれます。
+ASP.NET Core では、構成が変更されていない限り、静的ファイルは "Web ルート" ( *&lt;コンテンツ ルート&gt;/wwwroot*) に保存されます。 ファイルは、`UseStaticFiles` から `Startup.Configure` 拡張メソッドを呼び出すことによって、要求パイプラインに読み込まれます。
 
 [!code-csharp[](../../fundamentals/static-files/samples/1x/StartupStaticFiles.cs?highlight=3&name=snippet_ConfigureMethod)]
 
