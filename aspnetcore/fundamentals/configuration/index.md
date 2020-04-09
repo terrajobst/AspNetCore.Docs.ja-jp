@@ -5,14 +5,14 @@ description: 構成 API を使用して、ASP.NET Core アプリを構成する�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/29/2020
+ms.date: 3/29/2020
 uid: fundamentals/configuration/index
-ms.openlocfilehash: b4fa082c5a53bc9ecb3c7b8ddcbf243ef0d94ba7
-ms.sourcegitcommit: 9b6e7f421c243963d5e419bdcfc5c4bde71499aa
+ms.openlocfilehash: d76ca78bc988f859b4e99752a0e88735e1df1d82
+ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/21/2020
-ms.locfileid: "79989691"
+ms.lasthandoff: 04/06/2020
+ms.locfileid: "80501325"
 ---
 # <a name="configuration-in-aspnet-core"></a>ASP.NET Core の構成
 
@@ -48,7 +48,7 @@ ASP.NET Core の構成は、1つまたは複数の[構成プロバイダー](#cp
 1. [JSON 構成プロバイダー](#file-configuration-provider)を使用する *appsettings.* `Environment`*json*。 たとえば、*appsettings*.***Production***.*json* および  *appsettings*.***Development***.*json*。
 1. `Development` 環境でアプリが実行される際の [App シークレット](xref:security/app-secrets)。
 1. [環境変数構成プロバイダー](#evcp)を使用する環境変数。
-1. [コマンドライン構成プロバイダー](#command-line-configuration-provider)を使用するコマンドライン引数。
+1. [コマンドライン構成プロバイダー](#command-line)を使用するコマンドライン引数。
 
 後から追加される構成プロバイダーは、それ以前のキー設定をオーバーライドします。 たとえば、`MyKey` が *appsettings.json* と環境の両方で設定されている場合、環境の値が使用されます。 既定の構成プロバイダーを使用すると、[コマンドライン構成プロバイダー](#command-line-configuration-provider) が他のすべてのプロバイダーをオーバーライドします。
 
@@ -284,7 +284,7 @@ dotnet run -k1 value1 -k2 value2 --alt3=value2 /alt4=value3 --alt5 value5 /alt6 
 
 ## <a name="hierarchical-configuration-data"></a>階層的な構成データ
 
-構成 API は、構成キーの区切り記号を使用して階層データをフラット化することにより、階層型の構成データを読み取ります。
+構成 API では、構成キーの区切り記号を使用して階層データをフラット化することにより、階層型の構成データの読み取りが行われます。
 
 [サンプル ダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)には、次の *appsettings.json* 　ファイルが含まれます：
 

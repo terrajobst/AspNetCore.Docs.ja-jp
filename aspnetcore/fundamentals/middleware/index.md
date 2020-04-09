@@ -5,14 +5,14 @@ description: ASP.NET Core のミドルウェアと要求パイプラインにつ
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/02/2020
+ms.date: 04/06/2020
 uid: fundamentals/middleware/index
-ms.openlocfilehash: 9dcd061d2807fb90884327916d0348af4593df9d
-ms.sourcegitcommit: 9b6e7f421c243963d5e419bdcfc5c4bde71499aa
+ms.openlocfilehash: 6bf8ed823386ca4e1cf78982f7fba41fba429db8
+ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/21/2020
-ms.locfileid: "79989719"
+ms.lasthandoff: 04/06/2020
+ms.locfileid: "80751084"
 ---
 # <a name="aspnet-core-middleware"></a>ASP.NET Core のミドルウェア
 
@@ -67,6 +67,14 @@ ASP.NET Core 要求パイプラインは、順番に呼び出される一連の�
 <a name="order"></a>
 
 ## <a name="middleware-order"></a>ミドルウェアの順序
+
+次の図は、ASP.NET Core MVC と Razor Pages アプリの完全な要求処理パイプラインを示しています。 一般的なアプリでどのように既存のミドルウェアが順序付けされ、どこにカスタム ミドルウェアが追加されるかを確認できます。 シナリオでの必要性に応じて、既存のミドルウェアの順序を変更したり、新しいカスタム ミドルウェアを挿入したりする方法については、完全に制御できます。
+
+![ASP.NET Core のミドルウェア パイプライン](index/_static/middleware-pipeline.svg)
+
+前の図の**エンドポイント** ミドルウェアでは、対応するアプリの種類 (MVC または Razor Pages) のフィルター パイプラインが実行されます。
+
+![ASP.NET Core のフィルター パイプライン](index/_static/mvc-endpoint.svg)
 
 `Startup.Configure` メソッドでミドルウェア コンポーネントを追加する順序は、要求でミドルウェア コンポーネントが呼び出される順序および応答での逆の順序を定義します。 この順序は、セキュリティ、パフォーマンス、および機能にとって**重要**です。
 
