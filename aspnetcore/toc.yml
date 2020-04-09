@@ -438,7 +438,7 @@
               uid: mvc/views/tag-helpers/builtin-th/image-tag-helper
             - name: 入力
               href: 'mvc/views/working-with-forms.md#the-input-tag-helper'
-            - name: group1
+            - name: ラベル
               href: 'mvc/views/working-with-forms.md#the-label-tag-helper'
             - name: Link
               uid: mvc/views/tag-helpers/builtin-th/link-tag-helper
@@ -1082,6 +1082,8 @@
       uid: security/enforcing-ssl
     - name: HTTPS を使用した Docker のホスト
       uid: security/docker-https
+    - name: HTTPS を使用した Docker Compose
+      uid: security/docker-compose-https
     - name: EU の一般データ保護規制 (GDPR) のサポート
       uid: security/gdpr
     - name: リクエスト フォージェリの対策

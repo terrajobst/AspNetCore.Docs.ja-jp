@@ -1,4 +1,2 @@
-バージョン8.6 ではサポートが必要です
-
-<!-- * [Visual Studio for Mac version 8.6 or later](https://visualstudio.microsoft.com/vs/mac/)
-* [!INCLUDE [.NET 5.0 SDK](~/includes/5.0-SDK.md)] -->
+* [Mac バージョン 8.6 以降の Visual Studio](/visualstudio/releasenotes/vs2019-mac-preview-relnotes)
+* [!INCLUDE [.NET 5.0 SDK](~/includes/5.0-SDK.md)]

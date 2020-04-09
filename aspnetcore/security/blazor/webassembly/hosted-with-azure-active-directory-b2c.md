@@ -1,153 +1,171 @@
 ---
-title: Azure Active Directory B2C を使用して、ASP.NET Core Blazor Webashosted アプリをセキュリティで保護する
+title: Azure アクティブBlazorディレクトリ B2C を使用して、ASP.NETコア Web アセンブリホスト アプリをセキュリティで保護する
 author: guardrex
 description: ''
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/22/2020
+ms.date: 04/08/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/webassembly/hosted-with-azure-active-directory-b2c
-ms.openlocfilehash: 0083f179f85371d4751fb179194417681fc1a01d
-ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
+ms.openlocfilehash: 4c79f7530e18b9f70262812a64abb55122701d15
+ms.sourcegitcommit: f0aeeab6ab6e09db713bb9b7862c45f4d447771b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/24/2020
-ms.locfileid: "80219065"
+ms.lasthandoff: 04/08/2020
+ms.locfileid: "80977159"
 ---
-# <a name="secure-an-aspnet-core-opno-locblazor-webassembly-hosted-app-with-azure-active-directory-b2c"></a>Azure Active Directory B2C を使用して、ASP.NET Core Blazor Webashosted アプリをセキュリティで保護する
+# <a name="secure-an-aspnet-core-opno-locblazor-webassembly-hosted-app-with-azure-active-directory-b2c"></a>Azure アクティブBlazorディレクトリ B2C を使用して、ASP.NETコア Web アセンブリホスト アプリをセキュリティで保護する
 
-[Javier Calvarro jeannine](https://github.com/javiercn)と[Luke latham](https://github.com/guardrex)
+[ハビエル・カルバロ・ネルソン](https://github.com/javiercn)と[ルーク・レイサム](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
 [!INCLUDE[](~/includes/blazorwasm-3.2-template-article-notice.md)]
 
-この記事では、認証に[Azure Active Directory (AAD) B2C](/azure/active-directory-b2c/overview)を使用する Blazor WebAssembly スタンドアロンアプリを作成する方法について説明します。
+この記事では、認証に Azure Blazor [Active Directory (AAD) B2C](/azure/active-directory-b2c/overview)を使用する WebAssembly スタンドアロン アプリを作成する方法について説明します。
 
-## <a name="register-apps-in-aad-b2c-and-create-solution"></a>AAD B2C でのアプリの登録とソリューションの作成
+## <a name="register-apps-in-aad-b2c-and-create-solution"></a>AAD B2C でアプリを登録してソリューションを作成する
 
 ### <a name="create-a-tenant"></a>テナントの作成
 
-[「チュートリアル: Azure Active Directory B2C テナントを作成](/azure/active-directory-b2c/tutorial-create-tenant)する」のガイダンスに従って AAD B2C テナントを作成し、次の情報を記録します。
+チュートリアル: AAD [B2C テナントを作成](/azure/active-directory-b2c/tutorial-create-tenant)し、次の情報を記録する Azure Active Directory B2C テナントを作成するのガイダンスに従ってください。
 
-* AAD B2C インスタンス (たとえば、末尾のスラッシュを含む `https://contoso.b2clogin.com/`)
-* テナントドメインの AAD B2C (例 `contoso.onmicrosoft.com`)
+* AAD B2C インスタンス (`https://contoso.b2clogin.com/`末尾のスラッシュを含むなど)
+* AAD B2C テナント ドメイン`contoso.onmicrosoft.com`(たとえば)
 
-### <a name="register-a-server-api-app"></a>サーバー API アプリを登録する
+### <a name="register-a-server-api-app"></a>サーバー API アプリの登録
 
-[「チュートリアル: Azure Active Directory B2C にアプリケーションを登録](/azure/active-directory-b2c/tutorial-register-applications)する」のガイダンスに従って、Azure portal の**Azure Active Directory** > **アプリの登録**領域に*サーバー API アプリ*の AAD アプリを登録します。
+[チュートリアル: Azure の Azure のポータル](/azure/active-directory-b2c/tutorial-register-applications)の Azure アクティブ ディレクトリ**アプリ登録**領域でサーバー API アプリの AAD*アプリ*を登録する Azure Active **Directory** > B2C でアプリケーションを登録するのガイダンスに従ってください。
 
 1. **[新規登録]** を選択します。
-1. アプリの**名前**を指定します (たとえば、 **Blazor Server AAD B2C**)。
-1. **サポートされているアカウントの種類**について**は、任意の組織ディレクトリまたは任意の Id プロバイダーでアカウントを選択します。Azure AD B2C を使用してユーザーを認証します。** (マルチテナント)。
-1. このシナリオでは、*サーバー API アプリ*に**リダイレクト uri**は必要ないため、ドロップダウンは **[Web]** に設定し、リダイレクト uri は入力しないでください。
-1. **Offline_access openid に管理者求めるプロンプトを付与** > **アクセス**許可が有効になっていることを確認します。
+1. アプリの**名前**を指定します (たとえば、**Blazorサーバー AAD B2C)。**
+1. [**サポートされているアカウントの種類]** で **、[組織ディレクトリ内のアカウント] または任意の ID プロバイダを選択します。Azure AD B2C を使用してユーザーを認証する場合。** (マルチテナント) このエクスペリエンスの場合。
+1. このシナリオでは *、Server API アプリ*は**リダイレクト URI**を必要としないので、ドロップ ダウンセットを**Web**に設定したままにして、リダイレクト URI を入力しないでください。
+1. **[権限** > **を付与する管理者に、オープンに対する権限の追加とoffline_accessのアクセス許可**が有効になっていることを確認します。
 1. **[登録]** を選択します。
 
-で**API を公開**します。
+公開**API :**
 
 1. **[Scope の追加]** を選択します。
 1. **[Save and continue]\(保存して続行\)** を選択します。
-1. **スコープ名**を指定します (たとえば、`API.Access`)。
-1. **管理者の同意の表示名**を指定します (たとえば、`Access API`)。
-1. **管理者の同意の説明**(`Allows the app to access server app API endpoints.`など) を指定します。
-1. **状態**が**有効**に設定されていることを確認します。
+1. **スコープ名**(たとえば)`API.Access`を指定します。
+1. **管理者の同意**表示名を指定します (たとえば`Access API`)。
+1. **管理者の同意の説明**(たとえば)`Allows the app to access server app API endpoints.`を入力します。
+1. **[状態**] が **[有効]** に設定されていることを確認します。
 1. **[スコープの追加]** を選択します。
 
-次の情報を記録します。
+以下の情報を記録します。
 
-* *サーバー API アプリ*アプリケーション ID (クライアント ID) (たとえば、`11111111-1111-1111-1111-111111111111`)
-* ディレクトリ ID (テナント ID) (`222222222-2222-2222-2222-222222222222`など)
-* *サーバー API アプリ*アプリ ID URI (たとえば、`https://contoso.onmicrosoft.com/11111111-1111-1111-1111-111111111111`の場合、Azure portal によって既定値がクライアント ID に設定される可能性があります)
-* 既定のスコープ (たとえば、`API.Access`)
+* *サーバー API アプリ*アプリケーション ID (クライアント ID) `11111111-1111-1111-1111-111111111111`(例: )
+* アプリ ID URI (、、、または指定したカスタム値など`https://contoso.onmicrosoft.com/11111111-1111-1111-1111-111111111111``api://11111111-1111-1111-1111-111111111111`)
+* ディレクトリ ID (テナント ID) `222222222-2222-2222-2222-222222222222`(たとえば)
+* *サーバー API アプリ*アプリ ID URI (`https://contoso.onmicrosoft.com/11111111-1111-1111-1111-111111111111`たとえば、Azure ポータルの値がクライアント ID に既定値になる場合など)
+* 既定のスコープ (たとえば`API.Access`)
 
 ### <a name="register-a-client-app"></a>クライアント アプリを登録する
 
-[「チュートリアル: Azure Active Directory B2C にアプリケーションを登録](/azure/active-directory-b2c/tutorial-register-applications)する」のガイダンスに従って、Azure portal の**Azure Active Directory** > **アプリの登録**領域に*クライアントアプリ*の AAD アプリを登録します。
+[チュートリアル: Azure の Azure のポータル](/azure/active-directory-b2c/tutorial-register-applications)の Azure アクティブ ディレクトリ**アプリ登録**領域でクライアント*アプリ*の AAD アプリを登録するもう一度 Azure Active **Directory** > B2C でアプリケーションを登録するのガイダンスに従います。
 
 1. **[新規登録]** を選択します。
-1. アプリの**名前**を指定します (たとえば、 **Blazor Client AAD B2C**)。
-1. **サポートされているアカウントの種類**について**は、任意の組織ディレクトリまたは任意の Id プロバイダーでアカウントを選択します。Azure AD B2C を使用してユーザーを認証します。** (マルチテナント)。
-1. **[リダイレクト uri]** ドロップダウンを **[Web]** に設定し、`https://localhost:5001/authentication/login-callback`のリダイレクト uri を指定します。
-1. **Offline_access openid に管理者求めるプロンプトを付与** > **アクセス**許可が有効になっていることを確認します。
+1. アプリの**名前**を指定します (たとえば、**Blazorクライアント AAD B2C)。**
+1. [**サポートされているアカウントの種類]** で **、[組織ディレクトリ内のアカウント] または任意の ID プロバイダを選択します。Azure AD B2C を使用してユーザーを認証する場合。** (マルチテナント) このエクスペリエンスの場合。
+1. [**リダイレクト URI]** ドロップダウン リストを **[Web]** に`https://localhost:5001/authentication/login-callback`設定したままにし、 のリダイレクト URI を指定します。
+1. **[権限** > **を付与する管理者に、オープンに対する権限の追加とoffline_accessのアクセス許可**が有効になっていることを確認します。
 1. **[登録]** を選択します。
 
-**認証** > **プラットフォームの構成** > **Web**:
+**認証** > **プラットフォーム構成** > **Web**で:
 
-1. `https://localhost:5001/authentication/login-callback` の**リダイレクト URI**が存在することを確認します。
-1. **暗黙の許可**では、**アクセストークン**と**ID トークン**のチェックボックスをオンにします。
-1. アプリの残りの既定値は、このエクスペリエンスで許容されます。
+1. リダイレクト**URI**が`https://localhost:5001/authentication/login-callback`存在することを確認します。
+1. [**暗黙的な許可**] で、[**アクセス トークン**] および [ID トークン] のチェック ボックスをオン**にします**。
+1. アプリの残りの既定値は、このエクスペリエンスに対して許容されます。
 1. **[保存]** を選択します。
 
-**API のアクセス許可**:
+**API 権限**で:
 
-1. アプリに > ユーザー **Microsoft Graph**があることを確認**します。読み取り**アクセス許可。
-1. [**アクセス許可の追加]、** **[api**の追加] の順に選択します。
-1. **[名前]** 列から*サーバー API アプリ*を選択します (たとえば、 **Blazor server AAD B2C**)。
-1. **API**の一覧を開きます。
-1. API へのアクセスを有効にします (たとえば、`API.Access`)。
+1. アプリに**グラフ** > **ユーザーの読み取り**アクセス許可があることを確認します。
+1. [**アクセス許可の追加**とそれに続く**マイ API] の**選択を行います。
+1. **[名前**] 列から *[サーバー API] アプリ*を選択します (**Blazorたとえば、サーバー AAD B2C)。**
+1. **API**リストを開きます。
+1. API へのアクセスを有効にします`API.Access`(たとえば、 )。
 1. **[アクセス許可の追加]** を選択します.
-1. **[{テナント名} の管理者コンテンツを付与]** ボタンを選択します。 **[はい]** を選択して確定します。
+1. [{**テナント名} の管理者コンテンツを付与**] ボタンを選択します。 **[はい]** を選択して確定します。
 
-**ホーム** > の**Azure AD B2C** > **ユーザーフロー**:
+**ホーム** > **Azure AD B2C** > **ユーザー フロー**:
 
-[サインアップとサインインのユーザーフローを作成する](/azure/active-directory-b2c/tutorial-create-user-flows)
+[サインアップとサインイン ユーザー フローを作成する](/azure/active-directory-b2c/tutorial-create-user-flows)
 
-少なくとも、 **Application claim** > **Display Name** user attribute を選択して、`LoginDisplay` コンポーネント (*Shared/logindisplay. razor*) に `context.User.Identity.Name` を設定します。
+少なくとも、**アプリケーション クレーム** > **の表示名**ユーザー属性を選択して`context.User.Identity.Name``LoginDisplay`、コンポーネント (*Shared/LoginDisplay.razor*) に設定します。
 
-次の情報を記録します。
+以下の情報を記録します。
 
-* *クライアントアプリ*アプリケーション Id (クライアント id) を記録します (たとえば、`33333333-3333-3333-3333-333333333333`)。
-* アプリ用に作成されたサインアップおよびサインインユーザーフロー名を記録します (たとえば、`B2C_1_signupsignin`)。
+* クライアント*アプリケーション*アプリケーション ID (クライアント ID) `33333333-3333-3333-3333-333333333333`(たとえば) を記録します。
+* アプリ用に作成されたサインアップユーザーおよびサインイン ユーザー のフロー名 (など`B2C_1_signupsignin`) を記録します。
 
 ### <a name="create-the-app"></a>アプリを作成する
 
-次のコマンドのプレースホルダーを、前に記録した情報に置き換え、コマンドシェルでコマンドを実行します。
+次のコマンドのプレースホルダーを、前に記録された情報に置き換えて、コマンド シェルでコマンドを実行します。
 
 ```dotnetcli
-dotnet new blazorwasm -au IndividualB2C --aad-b2c-instance "{AAD B2C INSTANCE}" --api-client-id "{SERVER API APP CLIENT ID}" --app-id-uri "{APP ID URI}" --client-id "{CLIENT APP CLIENT ID}" --default-scope "{DEFAULT SCOPE}" --domain "{DOMAIN}" -ho -ssp "{SIGN UP OR SIGN IN POLICY}" --tenant-id "{TENANT ID}"
+dotnet new blazorwasm -au IndividualB2C --aad-b2c-instance "{AAD B2C INSTANCE}" --api-client-id "{SERVER API APP CLIENT ID}" --app-id-uri "{SERVER API APP ID URI}" --client-id "{CLIENT APP CLIENT ID}" --default-scope "{DEFAULT SCOPE}" --domain "{DOMAIN}" -ho -ssp "{SIGN UP OR SIGN IN POLICY}" --tenant-id "{TENANT ID}"
 ```
 
-プロジェクトフォルダーが存在しない場合に作成する出力場所を指定するには、コマンドにパスを含む出力オプション (`-o BlazorSample`など) を含めます。 フォルダー名もプロジェクトの名前の一部になります。
+プロジェクト フォルダーが存在しない場合にプロジェクト フォルダーを作成する出力場所を指定するには、コマンドに出力オプションをパス (など`-o BlazorSample`) で含めます。 フォルダー名もプロジェクト名の一部になります。
 
-## <a name="server-app-configuration"></a>サーバーアプリの構成
+> [!NOTE]
+> アプリ ID URI を`app-id-uri`オプションに渡しますが、クライアント アプリで構成の変更が必要になる場合があります([アクセス トークンのスコープ](#access-token-scopes)セクションで説明します)。
 
-*このセクションは、ソリューションの**サーバー**アプリに関連しています。*
+## <a name="server-app-configuration"></a>サーバー アプリの構成
+
+*このセクションは、ソリューションの**サーバー**アプリに関連します。*
 
 ### <a name="authentication-package"></a>認証パッケージ
 
-ASP.NET Core Web Api の呼び出しを認証および承認するためのサポートは、`Microsoft.AspNetCore.Authentication.AzureAD.UI`によって提供されます。
+ASP.NETコア Web API への呼び出しの認証と承認の`Microsoft.AspNetCore.Authentication.AzureADB2C.UI`サポートは、 によって提供されます。
 
 ```xml
-<PackageReference Include="Microsoft.AspNetCore.Authentication.AzureAD.UI" 
+<PackageReference Include="Microsoft.AspNetCore.Authentication.AzureADB2C.UI" 
     Version="3.1.0" />
 ```
 
 ### <a name="authentication-service-support"></a>認証サービスのサポート
 
-`AddAuthentication` メソッドは、アプリ内で認証サービスを設定し、JWT ベアラーハンドラーを既定の認証方法として構成します。 `AddAzureADBearer` メソッドは、Azure Active Directory によって出力されるトークンを検証するために必要な JWT ベアラーハンドラー内の特定のパラメーターを設定します。
+この`AddAuthentication`メソッドは、アプリ内で認証サービスを設定し、JWT Bearer ハンドラーを既定の認証方法として構成します。 この`AddAzureADB2CBearer`メソッドは、Azure Active Directory B2C によって生成されたトークンを検証するために必要な JWT ベアラー ハンドラーの特定のパラメーターを設定します。
 
 ```csharp
-services.AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
-    .AddAzureADBearer(options => Configuration.Bind("AzureAd", options));
+services.AddAuthentication(AzureADB2CDefaults.BearerAuthenticationScheme)
+    .AddAzureADB2CBearer(options => Configuration.Bind("AzureAdB2C", options));
 ```
 
-`UseAuthentication` と `UseAuthorization` 次のことを確認します。
+`UseAuthentication`を`UseAuthorization`確認し、次のことを確認します。
 
-* アプリは、受信要求のトークンの解析と検証を試みます。
-* 適切な資格情報を使用せずに保護されたリソースにアクセスしようとした要求は失敗します。
+* アプリは、受信要求でトークンを解析し、検証しようとします。
+* 適切な資格情報を使用せずに保護されたリソースにアクセスしようとする要求は失敗します。
 
 ```csharp
 app.UseAuthentication();
 app.UseAuthorization();
 ```
 
+### <a name="useridentityname"></a>User.Identity.Name
+
+デフォルトでは、`User.Identity.Name`は設定されません。
+
+要求の種類から値を受け取るように`name`アプリを構成するには、in の[トークン検証パラメーター.NameClaimType](xref:Microsoft.IdentityModel.Tokens.TokenValidationParameters.NameClaimType)を<xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions>構成`Startup.ConfigureServices`します。
+
+```csharp
+services.Configure<JwtBearerOptions>(
+    AzureADB2CDefaults.JwtBearerAuthenticationScheme, options =>
+    {
+        options.TokenValidationParameters.NameClaimType = "name";
+    });
+```
+
 ### <a name="app-settings"></a>アプリケーション設定
 
-*Appsettings*ファイルには、アクセストークンの検証に使用される JWT ベアラーハンドラーを構成するためのオプションが含まれています。
+*appsettings.json*ファイルには、アクセス トークンの検証に使用される JWT ベアラー ハンドラーを構成するためのオプションが含まれています。
 
 ```json
 {
@@ -160,12 +178,12 @@ app.UseAuthorization();
 }
 ```
 
-### <a name="weatherforecast-controller"></a>WeatherForecast コントローラー
+### <a name="weatherforecast-controller"></a>天気予報コントローラ
 
-WeatherForecast コントローラー (*Controllers/WeatherForecastController*) は、コントローラーに `[Authorize]` 属性が適用された保護された API を公開します。 次の**点**を理解しておくことが重要です。
+天気予報コントローラ (*コントローラ/天気予報コントローラ.cs)* は、コントローラに適用された`[Authorize]`属性を持つ保護された API を公開します。 次の点を理解することが**重要**です。
 
-* この api コントローラーの `[Authorize]` 属性は、この API を承認されていないアクセスから保護する唯一の方法です。
-* Blazor WebAssembly で使用される `[Authorize]` 属性は、アプリに対するヒントとしてのみ機能し、アプリが正しく動作することをユーザーに承認する必要があります。
+* この`[Authorize]`API コントローラの属性は、この API を不正アクセスから保護する唯一のものです。
+* WebAssembly アプリでBlazor使用される属性は`[Authorize]`、アプリが正しく動作するためにユーザーに承認される必要があることを示すヒントとしてのみ機能します。
 
 ```csharp
 [Authorize]
@@ -181,30 +199,30 @@ public class WeatherForecastController : ControllerBase
 }
 ```
 
-## <a name="client-app-configuration"></a>クライアントアプリの構成
+## <a name="client-app-configuration"></a>クライアント アプリの構成
 
-*このセクションは、ソリューションの**クライアント**アプリに関連しています。*
+*このセクションは、ソリューションの**クライアント**アプリに関連します。*
 
 ### <a name="authentication-package"></a>認証パッケージ
 
-個々の B2C アカウント (`IndividualB2C`) を使用するようにアプリを作成すると、アプリは[Microsoft 認証ライブラリ](/azure/active-directory/develop/msal-overview)(`Microsoft.Authentication.WebAssembly.Msal`) のパッケージ参照を自動的に受け取ります。 このパッケージには、アプリがユーザーを認証し、保護された Api を呼び出すためのトークンを取得するのに役立つ一連のプリミティブが用意されています。
+個々の B2C アカウント (`IndividualB2C`) を使用するアプリが作成されると、アプリは自動的に Microsoft[認証ライブラリ](/azure/active-directory/develop/msal-overview)( )`Microsoft.Authentication.WebAssembly.Msal`のパッケージ参照を受け取ります。 パッケージには、アプリがユーザーを認証し、保護された API を呼び出すトークンを取得するのに役立つ一連のプリミティブが用意されています。
 
-アプリに認証を追加する場合は、アプリのプロジェクトファイルにパッケージを手動で追加します。
+アプリに認証を追加する場合は、アプリのプロジェクト ファイルにパッケージを手動で追加します。
 
 ```xml
 <PackageReference Include="Microsoft.Authentication.WebAssembly.Msal" 
     Version="{VERSION}" />
 ```
 
-前のパッケージ参照の `{VERSION}` を、<xref:blazor/get-started> に記載されている `Microsoft.AspNetCore.Blazor.Templates` パッケージのバージョンに置き換えます。
+上記`{VERSION}`のパッケージリファレンスを<xref:blazor/get-started>、この記事に示されているパッケージ`Microsoft.AspNetCore.Blazor.Templates`のバージョンに置き換えます。
 
-`Microsoft.Authentication.WebAssembly.Msal` パッケージは、`Microsoft.AspNetCore.Components.WebAssembly.Authentication` パッケージを推移的にアプリに追加します。
+パッケージ`Microsoft.Authentication.WebAssembly.Msal`は推移的にパッケージを`Microsoft.AspNetCore.Components.WebAssembly.Authentication`アプリに追加します。
 
 ### <a name="authentication-service-support"></a>認証サービスのサポート
 
-ユーザー認証のサポートは、`Microsoft.Authentication.WebAssembly.Msal` パッケージによって提供される `AddMsalAuthentication` 拡張メソッドを使用して、サービスコンテナーに登録されます。 このメソッドは、アプリが Id プロバイダー (IP) と対話するために必要なすべてのサービスを設定します。
+ユーザー認証のサポートは、パッケージによって提供される`AddMsalAuthentication`拡張メソッドを使用してサービス コンテナーに`Microsoft.Authentication.WebAssembly.Msal`登録されます。 このメソッドは、アプリが ID プロバイダー (IP) と対話するために必要なすべてのサービスを設定します。
 
-*Program.cs*
+*Program.cs:*
 
 ```csharp
 builder.Services.AddMsalAuthentication(options =>
@@ -214,44 +232,61 @@ builder.Services.AddMsalAuthentication(options =>
         "{AAD B2C INSTANCE}{DOMAIN}/{SIGN UP OR SIGN IN POLICY}";
     authentication.ClientId = "{CLIENT ID}";
     authentication.ValidateAuthority = false;
-    options.ProviderOptions.DefaultAccessTokenScopes.Add(
-        "{APP ID URI}/{DEFAULT SCOPE}");
+    options.ProviderOptions.DefaultAccessTokenScopes.Add("{SCOPE URI}");
 });
 ```
 
-`AddMsalAuthentication` メソッドは、コールバックを受け入れて、アプリの認証に必要なパラメーターを構成します。 アプリを構成するために必要な値は、アプリを登録するときに Azure Portal AAD 構成から取得できます。
+この`AddMsalAuthentication`メソッドは、アプリの認証に必要なパラメーターを構成するコールバックを受け入れます。 アプリを登録するときに、Azure ポータル AAD 構成からアプリを構成するために必要な値を取得できます。
 
-Blazor WebAssembly テンプレートは、`dotnet new` コマンド (`{APP ID URI}/{DEFAULT SCOPE}`) に指定された既定のスコープに対して、セキュリティで保護された API のアクセストークンを要求するようにアプリを自動的に構成します。
+### <a name="access-token-scopes"></a>アクセス トークン のスコープ
 
-既定のアクセストークンスコープは、次のようなアクセストークンスコープの一覧を表します。
+既定のアクセス トークン スコープは、次のアクセス トークン スコープのリストを表します。
 
-* サインイン要求に既定で含まれています。
-* 認証直後にアクセストークンをプロビジョニングするために使用されます。
+* 既定では、サインイン要求に含まれます。
+* 認証後すぐにアクセス トークンをプロビジョニングするために使用されます。
 
-すべてのスコープは、Azure Active Directory ルールごとに同じアプリに属している必要があります。 必要に応じて追加の API アプリ用に追加のスコープを追加できます。
+すべてのスコープは、Azure アクティブ ディレクトリ ルールごとに同じアプリに属している必要があります。 必要に応じて、追加の API アプリにスコープを追加できます。
 
 ```csharp
 builder.Services.AddMsalAuthentication(options =>
 {
     ...
-    options.ProviderOptions.DefaultAccessTokenScopes.Add(
-        "{APP ID URI}/{SCOPE}");
+    options.ProviderOptions.DefaultAccessTokenScopes.Add("{SCOPE URI}");
 });
 ```
+
+> [!NOTE]
+> Azure Portal がスコープ URI を提供し、API から*401 未承認*の応答を受け取ったときに**アプリが未処理の例外をスロー**する場合は、スキームとホストを含まないスコープ URI を使用してみてください。 たとえば、Azure ポータルでは、次のいずれかのスコープ URI 形式を提供できます。
+>
+> * `https://{ORGANIZATION}.onmicrosoft.com/{API CLIENT ID OR CUSTOM VALUE}/{SCOPE NAME}`
+> * `api://{API CLIENT ID OR CUSTOM VALUE}/{SCOPE NAME}`
+>
+> スキームとホストを使用せずにスコープ URI を指定します。
+>
+> ```csharp
+> options.ProviderOptions.DefaultAccessTokenScopes.Add(
+>     "{API CLIENT ID OR CUSTOM VALUE}/{SCOPE NAME}");
+> ```
+
+詳細については、「<xref:security/blazor/webassembly/additional-scenarios#request-additional-access-tokens>」を参照してください。
+
+### <a name="imports-file"></a>ファイルをインポートする
+
+[!INCLUDE[](~/includes/blazor-security/imports-file-hosted.md)]
 
 ### <a name="index-page"></a>Index ページ
 
 [!INCLUDE[](~/includes/blazor-security/index-page-msal.md)]
 
-### <a name="app-component"></a>アプリコンポーネント
+### <a name="app-component"></a>アプリ コンポーネント
 
 [!INCLUDE[](~/includes/blazor-security/app-component.md)]
 
-### <a name="redirecttologin-component"></a>RedirectToLogin コンポーネント
+### <a name="redirecttologin-component"></a>コンポーネントをリダイレクトします。
 
 [!INCLUDE[](~/includes/blazor-security/redirecttologin-component.md)]
 
-### <a name="logindisplay-component"></a>LoginDisplay コンポーネント
+### <a name="logindisplay-component"></a>ログインディスプレイコンポーネント
 
 [!INCLUDE[](~/includes/blazor-security/logindisplay-component.md)]
 
@@ -259,17 +294,22 @@ builder.Services.AddMsalAuthentication(options =>
 
 [!INCLUDE[](~/includes/blazor-security/authentication-component.md)]
 
-### <a name="fetchdata-component"></a>FetchData コンポーネント
+### <a name="fetchdata-component"></a>コンポーネントをフェッチします。
 
 [!INCLUDE[](~/includes/blazor-security/fetchdata-component.md)]
 
 ## <a name="run-the-app"></a>アプリを実行する
 
-サーバープロジェクトからアプリを実行します。 Visual Studio を使用する場合は、**ソリューションエクスプローラー**でサーバープロジェクトを選択し、ツールバーの **[実行]** ボタンを選択するか、 **[デバッグ]** メニューからアプリを起動します。
+サーバー プロジェクトからアプリを実行します。 Visual Studio を使用する場合は、**ソリューション エクスプローラー**でサーバー プロジェクトを選択し、ツール バーの [**実行**] ボタンを選択するか、[**デバッグ**] メニューからアプリを起動します。
 
+<!-- HOLD
+[!INCLUDE[](~/includes/blazor-security/usermanager-signinmanager.md)]
+-->
 [!INCLUDE[](~/includes/blazor-security/troubleshoot.md)]
 
 ## <a name="additional-resources"></a>その他のリソース
 
+* [追加のアクセス トークンを要求する](xref:security/blazor/webassembly/additional-scenarios#request-additional-access-tokens)
 * <xref:security/authentication/azure-ad-b2c>
-* [チュートリアル: Azure Active Directory B2C テナントを作成する](/azure/active-directory-b2c/tutorial-create-tenant)
+* [チュートリアル:Azure Active Directory B2C テナントの作成](/azure/active-directory-b2c/tutorial-create-tenant)
+* [Microsoft ID プラットフォームのドキュメント](/azure/active-directory/develop/)

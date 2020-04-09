@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/07/2020
 uid: getting-started
-ms.openlocfilehash: 047fd7a74d3d53f68a730d67b63c65fe6bda529f
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 86a0c8d017138a949fddc0356f3de548d368a4c0
+ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78644306"
+ms.lasthandoff: 04/06/2020
+ms.locfileid: "80417607"
 ---
 # <a name="tutorial-get-started-with-aspnet-core"></a>チュートリアル: ASP.NET Core の概要
 
@@ -91,7 +91,7 @@ cd aspnetcoreapp
 dotnet watch run
 ```
 
-コマンド シェルでアプリが開始したことが示されたら、[https://localhost:5001](https://localhost:5001) を参照します。
+コマンド シェルでアプリが開始したことが示されたら、`https://localhost:5001` を参照します。
 
 ## <a name="edit-a-razor-page"></a>Razor ページを編集する
 
@@ -99,7 +99,7 @@ dotnet watch run
 
 [!code-cshtml[](sample/index.cshtml?highlight=9)]
 
-[https://localhost:5001](https://localhost:5001) に移動し、ページを更新して、変更が表示されていることを確認します。
+`https://localhost:5001` に移動し、ページを更新して、変更が表示されていることを確認します。
 
 ## <a name="next-steps"></a>次の手順
 

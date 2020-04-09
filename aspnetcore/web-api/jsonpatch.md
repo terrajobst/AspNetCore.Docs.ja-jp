@@ -4,14 +4,14 @@ author: rick-anderson
 description: ASP.NET Core Web API において JSON パッチ要求を処理する方法について説明します。
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/01/2019
+ms.date: 04/02/2020
 uid: web-api/jsonpatch
-ms.openlocfilehash: cf1a00c1928652bf5210b2442087209e23b8868e
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: be4115e870dac818aeb6b1e65ddfb21e89d9cf25
+ms.sourcegitcommit: 9675db7bf4b67ae269f9226b6f6f439b5cce4603
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78652952"
+ms.lasthandoff: 04/03/2020
+ms.locfileid: "80625883"
 ---
 # <a name="jsonpatch-in-aspnet-core-web-api"></a>ASP.NET Core Web API における Json パッチ
 
@@ -23,30 +23,30 @@ ms.locfileid: "78652952"
 
 ## <a name="package-installation"></a>パッケージ インストール
 
-JSON パッチのサポートは、`Microsoft.AspNetCore.Mvc.NewtonsoftJson` パッケージを使用して有効にされます。 この機能を有効にするには、アプリで以下を行う必要があります。
+アプリで JSON パッチのサポートを有効にするには、次の手順を実行します。
 
-* [Microsoft.AspNetCore.Mvc.NewtonsoftJson](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/) NuGet パッケージをインストールします。
-* プロジェクトの `Startup.ConfigureServices` メソッドを更新し、`AddNewtonsoftJson` への呼び出しを含めるようにします。
+1. [Microsoft.AspNetCore.Mvc.NewtonsoftJson](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/) NuGet パッケージをインストールします。
+1. プロジェクトの`Startup.ConfigureServices`メソッドを更新して、<xref:Microsoft.Extensions.DependencyInjection.NewtonsoftJsonMvcBuilderExtensions.AddNewtonsoftJson*>を呼び出します。 次に例を示します。
 
-  ```csharp
-  services
-      .AddControllersWithViews()
-      .AddNewtonsoftJson();
-  ```
+    ```csharp
+    services
+        .AddControllersWithViews()
+        .AddNewtonsoftJson();
+    ```
 
 `AddNewtonsoftJson` は MVC サービス登録メソッドと互換性があります。
 
-  * `AddRazorPages`
-  * `AddControllersWithViews`
-  * `AddControllers`
+* <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddRazorPages*>
+* <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddControllersWithViews*>
+* <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddControllers*>
 
-## <a name="jsonpatch-addnewtonsoftjson-and-systemtextjson"></a>JsonPatch、AddNewtonsoftJson、および System.Text.Json
-  
-`AddNewtonsoftJson` では、`System.Text.Json`すべての**JSON コンテンツの書式設定に使用される** ベースの入力と出力フォーマッタが置換されます。 他のフォーマッタを変更しないまま、`JsonPatch` を使用して `Newtonsoft.Json` のサポートを追加するには、プロジェクトの `Startup.ConfigureServices` を次のように更新します。
+## <a name="json-patch-addnewtonsoftjson-and-systemtextjson"></a>JSON パッチ、追加ニュートンソフトJson、およびシステム.Text.Json
+
+`AddNewtonsoftJson`すべての JSON`System.Text.Json`コンテンツの書式設定に使用される、ベースの**all**入力および出力フォーマッタを置き換えます。 を使用して`Newtonsoft.Json`JSON パッチのサポートを追加し、他のフォーマッタを変更せずに残`Startup.ConfigureServices`す場合は、プロジェクトのメソッドを次のように更新します。
 
 [!code-csharp[](jsonpatch/samples/3.0/WebApp1/Startup.cs?name=snippet)]
 
-上記のコードでは、[Microsoft.AspNetCore.Mvc.NewtonsoftJson](https://nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson) への参照と、次の using ステートメントが必要となります。
+上記のコードには、パッケージ`Microsoft.AspNetCore.Mvc.NewtonsoftJson`と次`using`のステートメントが必要です。
 
 [!code-csharp[](jsonpatch/samples/3.0/WebApp1/Startup.cs?name=snippet1)]
 
@@ -56,9 +56,9 @@ PUT および [PATCH](https://tools.ietf.org/html/rfc5789) メソッドは、既
 
 ## <a name="json-patch"></a>JSON パッチ
 
-[JSON パッチ](https://tools.ietf.org/html/rfc6902)は、リソースに適用される更新を指定するための形式です。 JSON パッチ ドキュメントには、"*操作*" の配列が含まれます。 各操作では、配列要素の追加やプロパティ値の置換など、特定の種類の変更を識別します。
+[JSON パッチ](https://tools.ietf.org/html/rfc6902)は、リソースに適用される更新を指定するための形式です。 JSON パッチ ドキュメントには、"*操作*" の配列が含まれます。 各操作では、特定の種類の変更を識別します。 このような変更の例としては、配列要素の追加やプロパティ値の置き換えなどがあります。
 
-たとえば、次の JSON ドキュメントは、1 つのリソースとそのリソースに対応する JSON パッチ ドキュメント、およびパッチ操作を適用した結果を表しています。
+たとえば、次の JSON ドキュメントは、リソース、リソースの JSON パッチ ドキュメント、およびパッチ操作を適用した結果を表します。
 
 ### <a name="resource-example"></a>リソースの例
 
@@ -98,19 +98,19 @@ PUT および [PATCH](https://tools.ietf.org/html/rfc5789) メソッドは、既
 }
 ```
 
-JSON パッチ ドキュメントをリソースに適用することで行われる変更は、アトミックです。つまり、リスト内の任意の操作が失敗した場合は、リスト内のどの操作も適用されません。
+JSON パッチドキュメントをリソースに適用することによって行われた変更はアトミックです。 リスト内の操作が失敗した場合、リスト内の操作は適用されません。
 
 ## <a name="path-syntax"></a>パス構文
 
 操作オブジェクトの [path](https://tools.ietf.org/html/rfc6901) プロパティでは、レベル間にスラッシュを保持します。 たとえば、「 `"/address/zipCode"` 」のように入力します。
 
-0 から始まるインデックスは、配列の要素を指定するために使用されます。 `addresses` 配列の最初の要素は、`/addresses/0` にあります。 配列の末尾への `add` では、インデックス番号ではなく、`/addresses/-` のようにハイフン (-) を使用します。
+0 から始まるインデックスは、配列の要素を指定するために使用されます。 `addresses` 配列の最初の要素は、`/addresses/0` にあります。 配列`add`の末尾に、インデックス番号ではなくハイフン (`-`) を使用します。 `/addresses/-`
 
-### <a name="operations"></a>運用
+### <a name="operations"></a>操作
 
 次の表は、[JSON パッチの仕様](https://tools.ietf.org/html/rfc6902)に定義されている、サポートされる操作を示しています。
 
-|操作  | 説明 |
+|Operation  | Notes |
 |-----------|--------------------------------|
 | `add`     | プロパティまたは配列要素を追加します。 既存のプロパティの場合: 値を設定します。|
 | `remove`  | プロパティまたは配列要素を削除します。 |
@@ -119,7 +119,7 @@ JSON パッチ ドキュメントをリソースに適用することで行わ�
 | `copy`    | ソースからの値を使用した宛先への `add` と同じです。 |
 | `test`    | `path` の値が指定された `value`と一致する場合に、成功の状態コードを返します。|
 
-## <a name="jsonpatch-in-aspnet-core"></a>ASP.NET Core における JSON パッチ
+## <a name="json-patch-in-aspnet-core"></a>ASP.NETコアの JSON パッチ
 
 JSON パッチの ASP.NET Core 実装は、[Microsoft.AspNetCore.JsonPatch](https://www.nuget.org/packages/microsoft.aspnetcore.jsonpatch/) NuGet パッケージ内に提供されています。
 
@@ -128,14 +128,14 @@ JSON パッチの ASP.NET Core 実装は、[Microsoft.AspNetCore.JsonPatch](http
 API コントローラーにおける JSON パッチ用のアクション メソッド:
 
 * `HttpPatch` 属性によって注釈されます。
-* 通常は `JsonPatchDocument<T>` を利用して、`[FromBody]` を受け入れます。
+* 通常は `[FromBody]` を利用して、`JsonPatchDocument<T>` を受け入れます。
 * パッチ ドキュメント上の `ApplyTo` を呼び出して、変更を適用します。
 
 次に例を示します。
 
 [!code-csharp[](jsonpatch/samples/2.2/Controllers/HomeController.cs?name=snippet_PatchAction&highlight=1,3,9)]
 
-サンプル アプリからのこのコードでは、以下の `Customer` モデルを利用します。
+サンプル アプリのこのコードは、次`Customer`のモデルで動作します。
 
 [!code-csharp[](jsonpatch/samples/2.2/Models/Customer.cs?name=snippet_Customer)]
 
@@ -147,7 +147,7 @@ API コントローラーにおける JSON パッチ用のアクション メソ
 * パッチを適用します
 * 応答の本文内で結果を返します。
 
- 実際のアプリでは、コードはデータベースなどの保存場所からデータを取得し、パッチを適用した後にデータベースを更新します。
+実際のアプリでは、コードはデータベースなどの保存場所からデータを取得し、パッチを適用した後にデータベースを更新します。
 
 ### <a name="model-state"></a>モデルの状態
 
@@ -163,7 +163,7 @@ API コントローラーにおける JSON パッチ用のアクション メソ
 
 ### <a name="dynamic-objects"></a>動的オブジェクト
 
-次のアクション メソッドの例では、動的オブジェクトにパッチを適用する方法を示しています。
+次のアクション メソッドの例は、動的オブジェクトにパッチを適用する方法を示しています。
 
 [!code-csharp[](jsonpatch/samples/2.2/Controllers/HomeController.cs?name=snippet_Dynamic)]
 
@@ -188,25 +188,25 @@ API コントローラーにおける JSON パッチ用のアクション メソ
     * プロパティが null 値を許容する場合: null を設定します。
     * プロパティが null 値を許容しない場合: `default<T>` を設定します。
 
-次のサンプル パッチ ドキュメントでは、`CustomerName` に null を設定し、`Orders[0]` を削除します。
+次のサンプル パッチ`CustomerName`ドキュメントは null`Orders[0]`に設定され、削除されます。
 
 [!code-json[](jsonpatch/samples/2.2/JSON/remove.json)]
 
 ## <a name="the-replace-operation"></a>置換の操作
 
-この操作は、`remove` が後に続く `add` と機能的に同じです。
+この操作は、`add` が後に続く `remove` と機能的に同じです。
 
-次のサンプル パッチ ドキュメントでは、`CustomerName` の値を設定して、`Orders[0]` を新しい `Order` オブジェクトに置き換えます。
+次のサンプル パッチ ドキュメントでは、`CustomerName`値を設定`Orders[0]`し、新`Order`しいオブジェクトに置き換えます。
 
 [!code-json[](jsonpatch/samples/2.2/JSON/replace.json)]
 
 ## <a name="the-move-operation"></a>移動の操作
 
-* `path` が配列要素を参照する場合: `from` 要素を `path` 要素の場所にコピーしてから、`remove` 要素に対して `from` 操作を実行します。
-* `path` がプロパティを参照する場合: `from` プロパティの値を `path` プロパティにコピーしてから、`remove` プロパティに対して `from` 操作を実行します。
+* `path` が配列要素を参照する場合: `from` 要素を `path` 要素の場所にコピーしてから、`from` 要素に対して `remove` 操作を実行します。
+* `path` がプロパティを参照する場合: `from` プロパティの値を `path` プロパティにコピーしてから、`from` プロパティに対して `remove` 操作を実行します。
 * `path` が存在しないプロパティを参照する場合:
   * パッチへのリソースが静的オブジェクトの場合: 要求は失敗します。
-  * パッチへのリソースが動的オブジェクトの場合: `from` プロパティを `path`によって指示された場所にコピーしてから、`remove` プロパティに対して `from` 操作を実行します。
+  * パッチへのリソースが動的オブジェクトの場合: `from` プロパティを `path`によって指示された場所にコピーしてから、`from` プロパティに対して `remove` 操作を実行します。
 
 次のサンプル パッチ ドキュメントでは、以下の操作を行います。
 
@@ -218,7 +218,7 @@ API コントローラーにおける JSON パッチ用のアクション メソ
 
 ## <a name="the-copy-operation"></a>コピー操作
 
-この操作は、最後の `move` 手順がない `remove` 操作と機能的に同じです。
+この操作は、最後の `remove` 手順がない `move` 操作と機能的に同じです。
 
 次のサンプル パッチ ドキュメントでは、以下の操作を行います。
 
@@ -237,16 +237,16 @@ API コントローラーにおける JSON パッチ用のアクション メソ
 
 [!code-json[](jsonpatch/samples/2.2/JSON/test-fail.json)]
 
-## <a name="get-the-code"></a>コードの入手
+## <a name="get-the-code"></a>コードを取得する
 
-[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/jsonpatch/samples/2.2)します。 ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/jsonpatch/samples)します。 ([ダウンロード方法](xref:index#how-to-download-a-sample))
 
 サンプルをテストするには、アプリを実行して、次の設定を使って HTTP 要求を送信します。
 
 * URL: `http://localhost:{port}/jsonpatch/jsonpatchwithmodelstate`
 * HTTP メソッド: `PATCH`
 * ヘッダー: `Content-Type: application/json-patch+json`
-* Body: *json プロジェクトフォルダーから json 修正*プログラムドキュメントのサンプルのいずれかをコピーして貼り付けます。
+* 本文: JSON パッチドキュメントのサンプルのいずれかを JSON*プロジェクトフォルダー*からコピーして貼り付けます。
 
 ## <a name="additional-resources"></a>その他のリソース
 
@@ -318,11 +318,11 @@ JSON パッチ ドキュメントをリソースに適用することで行わ�
 
 0 から始まるインデックスは、配列の要素を指定するために使用されます。 `addresses` 配列の最初の要素は、`/addresses/0` にあります。 配列の末尾への `add` では、インデックス番号ではなく、`/addresses/-` のようにハイフン (-) を使用します。
 
-### <a name="operations"></a>運用
+### <a name="operations"></a>操作
 
 次の表は、[JSON パッチの仕様](https://tools.ietf.org/html/rfc6902)に定義されている、サポートされる操作を示しています。
 
-|操作  | 説明 |
+|Operation  | Notes |
 |-----------|--------------------------------|
 | `add`     | プロパティまたは配列要素を追加します。 既存のプロパティの場合: 値を設定します。|
 | `remove`  | プロパティまたは配列要素を削除します。 |
@@ -333,14 +333,14 @@ JSON パッチ ドキュメントをリソースに適用することで行わ�
 
 ## <a name="jsonpatch-in-aspnet-core"></a>ASP.NET Core における JSON パッチ
 
-JSON パッチの ASP.NET Core 実装は、[Microsoft.AspNetCore.JsonPatch](https://www.nuget.org/packages/microsoft.aspnetcore.jsonpatch/) NuGet パッケージ内に提供されています。 パッケージは、[Microsoft.AspNetCore.App](xref:fundamentals/metapackage-app) メタパッケージに含まれています。
+JSON パッチの ASP.NET Core 実装は、[Microsoft.AspNetCore.JsonPatch](https://www.nuget.org/packages/microsoft.aspnetcore.jsonpatch/) NuGet パッケージ内に提供されています。 パッケージは、[メタ](xref:fundamentals/metapackage-app)パッケージに含まれています。
 
 ## <a name="action-method-code"></a>アクション メソッド コード
 
 API コントローラーにおける JSON パッチ用のアクション メソッド:
 
 * `HttpPatch` 属性によって注釈されます。
-* 通常は `JsonPatchDocument<T>` を利用して、`[FromBody]` を受け入れます。
+* 通常は `[FromBody]` を利用して、`JsonPatchDocument<T>` を受け入れます。
 * パッチ ドキュメント上の `ApplyTo` を呼び出して、変更を適用します。
 
 次に例を示します。
@@ -406,7 +406,7 @@ API コントローラーにおける JSON パッチ用のアクション メソ
 
 ## <a name="the-replace-operation"></a>置換の操作
 
-この操作は、`remove` が後に続く `add` と機能的に同じです。
+この操作は、`add` が後に続く `remove` と機能的に同じです。
 
 次のサンプル パッチ ドキュメントでは、`CustomerName` の値を設定して、`Orders[0]` を新しい `Order` オブジェクトに置き換えます。
 
@@ -414,11 +414,11 @@ API コントローラーにおける JSON パッチ用のアクション メソ
 
 ## <a name="the-move-operation"></a>移動の操作
 
-* `path` が配列要素を参照する場合: `from` 要素を `path` 要素の場所にコピーしてから、`remove` 要素に対して `from` 操作を実行します。
-* `path` がプロパティを参照する場合: `from` プロパティの値を `path` プロパティにコピーしてから、`remove` プロパティに対して `from` 操作を実行します。
+* `path` が配列要素を参照する場合: `from` 要素を `path` 要素の場所にコピーしてから、`from` 要素に対して `remove` 操作を実行します。
+* `path` がプロパティを参照する場合: `from` プロパティの値を `path` プロパティにコピーしてから、`from` プロパティに対して `remove` 操作を実行します。
 * `path` が存在しないプロパティを参照する場合:
   * パッチへのリソースが静的オブジェクトの場合: 要求は失敗します。
-  * パッチへのリソースが動的オブジェクトの場合: `from` プロパティを `path`によって指示された場所にコピーしてから、`remove` プロパティに対して `from` 操作を実行します。
+  * パッチへのリソースが動的オブジェクトの場合: `from` プロパティを `path`によって指示された場所にコピーしてから、`from` プロパティに対して `remove` 操作を実行します。
 
 次のサンプル パッチ ドキュメントでは、以下の操作を行います。
 
@@ -430,7 +430,7 @@ API コントローラーにおける JSON パッチ用のアクション メソ
 
 ## <a name="the-copy-operation"></a>コピー操作
 
-この操作は、最後の `move` 手順がない `remove` 操作と機能的に同じです。
+この操作は、最後の `remove` 手順がない `move` 操作と機能的に同じです。
 
 次のサンプル パッチ ドキュメントでは、以下の操作を行います。
 
@@ -449,16 +449,16 @@ API コントローラーにおける JSON パッチ用のアクション メソ
 
 [!code-json[](jsonpatch/samples/2.2/JSON/test-fail.json)]
 
-## <a name="get-the-code"></a>コードの入手
+## <a name="get-the-code"></a>コードを取得する
 
-[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/jsonpatch/samples/2.2)します。 ([ダウンロード方法](xref:index#how-to-download-a-sample))。
+[サンプル コードを表示またはダウンロード](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/jsonpatch/samples/2.2)します。 ([ダウンロード方法](xref:index#how-to-download-a-sample))
 
 サンプルをテストするには、アプリを実行して、次の設定を使って HTTP 要求を送信します。
 
 * URL: `http://localhost:{port}/jsonpatch/jsonpatchwithmodelstate`
 * HTTP メソッド: `PATCH`
 * ヘッダー: `Content-Type: application/json-patch+json`
-* Body: *json プロジェクトフォルダーから json 修正*プログラムドキュメントのサンプルのいずれかをコピーして貼り付けます。
+* 本文: JSON パッチドキュメントのサンプルのいずれかを JSON*プロジェクトフォルダー*からコピーして貼り付けます。
 
 ## <a name="additional-resources"></a>その他のリソース
 

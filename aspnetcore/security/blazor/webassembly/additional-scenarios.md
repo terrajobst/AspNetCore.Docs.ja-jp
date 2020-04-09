@@ -1,60 +1,99 @@
 ---
-title: Blazor WebasASP.NET Core 追加のセキュリティシナリオ
+title: ASP.NETコアBlazorWeb アセンブリ追加のセキュリティ シナリオ
 author: guardrex
 description: ''
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/19/2020
+ms.date: 03/30/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/webassembly/additional-scenarios
-ms.openlocfilehash: ccb512392341e3eea33f4ab45740b7900f7b63f9
-ms.sourcegitcommit: 9b6e7f421c243963d5e419bdcfc5c4bde71499aa
+ms.openlocfilehash: 516132379ae20bd31c0f3b3261bb09b3f5b218f2
+ms.sourcegitcommit: 1d8f1396ccc66a0c3fcb5e5f36ea29b50db6d92a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/21/2020
-ms.locfileid: "79989456"
+ms.lasthandoff: 04/01/2020
+ms.locfileid: "80501124"
 ---
-# <a name="aspnet-core-blazor-webassembly-additional-security-scenarios"></a>ASP.NET Core Blazor Webasの追加のセキュリティシナリオ
+# <a name="aspnet-core-blazor-webassembly-additional-security-scenarios"></a>ASP.NET コア Blazor WebAssembly の追加のセキュリティ シナリオ
 
-[Javier Calvarro jeannine](https://github.com/javiercn)
+[ハビエル・カルバロ・ネルソン](https://github.com/javiercn)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
 [!INCLUDE[](~/includes/blazorwasm-3.2-template-article-notice.md)]
 
-## <a name="handle-token-request-errors"></a>トークン要求エラーを処理する
+## <a name="request-additional-access-tokens"></a>追加のアクセス トークンを要求する
 
-シングルページアプリケーション (SPA) が Open ID Connect (OIDC) を使用してユーザーを認証すると、認証状態は SPA 内および Id プロバイダー (IP) 内でローカルに保持されます。これは、ユーザーが入力したセッションクッキーの形式で、認証.
+ほとんどのアプリは、使用する保護されたリソースと対話するためにアクセス トークンのみを必要とします。 シナリオによっては、アプリが複数のリソースとやり取りするために複数のトークンを必要とする場合があります。
 
-通常、ユーザーに対して IP が生成するトークンは短時間、通常は1時間にわたって有効であるため、クライアントアプリは定期的に新しいトークンを取得する必要があります。 そうしないと、許可されたトークンの有効期限が切れると、ユーザーはログアウトされます。 ほとんどの場合、OIDC クライアントは、認証状態または IP 内に保持される "セッション" によってユーザーの認証を再度要求することなく、新しいトークンをプロビジョニングできます。
+次の例では、ユーザー データを読み取ってメールを送信するためにアプリで追加の Azure アクティブ ディレクトリ (AAD) Microsoft Graph API スコープが必要です。 Azure AAD ポータルで Microsoft Graph API のアクセス許可を追加すると、追加のスコープが`Program.Main`クライアント アプリ ( , *Program.cs)* で構成されます。
 
-場合によっては、ユーザーの介入なしにクライアントがトークンを取得できないことがあります。たとえば、何らかの理由でユーザーが明示的に IP からログアウトした場合などです。 このシナリオは、ユーザーが `https://login.microsoftonline.com` にアクセスしてログアウトした場合に発生します。これらのシナリオでは、アプリはユーザーがログアウトしたことをすぐに認識できません。クライアントが保持するトークンは、有効でなくなった可能性があります。 また、クライアントは、現在のトークンの有効期限が切れた後に、ユーザーの介入なしに新しいトークンをプロビジョニングすることはできません。
+```csharp
+builder.Services.AddMsalAuthentication(options =>
+{
+    ...
 
-これらのシナリオは、トークンベースの認証に固有のものではありません。 これらは、SPAs の性質の一部です。 認証クッキーが削除されると、cookie を使用する SPA もサーバー API を呼び出すことができません。
+    options.ProviderOptions.AdditionalScopesToConsent.Add(
+        "https://graph.microsoft.com/Mail.Send");
+    options.ProviderOptions.AdditionalScopesToConsent.Add(
+        "https://graph.microsoft.com/User.Read");
+}
+```
 
-アプリが保護されたリソースに対する API 呼び出しを実行するときは、次の点に注意する必要があります。
+この`IAccessTokenProvider.RequestToken`メソッドは、次の例に示すように、アプリが特定のスコープのセットでトークンをプロビジョニングできるようにするオーバーロードを提供します。
 
-* API を呼び出すための新しいアクセストークンをプロビジョニングするには、ユーザーが再度認証される必要があります。
-* クライアントに有効なトークンがある場合でも、トークンがユーザーによって取り消されたために、サーバーへの呼び出しが失敗する可能性があります。
+```csharp
+var tokenResult = await AuthenticationService.RequestAccessToken(
+    new AccessTokenRequestOptions
+    {
+        Scopes = new[] { "https://graph.microsoft.com/Mail.Send", 
+            "https://graph.microsoft.com/User.Read" }
+    });
 
-アプリがトークンを要求すると、次の2つの結果が得られます。
+if (tokenResult.TryGetToken(out var token))
+{
+    ...
+}
+```
 
-* 要求が成功し、アプリに有効なトークンがあります。
-* 要求は失敗します。アプリは、新しいトークンを取得するために、ユーザーを再度認証する必要があります。
+`TryGetToken`返します：
 
-トークン要求が失敗した場合は、リダイレクトを実行する前に、現在の状態を保存するかどうかを決定する必要があります。 次のようないくつかの方法があり、複雑さが増します。
+* `true`を使用`token`します。
+* `false`トークンが取得されない場合。
 
-* 現在のページの状態をセッションストレージに格納します。 `OnInitializeAsync`中に、続行する前に状態を復元できるかどうかを確認してください。
-* クエリ文字列パラメーターを追加し、それを使用して、以前に保存した状態を再ハイドレートする必要があることをアプリに通知する方法として使用します。
-* セッションストレージにデータを格納するための一意の識別子を持つクエリ文字列パラメーターを追加します。他の項目と競合するリスクはありません。
+## <a name="handle-token-request-errors"></a>トークン要求エラーの処理
+
+シングル ページ アプリケーション (SPA) が Open ID 接続 (OIDC) を使用してユーザーを認証する場合、認証状態は、ユーザーが資格情報を提供した結果として設定されたセッション Cookie の形式で、SPA 内および ID プロバイダー (IP) 内でローカルに維持されます。
+
+通常、ユーザーに対して生成される IP トークンは、通常約 1 時間の短い期間有効であるため、クライアント アプリは定期的に新しいトークンをフェッチする必要があります。 そうしないと、付与されたトークンの有効期限が切れた後に、ユーザーがログアウトされます。 ほとんどの場合、OIDC クライアントは、認証状態または IP 内に保持されている"セッション"のおかげでユーザーが再認証を要求することなく、新しいトークンをプロビジョニングできます。
+
+何らかの理由でユーザーが明示的に IP からログアウトする場合など、ユーザーの操作なしにクライアントがトークンを取得できない場合があります。 このシナリオは、ユーザーがアクセス`https://login.microsoftonline.com`してログアウトした場合に発生します。これらのシナリオでは、アプリは、ユーザーがログアウトしたことをすぐにはわかりません。クライアントが保持しているトークンは、もはや有効ではない可能性があります。 また、現在のトークンの有効期限が切れた後、クライアントはユーザーの操作なしで新しいトークンをプロビジョニングできません。
+
+これらのシナリオは、トークンベースの認証に固有のものではありません。 彼らは、SPAの性質の一部です。 また、認証 Cookie が削除された場合、Cookie を使用する SPA はサーバー API の呼び出しに失敗します。
+
+アプリが保護されたリソースに対して API 呼び出しを実行する場合は、次の点に注意する必要があります。
+
+* 新しいアクセス トークンをプロビジョニングして API を呼び出すために、ユーザーが再び認証を受ける必要がある場合があります。
+* クライアントに有効と思われるトークンがある場合でも、ユーザーがトークンを取り消したため、サーバーへの呼び出しが失敗する可能性があります。
+
+アプリがトークンを要求すると、次の 2 つの結果が考えられます。
+
+* 要求が成功し、アプリに有効なトークンが含まれています。
+* 要求が失敗し、アプリは新しいトークンを取得するためにユーザーを再認証する必要があります。
+
+トークン要求が失敗した場合は、リダイレクトを実行する前に、現在の状態を保存するかどうかを決定する必要があります。 複雑さのレベルが高まる中、いくつかのアプローチが存在します。
+
+* 現在のページの状態をセッション ストレージに格納します。 の`OnInitializeAsync`間に、状態が復元可能かどうかを確認してから続行してください。
+* クエリ文字列パラメーターを追加し、以前に保存した状態を再処理する必要があることをアプリに通知する方法として使用します。
+* 一意の識別子を持つクエリ文字列パラメーターを追加して、他の項目との競合を危険にさらすことなく、データをセッション ストレージに格納します。
 
 以下の例では、次のことを行っています。
 
-* ログインページにリダイレクトする前に状態を保持します。
-* クエリ文字列パラメーターを使用して、認証後に以前の状態を回復します。
+* ログイン ページにリダイレクトする前に状態を保持します。
+* クエリ文字列パラメーターを使用して、認証後に前の状態を回復します。
 
 ```razor
 <EditForm Model="User" @onsubmit="OnSaveAsync">
@@ -117,9 +156,9 @@ ms.locfileid: "79989456"
 
 ## <a name="save-app-state-before-an-authentication-operation"></a>認証操作の前にアプリの状態を保存する
 
-認証操作中に、ブラウザーが IP にリダイレクトされる前に、アプリの状態を保存することが必要になる場合があります。 これは、状態コンテナーのようなものを使用していて、認証が成功した後に状態を復元する場合に発生する可能性があります。 カスタム認証状態オブジェクトを使用して、アプリ固有の状態またはその参照を保持し、認証操作が正常に完了したらその状態を復元することができます。
+認証操作中に、ブラウザーが IP にリダイレクトされる前にアプリの状態を保存する必要がある場合があります。 これは、状態コンテナーのようなものを使用していて、認証が成功した後に状態を復元する場合に発生する可能性があります。 カスタム認証状態オブジェクトを使用して、アプリ固有の状態またはアプリケーションへの参照を保持し、認証操作が正常に完了した後にその状態を復元できます。
 
-`Authentication` コンポーネント (*Pages/Authentication. razor*):
+`Authentication`コンポーネント (*ページ/認証.カミソリ*):
 
 ```razor
 @page "/authentication/{action}"
@@ -163,40 +202,27 @@ ms.locfileid: "79989456"
 }
 ```
 
-## <a name="request-additional-access-tokens"></a>追加のアクセストークンを要求する
+## <a name="customize-app-routes"></a>アプリのルートをカスタマイズする
 
-ほとんどのアプリでは、使用する保護されたリソースと対話するためのアクセストークンのみが必要です。 場合によっては、アプリで2つ以上のリソースを操作するために複数のトークンが必要になることがあります。 `IAccessTokenProvider.RequestToken` メソッドは、次の例に示すように、アプリが特定のスコープセットを使用してトークンをプロビジョニングできるようにするオーバーロードを提供します。
-
-```csharp
-var tokenResult = await AuthenticationService.RequestAccessToken(
-    new AccessTokenRequestOptions
-    {
-        Scopes = new[] { "https://graph.microsoft.com/Mail.Send", 
-            "https://graph.microsoft.com/User.Read" }
-    });
-```
-
-## <a name="customize-app-routes"></a>アプリルートをカスタマイズする
-
-既定では、`Microsoft.AspNetCore.Components.WebAssembly.Authentication` ライブラリは、さまざまな認証状態を表すために、次の表に示すルートを使用します。
+既定では、ライブラリ`Microsoft.AspNetCore.Components.WebAssembly.Authentication`は、次の表に示すルートを使用して、さまざまな認証状態を表します。
 
 | ルート                            | 目的 |
 | -------------------------------- | ------- |
 | `authentication/login`           | サインイン操作をトリガーします。 |
 | `authentication/login-callback`  | サインイン操作の結果を処理します。 |
-| `authentication/login-failed`    | 何らかの理由でサインイン操作が失敗した場合に、エラーメッセージを表示します。 |
+| `authentication/login-failed`    | 何らかの理由でサインイン操作が失敗した場合にエラー メッセージを表示します。 |
 | `authentication/logout`          | サインアウト操作をトリガーします。 |
 | `authentication/logout-callback` | サインアウト操作の結果を処理します。 |
-| `authentication/logout-failed`   | 何らかの理由でサインアウト操作が失敗した場合に、エラーメッセージを表示します。 |
+| `authentication/logout-failed`   | 何らかの理由でサインアウト操作が失敗した場合にエラー メッセージを表示します。 |
 | `authentication/logged-out`      | ユーザーが正常にログアウトしたことを示します。 |
-| `authentication/profile`         | ユーザープロファイルを編集する操作をトリガーします。 |
+| `authentication/profile`         | ユーザー プロファイルを編集する操作をトリガーします。 |
 | `authentication/register`        | 新しいユーザーを登録する操作をトリガーします。 |
 
-上の表に示されているルートは、`RemoteAuthenticationOptions<TProviderOptions>.AuthenticationPaths`を使用して構成できます。 カスタムルートを提供するオプションを設定する場合は、アプリに各パスを処理するルートがあることを確認します。
+上記の表に示したルートは、 を使用`RemoteAuthenticationOptions<TProviderOptions>.AuthenticationPaths`して構成できます。 カスタム ルートを提供するオプションを設定する場合は、アプリに各パスを処理するルートがあることを確認します。
 
-次の例では、すべてのパスの先頭に `/security`が付きます。
+次の例では、すべてのパスの先頭に`/security`.
 
-`Authentication` コンポーネント (*Pages/Authentication. razor*):
+`Authentication`コンポーネント (*ページ/認証.カミソリ*):
 
 ```razor
 @page "/security/{action}"
@@ -210,7 +236,7 @@ var tokenResult = await AuthenticationService.RequestAccessToken(
 }
 ```
 
-`Program.Main` (*Program.cs*):
+`Program.Main`(*Program.cs*):
 
 ```csharp
 builder.Services.AddApiAuthorization(options => { 
@@ -226,7 +252,7 @@ builder.Services.AddApiAuthorization(options => {
 });
 ```
 
-完全に異なるパスを必要とする場合は、前述のようにルートを設定し、明示的なアクションパラメーターを使用して `RemoteAuthenticatorView` を表示します。
+要件が完全に異なるパスを要求する場合は、前述のようにルートを設定し`RemoteAuthenticatorView`、明示的な action パラメーターを使用してをレンダリングします。
 
 ```razor
 @page "/register"
@@ -234,13 +260,13 @@ builder.Services.AddApiAuthorization(options => {
 <RemoteAuthenticatorView Action="@RemoteAuthenticationActions.Register" />
 ```
 
-UI を別のページに分割することもできます。
+この操作を行う場合は、UI を別のページに分割できます。
 
-## <a name="customize-the-authentication-user-interface"></a>認証ユーザーインターフェイスをカスタマイズする
+## <a name="customize-the-authentication-user-interface"></a>認証ユーザー インターフェイスのカスタマイズ
 
-`RemoteAuthenticatorView` には、各認証状態の UI 部分の既定のセットが含まれています。 各状態は、カスタム `RenderFragment`を渡すことによってカスタマイズできます。 初期ログインプロセス中に表示されるテキストをカスタマイズするには、次のように `RemoteAuthenticatorView` を変更します。
+`RemoteAuthenticatorView`には、各認証状態に対する UI 部分の既定のセットが含まれています。 各状態は、カスタム`RenderFragment`を渡すことによってカスタマイズできます。 初期ログイン処理中に表示されるテキストをカスタマイズするには、次`RemoteAuthenticatorView`のように変更できます。
 
-`Authentication` コンポーネント (*Pages/Authentication. razor*):
+`Authentication`コンポーネント (*ページ/認証.カミソリ*):
 
 ```razor
 @page "/security/{action}"
@@ -258,9 +284,9 @@ UI を別のページに分割することもできます。
 }
 ```
 
-`RemoteAuthenticatorView` には、次の表に示す認証ルートごとに使用できる1つのフラグメントがあります。
+には`RemoteAuthenticatorView`、次の表に示す認証ルートごとに使用できるフラグメントが 1 つ含まれます。
 
-| ルート                            | Fragment                |
+| ルート                            | フラグメント                |
 | -------------------------------- | ----------------------- |
 | `authentication/login`           | `<LoggingIn>`           |
 | `authentication/login-callback`  | `<CompletingLoggingIn>` |

@@ -1,57 +1,57 @@
 ---
-title: Id サーバーを使用して、ASP.NET Core Blazor Webasホステッドアプリをセキュリティで保護する
+title: アイデンティティサーバーを使用BlazorしてASP.NETコア WebAssembly ホストアプリケーションを保護する
 author: guardrex
-description: ホスティング[サーバー](https://identityserver.io/)バックエンドを使用する Visual Studio 内から認証を使用して新しい Blazor ホスト型アプリを作成するには
+description: '[Id サーバー](https://identityserver.io/) Blazorバックエンドを使用する Visual Studio 内から認証を使用して新しいホストされたアプリを作成するには'
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/16/2020
+ms.date: 03/30/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/webassembly/hosted-with-identity-server
-ms.openlocfilehash: 6c7942a827d88a620e6f295af3f523c23f4b3890
-ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
+ms.openlocfilehash: 832109530c4aac372fd75aa1a1d2edbe3768f55f
+ms.sourcegitcommit: 1d8f1396ccc66a0c3fcb5e5f36ea29b50db6d92a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/24/2020
-ms.locfileid: "80219052"
+ms.lasthandoff: 04/01/2020
+ms.locfileid: "80501279"
 ---
-# <a name="secure-an-aspnet-core-opno-locblazor-webassembly-hosted-app-with-identity-server"></a>Id サーバーを使用して、ASP.NET Core Blazor Webasホステッドアプリをセキュリティで保護する
+# <a name="secure-an-aspnet-core-opno-locblazor-webassembly-hosted-app-with-identity-server"></a>アイデンティティサーバーを使用BlazorしてASP.NETコア WebAssembly ホストアプリケーションを保護する
 
-[Javier Calvarro jeannine](https://github.com/javiercn)と[Luke latham](https://github.com/guardrex)
+[ハビエル・カルバロ・ネルソン](https://github.com/javiercn)と[ルーク・レイサム](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
 [!INCLUDE[](~/includes/blazorwasm-3.2-template-article-notice.md)]
 
-ユーザーと API 呼び出しを認証するためにユーザーを使用する、Visual Studio で新しい Blazor ホスト型アプリを作成する[には、](https://identityserver.io/)次のようにします。
+ユーザーと APIBlazor呼び出しを認証するために[IdentityServer を](https://identityserver.io/)使用する Visual Studio で新しいホストされたアプリを作成するには、次の手順を実行します。
 
-1. Visual Studio を使用して、新しい **Blazor** アプリを作成します。 詳細については、<xref:blazor/get-started> を参照してください。
-1. [**新しい Blazor アプリの作成**] ダイアログで、 **[認証]** セクションの **[変更]** を選択します。
-1. **個々のユーザーアカウント**を選択し、 **[OK]** をクリックします。
-1. **[詳細設定]** セクションで ホストされている **[ASP.NET Core]** チェックボックスをオンにします。
+1. 新しい**BlazorWeb アセンブリ**アプリを作成するのにには、Visual Studio を使用します。 詳細については、「<xref:blazor/get-started>」を参照してください。
+1. [**新しいBlazorアプリの作成**] ダイアログで、[**認証**] セクションの **[変更**] を選択します。
+1. [**個々のユーザー アカウントと**それに続く**OK] を**選択します。
+1. [**詳細**] セクションの **[core ホストASP.NET]** チェックボックスをオンにします。
 1. **[作成]** ボタンを選択します。
 
-コマンドシェルでアプリを作成するには、次のコマンドを実行します。
+コマンド シェルでアプリを作成するには、次のコマンドを実行します。
 
 ```dotnetcli
 dotnet new blazorwasm -au Individual -ho
 ```
 
-プロジェクトフォルダーが存在しない場合に作成する出力場所を指定するには、コマンドにパスを含む出力オプション (`-o BlazorSample`など) を含めます。 フォルダー名もプロジェクトの名前の一部になります。
+プロジェクト フォルダーが存在しない場合にプロジェクト フォルダーを作成する出力場所を指定するには、コマンドに出力オプションをパス (など`-o BlazorSample`) で含めます。 フォルダー名もプロジェクト名の一部になります。
 
-## <a name="server-app-configuration"></a>サーバーアプリの構成
+## <a name="server-app-configuration"></a>サーバー アプリの構成
 
-次のセクションでは、認証のサポートが含まれている場合のプロジェクトへの追加について説明します。
+次のセクションでは、認証サポートが含まれている場合のプロジェクトへの追加について説明します。
 
 ### <a name="startup-class"></a>スタートアップ クラス
 
-`Startup` クラスには、次の追加機能があります。
+この`Startup`クラスには、次の追加機能があります。
 
-* `Startup.ConfigureServices`:
+* `Startup.ConfigureServices`: 
 
-  * 既定の UI を使用した id:
+  * 既定の UI を持つ ID:
 
     ```csharp
     services.AddDbContext<ApplicationDbContext>(options =>
@@ -62,62 +62,62 @@ dotnet new blazorwasm -au Individual -ho
         .AddEntityFrameworkStores<ApplicationDbContext>();
     ```
 
-  * 次のように、追加の <xref:Microsoft.Extensions.DependencyInjection.IdentityServerBuilderConfigurationExtensions.AddApiAuthorization%2A> ヘルパーメソッドを使用して、サーバーの上に既定の ASP.NET Core 規則を設定します。
+  * IdServer の上<xref:Microsoft.Extensions.DependencyInjection.IdentityServerBuilderConfigurationExtensions.AddApiAuthorization%2A>にいくつかの既定のASP.NETコア規約を設定する追加のヘルパー メソッドを持つ IdServer:
 
     ```csharp
     services.AddIdentityServer()
         .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
     ```
 
-  * 追加の <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilderExtensions.AddIdentityServerJwt%2A> ヘルパーメソッドを使用した認証。次のように、アプリを構成して、サーバーによって生成された JWT トークンを検証します。
+  * IdentityServer によって<xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilderExtensions.AddIdentityServerJwt%2A>生成された JWT トークンを検証するようにアプリを構成する追加のヘルパー メソッドを使用した認証:
 
     ```csharp
     services.AddAuthentication()
         .AddIdentityServerJwt();
     ```
 
-* `Startup.Configure`:
+* `Startup.Configure`: 
 
-  * 要求の資格情報を検証し、要求コンテキストでユーザーを設定する認証ミドルウェア。
+  * 要求の資格情報を検証し、要求コンテキストでユーザーを設定する認証ミドルウェア:
 
     ```csharp
     app.UseAuthentication();
     ```
 
-  * Open ID Connect (OIDC) エンドポイントを公開するサーバーミドルウェア:
+  * オープン ID 接続 (OIDC) エンドポイントを公開する Id サーバーミドルウェア:
 
     ```csharp
     app.UseIdentityServer();
     ```
 
-### <a name="addapiauthorization"></a>AddApiAuthorization
+### <a name="addapiauthorization"></a>認証の追加
 
-<xref:Microsoft.Extensions.DependencyInjection.IdentityServerBuilderConfigurationExtensions.AddApiAuthorization%2A> helper メソッドは、ASP.NET Core シナリオ用に[サーバー](https://identityserver.io/)を構成します。 サービスは、アプリのセキュリティの問題を処理するための強力で拡張可能なフレームワークです。 一般に、最も一般的なシナリオでは、不要な複雑さが公開されます。 そのため、適切な出発点として考えられる一連の規則と構成オプションが用意されています。 認証を変更する必要が生じた場合でも、アプリの要件に合わせて認証をカスタマイズするために、ユーザーサーバーの能力を最大限に活用できます。
+ヘルパー<xref:Microsoft.Extensions.DependencyInjection.IdentityServerBuilderConfigurationExtensions.AddApiAuthorization%2A>メソッドは、ASP.NETコア シナリオ用[の IdentityServer](https://identityserver.io/)を構成します。 IdentityServer は、アプリのセキュリティに関する懸念を処理するための強力で拡張可能なフレームワークです。 IdentityServer は、最も一般的なシナリオで不要な複雑さを公開します。 したがって、一連の規則と構成オプションが提供され、開始点として適しています。 認証の変更が必要になると、IdentityServerの全機能を使用して、アプリの要件に合わせて認証をカスタマイズできます。
 
-### <a name="addidentityserverjwt"></a>AddIdentityServerJwt
+### <a name="addidentityserverjwt"></a>を追加します。
 
-<xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilderExtensions.AddIdentityServerJwt%2A> helper メソッドは、アプリのポリシースキームを既定の認証ハンドラーとして構成します。 このポリシーは、id URL 空間 `/Identity`のサブパスにルーティングされたすべての要求を Id が処理できるように構成されています。 <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler> は、他のすべての要求を処理します。 さらに、このメソッドは次のようになります。
+ヘルパー<xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilderExtensions.AddIdentityServerJwt%2A>メソッドは、既定の認証ハンドラーとしてアプリのポリシー スキームを構成します。 ポリシーは、Identity URL スペース`/Identity`内のサブパスにルーティングされるすべてのリクエストを Identity が処理できるように構成されています。 他<xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler>のすべての要求を処理します。 さらに、このメソッドは次のとおりです。
 
-* `{APPLICATION NAME}API`の既定のスコープを使用して、`{APPLICATION NAME}API` API リソースをサーバーに登録します。
-* アプリに対して、サービスによって発行されたトークンを検証するように JWT ベアラートークンミドルウェアを構成します。
+* `{APPLICATION NAME}API`既定のスコープが`{APPLICATION NAME}API`.
+* アプリに対して IdentityServer によって発行されたトークンを検証するように JWT ベアラー トークン ミドルウェアを構成します。
 
-### <a name="weatherforecastcontroller"></a>WeatherForecastController
+### <a name="weatherforecastcontroller"></a>天気予報コントローラ
 
-`WeatherForecastController` (*Controllers/WeatherForecastController*) では、 [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute)属性がクラスに適用されます。 属性は、ユーザーがリソースにアクセスするための既定のポリシーに基づいて承認される必要があることを示します。 既定の承認ポリシーは、既定の認証スキームを使用するように構成されます。これは、前に説明したポリシースキームに <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilderExtensions.AddIdentityServerJwt%2A> によって設定されます。 ヘルパーメソッドは、アプリケーションに対する要求の既定のハンドラーとして <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler> を構成します。
+(*コントローラ /天気予報コントローラ.cs*)では、[`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute)属性がクラスに適用されます。 `WeatherForecastController` この属性は、リソースにアクセスするために、デフォルト・ポリシーに基づいてユーザーが許可される必要があることを示します。 デフォルトの許可ポリシーは、前述のポリシー スキーム<xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilderExtensions.AddIdentityServerJwt%2A>に設定されたデフォルト認証方式を使用するように構成されます。 ヘルパー メソッドは、<xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler>アプリへの要求の既定のハンドラーとして構成されます。
 
-### <a name="applicationdbcontext"></a>ApplicationDbContext
+### <a name="applicationdbcontext"></a>コンテキスト
 
-`ApplicationDbContext` (*Data/ApplicationDbContext*) では、id で同じ <xref:Microsoft.EntityFrameworkCore.DbContext> が使用されます。ただし、<xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiAuthorizationDbContext%601> 拡張して、ユーザーのスキーマを含めることはできません。 <xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiAuthorizationDbContext%601> は、<xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext> から派生しています。
+(*データ/アプリケーションDbContext.cs*) では<xref:Microsoft.EntityFrameworkCore.DbContext>、同じことが IdentityServer のスキーマを<xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiAuthorizationDbContext%601>含むように拡張される例外を除いて、IDENTITY でも使用されます。 `ApplicationDbContext` <xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiAuthorizationDbContext%601> は、<xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext> から派生しています。
 
-データベーススキーマを完全に制御するには、使用可能な Id <xref:Microsoft.EntityFrameworkCore.DbContext> クラスの1つを継承し、`OnModelCreating` メソッドで `builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value)` を呼び出して、Id スキーマを含めるようにコンテキストを構成します。
+データベース スキーマの完全な制御を取得するには、使用可能な Id<xref:Microsoft.EntityFrameworkCore.DbContext>クラスのいずれかを継承し、メソッドを呼び出`builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value)`すことによって、Identity`OnModelCreating`スキーマを含めるコンテキストを構成します。
 
-### <a name="oidcconfigurationcontroller"></a>OidcConfigurationController
+### <a name="oidcconfigurationcontroller"></a>オイドコンセプコンコントローラ
 
-`OidcConfigurationController` (*Controllers/OidcConfigurationController*) では、oidc パラメーターを提供するためにクライアントエンドポイントがプロビジョニングされます。
+`OidcConfigurationController` (*コントローラ/OidcConfigurationController.cs)では、* クライアント エンドポイントが OIDC パラメータを提供するようにプロビジョニングされます。
 
 ### <a name="app-settings-files"></a>アプリ設定ファイル
 
-プロジェクトルートのアプリ設定ファイル (*appsettings. json*) で、[`IdentityServer`] セクションに構成されているクライアントの一覧が表示されます。 次の例には、1つのクライアントがあります。 クライアント名はアプリケーション名に対応し、OAuth `ClientId` パラメーターに規約によってマップされます。 プロファイルは、構成されているアプリの種類を示します。 プロファイルは、サーバーの構成プロセスを簡略化する規則を推進するために、内部的に使用されます。 <!-- There are several profiles available, as explained in the [Application profiles](#application-profiles) section. -->
+プロジェクト ルートのアプリ設定ファイル (*appsettings.json*)`IdentityServer`では、構成済みクライアントの一覧を説明します。 次の例では、1 つのクライアントがあります。 クライアント名はアプリ名に対応し、規則によって OAuth`ClientId`パラメーターにマップされます。 プロファイルは、構成されているアプリの種類を示します。 プロファイルは、サーバーの構成プロセスを簡素化する規則を駆動するために内部的に使用されます。 <!-- There are several profiles available, as explained in the [Application profiles](#application-profiles) section. -->
 
 ```json
 "IdentityServer": {
@@ -129,7 +129,7 @@ dotnet new blazorwasm -au Individual -ho
 }
 ```
 
-開発環境のアプリ設定ファイル (appsettings) で、*appsettings.Development.json*`IdentityServer` セクションでは、プロジェクトルートで、トークンの署名に使用されるキーについて説明します。 <!-- When deploying to production, a key needs to be provisioned and deployed alongside the app, as explained in the [Deploy to production](#deploy-to-production) section. -->
+開発環境アプリ設定ファイル (*アプリ設定) でDevelopment.json*) は、プロジェクトルート`IdentityServer`で、トークンの署名に使用されるキーについて説明します。 <!-- When deploying to production, a key needs to be provisioned and deployed alongside the app, as explained in the [Deploy to production](#deploy-to-production) section. -->
 
 ```json
 "IdentityServer": {
@@ -139,13 +139,13 @@ dotnet new blazorwasm -au Individual -ho
 }
 ```
 
-## <a name="client-app-configuration"></a>クライアントアプリの構成
+## <a name="client-app-configuration"></a>クライアント アプリの構成
 
 ### <a name="authentication-package"></a>認証パッケージ
 
-個々のユーザーアカウント (`Individual`) を使用するようにアプリを作成すると、アプリは、アプリのプロジェクトファイルで `Microsoft.AspNetCore.Components.WebAssembly.Authentication` パッケージのパッケージ参照を自動的に受け取ります。 このパッケージには、アプリがユーザーを認証し、保護された Api を呼び出すためのトークンを取得するのに役立つ一連のプリミティブが用意されています。
+個々のユーザー アカウント (`Individual`) を使用するアプリが作成されると、アプリは自動的に`Microsoft.AspNetCore.Components.WebAssembly.Authentication`アプリのプロジェクト ファイル内のパッケージのパッケージ参照を受け取ります。 パッケージには、アプリがユーザーを認証し、保護された API を呼び出すトークンを取得するのに役立つ一連のプリミティブが用意されています。
 
-アプリに認証を追加する場合は、アプリのプロジェクトファイルにパッケージを手動で追加します。
+アプリに認証を追加する場合は、アプリのプロジェクト ファイルにパッケージを手動で追加します。
 
 ```xml
 <PackageReference 
@@ -153,41 +153,45 @@ dotnet new blazorwasm -au Individual -ho
     Version="{VERSION}" />
 ```
 
-前のパッケージ参照の `{VERSION}` を、<xref:blazor/get-started> に記載されている `Microsoft.AspNetCore.Blazor.Templates` パッケージのバージョンに置き換えます。
+上記`{VERSION}`のパッケージリファレンスを<xref:blazor/get-started>、この記事に示されているパッケージ`Microsoft.AspNetCore.Blazor.Templates`のバージョンに置き換えます。
 
 ### <a name="api-authorization-support"></a>API 承認のサポート
 
-ユーザー認証のサポートは、`Microsoft.AspNetCore.Components.WebAssembly.Authentication` パッケージ内で提供される拡張メソッドによってサービスコンテナーに接続されます。 このメソッドは、アプリが既存の承認システムと対話するために必要なすべてのサービスを設定します。
+ユーザー認証のサポートは、パッケージ内に用意されている拡張メソッドによってサービス コンテナーに接続されます`Microsoft.AspNetCore.Components.WebAssembly.Authentication`。 このメソッドは、アプリが既存の承認システムと対話するために必要なすべてのサービスを設定します。
 
 ```csharp
 builder.Services.AddApiAuthorization();
 ```
 
-既定では、`_configuration/{client-id}`から、規約に従ってアプリの構成が読み込まれます。 規則により、クライアント ID はアプリのアセンブリ名に設定されます。 この URL は、オプションを指定してオーバーロードを呼び出すことによって、別のエンドポイントを指すように変更できます。
+既定では、アプリの構成を規則に従って`_configuration/{client-id}`から読み込みます。 慣例により、クライアント ID はアプリのアセンブリ名に設定されます。 この URL は、オプションを指定してオーバーロードを呼び出すことによって、別のエンドポイントを指すように変更できます。
+
+### <a name="imports-file"></a>ファイルをインポートする
+
+[!INCLUDE[](~/includes/blazor-security/imports-file-hosted.md)]
 
 ### <a name="index-page"></a>Index ページ
 
 [!INCLUDE[](~/includes/blazor-security/index-page-authentication.md)]
 
-### <a name="app-component"></a>アプリコンポーネント
+### <a name="app-component"></a>アプリ コンポーネント
 
 [!INCLUDE[](~/includes/blazor-security/app-component.md)]
 
-### <a name="redirecttologin-component"></a>RedirectToLogin コンポーネント
+### <a name="redirecttologin-component"></a>コンポーネントをリダイレクトします。
 
 [!INCLUDE[](~/includes/blazor-security/redirecttologin-component.md)]
 
-### <a name="logindisplay-component"></a>LoginDisplay コンポーネント
+### <a name="logindisplay-component"></a>ログインディスプレイコンポーネント
 
-`LoginDisplay` コンポーネント (*shared/Logindisplay*) は、`MainLayout` コンポーネント (*shared/mainlayout. razor*) にレンダリングされ、次の動作を管理します。
+コンポーネント (*共有 /ログインディスプレイ.razor*)`MainLayout`はコンポーネント (*共有/メインレイアウト.カミソリ*) でレンダリングされ、次の動作を管理します。 `LoginDisplay`
 
 * 認証されたユーザーの場合:
   * 現在のユーザー名を表示します。
-  * ASP.NET Core Id のユーザープロファイルページへのリンクを提供します。
-  * アプリからログアウトするためのボタンが用意されています。
+  * コア ID のユーザー プロファイル ページへのリンクASP.NET提供します。
+  * アプリからログアウトするためのボタンを提供します。
 * 匿名ユーザーの場合:
-  * 登録するオプションが用意されています。
-  * ログインするオプションが用意されています。
+  * 登録するオプションを提供します。
+  * ログインオプションを提供します。
 
 ```razor
 @using Microsoft.AspNetCore.Components.Authorization
@@ -221,12 +225,18 @@ builder.Services.AddApiAuthorization();
 
 [!INCLUDE[](~/includes/blazor-security/authentication-component.md)]
 
-### <a name="fetchdata-component"></a>FetchData コンポーネント
+### <a name="fetchdata-component"></a>コンポーネントをフェッチします。
 
 [!INCLUDE[](~/includes/blazor-security/fetchdata-component.md)]
 
 ## <a name="run-the-app"></a>アプリを実行する
 
-サーバープロジェクトからアプリを実行します。 Visual Studio を使用する場合は、**ソリューションエクスプローラー**でサーバープロジェクトを選択し、ツールバーの **[実行]** ボタンを選択するか、 **[デバッグ]** メニューからアプリを起動します。
+サーバー プロジェクトからアプリを実行します。 Visual Studio を使用する場合は、**ソリューション エクスプローラー**でサーバー プロジェクトを選択し、ツール バーの [**実行**] ボタンを選択するか、[**デバッグ**] メニューからアプリを起動します。
+
+[!INCLUDE[](~/includes/blazor-security/usermanager-signinmanager.md)]
 
 [!INCLUDE[](~/includes/blazor-security/troubleshoot.md)]
+
+## <a name="additional-resources"></a>その他のリソース
+
+* [追加のアクセス トークンを要求する](xref:security/blazor/webassembly/additional-scenarios#request-additional-access-tokens)

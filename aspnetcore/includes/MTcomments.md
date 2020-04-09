@@ -1,1 +1,1 @@
-英語以外の言語でこの記事をお読みになっていて、コードのコメントをネイティブ言語でご覧になりたい場合は、この [GitHub ディスカッションの問題](https://github.com/aspnet/AspNetCore.Docs/issues/16455)でお知らせください。
+英語以外の言語でこれを読んでいる場合は、この[GitHub のディスカッションに](https://github.com/aspnet/AspNetCore.Docs/issues/16455)関する問題で、母国語のコードコメントを表示する場合にお知らせください。
