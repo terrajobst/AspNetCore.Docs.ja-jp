@@ -5,14 +5,14 @@ description: ASP.NET Core アプリの構築に関する基本概念について
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/15/2020
+ms.date: 03/30/2020
 uid: fundamentals/index
-ms.openlocfilehash: 7533242140c31a937f32cc9082d760103347ce25
-ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
+ms.openlocfilehash: da2b42a7cf5d116a36d1dd9fa586d40ab31fc52d
+ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/24/2020
-ms.locfileid: "80219182"
+ms.lasthandoff: 04/06/2020
+ms.locfileid: "80417648"
 ---
 # <a name="aspnet-core-fundamentals"></a>ASP.NET Core の基礎
 
@@ -25,63 +25,68 @@ ms.locfileid: "80219182"
 `Startup` クラスとは、次のとおりです。
 
 * アプリで必要なサービスが構成されています。
-* 要求を処理するパイプラインが定義されています。
-
-*サービス*とは、アプリが使用するコンポーネントです。 たとえば、ログ コンポーネントは、サービスです。 サービスを構成 (または*登録*) するコードが `Startup.ConfigureServices` メソッドに追加されています。
-
-要求を処理するパイプラインは、一連の*ミドルウェア* コンポーネントとして構成されています。 たとえば、ミドルウェアは、静的ファイルに対する要求を処理したり、HTTPS に HTTP 要求をリダイレクトします。 各ミドルウェアは `HttpContext` に非同期操作を実行してから、パイプラインの次のミドルウェアを呼び出すか、要求を終了します。 `Startup.Configure` メソッドには、要求を処理するパイプラインを構成するコードが追加されます。
+* 要求を処理するアプリのパイプラインは、一連のミドルウェア コンポーネントとして定義されています。
 
 `Startup` クラスの例を次に示します。
 
-[!code-csharp[](index/snapshots/2.x/Startup1.cs?highlight=3,12)]
+[!code-csharp[](index/samples_snapshot/3.x/Startup.cs?highlight=3,12)]
 
 詳細については、「<xref:fundamentals/startup>」を参照してください。
 
 ## <a name="dependency-injection-services"></a>依存性の注入 (サービス)
 
-ASP.NET Core には、アプリのクラスが構成済みのサービスを利用できるようにする依存性の注入 (DI) フレームワークが組み込まれています。 クラスのサービスのインスタンスを取得する 1 つの方法は、必要な型のパラメーターを使用したコンストラクターを作成することです。 このパラメーターには、サービスの種類またはインターフェイスが可能です。 DI システムは、実行時にこのサービスを提供します。
+ASP.NET Core には、構成済みのサービスをアプリ全体で利用できるようにする依存性の注入 (DI) フレームワークが組み込まれています。 たとえば、ログ コンポーネントは、サービスです。
 
-Entity Framework Core コンテキスト オブジェクトを取得するために DI を使用するクラスを次に示します。 強調表示されている行は、コンストラクターの挿入の例です。
+サービスを構成 (または*登録*) するコードが `Startup.ConfigureServices` メソッドに追加されています。 次に例を示します。
 
-[!code-csharp[](index/snapshots/2.x/Index.cshtml.cs?highlight=5)]
+[!code-csharp[](index/samples_snapshot/3.x/ConfigureServices.cs)]
 
-DI が組み込まれており、必要に応じてサードパーティ製の制御の反転 (IoC) コンテナーを組み込むことができるよう設計されています。
+サービスは通常、コンストラクター挿入を使用して DI から解決されます。 コンストラクター挿入では、必要な型またはインターフェイスのコンストラクター パラメーターがクラスで宣言されます。 DI フレームワークでは、実行時にこのサービスのインスタンスが提供されます。
+
+次の例では、コンストラクター挿入を使用して、DI から `RazorPagesMovieContext` を解決します。
+
+[!code-csharp[](index/samples_snapshot/3.x/Index.cshtml.cs?highlight=5)]
+
+組み込みの制御の反転 (IoC) コンテナーがアプリのすべてのニーズを満たしていない場合は、代わりにサードパーティの IoC コンテナーを使用できます。
 
 詳細については、「<xref:fundamentals/dependency-injection>」を参照してください。
 
 ## <a name="middleware"></a>ミドルウェア
 
-要求を処理するパイプラインは、一連のミドルウェア コンポーネントとして構成されています。 各コンポーネントは `HttpContext` に非同期操作を実行してから、パイプラインの次のミドルウェアを呼び出すか、要求を終了します。
+要求を処理するパイプラインは、一連のミドルウェア コンポーネントとして構成されています。 各コンポーネントによって、`HttpContext` に対して操作が実行され、パイプラインの次のミドルウェアが呼び出されるか、または要求が終了されます。
 
-通常、ミドルウェア コンポーネントは、`Startup.Configure` メソッドのその `Use...` 拡張メソッドを呼び出してパイプラインに追加されます。 たとえば、静的ファイルのレンダリングを有効にするには、`UseStaticFiles` を呼び出します。
+通常、ミドルウェア コンポーネントは、`Startup.Configure` メソッドの `Use...` 拡張メソッドを呼び出すことでパイプラインに追加されます。 たとえば、静的ファイルのレンダリングを有効にするには、`UseStaticFiles` を呼び出します。
 
-次の例の強調表示されているコードは、要求を処理するパイプラインを構成します。
+次の例では、要求を処理するパイプラインを構成します。
 
-[!code-csharp[](index/snapshots/2.x/Startup1.cs?highlight=14-16)]
+[!code-csharp[](index/samples_snapshot/3.x/Configure.cs)]
 
-ASP.NET Core にはミドルウェアのセットが豊富に組み込まれており、カスタム ミドルウェアをユーザーが記述できます。
+ASP.NET Core には、豊富な組み込みミドルウェアのセットが含まれています。 カスタム ミドルウェア コンポーネントを作成することもできます。
 
 詳細については、「<xref:fundamentals/middleware/index>」を参照してください。
 
 ## <a name="host"></a>Host
 
-ASP.NET Core アプリは起動時に*ホスト*をビルドします。 ホストとは、次などのアプリのすべてのリソースをカプセル化するオブジェクトです。
+起動時に、ASP.NET Core アプリによって*ホスト*がビルドされます。 ホストにより、次のようなアプリのすべてのリソースがカプセル化されます。
 
 * HTTP サーバーの実装
 * ミドルウェア コンポーネント
 * ログの記録
-* DI
+* 依存性の注入 (DI) サービス
 * 構成
 
-アプリの相互依存するすべてのリソースを 1 つのオブジェクトに含める主な理由は、アプリの起動と正常なシャットダウンの制御の有効期間の管理のためです。
+2 つの異なるホストがあります。 
 
-汎用ホストと Web ホストの 2 つのホストが利用可能です。 汎用ホストが推奨されます。Web ホストは下位互換性のためにのみ使用できます。
+* .NET での汎用ホスト
+* ASP.NET Core の Web ホスト
 
-ホストを作成するコードは `Program.Main` にあります。
+.NET での汎用ホストをお勧めします。 ASP.NET Core の Web ホストは、下位互換性のためにのみ使用できます。
 
-[!code-csharp[](index/snapshots/3.x/Program1.cs)]
+次の例では、.NET での汎用ホストを作成します。
 
-`CreateDefaultBuilder` メソッドと `ConfigureWebHostDefaults` メソッドは、次のようなよく使用されるオプションと共にホストを構成します。
+[!code-csharp[](index/samples_snapshot/3.x/Program.cs)]
+
+`CreateDefaultBuilder` と `ConfigureWebHostDefaults` メソッドでは、次のような既定のオプションのセットを使用してホストが構成されます。
 
 * Web サーバーとして [Kestrel](#servers) を使用し、IIS の統合を有効にします。
 * *appsettings.json*、"*appsettings.{環境名}.json*"、環境変数、コマンド ライン引数、およびその他の構成ソースから構成を読み込みます。
@@ -119,38 +124,23 @@ ASP.NET Core は、*Kestrel* クロスプラットフォーム サーバーの�
 
 ## <a name="configuration"></a>構成
 
-ASP.NET Core は、構成プロバイダーの順序付けされたセットから、名前と値のペアの設定を取得する構成フレームワークとなります。 *.json* ファイル、*.xml* ファイル、環境変数、コマンドライン引数など、さまざまなソース用に構成プロバイダーが組み込まれています。 独自のカスタム構成プロバイダーを記述することもできます。
+ASP.NET Core は、構成プロバイダーの順序付けされたセットから、名前と値のペアの設定を取得する構成フレームワークとなります。 組み込み構成プロバイダーは、 *.json* ファイル、 *.xml* ファイル、環境変数、コマンドライン引数などのさまざまなソースで使用できます。 他のソースをサポートするには、カスタム構成プロバイダーを作成します。
 
-たとえば、構成は *appsettings.json* と環境変数から取得したものであると指定できます。 このとき *ConnectionString* 値が要求されると、フレームワークはまず *appsettings.json* ファイルを参照します。 値がそこにあり、しかし環境変数にもある場合、環境変数の値が優先されます。
+[既定](xref:fundamentals/configuration/index#default)では、ASP.NET Core アプリは *appsettings. json*、環境変数、コマンドラインなどから読み取るように構成されます。 アプリの構成が読み込まれると、環境変数の値によって *appsettings.json* の値がオーバーライドされます。
 
-ASP.NET Core には、パスワードなどの機密の構成データの管理に[シークレット マネージャー ツール](xref:security/app-secrets)が用意されています。 実稼働の機密情報には、[Azure Key Vault](xref:security/key-vault-configuration) を使用することをお勧めします。
+関連する構成値を読み取る方法としては、[オプション パターン](xref:fundamentals/configuration/options)を使用することをお勧めします。 詳細については、「[オプションパターンを使用して、階層型の構成データをバインドします](xref:fundamentals/configuration/index#optpat)」を参照してください。
+
+ASP.NET Core には、パスワードなどの機密の構成データの管理に[シークレット マネージャー](xref:security/app-secrets#secret-manager)が用意されています。 実稼働の機密情報には、[Azure Key Vault](xref:security/key-vault-configuration) を使用することをお勧めします。
 
 詳細については、「<xref:fundamentals/configuration/index>」を参照してください。
 
-## <a name="options"></a>オプション
-
-ASP.NET Core では、構成値の格納と取得に、可能な限り*オプション パターン*を使用します。 オプション パターンではクラスを使用して、関連する設定のグループを表します。
-
-たとえば、以下のコードでは WebSockets のオプションが設定されます。
-
-```csharp
-var options = new WebSocketOptions  
-{  
-   KeepAliveInterval = TimeSpan.FromSeconds(120),  
-   ReceiveBufferSize = 4096
-};  
-app.UseWebSockets(options);
-```
-
-詳細については、「<xref:fundamentals/configuration/options>」を参照してください。
-
 ## <a name="environments"></a>環境
 
-*開発*、*ステージング*、および*実稼働*などの実行環境は ASP.NET Core の最上の概念です。 アプリが実行している環境は、`ASPNETCORE_ENVIRONMENT` 環境変数を設定することにより指定できます。 ASP.NET Core は、アプリの起動時にその環境変数を読み取り、その値を `IHostingEnvironment` 実装に格納します。 この環境オブジェクトは、DI を介しアプリの任意の場所で使用されます。
+`Development`、`Staging`、`Production` などの実行環境は ASP.NET Core の最上の概念です。 アプリが実行している環境は、`ASPNETCORE_ENVIRONMENT` 環境変数を設定することにより指定します。 ASP.NET Core は、アプリの起動時にその環境変数を読み取り、その値を `IWebHostEnvironment` 実装に格納します。 この実装は、依存性の注入 (DI) を介して、アプリ内の任意の場所で使用できます。
 
-`Startup` クラスの次のサンプル コードは、それが開発環境で実行された場合のみ、詳細なエラー情報を提供するようアプリを構成します。
+次の例では、`Development` 環境で実行するときに詳細なエラー情報を提供するようにアプリを構成します。
 
-[!code-csharp[](index/snapshots/2.x/Startup2.cs?highlight=3-6)]
+[!code-csharp[](index/samples_snapshot/3.x/StartupConfigure.cs?highlight=3-6)]
 
 詳細については、「<xref:fundamentals/environments>」を参照してください。
 
@@ -166,13 +156,11 @@ ASP.NET Core では、組み込みやサード パーティ製のさまざまな
 * Azure App Service
 * Azure Application Insights
 
-DI からの `ILogger` オブジェクトの取得およびログ メソッドの呼び出しによってアプリのコードの任意の場所からログを記述します。
+ログを作成するには、依存性の挿入 (DI) から <xref:Microsoft.Extensions.Logging.ILogger%601> サービスを解決し、<xref:Microsoft.Extensions.Logging.LoggerExtensions.LogInformation*> などのログ メソッドを呼び出します。 次に例を示します。
 
-コンストラクターの挿入とログ記録メソッドの呼び出しが強調表示されている `ILogger` オブジェクトを使用するサンプル コードを次に示します。
+[!code-csharp[](index/samples_snapshot/3.x/TodoController.cs?highlight=5,13,19)]
 
-[!code-csharp[](index/snapshots/2.x/TodoController.cs?highlight=5,13,17)]
-
-`ILogger` インターフェイスは、ログ プロバイダーに任意の数のフィールドを渡すことができます。 このフィールドは、一般的にメッセージの文字列を構築するために使用しますが、プロバイダーがデータ ストアに別のフィールドとして送信することも可能です。 この機能は、[構造化ロギングとも呼ばれるセマンティック ロギング](https://softwareengineering.stackexchange.com/questions/312197/benefits-of-structured-logging-vs-basic-logging)をログ プロバイダーが実装するのを可能にします。
+`LogInformation` などのログ メソッドでは、任意の数のフィールドがサポートされます。 これらのフィールドは、一般的にメッセージ `string` を構築するために使用しますが、一部のログ プロバイダーは、それらを個別のフィールドとしてデータ ストアに送信します。 この機能は、[構造化ロギングとも呼ばれるセマンティック ロギング](https://softwareengineering.stackexchange.com/questions/312197/benefits-of-structured-logging-vs-basic-logging)をログ プロバイダーが実装するのを可能にします。
 
 詳細については、「<xref:fundamentals/logging/index>」を参照してください。
 
@@ -197,11 +185,11 @@ ASP.NET Core には、次などのエラー処理用の機能が組み込まれ�
 
 `HttpClient` インスタンスの作成に、`IHttpClientFactory` の実装を使用できます。 ファクトリは次のことを行います。
 
-* 論理 `HttpClient` インスタンスの名前付けと構成を一元化します。 たとえば、*github* クライアントを登録して、GitHub にアクセスするように構成できます。 既定のクライアントは、他の目的に登録できます。
-* 複数のデリゲート ハンドラーを登録してチェーン化し、送信要求ミドルウェア パイプラインを構築するのをサポートしています。 このパターンは、ASP.NET Core での受信ミドルウェア パイプラインに似ています。 このパターンは、キャッシュ、エラー処理、シリアル化、ログ記録など、HTTP 要求に関する横断的関心事を管理するためのメカニズムを提供します。
+* 論理 `HttpClient` インスタンスの名前付けと構成を一元化します。 たとえば、GitHub にアクセスするために、*github* クライアントを登録して構成します。 既定のクライアントを別の目的で登録して構成します。
+* 複数のデリゲート ハンドラーを登録してチェーン化し、送信要求ミドルウェア パイプラインを構築するのをサポートしています。 このパターンは、ASP.NET Core の受信ミドルウェア パイプラインに似ています。 このパターンでは、キャッシュ、エラー処理、シリアル化、ログ記録など、HTTP 要求に関する横断的関心事を管理するためのメカニズムが提供されます。
 * 一時的な障害処理用の人気のサードパーティ製ライブラリ、*Polly* と統合できます。
-* 基になっている `HttpClientMessageHandler` インスタンスのプールと有効期間を管理し、`HttpClient` の有効期間を手動で管理するときに発生する一般的な DNS の問題を防ぎます。
-* ファクトリによって作成されたクライアントから送信されるすべての要求に対し、(`ILogger` によって) 構成可能なログ エクスペリエンスを追加します。
+* 基になっている `HttpClientHandler` インスタンスのプールと有効期間を管理し、`HttpClient` の有効期間を手動で管理するときに発生する一般的な DNS の問題を防ぎます。
+* ファクトリによって作成されたクライアントから送信されるすべての要求に対し、構成可能なログ エクスペリエンスを <xref:Microsoft.Extensions.Logging.ILogger> を介して追加します。
 
 詳細については、「<xref:fundamentals/http-requests>」を参照してください。
 
@@ -209,36 +197,27 @@ ASP.NET Core には、次などのエラー処理用の機能が組み込まれ�
 
 コンテンツ ルートは、以下に対する基本パスです。
 
-* アプリをホストしている実行可能ファイル (*.exe*)。
-* アプリを構成するコンパイル済みアセンブリ (*.dll*)。
-* 次のような、アプリで使用される非コード コンテンツ ファイル。
-  * Razor ファイル (*.cshtml*、*.razor*)
-  * 構成ファイル (*.json*、*.xml*)
-  * データ ファイル (*.db*)
-* [Web ルート](#web-root) (通常、発行された *wwwroot* フォルダー)。
+* アプリをホストしている実行可能ファイル ( *.exe*)。
+* アプリを構成するコンパイル済みアセンブリ ( *.dll*)。
+* 次のような、アプリで使用されるコンテンツ ファイル。
+  * Razor ファイル ( *.cshtml*、 *.razor*)
+  * 構成ファイル ( *.json*、 *.xml*)
+  * データ ファイル ( *.db*)
+* [Web ルート](#web-root) (通常は *wwwroot* フォルダー)。
 
-開発中:
-
-* コンテンツ ルートの規定値は、プロジェクトのルート ディレクトリです。
-* プロジェクトのルート ディレクトリは、次を作成するために使用されます。
-  * プロジェクトのルート ディレクトリ内にある、アプリの非コード コンテンツ ファイルへのパス。
-  * [Web ルート](#web-root) (通常は、プロジェクトのルート ディレクトリ内の *wwwroot* フォルダー)。
-
-[ホストの構築時](#host)には、別のコンテンツ ルート パスを指定できます。 詳細については、「<xref:fundamentals/host/generic-host#contentrootpath>」を参照してください。
+開発中、コンテンツ ルートの既定値は、プロジェクトのルート ディレクトリです。 このディレクトリは、アプリのコンテンツ ファイルと [Web ルート](#web-root)の両方の基本パスでもあります。 [ホストを構築するとき](#host)は、それ自体のパスを設定して別のコンテンツ ルートを指定します。 詳細については、[コンテンツ ルート](xref:fundamentals/host/generic-host#contentrootpath-1)に関するページを参照してください。
 
 ## <a name="web-root"></a>Web ルート
 
-Web ルートは、次のような、パブリックで非コードの静的なリソース ファイルへの基本パスです。
+Web ルートは、次のような、パブリックで静的なリソース ファイルへの基本パスです。
 
-* スタイルシート (*.css*)
-* JavaScript (*.js*)
-* 画像 (*.png*、*jpg*)
+* スタイルシート ( *.css*)
+* JavaScript ( *.js*)
+* 画像 ( *.png*、*jpg*)
 
-既定で、静的ファイルは Web ルート ディレクトリ (とサブディレクトリ) からのみ提供されます。
+既定では、静的ファイルは Web ルート ディレクトリとそのサブディレクトリからのみ提供されます。 Web ルートのパスの既定値は、 *{コンテンツ ルート}/wwwroot* です。 [ホストを構築するとき](#host)は、それ自体のパスを設定して別の Web ルートを指定します。 詳細については、「[Web ルート](xref:fundamentals/host/generic-host#webroot-1)」を参照してください。
 
-Web ルートのパスの既定値は、"*{コンテンツ ルート}/wwwroot*" ですが、[ホストの構築](#host)時に別の Web ルートを指定することも可能です。 詳細については、「<xref:fundamentals/host/generic-host#webroot>」を参照してください。
-
-プロジェクト ファイル内の [\<コンテンツ > プロジェクト項目](/visualstudio/msbuild/common-msbuild-project-items#content) を使用して *wwwroot* にファイルを発行できないようにします。 次の例では、*wwwroot/local* ディレクトリおよびサブディレクトリにコンテンツを公開しないようにします。
+プロジェクト ファイル内の [\<コンテンツ > プロジェクト項目](/visualstudio/msbuild/common-msbuild-project-items#content) を使用して *wwwroot* にファイルを発行できないようにします。 次の例では、*wwwroot/local* とそのサブディレクトリにコンテンツを公開しないようにします。
 
 ```xml
 <ItemGroup>
@@ -246,9 +225,7 @@ Web ルートのパスの既定値は、"*{コンテンツ ルート}/wwwroot*" 
 </ItemGroup>
 ```
 
-静的な ID 資産が Web ルートに公開されないようにするには、<xref:security/authentication/identity#prevent-publish-of-static-identity-assets> を参照してください。
-
-Razor (*.cshtml*) ファイルの場合、チルダとスラッシュ (`~/`) が Web ルートを指します。 `~/` で始まるパスは、"*仮想パス*" と呼ばれます。
+Razor *.cshtml* ファイルの場合、チルダとスラッシュ (`~/`) が Web ルートを指します。 `~/` で始まるパスは、"*仮想パス*" と呼ばれます。
 
 詳細については、「<xref:fundamentals/static-files>」を参照してください。
 
@@ -271,7 +248,7 @@ Razor (*.cshtml*) ファイルの場合、チルダとスラッシュ (`~/`) が
 
 `Startup` クラスの例を次に示します。
 
-[!code-csharp[](index/snapshots/2.x/Startup1.cs?highlight=3,12)]
+[!code-csharp[](index/samples_snapshot/2.x/Startup.cs?highlight=3,12)]
 
 詳細については、「<xref:fundamentals/startup>」を参照してください。
 
@@ -281,7 +258,7 @@ ASP.NET Core には、アプリのクラスが構成済みのサービスを利�
 
 Entity Framework Core コンテキスト オブジェクトを取得するために DI を使用するクラスを次に示します。 強調表示されている行は、コンストラクターの挿入の例です。
 
-[!code-csharp[](index/snapshots/2.x/Index.cshtml.cs?highlight=5)]
+[!code-csharp[](index/samples_snapshot/2.x/Index.cshtml.cs?highlight=5)]
 
 DI が組み込まれており、必要に応じてサードパーティ製の制御の反転 (IoC) コンテナーを組み込むことができるよう設計されています。
 
@@ -295,7 +272,7 @@ DI が組み込まれており、必要に応じてサードパーティ製の�
 
 次の例の強調表示されているコードは、要求を処理するパイプラインを構成します。
 
-[!code-csharp[](index/snapshots/2.x/Startup1.cs?highlight=14-16)]
+[!code-csharp[](index/samples_snapshot/2.x/Startup.cs?highlight=14-16)]
 
 ASP.NET Core にはミドルウェアのセットが豊富に組み込まれており、カスタム ミドルウェアをユーザーが記述できます。
 
@@ -317,7 +294,7 @@ Web ホストと汎用ホストの 2 つのホストが利用可能です。 ASP
 
 ホストを作成するコードは `Program.Main` にあります。
 
-[!code-csharp[](index/snapshots/2.x/Program1.cs)]
+[!code-csharp[](index/samples_snapshot/2.x/Program.cs)]
 
 `CreateDefaultBuilder` メソッドは、次のようなよく使用されるオプションと共にホストを構成します。
 
@@ -386,7 +363,7 @@ ASP.NET Core は、*Kestrel* クロスプラットフォーム サーバーの�
 
 ## <a name="configuration"></a>構成
 
-ASP.NET Core は、構成プロバイダーの順序付けされたセットから、名前と値のペアの設定を取得する構成フレームワークとなります。 *.json* ファイル、*.xml* ファイル、環境変数、コマンドライン引数など、さまざまなソース用に構成プロバイダーが組み込まれています。 独自のカスタム構成プロバイダーを記述することもできます。
+ASP.NET Core は、構成プロバイダーの順序付けされたセットから、名前と値のペアの設定を取得する構成フレームワークとなります。 *.json* ファイル、 *.xml* ファイル、環境変数、コマンドライン引数など、さまざまなソース用に構成プロバイダーが組み込まれています。 独自のカスタム構成プロバイダーを記述することもできます。
 
 たとえば、構成は *appsettings.json* と環境変数から取得したものであると指定できます。 このとき *ConnectionString* 値が要求されると、フレームワークはまず *appsettings.json* ファイルを参照します。 値がそこにあり、しかし環境変数にもある場合、環境変数の値が優先されます。
 
@@ -400,14 +377,7 @@ ASP.NET Core では、構成値の格納と取得に、可能な限り*オプシ
 
 たとえば、以下のコードでは WebSockets のオプションが設定されます。
 
-```csharp
-var options = new WebSocketOptions  
-{  
-   KeepAliveInterval = TimeSpan.FromSeconds(120),  
-   ReceiveBufferSize = 4096
-};  
-app.UseWebSockets(options);
-```
+[!code-csharp[](index/samples_snapshot/2.x/UseWebSockets.cs)]
 
 詳細については、「<xref:fundamentals/configuration/options>」を参照してください。
 
@@ -417,7 +387,7 @@ app.UseWebSockets(options);
 
 `Startup` クラスの次のサンプル コードは、それが開発環境で実行された場合のみ、詳細なエラー情報を提供するようアプリを構成します。
 
-[!code-csharp[](index/snapshots/2.x/Startup2.cs?highlight=3-6)]
+[!code-csharp[](index/samples_snapshot/2.x/StartupConfigure.cs?highlight=3-6)]
 
 詳細については、「<xref:fundamentals/environments>」を参照してください。
 
@@ -437,7 +407,7 @@ DI からの `ILogger` オブジェクトの取得およびログ メソッド�
 
 コンストラクターの挿入とログ記録メソッドの呼び出しが強調表示されている `ILogger` オブジェクトを使用するサンプル コードを次に示します。
 
-[!code-csharp[](index/snapshots/2.x/TodoController.cs?highlight=5,13,17)]
+[!code-csharp[](index/samples_snapshot/2.x/TodoController.cs?highlight=5,13,17)]
 
 `ILogger` インターフェイスは、ログ プロバイダーに任意の数のフィールドを渡すことができます。 このフィールドは、一般的にメッセージの文字列を構築するために使用しますが、プロバイダーがデータ ストアに別のフィールドとして送信することも可能です。 この機能は、[構造化ロギングとも呼ばれるセマンティック ロギング](https://softwareengineering.stackexchange.com/questions/312197/benefits-of-structured-logging-vs-basic-logging)をログ プロバイダーが実装するのを可能にします。
 
@@ -467,7 +437,7 @@ ASP.NET Core には、次などのエラー処理用の機能が組み込まれ�
 * 論理 `HttpClient` インスタンスの名前付けと構成を一元化します。 たとえば、*github* クライアントを登録して、GitHub にアクセスするように構成できます。 既定のクライアントは、他の目的に登録できます。
 * 複数のデリゲート ハンドラーを登録してチェーン化し、送信要求ミドルウェア パイプラインを構築するのをサポートしています。 このパターンは、ASP.NET Core での受信ミドルウェア パイプラインに似ています。 このパターンは、キャッシュ、エラー処理、シリアル化、ログ記録など、HTTP 要求に関する横断的関心事を管理するためのメカニズムを提供します。
 * 一時的な障害処理用の人気のサードパーティ製ライブラリ、*Polly* と統合できます。
-* 基になっている `HttpClientMessageHandler` インスタンスのプールと有効期間を管理し、`HttpClient` の有効期間を手動で管理するときに発生する一般的な DNS の問題を防ぎます。
+* 基になっている `HttpClientHandler` インスタンスのプールと有効期間を管理し、`HttpClient` の有効期間を手動で管理するときに発生する一般的な DNS の問題を防ぎます。
 * ファクトリによって作成されたクライアントから送信されるすべての要求に対し、(`ILogger` によって) 構成可能なログ エクスペリエンスを追加します。
 
 詳細については、「<xref:fundamentals/http-requests>」を参照してください。
@@ -476,12 +446,12 @@ ASP.NET Core には、次などのエラー処理用の機能が組み込まれ�
 
 コンテンツ ルートは、以下に対する基本パスです。
 
-* アプリをホストしている実行可能ファイル (*.exe*)。
-* アプリを構成するコンパイル済みアセンブリ (*.dll*)。
+* アプリをホストしている実行可能ファイル ( *.exe*)。
+* アプリを構成するコンパイル済みアセンブリ ( *.dll*)。
 * 次のような、アプリで使用される非コード コンテンツ ファイル。
-  * Razor ファイル (*.cshtml*、*.razor*)
-  * 構成ファイル (*.json*、*.xml*)
-  * データ ファイル (*.db*)
+  * Razor ファイル ( *.cshtml*、 *.razor*)
+  * 構成ファイル ( *.json*、 *.xml*)
+  * データ ファイル ( *.db*)
 * [Web ルート](#web-root) (通常、発行された *wwwroot* フォルダー)。
 
 開発中:
@@ -497,13 +467,13 @@ ASP.NET Core には、次などのエラー処理用の機能が組み込まれ�
 
 Web ルートは、次のような、パブリックで非コードの静的なリソース ファイルへの基本パスです。
 
-* スタイルシート (*.css*)
-* JavaScript (*.js*)
-* 画像 (*.png*、*jpg*)
+* スタイルシート ( *.css*)
+* JavaScript ( *.js*)
+* 画像 ( *.png*、*jpg*)
 
 既定で、静的ファイルは Web ルート ディレクトリ (とサブディレクトリ) からのみ提供されます。
 
-Web ルートのパスの既定値は、"*{コンテンツ ルート}/wwwroot*" ですが、[ホストの構築](#host)時に別の Web ルートを指定することも可能です。 詳細については、「[Web ルート](xref:fundamentals/host/web-host#web-root)」を参照してください。
+Web ルートのパスの既定値は、" *{コンテンツ ルート}/wwwroot*" ですが、[ホストの構築](#host)時に別の Web ルートを指定することも可能です。 詳細については、「[Web ルート](xref:fundamentals/host/web-host#web-root)」を参照してください。
 
 プロジェクト ファイル内の [\<コンテンツ > プロジェクト項目](/visualstudio/msbuild/common-msbuild-project-items#content) を使用して *wwwroot* にファイルを発行できないようにします。 次の例では、*wwwroot/local* ディレクトリおよびサブディレクトリにコンテンツを公開しないようにします。
 
@@ -513,7 +483,7 @@ Web ルートのパスの既定値は、"*{コンテンツ ルート}/wwwroot*" 
 </ItemGroup>
 ```
 
-Razor (*.cshtml*) ファイルの場合、チルダとスラッシュ (`~/`) が Web ルートを指します。 `~/` で始まるパスは、"*仮想パス*" と呼ばれます。
+Razor ( *.cshtml*) ファイルの場合、チルダとスラッシュ (`~/`) が Web ルートを指します。 `~/` で始まるパスは、"*仮想パス*" と呼ばれます。
 
 詳細については、「<xref:fundamentals/static-files>」を参照してください。
 
